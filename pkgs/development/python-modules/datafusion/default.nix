@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  rustPlatform,
-  pytestCheckHook,
-  libiconv,
-  numpy,
-  protobuf,
-  pyarrow,
-  Security,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, rustPlatform
+, pytestCheckHook, libiconv, numpy, protobuf, pyarrow, Security }:
 
 let
   arrow-testing = fetchFromGitHub {
@@ -28,9 +17,8 @@ let
     rev = "e13af117de7c4f0a4d9908ae3827b3ab119868f3";
     hash = "sha256-rVI9zyk9IRDlKv4u8BeMb0HRdWLfCpqOlYCeUdA7BB8=";
   };
-in
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "datafusion";
   version = "25.0.0";
   format = "pyproject";
@@ -49,29 +37,16 @@ buildPythonPackage rec {
     hash = "sha256-0e0ZRgwcS/46mi4c2loAnBA2bsaD+/RiMh7oNg3EvHY=";
   };
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
-  buildInputs =
-    [ protobuf ]
-    ++ lib.optionals stdenv.isDarwin [
-      libiconv
-      Security
-    ];
+  buildInputs = [ protobuf ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   propagatedBuildInputs = [ pyarrow ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    numpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook numpy ];
   pythonImportsCheck = [ "datafusion" ];
-  pytestFlagsArray = [
-    "--pyargs"
-    pname
-  ];
+  pytestFlagsArray = [ "--pyargs" pname ];
 
   preCheck = ''
     pushd $TMPDIR
@@ -90,7 +65,8 @@ buildPythonPackage rec {
       that uses Apache Arrow as its in-memory format.
     '';
     homepage = "https://arrow.apache.org/datafusion/";
-    changelog = "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/apache/arrow-datafusion-python/blob/${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ cpcloud ];
   };

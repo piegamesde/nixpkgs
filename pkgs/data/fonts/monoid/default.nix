@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python39,
-}:
+{ lib, stdenv, fetchFromGitHub, python39 }:
 
 stdenv.mkDerivation {
   pname = "monoid";
@@ -35,12 +30,11 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "http://larsenwork.com/monoid";
-    description = "Customisable coding font with alternates, ligatures and contextual positioning";
-    license = [
-      licenses.ofl
-      licenses.mit
-    ];
+    description =
+      "Customisable coding font with alternates, ligatures and contextual positioning";
+    license = [ licenses.ofl licenses.mit ];
     platforms = platforms.all;
     maintainers = [ maintainers.romildo ];
   };
 }
+

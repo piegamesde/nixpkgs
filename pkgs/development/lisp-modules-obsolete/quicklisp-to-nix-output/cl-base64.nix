@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-base64";
   version = "20201016-git";
 
@@ -8,13 +7,11 @@ rec {
 
   description = "Base64 encoding and decoding with URI support.";
 
-  deps = [
-    args."kmrcl"
-    args."ptester"
-  ];
+  deps = [ args."kmrcl" args."ptester" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-base64/2020-10-16/cl-base64-20201016-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-base64/2020-10-16/cl-base64-20201016-git.tgz";
     sha256 = "1wd2sgvfrivrbzlhs1vgj762jqz7sk171ssli6gl1kfwbnphzx9z";
   };
 

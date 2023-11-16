@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  django,
-  factory_boy,
-  mock,
-  pygments,
-  pytest-django,
-  pytestCheckHook,
-  shortuuid,
-  vobject,
-  werkzeug,
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, django, factory_boy
+, mock, pygments, pytest-django, pytestCheckHook, shortuuid, vobject, werkzeug
 }:
 
 buildPythonPackage rec {
@@ -28,7 +16,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # pygments 2.14 compat for tests
-      url = "https://github.com/django-extensions/django-extensions/commit/61ebfe38f8fca9225b41bec5418e006e6a8815e1.patch";
+      url =
+        "https://github.com/django-extensions/django-extensions/commit/61ebfe38f8fca9225b41bec5418e006e6a8815e1.patch";
       hash = "sha256-+sxaQMmKi/S4IlfHqARPGhaqc+F1CXUHVFyeU/ArW2U=";
     })
   ];
@@ -53,11 +42,10 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  disabledTestPaths =
-    [
-      # requires network access
-      "tests/management/commands/test_pipchecker.py"
-    ];
+  disabledTestPaths = [
+    # requires network access
+    "tests/management/commands/test_pipchecker.py"
+  ];
 
   meta = with lib; {
     description = "A collection of custom extensions for the Django Framework";

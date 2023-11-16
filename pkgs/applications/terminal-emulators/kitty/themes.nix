@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "kitty-themes";
@@ -31,10 +27,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/kovidgoyal/kitty-themes";
     description = "Themes for the kitty terminal emulator";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [
-      AndersonTorres
-      nelsonjeppesen
-    ];
+    maintainers = with lib.maintainers; [ AndersonTorres nelsonjeppesen ];
     platforms = lib.platforms.all;
   };
 }

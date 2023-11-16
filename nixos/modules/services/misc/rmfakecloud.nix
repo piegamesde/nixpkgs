@@ -1,20 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.rmfakecloud;
   serviceDataDir = "/var/lib/rmfakecloud";
-in
-{
+
+in {
   options = {
     services.rmfakecloud = {
-      enable = mkEnableOption (lib.mdDoc "rmfakecloud remarkable self-hosted cloud");
+      enable =
+        mkEnableOption (lib.mdDoc "rmfakecloud remarkable self-hosted cloud");
 
       package = mkOption {
         type = types.package;
@@ -44,12 +40,7 @@ in
       };
 
       logLevel = mkOption {
-        type = types.enum [
-          "info"
-          "debug"
-          "warn"
-          "error"
-        ];
+        type = types.enum [ "info" "debug" "warn" "error" ];
         default = "info";
         description = lib.mdDoc ''
           Logging level.
@@ -59,9 +50,7 @@ in
       extraSettings = mkOption {
         type = with types; attrsOf str;
         default = { };
-        example = {
-          DATADIR = "/custom/path/for/rmfakecloud/data";
-        };
+        example = { DATADIR = "/custom/path/for/rmfakecloud/data"; };
         description = lib.mdDoc ''
           Extra settings in the form of a set of key-value pairs.
           For tokens and secrets, use `environmentFile` instead.
@@ -121,7 +110,8 @@ in
         Type = "simple";
         Restart = "always";
 
-        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile =
+          mkIf (cfg.environmentFile != null) cfg.environmentFile;
 
         AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
 
@@ -141,10 +131,7 @@ in
         ProtectProc = "invisible";
         ProcSubset = "pid";
         RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  setuptools,
-  gviz-api,
-  protobuf,
-  werkzeug,
+{ lib, fetchPypi, buildPythonPackage, setuptools, gviz-api, protobuf, werkzeug
 }:
 
 buildPythonPackage rec {
@@ -23,11 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    gviz-api
-    protobuf
-    werkzeug
-  ];
+  propagatedBuildInputs = [ gviz-api protobuf werkzeug ];
 
   meta = with lib; {
     description = "Profile Tensorboard Plugin.";

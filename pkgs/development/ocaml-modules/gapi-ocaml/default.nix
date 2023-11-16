@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  ocaml,
-  cryptokit,
-  ocamlnet,
-  ocurl,
-  yojson,
-  ounit2,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, ocaml, cryptokit, ocamlnet, ocurl
+, yojson, ounit2 }:
 
 buildDunePackage rec {
   pname = "gapi-ocaml";
@@ -24,12 +15,7 @@ buildDunePackage rec {
     hash = "sha256-+UNFW5tmIh5dVyTDEOfOmy1j+gV4P28jlnBTdpQNAjE=";
   };
 
-  propagatedBuildInputs = [
-    cryptokit
-    ocamlnet
-    ocurl
-    yojson
-  ];
+  propagatedBuildInputs = [ cryptokit ocamlnet ocurl yojson ];
 
   doCheck = true;
   checkInputs = [ ounit2 ];

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  qtbase,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, qtbase, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "pe-bear";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
   buildInputs = [ qtbase ];
 

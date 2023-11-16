@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromSourcehut,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromSourcehut }:
 
 buildPythonPackage rec {
   pname = "loca";

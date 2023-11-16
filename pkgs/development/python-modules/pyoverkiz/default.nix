@@ -1,18 +1,6 @@
-{
-  lib,
-  aiohttp,
-  attrs,
-  backoff,
-  boto3,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pyhumps,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  warrant-lite,
-}:
+{ lib, aiohttp, attrs, backoff, boto3, buildPythonPackage, fetchFromGitHub
+, poetry-core, pyhumps, pytest-asyncio, pytestCheckHook, pythonOlder
+, warrant-lite }:
 
 buildPythonPackage rec {
   pname = "pyoverkiz";
@@ -35,26 +23,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    attrs
-    aiohttp
-    backoff
-    pyhumps
-    boto3
-    warrant-lite
-  ];
+  propagatedBuildInputs = [ attrs aiohttp backoff pyhumps boto3 warrant-lite ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "pyoverkiz" ];
 
   meta = with lib; {
-    description = "Module to interact with the Somfy TaHoma API or other OverKiz APIs";
+    description =
+      "Module to interact with the Somfy TaHoma API or other OverKiz APIs";
     homepage = "https://github.com/iMicknl/python-overkiz-api";
-    changelog = "https://github.com/iMicknl/python-overkiz-api/releases/tag/v${version}";
+    changelog =
+      "https://github.com/iMicknl/python-overkiz-api/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

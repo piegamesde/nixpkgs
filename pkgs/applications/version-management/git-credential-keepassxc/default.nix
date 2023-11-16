@@ -1,15 +1,6 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  DiskArbitration,
-  Foundation,
-  withNotification ? false,
-  withYubikey ? false,
-  withStrictCaller ? false,
-  withAll ? false,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, DiskArbitration, Foundation
+, withNotification ? false, withYubikey ? false, withStrictCaller ? false
+, withAll ? false }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-credential-keepassxc";
@@ -24,20 +15,16 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-DVMQLsiiaxMZtDqzqnMJQl91NCuMRSPEb8B6AttB4lE=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    DiskArbitration
-    Foundation
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ DiskArbitration Foundation ];
 
-  buildFeatures =
-    [ ]
-    ++ lib.optional withNotification "notification"
+  buildFeatures = [ ] ++ lib.optional withNotification "notification"
     ++ lib.optional withYubikey "yubikey"
     ++ lib.optional withStrictCaller "strict-caller"
     ++ lib.optional withAll "all";
 
   meta = with lib; {
-    description = "Helper that allows Git (and shell scripts) to use KeePassXC as credential store";
+    description =
+      "Helper that allows Git (and shell scripts) to use KeePassXC as credential store";
     longDescription = ''
       git-credential-keepassxc is a Git credential helper that allows Git
       (and shell scripts) to get/store logins from/to KeePassXC.

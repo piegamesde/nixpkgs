@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, lib, config, ... }:
 
 with lib;
 
@@ -16,21 +11,19 @@ let
     mv config.js $out
   '';
 
-  finalConfigFile =
-    if (cfg.configFile != null) then
-      cfg.configFile
-    else
-      ''
-        var _ = require('${pkgs.shout}/lib/node_modules/shout/node_modules/lodash')
+  finalConfigFile = if (cfg.configFile != null) then
+    cfg.configFile
+  else ''
+    var _ = require('${pkgs.shout}/lib/node_modules/shout/node_modules/lodash')
 
-        module.exports = _.merge(
-          {},
-          require('${defaultConfig}'),
-          ${builtins.toJSON cfg.config}
-        )
-      '';
-in
-{
+    module.exports = _.merge(
+      {},
+      require('${defaultConfig}'),
+      ${builtins.toJSON cfg.config}
+    )
+  '';
+
+in {
   options.services.shout = {
     enable = mkEnableOption (lib.mdDoc "Shout web IRC client");
 
@@ -105,7 +98,9 @@ in
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
-      preStart = "ln -sf ${pkgs.writeText "config.js" finalConfigFile} ${shoutHome}/config.js";
+      preStart = "ln -sf ${
+          pkgs.writeText "config.js" finalConfigFile
+        } ${shoutHome}/config.js";
       script = concatStringsSep " " [
         "${pkgs.shout}/bin/shout"
         (if cfg.private then "--private" else "--public")

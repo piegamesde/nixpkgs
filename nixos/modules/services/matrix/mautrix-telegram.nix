@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -12,22 +7,20 @@ let
   registrationFile = "${dataDir}/telegram-registration.yaml";
   cfg = config.services.mautrix-telegram;
   settingsFormat = pkgs.formats.json { };
-  settingsFile = settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
-in
-{
+  settingsFile =
+    settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
+
+in {
   options = {
     services.mautrix-telegram = {
-      enable = mkEnableOption (
-        lib.mdDoc "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge");
 
       settings = mkOption rec {
         apply = recursiveUpdate default;
         inherit (settingsFormat) type;
         default = {
-          homeserver = {
-            software = "standard";
-          };
+          homeserver = { software = "standard"; };
 
           appservice = rec {
             database = "sqlite:///${dataDir}/mautrix-telegram.db";
@@ -125,7 +118,8 @@ in
 
       serviceDependencies = mkOption {
         type = with types; listOf str;
-        default = optional config.services.matrix-synapse.enable "matrix-synapse.service";
+        default = optional config.services.matrix-synapse.enable
+          "matrix-synapse.service";
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';
@@ -138,15 +132,13 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.mautrix-telegram = {
-      description = "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge.";
+      description =
+        "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge.";
 
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ] ++ cfg.serviceDependencies;
       after = [ "network-online.target" ] ++ cfg.serviceDependencies;
-      path = [
-        pkgs.lottieconverter
-        pkgs.ffmpeg-full
-      ];
+      path = [ pkgs.lottieconverter pkgs.ffmpeg-full ];
 
       # mautrix-telegram tries to generate a dotfile in the home directory of
       # the running user if using a postgresql database:
@@ -160,21 +152,19 @@ in
       # RuntimeError: Could not determine home directory.
       environment.HOME = dataDir;
 
-      preStart =
-        ''
-          # generate the appservice's registration file if absent
-          if [ ! -f '${registrationFile}' ]; then
-            ${pkgs.mautrix-telegram}/bin/mautrix-telegram \
-              --generate-registration \
-              --base-config='${pkgs.mautrix-telegram}/${pkgs.mautrix-telegram.pythonModule.sitePackages}/mautrix_telegram/example-config.yaml' \
-              --config='${settingsFile}' \
-              --registration='${registrationFile}'
-          fi
-        ''
-        + lib.optionalString (pkgs.mautrix-telegram ? alembic) ''
-          # run automatic database init and migration scripts
-          ${pkgs.mautrix-telegram.alembic}/bin/alembic -x config='${settingsFile}' upgrade head
-        '';
+      preStart = ''
+        # generate the appservice's registration file if absent
+        if [ ! -f '${registrationFile}' ]; then
+          ${pkgs.mautrix-telegram}/bin/mautrix-telegram \
+            --generate-registration \
+            --base-config='${pkgs.mautrix-telegram}/${pkgs.mautrix-telegram.pythonModule.sitePackages}/mautrix_telegram/example-config.yaml' \
+            --config='${settingsFile}' \
+            --registration='${registrationFile}'
+        fi
+      '' + lib.optionalString (pkgs.mautrix-telegram ? alembic) ''
+        # run automatic database init and migration scripts
+        ${pkgs.mautrix-telegram.alembic}/bin/alembic -x config='${settingsFile}' upgrade head
+      '';
 
       serviceConfig = {
         Type = "simple";
@@ -188,7 +178,8 @@ in
 
         DynamicUser = true;
         PrivateTmp = true;
-        WorkingDirectory = pkgs.mautrix-telegram; # necessary for the database migration scripts to be found
+        WorkingDirectory =
+          pkgs.mautrix-telegram; # necessary for the database migration scripts to be found
         StateDirectory = baseNameOf dataDir;
         UMask = "0027";
         EnvironmentFile = cfg.environmentFile;
@@ -201,8 +192,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [
-    pacien
-    vskilet
-  ];
+  meta.maintainers = with maintainers; [ pacien vskilet ];
 }

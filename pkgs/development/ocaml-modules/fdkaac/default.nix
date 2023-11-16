@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  dune-configurator,
-  fdk_aac,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, dune-configurator, fdk_aac }:
 
 buildDunePackage rec {
   pname = "fdkaac";
@@ -23,9 +17,7 @@ buildDunePackage rec {
     description = "OCaml binding for the fdk-aac library";
     inherit (src.meta) homepage;
     license = lib.licenses.gpl2Only;
-    maintainers = [
-      lib.maintainers.vbgl
-      lib.maintainers.dandellion
-    ];
+    maintainers = [ lib.maintainers.vbgl lib.maintainers.dandellion ];
   };
+
 }

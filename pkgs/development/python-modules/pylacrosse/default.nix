@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  nose,
-  pyserial,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, nose, pyserial
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pylacrosse";
@@ -30,11 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyserial ];
 
-  nativeCheckInputs = [
-    mock
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock nose pytestCheckHook ];
 
   pythonImportsCheck = [ "pylacrosse" ];
 

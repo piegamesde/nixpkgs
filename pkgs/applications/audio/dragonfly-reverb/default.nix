@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libjack2,
-  libGL,
-  pkg-config,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, libjack2, libGL, pkg-config, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "dragonfly-reverb";
@@ -25,11 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libjack2
-    xorg.libX11
-    libGL
-  ];
+  buildInputs = [ libjack2 xorg.libX11 libGL ];
 
   installPhase = ''
     runHook preInstall

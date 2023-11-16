@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  pcsclite,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, pcsclite }:
 
 buildGoModule rec {
   pname = "keycard-cli";
@@ -23,17 +16,14 @@ buildGoModule rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ pcsclite ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   meta = with lib; {
     description = "A command line tool and shell to manage keycards";
     homepage = "https://keycard.status.im";
     license = licenses.mpl20;
     maintainers = [ maintainers.zimbatm ];
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/keycard-cli.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/keycard-cli.x86_64-darwin
   };
 }

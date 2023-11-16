@@ -1,23 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  utilmacros,
-  python3,
-  libGL,
-  libX11,
-  Carbon,
-  OpenGL,
-  x11Support ? !stdenv.isDarwin,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, utilmacros, python3
+, libGL, libX11, Carbon, OpenGL, x11Support ? !stdenv.isDarwin }:
 
-let
-  inherit (lib) getLib optional optionalString;
-in
-stdenv.mkDerivation rec {
+let inherit (lib) getLib optional optionalString;
+
+in stdenv.mkDerivation rec {
   pname = "libepoxy";
   version = "1.5.10";
 
@@ -30,36 +16,18 @@ stdenv.mkDerivation rec {
 
   patches = [ ./libgl-path.patch ];
 
-  postPatch =
-    ''
-      patchShebangs src/*.py
-    ''
-    + optionalString stdenv.isDarwin ''
-      substituteInPlace src/dispatch_common.h --replace "PLATFORM_HAS_GLX 0" "PLATFORM_HAS_GLX 1"
-    '';
+  postPatch = ''
+    patchShebangs src/*.py
+  '' + optionalString stdenv.isDarwin ''
+    substituteInPlace src/dispatch_common.h --replace "PLATFORM_HAS_GLX 0" "PLATFORM_HAS_GLX 1"
+  '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    utilmacros
-    python3
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config utilmacros python3 ];
 
-  buildInputs =
-    lib.optionals x11Support [
-      libGL
-      libX11
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      OpenGL
-    ];
+  buildInputs = lib.optionals x11Support [ libGL libX11 ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon OpenGL ];
 
   mesonFlags = [
     "-Degl=${if (x11Support && !stdenv.isDarwin) then "yes" else "no"}"
@@ -68,18 +36,17 @@ stdenv.mkDerivation rec {
     "-Dx11=${lib.boolToString x11Support}"
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString x11Support ''-DLIBGL_PATH="${getLib libGL}/lib"'';
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString x11Support ''-DLIBGL_PATH="${getLib libGL}/lib"'';
 
   # cgl_core and cgl_epoxy_api fail in darwin sandbox and on Hydra (because it's headless?)
-  preCheck =
-    lib.optionalString stdenv.isDarwin ''
-      substituteInPlace ../test/meson.build \
-        --replace "[ 'cgl_epoxy_api', [ 'cgl_epoxy_api.c' ] ]," ""
-    ''
-    + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
-      substituteInPlace ../test/meson.build \
-        --replace "[ 'cgl_core', [ 'cgl_core.c' ] ]," ""
-    '';
+  preCheck = lib.optionalString stdenv.isDarwin ''
+    substituteInPlace ../test/meson.build \
+      --replace "[ 'cgl_epoxy_api', [ 'cgl_epoxy_api.c' ] ]," ""
+  '' + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
+    substituteInPlace ../test/meson.build \
+      --replace "[ 'cgl_core', [ 'cgl_core.c' ] ]," ""
+  '';
 
   doCheck = true;
 

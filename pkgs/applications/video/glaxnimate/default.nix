@@ -1,28 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  zlib,
-  potrace,
-  ffmpeg,
-  libarchive,
-  python3,
-  qtbase,
-  qttools,
-  wrapQtAppsHook,
-  testers,
-  qtsvg,
-  qtimageformats
-  # For the tests
-  ,
-  glaxnimate, # Call itself, for the tests
-  xvfb-run,
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, zlib, potrace, ffmpeg, libarchive
+, python3, qtbase, qttools, wrapQtAppsHook, testers, qtsvg, qtimageformats
+# For the tests
+, glaxnimate # Call itself, for the tests
+, xvfb-run }:
 let
   # TODO: try to add a python library, see toPythonModule in doc/languages-frameworks/python.section.md
-  python3WithLibs = python3.withPackages (
-    ps:
+  python3WithLibs = python3.withPackages (ps:
     with ps; [
       # In data/lib/python-lottie/requirements.txt
       numpy
@@ -37,10 +20,8 @@ let
       pyyaml
       requests
       pybind11
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+in stdenv.mkDerivation rec {
   pname = "glaxnimate";
   version = "0.5.1";
 
@@ -52,10 +33,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
   buildInputs = [
     zlib
@@ -72,12 +50,11 @@ stdenv.mkDerivation rec {
 
   qtWrapperArgs = [ "--prefix PATH : ${python3WithLibs}/bin" ];
 
-  passthru.tests.version = lib.optionalAttrs stdenv.isLinux (
-    testers.testVersion {
+  passthru.tests.version = lib.optionalAttrs stdenv.isLinux
+    (testers.testVersion {
       package = glaxnimate;
       command = "${xvfb-run}/bin/xvfb-run glaxnimate --version";
-    }
-  );
+    });
 
   meta = with lib; {
     homepage = "https://gitlab.com/mattbas/glaxnimate";

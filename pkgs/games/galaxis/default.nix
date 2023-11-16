@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  xmlto,
-}:
+{ lib, stdenv, fetchurl, ncurses, xmlto }:
 
 with lib;
 stdenv.mkDerivation rec {
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1181x3z4r0794v2bkpigb5fablw1nayj42wvhy2am79p7j1iqq5r";
   };
 
-  buildInputs = [
-    ncurses
-    xmlto
-  ];
+  buildInputs = [ ncurses xmlto ];
 
   patchPhase = ''
     sed -i\

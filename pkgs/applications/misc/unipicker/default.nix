@@ -1,10 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  fzf,
-  xclip,
-}:
+{ stdenv, fetchFromGitHub, lib, fzf, xclip }:
 
 stdenv.mkDerivation rec {
   pname = "unipicker";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1k4v53pm3xivwg9vq2kndpcmah0yn4679r5jzxvg38bbkfdk86c1";
   };
 
-  buildInputs = [
-    fzf
-    xclip
-  ];
+  buildInputs = [ fzf xclip ];
 
   preInstall = ''
     substituteInPlace unipicker \
@@ -31,13 +22,11 @@ stdenv.mkDerivation rec {
       --replace "fzf" "${fzf}/bin/fzf"
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "DESTDIR=$(out)"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "DESTDIR=$(out)" ];
 
   meta = with lib; {
-    description = "A CLI utility for searching unicode characters by description and optionally copying them to clipboard";
+    description =
+      "A CLI utility for searching unicode characters by description and optionally copying them to clipboard";
     homepage = "https://github.com/jeremija/unipicker";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

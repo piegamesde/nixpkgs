@@ -1,25 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-}:
+{ lib, stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation rec {
   pname = "inform6";
   version = "6.41-r5";
 
   src = fetchurl {
-    url = "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-${version}.tar.gz";
+    url =
+      "https://ifarchive.org/if-archive/infocom/compilers/inform6/source/inform-${version}.tar.gz";
     sha256 = "sha256-JsLufRmqUmJ4if1XURi9swS0upw+Hj827T27A9qDANg=";
   };
 
   buildInputs = [ perl ];
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags =
+    [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     description = "Interactive fiction compiler and libraries";
@@ -28,7 +22,8 @@ stdenv.mkDerivation rec {
       (text adventure) games.
     '';
     homepage = "https://gitlab.com/DavidGriffith/inform6unix";
-    changelog = "https://gitlab.com/DavidGriffith/inform6unix/-/raw/${version}/NEWS";
+    changelog =
+      "https://gitlab.com/DavidGriffith/inform6unix/-/raw/${version}/NEWS";
     license = licenses.artistic2;
     maintainers = with lib.maintainers; [ ddelabru ];
     platforms = platforms.all;

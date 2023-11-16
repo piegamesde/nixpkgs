@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  fonts ? [ ],
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, fonts ? [ ] }:
 
 stdenvNoCC.mkDerivation {
   pname = "google-fonts";
@@ -12,10 +7,7 @@ stdenvNoCC.mkDerivation {
   # Adobe Blank is split out in a separate output,
   # because it causes crashes with `libfontconfig`.
   # It has an absurd number of symbols
-  outputs = [
-    "out"
-    "adobeBlank"
-  ];
+  outputs = [ "out" "adobeBlank" ];
 
   src = fetchFromGitHub {
     owner = "google";
@@ -50,35 +42,24 @@ stdenvNoCC.mkDerivation {
   # `find` 2 times for every font, anyone is free to do this
   # in a more efficient way.
   fonts = map (font: builtins.replaceStrings [ " " ] [ "" ] font) fonts;
-  installPhase =
-    ''
-      adobeBlankDest=$adobeBlank/share/fonts/truetype
-      install -m 444 -Dt $adobeBlankDest ofl/adobeblank/AdobeBlank-Regular.ttf
-      rm -r ofl/adobeblank
-      dest=$out/share/fonts/truetype
-    ''
-    + (
-      if fonts == [ ] then
-        ''
-          find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
-        ''
-      else
-        ''
-          for font in $fonts; do
-            find . -name "$font-*.ttf" -exec install -m 444 -Dt $dest '{}' +
-            find . -name "$font[*.ttf" -exec install -m 444 -Dt $dest '{}' +
-          done
-        ''
-    );
+  installPhase = ''
+    adobeBlankDest=$adobeBlank/share/fonts/truetype
+    install -m 444 -Dt $adobeBlankDest ofl/adobeblank/AdobeBlank-Regular.ttf
+    rm -r ofl/adobeblank
+    dest=$out/share/fonts/truetype
+  '' + (if fonts == [ ] then ''
+    find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
+  '' else ''
+    for font in $fonts; do
+      find . -name "$font-*.ttf" -exec install -m 444 -Dt $dest '{}' +
+      find . -name "$font[*.ttf" -exec install -m 444 -Dt $dest '{}' +
+    done
+  '');
 
   meta = with lib; {
     homepage = "https://fonts.google.com";
     description = "Font files available from Google Fonts";
-    license = with licenses; [
-      asl20
-      ofl
-      ufl
-    ];
+    license = with licenses; [ asl20 ofl ufl ];
     platforms = platforms.all;
     hydraPlatforms = [ ];
     maintainers = with maintainers; [ manveru ];

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fftw,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, fftw, installShellFiles }:
 
 stdenv.mkDerivation {
   pname = "sonic-unstable";
@@ -17,22 +11,18 @@ stdenv.mkDerivation {
     sha256 = "0ah54nizb6iwcx277w104wsfnx05vrp4sh56d2pfxhf8xghg54m6";
   };
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags =
+    [ "PREFIX=${placeholder "out"}" "CC=${stdenv.cc.targetPrefix}cc" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
   buildInputs = [ fftw ];
 
-  postInstall =
-    ''
-      installManPage sonic.1
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      install_name_tool -id $out/lib/libsonic.so.0.3.0 $out/lib/libsonic.so.0.3.0
-    '';
+  postInstall = ''
+    installManPage sonic.1
+  '' + lib.optionalString stdenv.isDarwin ''
+    install_name_tool -id $out/lib/libsonic.so.0.3.0 $out/lib/libsonic.so.0.3.0
+  '';
 
   meta = with lib; {
     description = "Simple library to speed up or slow down speech";

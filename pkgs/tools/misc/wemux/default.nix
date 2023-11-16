@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  tmux,
-  installShellFiles,
-}:
+{ stdenv, lib, fetchFromGitHub, tmux, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "wemux";

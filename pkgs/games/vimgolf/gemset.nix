@@ -30,11 +30,7 @@
     version = "1.2.1";
   };
   vimgolf = {
-    dependencies = [
-      "highline"
-      "json_pure"
-      "thor"
-    ];
+    dependencies = [ "highline" "json_pure" "thor" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

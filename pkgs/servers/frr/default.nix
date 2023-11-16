@@ -1,35 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
+{ lib, stdenv, fetchFromGitHub
 
-  # build time
-  autoreconfHook,
-  flex,
-  bison,
-  perl,
-  pkg-config,
-  texinfo,
+# build time
+, autoreconfHook, flex, bison, perl, pkg-config, texinfo
 
-  # runtime
-  c-ares,
-  json_c,
-  libcap,
-  libelf,
-  libunwind,
-  libyang,
-  net-snmp,
-  openssl,
-  pam,
-  pcre2,
-  python3,
-  readline,
-  rtrlib,
+# runtime
+, c-ares, json_c, libcap, libelf, libunwind, libyang, net-snmp, openssl, pam
+, pcre2, python3, readline, rtrlib
 
-  # tests
-  nettools,
-  nixosTests,
-}:
+# tests
+, nettools, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "frr";
@@ -42,15 +21,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-dK6eVYj9OIVChnR90FDTB7ow93nLLNRaOG8YEXxh8UQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-    perl
-    pkg-config
-    python3.pkgs.sphinx
-    texinfo
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook bison flex perl pkg-config python3.pkgs.sphinx texinfo ];
 
   buildInputs = [
     c-ares
@@ -89,10 +61,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    nettools
-    python3.pkgs.pytest
-  ];
+  nativeCheckInputs = [ nettools python3.pkgs.pytest ];
 
   enableParallelBuilding = true;
 
@@ -121,15 +90,10 @@ stdenv.mkDerivation rec {
       infrastructure, web 2.0 businesses, hyperscale services, and Fortune 500
       private clouds.
     '';
-    license = with licenses; [
-      gpl2Plus
-      lgpl21Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl21Plus ];
     maintainers = with maintainers; [ woffs ];
     platforms = platforms.unix;
   };
 
-  passthru.tests = {
-    inherit (nixosTests) frr;
-  };
+  passthru.tests = { inherit (nixosTests) frr; };
 }

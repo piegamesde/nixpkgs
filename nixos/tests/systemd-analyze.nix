@@ -1,20 +1,14 @@
-import ./make-test-python.nix (
-  {
-    pkgs,
-    latestKernel ? false,
-    ...
-  }:
+import ./make-test-python.nix ({ pkgs, latestKernel ? false, ... }:
 
   {
     name = "systemd-analyze";
     meta = with pkgs.lib.maintainers; { maintainers = [ raskin ]; };
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        boot.kernelPackages = lib.mkIf latestKernel pkgs.linuxPackages_latest;
-        sound.enable = true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
-      };
+    nodes.machine = { pkgs, lib, ... }: {
+      boot.kernelPackages = lib.mkIf latestKernel pkgs.linuxPackages_latest;
+      sound.enable =
+        true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")
@@ -47,5 +41,4 @@ import ./make-test-python.nix (
           machine.copy_from_vm("systemd-analyze/", "")
           machine.copy_from_vm("systemd-analyze/systemd-analyze.svg", "")
     '';
-  }
-)
+  })

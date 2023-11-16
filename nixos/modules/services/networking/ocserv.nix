@@ -1,18 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.ocserv;
-in
 
-{
+in {
   options.services.ocserv = {
     enable = mkEnableOption (lib.mdDoc "ocserv");
 
@@ -89,16 +83,14 @@ in
     systemd.services.ocserv = {
       description = "OpenConnect SSL VPN server";
       documentation = [ "man:ocserv(8)" ];
-      after = [
-        "dbus.service"
-        "network-online.target"
-      ];
+      after = [ "dbus.service" "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         PrivateTmp = true;
         PIDFile = "/run/ocserv.pid";
-        ExecStart = "${pkgs.ocserv}/bin/ocserv --foreground --pid-file /run/ocesrv.pid --config /etc/ocserv/ocserv.conf";
+        ExecStart =
+          "${pkgs.ocserv}/bin/ocserv --foreground --pid-file /run/ocesrv.pid --config /etc/ocserv/ocserv.conf";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };

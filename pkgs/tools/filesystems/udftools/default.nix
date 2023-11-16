@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-  readline,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses, readline, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "udftools";
@@ -17,10 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "0mz04h3rki6ljwfs15z83gf4vv816w7xgz923waiqgmfj9xpvx87";
   };
 
-  buildInputs = [
-    ncurses
-    readline
-  ];
+  buildInputs = [ ncurses readline ];
   nativeBuildInputs = [ autoreconfHook ];
 
   hardeningDisable = [ "fortify" ];

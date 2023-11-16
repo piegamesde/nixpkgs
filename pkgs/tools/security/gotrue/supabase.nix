@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  gotrue-supabase,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, gotrue-supabase }:
 
 buildGoModule rec {
   pname = "gotrue";

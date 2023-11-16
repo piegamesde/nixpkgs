@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  appdirs,
-  black,
-  importlib-metadata,
-  isPy3k,
-  jedi,
-  prompt-toolkit,
-  pygments,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, appdirs, black
+, importlib-metadata, isPy3k, jedi, prompt-toolkit, pygments }:
 
 buildPythonPackage rec {
   pname = "ptpython";
@@ -40,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "An advanced Python REPL";
     homepage = "https://github.com/prompt-toolkit/ptpython";
-    changelog = "https://github.com/prompt-toolkit/ptpython/blob/${version}/CHANGELOG";
+    changelog =
+      "https://github.com/prompt-toolkit/ptpython/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mlieberman85 ];
   };

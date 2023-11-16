@@ -1,29 +1,15 @@
-{
-  lib,
-  stdenv,
-  writeShellScript,
-  buildFHSEnv,
-  steam,
-  glxinfo-i686,
-  steam-runtime-wrapped,
-  steam-runtime-wrapped-i686 ? null,
-  extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
-  ,
-  extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
-  ,
-  extraProfile ? "" # string to append to profile
-  ,
-  extraArgs ? "" # arguments to always pass to steam
-  ,
-  extraEnv ? { } # Environment variables to pass to Steam
-  ,
-  withGameSpecificLibraries ? true # exclude game specific libraries
-  ,
+{ lib, stdenv, writeShellScript, buildFHSEnv, steam, glxinfo-i686
+, steam-runtime-wrapped, steam-runtime-wrapped-i686 ? null
+, extraPkgs ? pkgs: [ ] # extra packages to add to targetPkgs
+, extraLibraries ? pkgs: [ ] # extra packages to add to multiPkgs
+, extraProfile ? "" # string to append to profile
+, extraArgs ? "" # arguments to always pass to steam
+, extraEnv ? { } # Environment variables to pass to Steam
+, withGameSpecificLibraries ? true # exclude game specific libraries
 }:
 
 let
-  commonTargetPkgs =
-    pkgs:
+  commonTargetPkgs = pkgs:
     with pkgs;
     [
       # Needed for operating system detection until
@@ -51,20 +37,20 @@ let
       # electron based launchers need newer versions of these libraries than what runtime provides
       mesa
       sqlite
-    ]
-    ++ extraPkgs pkgs;
+    ] ++ extraPkgs pkgs;
 
-  ldPath =
-    lib.optionals stdenv.is64bit [ "/lib64" ]
-    ++ [ "/lib32" ]
-    ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x) steam-runtime-wrapped.libs
-    ++ lib.optionals (steam-runtime-wrapped-i686 != null) (
-      map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x) steam-runtime-wrapped-i686.libs
-    );
+  ldPath = lib.optionals stdenv.is64bit [ "/lib64" ] ++ [ "/lib32" ]
+    ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x)
+    steam-runtime-wrapped.libs
+    ++ lib.optionals (steam-runtime-wrapped-i686 != null)
+    (map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
+      steam-runtime-wrapped-i686.libs);
 
   # Zachtronics and a few other studios expect STEAM_LD_LIBRARY_PATH to be present
   exportLDPath = ''
-    export LD_LIBRARY_PATH=${lib.concatStringsSep ":" ldPath}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=${
+      lib.concatStringsSep ":" ldPath
+    }''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
     export STEAM_LD_LIBRARY_PATH="$STEAM_LD_LIBRARY_PATH''${STEAM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
   '';
 
@@ -77,22 +63,19 @@ let
   '';
 
   envScript = lib.toShellVars extraEnv;
-in
-buildFHSEnv rec {
+
+in buildFHSEnv rec {
   name = "steam";
 
-  targetPkgs =
-    pkgs:
+  targetPkgs = pkgs:
     with pkgs;
     [
       steam
       # License agreement
       gnome.zenity
-    ]
-    ++ commonTargetPkgs pkgs;
+    ] ++ commonTargetPkgs pkgs;
 
-  multiPkgs =
-    pkgs:
+  multiPkgs = pkgs:
     with pkgs;
     [
       # These are required by steam with proper errors
@@ -202,8 +185,7 @@ buildFHSEnv rec {
       # very old versions of stuff from the runtime.
       # FIXME: how do we even fix this correctly
       attr
-    ]
-    ++ lib.optionals withGameSpecificLibraries [
+    ] ++ lib.optionals withGameSpecificLibraries [
       # Not formally in runtime but needed by some games
       at-spi2-atk
       at-spi2-core # CrossCode
@@ -254,26 +236,24 @@ buildFHSEnv rec {
     ln -s ${steam}/share/applications/steam.desktop $out/share/applications/steam.desktop
   '';
 
-  profile =
-    ''
-      # Workaround for issue #44254 (Steam cannot connect to friends network)
-      # https://github.com/NixOS/nixpkgs/issues/44254
-      if [ -z ''${TZ+x} ]; then
-        new_TZ="$(readlink -f /etc/localtime | grep -P -o '(?<=/zoneinfo/).*$')"
-        if [ $? -eq 0 ]; then
-          export TZ="$new_TZ"
-        fi
+  profile = ''
+    # Workaround for issue #44254 (Steam cannot connect to friends network)
+    # https://github.com/NixOS/nixpkgs/issues/44254
+    if [ -z ''${TZ+x} ]; then
+      new_TZ="$(readlink -f /etc/localtime | grep -P -o '(?<=/zoneinfo/).*$')"
+      if [ $? -eq 0 ]; then
+        export TZ="$new_TZ"
       fi
+    fi
 
-      # udev event notifications don't work reliably inside containers.
-      # SDL2 already tries to automatically detect flatpak and pressure-vessel
-      # and falls back to inotify-based discovery [1]. We make SDL2 do the
-      # same by telling it explicitly.
-      #
-      # [1] <https://github.com/libsdl-org/SDL/commit/8e2746cfb6e1f1a1da5088241a1440fd2535e321>
-      export SDL_JOYSTICK_DISABLE_UDEV=1
-    ''
-    + extraProfile;
+    # udev event notifications don't work reliably inside containers.
+    # SDL2 already tries to automatically detect flatpak and pressure-vessel
+    # and falls back to inotify-based discovery [1]. We make SDL2 do the
+    # same by telling it explicitly.
+    #
+    # [1] <https://github.com/libsdl-org/SDL/commit/8e2746cfb6e1f1a1da5088241a1440fd2535e321>
+    export SDL_JOYSTICK_DISABLE_UDEV=1
+  '' + extraProfile;
 
   runScript = writeShellScript "steam-wrapper.sh" ''
     if [ -f /host/etc/NIXOS ]; then   # Check only useful on NixOS
@@ -301,14 +281,14 @@ buildFHSEnv rec {
     exec steam ${extraArgs} "$@"
   '';
 
-  meta =
-    if steam != null then
-      steam.meta
-      // lib.optionalAttrs (!withGameSpecificLibraries) {
-        description = steam.meta.description + " (without game specific libraries)";
-      }
-    else
-      { description = "Steam dependencies (dummy package, do not use)"; };
+  meta = if steam != null then
+    steam.meta // lib.optionalAttrs (!withGameSpecificLibraries) {
+      description = steam.meta.description
+        + " (without game specific libraries)";
+    }
+  else {
+    description = "Steam dependencies (dummy package, do not use)";
+  };
 
   # allows for some gui applications to share IPC
   # this fixes certain issues where they don't render correctly
@@ -343,7 +323,8 @@ buildFHSEnv rec {
     '';
 
     meta = (steam.meta or { }) // {
-      description = "Run commands in the same FHS environment that is used for Steam";
+      description =
+        "Run commands in the same FHS environment that is used for Steam";
       name = "steam-run";
     };
   };

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildGoModule,
-  ruby,
-  libkrb5,
-}:
+{ lib, fetchFromGitLab, buildGoModule, ruby, libkrb5 }:
 
 buildGoModule rec {
   pname = "gitlab-shell";
@@ -16,10 +10,7 @@ buildGoModule rec {
     sha256 = "sha256-5rjrBt0AihSHMYOD6JbXGvvFaUbtYnMHX2Z4K+Svno0=";
   };
 
-  buildInputs = [
-    ruby
-    libkrb5
-  ];
+  buildInputs = [ ruby libkrb5 ];
 
   patches = [ ./remove-hardcoded-locations.patch ];
 
@@ -35,11 +26,7 @@ buildGoModule rec {
     description = "SSH access and repository management app for GitLab";
     homepage = "http://www.gitlab.com/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      globin
-      talyz
-      yayayayaka
-    ];
+    maintainers = with maintainers; [ globin talyz yayayayaka ];
     license = licenses.mit;
   };
 }

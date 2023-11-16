@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  Cocoa,
-  AppKit,
-  installShellFiles,
+{ lib, stdenv, rustPlatform, fetchFromGitHub, Cocoa, AppKit, installShellFiles
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,17 +16,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Cocoa
-    AppKit
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Cocoa AppKit ];
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 
-  checkFlags = [
-    "--skip=help"
-    "--skip=help_short"
-  ];
+  checkFlags = [ "--skip=help" "--skip=help_short" ];
 
   postPatch = ''
     rm .cargo/config

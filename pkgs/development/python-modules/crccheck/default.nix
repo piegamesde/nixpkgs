@@ -1,16 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy3k,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, unittestCheckHook }:
 
 let
   pname = "crccheck";
   version = "1.3.0";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 

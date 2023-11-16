@@ -1,26 +1,17 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  makeWrapper,
-  perl,
-  installShellFiles,
-}:
+{ lib, stdenvNoCC, fetchurl, makeWrapper, perl, installShellFiles }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "listadmin";
   version = "2.73";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/listadmin/${version}/listadmin-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/listadmin/${version}/listadmin-${version}.tar.gz";
     sha256 = "00333d65ygdbm1hqr4yp2j8vh1cgh3hyfm7iy9y1alf0p0f6aqac";
   };
 
   buildInputs = [ perl ];
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   # There is a Makefile, but we don’t need it, and it prints errors
   dontBuild = true;
@@ -33,11 +24,7 @@ stdenvNoCC.mkDerivation rec {
     wrapProgram $out/bin/listadmin \
       --prefix PERL5LIB : "${
         with perl.pkgs;
-        makeFullPerlPath [
-          TextReform
-          NetINET6Glue
-          LWPProtocolHttps
-        ]
+        makeFullPerlPath [ TextReform NetINET6Glue LWPProtocolHttps ]
       }"
   '';
 

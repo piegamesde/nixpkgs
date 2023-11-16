@@ -1,32 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  meson,
-  ninja,
-  pkg-config,
-  gobject-introspection,
-  vala,
-  gtk-doc,
-  docbook_xsl,
-  docbook_xml_dtd_43,
-  gtk3,
-  gnome-desktop,
-  dbus,
-  xvfb-run,
-  libxml2,
-  hicolor-icon-theme,
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, gobject-introspection
+, vala, gtk-doc, docbook_xsl, docbook_xml_dtd_43, gtk3, gnome-desktop, dbus
+, xvfb-run, libxml2, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "libhandy";
   version = "0.0.13";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
   outputBin = "dev";
 
   src = fetchFromGitLab {
@@ -48,22 +28,11 @@ stdenv.mkDerivation rec {
     docbook_xsl
     docbook_xml_dtd_43
   ];
-  buildInputs = [
-    gnome-desktop
-    gtk3
-    libxml2
-  ];
-  nativeCheckInputs = [
-    dbus
-    xvfb-run
-    hicolor-icon-theme
-  ];
+  buildInputs = [ gnome-desktop gtk3 libxml2 ];
+  nativeCheckInputs = [ dbus xvfb-run hicolor-icon-theme ];
 
-  mesonFlags = [
-    "-Dgtk_doc=true"
-    "-Dglade_catalog=disabled"
-    "-Dintrospection=enabled"
-  ];
+  mesonFlags =
+    [ "-Dgtk_doc=true" "-Dglade_catalog=disabled" "-Dintrospection=enabled" ];
 
   doCheck = !stdenv.isDarwin;
 

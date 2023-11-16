@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-mock,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, requests, requests-mock }:
 
 buildPythonPackage rec {
   pname = "losant-rest";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   pytestFlagsArray = [ "tests/losantrest_tests.py" ];
 

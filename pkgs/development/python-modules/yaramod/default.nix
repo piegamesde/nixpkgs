@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cmake,
-  fetchFromGitHub,
-  pytestCheckHook,
-  libxcrypt,
-  pythonOlder,
-  gtest,
-  pybind11,
-  nlohmann_json,
-}:
+{ lib, buildPythonPackage, cmake, fetchFromGitHub, pytestCheckHook, libxcrypt
+, pythonOlder, gtest, pybind11, nlohmann_json }:
 
 let
   pog = fetchFromGitHub {
@@ -18,8 +8,7 @@ let
     rev = "b09bbf9cea573ee62aab7eccda896e37961d16cd";
     hash = "sha256-El4WA92t2O/L4wUqH6Xj8w+ANtb6liRwafDhqn8jxjQ=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "yaramod";
   version = "3.19.1";
   format = "setuptools";
@@ -45,11 +34,7 @@ buildPythonPackage rec {
 
   buildInputs = [ libxcrypt ];
 
-  nativeBuildInputs = [
-    cmake
-    pog
-    gtest
-  ];
+  nativeBuildInputs = [ cmake pog gtest ];
 
   setupPyBuildFlags = [ "--with-unit-tests" ];
 
@@ -60,9 +45,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "yaramod" ];
 
   meta = with lib; {
-    description = "Parsing of YARA rules into AST and building new rulesets in C++";
+    description =
+      "Parsing of YARA rules into AST and building new rulesets in C++";
     homepage = "https://github.com/avast/yaramod";
-    changelog = "https://github.com/avast/yaramod/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/avast/yaramod/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ msm ];
   };

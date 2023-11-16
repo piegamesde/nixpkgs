@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  siobrultech-protocols,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder, siobrultech-protocols }:
 
 buildPythonPackage rec {
   pname = "greeneye-monitor";
@@ -28,10 +21,7 @@ buildPythonPackage rec {
       --replace "siobrultech_protocols==" "siobrultech_protocols>="
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    siobrultech-protocols
-  ];
+  propagatedBuildInputs = [ aiohttp siobrultech-protocols ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -40,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Receive data packets from GreenEye Monitor";
     homepage = "https://github.com/jkeljo/greeneye-monitor";
-    changelog = "https://github.com/jkeljo/greeneye-monitor/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/jkeljo/greeneye-monitor/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

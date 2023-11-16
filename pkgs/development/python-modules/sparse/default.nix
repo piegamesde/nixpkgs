@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  dask,
-  fetchPypi,
-  numba,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-}:
+{ lib, buildPythonPackage, dask, fetchPypi, numba, numpy, pytestCheckHook
+, pythonOlder, scipy }:
 
 buildPythonPackage rec {
   pname = "sparse";
@@ -22,16 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-X1gno39s1vZzClQfmUyVxgo64jKeAfS6Ic7VM5rqAJg=";
   };
 
-  propagatedBuildInputs = [
-    numba
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ numba numpy scipy ];
 
-  nativeCheckInputs = [
-    dask
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ dask pytestCheckHook ];
 
   pythonImportsCheck = [ "sparse" ];
 

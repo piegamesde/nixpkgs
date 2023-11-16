@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  libsoundio,
-  lame,
-}:
+{ stdenv, lib, fetchFromGitHub, libsoundio, lame }:
 
 stdenv.mkDerivation {
   pname = "castty";
@@ -17,18 +11,13 @@ stdenv.mkDerivation {
     sha256 = "0p84ivwsp8ds4drn0hx2ax04gp0xyq6blj1iqfsmrs4slrajdmqs";
   };
 
-  buildInputs = [
-    libsoundio
-    lame
-  ];
+  buildInputs = [ libsoundio lame ];
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=$(out)" ];
 
   meta = with lib; {
-    description = "CLI tool to record audio-enabled screencasts of your terminal, for the web";
+    description =
+      "CLI tool to record audio-enabled screencasts of your terminal, for the web";
     homepage = "https://github.com/dhobsd/castty";
     license = licenses.bsd3;
     maintainers = with maintainers; [ iblech ];

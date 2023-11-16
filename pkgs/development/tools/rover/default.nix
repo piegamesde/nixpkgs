@@ -1,12 +1,4 @@
-{
-  lib,
-  callPackage,
-  fetchFromGitHub,
-  perl,
-  rustPlatform,
-  darwin,
-  stdenv,
-}:
+{ lib, callPackage, fetchFromGitHub, perl, rustPlatform, darwin, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rover";
@@ -52,12 +44,10 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A CLI for interacting with ApolloGraphQL's developer tooling, including managing self-hosted and GraphOS graphs.";
+    description =
+      "A CLI for interacting with ApolloGraphQL's developer tooling, including managing self-hosted and GraphOS graphs.";
     homepage = "https://www.apollographql.com/docs/rover";
     license = licenses.mit;
-    maintainers = [
-      maintainers.ivanbrennan
-      maintainers.aaronarinder
-    ];
+    maintainers = [ maintainers.ivanbrennan maintainers.aaronarinder ];
   };
 }

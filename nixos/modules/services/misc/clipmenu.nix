@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.clipmenu;
-in
-{
+let cfg = config.services.clipmenu;
+in {
 
   options.services.clipmenu = {
-    enable = mkEnableOption (lib.mdDoc "clipmenu, the clipboard management daemon");
+    enable =
+      mkEnableOption (lib.mdDoc "clipmenu, the clipboard management daemon");
 
     package = mkOption {
       type = types.package;

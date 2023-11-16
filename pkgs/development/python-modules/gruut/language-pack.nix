@@ -1,12 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
+{ lib, buildPythonPackage
 
-  lang,
-  version,
-  format,
-  src,
-}:
+, lang, version, format, src }:
 
 buildPythonPackage rec {
   pname = "gruut-lang-${lang}";

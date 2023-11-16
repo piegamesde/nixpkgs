@@ -1,27 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  copyDesktopItems,
-  pkg-config,
-  wrapGAppsHook,
-  unzip,
-  curl,
-  glib,
-  gtk3,
-  libssh2,
-  openssl,
-  wxGTK32,
-  makeDesktopItem,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, copyDesktopItems, pkg-config, wrapGAppsHook
+, unzip, curl, glib, gtk3, libssh2, openssl, wxGTK32, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   pname = "freefilesync";
   version = "12.3";
 
   src = fetchurl {
-    url = "https://freefilesync.org/download/FreeFileSync_${version}_Source.zip";
+    url =
+      "https://freefilesync.org/download/FreeFileSync_${version}_Source.zip";
     hash = "sha256-s6jNWqqriL/ePFCUQvLeNxNjHz+nZevD2x1kkw1gDE8=";
   };
 
@@ -31,32 +17,22 @@ stdenv.mkDerivation rec {
   patches = [
     # Disable loading of the missing Animal.dat
     (fetchpatch {
-      url = "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan.patch";
+      url =
+        "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan.patch";
       excludes = [ "FreeFileSync/Source/ffs_paths.cpp" ];
       hash = "sha256-6pHr5txabMTpGMKP7I5oe1lGAmgb0cPW8ZkPv/WXN74=";
     })
     # Fix build with GTK 3
     (fetchpatch {
-      url = "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan_gtk3.patch";
+      url =
+        "https://sources.debian.org/data/main/f/freefilesync/12.0-2/debian/patches/ffs_devuan_gtk3.patch";
       hash = "sha256-0n58Np4JI3hYK/CRBytkPHl9Jp4xK+IRjgUvoYti/f4=";
     })
   ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    pkg-config
-    wrapGAppsHook
-    unzip
-  ];
+  nativeBuildInputs = [ copyDesktopItems pkg-config wrapGAppsHook unzip ];
 
-  buildInputs = [
-    curl
-    glib
-    gtk3
-    libssh2
-    openssl
-    wxGTK32
-  ];
+  buildInputs = [ curl glib gtk3 libssh2 openssl wxGTK32 ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Undef g_object_ref on GLib 2.56+
@@ -100,10 +76,7 @@ stdenv.mkDerivation rec {
       genericName = "Folder Comparison and Synchronization";
       icon = name;
       exec = name;
-      categories = [
-        "Utility"
-        "FileTools"
-      ];
+      categories = [ "Utility" "FileTools" ];
     })
     (makeDesktopItem rec {
       name = "RealTimeSync";
@@ -111,22 +84,15 @@ stdenv.mkDerivation rec {
       genericName = "Automated Synchronization";
       icon = name;
       exec = name;
-      categories = [
-        "Utility"
-        "FileTools"
-      ];
+      categories = [ "Utility" "FileTools" ];
     })
   ];
 
   meta = with lib; {
     description = "Open Source File Synchronization & Backup Software";
     homepage = "https://freefilesync.org";
-    license = [
-      licenses.gpl3Only
-      licenses.openssl
-      licenses.curl
-      licenses.libssh2
-    ];
+    license =
+      [ licenses.gpl3Only licenses.openssl licenses.curl licenses.libssh2 ];
     maintainers = with maintainers; [ wegank ];
     platforms = platforms.linux;
   };

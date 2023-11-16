@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libmad,
-}:
+{ lib, stdenv, fetchurl, libmad }:
 
 stdenv.mkDerivation rec {
   pname = "normalize";

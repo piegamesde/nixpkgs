@@ -1,17 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  buildGoModule,
-  libGL,
-  libX11,
-  libXcursor,
-  libXfixes,
-  libxkbcommon,
-  vulkan-headers,
-  wayland,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, buildGoModule, libGL, libX11
+, libXcursor, libXfixes, libxkbcommon, vulkan-headers, wayland, }:
 
 buildGoModule rec {
   pname = "gotraceui";
@@ -29,15 +17,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    vulkan-headers
-    libxkbcommon
-    wayland
-    libX11
-    libXcursor
-    libXfixes
-    libGL
-  ];
+  buildInputs =
+    [ vulkan-headers libxkbcommon wayland libX11 libXcursor libXfixes libGL ];
 
   ldflags = [ "-X gioui.org/app.ID=co.honnef.Gotraceui" ];
 

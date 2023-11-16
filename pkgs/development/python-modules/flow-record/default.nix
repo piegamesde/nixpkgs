@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  elasticsearch,
-  fastavro,
-  fetchFromGitHub,
-  lz4,
-  msgpack,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  setuptools-scm,
-  wheel,
-  zstandard,
-}:
+{ lib, buildPythonPackage, elasticsearch, fastavro, fetchFromGitHub, lz4
+, msgpack, pytestCheckHook, pythonOlder, setuptools, setuptools-scm, wheel
+, zstandard }:
 
 buildPythonPackage rec {
   pname = "flow-record";
@@ -30,34 +18,25 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-    wheel
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm wheel ];
 
   propagatedBuildInputs = [ msgpack ];
 
   passthru.optional-dependencies = {
-    compression = [
-      lz4
-      zstandard
-    ];
+    compression = [ lz4 zstandard ];
     elastic = [ elasticsearch ];
     avro = [ fastavro ] ++ fastavro.optional-dependencies.snappy;
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "flow.record" ];
 
-  disabledTestPaths =
-    [
-      # Test requires rdump
-      "tests/test_rdump.py"
-    ];
+  disabledTestPaths = [
+    # Test requires rdump
+    "tests/test_rdump.py"
+  ];
 
   disabledTests = [ "test_rdump_fieldtype_path_json" ];
 

@@ -1,23 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  srt,
-  bc,
-  pkg-config,
-  perl,
-  openssl,
-  zlib,
-  ffmpeg_4,
-  libvpx,
-  libopus,
-  libuuid,
-  srtp,
-  jemalloc,
-  pcre2,
-  hiredis,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, srt, bc, pkg-config, perl, openssl
+, zlib, ffmpeg_4, libvpx, libopus, libuuid, srtp, jemalloc, pcre2, hiredis }:
 
 stdenv.mkDerivation rec {
   pname = "oven-media-engine";
@@ -42,11 +24,7 @@ stdenv.mkDerivation rec {
   ];
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    bc
-    pkg-config
-    perl
-  ];
+  nativeBuildInputs = [ bc pkg-config perl ];
   buildInputs = [
     openssl
     srt

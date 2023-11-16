@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  environs,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-mock,
-  pytest-vcr,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  tornado,
-}:
+{ lib, buildPythonPackage, environs, fetchFromGitHub, poetry-core, pytest-mock
+, pytest-vcr, pytestCheckHook, pythonOlder, requests, tornado }:
 
 buildPythonPackage rec {
   pname = "deezer-python";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    environs
-    pytest-mock
-    pytest-vcr
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ environs pytest-mock pytest-vcr pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    requests
-    tornado
-  ];
+  propagatedBuildInputs = [ requests tornado ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -50,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper around the Deezer API";
     homepage = "https://github.com/browniebroke/deezer-python";
-    changelog = "https://github.com/browniebroke/deezer-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/browniebroke/deezer-python/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ synthetica ];
   };

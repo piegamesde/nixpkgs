@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-}:
+{ lib, stdenv, fetchurl, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "hashcash";
@@ -16,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "15kqaimwb2y8wvzpn73021bvay9mz1gqqfc40gk4hj6f84nz34h1";
   };
 
-  makeFlags = [
-    "generic-openssl"
-    "LIBCRYPTO=-lcrypto"
-  ];
+  makeFlags = [ "generic-openssl" "LIBCRYPTO=-lcrypto" ];
 
   installFlags = [
     "INSTALL_PATH=${placeholder "out"}/bin"
@@ -28,7 +20,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Proof-of-work algorithm used as spam and denial-of-service counter measure";
+    description =
+      "Proof-of-work algorithm used as spam and denial-of-service counter measure";
     homepage = "http://hashcash.org";
     license = licenses.gpl2;
     maintainers = with maintainers; [ kisonecat ];

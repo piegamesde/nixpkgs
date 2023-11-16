@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  runCommand,
-  jdk8,
-  ant,
-  jre8,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, runCommand, jdk8, ant, jre8, makeWrapper }:
 
 let
   gcs = fetchFromGitHub {
@@ -34,8 +25,7 @@ let
     rev = "gcs-4.8.0";
     sha256 = "085jpp9mpv5kw00zds9sywmfq31mrlbrgahnwcjkx0z9i22amz4g";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gcs";
   version = "4.8.0";
 
@@ -50,11 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    jdk8
-    jre8
-    ant
-  ];
+  buildInputs = [ jdk8 jre8 ant ];
   buildPhase = ''
     cd apple_stubs
     ant
@@ -79,7 +65,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A stand-alone, interactive, character sheet editor for the GURPS 4th Edition roleplaying game system";
+    description =
+      "A stand-alone, interactive, character sheet editor for the GURPS 4th Edition roleplaying game system";
     homepage = "https://gurpscharactersheet.com/";
     sourceProvenance = with sourceTypes; [
       fromSource

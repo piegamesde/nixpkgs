@@ -1,18 +1,8 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  unzip,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, unzip }:
 
 let
   dimensions = {
-    palette = [
-      "Frappe"
-      "Latte"
-      "Macchiato"
-      "Mocha"
-    ];
+    palette = [ "Frappe" "Latte" "Macchiato" "Mocha" ];
     color = [
       "Blue"
       "Dark"
@@ -35,8 +25,7 @@ let
   product = lib.attrsets.cartesianProductOfSets dimensions;
   variantName = { palette, color }: (lib.strings.toLower palette) + color;
   variants = map variantName product;
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "catppuccin-cursors";
   version = "0.2.0";
   dontBuild = true;

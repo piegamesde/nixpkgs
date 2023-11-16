@@ -1,22 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.networking.websockify;
-in
-{
+let cfg = config.services.networking.websockify;
+in {
   options = {
     services.networking.websockify = {
       enable = mkOption {
-        description =
-          lib.mdDoc
-            "Whether to enable websockify to forward websocket connections to TCP connections.";
+        description = lib.mdDoc
+          "Whether to enable websockify to forward websocket connections to TCP connections.";
 
         default = false;
 
@@ -31,7 +23,8 @@ in
       sslKey = mkOption {
         description = lib.mdDoc "Path to the SSL key.";
         default = cfg.sslCert;
-        defaultText = literalExpression "config.services.networking.websockify.sslCert";
+        defaultText =
+          literalExpression "config.services.networking.websockify.sslCert";
         type = types.path;
       };
 
@@ -45,7 +38,8 @@ in
 
   config = mkIf cfg.enable {
     systemd.services."websockify@" = {
-      description = "Service to forward websocket connections to TCP connections (from port:to port %I)";
+      description =
+        "Service to forward websocket connections to TCP connections (from port:to port %I)";
       script = ''
         IFS=':' read -a array <<< "$1"
         ${pkgs.pythonPackages.websockify}/bin/websockify --ssl-only \
@@ -57,7 +51,9 @@ in
     systemd.targets.default-websockify = {
       description = "Target to start all default websockify@ services";
       unitConfig.X-StopOnReconfiguration = true;
-      wants = mapAttrsToList (name: value: "websockify@${name}:${toString value}.service") cfg.portMap;
+      wants = mapAttrsToList
+        (name: value: "websockify@${name}:${toString value}.service")
+        cfg.portMap;
       wantedBy = [ "multi-user.target" ];
     };
   };

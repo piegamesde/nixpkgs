@@ -1,28 +1,13 @@
-{
-  stdenv,
-  substituteAll,
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  AVFoundation,
-  AudioToolbox,
-  ImageIO,
-  CoreMedia,
-  Foundation,
-  CoreGraphics,
-  MediaToolbox,
-  gnupg,
-}:
+{ stdenv, substituteAll, lib, buildGoModule, fetchFromGitHub, AVFoundation
+, AudioToolbox, ImageIO, CoreMedia, Foundation, CoreGraphics, MediaToolbox
+, gnupg }:
 
 buildGoModule rec {
   pname = "keybase";
   version = "6.0.2";
 
   modRoot = "go";
-  subPackages = [
-    "kbnm"
-    "keybase"
-  ];
+  subPackages = [ "kbnm" "keybase" ];
 
   dontRenameImports = true;
 
@@ -52,10 +37,7 @@ buildGoModule rec {
     MediaToolbox
   ];
   tags = [ "production" ];
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://www.keybase.io/";

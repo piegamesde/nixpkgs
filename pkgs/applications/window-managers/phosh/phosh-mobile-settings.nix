@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  gitUpdater,
-  meson,
-  ninja,
-  pkg-config,
-  wrapGAppsHook,
-  desktop-file-utils,
-  feedbackd,
-  gtk4,
-  libadwaita,
-  lm_sensors,
-  phoc,
-  phosh,
-  wayland-protocols,
-}:
+{ lib, stdenv, fetchFromGitLab, gitUpdater, meson, ninja, pkg-config
+, wrapGAppsHook, desktop-file-utils, feedbackd, gtk4, libadwaita, lm_sensors
+, phoc, phosh, wayland-protocols }:
 
 stdenv.mkDerivation rec {
   pname = "phosh-mobile-settings";
@@ -29,13 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-D605efn25Dl3Bj92DZiagcx+MMcRz0GRaWxplBRcZhA=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    phosh
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja phosh pkg-config wrapGAppsHook ];
 
   buildInputs = [
     desktop-file-utils
@@ -63,7 +42,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A settings app for mobile specific things";
     homepage = "https://gitlab.gnome.org/guidog/phosh-mobile-settings";
-    changelog = "https://gitlab.gnome.org/guidog/phosh-mobile-settings/-/blob/v${version}/debian/changelog";
+    changelog =
+      "https://gitlab.gnome.org/guidog/phosh-mobile-settings/-/blob/v${version}/debian/changelog";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ colinsane ];
     platforms = platforms.linux;

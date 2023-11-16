@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bsdiff4";
@@ -27,7 +22,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Binary diff and patch using the BSDIFF4-format";
     homepage = "https://github.com/ilanschnell/bsdiff4";
-    changelog = "https://github.com/ilanschnell/bsdiff4/blob/${version}/CHANGELOG.txt";
+    changelog =
+      "https://github.com/ilanschnell/bsdiff4/blob/${version}/CHANGELOG.txt";
     license = licenses.bsdProtection;
     maintainers = with maintainers; [ ris ];
   };

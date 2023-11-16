@@ -1,10 +1,4 @@
-{
-  stdenv,
-  stdenvNoCC,
-  lib,
-  symlinkJoin,
-  fetchFromGitHub,
-}:
+{ stdenv, stdenvNoCC, lib, symlinkJoin, fetchFromGitHub }:
 
 let
   pname = "mbrola";
@@ -39,7 +33,8 @@ let
     dontFixup = true;
 
     meta = meta // {
-      description = "Speech synthesizer based on the concatenation of diphones (voice files)";
+      description =
+        "Speech synthesizer based on the concatenation of diphones (voice files)";
       homepage = "https://github.com/numediart/MBROLA-voices";
     };
   };
@@ -66,15 +61,13 @@ let
     '';
 
     meta = meta // {
-      description = "Speech synthesizer based on the concatenation of diphones (binary only)";
+      description =
+        "Speech synthesizer based on the concatenation of diphones (binary only)";
     };
   };
-in
-symlinkJoin {
+
+in symlinkJoin {
   inherit pname version meta;
   name = "${pname}-${version}";
-  paths = [
-    bin
-    voices
-  ];
+  paths = [ bin voices ];
 }

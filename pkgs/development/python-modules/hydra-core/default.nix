@@ -1,18 +1,6 @@
-{
-  stdenv,
-  lib,
-  antlr4,
-  antlr4-python3-runtime,
-  buildPythonPackage,
-  fetchFromGitHub,
-  importlib-resources,
-  jre_headless,
-  omegaconf,
-  packaging,
-  pytestCheckHook,
-  pythonOlder,
-  substituteAll,
-}:
+{ stdenv, lib, antlr4, antlr4-python3-runtime, buildPythonPackage
+, fetchFromGitHub, importlib-resources, jre_headless, omegaconf, packaging
+, pytestCheckHook, pythonOlder, substituteAll }:
 
 buildPythonPackage rec {
   pname = "hydra-core";
@@ -31,7 +19,8 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./antlr4.patch;
-      antlr_jar = "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
+      antlr_jar =
+        "${antlr4.out}/share/java/antlr-${antlr4.version}-complete.jar";
     })
   ];
 
@@ -45,11 +34,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ jre_headless ];
 
-  propagatedBuildInputs = [
-    antlr4-python3-runtime
-    omegaconf
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [ antlr4-python3-runtime omegaconf packaging ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

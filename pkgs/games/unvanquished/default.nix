@@ -1,37 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  fetchFromGitHub,
-  fetchpatch,
-  SDL2,
-  buildFHSEnv,
-  cmake,
-  copyDesktopItems,
-  curl,
-  freetype,
-  gcc,
-  geoip,
-  glew,
-  gmp,
-  libGL,
-  libjpeg,
-  libogg,
-  libopus,
-  libpng,
-  libvorbis,
-  libwebp,
-  lua5,
-  makeDesktopItem,
-  ncurses,
-  nettle,
-  openal,
-  opusfile,
-  zlib,
-  # to download assets
-  aria2,
-  cacert,
-}:
+{ lib, stdenv, fetchzip, fetchFromGitHub, fetchpatch, SDL2, buildFHSEnv, cmake
+, copyDesktopItems, curl, freetype, gcc, geoip, glew, gmp, libGL, libjpeg
+, libogg, libopus, libpng, libvorbis, libwebp, lua5, makeDesktopItem, ncurses
+, nettle, openal, opusfile, zlib
+# to download assets
+, aria2, cacert }:
 
 let
   version = "0.54.0";
@@ -51,7 +23,8 @@ let
     version = binary-deps-version;
 
     src = fetchzip {
-      url = "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz ";
+      url =
+        "https://dl.unvanquished.net/deps/linux-amd64-default_${version}.tar.xz ";
       sha256 = "sha256-6r9j0HRMDC/7i8f4f5bBK4NmwsTpSChHrRWwz0ENAZo=";
     };
 
@@ -123,18 +96,15 @@ let
     outputHash = "sha256-ua9Q5E5C4t8z/yNQp6qn1i9NNDAk4ohzvgpMbCBxb8Q=";
     outputHashMode = "recursive";
 
-    nativeBuildInputs = [
-      aria2
-      cacert
-    ];
+    nativeBuildInputs = [ aria2 cacert ];
 
     buildCommand = ''
       bash $src/download-paks --cache=$(pwd) --version=${version} $out
     '';
   };
-in
-# this really is the daemon game engine, the game itself is in the assets
-stdenv.mkDerivation rec {
+
+  # this really is the daemon game engine, the game itself is in the assets
+in stdenv.mkDerivation rec {
   pname = "unvanquished";
   inherit version src binary-deps-version;
 
@@ -145,11 +115,7 @@ stdenv.mkDerivation rec {
     chmod +w -R daemon/external_deps/"$TARGET"/
   '';
 
-  nativeBuildInputs = [
-    cmake
-    unvanquished-binary-deps
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ cmake unvanquished-binary-deps copyDesktopItems ];
 
   buildInputs = [
     gmp
@@ -188,11 +154,7 @@ stdenv.mkDerivation rec {
       comment = "FPS/RTS Game - Aliens vs. Humans";
       icon = "unvanquished";
       exec = "unvanquished";
-      categories = [
-        "Game"
-        "ActionGame"
-        "StrategyGame"
-      ];
+      categories = [ "Game" "ActionGame" "StrategyGame" ];
       prefersNonDefaultGPU = true;
     })
     (makeDesktopItem {

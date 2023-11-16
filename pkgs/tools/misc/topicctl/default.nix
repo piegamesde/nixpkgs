@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "topicctl";
@@ -30,9 +26,6 @@ buildGoModule rec {
     description = "A tool for easy, declarative management of Kafka topics";
     inherit (src.meta) homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [
-      eskytthe
-      srhb
-    ];
+    maintainers = with maintainers; [ eskytthe srhb ];
   };
 }

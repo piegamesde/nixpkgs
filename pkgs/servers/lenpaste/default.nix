@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitea,
-}:
+{ lib, buildGoModule, fetchFromGitea }:
 
 buildGoModule rec {
   pname = "lenpaste";
@@ -18,11 +14,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-PL0dysBn1+1BpZWFW/EUFJtqkabt+XN00YkAz8Yf2LQ=";
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.Version=${version}" ];
 
   subPackages = [ "cmd" ];
 
@@ -31,7 +23,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A web service that allows you to share notes anonymously, an alternative to pastebin.com";
+    description =
+      "A web service that allows you to share notes anonymously, an alternative to pastebin.com";
     homepage = "https://git.lcomrade.su/root/lenpaste";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ vector1dev ];

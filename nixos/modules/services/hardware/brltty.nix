@@ -1,21 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.brltty;
 
-  targets = [
-    "default.target"
-    "multi-user.target"
-    "rescue.target"
-    "emergency.target"
-  ];
+  targets =
+    [ "default.target" "multi-user.target" "rescue.target" "emergency.target" ];
 
   genApiKey = pkgs.writers.writeDash "generate-brlapi-key" ''
     if ! test -f /etc/brlapi.key; then
@@ -24,8 +15,8 @@ let
       echo done
     fi
   '';
-in
-{
+
+in {
 
   options = {
 
@@ -34,6 +25,7 @@ in
       default = false;
       description = lib.mdDoc "Whether to enable the BRLTTY daemon.";
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -60,4 +52,5 @@ in
     systemd.paths.brltty.wantedBy = targets;
     systemd.paths."brltty@".wantedBy = targets;
   };
+
 }

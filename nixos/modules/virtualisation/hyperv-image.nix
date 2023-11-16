@@ -1,16 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.hyperv;
-in
-{
+let cfg = config.hyperv;
+
+in {
   options = {
     hyperv = {
       baseImageSize = mkOption {
@@ -23,14 +17,16 @@ in
       };
       vmDerivationName = mkOption {
         type = types.str;
-        default = "nixos-hyperv-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+        default =
+          "nixos-hyperv-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
         description = lib.mdDoc ''
           The name of the derivation for the hyper-v appliance.
         '';
       };
       vmFileName = mkOption {
         type = types.str;
-        default = "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vhdx";
+        default =
+          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vhdx";
         description = lib.mdDoc ''
           The file name of the hyper-v appliance.
         '';

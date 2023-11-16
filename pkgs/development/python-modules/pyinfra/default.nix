@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  colorama,
-  configparser,
-  distro,
-  fetchFromGitHub,
-  gevent,
-  jinja2,
-  paramiko,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  pywinrm,
-  pyyaml,
-  setuptools,
-}:
+{ lib, buildPythonPackage, click, colorama, configparser, distro
+, fetchFromGitHub, gevent, jinja2, paramiko, pytestCheckHook, python-dateutil
+, pythonOlder, pywinrm, pyyaml, setuptools }:
 
 buildPythonPackage rec {
   pname = "pyinfra";
@@ -49,11 +34,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyinfra" ];
 
-  disabledTests =
-    [
-      # Test requires SSH binary
-      "test_load_ssh_config"
-    ];
+  disabledTests = [
+    # Test requires SSH binary
+    "test_load_ssh_config"
+  ];
 
   meta = with lib; {
     description = "Python-based infrastructure automation";
@@ -63,7 +47,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://pyinfra.com";
     downloadPage = "https://pyinfra.com/Fizzadar/pyinfra/releases";
-    changelog = "https://github.com/Fizzadar/pyinfra/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Fizzadar/pyinfra/blob/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ totoroot ];
     license = licenses.mit;
   };

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  perlPackages,
-  fetchFromGitHub,
-  shortenPerlShebang,
-}:
+{ lib, stdenv, perlPackages, fetchFromGitHub, shortenPerlShebang }:
 
 perlPackages.buildPerlPackage rec {
   pname = "pgtop";
@@ -19,13 +13,7 @@ perlPackages.buildPerlPackage rec {
 
   outputs = [ "out" ];
 
-  buildInputs = with perlPackages; [
-    DBI
-    DBDPg
-    TermReadKey
-    JSON
-    LWP
-  ];
+  buildInputs = with perlPackages; [ DBI DBDPg TermReadKey JSON LWP ];
 
   nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
   postInstall = lib.optionalString stdenv.isDarwin ''
@@ -33,7 +21,8 @@ perlPackages.buildPerlPackage rec {
   '';
 
   meta = with lib; {
-    description = "a PostgreSQL clone of `mytop', which in turn is a `top' clone for MySQL";
+    description =
+      "a PostgreSQL clone of `mytop', which in turn is a `top' clone for MySQL";
     homepage = "https://github.com/cosimo/pgtop";
     changelog = "https://github.com/cosimo/pgtop/releases/tag/v${version}";
     maintainers = [ maintainers.hagl ];

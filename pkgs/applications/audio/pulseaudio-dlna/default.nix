@@ -1,20 +1,6 @@
-{
-  fetchFromGitHub,
-  lib,
-  python3Packages,
-  mp3Support ? true,
-  lame,
-  opusSupport ? true,
-  opusTools,
-  faacSupport ? false,
-  faac,
-  flacSupport ? true,
-  flac,
-  soxSupport ? true,
-  sox,
-  vorbisSupport ? true,
-  vorbis-tools,
-  pulseaudio,
+{ fetchFromGitHub, lib, python3Packages, mp3Support ? true, lame
+, opusSupport ? true, opusTools, faacSupport ? false, faac, flacSupport ? true
+, flac, soxSupport ? true, sox, vorbisSupport ? true, vorbis-tools, pulseaudio
 }:
 
 python3Packages.buildPythonApplication {
@@ -30,8 +16,7 @@ python3Packages.buildPythonApplication {
 
   patches = [ ./0001-setup.py-remove-dbus-python-from-list.patch ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       dbus-python
       docopt
@@ -48,13 +33,9 @@ python3Packages.buildPythonApplication {
       lxml
       setuptools
       zeroconf
-    ]
-    ++ lib.optional mp3Support lame
-    ++ lib.optional opusSupport opusTools
-    ++ lib.optional faacSupport faac
-    ++ lib.optional flacSupport flac
-    ++ lib.optional soxSupport sox
-    ++ lib.optional vorbisSupport vorbis-tools;
+    ] ++ lib.optional mp3Support lame ++ lib.optional opusSupport opusTools
+    ++ lib.optional faacSupport faac ++ lib.optional flacSupport flac
+    ++ lib.optional soxSupport sox ++ lib.optional vorbisSupport vorbis-tools;
 
   # pulseaudio-dlna shells out to pactl to configure sinks and sources.
   # As pactl might not be in $PATH, add --suffix it (so pactl configured by the
@@ -67,7 +48,8 @@ python3Packages.buildPythonApplication {
   '';
 
   meta = with lib; {
-    description = "A lightweight streaming server which brings DLNA / UPNP and Chromecast support to PulseAudio and Linux";
+    description =
+      "A lightweight streaming server which brings DLNA / UPNP and Chromecast support to PulseAudio and Linux";
     homepage = "https://github.com/Cygn/pulseaudio-dlna";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mog ];

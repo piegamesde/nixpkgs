@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libiconv,
-  libpng,
-  ncurses,
-  pcre,
-  readline,
-  zlib,
-  writeScript,
-}:
+{ lib, stdenv, fetchurl, libiconv, libpng, ncurses, pcre, readline, zlib
+, writeScript }:
 
 stdenv.mkDerivation rec {
   pname = "slang";
@@ -20,12 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+RRQVK4TGXPGEgjqgkhtXdEOPFza0jt8SgYXdDyPWhg=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "man" "doc" ];
 
   # Fix some wrong hardcoded paths
   preConfigure = ''
@@ -42,12 +27,8 @@ stdenv.mkDerivation rec {
     "--with-z=${zlib.dev}"
   ];
 
-  buildInputs = [
-    libpng
-    pcre
-    readline
-    zlib
-  ] ++ lib.optionals (stdenv.isDarwin) [ libiconv ];
+  buildInputs = [ libpng pcre readline zlib ]
+    ++ lib.optionals (stdenv.isDarwin) [ libiconv ];
 
   propagatedBuildInputs = [ ncurses ];
 

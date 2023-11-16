@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchCrate,
-  pkg-config,
-  udev,
-}:
+{ lib, stdenv, rustPlatform, fetchCrate, pkg-config, udev }:
 
 rustPlatform.buildRustPackage rec {
   pname = "elf2uf2-rs";

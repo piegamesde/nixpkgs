@@ -1,19 +1,10 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  effects,
-  lightyear,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, effects, lightyear, lib }:
 build-idris-package {
   pname = "idrishighlighter";
   version = "2018-02-22";
 
   ipkgName = "idris-code-highlighter";
-  idrisDeps = [
-    effects
-    lightyear
-  ];
+  idrisDeps = [ effects lightyear ];
 
   src = fetchFromGitHub {
     owner = "david-christiansen";

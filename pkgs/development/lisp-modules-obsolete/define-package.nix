@@ -1,26 +1,8 @@
-args@{
-  lib,
-  stdenv,
-  clwrapper,
-  baseName,
-  packageName ? baseName,
-  parasites ? [ ],
-  buildSystems ? ([ packageName ] ++ parasites),
-  version ? "latest",
-  src,
-  description,
-  deps,
-  buildInputs ? [ ],
-  meta ? { },
-  overrides ? (x: { }),
-  propagatedBuildInputs ? [ ],
-  asdFilesToKeep ? [
-    (builtins.concatStringsSep "" [
-      packageName
-      ".asd"
-    ])
-  ],
-}:
+args@{ lib, stdenv, clwrapper, baseName, packageName ? baseName, parasites ? [ ]
+, buildSystems ? ([ packageName ] ++ parasites), version ? "latest", src
+, description, deps, buildInputs ? [ ], meta ? { }, overrides ? (x: { })
+, propagatedBuildInputs ? [ ]
+, asdFilesToKeep ? [ (builtins.concatStringsSep "" [ packageName ".asd" ]) ] }:
 let
   deployConfigScript = ''
     outhash="$out"
@@ -108,27 +90,20 @@ let
       NIX_LISP="$NIX_LISP" \
       NIX_LISP_PRELAUNCH_HOOK='nix_lisp_run_single_form "(progn
             ${
-              lib.concatMapStrings
-                (system: ''
-                  (asdf:compile-system :${system})
-                  (asdf:load-system :${system})
-                  (asdf:operate (quote asdf::compile-bundle-op) :${system})
-                  (ignore-errors (asdf:operate (quote asdf::deploy-asd-op) :${system}))
-                '')
-                buildSystems
+              lib.concatMapStrings (system: ''
+                (asdf:compile-system :${system})
+                (asdf:load-system :${system})
+                (asdf:operate (quote asdf::compile-bundle-op) :${system})
+                (ignore-errors (asdf:operate (quote asdf::deploy-asd-op) :${system}))
+              '') buildSystems
             }
             )"' \
          "$out/bin/${args.baseName}-lisp-launcher.sh"
 
       eval "$postInstall"
     '';
-    propagatedBuildInputs =
-      (args.deps or [ ])
-      ++ [
-        clwrapper
-        clwrapper.lisp
-        clwrapper.asdf
-      ]
+    propagatedBuildInputs = (args.deps or [ ])
+      ++ [ clwrapper clwrapper.lisp clwrapper.asdf ]
       ++ (args.propagatedBuildInputs or [ ]);
     buildInputs = buildInputs;
     dontStrip = true;
@@ -137,10 +112,7 @@ let
 
     noAuditTmpDir = true;
 
-    meta = {
-      inherit description version;
-    } // meta;
+    meta = { inherit description version; } // meta;
   };
   package = basePackage // (overrides basePackage);
-in
-stdenv.mkDerivation package
+in stdenv.mkDerivation package

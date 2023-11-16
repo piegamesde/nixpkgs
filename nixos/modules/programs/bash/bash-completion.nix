@@ -1,20 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  enable = config.programs.bash.enableCompletion;
-in
-{
+let enable = config.programs.bash.enableCompletion;
+in {
   options = {
-    programs.bash.enableCompletion =
-      mkEnableOption (lib.mdDoc "Bash completion for all interactive bash shells")
-      // {
+    programs.bash.enableCompletion = mkEnableOption
+      (lib.mdDoc "Bash completion for all interactive bash shells") // {
         default = true;
       };
   };

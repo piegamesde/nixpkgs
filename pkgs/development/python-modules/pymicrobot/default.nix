@@ -1,10 +1,4 @@
-{
-  lib,
-  bleak,
-  bleak-retry-connector,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
+{ lib, bleak, bleak-retry-connector, buildPythonPackage, fetchPypi, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -20,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-dhhRHXdck7hJGkXQpkiMulLsnMluZ5ADZ9L8cNm6dFs=";
   };
 
-  propagatedBuildInputs = [
-    bleak
-    bleak-retry-connector
-  ];
+  propagatedBuildInputs = [ bleak bleak-retry-connector ];
 
   # Module has no tests
   doCheck = false;

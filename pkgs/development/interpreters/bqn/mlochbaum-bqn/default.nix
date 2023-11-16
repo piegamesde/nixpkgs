@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  makeWrapper,
-  nodejs,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, nodejs }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "bqn";
@@ -21,11 +15,10 @@ stdenvNoCC.mkDerivation rec {
 
   buildInputs = [ nodejs ];
 
-  patches =
-    [
-      # Creates a @libbqn@ substitution variable, to be filled in the fixupPhase
-      ./001-libbqn-path.patch
-    ];
+  patches = [
+    # Creates a @libbqn@ substitution variable, to be filled in the fixupPhase
+    ./001-libbqn-path.patch
+  ];
 
   dontConfigure = true;
 

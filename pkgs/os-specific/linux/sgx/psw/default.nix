@@ -1,65 +1,37 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  cmake,
-  coreutils,
-  curl,
-  file,
-  glibc,
-  makeWrapper,
-  nixosTests,
-  protobuf,
-  python3,
-  sgx-sdk,
-  shadow,
-  systemd,
-  util-linux,
-  which,
-  debug ? false,
-}:
+{ stdenv, lib, fetchurl, cmake, coreutils, curl, file, glibc, makeWrapper
+, nixosTests, protobuf, python3, sgx-sdk, shadow, systemd, util-linux, which
+, debug ? false }:
 stdenv.mkDerivation rec {
   inherit (sgx-sdk) version versionTag src;
   pname = "sgx-psw";
 
-  postUnpack =
-    let
-      ae.prebuilt = fetchurl {
-        url = "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/prebuilt_ae_${versionTag}.tar.gz";
-        hash = "sha256-JriA9UGYFkAPuCtRizk8RMM1YOYGR/eO9ILnx47A40s=";
+  postUnpack = let
+    ae.prebuilt = fetchurl {
+      url =
+        "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/prebuilt_ae_${versionTag}.tar.gz";
+      hash = "sha256-JriA9UGYFkAPuCtRizk8RMM1YOYGR/eO9ILnx47A40s=";
+    };
+    dcap = rec {
+      version = "1.13";
+      filename = "prebuilt_dcap_${version}.tar.gz";
+      prebuilt = fetchurl {
+        url =
+          "https://download.01.org/intel-sgx/sgx-dcap/${version}/linux/${filename}";
+        hash = "sha256-0kD6hxN8qZ/7/H99aboQx7Qg7ewmYPEexoU6nqczAik=";
       };
-      dcap = rec {
-        version = "1.13";
-        filename = "prebuilt_dcap_${version}.tar.gz";
-        prebuilt = fetchurl {
-          url = "https://download.01.org/intel-sgx/sgx-dcap/${version}/linux/${filename}";
-          hash = "sha256-0kD6hxN8qZ/7/H99aboQx7Qg7ewmYPEexoU6nqczAik=";
-        };
-      };
-    in
-    sgx-sdk.postUnpack
-    + ''
-      # Make sure we use the correct version of prebuilt DCAP
-      grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
-        || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
+    };
+  in sgx-sdk.postUnpack + ''
+    # Make sure we use the correct version of prebuilt DCAP
+    grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
+      || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
 
-      tar -zxf ${ae.prebuilt}   -C $sourceRoot/
-      tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
-    '';
+    tar -zxf ${ae.prebuilt}   -C $sourceRoot/
+    tar -zxf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration/
+  '';
 
-  nativeBuildInputs = [
-    cmake
-    file
-    makeWrapper
-    python3
-    sgx-sdk
-    which
-  ];
+  nativeBuildInputs = [ cmake file makeWrapper python3 sgx-sdk which ];
 
-  buildInputs = [
-    curl
-    protobuf
-  ];
+  buildInputs = [ curl protobuf ];
 
   hardeningDisable = lib.optionals debug [ "fortify" ];
 
@@ -77,10 +49,8 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "psw_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
 
-  installFlags = [
-    "-C linux/installer/common/psw/output"
-    "DESTDIR=$(TMPDIR)/install"
-  ];
+  installFlags =
+    [ "-C linux/installer/common/psw/output" "DESTDIR=$(TMPDIR)/install" ];
 
   postInstall = ''
     installDir=$TMPDIR/install
@@ -151,17 +121,12 @@ stdenv.mkDerivation rec {
                 "${util-linux}/bin/mount"
   '';
 
-  passthru.tests = {
-    service = nixosTests.aesmd;
-  };
+  passthru.tests = { service = nixosTests.aesmd; };
 
   meta = with lib; {
     description = "Intel SGX Architectural Enclave Service Manager";
     homepage = "https://github.com/intel/linux-sgx";
-    maintainers = with maintainers; [
-      veehaitch
-      citadelcore
-    ];
+    maintainers = with maintainers; [ veehaitch citadelcore ];
     platforms = [ "x86_64-linux" ];
     license = with licenses; [ bsd3 ];
   };

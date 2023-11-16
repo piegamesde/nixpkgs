@@ -1,15 +1,5 @@
-{
-  lib,
-  asyncssh,
-  bcrypt,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fsspec,
-  mock-ssh-server,
-  pytest-asyncio,
-  pytestCheckHook,
-  setuptools-scm,
-}:
+{ lib, asyncssh, bcrypt, buildPythonPackage, fetchFromGitHub, fsspec
+, mock-ssh-server, pytest-asyncio, pytestCheckHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "sshfs";
@@ -26,17 +16,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    asyncssh
-    bcrypt
-    fsspec
-  ];
+  propagatedBuildInputs = [ asyncssh bcrypt fsspec ];
 
-  nativeCheckInputs = [
-    mock-ssh-server
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock-ssh-server pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "sshfs" ];
 

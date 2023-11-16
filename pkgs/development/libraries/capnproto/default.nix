@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  openssl,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openssl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "capnproto";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [
-    openssl
-    zlib
-  ];
+  propagatedBuildInputs = [ openssl zlib ];
 
   meta = with lib; {
     homepage = "https://capnproto.org/";

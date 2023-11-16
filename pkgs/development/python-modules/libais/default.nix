@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "libais";
@@ -34,7 +27,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ais" ];
 
   meta = with lib; {
-    description = "Library for decoding maritime Automatic Identification System messages";
+    description =
+      "Library for decoding maritime Automatic Identification System messages";
     homepage = "https://github.com/schwehr/libais";
     changelog = "https://github.com/schwehr/libais/blob/master/Changelog.md";
     license = licenses.asl20;

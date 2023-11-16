@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  gfortran,
-  blas,
-  lapack,
-  mctc-lib,
-  mstore,
-  toml-f,
-  multicharge,
-  dftd4,
-  simple-dftd3,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, gfortran, blas, lapack, mctc-lib, mstore
+, toml-f, multicharge, dftd4, simple-dftd3 }:
 
 assert !blas.isILP64 && !lapack.isILP64;
 
@@ -27,21 +14,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-R7CAFG/x55k5Ieslxeq+DWq1wPip4cI+Yvn1cBbeVNs=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gfortran
-  ];
+  nativeBuildInputs = [ cmake gfortran ];
 
-  buildInputs = [
-    blas
-    lapack
-    mctc-lib
-    mstore
-    toml-f
-    multicharge
-    dftd4
-    simple-dftd3
-  ];
+  buildInputs =
+    [ blas lapack mctc-lib mstore toml-f multicharge dftd4 simple-dftd3 ];
 
   doCheck = true;
   preCheck = ''
@@ -55,10 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Light-weight tight-binding framework";
-    license = with licenses; [
-      gpl3Plus
-      lgpl3Plus
-    ];
+    license = with licenses; [ gpl3Plus lgpl3Plus ];
     homepage = "https://github.com/tblite/tblite";
     platforms = platforms.linux;
     maintainers = [ maintainers.sheepforce ];

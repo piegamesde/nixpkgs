@@ -1,14 +1,5 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromGitHub,
-  bumpy,
-  chroma,
-  flatty,
-  nimsimd,
-  vmath,
-  zippy,
-}:
+{ lib, buildNimPackage, fetchFromGitHub, bumpy, chroma, flatty, nimsimd, vmath
+, zippy }:
 
 buildNimPackage rec {
   pname = "pixie";
@@ -21,21 +12,12 @@ buildNimPackage rec {
     hash = "sha256-rF72ybfsipBHgQmH0e6DBn1e7WWY6dGn9yp1qvLIS3A=";
   };
 
-  propagatedBuildInputs = [
-    bumpy
-    chroma
-    flatty
-    nimsimd
-    vmath
-    zippy
-  ];
+  propagatedBuildInputs = [ bumpy chroma flatty nimsimd vmath zippy ];
 
   doCheck = true;
 
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "Full-featured 2d graphics library for Nim";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

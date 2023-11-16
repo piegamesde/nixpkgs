@@ -1,42 +1,22 @@
-{
-  stdenvNoCC,
-  fetchurl,
-  newScope,
-  lib,
-  pkgs,
-  stdenv,
-  overrideCC,
-  xar,
-  cpio,
-  python3,
-  pbzx,
-}:
+{ stdenvNoCC, fetchurl, newScope, lib, pkgs, stdenv, overrideCC, xar, cpio
+, python3, pbzx }:
 
 let
-  mkSusDerivation =
-    args:
-    stdenvNoCC.mkDerivation (
-      args
-      // {
-        dontBuild = true;
-        darwinDontCodeSign = true;
+  mkSusDerivation = args:
+    stdenvNoCC.mkDerivation (args // {
+      dontBuild = true;
+      darwinDontCodeSign = true;
 
-        nativeBuildInputs = [
-          cpio
-          pbzx
-        ];
+      nativeBuildInputs = [ cpio pbzx ];
 
-        outputs = [ "out" ];
+      outputs = [ "out" ];
 
-        unpackPhase = ''
-          pbzx $src | cpio -idm
-        '';
+      unpackPhase = ''
+        pbzx $src | cpio -idm
+      '';
 
-        passthru = {
-          inherit (args) version;
-        };
-      }
-    );
+      passthru = { inherit (args) version; };
+    });
 
   MacOSX-SDK = mkSusDerivation {
     pname = "MacOSX-SDK";
@@ -44,7 +24,8 @@ let
 
     # https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog
     src = fetchurl {
-      url = "http://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_macOSNMOS_SDK.pkg";
+      url =
+        "http://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_macOSNMOS_SDK.pkg";
       sha256 = "0n425smj4q1vxbza8fzwnk323fyzbbq866q32w288c44hl5yhwsf";
     };
 
@@ -59,7 +40,8 @@ let
 
     # https://swscan.apple.com/content/catalogs/others/index-11-10.15-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog
     src = fetchurl {
-      url = "http://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_Executables.pkg";
+      url =
+        "http://swcdn.apple.com/content/downloads/46/21/001-89745-A_56FM390IW5/v1um2qppgfdnam2e9cdqcqu2r6k8aa3lis/CLTools_Executables.pkg";
       sha256 = "0nvb1qx7l81l2wcl8wvgbpsg5rcn51ylhivqmlfr2hrrv3zrrpl0";
     };
 
@@ -68,8 +50,7 @@ let
     '';
   };
 
-  mkCc =
-    cc:
+  mkCc = cc:
     if stdenv.isAarch64 then
       cc
     else
@@ -78,8 +59,7 @@ let
         libc = packages.Libsystem;
       };
 
-  mkStdenv =
-    stdenv:
+  mkStdenv = stdenv:
     if stdenv.isAarch64 then
       stdenv
     else
@@ -90,26 +70,14 @@ let
         };
       };
 
-  stdenvs =
-    {
-      stdenv = mkStdenv stdenv;
-    }
-    // builtins.listToAttrs (
-      map
-        (v: {
-          name = "llvmPackages_${v}";
-          value = pkgs."llvmPackages_${v}" // {
-            stdenv = mkStdenv pkgs."llvmPackages_${v}".stdenv;
-          };
-        })
-        [
-          "12"
-          "13"
-          "14"
-          "15"
-          "16"
-        ]
-    );
+  stdenvs = {
+    stdenv = mkStdenv stdenv;
+  } // builtins.listToAttrs (map (v: {
+    name = "llvmPackages_${v}";
+    value = pkgs."llvmPackages_${v}" // {
+      stdenv = mkStdenv pkgs."llvmPackages_${v}".stdenv;
+    };
+  }) [ "12" "13" "14" "15" "16" ]);
 
   callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
 
@@ -136,50 +104,32 @@ let
 
     xcodebuild = pkgs.xcbuild.override {
       inherit (pkgs.darwin.apple_sdk_11_0) stdenv;
-      inherit (pkgs.darwin.apple_sdk_11_0.frameworks) CoreServices CoreGraphics ImageIO;
+      inherit (pkgs.darwin.apple_sdk_11_0.frameworks)
+        CoreServices CoreGraphics ImageIO;
     };
 
-    rustPlatform =
-      pkgs.makeRustPlatform {
+    rustPlatform = pkgs.makeRustPlatform {
+      inherit (pkgs.darwin.apple_sdk_11_0) stdenv;
+      inherit (pkgs) rustc cargo;
+    } // {
+      inherit (pkgs.callPackage ../../../build-support/rust/hooks {
         inherit (pkgs.darwin.apple_sdk_11_0) stdenv;
-        inherit (pkgs) rustc cargo;
-      }
-      // {
-        inherit
-          (pkgs.callPackage ../../../build-support/rust/hooks {
-            inherit (pkgs.darwin.apple_sdk_11_0) stdenv;
-            inherit (pkgs) cargo rustc;
-            clang = mkCc pkgs.clang;
-          })
-          bindgenHook
-        ;
-      };
+        inherit (pkgs) cargo rustc;
+        clang = mkCc pkgs.clang;
+      })
+        bindgenHook;
+    };
 
-    callPackage = newScope (
-      lib.optionalAttrs stdenv.isDarwin (
-        stdenvs
-        // rec {
-          inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
-          darwin = pkgs.darwin.overrideScope (
-            _: prev: {
-              inherit (prev.darwin.apple_sdk_11_0)
-                IOKit
-                Libsystem
-                LibsystemCross
-                Security
-                configd
-                libcharset
-                libunwind
-                objc4
-              ;
-              apple_sdk = prev.darwin.apple_sdk_11_0;
-              CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
-            }
-          );
-          xcbuild = xcodebuild;
-        }
-      )
-    );
+    callPackage = newScope (lib.optionalAttrs stdenv.isDarwin (stdenvs // rec {
+      inherit (pkgs.darwin.apple_sdk_11_0) xcodebuild rustPlatform;
+      darwin = pkgs.darwin.overrideScope (_: prev: {
+        inherit (prev.darwin.apple_sdk_11_0)
+          IOKit Libsystem LibsystemCross Security configd libcharset libunwind
+          objc4;
+        apple_sdk = prev.darwin.apple_sdk_11_0;
+        CF = prev.darwin.apple_sdk_11_0.CoreFoundation;
+      });
+      xcbuild = xcodebuild;
+    }));
   };
-in
-packages
+in packages

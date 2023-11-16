@@ -1,32 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  makeWrapper,
-  libX11,
-  zlib,
-  libSM,
-  libICE,
-  libXext,
-  freetype,
-  libXrender,
-  fontconfig,
-  libXft,
-  libXinerama,
-  libXfixes,
-  libXScrnSaver,
-  libnotify,
-  glib,
-  gtk3,
-  libappindicator-gtk3,
-  curl,
-  writeShellScript,
-  common-updater-scripts,
-}:
+{ lib, stdenv, fetchurl, unzip, makeWrapper, libX11, zlib, libSM, libICE
+, libXext, freetype, libXrender, fontconfig, libXft, libXinerama, libXfixes
+, libXScrnSaver, libnotify, glib, gtk3, libappindicator-gtk3, curl
+, writeShellScript, common-updater-scripts }:
 
 let
-  url = "https://hubstaff-production.s3.amazonaws.com/downloads/HubstaffClient/Builds/Release/1.6.13-269829b4/Hubstaff-1.6.13-269829b4.sh";
+  url =
+    "https://hubstaff-production.s3.amazonaws.com/downloads/HubstaffClient/Builds/Release/1.6.13-269829b4/Hubstaff-1.6.13-269829b4.sh";
   version = "1.6.13-269829b4";
   sha256 = "0i05d8kivm09hqsc1z6vn7w0bbc3l9dawssqpqsm7kqdyaq0l304";
 
@@ -50,18 +29,14 @@ let
     libXfixes
     libXScrnSaver
   ];
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "hubstaff";
   inherit version;
 
   src = fetchurl { inherit sha256 url; };
 
-  nativeBuildInputs = [
-    unzip
-    makeWrapper
-  ];
+  nativeBuildInputs = [ unzip makeWrapper ];
 
   unpackCmd = ''
     # MojoSetups have a ZIP file at the end. ZIP’s magic string is
@@ -113,9 +88,6 @@ stdenv.mkDerivation {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      michalrus
-      srghma
-    ];
+    maintainers = with maintainers; [ michalrus srghma ];
   };
 }

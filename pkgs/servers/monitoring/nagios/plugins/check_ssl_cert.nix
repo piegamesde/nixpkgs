@@ -1,20 +1,7 @@
-{
-  lib,
-  stdenv,
-  bc,
-  bind, # host and dig binary
-  coreutils, # date and timeout binary
-  curl,
-  fetchFromGitHub,
-  file,
-  iproute2,
-  makeWrapper,
-  netcat-gnu,
-  nmap,
-  openssl,
-  python3,
-  which,
-}:
+{ lib, stdenv, bc, bind # host and dig binary
+, coreutils # date and timeout binary
+, curl, fetchFromGitHub, file, iproute2, makeWrapper, netcat-gnu, nmap, openssl
+, python3, which }:
 
 stdenv.mkDerivation rec {
   pname = "check_ssl_cert";
@@ -29,10 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  makeFlags = [
-    "DESTDIR=$(out)/bin"
-    "MANDIR=$(out)/share/man"
-  ];
+  makeFlags = [ "DESTDIR=$(out)/bin" "MANDIR=$(out)/share/man" ];
 
   postInstall = ''
     wrapProgram $out/bin/check_ssl_cert \
@@ -54,9 +38,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Nagios plugin to check the CA and validity of an X.509 certificate";
+    description =
+      "Nagios plugin to check the CA and validity of an X.509 certificate";
     homepage = "https://github.com/matteocorti/check_ssl_cert";
-    changelog = "https://github.com/matteocorti/check_ssl_cert/releases/tag/v${version}";
+    changelog =
+      "https://github.com/matteocorti/check_ssl_cert/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ fab ];
     platforms = platforms.all;

@@ -1,19 +1,6 @@
-{
-  lib,
-  fetchPypi,
-  rustPlatform,
-  cffi,
-  libiconv,
-  stdenv,
-  darwin,
-  buildPythonPackage,
-  appdirs,
-  pyyaml,
-  hypothesis,
-  jinja2,
-  pytestCheckHook,
-  unzip,
-}:
+{ lib, fetchPypi, rustPlatform, cffi, libiconv, stdenv, darwin
+, buildPythonPackage, appdirs, pyyaml, hypothesis, jinja2, pytestCheckHook
+, unzip }:
 
 buildPythonPackage rec {
   pname = "cmsis_pack_manager";
@@ -29,22 +16,13 @@ buildPythonPackage rec {
     sha256 = "dO4qw5Jx0exwb4RuOhu6qvGxQZ+LayHtXDHZKADLTEI=";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    rustPlatform.maturinBuildHook
-  ];
+  nativeBuildInputs =
+    [ rustPlatform.cargoSetupHook rustPlatform.maturinBuildHook ];
   propagatedNativeBuildInputs = [ cffi ];
-  buildInputs = [ libiconv ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
-  propagatedBuildInputs = [
-    appdirs
-    pyyaml
-  ];
-  nativeCheckInputs = [
-    hypothesis
-    jinja2
-    pytestCheckHook
-    unzip
-  ];
+  buildInputs = [ libiconv ]
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  propagatedBuildInputs = [ appdirs pyyaml ];
+  nativeCheckInputs = [ hypothesis jinja2 pytestCheckHook unzip ];
 
   format = "pyproject";
 
@@ -64,9 +42,6 @@ buildPythonPackage rec {
     description = "A Rust and Python module for handling CMSIS Pack files";
     homepage = "https://github.com/pyocd/cmsis-pack-manager";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      frogamic
-      sbruder
-    ];
+    maintainers = with maintainers; [ frogamic sbruder ];
   };
 }

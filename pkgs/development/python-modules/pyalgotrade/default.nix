@@ -1,19 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  matplotlib,
-  numpy,
-  python-dateutil,
-  pytz,
-  requests,
-  retrying,
-  scipy,
-  six,
-  tornado,
-  tweepy,
-  ws4py,
-}:
+{ lib, buildPythonPackage, fetchPypi, matplotlib, numpy, python-dateutil, pytz
+, requests, retrying, scipy, six, tornado, tweepy, ws4py }:
 
 buildPythonPackage rec {
   pname = "pyalgotrade";
@@ -47,4 +33,5 @@ buildPythonPackage rec {
     homepage = "http://gbeced.github.io/pyalgotrade/";
     license = licenses.asl20;
   };
+
 }

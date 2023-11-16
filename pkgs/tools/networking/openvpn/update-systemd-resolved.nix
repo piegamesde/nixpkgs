@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  iproute2,
-  runtimeShell,
-  systemd,
-  coreutils,
-  util-linux,
-}:
+{ lib, stdenv, fetchFromGitHub, iproute2, runtimeShell, systemd, coreutils
+, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "update-systemd-resolved";
@@ -29,18 +21,13 @@ stdenv.mkDerivation rec {
   postInstall = ''
     substituteInPlace ${PREFIX}/update-systemd-resolved \
       --subst-var-by PATH ${
-        lib.makeBinPath [
-          coreutils
-          iproute2
-          runtimeShell
-          systemd
-          util-linux
-        ]
+        lib.makeBinPath [ coreutils iproute2 runtimeShell systemd util-linux ]
       }
   '';
 
   meta = with lib; {
-    description = "Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus";
+    description =
+      "Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus";
     homepage = "https://github.com/jonathanio/update-systemd-resolved";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ eadwu ];

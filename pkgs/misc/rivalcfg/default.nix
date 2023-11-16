@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "rivalcfg";
@@ -15,10 +11,7 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-fCl+XY+R+QF7jWLkqii4v0sbXr7xoX3A3upm+XoBAms=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    hidapi
-    setuptools
-  ];
+  propagatedBuildInputs = with python3Packages; [ hidapi setuptools ];
 
   checkInputs = [ python3Packages.pytest ];
   checkPhase = "pytest";
@@ -39,7 +32,8 @@ python3Packages.buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Utility program that allows you to configure SteelSeries Rival gaming mice";
+    description =
+      "Utility program that allows you to configure SteelSeries Rival gaming mice";
     homepage = "https://github.com/flozz/rivalcfg";
     license = licenses.wtfpl;
     maintainers = with maintainers; [ ornxka ];

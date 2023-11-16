@@ -1,50 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  substituteAll,
-  pkg-config,
-  meson,
-  ninja,
-  gettext,
-  gnome,
-  wrapGAppsHook4,
-  packagekit,
-  ostree,
-  glib,
-  appstream,
-  libsoup_3,
-  libadwaita,
-  polkit,
-  isocodes,
-  gspell,
-  libxslt,
-  gobject-introspection,
-  flatpak,
-  fwupd,
-  gtk4,
-  gsettings-desktop-schemas,
-  gnome-desktop,
-  libgudev,
-  libxmlb,
-  malcontent,
-  json-glib,
-  libsecret,
-  valgrind-light,
-  docbook-xsl-nons,
-  docbook_xml_dtd_42,
-  docbook_xml_dtd_43,
-  gtk-doc,
-  desktop-file-utils,
-  libsysprof-capture,
-  gst_all_1,
+{ lib, stdenv, fetchurl, substituteAll, pkg-config, meson, ninja, gettext, gnome
+, wrapGAppsHook4, packagekit, ostree, glib, appstream, libsoup_3, libadwaita
+, polkit, isocodes, gspell, libxslt, gobject-introspection, flatpak, fwupd, gtk4
+, gsettings-desktop-schemas, gnome-desktop, libgudev, libxmlb, malcontent
+, json-glib, libsecret, valgrind-light, docbook-xsl-nons, docbook_xml_dtd_42
+, docbook_xml_dtd_43, gtk-doc, desktop-file-utils, libsysprof-capture, gst_all_1
 }:
 
-let
-  withFwupd = stdenv.hostPlatform.isx86;
-in
+let withFwupd = stdenv.hostPlatform.isx86;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gnome-software";
   version = "44.2";
 
@@ -102,12 +66,10 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-good
   ] ++ lib.optionals withFwupd [ fwupd ];
 
-  mesonFlags =
-    [
-      # Requires /etc/machine-id, D-Bus system bus, etc.
-      "-Dtests=false"
-    ]
-    ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ];
+  mesonFlags = [
+    # Requires /etc/machine-id, D-Bus system bus, etc.
+    "-Dtests=false"
+  ] ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -117,7 +79,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Software store that lets you install and update applications and system extensions";
+    description =
+      "Software store that lets you install and update applications and system extensions";
     homepage = "https://wiki.gnome.org/Apps/Software";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

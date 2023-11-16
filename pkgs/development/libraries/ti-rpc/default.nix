@@ -1,25 +1,17 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  autoreconfHook,
-  libkrb5,
-}:
+{ fetchurl, lib, stdenv, autoreconfHook, libkrb5 }:
 
 stdenv.mkDerivation rec {
   pname = "libtirpc";
   version = "1.3.3";
 
   src = fetchurl {
-    url = "http://git.linux-nfs.org/?p=steved/libtirpc.git;a=snapshot;h=0fb94eef5062d2657d75eee686fa47238fafa312;sf=tgz";
+    url =
+      "http://git.linux-nfs.org/?p=steved/libtirpc.git;a=snapshot;h=0fb94eef5062d2657d75eee686fa47238fafa312;sf=tgz";
     sha256 = "sha256-3P3xYKeAmLbBI4TdsG1VZBO7py9ktiwhXNtGsnryGNI=";
     name = "${pname}-${version}.tar.gz";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   KRB5_CONFIG = "${libkrb5.dev}/bin/krb5-config";
   nativeBuildInputs = [ autoreconfHook ];

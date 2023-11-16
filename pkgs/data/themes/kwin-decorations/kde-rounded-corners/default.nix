@@ -1,15 +1,5 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  wrapQtAppsHook,
-  kwin,
-  kdelibs4support,
-  libepoxy,
-  libxcb,
-  lib,
-}:
+{ stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, kwin
+, kdelibs4support, libepoxy, libxcb, lib }:
 
 stdenv.mkDerivation rec {
   pname = "kde-rounded-corners";
@@ -27,17 +17,8 @@ stdenv.mkDerivation rec {
       --replace "${kdelibs4support}" "$out"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
-  buildInputs = [
-    kwin
-    kdelibs4support
-    libepoxy
-    libxcb
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
+  buildInputs = [ kwin kdelibs4support libepoxy libxcb ];
 
   meta = with lib; {
     description = "Rounds the corners of your windows";

@@ -1,18 +1,5 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  makeWrapper,
-  unzip,
-  glib,
-  gtk2,
-  gtk3,
-  jre,
-  libXtst,
-  zulu,
-  preferGtk3 ? true,
-  preferZulu ? true,
-}:
+{ stdenv, fetchurl, lib, makeWrapper, unzip, glib, gtk2, gtk3, jre, libXtst
+, zulu, preferGtk3 ? true, preferZulu ? true }:
 
 let
   rev = 3423;
@@ -20,13 +7,15 @@ let
   gtk' = if preferGtk3 then gtk3 else gtk2;
 
   inherit (lib) makeLibraryPath versions;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "davmail";
   version = "6.1.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/${pname}/${version}/${pname}-${version}-${toString rev}.zip";
+    url = "mirror://sourceforge/${pname}/${version}/${pname}-${version}-${
+        toString rev
+      }.zip";
     sha256 = "sha256-/JsJFtGalNuOz21eeCPR/LvLueMtQAR7VSKN8SpnPvA=";
   };
 
@@ -36,10 +25,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper unzip ];
 
   installPhase = ''
     runHook preInstall
@@ -51,19 +37,14 @@ stdenv.mkDerivation rec {
         lib.versions.major gtk'.version
       }" \
       --prefix PATH : ${jre'}/bin \
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          glib
-          gtk'
-          libXtst
-        ]
-      }
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ glib gtk' libXtst ]}
 
     runHook postInstall
   '';
 
   meta = with lib; {
-    description = "A Java application which presents a Microsoft Exchange server as local CALDAV, IMAP and SMTP servers";
+    description =
+      "A Java application which presents a Microsoft Exchange server as local CALDAV, IMAP and SMTP servers";
     homepage = "https://davmail.sourceforge.net/";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ peterhoeg ];

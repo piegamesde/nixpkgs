@@ -1,19 +1,7 @@
-{
-  buildBazelPackage,
-  bazel_5,
-  fetchFromGitHub,
-  git,
-  go,
-  python3,
-  lib,
-  stdenv,
-}:
+{ buildBazelPackage, bazel_5, fetchFromGitHub, git, go, python3, lib, stdenv }:
 
 let
-  patches = [
-    ./use-go-in-path.patch
-    ./fix-rules-go-3408.patch
-  ];
+  patches = [ ./use-go-in-path.patch ./fix-rules-go-3408.patch ];
 
   # Patch the protoc alias so that it always builds from source.
   rulesProto = fetchFromGitHub {
@@ -28,8 +16,8 @@ let
       EOF
     '';
   };
-in
-buildBazelPackage rec {
+
+in buildBazelPackage rec {
   pname = "bazel-watcher";
   version = "0.21.2";
 
@@ -40,11 +28,7 @@ buildBazelPackage rec {
     sha256 = "sha256-wigrE9u1VuFnqLWyVJK3M7xsjyme2dDG6YTcD9whKnw=";
   };
 
-  nativeBuildInputs = [
-    go
-    git
-    python3
-  ];
+  nativeBuildInputs = [ go git python3 ];
   removeRulesCC = false;
 
   bazel = bazel_5;
@@ -57,7 +41,8 @@ buildBazelPackage rec {
   ];
   bazelTargets = [ "//cmd/ibazel" ];
 
-  fetchConfigured = false; # we want to fetch all dependencies, regardless of the current system
+  fetchConfigured =
+    false; # we want to fetch all dependencies, regardless of the current system
   fetchAttrs = {
     inherit patches;
 

@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchFromGitHub,
-  cmake,
-  capnproto,
-  sqlite,
-  boost,
-  zlib,
-  rapidjson,
-  pandoc,
-}:
+{ stdenv, lib, fetchurl, fetchFromGitHub, cmake, capnproto, sqlite, boost, zlib
+, rapidjson, pandoc }:
 let
   js.vue = fetchurl {
     url = "https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.min.js";
@@ -24,14 +13,10 @@ let
     url = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js";
     hash = "sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "laminar";
   version = "1.3";
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
   src = fetchFromGitHub {
     owner = "ohwgiles";
     repo = "laminar";
@@ -41,18 +26,8 @@ stdenv.mkDerivation rec {
   patches = [ ./patches/no-network.patch ];
 
   # We need both binary from "capnproto" and library files.
-  nativeBuildInputs = [
-    cmake
-    pandoc
-    capnproto
-  ];
-  buildInputs = [
-    capnproto
-    sqlite
-    boost
-    zlib
-    rapidjson
-  ];
+  nativeBuildInputs = [ cmake pandoc capnproto ];
+  buildInputs = [ capnproto sqlite boost zlib rapidjson ];
   cmakeFlags = [ "-DLAMINAR_VERSION=${version}" ];
 
   preBuild = ''
@@ -77,9 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://laminar.ohwg.net";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      kaction
-      maralorn
-    ];
+    maintainers = with maintainers; [ kaction maralorn ];
   };
 }

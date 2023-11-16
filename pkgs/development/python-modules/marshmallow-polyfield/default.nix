@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  marshmallow,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, marshmallow, pythonOlder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "marshmallow-polyfield";

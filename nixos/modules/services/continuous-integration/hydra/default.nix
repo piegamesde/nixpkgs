@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -21,69 +16,58 @@ let
     HYDRA_DATA = "${baseDir}";
   };
 
-  env =
-    {
-      NIX_REMOTE = "daemon";
-      SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # Remove in 16.03
-      PGPASSFILE = "${baseDir}/pgpass";
-      NIX_REMOTE_SYSTEMS = concatStringsSep ":" cfg.buildMachinesFiles;
-    }
-    // optionalAttrs (cfg.smtpHost != null) {
-      EMAIL_SENDER_TRANSPORT = "SMTP";
-      EMAIL_SENDER_TRANSPORT_host = cfg.smtpHost;
-    }
-    // hydraEnv
-    // cfg.extraEnv;
+  env = {
+    NIX_REMOTE = "daemon";
+    SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # Remove in 16.03
+    PGPASSFILE = "${baseDir}/pgpass";
+    NIX_REMOTE_SYSTEMS = concatStringsSep ":" cfg.buildMachinesFiles;
+  } // optionalAttrs (cfg.smtpHost != null) {
+    EMAIL_SENDER_TRANSPORT = "SMTP";
+    EMAIL_SENDER_TRANSPORT_host = cfg.smtpHost;
+  } // hydraEnv // cfg.extraEnv;
 
-  serverEnv =
-    env
-    // {
-      HYDRA_TRACKER = cfg.tracker;
-      XDG_CACHE_HOME = "${baseDir}/www/.cache";
-      COLUMNS = "80";
-      PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
-    }
-    // (optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; });
+  serverEnv = env // {
+    HYDRA_TRACKER = cfg.tracker;
+    XDG_CACHE_HOME = "${baseDir}/www/.cache";
+    COLUMNS = "80";
+    PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
+  } // (optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; });
 
   localDB = "dbi:Pg:dbname=hydra;user=hydra;";
 
   haveLocalDB = cfg.dbi == localDB;
 
-  hydra-package =
-    let
-      makeWrapperArgs = concatStringsSep " " (
-        mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv
-      );
-    in
-    pkgs.buildEnv rec {
-      name = "hydra-env";
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-      paths = [ cfg.package ];
+  hydra-package = let
+    makeWrapperArgs = concatStringsSep " "
+      (mapAttrsToList (key: value: ''--set "${key}" "${value}"'') hydraEnv);
+  in pkgs.buildEnv rec {
+    name = "hydra-env";
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    paths = [ cfg.package ];
 
-      postBuild = ''
-        if [ -L "$out/bin" ]; then
-            unlink "$out/bin"
-        fi
-        mkdir -p "$out/bin"
+    postBuild = ''
+      if [ -L "$out/bin" ]; then
+          unlink "$out/bin"
+      fi
+      mkdir -p "$out/bin"
 
-        for path in ${concatStringsSep " " paths}; do
-          if [ -d "$path/bin" ]; then
-            cd "$path/bin"
-            for prg in *; do
-              if [ -f "$prg" ]; then
-                rm -f "$out/bin/$prg"
-                if [ -x "$prg" ]; then
-                  makeWrapper "$path/bin/$prg" "$out/bin/$prg" ${makeWrapperArgs}
-                fi
+      for path in ${concatStringsSep " " paths}; do
+        if [ -d "$path/bin" ]; then
+          cd "$path/bin"
+          for prg in *; do
+            if [ -f "$prg" ]; then
+              rm -f "$out/bin/$prg"
+              if [ -x "$prg" ]; then
+                makeWrapper "$path/bin/$prg" "$out/bin/$prg" ${makeWrapperArgs}
               fi
-            done
-          fi
-        done
-      '';
-    };
-in
+            fi
+          done
+        fi
+      done
+    '';
+  };
 
-{
+in {
   ###### interface
   options = {
 
@@ -211,17 +195,17 @@ in
       gcRootsDir = mkOption {
         type = types.path;
         default = "/nix/var/nix/gcroots/hydra";
-        description = lib.mdDoc "Directory that holds Hydra garbage collector roots.";
+        description =
+          lib.mdDoc "Directory that holds Hydra garbage collector roots.";
       };
 
       buildMachinesFiles = mkOption {
         type = types.listOf types.path;
-        default = optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
-        defaultText = literalExpression ''optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
-        example = [
-          "/etc/nix/machines"
-          "/var/lib/hydra/provisioner/machines"
-        ];
+        default =
+          optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
+        defaultText = literalExpression
+          ''optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
+        example = [ "/etc/nix/machines" "/var/lib/hydra/provisioner/machines" ];
         description = lib.mdDoc "List of files containing build machines.";
       };
 
@@ -239,15 +223,14 @@ in
         '';
       };
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    users.groups.hydra = {
-      gid = config.ids.gids.hydra;
-    };
+    users.groups.hydra = { gid = config.ids.gids.hydra; };
 
     users.users.hydra = {
       description = "Hydra";
@@ -387,10 +370,7 @@ in
     systemd.services.hydra-queue-runner = {
       wantedBy = [ "multi-user.target" ];
       requires = [ "hydra-init.service" ];
-      after = [
-        "hydra-init.service"
-        "network.target"
-      ];
+      after = [ "hydra-init.service" "network.target" ];
       path = [
         hydra-package
         pkgs.nettools
@@ -405,7 +385,8 @@ in
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-queue-runner";
       };
       serviceConfig = {
-        ExecStart = "@${hydra-package}/bin/hydra-queue-runner hydra-queue-runner -v";
+        ExecStart =
+          "@${hydra-package}/bin/hydra-queue-runner hydra-queue-runner -v";
         ExecStopPost = "${hydra-package}/bin/hydra-queue-runner --unlock";
         User = "hydra-queue-runner";
         Restart = "always";
@@ -419,16 +400,8 @@ in
     systemd.services.hydra-evaluator = {
       wantedBy = [ "multi-user.target" ];
       requires = [ "hydra-init.service" ];
-      after = [
-        "hydra-init.service"
-        "network.target"
-        "network-online.target"
-      ];
-      path = with pkgs; [
-        hydra-package
-        nettools
-        jq
-      ];
+      after = [ "hydra-init.service" "network.target" "network-online.target" ];
+      path = with pkgs; [ hydra-package nettools jq ];
       restartTriggers = [ hydraConf ];
       environment = env // {
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-evaluator";
@@ -448,7 +421,8 @@ in
         HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-update-gc-roots";
       };
       serviceConfig = {
-        ExecStart = "@${hydra-package}/bin/hydra-update-gc-roots hydra-update-gc-roots";
+        ExecStart =
+          "@${hydra-package}/bin/hydra-update-gc-roots hydra-update-gc-roots";
         User = "hydra";
       };
       startAt = "2,14:15";
@@ -529,5 +503,7 @@ in
     services.postgresql.authentication = optionalString haveLocalDB ''
       local hydra all ident map=hydra-users
     '';
+
   };
+
 }

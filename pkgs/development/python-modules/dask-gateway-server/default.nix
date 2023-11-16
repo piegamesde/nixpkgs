@@ -1,17 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  colorlog,
-  cryptography,
-  fetchFromGitHub,
-  go,
-  pykerberos,
-  pythonOlder,
-  skein,
-  sqlalchemy,
-  traitlets,
-}:
+{ lib, aiohttp, buildPythonPackage, colorlog, cryptography, fetchFromGitHub, go
+, pykerberos, pythonOlder, skein, sqlalchemy, traitlets }:
 
 buildPythonPackage rec {
   pname = "dask-gateway-server";
@@ -31,21 +19,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ go ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    colorlog
-    cryptography
-    traitlets
-  ];
+  propagatedBuildInputs = [ aiohttp colorlog cryptography traitlets ];
 
   passthru.optional-dependencies = {
     kerberos = [ pykerberos ];
     jobqueue = [ sqlalchemy ];
     local = [ sqlalchemy ];
-    yarn = [
-      skein
-      sqlalchemy
-    ];
+    yarn = [ skein sqlalchemy ];
   };
 
   preBuild = ''
@@ -58,7 +38,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dask_gateway_server" ];
 
   meta = with lib; {
-    description = "A multi-tenant server for securely deploying and managing multiple Dask clusters";
+    description =
+      "A multi-tenant server for securely deploying and managing multiple Dask clusters";
     homepage = "https://gateway.dask.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];

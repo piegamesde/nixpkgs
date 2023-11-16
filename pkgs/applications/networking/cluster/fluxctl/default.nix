@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "fluxctl";
@@ -24,11 +19,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/fluxctl" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   postInstall = ''
     for shell in bash fish zsh; do
@@ -41,9 +32,6 @@ buildGoModule rec {
     description = "CLI client for Flux, the GitOps Kubernetes operator";
     homepage = "https://github.com/fluxcd/flux";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      Gonzih
-      Br1ght0ne
-    ];
+    maintainers = with maintainers; [ Gonzih Br1ght0ne ];
   };
 }

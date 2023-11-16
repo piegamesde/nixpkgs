@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-  dbus,
-  gnupg,
-  coreutils,
-  nixosTests,
-}:
+{ lib, fetchFromGitHub, python3, dbus, gnupg, coreutils, nixosTests }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pass-secret-service";
@@ -51,17 +43,8 @@ python3.pkgs.buildPythonApplication rec {
     secretstorage
   ];
 
-  nativeCheckInputs =
-    let
-      ps = python3.pkgs;
-    in
-    [
-      dbus
-      gnupg
-      ps.pytest
-      ps.pytest-asyncio
-      ps.pypass
-    ];
+  nativeCheckInputs = let ps = python3.pkgs;
+  in [ dbus gnupg ps.pytest ps.pytest-asyncio ps.pypass ];
 
   checkTarget = "test";
 
@@ -73,9 +56,6 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
     mainProgram = "pass_secret_service";
-    maintainers = with lib.maintainers; [
-      jluttine
-      aidalgol
-    ];
+    maintainers = with lib.maintainers; [ jluttine aidalgol ];
   };
 }

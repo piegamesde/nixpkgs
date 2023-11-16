@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  smbus-cffi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, smbus-cffi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "bme680";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
     cd library
   '';
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace library/setup.cfg \

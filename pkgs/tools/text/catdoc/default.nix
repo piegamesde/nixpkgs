@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchurl, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "catdoc";
@@ -16,7 +11,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://sources.debian.org/data/main/c/catdoc/1:0.95-4.1/debian/patches/05-CVE-2017-11110.patch";
+      url =
+        "https://sources.debian.org/data/main/c/catdoc/1:0.95-4.1/debian/patches/05-CVE-2017-11110.patch";
       sha256 = "1ljnwvssvzig94hwx8843b88p252ww2lbxh8zybcwr3kwwlcymx7";
     })
   ];

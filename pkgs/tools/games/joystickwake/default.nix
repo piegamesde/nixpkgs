@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 python3.pkgs.buildPythonApplication rec {
   pname = "joystickwake";
   version = "0.4.1";
@@ -14,11 +10,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-qf1owRdBGyU3q9ZJAzDEcMlnHfeUMSXga4v6QXdxXO0=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    dbus-next
-    pyudev
-    xlib
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ dbus-next pyudev xlib ];
 
   postInstall = ''
     # autostart file

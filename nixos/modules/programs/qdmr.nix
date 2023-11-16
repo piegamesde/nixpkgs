@@ -1,21 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.programs.qdmr;
-in
-{
+let cfg = config.programs.qdmr;
+in {
   meta.maintainers = [ lib.maintainers.janik ];
 
   options = {
     programs.qdmr = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "QDMR - a GUI application and command line tool for programming DMR radios"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc
+        "QDMR - a GUI application and command line tool for programming DMR radios");
       package = lib.mkPackageOptionMD pkgs "qdmr" { };
     };
   };

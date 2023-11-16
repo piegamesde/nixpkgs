@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  flex,
-  libuuid,
-  libx86emu,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, flex, libuuid, libx86emu, perl }:
 
 stdenv.mkDerivation rec {
   pname = "hwinfo";
@@ -21,11 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ flex ];
 
-  buildInputs = [
-    libuuid
-    libx86emu
-    perl
-  ];
+  buildInputs = [ libuuid libx86emu perl ];
 
   postPatch = ''
     # VERSION and changelog are usually generated using Git

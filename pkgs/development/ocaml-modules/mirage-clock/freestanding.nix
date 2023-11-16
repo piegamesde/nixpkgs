@@ -1,18 +1,9 @@
-{
-  lib,
-  buildDunePackage,
-  mirage-clock,
-}:
+{ lib, buildDunePackage, mirage-clock }:
 
 buildDunePackage {
   pname = "mirage-clock-freestanding";
 
-  inherit (mirage-clock)
-    version
-    src
-    useDune2
-    minimumOCamlVersion
-  ;
+  inherit (mirage-clock) version src useDune2 minimumOCamlVersion;
 
   propagatedBuildInputs = [ mirage-clock ];
 

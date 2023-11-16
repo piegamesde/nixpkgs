@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  glib,
-  gobject-introspection,
-  gnome,
-  webkitgtk_4_1,
-  libsoup_3,
-  libxml2,
-  libarchive,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, glib, gobject-introspection
+, gnome, webkitgtk_4_1, libsoup_3, libxml2, libarchive }:
 
 stdenv.mkDerivation rec {
   pname = "libgepub";
@@ -25,20 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "IQpMeJXC6E8BpWglArpej6PqiWrzFw+yWS/OHdpW4C4=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config gobject-introspection ];
 
-  buildInputs = [
-    glib
-    webkitgtk_4_1
-    libsoup_3
-    libxml2
-    libarchive
-  ];
+  buildInputs = [ glib webkitgtk_4_1 libsoup_3 libxml2 libarchive ];
 
   doCheck = true;
 
@@ -50,7 +26,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "GObject based library for handling and rendering epub documents";
+    description =
+      "GObject based library for handling and rendering epub documents";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
     maintainers = teams.gnome.members;

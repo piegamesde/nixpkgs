@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 
 with lib;
 
@@ -12,9 +7,9 @@ let
 
   format = pkgs.formats.json { };
 
-  configFile = format.generate "grafana-image-renderer-config.json" cfg.settings;
-in
-{
+  configFile =
+    format.generate "grafana-image-renderer-config.json" cfg.settings;
+in {
   options.services.grafana-image-renderer = {
     enable = mkEnableOption (lib.mdDoc "grafana-image-renderer");
 
@@ -27,7 +22,8 @@ in
 
     verbose = mkEnableOption (lib.mdDoc "verbosity for the service");
 
-    provisionGrafana = mkEnableOption (lib.mdDoc "Grafana configuration for grafana-image-renderer");
+    provisionGrafana = mkEnableOption
+      (lib.mdDoc "Grafana configuration for grafana-image-renderer");
 
     settings = mkOption {
       type = types.submodule {
@@ -43,12 +39,7 @@ in
               '';
             };
             logging.level = mkOption {
-              type = types.enum [
-                "error"
-                "warning"
-                "info"
-                "debug"
-              ];
+              type = types.enum [ "error" "warning" "info" "debug" ];
               default = "info";
               description = lib.mdDoc ''
                 The log-level of the {file}`grafana-image-renderer.service`-unit.
@@ -72,11 +63,7 @@ in
             };
             mode = mkOption {
               default = "default";
-              type = types.enum [
-                "default"
-                "reusable"
-                "clustered"
-              ];
+              type = types.enum [ "default" "reusable" "clustered" ];
               description = lib.mdDoc ''
                 Rendering mode of `grafana-image-renderer`:
 
@@ -112,19 +99,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.provisionGrafana -> config.services.grafana.enable;
-        message = ''
-          To provision a Grafana instance to use grafana-image-renderer,
-          `services.grafana.enable` must be set to `true`!
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = cfg.provisionGrafana -> config.services.grafana.enable;
+      message = ''
+        To provision a Grafana instance to use grafana-image-renderer,
+        `services.grafana.enable` must be set to `true`!
+      '';
+    }];
 
     services.grafana.settings.rendering = mkIf cfg.provisionGrafana {
-      server_url = "http://localhost:${toString cfg.settings.service.port}/render";
-      callback_url = "http://localhost:${toString config.services.grafana.settings.server.http_port}";
+      server_url =
+        "http://localhost:${toString cfg.settings.service.port}/render";
+      callback_url = "http://localhost:${
+          toString config.services.grafana.settings.server.http_port
+        }";
     };
 
     services.grafana-image-renderer.chromium = mkDefault pkgs.chromium;
@@ -145,16 +133,16 @@ in
     systemd.services.grafana-image-renderer = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      description = " A Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
+      description =
+        " A Grafana backend plugin that handles rendering of panels & dashboards to PNGs using headless browser (Chromium/Chrome)";
 
-      environment = {
-        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true";
-      };
+      environment = { PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"; };
 
       serviceConfig = {
         DynamicUser = true;
         PrivateTmp = true;
-        ExecStart = "${pkgs.grafana-image-renderer}/bin/grafana-image-renderer server --config=${configFile}";
+        ExecStart =
+          "${pkgs.grafana-image-renderer}/bin/grafana-image-renderer server --config=${configFile}";
         Restart = "always";
       };
     };

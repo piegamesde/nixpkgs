@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,8 @@ let
 
   cfg = config.services.xserver.cmt;
   etcPath = "X11/xorg.conf.d";
-in
-{
+
+in {
 
   options = {
 
@@ -20,9 +15,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable chrome multitouch input (cmt). Touchpad drivers that are configured for chromebooks.";
+        description = lib.mdDoc
+          "Enable chrome multitouch input (cmt). Touchpad drivers that are configured for chromebooks.";
       };
       models = mkOption {
         type = types.enum [
@@ -93,23 +87,23 @@ in
         source = "${pkgs.chromium-xorg-conf}/40-touchpad-cmt.conf";
       };
       "${etcPath}/50-touchpad-cmt-${cfg.models}.conf" = {
-        source = "${pkgs.chromium-xorg-conf}/50-touchpad-cmt-${cfg.models}.conf";
+        source =
+          "${pkgs.chromium-xorg-conf}/50-touchpad-cmt-${cfg.models}.conf";
       };
       "${etcPath}/60-touchpad-cmt-${cfg.models}.conf" = {
-        source = "${pkgs.chromium-xorg-conf}/60-touchpad-cmt-${cfg.models}.conf";
+        source =
+          "${pkgs.chromium-xorg-conf}/60-touchpad-cmt-${cfg.models}.conf";
       };
     };
 
-    assertions = [
-      {
-        assertion = !config.services.xserver.libinput.enable;
-        message = ''
-          cmt and libinput are incompatible, meaning you cannot enable them both.
-          To use cmt you need to disable libinput with `services.xserver.libinput.enable = false`
-          If you haven't enabled it in configuration.nix, it's enabled by default on a
-          different xserver module.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = !config.services.xserver.libinput.enable;
+      message = ''
+        cmt and libinput are incompatible, meaning you cannot enable them both.
+        To use cmt you need to disable libinput with `services.xserver.libinput.enable = false`
+        If you haven't enabled it in configuration.nix, it's enabled by default on a
+        different xserver module.
+      '';
+    }];
   };
 }

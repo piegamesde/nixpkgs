@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  jupyter-packaging,
-}:
+{ lib, buildPythonPackage, fetchPypi, jupyter-packaging }:
 
 buildPythonPackage rec {
   pname = "jupyterlab-widgets";
@@ -26,9 +21,6 @@ buildPythonPackage rec {
     description = "Jupyter Widgets JupyterLab Extension";
     homepage = "https://github.com/jupyter-widgets/ipywidgets";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      jonringer
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ jonringer SuperSandro2000 ];
   };
 }

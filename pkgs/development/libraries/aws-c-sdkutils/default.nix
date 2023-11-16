@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  aws-c-common,
-  cmake,
-  nix,
-}:
+{ lib, stdenv, fetchFromGitHub, aws-c-common, cmake, nix }:
 
 stdenv.mkDerivation rec {
   pname = "aws-c-sdkutils";
@@ -26,9 +19,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.tests = {
-    inherit nix;
-  };
+  passthru.tests = { inherit nix; };
 
   meta = with lib; {
     description = "AWS SDK utility library";

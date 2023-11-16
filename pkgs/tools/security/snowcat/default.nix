@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "snowcat";
@@ -16,14 +12,12 @@ buildGoModule rec {
   };
   vendorSha256 = "sha256-D6ipwGMxT0B3uYUzg6Oo2TYnsOVBY0mYO5lC7vtVPc0=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://github.com/praetorian-inc/snowcat";
-    changelog = "https://github.com/praetorian-inc/snowcat/releases/tag/v${version}";
+    changelog =
+      "https://github.com/praetorian-inc/snowcat/releases/tag/v${version}";
     description = "A tool to audit the istio service mesh";
     longDescription = ''
       Snowcat gathers and analyzes the configuration of an Istio cluster and

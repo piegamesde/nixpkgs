@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  click,
-  twisted,
-}:
+{ lib, buildPythonPackage, fetchPypi, click, twisted }:
 
 let
   incremental = buildPythonPackage rec {
@@ -35,10 +29,10 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/twisted/incremental";
-      description = "Incremental is a small library that versions your Python projects";
+      description =
+        "Incremental is a small library that versions your Python projects";
       license = licenses.mit;
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in
-incremental
+in incremental

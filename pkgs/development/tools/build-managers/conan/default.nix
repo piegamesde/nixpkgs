@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  git,
-  pkg-config,
-  python3,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, git, pkg-config, python3, zlib }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "conan";
@@ -20,8 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-+ohUOQ9WBER/X0TDklf/qZCm9LhM1I1QRmED4FnkweM=";
   };
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       bottle
       colorama
@@ -38,55 +29,37 @@ python3.pkgs.buildPythonApplication rec {
       requests
       tqdm
       urllib3
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      idna
-      cryptography
-      pyopenssl
-    ];
+    ] ++ lib.optionals stdenv.isDarwin [ idna cryptography pyopenssl ];
 
-  nativeCheckInputs =
-    [
-      git
-      pkg-config
-      zlib
-    ]
-    ++ (
-      with python3.pkgs; [
-        mock
-        parameterized
-        pytest-xdist
-        pytestCheckHook
-        webtest
-      ]
-    );
+  nativeCheckInputs = [ git pkg-config zlib ] ++ (with python3.pkgs; [
+    mock
+    parameterized
+    pytest-xdist
+    pytestCheckHook
+    webtest
+  ]);
 
   __darwinAllowLocalNetworking = true;
 
   pythonImportsCheck = [ "conan" ];
 
-  pytestFlagsArray = [
-    "-n"
-    "$NIX_BUILD_CORES"
-  ];
+  pytestFlagsArray = [ "-n" "$NIX_BUILD_CORES" ];
 
-  disabledTests =
-    [
-      # Tests require network access
-      "TestFTP"
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      # Rejects paths containing nix
-      "test_conditional_os"
-      # Requires Apple Clang
-      "test_detect_default_compilers"
-      "test_detect_default_in_mac_os_using_gcc_as_default"
-      # Incompatible with darwin.xattr and xcbuild from nixpkgs
-      "test_dot_files"
-      "test_xcrun"
-      "test_xcrun_in_required_by_tool_requires"
-      "test_xcrun_in_tool_requires"
-    ];
+  disabledTests = [
+    # Tests require network access
+    "TestFTP"
+  ] ++ lib.optionals stdenv.isDarwin [
+    # Rejects paths containing nix
+    "test_conditional_os"
+    # Requires Apple Clang
+    "test_detect_default_compilers"
+    "test_detect_default_in_mac_os_using_gcc_as_default"
+    # Incompatible with darwin.xattr and xcbuild from nixpkgs
+    "test_dot_files"
+    "test_xcrun"
+    "test_xcrun_in_required_by_tool_requires"
+    "test_xcrun_in_tool_requires"
+  ];
 
   disabledTestPaths = [
     # Requires cmake, meson, autotools, apt-get, etc.

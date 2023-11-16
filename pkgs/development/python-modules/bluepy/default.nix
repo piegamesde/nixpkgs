@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pkg-config,
-  glib,
-}:
+{ lib, buildPythonPackage, fetchPypi, pkg-config, glib }:
 
 buildPythonPackage rec {
   pname = "bluepy";

@@ -1,19 +1,5 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  libtool,
-  gettext,
-  zlib,
-  readline,
-  gsasl,
-  guile,
-  python3,
-  pcre,
-  libffi,
-  groff,
-  libxcrypt,
-}:
+{ fetchurl, lib, stdenv, libtool, gettext, zlib, readline, gsasl, guile, python3
+, pcre, libffi, groff, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "dico";
@@ -28,18 +14,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ groff ];
 
-  buildInputs = [
-    libtool
-    gettext
-    zlib
-    readline
-    gsasl
-    guile
-    python3
-    pcre
-    libffi
-    libxcrypt
-  ];
+  buildInputs =
+    [ libtool gettext zlib readline gsasl guile python3 pcre libffi libxcrypt ];
 
   strictDeps = true;
 

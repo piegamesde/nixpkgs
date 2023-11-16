@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fontforge,
-}:
+{ lib, stdenv, fetchurl, fontforge }:
 
 stdenv.mkDerivation {
   pname = "linux-libertine";
   version = "5.3.0";
 
   src = fetchurl {
-    url = "mirror://sourceforge/linuxlibertine/5.3.0/LinLibertineSRC_5.3.0_2012_07_02.tgz";
+    url =
+      "mirror://sourceforge/linuxlibertine/5.3.0/LinLibertineSRC_5.3.0_2012_07_02.tgz";
     hash = "sha256-G+xDYKJvHPMzwnktkg9cpNTv9E9d5QFgDjReuKH57HQ=";
   };
 

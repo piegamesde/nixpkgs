@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "awslimitchecker";
@@ -31,11 +27,10 @@ python3Packages.buildPythonApplication rec {
     testfixtures
   ];
 
-  patches =
-    [
-      # Fix the version lookup to use only the hardcoded version in the source package
-      ./version.patch
-    ];
+  patches = [
+    # Fix the version lookup to use only the hardcoded version in the source package
+    ./version.patch
+  ];
 
   pytestFlagsArray = [ "awslimitchecker/tests" ];
 
@@ -53,8 +48,10 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "http://awslimitchecker.readthedocs.org";
-    changelog = "https://github.com/jantman/awslimitchecker/blob/${version}/CHANGES.rst";
-    description = "A script and python package to check your AWS service limits and usage via boto3";
+    changelog =
+      "https://github.com/jantman/awslimitchecker/blob/${version}/CHANGES.rst";
+    description =
+      "A script and python package to check your AWS service limits and usage via boto3";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ zakame ];
   };

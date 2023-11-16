@@ -7,17 +7,12 @@
   services.xserver = {
     enable = true;
     displayManager.sddm.enable = true;
-    desktopManager.plasma5 = {
-      enable = true;
-    };
+    desktopManager.plasma5 = { enable = true; };
     libinput.enable = true; # for touchpad support on many laptops
   };
 
   # Enable sound in virtualbox appliances.
   hardware.pulseaudio.enable = true;
 
-  environment.systemPackages = [
-    pkgs.glxinfo
-    pkgs.firefox
-  ];
+  environment.systemPackages = [ pkgs.glxinfo pkgs.firefox ];
 }

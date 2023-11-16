@@ -1,11 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  fetchpatch,
-  nasm,
-  enableShared ? !stdenv.hostPlatform.isStatic,
-}:
+{ stdenv, lib, fetchFromGitLab, fetchpatch, nasm
+, enableShared ? !stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "x264";
@@ -26,7 +20,8 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       # https://code.videolan.org/videolan/x264/-/merge_requests/114
       name = "fix-parallelism.patch";
-      url = "https://code.videolan.org/videolan/x264/-/commit/e067ab0b530395f90b578f6d05ab0a225e2efdf9.patch";
+      url =
+        "https://code.videolan.org/videolan/x264/-/commit/e067ab0b530395f90b578f6d05ab0a225e2efdf9.patch";
       hash = "sha256-16h2IUCRjYlKI2RXYq8QyXukAdfoQxyBKsK/nI6vhRI=";
     })
   ];
@@ -37,27 +32,19 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
+  outputs = [ "out" "lib" "dev" ];
 
-  preConfigure =
-    lib.optionalString stdenv.hostPlatform.isx86 ''
-      # `AS' is set to the binutils assembler, but we need nasm
-      unset AS
-    ''
-    + lib.optionalString stdenv.hostPlatform.isAarch ''
-      export AS=$CC
-    '';
+  preConfigure = lib.optionalString stdenv.hostPlatform.isx86 ''
+    # `AS' is set to the binutils assembler, but we need nasm
+    unset AS
+  '' + lib.optionalString stdenv.hostPlatform.isAarch ''
+    export AS=$CC
+  '';
 
-  configureFlags =
-    lib.optional enableShared "--enable-shared"
+  configureFlags = lib.optional enableShared "--enable-shared"
     ++ lib.optional (!stdenv.isi686) "--enable-pic"
-    ++
-      lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-        "--cross-prefix=${stdenv.cc.targetPrefix}";
+    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
+    "--cross-prefix=${stdenv.cc.targetPrefix}";
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isx86 nasm;
 

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchurl,
-  jdk,
-  buildFHSEnv,
-  unzip,
-  makeDesktopItem,
-}:
+{ lib, fetchurl, jdk, buildFHSEnv, unzip, makeDesktopItem }:
 let
   version = "2023.5.3";
 
@@ -19,27 +12,23 @@ let
   };
 
   name = "burpsuite-${version}";
-  description = "An integrated platform for performing security testing of web applications";
+  description =
+    "An integrated platform for performing security testing of web applications";
   desktopItem = makeDesktopItem rec {
     name = "burpsuite";
     exec = name;
     icon = name;
     desktopName = "Burp Suite Community Edition";
     comment = description;
-    categories = [
-      "Development"
-      "Security"
-      "System"
-    ];
+    categories = [ "Development" "Security" "System" ];
   };
-in
-buildFHSEnv {
+
+in buildFHSEnv {
   inherit name;
 
   runScript = "${jdk}/bin/java -jar ${src}";
 
-  targetPkgs =
-    pkgs:
+  targetPkgs = pkgs:
     with pkgs; [
       alsa-lib
       at-spi2-core
@@ -88,9 +77,6 @@ buildFHSEnv {
     license = licenses.unfree;
     platforms = jdk.meta.platforms;
     hydraPlatforms = [ ];
-    maintainers = with maintainers; [
-      bennofs
-      stepech
-    ];
+    maintainers = with maintainers; [ bennofs stepech ];
   };
 }

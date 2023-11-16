@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  src,
-  pkg-config,
-  tcl,
-  libXft,
-  patches ? [ ],
-  enableAqua ? stdenv.isDarwin,
-  darwin,
-  ...
-}:
+{ stdenv, lib, src, pkg-config, tcl, libXft, patches ? [ ]
+, enableAqua ? stdenv.isDarwin, darwin, ... }:
 
 tcl.mkTclDerivation {
   pname = "tk";
@@ -17,11 +7,7 @@ tcl.mkTclDerivation {
 
   inherit src patches;
 
-  outputs = [
-    "out"
-    "man"
-    "dev"
-  ];
+  outputs = [ "out" "man" "dev" ];
 
   setOutputFlags = false;
 
@@ -30,44 +16,35 @@ tcl.mkTclDerivation {
     cd unix
   '';
 
-  postPatch =
-    ''
-      for file in $(find library/demos/. -type f ! -name "*.*"); do
-        substituteInPlace $file --replace "exec wish" "exec $out/bin/wish"
-      done
-    ''
-    +
-      lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11")
-        ''
-          substituteInPlace unix/configure* \
-            --replace " -framework UniformTypeIdentifiers" ""
-        '';
-
-  postInstall =
-    ''
-      ln -s $out/bin/wish* $out/bin/wish
-      cp ../{unix,generic}/*.h $out/include
-      ln -s $out/lib/libtk${tcl.release}${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${stdenv.hostPlatform.extensions.sharedLibrary}
-    ''
-    + lib.optionalString (stdenv.isDarwin) ''
-      cp ../macosx/*.h $out/include
+  postPatch = ''
+    for file in $(find library/demos/. -type f ! -name "*.*"); do
+      substituteInPlace $file --replace "exec wish" "exec $out/bin/wish"
+    done
+  '' + lib.optionalString (stdenv.isDarwin
+    && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11") ''
+      substituteInPlace unix/configure* \
+        --replace " -framework UniformTypeIdentifiers" ""
     '';
 
-  configureFlags = [
-    "--enable-threads"
-  ] ++ lib.optional stdenv.is64bit "--enable-64bit" ++ lib.optional enableAqua "--enable-aqua";
+  postInstall = ''
+    ln -s $out/bin/wish* $out/bin/wish
+    cp ../{unix,generic}/*.h $out/include
+    ln -s $out/lib/libtk${tcl.release}${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libtk${stdenv.hostPlatform.extensions.sharedLibrary}
+  '' + lib.optionalString (stdenv.isDarwin) ''
+    cp ../macosx/*.h $out/include
+  '';
+
+  configureFlags = [ "--enable-threads" ]
+    ++ lib.optional stdenv.is64bit "--enable-64bit"
+    ++ lib.optional enableAqua "--enable-aqua";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ];
 
-  propagatedBuildInputs =
-    [ libXft ]
-    ++ lib.optionals enableAqua (
-      [ darwin.apple_sdk.frameworks.Cocoa ]
-      ++ lib.optionals (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
-        darwin.apple_sdk.frameworks.UniformTypeIdentifiers
-      ]
-    );
+  propagatedBuildInputs = [ libXft ] ++ lib.optionals enableAqua
+    ([ darwin.apple_sdk.frameworks.Cocoa ] ++ lib.optionals
+      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+      [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]);
 
   enableParallelBuilding = true;
 
@@ -82,13 +59,11 @@ tcl.mkTclDerivation {
   };
 
   meta = with lib; {
-    description = "A widget toolkit that provides a library of basic elements for building a GUI in many different programming languages";
+    description =
+      "A widget toolkit that provides a library of basic elements for building a GUI in many different programming languages";
     homepage = "https://www.tcl.tk/";
     license = licenses.tcltk;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      lovek323
-      vrthra
-    ];
+    maintainers = with maintainers; [ lovek323 vrthra ];
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "doggo";
@@ -20,10 +15,7 @@ buildGoModule rec {
   nativeBuildInputs = [ installShellFiles ];
   subPackages = [ "cmd/doggo" ];
 
-  ldflags = [
-    "-w -s"
-    "-X main.buildVersion=v${version}"
-  ];
+  ldflags = [ "-w -s" "-X main.buildVersion=v${version}" ];
 
   postInstall = ''
     installShellCompletion --cmd doggo \

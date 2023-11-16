@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  pyyaml,
-  ruamel-yaml,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, pyyaml
+, ruamel-yaml }:
 
 buildPythonPackage rec {
   pname = "yamale";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-1GFvgfy3MDsJGKSEm0yaQoLM7VqIS2wphw16trNTUOc=";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-    ruamel-yaml
-  ];
+  propagatedBuildInputs = [ pyyaml ruamel-yaml ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

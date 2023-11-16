@@ -1,19 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  cfitsio,
-  libusb1,
-  zlib,
-  boost,
-  libev,
-  libnova,
-  curl,
-  libjpeg,
-  gsl,
-  fftw,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, cfitsio, libusb1, zlib, boost, libev
+, libnova, curl, libjpeg, gsl, fftw }:
 
 stdenv.mkDerivation rec {
   pname = "indilib";
@@ -28,27 +14,16 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    curl
-    cfitsio
-    libev
-    libusb1
-    zlib
-    boost
-    libnova
-    libjpeg
-    gsl
-    fftw
-  ];
+  buildInputs =
+    [ curl cfitsio libev libusb1 zlib boost libnova libjpeg gsl fftw ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_LIBDIR=lib"
-    "-DUDEVRULES_INSTALL_DIR=lib/udev/rules.d"
-  ];
+  cmakeFlags =
+    [ "-DCMAKE_INSTALL_LIBDIR=lib" "-DUDEVRULES_INSTALL_DIR=lib/udev/rules.d" ];
 
   meta = with lib; {
     homepage = "https://www.indilib.org/";
-    description = "Implementation of the INDI protocol for POSIX operating systems";
+    description =
+      "Implementation of the INDI protocol for POSIX operating systems";
     changelog = "https://github.com/indilib/indi/releases/tag/v${version}";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ hjones2199 ];

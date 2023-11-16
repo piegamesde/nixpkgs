@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  expat,
-}:
+{ lib, stdenv, fetchurl, expat }:
 
 stdenv.mkDerivation rec {
   pname = "docbook2mdoc";

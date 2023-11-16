@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  decorator,
-  fetchFromGitHub,
-  ply,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, decorator, fetchFromGitHub, ply, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bc-jsonpath-ng";
@@ -22,18 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-Uho+slKmKkTrcJBKi+9GJv1JrvDrTP4/6uqmMn3qptU=";
   };
 
-  propagatedBuildInputs = [
-    decorator
-    ply
-  ];
+  propagatedBuildInputs = [ decorator ply ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Exclude tests that require oslotest
-      "tests/test_jsonpath_rw_ext.py"
-    ];
+  disabledTestPaths = [
+    # Exclude tests that require oslotest
+    "tests/test_jsonpath_rw_ext.py"
+  ];
 
   pythonImportsCheck = [ "bc_jsonpath_ng" ];
 

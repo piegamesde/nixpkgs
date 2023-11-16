@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  boost,
-}:
+{ lib, stdenv, fetchurl, boost }:
 
 stdenv.mkDerivation rec {
   pname = "mini-httpd";
   version = "1.7";
 
   src = fetchurl {
-    url = "https://download-mirror.savannah.gnu.org/releases/mini-httpd/${pname}-${version}.tar.gz";
+    url =
+      "https://download-mirror.savannah.gnu.org/releases/mini-httpd/${pname}-${version}.tar.gz";
     sha256 = "0jggmlaywjfbdljzv5hyiz49plnxh0har2bnc9dq4xmj1pmjgs49";
   };
 

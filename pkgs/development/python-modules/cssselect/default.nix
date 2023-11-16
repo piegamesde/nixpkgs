@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-  pytestCheckHook,
-  lxml,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, pytestCheckHook
+, lxml }:
 
 buildPythonPackage rec {
   pname = "cssselect";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    lxml
-  ];
+  nativeCheckInputs = [ pytestCheckHook lxml ];
 
   pythonImportsCheck = [ "cssselect" ];
 

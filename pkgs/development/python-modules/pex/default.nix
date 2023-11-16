@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pex";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pex" ];
 
   meta = with lib; {
-    description = "Python library and tool for generating .pex (Python EXecutable) files";
+    description =
+      "Python library and tool for generating .pex (Python EXecutable) files";
     homepage = "https://github.com/pantsbuild/pex";
     changelog = "https://github.com/pantsbuild/pex/releases/tag/v${version}";
     license = licenses.asl20;

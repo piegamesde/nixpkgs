@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  smartmontools,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, smartmontools }:
 
 stdenv.mkDerivation rec {
   pname = "check_smartmon";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "tiIeFiHdDgqoeznk9XdCE7owIMnnsQ0fmtj8foFoUD8=";
   };
 
-  buildInputs = [
-    (python3.withPackages (pp: [ pp.psutil ]))
-    smartmontools
-  ];
+  buildInputs = [ (python3.withPackages (pp: [ pp.psutil ])) smartmontools ];
 
   postPatch = ''
     patchShebangs check_smartmon.py
@@ -35,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A Nagios-Plugin that uses smartmontools to check disk health status and temperature";
+    description =
+      "A Nagios-Plugin that uses smartmontools to check disk health status and temperature";
     homepage = "https://github.com/driehuis/Nagios_check_smartmon";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ mariaa144 ];

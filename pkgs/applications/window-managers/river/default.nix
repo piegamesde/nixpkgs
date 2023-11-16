@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zig,
-  wayland,
-  pkg-config,
-  scdoc,
-  xwayland,
-  wayland-protocols,
-  wlroots_0_16,
-  libxkbcommon,
-  pixman,
-  udev,
-  libevdev,
-  libinput,
-  libGL,
-  libX11,
-  xwaylandSupport ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, zig, wayland, pkg-config, scdoc, xwayland
+, wayland-protocols, wlroots_0_16, libxkbcommon, pixman, udev, libevdev
+, libinput, libGL, libX11, xwaylandSupport ? true }:
 
 stdenv.mkDerivation rec {
   pname = "river";
@@ -31,13 +14,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    zig
-    wayland
-    xwayland
-    scdoc
-    pkg-config
-  ];
+  nativeBuildInputs = [ zig wayland xwayland scdoc pkg-config ];
 
   buildInputs = [
     wayland-protocols
@@ -79,10 +56,6 @@ stdenv.mkDerivation rec {
     description = "A dynamic tiling wayland compositor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      fortuneteller2k
-      adamcstephens
-      rodrgz
-    ];
+    maintainers = with maintainers; [ fortuneteller2k adamcstephens rodrgz ];
   };
 }

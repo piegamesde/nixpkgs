@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  bison,
-  flex,
-  openssl,
-  gnutls,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, openssl, gnutls }:
 
 stdenv.mkDerivation rec {
   pname = "charybdis";
@@ -34,15 +25,8 @@ stdenv.mkDerivation rec {
     "--with-program-prefix=charybdis-"
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-  ];
-  buildInputs = [
-    openssl
-    gnutls
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex ];
+  buildInputs = [ openssl gnutls ];
 
   meta = with lib; {
     description = "IRCv3 server designed to be highly scalable";
@@ -51,4 +35,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ lassulus ];
     platforms = platforms.unix;
   };
+
 }

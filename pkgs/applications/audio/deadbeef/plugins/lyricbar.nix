@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  deadbeef,
-  gtkmm3,
-  libxmlxx3,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, deadbeef, gtkmm3, libxmlxx3 }:
 
 stdenv.mkDerivation {
   pname = "deadbeef-lyricbar-plugin";
@@ -20,16 +12,13 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    deadbeef
-    gtkmm3
-    libxmlxx3
-  ];
+  buildInputs = [ deadbeef gtkmm3 libxmlxx3 ];
 
   buildFlags = [ "gtk3" ];
 
   meta = with lib; {
-    description = "Plugin for DeaDBeeF audio player that fetches and shows the song’s lyrics";
+    description =
+      "Plugin for DeaDBeeF audio player that fetches and shows the song’s lyrics";
     homepage = "https://github.com/C0rn3j/deadbeef-lyricbar";
     license = licenses.mit;
     maintainers = [ maintainers.jtojnar ];

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "kube-hunter";
@@ -32,10 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     kubernetes
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook requests-mock ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -46,11 +39,10 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "kube_hunter" ];
 
-  disabledTests =
-    [
-      # Test is out-dated
-      "test_K8sCveHunter"
-    ];
+  disabledTests = [
+    # Test is out-dated
+    "test_K8sCveHunter"
+  ];
 
   meta = with lib; {
     description = "Tool to search issues in Kubernetes clusters";

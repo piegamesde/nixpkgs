@@ -1,21 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.trezord;
-in
-{
+let cfg = config.services.trezord;
+in {
 
   ### docs
 
-  meta = {
-    doc = ./trezord.md;
-  };
+  meta = { doc = ./trezord.md; };
 
   ### interface
 
@@ -60,7 +51,8 @@ in
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.trezord}/bin/trezord-go ${
-            optionalString cfg.emulator.enable "-e ${builtins.toString cfg.emulator.port}"
+            optionalString cfg.emulator.enable
+            "-e ${builtins.toString cfg.emulator.port}"
           }";
         User = "trezord";
       };
@@ -75,3 +67,4 @@ in
     users.groups.trezord = { };
   };
 }
+

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  dnspython,
-  fetchFromGitHub,
-  iana-etc,
-  libredirect,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-}:
+{ lib, stdenv, buildPythonPackage, dnspython, fetchFromGitHub, iana-etc
+, libredirect, pytestCheckHook, pythonOlder, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "ipwhois";
@@ -41,22 +31,19 @@ buildPythonPackage rec {
       LD_PRELOAD=${libredirect}/lib/libredirect.so
   '';
 
-  disabledTestPaths =
-    [
-      # Tests require network access
-      "ipwhois/tests/online/"
-    ];
-
-  disabledTests = [
-    "test_lookup"
-    "test_unique_addresses"
-    "test_get_http_json"
+  disabledTestPaths = [
+    # Tests require network access
+    "ipwhois/tests/online/"
   ];
+
+  disabledTests =
+    [ "test_lookup" "test_unique_addresses" "test_get_http_json" ];
 
   meta = with lib; {
     description = "Library to retrieve and parse whois data";
     homepage = "https://github.com/secynic/ipwhois";
-    changelog = "https://github.com/secynic/ipwhois/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/secynic/ipwhois/blob/v${version}/CHANGES.rst";
     license = licenses.bsd2;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  django,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, django, six }:
 
 buildPythonPackage rec {
   pname = "django-compat";
@@ -34,13 +27,11 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  propagatedBuildInputs = [
-    django
-    six
-  ];
+  propagatedBuildInputs = [ django six ];
 
   meta = with lib; {
-    description = "Forward and backwards compatibility layer for Django 1.4, 1.7, 1.8, 1.9, 1.10 and 1.11";
+    description =
+      "Forward and backwards compatibility layer for Django 1.4, 1.7, 1.8, 1.9, 1.10 and 1.11";
     homepage = "https://github.com/arteria/django-compat";
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];

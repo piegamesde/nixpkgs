@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, lib, pkgs, utils, ... }:
 
 with utils.systemdUtils.unitOptions;
 with utils.systemdUtils.lib;
@@ -78,12 +72,7 @@ let
     (assertValueOneOf "ReadOnly" boolValues)
     (assertValueOneOf "Volatile" (boolValues ++ [ "state" ]))
     (assertValueOneOf "PrivateUsersChown" boolValues)
-    (assertValueOneOf "PrivateUsersOwnership" [
-      "off"
-      "chown"
-      "map"
-      "auto"
-    ])
+    (assertValueOneOf "PrivateUsersOwnership" [ "off" "chown" "map" "auto" ])
   ];
 
   checkNetwork = checkUnitConfig "Network" [
@@ -106,9 +95,7 @@ let
     options = (getAttrs [ "enable" ] sharedOptions) // {
       execConfig = mkOption {
         default = { };
-        example = {
-          Parameters = "/bin/sh";
-        };
+        example = { Parameters = "/bin/sh"; };
         type = types.addCheck (types.attrsOf unitOption) checkExec;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -119,9 +106,7 @@ let
 
       filesConfig = mkOption {
         default = { };
-        example = {
-          Bind = [ "/home/alice" ];
-        };
+        example = { Bind = [ "/home/alice" ]; };
         type = types.addCheck (types.attrsOf unitOption) checkFiles;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -132,9 +117,7 @@ let
 
       networkConfig = mkOption {
         default = { };
-        example = {
-          Private = false;
-        };
+        example = { Private = false; };
         type = types.addCheck (types.attrsOf unitOption) checkNetwork;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -143,10 +126,10 @@ let
         '';
       };
     };
+
   };
 
-  instanceToUnit =
-    name: def:
+  instanceToUnit = name: def:
     let
       base = {
         text = ''
@@ -160,10 +143,9 @@ let
           ${attrsToSection def.networkConfig}
         '';
       } // def;
-    in
-    base // { unit = makeUnit name base; };
-in
-{
+    in base // { unit = makeUnit name base; };
+
+in {
 
   options = {
 
@@ -172,33 +154,24 @@ in
       type = with types; attrsOf (submodule instanceOptions);
       description = lib.mdDoc "Definition of systemd-nspawn configurations.";
     };
+
   };
 
-  config =
-    let
-      units =
-        mapAttrs'
-          (
-            n: v:
-            let
-              nspawnFile = "${n}.nspawn";
-            in
-            nameValuePair nspawnFile (instanceToUnit nspawnFile v)
-          )
-          cfg;
-    in
-    mkMerge [
-      (mkIf (cfg != { }) {
-        environment.etc."systemd/nspawn".source = mkIf (cfg != { }) (
-          generateUnits {
-            allowCollisions = false;
-            type = "nspawn";
-            inherit units;
-            upstreamUnits = [ ];
-            upstreamWants = [ ];
-          }
-        );
-      })
-      { systemd.targets.multi-user.wants = [ "machines.target" ]; }
-    ];
+  config = let
+    units = mapAttrs' (n: v:
+      let nspawnFile = "${n}.nspawn";
+      in nameValuePair nspawnFile (instanceToUnit nspawnFile v)) cfg;
+  in mkMerge [
+    (mkIf (cfg != { }) {
+      environment.etc."systemd/nspawn".source = mkIf (cfg != { })
+        (generateUnits {
+          allowCollisions = false;
+          type = "nspawn";
+          inherit units;
+          upstreamUnits = [ ];
+          upstreamWants = [ ];
+        });
+    })
+    { systemd.targets.multi-user.wants = [ "machines.target" ]; }
+  ];
 }

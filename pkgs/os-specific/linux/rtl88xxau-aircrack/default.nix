@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  kernel,
-}:
+{ lib, stdenv, fetchFromGitHub, kernel }:
 
 stdenv.mkDerivation rec {
   pname = "rtl88xxau-aircrack";
@@ -40,10 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/aircrack-ng/rtl8812au";
     license = licenses.gpl2Only;
     maintainers = [ maintainers.jethro ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
   };
 }

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  freezegun,
-  pytest,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, freezegun, pytest
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-freezegun";
@@ -23,7 +16,8 @@ buildPythonPackage rec {
     (fetchpatch {
       # https://github.com/ktosiek/pytest-freezegun/pull/38
       name = "pytest-freezegun-drop-distutils.patch";
-      url = "https://github.com/ktosiek/pytest-freezegun/commit/03d7107a877e8f07617f931a379f567d89060085.patch";
+      url =
+        "https://github.com/ktosiek/pytest-freezegun/commit/03d7107a877e8f07617f931a379f567d89060085.patch";
       hash = "sha256-/7GTQdidVbE2LT5hwxjEc2dr+aWr6TX1131U4KMQhns=";
     })
   ];

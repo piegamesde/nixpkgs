@@ -1,18 +1,11 @@
-{ pkgs }:
-{
+{ pkgs }: {
 
   # List of libraries that are needed for conda binary packages.
   # When installing a conda binary package, just extend
   # the `buildInputs` with `condaAutopatchLibs`.
-  condaPatchelfLibs = builtins.map (p: p.lib or p) (
-    [
-      pkgs.alsa-lib
-      pkgs.cups
-      pkgs.gcc-unwrapped
-      pkgs.libGL
-    ]
-    ++ (
-      with pkgs.xorg; [
+  condaPatchelfLibs = builtins.map (p: p.lib or p)
+    ([ pkgs.alsa-lib pkgs.cups pkgs.gcc-unwrapped pkgs.libGL ]
+      ++ (with pkgs.xorg; [
         libSM
         libICE
         libX11
@@ -25,7 +18,5 @@
         libXcursor
         libXtst
         libXScrnSaver
-      ]
-    )
-  );
+      ]));
 }

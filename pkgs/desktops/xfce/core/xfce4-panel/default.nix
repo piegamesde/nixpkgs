@@ -1,18 +1,5 @@
-{
-  lib,
-  mkXfceDerivation,
-  exo,
-  garcon,
-  gobject-introspection,
-  gtk3,
-  libdbusmenu-gtk3,
-  libwnck,
-  libxfce4ui,
-  libxfce4util,
-  tzdata,
-  vala,
-  xfconf,
-}:
+{ lib, mkXfceDerivation, exo, garcon, gobject-introspection, gtk3
+, libdbusmenu-gtk3, libwnck, libxfce4ui, libxfce4util, tzdata, vala, xfconf }:
 
 mkXfceDerivation {
   category = "xfce";
@@ -21,25 +8,12 @@ mkXfceDerivation {
 
   sha256 = "sha256-OEU9NzvgWn6zJGdK9Te2qBbARlwvRrLHuaUocNyGd/g=";
 
-  nativeBuildInputs = [
-    gobject-introspection
-    vala
-  ];
+  nativeBuildInputs = [ gobject-introspection vala ];
 
-  buildInputs = [
-    exo
-    garcon
-    libdbusmenu-gtk3
-    libxfce4ui
-    libwnck
-    xfconf
-    tzdata
-  ];
+  buildInputs =
+    [ exo garcon libdbusmenu-gtk3 libxfce4ui libwnck xfconf tzdata ];
 
-  propagatedBuildInputs = [
-    gtk3
-    libxfce4util
-  ];
+  propagatedBuildInputs = [ gtk3 libxfce4util ];
 
   patches = [ ./xfce4-panel-datadir.patch ];
 

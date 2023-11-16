@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  ncurses,
-  pcre,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, ncurses, pcre }:
 
 stdenv.mkDerivation rec {
   pname = "ccze";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoconf ];
 
-  buildInputs = [
-    ncurses
-    pcre
-  ];
+  buildInputs = [ ncurses pcre ];
 
   preConfigure = ''
     autoheader

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  m4,
-  makeWrapper,
-  libbsd,
-  perlPackages,
-}:
+{ lib, stdenv, fetchurl, m4, makeWrapper, libbsd, perlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "csmith";
@@ -17,18 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "1mb5zgixsyf86slggs756k8a5ddmj980md3ic9sa1y75xl5cqizj";
   };
 
-  nativeBuildInputs = [
-    m4
-    makeWrapper
-  ];
-  buildInputs =
-    [ libbsd ]
-    ++ (
-      with perlPackages; [
-        perl
-        SysCPU
-      ]
-    );
+  nativeBuildInputs = [ m4 makeWrapper ];
+  buildInputs = [ libbsd ] ++ (with perlPackages; [ perl SysCPU ]);
 
   postInstall = ''
     substituteInPlace $out/bin/compiler_test.pl \

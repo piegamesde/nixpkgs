@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "crlfsuite";
@@ -16,10 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-mK20PbVGhTEjhY5L6coCzSMIrG/PHHmNq30ZoJEs6uI=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    colorama
-    requests
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ colorama requests ];
 
   # No tests present
   doCheck = false;
@@ -30,9 +23,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "CRLF injection (HTTP Response Splitting) scanner";
     homepage = "https://github.com/Nefcore/CRLFsuite";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      c0bw3b
-      fab
-    ];
+    maintainers = with maintainers; [ c0bw3b fab ];
   };
 }

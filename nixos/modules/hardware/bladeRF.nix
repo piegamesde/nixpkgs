@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.hardware.bladeRF;
-in
+let cfg = config.hardware.bladeRF;
 
-{
+in {
   options.hardware.bladeRF = {
     enable = mkOption {
       type = types.bool;
@@ -22,6 +15,7 @@ in
         libbladeRF package.
       '';
     };
+
   };
 
   config = mkIf cfg.enable {

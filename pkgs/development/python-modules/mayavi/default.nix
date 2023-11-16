@@ -1,19 +1,5 @@
-{
-  lib,
-  apptools,
-  buildPythonPackage,
-  envisage,
-  fetchPypi,
-  numpy,
-  packaging,
-  pyface,
-  pygments,
-  pyqt5,
-  pythonOlder,
-  traitsui,
-  vtk,
-  wrapQtAppsHook,
-}:
+{ lib, apptools, buildPythonPackage, envisage, fetchPypi, numpy, packaging
+, pyface, pygments, pyqt5, pythonOlder, traitsui, vtk, wrapQtAppsHook }:
 
 buildPythonPackage rec {
   pname = "mayavi";
@@ -35,17 +21,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs = [
-    apptools
-    envisage
-    numpy
-    packaging
-    pyface
-    pygments
-    pyqt5
-    traitsui
-    vtk
-  ];
+  propagatedBuildInputs =
+    [ apptools envisage numpy packaging pyface pygments pyqt5 traitsui vtk ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 

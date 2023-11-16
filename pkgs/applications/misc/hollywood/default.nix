@@ -1,34 +1,7 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  lib,
-  coreutils,
-  apg,
-  atop,
-  bmon,
-  cmatrix,
-  pygments,
-  moreutils,
-  util-linux,
-  jp2a,
-  man,
-  mplayer,
-  openssh,
-  tree,
-  mlocate,
-  findutils,
-  ccze,
-  ncurses,
-  python3,
-  wget,
-  libcaca,
-  newsboat,
-  rsstail,
-  w3m,
-  ticker,
-  tmux,
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, lib, coreutils, apg, atop, bmon, cmatrix
+, pygments, moreutils, util-linux, jp2a, man, mplayer, openssh, tree, mlocate
+, findutils, ccze, ncurses, python3, wget, libcaca, newsboat, rsstail, w3m
+, ticker, tmux }:
 
 stdenv.mkDerivation {
   pname = "hollywood";
@@ -52,41 +25,39 @@ stdenv.mkDerivation {
 
   dontBuild = true;
 
-  installPhase =
-    let
-      pathDeps = [
-        tmux
-        coreutils
-        ncurses
-        jp2a
-        mlocate
-        apg
-        atop
-        bmon
-        cmatrix
-        pygments
-        moreutils
-        util-linux
-        jp2a
-        man
-        mplayer
-        openssh
-        tree
-        findutils
-        ccze
-      ];
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    pathDeps = [
+      tmux
+      coreutils
+      ncurses
+      jp2a
+      mlocate
+      apg
+      atop
+      bmon
+      cmatrix
+      pygments
+      moreutils
+      util-linux
+      jp2a
+      man
+      mplayer
+      openssh
+      tree
+      findutils
+      ccze
+    ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out
-      cp -r bin $out/bin
-      cp -r lib $out/lib
-      cp -r share $out/share
-      wrapProgram $out/bin/hollywood --prefix PATH : ${lib.makeBinPath pathDeps}
+    mkdir -p $out
+    cp -r bin $out/bin
+    cp -r lib $out/lib
+    cp -r share $out/share
+    wrapProgram $out/bin/hollywood --prefix PATH : ${lib.makeBinPath pathDeps}
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = {
     description = "Fill your console with Hollywood melodrama technobabble";

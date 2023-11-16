@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  buildNpmPackage,
-  nix-update-script,
-}:
+{ lib, fetchFromGitHub, stdenv, buildNpmPackage, nix-update-script }:
 
 buildNpmPackage rec {
   pname = "jellyfin-web";
@@ -36,11 +30,6 @@ buildNpmPackage rec {
     description = "Web Client for Jellyfin";
     homepage = "https://jellyfin.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      nyanloutre
-      minijackson
-      purcell
-      jojosch
-    ];
+    maintainers = with maintainers; [ nyanloutre minijackson purcell jojosch ];
   };
 }

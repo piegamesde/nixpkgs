@@ -1,13 +1,5 @@
-{
-  lib,
-  flutter37,
-  python3,
-  fetchFromGitHub,
-  pcre2,
-  gnome,
-  makeWrapper,
-  removeReferencesTo,
-}:
+{ lib, flutter37, python3, fetchFromGitHub, pcre2, gnome, makeWrapper
+, removeReferencesTo }:
 
 flutter37.buildFlutterApplication rec {
   pname = "yubioath-flutter";
@@ -20,7 +12,8 @@ flutter37.buildFlutterApplication rec {
     sha256 = "sha256-N9/qwC79mG9r+zMPLHSPjNSQ+srGtnXuKsf0ijtH7CI=";
   };
 
-  passthru.helper = python3.pkgs.callPackage ./helper.nix { inherit src version meta; };
+  passthru.helper =
+    python3.pkgs.callPackage ./helper.nix { inherit src version meta; };
 
   depsListFile = ./deps.json;
   vendorHash = "sha256-WfZiB7MO4wHUg81xm67BMu4zQdC9CfhN5BQol+AI2S8=";
@@ -66,26 +59,17 @@ flutter37.buildFlutterApplication rec {
     remove-references-to -t ${flutter37.unwrapped} $out/app/data/flutter_assets/shaders/ink_sparkle.frag
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    removeReferencesTo
-  ];
+  nativeBuildInputs = [ makeWrapper removeReferencesTo ];
 
   buildInputs = [ pcre2 ];
 
-  disallowedReferences = [
-    flutter37
-    flutter37.unwrapped
-  ];
+  disallowedReferences = [ flutter37 flutter37.unwrapped ];
 
   meta = with lib; {
     description = "Yubico Authenticator for Desktop";
     homepage = "https://github.com/Yubico/yubioath-flutter";
     license = licenses.asl20;
     maintainers = with maintainers; [ lukegb ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 }

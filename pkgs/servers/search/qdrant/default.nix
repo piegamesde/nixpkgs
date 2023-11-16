@@ -1,14 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  protobuf,
-  stdenv,
-  pkg-config,
-  openssl,
-  nix-update-script,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, protobuf, stdenv, pkg-config, openssl
+, nix-update-script, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "qdrant";
@@ -24,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "quantization-0.1.0" = "sha256-mhiVicQXj8639bX2mGp9XnjTNVFdd6mnk+B1B1f3ywA=";
+      "quantization-0.1.0" =
+        "sha256-mhiVicQXj8639bX2mGp9XnjTNVFdd6mnk+B1B1f3ywA=";
       "wal-0.1.2" = "sha256-oZ6xij59eIpCGcFL2Ds6E180l1SGIRMOq7OcLc1TpxY=";
     };
   };
@@ -40,20 +32,16 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  nativeBuildInputs = [
-    protobuf
-    rustPlatform.bindgenHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ protobuf rustPlatform.bindgenHook pkg-config ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-faligned-allocation";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-faligned-allocation";
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "Vector Search Engine for the next generation of AI applications";
+    description =
+      "Vector Search Engine for the next generation of AI applications";
     longDescription = ''
       Expects a config file at config/config.yaml with content similar to
       https://github.com/qdrant/qdrant/blob/master/config/config.yaml

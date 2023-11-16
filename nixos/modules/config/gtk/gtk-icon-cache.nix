@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib; {
   options = {
@@ -85,4 +80,5 @@ with lib; {
       done
     '';
   };
+
 }

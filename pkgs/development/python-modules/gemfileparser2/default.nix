@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "gemfileparser2";
@@ -36,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to parse Rubygem gemspec and Gemfile files";
     homepage = "https://github.com/nexB/gemfileparser2";
-    changelog = "https://github.com/nexB/gemfileparser2/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/nexB/gemfileparser2/blob/v${version}/CHANGELOG.rst";
     license = with licenses; [
       mit # or
       gpl3Plus

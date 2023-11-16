@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildEnv,
-  fetchzip,
-  mono,
-}:
+{ lib, stdenv, buildEnv, fetchzip, mono }:
 
 let
   version = "2.6";
@@ -13,7 +7,8 @@ let
     inherit version;
 
     src = fetchzip {
-      url = "https://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${version}.zip";
+      url =
+        "https://keepass.info/extensions/v2/otpkeyprov/OtpKeyProv-${version}.zip";
       sha256 = "1p60k55v2sxnv1varmp0dgbsi2rhjg9kj19cf54mkc87nss5h1ki";
       stripRoot = false;
     };
@@ -33,12 +28,8 @@ let
       cp $pluginFilename $out/lib/dotnet/keepass/$pluginFilename
     '';
   };
-in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
+  # Mono is required to compile plugin at runtime, after loading.
+in buildEnv {
   name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
+  paths = [ mono drv ];
 }

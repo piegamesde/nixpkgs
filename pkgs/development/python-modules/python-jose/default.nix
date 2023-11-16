@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  ecdsa,
-  rsa,
-  pycrypto,
-  pyasn1,
-  pycryptodome,
-  cryptography,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, ecdsa, rsa, pycrypto, pyasn1
+, pycryptodome, cryptography, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-jose";
@@ -22,14 +12,8 @@ buildPythonPackage rec {
     hash = "sha256-6VGC6M5oyGCOiXcYp6mpyhL+JlcYZKIqOQU9Sm/TkKM=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    ecdsa
-    pyasn1
-    pycrypto
-    pycryptodome
-    rsa
-  ];
+  propagatedBuildInputs =
+    [ cryptography ecdsa pyasn1 pycrypto pycryptodome rsa ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

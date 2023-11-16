@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gcc,
-  gcc-unwrapped,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gcc, gcc-unwrapped }:
 
 stdenv.mkDerivation rec {
   version = "4.0.1";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KC9MbIJi//ZYreoRS+DED8eQW7e4IPvGT+rLI+f7Zrk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gcc
-    gcc-unwrapped
-  ];
+  nativeBuildInputs = [ cmake gcc gcc-unwrapped ];
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"

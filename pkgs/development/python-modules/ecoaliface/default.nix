@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests }:
 
 buildPythonPackage rec {
   pname = "ecoaliface";
@@ -22,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ecoaliface" ];
 
   meta = with lib; {
-    description = "Python library for interacting with eCoal water boiler controllers";
+    description =
+      "Python library for interacting with eCoal water boiler controllers";
     homepage = "https://github.com/matkor/ecoaliface";
     license = with licenses; [ gpl3Plus ];
     maintainers = with maintainers; [ fab ];

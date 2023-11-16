@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  gtk3,
-  wrapGAppsHook,
-  gst_all_1,
-  gobject-introspection,
-  python3Packages,
-  gnome,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, gtk3, wrapGAppsHook, gst_all_1
+, gobject-introspection, python3Packages, gnome }:
 
 buildPythonApplication {
   pname = "gscrabble";
@@ -35,10 +26,7 @@ buildPythonApplication {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = with python3Packages; [
-    gst-python
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3Packages; [ gst-python pygobject3 ];
 
   preFixup = ''
     gappsWrapperArgs+=(

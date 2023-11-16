@@ -1,16 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  dataclasses-json,
-  pycryptodome,
-  setuptools-scm,
-  pytest-asyncio,
-  pytest-cases,
-  pytestCheckHook,
-  pytz,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, dataclasses-json
+, pycryptodome, setuptools-scm, pytest-asyncio, pytest-cases, pytestCheckHook
+, pytz }:
 
 buildPythonPackage rec {
   pname = "pysiaalarm";
@@ -32,27 +22,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dataclasses-json
-    pycryptodome
-    pytz
-  ];
+  propagatedBuildInputs = [ dataclasses-json pycryptodome pytz ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-cases
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-cases pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "pysiaalarm"
-    "pysiaalarm.aio"
-  ];
+  pythonImportsCheck = [ "pysiaalarm" "pysiaalarm.aio" ];
 
   meta = with lib; {
-    description = "Python package for creating a client that talks with SIA-based alarm systems";
+    description =
+      "Python package for creating a client that talks with SIA-based alarm systems";
     homepage = "https://github.com/eavanvalkenburg/pysiaalarm";
-    changelog = "https://github.com/eavanvalkenburg/pysiaalarm/releases/tag/v${version}";
+    changelog =
+      "https://github.com/eavanvalkenburg/pysiaalarm/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

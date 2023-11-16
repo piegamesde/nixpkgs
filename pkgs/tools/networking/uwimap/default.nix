@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  pam,
-  openssl,
-  libkrb5,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pam, openssl, libkrb5 }:
 
 stdenv.mkDerivation rec {
   pname = "uw-imap";
@@ -21,7 +13,8 @@ stdenv.mkDerivation rec {
     "CC=${stdenv.cc.targetPrefix}cc"
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
     (if stdenv.isDarwin then "osx" else "lnp") # Linux with PAM modules;
-  ] ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
+  ] ++ lib.optional stdenv.isx86_64
+    "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
 
   hardeningDisable = [ "format" ];
 
@@ -32,7 +25,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
+      url =
+        "https://salsa.debian.org/holmgren/uw-imap/raw/dcb42981201ea14c2d71c01ebb4a61691b6f68b3/debian/patches/1006_openssl1.1_autoverify.patch";
       sha256 = "09xb58awvkhzmmjhrkqgijzgv7ia381ablf0y7i1rvhcqkb5wga7";
     })
   ];
@@ -40,14 +34,17 @@ stdenv.mkDerivation rec {
   postPatch = ''
     sed -i src/osdep/unix/Makefile -e 's,/usr/local/ssl,${openssl.dev},'
     sed -i src/osdep/unix/Makefile -e 's,^SSLCERTS=.*,SSLCERTS=/etc/ssl/certs,'
-    sed -i src/osdep/unix/Makefile -e 's,^SSLLIB=.*,SSLLIB=${lib.getLib openssl}/lib,'
+    sed -i src/osdep/unix/Makefile -e 's,^SSLLIB=.*,SSLLIB=${
+      lib.getLib openssl
+    }/lib,'
   '';
 
   preConfigure = ''
     makeFlagsArray+=("ARRC=${stdenv.cc.targetPrefix}ar rc")
   '';
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${openssl.dev}/include/openssl";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-I${openssl.dev}/include/openssl";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/include/c-client
@@ -59,12 +56,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.washington.edu/imap/";
-    description = "UW IMAP toolkit - IMAP-supporting software developed by the UW";
+    description =
+      "UW IMAP toolkit - IMAP-supporting software developed by the UW";
     license = licenses.asl20;
     platforms = platforms.unix;
   };
 
-  passthru = {
-    withSSL = true;
-  };
+  passthru = { withSSL = true; };
 }

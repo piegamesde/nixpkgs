@@ -1,31 +1,25 @@
-{
-  appimageTools,
-  lib,
-  fetchurl,
-  makeDesktopItem,
-}:
+{ appimageTools, lib, fetchurl, makeDesktopItem }:
 
 let
   pname = "rambox";
   version = "2.1.3";
 
   src = fetchurl {
-    url = "https://github.com/ramboxapp/download/releases/download/v${version}/Rambox-${version}-linux-x64.AppImage";
+    url =
+      "https://github.com/ramboxapp/download/releases/download/v${version}/Rambox-${version}-linux-x64.AppImage";
     sha256 = "sha256-wvjCr1U+/1/GtebMNWJjizzegqZ+wWXUrmOshYtMq6o=";
   };
 
-  desktopItem =
-    (makeDesktopItem {
-      desktopName = "Rambox";
-      name = pname;
-      exec = "rambox";
-      icon = pname;
-      categories = [ "Network" ];
-    });
+  desktopItem = (makeDesktopItem {
+    desktopName = "Rambox";
+    name = pname;
+    exec = "rambox";
+    icon = pname;
+    categories = [ "Network" ];
+  });
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
@@ -36,7 +30,8 @@ appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    description = "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
+    description =
+      "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
     homepage = "https://rambox.app";
     license = licenses.unfree;
     maintainers = with maintainers; [ nazarewk ];

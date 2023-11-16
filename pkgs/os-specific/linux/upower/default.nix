@@ -1,39 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  fetchpatch,
-  pkg-config,
-  rsync,
-  libxslt,
-  meson,
-  ninja,
-  python3,
-  dbus,
-  umockdev,
-  libeatmydata,
-  gtk-doc,
-  docbook-xsl-nons,
-  udev,
-  libgudev,
-  libusb1,
-  glib,
-  gobject-introspection,
-  gettext,
-  systemd,
-  useIMobileDevice ? true,
-  libimobiledevice,
-  withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform),
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, pkg-config, rsync, libxslt, meson
+, ninja, python3, dbus, umockdev, libeatmydata, gtk-doc, docbook-xsl-nons, udev
+, libgudev, libusb1, glib, gobject-introspection, gettext, systemd
+, useIMobileDevice ? true, libimobiledevice
+, withDocs ? (stdenv.buildPlatform == stdenv.hostPlatform) }:
 
 stdenv.mkDerivation rec {
   pname = "upower";
   version = "1.90.0";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withDocs [ "devdoc" ];
+  outputs = [ "out" "dev" ] ++ lib.optionals withDocs [ "devdoc" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -45,9 +20,8 @@ stdenv.mkDerivation rec {
 
   # Remove when this is fixed upstream:
   # https://gitlab.freedesktop.org/upower/upower/-/issues/214
-  patches =
-    lib.optional (stdenv.hostPlatform.system == "i686-linux")
-      ./i686-test-remove-battery-check.patch;
+  patches = lib.optional (stdenv.hostPlatform.system == "i686-linux")
+    ./i686-test-remove-battery-check.patch;
 
   strictDeps = true;
 
@@ -94,7 +68,12 @@ stdenv.mkDerivation rec {
     "-Dsystemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     "-Dudevrulesdir=${placeholder "out"}/lib/udev/rules.d"
     "-Dudevhwdbdir=${placeholder "out"}/lib/udev/hwdb.d"
-    "-Dintrospection=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "auto" else "disabled"}"
+    "-Dintrospection=${
+      if (stdenv.buildPlatform == stdenv.hostPlatform) then
+        "auto"
+      else
+        "disabled"
+    }"
     "-Dgtk-doc=${lib.boolToString withDocs}"
   ];
 
@@ -149,7 +128,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://upower.freedesktop.org/";
-    changelog = "https://gitlab.freedesktop.org/upower/upower/-/blob/v${version}/NEWS";
+    changelog =
+      "https://gitlab.freedesktop.org/upower/upower/-/blob/v${version}/NEWS";
     description = "A D-Bus service for power management";
     maintainers = teams.freedesktop.members;
     platforms = platforms.linux;

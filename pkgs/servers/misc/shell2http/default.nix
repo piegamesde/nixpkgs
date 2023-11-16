@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  shell2http,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, shell2http }:
 
 buildGoModule rec {
   pname = "shell2http";
@@ -22,19 +15,13 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
   postInstall = ''
     installManPage shell2http.1
   '';
 
-  passthru.tests = {
-    version = testers.testVersion { package = shell2http; };
-  };
+  passthru.tests = { version = testers.testVersion { package = shell2http; }; };
 
   __darwinAllowLocalNetworking = true;
 

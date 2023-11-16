@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.jellyfin;
-in
-{
+let cfg = config.services.jellyfin;
+in {
   options = {
     services.jellyfin = {
       enable = mkEnableOption (lib.mdDoc "Jellyfin Media Server");
@@ -66,24 +59,18 @@ in
         CacheDirectoryMode = "0700";
         UMask = "0077";
         WorkingDirectory = "/var/lib/jellyfin";
-        ExecStart = "${cfg.package}/bin/jellyfin --datadir '/var/lib/${StateDirectory}' --cachedir '/var/cache/${CacheDirectory}'";
+        ExecStart =
+          "${cfg.package}/bin/jellyfin --datadir '/var/lib/${StateDirectory}' --cachedir '/var/cache/${CacheDirectory}'";
         Restart = "on-failure";
         TimeoutSec = 15;
-        SuccessExitStatus = [
-          "0"
-          "143"
-        ];
+        SuccessExitStatus = [ "0" "143" ];
 
         # Security options:
         NoNewPrivileges = true;
         SystemCallArchitectures = "native";
         # AF_NETLINK needed because Jellyfin monitors the network connection
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-          "AF_NETLINK"
-        ];
+        RestrictAddressFamilies =
+          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
         RestrictNamespaces = !config.boot.isContainer;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -131,15 +118,10 @@ in
 
     networking.firewall = mkIf cfg.openFirewall {
       # from https://jellyfin.org/docs/general/networking/index.html
-      allowedTCPPorts = [
-        8096
-        8920
-      ];
-      allowedUDPPorts = [
-        1900
-        7359
-      ];
+      allowedTCPPorts = [ 8096 8920 ];
+      allowedUDPPorts = [ 1900 7359 ];
     };
+
   };
 
   meta.maintainers = with lib.maintainers; [ minijackson ];

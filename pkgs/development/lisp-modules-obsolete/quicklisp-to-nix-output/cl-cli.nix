@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-cli";
   version = "20151218-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."split-sequence" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-cli/2015-12-18/cl-cli-20151218-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-cli/2015-12-18/cl-cli-20151218-git.tgz";
     sha256 = "0d097wjprljghkai1yacvjqmjm1mwpa46yxbacjnwps8pqwh18ay";
   };
 

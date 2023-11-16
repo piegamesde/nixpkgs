@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "goss";
@@ -18,11 +14,7 @@ buildGoModule rec {
   vendorSha256 = "sha256-zlQMVn4w6syYmntxpeiIc1UTbFrIJzOMg0RVDCICTM8=";
 
   CGO_ENABLED = 0;
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
 
   meta = with lib; {
     homepage = "https://github.com/aelsabbahy/goss/";
@@ -35,9 +27,6 @@ buildGoModule rec {
     '';
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      hyzual
-      jk
-    ];
+    maintainers = with maintainers; [ hyzual jk ];
   };
 }

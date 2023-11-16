@@ -1,36 +1,7 @@
-{
-  stdenv,
-  lib,
-  applyPatches,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  bison,
-  cmake,
-  libtool,
-  civetweb,
-  coreutils,
-  curl,
-  flex,
-  gnutls,
-  libconfig,
-  libdaemon,
-  libev,
-  libgcrypt,
-  libinjection,
-  libmicrohttpd_0_9_69,
-  libuuid,
-  lz4,
-  nlohmann_json,
-  openssl,
-  pcre,
-  perl,
-  python3,
-  prometheus-cpp,
-  re2,
-  zlib,
-  texinfo,
-}:
+{ stdenv, lib, applyPatches, fetchFromGitHub, autoconf, automake, bison, cmake
+, libtool, civetweb, coreutils, curl, flex, gnutls, libconfig, libdaemon, libev
+, libgcrypt, libinjection, libmicrohttpd_0_9_69, libuuid, lz4, nlohmann_json
+, openssl, pcre, perl, python3, prometheus-cpp, re2, zlib, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "proxysql";
@@ -43,10 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-KPTvFbEreWQBAs5ofcdVzlVqL0t5pM/mMLv4+E4lJ5M=";
   };
 
-  patches = [
-    ./makefiles.patch
-    ./dont-phone-home.patch
-  ];
+  patches = [ ./makefiles.patch ./dont-phone-home.patch ];
 
   nativeBuildInputs = [
     autoconf
@@ -58,15 +26,7 @@ stdenv.mkDerivation rec {
     texinfo # for makeinfo
   ];
 
-  buildInputs = [
-    bison
-    curl
-    flex
-    gnutls
-    libgcrypt
-    libuuid
-    zlib
-  ];
+  buildInputs = [ bison curl flex gnutls libgcrypt libuuid zlib ];
 
   enableParallelBuilding = true;
 
@@ -99,69 +59,59 @@ stdenv.mkDerivation rec {
         popd
       }
 
-      ${lib.concatMapStringsSep "\n"
-        (
-          x:
-          ''
-            replace_dep "${x.f}" "${x.p.src}" "${
-              x.p.pname or (builtins.parseDrvName x.p.name).name
-            }" "${x.p.name}"''
-        )
-        (
-          map
-            (x: {
-              inherit (x) f;
-              p = x.p // {
-                src = applyPatches { inherit (x.p) src patches; };
-              };
-            })
-            [
-              {
-                f = "curl";
-                p = curl;
-              }
-              {
-                f = "libconfig";
-                p = libconfig;
-              }
-              {
-                f = "libdaemon";
-                p = libdaemon;
-              }
-              {
-                f = "libev";
-                p = libev;
-              }
-              {
-                f = "libinjection";
-                p = libinjection;
-              }
-              {
-                f = "libmicrohttpd";
-                p = libmicrohttpd_0_9_69;
-              }
-              {
-                f = "libssl";
-                p = openssl;
-              }
-              {
-                f = "lz4";
-                p = lz4;
-              }
-              {
-                f = "pcre";
-                p = pcre;
-              }
-              {
-                f = "prometheus-cpp";
-                p = prometheus-cpp;
-              }
-              {
-                f = "re2";
-                p = re2;
-              }
-            ]
-        )}
+      ${lib.concatMapStringsSep "\n" (x:
+        ''
+          replace_dep "${x.f}" "${x.p.src}" "${
+            x.p.pname or (builtins.parseDrvName x.p.name).name
+          }" "${x.p.name}"'') (map (x: {
+            inherit (x) f;
+            p = x.p // { src = applyPatches { inherit (x.p) src patches; }; };
+          }) [
+            {
+              f = "curl";
+              p = curl;
+            }
+            {
+              f = "libconfig";
+              p = libconfig;
+            }
+            {
+              f = "libdaemon";
+              p = libdaemon;
+            }
+            {
+              f = "libev";
+              p = libev;
+            }
+            {
+              f = "libinjection";
+              p = libinjection;
+            }
+            {
+              f = "libmicrohttpd";
+              p = libmicrohttpd_0_9_69;
+            }
+            {
+              f = "libssl";
+              p = openssl;
+            }
+            {
+              f = "lz4";
+              p = lz4;
+            }
+            {
+              f = "pcre";
+              p = pcre;
+            }
+            {
+              f = "prometheus-cpp";
+              p = prometheus-cpp;
+            }
+            {
+              f = "re2";
+              p = re2;
+            }
+          ])}
 
       pushd libhttpserver
       tar xf libhttpserver-*.tar.gz

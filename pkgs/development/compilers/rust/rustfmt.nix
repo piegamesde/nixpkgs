@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  rustc,
-  Security,
-  asNightly ? false,
-}:
+{ lib, stdenv, rustPlatform, rustc, Security, asNightly ? false }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustfmt" + lib.optionalString asNightly "-nightly";
@@ -40,15 +33,10 @@ rustPlatform.buildRustPackage rec {
   CFG_RELEASE_CHANNEL = if asNightly then "nightly" else "stable";
 
   meta = with lib; {
-    description = "A tool for formatting Rust code according to style guidelines";
+    description =
+      "A tool for formatting Rust code according to style guidelines";
     homepage = "https://github.com/rust-lang-nursery/rustfmt";
-    license = with licenses; [
-      mit
-      asl20
-    ];
-    maintainers = with maintainers; [
-      globin
-      basvandijk
-    ];
+    license = with licenses; [ mit asl20 ];
+    maintainers = with maintainers; [ globin basvandijk ];
   };
 }

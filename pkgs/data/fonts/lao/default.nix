@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-}:
+{ lib, stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "lao";
   version = "0.0.20060226";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.xz";
+    url =
+      "mirror://debian/pool/main/f/fonts-${pname}/fonts-${pname}_${version}.orig.tar.xz";
     hash = "sha256-DlgdyfhxxzVkNIL+NGsQ+PRlNkCuG3v2OahkIEYx60o=";
   };
 

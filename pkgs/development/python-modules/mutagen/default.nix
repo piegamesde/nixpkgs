@@ -1,19 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  fetchpatch,
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch
 
-  # docs
-  python,
-  sphinx,
-  sphinx-rtd-theme,
+# docs
+, python, sphinx, sphinx-rtd-theme
 
-  # tests
-  hypothesis,
-  pytestCheckHook,
-}:
+# tests
+, hypothesis, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mutagen";
@@ -27,21 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-bl+LqEg2uZ/mC+X7J/hL5K2Rm7trScqmroHnBYS1Xlg=";
   };
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
-  nativeBuildInputs = [
-    sphinx
-    sphinx-rtd-theme
-  ];
+  nativeBuildInputs = [ sphinx sphinx-rtd-theme ];
 
   patches = [
     (fetchpatch {
       # docs: Make extlinks compatible with sphinx 6.0
       # https://github.com/quodlibet/mutagen/pull/590
-      url = "https://github.com/quodlibet/mutagen/commit/37b4e6bddc03e1f715425c418ea84bac15116907.patch";
+      url =
+        "https://github.com/quodlibet/mutagen/commit/37b4e6bddc03e1f715425c418ea84bac15116907.patch";
       hash = "sha256-CnGfHY4RhRhOLvlRTH/NZwzCnAL3VhU6xosuh6fkqGQ=";
     })
   ];
@@ -50,10 +36,7 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} setup.py build_sphinx --build-dir=$doc
   '';
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
 
   disabledTests = [
     # Hypothesis produces unreliable results: Falsified on the first call but did not on a subsequent one
@@ -78,7 +61,8 @@ buildPythonPackage rec {
       manipulate Ogg streams on an individual packet/page level.
     '';
     homepage = "https://mutagen.readthedocs.io";
-    changelog = "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${
+    changelog =
+      "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${
         lib.replaceStrings [ "." ] [ "-" ] version
       }";
     license = licenses.gpl2Plus;

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  makeWrapper,
-  jre,
-}:
+{ lib, stdenv, fetchurl, unzip, makeWrapper, jre }:
 
 stdenv.mkDerivation rec {
   pname = "subgit";
@@ -13,16 +6,14 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A tool for a smooth, stress-free SVN to Git migration";
-    longDescription = "Create writable Git mirror of a local or remote Subversion repository and use both Subversion and Git as long as you like. You may also do a fast one-time import from Subversion to Git.";
+    longDescription =
+      "Create writable Git mirror of a local or remote Subversion repository and use both Subversion and Git as long as you like. You may also do a fast one-time import from Subversion to Git.";
     homepage = "https://subgit.com";
     license = lib.licenses.unfree;
     platforms = lib.platforms.all;
   };
 
-  nativeBuildInputs = [
-    unzip
-    makeWrapper
-  ];
+  nativeBuildInputs = [ unzip makeWrapper ];
 
   installPhase = ''
     mkdir $out;

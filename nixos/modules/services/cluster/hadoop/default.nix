@@ -1,20 +1,9 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 let
   cfg = config.services.hadoop;
   opt = options.services.hadoop;
-in
-with lib; {
-  imports = [
-    ./yarn.nix
-    ./hdfs.nix
-    ./hbase.nix
-  ];
+in with lib; {
+  imports = [ ./yarn.nix ./hdfs.nix ./hbase.nix ];
 
   options.services.hadoop = {
     coreSite = mkOption {
@@ -76,9 +65,12 @@ with lib; {
     mapredSiteDefault = mkOption {
       default = {
         "mapreduce.framework.name" = "yarn";
-        "yarn.app.mapreduce.am.env" = "HADOOP_MAPRED_HOME=${cfg.package}/lib/${cfg.package.untarDir}";
-        "mapreduce.map.env" = "HADOOP_MAPRED_HOME=${cfg.package}/lib/${cfg.package.untarDir}";
-        "mapreduce.reduce.env" = "HADOOP_MAPRED_HOME=${cfg.package}/lib/${cfg.package.untarDir}";
+        "yarn.app.mapreduce.am.env" =
+          "HADOOP_MAPRED_HOME=${cfg.package}/lib/${cfg.package.untarDir}";
+        "mapreduce.map.env" =
+          "HADOOP_MAPRED_HOME=${cfg.package}/lib/${cfg.package.untarDir}";
+        "mapreduce.reduce.env" =
+          "HADOOP_MAPRED_HOME=${cfg.package}/lib/${cfg.package.untarDir}";
       };
       defaultText = literalExpression ''
         {
@@ -111,15 +103,20 @@ with lib; {
       default = {
         "yarn.nodemanager.admin-env" = "PATH=$PATH";
         "yarn.nodemanager.aux-services" = "mapreduce_shuffle";
-        "yarn.nodemanager.aux-services.mapreduce_shuffle.class" = "org.apache.hadoop.mapred.ShuffleHandler";
+        "yarn.nodemanager.aux-services.mapreduce_shuffle.class" =
+          "org.apache.hadoop.mapred.ShuffleHandler";
         "yarn.nodemanager.bind-host" = "0.0.0.0";
-        "yarn.nodemanager.container-executor.class" = "org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor";
-        "yarn.nodemanager.env-whitelist" = "JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,LANG,TZ";
+        "yarn.nodemanager.container-executor.class" =
+          "org.apache.hadoop.yarn.server.nodemanager.LinuxContainerExecutor";
+        "yarn.nodemanager.env-whitelist" =
+          "JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,LANG,TZ";
         "yarn.nodemanager.linux-container-executor.group" = "hadoop";
-        "yarn.nodemanager.linux-container-executor.path" = "/run/wrappers/yarn-nodemanager/bin/container-executor";
+        "yarn.nodemanager.linux-container-executor.path" =
+          "/run/wrappers/yarn-nodemanager/bin/container-executor";
         "yarn.nodemanager.log-dirs" = "/var/log/hadoop/yarn/nodemanager";
         "yarn.resourcemanager.bind-host" = "0.0.0.0";
-        "yarn.resourcemanager.scheduler.class" = "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler";
+        "yarn.resourcemanager.scheduler.class" =
+          "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler";
       };
       type = types.attrsOf types.anything;
       description = lib.mdDoc ''
@@ -163,7 +160,8 @@ with lib; {
     };
 
     log4jProperties = mkOption {
-      default = "${cfg.package}/lib/${cfg.package.untarDir}/etc/hadoop/log4j.properties";
+      default =
+        "${cfg.package}/lib/${cfg.package.untarDir}/etc/hadoop/log4j.properties";
       defaultText = literalExpression ''
         "''${config.${opt.package}}/lib/''${config.${opt.package}.untarDir}/etc/hadoop/log4j.properties"
       '';
@@ -203,12 +201,12 @@ with lib; {
           ./extraYARNConfs
         ]
       '';
-      description =
-        lib.mdDoc
-          "Directories containing additional config files to be added to HADOOP_CONF_DIR";
+      description = lib.mdDoc
+        "Directories containing additional config files to be added to HADOOP_CONF_DIR";
     };
 
-    gatewayRole.enable = mkEnableOption (lib.mdDoc "gateway role for deploying hadoop configs");
+    gatewayRole.enable =
+      mkEnableOption (lib.mdDoc "gateway role for deploying hadoop configs");
 
     package = mkOption {
       type = types.package;
@@ -219,16 +217,12 @@ with lib; {
   };
 
   config = mkIf cfg.gatewayRole.enable {
-    users.groups.hadoop = {
-      gid = config.ids.gids.hadoop;
-    };
+    users.groups.hadoop = { gid = config.ids.gids.hadoop; };
     environment = {
       systemPackages = [ cfg.package ];
       etc."hadoop-conf".source =
-        let
-          hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
-        in
-        "${hadoopConf}";
+        let hadoopConf = "${import ./conf.nix { inherit cfg pkgs lib; }}/";
+        in "${hadoopConf}";
       variables.HADOOP_CONF_DIR = "/etc/hadoop-conf/";
     };
   };

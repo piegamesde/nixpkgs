@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  six,
-  lxml,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, six, lxml }:
 
 buildPythonPackage rec {
   pname = "htmllaundry";
@@ -17,10 +10,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ nose ];
-  propagatedBuildInputs = [
-    six
-    lxml
-  ];
+  propagatedBuildInputs = [ six lxml ];
 
   # some tests fail, probably because of changes in lxml
   # not relevant for me, if releavnt for you, fix it...
@@ -31,4 +21,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     homepage = "https://pypi.org/project/htmllaundry/";
   };
+
 }

@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  ncurses,
-  openssl,
-  pkg-config,
-  Security,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, ncurses, openssl, pkg-config
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wiki-tui";
@@ -22,21 +14,17 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    ncurses
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [ ncurses openssl ]
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   cargoHash = "sha256-m3gxmoZVEVzqach7Oep943B4DhOUzrTB+Z6J/TvdCQ8=";
 
   meta = with lib; {
     description = "A simple and easy to use Wikipedia Text User Interface";
     homepage = "https://github.com/builditluc/wiki-tui";
-    changelog = "https://github.com/Builditluc/wiki-tui/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Builditluc/wiki-tui/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      lom
-      builditluc
-    ];
+    maintainers = with maintainers; [ lom builditluc ];
   };
 }

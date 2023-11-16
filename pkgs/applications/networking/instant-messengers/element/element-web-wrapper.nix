@@ -1,9 +1,4 @@
-{
-  stdenv,
-  jq,
-  element-web-unwrapped,
-  conf ? { },
-}:
+{ stdenv, jq, element-web-unwrapped, conf ? { } }:
 
 if (conf == { }) then
   element-web-unwrapped

@@ -1,36 +1,15 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  cmake,
-  dbus,
-  file,
-  freetype,
-  jansson,
-  lib,
-  libGL,
-  libX11,
-  libXcursor,
-  libXext,
-  libXrandr,
-  libarchive,
-  libjack2,
-  liblo,
-  libsamplerate,
-  libsndfile,
-  makeWrapper,
-  pkg-config,
-  python3,
-  speexdsp,
-  libglvnd,
-}:
+{ stdenv, fetchFromGitHub, fetchurl, cmake, dbus, file, freetype, jansson, lib
+, libGL, libX11, libXcursor, libXext, libXrandr, libarchive, libjack2, liblo
+, libsamplerate, libsndfile, makeWrapper, pkg-config, python3, speexdsp
+, libglvnd }:
 
 stdenv.mkDerivation rec {
   pname = "cardinal";
   version = "22.12";
 
   src = fetchurl {
-    url = "https://github.com/DISTRHO/Cardinal/releases/download/${version}/cardinal+deps-${version}.tar.xz";
+    url =
+      "https://github.com/DISTRHO/Cardinal/releases/download/${version}/cardinal+deps-${version}.tar.xz";
     sha256 = "sha256-fyko5cWjBNNaw8qL9uyyRxW5MFXKmOsBoR5u05AWxWY=";
   };
 
@@ -42,13 +21,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    file
-    pkg-config
-    makeWrapper
-    python3
-  ];
+  nativeBuildInputs = [ cmake file pkg-config makeWrapper python3 ];
   buildInputs = [
     dbus
     freetype
@@ -67,10 +40,7 @@ stdenv.mkDerivation rec {
   ];
 
   hardeningDisable = [ "format" ];
-  makeFlags = [
-    "SYSDEPS=true"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "SYSDEPS=true" "PREFIX=$(out)" ];
 
   postInstall = ''
     wrapProgram $out/bin/Cardinal \

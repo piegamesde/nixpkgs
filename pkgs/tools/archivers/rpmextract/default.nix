@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  rpm,
-  cpio,
-  substituteAll,
-}:
+{ lib, stdenv, rpm, cpio, substituteAll }:
 
 stdenv.mkDerivation {
   name = "rpmextract";

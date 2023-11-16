@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "tell-me-your-secrets";
@@ -18,10 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = [ "gitignore-parser" ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     gitignore-parser
@@ -37,7 +30,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tools to find secrets from various signatures";
     homepage = "https://github.com/valayDave/tell-me-your-secrets";
-    changelog = "https://github.com/valayDave/tell-me-your-secrets/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/valayDave/tell-me-your-secrets/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

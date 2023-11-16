@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  openssl,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, openssl, perl }:
 
 stdenv.mkDerivation rec {
   pname = "tmux-xpanes";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kS8VrD0CT350Y1ql6ta47nXdEzmuqEpFJeXRw58yMGc=";
   };
 
-  buildInputs = [
-    openssl
-    perl
-  ];
+  buildInputs = [ openssl perl ];
 
   installPhase = ''
     # Create directories.

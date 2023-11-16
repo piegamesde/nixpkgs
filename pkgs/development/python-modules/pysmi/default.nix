@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ply,
-}:
+{ lib, buildPythonPackage, fetchPypi, ply }:
 
 buildPythonPackage rec {
   version = "0.3.4";
@@ -25,4 +20,5 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ koral ];
   };
+
 }

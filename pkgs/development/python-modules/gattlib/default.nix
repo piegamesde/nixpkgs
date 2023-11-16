@@ -1,26 +1,17 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  substituteAll,
+{ lib, buildPythonPackage, fetchFromGitHub, substituteAll
 
-  # build
-  pkg-config,
-  glibc,
-  python,
+# build
+, pkg-config, glibc, python
 
-  # runtime
-  bluez,
-  boost,
-  glib,
+# runtime
+, bluez, boost, glib
 
 }:
 
 let
   pname = "gattlib";
   version = "unstable-2021-06-16";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -34,24 +25,16 @@ buildPythonPackage {
   patches = [
     (substituteAll {
       src = ./setup.patch;
-      boost_version =
-        let
-          pythonVersion = with lib.versions; "${major python.version}${minor python.version}";
-        in
-        "boost_python${pythonVersion}";
+      boost_version = let
+        pythonVersion = with lib.versions;
+          "${major python.version}${minor python.version}";
+      in "boost_python${pythonVersion}";
     })
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    glibc
-  ];
+  nativeBuildInputs = [ pkg-config glibc ];
 
-  buildInputs = [
-    bluez
-    boost
-    glib
-  ];
+  buildInputs = [ bluez boost glib ];
 
   # has no tests
   doCheck = false;
@@ -59,7 +42,8 @@ buildPythonPackage {
   pythonImportsCheck = [ "gattlib" ];
 
   meta = with lib; {
-    description = "Python library to use the GATT Protocol for Bluetooth LE devices";
+    description =
+      "Python library to use the GATT Protocol for Bluetooth LE devices";
     homepage = "https://github.com/oscaracena/pygattlib";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

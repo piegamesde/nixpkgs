@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "libsass";
@@ -31,10 +26,7 @@ stdenv.mkDerivation rec {
     description = "A C/C++ implementation of a Sass compiler";
     homepage = "https://github.com/sass/libsass";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      codyopel
-      offline
-    ];
+    maintainers = with maintainers; [ codyopel offline ];
     platforms = platforms.unix;
   };
 }

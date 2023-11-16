@@ -1,32 +1,7 @@
-{
-  lib,
-  stdenv,
-  Accelerate,
-  blis,
-  buildPythonPackage,
-  catalogue,
-  confection,
-  CoreFoundation,
-  CoreGraphics,
-  CoreVideo,
-  cymem,
-  cython,
-  fetchPypi,
-  hypothesis,
-  mock,
-  murmurhash,
-  numpy,
-  plac,
-  preshed,
-  pydantic,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-  srsly,
-  tqdm,
-  typing-extensions,
-  wasabi,
-}:
+{ lib, stdenv, Accelerate, blis, buildPythonPackage, catalogue, confection
+, CoreFoundation, CoreGraphics, CoreVideo, cymem, cython, fetchPypi, hypothesis
+, mock, murmurhash, numpy, plac, preshed, pydantic, pytestCheckHook, python
+, pythonOlder, srsly, tqdm, typing-extensions, wasabi }:
 
 buildPythonPackage rec {
   pname = "thinc";
@@ -40,14 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-bEpI19oH4EToSmjLubIvMvhJCZWiurC/xg5BLRSvuZE=";
   };
 
-  buildInputs =
-    [ cython ]
-    ++ lib.optionals stdenv.isDarwin [
-      Accelerate
-      CoreFoundation
-      CoreGraphics
-      CoreVideo
-    ];
+  buildInputs = [ cython ] ++ lib.optionals stdenv.isDarwin [
+    Accelerate
+    CoreFoundation
+    CoreGraphics
+    CoreVideo
+  ];
 
   propagatedBuildInputs = [
     blis
@@ -64,11 +37,7 @@ buildPythonPackage rec {
     wasabi
   ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    hypothesis
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis mock pytestCheckHook ];
 
   # Add native extensions.
   preCheck = ''

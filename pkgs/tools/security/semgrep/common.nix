@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchzip,
-  stdenv,
-}:
+{ lib, fetchFromGitHub, fetchzip, stdenv }:
 
 rec {
   version = "1.15.0";
@@ -47,22 +42,23 @@ rec {
         sha256 = "sha256-6+ENjOOIJ5TSjpnJ5pDudblrWj/FLUe66UGr6V9c0HQ=";
       };
     };
-    src =
-      let
-        inherit (stdenv.hostPlatform) system;
-        selectSystemData = data: data.${system} or (throw "Unsupported system: ${system}");
-        inherit (selectSystemData data) suffix sha256;
-      in
-      fetchzip {
-        url = "https://github.com/returntocorp/semgrep/releases/download/v${version}/semgrep-v${version}${suffix}";
-        inherit sha256;
-      };
+    src = let
+      inherit (stdenv.hostPlatform) system;
+      selectSystemData = data:
+        data.${system} or (throw "Unsupported system: ${system}");
+      inherit (selectSystemData data) suffix sha256;
+    in fetchzip {
+      url =
+        "https://github.com/returntocorp/semgrep/releases/download/v${version}/semgrep-v${version}${suffix}";
+      inherit sha256;
+    };
   };
 
   meta = with lib; {
     homepage = "https://semgrep.dev/";
     downloadPage = "https://github.com/returntocorp/semgrep/";
-    changelog = "https://github.com/returntocorp/semgrep/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/returntocorp/semgrep/blob/v${version}/CHANGELOG.md";
     description = "Lightweight static analysis for many languages";
     longDescription = ''
       Semgrep is a fast, open-source, static analysis tool for finding bugs and
@@ -72,14 +68,8 @@ rec {
       syntax trees, regex wrestling, or painful DSLs.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [
-      jk
-      ambroisie
-    ];
+    maintainers = with maintainers; [ jk ambroisie ];
     # limited by semgrep-core
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libgnomeui,
-  libxml2,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libgnomeui, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "verbiste";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libgnomeui
-    libxml2
-  ];
+  buildInputs = [ libgnomeui libxml2 ];
 
   enableParallelBuilding = true;
 

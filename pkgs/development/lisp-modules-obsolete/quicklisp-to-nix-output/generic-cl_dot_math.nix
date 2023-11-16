@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "generic-cl_dot_math";
   version = "generic-cl-20211020-git";
 
@@ -36,7 +35,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/generic-cl/2021-10-20/generic-cl-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/generic-cl/2021-10-20/generic-cl-20211020-git.tgz";
     sha256 = "0jryfmxwqhrarmpbb643b7iv5rlib5pcx4i4jcd6h2rscnrbj8sa";
   };
 

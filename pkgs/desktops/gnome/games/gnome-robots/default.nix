@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gnome,
-  gtk3,
-  wrapGAppsHook,
-  librsvg,
-  gsound,
-  gettext,
-  itstool,
-  libxml2,
-  libgnome-games-support,
-  libgee,
-  meson,
-  ninja,
-  vala,
-  python3,
-  desktop-file-utils,
-  adwaita-icon-theme,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gnome, gtk3, wrapGAppsHook, librsvg, gsound
+, gettext, itstool, libxml2, libgnome-games-support, libgee, meson, ninja, vala
+, python3, desktop-file-utils, adwaita-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-robots";
@@ -45,14 +26,8 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    gtk3
-    librsvg
-    gsound
-    libgnome-games-support
-    libgee
-    adwaita-icon-theme
-  ];
+  buildInputs =
+    [ gtk3 librsvg gsound libgnome-games-support libgee adwaita-icon-theme ];
 
   postPatch = ''
     chmod +x build-aux/meson_post_install.py

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  coreutils,
-}:
+{ lib, stdenv, fetchurl, ncurses, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "ncftp";
@@ -39,10 +33,7 @@ stdenv.mkDerivation rec {
     cp -r doc $out/share/doc/ncftp
   '';
 
-  configureFlags = [
-    "--enable-ssp"
-    "--mandir=$(out)/share/man/"
-  ];
+  configureFlags = [ "--enable-ssp" "--mandir=$(out)/share/man/" ];
 
   meta = with lib; {
     description = "Command line FTP (File Transfer Protocol) client";

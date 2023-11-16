@@ -1,17 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # propagates
-  pyopenssl,
-  requests,
-  six,
+# propagates
+, pyopenssl, requests, six
 
-  # tests
-  pytestCheckHook,
-  responses,
-}:
+# tests
+, pytestCheckHook, responses }:
 
 buildPythonPackage rec {
   pname = "paypalhttp";
@@ -25,19 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-3ihcpYtpcejPkiyf4g4jveyNU6flQB2sv9EZ5Pd7tUc=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    six
-    pyopenssl
-  ];
+  propagatedBuildInputs = [ requests six pyopenssl ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   meta = with lib; {
-    changelog = "https://github.com/paypal/paypalhttp_python/releases/tag/${version}";
+    changelog =
+      "https://github.com/paypal/paypalhttp_python/releases/tag/${version}";
     description = "PayPalHttp is a generic HTTP Client";
     homepage = "https://github.com/paypal/paypalhttp_python";
     license = licenses.mit;

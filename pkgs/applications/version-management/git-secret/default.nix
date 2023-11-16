@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  git,
-  gnupg,
-  gawk,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, git, gnupg, gawk }:
 
 stdenv.mkDerivation rec {
   pname = "git-secret";
@@ -25,20 +17,15 @@ stdenv.mkDerivation rec {
     install -D git-secret $out/bin/git-secret
 
     wrapProgram $out/bin/git-secret \
-      --prefix PATH : "${
-        lib.makeBinPath [
-          git
-          gnupg
-          gawk
-        ]
-      }"
+      --prefix PATH : "${lib.makeBinPath [ git gnupg gawk ]}"
 
     mkdir $out/share
     cp -r man $out/share
   '';
 
   meta = {
-    description = "A bash-tool to store your private data inside a git repository";
+    description =
+      "A bash-tool to store your private data inside a git repository";
     homepage = "https://git-secret.io";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.lo1tuma ];

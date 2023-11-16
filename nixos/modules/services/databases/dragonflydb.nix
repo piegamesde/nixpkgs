@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,20 +6,22 @@ let
   cfg = config.services.dragonflydb;
   dragonflydb = pkgs.dragonflydb;
 
-  settings =
-    {
-      port = cfg.port;
-      dir = "/var/lib/dragonflydb";
-      keys_output_limit = cfg.keysOutputLimit;
-    }
-    // (lib.optionalAttrs (cfg.bind != null) { bind = cfg.bind; })
-    // (lib.optionalAttrs (cfg.requirePass != null) { requirepass = cfg.requirePass; })
-    // (lib.optionalAttrs (cfg.maxMemory != null) { maxmemory = cfg.maxMemory; })
-    // (lib.optionalAttrs (cfg.memcachePort != null) { memcache_port = cfg.memcachePort; })
-    // (lib.optionalAttrs (cfg.dbNum != null) { dbnum = cfg.dbNum; })
-    // (lib.optionalAttrs (cfg.cacheMode != null) { cache_mode = cfg.cacheMode; });
-in
-{
+  settings = {
+    port = cfg.port;
+    dir = "/var/lib/dragonflydb";
+    keys_output_limit = cfg.keysOutputLimit;
+  } // (lib.optionalAttrs (cfg.bind != null) { bind = cfg.bind; })
+    // (lib.optionalAttrs (cfg.requirePass != null) {
+      requirepass = cfg.requirePass;
+    }) // (lib.optionalAttrs (cfg.maxMemory != null) {
+      maxmemory = cfg.maxMemory;
+    }) // (lib.optionalAttrs (cfg.memcachePort != null) {
+      memcache_port = cfg.memcachePort;
+    }) // (lib.optionalAttrs (cfg.dbNum != null) { dbnum = cfg.dbNum; })
+    // (lib.optionalAttrs (cfg.cacheMode != null) {
+      cache_mode = cfg.cacheMode;
+    });
+in {
 
   ###### interface
 
@@ -91,7 +88,8 @@ in
       dbNum = mkOption {
         type = with types; nullOr ints.unsigned;
         default = null;
-        description = lib.mdDoc "Maximum number of supported databases for `select`";
+        description =
+          lib.mdDoc "Maximum number of supported databases for `select`";
       };
 
       cacheMode = mkOption {
@@ -126,9 +124,8 @@ in
 
       serviceConfig = {
         ExecStart = "${dragonflydb}/bin/dragonfly --alsologtostderr ${
-            builtins.concatStringsSep " " (
-              attrsets.mapAttrsToList (n: v: "--${n} ${strings.escapeShellArg v}") settings
-            )
+            builtins.concatStringsSep " " (attrsets.mapAttrsToList
+              (n: v: "--${n} ${strings.escapeShellArg v}") settings)
           }";
 
         User = cfg.user;
@@ -151,10 +148,7 @@ in
         ProtectKernelModules = true;
         ProtectControlGroups = true;
         LockPersonality = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictRealtime = true;
         PrivateMounts = true;
         MemoryDenyWriteExecute = true;

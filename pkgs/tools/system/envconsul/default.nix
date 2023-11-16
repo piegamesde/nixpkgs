@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  envconsul,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, envconsul }:
 
 buildGoModule rec {
   pname = "envconsul";
@@ -19,11 +13,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-ehxeupO8CrKqkqK11ig7Pj4XTh61VOE4rT2T2SsChxw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/hashicorp/envconsul/version.Name=envconsul"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/hashicorp/envconsul/version.Name=envconsul" ];
 
   passthru.tests.version = testers.testVersion {
     package = envconsul;
@@ -32,7 +23,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/hashicorp/envconsul/";
-    description = "Read and set environmental variables for processes from Consul";
+    description =
+      "Read and set environmental variables for processes from Consul";
     license = licenses.mpl20;
     maintainers = with maintainers; [ pradeepchhetri ];
   };

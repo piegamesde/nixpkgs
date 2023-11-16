@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  jre,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchzip, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "tabula";
   version = "1.2.1";
 
   src = fetchzip {
-    url = "https://github.com/tabulapdf/tabula/releases/download/v${version}/tabula-jar-${version}.zip";
+    url =
+      "https://github.com/tabulapdf/tabula/releases/download/v${version}/tabula-jar-${version}.zip";
     sha256 = "0lkpv8hkji81fanyxm7ph8421fr9a6phqc3pbhw2bc4gljg7sgxi";
   };
 
@@ -37,6 +32,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.dpaetzel ];
     platforms = platforms.all;
-    broken = true; # on 2022-11-23 this package builds, but produces an executable that fails immediately
+    broken =
+      true; # on 2022-11-23 this package builds, but produces an executable that fails immediately
   };
 }

@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  bleak,
-  pyyaml,
-  voluptuous,
-  pytestCheckHook,
-  pytest-asyncio,
-  poetry-core,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, bleak, pyyaml
+, voluptuous, pytestCheckHook, pytest-asyncio, poetry-core }:
 
 buildPythonPackage rec {
   pname = "idasen";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    bleak
-    pyyaml
-    voluptuous
-  ];
+  propagatedBuildInputs = [ bleak pyyaml voluptuous ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
 
   pythonImportsCheck = [ "idasen" ];
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 buildPythonPackage rec {
   pname = "pure-python-adb-homeassistant";
   version = "0.1.7.dev0";

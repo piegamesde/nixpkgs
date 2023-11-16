@@ -1,16 +1,5 @@
-{
-  lib,
-  azure-common,
-  azure-core,
-  buildPythonPackage,
-  fetchPypi,
-  isodate,
-  msrestazure,
-  pythonOlder,
-  six,
-  typing-extensions,
-  uamqp,
-}:
+{ lib, azure-common, azure-core, buildPythonPackage, fetchPypi, isodate
+, msrestazure, pythonOlder, six, typing-extensions, uamqp }:
 
 buildPythonPackage rec {
   pname = "azure-servicebus";
@@ -25,15 +14,8 @@ buildPythonPackage rec {
     hash = "sha256-ANEJ5aLqfHX/OGO41FNjCqr9S6UygQMrGMQvMtR3z/Q=";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-core
-    isodate
-    msrestazure
-    six
-    typing-extensions
-    uamqp
-  ];
+  propagatedBuildInputs =
+    [ azure-common azure-core isodate msrestazure six typing-extensions uamqp ];
 
   # Tests require dev-tools
   doCheck = false;

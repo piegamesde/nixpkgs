@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  ogre,
-  freetype,
-  boost,
-  expat,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, cmake, ogre, freetype, boost, expat, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "cegui";
@@ -20,14 +10,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    ogre
-    freetype
-    boost
-    expat
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = [ ogre freetype boost expat ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  cmakeFlags = lib.optional (stdenv.isDarwin && stdenv.isAarch64) "-DCMAKE_OSX_ARCHITECTURES=arm64";
+  cmakeFlags = lib.optional (stdenv.isDarwin && stdenv.isAarch64)
+    "-DCMAKE_OSX_ARCHITECTURES=arm64";
 
   meta = with lib; {
     homepage = "http://cegui.org.uk/";

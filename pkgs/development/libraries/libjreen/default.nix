@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  qt4,
-  pkg-config,
-  gsasl,
-}:
+{ lib, stdenv, fetchurl, cmake, qt4, pkg-config, gsasl }:
 
 stdenv.mkDerivation rec {
   pname = "libjreen";
@@ -17,14 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "14nwwk40xx8w6x7yaysgcr0lgzhs7l064f7ikp32s5y9a8mmp582";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    qt4
-    gsasl
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ qt4 gsasl ];
 
   meta = {
     description = "C++ Jabber library using Qt framework";

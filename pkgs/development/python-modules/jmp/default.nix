@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  jax,
-  jaxlib,
-  lib,
-  pytestCheckHook,
-}:
+{ buildPythonPackage, fetchFromGitHub, jax, jaxlib, lib, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jmp";
@@ -25,13 +18,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jmp" ];
 
-  nativeCheckInputs = [
-    jaxlib
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ jaxlib pytestCheckHook ];
 
   meta = with lib; {
-    description = "This library implements support for mixed precision training in JAX.";
+    description =
+      "This library implements support for mixed precision training in JAX.";
     homepage = "https://github.com/deepmind/jmp";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

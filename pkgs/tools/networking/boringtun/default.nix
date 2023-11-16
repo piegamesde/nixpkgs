@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "boringtun";
@@ -19,7 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-WFKlfuZGVU5KA57ZYjsIrIwE4B5TeaU5IKt9BNEnWyY=";
 
-  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
+  buildInputs =
+    lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   # Testing this project requires sudo, Docker and network access, etc.
   doCheck = false;
@@ -28,10 +23,7 @@ rustPlatform.buildRustPackage rec {
     description = "Userspace WireGuard® implementation in Rust";
     homepage = "https://github.com/cloudflare/boringtun";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      xrelkd
-      marsam
-    ];
+    maintainers = with maintainers; [ xrelkd marsam ];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

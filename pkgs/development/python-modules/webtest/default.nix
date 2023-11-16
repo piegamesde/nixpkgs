@@ -1,17 +1,5 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchPypi,
-  pastedeploy,
-  pyquery,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-  waitress,
-  webob,
-  wsgiproxy2,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchPypi, pastedeploy, pyquery
+, pytestCheckHook, pythonOlder, six, waitress, webob, wsgiproxy2 }:
 
 buildPythonPackage rec {
   pname = "webtest";
@@ -26,19 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-VL2WlyWDjZhhqfon+Nlx950nXZSuJV9cUB9Tu22ZKes=";
   };
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    six
-    waitress
-    webob
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 six waitress webob ];
 
-  nativeCheckInputs = [
-    pastedeploy
-    pyquery
-    pytestCheckHook
-    wsgiproxy2
-  ];
+  nativeCheckInputs = [ pastedeploy pyquery pytestCheckHook wsgiproxy2 ];
 
   __darwinAllowLocalNetworking = true;
 

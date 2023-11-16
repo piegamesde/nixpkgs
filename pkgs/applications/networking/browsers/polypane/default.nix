@@ -1,26 +1,23 @@
-{
-  lib,
-  fetchurl,
-  appimageTools,
-}:
+{ lib, fetchurl, appimageTools }:
 
 let
   pname = "polypane";
   version = "14.0.1";
 
   src = fetchurl {
-    url = "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
+    url =
+      "https://github.com/firstversionist/${pname}/releases/download/v${version}/${pname}-${version}.AppImage";
     name = "${pname}-${version}.AppImage";
     sha256 = "sha256-UBWd8ApSb5YN5TUqSxv/352+jAwwRjiv/pM1rocqukk=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname src version; };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit pname src version;
 
   multiPkgs = null;
-  extraPkgs = pkgs: appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ];
+  extraPkgs = pkgs:
+    appimageTools.defaultFhsEnvArgs.multiPkgs pkgs ++ [ pkgs.bash ];
 
   extraInstallCommands = ''
     ln -s $out/bin/${pname}-${version} $out/bin/${pname}
@@ -30,7 +27,8 @@ appimageTools.wrapType2 {
   '';
 
   meta = with lib; {
-    description = "Browser with unified devtools targeting responsability and accessibility";
+    description =
+      "Browser with unified devtools targeting responsability and accessibility";
     longDescription = ''
       The stand-alone browser for ambitious developers that want to build responsive,
       accessible and performant websites in a fraction of the time it takes with other browsers.

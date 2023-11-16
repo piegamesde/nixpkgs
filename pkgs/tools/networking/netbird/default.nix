@@ -1,36 +1,16 @@
-{
-  stdenv,
-  lib,
-  nixosTests,
-  nix-update-script,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  pkg-config,
-  gtk3,
-  libayatana-appindicator,
-  libX11,
-  libXcursor,
-  libXxf86vm,
-  Cocoa,
-  IOKit,
-  Kernel,
-  UserNotifications,
-  WebKit,
-  ui ? false,
-}:
+{ stdenv, lib, nixosTests, nix-update-script, buildGoModule, fetchFromGitHub
+, installShellFiles, pkg-config, gtk3, libayatana-appindicator, libX11
+, libXcursor, libXxf86vm, Cocoa, IOKit, Kernel, UserNotifications, WebKit
+, ui ? false }:
 let
-  modules =
-    if ui then
-      { "client/ui" = "netbird-ui"; }
-    else
-      {
-        client = "netbird";
-        management = "netbird-mgmt";
-        signal = "netbird-signal";
-      };
-in
-buildGoModule rec {
+  modules = if ui then {
+    "client/ui" = "netbird-ui";
+  } else {
+    client = "netbird";
+    management = "netbird-mgmt";
+    signal = "netbird-signal";
+  };
+in buildGoModule rec {
   pname = "netbird";
   version = "0.21.3";
 
@@ -45,21 +25,19 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ] ++ lib.optional ui pkg-config;
 
-  buildInputs =
-    lib.optionals (stdenv.isLinux && ui) [
-      gtk3
-      libayatana-appindicator
-      libX11
-      libXcursor
-      libXxf86vm
-    ]
-    ++ lib.optionals (stdenv.isDarwin && ui) [
-      Cocoa
-      IOKit
-      Kernel
-      UserNotifications
-      WebKit
-    ];
+  buildInputs = lib.optionals (stdenv.isLinux && ui) [
+    gtk3
+    libayatana-appindicator
+    libX11
+    libXcursor
+    libXxf86vm
+  ] ++ lib.optionals (stdenv.isDarwin && ui) [
+    Cocoa
+    IOKit
+    Kernel
+    UserNotifications
+    WebKit
+  ];
 
   subPackages = lib.attrNames modules;
 
@@ -81,24 +59,15 @@ buildGoModule rec {
       --replace 'unix:///var/run/netbird.sock' 'unix:///var/run/netbird/sock'
   '';
 
-  postInstall =
-    lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (
-          module: binary:
-          ''
-            mv $out/bin/${lib.last (lib.splitString "/" module)} $out/bin/${binary}
-          ''
-          + lib.optionalString (!ui) ''
-            installShellCompletion --cmd ${binary} \
-              --bash <($out/bin/${binary} completion bash) \
-              --fish <($out/bin/${binary} completion fish) \
-              --zsh <($out/bin/${binary} completion zsh)
-          ''
-        )
-        modules
-    )
-    + lib.optionalString (stdenv.isLinux && ui) ''
+  postInstall = lib.concatStringsSep "\n" (lib.mapAttrsToList (module: binary:
+    ''
+      mv $out/bin/${lib.last (lib.splitString "/" module)} $out/bin/${binary}
+    '' + lib.optionalString (!ui) ''
+      installShellCompletion --cmd ${binary} \
+        --bash <($out/bin/${binary} completion bash) \
+        --fish <($out/bin/${binary} completion fish) \
+        --zsh <($out/bin/${binary} completion zsh)
+    '') modules) + lib.optionalString (stdenv.isLinux && ui) ''
       mkdir -p $out/share/pixmaps
       cp $src/client/ui/disconnected.png $out/share/pixmaps/netbird.png
 
@@ -117,7 +86,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://netbird.io";
     changelog = "https://github.com/netbirdio/netbird/releases/tag/v${version}";
-    description = "Connect your devices into a single secure private WireGuard®-based mesh network with SSO/MFA and simple access controls";
+    description =
+      "Connect your devices into a single secure private WireGuard®-based mesh network with SSO/MFA and simple access controls";
     license = licenses.bsd3;
     maintainers = with maintainers; [ misuzu ];
   };

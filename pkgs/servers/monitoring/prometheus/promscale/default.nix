@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  promscale,
-  testers,
-}:
+{ lib, buildGoModule, fetchFromGitHub, promscale, testers }:
 
 buildGoModule rec {
   pname = "promscale";
@@ -49,11 +43,9 @@ buildGoModule rec {
   meta = with lib; {
     description = "An open-source analytical platform for Prometheus metrics";
     homepage = "https://github.com/timescale/promscale";
-    changelog = "https://github.com/timescale/promscale/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/timescale/promscale/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      _0x4A6F
-      anpin
-    ];
+    maintainers = with maintainers; [ _0x4A6F anpin ];
   };
 }

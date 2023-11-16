@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,9 +7,8 @@ let
   cfg = config.services.autofs;
 
   autoMaster = pkgs.writeText "auto.master" cfg.autoMaster;
-in
 
-{
+in {
 
   ###### interface
 
@@ -58,9 +52,8 @@ in
       timeout = mkOption {
         type = types.int;
         default = 600;
-        description =
-          lib.mdDoc
-            "Set the global minimum timeout, in seconds, until directories are unmounted";
+        description = lib.mdDoc
+          "Set the global minimum timeout, in seconds, until directories are unmounted";
       };
 
       debug = mkOption {
@@ -70,7 +63,9 @@ in
           Pass -d and -7 to automount and write log to the system journal.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -98,11 +93,15 @@ in
       serviceConfig = {
         Type = "forking";
         PIDFile = "/run/autofs.pid";
-        ExecStart = "${pkgs.autofs5}/bin/automount ${optionalString cfg.debug "-d"} -p /run/autofs.pid -t ${
+        ExecStart = "${pkgs.autofs5}/bin/automount ${
+            optionalString cfg.debug "-d"
+          } -p /run/autofs.pid -t ${
             builtins.toString cfg.timeout
           } ${autoMaster}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };
+
   };
+
 }

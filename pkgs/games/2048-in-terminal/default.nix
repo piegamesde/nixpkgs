@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "2048-in-terminal";

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  json_c,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, json_c, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "swaykbdd";
@@ -20,11 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ json_c ];
 
   meta = with lib; {

@@ -1,19 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  karchive,
-  kconfig,
-  ki18n,
-  kiconthemes,
-  kio,
-  kservice,
-  kwindowsystem,
-  kxmlgui,
-  libkipi,
-  qtbase,
-  qtsvg,
-  qtxmlpatterns,
+{ mkDerivation, lib, extra-cmake-modules, karchive, kconfig, ki18n, kiconthemes
+, kio, kservice, kwindowsystem, kxmlgui, libkipi, qtbase, qtsvg, qtxmlpatterns
 }:
 
 mkDerivation {

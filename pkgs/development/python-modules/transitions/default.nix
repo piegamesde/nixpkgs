@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pythonAtLeast,
-  six,
-  pygraphviz,
-  pytestCheckHook,
-  mock,
-  graphviz,
-  pycodestyle,
-  fontconfig,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonAtLeast, six, pygraphviz
+, pytestCheckHook, mock, graphviz, pycodestyle, fontconfig }:
 
 buildPythonPackage rec {
   pname = "transitions";
@@ -28,12 +16,7 @@ buildPythonPackage rec {
     pygraphviz # optional
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    graphviz
-    pycodestyle
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock graphviz pycodestyle ];
 
   preCheck = ''
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
@@ -52,7 +35,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pytransitions/transitions";
-    description = "A lightweight, object-oriented finite state machine implementation in Python";
+    description =
+      "A lightweight, object-oriented finite state machine implementation in Python";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  alsa-lib,
-  gettext,
-  makeWrapper,
-  ncurses,
-  libsamplerate,
-  pciutils,
-  which,
-  fftw,
-}:
+{ lib, stdenv, fetchurl, alsa-lib, gettext, makeWrapper, ncurses, libsamplerate
+, pciutils, which, fftw }:
 
 stdenv.mkDerivation rec {
   pname = "alsa-utils";
@@ -21,31 +10,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-52I9RSVZX5LhHOJe6al/IEChTG5NzQJ6qW4Gy854F70=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    makeWrapper
-  ];
-  buildInputs = [
-    alsa-lib
-    ncurses
-    libsamplerate
-    fftw
-  ];
+  nativeBuildInputs = [ gettext makeWrapper ];
+  buildInputs = [ alsa-lib ncurses libsamplerate fftw ];
 
-  configureFlags = [
-    "--disable-xmlto"
-    "--with-udev-rules-dir=$(out)/lib/udev/rules.d"
-  ];
+  configureFlags =
+    [ "--disable-xmlto" "--with-udev-rules-dir=$(out)/lib/udev/rules.d" ];
 
   installFlags = [ "ASOUND_STATE_DIR=$(TMPDIR)/dummy" ];
 
   postFixup = ''
     mv $out/bin/alsa-info.sh $out/bin/alsa-info
     wrapProgram $out/bin/alsa-info --prefix PATH : "${
-      lib.makeBinPath [
-        which
-        pciutils
-      ]
+      lib.makeBinPath [ which pciutils ]
     }"
   '';
 

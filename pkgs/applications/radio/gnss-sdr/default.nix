@@ -1,26 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  armadillo,
-  cmake,
-  gmp,
-  glog,
-  gtest,
-  openssl,
-  gflags,
-  gnuradio,
-  thrift,
-  enableRawUdp ? true,
-  libpcap,
-  orc,
-  pkg-config,
-  blas,
-  lapack,
-  matio,
-  pugixml,
-  protobuf,
-}:
+{ lib, fetchFromGitHub, fetchpatch, armadillo, cmake, gmp, glog, gtest, openssl
+, gflags, gnuradio, thrift, enableRawUdp ? true, libpcap, orc, pkg-config, blas
+, lapack, matio, pugixml, protobuf }:
 
 gnuradio.pkgs.mkDerivation rec {
   pname = "gnss-sdr";
@@ -33,13 +13,12 @@ gnuradio.pkgs.mkDerivation rec {
     sha256 = "sha256-0aAjkrVAswoRL/KANBSZ5Jq4Y9VwOHZKUKLpXDdKtk8=";
   };
 
-  patches =
-    [
-      # Use the relative install location for volk_gnsssdr_module and
-      # cpu_features which is bundled in the source. NOTE: Perhaps this patch
-      # should be sent upstream.
-      ./fix_libcpu_features_install_path.patch
-    ];
+  patches = [
+    # Use the relative install location for volk_gnsssdr_module and
+    # cpu_features which is bundled in the source. NOTE: Perhaps this patch
+    # should be sent upstream.
+    ./fix_libcpu_features_install_path.patch
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -50,32 +29,30 @@ gnuradio.pkgs.mkDerivation rec {
   ];
   nativeCheckInputs = [ gtest ];
 
-  buildInputs =
-    [
-      gmp
-      armadillo
-      glog
-      gflags
-      openssl
-      orc
-      blas
-      lapack
-      matio
-      pugixml
-      protobuf
-      gnuradio.unwrapped.boost
-      gnuradio.unwrapped.logLib
-    ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ gnuradio.unwrapped.uhd ]
+  buildInputs = [
+    gmp
+    armadillo
+    glog
+    gflags
+    openssl
+    orc
+    blas
+    lapack
+    matio
+    pugixml
+    protobuf
+    gnuradio.unwrapped.boost
+    gnuradio.unwrapped.logLib
+  ] ++ lib.optionals (gnuradio.hasFeature "gr-uhd") [ gnuradio.unwrapped.uhd ]
     ++ lib.optionals (enableRawUdp) [ libpcap ]
     ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
       thrift
       gnuradio.unwrapped.python.pkgs.thrift
-    ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-pdu" || gnuradio.hasFeature "gr-iio") [
-      gnuradio.unwrapped.libiio
-    ]
-    ++ lib.optionals (gnuradio.hasFeature "gr-pdu") [ gnuradio.unwrapped.libad9361 ];
+    ] ++ lib.optionals
+    (gnuradio.hasFeature "gr-pdu" || gnuradio.hasFeature "gr-iio")
+    [ gnuradio.unwrapped.libiio ]
+    ++ lib.optionals (gnuradio.hasFeature "gr-pdu")
+    [ gnuradio.unwrapped.libad9361 ];
 
   cmakeFlags = [
     "-DGFlags_INCLUDE_DIRS=${gflags}/include"
@@ -91,9 +68,14 @@ gnuradio.pkgs.mkDerivation rec {
     "-DENABLE_RAW_UDP=${if enableRawUdp then "ON" else "OFF"}"
     "-DENABLE_UHD=${if (gnuradio.hasFeature "gr-uhd") then "ON" else "OFF"}"
     "-DENABLE_FMCOMMS2=${
-      if (gnuradio.hasFeature "gr-iio" && gnuradio.hasFeature "gr-pdu") then "ON" else "OFF"
+      if (gnuradio.hasFeature "gr-iio" && gnuradio.hasFeature "gr-pdu") then
+        "ON"
+      else
+        "OFF"
     }"
-    "-DENABLE_PLUTOSDR=${if (gnuradio.hasFeature "gr-iio") then "ON" else "OFF"}"
+    "-DENABLE_PLUTOSDR=${
+      if (gnuradio.hasFeature "gr-iio") then "ON" else "OFF"
+    }"
     "-DENABLE_AD9361=${if (gnuradio.hasFeature "gr-pdu") then "ON" else "OFF"}"
     "-DENABLE_UNIT_TESTING=OFF"
 
@@ -104,7 +86,8 @@ gnuradio.pkgs.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "An open source Global Navigation Satellite Systems software-defined receiver";
+    description =
+      "An open source Global Navigation Satellite Systems software-defined receiver";
     homepage = "https://gnss-sdr.org/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

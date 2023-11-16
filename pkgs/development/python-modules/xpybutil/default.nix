@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  xcffib,
-  pillow,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, xcffib, pillow }:
 
 buildPythonPackage rec {
   pname = "xpybutil";
@@ -19,10 +13,7 @@ buildPythonPackage rec {
   };
 
   # pillow is a dependency in image.py which is not listed in setup.py
-  propagatedBuildInputs = [
-    pillow
-    xcffib
-  ];
+  propagatedBuildInputs = [ pillow xcffib ];
 
   propagatedNativeBuildInputs = [ xcffib ];
 

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  glib,
-  libkrb5,
-  libnl,
-  libtool,
-  pkg-config,
-  withKerberos ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, glib, libkrb5, libnl
+, libtool, pkg-config, withKerberos ? false }:
 
 stdenv.mkDerivation rec {
   pname = "ksmbd-tools";
@@ -23,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-R/OWZekAGtDxE71MrzjWsdpaWGBu0c+VP0VkPro6GEo=";
   };
 
-  buildInputs = [
-    glib
-    libnl
-  ] ++ lib.optional withKerberos libkrb5;
+  buildInputs = [ glib libnl ] ++ lib.optional withKerberos libkrb5;
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
 
   preConfigure = "./autogen.sh";
 
@@ -41,7 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Userspace utilities for the ksmbd kernel SMB server";
-    homepage = "https://www.kernel.org/doc/html/latest/filesystems/cifs/ksmbd.html";
+    homepage =
+      "https://www.kernel.org/doc/html/latest/filesystems/cifs/ksmbd.html";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ elohmeier ];

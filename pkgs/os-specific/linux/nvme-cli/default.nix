@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  meson,
-  ninja,
-  libnvme,
-  json_c,
-  zlib,
-  python3Packages,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, libnvme, json_c, zlib
+, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "nvme-cli";
@@ -24,17 +14,8 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dversion-tag=${version}" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3Packages.nose2
-  ];
-  buildInputs = [
-    libnvme
-    json_c
-    zlib
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3Packages.nose2 ];
+  buildInputs = [ libnvme json_c zlib ];
 
   meta = with lib; {
     inherit (src.meta) homepage; # https://nvmexpress.org/

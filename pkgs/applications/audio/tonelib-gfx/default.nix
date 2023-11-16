@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoPatchelfHook,
-  dpkg,
-  alsa-lib,
-  freetype,
-  libglvnd,
-  curl,
-  libXcursor,
-  libXinerama,
-  libXrandr,
-  libXrender,
-  libjack2,
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, alsa-lib, freetype, libglvnd
+, curl, libXcursor, libXinerama, libXrandr, libXrender, libjack2 }:
 
 stdenv.mkDerivation rec {
   pname = "tonelib-gfx";
@@ -24,17 +10,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-1sTwHqQYqNloZ3XSwhryqlW7b1FHh4ymtj3rKUcVZIo=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-    alsa-lib
-    freetype
-    libglvnd
-  ] ++ runtimeDependencies;
+  buildInputs = [ stdenv.cc.cc.lib alsa-lib freetype libglvnd ]
+    ++ runtimeDependencies;
 
   runtimeDependencies = map lib.getLib [
     curl
@@ -53,14 +32,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Tonelib GFX is an amp and effects modeling software for electric guitar and bass.";
+    description =
+      "Tonelib GFX is an amp and effects modeling software for electric guitar and bass.";
     homepage = "https://tonelib.net/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      dan4ik605743
-      orivej
-    ];
+    maintainers = with maintainers; [ dan4ik605743 orivej ];
     platforms = [ "x86_64-linux" ];
   };
 }

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  georss-client,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, georss-client, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "georss-wa-dfes-client";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "georss_wa_dfes_client" ];
 
   meta = with lib; {
-    description = "Python library for accessing WA Department of Fire and Emergency Services (DFES) feed";
+    description =
+      "Python library for accessing WA Department of Fire and Emergency Services (DFES) feed";
     homepage = "https://github.com/exxamalte/python-georss-wa-dfes-client";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

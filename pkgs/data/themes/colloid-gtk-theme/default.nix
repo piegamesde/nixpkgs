@@ -1,112 +1,84 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gitUpdater,
-  gnome-themes-extra,
-  gtk-engine-murrine,
-  jdupes,
-  sassc,
-  themeVariants ? [ ] # default: blue
-  ,
-  colorVariants ? [ ] # default: all
-  ,
-  sizeVariants ? [ ] # default: standard
-  ,
-  tweaks ? [ ],
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gnome-themes-extra
+, gtk-engine-murrine, jdupes, sassc, themeVariants ? [ ] # default: blue
+, colorVariants ? [ ] # default: all
+, sizeVariants ? [ ] # default: standard
+, tweaks ? [ ] }:
 
-let
-  pname = "colloid-gtk-theme";
-in
-lib.checkListOfEnum "${pname}: theme variants"
-  [
-    "default"
-    "purple"
-    "pink"
-    "red"
-    "orange"
-    "yellow"
-    "green"
-    "teal"
-    "grey"
-    "all"
-  ]
-  themeVariants
-  lib.checkListOfEnum
-  "${pname}: color variants"
-  [
-    "standard"
-    "light"
-    "dark"
-  ]
-  colorVariants
-  lib.checkListOfEnum
-  "${pname}: size variants"
-  [
-    "standard"
-    "compact"
-  ]
-  sizeVariants
-  lib.checkListOfEnum
-  "${pname}: tweaks"
-  [
-    "nord"
-    "black"
-    "dracula"
-    "gruvbox"
-    "rimless"
-    "normal"
-  ]
-  tweaks
+let pname = "colloid-gtk-theme";
 
-  stdenvNoCC.mkDerivation
-  rec {
-    inherit pname;
-    version = "2023.04.11";
+in lib.checkListOfEnum "${pname}: theme variants" [
+  "default"
+  "purple"
+  "pink"
+  "red"
+  "orange"
+  "yellow"
+  "green"
+  "teal"
+  "grey"
+  "all"
+] themeVariants lib.checkListOfEnum
+"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
+lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" ]
+sizeVariants lib.checkListOfEnum
+"${pname}: tweaks" [ "nord" "black" "dracula" "gruvbox" "rimless" "normal" ]
+tweaks
 
-    src = fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = pname;
-      rev = version;
-      hash = "sha256-lVHDQmu9GLesasmI2GQ0hx4f2NtgaM4IlJk/hXe2XzY=";
-    };
+stdenvNoCC.mkDerivation rec {
+  inherit pname;
+  version = "2023.04.11";
 
-    nativeBuildInputs = [
-      jdupes
-      sassc
-    ];
+  src = fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = pname;
+    rev = version;
+    hash = "sha256-lVHDQmu9GLesasmI2GQ0hx4f2NtgaM4IlJk/hXe2XzY=";
+  };
 
-    buildInputs = [ gnome-themes-extra ];
+  nativeBuildInputs = [ jdupes sassc ];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  buildInputs = [ gnome-themes-extra ];
 
-    postPatch = ''
-      patchShebangs install.sh
-    '';
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-    installPhase = ''
-      runHook preInstall
+  postPatch = ''
+    patchShebangs install.sh
+  '';
 
-      name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
-        --dest $out/share/themes
+  installPhase = ''
+    runHook preInstall
 
-      jdupes --quiet --link-soft --recurse $out/share
+    name= HOME="$TMPDIR" ./install.sh \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (sizeVariants != [ ]) "--size "
+        + builtins.toString sizeVariants
+      } \
+      ${
+        lib.optionalString (tweaks != [ ]) "--tweaks "
+        + builtins.toString tweaks
+      } \
+      --dest $out/share/themes
 
-      runHook postInstall
-    '';
+    jdupes --quiet --link-soft --recurse $out/share
 
-    passthru.updateScript = gitUpdater { };
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "A modern and clean Gtk theme";
-      homepage = "https://github.com/vinceliuice/Colloid-gtk-theme";
-      license = licenses.gpl3Only;
-      platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
-    };
-  }
+  passthru.updateScript = gitUpdater { };
+
+  meta = with lib; {
+    description = "A modern and clean Gtk theme";
+    homepage = "https://github.com/vinceliuice/Colloid-gtk-theme";
+    license = licenses.gpl3Only;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.romildo ];
+  };
+}

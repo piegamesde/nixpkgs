@@ -1,37 +1,14 @@
-{
-  lib,
-  stdenv,
-  buildGoPackage,
-  fetchurl,
-  cmake,
-  xz,
-  which,
-  autoconf,
-  ncurses6,
-  libedit,
-  libunwind,
-  installShellFiles,
-  removeReferencesTo,
-  go,
-}:
+{ lib, stdenv, buildGoPackage, fetchurl, cmake, xz, which, autoconf, ncurses6
+, libedit, libunwind, installShellFiles, removeReferencesTo, go }:
 
 let
-  darwinDeps = [
-    libunwind
-    libedit
-  ];
+  darwinDeps = [ libunwind libedit ];
   linuxDeps = [ ncurses6 ];
 
   buildInputs = if stdenv.isDarwin then darwinDeps else linuxDeps;
-  nativeBuildInputs = [
-    installShellFiles
-    cmake
-    xz
-    which
-    autoconf
-  ];
-in
-buildGoPackage rec {
+  nativeBuildInputs = [ installShellFiles cmake xz which autoconf ];
+
+in buildGoPackage rec {
   pname = "cockroach";
   version = "20.1.8";
 
@@ -42,13 +19,11 @@ buildGoPackage rec {
     sha256 = "0mm3hfr778c7djza8gr1clwa8wca4d3ldh9hlg80avw4x664y5zi";
   };
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU [
-      "-Wno-error=deprecated-copy"
-      "-Wno-error=redundant-move"
-      "-Wno-error=pessimizing-move"
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
+    "-Wno-error=deprecated-copy"
+    "-Wno-error=redundant-move"
+    "-Wno-error=pessimizing-move"
+  ]);
 
   inherit nativeBuildInputs buildInputs;
 
@@ -76,10 +51,7 @@ buildGoPackage rec {
     runHook postInstall
   '';
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   # fails with `GOFLAGS=-trimpath`
   allowGoReference = true;
@@ -91,14 +63,7 @@ buildGoPackage rec {
     homepage = "https://www.cockroachlabs.com";
     description = "A scalable, survivable, strongly-consistent SQL database";
     license = licenses.bsl11;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-    ];
-    maintainers = with maintainers; [
-      rushmorem
-      thoughtpolice
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
+    maintainers = with maintainers; [ rushmorem thoughtpolice ];
   };
 }

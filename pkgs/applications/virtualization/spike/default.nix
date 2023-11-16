@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  dtc,
-  pkgsCross,
-}:
+{ lib, stdenv, fetchFromGitHub, dtc, pkgsCross }:
 
 stdenv.mkDerivation rec {
   pname = "spike";
@@ -30,28 +24,22 @@ stdenv.mkDerivation rec {
   # To test whether spike is working, we run the RISC-V hello applications using the RISC-V proxy
   # kernel on the Spike emulator and see whether we get the expected output.
   doInstallCheck = true;
-  installCheckPhase =
-    let
-      riscvPkgs = pkgsCross.riscv64-embedded;
-    in
-    ''
-      runHook preInstallCheck
+  installCheckPhase = let riscvPkgs = pkgsCross.riscv64-embedded;
+  in ''
+    runHook preInstallCheck
 
-      echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c
-      ${riscvPkgs.stdenv.cc}/bin/riscv64-none-elf-gcc -o hello hello.c
-      $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
+    echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c
+    ${riscvPkgs.stdenv.cc}/bin/riscv64-none-elf-gcc -o hello hello.c
+    $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
 
-      runHook postInstallCheck
-    '';
+    runHook postInstallCheck
+  '';
 
   meta = with lib; {
     description = "A RISC-V ISA Simulator";
     homepage = "https://github.com/riscv/riscv-isa-sim";
     license = licenses.bsd3;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     maintainers = with maintainers; [ blitz ];
   };
 }

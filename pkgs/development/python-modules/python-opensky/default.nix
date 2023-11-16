@@ -1,16 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pydantic,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  yarl,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pydantic, pytest-asyncio, pytestCheckHook, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "python-opensky";
@@ -36,24 +25,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "python_opensky" ];
 
   meta = with lib; {
     description = "Asynchronous Python client for the OpenSky API";
     homepage = "https://github.com/joostlek/python-opensky";
-    changelog = "https://github.com/joostlek/python-opensky/releases/tag/v${version}";
+    changelog =
+      "https://github.com/joostlek/python-opensky/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

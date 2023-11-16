@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  gitleaks,
-  installShellFiles,
-  testers,
-}:
+{ lib, buildGoModule, fetchFromGitHub, gitleaks, installShellFiles, testers }:
 
 buildGoModule rec {
   pname = "gitleaks";
@@ -23,7 +16,9 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/zricethezav/gitleaks/v${lib.versions.major version}/cmd.Version=${version}"
+    "-X github.com/zricethezav/gitleaks/v${
+      lib.versions.major version
+    }/cmd.Version=${version}"
   ];
 
   nativeBuildInputs = [ installShellFiles ];
@@ -50,7 +45,8 @@ buildGoModule rec {
       API keys and tokens in git repos.
     '';
     homepage = "https://github.com/zricethezav/gitleaks";
-    changelog = "https://github.com/zricethezav/gitleaks/releases/tag/v${version}";
+    changelog =
+      "https://github.com/zricethezav/gitleaks/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

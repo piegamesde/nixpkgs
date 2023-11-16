@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  dbus,
-  dbus-python,
-  pygobject3,
-  bluez,
-  networkmanager,
-  setuptools-scm,
-  runCommand,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, dbus, dbus-python, pygobject3
+, bluez, networkmanager, setuptools-scm, runCommand }:
 
 let
   # Cannot just add it to path in preCheck since that attribute will be passed to
@@ -19,8 +8,7 @@ let
     mkdir -p "$out/bin"
     ln -s "${bluez.test}/test/pbap-client" "$out/bin/pbap-client"
   '';
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "python-dbusmock";
   version = "0.28.7";
 
@@ -37,14 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ dbus-python ];
 
-  nativeCheckInputs = [
-    dbus
-    pygobject3
-    bluez
-    pbap-client
-    networkmanager
-    nose
-  ];
+  nativeCheckInputs = [ dbus pygobject3 bluez pbap-client networkmanager nose ];
 
   # TODO: Get the rest of these tests running?
   NOSE_EXCLUDE = lib.concatStringsSep "," [

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPythonApplication,
-  fetchpatch,
-  pyside6,
-  twisted,
-  certifi,
-  qt6,
-  appnope,
-  enableGUI ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonApplication, fetchpatch, pyside6
+, twisted, certifi, qt6, appnope, enableGUI ? true }:
 
 buildPythonApplication rec {
   pname = "syncplay";
@@ -28,26 +17,20 @@ buildPythonApplication rec {
   patches = [
     (fetchpatch {
       name = "fix-typeerror.patch";
-      url = "https://github.com/Syncplay/syncplay/commit/b62b038cdf58c54205987dfc52ebf228505ad03b.patch";
+      url =
+        "https://github.com/Syncplay/syncplay/commit/b62b038cdf58c54205987dfc52ebf228505ad03b.patch";
       hash = "sha256-pSP33Qn1I+nJBW8T1E1tSJKRh5OnZMRsbU+jr5z4u7c=";
     })
   ];
 
-  buildInputs = lib.optionals enableGUI [ (if stdenv.isLinux then qt6.qtwayland else qt6.qtbase) ];
-  propagatedBuildInputs =
-    [
-      twisted
-      certifi
-    ]
-    ++ twisted.optional-dependencies.tls
-    ++ lib.optional enableGUI pyside6
+  buildInputs = lib.optionals enableGUI
+    [ (if stdenv.isLinux then qt6.qtwayland else qt6.qtbase) ];
+  propagatedBuildInputs = [ twisted certifi ]
+    ++ twisted.optional-dependencies.tls ++ lib.optional enableGUI pyside6
     ++ lib.optional (stdenv.isDarwin && enableGUI) appnope;
   nativeBuildInputs = lib.optionals enableGUI [ qt6.wrapQtAppsHook ];
 
-  makeFlags = [
-    "DESTDIR="
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "DESTDIR=" "PREFIX=$(out)" ];
 
   postFixup = lib.optionalString enableGUI ''
     wrapQtApp $out/bin/syncplay

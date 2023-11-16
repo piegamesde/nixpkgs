@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  opensp,
-  perl,
-}:
+{ lib, stdenv, fetchurl, opensp, perl }:
 
 stdenv.mkDerivation rec {
   pname = "openjade";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./msggen.patch ];
 
-  buildInputs = [
-    opensp
-    perl
-  ];
+  buildInputs = [ opensp perl ];
 
   configureFlags = [
     "--enable-spincludedir=${opensp}/include/OpenSP"
@@ -28,7 +19,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description = "An implementation of DSSSL, an ISO standard for formatting SGML (and XML) documents";
+    description =
+      "An implementation of DSSSL, an ISO standard for formatting SGML (and XML) documents";
     license = lib.licenses.mit;
     homepage = "https://openjade.sourceforge.net/";
     platforms = lib.platforms.linux;

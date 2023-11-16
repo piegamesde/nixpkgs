@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-}:
+{ lib, stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation rec {
   pname = "daemon";
@@ -14,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-s0s3VDu6Q70Ibln0t1TIECOArlwXKLmHyJDV2ktM88o=";
   };
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
 
   buildInputs = [ perl ];
 

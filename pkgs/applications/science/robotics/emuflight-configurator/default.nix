@@ -1,35 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  makeDesktopItem,
-  copyDesktopItems,
-  nwjs,
-  wrapGAppsHook,
-  gsettings-desktop-schemas,
-  gtk3,
-}:
+{ lib, stdenv, fetchurl, unzip, makeDesktopItem, copyDesktopItems, nwjs
+, wrapGAppsHook, gsettings-desktop-schemas, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "emuflight-configurator";
   version = "0.4.1";
 
   src = fetchurl {
-    url = "https://github.com/emuflight/EmuConfigurator/releases/download/${version}/emuflight-configurator_${version}_linux64.zip";
+    url =
+      "https://github.com/emuflight/EmuConfigurator/releases/download/${version}/emuflight-configurator_${version}_linux64.zip";
     sha256 = "sha256-e4HNg5yr9V5LyT0hYP6gzw0tZm4dLidJg5MQtH3L3JI=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    unzip
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ wrapGAppsHook unzip copyDesktopItems ];
 
-  buildInputs = [
-    gsettings-desktop-schemas
-    gtk3
-  ];
+  buildInputs = [ gsettings-desktop-schemas gtk3 ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/${pname}

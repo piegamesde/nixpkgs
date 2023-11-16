@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gdk-pixbuf,
-  gtk-engine-murrine,
-  gtk_engines,
-  librsvg,
-}:
+{ lib, stdenv, fetchFromGitHub, gdk-pixbuf, gtk-engine-murrine, gtk_engines
+, librsvg }:
 
 stdenv.mkDerivation rec {
   pname = "marwaita-ubuntu";
@@ -19,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "024b0817jilvi5ilq9sbwg19ql5i2x3jfgc1awk7zzv6sqii639x";
   };
 
-  buildInputs = [
-    gdk-pixbuf
-    gtk_engines
-    librsvg
-  ];
+  buildInputs = [ gdk-pixbuf gtk_engines librsvg ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

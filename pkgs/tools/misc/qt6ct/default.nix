@@ -1,18 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qtbase,
-  qtsvg,
-  qtwayland,
-  qmake,
-  qttools,
-  wrapQtAppsHook,
-}:
-let
-  inherit (lib) getDev;
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchFromGitHub, qtbase, qtsvg, qtwayland, qmake, qttools
+, wrapQtAppsHook }:
+let inherit (lib) getDev;
+in stdenv.mkDerivation rec {
   pname = "qt6ct";
   version = "0.8";
 
@@ -23,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "BFE5aUgn3uFJWTgd4sUwP2L9RZwwwr5jVtAapA9vYbA=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake qttools wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    qtwayland
-  ];
+  buildInputs = [ qtbase qtsvg qtwayland ];
 
   qmakeFlags = [
     "LRELEASE_EXECUTABLE=${getDev qttools}/bin/lrelease"
@@ -46,9 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/trialuser02/qt6ct";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = with maintainers; [
-      Flakebi
-      Scrumplex
-    ];
+    maintainers = with maintainers; [ Flakebi Scrumplex ];
   };
 }

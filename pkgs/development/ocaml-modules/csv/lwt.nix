@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  csv,
-  lwt,
-}:
+{ lib, buildDunePackage, csv, lwt }:
 
 buildDunePackage {
   pname = "csv-lwt";
@@ -15,10 +10,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    csv
-    lwt
-  ];
+  propagatedBuildInputs = [ csv lwt ];
 
   doCheck = true;
 }

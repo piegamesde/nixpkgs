@@ -1,25 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  httplib2,
-  oauth,
-  oauth2,
-  semantic-version,
-  flask,
-  httpretty,
-  oauthlib,
-  pyflakes,
-  pytest,
-  pytestcache,
-  pytest-cov,
-  covCore,
-  pytest-flakes,
-  sphinx,
-  mock,
-  chalice,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchPypi, httplib2, oauth, oauth2, semantic-version
+, flask, httpretty, oauthlib, pyflakes, pytest, pytestcache, pytest-cov, covCore
+, pytest-flakes, sphinx, mock, chalice, isPy27 }:
 
 buildPythonPackage rec {
   pname = "pylti";
@@ -32,12 +13,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "mock==1.0.1" "mock"
   '';
 
-  propagatedBuildInputs = [
-    httplib2
-    oauth
-    oauth2
-    semantic-version
-  ];
+  propagatedBuildInputs = [ httplib2 oauth oauth2 semantic-version ];
   nativeCheckInputs = [
     flask
     httpretty

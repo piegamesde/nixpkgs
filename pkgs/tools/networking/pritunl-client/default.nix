@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pritunl-client";
@@ -24,7 +20,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Pritunl OpenVPN client CLI";
-    homepage = "https://github.com/pritunl/pritunl-client-electron/tree/master/cli";
+    homepage =
+      "https://github.com/pritunl/pritunl-client-electron/tree/master/cli";
     license = licenses.unfree;
     maintainers = with maintainers; [ minizilla ];
   };

@@ -1,51 +1,23 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  tag ? "",
+{ lib, fetchFromGitHub, fetchpatch, tag ? ""
 
   # build time
-  gettext,
-  gobject-introspection,
-  wrapGAppsHook,
+, gettext, gobject-introspection, wrapGAppsHook
 
-  # runtime
-  adwaita-icon-theme,
-  gdk-pixbuf,
-  glib,
-  glib-networking,
-  gtk3,
-  gtksourceview,
-  kakasi,
-  keybinder3,
-  libappindicator-gtk3,
-  libmodplug,
-  librsvg,
-  libsoup,
-  webkitgtk,
+# runtime
+, adwaita-icon-theme, gdk-pixbuf, glib, glib-networking, gtk3, gtksourceview
+, kakasi, keybinder3, libappindicator-gtk3, libmodplug, librsvg, libsoup
+, webkitgtk
 
-  # optional features
-  withDbusPython ? false,
-  withPypresence ? false,
-  withPyInotify ? false,
-  withMusicBrainzNgs ? false,
-  withPahoMqtt ? false,
-  withSoco ? false,
+# optional features
+, withDbusPython ? false, withPypresence ? false, withPyInotify ? false
+, withMusicBrainzNgs ? false, withPahoMqtt ? false, withSoco ? false
 
   # backends
-  withGstreamerBackend ? true,
-  gst_all_1,
-  withGstPlugins ? withGstreamerBackend,
-  withXineBackend ? true,
-  xine-lib,
+, withGstreamerBackend ? true, gst_all_1, withGstPlugins ? withGstreamerBackend
+, withXineBackend ? true, xine-lib
 
-  # tests
-  dbus,
-  glibcLocales,
-  hicolor-icon-theme,
-  python3,
-  xvfb-run,
-}:
+# tests
+, dbus, glibcLocales, hicolor-icon-theme, python3, xvfb-run }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "quodlibet${tag}";
@@ -62,68 +34,41 @@ python3.pkgs.buildPythonApplication rec {
   patches = [
     (fetchpatch {
       # Fixes cover globbing under python 3.10.5+
-      url = "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
+      url =
+        "https://github.com/quodlibet/quodlibet/commit/5eb7c30766e1dcb30663907664855ee94a3accc0.patch";
       hash = "sha256-bDyEOE7Vs4df4BeN4QMvt6niisVEpvc1onmX5rtoAWc=";
     })
   ];
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
-  nativeBuildInputs =
-    [
-      gettext
-      gobject-introspection
-      wrapGAppsHook
-    ]
-    ++ (
-      with python3.pkgs; [
-        sphinxHook
-        sphinx-rtd-theme
-      ]
-    );
+  nativeBuildInputs = [ gettext gobject-introspection wrapGAppsHook ]
+    ++ (with python3.pkgs; [ sphinxHook sphinx-rtd-theme ]);
 
-  buildInputs =
-    [
-      adwaita-icon-theme
-      gdk-pixbuf
-      glib
-      glib-networking
-      gtk3
-      gtksourceview
-      kakasi
-      keybinder3
-      libappindicator-gtk3
-      libmodplug
-      libsoup
-      webkitgtk
-    ]
-    ++ lib.optionals (withXineBackend) [ xine-lib ]
-    ++ lib.optionals (withGstreamerBackend) (
-      with gst_all_1;
-      [
-        gst-plugins-base
-        gstreamer
-      ]
-      ++ lib.optionals (withGstPlugins) [
+  buildInputs = [
+    adwaita-icon-theme
+    gdk-pixbuf
+    glib
+    glib-networking
+    gtk3
+    gtksourceview
+    kakasi
+    keybinder3
+    libappindicator-gtk3
+    libmodplug
+    libsoup
+    webkitgtk
+  ] ++ lib.optionals (withXineBackend) [ xine-lib ]
+    ++ lib.optionals (withGstreamerBackend) (with gst_all_1;
+      [ gst-plugins-base gstreamer ] ++ lib.optionals (withGstPlugins) [
         gst-libav
         gst-plugins-bad
         gst-plugins-good
         gst-plugins-ugly
-      ]
-    );
+      ]);
 
-  propagatedBuildInputs =
-    with python3.pkgs;
-    [
-      feedparser
-      gst-python
-      mutagen
-      pycairo
-      pygobject3
-    ]
+  propagatedBuildInputs = with python3.pkgs;
+    [ feedparser gst-python mutagen pycairo pygobject3 ]
     ++ lib.optionals withDbusPython [ dbus-python ]
     ++ lib.optionals withPypresence [ pypresence ]
     ++ lib.optionals withPyInotify [ pyinotify ]
@@ -134,36 +79,21 @@ python3.pkgs.buildPythonApplication rec {
   LC_ALL = "en_US.UTF-8";
 
   nativeCheckInputs =
-    [
-      dbus
-      gdk-pixbuf
-      glibcLocales
-      hicolor-icon-theme
-      xvfb-run
-    ]
-    ++ (
-      with python3.pkgs; [
-        polib
-        pytest
-        pytest-xdist
-      ]
-    );
+    [ dbus gdk-pixbuf glibcLocales hicolor-icon-theme xvfb-run ]
+    ++ (with python3.pkgs; [ polib pytest pytest-xdist ]);
 
-  pytestFlags =
-    [
-      # requires networking
-      "--deselect=tests/test_browsers_iradio.py::TIRFile::test_download_tags"
-      # missing translation strings in potfiles
-      "--deselect=tests/test_po.py::TPOTFILESIN::test_missing"
-      # upstream does actually not enforce source code linting
-      "--ignore=tests/quality"
-      # build failure on Arch Linux
-      # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
-      "--ignore=tests/test_operon.py"
-    ]
-    ++ lib.optionals (withXineBackend || !withGstPlugins) [
-      "--ignore=tests/plugin/test_replaygain.py"
-    ];
+  pytestFlags = [
+    # requires networking
+    "--deselect=tests/test_browsers_iradio.py::TIRFile::test_download_tags"
+    # missing translation strings in potfiles
+    "--deselect=tests/test_po.py::TPOTFILESIN::test_missing"
+    # upstream does actually not enforce source code linting
+    "--ignore=tests/quality"
+    # build failure on Arch Linux
+    # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
+    "--ignore=tests/test_operon.py"
+  ] ++ lib.optionals (withXineBackend || !withGstPlugins)
+    [ "--ignore=tests/plugin/test_replaygain.py" ];
 
   preCheck = ''
     export XDG_DATA_DIRS="$out/share:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_ICON_DIRS:$XDG_DATA_DIRS"
@@ -186,7 +116,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "GTK-based audio player written in Python, using the Mutagen tagging library";
+    description =
+      "GTK-based audio player written in Python, using the Mutagen tagging library";
     license = licenses.gpl2Plus;
 
     longDescription = ''
@@ -203,10 +134,7 @@ python3.pkgs.buildPythonApplication rec {
       & internet radio, and all major audio formats.
     '';
 
-    maintainers = with maintainers; [
-      coroa
-      pbogdan
-    ];
+    maintainers = with maintainers; [ coroa pbogdan ];
     homepage = "https://quodlibet.readthedocs.io/en/latest/";
   };
 }

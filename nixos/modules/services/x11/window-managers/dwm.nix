@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.xserver.windowManager.dwm;
-in
 
-{
+in {
 
   ###### interface
 
@@ -53,5 +47,7 @@ in
     };
 
     environment.systemPackages = [ cfg.package ];
+
   };
+
 }

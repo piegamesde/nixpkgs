@@ -1,11 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  fontforge,
-  perl,
-  perlPackages,
-}:
+{ fetchFromGitHub, lib, stdenv, fontforge, perl, perlPackages }:
 
 let
   version = "2.37";
@@ -33,12 +26,8 @@ let
   full-ttf = stdenv.mkDerivation {
     pname = "dejavu-fonts-full";
     inherit version;
-    nativeBuildInputs = [
-      fontforge
-      perl
-      perlPackages.IOString
-      perlPackages.FontTTF
-    ];
+    nativeBuildInputs =
+      [ fontforge perl perlPackages.IOString perlPackages.FontTTF ];
 
     src = fetchFromGitHub {
       owner = "dejavu-fonts";
@@ -64,8 +53,7 @@ let
     '';
     inherit meta;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "dejavu-fonts";
   inherit version;
   buildCommand = ''
@@ -74,7 +62,5 @@ stdenv.mkDerivation {
   '';
   inherit meta;
 
-  passthru = {
-    inherit minimal full-ttf;
-  };
+  passthru = { inherit minimal full-ttf; };
 }

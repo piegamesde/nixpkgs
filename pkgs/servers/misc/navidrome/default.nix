@@ -1,20 +1,6 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  fetchNpmDeps,
-  lib,
-  nodejs,
-  npmHooks,
-  pkg-config,
-  stdenv,
-  ffmpeg-headless,
-  taglib,
-  zlib,
-  makeWrapper,
-  nixosTests,
-  nix-update-script,
-  ffmpegSupport ? true,
-}:
+{ buildGoModule, fetchFromGitHub, fetchNpmDeps, lib, nodejs, npmHooks
+, pkg-config, stdenv, ffmpeg-headless, taglib, zlib, makeWrapper, nixosTests
+, nix-update-script, ffmpegSupport ? true }:
 
 buildGoModule rec {
   pname = "navidrome";
@@ -37,22 +23,15 @@ buildGoModule rec {
     hash = "sha256-qxwTiXLmZnTnmTSBmWPjeFCP7qzvTFN0xXp5lFkWFog=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    nodejs
-    npmHooks.npmConfigHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper nodejs npmHooks.npmConfigHook pkg-config ];
 
   overrideModAttrs = oldAttrs: {
-    nativeBuildInputs = lib.filter (drv: drv != npmHooks.npmConfigHook) oldAttrs.nativeBuildInputs;
+    nativeBuildInputs = lib.filter (drv: drv != npmHooks.npmConfigHook)
+      oldAttrs.nativeBuildInputs;
     preBuild = null;
   };
 
-  buildInputs = [
-    taglib
-    zlib
-  ];
+  buildInputs = [ taglib zlib ];
 
   ldflags = [
     "-X github.com/navidrome/navidrome/consts.gitSha=${src.rev}"
@@ -76,14 +55,12 @@ buildGoModule rec {
   };
 
   meta = {
-    description = "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
+    description =
+      "Navidrome Music Server and Streamer compatible with Subsonic/Airsonic";
     homepage = "https://www.navidrome.org/";
     license = lib.licenses.gpl3Only;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
-    maintainers = with lib.maintainers; [
-      aciceri
-      squalus
-    ];
+    maintainers = with lib.maintainers; [ aciceri squalus ];
     # Broken on Darwin: sandbox-exec: pattern serialization length exceeds maximum (NixOS/nix#4119)
     broken = stdenv.isDarwin;
   };

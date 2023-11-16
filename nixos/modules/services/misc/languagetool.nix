@@ -1,18 +1,11 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.languagetool;
   settingsFormat = pkgs.formats.javaProperties { };
-in
-{
+in {
   options.services.languagetool = {
     enable = mkEnableOption (mdDoc "the LanguageTool server");
 
@@ -25,7 +18,8 @@ in
       '';
     };
 
-    public = mkEnableOption (mdDoc "access from anywhere (rather than just localhost)");
+    public = mkEnableOption
+      (mdDoc "access from anywhere (rather than just localhost)");
 
     allowOrigin = mkOption {
       type = types.nullOr types.str;
@@ -70,17 +64,19 @@ in
         Group = "languagetool";
         CapabilityBoundingSet = [ "" ];
         RestrictNamespaces = [ "" ];
-        SystemCallFilter = [
-          "@system-service"
-          "~ @privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~ @privileged" ];
         ProtectHome = "yes";
         ExecStart = ''
           ${pkgs.languagetool}/bin/languagetool-http-server \
             --port ${toString cfg.port} \
             ${optionalString cfg.public "--public"} \
-            ${optionalString (cfg.allowOrigin != null) "--allow-origin ${cfg.allowOrigin}"} \
-            "--config" ${settingsFormat.generate "languagetool.conf" cfg.settings}
+            ${
+              optionalString (cfg.allowOrigin != null)
+              "--allow-origin ${cfg.allowOrigin}"
+            } \
+            "--config" ${
+              settingsFormat.generate "languagetool.conf" cfg.settings
+            }
         '';
       };
     };

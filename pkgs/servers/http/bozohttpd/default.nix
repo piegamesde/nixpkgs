@@ -1,28 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bmake,
-  groff,
-  inetutils,
-  wget,
-  openssl,
-  libxcrypt,
-  minimal ? false,
-  userSupport ? !minimal,
-  cgiSupport ? !minimal,
-  dirIndexSupport ? !minimal,
-  dynamicContentSupport ? !minimal,
-  sslSupport ? !minimal,
-  luaSupport ? !minimal,
-  lua,
-  htpasswdSupport ? !minimal,
+{ lib, stdenv, fetchurl, bmake, groff, inetutils, wget, openssl, libxcrypt
+, minimal ? false, userSupport ? !minimal, cgiSupport ? !minimal
+, dirIndexSupport ? !minimal, dynamicContentSupport ? !minimal
+, sslSupport ? !minimal, luaSupport ? !minimal, lua, htpasswdSupport ? !minimal
 }:
 
-let
-  inherit (lib) optional optionals;
-in
-stdenv.mkDerivation rec {
+let inherit (lib) optional optionals;
+in stdenv.mkDerivation rec {
   pname = "bozohttpd";
   version = "20220517";
 
@@ -30,31 +13,24 @@ stdenv.mkDerivation rec {
   # http://cvsweb.netbsd.org/bsdweb.cgi/pkgsrc/www/bozohttpd/distinfo
   src = fetchurl {
     url = "http://www.eterna.com.au/${pname}/${pname}-${version}.tar.bz2";
-    sha512 = "275b8fab3cf2e6c59721682cae952db95da5bd3b1f20680240c6cf1029463693f6feca047fbef5e3a3e7528b40b7b2e87b2a56fd800b612e679a16f24890e5b6";
+    sha512 =
+      "275b8fab3cf2e6c59721682cae952db95da5bd3b1f20680240c6cf1029463693f6feca047fbef5e3a3e7528b40b7b2e87b2a56fd800b612e679a16f24890e5b6";
   };
 
-  buildInputs = [
-    openssl
-    libxcrypt
-  ] ++ optional (luaSupport) lua;
-  nativeBuildInputs = [
-    bmake
-    groff
-  ];
+  buildInputs = [ openssl libxcrypt ] ++ optional (luaSupport) lua;
+  nativeBuildInputs = [ bmake groff ];
 
-  COPTS =
-    [
-      "-D_DEFAULT_SOURCE"
-      "-D_GNU_SOURCE"
+  COPTS = [
+    "-D_DEFAULT_SOURCE"
+    "-D_GNU_SOURCE"
 
-      # ensure that we can serve >2GB files even on 32-bit systems.
-      "-D_LARGEFILE_SOURCE"
-      "-D_FILE_OFFSET_BITS=64"
+    # ensure that we can serve >2GB files even on 32-bit systems.
+    "-D_LARGEFILE_SOURCE"
+    "-D_FILE_OFFSET_BITS=64"
 
-      # unpackaged dependency: https://man.netbsd.org/blocklist.3
-      "-DNO_BLOCKLIST_SUPPORT"
-    ]
-    ++ optional (!userSupport) "-DNO_USER_SUPPORT"
+    # unpackaged dependency: https://man.netbsd.org/blocklist.3
+    "-DNO_BLOCKLIST_SUPPORT"
+  ] ++ optional (!userSupport) "-DNO_USER_SUPPORT"
     ++ optional (!dirIndexSupport) "-DNO_DIRINDEX_SUPPORT"
     ++ optional (!dynamicContentSupport) "-DNO_DYNAMIC_CONTENT"
     ++ optional (!luaSupport) "-DNO_LUA_SUPPORT"
@@ -62,21 +38,14 @@ stdenv.mkDerivation rec {
     ++ optional (!cgiSupport) "-DNO_CGIBIN_SUPPORT"
     ++ optional (htpasswdSupport) "-DDO_HTPASSWD";
 
-  _LDADD =
-    [ "-lm" ]
+  _LDADD = [ "-lm" ]
     ++ optional (stdenv.hostPlatform.libc != "libSystem") "-lcrypt"
     ++ optional (luaSupport) "-llua"
-    ++ optionals (sslSupport) [
-      "-lssl"
-      "-lcrypto"
-    ];
+    ++ optionals (sslSupport) [ "-lssl" "-lcrypto" ];
   makeFlags = [ "LDADD=$(_LDADD)" ];
 
   doCheck = true;
-  nativeCheckInputs = [
-    inetutils
-    wget
-  ];
+  nativeCheckInputs = [ inetutils wget ];
   checkFlags = optional (!cgiSupport) "CGITESTS=";
 
   meta = with lib; {

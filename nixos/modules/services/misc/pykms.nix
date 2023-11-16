@@ -1,27 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.pykms;
   libDir = "/var/lib/pykms";
-in
-{
+
+in {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "pykms"
-        "verbose"
-      ]
-      "Use services.pykms.logLevel instead"
-    )
+    (mkRemovedOptionModule [ "services" "pykms" "verbose" ]
+      "Use services.pykms.logLevel instead")
   ];
 
   options = {
@@ -47,7 +36,8 @@ in
       openFirewallPort = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether the listening port should be opened automatically.";
+        description = lib.mdDoc
+          "Whether the listening port should be opened automatically.";
       };
 
       memoryLimit = mkOption {
@@ -57,14 +47,8 @@ in
       };
 
       logLevel = mkOption {
-        type = types.enum [
-          "CRITICAL"
-          "ERROR"
-          "WARNING"
-          "INFO"
-          "DEBUG"
-          "MININFO"
-        ];
+        type =
+          types.enum [ "CRITICAL" "ERROR" "WARNING" "INFO" "DEBUG" "MININFO" ];
         default = "INFO";
         description = lib.mdDoc "How much to log";
       };
@@ -78,7 +62,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [ cfg.port ];
+    networking.firewall.allowedTCPPorts =
+      lib.mkIf cfg.openFirewallPort [ cfg.port ];
 
     systemd.services.pykms = {
       description = "Python KMS";
@@ -89,20 +74,14 @@ in
       serviceConfig = with pkgs; {
         DynamicUser = true;
         StateDirectory = baseNameOf libDir;
-        ExecStartPre = "${getBin pykms}/libexec/create_pykms_db.sh ${libDir}/clients.db";
-        ExecStart = lib.concatStringsSep " " (
-          [
-            "${getBin pykms}/bin/server"
-            "--logfile=STDOUT"
-            "--loglevel=${cfg.logLevel}"
-            "--sqlite=${libDir}/clients.db"
-          ]
-          ++ cfg.extraArgs
-          ++ [
-            cfg.listenAddress
-            (toString cfg.port)
-          ]
-        );
+        ExecStartPre =
+          "${getBin pykms}/libexec/create_pykms_db.sh ${libDir}/clients.db";
+        ExecStart = lib.concatStringsSep " " ([
+          "${getBin pykms}/bin/server"
+          "--logfile=STDOUT"
+          "--loglevel=${cfg.logLevel}"
+          "--sqlite=${libDir}/clients.db"
+        ] ++ cfg.extraArgs ++ [ cfg.listenAddress (toString cfg.port) ]);
         ProtectHome = "tmpfs";
         WorkingDirectory = libDir;
         SyslogIdentifier = "pykms";

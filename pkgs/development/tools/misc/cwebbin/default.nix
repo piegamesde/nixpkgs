@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  tie,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, tie }:
 
 stdenv.mkDerivation rec {
   pname = "cwebbin";

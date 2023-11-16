@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  asn1crypto,
-  buildPythonPackage,
-  fetchFromGitHub,
-  openssl,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, asn1crypto, buildPythonPackage, fetchFromGitHub, openssl
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "oscrypto";

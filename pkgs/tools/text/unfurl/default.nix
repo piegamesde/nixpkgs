@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "unfurl";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Kpd916+jjGvw56N122Ej4CXVcv1/xr1THkjsrhkIy+U=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   # tests tries to download a list of tlds from the internet
   postPatch = ''

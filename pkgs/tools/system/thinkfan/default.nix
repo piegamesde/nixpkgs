@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  yaml-cpp,
-  pkg-config,
-  procps,
-  coreutils,
-  smartSupport ? false,
-  libatasmart,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, yaml-cpp, pkg-config, procps, coreutils
+, smartSupport ? false, libatasmart }:
 
 stdenv.mkDerivation rec {
   pname = "thinkfan";
@@ -42,10 +32,7 @@ stdenv.mkDerivation rec {
     "-DSYSTEMD_FOUND=ON"
   ] ++ lib.optional smartSupport "-DUSE_ATASMART=ON";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ yaml-cpp ] ++ lib.optional smartSupport libatasmart;
 
@@ -58,10 +45,7 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl3Plus;
     homepage = "https://github.com/vmatare/thinkfan";
-    maintainers = with lib.maintainers; [
-      domenkozar
-      rnhmjoj
-    ];
+    maintainers = with lib.maintainers; [ domenkozar rnhmjoj ];
     platforms = lib.platforms.linux;
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pyyaml,
-  python,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pyyaml, python }:
 
 buildPythonPackage rec {
   pname = "irctokens";

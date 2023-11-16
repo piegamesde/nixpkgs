@@ -1,9 +1,4 @@
-{
-  lib,
-  nimPackages,
-  fetchFromGitea,
-  raylib,
-}:
+{ lib, nimPackages, fetchFromGitea, raylib }:
 
 nimPackages.buildNimPackage rec {
   pname = "snekim";
@@ -21,10 +16,7 @@ nimPackages.buildNimPackage rec {
 
   strictDeps = true;
 
-  buildInputs = [
-    nimPackages.nimraylib-now
-    raylib
-  ];
+  buildInputs = [ nimPackages.nimraylib-now raylib ];
 
   nimFlags = [ "-d:nimraylib_now_shared" ];
 

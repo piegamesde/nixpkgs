@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  meson,
-  ninja,
-  pkg-config,
-  ronn,
-  withGeo ? true,
-  geoip,
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, ronn, withGeo ? true
+, geoip }:
 
 # In order for the geoip part to work, you need to set up a link from
 # geoip.dataDir to a directory containing the data files This would typically be
@@ -25,11 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-HlAGAjNUjfr/Ysjiml54vph/S5pS6fTMWYJwLFr1NSI=";
   };
 
-  patches =
-    [
-      # disable tests which fail in NixOS sandbox (trying to access the network)
-      ./sandbox_tests.patch
-    ];
+  patches = [
+    # disable tests which fail in NixOS sandbox (trying to access the network)
+    ./sandbox_tests.patch
+  ];
 
   # technically not needed as we do not support the paid maxmind databases, but
   # keep it around if someone wants to add support and /usr/share/GeoIP is
@@ -39,12 +29,7 @@ stdenv.mkDerivation rec {
       --replace /usr/share/GeoIP /var/lib/GeoIP
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    ronn
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ronn ];
 
   buildInputs = [ geoip ];
 

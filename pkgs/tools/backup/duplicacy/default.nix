@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "duplicacy";
@@ -24,9 +20,6 @@ buildGoModule rec {
     description = "A new generation cloud backup tool";
     platforms = platforms.linux ++ platforms.darwin;
     license = lib.licenses.unfree;
-    maintainers = with maintainers; [
-      ffinkdevs
-      devusb
-    ];
+    maintainers = with maintainers; [ ffinkdevs devusb ];
   };
 }

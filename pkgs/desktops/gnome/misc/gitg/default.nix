@@ -1,33 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  vala,
-  gettext,
-  pkg-config,
-  gtk3,
-  glib,
-  json-glib,
-  wrapGAppsHook,
-  libpeas,
-  bash,
-  gobject-introspection,
-  gtksourceview4,
-  gsettings-desktop-schemas,
-  adwaita-icon-theme,
-  gnome,
-  gspell,
-  shared-mime-info,
-  libgee,
-  libgit2-glib,
-  libsecret,
-  libxml2,
-  meson,
-  ninja,
-  python3,
-  libdazzle,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, vala, gettext, pkg-config, gtk3, glib
+, json-glib, wrapGAppsHook, libpeas, bash, gobject-introspection, gtksourceview4
+, gsettings-desktop-schemas, adwaita-icon-theme, gnome, gspell, shared-mime-info
+, libgee, libgit2-glib, libsecret, libxml2, meson, ninja, python3, libdazzle }:
 
 stdenv.mkDerivation rec {
   pname = "gitg";
@@ -40,15 +14,15 @@ stdenv.mkDerivation rec {
     sha256 = "f7Ybn7EPuqVI0j1wZbq9cq1j5iHeVYQMBlzm45hsRik=";
   };
 
-  patches =
-    [
-      # Fix build with meson 0.61
-      # data/meson.build:8:5: ERROR: Function does not take positional arguments.
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/GNOME/gitg/-/commit/1978973b12848741b08695ec2020bac98584d636.patch";
-        sha256 = "sha256-RzaGPGGiKMgjy0waFqt48rV2yWBGZgC3kHehhVhxktk=";
-      })
-    ];
+  patches = [
+    # Fix build with meson 0.61
+    # data/meson.build:8:5: ERROR: Function does not take positional arguments.
+    (fetchpatch {
+      url =
+        "https://gitlab.gnome.org/GNOME/gitg/-/commit/1978973b12848741b08695ec2020bac98584d636.patch";
+      sha256 = "sha256-RzaGPGGiKMgjy0waFqt48rV2yWBGZgC3kHehhVhxktk=";
+    })
+  ];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -77,7 +51,8 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  doCheck = false; # FAIL: tests-gitg gtk_style_context_add_provider_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
+  doCheck =
+    false; # FAIL: tests-gitg gtk_style_context_add_provider_for_screen: assertion 'GDK_IS_SCREEN (screen)' failed
 
   postPatch = ''
     chmod +x meson_post_install.py
@@ -93,9 +68,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Gitg";

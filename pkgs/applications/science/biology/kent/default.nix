@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  libpng,
-  libuuid,
-  zlib,
-  bzip2,
-  xz,
-  openssl,
-  curl,
-  libmysqlclient,
-  bash,
-  fetchFromGitHub,
-  which,
-}:
+{ lib, stdenv, libpng, libuuid, zlib, bzip2, xz, openssl, curl, libmysqlclient
+, bash, fetchFromGitHub, which }:
 stdenv.mkDerivation rec {
   pname = "kent";
   version = "446";
@@ -24,16 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-d8gcoyMwINdHoD6xaNKt4rCKrKir99+i4KIzJ2YnxRw=";
   };
 
-  buildInputs = [
-    libpng
-    libuuid
-    zlib
-    bzip2
-    xz
-    openssl
-    curl
-    libmysqlclient
-  ];
+  buildInputs = [ libpng libuuid zlib bzip2 xz openssl curl libmysqlclient ];
 
   patchPhase = ''
     runHook prePatch
@@ -90,9 +68,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "UCSC Genome Bioinformatics Group's suite of biological analysis tools, i.e. the kent utilities";
+    description =
+      "UCSC Genome Bioinformatics Group's suite of biological analysis tools, i.e. the kent utilities";
     homepage = "http://genome.ucsc.edu";
-    changelog = "https://github.com/ucscGenomeBrowser/kent/releases/tag/v${version}_base";
+    changelog =
+      "https://github.com/ucscGenomeBrowser/kent/releases/tag/v${version}_base";
     license = licenses.unfree;
     maintainers = with maintainers; [ scalavision ];
     platforms = platforms.linux;

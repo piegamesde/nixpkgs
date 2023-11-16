@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gtk2,
-  pcre,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gtk2, pcre }:
 
 stdenv.mkDerivation rec {
   pname = "qxw";
@@ -17,10 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gtk2
-    pcre
-  ];
+  buildInputs = [ gtk2 pcre ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 

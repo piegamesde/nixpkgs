@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jdk,
-  ant,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jdk, ant, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "dataexplorer";
@@ -16,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NiCtUqavYNUXsTkgi2V9u2qn8dBTLTEm52ju450d5Lw=";
   };
 
-  nativeBuildInputs = [
-    ant
-    makeWrapper
-  ];
+  nativeBuildInputs = [ ant makeWrapper ];
 
   buildInputs = [ jdk ];
 
@@ -56,7 +46,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Graphical tool to analyze data, gathered from various hardware devices";
+    description =
+      "Graphical tool to analyze data, gathered from various hardware devices";
     homepage = "https://www.nongnu.org/dataexplorer/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ panicgh ];

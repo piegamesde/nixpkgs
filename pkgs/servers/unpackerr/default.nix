@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildGoModule,
-  Cocoa,
-  WebKit,
-}:
+{ lib, stdenv, fetchFromGitHub, buildGoModule, Cocoa, WebKit }:
 
 buildGoModule rec {
   pname = "unpackerr";
@@ -20,19 +13,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-yXFIBWOF72nXmT8+OSvF1aKBhCMBloLmGTfvNbV9ir4=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Cocoa
-    WebKit
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Cocoa WebKit ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X golift.io/version.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X golift.io/version.Version=${version}" ];
 
   meta = with lib; {
-    description = "Extracts downloads for Radarr, Sonarr, Lidarr - Deletes extracted files after import";
+    description =
+      "Extracts downloads for Radarr, Sonarr, Lidarr - Deletes extracted files after import";
     homepage = "https://github.com/davidnewhall/unpackerr";
     maintainers = with maintainers; [ nullx76 ];
     license = licenses.mit;

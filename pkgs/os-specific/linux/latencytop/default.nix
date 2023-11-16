@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  glib,
-  pkg-config,
-  gtk2,
-  util-linux,
-}:
+{ lib, stdenv, fetchurl, ncurses, glib, pkg-config, gtk2, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "latencytop";
@@ -31,15 +22,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    ncurses
-    glib
-    gtk2
-  ];
+  buildInputs = [ ncurses glib gtk2 ];
 
   meta = {
     homepage = "http://latencytop.org";
-    description = "Tool to show kernel reports on latencies (LATENCYTOP option)";
+    description =
+      "Tool to show kernel reports on latencies (LATENCYTOP option)";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.viric ];
     platforms = lib.platforms.linux;

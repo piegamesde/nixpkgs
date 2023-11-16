@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  writeText,
-  runtimeShell,
-}:
+{ lib, stdenv, writeText, runtimeShell }:
 
 let
   script = writeText "script" ''
@@ -20,8 +15,7 @@ let
       exit 1
     fi
   '';
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "system-sendmail";
   version = "1.0";
 

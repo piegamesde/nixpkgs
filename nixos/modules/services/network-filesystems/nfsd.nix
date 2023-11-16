@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,36 +7,21 @@ let
   cfg = config.services.nfs.server;
 
   exports = pkgs.writeText "exports" cfg.exports;
-in
 
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nfs"
-        "lockdPort"
-      ]
-      [
-        "services"
-        "nfs"
-        "server"
-        "lockdPort"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "nfs"
-        "statdPort"
-      ]
-      [
-        "services"
-        "nfs"
-        "server"
-        "statdPort"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "nfs" "lockdPort" ] [
+      "services"
+      "nfs"
+      "server"
+      "lockdPort"
+    ])
+    (mkRenamedOptionModule [ "services" "nfs" "statdPort" ] [
+      "services"
+      "nfs"
+      "server"
+      "statdPort"
+    ])
   ];
 
   ###### interface
@@ -97,7 +77,8 @@ in
         createMountPoints = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc "Whether to create the mount points in the exports file at startup time.";
+          description = lib.mdDoc
+            "Whether to create the mount points in the exports file at startup time.";
         };
 
         mountdPort = mkOption {
@@ -129,8 +110,11 @@ in
             useful if the NFS server is behind a firewall.
           '';
         };
+
       };
+
     };
+
   };
 
   ###### implementation
@@ -144,7 +128,8 @@ in
       ${cfg.extraNfsdConfig}
 
       [mountd]
-      ${optionalString (cfg.mountdPort != null) "port=${toString cfg.mountdPort}"}
+      ${optionalString (cfg.mountdPort != null)
+      "port=${toString cfg.mountdPort}"}
 
       [statd]
       ${optionalString (cfg.statdPort != null) "port=${toString cfg.statdPort}"}
@@ -187,5 +172,7 @@ in
         ''}
       '';
     };
+
   };
+
 }

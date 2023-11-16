@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "lazy-object-proxy";
@@ -32,4 +26,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/ionelmc/python-lazy-object-proxy";
     license = with licenses; [ bsd2 ];
   };
+
 }

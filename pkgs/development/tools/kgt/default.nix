@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bmake,
-  cleanPackaging,
-}:
+{ lib, stdenv, fetchFromGitHub, bmake, cleanPackaging }:
 
 stdenv.mkDerivation {
   pname = "kgt";
@@ -19,19 +13,12 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  outputs = [
-    "bin"
-    "doc"
-    "out"
-  ];
+  outputs = [ "bin" "doc" "out" ];
 
   nativeBuildInputs = [ bmake ];
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "-r"
-    "PREFIX=$(bin)"
-  ];
+  makeFlags = [ "-r" "PREFIX=$(bin)" ];
 
   installPhase = ''
     runHook preInstall
@@ -92,4 +79,5 @@ stdenv.mkDerivation {
     platforms = platforms.unix;
     maintainers = with maintainers; [ Profpatsch ];
   };
+
 }

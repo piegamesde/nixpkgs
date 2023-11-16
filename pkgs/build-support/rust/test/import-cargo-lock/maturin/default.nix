@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-  rustPlatform,
-}:
+{ lib, fetchFromGitHub, python3, rustPlatform }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "word-count";
@@ -26,10 +21,7 @@ python3.pkgs.buildPythonPackage rec {
 
   buildAndTestSubdir = "examples/word-count";
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   pythonImportsCheck = [ "word_count" ];
 

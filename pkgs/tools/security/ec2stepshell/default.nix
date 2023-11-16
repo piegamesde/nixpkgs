@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ec2stepshell";
@@ -36,7 +32,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "AWS post-exploitation tool";
     homepage = "https://github.com/saw-your-packet/EC2StepShell";
-    changelog = "https://github.com/saw-your-packet/EC2StepShell/blob/${version}/CHANGELOG.txt";
+    changelog =
+      "https://github.com/saw-your-packet/EC2StepShell/blob/${version}/CHANGELOG.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  gtk3,
-  gtk-layer-shell,
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, gtk3, gtk-layer-shell }:
 
 rustPlatform.buildRustPackage rec {
   pname = "sirula";
@@ -22,10 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk3
-    gtk-layer-shell
-  ];
+  buildInputs = [ gtk3 gtk-layer-shell ];
 
   meta = with lib; {
     description = "Simple app launcher for wayland written in rust";

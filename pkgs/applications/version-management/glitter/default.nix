@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  git,
-}:
+{ lib, rustPlatform, fetchFromGitHub, git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "glitter";
@@ -26,15 +21,14 @@ rustPlatform.buildRustPackage rec {
   '';
 
   # error: Found argument '--test-threads' which wasn't expected, or isn't valid in this context
-  checkFlags = [
-    "--skip"
-    "runs_correctly"
-  ];
+  checkFlags = [ "--skip" "runs_correctly" ];
 
   meta = with lib; {
-    description = "A git wrapper that allows you to compress multiple commands into one";
+    description =
+      "A git wrapper that allows you to compress multiple commands into one";
     homepage = "https://github.com/milo123459/glitter";
-    changelog = "https://github.com/Milo123459/glitter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Milo123459/glitter/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

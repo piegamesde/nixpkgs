@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "gitlab-triage";

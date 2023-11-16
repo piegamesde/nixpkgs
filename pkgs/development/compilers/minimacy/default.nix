@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  alsa-lib,
-  fetchFromGitHub,
-  libGL,
-  libGLU,
-  libX11,
-  libXext,
-  makeBinaryWrapper,
-}:
+{ lib, stdenv, alsa-lib, fetchFromGitHub, libGL, libGLU, libX11, libXext
+, makeBinaryWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "minimacy";
@@ -23,16 +14,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
-  buildInputs =
-    [
-      libGL
-      libGLU
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      alsa-lib
-      libX11
-      libXext
-    ];
+  buildInputs = [ libGL libGLU ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib libX11 libXext ];
 
   enableParallelBuilding = true;
 
@@ -43,9 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   # TODO: build graphic version for darwin
-  buildFlags = (if stdenv.isDarwin then [ "nox" ] else [ "all" ]) ++ [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  buildFlags = (if stdenv.isDarwin then [ "nox" ] else [ "all" ])
+    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   postBuild = ''
     popd
@@ -56,7 +38,9 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     runHook preCheck
 
-    bin/${if stdenv.isDarwin then "minimacyMac" else "minimacy"} system/demo/demo.fun.mandelbrot.mcy
+    bin/${
+      if stdenv.isDarwin then "minimacyMac" else "minimacy"
+    } system/demo/demo.fun.mandelbrot.mcy
 
     runHook postCheck
   '';

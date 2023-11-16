@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  buildPythonPackage,
-  dacite,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytest-error-for-skips,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, dacite, fetchFromGitHub
+, pytest-asyncio, pytest-error-for-skips, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gios";
@@ -25,23 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-7lOY8J42mRmIA18tQrmY3gNEQf6YqzbeULecrGhNwFc=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    dacite
-  ];
+  propagatedBuildInputs = [ aiohttp dacite ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytest-error-for-skips
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aioresponses pytest-asyncio pytest-error-for-skips pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_invalid_station_id"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_invalid_station_id"
+  ];
 
   pythonImportsCheck = [ "gios" ];
 

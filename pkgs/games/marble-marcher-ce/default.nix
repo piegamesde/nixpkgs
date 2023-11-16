@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  makeDesktopItem,
-  copyDesktopItems,
-  fetchFromGitHub,
-  sfml,
-  anttweakbar,
-  glm,
-  eigen,
-  glew,
-  cmake,
-}:
+{ lib, stdenv, makeWrapper, makeDesktopItem, copyDesktopItems, fetchFromGitHub
+, sfml, anttweakbar, glm, eigen, glew, cmake }:
 stdenv.mkDerivation rec {
   pname = "marble-marcher-ce";
   version = "1.4.5";
@@ -23,18 +11,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-m5i/Q4k5S4wcojHqMYS7e1W/Ph7q/95j3oOK2xbrHSk=";
   };
 
-  buildInputs = [
-    sfml
-    anttweakbar
-    glm
-    eigen
-    glew
-  ];
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    copyDesktopItems
-  ];
+  buildInputs = [ sfml anttweakbar glm eigen glew ];
+  nativeBuildInputs = [ cmake makeWrapper copyDesktopItems ];
   installFlags = [ "DESTDIR=$(out)" ];
 
   prePatch = ''
@@ -66,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A fractal physics game.";
-    longDescription = "A community-developed version of the original Marble Marcher - a fractal physics game.";
+    longDescription =
+      "A community-developed version of the original Marble Marcher - a fractal physics game.";
     homepage = "https://michaelmoroz.itch.io/mmce";
     license = with licenses; [
       gpl2Plus # Code

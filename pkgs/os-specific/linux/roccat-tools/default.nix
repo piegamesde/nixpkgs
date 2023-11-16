@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  pkg-config,
-  gettext,
-  dbus,
-  dbus-glib,
-  libgaminggear,
-  libgudev,
-  lua,
-  harfbuzz,
-  runtimeShell,
-  coreutils,
-  kmod,
-}:
+{ lib, stdenv, fetchurl, cmake, pkg-config, gettext, dbus, dbus-glib
+, libgaminggear, libgudev, lua, harfbuzz, runtimeShell, coreutils, kmod }:
 
 stdenv.mkDerivation rec {
   pname = "roccat-tools";
@@ -39,18 +24,8 @@ stdenv.mkDerivation rec {
       --replace "/bin/echo" "${coreutils}/bin/echo"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    gettext
-  ];
-  buildInputs = [
-    dbus
-    dbus-glib
-    libgaminggear
-    libgudev
-    lua
-  ];
+  nativeBuildInputs = [ cmake pkg-config gettext ];
+  buildInputs = [ dbus dbus-glib libgaminggear libgudev lua ];
 
   cmakeFlags = [
     "-DUDEVDIR=\${out}/lib/udev/rules.d"

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  babashka,
-  cacert,
-  clojure,
-  git,
-  jdk,
-  obb,
-  fetchFromGitHub,
-  makeWrapper,
-  runCommand,
-}:
+{ lib, stdenv, fetchurl, babashka, cacert, clojure, git, jdk, obb
+, fetchFromGitHub, makeWrapper, runCommand }:
 
 stdenv.mkDerivation rec {
   pname = "obb";
@@ -26,12 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    babashka
-    cacert
-    git
-    jdk
-  ];
+  buildInputs = [ babashka cacert git jdk ];
 
   configurePhase = ''
     runHook preConfigure
@@ -79,7 +62,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture";
+    description =
+      "Ad-hoc ClojureScript scripting of Mac applications via Apple's Open Scripting Architecture";
     homepage = "https://github.com/babashka/obb";
     license = licenses.epl10;
     maintainers = with maintainers; [ willcohen ];

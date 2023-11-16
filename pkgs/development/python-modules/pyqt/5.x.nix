@@ -1,24 +1,7 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  setuptools,
-  isPy27,
-  fetchPypi,
-  pkg-config,
-  dbus,
-  lndir,
-  dbus-python,
-  sip,
-  pyqt5_sip,
-  pyqt-builder,
-  libsForQt5,
-  withConnectivity ? false,
-  withMultimedia ? false,
-  withWebKit ? false,
-  withWebSockets ? false,
-  withLocation ? false,
-}:
+{ lib, stdenv, buildPythonPackage, setuptools, isPy27, fetchPypi, pkg-config
+, dbus, lndir, dbus-python, sip, pyqt5_sip, pyqt-builder, libsForQt5
+, withConnectivity ? false, withMultimedia ? false, withWebKit ? false
+, withWebSockets ? false, withLocation ? false }:
 
 buildPythonPackage rec {
   pname = "PyQt5";
@@ -52,8 +35,7 @@ buildPythonPackage rec {
     # see https://github.com/NixOS/nixpkgs/pull/186612#issuecomment-1214635456.
     + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       minimum-macos-version = "11.0"
-    ''
-    + ''
+    '' + ''
       EOF
     '';
 
@@ -68,15 +50,11 @@ buildPythonPackage rec {
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs =
-    with libsForQt5;
+  nativeBuildInputs = with libsForQt5;
     [
       pkg-config
       qmake
@@ -87,31 +65,20 @@ buildPythonPackage rec {
       qtsvg
       qtdeclarative
       qtwebchannel
-    ]
-    ++ lib.optional withConnectivity qtconnectivity
+    ] ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withMultimedia qtmultimedia
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
     ++ lib.optional withLocation qtlocation;
 
-  buildInputs =
-    with libsForQt5;
-    [
-      dbus
-      qtbase
-      qtsvg
-      qtdeclarative
-      pyqt-builder
-    ]
+  buildInputs = with libsForQt5;
+    [ dbus qtbase qtsvg qtdeclarative pyqt-builder ]
     ++ lib.optional withConnectivity qtconnectivity
     ++ lib.optional withWebKit qtwebkit
     ++ lib.optional withWebSockets qtwebsockets
     ++ lib.optional withLocation qtlocation;
 
-  propagatedBuildInputs = [
-    dbus-python
-    pyqt5_sip
-  ];
+  propagatedBuildInputs = [ dbus-python pyqt5_sip ];
 
   passthru = {
     inherit sip pyqt5_sip;
@@ -126,13 +93,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   pythonImportsCheck =
-    [
-      "PyQt5"
-      "PyQt5.QtCore"
-      "PyQt5.QtQml"
-      "PyQt5.QtWidgets"
-      "PyQt5.QtGui"
-    ]
+    [ "PyQt5" "PyQt5.QtCore" "PyQt5.QtQml" "PyQt5.QtWidgets" "PyQt5.QtGui" ]
     ++ lib.optional withWebSockets "PyQt5.QtWebSockets"
     ++ lib.optional withWebKit "PyQt5.QtWebKit"
     ++ lib.optional withMultimedia "PyQt5.QtMultimedia"

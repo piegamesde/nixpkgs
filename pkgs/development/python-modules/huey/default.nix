@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  wheel,
-  redis,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, wheel, redis }:
 
 buildPythonPackage rec {
   pname = "huey";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-7ZMkA5WzWJKSwvpOoZYQO9JgedCdxNGrkFuPmYm4aRE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    wheel
-  ];
+  nativeBuildInputs = [ setuptools wheel ];
 
   propagatedBuildInputs = [ redis ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  testers,
-  clash,
-}:
+{ lib, fetchFromGitHub, buildGoModule, testers, clash }:
 
 buildGoModule rec {
   pname = "clash";
@@ -24,11 +18,8 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/Dreamacro/clash/constant.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/Dreamacro/clash/constant.Version=${version}" ];
 
   passthru.tests.version = testers.testVersion {
     package = clash;
@@ -40,9 +31,6 @@ buildGoModule rec {
     homepage = "https://dreamacro.github.io/clash/";
     changelog = "https://github.com/Dreamacro/clash/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      contrun
-      Br1ght0ne
-    ];
+    maintainers = with maintainers; [ contrun Br1ght0ne ];
   };
 }

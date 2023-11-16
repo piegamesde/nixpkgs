@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp-retry,
-  buildPythonPackage,
-  fetchFromGitHub,
-  dvc-objects,
-  fsspec,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  setuptools-scm,
-}:
+{ lib, aiohttp-retry, buildPythonPackage, fetchFromGitHub, dvc-objects, fsspec
+, pythonOlder, pythonRelaxDepsHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dvc-http";
@@ -28,11 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dvc-objects
-    fsspec
-    aiohttp-retry
-  ];
+  propagatedBuildInputs = [ dvc-objects fsspec aiohttp-retry ];
 
   # Currently it's not possible to run the tests
   # ModuleNotFoundError: No module named 'dvc.testing'

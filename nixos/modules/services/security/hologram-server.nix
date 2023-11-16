@@ -1,47 +1,40 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 
 with lib;
 
 let
   cfg = config.services.hologram-server;
 
-  cfgFile = pkgs.writeText "hologram-server.json" (
-    builtins.toJSON {
-      ldap = {
-        host = cfg.ldapHost;
-        bind = {
-          dn = cfg.ldapBindDN;
-          password = cfg.ldapBindPassword;
-        };
-        insecureldap = cfg.ldapInsecure;
-        userattr = cfg.ldapUserAttr;
-        baseDN = cfg.ldapBaseDN;
-        enableldapRoles = cfg.enableLdapRoles;
-        roleAttr = cfg.roleAttr;
-        groupClassAttr = cfg.groupClassAttr;
+  cfgFile = pkgs.writeText "hologram-server.json" (builtins.toJSON {
+    ldap = {
+      host = cfg.ldapHost;
+      bind = {
+        dn = cfg.ldapBindDN;
+        password = cfg.ldapBindPassword;
       };
-      aws = {
-        account = cfg.awsAccount;
-        defaultrole = cfg.awsDefaultRole;
-      };
-      stats = cfg.statsAddress;
-      listen = cfg.listenAddress;
-      cachetimeout = cfg.cacheTimeoutSeconds;
-    }
-  );
-in
-{
+      insecureldap = cfg.ldapInsecure;
+      userattr = cfg.ldapUserAttr;
+      baseDN = cfg.ldapBaseDN;
+      enableldapRoles = cfg.enableLdapRoles;
+      roleAttr = cfg.roleAttr;
+      groupClassAttr = cfg.groupClassAttr;
+    };
+    aws = {
+      account = cfg.awsAccount;
+      defaultrole = cfg.awsDefaultRole;
+    };
+    stats = cfg.statsAddress;
+    listen = cfg.listenAddress;
+    cachetimeout = cfg.cacheTimeoutSeconds;
+  });
+in {
   options = {
     services.hologram-server = {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the Hologram server for AWS instance credentials";
+        description = lib.mdDoc
+          "Whether to enable the Hologram server for AWS instance credentials";
       };
 
       listenAddress = mkOption {
@@ -79,27 +72,29 @@ in
 
       ldapBindPassword = mkOption {
         type = types.str;
-        description = lib.mdDoc "Password of account to use to query the LDAP server";
+        description =
+          lib.mdDoc "Password of account to use to query the LDAP server";
       };
 
       enableLdapRoles = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to assign user roles based on the user's LDAP group memberships";
+        description = lib.mdDoc
+          "Whether to assign user roles based on the user's LDAP group memberships";
       };
 
       groupClassAttr = mkOption {
         type = types.str;
         default = "groupOfNames";
-        description =
-          lib.mdDoc
-            "The objectclass attribute to search for groups when enableLdapRoles is true";
+        description = lib.mdDoc
+          "The objectclass attribute to search for groups when enableLdapRoles is true";
       };
 
       roleAttr = mkOption {
         type = types.str;
         default = "businessCategory";
-        description = lib.mdDoc "Which LDAP group attribute to search for authorized role ARNs";
+        description = lib.mdDoc
+          "Which LDAP group attribute to search for authorized role ARNs";
       };
 
       awsAccount = mkOption {
@@ -121,19 +116,22 @@ in
       cacheTimeoutSeconds = mkOption {
         type = types.int;
         default = 3600;
-        description = lib.mdDoc "How often (in seconds) to refresh the LDAP cache";
+        description =
+          lib.mdDoc "How often (in seconds) to refresh the LDAP cache";
       };
     };
   };
 
   config = mkIf cfg.enable {
     systemd.services.hologram-server = {
-      description = "Provide EC2 instance credentials to machines outside of EC2";
+      description =
+        "Provide EC2 instance credentials to machines outside of EC2";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.hologram}/bin/hologram-server --debug --conf ${cfgFile}";
+        ExecStart =
+          "${pkgs.hologram}/bin/hologram-server --debug --conf ${cfgFile}";
       };
     };
   };

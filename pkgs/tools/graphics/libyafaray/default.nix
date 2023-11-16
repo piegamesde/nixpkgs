@@ -1,21 +1,5 @@
-{
-  cmake,
-  fetchFromGitHub,
-  freetype,
-  ilmbase,
-  lib,
-  libjpeg,
-  libtiff,
-  libxml2,
-  opencv,
-  openexr,
-  pkg-config,
-  stdenv,
-  swig,
-  zlib,
-  withPython ? true,
-  python3,
-}:
+{ cmake, fetchFromGitHub, freetype, ilmbase, lib, libjpeg, libtiff, libxml2
+, opencv, openexr, pkg-config, stdenv, swig, zlib, withPython ? true, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "libyafaray";
@@ -37,22 +21,11 @@ stdenv.mkDerivation rec {
     NIX_CFLAGS_COMPILE+=" -isystem ${ilmbase.dev}/include/OpenEXR"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    freetype
-    ilmbase
-    libjpeg
-    libtiff
-    libxml2
-    opencv
-    openexr
-    swig
-    zlib
-  ] ++ lib.optional withPython python3;
+  buildInputs =
+    [ freetype ilmbase libjpeg libtiff libxml2 opencv openexr swig zlib ]
+    ++ lib.optional withPython python3;
 
   meta = with lib; {
     description = "A free, open source raytracer";
@@ -60,10 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.yafaray.org";
     maintainers = with maintainers; [ hodapp ];
     license = licenses.lgpl21;
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "aarch64-linux" "x86_64-linux" ];
   };
 }
 

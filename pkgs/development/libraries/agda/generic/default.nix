@@ -1,9 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  standard-library,
-}:
+{ lib, mkDerivation, fetchFromGitHub, standard-library }:
 
 mkDerivation rec {
   pname = "generic";
@@ -30,9 +25,6 @@ mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      alexarice
-      turion
-    ];
+    maintainers = with maintainers; [ alexarice turion ];
   };
 }

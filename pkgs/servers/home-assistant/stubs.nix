@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  home-assistant,
-  python,
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, home-assistant, python
 }:
 
 buildPythonPackage rec {
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-LiBn9NpR7sAAZX1yPT0V5LhQeALPvGVRzDam7cCBoi8=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    home-assistant
-  ];
+  nativeBuildInputs = [ poetry-core home-assistant ];
 
   postPatch = ''
     # Relax constraint to year and month
@@ -41,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Typing stubs for Home Assistant Core";
     homepage = "https://github.com/KapJI/homeassistant-stubs";
-    changelog = "https://github.com/KapJI/homeassistant-stubs/releases/tag/${version}";
+    changelog =
+      "https://github.com/KapJI/homeassistant-stubs/releases/tag/${version}";
     license = licenses.mit;
     maintainers = teams.home-assistant.members;
   };

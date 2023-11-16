@@ -1,20 +1,17 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "trivial-utf-8";
   version = "20211209-git";
 
-  parasites = [
-    "trivial-utf-8/doc"
-    "trivial-utf-8/tests"
-  ];
+  parasites = [ "trivial-utf-8/doc" "trivial-utf-8/tests" ];
 
   description = "A small library for doing UTF-8-based input and output.";
 
   deps = [ args."mgl-pax" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/trivial-utf-8/2021-12-09/trivial-utf-8-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/trivial-utf-8/2021-12-09/trivial-utf-8-20211209-git.tgz";
     sha256 = "1bis8shbdva1diwms2lvhlbdz9rvazqqxi9h8d33vlbw4xai075y";
   };
 

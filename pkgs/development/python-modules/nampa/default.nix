@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  future,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, future, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "nampa";

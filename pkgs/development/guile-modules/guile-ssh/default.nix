@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  guile,
-  libssh,
-  autoreconfHook,
-  pkg-config,
-  texinfo,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, guile, libssh, autoreconfHook, pkg-config
+, texinfo, which }:
 
 stdenv.mkDerivation rec {
   pname = "guile-ssh";
@@ -30,12 +21,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    texinfo
-    which
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config texinfo which ];
   buildInputs = [ guile ];
   propagatedBuildInputs = [ libssh ];
 

@@ -1,37 +1,28 @@
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+import ./make-test-python.nix ({ lib, pkgs, ... }:
   let
     port = 5000;
     scanPath = "/var/lib/legit";
-  in
-  {
+  in {
     name = "legit-web";
     meta.maintainers = [ lib.maintainers.ratsclub ];
 
     nodes = {
-      server =
-        { config, pkgs }:
-        {
-          services.legit = {
-            enable = true;
-            settings = {
-              server.port = 5000;
-              repo = {
-                inherit scanPath;
-              };
-            };
+      server = { config, pkgs }: {
+        services.legit = {
+          enable = true;
+          settings = {
+            server.port = 5000;
+            repo = { inherit scanPath; };
           };
-
-          environment.systemPackages = [ pkgs.git ];
         };
+
+        environment.systemPackages = [ pkgs.git ];
+      };
     };
 
-    testScript =
-      { nodes, ... }:
-      let
-        strPort = builtins.toString port;
-      in
-      ''
+    testScript = { nodes, ... }:
+      let strPort = builtins.toString port;
+      in ''
         start_all()
 
         server.wait_for_unit("network.target")
@@ -59,5 +50,4 @@ import ./make-test-python.nix (
             "curl -f http://localhost:${strPort}/some-repo"
         )
       '';
-  }
-)
+  })

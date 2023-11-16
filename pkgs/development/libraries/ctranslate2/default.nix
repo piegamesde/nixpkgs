@@ -1,20 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  darwin, # Accelerate
-  llvmPackages, # openmp
-  oneDNN,
-  openblas,
-  withMkl ? false,
-  mkl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, darwin # Accelerate
+, llvmPackages # openmp
+, oneDNN, openblas, withMkl ? false, mkl }:
 
-let
-  cmakeBool = b: if b then "ON" else "OFF";
-in
-stdenv.mkDerivation rec {
+let cmakeBool = b: if b then "ON" else "OFF";
+in stdenv.mkDerivation rec {
   pname = "ctranslate2";
   version = "3.15.1";
 
@@ -35,12 +24,7 @@ stdenv.mkDerivation rec {
     "-DWITH_MKL=${cmakeBool withMkl}"
   ] ++ lib.optional stdenv.isDarwin "-DWITH_ACCELERATE=ON";
 
-  buildInputs =
-    [
-      llvmPackages.openmp
-      openblas
-      oneDNN
-    ]
+  buildInputs = [ llvmPackages.openmp openblas oneDNN ]
     ++ lib.optional withMkl [ mkl ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
@@ -51,7 +35,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fast inference engine for Transformer models";
     homepage = "https://github.com/OpenNMT/CTranslate2";
-    changelog = "https://github.com/OpenNMT/CTranslate2/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/OpenNMT/CTranslate2/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

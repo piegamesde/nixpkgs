@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL,
-  which,
-  installTool ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL, which, installTool ? false }:
 
 stdenv.mkDerivation rec {
   pname = "azimuth";
@@ -29,10 +22,11 @@ stdenv.mkDerivation rec {
       --replace "Version=%AZ_VERSION_NUMBER" "Version=${version}"
   '';
 
-  makeFlags = [
-    "BUILDTYPE=release"
-    "INSTALLDIR=$(out)"
-  ] ++ (if installTool then [ "INSTALLTOOL=true" ] else [ "INSTALLTOOL=false" ]);
+  makeFlags = [ "BUILDTYPE=release" "INSTALLDIR=$(out)" ]
+    ++ (if installTool then
+      [ "INSTALLTOOL=true" ]
+    else
+      [ "INSTALLTOOL=false" ]);
 
   enableParallelBuilding = true;
 
@@ -53,4 +47,5 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ marius851000 ];
     platforms = lib.platforms.linux;
   };
+
 }

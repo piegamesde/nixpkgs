@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libminc,
-  bicpl,
-  arguments,
-  pcre-cpp,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libminc, bicpl, arguments, pcre-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "oobicpl";
@@ -22,12 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libminc
-    bicpl
-    arguments
-    pcre-cpp
-  ];
+  buildInputs = [ libminc bicpl arguments pcre-cpp ];
 
   cmakeFlags = [
     "-DLIBMINC_DIR=${libminc}/lib/cmake"
@@ -38,7 +24,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/oobicpl";
-    description = "Brain Imaging Centre object-oriented programming library (and tools)";
+    description =
+      "Brain Imaging Centre object-oriented programming library (and tools)";
     maintainers = with maintainers; [ bcdarwin ];
     platforms = platforms.unix;
     license = licenses.free;

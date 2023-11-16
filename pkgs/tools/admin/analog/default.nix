@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "analog";
@@ -38,4 +34,5 @@ stdenv.mkDerivation rec {
     description = "Powerful tool to generate web server statistics";
     platforms = lib.platforms.all;
   };
+
 }

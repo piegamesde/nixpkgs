@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  xorg,
-  libfaketime,
-}:
+{ lib, stdenv, fetchurl, xorg, libfaketime }:
 
 stdenv.mkDerivation rec {
   pname = "clearlyU";
@@ -15,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xn14jbv3m1khy7ydvad9ydkn7yygdbhjy9wm1v000jzjwr3lv21";
   };
 
-  nativeBuildInputs = [
-    xorg.fonttosfnt
-    xorg.mkfontscale
-    libfaketime
-  ];
+  nativeBuildInputs = [ xorg.fonttosfnt xorg.mkfontscale libfaketime ];
 
   buildPhase = ''
     # convert bdf fonts to otb

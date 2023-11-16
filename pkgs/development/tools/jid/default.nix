@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  jid,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, jid }:
 
 buildGoModule rec {
   pname = "jid";
@@ -19,16 +13,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-Lq8ouTjPsGhqDwrCMpqkSU7FEGszYwAkwl92vAEZ68w=";
 
-  patches =
-    [
-      # Run go mod tidy
-      ./go-mod.patch
-    ];
-
-  ldflags = [
-    "-s"
-    "-w"
+  patches = [
+    # Run go mod tidy
+    ./go-mod.patch
   ];
+
+  ldflags = [ "-s" "-w" ];
 
   passthru.tests.version = testers.testVersion {
     package = jid;

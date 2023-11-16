@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "tty-share";
@@ -18,15 +14,12 @@ buildGoModule rec {
   # Upstream has a `./vendor` directory with all deps which we rely upon.
   vendorSha256 = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   meta = with lib; {
     homepage = "https://tty-share.com";
-    description = "Share terminal via browser for remote work or shared sessions";
+    description =
+      "Share terminal via browser for remote work or shared sessions";
     license = licenses.mit;
     maintainers = with maintainers; [ andys8 ];
   };

@@ -1,18 +1,13 @@
-{
-  lib,
-  buildGraalvmNativeImage,
-  graalvmCEPackages,
-  removeReferencesTo,
-  fetchurl,
-  writeScript,
-}:
+{ lib, buildGraalvmNativeImage, graalvmCEPackages, removeReferencesTo, fetchurl
+, writeScript }:
 
 buildGraalvmNativeImage rec {
   pname = "babashka";
   version = "1.3.180";
 
   src = fetchurl {
-    url = "https://github.com/babashka/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar";
+    url =
+      "https://github.com/babashka/${pname}/releases/download/v${version}/${pname}-${version}-standalone.jar";
     sha256 = "sha256-moNFb5jHTK2XJHx9BAeD+BUH4Y6NyypDM0MycqE5Zwk=";
   };
 
@@ -84,7 +79,8 @@ buildGraalvmNativeImage rec {
       - Library support via popular tools like the clojure CLI
     '';
     homepage = "https://github.com/babashka/babashka";
-    changelog = "https://github.com/babashka/babashka/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/babashka/babashka/blob/v${version}/CHANGELOG.md";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.epl10;
     maintainers = with maintainers; [

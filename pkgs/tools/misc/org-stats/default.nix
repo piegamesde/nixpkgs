@@ -1,12 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  substituteAll,
-  installShellFiles,
-  testers,
-  org-stats,
-}:
+{ lib, buildGoModule, fetchFromGitHub, substituteAll, installShellFiles, testers
+, org-stats }:
 
 buildGoModule rec {
   pname = "org-stats";
@@ -21,22 +14,18 @@ buildGoModule rec {
 
   vendorHash = "sha256-LKpnEXVfxBR3cebv46QontDVeA64MJe0vNiKSnTjLtQ=";
 
-  patches =
-    [
-      # patch in version information
-      # since `debug.ReadBuildInfo` does not work with `go build
-      (substituteAll {
-        src = ./version.patch;
-        inherit version;
-      })
-    ];
+  patches = [
+    # patch in version information
+    # since `debug.ReadBuildInfo` does not work with `go build
+    (substituteAll {
+      src = ./version.patch;
+      inherit version;
+    })
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     $out/bin/org-stats man > org-stats.1
@@ -56,7 +45,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Get the contributor stats summary from all repos of any given organization";
+    description =
+      "Get the contributor stats summary from all repos of any given organization";
     homepage = "https://github.com/caarlos0/org-stats";
     changelog = "https://github.com/caarlos0/org-stats/releases/tag/${src.rev}";
     license = licenses.mit;

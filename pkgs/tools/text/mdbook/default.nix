@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix,
-  rustPlatform,
-  CoreServices,
-}:
+{ lib, stdenv, fetchFromGitHub, nix, rustPlatform, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook";
@@ -22,20 +15,14 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
 
-  passthru = {
-    tests = {
-      inherit nix;
-    };
-  };
+  passthru = { tests = { inherit nix; }; };
 
   meta = with lib; {
     description = "Create books from MarkDown";
     homepage = "https://github.com/rust-lang/mdBook";
-    changelog = "https://github.com/rust-lang/mdBook/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/rust-lang/mdBook/blob/v${version}/CHANGELOG.md";
     license = [ licenses.mpl20 ];
-    maintainers = with maintainers; [
-      havvy
-      Frostman
-    ];
+    maintainers = with maintainers; [ havvy Frostman ];
   };
 }

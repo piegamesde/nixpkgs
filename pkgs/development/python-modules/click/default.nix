@@ -1,18 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  importlib-metadata,
-  pytestCheckHook,
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, importlib-metadata
+, pytestCheckHook
 
-  # large-rebuild downstream dependencies and applications
-  flask,
-  black,
-  magic-wormhole,
-  mitmproxy,
-  typer,
-}:
+# large-rebuild downstream dependencies and applications
+, flask, black, magic-wormhole, mitmproxy, typer }:
 
 buildPythonPackage rec {
   pname = "click";
@@ -24,19 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-doLcivswKXABZ0V16gDRgU2AjWo2r0Fagr1IHTe6e44=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru.tests = {
-    inherit
-      black
-      flask
-      magic-wormhole
-      mitmproxy
-      typer
-    ;
-  };
+  passthru.tests = { inherit black flask magic-wormhole mitmproxy typer; };
 
   meta = with lib; {
     homepage = "https://click.palletsprojects.com/";

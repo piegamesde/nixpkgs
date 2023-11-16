@@ -1,15 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.xserver.windowManager.dk;
-in
+let cfg = config.services.xserver.windowManager.dk;
 
-{
+in {
   options = {
     services.xserver.windowManager.dk = {
       enable = lib.mkEnableOption (lib.mdDoc "dk");

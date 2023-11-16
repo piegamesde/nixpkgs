@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -27,13 +22,15 @@ let
     cursor-theme-name = ${cfg.cursorTheme.name}
     cursor-theme-size = ${toString cfg.cursorTheme.size}
     background = ${ldmcfg.background}
-    ${optionalString (cfg.clock-format != null) "clock-format = ${cfg.clock-format}"}
-    ${optionalString (cfg.indicators != null) "indicators = ${concatStringsSep ";" cfg.indicators}"}
+    ${optionalString (cfg.clock-format != null)
+    "clock-format = ${cfg.clock-format}"}
+    ${optionalString (cfg.indicators != null)
+    "indicators = ${concatStringsSep ";" cfg.indicators}"}
     ${optionalString (xcfg.dpi != null) "xft-dpi=${toString xcfg.dpi}"}
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
   options = {
 
     services.xserver.displayManager.lightdm.greeters.gtk = {
@@ -64,6 +61,7 @@ in
             Name of the theme to use for the lightdm-gtk-greeter.
           '';
         };
+
       };
 
       iconTheme = {
@@ -84,6 +82,7 @@ in
             Name of the icon theme to use for the lightdm-gtk-greeter.
           '';
         };
+
       };
 
       cursorTheme = {
@@ -160,7 +159,9 @@ in
           configuration file.
         '';
       };
+
     };
+
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
@@ -170,12 +171,9 @@ in
       name = "lightdm-gtk-greeter";
     };
 
-    environment.systemPackages = [
-      cursors
-      icons
-      theme
-    ];
+    environment.systemPackages = [ cursors icons theme ];
 
     environment.etc."lightdm/lightdm-gtk-greeter.conf".source = gtkGreeterConf;
+
   };
 }

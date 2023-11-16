@@ -1,13 +1,7 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy3k,
-  lib,
+{ buildPythonPackage, fetchFromGitHub, isPy3k, lib
 
-  # pythonPackages
-  mock,
-  nose,
-}:
+# pythonPackages
+, mock, nose }:
 
 buildPythonPackage rec {
   pname = "dodgy";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     sha256 = "0ywwjpz0p6ls3hp1lndjr9ql6s5lkj7dgpll1h87w04kwan70j0x";
   };
 
-  nativeCheckInputs = [
-    mock
-    nose
-  ];
+  nativeCheckInputs = [ mock nose ];
 
   checkPhase = ''
     nosetests tests/test_checks.py

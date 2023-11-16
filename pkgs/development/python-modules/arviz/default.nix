@@ -1,35 +1,11 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  emcee,
-  h5netcdf,
-  matplotlib,
-  netcdf4,
-  numba,
-  numpy,
-  pandas,
-  pytest,
-  setuptools,
-  cloudpickle,
-  pytestCheckHook,
-  scipy,
-  packaging,
-  typing-extensions,
-  pythonOlder,
-  xarray,
-  xarray-einstats,
-  zarr,
-  ffmpeg,
-  h5py,
-  jaxlib,
-  torchvision,
-  jax,
-  # , pymc3 (circular dependency)
-  pyro-ppl,
-  #, pystan (not packaged)
-  numpyro,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, emcee, h5netcdf, matplotlib, netcdf4
+, numba, numpy, pandas, pytest, setuptools, cloudpickle, pytestCheckHook, scipy
+, packaging, typing-extensions, pythonOlder, xarray, xarray-einstats, zarr
+, ffmpeg, h5py, jaxlib, torchvision, jax
+# , pymc3 (circular dependency)
+, pyro-ppl
+#, pystan (not packaged)
+, numpyro }:
 
 buildPythonPackage rec {
   pname = "arviz";
@@ -99,7 +75,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for exploratory analysis of Bayesian models";
     homepage = "https://arviz-devs.github.io/arviz/";
-    changelog = "https://github.com/arviz-devs/arviz/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/arviz-devs/arviz/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ omnipotententity ];
   };

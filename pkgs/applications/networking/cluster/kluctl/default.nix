@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  kluctl,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, testers, kluctl }:
 
 buildGoModule rec {
   pname = "kluctl";
@@ -20,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-z0eiWU5CFMfK6fz+LUtxtSP/MAuVn7iOHB+A7Uv2OQY=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
 
   # Depends on docker
   doCheck = false;
@@ -39,7 +28,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "The missing glue to put together large Kubernetes deployments";
+    description =
+      "The missing glue to put together large Kubernetes deployments";
     homepage = "https://kluctl.io/";
     license = licenses.asl20;
     maintainers = with maintainers; [ sikmir ];

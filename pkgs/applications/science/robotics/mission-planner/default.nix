@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeDesktopItem,
-  makeWrapper,
-  unzip,
-  mono,
-}:
+{ lib, stdenv, fetchurl, makeDesktopItem, makeWrapper, unzip, mono }:
 
 let
   pname = "mission-planner";
@@ -18,27 +10,20 @@ let
     desktopName = "MissionPlanner";
     genericName = "Ground Control Station";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname;
   version = "1.3.80";
 
   src = fetchurl {
-    url = "https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-${version}.zip";
+    url =
+      "https://firmware.ardupilot.org/Tools/MissionPlanner/MissionPlanner-${version}.zip";
     sha256 = "sha256-iivlaQWtOMJHchmR92FoqTaosGJ9F1AgFtuFgDE/9qQ=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    mono
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper mono unzip ];
   sourceRoot = ".";
 
-  AOT_FILES = [
-    "MissionPlanner.exe"
-    "MissionPlanner.*.dll"
-  ];
+  AOT_FILES = [ "MissionPlanner.exe" "MissionPlanner.*.dll" ];
 
   buildPhase = ''
     runHook preBuild

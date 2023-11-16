@@ -1,70 +1,37 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dpkg,
-  autoPatchelfHook,
-  makeWrapper,
-  perl,
-  gnused,
-  ghostscript,
-  file,
-  coreutils,
-  gnugrep,
-  which,
-}:
+{ lib, stdenv, fetchurl, dpkg, autoPatchelfHook, makeWrapper, perl, gnused
+, ghostscript, file, coreutils, gnugrep, which }:
 
 let
-  arches = [
-    "x86_64"
-    "i686"
-    "armv7l"
-  ];
+  arches = [ "x86_64" "i686" "armv7l" ];
 
-  runtimeDeps = [
-    ghostscript
-    file
-    gnused
-    gnugrep
-    coreutils
-    which
-  ];
-in
+  runtimeDeps = [ ghostscript file gnused gnugrep coreutils which ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "cups-brother-hll2350dw";
   version = "4.0.0-1";
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook ];
   buildInputs = [ perl ];
 
   dontUnpack = true;
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf103566/hll2350dwpdrv-${version}.i386.deb";
+    url =
+      "https://download.brother.com/welcome/dlf103566/hll2350dwpdrv-${version}.i386.deb";
     sha256 = "0b7hhln105agc3rwpi7cjlx5nf4d2yk9iksahdv3725nnd06lg46";
   };
 
-  installPhase =
-    ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out
-      dpkg-deb -x $src $out
+    mkdir -p $out
+    dpkg-deb -x $src $out
 
-      # delete unnecessary files for the current architecture
-    ''
-    +
-      lib.concatMapStrings
-        (arch: ''
-          echo Deleting files for ${arch}
-          rm -r "$out/opt/brother/Printers/HLL2350DW/lpd/${arch}"
-        '')
-        (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)
+    # delete unnecessary files for the current architecture
+  '' + lib.concatMapStrings (arch: ''
+    echo Deleting files for ${arch}
+    rm -r "$out/opt/brother/Printers/HLL2350DW/lpd/${arch}"
+  '') (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)
     + ''
 
       # bundled scripts don't understand the arch subdirectories for some reason
@@ -104,7 +71,8 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = builtins.map (arch: "${arch}-linux") arches;
-    downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=us_ot&lang=en&prod=hll2350dw_us_eu_as&os=128";
+    downloadPage =
+      "https://support.brother.com/g/b/downloadlist.aspx?c=us_ot&lang=en&prod=hll2350dw_us_eu_as&os=128";
     maintainers = [ maintainers.sternenseemann ];
   };
 }

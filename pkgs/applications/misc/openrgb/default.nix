@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  qmake,
-  wrapQtAppsHook,
-  libusb1,
-  hidapi,
-  pkg-config,
-  coreutils,
-  mbedtls_2,
-  qtbase,
-  qttools,
-  symlinkJoin,
-  openrgb,
-}:
+{ lib, stdenv, fetchFromGitLab, qmake, wrapQtAppsHook, libusb1, hidapi
+, pkg-config, coreutils, mbedtls_2, qtbase, qttools, symlinkJoin, openrgb }:
 
 stdenv.mkDerivation rec {
   pname = "openrgb";
@@ -26,18 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-46dL1D5oVlw6mNuFDCbbrUDmq42yFXV/qFJ1JnPT5/s=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-  ];
-  buildInputs = [
-    libusb1
-    hidapi
-    mbedtls_2
-    qtbase
-    qttools
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
+  buildInputs = [ libusb1 hidapi mbedtls_2 qtbase qttools ];
 
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh
@@ -50,8 +26,7 @@ stdenv.mkDerivation rec {
     HOME=$TMPDIR $out/bin/openrgb --help > /dev/null
   '';
 
-  passthru.withPlugins =
-    plugins:
+  passthru.withPlugins = plugins:
     let
       pluginsDir = symlinkJoin {
         name = "openrgb-plugins";
@@ -68,26 +43,15 @@ stdenv.mkDerivation rec {
           done
         '';
       };
-    in
-    openrgb.overrideAttrs (
-      old: {
-        qmakeFlags =
-          old.qmakeFlags or [ ]
-          ++ [
-            # Welcome to Escape Hell, we have backslashes
-            ''
-              DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
-                lib.escape
-                  [
-                    "\\"
-                    ''"''
-                    " "
-                  ]
-                  (toString pluginsDir)
-              }/lib\\\""''
-          ];
-      }
-    );
+    in openrgb.overrideAttrs (old: {
+      qmakeFlags = old.qmakeFlags or [ ] ++ [
+        # Welcome to Escape Hell, we have backslashes
+        ''
+          DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
+            lib.escape [ "\\" ''"'' " " ] (toString pluginsDir)
+          }/lib\\\""''
+      ];
+    });
 
   meta = with lib; {
     description = "Open source RGB lighting control";

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "butane";
@@ -28,12 +24,10 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Translates human-readable Butane configs into machine-readable Ignition configs";
+    description =
+      "Translates human-readable Butane configs into machine-readable Ignition configs";
     license = licenses.asl20;
     homepage = "https://github.com/coreos/butane";
-    maintainers = with maintainers; [
-      elijahcaine
-      ruuda
-    ];
+    maintainers = with maintainers; [ elijahcaine ruuda ];
   };
 }

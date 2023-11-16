@@ -1,18 +1,9 @@
-{
-  lib,
-  makeImpureTest,
-  coreutils,
-  amdvlk,
-  vulkan-tools,
-}:
+{ lib, makeImpureTest, coreutils, amdvlk, vulkan-tools }:
 makeImpureTest {
   name = "amdvlk";
   testedPackage = "amdvlk";
 
-  sandboxPaths = [
-    "/sys"
-    "/dev/dri"
-  ];
+  sandboxPaths = [ "/sys" "/dev/dri" ];
 
   nativeBuildInputs = [ vulkan-tools ];
 

@@ -1,9 +1,6 @@
 # The test template is taken from the `./keymap.nix`
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
@@ -26,8 +23,7 @@ let
     mv  ${resultFile}.tmp ${resultFile}
   '';
 
-  mkKeyboardTest =
-    name:
+  mkKeyboardTest = name:
     { settings, test }:
     with pkgs.lib;
     makeTest {
@@ -70,19 +66,11 @@ let
         run_test_case("openvt -sw --", "${name}", test["press"], test["expect"])
       '';
     };
-in
-pkgs.lib.mapAttrs mkKeyboardTest {
+
+in pkgs.lib.mapAttrs mkKeyboardTest {
   swap-ab_and_ctrl-as-shift = {
-    test.press = [
-      "a"
-      "ctrl-b"
-      "c"
-    ];
-    test.expect = [
-      "b"
-      "A"
-      "c"
-    ];
+    test.press = [ "a" "ctrl-b" "c" ];
+    test.expect = [ "b" "A" "c" ];
 
     settings.main = {
       "a" = "b";

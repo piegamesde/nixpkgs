@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "mbpfan";
@@ -19,7 +15,8 @@ stdenv.mkDerivation rec {
     cp mbpfan.conf $out/etc
   '';
   meta = with lib; {
-    description = "Daemon that uses input from coretemp module and sets the fan speed using the applesmc module";
+    description =
+      "Daemon that uses input from coretemp module and sets the fan speed using the applesmc module";
     homepage = "https://github.com/dgraziotin/mbpfan";
     license = licenses.gpl3;
     platforms = platforms.linux;

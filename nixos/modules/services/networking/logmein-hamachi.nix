@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.logmein-hamachi;
-in
 
-{
+in {
 
   ###### interface
 
@@ -26,6 +20,7 @@ in
         (closed source) commercial VPN software.
       '';
     };
+
   };
 
   ###### implementation
@@ -45,5 +40,7 @@ in
     };
 
     environment.systemPackages = [ pkgs.logmein-hamachi ];
+
   };
+
 }

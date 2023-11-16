@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  substituteAll,
-  cmake,
-  boost,
-  gmp,
-  pybind11,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools-scm, substituteAll
+, cmake, boost, gmp, pybind11, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "chiavdf";
@@ -23,28 +11,20 @@ buildPythonPackage rec {
     hash = "sha256-ilT7tCdX8ak3qmpXJ0LITf0ZGAdFSN4tm6GKw06A/m8=";
   };
 
-  patches =
-    [
-      # prevent CMake from trying to get libraries on the Internet
-      (substituteAll {
-        src = ./dont_fetch_dependencies.patch;
-        pybind11_src = pybind11.src;
-      })
-    ];
+  patches = [
+    # prevent CMake from trying to get libraries on the Internet
+    (substituteAll {
+      src = ./dont_fetch_dependencies.patch;
+      pybind11_src = pybind11.src;
+    })
+  ];
 
   # x86 instructions are needed for this component
   BUILD_VDF_CLIENT = lib.optionalString (!stdenv.isx86_64) "N";
 
-  nativeBuildInputs = [
-    cmake
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ cmake setuptools-scm ];
 
-  buildInputs = [
-    boost
-    gmp
-    pybind11
-  ];
+  buildInputs = [ boost gmp pybind11 ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

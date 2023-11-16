@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  fuse,
-  readline,
-  pkg-config,
-  qtbase,
-  qttools,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, fuse, readline, pkg-config
+, qtbase, qttools, wrapQtAppsHook }:
 
 mkDerivation rec {
   pname = "android-file-transfer";
@@ -25,17 +14,8 @@ mkDerivation rec {
 
   patches = [ ./darwin-dont-vendor-dependencies.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    readline
-    pkg-config
-    wrapQtAppsHook
-  ];
-  buildInputs = [
-    fuse
-    qtbase
-    qttools
-  ];
+  nativeBuildInputs = [ cmake readline pkg-config wrapQtAppsHook ];
+  buildInputs = [ fuse qtbase qttools ];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir $out/Applications

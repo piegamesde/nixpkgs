@@ -1,15 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.hockeypuck;
   settingsFormat = pkgs.formats.toml { };
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [ etu ];
 
   options.services.hockeypuck = {
@@ -82,7 +76,8 @@ in
 
       openpgp.db = {
         driver = "postgres-jsonb";
-        dsn = lib.mkDefault "database=hockeypuck host=/var/run/postgresql sslmode=disable";
+        dsn = lib.mkDefault
+          "database=hockeypuck host=/var/run/postgresql sslmode=disable";
       };
     };
 
@@ -95,10 +90,7 @@ in
 
     systemd.services.hockeypuck = {
       description = "Hockeypuck OpenPGP Key Server";
-      after = [
-        "network.target"
-        "postgresql.target"
-      ];
+      after = [ "network.target" "postgresql.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         WorkingDirectory = "/var/lib/hockeypuck";

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pyvex,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pyvex, setuptools }:
 
 buildPythonPackage rec {
   pname = "ailment";

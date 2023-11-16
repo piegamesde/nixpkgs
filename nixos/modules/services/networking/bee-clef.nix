@@ -1,26 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 # NOTE for now nothing is installed into /etc/bee-clef/. the config files are used as read-only from the nix store.
 
 with lib;
-let
-  cfg = config.services.bee-clef;
-in
-{
-  meta = {
-    maintainers = with maintainers; [ attila-lendvai ];
-  };
+let cfg = config.services.bee-clef;
+in {
+  meta = { maintainers = with maintainers; [ attila-lendvai ]; };
 
   ### interface
 
   options = {
     services.bee-clef = {
-      enable = mkEnableOption (lib.mdDoc "clef external signer instance for Ethereum Swarm Bee");
+      enable = mkEnableOption
+        (lib.mdDoc "clef external signer instance for Ethereum Swarm Bee");
 
       dataDir = mkOption {
         type = types.nullOr types.str;
@@ -61,7 +53,8 @@ in
     # if we ever want to have rules.js under /etc/bee-clef/
     # environment.etc."bee-clef/rules.js".source = ${pkgs.bee-clef}/rules.js
 
-    systemd.packages = [ pkgs.bee-clef ]; # include the upstream bee-clef.service file
+    systemd.packages =
+      [ pkgs.bee-clef ]; # include the upstream bee-clef.service file
 
     systemd.tmpfiles.rules = [
       "d '${cfg.dataDir}/'         0750 ${cfg.user} ${cfg.group}"
@@ -76,10 +69,7 @@ in
         pkgs.gawk
       ];
 
-      wantedBy = [
-        "bee.service"
-        "multi-user.target"
-      ];
+      wantedBy = [ "bee.service" "multi-user.target" ];
 
       serviceConfig = {
         User = cfg.user;
@@ -94,10 +84,8 @@ in
           "" # this hides/overrides what's in the original entry
           "${pkgs.bee-clef}/share/bee-clef/bee-clef-service stop"
         ];
-        Environment = [
-          "CONFIGDIR=${cfg.dataDir}"
-          "PASSWORD_FILE=${cfg.passwordFile}"
-        ];
+        Environment =
+          [ "CONFIGDIR=${cfg.dataDir}" "PASSWORD_FILE=${cfg.passwordFile}" ];
       };
     };
 

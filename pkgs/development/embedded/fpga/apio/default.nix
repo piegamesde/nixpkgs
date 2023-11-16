@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  click,
-  semantic-version,
-  requests,
-  colorama,
-  pyserial,
-  wheel,
-  scons,
-  setuptools,
-  tinyprog,
-  pytestCheckHook,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, click, semantic-version
+, requests, colorama, pyserial, wheel, scons, setuptools, tinyprog
+, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "apio";

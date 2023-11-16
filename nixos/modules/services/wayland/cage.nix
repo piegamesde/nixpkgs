@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.cage;
-in
-{
-  options.services.cage.enable = mkEnableOption (lib.mdDoc "cage kiosk service");
+let cfg = config.services.cage;
+in {
+  options.services.cage.enable =
+    mkEnableOption (lib.mdDoc "cage kiosk service");
 
   options.services.cage.user = mkOption {
     type = types.str;
@@ -25,7 +19,8 @@ in
     type = types.listOf types.str;
     default = [ ];
     defaultText = literalExpression "[]";
-    description = lib.mdDoc "Additional command line arguments to pass to Cage.";
+    description =
+      lib.mdDoc "Additional command line arguments to pass to Cage.";
     example = [ "-d" ];
   };
 
@@ -53,11 +48,8 @@ in
         "getty@tty1.service"
       ];
       before = [ "graphical.target" ];
-      wants = [
-        "dbus.socket"
-        "systemd-logind.service"
-        "plymouth-quit.service"
-      ];
+      wants =
+        [ "dbus.socket" "systemd-logind.service" "plymouth-quit.service" ];
       wantedBy = [ "graphical.target" ];
       conflicts = [ "getty@tty1.service" ];
 
@@ -109,4 +101,5 @@ in
   };
 
   meta.maintainers = with lib.maintainers; [ matthewbauer ];
+
 }

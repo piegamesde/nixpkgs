@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  perl,
-  perlPackages,
-  makeWrapper,
-}:
+{ lib, fetchFromGitHub, perl, perlPackages, makeWrapper, }:
 
 perlPackages.buildPerlPackage rec {
   pname = "cope";
@@ -36,10 +30,7 @@ perlPackages.buildPerlPackage rec {
   meta = with lib; {
     description = "A colourful wrapper for terminal programs";
     homepage = "https://github.com/lotrfan/cope";
-    license = with licenses; [
-      artistic1
-      gpl1Plus
-    ];
+    license = with licenses; [ artistic1 gpl1Plus ];
     maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }

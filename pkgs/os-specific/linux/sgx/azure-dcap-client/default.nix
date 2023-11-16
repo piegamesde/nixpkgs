@@ -1,15 +1,5 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  lib,
-  curl,
-  nlohmann_json,
-  openssl,
-  pkg-config,
-  linkFarmFromDrvs,
-  callPackage,
-}:
+{ stdenv, fetchFromGitHub, fetchurl, lib, curl, nlohmann_json, openssl
+, pkg-config, linkFarmFromDrvs, callPackage }:
 
 let
   # Although those headers are also included in the source of `sgx-psw`, the `azure-dcap-client` build needs specific versions
@@ -24,7 +14,8 @@ let
       owner = "intel";
       repo = "SGXDataCenterAttestationPrimitives";
       rev = "0436284f12f1bd5da7e7a06f6274d36b4c8d39f9";
-      sparseCheckout = [ "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h" ];
+      sparseCheckout =
+        [ "QuoteGeneration/quote_wrapper/common/inc/sgx_ql_lib_common.h" ];
       hash = "sha256-ipKpYHbiwjCUXF/pCArJZy5ko1YX2wqMMdSnMUzhkgY=";
       postFetch = filterSparse sparseCheckout;
     })
@@ -42,8 +33,7 @@ let
       postFetch = filterSparse sparseCheckout;
     })
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "azure-dcap-client";
   version = "1.11.2";
 
@@ -56,11 +46,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    curl
-    nlohmann_json
-    openssl
-  ];
+  buildInputs = [ curl nlohmann_json openssl ];
 
   postPatch = ''
     mkdir -p src/Linux/ext/intel
@@ -73,22 +59,17 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
 
-  makeFlags = [
-    "-C src/Linux"
-    "prefix=$(out)"
-  ];
+  makeFlags = [ "-C src/Linux" "prefix=$(out)" ];
 
   # Online test suite; run with
   # $(nix-build -A sgx-azure-dcap-client.tests.suite)/bin/tests
   passthru.tests.suite = callPackage ./test-suite.nix { };
 
   meta = with lib; {
-    description = "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
+    description =
+      "Interfaces between SGX SDKs and the Azure Attestation SGX Certification Cache";
     homepage = "https://github.com/microsoft/azure-dcap-client";
-    maintainers = with maintainers; [
-      trundle
-      veehaitch
-    ];
+    maintainers = with maintainers; [ trundle veehaitch ];
     platforms = [ "x86_64-linux" ];
     license = [ licenses.mit ];
   };

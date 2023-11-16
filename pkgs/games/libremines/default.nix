@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  wrapQtAppsHook,
-  qtmultimedia,
-  qtwayland,
+{ lib, stdenv, fetchFromGitHub, cmake, wrapQtAppsHook, qtmultimedia, qtwayland
 }:
 
 stdenv.mkDerivation rec {
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-aqWzTvvRoke+Rakb6dNpDoD7haKHEKW3XARGLrH2WiY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
   buildInputs = [ qtmultimedia ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 

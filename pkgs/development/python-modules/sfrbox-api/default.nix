@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  defusedxml,
-  fetchFromGitHub,
-  httpx,
-  poetry-core,
-  pydantic,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  respx,
-}:
+{ lib, buildPythonPackage, click, defusedxml, fetchFromGitHub, httpx
+, poetry-core, pydantic, pytest-asyncio, pytestCheckHook, pythonOlder, respx }:
 
 buildPythonPackage rec {
   pname = "sfrbox-api";
@@ -34,25 +22,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    click
-    defusedxml
-    httpx
-    pydantic
-  ];
+  propagatedBuildInputs = [ click defusedxml httpx pydantic ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    respx
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook respx ];
 
   pythonImportsCheck = [ "sfrbox_api" ];
 
   meta = with lib; {
     description = "Module for the SFR Box API";
     homepage = "https://github.com/hacf-fr/sfrbox-api";
-    changelog = "https://github.com/hacf-fr/sfrbox-api/releases/tag/v${version}";
+    changelog =
+      "https://github.com/hacf-fr/sfrbox-api/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

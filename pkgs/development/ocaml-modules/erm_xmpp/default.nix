@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  camlp4,
-  ocamlbuild,
-  erm_xml,
-  mirage-crypto,
-  mirage-crypto-rng,
-  base64,
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, camlp4, ocamlbuild, erm_xml
+, mirage-crypto, mirage-crypto-rng, base64 }:
 
 stdenv.mkDerivation rec {
   version = "0.3+20220404";
@@ -23,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ize8Em4LI54Cy1Xuzr9BjQGV7JMr3W6KI1YzI8G1q/U=";
   };
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-    camlp4
-  ];
+  nativeBuildInputs = [ ocaml findlib ocamlbuild camlp4 ];
   buildInputs = [ camlp4 ];
-  propagatedBuildInputs = [
-    erm_xml
-    mirage-crypto
-    mirage-crypto-rng
-    base64
-  ];
+  propagatedBuildInputs = [ erm_xml mirage-crypto mirage-crypto-rng base64 ];
 
   strictDeps = true;
 

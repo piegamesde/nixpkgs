@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  ncurses,
-  SDL,
-  gpm,
-  miniupnpc,
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, ncurses, SDL, gpm, miniupnpc
 }:
 
 stdenv.mkDerivation rec {
@@ -21,20 +12,13 @@ stdenv.mkDerivation rec {
     sha256 = "NAdcTVmNrDa3rbsbxJxFoI7sz5NK5Uw+TbP+a1CdB+Q=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-  ];
-  buildInputs = [
-    ncurses
-    SDL
-    gpm
-    miniupnpc
-  ];
+  nativeBuildInputs = [ autoconf automake ];
+  buildInputs = [ ncurses SDL gpm miniupnpc ];
 
   meta = with lib; {
     homepage = "https://qodem.sourceforge.net/";
-    description = "Re-implementation of the DOS-era Qmodem serial communications package";
+    description =
+      "Re-implementation of the DOS-era Qmodem serial communications package";
     longDescription = ''
       Qodem is a from-scratch clone implementation of the Qmodem
       communications program made popular in the days when Bulletin Board

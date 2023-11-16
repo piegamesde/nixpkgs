@@ -1,44 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  freetype,
-  lcms,
-  libtiff,
-  libxml2,
-  libart_lgpl,
-  qt4,
-  python2,
-  cups,
-  fontconfig,
-  libjpeg,
-  zlib,
-  libpng,
-  xorg,
-  cairo,
-  podofo,
-  hunspell,
-  boost,
-  cmake,
-  imagemagick,
-  ghostscript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, freetype, lcms, libtiff, libxml2
+, libart_lgpl, qt4, python2, cups, fontconfig, libjpeg, zlib, libpng, xorg
+, cairo, podofo, hunspell, boost, cmake, imagemagick, ghostscript }:
 
 let
   icon = fetchurl {
-    url = "https://gist.githubusercontent.com/ejpcmac/a74b762026c9bc4000be624c3d085517/raw/18edc497c5cb6fdeef1c8aede37a0ee68413f9d3/scribus-icon-centered.svg";
+    url =
+      "https://gist.githubusercontent.com/ejpcmac/a74b762026c9bc4000be624c3d085517/raw/18edc497c5cb6fdeef1c8aede37a0ee68413f9d3/scribus-icon-centered.svg";
     sha256 = "0hq3i7c2l50445an9glhhg47kj26y16svfajc6naqn307ph9vzc3";
   };
 
-  pythonEnv = python2.withPackages (
-    ps: [
-      ps.tkinter
-      ps.pillow
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+  pythonEnv = python2.withPackages (ps: [ ps.tkinter ps.pillow ]);
+in stdenv.mkDerivation rec {
   pname = "scribus";
   version = "1.4.8";
 
@@ -47,10 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bq433myw6h1siqlsakxv6ghb002rp3mfz5k12bg68s0k6skn992";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
   buildInputs = with xorg; [
     freetype
     lcms

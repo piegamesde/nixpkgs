@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchurl,
-}:
+{ lib, buildPythonPackage, fetchurl }:
 
 buildPythonPackage {
   pname = "pynac";
@@ -15,7 +11,9 @@ buildPythonPackage {
 
   meta = with lib; {
     homepage = "https://github.com/se-esss-litterbox/Pynac";
-    description = "A Python wrapper around the Dynac charged particle simulator";
+    description =
+      "A Python wrapper around the Dynac charged particle simulator";
     license = licenses.gpl3;
   };
+
 }

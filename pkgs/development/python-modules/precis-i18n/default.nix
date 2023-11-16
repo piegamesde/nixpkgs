@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "precis-i18n";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Internationalized usernames and passwords";
     homepage = "https://github.com/byllyfish/precis_i18n";
-    changelog = "https://github.com/byllyfish/precis_i18n/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/byllyfish/precis_i18n/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

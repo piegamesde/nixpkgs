@@ -1,18 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPackages,
-  perl,
-  which,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPackages, perl, which, ncurses }:
 
-let
-  dialect = with lib; last (splitString "-" stdenv.hostPlatform.system);
-in
+let dialect = with lib; last (splitString "-" stdenv.hostPlatform.system);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "lsof";
   version = "4.98.0";
 
@@ -25,19 +15,14 @@ stdenv.mkDerivation rec {
 
   patches = [ ./no-build-info.patch ];
 
-  postPatch =
-    lib.optionalString stdenv.hostPlatform.isMusl ''
-      substituteInPlace dialects/linux/dlsof.h --replace "defined(__UCLIBC__)" 1
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      sed -i 's|lcurses|lncurses|g' Configure
-    '';
+  postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
+    substituteInPlace dialects/linux/dlsof.h --replace "defined(__UCLIBC__)" 1
+  '' + lib.optionalString stdenv.isDarwin ''
+    sed -i 's|lcurses|lncurses|g' Configure
+  '';
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    perl
-    which
-  ];
+  nativeBuildInputs = [ perl which ];
   buildInputs = [ ncurses ];
 
   # Stop build scripts from searching global include paths

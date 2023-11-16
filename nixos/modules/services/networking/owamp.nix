@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.owamp;
-in
-{
+let cfg = config.services.owamp;
+in {
 
   ###### interface
 
@@ -34,7 +27,8 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.owamp}/bin/owampd -R /run/owamp -d /run/owamp -v -Z ";
+        ExecStart =
+          "${pkgs.owamp}/bin/owampd -R /run/owamp -d /run/owamp -v -Z ";
         PrivateTmp = true;
         Restart = "always";
         Type = "simple";

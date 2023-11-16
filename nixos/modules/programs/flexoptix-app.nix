@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.flexoptix-app;
-in
-{
+let cfg = config.programs.flexoptix-app;
+in {
   options = {
     programs.flexoptix-app = {
       enable = mkEnableOption (lib.mdDoc "FLEXOPTIX app + udev rules");

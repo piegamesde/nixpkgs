@@ -1,23 +1,9 @@
-{
-  stdenv,
-  lib,
-  fetchgit,
-  cmake,
-  llvmPackages,
-  enablePython ? false,
-  python ? null,
-}:
+{ stdenv, lib, fetchgit, cmake, llvmPackages, enablePython ? false
+, python ? null }:
 
-let
-  pyEnv = python.withPackages (
-    p:
-    with p; [
-      numpy
-      scipy
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+let pyEnv = python.withPackages (p: with p; [ numpy scipy ]);
+
+in stdenv.mkDerivation rec {
   pname = "taco";
   version = "unstable-2022-08-02";
 

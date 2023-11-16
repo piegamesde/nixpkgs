@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  containers,
-  oseq,
-}:
+{ lib, fetchurl, buildDunePackage, containers, oseq }:
 
 buildDunePackage rec {
   pname = "dscheck";
@@ -14,14 +8,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/ocaml-multicore/dscheck/releases/download/${version}/dscheck-${version}.tbz";
+    url =
+      "https://github.com/ocaml-multicore/dscheck/releases/download/${version}/dscheck-${version}.tbz";
     hash = "sha256-zoouFZJcUp71yeluVb1xLUIMcFv99OpkcQQCHkPTKcI=";
   };
 
-  propagatedBuildInputs = [
-    containers
-    oseq
-  ];
+  propagatedBuildInputs = [ containers oseq ];
 
   doCheck = true;
 

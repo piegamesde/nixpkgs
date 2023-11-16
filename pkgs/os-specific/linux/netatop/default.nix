@@ -1,17 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  kernel,
-  kmod,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, kernel, kmod, zlib }:
 
-let
-  version = "3.1";
-in
+let version = "3.1";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "netatop-${kernel.version}-${version}";
 
   src = fetchurl {
@@ -20,10 +11,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  buildInputs = [
-    kmod
-    zlib
-  ];
+  buildInputs = [ kmod zlib ];
 
   hardeningDisable = [ "pic" ];
   env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" ];

@@ -1,27 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  pkg-config,
-  extra-cmake-modules,
-  qtbase,
-}:
+{ lib, stdenv, fetchurl, cmake, pkg-config, extra-cmake-modules, qtbase }:
 
 stdenv.mkDerivation rec {
   pname = "kdevelop-pg-qt";
   version = "2.2.2";
 
   src = fetchurl {
-    url = "mirror://kde/stable/${pname}/${version}/src/${pname}-${version}.tar.xz";
+    url =
+      "mirror://kde/stable/${pname}/${version}/src/${pname}-${version}.tar.xz";
     sha256 = "sha256-PVZgTEefjwSuMqUj7pHzB4xxcRfQ3rOelz4iSUy7ZfE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules ];
 
   buildInputs = [ qtbase ];
 

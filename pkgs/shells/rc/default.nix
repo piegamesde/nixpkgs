@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  byacc,
-  ncurses,
-  readline,
-  pkgsStatic,
-  historySupport ? false,
-  readlineSupport ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, byacc, ncurses, readline
+, pkgsStatic, historySupport ? false, readlineSupport ? true }:
 
 stdenv.mkDerivation rec {
   pname = "rc";
@@ -23,21 +13,16 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoreconfHook
-    byacc
-  ];
+  nativeBuildInputs = [ autoreconfHook byacc ];
 
   # acinclude.m4 wants headers for tgetent().
   buildInputs = [ ncurses ] ++ lib.optionals readlineSupport [ readline ];
 
   CPPFLAGS = [ "-DSIGCLD=SIGCHLD" ];
 
-  configureFlags =
-    [
-      "--enable-def-interp=${stdenv.shell}" # 183
-    ]
-    ++ lib.optionals historySupport [ "--with-history" ]
+  configureFlags = [
+    "--enable-def-interp=${stdenv.shell}" # 183
+  ] ++ lib.optionals historySupport [ "--with-history" ]
     ++ lib.optionals readlineSupport [ "--with-edit=readline" ];
 
   #reproducible-build
@@ -55,8 +40,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "The Plan 9 shell";
-    longDescription = "Byron Rakitzis' UNIX reimplementation of Tom Duff's Plan 9 shell";
-    homepage = "https://web.archive.org/web/20180820053030/tobold.org/article/rc";
+    longDescription =
+      "Byron Rakitzis' UNIX reimplementation of Tom Duff's Plan 9 shell";
+    homepage =
+      "https://web.archive.org/web/20180820053030/tobold.org/article/rc";
     license = with licenses; zlib;
     maintainers = with maintainers; [ ramkromberg ];
     mainProgram = "rc";

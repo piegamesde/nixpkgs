@@ -1,37 +1,17 @@
-{
-  config,
-  stdenv,
-  lib,
-  fetchurl,
-  intltool,
-  pkg-config,
-  python3Packages,
-  bluez,
-  gtk3,
-  obex_data_server,
-  xdg-utils,
-  dnsmasq,
-  dhcp,
-  libappindicator,
-  iproute2,
-  gnome,
-  librsvg,
-  wrapGAppsHook,
-  gobject-introspection,
-  networkmanager,
-  withPulseAudio ? config.pulseaudio or stdenv.isLinux,
-  libpulseaudio,
-}:
+{ config, stdenv, lib, fetchurl, intltool, pkg-config, python3Packages, bluez
+, gtk3, obex_data_server, xdg-utils, dnsmasq, dhcp, libappindicator, iproute2
+, gnome, librsvg, wrapGAppsHook, gobject-introspection, networkmanager
+, withPulseAudio ? config.pulseaudio or stdenv.isLinux, libpulseaudio }:
 
-let
-  pythonPackages = python3Packages;
-in
-stdenv.mkDerivation rec {
+let pythonPackages = python3Packages;
+
+in stdenv.mkDerivation rec {
   pname = "blueman";
   version = "2.3.5";
 
   src = fetchurl {
-    url = "https://github.com/blueman-project/blueman/releases/download/${version}/${pname}-${version}.tar.xz";
+    url =
+      "https://github.com/blueman-project/blueman/releases/download/${version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-stIa/fd6Bs2G2vVAJAb30qU0WYF+KeC+vEkR1PDc/aE=";
   };
 
@@ -58,10 +38,7 @@ stdenv.mkDerivation rec {
     sed -i 's,CDLL(",CDLL("${libpulseaudio.out}/lib/,g' blueman/main/PulseAudioUtils.py
   '';
 
-  pythonPath = with pythonPackages; [
-    pygobject3
-    pycairo
-  ];
+  pythonPath = with pythonPackages; [ pygobject3 pycairo ];
 
   propagatedUserEnvPkgs = [ obex_data_server ];
 
@@ -72,13 +49,7 @@ stdenv.mkDerivation rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH ':' ${
-      lib.makeBinPath [
-        dnsmasq
-        dhcp
-        iproute2
-      ]
-    }"
+    "--prefix PATH ':' ${lib.makeBinPath [ dnsmasq dhcp iproute2 ]}"
     "--suffix PATH ':' ${lib.makeBinPath [ xdg-utils ]}"
   ];
 
@@ -93,7 +64,8 @@ stdenv.mkDerivation rec {
     description = "GTK-based Bluetooth Manager";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    changelog = "https://github.com/blueman-project/blueman/releases/tag/${version}";
+    changelog =
+      "https://github.com/blueman-project/blueman/releases/tag/${version}";
     maintainers = with maintainers; [ abbradar ];
   };
 }

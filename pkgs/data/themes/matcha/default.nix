@@ -1,89 +1,67 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gdk-pixbuf,
-  gtk-engine-murrine,
-  jdupes,
-  librsvg,
-  gitUpdater,
-  colorVariants ? [ ] # default: all
-  ,
-  themeVariants ? [ ] # default: blue
-  ,
+{ lib, stdenvNoCC, fetchFromGitHub, gdk-pixbuf, gtk-engine-murrine, jdupes
+, librsvg, gitUpdater, colorVariants ? [ ] # default: all
+, themeVariants ? [ ] # default: blue
 }:
 
-let
-  pname = "matcha-gtk-theme";
-in
-lib.checkListOfEnum "${pname}: color variants"
-  [
-    "standard"
-    "light"
-    "dark"
-  ]
-  colorVariants
-  lib.checkListOfEnum
-  "${pname}: theme variants"
-  [
-    "aliz"
-    "azul"
-    "sea"
-    "pueril"
-    "all"
-  ]
-  themeVariants
+let pname = "matcha-gtk-theme";
 
-  stdenvNoCC.mkDerivation
-  rec {
-    inherit pname;
-    version = "2023-04-03";
+in lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ]
+colorVariants lib.checkListOfEnum
+"${pname}: theme variants" [ "aliz" "azul" "sea" "pueril" "all" ] themeVariants
 
-    src = fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = pname;
-      rev = version;
-      sha256 = "mr9X7p/H8H2QKZxAQC9j/8OLK4D3EnWLxriFlh16diE=";
-    };
+stdenvNoCC.mkDerivation rec {
+  inherit pname;
+  version = "2023-04-03";
 
-    nativeBuildInputs = [ jdupes ];
+  src = fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = pname;
+    rev = version;
+    sha256 = "mr9X7p/H8H2QKZxAQC9j/8OLK4D3EnWLxriFlh16diE=";
+  };
 
-    buildInputs = [
-      gdk-pixbuf
-      librsvg
-    ];
+  nativeBuildInputs = [ jdupes ];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  buildInputs = [ gdk-pixbuf librsvg ];
 
-    postPatch = ''
-      patchShebangs install.sh
-    '';
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-    installPhase = ''
-      runHook preInstall
+  postPatch = ''
+    patchShebangs install.sh
+  '';
 
-      mkdir -p $out/share/themes
+  installPhase = ''
+    runHook preInstall
 
-      name= ./install.sh \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        --dest $out/share/themes
+    mkdir -p $out/share/themes
 
-      mkdir -p $out/share/doc/${pname}
-      cp -a src/extra/firefox $out/share/doc/${pname}
+    name= ./install.sh \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
+      --dest $out/share/themes
 
-      jdupes --quiet --link-soft --recurse $out/share
+    mkdir -p $out/share/doc/${pname}
+    cp -a src/extra/firefox $out/share/doc/${pname}
 
-      runHook postInstall
-    '';
+    jdupes --quiet --link-soft --recurse $out/share
 
-    passthru.updateScript = gitUpdater { };
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "A stylish flat Design theme for GTK based desktop environments";
-      homepage = "https://vinceliuice.github.io/theme-matcha";
-      license = licenses.gpl3Only;
-      platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
-    };
-  }
+  passthru.updateScript = gitUpdater { };
+
+  meta = with lib; {
+    description =
+      "A stylish flat Design theme for GTK based desktop environments";
+    homepage = "https://vinceliuice.github.io/theme-matcha";
+    license = licenses.gpl3Only;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.romildo ];
+  };
+}

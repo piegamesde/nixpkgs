@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -19,8 +14,7 @@ let
       ${cfg.package}/bin/ferm --noexec $out
     '';
   };
-in
-{
+in {
   options = {
     services.ferm = {
       enable = mkOption {

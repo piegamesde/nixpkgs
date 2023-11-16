@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromBitbucket,
-  h5py,
-  termcolor,
-  pexpect,
-  jinja2,
-  sphinxHook,
-  sphinx-rtd-theme,
-}:
+{ lib, buildPythonPackage, fetchFromBitbucket, h5py, termcolor, pexpect, jinja2
+, sphinxHook, sphinx-rtd-theme }:
 
 buildPythonPackage {
   pname = "pylion";
@@ -25,17 +16,9 @@ buildPythonPackage {
 
   # Docs are not available online, besides the article:
   # http://dx.doi.org/10.1016/j.cpc.2020.107187
-  nativeBuildInputs = [
-    sphinxHook
-    sphinx-rtd-theme
-  ];
+  nativeBuildInputs = [ sphinxHook sphinx-rtd-theme ];
 
-  propagatedBuildInputs = [
-    h5py
-    termcolor
-    pexpect
-    jinja2
-  ];
+  propagatedBuildInputs = [ h5py termcolor pexpect jinja2 ];
 
   pythonImportsCheck = [ "pylion" ];
 
@@ -48,7 +31,8 @@ buildPythonPackage {
   '';
 
   meta = with lib; {
-    description = "A LAMMPS wrapper for molecular dynamics simulations of trapped ions";
+    description =
+      "A LAMMPS wrapper for molecular dynamics simulations of trapped ions";
     homepage = "https://bitbucket.org/dtrypogeorgos/pylion";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];

@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  msgpack,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  ruamel-yaml,
-  setuptools,
-  toml,
-  tomli,
-  tomli-w,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, msgpack, poetry-core
+, pytestCheckHook, pythonOlder, pyyaml, ruamel-yaml, setuptools, toml, tomli
+, tomli-w }:
 
 buildPythonPackage rec {
   pname = "python-box";
@@ -31,11 +19,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools ];
 
   passthru.optional-dependencies = {
-    all = [
-      msgpack
-      ruamel-yaml
-      toml
-    ];
+    all = [ msgpack ruamel-yaml toml ];
     yaml = [ ruamel-yaml ];
     ruamel-yaml = [ ruamel-yaml ];
     PyYAML = [ pyyaml ];

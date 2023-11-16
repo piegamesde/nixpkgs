@@ -1,19 +1,12 @@
-{
-  lib,
-  fetchurl,
-  buildPythonApplication,
-  libjack2,
-  pyqt5,
-  qttools,
-  which,
-}:
+{ lib, fetchurl, buildPythonApplication, libjack2, pyqt5, qttools, which }:
 
 buildPythonApplication rec {
   pname = "patchance";
   version = "1.0.0";
 
   src = fetchurl {
-    url = "https://github.com/Houston4444/Patchance/releases/download/v${version}/Patchance-${version}-source.tar.gz";
+    url =
+      "https://github.com/Houston4444/Patchance/releases/download/v${version}/Patchance-${version}-source.tar.gz";
     sha256 = "sha256-8Zn6xcDv4hBFXnaXK9xslYEB8uHEfIP+1NKvcPAyHj0=";
   };
 
@@ -31,12 +24,8 @@ buildPythonApplication rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "LD_LIBRARY_PATH"
-    ":"
-    (lib.makeLibraryPath [ libjack2 ])
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "LD_LIBRARY_PATH" ":" (lib.makeLibraryPath [ libjack2 ]) ];
 
   postFixup = ''
     wrapPythonProgramsIn "$out/share/patchance/src" "$out $pythonPath"

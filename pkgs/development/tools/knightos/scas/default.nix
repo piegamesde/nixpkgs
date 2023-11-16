@@ -1,18 +1,8 @@
-{
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  cmake,
-  buildPackages,
-  asciidoc,
-  libxslt,
-}:
+{ fetchFromGitHub, lib, stdenv, cmake, buildPackages, asciidoc, libxslt }:
 
-let
-  isCrossCompiling = stdenv.hostPlatform != stdenv.buildPlatform;
-in
+let isCrossCompiling = stdenv.hostPlatform != stdenv.buildPlatform;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "scas";
   version = "0.5.5";
 
@@ -30,12 +20,9 @@ stdenv.mkDerivation rec {
   '';
   strictDeps = true;
 
-  depsBuildBuild = lib.optionals isCrossCompiling [ buildPackages.knightos-scas ];
-  nativeBuildInputs = [
-    asciidoc
-    libxslt.bin
-    cmake
-  ];
+  depsBuildBuild =
+    lib.optionals isCrossCompiling [ buildPackages.knightos-scas ];
+  nativeBuildInputs = [ asciidoc libxslt.bin cmake ];
   postInstall = ''
     cd ..
     make DESTDIR=$out install_man

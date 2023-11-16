@@ -1,26 +1,9 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pkg-config,
-  dbus,
-  lndir,
-  setuptools,
-  dbus-python,
-  sip,
-  pyqt6-sip,
-  pyqt-builder,
-  qt6Packages,
-  pythonOlder,
-  withMultimedia ? true,
-  withWebSockets ? true,
-  withLocation ? true,
+{ lib, stdenv, buildPythonPackage, fetchPypi, pkg-config, dbus, lndir
+, setuptools, dbus-python, sip, pyqt6-sip, pyqt-builder, qt6Packages
+, pythonOlder, withMultimedia ? true, withWebSockets ? true, withLocation ? true
   # Not currently part of PyQt6
   #, withConnectivity ? true
-  withPrintSupport ? true,
-  cups,
-}:
+, withPrintSupport ? true, cups }:
 
 buildPythonPackage rec {
   pname = "PyQt6";
@@ -34,15 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-4WagVownvMjbACcaUEOTYiZpC2pKdM4KXK60CAQKl8M=";
   };
 
-  patches =
-    [
-      # Fix some wrong assumptions by ./project.py
-      # TODO: figure out how to send this upstream
-      # FIXME: make a version for PyQt6?
-      # ./pyqt5-fix-dbus-mainloop-support.patch
-      # confirm license when installing via pyqt6_sip
-      ./pyqt5-confirm-license.patch
-    ];
+  patches = [
+    # Fix some wrong assumptions by ./project.py
+    # TODO: figure out how to send this upstream
+    # FIXME: make a version for PyQt6?
+    # ./pyqt5-fix-dbus-mainloop-support.patch
+    # confirm license when installing via pyqt6_sip
+    ./pyqt5-confirm-license.patch
+  ];
 
   # be more verbose
   postPatch = ''
@@ -63,15 +45,11 @@ buildPythonPackage rec {
     export MAKEFLAGS+="''${enableParallelBuilding:+-j$NIX_BUILD_CORES}"
   '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   dontWrapQtApps = true;
 
-  nativeBuildInputs =
-    with qt6Packages;
+  nativeBuildInputs = with qt6Packages;
     [
       pkg-config
       lndir
@@ -89,8 +67,7 @@ buildPythonPackage rec {
     ++ lib.optional withWebSockets qtwebsockets
     ++ lib.optional withLocation qtlocation;
 
-  buildInputs =
-    with qt6Packages;
+  buildInputs = with qt6Packages;
     [
       dbus
       qtbase
@@ -104,13 +81,12 @@ buildPythonPackage rec {
     ++ lib.optional withWebSockets qtwebsockets
     ++ lib.optional withLocation qtlocation;
 
-  propagatedBuildInputs =
-    [
-      dbus-python
-      pyqt6-sip
-      setuptools
-    ]
-    # ld: library not found for -lcups
+  propagatedBuildInputs = [
+    dbus-python
+    pyqt6-sip
+    setuptools
+  ]
+  # ld: library not found for -lcups
     ++ lib.optionals (withPrintSupport && stdenv.isDarwin) [ cups ];
 
   passthru = {
@@ -124,16 +100,14 @@ buildPythonPackage rec {
   # Checked using pythonImportsCheck, has no tests
   doCheck = true;
 
-  pythonImportsCheck =
-    [
-      "PyQt6"
-      "PyQt6.QtCore"
-      "PyQt6.QtQml"
-      "PyQt6.QtWidgets"
-      "PyQt6.QtGui"
-      "PyQt6.QtQuick"
-    ]
-    ++ lib.optional withWebSockets "PyQt6.QtWebSockets"
+  pythonImportsCheck = [
+    "PyQt6"
+    "PyQt6.QtCore"
+    "PyQt6.QtQml"
+    "PyQt6.QtWidgets"
+    "PyQt6.QtGui"
+    "PyQt6.QtQuick"
+  ] ++ lib.optional withWebSockets "PyQt6.QtWebSockets"
     ++ lib.optional withMultimedia "PyQt6.QtMultimedia"
     # ++ lib.optional withConnectivity "PyQt6.QtConnectivity"
     ++ lib.optional withLocation "PyQt6.QtPositioning";

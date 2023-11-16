@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  alsa-lib,
-  freetype,
-  ftgl,
-  libjack2,
-  libX11,
-  lv2,
-  libGLU,
-  libGL,
-  pkg-config,
-  ttf_bitstream_vera,
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, freetype, ftgl, libjack2, libX11, lv2
+, libGLU, libGL, pkg-config, ttf_bitstream_vera }:
 
 stdenv.mkDerivation rec {
   pname = "setbfree";
@@ -58,10 +45,7 @@ stdenv.mkDerivation rec {
     description = "A DSP tonewheel organ emulator";
     homepage = "https://setbfree.org";
     license = licenses.gpl2;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ]; # fails on ARM and Darwin
+    platforms = [ "x86_64-linux" "i686-linux" ]; # fails on ARM and Darwin
     maintainers = [ maintainers.goibhniu ];
   };
 }

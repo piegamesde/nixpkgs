@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libdnet,
-  pkg-config,
-  libpcap,
-}:
+{ lib, stdenv, fetchurl, libdnet, pkg-config, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "hyenae";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libdnet
-    libpcap
-  ];
+  buildInputs = [ libdnet libpcap ];
 
   meta = {
     description = "";

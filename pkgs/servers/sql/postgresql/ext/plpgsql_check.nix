@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "plpgsql_check";

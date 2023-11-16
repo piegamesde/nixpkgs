@@ -1,44 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  acl,
-  cyrus_sasl,
-  docbook_xsl,
-  libepoxy,
-  gettext,
-  gobject-introspection,
-  gst_all_1,
-  gtk-doc,
-  gtk3,
-  hwdata,
-  json-glib,
-  libcacard,
-  libcap_ng,
-  libdrm,
-  libjpeg_turbo,
-  libopus,
-  libsoup_3,
-  libusb1,
-  lz4,
-  meson,
-  mesonEmulatorHook,
-  ninja,
-  openssl,
-  perl,
-  phodav,
-  pixman,
-  pkg-config,
-  polkit,
-  python3,
-  spice-protocol,
-  usbredir,
-  vala,
-  wayland-protocols,
-  wayland-scanner,
-  zlib,
-  withPolkit ? stdenv.isLinux,
-}:
+{ lib, stdenv, fetchurl, acl, cyrus_sasl, docbook_xsl, libepoxy, gettext
+, gobject-introspection, gst_all_1, gtk-doc, gtk3, hwdata, json-glib, libcacard
+, libcap_ng, libdrm, libjpeg_turbo, libopus, libsoup_3, libusb1, lz4, meson
+, mesonEmulatorHook, ninja, openssl, perl, phodav, pixman, pkg-config, polkit
+, python3, spice-protocol, usbredir, vala, wayland-protocols, wayland-scanner
+, zlib, withPolkit ? stdenv.isLinux }:
 
 # If this package is built with polkit support (withPolkit=true),
 # usb redirection requires spice-client-glib-usb-acl-helper to run setuid root.
@@ -65,12 +30,7 @@ stdenv.mkDerivation rec {
   pname = "spice-gtk";
   version = "0.42";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-    "man"
-  ];
+  outputs = [ "out" "dev" "devdoc" "man" ];
 
   src = fetchurl {
     url = "https://www.spice-space.org/download/gtk/${pname}-${version}.tar.xz";
@@ -79,72 +39,57 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      docbook_xsl
-      gettext
-      gobject-introspection
-      gtk-doc
-      meson
-      ninja
-      perl
-      pkg-config
-      python3
-      python3.pkgs.pyparsing
-      python3.pkgs.six
-      vala
-    ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ mesonEmulatorHook ]
-    ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
+  nativeBuildInputs = [
+    docbook_xsl
+    gettext
+    gobject-introspection
+    gtk-doc
+    meson
+    ninja
+    perl
+    pkg-config
+    python3
+    python3.pkgs.pyparsing
+    python3.pkgs.six
+    vala
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ mesonEmulatorHook ] ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
 
-  propagatedBuildInputs = [
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-  ];
+  propagatedBuildInputs =
+    [ gst_all_1.gst-plugins-base gst_all_1.gst-plugins-good ];
 
-  buildInputs =
-    [
-      cyrus_sasl
-      libepoxy
-      gtk3
-      json-glib
-      libcacard
-      libjpeg_turbo
-      libopus
-      libsoup_3
-      libusb1
-      lz4
-      openssl
-      phodav
-      pixman
-      spice-protocol
-      usbredir
-      vala
-      zlib
-    ]
-    ++ lib.optionals withPolkit [
-      polkit
-      acl
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      libcap_ng
-      libdrm
-      wayland-protocols
-    ];
+  buildInputs = [
+    cyrus_sasl
+    libepoxy
+    gtk3
+    json-glib
+    libcacard
+    libjpeg_turbo
+    libopus
+    libsoup_3
+    libusb1
+    lz4
+    openssl
+    phodav
+    pixman
+    spice-protocol
+    usbredir
+    vala
+    zlib
+  ] ++ lib.optionals withPolkit [ polkit acl ]
+    ++ lib.optionals stdenv.isLinux [ libcap_ng libdrm wayland-protocols ];
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${placeholder "out"}/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR =
+    "${placeholder "out"}/share/polkit-1/actions";
 
-  mesonFlags =
-    [
-      "-Dusb-acl-helper-dir=${placeholder "out"}/bin"
-      "-Dusb-ids-path=${hwdata}/share/hwdata/usb.ids"
-    ]
-    ++ lib.optionals (!withPolkit) [ "-Dpolkit=disabled" ]
+  mesonFlags = [
+    "-Dusb-acl-helper-dir=${placeholder "out"}/bin"
+    "-Dusb-ids-path=${hwdata}/share/hwdata/usb.ids"
+  ] ++ lib.optionals (!withPolkit) [ "-Dpolkit=disabled" ]
     ++ lib.optionals (!stdenv.isLinux) [
       "-Dlibcap-ng=disabled"
       "-Degl=disabled"
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [
+    ] ++ lib.optionals stdenv.hostPlatform.isMusl [
       "-Dcoroutine=gthread" # Fixes "Function missing:makecontext"
     ];
 

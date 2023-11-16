@@ -1,35 +1,8 @@
-{
-  fetchFromGitHub,
-  cinnamon-desktop,
-  cinnamon-translations,
-  colord,
-  glib,
-  gsettings-desktop-schemas,
-  gtk3,
-  lcms2,
-  libcanberra-gtk3,
-  libgnomekbd,
-  libnotify,
-  libxklavier,
-  wrapGAppsHook,
-  pkg-config,
-  lib,
-  stdenv,
-  systemd,
-  upower,
-  dconf,
-  cups,
-  polkit,
-  librsvg,
-  libwacom,
-  xorg,
-  fontconfig,
-  tzdata,
-  nss,
-  libgudev,
-  meson,
-  ninja,
-}:
+{ fetchFromGitHub, cinnamon-desktop, cinnamon-translations, colord, glib
+, gsettings-desktop-schemas, gtk3, lcms2, libcanberra-gtk3, libgnomekbd
+, libnotify, libxklavier, wrapGAppsHook, pkg-config, lib, stdenv, systemd
+, upower, dconf, cups, polkit, librsvg, libwacom, xorg, fontconfig, tzdata, nss
+, libgudev, meson, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-settings-daemon";
@@ -42,10 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-IqYfHMjKe7gVsM6HgihQMNkcXSYBOft1lamXOLa1Y8k=";
   };
 
-  patches = [
-    ./csd-backlight-helper-fix.patch
-    ./use-sane-install-dir.patch
-  ];
+  patches = [ ./csd-backlight-helper-fix.patch ./use-sane-install-dir.patch ];
 
   buildInputs = [
     cinnamon-desktop
@@ -74,17 +44,9 @@ stdenv.mkDerivation rec {
     libgudev
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    wrapGAppsHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja wrapGAppsHook pkg-config ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   postPatch = ''
     sed "s|/usr/share/zoneinfo|${tzdata}/share/zoneinfo|g" -i plugins/datetime/system-timezone.h

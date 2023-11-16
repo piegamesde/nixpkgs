@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  pkg-config,
-  which,
-  makeWrapper,
-  libpfm,
-  zlib,
-  python3Packages,
-  procps,
-  gdb,
-  capnproto,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, which
+, makeWrapper, libpfm, zlib, python3Packages, procps, gdb, capnproto }:
 
 stdenv.mkDerivation rec {
   version = "5.6.0";
@@ -29,7 +15,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-flexible-array-member.patch";
-      url = "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
+      url =
+        "https://github.com/rr-debugger/rr/commit/2979c60ef8bbf7c940afd90172ddc5d8863f766e.diff";
       sha256 = "cmdCJetQr3ELPOyWl37h1fGfG/xvaiJpywxIAnqb5YY=";
     })
   ];
@@ -51,12 +38,7 @@ stdenv.mkDerivation rec {
   # See also https://github.com/NixOS/nixpkgs/pull/110846
   preConfigure = ''substituteInPlace CMakeLists.txt --replace "-flto" ""'';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    which
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config which makeWrapper ];
   buildInputs = [
     libpfm
     zlib
@@ -92,7 +74,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://rr-project.org/";
-    description = "Records nondeterministic executions and debugs them deterministically";
+    description =
+      "Records nondeterministic executions and debugs them deterministically";
     longDescription = ''
       rr aspires to be your primary debugging tool, replacing -- well,
       enhancing -- gdb. You record a failure once, then debug the
@@ -100,18 +83,8 @@ stdenv.mkDerivation rec {
       time the same execution is replayed.
     '';
 
-    license = with lib.licenses; [
-      mit
-      bsd2
-    ];
-    maintainers = with lib.maintainers; [
-      pierron
-      thoughtpolice
-    ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    license = with lib.licenses; [ mit bsd2 ];
+    maintainers = with lib.maintainers; [ pierron thoughtpolice ];
+    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
   };
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  django,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-context-decorator";
@@ -20,10 +14,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "django_context_decorator" ];
 
-  nativeCheckInputs = [
-    django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ django pytestCheckHook ];
 
   meta = with lib; {
     description = "Django @context decorator";

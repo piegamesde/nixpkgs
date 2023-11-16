@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  bison,
-  flex,
-  boost,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, bison, flex, boost }:
 
 stdenv.mkDerivation rec {
   pname = "kcc";
@@ -22,11 +14,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    flex
-  ];
+  nativeBuildInputs = [ bison cmake flex ];
 
   buildInputs = [ boost ];
 

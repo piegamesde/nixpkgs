@@ -1,17 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  ocaml,
-  dune-configurator,
-  either,
-  seq,
-  gen,
-  iter,
-  qcheck-core,
-  uutf,
-  yojson,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, ocaml, dune-configurator, either, seq
+, gen, iter, qcheck-core, uutf, yojson }:
 
 buildDunePackage rec {
   version = "3.11";
@@ -27,18 +15,9 @@ buildDunePackage rec {
   };
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [
-    either
-    seq
-  ];
+  propagatedBuildInputs = [ either seq ];
 
-  checkInputs = [
-    gen
-    iter
-    qcheck-core
-    uutf
-    yojson
-  ];
+  checkInputs = [ gen iter qcheck-core uutf yojson ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

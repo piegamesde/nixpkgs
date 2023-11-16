@@ -1,12 +1,5 @@
-{
-  lib,
-  pkgs,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pygame,
-  python-i18n,
-  pytestCheckHook,
-}:
+{ lib, pkgs, buildPythonPackage, fetchFromGitHub, pygame, python-i18n
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pygame-gui";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-BCgSCOnuIqjpROpEtkzkvIXK7dIO0dNYsPmQSwXfmTQ=";
   };
 
-  propagatedBuildInputs = [
-    pygame
-    python-i18n
-  ];
+  propagatedBuildInputs = [ pygame python-i18n ];
 
   postPatch = ''
     substituteInPlace pygame_gui/core/utility.py \

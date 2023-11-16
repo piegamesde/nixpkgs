@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  gast,
-}:
+{ lib, buildPythonPackage, fetchPypi, gast }:
 
 buildPythonPackage rec {
   pname = "beniget";

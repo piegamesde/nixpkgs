@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gtk3,
-  wrapGAppsHook,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, gtk3, wrapGAppsHook, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "xdaliclock";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
   # on aarch64 doesn't find the files to patch and the aarch64 build fails!
   preConfigure = "cd X11";
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
   buildInputs = [ gtk3 ];
 
   preInstall = ''
@@ -39,7 +29,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "A clock application that morphs digits when they are changed";
+    description =
+      "A clock application that morphs digits when they are changed";
     maintainers = with maintainers; [ raskin ];
     platforms = with platforms; linux ++ freebsd;
     license = licenses.free; # TODO BSD on Gentoo, looks like MIT

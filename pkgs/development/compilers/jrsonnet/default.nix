@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jrsonnet";
@@ -19,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "clap-3.0.0-beta.2" = "sha256-BaLzm2JZEicktfsCIXQipHtEKlEv2lBktfvHP58rjeM=";
+      "clap-3.0.0-beta.2" =
+        "sha256-BaLzm2JZEicktfsCIXQipHtEKlEv2lBktfvHP58rjeM=";
     };
   };
 
@@ -40,12 +36,10 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Purely-functional configuration language that helps you define JSON data";
+    description =
+      "Purely-functional configuration language that helps you define JSON data";
     homepage = "https://github.com/CertainLach/jrsonnet";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      figsoda
-      lach
-    ];
+    maintainers = with maintainers; [ figsoda lach ];
   };
 }

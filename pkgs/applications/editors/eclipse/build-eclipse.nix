@@ -1,32 +1,9 @@
-{
-  lib,
-  stdenv,
-  makeDesktopItem,
-  freetype,
-  fontconfig,
-  libX11,
-  libXrender,
-  zlib,
-  jdk,
-  glib,
-  glib-networking,
-  gtk,
-  libXtst,
-  libsecret,
-  gsettings-desktop-schemas,
-  webkitgtk,
-  makeWrapper,
-  perl,
-  ...
-}:
+{ lib, stdenv, makeDesktopItem, freetype, fontconfig, libX11, libXrender, zlib
+, jdk, glib, glib-networking, gtk, libXtst, libsecret, gsettings-desktop-schemas
+, webkitgtk, makeWrapper, perl, ... }:
 
-{
-  name,
-  src ? builtins.getAttr stdenv.hostPlatform.system sources,
-  sources ? null,
-  description,
-  productVersion,
-}:
+{ name, src ? builtins.getAttr stdenv.hostPlatform.system sources
+, sources ? null, description, productVersion }:
 
 stdenv.mkDerivation rec {
   inherit name src;
@@ -41,10 +18,7 @@ stdenv.mkDerivation rec {
     categories = [ "Development" ];
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    perl
-  ];
+  nativeBuildInputs = [ makeWrapper perl ];
   buildInputs = [
     fontconfig
     freetype
@@ -69,13 +43,7 @@ stdenv.mkDerivation rec {
     libCairo=$out/eclipse/libcairo-swt.so
     patchelf --set-interpreter $interpreter $out/eclipse/eclipse
     [ -f $libCairo ] && patchelf --set-rpath ${
-      lib.makeLibraryPath [
-        freetype
-        fontconfig
-        libX11
-        libXrender
-        zlib
-      ]
+      lib.makeLibraryPath [ freetype fontconfig libX11 libXrender zlib ]
     } $libCairo
 
     # Create wrapper script.  Pass -configuration to store
@@ -86,15 +54,8 @@ stdenv.mkDerivation rec {
     makeWrapper $out/eclipse/eclipse $out/bin/eclipse \
       --prefix PATH : ${jdk}/bin \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath (
-          [
-            glib
-            gtk
-            libXtst
-            libsecret
-          ]
-          ++ lib.optional (webkitgtk != null) webkitgtk
-        )
+        lib.makeLibraryPath ([ glib gtk libXtst libsecret ]
+          ++ lib.optional (webkitgtk != null) webkitgtk)
       } \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
@@ -114,9 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.eclipse.org/";
     inherit description;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
+
 }

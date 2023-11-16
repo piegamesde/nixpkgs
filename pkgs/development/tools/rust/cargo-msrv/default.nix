@@ -1,16 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  rustup,
-  openssl,
-  stdenv,
-  libiconv,
-  Security,
-  makeWrapper,
-  gitUpdater,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, rustup, openssl, stdenv
+, libiconv, Security, makeWrapper, gitUpdater }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-msrv";
@@ -35,23 +24,15 @@ rustPlatform.buildRustPackage rec {
   # Integration tests fail
   doCheck = false;
 
-  buildInputs =
-    if stdenv.isDarwin then
-      [
-        libiconv
-        Security
-      ]
-    else
-      [ openssl ];
+  buildInputs = if stdenv.isDarwin then [ libiconv Security ] else [ openssl ];
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   # Depends at run-time on having rustup in PATH
   postInstall = ''
-    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${lib.makeBinPath [ rustup ]};
+    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${
+      lib.makeBinPath [ rustup ]
+    };
   '';
 
   meta = with lib; {

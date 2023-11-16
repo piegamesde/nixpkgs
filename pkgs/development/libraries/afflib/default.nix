@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  curl,
-  expat,
-  fuse,
-  openssl,
-  autoreconfHook,
-  python3,
-  libiconv,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, curl, expat, fuse, openssl, autoreconfHook
+, python3, libiconv }:
 
 stdenv.mkDerivation rec {
   version = "3.7.20";
@@ -24,14 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs =
-    [
-      zlib
-      curl
-      expat
-      openssl
-      python3
-    ]
+  buildInputs = [ zlib curl expat openssl python3 ]
     ++ lib.optionals (with stdenv; isLinux || isDarwin) [ fuse ]
     ++ lib.optionals stdenv.isDarwin [ libiconv ];
 

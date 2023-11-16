@@ -1,16 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  bzip2,
-  oniguruma,
-  openssl,
-  xz,
-  zstd,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, bzip2, oniguruma, openssl, xz
+, zstd, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "oranda";
@@ -27,13 +16,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    bzip2
-    oniguruma
-    openssl
-    xz
-    zstd
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [ bzip2 oniguruma openssl xz zstd ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   # requires internet access
   checkFlags = [ "--skip=build" ];
@@ -46,11 +30,9 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Generate beautiful landing pages for your developer tools";
     homepage = "https://github.com/axodotdev/oranda";
-    changelog = "https://github.com/axodotdev/oranda/blob/${src.rev}/CHANGELOG.md";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    changelog =
+      "https://github.com/axodotdev/oranda/blob/${src.rev}/CHANGELOG.md";
+    license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

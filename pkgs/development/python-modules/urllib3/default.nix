@@ -1,23 +1,6 @@
-{
-  lib,
-  brotli,
-  brotlicffi,
-  buildPythonPackage,
-  certifi,
-  cryptography,
-  fetchPypi,
-  idna,
-  isPyPy,
-  mock,
-  pyopenssl,
-  pysocks,
-  pytest-freezegun,
-  pytest-timeout,
-  pytestCheckHook,
-  python-dateutil,
-  tornado,
-  trustme,
-}:
+{ lib, brotli, brotlicffi, buildPythonPackage, certifi, cryptography, fetchPypi
+, idna, isPyPy, mock, pyopenssl, pysocks, pytest-freezegun, pytest-timeout
+, pytestCheckHook, python-dateutil, tornado, trustme }:
 
 buildPythonPackage rec {
   pname = "urllib3";
@@ -30,8 +13,8 @@ buildPythonPackage rec {
   };
 
   # FIXME: remove backwards compatbility hack
-  propagatedBuildInputs =
-    passthru.optional-dependencies.brotli ++ passthru.optional-dependencies.socks;
+  propagatedBuildInputs = passthru.optional-dependencies.brotli
+    ++ passthru.optional-dependencies.socks;
 
   nativeCheckInputs = [
     python-dateutil
@@ -65,19 +48,15 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
     # Use carefully since pyopenssl is not supported aarch64-darwin
-    secure = [
-      certifi
-      cryptography
-      idna
-      pyopenssl
-    ];
+    secure = [ certifi cryptography idna pyopenssl ];
     socks = [ pysocks ];
   };
 
   meta = with lib; {
     description = "Powerful, sanity-friendly HTTP client for Python";
     homepage = "https://github.com/shazow/urllib3";
-    changelog = "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

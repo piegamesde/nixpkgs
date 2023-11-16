@@ -1,14 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.programs.minipro;
-in
-{
+let cfg = config.programs.minipro;
+in {
   options = {
     programs.minipro = {
       enable = lib.mkEnableOption (lib.mdDoc "minipro") // {
@@ -28,7 +21,5 @@ in
     services.udev.packages = [ cfg.package ];
   };
 
-  meta = {
-    maintainers = with lib.maintainers; [ infinidoge ];
-  };
+  meta = { maintainers = with lib.maintainers; [ infinidoge ]; };
 }

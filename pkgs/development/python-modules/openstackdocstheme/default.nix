@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  dulwich,
-  pbr,
-  sphinx,
-}:
+{ lib, buildPythonPackage, fetchPypi, dulwich, pbr, sphinx }:
 
 buildPythonPackage rec {
   pname = "openstackdocstheme";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  propagatedBuildInputs = [
-    dulwich
-    pbr
-    sphinx
-  ];
+  propagatedBuildInputs = [ dulwich pbr sphinx ];
 
   # no tests
   doCheck = false;
@@ -34,7 +23,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "openstackdocstheme" ];
 
   meta = with lib; {
-    description = "Sphinx theme for RST-sourced documentation published to docs.openstack.org";
+    description =
+      "Sphinx theme for RST-sourced documentation published to docs.openstack.org";
     homepage = "https://github.com/openstack/openstackdocstheme";
     license = licenses.asl20;
     maintainers = teams.openstack.members;

@@ -1,28 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gettext,
-  coreutils,
-  gnused,
-  gnome,
-  gnugrep,
-  parted,
-  glib,
-  libuuid,
-  pkg-config,
-  gtkmm3,
-  libxml2,
-  gpart,
-  hdparm,
-  procps,
-  util-linux,
-  polkit,
-  wrapGAppsHook,
-  substituteAll,
-  mtools,
-  dosfstools,
-}:
+{ lib, stdenv, fetchurl, gettext, coreutils, gnused, gnome, gnugrep, parted
+, glib, libuuid, pkg-config, gtkmm3, libxml2, gpart, hdparm, procps, util-linux
+, polkit, wrapGAppsHook, substituteAll, mtools, dosfstools }:
 
 stdenv.mkDerivation rec {
   pname = "gparted";
@@ -47,20 +25,9 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--disable-doc" ];
 
-  buildInputs = [
-    parted
-    glib
-    libuuid
-    gtkmm3
-    libxml2
-    polkit.bin
-    gnome.adwaita-icon-theme
-  ];
-  nativeBuildInputs = [
-    gettext
-    pkg-config
-    wrapGAppsHook
-  ];
+  buildInputs =
+    [ parted glib libuuid gtkmm3 libxml2 polkit.bin gnome.adwaita-icon-theme ];
+  nativeBuildInputs = [ gettext pkg-config wrapGAppsHook ];
 
   preConfigure = ''
     # For ITS rules

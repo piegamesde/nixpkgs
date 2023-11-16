@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pymongo,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pymongo, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mockupdb";

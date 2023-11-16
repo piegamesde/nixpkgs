@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  sphinx,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinx-argparse";
@@ -31,7 +25,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sphinxarg" ];
 
   meta = {
-    description = "A sphinx extension that automatically documents argparse commands and options";
+    description =
+      "A sphinx extension that automatically documents argparse commands and options";
     homepage = "https://github.com/ashb/sphinx-argparse";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ clacke ];

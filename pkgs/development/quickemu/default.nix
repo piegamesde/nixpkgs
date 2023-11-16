@@ -1,32 +1,7 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  makeWrapper,
-  qemu,
-  gnugrep,
-  gnused,
-  lsb-release,
-  jq,
-  procps,
-  python3,
-  cdrtools,
-  usbutils,
-  util-linux,
-  socat,
-  spice-gtk,
-  swtpm,
-  unzip,
-  wget,
-  xdg-user-dirs,
-  xrandr,
-  zsync,
-  OVMF,
-  OVMFFull,
-  quickemu,
-  testers,
-  installShellFiles,
-}:
+{ lib, fetchFromGitHub, stdenv, makeWrapper, qemu, gnugrep, gnused, lsb-release
+, jq, procps, python3, cdrtools, usbutils, util-linux, socat, spice-gtk, swtpm
+, unzip, wget, xdg-user-dirs, xrandr, zsync, OVMF, OVMFFull, quickemu, testers
+, installShellFiles }:
 let
   runtimePaths = [
     qemu
@@ -47,9 +22,8 @@ let
     xrandr
     zsync
   ];
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "quickemu";
   version = "4.7";
 
@@ -69,10 +43,7 @@ stdenv.mkDerivation rec {
       quickemu
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   installPhase = ''
     runHook preInstall
@@ -94,7 +65,8 @@ stdenv.mkDerivation rec {
   passthru.tests = testers.testVersion { package = quickemu; };
 
   meta = with lib; {
-    description = "Quickly create and run optimised Windows, macOS and Linux desktop virtual machines";
+    description =
+      "Quickly create and run optimised Windows, macOS and Linux desktop virtual machines";
     homepage = "https://github.com/quickemu-project/quickemu";
     license = licenses.mit;
     maintainers = with maintainers; [ fedx-sudo ];

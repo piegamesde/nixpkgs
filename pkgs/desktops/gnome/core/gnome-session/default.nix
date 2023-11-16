@@ -1,43 +1,14 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  substituteAll,
-  meson,
-  ninja,
-  pkg-config,
-  gnome,
-  glib,
-  gtk3,
-  gsettings-desktop-schemas,
-  gnome-desktop,
-  dbus,
-  json-glib,
-  libICE,
-  xmlto,
-  docbook_xsl,
-  docbook_xml_dtd_412,
-  python3,
-  libxslt,
-  gettext,
-  makeWrapper,
-  systemd,
-  xorg,
-  libepoxy,
-  bash,
-  gnome-session-ctl,
-  gnomeShellSupport ? true,
-}:
+{ fetchurl, lib, stdenv, substituteAll, meson, ninja, pkg-config, gnome, glib
+, gtk3, gsettings-desktop-schemas, gnome-desktop, dbus, json-glib, libICE, xmlto
+, docbook_xsl, docbook_xml_dtd_412, python3, libxslt, gettext, makeWrapper
+, systemd, xorg, libepoxy, bash, gnome-session-ctl, gnomeShellSupport ? true }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-session";
   # Also bump ./ctl.nix when bumping major version.
   version = "44.0";
 
-  outputs = [
-    "out"
-    "sessions"
-  ];
+  outputs = [ "out" "sessions" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-session/${
@@ -83,10 +54,7 @@ stdenv.mkDerivation rec {
     libepoxy
   ];
 
-  mesonFlags = [
-    "-Dsystemd=true"
-    "-Dsystemd_session=default"
-  ];
+  mesonFlags = [ "-Dsystemd=true" "-Dsystemd_session=default" ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file
@@ -121,7 +89,8 @@ stdenv.mkDerivation rec {
       --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
       --suffix XDG_DATA_DIRS : "$out/share:$GSETTINGS_SCHEMAS_PATH" \
       ${
-        lib.optionalString gnomeShellSupport ''--suffix XDG_DATA_DIRS : "${gnome.gnome-shell}/share"''
+        lib.optionalString gnomeShellSupport
+        ''--suffix XDG_DATA_DIRS : "${gnome.gnome-shell}/share"''
       } \
       --suffix XDG_CONFIG_DIRS : "${gnome.gnome-settings-daemon}/etc/xdg"
   '';
@@ -133,10 +102,7 @@ stdenv.mkDerivation rec {
       packageName = "gnome-session";
       attrPath = "gnome.gnome-session";
     };
-    providedSessions = [
-      "gnome"
-      "gnome-xorg"
-    ];
+    providedSessions = [ "gnome" "gnome-xorg" ];
   };
 
   meta = with lib; {

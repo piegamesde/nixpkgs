@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "array-utils";
   version = "20201220-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/array-utils/2020-12-20/array-utils-20201220-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/array-utils/2020-12-20/array-utils-20201220-git.tgz";
     sha256 = "11y6k8gzzcj00jyccg2k9nh6rvivcvh23z4yzjfly7adygd3n717";
   };
 

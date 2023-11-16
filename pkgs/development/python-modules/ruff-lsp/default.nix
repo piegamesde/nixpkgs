@@ -1,17 +1,6 @@
-{
-  lib,
-  stdenv,
-  pythonOlder,
-  buildPythonPackage,
-  fetchPypi,
-  ruff,
-  pygls,
-  lsprotocol,
-  hatchling,
-  typing-extensions,
-  unittestCheckHook,
-  python-lsp-jsonrpc,
-}:
+{ lib, stdenv, pythonOlder, buildPythonPackage, fetchPypi, ruff, pygls
+, lsprotocol, hatchling, typing-extensions, unittestCheckHook
+, python-lsp-jsonrpc }:
 
 buildPythonPackage rec {
   pname = "ruff-lsp";
@@ -32,30 +21,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    pygls
-    lsprotocol
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ pygls lsprotocol typing-extensions ];
 
   doCheck = stdenv.isDarwin;
 
-  nativeCheckInputs = [
-    unittestCheckHook
-    python-lsp-jsonrpc
-    ruff
-  ];
+  nativeCheckInputs = [ unittestCheckHook python-lsp-jsonrpc ruff ];
 
-  makeWrapperArgs =
-    [
-      # prefer ruff from user's PATH, that's usually desired behavior
-      "--suffix PATH : ${lib.makeBinPath [ ruff ]}"
-    ];
+  makeWrapperArgs = [
+    # prefer ruff from user's PATH, that's usually desired behavior
+    "--suffix PATH : ${lib.makeBinPath [ ruff ]}"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/charliermarsh/ruff-lsp";
     description = "A Language Server Protocol implementation for Ruff";
-    changelog = "https://github.com/charliermarsh/ruff-lsp/releases/tag/v${version}";
+    changelog =
+      "https://github.com/charliermarsh/ruff-lsp/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kalekseev ];
   };

@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  melpaBuild,
-  substituteAll,
-}:
+{ lib, pkgs, melpaBuild, substituteAll }:
 # To use this package with emacs-overlay:
 # nixpkgs.overlays = [
 #   inputs.emacs-overlay.overlay
@@ -58,17 +53,8 @@ melpaBuild rec {
   commit = "5109162b74872091c5090a28389bef8f7020274c";
   # elisp dependencies
   packageRequires = [ pkgs.emacsPackages.markdown-mode ];
-  buildInputs = [
-    (pkgs.python3.withPackages (
-      ps:
-      with ps; [
-        openai
-        epc
-        sexpdata
-        six
-      ]
-    ))
-  ];
+  buildInputs =
+    [ (pkgs.python3.withPackages (ps: with ps; [ openai epc sexpdata six ])) ];
   recipe = pkgs.writeText "recipe" ''
     (mind-wave
     :repo "manateelazycat/mind-wave"

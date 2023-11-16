@@ -1,17 +1,7 @@
-{
-  lib,
-  melpaBuild,
-  fetchFromGitHub,
-  acm,
-  popon,
-  writeText,
-  unstableGitUpdater,
-}:
+{ lib, melpaBuild, fetchFromGitHub, acm, popon, writeText, unstableGitUpdater }:
 
-let
-  rev = "0dbbd7f401da1bedd1a9146df6127233d601435b";
-in
-melpaBuild {
+let rev = "0dbbd7f401da1bedd1a9146df6127233d601435b";
+in melpaBuild {
   pname = "acm-terminal";
   version = "20230601.1326"; # 13:26 UTC
 
@@ -24,10 +14,7 @@ melpaBuild {
 
   commit = rev;
 
-  packageRequires = [
-    acm
-    popon
-  ];
+  packageRequires = [ acm popon ];
 
   recipe = writeText "recipe" ''
     (acm-terminal :repo "twlz0ne/acm-terminal" :fetcher github)

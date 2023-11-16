@@ -1,12 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  sdcc,
-  yosys,
-  icestorm,
-  nextpnr,
-}:
+{ lib, python3, fetchFromGitHub, sdcc, yosys, icestorm, nextpnr }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "glasgow";
@@ -23,10 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-s4fWpKJj6n2+CIAsD2bjr5K8RhJz1H1sFnjiartNGf0=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.setuptools-scm
-    sdcc
-  ];
+  nativeBuildInputs = [ python3.pkgs.setuptools-scm sdcc ];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiohttp
@@ -39,11 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    yosys
-    icestorm
-    nextpnr
-  ];
+  nativeCheckInputs = [ yosys icestorm nextpnr ];
 
   enableParallelBuilding = true;
 
@@ -77,9 +62,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Software for Glasgow, a digital interface multitool";
     homepage = "https://github.com/GlasgowEmbedded/Glasgow";
     license = licenses.bsd0;
-    maintainers = with maintainers; [
-      emily
-      thoughtpolice
-    ];
+    maintainers = with maintainers; [ emily thoughtpolice ];
   };
 }

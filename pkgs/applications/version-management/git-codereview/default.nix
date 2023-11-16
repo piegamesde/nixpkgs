@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  git,
-}:
+{ lib, buildGoModule, fetchFromGitHub, git }:
 
 buildGoModule rec {
   pname = "git-codereview";
@@ -18,15 +13,13 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeCheckInputs = [ git ];
 
   meta = with lib; {
-    description = "Manage the code review process for Git changes using a Gerrit server";
+    description =
+      "Manage the code review process for Git changes using a Gerrit server";
     homepage = "https://golang.org/x/review/git-codereview";
     license = licenses.bsd3;
     maintainers = [ maintainers.edef ];

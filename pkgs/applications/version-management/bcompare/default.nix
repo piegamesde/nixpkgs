@@ -1,21 +1,5 @@
-{
-  lib,
-  autoPatchelfHook,
-  bzip2,
-  cairo,
-  fetchurl,
-  gdk-pixbuf,
-  glibc,
-  pango,
-  gtk2,
-  kcoreaddons,
-  ki18n,
-  kio,
-  kservice,
-  stdenv,
-  runtimeShell,
-  unzip,
-}:
+{ lib, autoPatchelfHook, bzip2, cairo, fetchurl, gdk-pixbuf, glibc, pango, gtk2
+, kcoreaddons, ki18n, kio, kservice, stdenv, runtimeShell, unzip }:
 
 let
   pname = "bcompare";
@@ -40,12 +24,7 @@ let
   src = srcs.${stdenv.hostPlatform.system} or throwSystem;
 
   linux = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-    ;
+    inherit pname version src meta;
     unpackPhase = ''
       ar x $src
       tar xfz data.tar.gz
@@ -89,12 +68,7 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-    ;
+    inherit pname version src meta;
     nativeBuildInputs = [ unzip ];
 
     installPhase = ''
@@ -104,7 +78,8 @@ let
   };
 
   meta = with lib; {
-    description = "GUI application that allows to quickly and easily compare files and folders";
+    description =
+      "GUI application that allows to quickly and easily compare files and folders";
     longDescription = ''
       Beyond Compare is focused. Beyond Compare allows you to quickly and easily compare your files and folders.
       By using simple, powerful commands you can focus on the differences you're interested in and ignore those you're not.
@@ -113,11 +88,7 @@ let
     homepage = "https://www.scootersoftware.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      ktor
-      arkivm
-    ];
+    maintainers = with maintainers; [ ktor arkivm ];
     platforms = builtins.attrNames srcs;
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

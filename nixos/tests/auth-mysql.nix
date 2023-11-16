@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     dbUser = "nixos_auth";
@@ -40,86 +39,83 @@ import ./make-test-python.nix (
       ('${mysqlUsername}', 5000, 5000, SHA2('${mysqlPassword}', 256));
       INSERT INTO `groups` (name, gid) VALUES ('${mysqlGroup}', 5000);
     '';
-  in
-  {
+  in {
     name = "auth-mysql";
     meta.maintainers = with lib.maintainers; [ netali ];
 
-    nodes.machine =
-      { ... }:
-      {
-        services.mysql = {
-          enable = true;
-          package = pkgs.mariadb;
-          settings.mysqld.bind-address = "127.0.0.1";
-          initialScript = mysqlInit;
+    nodes.machine = { ... }: {
+      services.mysql = {
+        enable = true;
+        package = pkgs.mariadb;
+        settings.mysqld.bind-address = "127.0.0.1";
+        initialScript = mysqlInit;
+      };
+
+      users.users.${localUsername} = {
+        isNormalUser = true;
+        password = localPassword;
+      };
+
+      security.pam.services.login.makeHomeDir = true;
+
+      users.mysql = {
+        enable = true;
+        host = "127.0.0.1";
+        user = dbUser;
+        database = dbName;
+        passwordFile = "${builtins.toFile "dbPassword" dbPassword}";
+        pam = {
+          table = "users";
+          userColumn = "name";
+          passwordColumn = "password";
+          passwordCrypt = "sha256";
+          disconnectEveryOperation = true;
         };
-
-        users.users.${localUsername} = {
-          isNormalUser = true;
-          password = localPassword;
-        };
-
-        security.pam.services.login.makeHomeDir = true;
-
-        users.mysql = {
-          enable = true;
-          host = "127.0.0.1";
-          user = dbUser;
-          database = dbName;
-          passwordFile = "${builtins.toFile "dbPassword" dbPassword}";
-          pam = {
-            table = "users";
-            userColumn = "name";
-            passwordColumn = "password";
-            passwordCrypt = "sha256";
-            disconnectEveryOperation = true;
-          };
-          nss = {
-            getpwnam = ''
-              SELECT name, 'x', uid, gid, name, CONCAT('/home/', name), "/run/current-system/sw/bin/bash" \
-              FROM users \
-              WHERE name='%1$s' \
-              LIMIT 1
-            '';
-            getpwuid = ''
-              SELECT name, 'x', uid, gid, name, CONCAT('/home/', name), "/run/current-system/sw/bin/bash" \
-              FROM users \
-              WHERE id=%1$u \
-              LIMIT 1
-            '';
-            getspnam = ''
-              SELECT name, password, 1, 0, 99999, 7, 0, -1, 0 \
-              FROM users \
-              WHERE name='%1$s' \
-              LIMIT 1
-            '';
-            getpwent = ''
-              SELECT name, 'x', uid, gid, name, CONCAT('/home/', name), "/run/current-system/sw/bin/bash" \
-              FROM users
-            '';
-            getspent = ''
-              SELECT name, password, 1, 0, 99999, 7, 0, -1, 0 \
-              FROM users
-            '';
-            getgrnam = ''
-              SELECT name, 'x', gid FROM groups WHERE name='%1$s' LIMIT 1
-            '';
-            getgrgid = ''
-              SELECT name, 'x', gid FROM groups WHERE gid='%1$u' LIMIT 1
-            '';
-            getgrent = ''
-              SELECT name, 'x', gid FROM groups
-            '';
-            memsbygid = ''
-              SELECT name FROM users WHERE gid=%1$u
-            '';
-            gidsbymem = ''
-              SELECT gid FROM users WHERE name='%1$s'
-            '';
-          };
+        nss = {
+          getpwnam = ''
+            SELECT name, 'x', uid, gid, name, CONCAT('/home/', name), "/run/current-system/sw/bin/bash" \
+            FROM users \
+            WHERE name='%1$s' \
+            LIMIT 1
+          '';
+          getpwuid = ''
+            SELECT name, 'x', uid, gid, name, CONCAT('/home/', name), "/run/current-system/sw/bin/bash" \
+            FROM users \
+            WHERE id=%1$u \
+            LIMIT 1
+          '';
+          getspnam = ''
+            SELECT name, password, 1, 0, 99999, 7, 0, -1, 0 \
+            FROM users \
+            WHERE name='%1$s' \
+            LIMIT 1
+          '';
+          getpwent = ''
+            SELECT name, 'x', uid, gid, name, CONCAT('/home/', name), "/run/current-system/sw/bin/bash" \
+            FROM users
+          '';
+          getspent = ''
+            SELECT name, password, 1, 0, 99999, 7, 0, -1, 0 \
+            FROM users
+          '';
+          getgrnam = ''
+            SELECT name, 'x', gid FROM groups WHERE name='%1$s' LIMIT 1
+          '';
+          getgrgid = ''
+            SELECT name, 'x', gid FROM groups WHERE gid='%1$u' LIMIT 1
+          '';
+          getgrent = ''
+            SELECT name, 'x', gid FROM groups
+          '';
+          memsbygid = ''
+            SELECT name FROM users WHERE gid=%1$u
+          '';
+          gidsbymem = ''
+            SELECT gid FROM users WHERE name='%1$s'
+          '';
         };
       };
+    };
 
     testScript = ''
       def switch_to_tty(tty_number):
@@ -175,5 +171,4 @@ import ./make-test-python.nix (
           machine.wait_until_tty_matches("5", "Login incorrect")
           machine.wait_until_tty_matches("5", "login:")
     '';
-  }
-)
+  })

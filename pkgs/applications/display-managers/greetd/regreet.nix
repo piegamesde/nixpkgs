@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  glib,
-  gtk4,
-  pango,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, glib, gtk4, pango }:
 
 rustPlatform.buildRustPackage rec {
   pname = "regreet";
@@ -24,11 +16,7 @@ rustPlatform.buildRustPackage rec {
   buildFeatures = [ "gtk4_8" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    glib
-    gtk4
-    pango
-  ];
+  buildInputs = [ glib gtk4 pango ];
 
   meta = with lib; {
     description = "Clean and customizable greeter for greetd";

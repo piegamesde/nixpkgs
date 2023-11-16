@@ -1,24 +1,17 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-  ...
-}:
+{ config, lib, pkgs, options, ... }:
 with lib;
 let
   cfg = config.services.biboumi;
   inherit (config.environment) etc;
   rootDir = "/run/biboumi/mnt-root";
   stateDir = "/var/lib/biboumi";
-  settingsFile = pkgs.writeText "biboumi.cfg" (
-    generators.toKeyValue
-      { mkKeyValue = k: v: if v == null then "" else generators.mkKeyValueDefault { } "=" k v; }
-      cfg.settings
-  );
-  need_CAP_NET_BIND_SERVICE = cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
-in
-{
+  settingsFile = pkgs.writeText "biboumi.cfg" (generators.toKeyValue {
+    mkKeyValue = k: v:
+      if v == null then "" else generators.mkKeyValueDefault { } "=" k v;
+  } cfg.settings);
+  need_CAP_NET_BIND_SERVICE = cfg.settings.identd_port != 0
+    && cfg.settings.identd_port < 1024;
+in {
   options = {
     services.biboumi = {
       enable = mkEnableOption (lib.mdDoc "the Biboumi XMPP gateway to IRC");
@@ -30,18 +23,8 @@ in
         '';
         default = { };
         type = types.submodule {
-          freeformType =
-            with types;
-            (attrsOf (
-              nullOr (
-                oneOf [
-                  str
-                  int
-                  bool
-                ]
-              )
-            ))
-            // {
+          freeformType = with types;
+            (attrsOf (nullOr (oneOf [ str int bool ]))) // {
               description = "settings option";
             };
           options.admin = mkOption {
@@ -181,14 +164,16 @@ in
         example = "/run/keys/biboumi.cfg";
       };
 
-      openFirewall = mkEnableOption (lib.mdDoc "opening of the identd port in the firewall");
+      openFirewall =
+        mkEnableOption (lib.mdDoc "opening of the identd port in the firewall");
     };
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = mkIf (cfg.openFirewall && cfg.settings.identd_port != 0) {
-      allowedTCPPorts = [ cfg.settings.identd_port ];
-    };
+    networking.firewall =
+      mkIf (cfg.openFirewall && cfg.settings.identd_port != 0) {
+        allowedTCPPorts = [ cfg.settings.identd_port ];
+      };
 
     systemd.services.biboumi = {
       description = "Biboumi, XMPP to IRC gateway";
@@ -202,14 +187,11 @@ in
         Restart = "always";
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-          (
-            "+"
-            + pkgs.writeShellScript "biboumi-prestart" ''
-              set -eux
-              cat ${settingsFile} '${cfg.credentialsFile}' |
-              install -m 644 /dev/stdin /run/biboumi/biboumi.cfg
-            ''
-          )
+          ("+" + pkgs.writeShellScript "biboumi-prestart" ''
+            set -eux
+            cat ${settingsFile} '${cfg.credentialsFile}' |
+            install -m 644 /dev/stdin /run/biboumi/biboumi.cfg
+          '')
         ];
         ExecStart = "${pkgs.biboumi}/bin/biboumi /run/biboumi/biboumi.cfg";
         ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
@@ -224,10 +206,7 @@ in
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         InaccessiblePaths = [ "-+${rootDir}" ];
-        RuntimeDirectory = [
-          "biboumi"
-          (removePrefix "/run/" rootDir)
-        ];
+        RuntimeDirectory = [ "biboumi" (removePrefix "/run/" rootDir) ];
         RuntimeDirectoryMode = "700";
         StateDirectory = "biboumi";
         StateDirectoryMode = "700";
@@ -240,14 +219,13 @@ in
           "/run/systemd/notify"
           "/run/systemd/journal/socket"
         ];
-        BindReadOnlyPaths = [
-          builtins.storeDir
-          "/etc"
-        ];
+        BindReadOnlyPaths = [ builtins.storeDir "/etc" ];
         # The following options are only for optimizing:
         # systemd-analyze security biboumi
-        AmbientCapabilities = [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
-        CapabilityBoundingSet = [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
+        AmbientCapabilities =
+          [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
+        CapabilityBoundingSet =
+          [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
@@ -270,11 +248,7 @@ in
         ProtectSystem = "strict";
         RemoveIPC = true;
         # AF_UNIX is for /run/systemd/notify
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;

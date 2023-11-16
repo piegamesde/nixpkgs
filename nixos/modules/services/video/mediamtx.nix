@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,7 @@ let
   cfg = config.services.mediamtx;
   package = pkgs.mediamtx;
   format = pkgs.formats.yaml { };
-in
-{
+in {
   options = {
     services.mediamtx = {
       enable = mkEnableOption (lib.mdDoc "MediaMTX");
@@ -34,7 +28,8 @@ in
         example = {
           paths = {
             cam = {
-              runOnInit = "ffmpeg -f v4l2 -i /dev/video0 -f rtsp rtsp://localhost:$RTSP_PORT/$RTSP_PATH";
+              runOnInit =
+                "ffmpeg -f v4l2 -i /dev/video0 -f rtsp rtsp://localhost:$RTSP_PORT/$RTSP_PATH";
               runOnInitRestart = true;
             };
           };
@@ -45,16 +40,15 @@ in
         type = with types; attrsOf anything;
         description = lib.mdDoc "Extra environment variables for MediaMTX";
         default = { };
-        example = {
-          MTX_CONFKEY = "mykey";
-        };
+        example = { MTX_CONFKEY = "mykey"; };
       };
     };
   };
 
   config = mkIf (cfg.enable) {
     # NOTE: mediamtx watches this file and automatically reloads if it changes
-    environment.etc."mediamtx.yaml".source = format.generate "mediamtx.yaml" cfg.settings;
+    environment.etc."mediamtx.yaml".source =
+      format.generate "mediamtx.yaml" cfg.settings;
 
     systemd.services.mediamtx = {
       environment = cfg.env;

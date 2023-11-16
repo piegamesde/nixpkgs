@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  libaio,
-  python3,
-  zlib,
-  withGnuplot ? false,
-  gnuplot ? null,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, libaio, python3, zlib
+, withGnuplot ? false, gnuplot ? null }:
 
 stdenv.mkDerivation rec {
   pname = "fio";
@@ -21,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8LMpgayxBebHb0MXYmjlqqtndSiL42/yEQpgamxt9kI=";
   };
 
-  buildInputs = [
-    python3
-    zlib
-  ] ++ lib.optional (!stdenv.isDarwin) libaio;
+  buildInputs = [ python3 zlib ] ++ lib.optional (!stdenv.isDarwin) libaio;
 
-  nativeBuildInputs = [
-    makeWrapper
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ makeWrapper python3.pkgs.wrapPython ];
 
   strictDeps = true;
 
@@ -44,7 +29,8 @@ stdenv.mkDerivation rec {
 
   pythonPath = [ python3.pkgs.six ];
 
-  makeWrapperArgs = lib.optionals withGnuplot [ "--prefix PATH : ${lib.makeBinPath [ gnuplot ]}" ];
+  makeWrapperArgs = lib.optionals withGnuplot
+    [ "--prefix PATH : ${lib.makeBinPath [ gnuplot ]}" ];
 
   postInstall = ''
     wrapPythonProgramsIn "$out/bin" "$out $pythonPath"

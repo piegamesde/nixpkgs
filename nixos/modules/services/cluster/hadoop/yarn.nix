@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.hadoop;
@@ -32,8 +27,7 @@ let
     default = { };
     description = lib.mdDoc "Extra environment variables";
   };
-in
-{
+in {
   options.services.hadoop.yarn = {
     resourcemanager = {
       enable = mkEnableOption (lib.mdDoc "Hadoop YARN ResourceManager");
@@ -53,22 +47,26 @@ in
 
       resource = {
         cpuVCores = mkOption {
-          description = lib.mdDoc "Number of vcores that can be allocated for containers.";
+          description =
+            lib.mdDoc "Number of vcores that can be allocated for containers.";
           type = with types; nullOr ints.positive;
           default = null;
         };
         maximumAllocationVCores = mkOption {
-          description = lib.mdDoc "The maximum virtual CPU cores any container can be allocated.";
+          description = lib.mdDoc
+            "The maximum virtual CPU cores any container can be allocated.";
           type = with types; nullOr ints.positive;
           default = null;
         };
         memoryMB = mkOption {
-          description = lib.mdDoc "Amount of physical memory, in MB, that can be allocated for containers.";
+          description = lib.mdDoc
+            "Amount of physical memory, in MB, that can be allocated for containers.";
           type = with types; nullOr ints.positive;
           default = null;
         };
         maximumAllocationMB = mkOption {
-          description = lib.mdDoc "The maximum physical memory any container can be allocated.";
+          description = lib.mdDoc
+            "The maximum physical memory any container can be allocated.";
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -83,7 +81,8 @@ in
       };
 
       localDir = mkOption {
-        description = lib.mdDoc "List of directories to store localized files in.";
+        description =
+          lib.mdDoc "List of directories to store localized files in.";
         type = with types; nullOr (listOf path);
         example = [ "/var/lib/hadoop/yarn/nm" ];
         default = null;
@@ -126,9 +125,10 @@ in
         serviceConfig = {
           User = "yarn";
           SyslogIdentifier = "yarn-resourcemanager";
-          ExecStart =
-            "${cfg.package}/bin/yarn --config ${hadoopConf} "
-            + " resourcemanager ${escapeShellArgs cfg.yarn.resourcemanager.extraFlags}";
+          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} "
+            + " resourcemanager ${
+               escapeShellArgs cfg.yarn.resourcemanager.extraFlags
+             }";
           Restart = "always";
         };
       };
@@ -149,7 +149,8 @@ in
       # Needed because yarn hardcodes /bin/bash in container start scripts
       # These scripts can't be patched, they are generated at runtime
       systemd.tmpfiles.rules = [
-        (mkIf cfg.yarn.nodemanager.addBinBash "L /bin/bash - - - - /run/current-system/sw/bin/bash")
+        (mkIf cfg.yarn.nodemanager.addBinBash
+          "L /bin/bash - - - - /run/current-system/sw/bin/bash")
       ];
 
       systemd.services.yarn-nodemanager = {
@@ -177,8 +178,7 @@ in
           User = "yarn";
           SyslogIdentifier = "yarn-nodemanager";
           PermissionsStartOnly = true;
-          ExecStart =
-            "${cfg.package}/bin/yarn --config ${hadoopConf} "
+          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} "
             + " nodemanager ${escapeShellArgs cfg.yarn.nodemanager.extraFlags}";
           Restart = "always";
         };
@@ -186,21 +186,26 @@ in
 
       services.hadoop.gatewayRole.enable = true;
 
-      services.hadoop.yarnSiteInternal =
-        with cfg.yarn.nodemanager;
+      services.hadoop.yarnSiteInternal = with cfg.yarn.nodemanager;
         mkMerge [
           ({
-            "yarn.nodemanager.local-dirs" = mkIf (localDir != null) (concatStringsSep "," localDir);
-            "yarn.scheduler.maximum-allocation-vcores" = resource.maximumAllocationVCores;
-            "yarn.scheduler.maximum-allocation-mb" = resource.maximumAllocationMB;
+            "yarn.nodemanager.local-dirs" =
+              mkIf (localDir != null) (concatStringsSep "," localDir);
+            "yarn.scheduler.maximum-allocation-vcores" =
+              resource.maximumAllocationVCores;
+            "yarn.scheduler.maximum-allocation-mb" =
+              resource.maximumAllocationMB;
             "yarn.nodemanager.resource.cpu-vcores" = resource.cpuVCores;
             "yarn.nodemanager.resource.memory-mb" = resource.memoryMB;
           })
           (mkIf useCGroups {
-            "yarn.nodemanager.linux-container-executor.cgroups.hierarchy" = "/hadoop-yarn";
-            "yarn.nodemanager.linux-container-executor.resources-handler.class" = "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler";
+            "yarn.nodemanager.linux-container-executor.cgroups.hierarchy" =
+              "/hadoop-yarn";
+            "yarn.nodemanager.linux-container-executor.resources-handler.class" =
+              "org.apache.hadoop.yarn.server.nodemanager.util.CgroupsLCEResourcesHandler";
             "yarn.nodemanager.linux-container-executor.cgroups.mount" = "true";
-            "yarn.nodemanager.linux-container-executor.cgroups.mount-path" = "/run/wrappers/yarn-nodemanager/cgroup";
+            "yarn.nodemanager.linux-container-executor.cgroups.mount-path" =
+              "/run/wrappers/yarn-nodemanager/cgroup";
           })
         ];
 
@@ -211,5 +216,6 @@ in
         })
       ];
     })
+
   ];
 }

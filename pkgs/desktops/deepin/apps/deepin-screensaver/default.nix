@@ -1,19 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  qmake,
-  qttools,
-  pkg-config,
-  wrapQtAppsHook,
-  qtbase,
-  qtx11extras,
-  qtdeclarative,
-  dtkwidget,
-  dde-qt-dbus-factory,
-  xorg,
-  xscreensaver,
-}:
+{ stdenv, lib, fetchFromGitHub, qmake, qttools, pkg-config, wrapQtAppsHook
+, qtbase, qtx11extras, qtdeclarative, dtkwidget, dde-qt-dbus-factory, xorg
+, xscreensaver }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-screensaver";
@@ -38,12 +25,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/lib/xscreensaver" "${xscreensaver}/libexec/xscreensaver"
   '';
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake qttools pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     qtbase
@@ -67,3 +49,4 @@ stdenv.mkDerivation rec {
     maintainers = teams.deepin.members;
   };
 }
+

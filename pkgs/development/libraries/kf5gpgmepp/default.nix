@@ -1,12 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  fetchgit,
-  cmake,
-  extra-cmake-modules,
-  qtbase,
-  boost,
-  gpgme,
+{ mkDerivation, lib, fetchgit, cmake, extra-cmake-modules, qtbase, boost, gpgme
 }:
 
 mkDerivation {
@@ -19,11 +11,7 @@ mkDerivation {
     sha256 = "02ck2l3s8s7xh44blqaqnc5k49ccicdnzvhiwa67a3zgicz5i0vh";
   };
 
-  buildInputs = [
-    extra-cmake-modules
-    qtbase
-    boost
-  ];
+  buildInputs = [ extra-cmake-modules qtbase boost ];
   propagatedBuildInputs = [ gpgme ];
 
   nativeBuildInputs = [ cmake ];
@@ -33,4 +21,5 @@ mkDerivation {
     maintainers = [ maintainers.ehmry ];
     platforms = platforms.linux;
   };
+
 }

@@ -1,25 +1,6 @@
-{
-  stdenv,
-  lib,
-  abc-verifier,
-  bash,
-  bison,
-  fetchFromGitHub,
-  flex,
-  libffi,
-  makeWrapper,
-  pkg-config,
-  python3,
-  readline,
-  symlinkJoin,
-  tcl,
-  verilog,
-  zlib,
-  yosys,
-  yosys-bluespec,
-  yosys-ghdl,
-  yosys-symbiflow,
-}:
+{ stdenv, lib, abc-verifier, bash, bison, fetchFromGitHub, flex, libffi
+, makeWrapper, pkg-config, python3, readline, symlinkJoin, tcl, verilog, zlib
+, yosys, yosys-bluespec, yosys-ghdl, yosys-symbiflow }:
 
 # NOTE: as of late 2020, yosys has switched to an automation robot that
 # automatically tags their repository Makefile with a new build number every
@@ -48,32 +29,29 @@ let
   #        fasm
   #        bluespec
   #     ]);
-  withPlugins =
-    plugins:
+  withPlugins = plugins:
     let
       paths = lib.closePropagation plugins;
-      module_flags =
-        with builtins; concatStringsSep " " (map (n: "--add-flags -m --add-flags ${n.plugin}") plugins);
-    in
-    lib.appendToName "with-plugins" (
-      symlinkJoin {
-        inherit (yosys) name;
-        paths = paths ++ [ yosys ];
-        nativeBuildInputs = [ makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/yosys \
-            --set NIX_YOSYS_PLUGIN_DIRS $out/share/yosys/plugins \
-            ${module_flags}
-        '';
-      }
-    );
+      module_flags = with builtins;
+        concatStringsSep " "
+        (map (n: "--add-flags -m --add-flags ${n.plugin}") plugins);
+    in lib.appendToName "with-plugins" (symlinkJoin {
+      inherit (yosys) name;
+      paths = paths ++ [ yosys ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/yosys \
+          --set NIX_YOSYS_PLUGIN_DIRS $out/share/yosys/plugins \
+          ${module_flags}
+      '';
+    });
 
   allPlugins = {
     bluespec = yosys-bluespec;
     ghdl = yosys-ghdl;
   } // (yosys-symbiflow);
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "yosys";
   version = "0.30";
 
@@ -85,11 +63,7 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  nativeBuildInputs = [
-    pkg-config
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ pkg-config bison flex ];
   buildInputs = [
     tcl
     readline
@@ -113,25 +87,22 @@ stdenv.mkDerivation rec {
     patchShebangs tests ./misc/yosys-config.in
   '';
 
-  preBuild =
-    let
-      shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
-    in
-    ''
-      chmod -R u+w .
-      make config-${if stdenv.cc.isClang or false then "clang" else "gcc"}
-      echo 'ABCEXTERNAL = ${abc-verifier}/bin/abc' >> Makefile.conf
+  preBuild = let shortAbcRev = builtins.substring 0 7 abc-verifier.rev;
+  in ''
+    chmod -R u+w .
+    make config-${if stdenv.cc.isClang or false then "clang" else "gcc"}
+    echo 'ABCEXTERNAL = ${abc-verifier}/bin/abc' >> Makefile.conf
 
-      if ! grep -q "ABCREV = ${shortAbcRev}" Makefile; then
-        echo "ERROR: yosys isn't compatible with the provided abc (${shortAbcRev}), failing."
-        exit 1
-      fi
+    if ! grep -q "ABCREV = ${shortAbcRev}" Makefile; then
+      echo "ERROR: yosys isn't compatible with the provided abc (${shortAbcRev}), failing."
+      exit 1
+    fi
 
-      if ! grep -q "YOSYS_VER := $version" Makefile; then
-        echo "ERROR: yosys version in Makefile isn't equivalent to version of the nix package (allegedly ${version}), failing."
-        exit 1
-      fi
-    '';
+    if ! grep -q "YOSYS_VER := $version" Makefile; then
+      echo "ERROR: yosys version in Makefile isn't equivalent to version of the nix package (allegedly ${version}), failing."
+      exit 1
+    fi
+  '';
 
   checkTarget = "test";
   doCheck = true;
@@ -149,19 +120,13 @@ stdenv.mkDerivation rec {
 
   setupHook = ./setup-hook.sh;
 
-  passthru = {
-    inherit withPlugins allPlugins;
-  };
+  passthru = { inherit withPlugins allPlugins; };
 
   meta = with lib; {
     description = "Open RTL synthesis framework and tools";
     homepage = "https://yosyshq.net/yosys/";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      shell
-      thoughtpolice
-      emily
-    ];
+    maintainers = with maintainers; [ shell thoughtpolice emily ];
   };
 }

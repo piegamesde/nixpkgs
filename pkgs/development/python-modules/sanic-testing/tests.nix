@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  sanic-testing,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ buildPythonPackage, sanic-testing, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage {
   pname = "sanic-testing-tests";
@@ -15,11 +10,7 @@ buildPythonPackage {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    sanic-testing
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook sanic-testing ];
 
   pythonImportsCheck = [ "sanic_testing" ];
 }

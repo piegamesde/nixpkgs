@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "jitsi-meet";
   version = "1.0.7322";
 
   src = fetchurl {
-    url = "https://download.jitsi.org/jitsi-meet/src/jitsi-meet-${version}.tar.bz2";
+    url =
+      "https://download.jitsi.org/jitsi-meet/src/jitsi-meet-${version}.tar.bz2";
     sha256 = "BjoNu1cQOw9JjX6i2R/K8Txx6m6ndVRnWPjze9y14pQ=";
   };
 
@@ -23,9 +19,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    single-host-smoke-test = nixosTests.jitsi-meet;
-  };
+  passthru.tests = { single-host-smoke-test = nixosTests.jitsi-meet; };
 
   passthru.updateScript = ./update.sh;
 

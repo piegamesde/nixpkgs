@@ -1,33 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  appstream-glib,
-  biblesync,
-  cmake,
-  dbus-glib,
-  desktop-file-utils,
-  docbook2x,
-  docbook_xml_dtd_412,
-  enchant2,
-  glib,
-  gtk3,
-  gtkhtml,
-  icu,
-  intltool,
-  isocodes,
-  itstool,
-  libuuid,
-  libxslt,
-  minizip,
-  pkg-config,
-  sword,
-  webkitgtk,
-  wrapGAppsHook,
-  yelp-tools,
-  zip,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, appstream-glib, biblesync, cmake
+, dbus-glib, desktop-file-utils, docbook2x, docbook_xml_dtd_412, enchant2, glib
+, gtk3, gtkhtml, icu, intltool, isocodes, itstool, libuuid, libxslt, minizip
+, pkg-config, sword, webkitgtk, wrapGAppsHook, yelp-tools, zip }:
 
 stdenv.mkDerivation rec {
   pname = "xiphos";
@@ -45,7 +19,8 @@ stdenv.mkDerivation rec {
     # https://github.com/crosswire/xiphos/issues/1083#issuecomment-820304874
     (fetchpatch {
       name = "xiphos-glibc.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/xiphos-glibc.patch?h=xiphos&id=bb816f43ba764ffac1287ab1e2a649c2443e3ce8";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/xiphos-glibc.patch?h=xiphos&id=bb816f43ba764ffac1287ab1e2a649c2443e3ce8";
       sha256 = "he3U7phU2/QCrZidHviupA7YwzudnQ9Jbb8eMZw6/ck=";
       extraPrefix = "";
     })
@@ -85,11 +60,10 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  cmakeFlags =
-    [
-      # WebKit-based editor does not build.
-      "-DGTKHTML=ON"
-    ];
+  cmakeFlags = [
+    # WebKit-based editor does not build.
+    "-DGTKHTML=ON"
+  ];
 
   preConfigure = ''
     # The build script won't continue without the version saved locally.

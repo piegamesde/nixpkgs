@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  xcbuildHook,
-  Foundation,
-  AddressBook,
-}:
+{ lib, stdenv, fetchFromGitHub, xcbuildHook, Foundation, AddressBook }:
 
 stdenv.mkDerivation {
   version = "1.1a-3";
@@ -19,10 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ xcbuildHook ];
-  buildInputs = [
-    Foundation
-    AddressBook
-  ];
+  buildInputs = [ Foundation AddressBook ];
 
   installPhase = ''
     mkdir -p $out/bin

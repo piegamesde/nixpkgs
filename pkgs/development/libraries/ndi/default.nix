@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  requireFile,
-  avahi,
-  obs-studio-plugins,
-}:
+{ lib, stdenv, requireFile, avahi, obs-studio-plugins }:
 
-let
-  versionJSON = lib.importJSON ./version.json;
-in
-stdenv.mkDerivation rec {
+let versionJSON = lib.importJSON ./version.json;
+in stdenv.mkDerivation rec {
   pname = "ndi";
   version = versionJSON.version;
   majorVersion = builtins.head (builtins.splitVersion version);
@@ -61,9 +53,7 @@ stdenv.mkDerivation rec {
   # Stripping breaks ndi-record.
   dontStrip = true;
 
-  passthru.tests = {
-    inherit (obs-studio-plugins) obs-ndi;
-  };
+  passthru.tests = { inherit (obs-studio-plugins) obs-ndi; };
   passthru.updateScript = ./update.py;
 
   meta = with lib; {

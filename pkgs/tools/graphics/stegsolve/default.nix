@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeWrapper,
-  copyDesktopItems,
-  makeDesktopItem,
-}:
+{ lib, stdenv, fetchurl, jre, makeWrapper, copyDesktopItems, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   pname = "stegsolve";
@@ -25,16 +17,14 @@ stdenv.mkDerivation rec {
       type = "Application";
       name = pname;
       desktopName = "Stegsolve";
-      comment = "A steganographic image analyzer, solver and data extractor for challanges";
+      comment =
+        "A steganographic image analyzer, solver and data extractor for challanges";
       exec = pname;
       categories = [ "Graphics" ];
     })
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
 
   installPhase = ''
     runHook preInstall
@@ -48,7 +38,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A steganographic image analyzer, solver and data extractor for challanges";
+    description =
+      "A steganographic image analyzer, solver and data extractor for challanges";
     homepage = "http://www.caesum.com/handbook/stego.htm";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;

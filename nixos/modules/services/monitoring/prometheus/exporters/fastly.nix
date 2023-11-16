@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.fastly;
-in
-{
+let cfg = config.services.prometheus.exporters.fastly;
+in {
   port = 9118;
   extraOpts = {
     debug = mkEnableOption (lib.mdDoc "Debug logging mode for fastly-exporter");
@@ -36,11 +29,15 @@ in
   };
   serviceOpts = {
     script = ''
-      ${optionalString (cfg.tokenPath != null) "export FASTLY_API_TOKEN=$(cat ${toString cfg.tokenPath})"}
+      ${optionalString (cfg.tokenPath != null)
+      "export FASTLY_API_TOKEN=$(cat ${toString cfg.tokenPath})"}
       ${pkgs.prometheus-fastly-exporter}/bin/fastly-exporter \
         -listen http://${cfg.listenAddress}:${toString cfg.port}
         ${optionalString cfg.debug "-debug true"} \
-        ${optionalString (cfg.configFile != null) "-config-file ${cfg.configFile}"}
+        ${
+          optionalString (cfg.configFile != null)
+          "-config-file ${cfg.configFile}"
+        }
     '';
   };
 }

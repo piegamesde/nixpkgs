@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  texinfo,
-  texLive,
-  perl,
-}:
+{ lib, stdenv, fetchurl, texinfo, texLive, perl }:
 
 stdenv.mkDerivation rec {
   pname = "asdf";
@@ -17,11 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    texinfo
-    texLive
-    perl
-  ];
+  nativeBuildInputs = [ texinfo texLive perl ];
 
   buildPhase = ''
     make build/asdf.lisp

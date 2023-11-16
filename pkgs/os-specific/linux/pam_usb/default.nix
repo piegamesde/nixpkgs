@@ -1,30 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  dbus,
-  libxml2,
-  pam,
-  pkg-config,
-  pmount,
-  python2Packages,
-  writeScript,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, dbus, libxml2, pam, pkg-config, pmount
+, python2Packages, writeScript, runtimeShell }:
 
 let
 
   # Search in the environment if the same program exists with a set uid or
   # set gid bit.  If it exists, run the first program found, otherwise run
   # the default binary.
-  useSetUID =
-    drv: path:
+  useSetUID = drv: path:
     let
       name = baseNameOf path;
       bin = "${drv}${path}";
-    in
-    assert name != "";
+    in assert name != "";
     writeScript "setUID-${name}" ''
       #!${runtimeShell}
       inode=$(stat -Lc %i ${bin})
@@ -45,9 +31,8 @@ let
   pmountBin = useSetUID pmount "/bin/pmount";
   pumountBin = useSetUID pmount "/bin/pumount";
   inherit (python2Packages) python dbus-python;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "pam_usb";
   version = "0.5.0";
 
@@ -56,10 +41,7 @@ stdenv.mkDerivation rec {
     sha256 = "1g1w0s9d8mfld8abrn405ll5grv3xgs0b0hsganrz6qafdq9j7q1";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
   buildInputs = [
     # pam_usb dependencies

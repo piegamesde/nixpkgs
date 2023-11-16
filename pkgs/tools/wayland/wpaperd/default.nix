@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  libxkbcommon,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, libxkbcommon }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wpaperd";
@@ -23,7 +17,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "smithay-client-toolkit-0.16.0" = "iPDL7pxTez4EnIBaUH25lLSWpu3RRL2QBF9pfdTDsP8=";
+      "smithay-client-toolkit-0.16.0" =
+        "iPDL7pxTez4EnIBaUH25lLSWpu3RRL2QBF9pfdTDsP8=";
     };
   };
 

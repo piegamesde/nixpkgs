@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  glib,
-  cairo,
-  pango,
-  atk,
-  gdk-pixbuf,
-  gtk3,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, glib, cairo, pango, atk
+, gdk-pixbuf, gtk3 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "szyszka";
@@ -26,14 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    glib
-    cairo
-    pango
-    atk
-    gdk-pixbuf
-    gtk3
-  ];
+  buildInputs = [ glib cairo pango atk gdk-pixbuf gtk3 ];
 
   meta = with lib; {
     description = "A simple but powerful and fast bulk file renamer";

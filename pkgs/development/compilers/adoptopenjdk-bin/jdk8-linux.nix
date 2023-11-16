@@ -3,8 +3,7 @@
 let
   variant = if stdenv.hostPlatform.isMusl then "alpine_linux" else "linux";
   sources = lib.importJSON ./sources.json;
-in
-{
+in {
   jdk-hotspot = import ./jdk-linux-base.nix {
     sourcePerArch = sources.openjdk8.${variant}.jdk.hotspot;
   };

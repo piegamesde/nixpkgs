@@ -1,19 +1,7 @@
-{
-  stdenv,
-  lib,
-  which,
-  file,
-  mumble,
-  mumble_i686,
-}:
+{ stdenv, lib, which, file, mumble, mumble_i686 }:
 
-let
-  binPath = lib.makeBinPath [
-    which
-    file
-  ];
-in
-stdenv.mkDerivation {
+let binPath = lib.makeBinPath [ which file ];
+in stdenv.mkDerivation {
   pname = "mumble-overlay";
   version = mumble.version;
 
@@ -34,7 +22,5 @@ stdenv.mkDerivation {
     sed -i '2iPATH="${binPath}:$PATH"' $out/bin/mumble-overlay
   '';
 
-  meta = {
-    platforms = lib.platforms.linux;
-  };
+  meta = { platforms = lib.platforms.linux; };
 }

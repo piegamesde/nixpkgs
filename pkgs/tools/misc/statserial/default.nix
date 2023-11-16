@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  glibc,
-}:
+{ lib, stdenv, fetchurl, ncurses, glibc }:
 
 stdenv.mkDerivation rec {
   pname = "statserial";
   version = "1.1";
 
   src = fetchurl {
-    url = "http://www.ibiblio.org/pub/Linux/system/serial/${pname}-${version}.tar.gz";
+    url =
+      "http://www.ibiblio.org/pub/Linux/system/serial/${pname}-${version}.tar.gz";
     sha256 = "0rrrmxfba5yn836zlgmr8g9xnrpash7cjs7lk2m44ac50vakpks0";
   };
 
@@ -23,10 +18,7 @@ stdenv.mkDerivation rec {
       --replace 'LDFLAGS = -s -N' '#LDFLAGS = -s -N'
   '';
 
-  buildInputs = [
-    ncurses
-    glibc
-  ];
+  buildInputs = [ ncurses glibc ];
 
   installPhase = ''
     mkdir -p $out/bin

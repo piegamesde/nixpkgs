@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  pkg-config,
-  stdenv,
-  openssl,
-  Security,
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, stdenv, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-wasi";
@@ -22,8 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ];
 
   # Checks need to be disabled here because the current test suite makes assumptions
@@ -32,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A lightweight Cargo subcommand to build code for the wasm32-wasi target";
+    description =
+      "A lightweight Cargo subcommand to build code for the wasm32-wasi target";
     homepage = "https://bytecodealliance.github.io/cargo-wasi";
     license = licenses.asl20;
     maintainers = with maintainers; [ lucperkins ];

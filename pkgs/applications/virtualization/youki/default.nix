@@ -1,13 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  installShellFiles,
-  dbus,
-  libseccomp,
-  systemd,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, installShellFiles, dbus
+, libseccomp, systemd }:
 
 rustPlatform.buildRustPackage rec {
   pname = "youki";
@@ -20,16 +12,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-00eSXRPy0lQKEabl569gY770viPyB2sEnq1uaT3peE0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    installShellFiles
-  ];
+  nativeBuildInputs = [ pkg-config installShellFiles ];
 
-  buildInputs = [
-    dbus
-    libseccomp
-    systemd
-  ];
+  buildInputs = [ dbus libseccomp systemd ];
 
   postInstall = ''
     installShellCompletion --cmd youki \
@@ -38,14 +23,8 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/youki completion -s zsh)
   '';
 
-  cargoBuildFlags = [
-    "-p"
-    "youki"
-  ];
-  cargoTestFlags = [
-    "-p"
-    "youki"
-  ];
+  cargoBuildFlags = [ "-p" "youki" ];
+  cargoTestFlags = [ "-p" "youki" ];
 
   cargoSha256 = "sha256-9EgexnsxHxLTXGRbUJZtJEoCeD425zRLfCiIqrXQJkU=";
 

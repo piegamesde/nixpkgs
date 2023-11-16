@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  coursier,
-  jre,
-  makeWrapper,
-  setJavaClassPath,
-}:
+{ stdenv, lib, coursier, jre, makeWrapper, setJavaClassPath }:
 
 stdenv.mkDerivation rec {
   pname = "metals";
@@ -26,10 +19,7 @@ stdenv.mkDerivation rec {
     outputHash = "sha256-3zYjjrd3Hc2T4vwnajiAMNfTDUprKJZnZp2waRLQjI4=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    setJavaClassPath
-  ];
+  nativeBuildInputs = [ makeWrapper setJavaClassPath ];
   buildInputs = [ deps ];
 
   dontUnpack = true;
@@ -47,9 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://scalameta.org/metals/";
     license = licenses.asl20;
     description = "Work-in-progress language server for Scala";
-    maintainers = with maintainers; [
-      fabianhjr
-      tomahna
-    ];
+    maintainers = with maintainers; [ fabianhjr tomahna ];
   };
 }

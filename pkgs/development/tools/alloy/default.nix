@@ -1,22 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeWrapper,
-  makeDesktopItem,
-}:
+{ lib, stdenv, fetchurl, jre, makeWrapper, makeDesktopItem }:
 
 let
-  generic =
-    { version, sha256 }:
+  generic = { version, sha256 }:
     stdenv.mkDerivation rec {
       pname = "alloy${lib.versions.major version}";
       inherit version;
 
       src = fetchurl {
         inherit sha256;
-        url = "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${version}/org.alloytools.alloy.dist.jar";
+        url =
+          "https://github.com/AlloyTools/org.alloytools.alloy/releases/download/v${version}/org.alloytools.alloy.dist.jar";
       };
 
       desktopItem = makeDesktopItem rec {
@@ -26,11 +19,7 @@ let
         desktopName = "Alloy ${lib.versions.major version}";
         genericName = "Relational modelling tool";
         comment = meta.description;
-        categories = [
-          "Development"
-          "IDE"
-          "Education"
-        ];
+        categories = [ "Development" "IDE" "Education" ];
       };
 
       nativeBuildInputs = [ makeWrapper ];
@@ -66,8 +55,8 @@ let
         maintainers = with maintainers; [ notbandali ];
       };
     };
-in
-rec {
+
+in rec {
   alloy5 = generic rec {
     version = "5.1.0";
     sha256 = "02k9khs4k5nc86x9pp5k3vcb0kiwdgcin46mlap4fycnr673xd53";

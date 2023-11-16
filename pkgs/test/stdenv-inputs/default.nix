@@ -12,7 +12,10 @@ let
       chmod +x $out/bin/foo
       cp ${./foo.c} $out/include/foo.h
       $CC -shared \
-        ${lib.optionalString stdenv.isDarwin "-Wl,-install_name,$out/lib/libfoo.dylib"} \
+        ${
+          lib.optionalString stdenv.isDarwin
+          "-Wl,-install_name,$out/lib/libfoo.dylib"
+        } \
         -o $out/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \
         ${./foo.c}
     '';
@@ -20,10 +23,7 @@ let
 
   bar = stdenv.mkDerivation {
     name = "bar-test";
-    outputs = [
-      "out"
-      "dev"
-    ];
+    outputs = [ "out" "dev" ];
 
     dontUnpack = true;
 
@@ -33,21 +33,20 @@ let
       chmod +x $out/bin/bar
       cp ${./bar.c} $dev/include/bar.h
       $CC -shared \
-        ${lib.optionalString stdenv.isDarwin "-Wl,-install_name,$dev/lib/libbar.dylib"} \
+        ${
+          lib.optionalString stdenv.isDarwin
+          "-Wl,-install_name,$dev/lib/libbar.dylib"
+        } \
         -o $dev/lib/libbar${stdenv.hostPlatform.extensions.sharedLibrary} \
         ${./bar.c}
     '';
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "stdenv-inputs-test";
   phases = [ "buildPhase" ];
 
-  buildInputs = [
-    foo
-    bar
-  ];
+  buildInputs = [ foo bar ];
 
   buildPhase = ''
     env

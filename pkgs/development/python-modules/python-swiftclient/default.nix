@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  installShellFiles,
-  mock,
-  openstacksdk,
-  pbr,
-  python-keystoneclient,
-  pythonOlder,
-  stestr,
-}:
+{ lib, buildPythonPackage, fetchPypi, installShellFiles, mock, openstacksdk, pbr
+, python-keystoneclient, pythonOlder, stestr }:
 
 buildPythonPackage rec {
   pname = "python-swiftclient";
@@ -25,16 +15,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = [
-    pbr
-    python-keystoneclient
-  ];
+  propagatedBuildInputs = [ pbr python-keystoneclient ];
 
-  nativeCheckInputs = [
-    mock
-    openstacksdk
-    stestr
-  ];
+  nativeCheckInputs = [ mock openstacksdk stestr ];
 
   postInstall = ''
     installShellCompletion --cmd swift \

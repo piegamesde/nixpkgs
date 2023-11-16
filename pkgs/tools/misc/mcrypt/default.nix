@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libmcrypt,
-  libmhash,
-}:
+{ lib, stdenv, fetchurl, libmcrypt, libmhash }:
 
 stdenv.mkDerivation rec {
   version = "2.6.8";
   pname = "mcrypt";
 
   src = fetchurl {
-    url = "mirror://sourceforge/mcrypt/MCrypt/${version}/${pname}-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/mcrypt/MCrypt/${version}/${pname}-${version}.tar.gz";
     sha256 = "5145aa844e54cca89ddab6fb7dd9e5952811d8d787c4f4bf27eb261e6c182098";
   };
 
@@ -23,10 +18,7 @@ stdenv.mkDerivation rec {
     ./malloc_to_stdlib.patch
   ];
 
-  buildInputs = [
-    libmcrypt
-    libmhash
-  ];
+  buildInputs = [ libmcrypt libmhash ];
 
   meta = {
     description = "Replacement for old UNIX crypt(1)";

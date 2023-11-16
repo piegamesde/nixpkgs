@@ -1,16 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kactivities,
-  plasma-framework,
-  kwindowsystem,
-  networkmanager-qt,
-  libksysguard,
-  encfs,
-  cryfs,
-  fuse,
-  gocryptfs,
+{ mkDerivation, lib, extra-cmake-modules, kactivities, plasma-framework
+, kwindowsystem, networkmanager-qt, libksysguard, encfs, cryfs, fuse, gocryptfs
 }:
 
 mkDerivation {
@@ -39,4 +28,5 @@ mkDerivation {
     ''-DNIXPKGS_FUSERMOUNT=\"${lib.getBin fuse}/bin/fusermount\"''
     ''-DNIXPKGS_GOCRYPTFS=\"${lib.getBin gocryptfs}/bin/gocryptfs\"''
   ];
+
 }

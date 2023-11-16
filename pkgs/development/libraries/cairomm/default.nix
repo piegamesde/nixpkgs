@@ -1,51 +1,29 @@
-{
-  fetchurl,
-  stdenv,
-  lib,
-  pkg-config,
-  darwin,
-  cairo,
-  fontconfig,
-  freetype,
-  libsigcxx,
-  meson,
-  ninja,
-}:
+{ fetchurl, stdenv, lib, pkg-config, darwin, cairo, fontconfig, freetype
+, libsigcxx, meson, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "cairomm";
   version = "1.14.4";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "https://www.cairographics.org/releases/cairomm-${version}.tar.xz";
     sha256 = "R0nSWisu9nzAwBTKr1yH+kZ5L8Sz7eGG+w/JMtIFUVg=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    fontconfig
-    freetype
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
+  buildInputs = [ fontconfig freetype ] ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
 
-  propagatedBuildInputs = [
-    cairo
-    libsigcxx
-  ];
+  propagatedBuildInputs = [ cairo libsigcxx ];
 
   doCheck = true;
 
   meta = with lib; {
-    description = "A 2D graphics library with support for multiple output devices";
+    description =
+      "A 2D graphics library with support for multiple output devices";
 
     longDescription = ''
       Cairo is a 2D graphics library with support for multiple output
@@ -61,10 +39,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.cairographics.org/";
 
-    license = with licenses; [
-      lgpl2Plus
-      mpl10
-    ];
+    license = with licenses; [ lgpl2Plus mpl10 ];
     platforms = platforms.unix;
   };
 }

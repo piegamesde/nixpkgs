@@ -1,18 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  gtk-engine-murrine,
-  jdupes,
-  gitUpdater,
-}:
+{ lib, stdenvNoCC, fetchurl, gtk-engine-murrine, jdupes, gitUpdater }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "theme-obsidian2";
   version = "2.23";
 
   src = fetchurl {
-    url = "https://github.com/madmaxms/theme-obsidian-2/releases/download/v${version}/obsidian-2-theme.tar.xz";
+    url =
+      "https://github.com/madmaxms/theme-obsidian-2/releases/download/v${version}/obsidian-2-theme.tar.xz";
     sha256 = "sha256-yJoMS5XrHlMss+rdJ+xLJx0F9Hs1Cc+MFk+xyhRXaf0=";
   };
 

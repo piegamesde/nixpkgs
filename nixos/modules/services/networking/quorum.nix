@@ -1,28 +1,17 @@
-{
-  config,
-  options,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, options, pkgs, lib, ... }:
 let
 
   inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    literalExpression
-    types
-    optionalString
-  ;
+    mkEnableOption mkIf mkOption literalExpression types optionalString;
 
   cfg = config.services.quorum;
   opt = options.services.quorum;
   dataDir = "/var/lib/quorum";
   genesisFile = pkgs.writeText "genesis.json" (builtins.toJSON cfg.genesis);
-  staticNodesFile = pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
-in
-{
+  staticNodesFile =
+    pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
+
+in {
   options = {
 
     services.quorum = {
@@ -44,7 +33,8 @@ in
       port = mkOption {
         type = types.port;
         default = 21000;
-        description = lib.mdDoc "Override the default port on which to listen for connections.";
+        description = lib.mdDoc
+          "Override the default port on which to listen for connections.";
       };
 
       nodekeyFile = mkOption {
@@ -69,11 +59,7 @@ in
       };
 
       syncmode = mkOption {
-        type = types.enum [
-          "fast"
-          "full"
-          "light"
-        ];
+        type = types.enum [ "fast" "full" "light" ];
         default = "full";
         description = lib.mdDoc "Blockchain sync mode.";
       };
@@ -81,15 +67,15 @@ in
       blockperiod = mkOption {
         type = types.int;
         default = 5;
-        description =
-          lib.mdDoc
-            "Default minimum difference between two consecutive block's timestamps in seconds.";
+        description = lib.mdDoc
+          "Default minimum difference between two consecutive block's timestamps in seconds.";
       };
 
       permissioned = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Allow only a defined list of nodes to connect.";
+        description =
+          lib.mdDoc "Allow only a defined list of nodes to connect.";
       };
 
       rpc = {
@@ -108,12 +94,14 @@ in
         port = mkOption {
           type = types.port;
           default = 22004;
-          description = lib.mdDoc "Override the default port on which to listen for RPC connections.";
+          description = lib.mdDoc
+            "Override the default port on which to listen for RPC connections.";
         };
 
         api = mkOption {
           type = types.str;
-          default = "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
+          default =
+            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
           description = lib.mdDoc "API's offered over the HTTP-RPC interface.";
         };
       };
@@ -134,19 +122,22 @@ in
         port = mkOption {
           type = types.port;
           default = 8546;
-          description = lib.mdDoc "Override the default port on which to listen for WS-RPC connections.";
+          description = lib.mdDoc
+            "Override the default port on which to listen for WS-RPC connections.";
         };
 
         api = mkOption {
           type = types.str;
-          default = "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
+          default =
+            "admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul";
           description = lib.mdDoc "API's offered over the WS-RPC interface.";
         };
 
         origins = mkOption {
           type = types.str;
           default = "*";
-          description = lib.mdDoc "Origins from which to accept websockets requests";
+          description =
+            lib.mdDoc "Origins from which to accept websockets requests";
         };
       };
 
@@ -189,14 +180,13 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.quorum ];
-    systemd.tmpfiles.rules = [ "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
+    systemd.tmpfiles.rules =
+      [ "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
     systemd.services.quorum = {
       description = "Quorum daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      environment = {
-        PRIVATE_CONFIG = "${cfg.privateconfig}";
-      };
+      environment = { PRIVATE_CONFIG = "${cfg.privateconfig}"; };
       preStart = ''
         if [ ! -d ${dataDir}/geth ]; then
           if [ ! -d ${dataDir}/keystore ]; then
@@ -224,13 +214,15 @@ in
                       --mine --minerthreads 1 \
                       ${
                         optionalString (cfg.rpc.enable)
-                          "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${toString cfg.rpc.port} --rpcapi ${cfg.rpc.api}"
+                        "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${
+                          toString cfg.rpc.port
+                        } --rpcapi ${cfg.rpc.api}"
                       } \
                       ${
                         optionalString (cfg.ws.enable)
-                          "--ws --wsaddr ${cfg.ws.address} --wsport ${
-                            toString cfg.ws.port
-                          } --wsapi ${cfg.ws.api} --wsorigins ${cfg.ws.origins}"
+                        "--ws --wsaddr ${cfg.ws.address} --wsport ${
+                          toString cfg.ws.port
+                        } --wsapi ${cfg.ws.api} --wsorigins ${cfg.ws.origins}"
                       } \
                       --emitcheckpoints \
                       --datadir ${dataDir} \

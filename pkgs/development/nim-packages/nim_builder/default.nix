@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  nim,
-}:
+{ lib, stdenv, nim }:
 
 stdenv.mkDerivation {
   pname = "nim_builder";

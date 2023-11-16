@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  alcotest,
-  qcheck,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, alcotest, qcheck }:
 
 buildDunePackage rec {
   pname = "dates_calc";
@@ -23,10 +17,7 @@ buildDunePackage rec {
   propagatedBuildInputs = [ ];
 
   doCheck = true;
-  checkInputs = [
-    alcotest
-    qcheck
-  ];
+  checkInputs = [ alcotest qcheck ];
 
   meta = {
     description = "A date calculation library";

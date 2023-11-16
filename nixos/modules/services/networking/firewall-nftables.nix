@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,14 +8,11 @@ let
 
   ifaceSet = concatStringsSep ", " (map (x: ''"${x}"'') cfg.trustedInterfaces);
 
-  portsToNftSet =
-    ports: portRanges:
-    concatStringsSep ", " (
-      map (x: toString x) ports ++ map (x: "${toString x.from}-${toString x.to}") portRanges
-    );
-in
+  portsToNftSet = ports: portRanges:
+    concatStringsSep ", " (map (x: toString x) ports
+      ++ map (x: "${toString x.from}-${toString x.to}") portRanges);
 
-{
+in {
 
   options = {
 
@@ -49,6 +41,7 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf (cfg.enable && config.networking.nftables.enable) {
@@ -56,15 +49,18 @@ in
     assertions = [
       {
         assertion = cfg.extraCommands == "";
-        message = "extraCommands is incompatible with the nftables based firewall: ${cfg.extraCommands}";
+        message =
+          "extraCommands is incompatible with the nftables based firewall: ${cfg.extraCommands}";
       }
       {
         assertion = cfg.extraStopCommands == "";
-        message = "extraStopCommands is incompatible with the nftables based firewall: ${cfg.extraStopCommands}";
+        message =
+          "extraStopCommands is incompatible with the nftables based firewall: ${cfg.extraStopCommands}";
       }
       {
         assertion = cfg.pingLimit == null || !(hasPrefix "--" cfg.pingLimit);
-        message = ''nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
+        message = ''
+          nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;
@@ -82,7 +78,9 @@ in
               type filter hook prerouting priority mangle + 10; policy drop;
 
               meta nfproto ipv4 udp sport . udp dport { 67 . 68, 68 . 67 } accept comment "DHCPv4 client/server"
-              fib saddr . mark ${optionalString (cfg.checkReversePath != "loose") ". iif"} oif exists accept
+              fib saddr . mark ${
+                optionalString (cfg.checkReversePath != "loose") ". iif"
+              } oif exists accept
 
               ${
                 optionalString cfg.logReversePathDrops ''
@@ -98,7 +96,8 @@ in
           type filter hook input priority filter; policy drop;
 
           ${
-            optionalString (ifaceSet != "") ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''
+            optionalString (ifaceSet != "")
+            ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''
           }
 
           # Some ICMPv6 types like NDP is untracked
@@ -116,7 +115,8 @@ in
             ''
           }
           ${
-            optionalString (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly) ''
+            optionalString
+            (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly) ''
               pkttype broadcast log level info prefix "refused broadcast: "
               pkttype multicast log level info prefix "refused multicast: "
             ''
@@ -139,28 +139,27 @@ in
         chain input-allow {
 
           ${
-            concatStrings (
-              mapAttrsToList
-                (
-                  iface: cfg:
-                  let
-                    ifaceExpr = optionalString (iface != "default") "iifname ${iface}";
-                    tcpSet = portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
-                    udpSet = portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
-                  in
-                  ''
-                    ${optionalString (tcpSet != "") "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
-                    ${optionalString (udpSet != "") "${ifaceExpr} udp dport { ${udpSet} } accept"}
-                  ''
-                )
-                cfg.allInterfaces
-            )
+            concatStrings (mapAttrsToList (iface: cfg:
+              let
+                ifaceExpr =
+                  optionalString (iface != "default") "iifname ${iface}";
+                tcpSet =
+                  portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
+                udpSet =
+                  portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
+              in ''
+                ${optionalString (tcpSet != "")
+                "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
+                ${optionalString (udpSet != "")
+                "${ifaceExpr} udp dport { ${udpSet} } accept"}
+              '') cfg.allInterfaces)
           }
 
           ${
             optionalString cfg.allowPing ''
               icmp type echo-request ${
-                optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"
+                optionalString (cfg.pingLimit != null)
+                "limit rate ${cfg.pingLimit}"
               } accept comment "allow ping"
             ''
           }
@@ -202,5 +201,7 @@ in
       }
 
     '';
+
   };
+
 }

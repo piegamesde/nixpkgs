@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  vala,
-  pkg-config,
-  gobject-introspection,
-  gettext,
-  gtk3,
-  gnome,
-  wrapGAppsHook,
-  libgee,
-  json-glib,
-  qqwing,
-  itstool,
-  libxml2,
-  desktop-file-utils,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, vala, pkg-config, gobject-introspection
+, gettext, gtk3, gnome, wrapGAppsHook, libgee, json-glib, qqwing, itstool
+, libxml2, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-sudoku";
@@ -43,12 +26,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gtk3
-    libgee
-    json-glib
-    qqwing
-  ];
+  buildInputs = [ gtk3 libgee json-glib qqwing ];
 
   passthru = {
     updateScript = gnome.updateScript {

@@ -1,24 +1,6 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  pkg-config,
-  glib,
-  lxqt-build-tools,
-  qtbase,
-  qtx11extras,
-  qttools,
-  qtsvg,
-  kwindowsystem,
-  libkscreen,
-  liblxqt,
-  libqtxdg,
-  xkeyboard_config,
-  xorg,
-  gitUpdater,
-}:
+{ lib, mkDerivation, fetchFromGitHub, fetchpatch, cmake, pkg-config, glib
+, lxqt-build-tools, qtbase, qtx11extras, qttools, qtsvg, kwindowsystem
+, libkscreen, liblxqt, libqtxdg, xkeyboard_config, xorg, gitUpdater }:
 
 mkDerivation rec {
   pname = "lxqt-config";
@@ -31,11 +13,7 @@ mkDerivation rec {
     sha256 = "Gm/Y/5i7Abob9eRdLZHpRma2+Mdh2LBZUGKM4mMZMFk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake pkg-config lxqt-build-tools ];
 
   buildInputs = [
     glib.bin
@@ -75,4 +53,5 @@ mkDerivation rec {
     platforms = platforms.linux;
     maintainers = teams.lxqt.members;
   };
+
 }

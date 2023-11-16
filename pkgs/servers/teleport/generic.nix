@@ -1,32 +1,10 @@
-{
-  lib,
-  buildGoModule,
-  rustPlatform,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  makeWrapper,
-  CoreFoundation,
-  AppKit,
-  libfido2,
-  nodejs,
-  openssl,
-  pkg-config,
-  Security,
-  stdenv,
-  xdg-utils,
-  yarn,
-  yarn2nix-moretea,
-  nixosTests,
+{ lib, buildGoModule, rustPlatform, fetchFromGitHub, fetchYarnDeps, makeWrapper
+, CoreFoundation, AppKit, libfido2, nodejs, openssl, pkg-config, Security
+, stdenv, xdg-utils, yarn, yarn2nix-moretea, nixosTests
 
-  withRdpClient ? true,
+, withRdpClient ? true
 
-  version,
-  hash,
-  vendorHash,
-  cargoHash ? null,
-  cargoLock ? null,
-  yarnHash,
-}:
+, version, hash, vendorHash, cargoHash ? null, cargoLock ? null, yarnHash }:
 let
   # This repo has a private submodule "e" which fetchgit cannot handle without failing.
   src = fetchFromGitHub {
@@ -44,12 +22,8 @@ let
 
     buildAndTestSubdir = "lib/srv/desktop/rdp/rdpclient";
 
-    buildInputs =
-      [ openssl ]
-      ++ lib.optionals stdenv.isDarwin [
-        CoreFoundation
-        Security
-      ];
+    buildInputs = [ openssl ]
+      ++ lib.optionals stdenv.isDarwin [ CoreFoundation Security ];
     nativeBuildInputs = [ pkg-config ];
 
     # https://github.com/NixOS/nixpkgs/issues/161570 ,
@@ -73,11 +47,7 @@ let
     pname = "teleport-webassets";
     inherit src version;
 
-    nativeBuildInputs = [
-      nodejs
-      yarn
-      yarn2nix-moretea.fixup_yarn_lock
-    ];
+    nativeBuildInputs = [ nodejs yarn yarn2nix-moretea.fixup_yarn_lock ];
 
     configurePhase = ''
       export HOME=$(mktemp -d)
@@ -100,39 +70,24 @@ let
       cp -R webassets/. $out
     '';
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "teleport";
 
   inherit src version;
   inherit vendorHash;
   proxyVendor = true;
 
-  subPackages = [
-    "tool/tbot"
-    "tool/tctl"
-    "tool/teleport"
-    "tool/tsh"
-  ];
-  tags = [
-    "libfido2"
-    "webassets_embed"
-  ] ++ lib.optional withRdpClient "desktop_access_rdp";
+  subPackages = [ "tool/tbot" "tool/tctl" "tool/teleport" "tool/tsh" ];
+  tags = [ "libfido2" "webassets_embed" ]
+    ++ lib.optional withRdpClient "desktop_access_rdp";
 
-  buildInputs =
-    [
-      openssl
-      libfido2
-    ]
+  buildInputs = [ openssl libfido2 ]
     ++ lib.optionals (stdenv.isDarwin && withRdpClient) [
       CoreFoundation
       Security
       AppKit
     ];
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
   patches = [
     # https://github.com/NixOS/nixpkgs/issues/120738
@@ -144,19 +99,14 @@ buildGoModule rec {
   ];
 
   # Reduce closure size for client machines
-  outputs = [
-    "out"
-    "client"
-  ];
+  outputs = [ "out" "client" ];
 
-  preBuild =
-    ''
-      cp -r ${webassets} webassets
-    ''
-    + lib.optionalString withRdpClient ''
-      ln -s ${rdpClient}/lib/* lib/
-      ln -s ${rdpClient}/include/* lib/srv/desktop/rdp/rdpclient/
-    '';
+  preBuild = ''
+    cp -r ${webassets} webassets
+  '' + lib.optionalString withRdpClient ''
+    ln -s ${rdpClient}/lib/* lib/
+    ln -s ${rdpClient}/include/* lib/srv/desktop/rdp/rdpclient/
+  '';
 
   # Multiple tests fail in the build sandbox
   # due to trying to spawn nixbld's shell (/noshell), etc.
@@ -183,7 +133,8 @@ buildGoModule rec {
   passthru.tests = nixosTests.teleport;
 
   meta = with lib; {
-    description = "Certificate authority and access plane for SSH, Kubernetes, web applications, and databases";
+    description =
+      "Certificate authority and access plane for SSH, Kubernetes, web applications, and databases";
     homepage = "https://goteleport.com/";
     license = licenses.asl20;
     maintainers = with maintainers; [

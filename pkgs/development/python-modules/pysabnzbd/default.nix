@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiohttp,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp }:
 
 buildPythonPackage rec {
   pname = "pysabnzbd";

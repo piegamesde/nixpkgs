@@ -1,12 +1,6 @@
 {
   license_finder = {
-    dependencies = [
-      "rubyzip"
-      "thor"
-      "tomlrb"
-      "with_env"
-      "xml-simple"
-    ];
+    dependencies = [ "rubyzip" "thor" "tomlrb" "with_env" "xml-simple" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

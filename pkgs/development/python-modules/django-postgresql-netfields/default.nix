@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  netaddr,
-  six,
-  fetchFromGitHub,
-  pythonOlder,
+{ lib, buildPythonPackage, django, netaddr, six, fetchFromGitHub, pythonOlder
 # required for tests
 #, djangorestframework
 #, psycopg2
@@ -25,11 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-I+X4yfadtiiZlW7QhfwVbK1qyWn/khH9fWXszCo9uro=";
   };
 
-  propagatedBuildInputs = [
-    django
-    netaddr
-    six
-  ];
+  propagatedBuildInputs = [ django netaddr six ];
 
   # tests need a postgres database
   doCheck = false;
@@ -52,7 +41,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Django PostgreSQL netfields implementation";
     homepage = "https://github.com/jimfunk/django-postgresql-netfields";
-    changelog = "https://github.com/jimfunk/django-postgresql-netfields/blob/v${version}/CHANGELOG";
+    changelog =
+      "https://github.com/jimfunk/django-postgresql-netfields/blob/v${version}/CHANGELOG";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

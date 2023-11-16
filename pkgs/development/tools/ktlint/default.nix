@@ -1,18 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jre_headless,
-  gnused,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jre_headless, gnused }:
 
 stdenv.mkDerivation rec {
   pname = "ktlint";
   version = "0.49.0";
 
   src = fetchurl {
-    url = "https://github.com/pinterest/ktlint/releases/download/${version}/ktlint";
+    url =
+      "https://github.com/pinterest/ktlint/releases/download/${version}/ktlint";
     sha256 = "1vm064b591lp5yygryz0p0zdfwlp1nhl5dv2nzx0y92j3911q0yz";
   };
 
@@ -26,10 +20,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/ktlint --prefix PATH : "${
-      lib.makeBinPath [
-        jre_headless
-        gnused
-      ]
+      lib.makeBinPath [ jre_headless gnused ]
     }"
   '';
 
@@ -39,9 +30,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = jre_headless.meta.platforms;
     changelog = "https://github.com/pinterest/ktlint/blob/master/CHANGELOG.md";
-    maintainers = with maintainers; [
-      tadfisher
-      SubhrajyotiSen
-    ];
+    maintainers = with maintainers; [ tadfisher SubhrajyotiSen ];
   };
 }

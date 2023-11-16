@@ -1,18 +1,5 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  libxml2,
-  freetype,
-  libGLU,
-  libGL,
-  glew,
-  qtbase,
-  wrapQtAppsHook,
-  python3,
-  cmake,
-  libjpeg,
-}:
+{ fetchurl, lib, stdenv, libxml2, freetype, libGLU, libGL, glew, qtbase
+, wrapQtAppsHook, python3, cmake, libjpeg }:
 
 stdenv.mkDerivation rec {
   pname = "tulip";
@@ -23,20 +10,8 @@ stdenv.mkDerivation rec {
     sha256 = "1fy3nvgxv3igwc1d23zailcgigj1d0f2kkh7a5j24c0dyqz5zxmw";
   };
 
-  buildInputs = [
-    libxml2
-    freetype
-    glew
-    libGLU
-    libGL
-    libjpeg
-    qtbase
-    python3
-  ];
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  buildInputs = [ libxml2 freetype glew libGLU libGL libjpeg qtbase python3 ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
   qtWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ python3 ]}" ];
 
@@ -45,7 +20,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     broken = (stdenv.isLinux && stdenv.isAarch64);
-    description = "A visualization framework for the analysis and visualization of relational data";
+    description =
+      "A visualization framework for the analysis and visualization of relational data";
 
     longDescription = ''
       Tulip is an information visualization framework dedicated to the

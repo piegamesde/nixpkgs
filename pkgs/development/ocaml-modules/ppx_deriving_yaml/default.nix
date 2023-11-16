@@ -1,12 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-  ppxlib,
-  alcotest,
-  ppx_deriving,
-  yaml,
-}:
+{ lib, buildDunePackage, fetchurl, ppxlib, alcotest, ppx_deriving, yaml }:
 
 buildDunePackage rec {
   pname = "ppx_deriving_yaml";
@@ -16,15 +8,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/patricoferris/ppx_deriving_yaml/releases/download/v${version}/ppx_deriving_yaml-${version}.tbz";
+    url =
+      "https://github.com/patricoferris/ppx_deriving_yaml/releases/download/v${version}/ppx_deriving_yaml-${version}.tbz";
     sha256 = "sha256-nR3568ULM6jaGG4H4+lLBTEJqh/ALHPiJxve40jPUxw=";
   };
 
-  propagatedBuildInputs = [
-    ppxlib
-    ppx_deriving
-    yaml
-  ];
+  propagatedBuildInputs = [ ppxlib ppx_deriving yaml ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

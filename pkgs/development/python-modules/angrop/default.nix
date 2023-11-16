@@ -1,13 +1,5 @@
-{
-  lib,
-  angr,
-  buildPythonPackage,
-  fetchFromGitHub,
-  progressbar,
-  pythonOlder,
-  setuptools,
-  tqdm,
-}:
+{ lib, angr, buildPythonPackage, fetchFromGitHub, progressbar, pythonOlder
+, setuptools, tqdm }:
 
 buildPythonPackage rec {
   pname = "angrop";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    angr
-    progressbar
-    tqdm
-  ];
+  propagatedBuildInputs = [ angr progressbar tqdm ];
 
   # Tests have additional requirements, e.g., angr binaries
   # cle is executing the tests with the angr binaries already and is a requirement of angr

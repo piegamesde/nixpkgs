@@ -1,21 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "libomxil-bellagio";
   version = "0.9.3";
 
   src = fetchurl {
-    url = "mirror://sourceforge/omxil/omxil/Bellagio%20${version}/${pname}-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/omxil/omxil/Bellagio%20${version}/${pname}-${version}.tar.gz";
     sha256 = "0k6p6h4npn8p1qlgq6z3jbfld6n1bqswzvxzndki937gr0lhfg2r";
   };
 
-  configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    "ac_cv_func_malloc_0_nonnull=yes"
-  ];
+  configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ "ac_cv_func_malloc_0_nonnull=yes" ];
 
   patches = [
     ./fedora-fixes.patch
@@ -23,7 +19,8 @@ stdenv.mkDerivation rec {
     # Fix stack overread: https://sourceforge.net/p/omxil/patches/8/
     (fetchurl {
       name = "no-overread.patch";
-      url = "https://sourceforge.net/p/omxil/patches/8/attachment/0001-src-base-omx_base_component.c-fix-stack-overread.patch";
+      url =
+        "https://sourceforge.net/p/omxil/patches/8/attachment/0001-src-base-omx_base_component.c-fix-stack-overread.patch";
       hash = "sha256-ElpiDxU0Ii4Ou8ebVx4Ne9UnB6mesC8cRj77N7LdovA=";
     })
   ];
@@ -43,7 +40,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://omxil.sourceforge.net/";
-    description = "An opensource implementation of the Khronos OpenMAX Integration Layer API to access multimedia components";
+    description =
+      "An opensource implementation of the Khronos OpenMAX Integration Layer API to access multimedia components";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

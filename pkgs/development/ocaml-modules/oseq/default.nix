@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  containers,
-  qcheck,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, containers, qcheck }:
 
 buildDunePackage rec {
   version = "0.5";
@@ -21,10 +15,7 @@ buildDunePackage rec {
   duneVersion = "3";
 
   doCheck = true;
-  checkInputs = [
-    containers
-    qcheck
-  ];
+  checkInputs = [ containers qcheck ];
 
   meta = {
     homepage = "https://c-cube.github.io/oseq/";

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "pg_topn";
@@ -29,7 +24,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Efficient querying of 'top values' for PostgreSQL";
     homepage = "https://github.com/citusdata/postgresql-topn";
-    changelog = "https://github.com/citusdata/postgresql-topn/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/citusdata/postgresql-topn/raw/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ thoughtpolice ];
     platforms = postgresql.meta.platforms;
     license = licenses.agpl3Only;

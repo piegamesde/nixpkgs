@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "wapiti";
@@ -16,8 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-muAugc0BgVSER2LSRv7ATbCqpXID8/WH+hfhmtoS36o=";
   };
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       aiocache
       aiosqlite
@@ -39,8 +34,7 @@ python3.pkgs.buildPythonApplication rec {
       sqlalchemy
       tld
       yaswfp
-    ]
-    ++ httpx.optional-dependencies.brotli
+    ] ++ httpx.optional-dependencies.brotli
     ++ httpx.optional-dependencies.socks;
 
   nativeCheckInputs = with python3.pkgs; [
@@ -127,11 +121,10 @@ python3.pkgs.buildPythonApplication rec {
     "test_persister_upload"
   ];
 
-  disabledTestPaths =
-    [
-      # Requires sslyze which is obsolete and was removed
-      "tests/attack/test_mod_ssl.py"
-    ];
+  disabledTestPaths = [
+    # Requires sslyze which is obsolete and was removed
+    "tests/attack/test_mod_ssl.py"
+  ];
 
   pythonImportsCheck = [ "wapitiCore" ];
 
@@ -146,7 +139,8 @@ python3.pkgs.buildPythonApplication rec {
       if a script is vulnerable.
     '';
     homepage = "https://wapiti-scanner.github.io/";
-    changelog = "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
+    changelog =
+      "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
   };

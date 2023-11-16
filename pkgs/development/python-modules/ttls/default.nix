@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  colour,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, aiohttp, buildPythonPackage, colour, fetchFromGitHub, poetry-core
+, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "ttls";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    colour
-    setuptools
-  ];
+  propagatedBuildInputs = [ aiohttp colour setuptools ];
 
   # Module has no tests
   doCheck = false;

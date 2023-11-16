@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-  lwt,
-  duration,
-  mirage-runtime,
-}:
+{ lib, buildDunePackage, fetchurl, lwt, duration, mirage-runtime }:
 
 buildDunePackage rec {
   pname = "mirage-unix";
@@ -14,15 +7,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/mirage/${pname}/releases/download/v${version}/${pname}-${version}.tbz";
     hash = "sha256-U1oLznUDBcJLcVygfSiyl5qRLDM27cm/WrjT0vSGhPg=";
   };
 
-  propagatedBuildInputs = [
-    lwt
-    duration
-    mirage-runtime
-  ];
+  propagatedBuildInputs = [ lwt duration mirage-runtime ];
   doCheck = true;
 
   meta = with lib; {

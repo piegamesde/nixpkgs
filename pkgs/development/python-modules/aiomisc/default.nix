@@ -1,25 +1,11 @@
-{
-  lib,
-  aiocontextvars,
-  #, aiocarbon
-  aiohttp,
-  #, aiohttp-asgi
-  async-timeout,
-  buildPythonPackage,
-  colorlog,
-  croniter,
-  fastapi,
-  fetchPypi,
-  logging-journald,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  raven,
-  #, raven-aiohttp
-  setproctitle,
-  setuptools,
-  uvloop,
-}:
+{ lib, aiocontextvars
+#, aiocarbon
+, aiohttp
+#, aiohttp-asgi
+, async-timeout, buildPythonPackage, colorlog, croniter, fastapi, fetchPypi
+, logging-journald, poetry-core, pytestCheckHook, pythonOlder, raven
+#, raven-aiohttp
+, setproctitle, setuptools, uvloop }:
 
 buildPythonPackage rec {
   pname = "aiomisc";
@@ -35,21 +21,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    colorlog
-    logging-journald
-    setuptools
-  ];
+  propagatedBuildInputs = [ colorlog logging-journald setuptools ];
 
   nativeCheckInputs =
-    [
-      aiocontextvars
-      async-timeout
-      fastapi
-      pytestCheckHook
-      raven
-      setproctitle
-    ]
+    [ aiocontextvars async-timeout fastapi pytestCheckHook raven setproctitle ]
     ++ passthru.optional-dependencies.aiohttp
     ++ passthru.optional-dependencies.cron
     ++ passthru.optional-dependencies.uvloop;
@@ -83,7 +58,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Miscellaneous utils for asyncio";
     homepage = "https://github.com/aiokitchen/aiomisc";
-    changelog = "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
+    changelog =
+      "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

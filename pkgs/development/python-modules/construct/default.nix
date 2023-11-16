@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  pytest-benchmark,
-  numpy,
-  arrow,
-  ruamel-yaml,
-  lz4,
-  cloudpickle,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, pytest-benchmark, numpy, arrow, ruamel-yaml, lz4, cloudpickle }:
 
 buildPythonPackage rec {
   pname = "construct";
@@ -30,15 +18,10 @@ buildPythonPackage rec {
   # not an explicit dependency, but it's imported by an entrypoint
   propagatedBuildInputs = [ lz4 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    numpy
-    arrow
-    ruamel-yaml
-    cloudpickle
-  ];
+  nativeCheckInputs = [ pytestCheckHook numpy arrow ruamel-yaml cloudpickle ];
 
-  disabledTests = [ "test_benchmarks" ] ++ lib.optionals stdenv.isDarwin [ "test_multiprocessing" ];
+  disabledTests = [ "test_benchmarks" ]
+    ++ lib.optionals stdenv.isDarwin [ "test_multiprocessing" ];
 
   meta = with lib; {
     description = "Powerful declarative parser (and builder) for binary data";

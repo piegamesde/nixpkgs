@@ -1,10 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  glib,
-  wrapGAppsHook,
-}:
+{ lib, python3Packages, fetchFromGitHub, glib, wrapGAppsHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "printrun";
@@ -24,10 +18,7 @@ python3Packages.buildPythonApplication rec {
     sed -i -r "s|/usr(/local)?/share/|$out/share/|g" printrun/utils.py
   '';
 
-  nativeBuildInputs = [
-    glib
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ glib wrapGAppsHook ];
 
   propagatedBuildInputs = with python3Packages; [
     appdirs
@@ -63,7 +54,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
+    description =
+      "Pronterface, Pronsole, and Printcore - Pure Python 3d printing host software";
     homepage = "https://github.com/kliment/Printrun";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

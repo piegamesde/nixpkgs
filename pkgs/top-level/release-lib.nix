@@ -1,31 +1,21 @@
-{
-  supportedSystems,
-  packageSet ? (import ../..),
-  scrubJobs ? true,
-  # Attributes passed to nixpkgs. Don't build packages marked as unfree.
-  nixpkgsArgs ? {
-    config = {
-      allowUnfree = false;
-      inHydra = true;
-    };
-  },
-}:
+{ supportedSystems, packageSet ? (import ../..), scrubJobs ? true
+, # Attributes passed to nixpkgs. Don't build packages marked as unfree.
+nixpkgsArgs ? {
+  config = {
+    allowUnfree = false;
+    inHydra = true;
+  };
+} }:
 
-let
-  lib = import ../../lib;
-in
-with lib;
+let lib = import ../../lib;
+in with lib;
 
 rec {
 
-  pkgs = packageSet (
-    lib.recursiveUpdate
-      {
-        system = "x86_64-linux";
-        config.allowUnsupportedSystem = true;
-      }
-      nixpkgsArgs
-  );
+  pkgs = packageSet (lib.recursiveUpdate {
+    system = "x86_64-linux";
+    config.allowUnsupportedSystem = true;
+  } nixpkgsArgs);
   inherit lib;
 
   hydraJob' = if scrubJobs then hydraJob else id;
@@ -34,10 +24,10 @@ rec {
      Nixpkgs from being evaluated again and again for every
      job/platform pair.
   */
-  mkPkgsFor =
-    crossSystem:
+  mkPkgsFor = crossSystem:
     let
-      packageSet' = args: packageSet (args // { inherit crossSystem; } // nixpkgsArgs);
+      packageSet' = args:
+        packageSet (args // { inherit crossSystem; } // nixpkgsArgs);
 
       pkgs_x86_64_linux = packageSet' { system = "x86_64-linux"; };
       pkgs_i686_linux = packageSet' { system = "i686-linux"; };
@@ -51,8 +41,8 @@ rec {
       pkgs_i686_freebsd = packageSet' { system = "i686-freebsd"; };
       pkgs_i686_cygwin = packageSet' { system = "i686-cygwin"; };
       pkgs_x86_64_cygwin = packageSet' { system = "x86_64-cygwin"; };
-    in
-    system:
+
+    in system:
     if system == "x86_64-linux" then
       pkgs_x86_64_linux
     else if system == "i686-linux" then
@@ -83,46 +73,39 @@ rec {
   pkgsFor = pkgsForCross null;
 
   # More poor man's memoisation
-  pkgsForCross =
-    let
-      examplesByConfig = lib.flip lib.mapAttrs' lib.systems.examples (
-        _: crossSystem:
+  pkgsForCross = let
+    examplesByConfig = lib.flip lib.mapAttrs' lib.systems.examples
+      (_: crossSystem:
         nameValuePair crossSystem.config {
           inherit crossSystem;
           pkgsFor = mkPkgsFor crossSystem;
-        }
-      );
-      native = mkPkgsFor null;
-    in
-    crossSystem:
-    let
-      candidate = examplesByConfig.${crossSystem.config} or null;
-    in
-    if crossSystem == null then
-      native
-    else if candidate != null && lib.matchAttrs crossSystem candidate.crossSystem then
-      candidate.pkgsFor
-    else
-      mkPkgsFor crossSystem; # uncached fallback
+        });
+    native = mkPkgsFor null;
+  in crossSystem:
+  let candidate = examplesByConfig.${crossSystem.config} or null;
+  in if crossSystem == null then
+    native
+  else if candidate != null
+  && lib.matchAttrs crossSystem candidate.crossSystem then
+    candidate.pkgsFor
+  else
+    mkPkgsFor crossSystem; # uncached fallback
 
   # Given a list of 'meta.platforms'-style patterns, return the sublist of
   # `supportedSystems` containing systems that matches at least one of the given
   # patterns.
   #
   # This is written in a funny way so that we only elaborate the systems once.
-  supportedMatches =
-    let
-      supportedPlatforms = map (system: lib.systems.elaborate { inherit system; }) supportedSystems;
-    in
-    metaPatterns:
-    let
-      anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
-      matchingPlatforms = lib.filter anyMatch supportedPlatforms;
-    in
-    map ({ system, ... }: system) matchingPlatforms;
+  supportedMatches = let
+    supportedPlatforms =
+      map (system: lib.systems.elaborate { inherit system; }) supportedSystems;
+  in metaPatterns:
+  let
+    anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
+    matchingPlatforms = lib.filter anyMatch supportedPlatforms;
+  in map ({ system, ... }: system) matchingPlatforms;
 
-  assertTrue =
-    bool:
+  assertTrue = bool:
     if bool then
       pkgs.runCommand "evaluated-to-true" { } "touch $out"
     else
@@ -153,9 +136,9 @@ rec {
      'crossSystem' parameter for packageSet', defining the target
      platform for cross builds.
   */
-  testOnCross =
-    crossSystem: metaPatterns: f:
-    forMatchingSystems metaPatterns (system: hydraJob' (f (pkgsForCross crossSystem system)));
+  testOnCross = crossSystem: metaPatterns: f:
+    forMatchingSystems metaPatterns
+    (system: hydraJob' (f (pkgsForCross crossSystem system)));
 
   /* Given a nested set where the leaf nodes are lists of platforms,
      map each leaf node to `testOn [platforms...] (pkgs:
@@ -163,39 +146,32 @@ rec {
   */
   mapTestOn = _mapTestOnHelper id null;
 
-  _mapTestOnHelper =
-    f: crossSystem:
-    mapAttrsRecursive (
-      path: metaPatterns: testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs))
-    );
+  _mapTestOnHelper = f: crossSystem:
+    mapAttrsRecursive (path: metaPatterns:
+      testOnCross crossSystem metaPatterns
+      (pkgs: f (getAttrFromPath path pkgs)));
 
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,
   # and triggering the build of the host derivation.
-  mapTestOnCross = _mapTestOnHelper (addMetaAttrs { maintainers = crossMaintainers; });
+  mapTestOnCross =
+    _mapTestOnHelper (addMetaAttrs { maintainers = crossMaintainers; });
 
   /* Recursively map a (nested) set of derivations to an isomorphic
      set of meta.platforms values.
   */
-  packagePlatforms = mapAttrs (
-    name: value:
+  packagePlatforms = mapAttrs (name: value:
     if isDerivation value then
-      value.meta.hydraPlatforms or (lib.subtractLists (value.meta.badPlatforms or [ ]) (
-        value.meta.platforms or [ "x86_64-linux" ]
-      ))
-    else if value.recurseForDerivations or false || value.recurseForRelease or false then
+      value.meta.hydraPlatforms or (lib.subtractLists
+        (value.meta.badPlatforms or [ ])
+        (value.meta.platforms or [ "x86_64-linux" ]))
+    else if value.recurseForDerivations or false
+    || value.recurseForRelease or false then
       packagePlatforms value
     else
-      [ ]
-  );
+      [ ]);
 
   # Common platform groups on which to test packages.
-  inherit (platforms)
-    unix
-    linux
-    darwin
-    cygwin
-    all
-    mesaPlatforms
-  ;
+  inherit (platforms) unix linux darwin cygwin all mesaPlatforms;
+
 }

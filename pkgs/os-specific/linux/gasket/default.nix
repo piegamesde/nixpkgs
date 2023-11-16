@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  kernel,
-}:
+{ stdenv, lib, fetchFromGitHub, kernel }:
 
 stdenv.mkDerivation rec {
   pname = "gasket";
@@ -27,14 +22,12 @@ stdenv.mkDerivation rec {
   installTargets = [ "modules_install" ];
 
   sourceRoot = "source/src";
-  hardeningDisable = [
-    "pic"
-    "format"
-  ];
+  hardeningDisable = [ "pic" "format" ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   meta = with lib; {
-    description = "The Coral Gasket Driver allows usage of the Coral EdgeTPU on Linux systems.";
+    description =
+      "The Coral Gasket Driver allows usage of the Coral EdgeTPU on Linux systems.";
     homepage = "https://github.com/google/gasket-driver";
     license = licenses.gpl2;
     maintainers = [ lib.maintainers.kylehendricks ];

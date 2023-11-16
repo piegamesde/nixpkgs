@@ -1,8 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  foundationdb,
-}:
+{ buildPythonPackage, lib, foundationdb }:
 
 buildPythonPackage {
   pname = "foundationdb";
@@ -25,3 +21,4 @@ buildPythonPackage {
     maintainers = with maintainers; [ thoughtpolice ];
   };
 }
+

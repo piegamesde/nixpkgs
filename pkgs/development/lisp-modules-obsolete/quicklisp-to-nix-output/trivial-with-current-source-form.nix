@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "trivial-with-current-source-form";
   version = "20211020-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."alexandria" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/trivial-with-current-source-form/2021-10-20/trivial-with-current-source-form-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/trivial-with-current-source-form/2021-10-20/trivial-with-current-source-form-20211020-git.tgz";
     sha256 = "03x8yx5hqfydxbdy9nxpaqn6yfjv7hvw8idscx66ns4qcpw6p825";
   };
 

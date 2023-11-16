@@ -1,19 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  matplotlib,
-  midiutil,
-  numpy,
-  pytestCheckHook,
-  scikit-image,
-  scikit-learn,
-}:
-let
-  rev = "8d0ce91d831b0592c111ddb38fc9aa8eba130ed2";
-in
-buildPythonPackage {
+{ lib, buildPythonPackage, fetchFromGitHub, lxml, matplotlib, midiutil, numpy
+, pytestCheckHook, scikit-image, scikit-learn }:
+let rev = "8d0ce91d831b0592c111ddb38fc9aa8eba130ed2";
+in buildPythonPackage {
   pname = "mung";
   version = "unstable-2022-07-10";
 
@@ -26,19 +14,14 @@ buildPythonPackage {
 
   format = "setuptools";
 
-  propagatedBuildInputs = [
-    lxml
-    numpy
-    scikit-image
-    scikit-learn
-    matplotlib
-    midiutil
-  ];
+  propagatedBuildInputs =
+    [ lxml numpy scikit-image scikit-learn matplotlib midiutil ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Music Notation Graph: a data model for optical music recognition";
+    description =
+      "Music Notation Graph: a data model for optical music recognition";
     homepage = "https://github.com/OMR-Research/mung";
     changelog = "https://github.com/OMR-Research/mung/blob/${rev}/CHANGES.md";
     license = licenses.mit;

@@ -1,13 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  libX11,
-  Cocoa,
-  IOKit,
-  Kernel,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libX11, Cocoa, IOKit, Kernel }:
 
 stdenv.mkDerivation rec {
   pname = "ois";
@@ -22,13 +13,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ libX11 ]
-    ++ lib.optionals stdenv.isDarwin [
-      Cocoa
-      IOKit
-      Kernel
-    ];
+  buildInputs = lib.optionals stdenv.isLinux [ libX11 ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa IOKit Kernel ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 

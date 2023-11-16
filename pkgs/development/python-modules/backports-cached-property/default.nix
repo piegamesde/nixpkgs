@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools-scm,
-  wheel,
-  pytestCheckHook,
-  pytest-mock,
-  pytest-sugar,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools-scm, wheel
+, pytestCheckHook, pytest-mock, pytest-sugar }:
 
 buildPythonPackage rec {
   pname = "backports-cached-property";
@@ -30,11 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ wheel ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    pytest-sugar
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock pytest-sugar ];
 
   pythonImportsCheck = [ "backports.cached_property" ];
 

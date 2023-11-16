@@ -1,31 +1,12 @@
-{
-  pkgs,
-  gccStdenv,
-  lib,
-  coreutils,
-  openssl,
-  zlib,
-  sqlite,
-  libxml2,
-  libyaml,
-  libmysqlclient,
-  lmdb,
-  leveldb,
-  postgresql,
-  version,
-  git-version,
-  gambit-support,
-  gambit ? pkgs.gambit,
-  gambit-params ? pkgs.gambit-support.stable-params,
-  src,
-}:
+{ pkgs, gccStdenv, lib, coreutils, openssl, zlib, sqlite, libxml2, libyaml
+, libmysqlclient, lmdb, leveldb, postgresql, version, git-version
+, gambit-support, gambit ? pkgs.gambit
+, gambit-params ? pkgs.gambit-support.stable-params, src }:
 
 # We use Gambit, that works 10x better with GCC than Clang. See ../gambit/build.nix
-let
-  stdenv = gccStdenv;
-in
+let stdenv = gccStdenv;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gerbil";
   inherit version;
   inherit src;
@@ -46,9 +27,11 @@ stdenv.mkDerivation rec {
   # or give up and delete all tentative support for static libraries.
   #buildInputs_staticLibraries = map makeStaticLibraries buildInputs_libraries;
 
-  buildInputs = [ gambit ] ++ buildInputs_libraries; # ++ buildInputs_staticLibraries;
+  buildInputs = [ gambit ]
+    ++ buildInputs_libraries; # ++ buildInputs_staticLibraries;
 
-  env.NIX_CFLAGS_COMPILE = "-I${libmysqlclient}/include/mysql -L${libmysqlclient}/lib/mysql";
+  env.NIX_CFLAGS_COMPILE =
+    "-I${libmysqlclient}/include/mysql -L${libmysqlclient}/lib/mysql";
 
   postPatch = ''
     echo '(define (gerbil-version-string) "v${git-version}")' > src/gerbil/runtime/gx-version.scm ;

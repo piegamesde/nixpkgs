@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  openssl,
-  pytest,
-  cffi,
-  six,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, openssl, pytest, cffi, six }:
 
 buildPythonPackage rec {
   pname = "fastpbkdf2";
@@ -22,10 +14,7 @@ buildPythonPackage rec {
 
   buildInputs = [ openssl ];
   nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [
-    cffi
-    six
-  ];
+  propagatedBuildInputs = [ cffi six ];
   propagatedNativeBuildInputs = [ cffi ];
 
   meta = with lib; {

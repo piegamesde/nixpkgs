@@ -1,28 +1,9 @@
-{
-  fetchurl,
-  fetchpatch,
-  lib,
-  stdenv,
-  pkg-config,
-  gettext,
-  python3,
-  SDL,
-  SDL_image,
-  SDL_gfx,
-  SDL_mixer,
-  libogg,
-  libvorbis,
-  lua5_3,
-  libjpeg,
-  libpng,
-  zlib,
-  libiconv,
-}:
+{ fetchurl, fetchpatch, lib, stdenv, pkg-config, gettext, python3, SDL
+, SDL_image, SDL_gfx, SDL_mixer, libogg, libvorbis, lua5_3, libjpeg, libpng
+, zlib, libiconv }:
 
-let
-  version = "0.16.1";
-in
-stdenv.mkDerivation {
+let version = "0.16.1";
+in stdenv.mkDerivation {
   pname = "freedroidrpg";
   inherit version;
 
@@ -37,7 +18,8 @@ stdenv.mkDerivation {
     # Pull upstream fix for -fno-common tolchains.
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://gitlab.com/freedroid/freedroid-src/-/commit/e610d427374226b79da5258d979936459f30c761.patch";
+      url =
+        "https://gitlab.com/freedroid/freedroid-src/-/commit/e610d427374226b79da5258d979936459f30c761.patch";
       sha256 = "1s7sw4dkc7b6i72j6x47driq6v0k3wss48l9ivd4fw40n3iaxjb1";
     })
 
@@ -45,11 +27,7 @@ stdenv.mkDerivation {
     ./drop-build-deps.patch
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config gettext python3 ];
 
   buildInputs = [
     SDL

@@ -1,32 +1,7 @@
-{
-  lib,
-  glib,
-  stdenv,
-  dbus,
-  freetype,
-  fontconfig,
-  zlib,
-  qtquickcontrols2,
-  libXinerama,
-  libxcb,
-  libSM,
-  libXi,
-  libglvnd,
-  libXext,
-  libXrandr,
-  mailspring,
-  libX11,
-  libICE,
-  libXrender,
-  autoPatchelfHook,
-  makeWrapper,
-  mkDerivation,
-  xkeyboard_config,
-  fetchurl,
-  buildFHSEnv,
-  openal,
-  makeDesktopItem,
-}:
+{ lib, glib, stdenv, dbus, freetype, fontconfig, zlib, qtquickcontrols2
+, libXinerama, libxcb, libSM, libXi, libglvnd, libXext, libXrandr, mailspring
+, libX11, libICE, libXrender, autoPatchelfHook, makeWrapper, mkDerivation
+, xkeyboard_config, fetchurl, buildFHSEnv, openal, makeDesktopItem }:
 
 let
 
@@ -39,10 +14,7 @@ let
       sha256 = "12hzlz792pf8pvxf13fww3qhahqzwzkxq9q3mq20hbhvaphbg7nd";
     };
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
-    ];
+    nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
     buildInputs = [
       glib
@@ -91,12 +63,11 @@ let
     icon = "Superposition";
     desktopName = "Superposition Benchmark";
   };
-in
 
-# We can patch the "/bin/superposition", but "/bin/launcher" checks it for changes.
-# For that we need use a buildFHSEnv.
+  # We can patch the "/bin/superposition", but "/bin/launcher" checks it for changes.
+  # For that we need use a buildFHSEnv.
 
-buildFHSEnv {
+in buildFHSEnv {
   name = "Superposition";
 
   targetPkgs = pkgs: [

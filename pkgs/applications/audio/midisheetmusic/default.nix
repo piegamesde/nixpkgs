@@ -1,32 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  mono,
-  dotnetPackages,
-  makeWrapper,
-  gtk2,
-  cups,
-  timidity,
+{ lib, stdenv, fetchurl, mono, dotnetPackages, makeWrapper, gtk2, cups, timidity
 }:
 
-let
-  version = "2.6";
-in
-stdenv.mkDerivation {
+let version = "2.6";
+in stdenv.mkDerivation {
   pname = "midisheetmusic";
   inherit version;
 
   src = fetchurl {
-    url = "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz";
+    url =
+      "mirror://sourceforge/midisheetmusic/MidiSheetMusic-${version}-linux-src.tar.gz";
     sha256 = "05c6zskj50g29f51lx8fvgzsi3f31z01zj6ssjjrgr7jfs7ak70p";
   };
 
   nativeCheckInputs = (with dotnetPackages; [ NUnitConsole ]);
-  nativeBuildInputs = [
-    mono
-    makeWrapper
-  ];
+  nativeBuildInputs = [ mono makeWrapper ];
 
   buildPhase = ''
     for i in Classes/MidiPlayer.cs Classes/MidiSheetMusic.cs
@@ -59,12 +46,7 @@ stdenv.mkDerivation {
     cp bin/Debug/MidiSheetMusic.exe $out/bin/.MidiSheetMusic.exe
 
     makeWrapper ${mono}/bin/mono $out/bin/midisheetmusic.mono.exe \
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          gtk2
-          cups
-        ]
-      } \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk2 cups ]} \
       --prefix PATH : ${lib.makeBinPath [ timidity ]} \
       --add-flags $out/bin/.MidiSheetMusic.exe
   '';

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  freeglut,
-  libGL,
-  libGLU,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, freeglut, libGL, libGLU }:
 
 stdenv.mkDerivation rec {
   pname = "hdaps-gl";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    freeglut
-    libGL
-    libGLU
-  ];
+  buildInputs = [ freeglut libGL libGLU ];
 
   meta = with lib; {
     description = "GL-based laptop model that rotates in real-time via hdaps";

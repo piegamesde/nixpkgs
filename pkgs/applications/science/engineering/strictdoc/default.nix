@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "strictdoc";
@@ -32,8 +28,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ hatchling ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       beautifulsoup4
       datauri
@@ -54,25 +49,24 @@ python3.pkgs.buildPythonApplication rec {
       websockets
       xlrd
       xlsxwriter
-    ]
-    ++ uvicorn.optional-dependencies.standard;
+    ] ++ uvicorn.optional-dependencies.standard;
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
   pythonImportsCheck = [ "strictdoc" ];
 
-  disabledTests =
-    [
-      # fixture 'fs' not found
-      "test_001_load_from_files"
-    ];
+  disabledTests = [
+    # fixture 'fs' not found
+    "test_001_load_from_files"
+  ];
 
   disabledTestPaths = [ "tests/end2end/" ];
 
   meta = with lib; {
     description = "Software requirements specification tool";
     homepage = "https://github.com/strictdoc-project/strictdoc";
-    changelog = "https://github.com/strictdoc-project/strictdoc/releases/tag/${version}";
+    changelog =
+      "https://github.com/strictdoc-project/strictdoc/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ yuu ];
   };

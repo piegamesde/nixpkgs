@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  sage-src,
-  jupyter-sphinx,
-  sphinx,
-  sphinx-copybutton,
+{ lib, buildPythonPackage, sage-src, jupyter-sphinx, sphinx, sphinx-copybutton
 }:
 
 buildPythonPackage rec {
@@ -12,11 +6,7 @@ buildPythonPackage rec {
   pname = "sage-docbuild";
   src = sage-src;
 
-  propagatedBuildInputs = [
-    jupyter-sphinx
-    sphinx
-    sphinx-copybutton
-  ];
+  propagatedBuildInputs = [ jupyter-sphinx sphinx sphinx-copybutton ];
 
   preBuild = ''
     cd pkgs/sage-docbuild

@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  pythonOlder,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  gmt,
-  numpy,
-  netcdf4,
-  pandas,
-  packaging,
-  xarray,
-  pytest-mpl,
-  ipython,
-  ghostscript,
-  pytestCheckHook,
-}:
+{ lib, stdenv, pythonOlder, buildPythonPackage, fetchFromGitHub, setuptools-scm
+, gmt, numpy, netcdf4, pandas, packaging, xarray, pytest-mpl, ipython
+, ghostscript, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pygmt";
@@ -38,20 +23,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    numpy
-    netcdf4
-    pandas
-    packaging
-    xarray
-  ];
+  propagatedBuildInputs = [ numpy netcdf4 pandas packaging xarray ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mpl
-    ghostscript
-    ipython
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mpl ghostscript ipython ];
 
   # The *entire* test suite requires network access
   doCheck = false;
@@ -66,7 +40,8 @@ buildPythonPackage rec {
     description = "A Python interface for the Generic Mapping Tools";
     homepage = "https://github.com/GenericMappingTools/pygmt";
     license = licenses.bsd3;
-    changelog = "https://github.com/GenericMappingTools/pygmt/releases/tag/v${version}";
+    changelog =
+      "https://github.com/GenericMappingTools/pygmt/releases/tag/v${version}";
     # pygmt.exceptions.GMTCLibNotFoundError: Error loading the GMT shared library '/nix/store/r3xnnqgl89vrnq0kzxx0bmjwzks45mz8-gmt-6.1.1/lib/libgmt.dylib'
     broken = stdenv.isDarwin;
     maintainers = with maintainers; [ sikmir ];

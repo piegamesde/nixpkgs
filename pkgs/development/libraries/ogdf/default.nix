@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  doxygen,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, doxygen }:
 
 stdenv.mkDerivation rec {
   pname = "ogdf";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zkQ6sS0EUmiigv3T7To+tG3XbFbR3XEbFo15oQ0bWf0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-  ];
+  nativeBuildInputs = [ cmake doxygen ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_FLAGS=-fPIC"
@@ -29,7 +20,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Open Graph Drawing Framework/Open Graph algorithms and Data structure Framework";
+    description =
+      "Open Graph Drawing Framework/Open Graph algorithms and Data structure Framework";
     homepage = "http://www.ogdf.net";
     license = licenses.gpl2;
     maintainers = [ maintainers.ianwookim ];

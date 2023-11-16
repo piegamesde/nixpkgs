@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  boost,
-}:
+{ lib, stdenv, fetchurl, cmake, boost }:
 
 stdenv.mkDerivation rec {
   pname = "ispike";
@@ -23,7 +17,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ boost ];
 
   meta = {
-    description = "Spiking neural interface between iCub and a spiking neural simulator";
+    description =
+      "Spiking neural interface between iCub and a spiking neural simulator";
     homepage = "https://sourceforge.net/projects/ispike/";
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.unix;

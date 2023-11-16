@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "rstfmt";
@@ -16,11 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-SJRA14CfoT8XMt3hMB7cLdmuLwsJnBSwhKkD1pJvQCI=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    black
-    docutils
-    sphinx
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ black docutils sphinx ];
 
   # Project has no unittest just sample files
   doCheck = false;

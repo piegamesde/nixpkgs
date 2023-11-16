@@ -1,9 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  gtk-engine-murrine,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, gtk-engine-murrine }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "deepin-gtk-theme";

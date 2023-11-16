@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  util-linux,
-  coreutils,
-}:
+{ lib, stdenv, fetchFromGitHub, util-linux, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "profile-sync-daemon";

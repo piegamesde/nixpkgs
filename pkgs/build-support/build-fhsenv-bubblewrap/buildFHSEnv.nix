@@ -1,23 +1,9 @@
-{
-  lib,
-  stdenv,
-  runCommandLocal,
-  buildEnv,
-  writeText,
-  writeShellScriptBin,
-  pkgs,
-  pkgsi686Linux,
-}:
+{ lib, stdenv, runCommandLocal, buildEnv, writeText, writeShellScriptBin, pkgs
+, pkgsi686Linux }:
 
-{
-  name ? null,
-  profile ? "",
-  targetPkgs ? pkgs: [ ],
-  multiPkgs ? pkgs: [ ],
-  extraBuildCommands ? "",
-  extraBuildCommandsMulti ? "",
-  extraOutputsToInstall ? [ ],
-}@args:
+{ name ? null, profile ? "", targetPkgs ? pkgs: [ ], multiPkgs ? pkgs: [ ]
+, extraBuildCommands ? "", extraBuildCommandsMulti ? ""
+, extraOutputsToInstall ? [ ] }@args:
 
 # HOWTO:
 # All packages (most likely programs) returned from targetPkgs will only be
@@ -43,7 +29,8 @@ let
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
+  targetPaths = targetPkgs pkgs
+    ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -77,7 +64,10 @@ let
   ldconfig = writeShellScriptBin "ldconfig" ''
     # due to a glibc bug, 64-bit ldconfig complains about patchelf'd 32-bit libraries, so we're using 32-bit ldconfig
     exec ${
-      if stdenv.isx86_64 && stdenv.isLinux then pkgsi686Linux.glibc.bin else pkgs.glibc.bin
+      if stdenv.isx86_64 && stdenv.isLinux then
+        pkgsi686Linux.glibc.bin
+      else
+        pkgs.glibc.bin
     }/bin/ldconfig -f /etc/ld.so.conf -C /etc/ld.so.cache "$@"
   '';
   etcProfile = writeText "profile" ''
@@ -131,15 +121,8 @@ let
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
     # ldconfig wrapper must come first so it overrides the original ldconfig
-    paths = [
-      etcPkg
-      ldconfig
-    ] ++ basePkgs ++ targetPaths;
-    extraOutputsToInstall = [
-      "out"
-      "lib"
-      "bin"
-    ] ++ extraOutputsToInstall;
+    paths = [ etcPkg ldconfig ] ++ basePkgs ++ targetPaths;
+    extraOutputsToInstall = [ "out" "lib" "bin" ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
     postBuild = ''
       if [[ -d  $out/share/gsettings-schemas/ ]]; then
@@ -175,10 +158,7 @@ let
   staticUsrProfileMulti = buildEnv {
     name = "${name}-usr-multi";
     paths = baseMultiPkgs ++ multiPaths;
-    extraOutputsToInstall = [
-      "out"
-      "lib"
-    ] ++ extraOutputsToInstall;
+    extraOutputsToInstall = [ "out" "lib" ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
   };
 
@@ -208,7 +188,8 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if isTargetBuild then setupLibDirsTarget else setupLibDirsMulti;
+  setupLibDirs =
+    if isTargetBuild then setupLibDirsTarget else setupLibDirsMulti;
 
   # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''
@@ -246,19 +227,15 @@ let
       fi
     done
   '';
-in
-runCommandLocal "${name}-fhs"
-  {
-    passthru = {
-      inherit args multiPaths targetPaths;
-    };
-  }
-  ''
-    mkdir -p $out
-    cd $out
-    ${setupTargetProfile}
-    cd $out
-    ${extraBuildCommands}
-    cd $out
-    ${lib.optionalString isMultiBuild extraBuildCommandsMulti}
-  ''
+
+in runCommandLocal "${name}-fhs" {
+  passthru = { inherit args multiPaths targetPaths; };
+} ''
+  mkdir -p $out
+  cd $out
+  ${setupTargetProfile}
+  cd $out
+  ${extraBuildCommands}
+  cd $out
+  ${lib.optionalString isMultiBuild extraBuildCommandsMulti}
+''

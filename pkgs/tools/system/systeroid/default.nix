@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  linux-doc,
-  xorg,
-}:
+{ lib, rustPlatform, fetchFromGitHub, linux-doc, xorg }:
 
 rustPlatform.buildRustPackage rec {
   pname = "systeroid";
@@ -30,7 +24,8 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "More powerful alternative to sysctl(8) with a terminal user interface";
+    description =
+      "More powerful alternative to sysctl(8) with a terminal user interface";
     homepage = "https://github.com/orhun/systeroid";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];

@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  fetchpatch,
-  lib,
-  stdenv,
-  cmake,
-}:
+{ fetchurl, fetchpatch, lib, stdenv, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "cmocka";
@@ -20,14 +14,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags =
-    lib.optional doCheck "-DUNIT_TESTING=ON"
+  cmakeFlags = lib.optional doCheck "-DUNIT_TESTING=ON"
     ++ lib.optional stdenv.hostPlatform.isStatic "-DBUILD_SHARED_LIBS=OFF";
 
   doCheck = true;
 
   meta = with lib; {
-    description = "Lightweight library to simplify and generalize unit tests for C";
+    description =
+      "Lightweight library to simplify and generalize unit tests for C";
     longDescription = ''
       There are a variety of C unit testing frameworks available however
       many of them are fairly complex and require the latest compiler
@@ -56,9 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://cmocka.org/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      kragniz
-      rasendubi
-    ];
+    maintainers = with maintainers; [ kragniz rasendubi ];
   };
 }

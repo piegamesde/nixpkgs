@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  fetchpatch,
-  hatchling,
-  platformdirs,
-  traitlets,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, fetchpatch, hatchling
+, platformdirs, traitlets, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jupyter-core";
@@ -28,17 +19,15 @@ buildPythonPackage rec {
     ./tests_respect_pythonpath.patch
     (fetchpatch {
       # add support for platformdirs>=3
-      url = "https://github.com/jupyter/jupyter_core/commit/ff4086cdbdac2ea79c18632e4e35acebc1f7cf57.patch";
+      url =
+        "https://github.com/jupyter/jupyter_core/commit/ff4086cdbdac2ea79c18632e4e35acebc1f7cf57.patch";
       hash = "sha256-UhHO58xZ4hH47NBhOhsfBjgsUtA+1EIHxPBvnKA5w28=";
     })
   ];
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    platformdirs
-    traitlets
-  ];
+  propagatedBuildInputs = [ platformdirs traitlets ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -46,11 +35,10 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  disabledTests =
-    [
-      # creates a temporary script, which isn't aware of PYTHONPATH
-      "test_argv0"
-    ];
+  disabledTests = [
+    # creates a temporary script, which isn't aware of PYTHONPATH
+    "test_argv0"
+  ];
 
   postCheck = ''
     $out/bin/jupyter --help > /dev/null

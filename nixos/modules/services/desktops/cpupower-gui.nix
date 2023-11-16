@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.cpupower-gui;
-in
-{
+let cfg = config.services.cpupower-gui;
+in {
   options = {
     services.cpupower-gui = {
       enable = mkOption {
@@ -54,7 +47,8 @@ in
         serviceConfig = {
           Type = "dbus";
           BusName = "org.rnd2.cpupower_gui.helper";
-          ExecStart = "${pkgs.cpupower-gui}/lib/cpupower-gui/cpupower-gui-helper";
+          ExecStart =
+            "${pkgs.cpupower-gui}/lib/cpupower-gui/cpupower-gui-helper";
         };
       };
     };

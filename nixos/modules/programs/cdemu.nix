@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.cdemu;
-in
-{
+let cfg = config.programs.cdemu;
+in {
 
   options = {
     programs.cdemu = {
@@ -60,9 +53,9 @@ in
       dbus.packages = [ pkgs.cdemu-daemon ];
     };
 
-    environment.systemPackages = [
-      pkgs.cdemu-daemon
-      pkgs.cdemu-client
-    ] ++ optional cfg.gui pkgs.gcdemu ++ optional cfg.image-analyzer pkgs.image-analyzer;
+    environment.systemPackages = [ pkgs.cdemu-daemon pkgs.cdemu-client ]
+      ++ optional cfg.gui pkgs.gcdemu
+      ++ optional cfg.image-analyzer pkgs.image-analyzer;
   };
+
 }

@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  graphviz,
-  appdirs,
-  ifaddr,
-  pythonOlder,
-  lxml,
-  mock,
-  nix-update-script,
-  pytestCheckHook,
-  requests,
-  requests-mock,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, graphviz, appdirs, ifaddr
+, pythonOlder, lxml, mock, nix-update-script, pytestCheckHook, requests
+, requests-mock, xmltodict }:
 
 buildPythonPackage rec {
   pname = "soco";
@@ -29,20 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-Kp9rG7fJzvmnLpjVulf9kODoABdjaaHvgyed9I+FHVA=";
   };
 
-  propagatedBuildInputs = [
-    appdirs
-    ifaddr
-    lxml
-    requests
-    xmltodict
-  ];
+  propagatedBuildInputs = [ appdirs ifaddr lxml requests xmltodict ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    graphviz
-    mock
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook graphviz mock requests-mock ];
 
   pythonImportsCheck = [ "soco" ];
 

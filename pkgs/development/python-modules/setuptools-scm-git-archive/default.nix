@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "setuptools-scm-git-archive";

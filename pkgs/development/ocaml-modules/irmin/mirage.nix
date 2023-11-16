@@ -1,10 +1,4 @@
-{
-  buildDunePackage,
-  irmin,
-  fmt,
-  ptime,
-  mirage-clock,
-}:
+{ buildDunePackage, irmin, fmt, ptime, mirage-clock }:
 
 buildDunePackage {
   pname = "irmin-mirage";
@@ -12,14 +6,7 @@ buildDunePackage {
   inherit (irmin) version src strictDeps;
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    irmin
-    fmt
-    ptime
-    mirage-clock
-  ];
+  propagatedBuildInputs = [ irmin fmt ptime mirage-clock ];
 
-  meta = irmin.meta // {
-    description = "MirageOS-compatible Irmin stores";
-  };
+  meta = irmin.meta // { description = "MirageOS-compatible Irmin stores"; };
 }

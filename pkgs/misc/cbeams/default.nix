@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchPypi,
-  isPy3k,
-  blessings,
-  docopt,
-}:
+{ lib, buildPythonApplication, fetchPypi, isPy3k, blessings, docopt }:
 
 buildPythonApplication rec {
   pname = "cbeams";
@@ -17,14 +10,12 @@ buildPythonApplication rec {
     sha256 = "1agcjg6kmcyvk834xd2j60mi349qi9iw3dc2vwpd7pqwq1daq3gi";
   };
 
-  propagatedBuildInputs = [
-    blessings
-    docopt
-  ];
+  propagatedBuildInputs = [ blessings docopt ];
 
   meta = with lib; {
     homepage = "https://github.com/tartley/cbeams";
-    description = "Command-line program to draw animated colored circles in the terminal";
+    description =
+      "Command-line program to draw animated colored circles in the terminal";
     license = licenses.bsd3;
     maintainers = with maintainers; [ oxzi ];
   };

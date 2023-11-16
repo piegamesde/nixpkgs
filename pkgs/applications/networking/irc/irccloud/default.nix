@@ -1,8 +1,4 @@
-{
-  appimageTools,
-  fetchurl,
-  lib,
-}:
+{ appimageTools, fetchurl, lib }:
 
 let
   pname = "irccloud";
@@ -10,13 +6,14 @@ let
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://github.com/irccloud/irccloud-desktop/releases/download/v${version}/IRCCloud-${version}-linux-x86_64.AppImage";
+    url =
+      "https://github.com/irccloud/irccloud-desktop/releases/download/v${version}/IRCCloud-${version}-linux-x86_64.AppImage";
     sha256 = "sha256-/hMPvYdnVB1XjKgU2v47HnVvW4+uC3rhRjbucqin4iI=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
-in
-appimageTools.wrapType2 {
+
+in appimageTools.wrapType2 {
   inherit name src;
 
   extraPkgs = pkgs: with pkgs; [ at-spi2-core ];

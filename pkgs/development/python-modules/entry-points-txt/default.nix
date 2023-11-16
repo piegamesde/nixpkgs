@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "entry-points-txt";

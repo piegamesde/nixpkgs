@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  python3Packages,
-  fetchPypi,
-  makeWrapper,
-  coreutils,
-  iptables,
-  nettools,
-  openssh,
-  procps,
-}:
+{ lib, stdenv, python3Packages, fetchPypi, makeWrapper, coreutils, iptables
+, nettools, openssh, procps }:
 
 python3Packages.buildPythonApplication rec {
   pname = "sshuttle";
@@ -27,27 +17,15 @@ python3Packages.buildPythonApplication rec {
       --replace '--cov=sshuttle --cov-branch --cov-report=term-missing' ""
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    python3Packages.setuptools-scm
-  ];
+  nativeBuildInputs = [ makeWrapper python3Packages.setuptools-scm ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   postInstall = ''
     wrapProgram $out/bin/sshuttle \
       --prefix PATH : "${
-        lib.makeBinPath (
-          [
-            coreutils
-            openssh
-            procps
-          ]
-          ++ lib.optionals stdenv.isLinux [
-            iptables
-            nettools
-          ]
-        )
+        lib.makeBinPath ([ coreutils openssh procps ]
+          ++ lib.optionals stdenv.isLinux [ iptables nettools ])
       }" \
   '';
 
@@ -60,10 +38,6 @@ python3Packages.buildPythonApplication rec {
       Works with Linux and Mac OS and supports DNS tunneling.
     '';
     license = licenses.lgpl21;
-    maintainers = with maintainers; [
-      domenkozar
-      carlosdagos
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ domenkozar carlosdagos SuperSandro2000 ];
   };
 }

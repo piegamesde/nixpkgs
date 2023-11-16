@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-}:
+{ lib, stdenv, fetchzip }:
 
 stdenv.mkDerivation rec {
   pname = "migmix";
@@ -38,7 +34,8 @@ stdenv.mkDerivation rec {
   outputHash = "1fhh8wg6lxwrnsg9rl4ihffl0bsp1wqa5gps9fx60kr6j9wpvmbg";
 
   meta = with lib; {
-    description = "A high-quality Japanese font based on M+ fonts and IPA fonts";
+    description =
+      "A high-quality Japanese font based on M+ fonts and IPA fonts";
     homepage = "http://mix-mplus-ipa.osdn.jp/migmix";
     license = licenses.ipa;
     maintainers = [ maintainers.mikoim ];

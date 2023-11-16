@@ -1,38 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gettext,
-  makeWrapper,
-  tcl,
-  which,
-  ncurses,
-  perl,
-  cyrus_sasl,
-  gss,
-  gpgme,
-  libkrb5,
-  libidn2,
-  libxml2,
-  notmuch,
-  openssl,
-  lua,
-  lmdb,
-  libxslt,
-  docbook_xsl,
-  docbook_xml_dtd_42,
-  w3m,
-  mailcap,
-  sqlite,
-  zlib,
-  lndir,
-  pkg-config,
-  zstd,
-  enableZstd ? true,
-  enableMixmaster ? false,
-  enableLua ? false,
-  withContrib ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, gettext, makeWrapper, tcl, which, ncurses, perl
+, cyrus_sasl, gss, gpgme, libkrb5, libidn2, libxml2, notmuch, openssl, lua, lmdb
+, libxslt, docbook_xsl, docbook_xml_dtd_42, w3m, mailcap, sqlite, zlib, lndir
+, pkg-config, zstd, enableZstd ? true, enableMixmaster ? false
+, enableLua ? false, withContrib ? true }:
 
 stdenv.mkDerivation rec {
   version = "20230517";
@@ -45,11 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1i0STaJulJP0LWdNfLLIEKVapfkcguYRnbc+psWlVE4=";
   };
 
-  patches =
-    [
-      # https://github.com/neomutt/neomutt/issues/3773#issuecomment-1493295144
-      ./fix-open-very-large-mailbox.patch
-    ];
+  patches = [
+    # https://github.com/neomutt/neomutt/issues/3773#issuecomment-1493295144
+    ./fix-open-very-large-mailbox.patch
+  ];
 
   buildInputs = [
     cyrus_sasl
@@ -100,33 +69,30 @@ stdenv.mkDerivation rec {
       --replace /etc/mime.types ${mailcap}/etc/mime.types
   '';
 
-  configureFlags =
-    [
-      "--enable-autocrypt"
-      "--gpgme"
-      "--gss"
-      "--lmdb"
-      "--notmuch"
-      "--ssl"
-      "--sasl"
-      "--with-homespool=mailbox"
-      "--with-mailpath="
-      # To make it not reference .dev outputs. See:
-      # https://github.com/neomutt/neomutt/pull/2367
-      "--disable-include-path-in-cflags"
-      "--zlib"
-    ]
-    ++ lib.optional enableZstd "--zstd"
-    ++ lib.optional enableLua "--lua"
+  configureFlags = [
+    "--enable-autocrypt"
+    "--gpgme"
+    "--gss"
+    "--lmdb"
+    "--notmuch"
+    "--ssl"
+    "--sasl"
+    "--with-homespool=mailbox"
+    "--with-mailpath="
+    # To make it not reference .dev outputs. See:
+    # https://github.com/neomutt/neomutt/pull/2367
+    "--disable-include-path-in-cflags"
+    "--zlib"
+  ] ++ lib.optional enableZstd "--zstd" ++ lib.optional enableLua "--lua"
     ++ lib.optional enableMixmaster "--mixmaster";
 
-  postInstall =
-    ''
-      wrapProgram "$out/bin/neomutt" --prefix PATH : "$out/libexec/neomutt"
-    ''
+  postInstall = ''
+    wrapProgram "$out/bin/neomutt" --prefix PATH : "$out/libexec/neomutt"
+  ''
     # https://github.com/neomutt/neomutt-contrib
     # Contains vim-keys, keybindings presets and more.
-    + lib.optionalString withContrib "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt";
+    + lib.optionalString withContrib
+    "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt";
 
   doCheck = true;
 

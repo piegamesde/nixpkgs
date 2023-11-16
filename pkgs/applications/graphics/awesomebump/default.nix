@@ -1,14 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  fetchgit,
-  qtbase,
-  qmake,
-  qtscript,
-  flex,
-  bison,
-  qtdeclarative,
-}:
+{ mkDerivation, lib, fetchgit, qtbase, qmake, qtscript, flex, bison
+, qtdeclarative }:
 
 let
   version = "5.1";
@@ -25,32 +16,19 @@ let
     inherit src;
     sourceRoot = "AwesomeBump/Sources/utils/QtnProperty";
     patches = [ ./qtnproperty-parallel-building.patch ];
-    buildInputs = [
-      qtscript
-      qtbase
-      qtdeclarative
-    ];
-    nativeBuildInputs = [
-      qmake
-      flex
-      bison
-    ];
+    buildInputs = [ qtscript qtbase qtdeclarative ];
+    nativeBuildInputs = [ qmake flex bison ];
     postInstall = ''
       install -D bin-linux/QtnPEG $out/bin/QtnPEG
     '';
   };
-in
-mkDerivation {
+in mkDerivation {
   pname = "awesomebump";
   inherit version;
 
   inherit src;
 
-  buildInputs = [
-    qtbase
-    qtscript
-    qtdeclarative
-  ];
+  buildInputs = [ qtbase qtscript qtdeclarative ];
 
   nativeBuildInputs = [ qmake ];
 
@@ -77,7 +55,8 @@ mkDerivation {
 
   meta = {
     homepage = "https://github.com/kmkolasinski/AwesomeBump";
-    description = "A program to generate normal, height, specular or ambient occlusion textures from a single image";
+    description =
+      "A program to generate normal, height, specular or ambient occlusion textures from a single image";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.eelco ];
     platforms = lib.platforms.linux;

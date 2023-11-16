@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildDunePackage,
-  lwt,
-}:
+{ lib, fetchFromGitLab, buildDunePackage, lwt }:
 
 buildDunePackage rec {
   pname = "lwt-watcher";

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre_headless,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jre_headless, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "trino-cli";
@@ -33,12 +27,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The Trino CLI provides a terminal-based, interactive shell for running queries";
+    description =
+      "The Trino CLI provides a terminal-based, interactive shell for running queries";
     homepage = "https://github.com/trinodb/trino";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      regadas
-      cpcloud
-    ];
+    maintainers = with maintainers; [ regadas cpcloud ];
   };
 }

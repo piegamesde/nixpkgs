@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  picosat,
-}:
+{ lib, stdenv, fetchurl, picosat }:
 
 stdenv.mkDerivation rec {
   pname = "aiger";
@@ -48,11 +43,7 @@ stdenv.mkDerivation rec {
     cp -v aiger.h $dev/include
   '';
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-  ];
+  outputs = [ "out" "dev" "lib" ];
 
   meta = {
     description = "And-Inverter Graph (AIG) utilities";

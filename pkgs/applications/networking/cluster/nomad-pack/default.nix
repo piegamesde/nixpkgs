@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "nomad-pack";
@@ -30,9 +26,12 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/hashicorp/nomad-pack";
-    changelog = "https://github.com/hashicorp/nomad-pack/blob/main/CHANGELOG.md";
-    description = "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad.";
+    changelog =
+      "https://github.com/hashicorp/nomad-pack/blob/main/CHANGELOG.md";
+    description =
+      "Nomad Pack is a templating and packaging tool used with HashiCorp Nomad.";
     license = licenses.mpl20;
     maintainers = with maintainers; [ techknowlogick ];
   };
+
 }

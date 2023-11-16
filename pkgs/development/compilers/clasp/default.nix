@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  fetchFromGitHub,
-  llvmPackages_15,
-}:
+{ pkgs, lib, fetchFromGitHub, llvmPackages_15 }:
 
 let
 
@@ -28,11 +23,7 @@ let
     version = "tarball";
     inherit src;
     patches = [ ./clasp-pin-repos-commits.patch ];
-    nativeBuildInputs = with pkgs; [
-      sbcl
-      git
-      cacert
-    ];
+    nativeBuildInputs = with pkgs; [ sbcl git cacert ];
     buildPhase = ''
       export SOURCE_DATE_EPOCH=1
       export ASDF_OUTPUT_TRANSLATIONS=$(pwd):$(pwd)/__fasls
@@ -50,31 +41,14 @@ let
     outputHashAlgo = "sha256";
     outputHash = "sha256-vgwThjn2h3nKnShtKoHgaPdH/FDHv28fLMQvKFEwG6o=";
   };
-in
-llvmPackages_15.stdenv.mkDerivation {
+
+in llvmPackages_15.stdenv.mkDerivation {
   pname = "clasp";
   version = "2.2.0";
   inherit src;
   nativeBuildInputs =
-    (
-      with pkgs; [
-        sbcl
-        git
-        pkg-config
-        fmt
-        gmpxx
-        libelf
-        boost
-        libunwind
-        ninja
-      ]
-    )
-    ++ (
-      with llvmPackages_15; [
-        llvm
-        libclang
-      ]
-    );
+    (with pkgs; [ sbcl git pkg-config fmt gmpxx libelf boost libunwind ninja ])
+    ++ (with llvmPackages_15; [ llvm libclang ]);
   configurePhase = ''
     export SOURCE_DATE_EPOCH=1
     export ASDF_OUTPUT_TRANSLATIONS=$(pwd):$(pwd)/__fasls
@@ -97,16 +71,16 @@ llvmPackages_15.stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "A Common Lisp implementation based on LLVM with C++ integration";
+    description =
+      "A Common Lisp implementation based on LLVM with C++ integration";
     license = lib.licenses.lgpl21Plus;
     maintainers = lib.teams.lisp.members;
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     # Upstream claims support, but breaks with:
     # error: use of undeclared identifier 'aligned_alloc'
     broken = llvmPackages_15.stdenv.isDarwin;
     homepage = "https://github.com/clasp-developers/clasp";
   };
+
 }
+

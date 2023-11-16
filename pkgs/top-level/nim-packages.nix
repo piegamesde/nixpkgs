@@ -1,29 +1,20 @@
-{
-  lib,
-  pkgs,
-  stdenv,
-  newScope,
-  nim,
-  fetchFromGitHub,
-  buildPackages,
-}:
+{ lib, pkgs, stdenv, newScope, nim, fetchFromGitHub, buildPackages }:
 
-lib.makeScope newScope (
-  self:
-  let
-    callPackage = self.callPackage;
-  in
-  {
+lib.makeScope newScope (self:
+  let callPackage = self.callPackage;
+  in {
     inherit nim;
     nim_builder = callPackage ../development/nim-packages/nim_builder { };
-    buildNimPackage = callPackage ../development/nim-packages/build-nim-package {
-      inherit (buildPackages.buildPackages.nimPackages) nim_builder;
-    };
+    buildNimPackage =
+      callPackage ../development/nim-packages/build-nim-package {
+        inherit (buildPackages.buildPackages.nimPackages) nim_builder;
+      };
     fetchNimble = callPackage ../development/nim-packages/fetch-nimble { };
 
     asciigraph = callPackage ../development/nim-packages/asciigraph { };
 
-    astpatternmatching = callPackage ../development/nim-packages/astpatternmatching { };
+    astpatternmatching =
+      callPackage ../development/nim-packages/astpatternmatching { };
 
     asynctools = callPackage ../development/nim-packages/asynctools { };
 
@@ -47,11 +38,13 @@ lib.makeScope newScope (
 
     flatty = callPackage ../development/nim-packages/flatty { };
 
-    freedesktop_org = callPackage ../development/nim-packages/freedesktop_org { };
+    freedesktop_org =
+      callPackage ../development/nim-packages/freedesktop_org { };
 
     frosty = callPackage ../development/nim-packages/frosty { };
 
-    getdns = callPackage ../development/nim-packages/getdns { inherit (pkgs) getdns; };
+    getdns =
+      callPackage ../development/nim-packages/getdns { inherit (pkgs) getdns; };
 
     hts-nim = callPackage ../development/nim-packages/hts-nim { };
 
@@ -97,7 +90,9 @@ lib.makeScope newScope (
 
     regex = callPackage ../development/nim-packages/regex { };
 
-    rocksdb = callPackage ../development/nim-packages/rocksdb { inherit (pkgs) rocksdb; };
+    rocksdb = callPackage ../development/nim-packages/rocksdb {
+      inherit (pkgs) rocksdb;
+    };
 
     safeset = callPackage ../development/nim-packages/safeset { };
 
@@ -107,7 +102,8 @@ lib.makeScope newScope (
 
     segmentation = callPackage ../development/nim-packages/segmentation { };
 
-    snappy = callPackage ../development/nim-packages/snappy { inherit (pkgs) snappy; };
+    snappy =
+      callPackage ../development/nim-packages/snappy { inherit (pkgs) snappy; };
 
     nimraylib-now = callPackage ../development/nim-packages/nimraylib-now { };
 
@@ -125,7 +121,8 @@ lib.makeScope newScope (
 
     tempfile = callPackage ../development/nim-packages/tempfile { };
 
-    tkrzw = callPackage ../development/nim-packages/tkrzw { inherit (pkgs) tkrzw; };
+    tkrzw =
+      callPackage ../development/nim-packages/tkrzw { inherit (pkgs) tkrzw; };
 
     ui = callPackage ../development/nim-packages/ui { inherit (pkgs) libui; };
 
@@ -138,5 +135,5 @@ lib.makeScope newScope (
     x11 = callPackage ../development/nim-packages/x11 { };
 
     zippy = callPackage ../development/nim-packages/zippy { };
-  }
-)
+
+  })

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  piknik,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, piknik }:
 
 buildGoModule rec {
   pname = "piknik";
@@ -19,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   passthru.tests = {
     version = testers.testVersion {

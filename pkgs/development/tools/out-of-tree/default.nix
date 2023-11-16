@@ -1,12 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchgit,
-  qemu,
-  docker,
-  which,
-  makeWrapper,
-}:
+{ lib, buildGoModule, fetchgit, qemu, docker, which, makeWrapper }:
 
 buildGoModule rec {
   pname = "out-of-tree";

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  stdenv,
-  packaging,
-  setuptools,
-  importlib-resources,
-  dbus-next,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, stdenv, packaging
+, setuptools, importlib-resources, dbus-next }:
 
 buildPythonPackage rec {
   pname = "desktop-notifier";
@@ -26,8 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [ packaging ]
+  propagatedBuildInputs = [ packaging ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals stdenv.isLinux [ dbus-next ];
 
@@ -39,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for cross-platform desktop notifications";
     homepage = "https://github.com/samschott/desktop-notifier";
-    changelog = "https://github.com/samschott/desktop-notifier/releases/tag/v${version}";
+    changelog =
+      "https://github.com/samschott/desktop-notifier/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sfrijters ];
     platforms = platforms.linux;

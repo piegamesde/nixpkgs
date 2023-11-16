@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,7 @@ let
   cfg = config.services.fluentd;
 
   pluginArgs = concatStringsSep " " (map (x: "-p ${x}") cfg.plugins);
-in
-{
+in {
   ###### interface
 
   options = {

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "protozero";
@@ -21,10 +16,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Minimalistic protocol buffer decoder and encoder in C++";
     homepage = "https://github.com/mapbox/protozero";
-    license = with licenses; [
-      bsd2
-      asl20
-    ];
+    license = with licenses; [ bsd2 asl20 ];
     changelog = [
       "https://github.com/mapbox/protozero/releases/tag/v${version}"
       "https://github.com/mapbox/protozero/blob/v${version}/CHANGELOG.md"

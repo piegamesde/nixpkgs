@@ -1,19 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  mandoc,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, mandoc }:
 
 stdenv.mkDerivation rec {
   pname = "owamp";
   version = "3.5.6";
-  nativeBuildInputs = [
-    autoconf
-    automake
-  ];
+  nativeBuildInputs = [ autoconf automake ];
   buildInputs = [ mandoc ];
   src = fetchFromGitHub {
     owner = "perfsonar";

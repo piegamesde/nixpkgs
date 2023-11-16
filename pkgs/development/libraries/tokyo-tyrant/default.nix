@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  tokyocabinet,
-  pkg-config,
-}:
+{ fetchurl, lib, stdenv, tokyocabinet, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "tokyotyrant";

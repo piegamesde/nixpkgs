@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "spidev";
@@ -25,4 +21,5 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ hexa ];
     platforms = platforms.linux;
   };
+
 }

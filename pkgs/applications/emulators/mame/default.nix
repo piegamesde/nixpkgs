@@ -1,43 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  alsa-lib,
-  SDL2,
-  SDL2_ttf,
-  copyDesktopItems,
-  expat,
-  flac,
-  fontconfig,
-  glm,
-  installShellFiles,
-  libXi,
-  libXinerama,
-  libjpeg,
-  libpcap,
-  libpulseaudio,
-  makeDesktopItem,
-  makeWrapper,
-  papirus-icon-theme,
-  pkg-config,
-  portaudio,
-  portmidi,
-  pugixml,
-  python3,
-  qtbase,
-  rapidjson,
-  sqlite,
-  utf8proc,
-  which,
-  writeScript,
-  zlib,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, SDL2, SDL2_ttf, copyDesktopItems
+, expat, flac, fontconfig, glm, installShellFiles, libXi, libXinerama, libjpeg
+, libpcap, libpulseaudio, makeDesktopItem, makeWrapper, papirus-icon-theme
+, pkg-config, portaudio, portmidi, pugixml, python3, qtbase, rapidjson, sqlite
+, utf8proc, which, writeScript, zlib, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) CoreAudioKit ForceFeedback;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk.frameworks) CoreAudioKit ForceFeedback;
+in stdenv.mkDerivation rec {
   pname = "mame";
   version = "0.255";
   srcVersion = builtins.replaceStrings [ "." ] [ "" ] version;
@@ -49,10 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-pdPKxEHxynBIB2lUG6yjKNcY8MlOlk4pfr7WwqaA9Dk=";
   };
 
-  outputs = [
-    "out"
-    "tools"
-  ];
+  outputs = [ "out" "tools" ];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -78,52 +43,38 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   # https://docs.mamedev.org/initialsetup/compilingmame.html
-  buildInputs =
-    [
-      expat
-      zlib
-      flac
-      portmidi
-      portaudio
-      utf8proc
-      libjpeg
-      rapidjson
-      pugixml
-      glm
-      SDL2
-      SDL2_ttf
-      sqlite
-      qtbase
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      alsa-lib
-      libpulseaudio
-      libXinerama
-      libXi
-      fontconfig
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      libpcap
-      CoreAudioKit
-      ForceFeedback
-    ];
+  buildInputs = [
+    expat
+    zlib
+    flac
+    portmidi
+    portaudio
+    utf8proc
+    libjpeg
+    rapidjson
+    pugixml
+    glm
+    SDL2
+    SDL2_ttf
+    sqlite
+    qtbase
+  ] ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    libpulseaudio
+    libXinerama
+    libXi
+    fontconfig
+  ] ++ lib.optionals stdenv.isDarwin [ libpcap CoreAudioKit ForceFeedback ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    installShellFiles
-    makeWrapper
-    pkg-config
-    python3
-    which
+  nativeBuildInputs =
+    [ copyDesktopItems installShellFiles makeWrapper pkg-config python3 which ];
+
+  patches = [
+    # by default MAME assumes that paths with stock resources are relative and
+    # that you run MAME changing to install directory, so we add absolute paths
+    # here
+    ./001-use-absolute-paths.diff
   ];
-
-  patches =
-    [
-      # by default MAME assumes that paths with stock resources are relative and
-      # that you run MAME changing to install directory, so we add absolute paths
-      # here
-      ./001-use-absolute-paths.diff
-    ];
 
   # Since the bug described in https://github.com/NixOS/nixpkgs/issues/135438,
   # it is not possible to use substituteAll
@@ -141,25 +92,16 @@ stdenv.mkDerivation rec {
       type = "Application";
       genericName = "MAME is a multi-purpose emulation framework";
       comment = "Play vintage games using the MAME emulator";
-      categories = [
-        "Game"
-        "Emulator"
-      ];
-      keywords = [
-        "Game"
-        "Emulator"
-        "Arcade"
-      ];
+      categories = [ "Game" "Emulator" ];
+      keywords = [ "Game" "Emulator" "Arcade" ];
     })
   ];
 
   # TODO: copy shaders from src/osd/modules/opengl/shader/glsl*.*h
   # to the final package after we figure out how they work
   installPhase =
-    let
-      icon = "${papirus-icon-theme}/share/icons/Papirus/32x32/apps/mame.svg";
-    in
-    ''
+    let icon = "${papirus-icon-theme}/share/icons/Papirus/32x32/apps/mame.svg";
+    in ''
       runHook preInstall
 
       # mame
@@ -216,11 +158,9 @@ stdenv.mkDerivation rec {
       calculators, in addition to the arcade video games that were its initial
       focus.
     '';
-    changelog = "https://github.com/mamedev/mame/releases/download/mame${srcVersion}/whatsnew_${srcVersion}.txt";
-    license = with licenses; [
-      bsd3
-      gpl2Plus
-    ];
+    changelog =
+      "https://github.com/mamedev/mame/releases/download/mame${srcVersion}/whatsnew_${srcVersion}.txt";
+    license = with licenses; [ bsd3 gpl2Plus ];
     maintainers = with maintainers; [ thiagokokada ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;

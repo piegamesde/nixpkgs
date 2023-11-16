@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests }:
 
 buildPythonPackage rec {
   pname = "venstarcolortouch";
@@ -22,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "venstarcolortouch" ];
 
   meta = with lib; {
-    description = "Python interface for Venstar ColorTouch thermostats Resources";
+    description =
+      "Python interface for Venstar ColorTouch thermostats Resources";
     homepage = "https://github.com/hpeyerl/venstar_colortouch";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

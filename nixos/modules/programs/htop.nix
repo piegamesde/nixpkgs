@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,7 @@ let
 
   cfg = config.programs.htop;
 
-  fmt =
-    value:
+  fmt = value:
     if isList value then
       concatStringsSep " " (map fmt value)
     else if isString value then
@@ -21,9 +15,8 @@ let
       toString value
     else
       throw "Unrecognized type ${typeOf value} in htop settings";
-in
 
-{
+in {
 
   options.programs.htop = {
     package = mkOption {
@@ -38,22 +31,8 @@ in
     enable = mkEnableOption (lib.mdDoc "htop process monitor");
 
     settings = mkOption {
-      type =
-        with types;
-        attrsOf (
-          oneOf [
-            str
-            int
-            bool
-            (listOf (
-              oneOf [
-                str
-                int
-                bool
-              ]
-            ))
-          ]
-        );
+      type = with types;
+        attrsOf (oneOf [ str int bool (listOf (oneOf [ str int bool ])) ]);
       default = { };
       example = {
         hide_kernel_threads = true;
@@ -71,11 +50,11 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc."htoprc".text =
-      ''
-        # Global htop configuration
-        # To change set: programs.htop.settings.KEY = VALUE;
-      ''
-      + concatStringsSep "\n" (mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings);
+    environment.etc."htoprc".text = ''
+      # Global htop configuration
+      # To change set: programs.htop.settings.KEY = VALUE;
+    '' + concatStringsSep "\n"
+      (mapAttrsToList (key: value: "${key}=${fmt value}") cfg.settings);
   };
+
 }

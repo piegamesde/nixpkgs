@@ -1,13 +1,7 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
-let
-  version = "1.18.0";
-in
-buildGoModule {
+let version = "1.18.0";
+in buildGoModule {
   pname = "sqlc";
   inherit version;
 

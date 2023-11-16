@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytest,
-  hypothesis,
-  hypothesmith,
-  python,
+{ lib, buildPythonPackage, fetchPypi, pytest, hypothesis, hypothesmith, python
 }:
 
 buildPythonPackage rec {

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "biodiff";
@@ -20,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Hex diff viewer using alignment algorithms from biology";
     homepage = "https://github.com/8051Enthusiast/biodiff";
-    changelog = "https://github.com/8051Enthusiast/biodiff/blob/v${version}/CHANGELOG";
+    changelog =
+      "https://github.com/8051Enthusiast/biodiff/blob/v${version}/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ newam ];
   };

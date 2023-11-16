@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "yor";
@@ -28,13 +24,11 @@ buildGoModule rec {
     EOF
   '';
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Extensible auto-tagger for your IaC files. The ultimate way to link entities in the cloud back to the codified resource which created it.";
+    description =
+      "Extensible auto-tagger for your IaC files. The ultimate way to link entities in the cloud back to the codified resource which created it.";
     homepage = "https://github.com/bridgecrewio/yor";
     changelog = "https://github.com/bridgecrewio/yor/releases/tag/${version}";
     license = licenses.asl20;

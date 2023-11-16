@@ -1,30 +1,8 @@
-{
-  lib,
-  backports-zoneinfo,
-  buildPythonPackage,
-  cached-property,
-  defusedxml,
-  dnspython,
-  fetchFromGitHub,
-  fetchpatch,
-  flake8,
-  isodate,
-  lxml,
-  oauthlib,
-  psutil,
-  pygments,
-  python-dateutil,
-  pythonOlder,
-  pytz,
-  pyyaml,
-  requests,
-  requests_ntlm,
-  requests-oauthlib,
-  requests-kerberos,
-  requests-mock,
-  tzdata,
-  tzlocal,
-}:
+{ lib, backports-zoneinfo, buildPythonPackage, cached-property, defusedxml
+, dnspython, fetchFromGitHub, fetchpatch, flake8, isodate, lxml, oauthlib
+, psutil, pygments, python-dateutil, pythonOlder, pytz, pyyaml, requests
+, requests_ntlm, requests-oauthlib, requests-kerberos, requests-mock, tzdata
+, tzlocal }:
 
 buildPythonPackage rec {
   pname = "exchangelib";
@@ -43,7 +21,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "tests-timezones-2.patch";
-      url = "https://github.com/ecederstrand/exchangelib/commit/419eafcd9261bfd0617823ee437204d5556a8271.diff";
+      url =
+        "https://github.com/ecederstrand/exchangelib/commit/419eafcd9261bfd0617823ee437204d5556a8271.diff";
       excludes = [ "tests/test_ewsdatetime.py" ];
       hash = "sha256-dSp6NkNT5dHOg8XgDi8sR3t3hq46sNtPjUXva2YfFSU=";
     })
@@ -65,21 +44,16 @@ buildPythonPackage rec {
     tzlocal
   ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
-  nativeCheckInputs = [
-    flake8
-    psutil
-    python-dateutil
-    pytz
-    pyyaml
-    requests-mock
-  ];
+  nativeCheckInputs =
+    [ flake8 psutil python-dateutil pytz pyyaml requests-mock ];
 
   pythonImportsCheck = [ "exchangelib" ];
 
   meta = with lib; {
     description = "Client for Microsoft Exchange Web Services (EWS)";
     homepage = "https://github.com/ecederstrand/exchangelib";
-    changelog = "https://github.com/ecederstrand/exchangelib/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ecederstrand/exchangelib/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [ catern ];
   };

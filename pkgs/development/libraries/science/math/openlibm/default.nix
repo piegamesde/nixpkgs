@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "openlibm";
@@ -18,7 +14,8 @@ stdenv.mkDerivation rec {
   makeFlags = [ "prefix=$(out)" ];
 
   meta = {
-    description = "High quality system independent, portable, open source libm implementation";
+    description =
+      "High quality system independent, portable, open source libm implementation";
     homepage = "https://openlibm.org/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ttuegel ];

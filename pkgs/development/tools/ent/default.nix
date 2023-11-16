@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "ent-go";
@@ -20,10 +15,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/ent" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -43,3 +35,4 @@ buildGoModule rec {
     mainProgram = "ent";
   };
 }
+

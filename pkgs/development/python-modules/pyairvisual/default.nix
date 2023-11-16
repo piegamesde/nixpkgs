@@ -1,17 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  poetry-core,
-  pysmb,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, numpy
+, poetry-core, pysmb, pytest-aiohttp, pytest-asyncio, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyairvisual";
@@ -29,11 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    numpy
-    pysmb
-  ];
+  propagatedBuildInputs = [ aiohttp numpy pysmb ];
 
   nativeCheckInputs = [
     aresponses
@@ -43,11 +28,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples directory as the files are prefixed with test_.
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples directory as the files are prefixed with test_.
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "pyairvisual" ];
 

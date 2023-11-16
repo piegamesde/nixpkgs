@@ -1,96 +1,45 @@
-{
-  lib,
-  stdenv,
-  fetchpatch,
-  fetchurl,
-  asciidoc,
-  binutils,
-  coreutils,
-  curl,
-  gpgme,
-  installShellFiles,
-  libarchive,
-  makeWrapper,
-  meson,
-  ninja,
-  openssl,
-  perl,
-  pkg-config,
-  zlib,
+{ lib, stdenv, fetchpatch, fetchurl, asciidoc, binutils, coreutils, curl, gpgme
+, installShellFiles, libarchive, makeWrapper, meson, ninja, openssl, perl
+, pkg-config, zlib
 
-  # Compression tools in scripts/libmakepkg/util/compress.sh.in
-  gzip,
-  bzip2,
-  xz,
-  zstd,
-  lrzip,
-  lzop,
-  ncompress,
-  lz4,
-  lzip,
+# Compression tools in scripts/libmakepkg/util/compress.sh.in
+, gzip, bzip2, xz, zstd, lrzip, lzop, ncompress, lz4, lzip
 
-  # pacman-key runtime dependencies
-  gawk,
-  gettext,
-  gnugrep,
-  gnupg,
+# pacman-key runtime dependencies
+, gawk, gettext, gnugrep, gnupg
 
-  # Tells pacman where to find ALPM hooks provided by packages.
-  # This path is very likely to be used in an Arch-like root.
-  sysHookDir ? "/usr/share/libalpm/hooks/",
-}:
+# Tells pacman where to find ALPM hooks provided by packages.
+# This path is very likely to be used in an Arch-like root.
+, sysHookDir ? "/usr/share/libalpm/hooks/" }:
 
 stdenv.mkDerivation rec {
   pname = "pacman";
   version = "6.0.2";
 
   src = fetchurl {
-    url = "https://sources.archlinux.org/other/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://sources.archlinux.org/other/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-fY4+jFEhrsCWXfcfWb7fRgUsbPFPljZcRBHsPeCkwaU=";
   };
 
-  nativeBuildInputs = [
-    asciidoc
-    installShellFiles
-    makeWrapper
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ asciidoc installShellFiles makeWrapper meson ninja pkg-config ];
 
-  buildInputs = [
-    curl
-    gpgme
-    libarchive
-    openssl
-    perl
-    zlib
-  ];
+  buildInputs = [ curl gpgme libarchive openssl perl zlib ];
 
   patches = [
     ./dont-create-empty-dirs.patch
     # Add keyringdir meson option to configure the keyring directory
     (fetchpatch {
-      url = "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch";
+      url =
+        "https://gitlab.archlinux.org/pacman/pacman/-/commit/79bd512181af12ec80fd8f79486fc9508fa4a1b3.patch";
       hash = "sha256-ivTPwWe06Q5shn++R6EY0x3GC0P4X0SuC+F5sndfAtM=";
     })
   ];
 
   postPatch =
-    let
-      compressionTools = [
-        gzip
-        bzip2
-        xz
-        zstd
-        lrzip
-        lzop
-        ncompress
-        lz4
-        lzip
-      ];
-    in
-    ''
+    let compressionTools = [ gzip bzip2 xz zstd lrzip lzop ncompress lz4 lzip ];
+    in ''
       echo 'export PATH=${
         lib.makeBinPath compressionTools
       }:$PATH' >> scripts/libmakepkg/util/compress.sh.in
@@ -108,10 +57,7 @@ stdenv.mkDerivation rec {
         --replace "--batch --check-trustdb" "--batch --check-trustdb --allow-weak-key-signatures"
     ''; # the line above should be removed once Arch migrates to gnupg 2.3.x
 
-  mesonFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ];
+  mesonFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ];
 
   postInstall = ''
     installShellCompletion --bash scripts/pacman --zsh scripts/_pacman
@@ -133,7 +79,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple library-based package manager";
     homepage = "https://archlinux.org/pacman/";
-    changelog = "https://gitlab.archlinux.org/pacman/pacman/-/raw/v${version}/NEWS";
+    changelog =
+      "https://gitlab.archlinux.org/pacman/pacman/-/raw/v${version}/NEWS";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ samlukeyes123 ];

@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { lib, ... }:
+import ./make-test-python.nix ({ lib, ... }:
   let
     execOptions = [
       "Boot"
@@ -70,7 +69,8 @@ import ./make-test-python.nix (
       "Port"
     ];
 
-    optionsToConfig = opts: builtins.listToAttrs (map (n: lib.nameValuePair n "testdata") opts);
+    optionsToConfig = opts:
+      builtins.listToAttrs (map (n: lib.nameValuePair n "testdata") opts);
 
     grepForOptions = opts: ''
       node.succeed(
@@ -81,36 +81,34 @@ import ./make-test-python.nix (
 
     unitName = "options-test";
     configFile = "/etc/systemd/nspawn/${unitName}.nspawn";
-  in
-  {
+
+  in {
     name = "systemd-nspawn-configfile";
 
     nodes = {
-      node =
-        { pkgs, ... }:
-        {
-          systemd.nspawn."${unitName}" = {
-            enable = true;
+      node = { pkgs, ... }: {
+        systemd.nspawn."${unitName}" = {
+          enable = true;
 
-            execConfig = optionsToConfig execOptions // {
-              Boot = true;
-              ProcessTwo = true;
-              NotifyReady = true;
-            };
+          execConfig = optionsToConfig execOptions // {
+            Boot = true;
+            ProcessTwo = true;
+            NotifyReady = true;
+          };
 
-            filesConfig = optionsToConfig filesOptions // {
-              ReadOnly = true;
-              Volatile = "state";
-              PrivateUsersChown = true;
-              PrivateUsersOwnership = "auto";
-            };
+          filesConfig = optionsToConfig filesOptions // {
+            ReadOnly = true;
+            Volatile = "state";
+            PrivateUsersChown = true;
+            PrivateUsersOwnership = "auto";
+          };
 
-            networkConfig = optionsToConfig networkOptions // {
-              Private = true;
-              VirtualEthernet = true;
-            };
+          networkConfig = optionsToConfig networkOptions // {
+            Private = true;
+            VirtualEthernet = true;
           };
         };
+      };
     };
 
     testScript = ''
@@ -128,5 +126,4 @@ import ./make-test-python.nix (
     '';
 
     meta.maintainers = [ lib.maintainers.zi3m5f ];
-  }
-)
+  })

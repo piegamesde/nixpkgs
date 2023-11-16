@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.onedrive;
 
@@ -20,8 +15,8 @@ let
       systemctl --user start onedrive@onedrive
     fi
   '';
-in
-{
+
+in {
   ### Documentation
   # meta.doc = ./onedrive.xml;
 

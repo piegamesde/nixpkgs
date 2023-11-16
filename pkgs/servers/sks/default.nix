@@ -1,23 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocamlPackages,
-  perl,
-  zlib,
-  db,
-}:
+{ lib, stdenv, fetchFromGitHub, ocamlPackages, perl, zlib, db }:
 
-let
-  inherit (ocamlPackages)
-    ocaml
-    findlib
-    cryptokit
-    num
-  ;
-in
+let inherit (ocamlPackages) ocaml findlib cryptokit num;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sks";
   version = "unstable-2021-02-04";
 
@@ -31,27 +16,12 @@ stdenv.mkDerivation rec {
   # pkgs.db provides db_stat, not db$major.$minor_stat
   patches = [ ./adapt-to-nixos.patch ];
 
-  outputs = [
-    "out"
-    "webSamples"
-  ];
+  outputs = [ "out" "webSamples" ];
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    perl
-  ];
-  buildInputs = [
-    zlib
-    db
-    cryptokit
-    num
-  ];
+  nativeBuildInputs = [ ocaml findlib perl ];
+  buildInputs = [ zlib db cryptokit num ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "MANDIR=$(out)/share/man"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "MANDIR=$(out)/share/man" ];
   preConfigure = ''
     cp Makefile.local.unused Makefile.local
     sed -i \
@@ -82,3 +52,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ globin ];
   };
 }
+

@@ -1,22 +1,17 @@
 # This test does a basic functionality check for all bird variants and demonstrates a use
 # of the preCheckConfig option.
 
-{
-  system ? builtins.currentSystem,
-  pkgs ? import ../.. {
-    inherit system;
-    config = { };
-  },
-}:
+{ system ? builtins.currentSystem, pkgs ? import ../.. {
+  inherit system;
+  config = { };
+} }:
 
 let
   inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
   inherit (pkgs.lib) optionalString;
 
-  makeBird2Host =
-    hostId:
-    { pkgs, ... }:
-    {
+  makeBird2Host = hostId:
+    { pkgs, ... }: {
       virtualisation.vlans = [ 1 ];
 
       environment.systemPackages = with pkgs; [ jq ];
@@ -105,8 +100,7 @@ let
         "f /etc/bird/static6.conf - - - - route fdff::${hostId}/128 blackhole;"
       ];
     };
-in
-makeTest {
+in makeTest {
   name = "bird2";
 
   nodes.host1 = makeBird2Host "1";

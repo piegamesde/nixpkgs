@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -30,15 +25,9 @@ let
     ${cfg.extraConfig}
   '';
 
-  ntpFlags = [
-    "-c"
-    "${configFile}"
-    "-u"
-    "ntp:ntp"
-  ] ++ cfg.extraFlags;
-in
+  ntpFlags = [ "-c" "${configFile}" "-u" "ntp:ntp" ] ++ cfg.extraFlags;
 
-{
+in {
 
   ###### interface
 
@@ -67,14 +56,7 @@ in
           recommended in section 6.5.1.1.3, answer "No" of
           http://support.ntp.org/bin/view/Support/AccessRestrictions
         '';
-        default = [
-          "limited"
-          "kod"
-          "nomodify"
-          "notrap"
-          "noquery"
-          "nopeer"
-        ];
+        default = [ "limited" "kod" "nomodify" "notrap" "noquery" "nopeer" ];
       };
 
       restrictSource = mkOption {
@@ -85,13 +67,7 @@ in
           The default flags allow peers to be added by ntpd from configured
           pool(s), but not by other means.
         '';
-        default = [
-          "limited"
-          "kod"
-          "nomodify"
-          "notrap"
-          "noquery"
-        ];
+        default = [ "limited" "kod" "nomodify" "notrap" "noquery" ];
       };
 
       servers = mkOption {
@@ -120,7 +96,9 @@ in
         example = literalExpression ''[ "--interface=eth0" ]'';
         default = [ ];
       };
+
     };
+
   };
 
   ###### implementation
@@ -161,5 +139,7 @@ in
         Type = "forking";
       };
     };
+
   };
+
 }

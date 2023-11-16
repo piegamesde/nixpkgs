@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -34,12 +29,11 @@ let
     ${cfg.extraDefaults}
   '';
 
-  purple_plugin_path =
-    lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
-      cfg.libpurple_plugins;
-in
+  purple_plugin_path = lib.concatMapStringsSep ":"
+    (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
+    cfg.libpurple_plugins;
 
-{
+in {
 
   ###### interface
 
@@ -77,10 +71,7 @@ in
 
       authBackend = mkOption {
         default = "storage";
-        type = types.enum [
-          "storage"
-          "pam"
-        ];
+        type = types.enum [ "storage" "pam" ];
         description = lib.mdDoc ''
           How users are authenticated
             storage -- save passwords internally
@@ -90,11 +81,7 @@ in
 
       authMode = mkOption {
         default = "Open";
-        type = types.enum [
-          "Open"
-          "Closed"
-          "Registered"
-        ];
+        type = types.enum [ "Open" "Closed" "Registered" ];
         description = lib.mdDoc ''
           The following authentication modes are available:
             Open -- Accept connections from anyone, use NickServ for user authentication.
@@ -164,7 +151,9 @@ in
           Will be inserted in the Default section of the config file.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -186,7 +175,11 @@ in
       };
 
       environment.systemPackages = [ bitlbeePkg ];
+
     })
-    (mkIf (config.services.bitlbee.authBackend == "pam") { security.pam.services.bitlbee = { }; })
+    (mkIf (config.services.bitlbee.authBackend == "pam") {
+      security.pam.services.bitlbee = { };
+    })
   ];
+
 }

@@ -1,12 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitLab,
-  qtbase,
-  cmake,
-  ninja,
-  libcprime,
-  libcsys,
+{ mkDerivation, lib, fetchFromGitLab, qtbase, cmake, ninja, libcprime, libcsys
 }:
 
 mkDerivation rec {
@@ -20,16 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-8ILnZQIErLakiNfGZ91/vY+9XS/eOHcAnIFIuT1x9Mg=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    qtbase
-    libcprime
-    libcsys
-  ];
+  buildInputs = [ qtbase libcprime libcsys ];
 
   meta = with lib; {
     description = "An image viewer from the C Suite";

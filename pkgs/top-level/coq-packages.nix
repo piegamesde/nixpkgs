@@ -1,64 +1,46 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  callPackage,
-  newScope,
-  recurseIntoAttrs,
-  ocamlPackages_4_05,
-  ocamlPackages_4_09,
-  ocamlPackages_4_10,
-  ocamlPackages_4_12,
-  ocamlPackages_4_14,
-  fetchpatch,
-  makeWrapper,
-  coq2html,
-}@args:
-let
-  lib = import ../build-support/coq/extra-lib.nix { inherit (args) lib; };
-in
-let
-  mkCoqPackages' =
-    self: coq:
-    let
-      callPackage = self.callPackage;
-    in
-    {
+{ lib, stdenv, fetchzip, callPackage, newScope, recurseIntoAttrs
+, ocamlPackages_4_05, ocamlPackages_4_09, ocamlPackages_4_10, ocamlPackages_4_12
+, ocamlPackages_4_14, fetchpatch, makeWrapper, coq2html }@args:
+let lib = import ../build-support/coq/extra-lib.nix { inherit (args) lib; };
+in let
+  mkCoqPackages' = self: coq:
+    let callPackage = self.callPackage;
+    in {
       inherit coq lib;
       coqPackages = self;
 
-      metaFetch = import ../build-support/coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; };
-      mkCoqDerivation = lib.makeOverridable (callPackage ../build-support/coq { });
+      metaFetch = import ../build-support/coq/meta-fetch/default.nix {
+        inherit lib stdenv fetchzip;
+      };
+      mkCoqDerivation =
+        lib.makeOverridable (callPackage ../build-support/coq { });
 
-      contribs = recurseIntoAttrs (callPackage ../development/coq-modules/contribs { });
+      contribs =
+        recurseIntoAttrs (callPackage ../development/coq-modules/contribs { });
 
       aac-tactics = callPackage ../development/coq-modules/aac-tactics { };
-      addition-chains = callPackage ../development/coq-modules/addition-chains { };
+      addition-chains =
+        callPackage ../development/coq-modules/addition-chains { };
       autosubst = callPackage ../development/coq-modules/autosubst { };
-      bignums =
-        if lib.versionAtLeast coq.coq-version "8.6" then
-          callPackage ../development/coq-modules/bignums { }
-        else
-          null;
-      category-theory = callPackage ../development/coq-modules/category-theory { };
+      bignums = if lib.versionAtLeast coq.coq-version "8.6" then
+        callPackage ../development/coq-modules/bignums { }
+      else
+        null;
+      category-theory =
+        callPackage ../development/coq-modules/category-theory { };
       ceres = callPackage ../development/coq-modules/ceres { };
       Cheerios = callPackage ../development/coq-modules/Cheerios { };
       CoLoR = callPackage ../development/coq-modules/CoLoR { };
       compcert = callPackage ../development/coq-modules/compcert {
-        inherit
-          fetchpatch
-          makeWrapper
-          coq2html
-          lib
-          stdenv
-        ;
+        inherit fetchpatch makeWrapper coq2html lib stdenv;
       };
       coq-bits = callPackage ../development/coq-modules/coq-bits { };
       coq-elpi = callPackage ../development/coq-modules/coq-elpi { };
       coq-ext-lib = callPackage ../development/coq-modules/coq-ext-lib { };
       coq-haskell = callPackage ../development/coq-modules/coq-haskell { };
       coq-lsp = callPackage ../development/coq-modules/coq-lsp { };
-      coq-record-update = callPackage ../development/coq-modules/coq-record-update { };
+      coq-record-update =
+        callPackage ../development/coq-modules/coq-record-update { };
       coqeal = callPackage ../development/coq-modules/coqeal { };
       coqhammer = callPackage ../development/coq-modules/coqhammer { };
       coqide = callPackage ../development/coq-modules/coqide { };
@@ -79,7 +61,8 @@ let
       goedel = callPackage ../development/coq-modules/goedel { };
       graph-theory = callPackage ../development/coq-modules/graph-theory { };
       heq = callPackage ../development/coq-modules/heq { };
-      hierarchy-builder = callPackage ../development/coq-modules/hierarchy-builder { };
+      hierarchy-builder =
+        callPackage ../development/coq-modules/hierarchy-builder { };
       HoTT = callPackage ../development/coq-modules/HoTT { };
       hydra-battles = callPackage ../development/coq-modules/hydra-battles { };
       interval = callPackage ../development/coq-modules/interval { };
@@ -99,15 +82,23 @@ let
       mathcomp-field = self.mathcomp.field;
       mathcomp-character = self.mathcomp.character;
       mathcomp-abel = callPackage ../development/coq-modules/mathcomp-abel { };
-      mathcomp-algebra-tactics = callPackage ../development/coq-modules/mathcomp-algebra-tactics { };
-      mathcomp-analysis = callPackage ../development/coq-modules/mathcomp-analysis { };
-      mathcomp-apery = callPackage ../development/coq-modules/mathcomp-apery { };
-      mathcomp-bigenough = callPackage ../development/coq-modules/mathcomp-bigenough { };
+      mathcomp-algebra-tactics =
+        callPackage ../development/coq-modules/mathcomp-algebra-tactics { };
+      mathcomp-analysis =
+        callPackage ../development/coq-modules/mathcomp-analysis { };
+      mathcomp-apery =
+        callPackage ../development/coq-modules/mathcomp-apery { };
+      mathcomp-bigenough =
+        callPackage ../development/coq-modules/mathcomp-bigenough { };
       mathcomp-classical = self.mathcomp-analysis.classical;
-      mathcomp-finmap = callPackage ../development/coq-modules/mathcomp-finmap { };
-      mathcomp-infotheo = callPackage ../development/coq-modules/mathcomp-infotheo { };
-      mathcomp-real-closed = callPackage ../development/coq-modules/mathcomp-real-closed { };
-      mathcomp-tarjan = callPackage ../development/coq-modules/mathcomp-tarjan { };
+      mathcomp-finmap =
+        callPackage ../development/coq-modules/mathcomp-finmap { };
+      mathcomp-infotheo =
+        callPackage ../development/coq-modules/mathcomp-infotheo { };
+      mathcomp-real-closed =
+        callPackage ../development/coq-modules/mathcomp-real-closed { };
+      mathcomp-tarjan =
+        callPackage ../development/coq-modules/mathcomp-tarjan { };
       mathcomp-word = callPackage ../development/coq-modules/mathcomp-word { };
       mathcomp-zify = callPackage ../development/coq-modules/mathcomp-zify { };
       metacoq = callPackage ../development/coq-modules/metacoq { };
@@ -124,7 +115,8 @@ let
       pocklington = callPackage ../development/coq-modules/pocklington { };
       QuickChick = callPackage ../development/coq-modules/QuickChick { };
       reglang = callPackage ../development/coq-modules/reglang { };
-      relation-algebra = callPackage ../development/coq-modules/relation-algebra { };
+      relation-algebra =
+        callPackage ../development/coq-modules/relation-algebra { };
       semantics = callPackage ../development/coq-modules/semantics { };
       serapi = callPackage ../development/coq-modules/serapi { };
       simple-io = callPackage ../development/coq-modules/simple-io { };
@@ -137,49 +129,32 @@ let
       trakt = callPackage ../development/coq-modules/trakt { };
       Velisarios = callPackage ../development/coq-modules/Velisarios { };
       Verdi = callPackage ../development/coq-modules/Verdi { };
-      VST = callPackage ../development/coq-modules/VST (
-        (lib.optionalAttrs (lib.versionAtLeast self.coq.version "8.14") {
+      VST = callPackage ../development/coq-modules/VST
+        ((lib.optionalAttrs (lib.versionAtLeast self.coq.version "8.14") {
           compcert = self.compcert.override { version = "3.11"; };
-        })
-        // (lib.optionalAttrs (lib.versions.isEq self.coq.coq-version "8.13") {
-          ITree = self.ITree.override { version = "4.0.0"; };
-        })
-      );
+        }) // (lib.optionalAttrs
+          (lib.versions.isEq self.coq.coq-version "8.13") {
+            ITree = self.ITree.override { version = "4.0.0"; };
+          }));
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
-      filterPackages = doesFilter: if doesFilter then filterCoqPackages self else self;
+      filterPackages = doesFilter:
+        if doesFilter then filterCoqPackages self else self;
     };
 
-  filterCoqPackages =
-    set:
-    lib.listToAttrs (
-      lib.concatMap
-        (
-          name:
-          let
-            v = set.${name} or null;
-          in
-          lib.optional (!v.meta.coqFilter or false) (
-            lib.nameValuePair name (
-              if lib.isAttrs v && v.recurseForDerivations or false then filterCoqPackages v else v
-            )
-          )
-        )
-        (lib.attrNames set)
-    );
-  mkCoq =
-    version:
+  filterCoqPackages = set:
+    lib.listToAttrs (lib.concatMap (name:
+      let v = set.${name} or null;
+      in lib.optional (!v.meta.coqFilter or false) (lib.nameValuePair name
+        (if lib.isAttrs v && v.recurseForDerivations or false then
+          filterCoqPackages v
+        else
+          v))) (lib.attrNames set));
+  mkCoq = version:
     callPackage ../applications/science/logic/coq {
-      inherit
-        version
-        ocamlPackages_4_05
-        ocamlPackages_4_09
-        ocamlPackages_4_10
-        ocamlPackages_4_12
-        ocamlPackages_4_14
-      ;
+      inherit version ocamlPackages_4_05 ocamlPackages_4_09 ocamlPackages_4_10
+        ocamlPackages_4_12 ocamlPackages_4_14;
     };
-in
-rec {
+in rec {
 
   # The function `mkCoqPackages` takes as input a derivation for Coq and produces
   # a set of libraries built with that specific Coq. More libraries are known to
@@ -188,12 +163,9 @@ rec {
   # the resulting set. For meta-programming purposes (inpecting the derivations
   # rather than building the libraries) this filtering can be disabled by setting
   # a `dontFilter` attribute into the Coq derivation.
-  mkCoqPackages =
-    coq:
-    let
-      self = lib.makeScope newScope (lib.flip mkCoqPackages' coq);
-    in
-    self.filterPackages (!coq.dontFilter or false);
+  mkCoqPackages = coq:
+    let self = lib.makeScope newScope (lib.flip mkCoqPackages' coq);
+    in self.filterPackages (!coq.dontFilter or false);
 
   coq_8_5 = mkCoq "8.5";
   coq_8_6 = mkCoq "8.6";
@@ -224,4 +196,5 @@ rec {
   coqPackages_8_17 = mkCoqPackages coq_8_17;
   coqPackages = recurseIntoAttrs coqPackages_8_17;
   coq = coqPackages.coq;
+
 }

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 {
   options = {
@@ -20,10 +15,9 @@
 
   config = lib.mkIf config.gnu {
 
-    environment.systemPackages =
-      with pkgs;
-      # TODO: Adjust `requiredPackages' from `system-path.nix'.
-      # TODO: Add Inetutils once it has the new `ifconfig'.
+    environment.systemPackages = with pkgs;
+    # TODO: Adjust `requiredPackages' from `system-path.nix'.
+    # TODO: Add Inetutils once it has the new `ifconfig'.
       [
         parted
         #fdisk  # XXX: GNU fdisk currently fails to build and it's redundant
@@ -31,8 +25,7 @@
         nano
         zile
         texinfo # for the stand-alone Info reader
-      ]
-      ++ lib.optional (!stdenv.isAarch32) grub2;
+      ] ++ lib.optional (!stdenv.isAarch32) grub2;
 
     # GNU GRUB, where available.
     boot.loader.grub.enable = !pkgs.stdenv.isAarch32;

@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 
 with lib;
 
@@ -22,8 +17,7 @@ let
     given control of your browser, unless of course they also control your
     NixOS configuration.
   '';
-in
-{
+in {
   options.programs.firefox = {
     enable = mkEnableOption (mdDoc "the Firefox web browser");
 
@@ -58,15 +52,7 @@ in
     };
 
     preferences = mkOption {
-      type =
-        with types;
-        attrsOf (
-          oneOf [
-            bool
-            int
-            string
-          ]
-        );
+      type = with types; attrsOf (oneOf [ bool int string ]);
       default = { };
       description = mdDoc ''
         Preferences to set from `about:config`.
@@ -79,12 +65,7 @@ in
     };
 
     preferencesStatus = mkOption {
-      type = types.enum [
-        "default"
-        "locked"
-        "user"
-        "clear"
-      ];
+      type = types.enum [ "default" "locked" "user" "clear" ];
       default = "locked";
       description = mdDoc ''
         The status of `firefox.preferences`.
@@ -99,108 +80,106 @@ in
 
     languagePacks = mkOption {
       # Available languages can be found in https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/
-      type = types.listOf (
-        types.enum ([
-          "ach"
-          "af"
-          "an"
-          "ar"
-          "ast"
-          "az"
-          "be"
-          "bg"
-          "bn"
-          "br"
-          "bs"
-          "ca-valencia"
-          "ca"
-          "cak"
-          "cs"
-          "cy"
-          "da"
-          "de"
-          "dsb"
-          "el"
-          "en-CA"
-          "en-GB"
-          "en-US"
-          "eo"
-          "es-AR"
-          "es-CL"
-          "es-ES"
-          "es-MX"
-          "et"
-          "eu"
-          "fa"
-          "ff"
-          "fi"
-          "fr"
-          "fy-NL"
-          "ga-IE"
-          "gd"
-          "gl"
-          "gn"
-          "gu-IN"
-          "he"
-          "hi-IN"
-          "hr"
-          "hsb"
-          "hu"
-          "hy-AM"
-          "ia"
-          "id"
-          "is"
-          "it"
-          "ja"
-          "ka"
-          "kab"
-          "kk"
-          "km"
-          "kn"
-          "ko"
-          "lij"
-          "lt"
-          "lv"
-          "mk"
-          "mr"
-          "ms"
-          "my"
-          "nb-NO"
-          "ne-NP"
-          "nl"
-          "nn-NO"
-          "oc"
-          "pa-IN"
-          "pl"
-          "pt-BR"
-          "pt-PT"
-          "rm"
-          "ro"
-          "ru"
-          "sco"
-          "si"
-          "sk"
-          "sl"
-          "son"
-          "sq"
-          "sr"
-          "sv-SE"
-          "szl"
-          "ta"
-          "te"
-          "th"
-          "tl"
-          "tr"
-          "trs"
-          "uk"
-          "ur"
-          "uz"
-          "vi"
-          "xh"
-          "zh-CN"
-          "zh-TW"
-        ])
-      );
+      type = types.listOf (types.enum ([
+        "ach"
+        "af"
+        "an"
+        "ar"
+        "ast"
+        "az"
+        "be"
+        "bg"
+        "bn"
+        "br"
+        "bs"
+        "ca-valencia"
+        "ca"
+        "cak"
+        "cs"
+        "cy"
+        "da"
+        "de"
+        "dsb"
+        "el"
+        "en-CA"
+        "en-GB"
+        "en-US"
+        "eo"
+        "es-AR"
+        "es-CL"
+        "es-ES"
+        "es-MX"
+        "et"
+        "eu"
+        "fa"
+        "ff"
+        "fi"
+        "fr"
+        "fy-NL"
+        "ga-IE"
+        "gd"
+        "gl"
+        "gn"
+        "gu-IN"
+        "he"
+        "hi-IN"
+        "hr"
+        "hsb"
+        "hu"
+        "hy-AM"
+        "ia"
+        "id"
+        "is"
+        "it"
+        "ja"
+        "ka"
+        "kab"
+        "kk"
+        "km"
+        "kn"
+        "ko"
+        "lij"
+        "lt"
+        "lv"
+        "mk"
+        "mr"
+        "ms"
+        "my"
+        "nb-NO"
+        "ne-NP"
+        "nl"
+        "nn-NO"
+        "oc"
+        "pa-IN"
+        "pl"
+        "pt-BR"
+        "pt-PT"
+        "rm"
+        "ro"
+        "ru"
+        "sco"
+        "si"
+        "sk"
+        "sl"
+        "son"
+        "sq"
+        "sr"
+        "sv-SE"
+        "szl"
+        "ta"
+        "te"
+        "th"
+        "tl"
+        "tr"
+        "trs"
+        "uk"
+        "ur"
+        "uz"
+        "vi"
+        "xh"
+        "zh-CN"
+        "zh-TW"
+      ]));
       default = [ ];
       description = mdDoc ''
         The language packs to install.
@@ -236,8 +215,7 @@ in
     environment.systemPackages = [
       (cfg.package.override {
         extraPrefs = cfg.autoConfig;
-        extraNativeMessagingHosts =
-          with pkgs;
+        extraNativeMessagingHosts = with pkgs;
           optionals nmh.ff2mpv [ ff2mpv ]
           ++ optionals nmh.euwebid [ web-eid-app ]
           ++ optionals nmh.gsconnect [ gnomeExtensions.gsconnect ]
@@ -255,33 +233,26 @@ in
       enableFXCastBridge = nmh.fxCast;
     };
 
-    environment.etc =
-      let
-        policiesJSON = policyFormat.generate "firefox-policies.json" { inherit (cfg) policies; };
-      in
-      mkIf (cfg.policies != { }) { "firefox/policies/policies.json".source = "${policiesJSON}"; };
+    environment.etc = let
+      policiesJSON = policyFormat.generate "firefox-policies.json" {
+        inherit (cfg) policies;
+      };
+    in mkIf (cfg.policies != { }) {
+      "firefox/policies/policies.json".source = "${policiesJSON}";
+    };
 
     # Preferences are converted into a policy
     programs.firefox.policies = {
-      Preferences =
-        (mapAttrs
-          (_: value: {
-            Value = value;
-            Status = cfg.preferencesStatus;
-          })
-          cfg.preferences
-        );
-      ExtensionSettings = listToAttrs (
-        map
-          (
-            lang:
-            nameValuePair "langpack-${lang}@firefox.mozilla.org" {
-              installation_mode = "normal_installed";
-              install_url = "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
-            }
-          )
-          cfg.languagePacks
-      );
+      Preferences = (mapAttrs (_: value: {
+        Value = value;
+        Status = cfg.preferencesStatus;
+      }) cfg.preferences);
+      ExtensionSettings = listToAttrs (map (lang:
+        nameValuePair "langpack-${lang}@firefox.mozilla.org" {
+          installation_mode = "normal_installed";
+          install_url =
+            "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
+        }) cfg.languagePacks);
     };
   };
 

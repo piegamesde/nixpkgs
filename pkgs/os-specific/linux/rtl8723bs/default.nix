@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nukeReferences,
-  kernel,
-}:
+{ lib, stdenv, fetchFromGitHub, nukeReferences, kernel }:
 with lib;
 stdenv.mkDerivation rec {
   name = "rtl8723bs-${kernel.version}-${version}";
@@ -41,7 +35,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hadess/rtl8723bs";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    broken = versionAtLeast kernel.version "4.12"; # Now in kernel staging drivers
+    broken =
+      versionAtLeast kernel.version "4.12"; # Now in kernel staging drivers
     maintainers = with maintainers; [ elitak ];
   };
 }

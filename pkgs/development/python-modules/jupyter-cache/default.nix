@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  attrs,
-  click,
-  flit-core,
-  importlib-metadata,
-  nbclient,
-  nbformat,
-  pyyaml,
-  sqlalchemy,
-  tabulate,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, attrs, click, flit-core
+, importlib-metadata, nbclient, nbformat, pyyaml, sqlalchemy, tabulate
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "jupyter-cache";
@@ -42,7 +30,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "jupyter_cache" ];
 
   meta = with lib; {
-    description = "A defined interface for working with a cache of jupyter notebooks";
+    description =
+      "A defined interface for working with a cache of jupyter notebooks";
     homepage = "https://github.com/executablebooks/jupyter-cache";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];

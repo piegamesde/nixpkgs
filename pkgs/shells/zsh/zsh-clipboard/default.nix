@@ -9,11 +9,14 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   installPhase = ''
-    install -D -m0444 -T ${./clipboard.plugin.zsh} $out/share/zsh/plugins/clipboard/clipboard.plugin.zsh
+    install -D -m0444 -T ${
+      ./clipboard.plugin.zsh
+    } $out/share/zsh/plugins/clipboard/clipboard.plugin.zsh
   '';
 
   meta = with lib; {
-    description = "Ohmyzsh plugin that integrates kill-ring with system clipboard";
+    description =
+      "Ohmyzsh plugin that integrates kill-ring with system clipboard";
     longDescription = ''
       Ohmyzsh plugin that integrates kill-ring with system clipboard.
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "mkcert";
@@ -19,15 +15,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=v${version}" ];
 
   meta = with lib; {
     homepage = "https://github.com/FiloSottile/mkcert";
-    description = "A simple tool for making locally-trusted development certificates";
+    description =
+      "A simple tool for making locally-trusted development certificates";
     license = licenses.bsd3;
     maintainers = [ maintainers.marsam ];
   };

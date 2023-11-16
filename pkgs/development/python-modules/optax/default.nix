@@ -1,14 +1,5 @@
-{
-  lib,
-  absl-py,
-  buildPythonPackage,
-  chex,
-  fetchFromGitHub,
-  jaxlib,
-  numpy,
-  callPackage,
-  pythonOlder,
-}:
+{ lib, absl-py, buildPythonPackage, chex, fetchFromGitHub, jaxlib, numpy
+, callPackage, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "optax";
@@ -24,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-vhPpynKq0dboSt+fQ4lvVv9ytDXnZKRrc7lF03Mm39g=";
   };
 
-  outputs = [
-    "out"
-    "testsout"
-  ];
+  outputs = [ "out" "testsout" ];
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [
-    absl-py
-    chex
-    numpy
-  ];
+  propagatedBuildInputs = [ absl-py chex numpy ];
 
   postInstall = ''
     mkdir $testsout
@@ -47,9 +31,7 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion with flax
   doCheck = false;
 
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = with lib; {
     description = "Gradient processing and optimization library for JAX";

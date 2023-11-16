@@ -1,31 +1,12 @@
-{
-  fetchFromGitLab,
-  lib,
-  stdenv,
-  autoreconfHook,
-  gtk-doc,
-  pkg-config,
-  intltool,
-  gettext,
-  glib,
-  libxml2,
-  zlib,
-  bzip2,
-  perl,
-  gdk-pixbuf,
-  libiconv,
-  libintl,
-  gnome,
-}:
+{ fetchFromGitLab, lib, stdenv, autoreconfHook, gtk-doc, pkg-config, intltool
+, gettext, glib, libxml2, zlib, bzip2, perl, gdk-pixbuf, libiconv, libintl
+, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libgsf";
   version = "1.14.50";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -44,28 +25,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gtk-doc
-    pkg-config
-    intltool
-    libintl
-  ];
+  nativeBuildInputs = [ autoreconfHook gtk-doc pkg-config intltool libintl ];
 
-  buildInputs = [
-    gettext
-    bzip2
-    zlib
-  ];
+  buildInputs = [ gettext bzip2 zlib ];
 
   nativeCheckInputs = [ perl ];
 
-  propagatedBuildInputs = [
-    libxml2
-    glib
-    gdk-pixbuf
-    libiconv
-  ];
+  propagatedBuildInputs = [ libxml2 glib gdk-pixbuf libiconv ];
 
   doCheck = true;
 

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  glib,
-  libcap,
-  libseccomp,
-  libslirp,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, glib, libcap
+, libseccomp, libslirp, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "slirp4netns";
@@ -22,24 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wVisE4YAK52yfeM2itnBqCmhRKlrKRs0NEppQzZPok8=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    glib
-    libcap
-    libseccomp
-    libslirp
-  ];
+  buildInputs = [ glib libcap libseccomp libslirp ];
 
   enableParallelBuilding = true;
   strictDeps = true;
 
-  passthru.tests = {
-    inherit (nixosTests) podman;
-  };
+  passthru.tests = { inherit (nixosTests) podman; };
 
   meta = with lib; {
     homepage = "https://github.com/rootless-containers/slirp4netns";

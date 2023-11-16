@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  testtools,
-}:
+{ lib, buildPythonPackage, fetchPypi, testtools }:
 
 buildPythonPackage rec {
   pname = "testscenarios";
@@ -27,4 +22,5 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/testscenarios";
     license = licenses.asl20;
   };
+
 }

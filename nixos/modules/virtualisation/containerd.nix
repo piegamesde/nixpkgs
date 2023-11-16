@@ -1,28 +1,21 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, lib, config, ... }:
 let
   cfg = config.virtualisation.containerd;
 
-  configFile =
-    if cfg.configFile == null then
-      settingsFormat.generate "containerd.toml" cfg.settings
-    else
-      cfg.configFile;
+  configFile = if cfg.configFile == null then
+    settingsFormat.generate "containerd.toml" cfg.settings
+  else
+    cfg.configFile;
 
-  containerdConfigChecked =
-    pkgs.runCommand "containerd-config-checked.toml" { nativeBuildInputs = [ pkgs.containerd ]; }
-      ''
-        containerd -c ${configFile} config dump >/dev/null
-        ln -s ${configFile} $out
-      '';
+  containerdConfigChecked = pkgs.runCommand "containerd-config-checked.toml" {
+    nativeBuildInputs = [ pkgs.containerd ];
+  } ''
+    containerd -c ${configFile} config dump >/dev/null
+    ln -s ${configFile} $out
+  '';
 
   settingsFormat = pkgs.formats.toml { };
-in
-{
+in {
 
   options.virtualisation.containerd = with lib.types; {
     enable = lib.mkEnableOption (lib.mdDoc "containerd container runtime");
@@ -61,7 +54,8 @@ in
       settings = {
         version = 2;
         plugins."io.containerd.grpc.v1.cri" = {
-          containerd.snapshotter = lib.mkIf config.boot.zfs.enabled (lib.mkOptionDefault "zfs");
+          containerd.snapshotter =
+            lib.mkIf config.boot.zfs.enabled (lib.mkOptionDefault "zfs");
           cni.bin_dir = lib.mkOptionDefault "${pkgs.cni-plugins}/bin";
         };
       };
@@ -73,13 +67,8 @@ in
       description = "containerd - container runtime";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path =
-        with pkgs;
-        [
-          containerd
-          runc
-          iptables
-        ]
+      path = with pkgs;
+        [ containerd runc iptables ]
         ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
         ExecStart = "${pkgs.containerd}/bin/containerd ${

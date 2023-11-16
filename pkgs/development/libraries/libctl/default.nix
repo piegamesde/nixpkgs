@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  gfortran,
-  guile,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, gfortran, guile, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "libctl";
@@ -19,17 +11,13 @@ stdenv.mkDerivation rec {
     sha256 = "uOydBWYPXSBUi+4MM6FNx6B5l2to7Ny9Uc1MMTV9bGA=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gfortran
-    guile
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook gfortran guile pkg-config ];
 
   configureFlags = [ "--enable-shared" ];
 
   meta = with lib; {
-    description = "Guile-based library for supporting flexible control files in scientific simulations";
+    description =
+      "Guile-based library for supporting flexible control files in scientific simulations";
     homepage = "https://github.com/NanoComp/libctl";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ carpinchomug ];

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  makeWrapper,
-  gcc,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitLab, makeWrapper, gcc, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "icmake";

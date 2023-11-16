@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 buildGoModule rec {
   pname = "terraform-docs";
   version = "0.16.0";
@@ -19,7 +15,8 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   meta = with lib; {
-    description = "A utility to generate documentation from Terraform modules in various output formats";
+    description =
+      "A utility to generate documentation from Terraform modules in various output formats";
     homepage = "https://github.com/terraform-docs/terraform-docs/";
     license = licenses.mit;
     maintainers = with maintainers; [ zimbatm ];

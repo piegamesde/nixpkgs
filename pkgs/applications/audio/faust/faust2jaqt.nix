@@ -1,13 +1,4 @@
-{
-  faust,
-  jack2,
-  qtbase,
-  libsndfile,
-  alsa-lib,
-  writeText,
-  makeWrapper,
-  which,
-}:
+{ faust, jack2, qtbase, libsndfile, alsa-lib, writeText, makeWrapper, which }:
 let
   # Wrap the binary coming out of the the compilation script, so it knows QT_PLUGIN_PATH
   wrapBinary = writeText "wrapBinary" ''
@@ -22,23 +13,13 @@ let
       cd $workpath
     done
   '';
-in
-faust.wrapWithBuildEnv {
+in faust.wrapWithBuildEnv {
 
   baseName = "faust2jaqt";
 
-  scripts = [
-    "faust2jaqt"
-    "faust2jackserver"
-  ];
+  scripts = [ "faust2jaqt" "faust2jackserver" ];
 
-  propagatedBuildInputs = [
-    jack2
-    qtbase
-    libsndfile
-    alsa-lib
-    which
-  ];
+  propagatedBuildInputs = [ jack2 qtbase libsndfile alsa-lib which ];
 
   dontWrapQtApps = true;
 

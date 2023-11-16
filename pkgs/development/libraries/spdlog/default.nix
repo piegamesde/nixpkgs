@@ -1,11 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  fmt,
-  staticBuild ? stdenv.hostPlatform.isStatic,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, fmt
+, staticBuild ? stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "spdlog";
@@ -30,11 +24,7 @@ stdenv.mkDerivation rec {
     "-DSPDLOG_FMT_EXTERNAL=ON"
   ];
 
-  outputs = [
-    "out"
-    "doc"
-    "dev"
-  ];
+  outputs = [ "out" "doc" "dev" ];
 
   postInstall = ''
     mkdir -p $out/share/doc/spdlog

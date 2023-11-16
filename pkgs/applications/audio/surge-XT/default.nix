@@ -1,19 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  alsa-lib,
-  freetype,
-  libjack2,
-  lv2,
-  libX11,
-  libXcursor,
-  libXext,
-  libXinerama,
-  libXrandr,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, alsa-lib, freetype, libjack2
+, lv2, libX11, libXcursor, libXext, libXinerama, libXrandr }:
 
 let
   juce-lv2 = stdenv.mkDerivation {
@@ -35,8 +21,7 @@ let
       cp -r . $out
     '';
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "surge-XT";
   version = "1.2.0";
 
@@ -48,10 +33,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LRYKkzeEuuRbMmvU3E0pHAnotOd4DyIJ7rTb+fpW0H4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     alsa-lib
@@ -65,20 +47,11 @@ stdenv.mkDerivation rec {
     libXrandr
   ];
 
-  cmakeFlags = [
-    "-DJUCE_SUPPORTS_LV2=ON"
-    "-DSURGE_JUCE_PATH=${juce-lv2}"
-  ];
+  cmakeFlags = [ "-DJUCE_SUPPORTS_LV2=ON" "-DSURGE_JUCE_PATH=${juce-lv2}" ];
 
   # JUCE dlopen's these at runtime, crashes without them
   NIX_LDFLAGS =
-    (toString [
-      "-lX11"
-      "-lXext"
-      "-lXcursor"
-      "-lXinerama"
-      "-lXrandr"
-    ]);
+    (toString [ "-lX11" "-lXext" "-lXcursor" "-lXinerama" "-lXrandr" ]);
 
   # see https://github.com/NixOS/nixpkgs/pull/149487#issuecomment-991747333
   postPatch = ''
@@ -86,13 +59,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "LV2 & VST3 synthesizer plug-in (previously released as Vember Audio Surge)";
+    description =
+      "LV2 & VST3 synthesizer plug-in (previously released as Vember Audio Surge)";
     homepage = "https://surge-synthesizer.github.io";
     license = licenses.gpl3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      magnetophon
-      orivej
-    ];
+    maintainers = with maintainers; [ magnetophon orivej ];
   };
 }

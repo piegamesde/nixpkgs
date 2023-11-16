@@ -1,15 +1,5 @@
-{
-  lib,
-  async-timeout,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  poetry-core,
-  pyserial-asyncio,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, fetchpatch
+, poetry-core, pyserial-asyncio, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "elkm1-lib";
@@ -27,20 +17,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    async-timeout
-    pyserial-asyncio
-  ];
+  propagatedBuildInputs = [ async-timeout pyserial-asyncio ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "elkm1_lib" ];
 
   meta = with lib; {
-    description = "Python module for interacting with ElkM1 alarm/automation panel";
+    description =
+      "Python module for interacting with ElkM1 alarm/automation panel";
     homepage = "https://github.com/gwww/elkm1";
     changelog = "https://github.com/gwww/elkm1/blob/${version}/CHANGELOG.md";
     license = licenses.mit;

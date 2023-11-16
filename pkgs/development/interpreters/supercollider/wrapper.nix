@@ -1,9 +1,4 @@
-{
-  symlinkJoin,
-  makeWrapper,
-  supercollider,
-  plugins,
-}:
+{ symlinkJoin, makeWrapper, supercollider, plugins }:
 
 symlinkJoin {
   name = "supercollider-with-plugins-${supercollider.version}";

@@ -1,49 +1,11 @@
-{
-  stdenv,
-  lib,
-  boehmgc,
-  boost,
-  cairo,
-  cmake,
-  fetchurl,
-  gettext,
-  ghostscript,
-  glib,
-  glibmm,
-  gsl,
-  gspell,
-  gtk-mac-integration,
-  gtkmm3,
-  gdk-pixbuf,
-  imagemagick,
-  lcms,
-  lib2geom,
-  libcdr,
-  libexif,
-  libpng,
-  librevenge,
-  librsvg,
-  libsigcxx,
-  libsoup,
-  libvisio,
-  libwpg,
-  libXft,
-  libxml2,
-  libxslt,
-  ninja,
-  perlPackages,
-  pkg-config,
-  poppler,
-  popt,
-  potrace,
-  python3,
-  substituteAll,
-  wrapGAppsHook,
-  zlib,
-}:
+{ stdenv, lib, boehmgc, boost, cairo, cmake, fetchurl, gettext, ghostscript
+, glib, glibmm, gsl, gspell, gtk-mac-integration, gtkmm3, gdk-pixbuf
+, imagemagick, lcms, lib2geom, libcdr, libexif, libpng, librevenge, librsvg
+, libsigcxx, libsoup, libvisio, libwpg, libXft, libxml2, libxslt, ninja
+, perlPackages, pkg-config, poppler, popt, potrace, python3, substituteAll
+, wrapGAppsHook, zlib }:
 let
-  python3Env = python3.withPackages (
-    ps:
+  python3Env = python3.withPackages (ps:
     with ps;
     [
       appdirs
@@ -57,16 +19,14 @@ let
       pyserial
       requests
       pygobject3
-    ]
-    ++ inkex.propagatedBuildInputs
-  );
-in
-stdenv.mkDerivation rec {
+    ] ++ inkex.propagatedBuildInputs);
+in stdenv.mkDerivation rec {
   pname = "inkscape";
   version = "1.2.2";
 
   src = fetchurl {
-    url = "https://media.inkscape.org/dl/resources/file/inkscape-${version}.tar.xz";
+    url =
+      "https://media.inkscape.org/dl/resources/file/inkscape-${version}.tar.xz";
     sha256 = "oMf9DQPAohU15kjvMB3PgN18/B81ReUQZfvxuj7opcQ=";
   };
 
@@ -101,59 +61,47 @@ stdenv.mkDerivation rec {
       --replace 'find_package(DoubleConversion REQUIRED)' ""
   '';
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      cmake
-      ninja
-      python3Env
-      glib # for setup hook
-      gdk-pixbuf # for setup hook
-      wrapGAppsHook
-    ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    );
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+    ninja
+    python3Env
+    glib # for setup hook
+    gdk-pixbuf # for setup hook
+    wrapGAppsHook
+  ] ++ (with perlPackages; [ perl XMLParser ]);
 
-  buildInputs =
-    [
-      boehmgc
-      boost
-      gettext
-      glib
-      glibmm
-      gsl
-      gtkmm3
-      imagemagick
-      lcms
-      lib2geom
-      libcdr
-      libexif
-      libpng
-      librevenge
-      librsvg # for loading icons
-      libsigcxx
-      libsoup
-      libvisio
-      libwpg
-      libXft
-      libxml2
-      libxslt
-      perlPackages.perl
-      poppler
-      popt
-      potrace
-      python3Env
-      zlib
-    ]
-    ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
-    ++ lib.optionals stdenv.isDarwin [
-      cairo
-      gtk-mac-integration
-    ];
+  buildInputs = [
+    boehmgc
+    boost
+    gettext
+    glib
+    glibmm
+    gsl
+    gtkmm3
+    imagemagick
+    lcms
+    lib2geom
+    libcdr
+    libexif
+    libpng
+    librevenge
+    librsvg # for loading icons
+    libsigcxx
+    libsoup
+    libvisio
+    libwpg
+    libXft
+    libxml2
+    libxslt
+    perlPackages.perl
+    poppler
+    popt
+    potrace
+    python3Env
+    zlib
+  ] ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
+    ++ lib.optionals stdenv.isDarwin [ cairo gtk-mac-integration ];
 
   # Make sure PyXML modules can be found at run-time.
   postInstall = lib.optionalString stdenv.isDarwin ''

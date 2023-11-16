@@ -1,14 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  libav_0_8,
-  libkeyfinder,
-  qtbase,
-  qtxmlpatterns,
-  qmake,
-  taglib,
-}:
+{ lib, mkDerivation, fetchFromGitHub, libav_0_8, libkeyfinder, qtbase
+, qtxmlpatterns, qmake, taglib }:
 
 mkDerivation rec {
   pname = "keyfinder";
@@ -22,13 +13,7 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [
-    libav_0_8
-    libkeyfinder
-    qtbase
-    qtxmlpatterns
-    taglib
-  ];
+  buildInputs = [ libav_0_8 libkeyfinder qtbase qtxmlpatterns taglib ];
 
   postPatch = ''
     substituteInPlace is_KeyFinder.pro \

@@ -19,5 +19,5 @@ let
   abcl = "${pkgs.abcl}/bin/abcl --batch --load";
 
   abcl-packages = pkgs.lispPackages_new.lispPackagesFor abcl;
-in
-abcl-packages
+
+in abcl-packages

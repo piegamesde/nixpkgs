@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -16,17 +11,11 @@ let
     pidfile /run/sniproxy.pid
     ${cfg.config}
   '';
-in
-{
+
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "sniproxy"
-        "logDir"
-      ]
-      "Now done by LogsDirectory=. Set to a custom path if you log to a different folder in your config."
-    )
+    (mkRemovedOptionModule [ "services" "sniproxy" "logDir" ]
+      "Now done by LogsDirectory=. Set to a custom path if you log to a different folder in your config.")
   ];
 
   options = {
@@ -48,7 +37,8 @@ in
       config = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "sniproxy.conf configuration excluding the daemon username and pid file.";
+        description = lib.mdDoc
+          "sniproxy.conf configuration excluding the daemon username and pid file.";
         example = ''
           error_log {
             filename /var/log/sniproxy/error.log
@@ -66,6 +56,7 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -91,9 +82,8 @@ in
     };
 
     users.groups = mkIf (cfg.group == "sniproxy") {
-      sniproxy = {
-        gid = config.ids.gids.sniproxy;
-      };
+      sniproxy = { gid = config.ids.gids.sniproxy; };
     };
+
   };
 }

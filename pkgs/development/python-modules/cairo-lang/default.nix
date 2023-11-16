@@ -1,34 +1,8 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  cachetools,
-  ecdsa,
-  eth-hash,
-  fastecdsa,
-  fetchzip,
-  frozendict,
-  gmp,
-  lark,
-  marshmallow,
-  marshmallow-dataclass,
-  marshmallow-enum,
-  marshmallow-oneofschema,
-  mpmath,
-  numpy,
-  pipdeptree,
-  prometheus-client,
-  pytest,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  pyyaml,
-  setuptools,
-  sympy,
-  typeguard,
-  web3,
-}:
+{ lib, aiohttp, buildPythonPackage, cachetools, ecdsa, eth-hash, fastecdsa
+, fetchzip, frozendict, gmp, lark, marshmallow, marshmallow-dataclass
+, marshmallow-enum, marshmallow-oneofschema, mpmath, numpy, pipdeptree
+, prometheus-client, pytest, pytest-asyncio, pytestCheckHook, pythonOlder
+, pythonRelaxDepsHook, pyyaml, setuptools, sympy, typeguard, web3 }:
 
 buildPythonPackage rec {
   pname = "cairo-lang";
@@ -38,7 +12,8 @@ buildPythonPackage rec {
   disabled = pythonOlder "3.7";
 
   src = fetchzip {
-    url = "https://github.com/starkware-libs/cairo-lang/releases/download/v${version}/cairo-lang-${version}.zip";
+    url =
+      "https://github.com/starkware-libs/cairo-lang/releases/download/v${version}/cairo-lang-${version}.zip";
     hash = "sha256-MNbzDqqNhij9JizozLp9hhQjbRGzWxECOErS3TOPlAA=";
   };
 
@@ -69,10 +44,7 @@ buildPythonPackage rec {
     pyyaml
   ] ++ eth-hash.optional-dependencies.pycryptodome;
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonRelaxDeps = [ "frozendict" ];
 

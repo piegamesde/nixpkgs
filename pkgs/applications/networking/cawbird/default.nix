@@ -1,27 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glib,
-  gtk3,
-  json-glib,
-  sqlite,
-  libsoup,
-  liboauth,
-  gettext,
-  gspell,
-  vala,
-  meson,
-  ninja,
-  pkg-config,
-  dconf,
-  gst_all_1,
-  wrapGAppsHook,
-  gobject-introspection,
-  glib-networking,
-  librest,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, glib, gtk3, json-glib, sqlite, libsoup, liboauth
+, gettext, gspell, vala, meson, ninja, pkg-config, dconf, gst_all_1
+, wrapGAppsHook, gobject-introspection, glib-networking, librest, python3 }:
 
 stdenv.mkDerivation rec {
   version = "1.5";
@@ -44,29 +23,25 @@ stdenv.mkDerivation rec {
     gobject-introspection # for setup hook
   ];
 
-  buildInputs =
-    [
-      glib
-      gtk3
-      json-glib
-      sqlite
-      libsoup
-      liboauth
-      gettext
-      dconf
-      gspell
-      glib-networking
-      librest
-    ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-bad
-        (gst-plugins-good.override { gtkSupport = true; })
-        gst-libav
-      ]
-    );
+  buildInputs = [
+    glib
+    gtk3
+    json-glib
+    sqlite
+    libsoup
+    liboauth
+    gettext
+    dconf
+    gspell
+    glib-networking
+    librest
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+    (gst-plugins-good.override { gtkSupport = true; })
+    gst-libav
+  ]);
 
   postPatch = ''
     chmod +x data/meson_post_install.py # patchShebangs requires executable file
@@ -82,7 +57,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Native GTK Twitter client for the Linux desktop";
-    longDescription = "Cawbird is a modern, easy and fun Twitter client. Fork of the discontinued Corebird.";
+    longDescription =
+      "Cawbird is a modern, easy and fun Twitter client. Fork of the discontinued Corebird.";
     homepage = "https://ibboard.co.uk/cawbird/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

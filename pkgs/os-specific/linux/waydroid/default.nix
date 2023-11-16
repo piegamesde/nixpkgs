@@ -1,21 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  dnsmasq,
-  gawk,
-  getent,
-  gobject-introspection,
-  gtk3,
-  kmod,
-  lxc,
-  iproute2,
-  iptables,
-  util-linux,
-  wrapGAppsHook,
-  xclip,
-  runtimeShell,
-}:
+{ lib, fetchFromGitHub, python3Packages, dnsmasq, gawk, getent
+, gobject-introspection, gtk3, kmod, lxc, iproute2, iptables, util-linux
+, wrapGAppsHook, xclip, runtimeShell }:
 
 python3Packages.buildPythonApplication rec {
   pname = "waydroid";
@@ -31,10 +16,7 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [ gtk3 ];
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
   propagatedBuildInputs = with python3Packages; [
     dbus-python
@@ -58,14 +40,7 @@ python3Packages.buildPythonApplication rec {
 
     patchShebangs --host $out/lib/waydroid/data/scripts
     wrapProgram $out/lib/waydroid/data/scripts/waydroid-net.sh \
-      --prefix PATH ":" ${
-        lib.makeBinPath [
-          dnsmasq
-          getent
-          iproute2
-          iptables
-        ]
-      }
+      --prefix PATH ":" ${lib.makeBinPath [ dnsmasq getent iproute2 iptables ]}
 
     wrapPythonProgramsIn $out/lib/waydroid/ "${
       lib.concatStringsSep " " [
@@ -87,7 +62,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Waydroid is a container-based approach to boot a full Android system on a regular GNU/Linux system like Ubuntu";
+    description =
+      "Waydroid is a container-based approach to boot a full Android system on a regular GNU/Linux system like Ubuntu";
     homepage = "https://github.com/waydroid/waydroid";
     license = licenses.gpl3;
     platforms = platforms.linux;

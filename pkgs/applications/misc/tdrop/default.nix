@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  xwininfo,
-  xdotool,
-  xprop,
-  gawk,
-  coreutils,
-  gnugrep,
-  procps,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, xwininfo, xdotool, xprop, gawk
+, coreutils, gnugrep, procps }:
 
 stdenv.mkDerivation rec {
   pname = "tdrop";
@@ -27,21 +16,12 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  postInstall =
-    let
-      binPath = lib.makeBinPath [
-        xwininfo
-        xdotool
-        xprop
-        gawk
-        coreutils
-        gnugrep
-        procps
-      ];
-    in
-    ''
-      wrapProgram $out/bin/tdrop --prefix PATH : ${binPath}
-    '';
+  postInstall = let
+    binPath =
+      lib.makeBinPath [ xwininfo xdotool xprop gawk coreutils gnugrep procps ];
+  in ''
+    wrapProgram $out/bin/tdrop --prefix PATH : ${binPath}
+  '';
 
   nativeBuildInputs = [ makeWrapper ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_interface,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_interface }:
 
 buildPythonPackage rec {
   pname = "zope.exceptions";
@@ -25,4 +20,5 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
+
 }

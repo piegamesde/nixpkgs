@@ -1,37 +1,15 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  overrideCC,
-  wrapCCWith,
-  wrapBintoolsWith,
-  runCommand,
-  lit,
-  glibc,
-  spirv-llvm-translator,
-  xz,
-  swig,
-  lua5_3,
-  gtest,
-  hip,
-  rocm-comgr,
-  vulkan-loader,
-  vulkan-headers,
-  glslang,
-  shaderc,
-  perl,
-  rocm-device-libs,
-  rocm-runtime,
-  elfutils,
-  python3Packages,
-}:
+{ lib, stdenv, callPackage, overrideCC, wrapCCWith, wrapBintoolsWith, runCommand
+, lit, glibc, spirv-llvm-translator, xz, swig, lua5_3, gtest, hip, rocm-comgr
+, vulkan-loader, vulkan-headers, glslang, shaderc, perl, rocm-device-libs
+, rocm-runtime, elfutils, python3Packages }:
 
 let
   # Stage 1
   # Base
   llvm = callPackage ./llvm.nix {
     requiredSystemFeatures = [ "big-parallel" ];
-    isBroken = stdenv.isAarch64; # https://github.com/RadeonOpenCompute/ROCm/issues/1831#issuecomment-1278205344
+    isBroken =
+      stdenv.isAarch64; # https://github.com/RadeonOpenCompute/ROCm/issues/1831#issuecomment-1278205344
   };
 
   # Projects
@@ -107,37 +85,34 @@ let
 
   # Stage 2
   # Helpers
-  rStdenv = overrideCC stdenv (
-    wrapCCWith rec {
-      inherit bintools;
-      libcxx = runtimes;
-      cc = clang-unwrapped;
+  rStdenv = overrideCC stdenv (wrapCCWith rec {
+    inherit bintools;
+    libcxx = runtimes;
+    cc = clang-unwrapped;
 
-      extraPackages = [
-        llvm
-        lld
-      ];
+    extraPackages = [ llvm lld ];
 
-      nixSupport.cc-cflags = [
-        "-resource-dir=$out/resource-root"
-        "-fuse-ld=lld"
-        "-rtlib=compiler-rt"
-        "-unwindlib=libunwind"
-        "-Wno-unused-command-line-argument"
-      ];
+    nixSupport.cc-cflags = [
+      "-resource-dir=$out/resource-root"
+      "-fuse-ld=lld"
+      "-rtlib=compiler-rt"
+      "-unwindlib=libunwind"
+      "-Wno-unused-command-line-argument"
+    ];
 
-      extraBuildCommands = ''
-        clang_version=`${cc}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
-        mkdir -p $out/resource-root
-        ln -s ${cc}/lib/clang/$clang_version/include $out/resource-root
-        ln -s ${runtimes}/lib $out/resource-root
-      '';
-    }
-  );
+    extraBuildCommands = ''
+      clang_version=`${cc}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
+      mkdir -p $out/resource-root
+      ln -s ${cc}/lib/clang/$clang_version/include $out/resource-root
+      ln -s ${runtimes}/lib $out/resource-root
+    '';
+  });
 
   bintools = wrapBintoolsWith { bintools = bintools-unwrapped; };
 
-  bintools-unwrapped = runCommand "rocm-llvm-binutils-${llvm.version}" { preferLocalBuild = true; } ''
+  bintools-unwrapped = runCommand "rocm-llvm-binutils-${llvm.version}" {
+    preferLocalBuild = true;
+  } ''
     mkdir -p $out/bin
 
     for prog in ${lld}/bin/*; do
@@ -160,15 +135,8 @@ let
     ln -s ${llvm}/bin/llvm-strip $out/bin/strip
     ln -s ${lld}/bin/lld $out/bin/ld
   '';
-in
-rec {
-  inherit
-    llvm
-    clang-unwrapped
-    lld
-    bintools
-    bintools-unwrapped
-  ;
+in rec {
+  inherit llvm clang-unwrapped lld bintools bintools-unwrapped;
 
   # Runtimes
   libc = callPackage ./llvm.nix rec {
@@ -200,11 +168,7 @@ rec {
     targetName = "libcxxabi";
     targetDir = "runtimes";
 
-    targetRuntimes = [
-      "libunwind"
-      targetName
-      "libcxx"
-    ];
+    targetRuntimes = [ "libunwind" targetName "libcxx" ];
 
     extraCMakeFlags = [
       "-DLIBCXXABI_INCLUDE_TESTS=ON"
@@ -232,11 +196,7 @@ rec {
     targetName = "libcxx";
     targetDir = "runtimes";
 
-    targetRuntimes = [
-      "libunwind"
-      "libcxxabi"
-      targetName
-    ];
+    targetRuntimes = [ "libunwind" "libcxxabi" targetName ];
 
     extraCMakeFlags = [
       "-DLIBCXX_INCLUDE_DOCS=ON"
@@ -278,12 +238,7 @@ rec {
     targetName = "compiler-rt";
     targetDir = "runtimes";
 
-    targetRuntimes = [
-      "libunwind"
-      "libcxxabi"
-      "libcxx"
-      targetName
-    ];
+    targetRuntimes = [ "libunwind" "libcxxabi" "libcxx" targetName ];
 
     extraCMakeFlags = [
       "-DCMAKE_POLICY_DEFAULT_CMP0114=NEW"
@@ -335,40 +290,32 @@ rec {
     inherit libcxx bintools;
 
     # We do this to avoid HIP pathing problems, and mimic a monolithic install
-    cc = stdenv.mkDerivation (
-      finalAttrs: {
-        inherit (clang-unwrapped) pname version;
-        dontUnpack = true;
+    cc = stdenv.mkDerivation (finalAttrs: {
+      inherit (clang-unwrapped) pname version;
+      dontUnpack = true;
 
-        installPhase = ''
-          runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-          clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
-          mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
+        clang_version=`${clang-unwrapped}/bin/clang -v 2>&1 | grep "clang version " | grep -E -o "[0-9.-]+"`
+        mkdir -p $out/{bin,include/c++/v1,lib/{cmake,clang/$clang_version/{include,lib}},libexec,share}
 
-          for path in ${llvm} ${clang-unwrapped} ${lld} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
-            cp -as $path/* $out
-            chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
-            rm -f $out/lib/libc++.so
-          done
+        for path in ${llvm} ${clang-unwrapped} ${lld} ${libunwind} ${libcxxabi} ${libcxx} ${compiler-rt}; do
+          cp -as $path/* $out
+          chmod +w $out/{*,include/c++/v1,lib/{clang/$clang_version/include,cmake}}
+          rm -f $out/lib/libc++.so
+        done
 
-          ln -s $out/lib/* $out/lib/clang/$clang_version/lib
-          ln -s $out/include/* $out/lib/clang/$clang_version/include
+        ln -s $out/lib/* $out/lib/clang/$clang_version/lib
+        ln -s $out/include/* $out/lib/clang/$clang_version/include
 
-          runHook postInstall
-        '';
+        runHook postInstall
+      '';
 
-        passthru.isClang = true;
-      }
-    );
+      passthru.isClang = true;
+    });
 
-    extraPackages = [
-      llvm
-      lld
-      libunwind
-      libcxxabi
-      compiler-rt
-    ];
+    extraPackages = [ llvm lld libunwind libcxxabi compiler-rt ];
 
     nixSupport.cc-cflags = [
       "-resource-dir=$out/resource-root"
@@ -398,13 +345,11 @@ rec {
   # Unfortunately, we cannot build `clang-tools-extra` separately.
   clang-tools-extra = callPackage ./llvm.nix {
     stdenv = rocmClangStdenv;
-    buildTests = false; # `invalid operands to binary expression ('std::basic_stringstream<char>' and 'const llvm::StringRef')`
+    buildTests =
+      false; # `invalid operands to binary expression ('std::basic_stringstream<char>' and 'const llvm::StringRef')`
     targetName = "clang-tools-extra";
 
-    targetProjects = [
-      "clang"
-      "clang-tools-extra"
-    ];
+    targetProjects = [ "clang" "clang-tools-extra" ];
 
     extraBuildInputs = [ gtest ];
 
@@ -430,49 +375,42 @@ rec {
   };
 
   # Projects
-  libclc =
-    let
-      spirv = (spirv-llvm-translator.override { inherit llvm; });
-    in
-    callPackage ./llvm.nix rec {
-      stdenv = rocmClangStdenv;
-      buildDocs = false; # No documentation to build
-      buildMan = false; # No man pages to build
-      targetName = "libclc";
-      targetDir = targetName;
-      extraBuildInputs = [ spirv ];
+  libclc = let spirv = (spirv-llvm-translator.override { inherit llvm; });
+  in callPackage ./llvm.nix rec {
+    stdenv = rocmClangStdenv;
+    buildDocs = false; # No documentation to build
+    buildMan = false; # No man pages to build
+    targetName = "libclc";
+    targetDir = targetName;
+    extraBuildInputs = [ spirv ];
 
-      # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
-      # Try removing the `spirv-mesa3d` and `clspv` patches next update
-      # `clspv` tests fail, unresolved calls
-      extraPostPatch = ''
-        substituteInPlace CMakeLists.txt \
-          --replace "find_program( LLVM_CLANG clang PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
-            "find_program( LLVM_CLANG clang PATHS \"${clang}/bin\" NO_DEFAULT_PATH )" \
-          --replace "find_program( LLVM_SPIRV llvm-spirv PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
-            "find_program( LLVM_SPIRV llvm-spirv PATHS \"${spirv}/bin\" NO_DEFAULT_PATH )" \
-          --replace "  spirv-mesa3d-" "" \
-          --replace "  spirv64-mesa3d-" "" \
-          --replace "NOT \''${t} MATCHES" \
-            "NOT \''${ARCH} STREQUAL \"clspv\" AND NOT \''${ARCH} STREQUAL \"clspv64\" AND NOT \''${t} MATCHES"
-      '';
+    # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
+    # Try removing the `spirv-mesa3d` and `clspv` patches next update
+    # `clspv` tests fail, unresolved calls
+    extraPostPatch = ''
+      substituteInPlace CMakeLists.txt \
+        --replace "find_program( LLVM_CLANG clang PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
+          "find_program( LLVM_CLANG clang PATHS \"${clang}/bin\" NO_DEFAULT_PATH )" \
+        --replace "find_program( LLVM_SPIRV llvm-spirv PATHS \''${LLVM_BINDIR} NO_DEFAULT_PATH )" \
+          "find_program( LLVM_SPIRV llvm-spirv PATHS \"${spirv}/bin\" NO_DEFAULT_PATH )" \
+        --replace "  spirv-mesa3d-" "" \
+        --replace "  spirv64-mesa3d-" "" \
+        --replace "NOT \''${t} MATCHES" \
+          "NOT \''${ARCH} STREQUAL \"clspv\" AND NOT \''${ARCH} STREQUAL \"clspv64\" AND NOT \''${t} MATCHES"
+    '';
 
-      checkTargets = [ ];
-    };
+    checkTargets = [ ];
+  };
 
   lldb = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;
-    buildTests = false; # ld.lld: error: unable to find library -lllvm_gtest_main
+    buildTests =
+      false; # ld.lld: error: unable to find library -lllvm_gtest_main
     targetName = "lldb";
     targetDir = targetName;
     extraNativeBuildInputs = [ python3Packages.sphinx-automodapi ];
 
-    extraBuildInputs = [
-      xz
-      swig
-      lua5_3
-      gtest
-    ];
+    extraBuildInputs = [ xz swig lua5_3 gtest ];
 
     extraCMakeFlags = [
       "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
@@ -489,13 +427,8 @@ rec {
     targetDir = targetName;
     extraNativeBuildInputs = [ hip ];
 
-    extraBuildInputs = [
-      rocm-comgr
-      vulkan-headers
-      vulkan-loader
-      glslang
-      shaderc
-    ];
+    extraBuildInputs =
+      [ rocm-comgr vulkan-headers vulkan-loader glslang shaderc ];
 
     extraCMakeFlags = [
       "-DCMAKE_POLICY_DEFAULT_CMP0116=NEW"
@@ -577,11 +510,7 @@ rec {
     extraPatches = [ ./0000-fix-openmp.patch ];
     extraNativeBuildInputs = [ perl ];
 
-    extraBuildInputs = [
-      rocm-device-libs
-      rocm-runtime
-      elfutils
-    ];
+    extraBuildInputs = [ rocm-device-libs rocm-runtime elfutils ];
 
     extraCMakeFlags = [
       "-DCMAKE_MODULE_PATH=/build/source/llvm/cmake/modules" # For docs

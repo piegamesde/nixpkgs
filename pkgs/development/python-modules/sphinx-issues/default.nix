@@ -1,18 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  sphinx,
-  fetchFromGitHub,
-  pandoc,
-}:
+{ lib, buildPythonPackage, sphinx, fetchFromGitHub, pandoc }:
 
 buildPythonPackage rec {
   pname = "sphinx-issues";
   version = "3.0.1";
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   src = fetchFromGitHub {
     owner = "sloria";
@@ -38,7 +29,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/sloria/sphinx-issues";
-    description = "Sphinx extension for linking to your project's issue tracker.";
+    description =
+      "Sphinx extension for linking to your project's issue tracker.";
     license = licenses.mit;
     maintainers = with maintainers; [ kaction ];
   };

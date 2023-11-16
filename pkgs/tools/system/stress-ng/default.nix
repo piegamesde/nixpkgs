@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  attr,
-  judy,
-  keyutils,
-  libaio,
-  libapparmor,
-  libbsd,
-  libcap,
-  libgcrypt,
-  lksctp-tools,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, attr, judy, keyutils, libaio, libapparmor
+, libbsd, libcap, libgcrypt, lksctp-tools, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "stress-ng";
@@ -30,13 +17,7 @@ stdenv.mkDerivation rec {
   ''; # needed because of Darwin patch on libbsd
 
   # All platforms inputs then Linux-only ones
-  buildInputs =
-    [
-      judy
-      libbsd
-      libgcrypt
-      zlib
-    ]
+  buildInputs = [ judy libbsd libgcrypt zlib ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       attr
       keyutils
@@ -53,7 +34,8 @@ stdenv.mkDerivation rec {
     "BASHDIR=${placeholder "out"}/share/bash-completion/completions"
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl "-D_LINUX_SYSINFO_H=1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.hostPlatform.isMusl "-D_LINUX_SYSINFO_H=1";
 
   # Won't build on i686 because the binary will be linked again in the
   # install phase without checking the dependencies. This will prevent
@@ -89,7 +71,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/ColinIanKing/stress-ng";
     downloadPage = "https://github.com/ColinIanKing/stress-ng/tags";
-    changelog = "https://github.com/ColinIanKing/stress-ng/raw/V${version}/debian/changelog";
+    changelog =
+      "https://github.com/ColinIanKing/stress-ng/raw/V${version}/debian/changelog";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ c0bw3b ];
     platforms = platforms.unix;

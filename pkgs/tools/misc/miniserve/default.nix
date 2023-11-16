@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  darwin,
-  curl,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, darwin, curl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "miniserve";
@@ -23,7 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   nativeCheckInputs = [ curl ];
 
@@ -48,7 +41,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "CLI tool to serve files and directories over HTTP";
     homepage = "https://github.com/svenstaro/miniserve";
-    changelog = "https://github.com/svenstaro/miniserve/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/svenstaro/miniserve/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ figsoda ];
   };

@@ -1,26 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  writeText,
-  cmake,
-  libxslt,
-  docbook_xsl_ns,
-  wrapQtAppsHook,
-  libusb1,
-  qtlocation,
-  qtserialport,
-  qttools,
-  qtbase,
-  yaml-cpp,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, writeText, cmake, libxslt
+, docbook_xsl_ns, wrapQtAppsHook, libusb1, qtlocation, qtserialport, qttools
+, qtbase, yaml-cpp, }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "qdmr";
   version = "0.11.2";
 
@@ -31,31 +15,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zT31tzsm5OM99vz8DzGCdPmnemiwiJpKccYwECnUgOQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    libxslt
-    wrapQtAppsHook
-    installShellFiles
-  ];
+  nativeBuildInputs = [ cmake libxslt wrapQtAppsHook installShellFiles ];
 
-  buildInputs = [
-    libusb1
-    qtlocation
-    qtserialport
-    qttools
-    qtbase
-    yaml-cpp
-  ];
+  buildInputs = [ libusb1 qtlocation qtserialport qttools qtbase yaml-cpp ];
 
   postPatch = lib.optionalString isLinux ''
     substituteInPlace doc/docbook_man.debian.xsl \
       --replace /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook\.xsl ${docbook_xsl_ns}/xml/xsl/docbook/manpages/docbook.xsl
   '';
 
-  cmakeFlags = [
-    "-DBUILD_MAN=ON"
-    "-DINSTALL_UDEV_RULES=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_MAN=ON" "-DINSTALL_UDEV_RULES=OFF" ];
 
   postInstall = ''
     installManPage doc/dmrconf.1 doc/qdmr.1
@@ -64,13 +33,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "GUI application and command line tool for programming DMR radios";
+    description =
+      "GUI application and command line tool for programming DMR radios";
     homepage = "https://dm3mat.darc.de/qdmr/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      janik
-      _0x4A6F
-    ];
+    maintainers = with lib.maintainers; [ janik _0x4A6F ];
     platforms = lib.platforms.linux;
   };
 }

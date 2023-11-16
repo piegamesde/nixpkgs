@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  click,
-  pytest,
-  glibcLocales,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, click, pytest, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "cligj";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [
-    pytest
-    glibcLocales
-  ];
+  nativeCheckInputs = [ pytest glibcLocales ];
 
   checkPhase = ''
     LC_ALL=en_US.utf-8 pytest tests

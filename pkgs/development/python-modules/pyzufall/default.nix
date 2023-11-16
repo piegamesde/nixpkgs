@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  python,
-  buildPythonPackage,
-  nose,
-  future,
-  coverage,
-}:
+{ lib, fetchPypi, python, buildPythonPackage, nose, future, coverage }:
 
 buildPythonPackage rec {
   pname = "PyZufall";
@@ -21,10 +13,7 @@ buildPythonPackage rec {
   # https://github.com/nose-devs/nose/issues/1037
   doCheck = false;
 
-  nativeCheckInputs = [
-    nose
-    coverage
-  ];
+  nativeCheckInputs = [ nose coverage ];
   propagatedBuildInputs = [ future ];
 
   checkPhase = ''
@@ -33,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pyzufall.readthedocs.io/de/latest/";
-    description = "Library for generating random data and sentences in german language";
+    description =
+      "Library for generating random data and sentences in german language";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ davidak ];
   };

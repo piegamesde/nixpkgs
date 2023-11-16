@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cython,
-  hypothesis,
-  numpy,
-  pytest,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, hypothesis, numpy, pytest
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "blis";
@@ -31,10 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytest
-  ];
+  nativeCheckInputs = [ hypothesis pytest ];
 
   pythonImportsCheck = [ "blis" ];
 

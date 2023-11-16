@@ -1,15 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  isPy27,
-  six,
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, isPy27, six
 
-  pytestCheckHook,
-  keyring,
-  setuptools-scm,
-}:
+, pytestCheckHook, keyring, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "keyrings.alt";
@@ -26,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    keyring
-  ];
+  nativeCheckInputs = [ pytestCheckHook keyring ];
 
   pythonImportsCheck = [ "keyrings.alt" ];
 

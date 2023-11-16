@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildNimPackage, fetchFromGitHub }:
 
 buildNimPackage rec {
   pname = "illwillwidgets";
@@ -15,10 +11,8 @@ buildNimPackage rec {
     hash = "sha256-YVNdgs8jquJ58qbcyNMMJt+hJYcvahYpkSrDBbO4ILU=";
   };
 
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "Mouse enabled widgets for illwill";
 
       license = [ licenses.mit ];

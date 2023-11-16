@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  ringo,
-}:
+{ lib, buildDunePackage, ringo }:
 
 buildDunePackage {
   pname = "aches";
@@ -11,7 +7,8 @@ buildDunePackage {
   propagatedBuildInputs = [ ringo ];
 
   meta = {
-    description = "Caches (bounded-size stores) for in-memory values and for resources";
+    description =
+      "Caches (bounded-size stores) for in-memory values and for resources";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.ulrikstrid ];
   };

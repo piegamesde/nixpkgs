@@ -1,35 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  glib,
-  libIDL,
-  libintl,
-}:
+{ lib, stdenv, fetchurl, pkg-config, glib, libIDL, libintl }:
 
 stdenv.mkDerivation rec {
   pname = "ORBit2";
   version = "2.14.19";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/ORBit2/${lib.versions.majorMinor version}/ORBit2-${version}.tar.bz2";
+    url = "mirror://gnome/sources/ORBit2/${
+        lib.versions.majorMinor version
+      }/ORBit2-${version}.tar.bz2";
     sha256 = "0l3mhpyym9m5iz09fz0rgiqxl2ym6kpkwpsp1xrr4aa80nlh1jam";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    libintl
-  ];
-  propagatedBuildInputs = [
-    glib
-    libIDL
-  ];
+  nativeBuildInputs = [ pkg-config libintl ];
+  propagatedBuildInputs = [ glib libIDL ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   preBuild = ''
     sed 's/-DG_DISABLE_DEPRECATED//' -i linc2/src/Makefile

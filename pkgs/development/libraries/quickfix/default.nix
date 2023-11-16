@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  autoconf,
-  automake,
-  libtool,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "quickfix";
@@ -22,18 +14,15 @@ stdenv.mkDerivation rec {
   patches = [
     # Improved C++17 compatibility
     (fetchpatch {
-      url = "https://github.com/quickfix/quickfix/commit/a46708090444826c5f46a5dbf2ba4b069b413c58.diff";
+      url =
+        "https://github.com/quickfix/quickfix/commit/a46708090444826c5f46a5dbf2ba4b069b413c58.diff";
       sha256 = "1wlk4j0wmck0zm6a70g3nrnq8fz0id7wnyxn81f7w048061ldhyd";
     })
     ./disableUnitTests.patch
   ];
 
   # autoreconfHook does not work
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-  ];
+  nativeBuildInputs = [ autoconf automake libtool ];
 
   enableParallelBuilding = true;
 

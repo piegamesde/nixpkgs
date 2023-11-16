@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  dbus,
-  fuse,
-  sqlite,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, dbus, fuse, sqlite }:
 
 rustPlatform.buildRustPackage rec {
   pname = "supertag";
@@ -25,15 +17,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-W5Emkbe1jI9Z+irMckD/3gJO47rACa9E5k5dqAFC1yQ=";
 
-  nativeBuildInputs = [
-    rustPlatform.bindgenHook
-    pkg-config
-  ];
-  buildInputs = [
-    dbus
-    fuse
-    sqlite
-  ];
+  nativeBuildInputs = [ rustPlatform.bindgenHook pkg-config ];
+  buildInputs = [ dbus fuse sqlite ];
 
   # The test are requiring extended permissions.
   doCheck = false;
@@ -49,10 +34,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/amoffat/supertag";
     license = licenses.agpl3Plus;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
     maintainers = with maintainers; [ oxzi ];
   };
 }

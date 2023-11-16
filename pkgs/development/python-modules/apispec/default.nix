@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  marshmallow,
-  mock,
-  openapi-spec-validator,
-  packaging,
-  prance,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchPypi, marshmallow, mock, openapi-spec-validator
+, packaging, prance, pytestCheckHook, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "apispec";
@@ -29,22 +18,20 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     marshmallow = [ marshmallow ];
     yaml = [ pyyaml ];
-    validation = [
-      openapi-spec-validator
-      prance
-    ] ++ prance.optional-dependencies.osv;
+    validation = [ openapi-spec-validator prance ]
+      ++ prance.optional-dependencies.osv;
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ mock pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "apispec" ];
 
   meta = with lib; {
-    changelog = "https://github.com/marshmallow-code/apispec/blob/${version}/CHANGELOG.rst";
-    description = "A pluggable API specification generator with support for the OpenAPI Specification";
+    changelog =
+      "https://github.com/marshmallow-code/apispec/blob/${version}/CHANGELOG.rst";
+    description =
+      "A pluggable API specification generator with support for the OpenAPI Specification";
     homepage = "https://github.com/marshmallow-code/apispec";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];

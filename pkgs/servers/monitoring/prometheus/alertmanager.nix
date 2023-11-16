@@ -1,10 +1,4 @@
-{
-  lib,
-  go,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, go, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "alertmanager";
@@ -20,23 +14,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-BX4mT0waYtKvNyOW3xw5FmXI8TLmv857YBFTnV7XXD8=";
 
-  subPackages = [
-    "cmd/alertmanager"
-    "cmd/amtool"
-  ];
+  subPackages = [ "cmd/alertmanager" "cmd/amtool" ];
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Revision=${src.rev}"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-      "-X ${t}.GoVersion=${lib.getVersion go}"
-    ];
+  ldflags = let t = "github.com/prometheus/common/version";
+  in [
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Revision=${src.rev}"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+    "-X ${t}.GoVersion=${lib.getVersion go}"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -50,13 +38,9 @@ buildGoModule rec {
   meta = with lib; {
     description = "Alert dispatcher for the Prometheus monitoring system";
     homepage = "https://github.com/prometheus/alertmanager";
-    changelog = "https://github.com/prometheus/alertmanager/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/prometheus/alertmanager/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      benley
-      fpletz
-      globin
-      Frostman
-    ];
+    maintainers = with maintainers; [ benley fpletz globin Frostman ];
   };
 }

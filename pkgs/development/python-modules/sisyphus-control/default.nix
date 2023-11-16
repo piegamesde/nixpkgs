@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  netifaces,
-  python-engineio,
-  python-socketio,
-  pythonOlder,
-  pythonRelaxDepsHook,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, netifaces, python-engineio
+, python-socketio, pythonOlder, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "sisyphus-control";
@@ -24,19 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-FbZWvsm2NT9a7TgHKWh/LHPsse6NBLK2grlOtHDbV2Y=";
   };
 
-  pythonRelaxDeps = [
-    "python-engineio"
-    "python-socketio"
-  ];
+  pythonRelaxDeps = [ "python-engineio" "python-socketio" ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    netifaces
-    python-engineio
-    python-socketio
-  ];
+  propagatedBuildInputs = [ aiohttp netifaces python-engineio python-socketio ];
 
   # Module has no tests
   doCheck = false;
@@ -46,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Control your Sisyphus Kinetic Art Table";
     homepage = "https://github.com/jkeljo/sisyphus-control";
-    changelog = "https://github.com/jkeljo/sisyphus-control/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/jkeljo/sisyphus-control/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

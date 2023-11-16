@@ -1,15 +1,7 @@
-{
-  stdenv,
-  lib,
-  nuspell,
-  makeWrapper,
-  dicts ? [ ],
-}:
+{ stdenv, lib, nuspell, makeWrapper, dicts ? [ ] }:
 
-let
-  searchPath = lib.makeSearchPath "share/hunspell" dicts;
-in
-stdenv.mkDerivation {
+let searchPath = lib.makeSearchPath "share/hunspell" dicts;
+in stdenv.mkDerivation {
   name = (lib.appendToName "with-dicts" nuspell).name;
   nativeBuildInputs = [ makeWrapper ];
   buildCommand = ''

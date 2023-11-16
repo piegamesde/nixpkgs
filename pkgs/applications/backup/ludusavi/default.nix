@@ -1,21 +1,6 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  makeWrapper,
-  bzip2,
-  fontconfig,
-  freetype,
-  libGL,
-  libX11,
-  libXcursor,
-  libXrandr,
-  libXi,
-  gnome,
-  libsForQt5,
-}:
+{ lib, rustPlatform, fetchFromGitHub, cmake, pkg-config, makeWrapper, bzip2
+, fontconfig, freetype, libGL, libX11, libXcursor, libXrandr, libXi, gnome
+, libsForQt5 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ludusavi";
@@ -30,20 +15,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-JjeOODm5xsRM5cJgCDb89cN60SuEeDzTVe6siKVDdcU=";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
 
-  buildInputs = [
-    fontconfig
-    freetype
-    libX11
-    libXcursor
-    libXrandr
-    libXi
-  ];
+  buildInputs = [ fontconfig freetype libX11 libXcursor libXrandr libXi ];
 
   postInstall = ''
     install -Dm644 assets/com.github.mtkennerly.ludusavi.metainfo.xml -t \
@@ -57,33 +31,29 @@ rustPlatform.buildRustPackage rec {
     install -Dm644 LICENSE -t "$out/share/licenses/${pname}/"
   '';
 
-  postFixup =
-    let
-      libPath = lib.makeLibraryPath [
-        libGL
-        bzip2
-        fontconfig
-        freetype
-        libX11
-        libXcursor
-        libXrandr
-        libXi
-      ];
-    in
-    ''
-      patchelf --set-rpath "${libPath}" "$out/bin/$pname"
-      wrapProgram $out/bin/$pname --prefix PATH : ${
-        lib.makeBinPath [
-          gnome.zenity
-          libsForQt5.kdialog
-        ]
-      }
-    '';
+  postFixup = let
+    libPath = lib.makeLibraryPath [
+      libGL
+      bzip2
+      fontconfig
+      freetype
+      libX11
+      libXcursor
+      libXrandr
+      libXi
+    ];
+  in ''
+    patchelf --set-rpath "${libPath}" "$out/bin/$pname"
+    wrapProgram $out/bin/$pname --prefix PATH : ${
+      lib.makeBinPath [ gnome.zenity libsForQt5.kdialog ]
+    }
+  '';
 
   meta = with lib; {
     description = "Backup tool for PC game saves";
     homepage = "https://github.com/mtkennerly/ludusavi";
-    changelog = "https://github.com/mtkennerly/ludusavi/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mtkennerly/ludusavi/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ pasqui23 ];
   };

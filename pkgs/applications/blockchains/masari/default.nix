@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  unbound,
-  openssl,
-  boost,
-  lmdb,
-  miniupnpc,
-  readline,
-  git,
-  libsodium,
-  rapidjson,
-  cppzmq,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, unbound, openssl, boost, lmdb
+, miniupnpc, readline, git, libsodium, rapidjson, cppzmq }:
 
 stdenv.mkDerivation rec {
   pname = "masari";
@@ -36,25 +21,14 @@ stdenv.mkDerivation rec {
     sed -i "1i #include <boost/mpl/contains.hpp>" contrib/epee/include/storages/portable_storage.h
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    git
-  ];
+  nativeBuildInputs = [ cmake pkg-config git ];
 
-  buildInputs = [
-    boost
-    miniupnpc
-    openssl
-    unbound
-    readline
-    libsodium
-    rapidjson
-    cppzmq
-  ];
+  buildInputs =
+    [ boost miniupnpc openssl unbound readline libsodium rapidjson cppzmq ];
 
   meta = with lib; {
-    description = "scalability-focused, untraceable, secure, and fungible cryptocurrency using the RingCT protocol";
+    description =
+      "scalability-focused, untraceable, secure, and fungible cryptocurrency using the RingCT protocol";
     homepage = "https://www.getmasari.org/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ matthewcroughan ];

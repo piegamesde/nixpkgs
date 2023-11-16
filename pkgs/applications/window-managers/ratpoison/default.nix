@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  perl,
-  autoconf,
-  automake,
-  libX11,
-  xorgproto,
-  libXt,
-  libXpm,
-  libXft,
-  libXtst,
-  libXi,
-  libXrandr,
-  fontconfig,
-  freetype,
-  readline,
-}:
+{ lib, stdenv, fetchurl, pkg-config, perl, autoconf, automake, libX11, xorgproto
+, libXt, libXpm, libXft, libXtst, libXi, libXrandr, fontconfig, freetype
+, readline }:
 
 stdenv.mkDerivation rec {
   pname = "ratpoison";
@@ -28,25 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "1wfir1gvh5h7izgvx2kd1pr2k7wlncd33zq7qi9s9k2y0aza93yr";
   };
 
-  outputs = [
-    "out"
-    "contrib"
-    "man"
-    "doc"
-    "info"
+  outputs = [ "out" "contrib" "man" "doc" "info" ];
+
+  configureFlags = [
+    # >=1.4.9 requires this even with readline in inputs
+    "--enable-history"
   ];
 
-  configureFlags =
-    [
-      # >=1.4.9 requires this even with readline in inputs
-      "--enable-history"
-    ];
-
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-    automake
-  ];
+  nativeBuildInputs = [ pkg-config autoconf automake ];
 
   buildInputs = [
     perl

@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 
 let
   cfg = config.services.greetd;
   tty = "tty${toString cfg.vt}";
   settingsFormat = pkgs.formats.toml { };
-in
-{
+in {
   options.services.greetd = {
     enable = mkEnableOption (lib.mdDoc "greetd");
 
@@ -48,7 +42,8 @@ in
     restart = mkOption {
       type = types.bool;
       default = !(cfg.settings ? initial_session);
-      defaultText = literalExpression "!(config.services.greetd.settings ? initial_session)";
+      defaultText = literalExpression
+        "!(config.services.greetd.settings ? initial_session)";
       description = lib.mdDoc ''
         Whether to restart greetd when it terminates (e.g. on failure).
         This is usually desirable so a user can always log in, but should be disabled when using 'settings.initial_session' (autologin),

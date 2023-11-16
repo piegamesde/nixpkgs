@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  eigen,
-  hdf5,
-  mpiSupport ? hdf5.mpiSupport,
-  mpi ? hdf5.mpi,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, hdf5
+, mpiSupport ? hdf5.mpiSupport, mpi ? hdf5.mpi }:
 
 assert mpiSupport -> mpi != null;
 
@@ -25,15 +16,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-    eigen
-    hdf5
-  ];
+  buildInputs = [ boost eigen hdf5 ];
 
-  passthru = {
-    inherit mpiSupport mpi;
-  };
+  passthru = { inherit mpiSupport mpi; };
 
   cmakeFlags = [
     "-DHIGHFIVE_USE_BOOST=ON"

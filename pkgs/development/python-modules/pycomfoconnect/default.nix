@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  protobuf,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, protobuf, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pycomfoconnect";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to interact with ComfoAir Q350/450/600 units";
     homepage = "https://github.com/michaelarnauts/comfoconnect";
-    changelog = "https://github.com/michaelarnauts/comfoconnect/releases/tag/${version}";
+    changelog =
+      "https://github.com/michaelarnauts/comfoconnect/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

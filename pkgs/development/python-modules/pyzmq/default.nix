@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  py,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-  tornado,
-  zeromq,
-}:
+{ lib, buildPythonPackage, fetchPypi, py, pytestCheckHook, python, pythonOlder
+, tornado, zeromq }:
 
 buildPythonPackage rec {
   pname = "pyzmq";
@@ -26,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ py ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    tornado
-  ];
+  nativeCheckInputs = [ pytestCheckHook tornado ];
 
   pythonImportsCheck = [ "zmq" ];
 

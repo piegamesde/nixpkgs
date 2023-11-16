@@ -1,13 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  llvmPackages_13,
-  libxml2,
-  ncurses,
-  zlib,
-  stdenv,
-}:
+{ lib, rustPlatform, fetchFromGitHub, llvmPackages_13, libxml2, ncurses, zlib
+, stdenv }:
 
 rustPlatform.buildRustPackage {
   pname = "bfc";
@@ -22,15 +14,9 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-5RPB4biLB2BTmfgOGzvnnQjnGp3cTmJdU1CVTAFRvKE=";
 
-  buildInputs = [
-    libxml2
-    ncurses
-    zlib
-  ];
+  buildInputs = [ libxml2 ncurses zlib ];
 
-  env = {
-    LLVM_SYS_130_PREFIX = llvmPackages_13.llvm.dev;
-  };
+  env = { LLVM_SYS_130_PREFIX = llvmPackages_13.llvm.dev; };
 
   # process didn't exit successfully: <...> SIGSEGV
   doCheck = false;

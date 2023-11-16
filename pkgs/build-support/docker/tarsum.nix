@@ -1,9 +1,4 @@
-{
-  stdenv,
-  go,
-  docker,
-  nixosTests,
-}:
+{ stdenv, go, docker, nixosTests }:
 
 stdenv.mkDerivation {
   name = "tarsum";
@@ -37,11 +32,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = {
-    tests = {
-      dockerTools = nixosTests.docker-tools;
-    };
-  };
+  passthru = { tests = { dockerTools = nixosTests.docker-tools; }; };
 
   meta.platforms = go.meta.platforms;
 }

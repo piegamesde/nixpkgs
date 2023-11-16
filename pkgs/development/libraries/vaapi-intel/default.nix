@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  gnum4,
-  pkg-config,
-  python3,
-  intel-gpu-tools,
-  libdrm,
-  libva,
-  libX11,
-  libGL,
-  wayland,
-  libXext,
-  enableHybridCodec ? false,
-  vaapi-intel-hybrid,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, gnum4, pkg-config, python3
+, intel-gpu-tools, libdrm, libva, libX11, libGL, wayland, libXext
+, enableHybridCodec ? false, vaapi-intel-hybrid }:
 
 stdenv.mkDerivation rec {
   pname = "intel-vaapi-driver";
@@ -35,27 +20,13 @@ stdenv.mkDerivation rec {
     ln -s ${vaapi-intel-hybrid}/lib/dri/* $out/lib/dri/
   '';
 
-  configureFlags = [
-    "--enable-x11"
-    "--enable-wayland"
-  ] ++ lib.optional enableHybridCodec "--enable-hybrid-codec";
+  configureFlags = [ "--enable-x11" "--enable-wayland" ]
+    ++ lib.optional enableHybridCodec "--enable-hybrid-codec";
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gnum4
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ autoreconfHook gnum4 pkg-config python3 ];
 
-  buildInputs = [
-    intel-gpu-tools
-    libdrm
-    libva
-    libX11
-    libXext
-    libGL
-    wayland
-  ] ++ lib.optional enableHybridCodec vaapi-intel-hybrid;
+  buildInputs = [ intel-gpu-tools libdrm libva libX11 libXext libGL wayland ]
+    ++ lib.optional enableHybridCodec vaapi-intel-hybrid;
 
   enableParallelBuilding = true;
 
@@ -73,10 +44,7 @@ stdenv.mkDerivation rec {
       processing. It consists of a main library and driver-specific acceleration
       backends for each supported hardware vendor.
     '';
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = with maintainers; [ ];
   };
 }

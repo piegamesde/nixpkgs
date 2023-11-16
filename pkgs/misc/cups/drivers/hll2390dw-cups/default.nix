@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  cups,
-  dpkg,
-  a2ps,
-  ghostscript,
-  gnugrep,
-  gnused,
-  coreutils,
-  file,
-  perl,
-  which,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, cups, dpkg, a2ps, ghostscript, gnugrep
+, gnused, coreutils, file, perl, which }:
 
 stdenv.mkDerivation rec {
   pname = "hll2390dw-cups";
@@ -22,17 +8,13 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     # The i386 part is a lie. There are x86, x86_64 and armv7l drivers.
     # Though this builds only supports x86_64 for now.
-    url = "https://download.brother.com/welcome/dlf103579/hll2390dwpdrv-${version}.i386.deb";
+    url =
+      "https://download.brother.com/welcome/dlf103579/hll2390dwpdrv-${version}.i386.deb";
     sha256 = "0w8rxh1sa5amxr87qmzs4m2p06b1b36wn2q127mg427sbkh1rwni";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    cups
-    ghostscript
-    dpkg
-    a2ps
-  ];
+  buildInputs = [ cups ghostscript dpkg a2ps ];
 
   dontUnpack = true;
 
@@ -61,12 +43,7 @@ stdenv.mkDerivation rec {
       #substituteInPlace $f \
       wrapProgram $f \
         --prefix PATH : ${
-          lib.makeBinPath [
-            coreutils
-            ghostscript
-            gnugrep
-            gnused
-          ]
+          lib.makeBinPath [ coreutils ghostscript gnugrep gnused ]
         }
     done
 
@@ -78,15 +55,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/opt/brother/Printers/HLL2390DW/lpd/lpdfilter \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          ghostscript
-          a2ps
-          file
-          gnused
-          gnugrep
-          coreutils
-          which
-        ]
+        lib.makeBinPath [ ghostscript a2ps file gnused gnugrep coreutils which ]
       }
   '';
 
@@ -96,7 +65,9 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us_ot&lang=en&prod=hll2390dw_us&os=128";
+    downloadPage =
+      "http://support.brother.com/g/b/downloadlist.aspx?c=us_ot&lang=en&prod=hll2390dw_us&os=128";
     maintainers = [ maintainers.samueldr ];
   };
 }
+

@@ -1,28 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  installShellFiles,
-  ansible,
-  cryptography,
-  jinja2,
-  junit-xml,
-  lxml,
-  ncclient,
-  packaging,
-  paramiko,
-  passlib,
-  pexpect,
-  psutil,
-  pycrypto,
-  pyyaml,
-  requests,
-  resolvelib,
-  scp,
-  windowsSupport ? false,
-  pywinrm,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, fetchPypi, installShellFiles, ansible, cryptography
+, jinja2, junit-xml, lxml, ncclient, packaging, paramiko, passlib, pexpect
+, psutil, pycrypto, pyyaml, requests, resolvelib, scp, windowsSupport ? false
+, pywinrm, xmltodict }:
 
 buildPythonPackage rec {
   pname = "ansible-core";
@@ -74,7 +53,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
+    changelog =
+      "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${
         lib.versions.majorMinor version
       }.rst";
     description = "Radically simple IT automation";

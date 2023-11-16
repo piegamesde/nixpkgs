@@ -1,16 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchPypi,
-  pytest-asyncio,
-  pytest-cov,
-  pytest-httpserver,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  voluptuous,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pytest-asyncio, pytest-cov
+, pytest-httpserver, pytestCheckHook, pythonOlder, setuptools-scm, voluptuous }:
 
 buildPythonPackage rec {
   pname = "solax";
@@ -26,17 +15,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    voluptuous
-  ];
+  propagatedBuildInputs = [ aiohttp voluptuous ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-cov
-    pytest-httpserver
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ pytest-asyncio pytest-cov pytest-httpserver pytestCheckHook ];
 
   pythonImportsCheck = [ "solax" ];
 

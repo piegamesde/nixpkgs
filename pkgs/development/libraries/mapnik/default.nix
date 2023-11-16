@@ -1,29 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPackages,
-  cmake,
-  pkg-config,
-  substituteAll,
-  boost,
-  cairo,
-  freetype,
-  gdal,
-  harfbuzz,
-  icu,
-  libjpeg,
-  libpng,
-  libtiff,
-  libwebp,
-  libxml2,
-  proj,
-  python3,
-  sqlite,
-  zlib,
-  catch2,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPackages, cmake, pkg-config, substituteAll
+, boost, cairo, freetype, gdal, harfbuzz, icu, libjpeg, libpng, libtiff, libwebp
+, libxml2, proj, python3, sqlite, zlib, catch2, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "mapnik";
@@ -61,10 +38,7 @@ stdenv.mkDerivation rec {
     ./include.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     boost
@@ -85,11 +59,10 @@ stdenv.mkDerivation rec {
     postgresql
   ];
 
-  cmakeFlags =
-    [
-      # Would require qt otherwise.
-      "-DBUILD_DEMO_VIEWER=OFF"
-    ];
+  cmakeFlags = [
+    # Would require qt otherwise.
+    "-DBUILD_DEMO_VIEWER=OFF"
+  ];
 
   # mapnik-config is currently not build with CMake. So we use the SCons for
   # this one. We can't add SCons to nativeBuildInputs though, as stdenv would

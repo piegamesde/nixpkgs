@@ -1,12 +1,6 @@
-{
-  substituteAll,
-  perl,
-  shadow,
-  util-linux,
-  configurationDirectory ? "/etc/nixos-containers",
-  stateDirectory ? "/var/lib/nixos-containers",
-  nixosTests,
-}:
+{ substituteAll, perl, shadow, util-linux
+, configurationDirectory ? "/etc/nixos-containers"
+, stateDirectory ? "/var/lib/nixos-containers", nixosTests }:
 
 substituteAll {
   name = "nixos-container";
@@ -22,12 +16,8 @@ substituteAll {
   passthru = {
     tests = {
       inherit (nixosTests)
-        containers-imperative
-        containers-ip
-        containers-tmpfs
-        containers-ephemeral
-        containers-unified-hierarchy
-      ;
+        containers-imperative containers-ip containers-tmpfs
+        containers-ephemeral containers-unified-hierarchy;
     };
   };
 

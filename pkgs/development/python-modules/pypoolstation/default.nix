@@ -1,11 +1,4 @@
-{
-  lib,
-  aiohttp,
-  backoff,
-  buildPythonPackage,
-  fetchPypi,
-  poetry-core,
-  pythonOlder,
+{ lib, aiohttp, backoff, buildPythonPackage, fetchPypi, poetry-core, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -23,10 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    backoff
-  ];
+  propagatedBuildInputs = [ aiohttp backoff ];
 
   # Project has no tests
   doCheck = false;

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 buildGoModule rec {
   pname = "clash-meta";
   version = "1.14.5";
@@ -23,11 +19,8 @@ buildGoModule rec {
   # Do not build testing suit
   excludedPackages = [ "./test" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/Dreamacro/clash/constant.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/Dreamacro/clash/constant.Version=${version}" ];
 
   tags = [ "with_gvisor" ];
 

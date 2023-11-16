@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-  git,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, git }:
 
 buildGoModule rec {
   pname = "soft-serve";
@@ -21,11 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.Version=${version}" ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -37,7 +27,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "A tasty, self-hosted Git server for the command line";
     homepage = "https://github.com/charmbracelet/soft-serve";
-    changelog = "https://github.com/charmbracelet/soft-serve/releases/tag/v${version}";
+    changelog =
+      "https://github.com/charmbracelet/soft-serve/releases/tag/v${version}";
     mainProgram = "soft";
     license = licenses.mit;
     maintainers = with maintainers; [ penguwin ];

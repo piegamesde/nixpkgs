@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ...
-}:
+{ lib, stdenv, fetchFromGitHub, ... }:
 
 stdenv.mkDerivation rec {
   pname = "nullidentdmod";
@@ -23,7 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple identd that just replies with a random string or customized userid";
+    description =
+      "Simple identd that just replies with a random string or customized userid";
     license = licenses.gpl2;
     homepage = "http://acidhub.click/NullidentdMod";
     maintainers = with maintainers; [ das_j ];

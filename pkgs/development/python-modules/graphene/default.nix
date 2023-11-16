@@ -1,21 +1,6 @@
-{
-  lib,
-  aniso8601,
-  buildPythonPackage,
-  fetchFromGitHub,
-  graphql-core,
-  graphql-relay,
-  promise,
-  py,
-  pytest-asyncio,
-  pytest-benchmark,
-  pytest-mock,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-  pytz,
-  snapshottest,
-}:
+{ lib, aniso8601, buildPythonPackage, fetchFromGitHub, graphql-core
+, graphql-relay, promise, py, pytest-asyncio, pytest-benchmark, pytest-mock
+, pytestCheckHook, pythonAtLeast, pythonOlder, pytz, snapshottest }:
 
 buildPythonPackage rec {
   pname = "graphene";
@@ -31,11 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-kwF6oXp06w7r1PbPoJTCQ9teTExYMoqvIZDhtv5QNn8=";
   };
 
-  propagatedBuildInputs = [
-    aniso8601
-    graphql-core
-    graphql-relay
-  ];
+  propagatedBuildInputs = [ aniso8601 graphql-core graphql-relay ];
 
   nativeCheckInputs = [
     promise
@@ -55,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "GraphQL Framework for Python";
     homepage = "https://github.com/graphql-python/graphene";
-    changelog = "https://github.com/graphql-python/graphene/releases/tag/v${version}";
+    changelog =
+      "https://github.com/graphql-python/graphene/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

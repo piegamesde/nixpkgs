@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  importlib-metadata,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  toml,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, importlib-metadata
+, pytest-asyncio, pytestCheckHook, pythonOlder, toml }:
 
 buildPythonPackage rec {
   pname = "aiolimiter";
@@ -26,13 +17,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    toml
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook toml ];
 
   postPatch = ''
     substituteInPlace tox.ini \
@@ -44,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Implementation of a rate limiter for asyncio";
     homepage = "https://github.com/mjpieters/aiolimiter";
-    changelog = "https://github.com/mjpieters/aiolimiter/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mjpieters/aiolimiter/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

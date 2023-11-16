@@ -1,24 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libsndfile,
-  freeglut,
-  alsa-lib,
-  mesa,
-  libGLU,
-  libX11,
-  libXmu,
-  libXext,
-  libXi,
-}:
+{ lib, stdenv, fetchurl, libsndfile, freeglut, alsa-lib, mesa, libGLU, libX11
+, libXmu, libXext, libXi }:
 
 stdenv.mkDerivation rec {
   pname = "sndpeek";
   version = "1.4";
 
   src = fetchurl {
-    url = "https://soundlab.cs.princeton.edu/software/sndpeek/files/sndpeek-${version}.tgz";
+    url =
+      "https://soundlab.cs.princeton.edu/software/sndpeek/files/sndpeek-${version}.tgz";
     sha256 = "2d86cf74854fa00dcdc05a35dd92bc4cf6115e87102b17023be5cba9ead8eedf";
   };
   sourceRoot = "sndpeek-${version}/src/sndpeek";
@@ -27,17 +16,8 @@ stdenv.mkDerivation rec {
   # symbol-not-found-error is thrown
   patches = [ ./pthread.patch ];
 
-  buildInputs = [
-    freeglut
-    alsa-lib
-    mesa
-    libGLU
-    libsndfile
-    libX11
-    libXmu
-    libXext
-    libXi
-  ];
+  buildInputs =
+    [ freeglut alsa-lib mesa libGLU libsndfile libX11 libXmu libXext libXi ];
   buildFlags = [ "linux-alsa" ];
 
   installPhase = ''

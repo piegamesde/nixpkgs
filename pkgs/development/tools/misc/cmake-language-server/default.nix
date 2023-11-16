@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  cmake-format,
-  pygls,
-  cmake,
-  pdm-pep517,
-  pytest-datadir,
-  pytestCheckHook,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, cmake-format, pygls, cmake
+, pdm-pep517, pytest-datadir, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "cmake-language-server";
@@ -24,25 +15,16 @@ buildPythonApplication rec {
 
   PDM_PEP517_SCM_VERSION = version;
 
-  patches =
-    [
-      # Test timeouts occasionally cause the build to fail
-      ./disable-test-timeouts.patch
-    ];
+  patches = [
+    # Test timeouts occasionally cause the build to fail
+    ./disable-test-timeouts.patch
+  ];
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    cmake-format
-    pygls
-  ];
+  propagatedBuildInputs = [ cmake-format pygls ];
 
-  nativeCheckInputs = [
-    cmake
-    cmake-format
-    pytest-datadir
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ cmake cmake-format pytest-datadir pytestCheckHook ];
 
   dontUseCmakeConfigure = true;
 

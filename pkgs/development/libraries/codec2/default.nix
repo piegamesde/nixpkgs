@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  freedvSupport ? false,
-  lpcnetfreedv,
-  codec2,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, freedvSupport ? false, lpcnetfreedv
+, codec2 }:
 
 stdenv.mkDerivation rec {
   pname = "codec2";
@@ -33,15 +26,14 @@ stdenv.mkDerivation rec {
     sed -r -i 's/(\<_Complex)(\s+)(float|double)/\3\2\1/' $out/include/$pname/freedv_api.h
   '';
 
-  cmakeFlags =
-    [
-      # RPATH of binary /nix/store/.../bin/freedv_rx contains a forbidden reference to /build/
-      "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    ]
-    ++ lib.optionals freedvSupport [ "-DLPCNET=ON" ];
+  cmakeFlags = [
+    # RPATH of binary /nix/store/.../bin/freedv_rx contains a forbidden reference to /build/
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+  ] ++ lib.optionals freedvSupport [ "-DLPCNET=ON" ];
 
   meta = with lib; {
-    description = "Speech codec designed for communications quality speech at low data rates";
+    description =
+      "Speech codec designed for communications quality speech at low data rates";
     homepage = "https://www.rowetel.com/codec2.html";
     license = licenses.lgpl21Only;
     platforms = platforms.unix;

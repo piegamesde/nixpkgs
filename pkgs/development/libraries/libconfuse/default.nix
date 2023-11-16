@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  autoreconfHook,
-  flex,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, flex }:
 
 stdenv.mkDerivation rec {
   pname = "libconfuse";
@@ -36,10 +29,7 @@ stdenv.mkDerivation rec {
       --replace 'TESTS            += print_filter' ""
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    flex
-  ];
+  nativeBuildInputs = [ autoreconfHook flex ];
 
   enableParallelBuilding = true;
 

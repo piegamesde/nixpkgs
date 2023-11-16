@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  cmake,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, cmake, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "libcifpp";
@@ -23,10 +16,7 @@ stdenv.mkDerivation rec {
   # disable network access
   cmakeFlags = [ "-DCIFPP_DOWNLOAD_CCD=OFF" ];
 
-  buildInputs = [
-    boost
-    zlib
-  ];
+  buildInputs = [ boost zlib ];
 
   meta = with lib; {
     description = "Manipulate mmCIF and PDB files";

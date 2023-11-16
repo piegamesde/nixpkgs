@@ -1,14 +1,8 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
-let
-  setoptconf-tmp = python3.pkgs.callPackage ./setoptconf.nix { };
-in
+let setoptconf-tmp = python3.pkgs.callPackage ./setoptconf.nix { };
 
-python3.pkgs.buildPythonApplication rec {
+in python3.pkgs.buildPythonApplication rec {
   pname = "prospector";
   version = "1.9.0";
   format = "pyproject";
@@ -20,16 +14,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-94JGKX91d2kul+KMYohga9KCOj6RN/YKpD8e4nWSOOM=";
   };
 
-  pythonRelaxDeps = [
-    "pyflakes"
-    "pep8-naming"
-    "flake8"
-  ];
+  pythonRelaxDeps = [ "pyflakes" "pep8-naming" "flake8" ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     bandit
@@ -60,16 +47,17 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "prospector" ];
 
-  disabledTestPaths =
-    [
-      # distutils.errors.DistutilsArgError: no commands supplied
-      "tests/tools/pyroma/test_pyroma_tool.py"
-    ];
+  disabledTestPaths = [
+    # distutils.errors.DistutilsArgError: no commands supplied
+    "tests/tools/pyroma/test_pyroma_tool.py"
+  ];
 
   meta = with lib; {
-    description = "Tool to analyse Python code and output information about errors, potential problems, convention violations and complexity";
+    description =
+      "Tool to analyse Python code and output information about errors, potential problems, convention violations and complexity";
     homepage = "https://github.com/PyCQA/prospector";
-    changelog = "https://github.com/PyCQA/prospector/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/PyCQA/prospector/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kamadorueda ];
   };

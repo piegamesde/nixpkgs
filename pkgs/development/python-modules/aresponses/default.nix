@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytest,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, pytest
+, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aresponses";
@@ -25,16 +17,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  buildInputs = [
-    pytest
-    pytest-asyncio
-  ];
+  buildInputs = [ pytest pytest-asyncio ];
 
-  nativeCheckInputs = [
-    aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiohttp pytest-asyncio pytestCheckHook ];
 
   disabledTests = [
     # Disable tests which requires network access
@@ -53,3 +38,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ makefu ];
   };
 }
+

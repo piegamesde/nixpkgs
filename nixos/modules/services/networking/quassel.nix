@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -13,9 +7,8 @@ let
   opt = options.services.quassel;
   quassel = cfg.package;
   user = if cfg.user != null then cfg.user else "quassel";
-in
 
-{
+in {
 
   ###### interface
 
@@ -86,18 +79,18 @@ in
           The existing user the Quassel daemon should run as. If left empty, a default "quassel" user will be created.
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.requireSSL -> cfg.certificateFile != null;
-        message = "Quassel needs a certificate file in order to require SSL";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.requireSSL -> cfg.certificateFile != null;
+      message = "Quassel needs a certificate file in order to require SSL";
+    }];
 
     users.users = optionalAttrs (cfg.user == null) {
       quassel = {
@@ -121,24 +114,23 @@ in
       description = "Quassel IRC client daemon";
 
       wantedBy = [ "multi-user.target" ];
-      after =
-        [ "network.target" ]
+      after = [ "network.target" ]
         ++ optional config.services.postgresql.enable "postgresql.service"
         ++ optional config.services.mysql.enable "mysql.service";
 
       serviceConfig = {
-        ExecStart = concatStringsSep " " (
-          [
-            "${quassel}/bin/quasselcore"
-            "--listen=${concatStringsSep "," cfg.interfaces}"
-            "--port=${toString cfg.portNumber}"
-            "--configdir=${cfg.dataDir}"
-          ]
-          ++ optional cfg.requireSSL "--require-ssl"
-          ++ optional (cfg.certificateFile != null) "--ssl-cert=${cfg.certificateFile}"
-        );
+        ExecStart = concatStringsSep " " ([
+          "${quassel}/bin/quasselcore"
+          "--listen=${concatStringsSep "," cfg.interfaces}"
+          "--port=${toString cfg.portNumber}"
+          "--configdir=${cfg.dataDir}"
+        ] ++ optional cfg.requireSSL "--require-ssl"
+          ++ optional (cfg.certificateFile != null)
+          "--ssl-cert=${cfg.certificateFile}");
         User = user;
       };
     };
+
   };
+
 }

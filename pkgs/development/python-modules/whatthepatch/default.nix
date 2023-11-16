@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  setuptools,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, setuptools
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "whatthepatch";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for both parsing and applying patch files";
     homepage = "https://github.com/cscorley/whatthepatch";
-    changelog = "https://github.com/cscorley/whatthepatch/blob/${version}/HISTORY.md";
+    changelog =
+      "https://github.com/cscorley/whatthepatch/blob/${version}/HISTORY.md";
     license = licenses.mit;
     maintainers = with maintainers; [ joelkoen ];
   };

@@ -1,11 +1,6 @@
 # To build, use:
 # nix-build nixos -I nixos-config=nixos/modules/installer/sd-card/sd-image-powerpc64le.nix -A config.system.build.sdImage
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -30,13 +25,12 @@
 
   sdImage = {
     populateFirmwareCommands = "";
-    populateRootCommands =
-      ''
-        mkdir -p ./files/boot
-        ${config.boot.loader.generic-extlinux-compatible.populateCmd} \
-          -c ${config.system.build.toplevel} \
-          -d ./files/boot
-      ''
+    populateRootCommands = ''
+      mkdir -p ./files/boot
+      ${config.boot.loader.generic-extlinux-compatible.populateCmd} \
+        -c ${config.system.build.toplevel} \
+        -d ./files/boot
+    ''
       # https://github.com/open-power/petitboot/blob/master/discover/syslinux-parser.c
       # petitboot will look in these paths (plus all-caps versions of them):
       #  /boot/syslinux/syslinux.cfg

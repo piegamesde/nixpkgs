@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  capnproto,
-}:
+{ lib, stdenv, fetchFromGitHub, capnproto }:
 
 stdenv.mkDerivation {
   pname = "ekam";

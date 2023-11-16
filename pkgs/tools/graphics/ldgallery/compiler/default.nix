@@ -1,24 +1,7 @@
 # generated with cabal2nix by ./generate.sh
-{
-  mkDerivation,
-  aeson,
-  base,
-  cmdargs,
-  containers,
-  data-ordlist,
-  directory,
-  fetchgit,
-  filepath,
-  Glob,
-  hpack,
-  lib,
-  parallel-io,
-  process,
-  safe,
-  text,
-  time,
-  yaml,
-}:
+{ mkDerivation, aeson, base, cmdargs, containers, data-ordlist, directory
+, fetchgit, filepath, Glob, hpack, lib, parallel-io, process, safe, text, time
+, yaml }:
 mkDerivation {
   pname = "ldgallery-compiler";
   version = "2.1";
@@ -83,7 +66,8 @@ mkDerivation {
   ];
   prePatch = "hpack";
   homepage = "https://ldgallery.pacien.org";
-  description = "A static generator which turns a collection of tagged pictures into a searchable web gallery";
+  description =
+    "A static generator which turns a collection of tagged pictures into a searchable web gallery";
   license = lib.licenses.agpl3Only;
   mainProgram = "ldgallery";
   maintainers = [ lib.maintainers.pacien ];

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "checkip";
@@ -17,18 +13,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-9/z1mtZGqrvcvq8cWBpYN7kaPHaPqtyMwMNxuRRP4Cs=";
 
-  ldflags = [
-    "-w"
-    "-s"
-  ];
+  ldflags = [ "-w" "-s" ];
 
   # Requires network
   doCheck = false;
 
   meta = with lib; {
-    description = "CLI tool that checks an IP address using various public services";
+    description =
+      "CLI tool that checks an IP address using various public services";
     homepage = "https://github.com/jreisinger/checkip";
-    changelog = "https://github.com/jreisinger/checkip/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jreisinger/checkip/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "iodash";
@@ -21,10 +15,7 @@ stdenv.mkDerivation rec {
   # https://github.com/YukiWorkshop/IODash/pull/2
   patches = [ ./0001-Add-cmake-install-directives.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   meta = with lib; {
     homepage = "https://github.com/YukiWorkshop/IODash";

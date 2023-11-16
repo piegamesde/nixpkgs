@@ -1,31 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  texinfo,
-  perl,
-  python3,
-  makeWrapper,
-  autoreconfHook,
-  rlwrap ? null,
-  tk ? null,
-  gnuplot ? null,
-  lisp-compiler,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, texinfo, perl, python3, makeWrapper
+, autoreconfHook, rlwrap ? null, tk ? null, gnuplot ? null, lisp-compiler }:
 
 let
   # Allow to remove some executables from the $PATH of the wrapped binary
-  searchPath = lib.makeBinPath (
-    lib.filter (x: x != null) [
-      lisp-compiler
-      rlwrap
-      tk
-      gnuplot
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+  searchPath = lib.makeBinPath
+    (lib.filter (x: x != null) [ lisp-compiler rlwrap tk gnuplot ]);
+in stdenv.mkDerivation rec {
   pname = "maxima";
   version = "5.46.0";
 
@@ -34,13 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-c5Dwa0jaZckDPosvYpuXi5AFZFSlQCLbfecOIiWqiwc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    lisp-compiler
-    makeWrapper
-    python3
-    texinfo
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook lisp-compiler makeWrapper python3 texinfo ];
 
   strictDeps = true;
 
@@ -50,38 +25,39 @@ stdenv.mkDerivation rec {
     substituteInPlace doc/info/Makefile.am --replace "/usr/bin/env perl" "${perl}/bin/perl"
   '';
 
-  postInstall =
-    ''
-      # Make sure that maxima can find its runtime dependencies.
-      for prog in "$out/bin/"*; do
-        wrapProgram "$prog" --prefix PATH ":" "$out/bin:${searchPath}"
-      done
-      # Move emacs modules and documentation into the right place.
-      mkdir -p $out/share/emacs $out/share/doc
-      ln -s ../maxima/${version}/emacs $out/share/emacs/site-lisp
-      ln -s ../maxima/${version}/doc $out/share/doc/maxima
-    ''
-    + (lib.optionalString (lisp-compiler.pname == "ecl") ''
-      cp src/binary-ecl/maxima.fas* "$out/lib/maxima/${version}/binary-ecl/"
-    '');
+  postInstall = ''
+    # Make sure that maxima can find its runtime dependencies.
+    for prog in "$out/bin/"*; do
+      wrapProgram "$prog" --prefix PATH ":" "$out/bin:${searchPath}"
+    done
+    # Move emacs modules and documentation into the right place.
+    mkdir -p $out/share/emacs $out/share/doc
+    ln -s ../maxima/${version}/emacs $out/share/emacs/site-lisp
+    ln -s ../maxima/${version}/doc $out/share/doc/maxima
+  '' + (lib.optionalString (lisp-compiler.pname == "ecl") ''
+    cp src/binary-ecl/maxima.fas* "$out/lib/maxima/${version}/binary-ecl/"
+  '');
 
   patches = [
     # fix path to info dir (see https://trac.sagemath.org/ticket/11348)
     (fetchpatch {
-      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/infodir.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
+      url =
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/infodir.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
       sha256 = "09v64n60f7i6frzryrj0zd056lvdpms3ajky4f9p6kankhbiv21x";
     })
 
     # fix https://sourceforge.net/p/maxima/bugs/2596/
     (fetchpatch {
-      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/matrixexp.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
+      url =
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/matrixexp.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
       sha256 = "06961hn66rhjijfvyym21h39wk98sfxhp051da6gz0n9byhwc6zg";
     })
 
     # undo https://sourceforge.net/p/maxima/code/ci/f5e9b0f7eb122c4e48ea9df144dd57221e5ea0ca
     # see https://trac.sagemath.org/ticket/13364#comment:93
     (fetchpatch {
-      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/undoing_true_false_printing_patch.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
+      url =
+        "https://git.sagemath.org/sage.git/plain/build/pkgs/maxima/patches/undoing_true_false_printing_patch.patch?id=07d6c37d18811e2b377a9689790a7c5e24da16ba";
       sha256 = "0fvi3rcjv6743sqsbgdzazy9jb6r1p1yq63zyj9fx42wd1hgf7yx";
     })
   ];
@@ -102,9 +78,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit lisp-compiler;
-  };
+  passthru = { inherit lisp-compiler; };
 
   meta = with lib; {
     description = "Computer algebra system";

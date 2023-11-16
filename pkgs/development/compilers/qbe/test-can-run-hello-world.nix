@@ -1,8 +1,4 @@
-{
-  stdenv,
-  writeText,
-  qbe,
-}:
+{ stdenv, writeText, qbe }:
 
 # The hello world program available at https://c9x.me/compile/
 let
@@ -20,8 +16,8 @@ let
     }
     data $fmt = { b "One and one make %d!\n", b 0 }
   '';
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   name = "qbe-test-can-run-hello-world";
   meta.timeout = 10;
   buildCommand = ''
@@ -31,3 +27,4 @@ stdenv.mkDerivation {
     touch $out
   '';
 }
+

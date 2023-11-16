@@ -1,14 +1,4 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  file,
-  pkg-config,
-  glib,
-  gtkVersion ? "3",
-  gtk2,
-  gtk3,
-}:
+{ stdenv, fetchurl, lib, file, pkg-config, glib, gtkVersion ? "3", gtk2, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "libindicator-gtk${gtkVersion}";
@@ -23,10 +13,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    glib
-  ];
+  nativeBuildInputs = [ pkg-config glib ];
 
   buildInputs = [ (if gtkVersion == "2" then gtk2 else gtk3) ];
 
@@ -46,15 +33,13 @@ stdenv.mkDerivation rec {
     "--with-gtk=${gtkVersion}"
   ];
 
-  installFlags = [
-    "sysconfdir=\${out}/etc"
-    "localstatedir=\${TMPDIR}"
-  ];
+  installFlags = [ "sysconfdir=\${out}/etc" "localstatedir=\${TMPDIR}" ];
 
   doCheck = false; # fails 8 out of 8 tests
 
   meta = with lib; {
-    description = "A set of symbols and convenience functions for Ayatana indicators";
+    description =
+      "A set of symbols and convenience functions for Ayatana indicators";
     homepage = "https://launchpad.net/libindicator";
     license = licenses.gpl3;
     platforms = platforms.linux;

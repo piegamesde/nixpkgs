@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  runCommand,
-  ncurses,
-  gettext,
-  pkg-config,
-  cscope,
-  ruby,
-  tcl,
-  perl,
-  luajit,
-  darwin,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, runCommand, ncurses, gettext, pkg-config, cscope
+, ruby, tcl, perl, luajit, darwin, python3 }:
 
 let
   # Building requires a few system tools to be in PATH.
@@ -24,9 +10,8 @@ let
     mkdir -p $out/bin
     ln -s /usr/bin/xcrun /usr/bin/xcodebuild /usr/bin/tiffutil /usr/bin/qlmanage $out/bin
   '';
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "macvim";
 
   version = "8.2.3455";
@@ -40,20 +25,8 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    buildSymlinks
-  ];
-  buildInputs = [
-    gettext
-    ncurses
-    cscope
-    luajit
-    ruby
-    tcl
-    perl
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config buildSymlinks ];
+  buildInputs = [ gettext ncurses cscope luajit ruby tcl perl python3 ];
 
   patches = [ ./macvim.patch ];
 
@@ -90,18 +63,17 @@ stdenv.mkDerivation {
 
   # This is unfortunate, but we need to use the same compiler as Xcode,
   # but Xcode doesn't provide a way to configure the compiler.
-  preConfigure =
-    ''
-      CC=/usr/bin/clang
+  preConfigure = ''
+    CC=/usr/bin/clang
 
-      DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
-      configureFlagsArray+=(
-        --with-developer-dir="$DEV_DIR"
-        LDFLAGS="-L${ncurses}/lib"
-        CPPFLAGS="-isystem ${ncurses.dev}/include"
-        CFLAGS="-Wno-error=implicit-function-declaration"
-      )
-    ''
+    DEV_DIR=$(/usr/bin/xcode-select -print-path)/Platforms/MacOSX.platform/Developer
+    configureFlagsArray+=(
+      --with-developer-dir="$DEV_DIR"
+      LDFLAGS="-L${ncurses}/lib"
+      CPPFLAGS="-isystem ${ncurses.dev}/include"
+      CFLAGS="-Wno-error=implicit-function-declaration"
+    )
+  ''
     # For some reason having LD defined causes PSMTabBarControl to fail at link-time as it
     # passes arguments to ld that it meant for clang.
     + ''
@@ -191,11 +163,9 @@ stdenv.mkDerivation {
     description = "Vim - the text editor - for macOS";
     homepage = "https://github.com/macvim-dev/macvim";
     license = licenses.vim;
-    maintainers = with maintainers; [
-      cstrahan
-      lilyball
-    ];
+    maintainers = with maintainers; [ cstrahan lilyball ];
     platforms = platforms.darwin;
-    hydraPlatforms = [ ]; # hydra can't build this as long as we rely on Xcode and sandboxProfile
+    hydraPlatforms =
+      [ ]; # hydra can't build this as long as we rely on Xcode and sandboxProfile
   };
 }

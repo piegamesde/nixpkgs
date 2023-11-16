@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchpatch,
-  fetchFromGitHub,
-  cmake,
-  openssl,
-  sqlite,
-  pkg-config,
-  systemd,
-  tlsSupport ? false,
-}:
+{ lib, stdenv, fetchpatch, fetchFromGitHub, cmake, openssl, sqlite, pkg-config
+, systemd, tlsSupport ? false }:
 
 assert tlsSupport -> openssl != null;
 
@@ -24,14 +14,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-CdTTf82opnpjd7I9TTY+JDEZSfdGFPE0bq/xsafwm/w=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    sqlite
-    systemd
-  ] ++ lib.optional tlsSupport openssl;
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ sqlite systemd ] ++ lib.optional tlsSupport openssl;
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \

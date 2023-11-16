@@ -1,24 +1,18 @@
-{
-  pkgs,
-  config,
-  idris-no-deps,
-  overrides ? (self: super: { }),
-}:
+{ pkgs, config, idris-no-deps, overrides ? (self: super: { }) }:
 let
   inherit (pkgs.lib) callPackageWith fix' extends;
 
   # Taken from haskell-modules/default.nix, should probably abstract this away
-  callPackageWithScope =
-    scope: drv: args:
-    (callPackageWith scope drv args)
-    // {
-      overrideScope = f: callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv args;
+  callPackageWithScope = scope: drv: args:
+    (callPackageWith scope drv args) // {
+      overrideScope = f:
+        callPackageWithScope (mkScope (fix' (extends f scope.__unfix__))) drv
+        args;
     };
 
   mkScope = scope: pkgs // pkgs.xorg // pkgs.gnome2 // scope;
 
-  idrisPackages =
-    self:
+  idrisPackages = self:
     let
       defaultScope = mkScope self;
 
@@ -29,23 +23,14 @@ let
 
         base = [ self.prelude ];
 
-        contrib = [
-          self.prelude
-          self.base
-        ];
+        contrib = [ self.prelude self.base ];
 
-        effects = [
-          self.prelude
-          self.base
-        ];
+        effects = [ self.prelude self.base ];
 
-        pruviloj = [
-          self.prelude
-          self.base
-        ];
+        pruviloj = [ self.prelude self.base ];
       };
-    in
-    {
+
+    in {
       inherit idris-no-deps callPackage;
 
       # Idris wrapper with specified compiler and library paths, used to build packages
@@ -221,11 +206,10 @@ let
       yaml = callPackage ./yaml.nix { };
 
       yampa = callPackage ./yampa.nix { };
-    }
-    // builtins_
-    // pkgs.lib.optionalAttrs config.allowAliases {
+
+    } // builtins_ // pkgs.lib.optionalAttrs config.allowAliases {
       # removed packages
-      protobuf = throw "idrisPackages.protobuf has been removed: abandoned by upstream"; # Added 2022-02-06
+      protobuf = throw
+        "idrisPackages.protobuf has been removed: abandoned by upstream"; # Added 2022-02-06
     };
-in
-fix' (extends overrides idrisPackages)
+in fix' (extends overrides idrisPackages)

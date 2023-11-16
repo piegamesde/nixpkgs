@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, requests }:
 
 buildPythonPackage rec {
   pname = "opencontainers";
@@ -24,7 +18,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "opencontainers" ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.reggie;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.reggie;
 
   __darwinAllowLocalNetworking = true;
 

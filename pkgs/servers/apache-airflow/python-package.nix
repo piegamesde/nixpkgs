@@ -1,87 +1,20 @@
-{
-  lib,
-  stdenv,
-  python,
-  buildPythonPackage,
-  fetchFromGitHub,
-  alembic,
-  argcomplete,
-  asgiref,
-  attrs,
-  blinker,
-  cached-property,
-  cattrs,
-  clickclick,
-  colorlog,
-  configupdater,
-  connexion,
-  cron-descriptor,
-  croniter,
-  cryptography,
-  deprecated,
-  dill,
-  flask,
-  flask-login,
-  flask-appbuilder,
-  flask-caching,
-  flask-session,
-  flask-wtf,
-  gitpython,
-  graphviz,
-  gunicorn,
-  httpx,
-  iso8601,
-  importlib-resources,
-  importlib-metadata,
-  inflection,
-  itsdangerous,
-  jinja2,
-  jsonschema,
-  lazy-object-proxy,
-  linkify-it-py,
-  lockfile,
-  markdown,
-  markupsafe,
-  marshmallow-oneofschema,
-  mdit-py-plugins,
-  numpy,
-  openapi-spec-validator,
-  pandas,
-  pathspec,
-  pendulum,
-  psutil,
-  pydantic,
-  pygments,
-  pyjwt,
-  python-daemon,
-  python-dateutil,
-  python-nvd3,
-  python-slugify,
-  python3-openid,
-  pythonOlder,
-  pyyaml,
-  rich,
-  rich-argparse,
-  setproctitle,
-  sqlalchemy,
-  sqlalchemy-jsonfield,
-  swagger-ui-bundle,
-  tabulate,
-  tenacity,
-  termcolor,
-  typing-extensions,
-  unicodecsv,
-  werkzeug,
-  freezegun,
-  pytest-asyncio,
-  pytestCheckHook,
-  time-machine,
-  mkYarnPackage,
-  writeScript,
+{ lib, stdenv, python, buildPythonPackage, fetchFromGitHub, alembic, argcomplete
+, asgiref, attrs, blinker, cached-property, cattrs, clickclick, colorlog
+, configupdater, connexion, cron-descriptor, croniter, cryptography, deprecated
+, dill, flask, flask-login, flask-appbuilder, flask-caching, flask-session
+, flask-wtf, gitpython, graphviz, gunicorn, httpx, iso8601, importlib-resources
+, importlib-metadata, inflection, itsdangerous, jinja2, jsonschema
+, lazy-object-proxy, linkify-it-py, lockfile, markdown, markupsafe
+, marshmallow-oneofschema, mdit-py-plugins, numpy, openapi-spec-validator
+, pandas, pathspec, pendulum, psutil, pydantic, pygments, pyjwt, python-daemon
+, python-dateutil, python-nvd3, python-slugify, python3-openid, pythonOlder
+, pyyaml, rich, rich-argparse, setproctitle, sqlalchemy, sqlalchemy-jsonfield
+, swagger-ui-bundle, tabulate, tenacity, termcolor, typing-extensions
+, unicodecsv, werkzeug, freezegun, pytest-asyncio, pytestCheckHook, time-machine
+, mkYarnPackage, writeScript
 
-  # Extra airflow providers to enable
-  enabledProviders ? [ ],
-}:
+# Extra airflow providers to enable
+, enabledProviders ? [ ] }:
 let
   version = "2.6.0";
 
@@ -132,12 +65,12 @@ let
   # Import generated file with metadata for provider dependencies and imports.
   # Enable additional providers using enabledProviders above.
   providers = import ./providers.nix;
-  getProviderDeps = provider: map (dep: python.pkgs.${dep}) providers.${provider}.deps;
+  getProviderDeps = provider:
+    map (dep: python.pkgs.${dep}) providers.${provider}.deps;
   getProviderImports = provider: providers.${provider}.imports;
   providerDependencies = lib.concatMap getProviderDeps enabledProviders;
   providerImports = lib.concatMap getProviderImports enabledProviders;
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "apache-airflow";
   inherit version;
   src = airflow-src;
@@ -211,34 +144,28 @@ buildPythonPackage rec {
     typing-extensions
     unicodecsv
     werkzeug
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ] ++ providerDependencies;
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
+    ++ providerDependencies;
 
   buildInputs = [ airflow-frontend ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-asyncio
-    pytestCheckHook
-    time-machine
-  ];
+  nativeCheckInputs = [ freezegun pytest-asyncio pytestCheckHook time-machine ];
 
   # By default, source code of providers is included but unusable due to missing
   # transitive dependencies. To enable a provider, add it to extraProviders
   # above
   INSTALL_PROVIDERS_FROM_SOURCES = "true";
 
-  postPatch =
-    ''
-      substituteInPlace setup.cfg \
-        --replace "colorlog>=4.0.2, <5.0" "colorlog" \
-        --replace "flask-appbuilder==4.3.0" "flask-appbuilder>=4.3.0" \
-        --replace "pathspec~=0.9.0" "pathspec"
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # Fix failing test on Hydra
-      substituteInPlace airflow/utils/db.py \
-        --replace "/tmp/sqlite_default.db" "$TMPDIR/sqlite_default.db"
-    '';
+  postPatch = ''
+    substituteInPlace setup.cfg \
+      --replace "colorlog>=4.0.2, <5.0" "colorlog" \
+      --replace "flask-appbuilder==4.3.0" "flask-appbuilder>=4.3.0" \
+      --replace "pathspec~=0.9.0" "pathspec"
+  '' + lib.optionalString stdenv.isDarwin ''
+    # Fix failing test on Hydra
+    substituteInPlace airflow/utils/db.py \
+      --replace "/tmp/sqlite_default.db" "$TMPDIR/sqlite_default.db"
+  '';
 
   # allow for gunicorn processes to have access to Python packages
   makeWrapperArgs = [ "--prefix PYTHONPATH : $PYTHONPATH" ];
@@ -303,13 +230,10 @@ buildPythonPackage rec {
   # see if they report success.
 
   meta = with lib; {
-    description = "Programmatically author, schedule and monitor data pipelines";
+    description =
+      "Programmatically author, schedule and monitor data pipelines";
     homepage = "https://airflow.apache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      bhipple
-      gbpdt
-      ingenieroariel
-    ];
+    maintainers = with maintainers; [ bhipple gbpdt ingenieroariel ];
   };
 }

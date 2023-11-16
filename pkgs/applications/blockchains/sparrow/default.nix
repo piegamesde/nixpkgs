@@ -1,31 +1,14 @@
-{
-  stdenv,
-  lib,
-  makeWrapper,
-  fetchurl,
-  makeDesktopItem,
-  copyDesktopItems,
-  autoPatchelfHook,
-  openjdk,
-  gtk3,
-  gsettings-desktop-schemas,
-  writeScript,
-  bash,
-  gnugrep,
-  tor,
-  zlib,
-  openimajgrabber,
-  hwi,
-  imagemagick,
-  gzip,
-}:
+{ stdenv, lib, makeWrapper, fetchurl, makeDesktopItem, copyDesktopItems
+, autoPatchelfHook, openjdk, gtk3, gsettings-desktop-schemas, writeScript, bash
+, gnugrep, tor, zlib, openimajgrabber, hwi, imagemagick, gzip }:
 
 let
   pname = "sparrow";
   version = "1.7.6";
 
   src = fetchurl {
-    url = "https://github.com/sparrowwallet/${pname}/releases/download/${version}/${pname}-${version}-x86_64.tar.gz";
+    url =
+      "https://github.com/sparrowwallet/${pname}/releases/download/${version}/${pname}-${version}-x86_64.tar.gz";
     sha256 = "01ksl790i8swvj8nvl2r27bbd8kad80shsbw3di39925841dp8z3";
   };
 
@@ -166,14 +149,10 @@ let
       ln -s ${hwi}/bin/hwi $out/modules/com.sparrowwallet.sparrow/native/linux/x64/hwi
     '';
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit version src;
   pname = "sparrow-unwrapped";
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -182,10 +161,7 @@ stdenv.mkDerivation rec {
       icon = pname;
       desktopName = "Sparrow Bitcoin Wallet";
       genericName = "Bitcoin Wallet";
-      categories = [
-        "Finance"
-        "Network"
-      ];
+      categories = [ "Finance" "Network" ];
       mimeTypes = [
         "application/psbt"
         "application/bitcoin-transaction"
@@ -232,17 +208,12 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
+    description =
+      "A modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability.";
     homepage = "https://sparrowwallet.com";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      emmanuelrosa
-      _1000101
-    ];
+    maintainers = with maintainers; [ emmanuelrosa _1000101 ];
     platforms = [ "x86_64-linux" ];
   };
 }

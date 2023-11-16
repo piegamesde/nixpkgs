@@ -1,17 +1,7 @@
-{
-  buildPecl,
-  lib,
-  gpgme,
-  file,
-  gnupg,
-  php,
-  fetchFromGitHub,
-}:
+{ buildPecl, lib, gpgme, file, gnupg, php, fetchFromGitHub }:
 
-let
-  version = "1.5.1";
-in
-buildPecl {
+let version = "1.5.1";
+in buildPecl {
   inherit version;
   pname = "gnupg";
 
@@ -37,16 +27,21 @@ buildPecl {
       --replace 'run-tests.php' 'run-tests.php -q --offline'
     substituteInPlace tests/gnupg_res_init_file_name.phpt \
       --replace '/usr/bin/gpg' '${gnupg}/bin/gpg' \
-      --replace 'string(12)' 'string(${toString (stringLength "${gnupg}/bin/gpg")})'
+      --replace 'string(12)' 'string(${
+        toString (stringLength "${gnupg}/bin/gpg")
+      })'
     substituteInPlace tests/gnupg_oo_init_file_name.phpt \
       --replace '/usr/bin/gpg' '${gnupg}/bin/gpg' \
-      --replace 'string(12)' 'string(${toString (stringLength "${gnupg}/bin/gpg")})'
+      --replace 'string(12)' 'string(${
+        toString (stringLength "${gnupg}/bin/gpg")
+      })'
   '';
 
   doCheck = true;
 
   meta = with lib; {
-    changelog = "https://github.com/php-gnupg/php-gnupg/releases/tag/gnupg-${version}";
+    changelog =
+      "https://github.com/php-gnupg/php-gnupg/releases/tag/gnupg-${version}";
     broken = lib.versionOlder php.version "8.1"; # Broken on PHP older than 8.1.
     description = "PHP wrapper for GpgME library that provides access to GnuPG";
     license = licenses.bsd3;

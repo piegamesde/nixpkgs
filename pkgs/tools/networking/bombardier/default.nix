@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  bombardier,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, bombardier }:
 
 buildGoModule rec {
   pname = "bombardier";
@@ -21,22 +15,17 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
   __darwinAllowLocalNetworking = true;
 
-  passthru.tests = {
-    version = testers.testVersion { package = bombardier; };
-  };
+  passthru.tests = { version = testers.testVersion { package = bombardier; }; };
 
   meta = with lib; {
     description = "Fast cross-platform HTTP benchmarking tool written in Go";
     homepage = "https://github.com/codesenberg/bombardier";
-    changelog = "https://github.com/codesenberg/bombardier/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/codesenberg/bombardier/releases/tag/${src.rev}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

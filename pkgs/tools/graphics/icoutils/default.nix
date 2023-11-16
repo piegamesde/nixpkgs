@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libpng,
-  perl,
-  perlPackages,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, libpng, perl, perlPackages, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "icoutils";
@@ -18,15 +10,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    libpng
-    perl
-  ];
+  buildInputs = [ libpng perl ];
   propagatedBuildInputs = [ perlPackages.LWP ];
 
   # Fixes a build failure on aarch64-darwin. Define for all Darwin targets for when x86_64-darwin
   # upgrades to a newer SDK.
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-DTARGET_OS_IPHONE=0";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-DTARGET_OS_IPHONE=0";
 
   patchPhase = ''
     patchShebangs extresso/extresso
@@ -42,7 +32,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.nongnu.org/icoutils/";
-    description = "Set of programs to deal with Microsoft Windows(R) icon and cursor files";
+    description =
+      "Set of programs to deal with Microsoft Windows(R) icon and cursor files";
     license = lib.licenses.gpl3Plus;
     platforms = with lib.platforms; linux ++ darwin;
   };

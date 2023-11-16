@@ -1,17 +1,13 @@
-args@{
-  pkgs,
-  nextcloudVersion ? 25,
-  ...
-}:
+args@{ pkgs, nextcloudVersion ? 25, ... }:
 
-(import ../make-test-python.nix (
-  { pkgs, ... }:
+(import ../make-test-python.nix ({ pkgs, ... }:
   let
     adminuser = "root";
     adminpass = "notproduction";
     nextcloudBase = {
       networking.firewall.allowedTCPPorts = [ 80 ];
-      system.stateVersion = "22.05"; # stateVersions <22.11 use openssl 1.1 by default
+      system.stateVersion =
+        "22.05"; # stateVersions <22.11 use openssl 1.1 by default
       services.nextcloud = {
         enable = true;
         config.adminpassFile = "${pkgs.writeText "adminpass" adminpass}";
@@ -19,8 +15,7 @@ args@{
         package = pkgs.${"nextcloud" + (toString nextcloudVersion)};
       };
     };
-  in
-  {
+  in {
     name = "nextcloud-openssl";
     meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
     nodes.nextcloudwithopenssl1 = {
@@ -34,11 +29,9 @@ args@{
         enableBrokenCiphersForSSE = false;
       };
     };
-    testScript =
-      { nodes, ... }:
+    testScript = { nodes, ... }:
       let
-        withRcloneEnv =
-          host:
+        withRcloneEnv = host:
           pkgs.writeScript "with-rclone-env" ''
             #!${pkgs.runtimeShell}
             export RCLONE_CONFIG_NEXTCLOUD_TYPE=webdav
@@ -58,10 +51,11 @@ args@{
           #!${pkgs.runtimeShell}
           echo 'bye' | ${withRcloneEnv3} ${pkgs.rclone}/bin/rclone rcat nextcloud:test-shared-file2
         '';
-        openssl1-node = nodes.nextcloudwithopenssl1.config.system.build.toplevel;
-        openssl3-node = nodes.nextcloudwithopenssl3.config.system.build.toplevel;
-      in
-      ''
+        openssl1-node =
+          nodes.nextcloudwithopenssl1.config.system.build.toplevel;
+        openssl3-node =
+          nodes.nextcloudwithopenssl3.config.system.build.toplevel;
+      in ''
         nextcloudwithopenssl1.start()
         nextcloudwithopenssl1.wait_for_unit("multi-user.target")
         nextcloudwithopenssl1.succeed("nextcloud-occ status")
@@ -116,6 +110,4 @@ args@{
 
         nextcloudwithopenssl1.shutdown()
       '';
-  }
-))
-  args
+  })) args

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  rns,
-  fetchFromGitHub,
-  lxmf,
-  urwid,
-  pythonOlder,
-  qrcode,
-}:
+{ lib, buildPythonPackage, rns, fetchFromGitHub, lxmf, urwid, pythonOlder
+, qrcode }:
 
 buildPythonPackage rec {
   pname = "nomadnet";
@@ -23,12 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-SPQ/3ntdD+EBW2YZJKfg2lornlg1ktnvTd1PNAqNSIg=";
   };
 
-  propagatedBuildInputs = [
-    rns
-    lxmf
-    urwid
-    qrcode
-  ];
+  propagatedBuildInputs = [ rns lxmf urwid qrcode ];
 
   # Module has no tests
   doCheck = false;

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  inflection,
-  pbr,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  tinycss2,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, inflection, pbr, pytest-mock
+, pytestCheckHook, pythonOlder, tinycss2 }:
 
 buildPythonPackage rec {
   pname = "qstylizer";
@@ -28,15 +19,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    inflection
-    tinycss2
-  ];
+  propagatedBuildInputs = [ inflection tinycss2 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
 
   pythonImportsCheck = [ "qstylizer" ];
 

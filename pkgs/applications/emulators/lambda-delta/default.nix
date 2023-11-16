@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  SDL2,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, SDL2 }:
 
 stdenv.mkDerivation rec {
   pname = "lambda-delta";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "02m43fj9dzc1i1jl01qwnhjiq1rh03jw1xq59sx2h3bhn7dk941x";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ SDL2 ];
 
   configureFlags = [ "--without-SDL1" ];

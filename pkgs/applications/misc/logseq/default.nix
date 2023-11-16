@@ -1,20 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  appimageTools,
-  makeWrapper,
-  electron,
-  git,
-  nix-update-script,
-}:
+{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron, git
+, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "logseq";
   version = "0.9.8";
 
   src = fetchurl {
-    url = "https://github.com/logseq/logseq/releases/download/${version}/logseq-linux-x64-${version}.AppImage";
+    url =
+      "https://github.com/logseq/logseq/releases/download/${version}/logseq-linux-x64-${version}.AppImage";
     hash = "sha256-+zyI5pBkhdrbesaEUxl3X4GQFzhULVuEqNCdDOOizcs=";
     name = "${pname}-${version}.AppImage";
   };
@@ -61,7 +54,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "A local-first, non-linear, outliner notebook for organizing and sharing your personal knowledge base";
+    description =
+      "A local-first, non-linear, outliner notebook for organizing and sharing your personal knowledge base";
     homepage = "https://github.com/logseq/logseq";
     changelog = "https://github.com/logseq/logseq/releases/tag/${version}";
     license = licenses.agpl3Plus;

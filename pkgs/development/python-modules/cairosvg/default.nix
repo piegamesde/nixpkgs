@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  cairocffi,
-  cssselect2,
-  defusedxml,
-  pillow,
-  tinycss2,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, cairocffi, cssselect2, defusedxml
+, pillow, tinycss2, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "CairoSVG";
@@ -21,13 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-rE3HwdOLOhVxfbJjOjo4MBLgvmZMcnyRFjfmr2pJKTw=";
   };
 
-  propagatedBuildInputs = [
-    cairocffi
-    cssselect2
-    defusedxml
-    pillow
-    tinycss2
-  ];
+  propagatedBuildInputs = [ cairocffi cssselect2 defusedxml pillow tinycss2 ];
 
   propagatedNativeBuildInputs = [ cairocffi ];
 

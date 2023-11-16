@@ -1,21 +1,12 @@
-{
-  lib,
-  dotnet-sdk,
-  stdenv,
-  substituteAll,
+{ lib, dotnet-sdk, stdenv, substituteAll,
 
-  buildDotnetModule,
-  fetchFromGitHub,
+buildDotnetModule, fetchFromGitHub,
 
-  dotnetCorePackages,
+dotnetCorePackages,
 
-  libX11,
-  libICE,
-  libSM,
-  fontconfig,
+libX11, libICE, libSM, fontconfig,
 
-  xdg-utils,
-}:
+xdg-utils, }:
 
 buildDotnetModule rec {
   pname = "BeatSaberModManager";
@@ -29,12 +20,7 @@ buildDotnetModule rec {
     fetchSubmodules = true; # It vendors BSIPA-Linux
   };
 
-  dotnet-sdk =
-    with dotnetCorePackages;
-    combinePackages [
-      sdk_7_0
-      sdk_6_0
-    ];
+  dotnet-sdk = with dotnetCorePackages; combinePackages [ sdk_7_0 sdk_6_0 ];
 
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
@@ -44,18 +30,14 @@ buildDotnetModule rec {
 
   nugetDeps = ./deps.nix;
 
-  runtimeDeps = [
-    libX11
-    libICE
-    libSM
-    fontconfig
-  ];
+  runtimeDeps = [ libX11 libICE libSM fontconfig ];
 
   # Required for OneClick
   makeWrapperArgs = [ ''--suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"'' ];
 
   meta = with lib; {
-    description = "Yet another mod installer for Beat Saber, heavily inspired by ModAssistant";
+    description =
+      "Yet another mod installer for Beat Saber, heavily inspired by ModAssistant";
     homepage = "https://github.com/affederaffe/BeatSaberModManager";
     longDescription = ''
       BeatSaberModManager is yet another mod installer for Beat Saber, heavily inspired by ModAssistant

@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pkgs,
-  qtbase,
-  qmake,
-  soqt,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pkgs, qtbase, qmake, soqt }:
 
 buildPythonPackage rec {
   pname = "pivy";
@@ -21,14 +13,9 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = with pkgs; [
-    swig
-    qmake
-    cmake
-  ];
+  nativeBuildInputs = with pkgs; [ swig qmake cmake ];
 
-  buildInputs =
-    with pkgs;
+  buildInputs = with pkgs;
     with xorg; [
       coin3d
       soqt
@@ -64,4 +51,5 @@ buildPythonPackage rec {
     license = licenses.bsd0;
     maintainers = with maintainers; [ gebner ];
   };
+
 }

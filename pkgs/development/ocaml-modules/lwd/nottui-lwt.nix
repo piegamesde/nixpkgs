@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  lwd,
-  lwt,
-  nottui,
-}:
+{ lib, fetchurl, buildDunePackage, lwd, lwt, nottui }:
 
 buildDunePackage {
   pname = "nottui-lwt";
@@ -15,10 +8,7 @@ buildDunePackage {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    lwt
-    nottui
-  ];
+  propagatedBuildInputs = [ lwt nottui ];
 
   meta = with lib; {
     description = "Run Nottui UIs in Lwt";

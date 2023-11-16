@@ -1,11 +1,4 @@
-{
-  stdenv,
-  ffmpeg-full,
-  tone,
-  pname,
-  nodejs,
-}:
-''
+{ stdenv, ffmpeg-full, tone, pname, nodejs }: ''
   #!${stdenv.shell}
 
   port=8000

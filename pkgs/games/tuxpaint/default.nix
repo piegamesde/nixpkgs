@@ -1,30 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  SDL,
-  SDL_gfx,
-  SDL_image,
-  SDL_ttf,
-  SDL_mixer,
-  libpng,
-  libimagequant,
-  cairo,
-  librsvg,
-  gettext,
-  libpaper,
-  fribidi,
-  pkg-config,
-  gperf,
-  imagemagick,
-}:
+{ lib, stdenv, fetchurl, SDL, SDL_gfx, SDL_image, SDL_ttf, SDL_mixer, libpng
+, libimagequant, cairo, librsvg, gettext, libpaper, fribidi, pkg-config, gperf
+, imagemagick }:
 
 stdenv.mkDerivation rec {
   version = "0.9.28";
   pname = "tuxpaint";
 
   src = fetchurl {
-    url = "mirror://sourceforge/tuxpaint/${version}/${pname}-${version}-sdl1.tar.gz";
+    url =
+      "mirror://sourceforge/tuxpaint/${version}/${pname}-${version}-sdl1.tar.gz";
     sha256 = "sha256-b4Ru9GqyGf2jMmM24szGXO2vbSxCwvPmA6tgEUWhhos=";
   };
 
@@ -59,7 +43,8 @@ stdenv.mkDerivation rec {
 
   # stamps
   stamps = fetchurl {
-    url = "mirror://sourceforge/project/tuxpaint/tuxpaint-stamps/2022-06-04/tuxpaint-stamps-2022.06.04.tar.gz";
+    url =
+      "mirror://sourceforge/project/tuxpaint/tuxpaint-stamps/2022-06-04/tuxpaint-stamps-2022.06.04.tar.gz";
     sha256 = "sha256-hCBlV2+uVUNY4A5R1xpJJhamSQsStZIigGdHfCh6C/g=";
   };
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "buildkite-cli";
@@ -25,11 +21,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/bk" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.VERSION=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.VERSION=${version}" ];
 
   meta = with lib; {
     description = "A command line interface for Buildkite";

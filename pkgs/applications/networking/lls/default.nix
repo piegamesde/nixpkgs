@@ -1,8 +1,4 @@
-{
-  rustPlatform,
-  fetchFromGitHub,
-  lib,
-}:
+{ rustPlatform, fetchFromGitHub, lib, }:
 rustPlatform.buildRustPackage rec {
   pname = "lls";
   version = "0.1.0";

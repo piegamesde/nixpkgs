@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jre,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jre }:
 
 stdenv.mkDerivation rec {
   pname = "flink";
   version = "1.17.0";
 
   src = fetchurl {
-    url = "mirror://apache/flink/${pname}-${version}/${pname}-${version}-bin-scala_2.12.tgz";
+    url =
+      "mirror://apache/flink/${pname}-${version}/${pname}-${version}-bin-scala_2.12.tgz";
     sha256 = "sha256-x60Lk/xXf+Isg1J6z5qAIZ2/dbDiztPIKWrdPITp3Tg=";
   };
 
@@ -39,9 +34,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://flink.apache.org/downloads.html";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      mbode
-      autophagy
-    ];
+    maintainers = with maintainers; [ mbode autophagy ];
   };
 }

@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  wrapGAppsHook,
-  atk,
-  glib,
-  gtk3-x11,
-  nix-update-script,
-}:
+{ lib, rustPlatform, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook, atk
+, glib, gtk3-x11, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ukmm";
@@ -25,10 +15,13 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "catppuccin-egui-1.0.2" = "sha256-+ILfvDgZxe/QPJuVqIbRjaHNovpRAX+ym2QZ96glb4w=";
+      "catppuccin-egui-1.0.2" =
+        "sha256-+ILfvDgZxe/QPJuVqIbRjaHNovpRAX+ym2QZ96glb4w=";
       "ecolor-0.20.0" = "sha256-uTDkNRWsA1nM8Qhb0X2LjVDRuaW31vWxR8kDLL27BVE=";
-      "egui-notify-0.4.0" = "sha256-jybtUnv9xqzulZ5nfg+T1u8iTOsPjKGVVQ7JhwbvPdU=";
-      "egui_commonmark-0.6.0" = "sha256-hsVbtL2F+jifnzN6FgcDAVtLd1bVxTs0twn0SMvq9eU=";
+      "egui-notify-0.4.0" =
+        "sha256-jybtUnv9xqzulZ5nfg+T1u8iTOsPjKGVVQ7JhwbvPdU=";
+      "egui_commonmark-0.6.0" =
+        "sha256-hsVbtL2F+jifnzN6FgcDAVtLd1bVxTs0twn0SMvq9eU=";
       "egui_dock-0.2.1" = "sha256-gGIO0boXKxLu0ABDH/uJhEZEoE/ql8E65LRmr0Xhv3s=";
       "junction-0.2.0" = "sha256-6+pPp5wG1NoIj16Z+OvO4Pvy0jnQibn/A9cTaHAEVq4=";
       "msbt-0.1.1" = "sha256-PtBs60xgYrwS7yPnRzXpExwYUD3azIaqObRnnJEL5dE=";
@@ -38,17 +31,9 @@ rustPlatform.buildRustPackage rec {
 
   RUSTC_BOOTSTRAP = true;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
 
-  buildInputs = [
-    atk
-    glib
-    gtk3-x11
-  ];
+  buildInputs = [ atk glib gtk3-x11 ];
 
   cargoTestFlags = [ "--all" ];
 
@@ -69,9 +54,11 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "A new mod manager for The Legend of Zelda: Breath of the Wild";
+    description =
+      "A new mod manager for The Legend of Zelda: Breath of the Wild";
     homepage = "https://github.com/NiceneNerd/ukmm";
-    changelog = "https://github.com/NiceneNerd/ukmm/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/NiceneNerd/ukmm/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = platforms.linux;

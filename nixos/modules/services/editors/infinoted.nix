@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.infinoted;
-in
-{
+let cfg = config.services.infinoted;
+in {
   options.services.infinoted = {
     enable = mkEnableOption (lib.mdDoc "infinoted");
 
@@ -49,11 +42,7 @@ in
     };
 
     securityPolicy = mkOption {
-      type = types.enum [
-        "no-tls"
-        "allow-tls"
-        "require-tls"
-      ];
+      type = types.enum [ "no-tls" "allow-tls" "require-tls" ];
       default = "require-tls";
       description = lib.mdDoc ''
         How strictly to enforce clients connection with TLS.
@@ -78,12 +67,7 @@ in
 
     plugins = mkOption {
       type = types.listOf types.str;
-      default = [
-        "note-text"
-        "note-chat"
-        "logging"
-        "autosave"
-      ];
+      default = [ "note-text" "note-chat" "logging" "autosave" ];
       description = lib.mdDoc ''
         Plugins to enable
       '';
@@ -133,7 +117,8 @@ in
         isSystemUser = true;
       };
     };
-    users.groups = optionalAttrs (cfg.group == "infinoted") { infinoted = { }; };
+    users.groups =
+      optionalAttrs (cfg.group == "infinoted") { infinoted = { }; };
 
     systemd.services.infinoted = {
       description = "Gobby Dedicated Server";
@@ -144,7 +129,8 @@ in
       serviceConfig = {
         Type = "simple";
         Restart = "always";
-        ExecStart = "${cfg.package.infinoted} --config-file=/var/lib/infinoted/infinoted.conf";
+        ExecStart =
+          "${cfg.package.infinoted} --config-file=/var/lib/infinoted/infinoted.conf";
         User = cfg.user;
         Group = cfg.group;
         PermissionsStartOnly = true;
@@ -155,13 +141,16 @@ in
         cat >>/var/lib/infinoted/infinoted.conf <<EOF
         [infinoted]
         ${optionalString (cfg.keyFile != null) "key-file=${cfg.keyFile}"}
-        ${optionalString (cfg.certificateFile != null) "certificate-file=${cfg.certificateFile}"}
-        ${optionalString (cfg.certificateChain != null) "certificate-chain=${cfg.certificateChain}"}
+        ${optionalString (cfg.certificateFile != null)
+        "certificate-file=${cfg.certificateFile}"}
+        ${optionalString (cfg.certificateChain != null)
+        "certificate-chain=${cfg.certificateChain}"}
         port=${toString cfg.port}
         security-policy=${cfg.securityPolicy}
         root-directory=${cfg.rootDirectory}
         plugins=${concatStringsSep ";" cfg.plugins}
-        ${optionalString (cfg.passwordFile != null) "password=$(head -n 1 ${cfg.passwordFile})"}
+        ${optionalString (cfg.passwordFile != null)
+        "password=$(head -n 1 ${cfg.passwordFile})"}
 
         ${cfg.extraConfig}
         EOF

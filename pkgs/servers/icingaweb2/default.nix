@@ -1,10 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  php,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, makeWrapper, php }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "icingaweb2";

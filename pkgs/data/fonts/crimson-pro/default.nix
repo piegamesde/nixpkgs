@@ -1,17 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation {
   pname = "crimson-pro";
   version = "unstable-2022-08-30";
 
-  outputs = [
-    "out"
-    "woff2"
-  ];
+  outputs = [ "out" "woff2" ];
 
   src = fetchFromGitHub {
     owner = "Fonthausen";
@@ -32,7 +25,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/Fonthausen/CrimsonPro";
-    description = "A professionally produced redesign of Crimson by Jacques Le Bailly";
+    description =
+      "A professionally produced redesign of Crimson by Jacques Le Bailly";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ ncfavier ];

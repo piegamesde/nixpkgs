@@ -1,23 +1,6 @@
-{
-  lib,
-  fetchurl,
-  pkg-config,
-  gettext,
-  itstool,
-  python3,
-  wrapGAppsHook,
-  gst_all_1,
-  gtk3,
-  gobject-introspection,
-  libpeas,
-  librsvg,
-  gnome,
-  libnotify,
-  gsound,
-  meson,
-  ninja,
-  gsettings-desktop-schemas,
-}:
+{ lib, fetchurl, pkg-config, gettext, itstool, python3, wrapGAppsHook, gst_all_1
+, gtk3, gobject-introspection, libpeas, librsvg, gnome, libnotify, gsound, meson
+, ninja, gsettings-desktop-schemas }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pitivi";
@@ -26,17 +9,18 @@ python3.pkgs.buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/pitivi/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/pitivi/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "PX1OFEeavqMPvF613BKgxwErxqW2huw6mQxo8YpBS/M=";
   };
 
-  patches =
-    [
-      # By default, the build picks up environment variables like PYTHONPATH
-      # and saves them to the generated binary. This would make the build-time
-      # dependencies part of the closure so we remove it.
-      ./prevent-closure-contamination.patch
-    ];
+  patches = [
+    # By default, the build picks up environment variables like PYTHONPATH
+    # and saves them to the generated binary. This would make the build-time
+    # dependencies part of the closure so we remove it.
+    ./prevent-closure-contamination.patch
+  ];
 
   nativeBuildInputs = [
     meson
@@ -50,26 +34,17 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   buildInputs =
-    [
-      gtk3
-      libpeas
-      librsvg
-      gsound
-      gsettings-desktop-schemas
-      libnotify
-    ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-editing-services
-        gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
-        gst-plugins-bad
-        gst-plugins-ugly
-        gst-libav
-        gst-devtools
-      ]
-    );
+    [ gtk3 libpeas librsvg gsound gsettings-desktop-schemas libnotify ]
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-editing-services
+      gst-plugins-base
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+      gst-devtools
+    ]);
 
   pythonPath = with python3.pkgs; [
     pygobject3
@@ -87,7 +62,8 @@ python3.pkgs.buildPythonApplication rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = "pitivi";
-      versionPolicy = "none"; # we are using dev version, since the stable one is too old
+      versionPolicy =
+        "none"; # we are using dev version, since the stable one is too old
     };
   };
 

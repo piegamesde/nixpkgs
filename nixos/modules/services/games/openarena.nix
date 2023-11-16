@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.openarena;
-in
-{
+let cfg = config.services.openarena;
+in {
   options = {
     services.openarena = {
       enable = mkEnableOption (lib.mdDoc "OpenArena");
@@ -46,7 +39,8 @@ in
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "openarena";
-        ExecStart = "${pkgs.openarena}/bin/oa_ded +set fs_basepath ${pkgs.openarena}/openarena-0.8.8 +set fs_homepath /var/lib/openarena ${
+        ExecStart =
+          "${pkgs.openarena}/bin/oa_ded +set fs_basepath ${pkgs.openarena}/openarena-0.8.8 +set fs_homepath /var/lib/openarena ${
             concatStringsSep " " cfg.extraFlags
           }";
         Restart = "on-failure";

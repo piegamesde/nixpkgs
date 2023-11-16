@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pytestCheckHook,
-  requests,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
+, requests }:
 
 buildPythonPackage rec {
   pname = "fritzconnection";
@@ -34,11 +28,9 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to communicate with the AVM Fritz!Box";
     homepage = "https://github.com/kbr/fritzconnection";
-    changelog = "https://fritzconnection.readthedocs.io/en/${version}/sources/version_history.html";
+    changelog =
+      "https://fritzconnection.readthedocs.io/en/${version}/sources/version_history.html";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      dotlambda
-      valodim
-    ];
+    maintainers = with maintainers; [ dotlambda valodim ];
   };
 }

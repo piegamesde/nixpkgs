@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libosip,
-  openssl,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, libosip, openssl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "libexosip2";
@@ -17,10 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libosip
-    openssl
-  ];
+  buildInputs = [ libosip openssl ];
 
   meta = with lib; {
     license = licenses.gpl2Plus;

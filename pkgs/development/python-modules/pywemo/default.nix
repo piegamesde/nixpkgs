@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  ifaddr,
-  lxml,
-  poetry-core,
-  pytest-vcr,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  urllib3,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, ifaddr, lxml, poetry-core
+, pytest-vcr, pytestCheckHook, pythonOlder, requests, urllib3 }:
 
 buildPythonPackage rec {
   pname = "pywemo";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    ifaddr
-    requests
-    urllib3
-    lxml
-  ];
+  propagatedBuildInputs = [ ifaddr requests urllib3 lxml ];
 
-  nativeCheckInputs = [
-    pytest-vcr
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-vcr pytestCheckHook ];
 
   pythonImportsCheck = [ "pywemo" ];
 

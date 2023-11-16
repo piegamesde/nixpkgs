@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  lesstif,
-  libX11,
-  libXext,
-  libXmu,
-  libXinerama,
-}:
+{ lib, stdenv, fetchurl, lesstif, libX11, libXext, libXmu, libXinerama }:
 
 stdenv.mkDerivation rec {
 
@@ -19,13 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "01gfzjvb40n16m2ja4238nk08k4l203y6a61cydqvf68924fjb69";
   };
 
-  buildInputs = [
-    lesstif
-    libX11
-    libXext
-    libXinerama
-    libXmu
-  ];
+  buildInputs = [ lesstif libX11 libXext libXinerama libXmu ];
 
   dontConfigure = true;
 

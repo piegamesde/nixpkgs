@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  requests,
-  tqdm,
-  nose,
-  vcrpy,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, requests, tqdm, nose
+, vcrpy, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "habanero";
@@ -27,15 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    requests
-    tqdm
-  ];
+  propagatedBuildInputs = [ requests tqdm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    vcrpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook vcrpy ];
 
   pythonImportsCheck = [ "habanero" ];
 

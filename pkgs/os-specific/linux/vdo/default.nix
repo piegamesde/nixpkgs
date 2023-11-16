@@ -1,13 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  libuuid,
-  lvm2_dmeventd, # <libdevmapper-event.h>
-  zlib,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, libuuid
+, lvm2_dmeventd # <libdevmapper-event.h>
+, zlib, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "vdo";
@@ -22,12 +15,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [
-    libuuid
-    lvm2_dmeventd
-    zlib
-    python3.pkgs.wrapPython
-  ];
+  buildInputs = [ libuuid lvm2_dmeventd zlib python3.pkgs.wrapPython ];
 
   propagatedBuildInputs = with python3.pkgs; [ pyyaml ];
 
@@ -54,7 +42,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/dm-vdo/vdo";
-    description = "A set of userspace tools for managing pools of deduplicated and/or compressed block storage";
+    description =
+      "A set of userspace tools for managing pools of deduplicated and/or compressed block storage";
     # platforms are defined in https://github.com/dm-vdo/vdo/blob/master/utils/uds/atomicDefs.h
     platforms = [
       "x86_64-linux"

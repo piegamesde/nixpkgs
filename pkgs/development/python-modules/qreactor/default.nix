@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  twisted,
-  qtpy,
-  pyqt5,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, twisted, qtpy, pyqt5 }:
 
 buildPythonPackage rec {
   pname = "qreactor-unstable";
@@ -21,10 +13,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.0";
 
-  propagatedBuildInputs = [
-    twisted
-    qtpy
-  ];
+  propagatedBuildInputs = [ twisted qtpy ];
 
   nativeCheckInputs = [ pyqt5 ];
 

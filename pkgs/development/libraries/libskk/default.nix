@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libtool,
-  gettext,
-  pkg-config,
-  vala,
-  gnome-common,
-  gobject-introspection,
-  libgee,
-  json-glib,
-  skk-dicts,
-  libxkbcommon,
-}:
+{ lib, stdenv, fetchFromGitHub, libtool, gettext, pkg-config, vala, gnome-common
+, gobject-introspection, libgee, json-glib, skk-dicts, libxkbcommon }:
 
 stdenv.mkDerivation rec {
   pname = "libskk";
@@ -25,22 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "0y279pcgs3jrsi9vzx086xhz9jbz23dqqijp4agygc9ackp9sxy5";
   };
 
-  buildInputs = [
-    skk-dicts
-    libxkbcommon
-  ];
-  nativeBuildInputs = [
-    vala
-    gnome-common
-    gobject-introspection
-    libtool
-    gettext
-    pkg-config
-  ];
-  propagatedBuildInputs = [
-    libgee
-    json-glib
-  ];
+  buildInputs = [ skk-dicts libxkbcommon ];
+  nativeBuildInputs =
+    [ vala gnome-common gobject-introspection libtool gettext pkg-config ];
+  propagatedBuildInputs = [ libgee json-glib ];
 
   preConfigure = ''
     ./autogen.sh
@@ -56,7 +31,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "A library to deal with Japanese kana-to-kanji conversion method";
+    description =
+      "A library to deal with Japanese kana-to-kanji conversion method";
     longDescription = ''
       Libskk is a library that implements basic features of SKK including:
       new word registration, completion, numeric conversion, abbrev mode, kuten input,

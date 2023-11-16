@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromSourcehut,
-  zig,
-  libX11,
-  libXfixes,
-}:
+{ stdenv, lib, fetchFromSourcehut, zig, libX11, libXfixes }:
 
 stdenv.mkDerivation rec {
   pname = "clipbuzz";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ zig ];
-  buildInputs = [
-    libX11
-    libXfixes
-  ];
+  buildInputs = [ libX11 libXfixes ];
 
   preBuild = ''
     export HOME=$TMPDIR

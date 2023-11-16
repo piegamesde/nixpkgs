@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,8 +9,7 @@ let
     "--port ${toString cfg.port}"
     "--address ${cfg.address}"
   ]);
-in
-{
+in {
   options = {
     services.libreddit = {
       enable = mkEnableOption (lib.mdDoc "Private front-end for Reddit");
@@ -44,8 +38,10 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open ports in the firewall for the libreddit web interface";
+        description = lib.mdDoc
+          "Open ports in the firewall for the libreddit web interface";
       };
+
     };
   };
 
@@ -57,11 +53,13 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${cfg.package}/bin/libreddit ${args}";
-        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities =
+          lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";
         RestartSec = "2s";
         # Hardening
-        CapabilityBoundingSet = if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet =
+          if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -78,23 +76,17 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
         UMask = "0077";
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
   };
 }

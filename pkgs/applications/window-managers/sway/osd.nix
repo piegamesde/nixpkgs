@@ -1,12 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  wrapGAppsHook,
-  gtk-layer-shell,
-  libpulseaudio,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, wrapGAppsHook, gtk-layer-shell
+, libpulseaudio }:
 
 rustPlatform.buildRustPackage {
   pname = "swayosd";
@@ -21,15 +14,9 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-ZcgrUcRQTcEYhw2mpJDuYDz3I/u/2Q+O60ajXYRMeow=";
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ wrapGAppsHook pkg-config ];
 
-  buildInputs = [
-    gtk-layer-shell
-    libpulseaudio
-  ];
+  buildInputs = [ gtk-layer-shell libpulseaudio ];
 
   meta = with lib; {
     description = "A GTK based on screen display for keyboard shortcuts";

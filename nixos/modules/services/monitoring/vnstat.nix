@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.vnstat;
-in
-{
+let cfg = config.services.vnstat;
+in {
   options.services.vnstat = {
-    enable = mkEnableOption (lib.mdDoc "update of network usage statistics via vnstatd");
+    enable = mkEnableOption
+      (lib.mdDoc "update of network usage statistics via vnstatd");
   };
 
   config = mkIf cfg.enable {
@@ -34,11 +28,7 @@ in
       path = [ pkgs.coreutils ];
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      documentation = [
-        "man:vnstatd(1)"
-        "man:vnstat(1)"
-        "man:vnstat.conf(5)"
-      ];
+      documentation = [ "man:vnstatd(1)" "man:vnstat(1)" "man:vnstat.conf(5)" ];
       serviceConfig = {
         ExecStart = "${pkgs.vnstat}/bin/vnstatd -n";
         ExecReload = "${pkgs.procps}/bin/kill -HUP $MAINPID";

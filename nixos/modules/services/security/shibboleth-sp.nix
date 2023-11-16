@@ -1,15 +1,8 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 
 with lib;
-let
-  cfg = config.services.shibboleth-sp;
-in
-{
+let cfg = config.services.shibboleth-sp;
+in {
   options = {
     services.shibboleth-sp = {
       enable = mkOption {
@@ -20,26 +13,30 @@ in
 
       configFile = mkOption {
         type = types.path;
-        example = literalExpression ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"'';
+        example = literalExpression
+          ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"'';
         description = lib.mdDoc "Path to shibboleth config file";
       };
 
       fastcgi.enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to include the shibauthorizer and shibresponder FastCGI processes";
+        description = lib.mdDoc
+          "Whether to include the shibauthorizer and shibresponder FastCGI processes";
       };
 
       fastcgi.shibAuthorizerPort = mkOption {
         type = types.int;
         default = 9100;
-        description = lib.mdDoc "Port for shibauthorizer FastCGI process to bind to";
+        description =
+          lib.mdDoc "Port for shibauthorizer FastCGI process to bind to";
       };
 
       fastcgi.shibResponderPort = mkOption {
         type = types.int;
         default = 9101;
-        description = lib.mdDoc "Port for shibauthorizer FastCGI process to bind to";
+        description =
+          lib.mdDoc "Port for shibauthorizer FastCGI process to bind to";
       };
     };
   };
@@ -53,7 +50,8 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.shibboleth-sp}/bin/shibd -F -d ${pkgs.shibboleth-sp} -c ${cfg.configFile}";
+        ExecStart =
+          "${pkgs.shibboleth-sp}/bin/shibd -F -d ${pkgs.shibboleth-sp} -c ${cfg.configFile}";
       };
     };
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  perlPackages,
-}:
+{ lib, fetchFromGitHub, perlPackages }:
 
 perlPackages.buildPerlPackage rec {
   pname = "rename";
@@ -17,10 +13,7 @@ perlPackages.buildPerlPackage rec {
   meta = with lib; {
     description = "Rename files according to a Perl rewrite expression";
     homepage = "https://github.com/pstray/rename";
-    maintainers = with maintainers; [
-      mkg
-      cyplo
-    ];
+    maintainers = with maintainers; [ mkg cyplo ];
     license = with licenses; [ gpl1Plus ];
   };
 }

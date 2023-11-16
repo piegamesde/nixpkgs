@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libtool,
-  intltool,
-  pkg-config,
-  glib,
-  gtk2,
-  curl,
-  libmpdclient,
-  libsoup,
-  gob2,
-  vala,
-  libunique,
-  libSM,
-  libICE,
-  sqlite,
-  hicolor-icon-theme,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchurl, libtool, intltool, pkg-config, glib, gtk2, curl
+, libmpdclient, libsoup, gob2, vala, libunique, libSM, libICE, sqlite
+, hicolor-icon-theme, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gmpc";
@@ -44,14 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "0b3bnxf98i5lhjyljvgxgx9xmb6p46cn3a9cccrng14nagri9556";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    libtool
-    intltool
-    gob2
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config libtool intltool gob2 vala wrapGAppsHook ];
   buildInputs = [
     glib
     gtk2

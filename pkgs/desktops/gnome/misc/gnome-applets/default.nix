@@ -1,27 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gettext,
-  itstool,
-  libxml2,
-  pkg-config,
-  gnome-panel,
-  gtk3,
-  glib,
-  libwnck,
-  libgtop,
-  libnotify,
-  upower,
-  wirelesstools,
-  linuxPackages,
-  adwaita-icon-theme,
-  libgweather,
-  gucharmap,
-  tracker,
-  polkit,
-  gnome,
-}:
+{ lib, stdenv, fetchurl, gettext, itstool, libxml2, pkg-config, gnome-panel
+, gtk3, glib, libwnck, libgtop, libnotify, upower, wirelesstools, linuxPackages
+, adwaita-icon-theme, libgweather, gucharmap, tracker, polkit, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-applets";
@@ -34,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "TwRjyoDzCUA4WzCcHmkCWIxx2XFQxlQOg083Tk0nrPc=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    itstool
-    pkg-config
-    libxml2
-  ];
+  nativeBuildInputs = [ gettext itstool pkg-config libxml2 ];
 
   buildInputs = [
     gnome-panel
@@ -64,7 +38,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   # Don't try to install modules to gnome panel's directory, as it's read only
-  PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR = "${placeholder "out"}/lib/gnome-panel/modules";
+  PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR =
+    "${placeholder "out"}/lib/gnome-panel/modules";
 
   passthru = {
     updateScript = gnome.updateScript {

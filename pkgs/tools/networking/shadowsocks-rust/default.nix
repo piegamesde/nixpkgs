@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  Security,
-  CoreServices,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, Security
+, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "shadowsocks-rust";
@@ -24,12 +16,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
-      Security
-      CoreServices
-    ];
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ Security CoreServices ];
 
   buildFeatures = [
     "trust-dns"
@@ -58,7 +46,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A Rust port of Shadowsocks";
     homepage = "https://github.com/shadowsocks/shadowsocks-rust";
-    changelog = "https://github.com/shadowsocks/shadowsocks-rust/raw/v${version}/debian/changelog";
+    changelog =
+      "https://github.com/shadowsocks/shadowsocks-rust/raw/v${version}/debian/changelog";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
   };

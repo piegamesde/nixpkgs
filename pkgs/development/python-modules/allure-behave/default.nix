@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  behave,
-  allure-python-commons,
-  setuptools-scm,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, behave, allure-python-commons
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "allure-behave";
@@ -23,10 +16,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "allure_behave" ];
 
-  propagatedBuildInputs = [
-    allure-python-commons
-    behave
-  ];
+  propagatedBuildInputs = [ allure-python-commons behave ];
 
   meta = with lib; {
     description = "Allure behave integration.";

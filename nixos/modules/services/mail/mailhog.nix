@@ -1,39 +1,22 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.mailhog;
 
-  args = lib.concatStringsSep " " (
-    [
-      "-api-bind-addr :${toString cfg.apiPort}"
-      "-smtp-bind-addr :${toString cfg.smtpPort}"
-      "-ui-bind-addr :${toString cfg.uiPort}"
-      "-storage ${cfg.storage}"
-    ]
-    ++ lib.optional (cfg.storage == "maildir") "-maildir-path $STATE_DIRECTORY"
-    ++ cfg.extraArgs
-  );
-in
-{
+  args = lib.concatStringsSep " " ([
+    "-api-bind-addr :${toString cfg.apiPort}"
+    "-smtp-bind-addr :${toString cfg.smtpPort}"
+    "-ui-bind-addr :${toString cfg.uiPort}"
+    "-storage ${cfg.storage}"
+  ] ++ lib.optional (cfg.storage == "maildir") "-maildir-path $STATE_DIRECTORY"
+    ++ cfg.extraArgs);
+
+in {
   ###### interface
 
-  imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mailhog"
-        "user"
-      ]
-      ""
-    )
-  ];
+  imports = [ (mkRemovedOptionModule [ "services" "mailhog" "user" ] "") ];
 
   options = {
 
@@ -41,10 +24,7 @@ in
       enable = mkEnableOption (lib.mdDoc "MailHog");
 
       storage = mkOption {
-        type = types.enum [
-          "maildir"
-          "memory"
-        ];
+        type = types.enum [ "maildir" "memory" ];
         default = "memory";
         description = lib.mdDoc "Store mails on disk or in memory.";
       };
@@ -70,7 +50,8 @@ in
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc "List of additional arguments to pass to the MailHog process.";
+        description = lib.mdDoc
+          "List of additional arguments to pass to the MailHog process.";
       };
     };
   };

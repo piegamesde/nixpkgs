@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-}:
+{ lib, buildDunePackage, fetchurl }:
 
 buildDunePackage rec {
   minimumOCamlVersion = "4.02.3";
@@ -11,7 +7,8 @@ buildDunePackage rec {
   version = "1.0.0";
 
   src = fetchurl {
-    url = "https://github.com/ocaml-ppx/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/ocaml-ppx/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "1j7848khli4p7j8i2kmnvhdnhcwhy3zgdpf5ds5ic30ax69y3cl9";
   };
 

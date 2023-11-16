@@ -1,18 +1,9 @@
-{
-  symlinkJoin,
-  lib,
-  makeWrapper,
-  writeText,
-}:
+{ symlinkJoin, lib, makeWrapper, writeText }:
 
 helm:
 
 let
-  wrapper =
-    {
-      plugins ? [ ],
-      extraMakeWrapperArgs ? "",
-    }:
+  wrapper = { plugins ? [ ], extraMakeWrapperArgs ? "" }:
     let
 
       initialMakeWrapperArgs = [ ];
@@ -21,8 +12,7 @@ let
         name = "helm-plugins";
         paths = plugins;
       };
-    in
-    symlinkJoin {
+    in symlinkJoin {
       name = "helm-${lib.getVersion helm}";
 
       # Remove the symlinks created by symlinkJoin which we need to perform
@@ -31,17 +21,12 @@ let
         wrapProgram "$out/bin/helm" \
           "--set" "HELM_PLUGINS" "${pluginsDir}" ${extraMakeWrapperArgs}
       '';
-      paths = [
-        helm
-        pluginsDir
-      ];
+      paths = [ helm pluginsDir ];
 
       preferLocalBuild = true;
 
       nativeBuildInputs = [ makeWrapper ];
-      passthru = {
-        unwrapped = helm;
-      };
+      passthru = { unwrapped = helm; };
 
       meta = helm.meta // {
         # To prevent builds on hydra
@@ -50,5 +35,4 @@ let
         priority = (helm.meta.priority or 0) - 1;
       };
     };
-in
-lib.makeOverridable wrapper
+in lib.makeOverridable wrapper

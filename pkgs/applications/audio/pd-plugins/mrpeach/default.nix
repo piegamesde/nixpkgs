@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  puredata,
-}:
+{ lib, stdenv, fetchurl, puredata }:
 
 stdenv.mkDerivation {
   pname = "mrpeach";
@@ -15,7 +10,8 @@ stdenv.mkDerivation {
   # - It's just 211K
 
   src = fetchurl {
-    url = "http://slackonly.com/pub/korgie/sources/pd_mrpeach-2011.10.21.tar.gz";
+    url =
+      "http://slackonly.com/pub/korgie/sources/pd_mrpeach-2011.10.21.tar.gz";
     sha256 = "12jqba3jsdrk20ib9wc2wiivki88ypcd4mkzgsri9siywbbz9w8x";
   };
 

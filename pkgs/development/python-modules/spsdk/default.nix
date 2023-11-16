@@ -1,37 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  dos2unix,
-  pythonRelaxDepsHook,
-  asn1crypto,
-  astunparse,
-  bincopy,
-  bitstring,
-  click,
-  click-command-tree,
-  click-option-group,
-  cmsis-pack-manager,
-  commentjson,
-  crcmod,
-  cryptography,
-  deepmerge,
-  fastjsonschema,
-  hexdump,
-  jinja2,
-  libusbsio,
-  oscrypto,
-  pycryptodome,
-  pylink-square,
-  pyocd,
-  pypemicro,
-  pyserial,
-  ruamel-yaml,
-  sly,
-  typing-extensions,
-  pytestCheckHook,
-  voluptuous,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, dos2unix, pythonRelaxDepsHook
+, asn1crypto, astunparse, bincopy, bitstring, click, click-command-tree
+, click-option-group, cmsis-pack-manager, commentjson, crcmod, cryptography
+, deepmerge, fastjsonschema, hexdump, jinja2, libusbsio, oscrypto, pycryptodome
+, pylink-square, pyocd, pypemicro, pyserial, ruamel-yaml, sly, typing-extensions
+, pytestCheckHook, voluptuous }:
 
 buildPythonPackage rec {
   pname = "spsdk";
@@ -88,10 +60,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    voluptuous
-  ];
+  nativeCheckInputs = [ pytestCheckHook voluptuous ];
 
   pythonImportsCheck = [ "spsdk" ];
 
@@ -99,9 +68,6 @@ buildPythonPackage rec {
     description = "NXP Secure Provisioning SDK";
     homepage = "https://github.com/NXPmicro/spsdk";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      frogamic
-      sbruder
-    ];
+    maintainers = with maintainers; [ frogamic sbruder ];
   };
 }

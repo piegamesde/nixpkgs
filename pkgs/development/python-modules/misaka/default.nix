@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  cffi,
-}:
+{ lib, fetchPypi, buildPythonPackage, cffi }:
 buildPythonPackage rec {
   pname = "misaka";
   version = "2.1.1";

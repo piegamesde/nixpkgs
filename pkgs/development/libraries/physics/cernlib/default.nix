@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gfortran,
-  imake,
-  makedepend,
-  motif,
-  xorg,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchurl, gfortran, imake, makedepend, motif, xorg, libxcrypt }:
 
 stdenv.mkDerivation rec {
   version = "2006";
@@ -22,18 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "0awla1rl96z82br7slcmg8ks1d2a7slk6dj79ywb871j2ksi3fky";
   };
 
-  buildInputs = with xorg; [
-    gfortran
-    motif
-    libX11
-    libXft
-    libXt
-    libxcrypt
-  ];
-  nativeBuildInputs = [
-    imake
-    makedepend
-  ];
+  buildInputs = with xorg; [ gfortran motif libX11 libXft libXt libxcrypt ];
+  nativeBuildInputs = [ imake makedepend ];
   sourceRoot = ".";
 
   patches = [
@@ -81,10 +61,7 @@ stdenv.mkDerivation rec {
   #   libzftplib.a(zftpcdf.o):zftp/zftpcdf.c:155: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  makeFlags = [
-    "FORTRANOPTIONS=$(FFLAGS)"
-    "CCOPTIONS=$(NIX_CFLAGS)"
-  ];
+  makeFlags = [ "FORTRANOPTIONS=$(FFLAGS)" "CCOPTIONS=$(NIX_CFLAGS)" ];
 
   configurePhase = ''
     runHook preConfigure
@@ -105,11 +82,7 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  installTargets = [
-    "install.bin"
-    "install.lib"
-    "install.include"
-  ];
+  installTargets = [ "install.bin" "install.lib" "install.include" ];
   installFlags = [
     "CERN_BINDIR=${placeholder "out"}/bin"
     "CERN_INCLUDEDIR=${placeholder "out"}/include"
@@ -121,13 +94,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://cernlib.web.cern.ch";
-    description = "Legacy collection of libraries and modules for data analysis in high energy physics";
+    description =
+      "Legacy collection of libraries and modules for data analysis in high energy physics";
     broken = stdenv.isDarwin;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" "x86_64-darwin" ];
     maintainers = with lib.maintainers; [ veprbl ];
     license = lib.licenses.gpl2;
   };

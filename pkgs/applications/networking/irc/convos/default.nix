@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-  perlPackages,
-  makeWrapper,
-  shortenPerlShebang,
-  openssl,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper
+, shortenPerlShebang, openssl, nixosTests }:
 
 perlPackages.buildPerlPackage rec {
   pname = "convos";
@@ -21,7 +12,8 @@ perlPackages.buildPerlPackage rec {
     sha256 = "sha256-i8lDK5/Whi5uo2/Qqh5jgJGLuuHn7kdrfvr+9Ktzp/8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
 
   buildInputs = with perlPackages; [
     CryptPassphrase
@@ -94,21 +86,18 @@ perlPackages.buildPerlPackage rec {
   # Convos expects to find assets in both auto/share/dist/Convos, and $MOJO_HOME
   # which is set to $out
   #
-  postInstall =
-    ''
-      AUTO_SHARE_PATH=$out/${perl.libPrefix}/auto/share/dist/Convos
-      mkdir -p $AUTO_SHARE_PATH
-      cp -vR public assets $AUTO_SHARE_PATH/
-      ln -s $AUTO_SHARE_PATH/public/asset $out/asset
-      cp -vR templates $out/templates
-      cp cpanfile $out/cpanfile
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      shortenPerlShebang $out/bin/convos
-    ''
-    + ''
-      wrapProgram $out/bin/convos --set MOJO_HOME $out
-    '';
+  postInstall = ''
+    AUTO_SHARE_PATH=$out/${perl.libPrefix}/auto/share/dist/Convos
+    mkdir -p $AUTO_SHARE_PATH
+    cp -vR public assets $AUTO_SHARE_PATH/
+    ln -s $AUTO_SHARE_PATH/public/asset $out/asset
+    cp -vR templates $out/templates
+    cp cpanfile $out/cpanfile
+  '' + lib.optionalString stdenv.isDarwin ''
+    shortenPerlShebang $out/bin/convos
+  '' + ''
+    wrapProgram $out/bin/convos --set MOJO_HOME $out
+  '';
 
   passthru.tests = nixosTests.convos;
 

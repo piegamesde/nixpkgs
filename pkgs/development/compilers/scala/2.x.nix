@@ -1,19 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  makeWrapper,
-  jre,
-  gnugrep,
-  coreutils,
-  writeScript,
-  common-updater-scripts,
-  git,
-  gnused,
-  nix,
-  nixfmt,
-  majorVersion,
-}:
+{ stdenv, lib, fetchurl, makeWrapper, jre, gnugrep, coreutils, writeScript
+, common-updater-scripts, git, gnused, nix, nixfmt, majorVersion }:
 
 let
   repo = "git@github.com:scala/scala.git";
@@ -43,8 +29,8 @@ let
       pname = "scala_2_13";
     };
   };
-in
-with versionMap.${majorVersion};
+
+in with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   inherit version;
@@ -100,7 +86,9 @@ stdenv.mkDerivation rec {
           nixfmt
         ]
       }
-      versionSelect='v${lib.versions.major version}.${lib.versions.minor version}.*'
+      versionSelect='v${lib.versions.major version}.${
+        lib.versions.minor version
+      }.*'
       oldVersion="$(nix-instantiate --eval -E "with import ./. {}; lib.getVersion ${pname}" | tr -d '"')"
       latestTag="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags ${repo} "$versionSelect" | tail --lines=1 | cut --delimiter='/' --fields=3 | sed 's|^v||g')"
       if [ "$oldVersion" != "$latestTag" ]; then

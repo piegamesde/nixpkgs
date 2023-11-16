@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  pkg-config,
-  asciidoc,
-  xmlto,
-  docbook_xml_dtd_45,
-  docbook_xsl,
-  coreutils,
-}:
+{ lib, stdenv, fetchgit, pkg-config, asciidoc, xmlto, docbook_xml_dtd_45
+, docbook_xsl, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "libtraceevent";
@@ -26,31 +17,21 @@ stdenv.mkDerivation rec {
     substituteInPlace scripts/utils.mk --replace /bin/pwd ${coreutils}/bin/pwd
   '';
 
-  outputs = [
-    "out"
-    "dev"
-    "devman"
-  ];
+  outputs = [ "out" "dev" "devman" ];
   enableParallelBuilding = true;
-  nativeBuildInputs = [
-    pkg-config
-    asciidoc
-    xmlto
-    docbook_xml_dtd_45
-    docbook_xsl
-  ];
+  nativeBuildInputs =
+    [ pkg-config asciidoc xmlto docbook_xml_dtd_45 docbook_xsl ];
   makeFlags = [
     "prefix=${placeholder "out"}"
     "doc" # build docs
   ];
-  installFlags = [
-    "pkgconfig_dir=${placeholder "out"}/lib/pkgconfig"
-    "doc-install"
-  ];
+  installFlags =
+    [ "pkgconfig_dir=${placeholder "out"}/lib/pkgconfig" "doc-install" ];
 
   meta = with lib; {
     description = "Linux kernel trace event library";
-    homepage = "https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/";
+    homepage =
+      "https://git.kernel.org/pub/scm/libs/libtrace/libtraceevent.git/";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ wentasah ];

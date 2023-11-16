@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  dockapps-sources,
-  pkg-config,
-  libX11,
-  libXpm,
-  libXext,
-  alsa-lib,
+{ lib, stdenv, dockapps-sources, pkg-config, libX11, libXpm, libXext, alsa-lib
 }:
 
 stdenv.mkDerivation rec {
@@ -16,12 +8,7 @@ stdenv.mkDerivation rec {
   src = dockapps-sources;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libX11
-    libXpm
-    libXext
-    alsa-lib
-  ];
+  buildInputs = [ libX11 libXpm libXext alsa-lib ];
 
   setSourceRoot = ''
     export sourceRoot=$(echo */${pname})
@@ -40,7 +27,9 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    ln -s ${placeholder "out"}/bin/AlsaMixer.app ${placeholder "out"}/bin/AlsaMixer
+    ln -s ${placeholder "out"}/bin/AlsaMixer.app ${
+      placeholder "out"
+    }/bin/AlsaMixer
   '';
 
   meta = with lib; {

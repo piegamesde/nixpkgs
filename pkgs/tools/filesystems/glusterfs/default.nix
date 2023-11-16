@@ -1,47 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fuse,
-  bison,
-  flex,
-  openssl,
-  python3,
-  ncurses,
-  readline,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  zlib,
-  libaio,
-  libxml2,
-  acl,
-  sqlite,
-  liburcu,
-  liburing,
-  attr,
-  makeWrapper,
-  coreutils,
-  gnused,
-  gnugrep,
-  which,
-  openssh,
-  gawk,
-  findutils,
-  util-linux,
-  lvm2,
-  btrfs-progs,
-  e2fsprogs,
-  xfsprogs,
-  systemd,
-  rsync,
-  glibc,
-  rpcsvc-proto,
-  libtirpc,
-  gperftools,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, fuse, bison, flex, openssl, python3, ncurses
+, readline, autoconf, automake, libtool, pkg-config, zlib, libaio, libxml2, acl
+, sqlite, liburcu, liburing, attr, makeWrapper, coreutils, gnused, gnugrep
+, which, openssh, gawk, findutils, util-linux, lvm2, btrfs-progs, e2fsprogs
+, xfsprogs, systemd, rsync, glibc, rpcsvc-proto, libtirpc, gperftools
+, nixosTests }:
 let
   # NOTE: On each glusterfs release, it should be checked if gluster added
   #       new, or changed, Python scripts whose PYTHONPATH has to be set in
@@ -67,14 +29,8 @@ let
     libtirpc
     gperftools
     liburing
-    (python3.withPackages (
-      pkgs: [
-        pkgs.flask
-        pkgs.prettytable
-        pkgs.requests
-        pkgs.pyxattr
-      ]
-    ))
+    (python3.withPackages
+      (pkgs: [ pkgs.flask pkgs.prettytable pkgs.requests pkgs.pyxattr ]))
     # NOTE: `python3` has to be *AFTER* the above `python3.withPackages`,
     #       to ensure that the packages are available but the `toPythonPath`
     #       shell function used in `postFixup` is also still available.
@@ -88,7 +44,8 @@ let
     attr # getfattr setfattr
     btrfs-progs # btrfs
     coreutils # lots of commands in bash scripts
-    e2fsprogs # tune2fs
+    0.0
+    fsprogs # tune2fs
     findutils # find
     gawk # awk
     glibc # getent
@@ -102,8 +59,7 @@ let
     which # which
     xfsprogs # xfs_info
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "glusterfs";
   version = "11.0";
 
@@ -115,17 +71,16 @@ stdenv.mkDerivation rec {
   };
   inherit buildInputs propagatedBuildInputs;
 
-  patches =
-    [
-      # Upstream invokes `openssl version -d` to derive the canonical system path
-      # for certificates, which resolves to a nix store path, so this patch
-      # statically sets the configure.ac value. There's probably a less-brittle
-      # way to do this! (this will likely fail on a version bump)
-      # References:
-      # - https://github.com/gluster/glusterfs/issues/3234
-      # - https://github.com/gluster/glusterfs/commit/a7dc43f533ad4b8ff68bf57704fefc614da65493
-      ./ssl_cert_path.patch
-    ];
+  patches = [
+    # Upstream invokes `openssl version -d` to derive the canonical system path
+    # for certificates, which resolves to a nix store path, so this patch
+    # statically sets the configure.ac value. There's probably a less-brittle
+    # way to do this! (this will likely fail on a version bump)
+    # References:
+    # - https://github.com/gluster/glusterfs/issues/3234
+    # - https://github.com/gluster/glusterfs/commit/a7dc43f533ad4b8ff68bf57704fefc614da65493
+    ./ssl_cert_path.patch
+  ];
 
   postPatch = ''
     sed -e '/chmod u+s/d' -i contrib/fuse-util/Makefile.am
@@ -251,9 +206,7 @@ stdenv.mkDerivation rec {
     rm -r $out/bin/conf.py
   '';
 
-  passthru.tests = {
-    glusterfs = nixosTests.glusterfs;
-  };
+  passthru.tests = { glusterfs = nixosTests.glusterfs; };
 
   meta = with lib; {
     description = "Distributed storage system";

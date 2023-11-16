@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "trustymail";
@@ -21,16 +17,8 @@ python3.pkgs.buildPythonApplication rec {
       --replace " --cov" ""
   '';
 
-  propagatedBuildInputs =
-    with python3.pkgs;
-    [
-      dnspython
-      docopt
-      publicsuffixlist
-      pydns
-      pyspf
-      requests
-    ]
+  propagatedBuildInputs = with python3.pkgs;
+    [ dnspython docopt publicsuffixlist pydns pyspf requests ]
     ++ publicsuffixlist.optional-dependencies.update;
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
@@ -38,9 +26,11 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "trustymail" ];
 
   meta = with lib; {
-    description = "Tool to scan domains and return data based on trustworthy email best practices";
+    description =
+      "Tool to scan domains and return data based on trustworthy email best practices";
     homepage = "https://github.com/cisagov/trustymail";
-    changelog = "https://github.com/cisagov/trustymail/releases/tag/v${version}";
+    changelog =
+      "https://github.com/cisagov/trustymail/releases/tag/v${version}";
     license = with licenses; [ cc0 ];
     maintainers = with maintainers; [ fab ];
   };

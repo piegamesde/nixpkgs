@@ -1,13 +1,5 @@
-{
-  lib,
-  clangStdenv,
-  stdenv,
-  cmake,
-  autoPatchelfHook,
-  fetchFromGitHub,
-  dotnetCorePackages,
-  buildDotnetModule,
-}:
+{ lib, clangStdenv, stdenv, cmake, autoPatchelfHook, fetchFromGitHub
+, dotnetCorePackages, buildDotnetModule }:
 let
   pname = "netcoredbg";
   version = "2.2.0-961";
@@ -37,14 +29,8 @@ let
     # needed until https://github.com/dotnet/runtime/issues/78286 is resolved
     # patch for darwin from: https://github.com/Samsung/netcoredbg/pull/103#issuecomment-1446457522
     # needed until: ?
-    patches = [
-      ./arm64.patch
-      ./darwin.patch
-    ];
-    nativeBuildInputs = [
-      cmake
-      dotnet-sdk
-    ];
+    patches = [ ./arm64.patch ./darwin.patch ];
+    nativeBuildInputs = [ cmake dotnet-sdk ];
 
     hardeningDisable = [ "strictoverflow" ];
 
@@ -60,12 +46,7 @@ let
   };
 
   managed = buildDotnetModule {
-    inherit
-      pname
-      version
-      src
-      dotnet-sdk
-    ;
+    inherit pname version src dotnet-sdk;
 
     projectFile = "src/managed/ManagedPart.csproj";
     nugetDeps = ./deps.nix;
@@ -78,8 +59,7 @@ let
     # and forces dotnet to include binary dependencies in the output (libdbgshim)
     selfContainedBuild = true;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname version;
   # managed brings external binaries (libdbgshim.*)
   # include source here so that autoPatchelfHook can do it's job
@@ -98,12 +78,7 @@ stdenv.mkDerivation rec {
   passthru = {
     inherit (managed) fetch-deps;
 
-    updateScript = [
-      ./update.sh
-      pname
-      version
-      meta.homepage
-    ];
+    updateScript = [ ./update.sh pname version meta.homepage ];
   };
 
   meta = with lib; {
@@ -111,9 +86,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Samsung/netcoredbg";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      leo60228
-      konradmalik
-    ];
+    maintainers = with maintainers; [ leo60228 konradmalik ];
   };
 }

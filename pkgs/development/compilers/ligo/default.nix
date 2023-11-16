@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  git,
-  coq,
-  ocamlPackages,
-  cacert,
-  ocaml-crunch,
-  jq,
-  mustache-go,
-  yaml2json,
-  tezos-rust-libs,
-  darwin,
-}:
+{ stdenv, lib, fetchFromGitLab, git, coq, ocamlPackages, cacert, ocaml-crunch
+, jq, mustache-go, yaml2json, tezos-rust-libs, darwin }:
 
 ocamlPackages.buildDunePackage rec {
   pname = "ligo";
@@ -66,8 +53,7 @@ ocamlPackages.buildDunePackage rec {
     yaml2json
   ];
 
-  buildInputs =
-    with ocamlPackages;
+  buildInputs = with ocamlPackages;
     [
       coq
       menhir
@@ -131,13 +117,9 @@ ocamlPackages.buildDunePackage rec {
       pure-splitmix
       zarith_stubs_js
       simple-diff
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  nativeCheckInputs = [
-    cacert
-    ocamlPackages.ca-certs
-  ];
+  nativeCheckInputs = [ cacert ocamlPackages.ca-certs ];
 
   doCheck = false; # Tests fail, but could not determine the reason
 

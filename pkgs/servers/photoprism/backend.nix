@@ -1,27 +1,12 @@
-{
-  lib,
-  buildGoModule,
-  coreutils,
-  libtensorflow,
-  src,
-  version,
-  ...
-}:
+{ lib, buildGoModule, coreutils, libtensorflow, src, version, ... }:
 
 buildGoModule rec {
   inherit src version;
   pname = "photoprism-backend";
 
-  buildInputs = [
-    coreutils
-    libtensorflow
-  ];
+  buildInputs = [ coreutils libtensorflow ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   postPatch = ''
     substituteInPlace internal/commands/passwd.go --replace '/bin/stty' "${coreutils}/bin/stty"

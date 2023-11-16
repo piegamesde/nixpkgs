@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitLab,
-  poetry-core,
-  cssselect,
-  lxml,
-  numpy,
-  packaging,
-  pillow,
-  pygobject3,
-  pyserial,
-  scour,
-  gobject-introspection,
-  pytestCheckHook,
-  gtk3,
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, poetry-core, cssselect, lxml, numpy
+, packaging, pillow, pygobject3, pyserial, scour, gobject-introspection
+, pytestCheckHook, gtk3 }:
 
 buildPythonPackage rec {
   pname = "inkex";
@@ -37,30 +23,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    cssselect
-    lxml
-    numpy
-    packaging
-    pillow
-    pygobject3
-    pyserial
-    scour
-  ];
+  propagatedBuildInputs =
+    [ cssselect lxml numpy packaging pillow pygobject3 pyserial scour ];
 
   pythonImportsCheck = [ "inkex" ];
 
-  nativeCheckInputs = [
-    gobject-introspection
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ gobject-introspection pytestCheckHook ];
 
   checkInputs = [ gtk3 ];
 
-  disabledTests = [
-    "test_extract_multiple"
-    "test_lookup_and"
-  ];
+  disabledTests = [ "test_extract_multiple" "test_lookup_and" ];
 
   disabledTestPaths = [
     # Fatal Python error: Segmentation fault
@@ -72,7 +44,8 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description = "Library for manipulating SVG documents which is the basis for Inkscape extensions";
+    description =
+      "Library for manipulating SVG documents which is the basis for Inkscape extensions";
     homepage = "https://gitlab.com/inkscape/extensions";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ dotlambda ];

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cffi,
-  fetchFromGitHub,
-  pytestCheckHook,
-  six,
-  ssdeep,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cffi, fetchFromGitHub, pytestCheckHook, six, ssdeep
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ssdeep";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ ssdeep ];
 
-  propagatedBuildInputs = [
-    cffi
-    six
-  ];
+  propagatedBuildInputs = [ cffi six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -42,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper for the ssdeep library";
     homepage = "https://github.com/DinoTools/python-ssdeep";
-    changelog = "https://github.com/DinoTools/python-ssdeep/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/DinoTools/python-ssdeep/blob/${version}/CHANGELOG.rst";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ fab ];
   };

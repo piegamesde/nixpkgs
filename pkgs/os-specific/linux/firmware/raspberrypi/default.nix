@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   # NOTE: this should be updated with linux_rpi
@@ -28,7 +24,8 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Firmware for the Raspberry Pi board";
     homepage = "https://github.com/raspberrypi/firmware";
-    license = licenses.unfreeRedistributableFirmware; # See https://github.com/raspberrypi/firmware/blob/master/boot/LICENCE.broadcom
+    license =
+      licenses.unfreeRedistributableFirmware; # See https://github.com/raspberrypi/firmware/blob/master/boot/LICENCE.broadcom
     maintainers = with maintainers; [ dezgeg ];
     # Hash mismatch on source, mystery.
     # Maybe due to https://github.com/NixOS/nix/issues/847

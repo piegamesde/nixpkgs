@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
     sqlcipher-signal = pkgs.writeShellScriptBin "sqlcipher" ''
@@ -11,24 +10,14 @@ import ./make-test-python.nix (
       readonly SQL="SELECT * FROM sqlite_master where type='table'"
       ${pkgs.sqlcipher}/bin/sqlcipher "$DB" "PRAGMA key = \"x'$KEY'\"; $SQL"
     '';
-  in
-  {
+  in {
     name = "signal-desktop";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        flokli
-        primeos
-      ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ flokli primeos ]; };
 
-    nodes.machine =
-      { ... }:
+    nodes.machine = { ... }:
 
       {
-        imports = [
-          ./common/user-account.nix
-          ./common/x11.nix
-        ];
+        imports = [ ./common/user-account.nix ./common/x11.nix ];
 
         services.xserver.enable = true;
         test-support.displayManager.auto.user = "alice";
@@ -42,12 +31,9 @@ import ./make-test-python.nix (
 
     enableOCR = true;
 
-    testScript =
-      { nodes, ... }:
-      let
-        user = nodes.machine.config.users.users.alice;
-      in
-      ''
+    testScript = { nodes, ... }:
+      let user = nodes.machine.config.users.users.alice;
+      in ''
         start_all()
         machine.wait_for_x()
 
@@ -78,5 +64,4 @@ import ./make-test-python.nix (
             "su - alice -c 'sqlcipher ~/.config/Signal/sql/db.sqlite'"
         ))
       '';
-  }
-)
+  })

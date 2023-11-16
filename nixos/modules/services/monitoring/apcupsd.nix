@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -48,15 +43,14 @@ let
     chmod a+x "$out/${eventname}"
   '';
 
-  eventToShellCmds =
-    event:
+  eventToShellCmds = event:
     if builtins.hasAttr event cfg.hooks then
       (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks))
     else
       "";
 
-  scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; } (
-    ''
+  scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; }
+    (''
       mkdir "$out"
       # Copy SCRIPTDIR from apcupsd package
       cp -r ${pkgs.apcupsd}/etc/apcupsd/* "$out"/
@@ -69,32 +63,27 @@ let
       rm "$out/apcupsd.conf"
       # Set the SCRIPTDIR= line in apccontrol to the dir we're creating now
       sed -i -e "s|^SCRIPTDIR=.*|SCRIPTDIR=$out|" "$out/apccontrol"
-    ''
-    + concatStringsSep "\n" (map eventToShellCmds eventList)
+    '' + concatStringsSep "\n" (map eventToShellCmds eventList)
 
-  );
+    );
 
   # Ensure the CLI uses our generated configFile
-  wrappedBinaries =
-    pkgs.runCommandLocal "apcupsd-wrapped-binaries" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-      ''
-        for p in "${lib.getBin pkgs.apcupsd}/bin/"*; do
-            bname=$(basename "$p")
-            makeWrapper "$p" "$out/bin/$bname" --add-flags "-f ${configFile}"
-        done
-      '';
+  wrappedBinaries = pkgs.runCommandLocal "apcupsd-wrapped-binaries" {
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+  } ''
+    for p in "${lib.getBin pkgs.apcupsd}/bin/"*; do
+        bname=$(basename "$p")
+        makeWrapper "$p" "$out/bin/$bname" --add-flags "-f ${configFile}"
+    done
+  '';
 
   apcupsdWrapped = pkgs.symlinkJoin {
     name = "apcupsd-wrapped";
     # Put wrappers first so they "win"
-    paths = [
-      wrappedBinaries
-      pkgs.apcupsd
-    ];
+    paths = [ wrappedBinaries pkgs.apcupsd ];
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -134,7 +123,8 @@ in
       hooks = mkOption {
         default = { };
         example = {
-          doshutdown = "# shell commands to notify that the computer is shutting down";
+          doshutdown =
+            "# shell commands to notify that the computer is shutting down";
         };
         type = types.attrsOf types.lines;
         description = lib.mdDoc ''
@@ -148,27 +138,24 @@ in
           doing.
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion =
-          let
-            hooknames = builtins.attrNames cfg.hooks;
-          in
-          all (x: elem x eventList) hooknames;
-        message = ''
-          One (or more) attribute names in services.apcupsd.hooks are invalid.
-          Current attribute names: ${toString (builtins.attrNames cfg.hooks)}
-          Valid attribute names  : ${toString eventList}
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = let hooknames = builtins.attrNames cfg.hooks;
+      in all (x: elem x eventList) hooknames;
+      message = ''
+        One (or more) attribute names in services.apcupsd.hooks are invalid.
+        Current attribute names: ${toString (builtins.attrNames cfg.hooks)}
+        Valid attribute names  : ${toString eventList}
+      '';
+    }];
 
     # Give users access to the "apcaccess" tool
     environment.systemPackages = [ apcupsdWrapped ];
@@ -218,5 +205,7 @@ in
         RemainAfterExit = "yes";
       };
     };
+
   };
+
 }

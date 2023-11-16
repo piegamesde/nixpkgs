@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  cairo,
-  glib,
-  gdk-pixbuf,
-  libjpeg,
-  libpng,
-  libtiff,
-  libxml2,
-  openjpeg,
-  sqlite,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, cairo, glib
+, gdk-pixbuf, libjpeg, libpng, libtiff, libxml2, openjpeg, sqlite, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "openslide";
@@ -40,14 +25,12 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   meta = with lib; {
     homepage = "https://openslide.org";
-    description = "A C library that provides a simple interface to read whole-slide images.";
+    description =
+      "A C library that provides a simple interface to read whole-slide images.";
     license = licenses.lgpl21;
     platforms = platforms.unix;
     maintainers = with maintainers; [ lromor ];

@@ -1,24 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  python,
-  makeWrapper,
-  eigen,
-  fftw,
-  libtiff,
-  libpng,
-  zlib,
-  ants,
-  bc,
-  qt5,
-  libGL,
-  libGLU,
-  libX11,
-  libXext,
-  withGui ? true,
-  less,
-}:
+{ stdenv, lib, fetchFromGitHub, python, makeWrapper, eigen, fftw, libtiff
+, libpng, zlib, ants, bc, qt5, libGL, libGLU, libX11, libXext, withGui ? true
+, less }:
 
 stdenv.mkDerivation rec {
   pname = "mrtrix";
@@ -32,20 +14,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    eigen
-    makeWrapper
-  ] ++ lib.optional withGui qt5.wrapQtAppsHook;
+  nativeBuildInputs = [ eigen makeWrapper ]
+    ++ lib.optional withGui qt5.wrapQtAppsHook;
 
-  buildInputs =
-    [
-      ants
-      python
-      fftw
-      libtiff
-      libpng
-      zlib
-    ]
+  buildInputs = [ ants python fftw libtiff libpng zlib ]
     ++ lib.optionals withGui [
       libGL
       libGLU

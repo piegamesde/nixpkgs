@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  urllib3,
-}:
+{ lib, buildPythonPackage, fetchPypi, urllib3 }:
 
 buildPythonPackage rec {
   pname = "unifi";

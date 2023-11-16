@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "mark";
@@ -17,14 +13,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-2rEwZffM+RK0baz8m+fXN2NGYskv4zO67cWC4rx+hfI=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   meta = with lib; {
-    description = "A tool for syncing your markdown documentation with Atlassian Confluence pages";
+    description =
+      "A tool for syncing your markdown documentation with Atlassian Confluence pages";
     homepage = "https://github.com/kovetskiy/mark";
     license = licenses.asl20;
     maintainers = with maintainers; [ rguevara84 ];

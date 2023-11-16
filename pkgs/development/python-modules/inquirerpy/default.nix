@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  furo,
-  myst-parser,
-  pfzy,
-  poetry-core,
-  prompt-toolkit,
-  pytestCheckHook,
-  pythonOlder,
-  sphinx,
-  sphinx-autobuild,
-  sphinx-copybutton,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, furo, myst-parser, pfzy, poetry-core
+, prompt-toolkit, pytestCheckHook, pythonOlder, sphinx, sphinx-autobuild
+, sphinx-copybutton }:
 
 buildPythonPackage rec {
   pname = "inquirerpy";
@@ -28,10 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pfzy
-    prompt-toolkit
-  ];
+  propagatedBuildInputs = [ pfzy prompt-toolkit ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -48,7 +33,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python port of Inquirer.js";
     homepage = "https://github.com/kazhala/InquirerPy";
-    changelog = "https://github.com/kazhala/InquirerPy/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/kazhala/InquirerPy/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

@@ -1,15 +1,5 @@
-{
-  lib,
-  mkXfceDerivation,
-  exo,
-  gtk3,
-  libXtst,
-  libxfce4ui,
-  libxfce4util,
-  xfce4-panel,
-  xfconf,
-  xorgproto,
-}:
+{ lib, mkXfceDerivation, exo, gtk3, libXtst, libxfce4ui, libxfce4util
+, xfce4-panel, xfconf, xorgproto }:
 
 mkXfceDerivation rec {
   category = "panel-plugins";
@@ -19,16 +9,8 @@ mkXfceDerivation rec {
   odd-unstable = false;
   sha256 = "sha256-IgxljHJAg9Bp/OFFZiQ6QwE5vtAtQ0WmYHs78NVsmCw=";
 
-  buildInputs = [
-    exo
-    gtk3
-    libXtst
-    libxfce4ui
-    libxfce4util
-    xfce4-panel
-    xfconf
-    xorgproto
-  ];
+  buildInputs =
+    [ exo gtk3 libXtst libxfce4ui libxfce4util xfce4-panel xfconf xorgproto ];
 
   meta = with lib; {
     description = "CPU graph show for Xfce panel";

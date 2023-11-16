@@ -1,25 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.plex;
-in
-{
+let cfg = config.services.plex;
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "plex"
-        "managePlugins"
-      ]
-      "Please omit or define the option: `services.plex.extraPlugins' instead."
-    )
+    (mkRemovedOptionModule [ "services" "plex" "managePlugins" ]
+      "Please omit or define the option: `services.plex.extraPlugins' instead.")
   ];
 
   options = {
@@ -131,19 +118,17 @@ in
 
         # Run the pre-start script with full permissions (the "!" prefix) so it
         # can create the data directory if necessary.
-        ExecStartPre =
-          let
-            preStartScript = pkgs.writeScript "plex-run-prestart" ''
-              #!${pkgs.bash}/bin/bash
+        ExecStartPre = let
+          preStartScript = pkgs.writeScript "plex-run-prestart" ''
+            #!${pkgs.bash}/bin/bash
 
-              # Create data directory if it doesn't exist
-              if ! test -d "$PLEX_DATADIR"; then
-                echo "Creating initial Plex data directory in: $PLEX_DATADIR"
-                install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$PLEX_DATADIR"
-              fi
-            '';
-          in
-          "!${preStartScript}";
+            # Create data directory if it doesn't exist
+            if ! test -d "$PLEX_DATADIR"; then
+              echo "Creating initial Plex data directory in: $PLEX_DATADIR"
+              install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$PLEX_DATADIR"
+            fi
+          '';
+        in "!${preStartScript}";
 
         ExecStart = "${cfg.package}/bin/plexmediaserver";
         KillSignal = "SIGQUIT";
@@ -154,8 +139,10 @@ in
       environment = {
         # Configuration for our FHS userenv script
         PLEX_DATADIR = cfg.dataDir;
-        PLEX_PLUGINS = concatMapStringsSep ":" builtins.toString cfg.extraPlugins;
-        PLEX_SCANNERS = concatMapStringsSep ":" builtins.toString cfg.extraScanners;
+        PLEX_PLUGINS =
+          concatMapStringsSep ":" builtins.toString cfg.extraPlugins;
+        PLEX_SCANNERS =
+          concatMapStringsSep ":" builtins.toString cfg.extraScanners;
 
         # The following variables should be set by the FHS userenv script:
         #   PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
@@ -174,20 +161,8 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [
-        32400
-        3005
-        8324
-        32469
-      ];
-      allowedUDPPorts = [
-        1900
-        5353
-        32410
-        32412
-        32413
-        32414
-      ];
+      allowedTCPPorts = [ 32400 3005 8324 32469 ];
+      allowedUDPPorts = [ 1900 5353 32410 32412 32413 32414 ];
     };
 
     users.users = mkIf (cfg.user == "plex") {
@@ -197,10 +172,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "plex") {
-      plex = {
-        gid = config.ids.gids.plex;
-      };
-    };
+    users.groups =
+      mkIf (cfg.group == "plex") { plex = { gid = config.ids.gids.plex; }; };
   };
 }

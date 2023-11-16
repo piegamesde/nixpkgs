@@ -1,8 +1,4 @@
-{
-  buildGoPackage,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoPackage, fetchFromGitHub, lib }:
 
 buildGoPackage rec {
   pname = "github-release";
@@ -18,7 +14,8 @@ buildGoPackage rec {
   goPackagePath = "github.com/github-release/github-release";
 
   meta = with lib; {
-    description = "Commandline app to create and edit releases on Github (and upload artifacts)";
+    description =
+      "Commandline app to create and edit releases on Github (and upload artifacts)";
     longDescription = ''
       A small commandline app written in Go that allows you to easily create and
       delete releases of your projects on Github.
@@ -27,10 +24,7 @@ buildGoPackage rec {
 
     license = licenses.mit;
     homepage = "https://github.com/github-release/github-release";
-    maintainers = with maintainers; [
-      ardumont
-      j03
-    ];
+    maintainers = with maintainers; [ ardumont j03 ];
     platforms = with platforms; unix;
   };
 }

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  gradle,
-  jre,
-  perl,
-  writeText,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchFromGitLab, gradle, jre, perl, writeText, runtimeShell }:
 
 let
   pname = "pdftk";
@@ -24,10 +15,7 @@ let
     pname = "${pname}-deps";
     inherit src version;
 
-    nativeBuildInputs = [
-      gradle
-      perl
-    ];
+    nativeBuildInputs = [ gradle perl ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
@@ -73,8 +61,8 @@ let
         }
     }
   '';
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   inherit pname version src;
 
   nativeBuildInputs = [ gradle ];
@@ -105,10 +93,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      raskin
-      averelld
-    ];
+    maintainers = with maintainers; [ raskin averelld ];
     platforms = platforms.unix;
   };
 }

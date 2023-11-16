@@ -40,11 +40,7 @@
     version = "3.0.0";
   };
   riemann-client = {
-    dependencies = [
-      "beefcake"
-      "mtrc"
-      "trollop"
-    ];
+    dependencies = [ "beefcake" "mtrc" "trollop" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -55,11 +51,7 @@
     version = "0.2.6";
   };
   riemann-tools = {
-    dependencies = [
-      "json"
-      "optimist"
-      "riemann-client"
-    ];
+    dependencies = [ "json" "optimist" "riemann-client" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

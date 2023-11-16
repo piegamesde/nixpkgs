@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -13,26 +8,27 @@ let
   baseDirLine = ''BaseDir "${cfg.dataDir}"'';
   unvalidated_conf = pkgs.writeText "collectd-unvalidated.conf" cfg.extraConfig;
 
-  conf =
-    if cfg.validateConfig then
-      pkgs.runCommand "collectd.conf" { } ''
-        echo testing ${unvalidated_conf}
-        cp ${unvalidated_conf} collectd.conf
-        # collectd -t fails if BaseDir does not exist.
-        substituteInPlace collectd.conf --replace ${lib.escapeShellArgs [ baseDirLine ]} 'BaseDir "."'
-        ${package}/bin/collectd -t -C collectd.conf
-        cp ${unvalidated_conf} $out
-      ''
-    else
-      unvalidated_conf;
+  conf = if cfg.validateConfig then
+    pkgs.runCommand "collectd.conf" { } ''
+      echo testing ${unvalidated_conf}
+      cp ${unvalidated_conf} collectd.conf
+      # collectd -t fails if BaseDir does not exist.
+      substituteInPlace collectd.conf --replace ${
+        lib.escapeShellArgs [ baseDirLine ]
+      } 'BaseDir "."'
+      ${package}/bin/collectd -t -C collectd.conf
+      cp ${unvalidated_conf} $out
+    ''
+  else
+    unvalidated_conf;
 
   package = if cfg.buildMinimalPackage then minimalPackage else cfg.package;
 
   minimalPackage = cfg.package.override {
     enabledPlugins = [ "syslog" ] ++ builtins.attrNames cfg.plugins;
   };
-in
-{
+
+in {
   options.services.collectd = with types; {
     enable = mkEnableOption (lib.mdDoc "collectd agent");
 
@@ -116,6 +112,7 @@ in
       '';
       type = lines;
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -131,22 +128,16 @@ in
         NotifyLevel "OKAY"
       </Plugin>
 
-      ${concatStrings (
-        mapAttrsToList
-          (plugin: pluginConfig: ''
-            LoadPlugin ${plugin}
-            <Plugin "${plugin}">
-            ${pluginConfig}
-            </Plugin>
-          '')
-          cfg.plugins
-      )}
+      ${concatStrings (mapAttrsToList (plugin: pluginConfig: ''
+        LoadPlugin ${plugin}
+        <Plugin "${plugin}">
+        ${pluginConfig}
+        </Plugin>
+      '') cfg.plugins)}
 
-      ${concatMapStrings
-        (f: ''
-          Include "${f}"
-        '')
-        cfg.include}
+      ${concatMapStrings (f: ''
+        Include "${f}"
+      '') cfg.include}
     '';
 
     systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} - - -" ];

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL,
-  SDL_ttf,
-  SDL_gfx,
-  SDL_mixer,
-  libpng,
-  glew,
-  dejavu_fonts,
-  makeDesktopItem,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL, SDL_ttf, SDL_gfx, SDL_mixer, libpng, glew
+, dejavu_fonts, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   pname = "hyperrogue";
@@ -32,14 +21,7 @@ stdenv.mkDerivation rec {
   HYPERROGUE_USE_GLEW = 1;
   HYPERROGUE_USE_PNG = 1;
 
-  buildInputs = [
-    SDL
-    SDL_ttf
-    SDL_gfx
-    SDL_mixer
-    libpng
-    glew
-  ];
+  buildInputs = [ SDL SDL_ttf SDL_gfx SDL_mixer libpng glew ];
 
   desktopItem = makeDesktopItem {
     name = "hyperrogue";
@@ -48,10 +30,7 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     icon = "hyperrogue";
     exec = "hyperrogue";
-    categories = [
-      "Game"
-      "AdventureGame"
-    ];
+    categories = [ "Game" "AdventureGame" ];
   };
 
   installPhase = ''

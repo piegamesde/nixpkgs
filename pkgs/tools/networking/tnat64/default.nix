@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "tnat64";
@@ -33,4 +28,5 @@ stdenv.mkDerivation rec {
     badPlatforms = platforms.darwin;
     maintainers = [ maintainers.rnhmjoj ];
   };
+
 }

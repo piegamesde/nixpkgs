@@ -1,15 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.keyd;
   settingsFormat = pkgs.formats.ini { };
-in
-{
+in {
   options = {
     services.keyd = {
       enable = mkEnableOption (lib.mdDoc "keyd, a key remapping daemon");
@@ -17,10 +11,7 @@ in
       ids = mkOption {
         type = types.listOf types.string;
         default = [ "*" ];
-        example = [
-          "*"
-          "-0123:0456"
-        ];
+        example = [ "*" "-0123:0456" ];
         description = lib.mdDoc ''
           Device identifiers, as shown by {manpage}`keyd(1)`.
         '';
@@ -52,17 +43,17 @@ in
 
   config = mkIf cfg.enable {
     environment.etc."keyd/default.conf".source =
-      pkgs.runCommand "default.conf"
-        {
-          ids = ''
-            [ids]
-            ${concatStringsSep "\n" cfg.ids}
-          '';
-          passAsFile = [ "ids" ];
-        }
-        ''
-          cat $idsPath <(echo) ${settingsFormat.generate "keyd-main.conf" cfg.settings} >$out
+      pkgs.runCommand "default.conf" {
+        ids = ''
+          [ids]
+          ${concatStringsSep "\n" cfg.ids}
         '';
+        passAsFile = [ "ids" ];
+      } ''
+        cat $idsPath <(echo) ${
+          settingsFormat.generate "keyd-main.conf" cfg.settings
+        } >$out
+      '';
 
     hardware.uinput.enable = lib.mkDefault true;
 
@@ -87,19 +78,14 @@ in
         # TODO investigate why it doesn't work propeprly with DynamicUser
         # See issue: https://github.com/NixOS/nixpkgs/issues/226346
         # DynamicUser = true;
-        SupplementaryGroups = [
-          config.users.groups.input.name
-          config.users.groups.uinput.name
-        ];
+        SupplementaryGroups =
+          [ config.users.groups.input.name config.users.groups.uinput.name ];
 
         RuntimeDirectory = "keyd";
 
         # Hardening
         CapabilityBoundingSet = "";
-        DeviceAllow = [
-          "char-input rw"
-          "/dev/uinput rw"
-        ];
+        DeviceAllow = [ "char-input rw" "/dev/uinput rw" ];
         ProtectClock = true;
         PrivateNetwork = true;
         ProtectHome = true;
@@ -116,11 +102,7 @@ in
         RestrictRealtime = true;
         LockPersonality = true;
         ProtectProc = "invisible";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
         RestrictAddressFamilies = [ "AF_UNIX" ];
         RestrictSUIDSGID = true;
         IPAddressDeny = [ "any" ];

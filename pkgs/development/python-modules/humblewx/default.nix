@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  wxPython_4_2,
-  python,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, wxPython_4_2, python }:
 
 buildPythonPackage rec {
   pname = "humblewx";
@@ -35,7 +29,8 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/thetimelineproj/humblewx";
-    description = "Library that simplifies creating user interfaces with wxPython";
+    description =
+      "Library that simplifies creating user interfaces with wxPython";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ davidak ];
   };

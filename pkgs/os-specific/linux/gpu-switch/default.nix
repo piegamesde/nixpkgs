@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation {
   pname = "gpu-switch-unstable";
@@ -18,7 +14,8 @@ stdenv.mkDerivation {
     cp gpu-switch $out/bin/
   '';
   meta = with lib; {
-    description = "Application that allows to switch between the graphic cards of dual-GPU MacBook Pro models";
+    description =
+      "Application that allows to switch between the graphic cards of dual-GPU MacBook Pro models";
     homepage = "https://github.com/0xbb/gpu-switch";
     license = licenses.mit;
     platforms = platforms.linux;

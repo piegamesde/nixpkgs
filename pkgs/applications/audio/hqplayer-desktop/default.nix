@@ -1,30 +1,14 @@
-{
-  mkDerivation,
-  alsa-lib,
-  autoPatchelfHook,
-  evince,
-  fetchurl,
-  flac,
-  gcc12,
-  lib,
-  libmicrohttpd,
-  libusb-compat-0_1,
-  llvmPackages_10,
-  qtcharts,
-  qtdeclarative,
-  qtquickcontrols2,
-  qtwebengine,
-  qtwebview,
-  rpmextract,
-  wavpack,
-}:
+{ mkDerivation, alsa-lib, autoPatchelfHook, evince, fetchurl, flac, gcc12, lib
+, libmicrohttpd, libusb-compat-0_1, llvmPackages_10, qtcharts, qtdeclarative
+, qtquickcontrols2, qtwebengine, qtwebview, rpmextract, wavpack }:
 
 mkDerivation rec {
   pname = "hqplayer-desktop";
   version = "4.22.0-65";
 
   src = fetchurl {
-    url = "https://www.signalyst.eu/bins/hqplayer4desktop-${version}.fc36.x86_64.rpm";
+    url =
+      "https://www.signalyst.eu/bins/hqplayer4desktop-${version}.fc36.x86_64.rpm";
     sha256 = "sha256-PA8amsqy4O9cMruNYVhG+uBiUGQ5WfnZC2ARppmZd7g=";
   };
 
@@ -32,10 +16,7 @@ mkDerivation rec {
     ${rpmextract}/bin/rpmextract "$src"
   '';
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    rpmextract
-  ];
+  nativeBuildInputs = [ autoPatchelfHook rpmextract ];
 
   buildInputs = [
     alsa-lib
@@ -84,10 +65,7 @@ mkDerivation rec {
   '';
 
   # doc has dependencies on evince that is not required by main app
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   postInstall = ''
     for desktopFile in $out/share/applications/hqplayer4{desktop-nostyle,desktop-highdpi,-client,desktop}.desktop; do

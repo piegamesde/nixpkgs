@@ -1,13 +1,6 @@
-{
-  pkgs,
-  lib,
-  eggDerivation,
-  fetchegg,
-}:
-let
-  eggs = import ./eggs.nix { inherit eggDerivation fetchegg; };
-in
-with pkgs;
+{ pkgs, lib, eggDerivation, fetchegg }:
+let eggs = import ./eggs.nix { inherit eggDerivation fetchegg; };
+in with pkgs;
 eggDerivation rec {
   pname = "ugarit-manifest-maker";
   version = "0.1";
@@ -29,7 +22,8 @@ eggDerivation rec {
   ];
 
   meta = with lib; {
-    homepage = "https://www.kitten-technologies.co.uk/project/ugarit-manifest-maker/";
+    homepage =
+      "https://www.kitten-technologies.co.uk/project/ugarit-manifest-maker/";
     description = "A tool for generating import manifests for Ugarit";
     license = licenses.bsd3;
     maintainers = [ maintainers.ebzzry ];

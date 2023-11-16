@@ -1,18 +1,5 @@
-{
-  stdenv,
-  fetchurl,
-  pkg-config,
-  darwin,
-  lib,
-  zlib,
-  ghostscript,
-  imagemagick,
-  plotutils,
-  gd,
-  libjpeg,
-  libwebp,
-  libiconv,
-}:
+{ stdenv, fetchurl, pkg-config, darwin, lib, zlib, ghostscript, imagemagick
+, plotutils, gd, libjpeg, libwebp, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "pstoedit";
@@ -28,27 +15,11 @@ stdenv.mkDerivation rec {
   #
   patches = [ ./pstoedit-gs-9.22-compat.patch ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      zlib
-      ghostscript
-      imagemagick
-      plotutils
-      gd
-      libjpeg
-      libwebp
-    ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
-        libiconv
-        ApplicationServices
-      ]
-    );
+  buildInputs = [ zlib ghostscript imagemagick plotutils gd libjpeg libwebp ]
+    ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ libiconv ApplicationServices ]);
 
   # '@LIBPNG_LDFLAGS@' is no longer substituted by autoconf (the code is commented out)
   # so we need to remove it from the pkg-config file as well
@@ -57,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Translates PostScript and PDF graphics into other vector formats";
+    description =
+      "Translates PostScript and PDF graphics into other vector formats";
     homepage = "https://sourceforge.net/projects/pstoedit/";
     license = licenses.gpl2;
     maintainers = [ maintainers.marcweber ];

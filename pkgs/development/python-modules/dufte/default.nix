@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  importlib-metadata,
-  matplotlib,
-  numpy,
-  pytestCheckHook,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, importlib-metadata
+, matplotlib, numpy, pytestCheckHook, setuptools }:
 
 buildPythonPackage rec {
   pname = "dufte";
@@ -25,10 +16,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ matplotlib numpy ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

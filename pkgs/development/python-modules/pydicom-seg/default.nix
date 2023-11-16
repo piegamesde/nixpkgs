@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  pythonRelaxDepsHook,
-  poetry-core,
-  jsonschema,
-  numpy,
-  pydicom,
-  simpleitk,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, pythonRelaxDepsHook, poetry-core, jsonschema, numpy, pydicom, simpleitk }:
 
 buildPythonPackage rec {
   pname = "pydicom-seg";
@@ -34,17 +23,9 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "jsonschema" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    jsonschema
-    numpy
-    pydicom
-    simpleitk
-  ];
+  propagatedBuildInputs = [ jsonschema numpy pydicom simpleitk ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -53,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Medical segmentation file reading and writing";
     homepage = "https://github.com/razorx89/pydicom-seg";
-    changelog = "https://github.com/razorx89/pydicom-seg/releases/tag/v${version}";
+    changelog =
+      "https://github.com/razorx89/pydicom-seg/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

@@ -1,26 +1,17 @@
-{
-  stdenv,
-  lib,
-  cmake,
-  qt4,
-  smokegen,
-  fetchzip,
-}:
+{ stdenv, lib, cmake, qt4, smokegen, fetchzip }:
 
 stdenv.mkDerivation rec {
   pname = "smokeqt";
   version = "4.14.3";
 
   src = fetchzip {
-    url = "https://invent.kde.org/unmaintained/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz";
+    url =
+      "https://invent.kde.org/unmaintained/${pname}/-/archive/v${version}/${pname}-v${version}.tar.gz";
     hash = "sha256-8FiEGF8gduVw5I/bi2wExGUWmjIjYEhWpjpXKJGBNMg=";
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    cmake
-    smokegen
-  ];
+  nativeBuildInputs = [ cmake smokegen ];
   buildInputs = [ qt4 ];
 
   cmakeFlags = [ "-DCMAKE_CXX_STANDARD=98" ];

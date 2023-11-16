@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy27,
-  thrift,
-  beautifulsoup4,
-  markdown2,
-  sqlalchemy,
-  html2text,
-  evernote,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy27, thrift, beautifulsoup4
+, markdown2, sqlalchemy, html2text, evernote }:
 
 buildPythonPackage {
   version = "2015-05-11";
@@ -28,14 +18,8 @@ buildPythonPackage {
   */
   doCheck = false;
 
-  propagatedBuildInputs = [
-    thrift
-    beautifulsoup4
-    markdown2
-    sqlalchemy
-    html2text
-    evernote
-  ];
+  propagatedBuildInputs =
+    [ thrift beautifulsoup4 markdown2 sqlalchemy html2text evernote ];
 
   meta = with lib; {
     description = "Work with Evernote from command line";
@@ -43,4 +27,5 @@ buildPythonPackage {
     license = licenses.gpl1Only;
     maintainers = with maintainers; [ hbunke ];
   };
+
 }

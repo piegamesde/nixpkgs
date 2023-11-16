@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  libX11,
-  libXinerama,
-  libXrandr,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, libX11, libXinerama
+, libXrandr, poetry-core, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "screeninfo";
@@ -38,11 +28,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # We don't have a screen
-      "tests/test_screeninfo.py"
-    ];
+  disabledTestPaths = [
+    # We don't have a screen
+    "tests/test_screeninfo.py"
+  ];
 
   pythonImportsCheck = [ "screeninfo" ];
 

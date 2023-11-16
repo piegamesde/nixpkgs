@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  cython,
-  geos,
-  setuptools,
-  numpy,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, cython, geos
+, setuptools, numpy, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "shapely";
@@ -53,7 +43,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "shapely" ];
 
   meta = with lib; {
-    changelog = "https://github.com/shapely/shapely/blob/${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/shapely/shapely/blob/${version}/CHANGES.txt";
     description = "Manipulation and analysis of geometric objects";
     homepage = "https://github.com/shapely/shapely";
     license = licenses.bsd3;

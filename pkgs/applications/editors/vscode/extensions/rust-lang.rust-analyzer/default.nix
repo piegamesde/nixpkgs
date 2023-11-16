@@ -1,18 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  vscode-utils,
-  jq,
-  rust-analyzer,
-  nodePackages,
-  moreutils,
-  esbuild,
-  pkg-config,
-  libsecret,
-  stdenv,
-  darwin,
-  setDefaultServerPath ? true,
-}:
+{ lib, fetchFromGitHub, vscode-utils, jq, rust-analyzer, nodePackages, moreutils
+, esbuild, pkg-config, libsecret, stdenv, darwin, setDefaultServerPath ? true }:
 
 let
   pname = "rust-analyzer";
@@ -36,26 +23,21 @@ let
   # will cause a build failure.
   vsix = build-deps.override {
     src = "${src}/editors/code";
-    outputs = [
-      "vsix"
-      "out"
-    ];
+    outputs = [ "vsix" "out" ];
 
     inherit releaseTag;
 
-    nativeBuildInputs =
-      [
-        jq
-        moreutils
-        esbuild
-        # Required by `keytar`, which is a dependency of `vsce`.
-        pkg-config
-        libsecret
-      ]
-      ++ lib.optionals stdenv.isDarwin [
-        darwin.apple_sdk.frameworks.AppKit
-        darwin.apple_sdk.frameworks.Security
-      ];
+    nativeBuildInputs = [
+      jq
+      moreutils
+      esbuild
+      # Required by `keytar`, which is a dependency of `vsce`.
+      pkg-config
+      libsecret
+    ] ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.AppKit
+      darwin.apple_sdk.frameworks.Security
+    ];
 
     # Follows https://github.com/rust-lang/rust-analyzer/blob/41949748a6123fd6061eb984a47f4fe780525e63/xtask/src/dist.rs#L39-L65
     postRebuild = ''
@@ -72,8 +54,8 @@ let
       echo y | npx vsce package -o $vsix/${pname}.zip
     '';
   };
-in
-vscode-utils.buildVscodeExtension {
+
+in vscode-utils.buildVscodeExtension {
   inherit version vsix;
   name = "${pname}-${version}";
   src = "${vsix}/${pname}.zip";
@@ -81,10 +63,7 @@ vscode-utils.buildVscodeExtension {
   vscodeExtPublisher = publisher;
   vscodeExtName = pname;
 
-  nativeBuildInputs = lib.optionals setDefaultServerPath [
-    jq
-    moreutils
-  ];
+  nativeBuildInputs = lib.optionals setDefaultServerPath [ jq moreutils ];
 
   preInstall = lib.optionalString setDefaultServerPath ''
     jq '.contributes.configuration.properties."rust-analyzer.server.path".default = $s' \
@@ -95,10 +74,7 @@ vscode-utils.buildVscodeExtension {
   meta = {
     description = "An alternative rust language server to the RLS";
     homepage = "https://github.com/rust-lang/rust-analyzer";
-    license = [
-      lib.licenses.mit
-      lib.licenses.asl20
-    ];
+    license = [ lib.licenses.mit lib.licenses.asl20 ];
     maintainers = [ ];
     platforms = lib.platforms.all;
   };

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  go,
-  fetchFromGitHub,
-  makeWrapper,
-}:
+{ lib, buildGoModule, go, fetchFromGitHub, makeWrapper }:
 
 buildGoModule rec {
   pname = "operator-sdk";
@@ -25,11 +19,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [
-    "cmd/ansible-operator"
-    "cmd/helm-operator"
-    "cmd/operator-sdk"
-  ];
+  subPackages =
+    [ "cmd/ansible-operator" "cmd/helm-operator" "cmd/operator-sdk" ];
 
   # operator-sdk uses the go compiler at runtime
   allowGoReference = true;
@@ -39,9 +30,11 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "SDK for building Kubernetes applications. Provides high level APIs, useful abstractions, and project scaffolding";
+    description =
+      "SDK for building Kubernetes applications. Provides high level APIs, useful abstractions, and project scaffolding";
     homepage = "https://github.com/operator-framework/operator-sdk";
-    changelog = "https://github.com/operator-framework/operator-sdk/releases/tag/v${version}";
+    changelog =
+      "https://github.com/operator-framework/operator-sdk/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ arnarg ];
     platforms = platforms.linux ++ platforms.darwin;

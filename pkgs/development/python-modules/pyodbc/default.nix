@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPyPy,
-  pythonOlder,
-  unixODBC,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, pythonOlder, unixODBC }:
 
 buildPythonPackage rec {
   pname = "pyodbc";

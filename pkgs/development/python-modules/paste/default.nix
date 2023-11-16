@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-  setuptools,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonAtLeast
+, pythonOlder, setuptools, six }:
 
 buildPythonPackage rec {
   pname = "paste";
@@ -27,25 +19,19 @@ buildPythonPackage rec {
     patchShebangs tests/cgiapp_data/
   '';
 
-  propagatedBuildInputs = [
-    setuptools
-    six
-  ];
+  propagatedBuildInputs = [ setuptools six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # broken test
-      "test_file_cache"
-      # requires network connection
-      "test_proxy_to_website"
-    ]
-    ++ lib.optionals (pythonAtLeast "3.11")
-      [
-        # https://github.com/cdent/paste/issues/72
-        "test_form"
-      ];
+  disabledTests = [
+    # broken test
+    "test_file_cache"
+    # requires network connection
+    "test_proxy_to_website"
+  ] ++ lib.optionals (pythonAtLeast "3.11") [
+    # https://github.com/cdent/paste/issues/72
+    "test_form"
+  ];
 
   pythonNamespaces = [ "paste" ];
 

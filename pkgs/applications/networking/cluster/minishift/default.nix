@@ -1,21 +1,6 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-  go-bindata,
-  pkg-config,
-  makeWrapper,
-  glib,
-  gtk3,
-  libappindicator-gtk3,
-  gpgme,
-  openshift,
-  ostree,
-  libselinux,
-  btrfs-progs,
-  lvm2,
-  docker-machine-kvm,
-}:
+{ lib, buildGoPackage, fetchFromGitHub, go-bindata, pkg-config, makeWrapper
+, glib, gtk3, libappindicator-gtk3, gpgme, openshift, ostree, libselinux
+, btrfs-progs, lvm2, docker-machine-kvm }:
 
 let
   version = "1.34.3";
@@ -23,8 +8,8 @@ let
   # Update these on version bumps according to Makefile
   centOsIsoVersion = "v1.17.0";
   openshiftVersion = "v3.11.0";
-in
-buildGoPackage rec {
+
+in buildGoPackage rec {
   pname = "minishift";
   inherit version;
 
@@ -35,21 +20,9 @@ buildGoPackage rec {
     sha256 = "0yhln3kyc0098hbnjyxhbd915g6j7s692c0z8yrhh9gdpc5cr2aa";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    go-bindata
-    makeWrapper
-  ];
-  buildInputs = [
-    glib
-    gtk3
-    libappindicator-gtk3
-    gpgme
-    ostree
-    libselinux
-    btrfs-progs
-    lvm2
-  ];
+  nativeBuildInputs = [ pkg-config go-bindata makeWrapper ];
+  buildInputs =
+    [ glib gtk3 libappindicator-gtk3 gpgme ostree libselinux btrfs-progs lvm2 ];
 
   goPackagePath = "github.com/minishift/minishift";
   subPackages = [ "cmd/minishift" ];
@@ -75,12 +48,7 @@ buildGoPackage rec {
 
   postInstall = ''
     wrapProgram "$out/bin/minishift" \
-      --prefix PATH ':' '${
-        lib.makeBinPath [
-          docker-machine-kvm
-          openshift
-        ]
-      }'
+      --prefix PATH ':' '${lib.makeBinPath [ docker-machine-kvm openshift ]}'
   '';
 
   meta = with lib; {

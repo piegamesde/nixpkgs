@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "ssmsh";
@@ -19,11 +15,7 @@ buildGoModule rec {
 
   doCheck = true;
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.Version=${version}" ];
 
   meta = with lib; {
     homepage = "https://github.com/bwhaley/ssmsh";

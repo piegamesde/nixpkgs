@@ -1,43 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  openssl,
-  libbsd,
-  libevent,
-  libuuid,
-  libossp_uuid,
-  libmd,
-  zlib,
-  ncurses,
-  bison,
-  autoPatchelfHook,
-}:
+{ lib, stdenv, fetchurl, pkg-config, openssl, libbsd, libevent, libuuid
+, libossp_uuid, libmd, zlib, ncurses, bison, autoPatchelfHook }:
 
 stdenv.mkDerivation rec {
   pname = "got";
   version = "0.89";
 
   src = fetchurl {
-    url = "https://gameoftrees.org/releases/portable/got-portable-${version}.tar.gz";
+    url =
+      "https://gameoftrees.org/releases/portable/got-portable-${version}.tar.gz";
     hash = "sha256-J0BJMsB3E0ABJMFeMYQXOFQRt6H+fuU05I8rnk8JbYw=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    bison
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [ pkg-config bison ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [
-    openssl
-    libbsd
-    libevent
-    libuuid
-    libmd
-    zlib
-    ncurses
-  ] ++ lib.optionals stdenv.isDarwin [ libossp_uuid ];
+  buildInputs = [ openssl libbsd libevent libuuid libmd zlib ncurses ]
+    ++ lib.optionals stdenv.isDarwin [ libossp_uuid ];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     # The configure script assumes dependencies on Darwin are install via
@@ -46,14 +24,12 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace 'xdarwin' 'xhomebrew'
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.isDarwin [
-      # error: conflicting types for 'strmode'
-      "-DHAVE_STRMODE=1"
-      # Undefined symbols for architecture arm64: "_bsd_getopt"
-      "-include getopt.h"
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [
+    # error: conflicting types for 'strmode'
+    "-DHAVE_STRMODE=1"
+    # Undefined symbols for architecture arm64: "_bsd_getopt"
+    "-include getopt.h"
+  ]);
 
   doInstallCheck = true;
 
@@ -64,7 +40,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A version control system which prioritizes ease of use and simplicity over flexibility";
+    description =
+      "A version control system which prioritizes ease of use and simplicity over flexibility";
     longDescription = ''
       Game of Trees (Got) is a version control system which prioritizes
       ease of use and simplicity over flexibility.
@@ -77,9 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gameoftrees.org";
     license = licenses.isc;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [
-      abbe
-      afh
-    ];
+    maintainers = with maintainers; [ abbe afh ];
   };
 }

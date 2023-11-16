@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perlPackages,
-}:
+{ lib, stdenv, fetchFromGitHub, perlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "triehash";

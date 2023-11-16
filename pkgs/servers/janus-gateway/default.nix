@@ -1,40 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  gengetopt,
-  glib,
-  libconfig,
-  libnice,
-  jansson,
-  boringssl,
-  zlib,
-  srtp,
-  libuv,
-  libmicrohttpd,
-  curl,
-  libwebsockets,
-  sofia_sip,
-  libogg,
-  libopus,
-  usrsctp,
-  ffmpeg,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gengetopt, glib
+, libconfig, libnice, jansson, boringssl, zlib, srtp, libuv, libmicrohttpd, curl
+, libwebsockets, sofia_sip, libogg, libopus, usrsctp, ffmpeg }:
 
 let
-  libwebsockets_janus = libwebsockets.overrideAttrs (
-    _: {
-      configureFlags = [
-        "-DLWS_MAX_SMP=1"
-        "-DLWS_WITHOUT_EXTENSIONS=0"
-      ];
-    }
-  );
-in
+  libwebsockets_janus = libwebsockets.overrideAttrs (_: {
+    configureFlags = [ "-DLWS_MAX_SMP=1" "-DLWS_WITHOUT_EXTENSIONS=0" ];
+  });
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "janus-gateway";
   version = "1.1.4";
 
@@ -45,11 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kvaO2g4QF6LYZcxv39yXkwY9iZVenJio8oOlRLLH2Kk=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    gengetopt
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config gengetopt ];
 
   buildInputs = [
     glib
@@ -83,12 +52,7 @@ stdenv.mkDerivation rec {
 
   makeFlagsArray = [ "BORINGSSL_LIBS=-L${lib.getLib boringssl}/lib" ];
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-    "man"
-  ];
+  outputs = [ "out" "dev" "doc" "man" ];
 
   postInstall = ''
     moveToOutput share/janus "$doc"
@@ -98,7 +62,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "General purpose WebRTC server";
     homepage = "https://janus.conf.meetecho.com/";
-    changelog = "https://github.com/meetecho/janus-gateway/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/meetecho/janus-gateway/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ fpletz ];

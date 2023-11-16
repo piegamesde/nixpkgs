@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  mock,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, mock }:
 
 buildPythonPackage rec {
   pname = "PyBrowserID";
@@ -26,3 +20,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ ];
   };
 }
+

@@ -1,27 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  wrapQtAppsHook,
-  perl,
-  flatbuffers,
-  protobuf,
-  mbedtls,
-  hidapi,
-  libcec,
-  libusb1,
-  libX11,
-  libxcb,
-  libXrandr,
-  python3,
-  qtbase,
-  qtserialport,
-  qtsvg,
-  qtx11extras,
-  withRPiDispmanx ? false,
-  libraspberrypi,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, wrapQtAppsHook, perl, flatbuffers
+, protobuf, mbedtls, hidapi, libcec, libusb1, libX11, libxcb, libXrandr, python3
+, qtbase, qtserialport, qtsvg, qtx11extras, withRPiDispmanx ? false
+, libraspberrypi }:
 
 stdenv.mkDerivation rec {
   pname = "hyperion.ng";
@@ -52,12 +32,11 @@ stdenv.mkDerivation rec {
     qtserialport
     qtsvg
     qtx11extras
-  ] ++ lib.optional stdenv.isLinux libcec ++ lib.optional withRPiDispmanx libraspberrypi;
+  ] ++ lib.optional stdenv.isLinux libcec
+    ++ lib.optional withRPiDispmanx libraspberrypi;
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ] ++ lib.optional stdenv.isDarwin perl; # for macos bundle
+  nativeBuildInputs = [ cmake wrapQtAppsHook ]
+    ++ lib.optional stdenv.isDarwin perl; # for macos bundle
 
   patchPhase = ''
     patchShebangs test/testrunner.sh
@@ -83,10 +62,7 @@ stdenv.mkDerivation rec {
     description = "An opensource Bias or Ambient Lighting implementation";
     homepage = "https://github.com/hyperion-project/hyperion.ng";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      algram
-      kazenyuk
-    ];
+    maintainers = with maintainers; [ algram kazenyuk ];
     platforms = platforms.unix;
   };
 }

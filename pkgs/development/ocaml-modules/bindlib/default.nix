@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  earley,
-  timed,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, earley, timed }:
 
 buildDunePackage rec {
   pname = "bindlib";
@@ -19,17 +13,15 @@ buildDunePackage rec {
     hash = "sha256-058yMbz9ExvgNG/kY9tPk70XSeVRSSKVg4n4F4fmPu4=";
   };
 
-  checkInputs = [
-    earley
-    timed
-  ];
+  checkInputs = [ earley timed ];
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://rlepigre.github.io/ocaml-bindlib";
     description = "Efficient binder representation in Ocaml";
     license = licenses.gpl3;
-    changelog = "https://github.com/rlepigre/ocaml-bindlib/raw/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/rlepigre/ocaml-bindlib/raw/${version}/CHANGELOG.md";
     maintainers = with maintainers; [ bcdarwin ];
   };
 }

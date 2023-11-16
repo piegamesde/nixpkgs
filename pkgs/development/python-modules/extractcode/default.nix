@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  extractcode-7z,
-  extractcode-libarchive,
-  fetchPypi,
-  patch,
-  pytest-xdist,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  six,
-  typecode,
-}:
+{ lib, buildPythonPackage, extractcode-7z, extractcode-libarchive, fetchPypi
+, patch, pytest-xdist, pytestCheckHook, pythonOlder, setuptools-scm, six
+, typecode }:
 
 buildPythonPackage rec {
   pname = "extractcode";
@@ -35,24 +24,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    typecode
-    patch
-    extractcode-libarchive
-    extractcode-7z
-    six
-  ];
+  propagatedBuildInputs =
+    [ typecode patch extractcode-libarchive extractcode-7z six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
 
-  disabledTestPaths =
-    [
-      # CLI test tests the CLI which we can't do until after install
-      "tests/test_extractcode_cli.py"
-    ];
+  disabledTestPaths = [
+    # CLI test tests the CLI which we can't do until after install
+    "tests/test_extractcode_cli.py"
+  ];
 
   disabledTests = [
     # test_uncompress_* wants to use a binary to extract instead of the provided library
@@ -73,7 +53,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "extractcode" ];
 
   meta = with lib; {
-    description = "Universal archive extractor using z7zip, libarchive, other libraries and the Python standard library";
+    description =
+      "Universal archive extractor using z7zip, libarchive, other libraries and the Python standard library";
     homepage = "https://github.com/nexB/extractcode";
     changelog = "https://github.com/nexB/extractcode/releases/tag/v${version}";
     license = licenses.asl20;

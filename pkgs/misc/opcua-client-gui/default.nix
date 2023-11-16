@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, python3, fetchFromGitHub, makeDesktopItem, copyDesktopItems }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "opcua-client-gui";

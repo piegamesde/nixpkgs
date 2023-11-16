@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "deepsea";
@@ -27,6 +23,7 @@ buildGoModule rec {
     homepage = "https://github.com/dsnezhkov/deepsea";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
-    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken =
+      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

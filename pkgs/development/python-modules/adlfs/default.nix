@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  azure-core,
-  azure-datalake-store,
-  azure-identity,
-  azure-storage-blob,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fsspec,
-  pythonOlder,
+{ lib, aiohttp, azure-core, azure-datalake-store, azure-identity
+, azure-storage-blob, buildPythonPackage, fetchFromGitHub, fsspec, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -40,7 +31,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "adlfs" ];
 
   meta = with lib; {
-    description = "Filesystem interface to Azure-Datalake Gen1 and Gen2 Storage";
+    description =
+      "Filesystem interface to Azure-Datalake Gen1 and Gen2 Storage";
     homepage = "https://github.com/fsspec/adlfs";
     changelog = "https://github.com/fsspec/adlfs/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;

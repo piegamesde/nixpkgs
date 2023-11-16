@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-mustache";
   version = "20200325-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."uiop" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-mustache/2020-03-25/cl-mustache-20200325-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-mustache/2020-03-25/cl-mustache-20200325-git.tgz";
     sha256 = "1x1rsmgqc39imx4ay3b35dzvzccaqjayz90qv2cylqbbq9sg9arr";
   };
 

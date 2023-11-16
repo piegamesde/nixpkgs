@@ -1,30 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
-  substituteAll,
-  cmake,
-  curl,
-  nasm,
-  unzip,
-  game-music-emu,
-  libpng,
-  SDL2,
-  SDL2_mixer,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, substituteAll, cmake, curl, nasm
+, unzip, game-music-emu, libpng, SDL2, SDL2_mixer, zlib }:
 
 let
 
   release_tag = "v1.3";
 
   installer = fetchurl {
-    url = "https://github.com/STJr/Kart-Public/releases/download/${release_tag}/srb2kart-v13-Installer.exe";
+    url =
+      "https://github.com/STJr/Kart-Public/releases/download/${release_tag}/srb2kart-v13-Installer.exe";
     sha256 = "0bk36y7wf6xfdg6j0b8qvk8671hagikzdp5nlfqg478zrj0qf6cs";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "srb2kart";
   version = "1.3.0";
 
@@ -35,20 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "131g9bmc9ihvz0klsc3yzd0pnkhx3mz1vzm8y7nrrsgdz5278y49";
   };
 
-  nativeBuildInputs = [
-    cmake
-    nasm
-    unzip
-  ];
+  nativeBuildInputs = [ cmake nasm unzip ];
 
-  buildInputs = [
-    curl
-    game-music-emu
-    libpng
-    SDL2
-    SDL2_mixer
-    zlib
-  ];
+  buildInputs = [ curl game-music-emu libpng SDL2 SDL2_mixer zlib ];
 
   cmakeFlags = [
     #"-DSRB2_ASSET_DIRECTORY=/build/source/assets"

@@ -1,77 +1,57 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
+{ lib, config, pkgs, ... }:
 
 with lib;
 
 let
-  templateSubmodule =
-    { ... }:
-    {
-      options = {
-        enable = mkEnableOption (lib.mdDoc "this template");
+  templateSubmodule = { ... }: {
+    options = {
+      enable = mkEnableOption (lib.mdDoc "this template");
 
-        target = mkOption {
-          description = lib.mdDoc "Path in the container";
-          type = types.path;
-        };
-        template = mkOption {
-          description = lib.mdDoc ".tpl file for rendering the target";
-          type = types.path;
-        };
-        when = mkOption {
-          description = lib.mdDoc "Events which trigger a rewrite (create, copy)";
-          type = types.listOf (types.str);
-        };
-        properties = mkOption {
-          description = lib.mdDoc "Additional properties";
-          type = types.attrs;
-          default = { };
-        };
+      target = mkOption {
+        description = lib.mdDoc "Path in the container";
+        type = types.path;
+      };
+      template = mkOption {
+        description = lib.mdDoc ".tpl file for rendering the target";
+        type = types.path;
+      };
+      when = mkOption {
+        description = lib.mdDoc "Events which trigger a rewrite (create, copy)";
+        type = types.listOf (types.str);
+      };
+      properties = mkOption {
+        description = lib.mdDoc "Additional properties";
+        type = types.attrs;
+        default = { };
       };
     };
+  };
 
   toYAML = name: data: pkgs.writeText name (generators.toYAML { } data);
 
   cfg = config.virtualisation.lxc;
-  templates =
-    if cfg.templates != { } then
-      let
-        list = mapAttrsToList (name: value: { inherit name; } // value) (
-          filterAttrs (name: value: value.enable) cfg.templates
-        );
-      in
-      {
-        files =
-          map
-            (tpl: {
-              source = tpl.template;
-              target = "/templates/${tpl.name}.tpl";
-            })
-            list;
-        properties = listToAttrs (
-          map
-            (
-              tpl:
-              nameValuePair tpl.target {
-                when = tpl.when;
-                template = "${tpl.name}.tpl";
-                properties = tpl.properties;
-              }
-            )
-            list
-        );
-      }
-    else
-      {
-        files = [ ];
-        properties = { };
-      };
-in
-{
+  templates = if cfg.templates != { } then
+    let
+      list = mapAttrsToList (name: value: { inherit name; } // value)
+        (filterAttrs (name: value: value.enable) cfg.templates);
+    in {
+      files = map (tpl: {
+        source = tpl.template;
+        target = "/templates/${tpl.name}.tpl";
+      }) list;
+      properties = listToAttrs (map (tpl:
+        nameValuePair tpl.target {
+          when = tpl.when;
+          template = "${tpl.name}.tpl";
+          properties = tpl.properties;
+        }) list);
+    }
+  else {
+    files = [ ];
+    properties = { };
+  };
+
+in {
   imports = [
     ../installer/cd-dvd/channel.nix
     ../profiles/clone-config.nix
@@ -139,33 +119,31 @@ in
     '';
 
     system.build.metadata = pkgs.callPackage ../../lib/make-system-tarball.nix {
-      contents = [
-        {
-          source = toYAML "metadata.yaml" {
-            architecture = builtins.elemAt (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system)) 0;
-            creation_date = 1;
-            properties = {
-              description = "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
-              os = "${config.system.nixos.distroId}";
-              release = "${config.system.nixos.codeName}";
-            };
-            templates = templates.properties;
+      contents = [{
+        source = toYAML "metadata.yaml" {
+          architecture = builtins.elemAt
+            (builtins.match "^([a-z0-9_]+).+" (toString pkgs.system)) 0;
+          creation_date = 1;
+          properties = {
+            description =
+              "${config.system.nixos.distroName} ${config.system.nixos.codeName} ${config.system.nixos.label} ${pkgs.system}";
+            os = "${config.system.nixos.distroId}";
+            release = "${config.system.nixos.codeName}";
           };
-          target = "/metadata.yaml";
-        }
-      ] ++ templates.files;
+          templates = templates.properties;
+        };
+        target = "/metadata.yaml";
+      }] ++ templates.files;
     };
 
     # TODO: build rootfs as squashfs for faster unpack
     system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
       extraArgs = "--owner=0";
 
-      storeContents = [
-        {
-          object = config.system.build.toplevel;
-          symlink = "none";
-        }
-      ];
+      storeContents = [{
+        object = config.system.build.toplevel;
+        symlink = "none";
+      }];
 
       contents = [
         {
@@ -183,10 +161,11 @@ in
       extraCommands = "mkdir -p proc sys dev";
     };
 
-    system.build.installBootLoader = pkgs.writeScript "install-lxd-sbin-init.sh" ''
-      #!${pkgs.runtimeShell}
-      ln -fs "$1/init" /sbin/init
-    '';
+    system.build.installBootLoader =
+      pkgs.writeScript "install-lxd-sbin-init.sh" ''
+        #!${pkgs.runtimeShell}
+        ln -fs "$1/init" /sbin/init
+      '';
 
     # Add the overrides from lxd distrobuilder
     # https://github.com/lxc/distrobuilder/blob/05978d0d5a72718154f1525c7d043e090ba7c3e0/distrobuilder/main.go#L630
@@ -194,26 +173,24 @@ in
       (pkgs.writeTextFile {
         name = "systemd-lxc-service-overrides";
         destination = "/etc/systemd/system/service.d/zzz-lxc-service.conf";
-        text =
-          ''
-            [Service]
-            ProcSubset=all
-            ProtectProc=default
-            ProtectControlGroups=no
-            ProtectKernelTunables=no
-            NoNewPrivileges=no
-            LoadCredential=
-          ''
-          + optionalString cfg.privilegedContainer ''
-            # Additional settings for privileged containers
-            ProtectHome=no
-            ProtectSystem=no
-            PrivateDevices=no
-            PrivateTmp=no
-            ProtectKernelLogs=no
-            ProtectKernelModules=no
-            ReadWritePaths=
-          '';
+        text = ''
+          [Service]
+          ProcSubset=all
+          ProtectProc=default
+          ProtectControlGroups=no
+          ProtectKernelTunables=no
+          NoNewPrivileges=no
+          LoadCredential=
+        '' + optionalString cfg.privilegedContainer ''
+          # Additional settings for privileged containers
+          ProtectHome=no
+          ProtectSystem=no
+          PrivateDevices=no
+          PrivateTmp=no
+          ProtectKernelLogs=no
+          ProtectKernelModules=no
+          ReadWritePaths=
+        '';
       })
     ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "catch2";
@@ -21,13 +16,11 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-H.." ];
 
   meta = with lib; {
-    description = "A multi-paradigm automated test framework for C++ and Objective-C (and, maybe, C)";
+    description =
+      "A multi-paradigm automated test framework for C++ and Objective-C (and, maybe, C)";
     homepage = "http://catch-lib.net";
     license = licenses.boost;
-    maintainers = with maintainers; [
-      edwtjo
-      knedlsepp
-    ];
+    maintainers = with maintainers; [ edwtjo knedlsepp ];
     platforms = platforms.unix ++ [ "x86_64-windows" ];
   };
 }

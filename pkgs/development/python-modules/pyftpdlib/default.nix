@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  psutil,
-  pyopenssl,
-  pysendfile,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, psutil, pyopenssl, pysendfile
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyftpdlib";
@@ -23,14 +15,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pysendfile ];
 
-  passthru.optional-dependencies = {
-    ssl = [ pyopenssl ];
-  };
+  passthru.optional-dependencies = { ssl = [ pyopenssl ]; };
 
-  nativeCheckInputs = [
-    mock
-    psutil
-  ];
+  nativeCheckInputs = [ mock psutil ];
 
   # Impure filesystem-related tests cause timeouts
   # on Hydra: https://hydra.nixos.org/build/84374861

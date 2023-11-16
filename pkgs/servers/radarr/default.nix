@@ -1,43 +1,28 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  mono,
-  libmediainfo,
-  sqlite,
-  curl,
-  makeWrapper,
-  icu,
-  dotnet-runtime,
-  openssl,
-  nixosTests,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, mono, libmediainfo, sqlite, curl, makeWrapper, icu
+, dotnet-runtime, openssl, nixosTests, zlib }:
 
 let
   os = if stdenv.isDarwin then "osx" else "linux";
-  arch =
-    {
-      x86_64-linux = "x64";
-      aarch64-linux = "arm64";
-      x86_64-darwin = "x64";
-    }
-    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  arch = {
+    x86_64-linux = "x64";
+    aarch64-linux = "arm64";
+    x86_64-darwin = "x64";
+  }."${stdenv.hostPlatform.system}" or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  hash =
-    {
-      x64-linux_hash = "sha256-BJKEl75VNr2dN/P1NeYuOYmrDJEIc8pGS2rszibVGbQ=";
-      arm64-linux_hash = "sha256-1qGx3rM8sjLhzCNnyUjTWs+EGLzmm12h/o08QmvXxts=";
-      x64-osx_hash = "sha256-+afi+BQGrJb+i91IDKZEqRS6xAMvU1C5XmZs6H5rgoI=";
-    }
-    ."${arch}-${os}_hash";
-in
-stdenv.mkDerivation rec {
+  hash = {
+    x64-linux_hash = "sha256-BJKEl75VNr2dN/P1NeYuOYmrDJEIc8pGS2rszibVGbQ=";
+    arm64-linux_hash = "sha256-1qGx3rM8sjLhzCNnyUjTWs+EGLzmm12h/o08QmvXxts=";
+    x64-osx_hash = "sha256-+afi+BQGrJb+i91IDKZEqRS6xAMvU1C5XmZs6H5rgoI=";
+  }."${arch}-${os}_hash";
+
+in stdenv.mkDerivation rec {
   pname = "radarr";
   version = "4.5.2.7388";
 
   src = fetchurl {
-    url = "https://github.com/Radarr/Radarr/releases/download/v${version}/Radarr.master.${version}.${os}-core-${arch}.tar.gz";
+    url =
+      "https://github.com/Radarr/Radarr/releases/download/v${version}/Radarr.master.${version}.${os}-core-${arch}.tar.gz";
     sha256 = hash;
   };
 
@@ -52,15 +37,7 @@ stdenv.mkDerivation rec {
     makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Radarr \
       --add-flags "$out/share/${pname}-${version}/Radarr.dll" \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          curl
-          sqlite
-          libmediainfo
-          mono
-          openssl
-          icu
-          zlib
-        ]
+        lib.makeLibraryPath [ curl sqlite libmediainfo mono openssl icu zlib ]
       }
 
     runHook postInstall
@@ -76,14 +53,7 @@ stdenv.mkDerivation rec {
     homepage = "https://radarr.video/";
     changelog = "https://github.com/Radarr/Radarr/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      edwtjo
-      purcell
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-    ];
+    maintainers = with maintainers; [ edwtjo purcell ];
+    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
   };
 }

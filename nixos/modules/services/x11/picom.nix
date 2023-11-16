@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -13,29 +7,24 @@ let
   cfg = config.services.picom;
   opt = options.services.picom;
 
-  pairOf =
-    x:
+  pairOf = x:
     with types;
-    addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
+    addCheck (listOf x) (y: length y == 2) // {
+      description = "pair of ${x.description}";
+    };
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
   # Basically a tinkered lib.generators.mkKeyValueDefault
   # It either serializes a top-level definition "key: { values };"
   # or an expression "key = { values };"
-  mkAttrsString =
-    top:
-    mapAttrsToList (
-      k: v:
-      let
-        sep = if (top && isAttrs v) then ":" else "=";
-      in
-      "${escape [ sep ] k}${sep}${mkValueString v};"
-    );
+  mkAttrsString = top:
+    mapAttrsToList (k: v:
+      let sep = if (top && isAttrs v) then ":" else "=";
+      in "${escape [ sep ] k}${sep}${mkValueString v};");
 
   # This serializes a Nix expression to the libconfig format.
-  mkValueString =
-    v:
+  mkValueString = v:
     if types.bool.check v then
       boolToString v
     else if types.int.check v then
@@ -57,42 +46,19 @@ let
   toConf = attrs: concatStringsSep "\n" (mkAttrsString true cfg.settings);
 
   configFile = pkgs.writeText "picom.conf" (toConf cfg.settings);
-in
-{
+
+in {
 
   imports = [
-    (mkAliasOptionModuleMD
-      [
-        "services"
-        "compton"
-      ]
-      [
-        "services"
-        "picom"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "picom"
-        "refreshRate"
-      ]
-      ''
-        This option corresponds to `refresh-rate`, which has been unused
-        since picom v6 and was subsequently removed by upstream.
-        See https://github.com/yshui/picom/commit/bcbc410
-      ''
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "picom"
-        "experimentalBackends"
-      ]
-      ''
-        This option was removed by upstream since picom v10.
-      ''
-    )
+    (mkAliasOptionModuleMD [ "services" "compton" ] [ "services" "picom" ])
+    (mkRemovedOptionModule [ "services" "picom" "refreshRate" ] ''
+      This option corresponds to `refresh-rate`, which has been unused
+      since picom v6 and was subsequently removed by upstream.
+      See https://github.com/yshui/picom/commit/bcbc410
+    '')
+    (mkRemovedOptionModule [ "services" "picom" "experimentalBackends" ] ''
+      This option was removed by upstream since picom v10.
+    '')
   ];
 
   options.services.picom = {
@@ -123,14 +89,8 @@ in
 
     fadeSteps = mkOption {
       type = pairOf (types.numbers.between 1.0e-2 1);
-      default = [
-        2.8e-2
-        3.0e-2
-      ];
-      example = [
-        4.0e-2
-        4.0e-2
-      ];
+      default = [ 2.8e-2 3.0e-2 ];
+      example = [ 4.0e-2 4.0e-2 ];
       description = lib.mdDoc ''
         Opacity change between fade steps (in and out).
       '';
@@ -139,11 +99,7 @@ in
     fadeExclude = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "window_type *= 'menu'"
-        "name ~= 'Firefox$'"
-        "focused = 1"
-      ];
+      example = [ "window_type *= 'menu'" "name ~= 'Firefox$'" "focused = 1" ];
       description = lib.mdDoc ''
         List of conditions of windows that should not be faded.
         See `picom(1)` man page for more examples.
@@ -160,14 +116,8 @@ in
 
     shadowOffsets = mkOption {
       type = pairOf types.int;
-      default = [
-        (-15)
-        (-15)
-      ];
-      example = [
-        (-10)
-        (-15)
-      ];
+      default = [ (-15) (-15) ];
+      example = [ (-10) (-15) ];
       description = lib.mdDoc ''
         Left and right offset for shadows (in pixels).
       '';
@@ -185,11 +135,7 @@ in
     shadowExclude = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "window_type *= 'menu'"
-        "name ~= 'Firefox$'"
-        "focused = 1"
-      ];
+      example = [ "window_type *= 'menu'" "name ~= 'Firefox$'" "focused = 1" ];
       description = lib.mdDoc ''
         List of conditions of windows that should have no shadow.
         See `picom(1)` man page for more examples.
@@ -226,12 +172,8 @@ in
     wintypes = mkOption {
       type = types.attrs;
       default = {
-        popup_menu = {
-          opacity = cfg.menuOpacity;
-        };
-        dropdown_menu = {
-          opacity = cfg.menuOpacity;
-        };
+        popup_menu = { opacity = cfg.menuOpacity; };
+        dropdown_menu = { opacity = cfg.menuOpacity; };
       };
       defaultText = literalExpression ''
         {
@@ -258,12 +200,7 @@ in
     };
 
     backend = mkOption {
-      type = types.enum [
-        "egl"
-        "glx"
-        "xrender"
-        "xr_glx_hybrid"
-      ];
+      type = types.enum [ "egl" "glx" "xrender" "xr_glx_hybrid" ];
       default = "xrender";
       description = lib.mdDoc ''
         Backend to use: `egl`, `glx`, `xrender` or `xr_glx_hybrid`.
@@ -271,28 +208,22 @@ in
     };
 
     vSync = mkOption {
-      type =
-        with types;
-        either bool (
-          enum [
-            "none"
-            "drm"
-            "opengl"
-            "opengl-oml"
-            "opengl-swc"
-            "opengl-mswc"
-          ]
-        );
+      type = with types;
+        either bool (enum [
+          "none"
+          "drm"
+          "opengl"
+          "opengl-oml"
+          "opengl-swc"
+          "opengl-mswc"
+        ]);
       default = false;
-      apply =
-        x:
+      apply = x:
         let
           res = x != "none";
-          msg =
-            "The type of services.picom.vSync has changed to bool:"
+          msg = "The type of services.picom.vSync has changed to bool:"
             + " interpreting ${x} as ${boolToString res}";
-        in
-        if isBool x then x else warn msg res;
+        in if isBool x then x else warn msg res;
 
       description = lib.mdDoc ''
         Enable vertical synchronization. Chooses the best method
@@ -301,29 +232,15 @@ in
       '';
     };
 
-    settings =
-      with types;
+    settings = with types;
       let
-        scalar =
-          oneOf [
-            bool
-            int
-            float
-            str
-          ]
-          // {
-            description = "scalar types";
-          };
+        scalar = oneOf [ bool int float str ] // {
+          description = "scalar types";
+        };
 
-        libConfig =
-          oneOf [
-            scalar
-            (listOf libConfig)
-            (attrsOf libConfig)
-          ]
-          // {
-            description = "libconfig type";
-          };
+        libConfig = oneOf [ scalar (listOf libConfig) (attrsOf libConfig) ] // {
+          description = "libconfig type";
+        };
 
         topLevel = attrsOf libConfig // {
           description = ''
@@ -333,8 +250,8 @@ in
             scalars or a group itself
           '';
         };
-      in
-      mkOption {
+
+      in mkOption {
         type = topLevel;
         default = { };
         example = literalExpression ''
@@ -387,7 +304,8 @@ in
       partOf = [ "graphical-session.target" ];
 
       # Temporarily fixes corrupt colours with Mesa 18
-      environment = mkIf (cfg.backend == "glx") { allow_rgb10_configs = "false"; };
+      environment =
+        mkIf (cfg.backend == "glx") { allow_rgb10_configs = "false"; };
 
       serviceConfig = {
         ExecStart = "${pkgs.picom}/bin/picom --config ${configFile}";
@@ -400,4 +318,5 @@ in
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+
 }

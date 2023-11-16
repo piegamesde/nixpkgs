@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "parsy";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/python-parsy/parsy";
     description = "Easy-to-use parser combinators, for parsing in pure Python";
-    changelog = "https://github.com/python-parsy/parsy/blob/v${version}/docs/history.rst";
+    changelog =
+      "https://github.com/python-parsy/parsy/blob/v${version}/docs/history.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ milibopp ];
   };

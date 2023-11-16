@@ -1,20 +1,14 @@
 # This test runs rabbitmq and checks if rabbitmq is up and running.
 
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
   let
     # in real life, you would keep this out of your repo and deploy it to a safe
     # location using safe means.
-    configKeyPath = pkgs.writeText "fake-config-key" "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01";
-  in
-  {
+    configKeyPath = pkgs.writeText "fake-config-key"
+      "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01";
+  in {
     name = "rabbitmq";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        eelco
-        offline
-      ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ eelco offline ]; };
 
     nodes.machine = {
       services.rabbitmq = {
@@ -62,5 +56,4 @@ import ./make-test-python.nix (
           '${pkgs.rabbitmq-java-client}/bin/PerfTest --time 10 --uri amqp://alice:dJT8isYu6t0Xb6u56rPglSj1vK51SlNVlXfwsRxw@localhost'
       )
     '';
-  }
-)
+  })

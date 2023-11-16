@@ -1,16 +1,5 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  h5py,
-  numpy,
-  dill,
-  astropy,
-  scipy,
-  pandas,
-  pytestCheckHook,
-  lib,
-}:
+{ buildPythonPackage, fetchPypi, pythonOlder, h5py, numpy, dill, astropy, scipy
+, pandas, pytestCheckHook, lib }:
 
 buildPythonPackage rec {
   pname = "hickle";
@@ -28,18 +17,9 @@ buildPythonPackage rec {
     substituteInPlace tox.ini --replace "--cov=./hickle" ""
   '';
 
-  propagatedBuildInputs = [
-    h5py
-    numpy
-    dill
-  ];
+  propagatedBuildInputs = [ h5py numpy dill ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    scipy
-    pandas
-    astropy
-  ];
+  nativeCheckInputs = [ pytestCheckHook scipy pandas astropy ];
 
   pythonImportsCheck = [ "hickle" ];
 

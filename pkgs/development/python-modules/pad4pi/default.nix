@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  rpi-gpio,
-}:
+{ lib, buildPythonPackage, fetchPypi, rpi-gpio }:
 
 buildPythonPackage rec {
   pname = "pad4pi";

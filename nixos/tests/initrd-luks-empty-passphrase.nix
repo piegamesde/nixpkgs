@@ -1,11 +1,6 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-  systemdStage1 ? false,
-}:
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, systemdStage1 ? false }:
+import ./make-test-python.nix ({ lib, pkgs, ... }:
   let
 
     keyfile = pkgs.writeText "luks-keyfile" ''
@@ -13,56 +8,54 @@ import ./make-test-python.nix (
       gV6EK3TmTbGc4tzC1v4SWx2m+2Bjdtn4Fs4wiBwn1lbRdC6i5ZYCqasTWIntWn+6
       FllUkMD5oqjOR/YcboxG8Z3B5sJuvTP9llsF+gnuveWih9dpbBr7AgEC
     '';
-  in
-  {
+
+  in {
     name = "initrd-luks-empty-passphrase";
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        virtualisation = {
-          emptyDiskImages = [ 512 ];
-          useBootLoader = true;
-          useEFIBoot = true;
-          # This requires to have access
-          # to a host Nix store as
-          # the new root device is /dev/vdb
-          # an empty 512MiB drive, containing no Nix store.
-          mountHostNixStore = true;
-        };
-
-        boot.loader.systemd-boot.enable = true;
-        boot.initrd.systemd = lib.mkIf systemdStage1 {
-          enable = true;
-          emergencyAccess = true;
-        };
-        environment.systemPackages = with pkgs; [ cryptsetup ];
-
-        specialisation.boot-luks-wrong-keyfile.configuration = {
-          boot.initrd.luks.devices = lib.mkVMOverride {
-            cryptroot = {
-              device = "/dev/vdb";
-              keyFile = "/etc/cryptroot.key";
-              tryEmptyPassphrase = true;
-              fallbackToPassword = !systemdStage1;
-            };
-          };
-          virtualisation.rootDevice = "/dev/mapper/cryptroot";
-          boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
-        };
-
-        specialisation.boot-luks-missing-keyfile.configuration = {
-          boot.initrd.luks.devices = lib.mkVMOverride {
-            cryptroot = {
-              device = "/dev/vdb";
-              keyFile = "/etc/cryptroot.key";
-              tryEmptyPassphrase = true;
-              fallbackToPassword = !systemdStage1;
-            };
-          };
-          virtualisation.rootDevice = "/dev/mapper/cryptroot";
-        };
+    nodes.machine = { pkgs, ... }: {
+      virtualisation = {
+        emptyDiskImages = [ 512 ];
+        useBootLoader = true;
+        useEFIBoot = true;
+        # This requires to have access
+        # to a host Nix store as
+        # the new root device is /dev/vdb
+        # an empty 512MiB drive, containing no Nix store.
+        mountHostNixStore = true;
       };
+
+      boot.loader.systemd-boot.enable = true;
+      boot.initrd.systemd = lib.mkIf systemdStage1 {
+        enable = true;
+        emergencyAccess = true;
+      };
+      environment.systemPackages = with pkgs; [ cryptsetup ];
+
+      specialisation.boot-luks-wrong-keyfile.configuration = {
+        boot.initrd.luks.devices = lib.mkVMOverride {
+          cryptroot = {
+            device = "/dev/vdb";
+            keyFile = "/etc/cryptroot.key";
+            tryEmptyPassphrase = true;
+            fallbackToPassword = !systemdStage1;
+          };
+        };
+        virtualisation.rootDevice = "/dev/mapper/cryptroot";
+        boot.initrd.secrets."/etc/cryptroot.key" = keyfile;
+      };
+
+      specialisation.boot-luks-missing-keyfile.configuration = {
+        boot.initrd.luks.devices = lib.mkVMOverride {
+          cryptroot = {
+            device = "/dev/vdb";
+            keyFile = "/etc/cryptroot.key";
+            tryEmptyPassphrase = true;
+            fallbackToPassword = !systemdStage1;
+          };
+        };
+        virtualisation.rootDevice = "/dev/mapper/cryptroot";
+      };
+    };
 
     testScript = ''
       # Encrypt key with empty key so boot should try keyfile and then fallback to empty passphrase
@@ -105,5 +98,4 @@ import ./make-test-python.nix (
       machine.wait_for_unit("multi-user.target")
       assert "/dev/mapper/cryptroot on / type ext4" in machine.succeed("mount")
     '';
-  }
-)
+  })

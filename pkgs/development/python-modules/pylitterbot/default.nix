@@ -1,17 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pyjwt,
-  pytest-aiohttp,
-  pytest-freezegun,
-  pytestCheckHook,
-  pythonOlder,
-  deepdiff,
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pyjwt, pytest-aiohttp, pytest-freezegun, pytestCheckHook, pythonOlder
+, deepdiff }:
 
 buildPythonPackage rec {
   pname = "pylitterbot";
@@ -29,25 +18,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    deepdiff
-    pyjwt
-  ];
+  propagatedBuildInputs = [ aiohttp deepdiff pyjwt ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-aiohttp
-    pytest-freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aioresponses pytest-aiohttp pytest-freezegun pytestCheckHook ];
 
   pythonImportsCheck = [ "pylitterbot" ];
 
   meta = with lib; {
     description = "Modulefor controlling a Litter-Robot";
     homepage = "https://github.com/natekspencer/pylitterbot";
-    changelog = "https://github.com/natekspencer/pylitterbot/releases/tag/${version}";
+    changelog =
+      "https://github.com/natekspencer/pylitterbot/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

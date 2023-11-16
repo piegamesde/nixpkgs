@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  callPackage,
-  fetchPypi,
-  appdirs,
-  cryptography,
-  dogpile-cache,
-  jmespath,
-  jsonpatch,
-  keystoneauth1,
-  munch,
-  netifaces,
-  os-service-types,
-  pbr,
-  pythonOlder,
-  pyyaml,
-  requestsexceptions,
-}:
+{ lib, buildPythonPackage, callPackage, fetchPypi, appdirs, cryptography
+, dogpile-cache, jmespath, jsonpatch, keystoneauth1, munch, netifaces
+, os-service-types, pbr, pythonOlder, pyyaml, requestsexceptions }:
 
 buildPythonPackage rec {
   pname = "openstacksdk";
@@ -48,9 +32,7 @@ buildPythonPackage rec {
   # Checks moved to 'passthru.tests' to workaround slowness
   doCheck = false;
 
-  passthru.tests = {
-    tests = callPackage ./tests.nix { };
-  };
+  passthru.tests = { tests = callPackage ./tests.nix { }; };
 
   pythonImportsCheck = [ "openstack" ];
 

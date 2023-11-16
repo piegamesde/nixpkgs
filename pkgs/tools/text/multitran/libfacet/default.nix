@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libmtsupport,
-}:
+{ lib, stdenv, fetchurl, libmtsupport }:
 
 stdenv.mkDerivation rec {
   pname = "libfacet";

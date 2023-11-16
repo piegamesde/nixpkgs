@@ -1,20 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  espeak-ng,
-  onnxruntime,
-  pcaudiolib,
-  piper-train,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, espeak-ng, onnxruntime
+, pcaudiolib, piper-train }:
 
 let
   pname = "piper";
   version = "0.0.2";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -31,16 +21,9 @@ stdenv.mkDerivation {
       --replace "/usr/local/include/onnxruntime" "${onnxruntime}"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    espeak-ng
-    onnxruntime
-    pcaudiolib
-  ];
+  buildInputs = [ espeak-ng onnxruntime pcaudiolib ];
 
   installPhase = ''
     runHook preInstall
@@ -51,9 +34,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    inherit piper-train;
-  };
+  passthru.tests = { inherit piper-train; };
 
   meta = with lib; {
     changelog = "https://github.com/rhasspy/piper/releases/tag/v${version}";

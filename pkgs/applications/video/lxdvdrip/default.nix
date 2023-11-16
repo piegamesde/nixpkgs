@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libdvdread,
-}:
+{ lib, stdenv, fetchurl, libdvdread }:
 
 stdenv.mkDerivation rec {
   pname = "lxdvdrip";
@@ -28,7 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     broken = (stdenv.isLinux && stdenv.isAarch64);
-    description = "Command line tool to make a copy from a video DVD for private use";
+    description =
+      "Command line tool to make a copy from a video DVD for private use";
     homepage = "https://sourceforge.net/projects/lxdvdrip";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;

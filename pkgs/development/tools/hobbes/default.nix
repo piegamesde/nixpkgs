@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  llvmPackages_10,
-  fetchFromGitHub,
-  cmake,
-  llvm_12,
-  ncurses,
-  readline,
-  zlib,
-  libxml2,
-  python3,
-}:
+{ lib, stdenv, llvmPackages_10, fetchFromGitHub, cmake, llvm_12, ncurses
+, readline, zlib, libxml2, python3 }:
 llvmPackages_10.stdenv.mkDerivation {
   pname = "hobbes";
   version = "unstable-2023-06-03";
@@ -30,14 +19,7 @@ llvmPackages_10.stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    llvm_12
-    ncurses
-    readline
-    zlib
-    libxml2
-    python3
-  ];
+  buildInputs = [ llvm_12 ncurses readline zlib libxml2 python3 ];
 
   doCheck = true;
   checkTarget = "test";
@@ -51,13 +33,7 @@ llvmPackages_10.stdenv.mkDerivation {
     '';
     homepage = "https://github.com/morganstanley/hobbes";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      kthielen
-      thmzlt
-    ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    maintainers = with maintainers; [ kthielen thmzlt ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
 }

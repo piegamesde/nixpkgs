@@ -1,15 +1,10 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 let
   inherit (python3Packages) python;
   pname = "honcho";
-in
 
-python3Packages.buildPythonApplication rec {
+in python3Packages.buildPythonApplication rec {
   name = "${pname}-${version}";
   version = "1.1.0";
 
@@ -22,12 +17,7 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs = [ python3Packages.setuptools ];
 
-  nativeCheckInputs = with python3Packages; [
-    jinja2
-    pytest
-    mock
-    coverage
-  ];
+  nativeCheckInputs = with python3Packages; [ jinja2 pytest mock coverage ];
 
   # missing plugins
   doCheck = false;
@@ -39,7 +29,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "A Python clone of Foreman, a tool for managing Procfile-based applications";
+    description =
+      "A Python clone of Foreman, a tool for managing Procfile-based applications";
     license = licenses.mit;
     homepage = "https://github.com/nickstenning/honcho";
     maintainers = with maintainers; [ benley ];

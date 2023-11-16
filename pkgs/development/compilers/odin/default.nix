@@ -1,15 +1,7 @@
-{
-  lib,
-  fetchFromGitHub,
-  llvmPackages,
-  makeWrapper,
-  libiconv,
-}:
+{ lib, fetchFromGitHub, llvmPackages, makeWrapper, libiconv }:
 
-let
-  inherit (llvmPackages) stdenv;
-in
-stdenv.mkDerivation rec {
+let inherit (llvmPackages) stdenv;
+in stdenv.mkDerivation rec {
   pname = "odin";
   version = "0.13.0";
 
@@ -38,19 +30,13 @@ stdenv.mkDerivation rec {
     cp -r core $out/bin/core
 
     wrapProgram $out/bin/odin --prefix PATH : ${
-      lib.makeBinPath (
-        with llvmPackages; [
-          bintools
-          llvm
-          clang
-          lld
-        ]
-      )
+      lib.makeBinPath (with llvmPackages; [ bintools llvm clang lld ])
     }
   '';
 
   meta = with lib; {
-    description = "A fast, concise, readable, pragmatic and open sourced programming language";
+    description =
+      "A fast, concise, readable, pragmatic and open sourced programming language";
     homepage = "https://odin-lang.org/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ luc65r ];

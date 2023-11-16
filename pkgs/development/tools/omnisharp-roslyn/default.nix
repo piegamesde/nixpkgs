@@ -1,16 +1,7 @@
-{
-  buildDotnetModule,
-  dotnetCorePackages,
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  runCommand,
-  expect,
-}:
-let
-  inherit (dotnetCorePackages) sdk_6_0 runtime_6_0;
-in
-let
+{ buildDotnetModule, dotnetCorePackages, fetchFromGitHub, lib, stdenv
+, runCommand, expect }:
+let inherit (dotnetCorePackages) sdk_6_0 runtime_6_0;
+in let
   finalPackage = buildDotnetModule rec {
     pname = "omnisharp-roslyn";
     version = "1.39.6";
@@ -28,10 +19,7 @@ let
     useAppHost = false;
 
     dotnetInstallFlags = [ "--framework net6.0" ];
-    dotnetBuildFlags = [
-      "--framework net6.0"
-      "--no-self-contained"
-    ];
+    dotnetBuildFlags = [ "--framework net6.0" "--no-self-contained" ];
     dotnetFlags = [
       # These flags are set by the cake build.
       "-property:PackageVersion=${version}"
@@ -72,43 +60,36 @@ let
       chmod +x "$out/bin/OmniSharp"
     '';
 
-    passthru.tests =
-      let
-        with-sdk =
-          sdk:
-          runCommand "with-${if sdk ? version then sdk.version else "no"}-sdk"
-            {
-              nativeBuildInputs = [
-                finalPackage
-                sdk
-                expect
-              ];
-              meta.timeout = 60;
+    passthru.tests = let
+      with-sdk = sdk:
+        runCommand "with-${if sdk ? version then sdk.version else "no"}-sdk" {
+          nativeBuildInputs = [ finalPackage sdk expect ];
+          meta.timeout = 60;
+        } ''
+          HOME=$TMPDIR
+          expect <<"EOF"
+            spawn OmniSharp
+            expect_before timeout {
+              send_error "timeout!\n"
+              exit 1
             }
-            ''
-              HOME=$TMPDIR
-              expect <<"EOF"
-                spawn OmniSharp
-                expect_before timeout {
-                  send_error "timeout!\n"
-                  exit 1
-                }
-                expect ".NET Core SDK ${if sdk ? version then sdk.version else sdk_6_0.version}"
-                expect "{\"Event\":\"started\","
-                send \x03
-                expect eof
-                catch wait result
-                exit [lindex $result 3]
-              EOF
-              touch $out
-            '';
-      in
-      {
-        # Make sure we can run OmniSharp with any supported SDK version, as well as without
-        with-net6-sdk = with-sdk sdk_6_0;
-        with-net7-sdk = with-sdk dotnetCorePackages.sdk_7_0;
-        no-sdk = with-sdk null;
-      };
+            expect ".NET Core SDK ${
+              if sdk ? version then sdk.version else sdk_6_0.version
+            }"
+            expect "{\"Event\":\"started\","
+            send \x03
+            expect eof
+            catch wait result
+            exit [lindex $result 3]
+          EOF
+          touch $out
+        '';
+    in {
+      # Make sure we can run OmniSharp with any supported SDK version, as well as without
+      with-net6-sdk = with-sdk sdk_6_0;
+      with-net7-sdk = with-sdk dotnetCorePackages.sdk_7_0;
+      no-sdk = with-sdk null;
+    };
 
     meta = with lib; {
       description = "OmniSharp based on roslyn workspaces";
@@ -118,14 +99,8 @@ let
         binaryNativeCode # dependencies
       ];
       license = licenses.mit;
-      maintainers = with maintainers; [
-        tesq0
-        ericdallo
-        corngood
-        mdarocha
-      ];
+      maintainers = with maintainers; [ tesq0 ericdallo corngood mdarocha ];
       mainProgram = "OmniSharp";
     };
   };
-in
-finalPackage
+in finalPackage

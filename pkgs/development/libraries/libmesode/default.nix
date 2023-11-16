@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  libtool,
-  openssl,
-  expat,
-  pkg-config,
-  check,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, openssl, expat
+, pkg-config, check }:
 
 stdenv.mkDerivation rec {
   pname = "libmesode";
@@ -21,23 +12,16 @@ stdenv.mkDerivation rec {
     sha256 = "1bxnkhrypgv41qyy1n545kcggmlw1hvxnhwihijhhcf2pxd2s654";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    openssl
-    expat
-    libtool
-    check
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ openssl expat libtool check ];
 
   dontDisableStatic = true;
 
   doCheck = true;
 
   meta = with lib; {
-    description = "Fork of libstrophe (https://github.com/strophe/libstrophe) for use with Profanity XMPP Client";
+    description =
+      "Fork of libstrophe (https://github.com/strophe/libstrophe) for use with Profanity XMPP Client";
     longDescription = ''
       Reasons for forking:
 
@@ -50,10 +34,7 @@ stdenv.mkDerivation rec {
       TLS functionality such as manual SSL certificate verification.
     '';
     homepage = "https://github.com/profanity-im/libmesode/";
-    license = with licenses; [
-      gpl3Only
-      mit
-    ];
+    license = with licenses; [ gpl3Only mit ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
     maintainers = with maintainers; [ devhell ];

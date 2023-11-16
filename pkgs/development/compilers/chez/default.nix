@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  coreutils,
-  cctools,
-  ncurses,
-  libiconv,
-  libX11,
-  libuuid,
-}:
+{ lib, stdenv, fetchFromGitHub, coreutils, cctools, ncurses, libiconv, libX11
+, libuuid }:
 
 stdenv.mkDerivation rec {
   pname = "chez-scheme";
@@ -23,16 +14,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = lib.optional stdenv.isDarwin cctools;
-  buildInputs = [
-    ncurses
-    libiconv
-    libX11
-    libuuid
-  ];
+  buildInputs = [ ncurses libiconv libX11 libuuid ];
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isGNU "-Wno-error=format-truncation";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isGNU "-Wno-error=format-truncation";
 
   #* We patch out a very annoying 'feature' in ./configure, which
   #* tries to use 'git' to update submodules.
@@ -79,9 +66,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ thoughtpolice ];
     platforms = lib.platforms.unix;
-    badPlatforms = [
-      "aarch64-linux"
-      "aarch64-darwin"
-    ];
+    badPlatforms = [ "aarch64-linux" "aarch64-darwin" ];
   };
 }

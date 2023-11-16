@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "mill";
   version = "0.11.0";
 
   src = fetchurl {
-    url = "https://github.com/com-lihaoyi/mill/releases/download/${version}/${version}-assembly";
+    url =
+      "https://github.com/com-lihaoyi/mill/releases/download/${version}/${version}-assembly";
     hash = "sha256-LB7np8LTes97XWnOHxCTYXY5BRZxxJJ4EpMsG4zUHNQ=";
   };
 

@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchpatch,
-  fetchFromGitHub,
-  nix-update-script,
-  rustPlatform,
-  CoreServices,
-  which,
-}:
+{ lib, stdenv, fetchpatch, fetchFromGitHub, nix-update-script, rustPlatform
+, CoreServices, which }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dotter";
@@ -26,9 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ which ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "A dotfile manager and templater written in rust 🦀";

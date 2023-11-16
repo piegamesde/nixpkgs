@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  wrapQtAppsHook,
-  hunspell,
-  poppler,
-  qt5compat,
-  qttools,
-  withLua ? true,
-  lua,
-  withPython ? true,
-  python3,
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, hunspell
+, poppler, qt5compat, qttools, withLua ? true, lua, withPython ? true, python3
 }:
 
 stdenv.mkDerivation rec {
@@ -28,22 +15,14 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-fix-build-with-qt-6.5.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    hunspell
-    poppler
-    qt5compat
-    qttools
-  ] ++ lib.optional withLua lua ++ lib.optional withPython python3;
+  buildInputs = [ hunspell poppler qt5compat qttools ]
+    ++ lib.optional withLua lua ++ lib.optional withPython python3;
 
-  cmakeFlags = [
-    "-DQT_DEFAULT_MAJOR_VERSION=6"
-  ] ++ lib.optional withLua "-DWITH_LUA=ON" ++ lib.optional withPython "-DWITH_PYTHON=ON";
+  cmakeFlags = [ "-DQT_DEFAULT_MAJOR_VERSION=6" ]
+    ++ lib.optional withLua "-DWITH_LUA=ON"
+    ++ lib.optional withPython "-DWITH_PYTHON=ON";
 
   meta = with lib; {
     changelog = "https://github.com/TeXworks/texworks/blob/${src.rev}/NEWS";

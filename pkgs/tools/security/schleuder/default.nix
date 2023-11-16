@@ -1,11 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  ruby,
-  bundlerUpdateScript,
-  defaultGemConfig,
-  nixosTests,
-}:
+{ lib, bundlerApp, ruby, bundlerUpdateScript, defaultGemConfig, nixosTests }:
 
 bundlerApp {
   inherit ruby;
@@ -14,18 +7,14 @@ bundlerApp {
 
   gemdir = ./.;
 
-  exes = [
-    "schleuder"
-    "schleuder-api-daemon"
-  ];
+  exes = [ "schleuder" "schleuder-api-daemon" ];
 
   passthru.updateScript = bundlerUpdateScript "schleuder";
-  passthru.tests = {
-    inherit (nixosTests) schleuder;
-  };
+  passthru.tests = { inherit (nixosTests) schleuder; };
 
   meta = with lib; {
-    description = "Schleuder is an encrypting mailing list manager with remailing-capabilities";
+    description =
+      "Schleuder is an encrypting mailing list manager with remailing-capabilities";
     longDescription = ''
       Schleuder is a group's email-gateway: subscribers can exchange
       encrypted emails among themselves, receive emails from
@@ -34,9 +23,6 @@ bundlerApp {
     homepage = "https://schleuder.org";
     changelog = "https://0xacab.org/schleuder/schleuder/blob/main/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      hexa
-      lheckemann
-    ];
+    maintainers = with maintainers; [ hexa lheckemann ];
   };
 }

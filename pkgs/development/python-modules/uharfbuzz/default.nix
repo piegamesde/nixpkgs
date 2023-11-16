@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  cython,
-  setuptools-scm,
-  pytestCheckHook,
-  ApplicationServices,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder, cython
+, setuptools-scm, pytestCheckHook, ApplicationServices }:
 
 buildPythonPackage rec {
   pname = "uharfbuzz";
@@ -28,10 +19,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    cython
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ cython setuptools-scm ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ ApplicationServices ];
 

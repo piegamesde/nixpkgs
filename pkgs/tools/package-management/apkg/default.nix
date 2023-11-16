@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  python3Packages,
-  gitMinimal,
-  rpm,
-  dpkg,
-  fakeroot,
-}:
+{ lib, fetchFromGitLab, python3Packages, gitMinimal, rpm, dpkg, fakeroot }:
 
 python3Packages.buildPythonApplication rec {
   pname = "apkg";
@@ -46,18 +38,13 @@ python3Packages.buildPythonApplication rec {
     toml # config files
   ];
 
-  makeWrapperArgs = [
-    # deps for `srcpkg` operation for other distros; could be optional
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [
-      gitMinimal
-      rpm
-      dpkg
-      fakeroot
-    ])
-  ];
+  makeWrapperArgs =
+    [ # deps for `srcpkg` operation for other distros; could be optional
+      "--prefix"
+      "PATH"
+      ":"
+      (lib.makeBinPath [ gitMinimal rpm dpkg fakeroot ])
+    ];
 
   nativeCheckInputs = with python3Packages; [ pytest ];
   checkPhase = ''

@@ -1,25 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fontforge,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, fontforge, python3 }:
 let
   inherit (python3.pkgs) fonttools;
 
-  commonNativeBuildInputs = [
-    fontforge
-    python3
-  ];
-  common =
-    {
-      version,
-      repo,
-      sha256,
-      nativeBuildInputs,
-      postPatch ? null,
-    }:
+  commonNativeBuildInputs = [ fontforge python3 ];
+  common = { version, repo, sha256, nativeBuildInputs, postPatch ? null }:
     stdenv.mkDerivation rec {
       pname = "liberation-fonts";
       inherit version;
@@ -43,7 +27,8 @@ let
       '';
 
       meta = with lib; {
-        description = "Liberation Fonts, replacements for Times New Roman, Arial, and Courier New";
+        description =
+          "Liberation Fonts, replacements for Times New Roman, Arial, and Courier New";
         longDescription = ''
           The Liberation Fonts are intended to be replacements for the three most
           commonly used fonts on Microsoft systems: Times New Roman, Arial, and
@@ -61,8 +46,7 @@ let
         maintainers = with maintainers; [ raskin ];
       };
     };
-in
-{
+in {
   liberation_ttf_v1 = common {
     repo = "liberation-1.7-fonts";
     version = "1.07.5";

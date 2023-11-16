@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  git,
-  mercurial,
-}:
+{ lib, python3, fetchPypi, git, mercurial }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "bumpver";
@@ -31,17 +25,12 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = [
-    python3.pkgs.pytestCheckHook
-    git
-    mercurial
-  ];
+  nativeCheckInputs = [ python3.pkgs.pytestCheckHook git mercurial ];
 
-  disabledTests =
-    [
-      # fails due to more aggressive setuptools version specifier validation
-      "test_parse_default_pattern"
-    ];
+  disabledTests = [
+    # fails due to more aggressive setuptools version specifier validation
+    "test_parse_default_pattern"
+  ];
 
   meta = with lib; {
     description = "Bump version numbers in project files";

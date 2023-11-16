@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pup";
@@ -21,9 +17,6 @@ buildGoModule rec {
     description = "Parsing HTML at the command line";
     homepage = "https://github.com/ericchiang/pup";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      SuperSandro2000
-      yana
-    ];
+    maintainers = with maintainers; [ SuperSandro2000 yana ];
   };
 }

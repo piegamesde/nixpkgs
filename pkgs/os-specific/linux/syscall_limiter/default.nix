@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libseccomp,
-  perl,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, libseccomp, perl, which }:
 
 stdenv.mkDerivation {
   pname = "syscall_limiter";

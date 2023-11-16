@@ -1,9 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  flex,
-}:
+{ fetchurl, lib, stdenv, flex }:
 
 stdenv.mkDerivation rec {
   pname = "splint";

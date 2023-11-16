@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  installShellFiles,
-  bash,
-  coreutils,
-  curl,
-  git,
-  writeScript,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, installShellFiles, bash, coreutils
+, curl, git, writeScript }:
 
 let
   asdfReshimFile = writeScript "asdf-reshim" ''
@@ -46,8 +36,7 @@ let
     source "$ASDF_DIR/asdf.sh"
     ${asdfReshimFile}
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "asdf-vm";
   version = "0.11.3";
 
@@ -58,16 +47,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4y0XamKIZ7kftrsSb87qLizTBO6b2fdAyPauslwzo8c=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
-  buildInputs = [
-    bash
-    curl
-    git
-  ];
+  buildInputs = [ bash curl git ];
 
   installPhase = ''
     mkdir -p $out/share/asdf-vm
@@ -88,7 +70,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Extendable version manager with support for Ruby, Node.js, Erlang & more";
+    description =
+      "Extendable version manager with support for Ruby, Node.js, Erlang & more";
     homepage = "https://asdf-vm.com/";
     license = licenses.mit;
     maintainers = [ maintainers.c4605 ];

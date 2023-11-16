@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "thinkingrock-binary";
   version = "2.2.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/thinkingrock/ThinkingRock/TR%20${version}/tr-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/thinkingrock/ThinkingRock/TR%20${version}/tr-${version}.tar.gz";
     sha256 = "0hnwvvyc8miiz8w2g4iy7s4rgfy0kfbncgbgfzpsq6nrzq334kgm";
   };
 

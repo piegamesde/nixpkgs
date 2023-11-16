@@ -1,61 +1,44 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 
 with lib;
 
 let
   cfg = config.programs.yabar;
 
-  mapExtra =
-    v:
-    lib.concatStringsSep "\n" (
-      mapAttrsToList
-        (key: val: "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};")
-        v
-    );
+  mapExtra = v:
+    lib.concatStringsSep "\n" (mapAttrsToList (key: val:
+      "${key} = ${
+        if (isString val) then ''"${val}"'' else "${builtins.toString val}"
+      };") v);
 
   listKeys = r: concatStringsSep "," (map (n: ''"${n}"'') (attrNames r));
 
-  configFile =
-    let
-      bars =
-        mapAttrsToList
-          (name: cfg: ''
+  configFile = let
+    bars = mapAttrsToList (name: cfg: ''
+      ${name}: {
+        font: "${cfg.font}";
+        position: "${cfg.position}";
+
+        ${mapExtra cfg.extra}
+
+        block-list: [${listKeys cfg.indicators}]
+
+        ${
+          concatStringsSep "\n" (mapAttrsToList (name: cfg: ''
             ${name}: {
-              font: "${cfg.font}";
-              position: "${cfg.position}";
-
+              exec: "${cfg.exec}";
+              align: "${cfg.align}";
               ${mapExtra cfg.extra}
-
-              block-list: [${listKeys cfg.indicators}]
-
-              ${
-                concatStringsSep "\n" (
-                  mapAttrsToList
-                    (name: cfg: ''
-                      ${name}: {
-                        exec: "${cfg.exec}";
-                        align: "${cfg.align}";
-                        ${mapExtra cfg.extra}
-                      };
-                    '')
-                    cfg.indicators
-                )
-              }
             };
-          '')
-          cfg.bars;
-    in
-    pkgs.writeText "yabar.conf" ''
-      bar-list = [${listKeys cfg.bars}];
-      ${concatStringsSep "\n" bars}
-    '';
-in
-{
+          '') cfg.indicators)
+        }
+      };
+    '') cfg.bars;
+  in pkgs.writeText "yabar.conf" ''
+    bar-list = [${listKeys cfg.bars}];
+    ${concatStringsSep "\n" bars}
+  '';
+in {
   options.programs.yabar = {
     enable = mkEnableOption (lib.mdDoc "yabar");
 
@@ -66,8 +49,7 @@ in
       type = types.package;
 
       # `yabar-stable` segfaults under certain conditions.
-      apply =
-        x:
+      apply = x:
         if x == pkgs.yabar-unstable then
           x
         else
@@ -93,85 +75,74 @@ in
 
     bars = mkOption {
       default = { };
-      type = types.attrsOf (
-        types.submodule {
-          options = {
-            font = mkOption {
-              default = "sans bold 9";
-              example = "Droid Sans, FontAwesome Bold 9";
-              type = types.str;
+      type = types.attrsOf (types.submodule {
+        options = {
+          font = mkOption {
+            default = "sans bold 9";
+            example = "Droid Sans, FontAwesome Bold 9";
+            type = types.str;
 
-              description = lib.mdDoc ''
-                The font that will be used to draw the status bar.
-              '';
-            };
-
-            position = mkOption {
-              default = "top";
-              example = "bottom";
-              type = types.enum [
-                "top"
-                "bottom"
-              ];
-
-              description = lib.mdDoc ''
-                The position where the bar will be rendered.
-              '';
-            };
-
-            extra = mkOption {
-              default = { };
-              type = types.attrsOf types.str;
-
-              description = lib.mdDoc ''
-                An attribute set which contains further attributes of a bar.
-              '';
-            };
-
-            indicators = mkOption {
-              default = { };
-              type = types.attrsOf (
-                types.submodule {
-                  options.exec = mkOption {
-                    example = "YABAR_DATE";
-                    type = types.str;
-                    description = lib.mdDoc ''
-                      The type of the indicator to be executed.
-                    '';
-                  };
-
-                  options.align = mkOption {
-                    default = "left";
-                    example = "right";
-                    type = types.enum [
-                      "left"
-                      "center"
-                      "right"
-                    ];
-
-                    description = lib.mdDoc ''
-                      Whether to align the indicator at the left or right of the bar.
-                    '';
-                  };
-
-                  options.extra = mkOption {
-                    default = { };
-                    type = types.attrsOf (types.either types.str types.int);
-
-                    description = lib.mdDoc ''
-                      An attribute set which contains further attributes of a indicator.
-                    '';
-                  };
-                }
-              );
-
-              description = lib.mdDoc ''
-                Indicators that should be rendered by yabar.
-              '';
-            };
+            description = lib.mdDoc ''
+              The font that will be used to draw the status bar.
+            '';
           };
-        }
-      );
+
+          position = mkOption {
+            default = "top";
+            example = "bottom";
+            type = types.enum [ "top" "bottom" ];
+
+            description = lib.mdDoc ''
+              The position where the bar will be rendered.
+            '';
+          };
+
+          extra = mkOption {
+            default = { };
+            type = types.attrsOf types.str;
+
+            description = lib.mdDoc ''
+              An attribute set which contains further attributes of a bar.
+            '';
+          };
+
+          indicators = mkOption {
+            default = { };
+            type = types.attrsOf (types.submodule {
+              options.exec = mkOption {
+                example = "YABAR_DATE";
+                type = types.str;
+                description = lib.mdDoc ''
+                  The type of the indicator to be executed.
+                '';
+              };
+
+              options.align = mkOption {
+                default = "left";
+                example = "right";
+                type = types.enum [ "left" "center" "right" ];
+
+                description = lib.mdDoc ''
+                  Whether to align the indicator at the left or right of the bar.
+                '';
+              };
+
+              options.extra = mkOption {
+                default = { };
+                type = types.attrsOf (types.either types.str types.int);
+
+                description = lib.mdDoc ''
+                  An attribute set which contains further attributes of a indicator.
+                '';
+              };
+            });
+
+            description = lib.mdDoc ''
+              Indicators that should be rendered by yabar.
+            '';
+          };
+        };
+      });
 
       description = lib.mdDoc ''
         List of bars that should be rendered by yabar.

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  openmp,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openmp }:
 
 stdenv.mkDerivation rec {
   pname = "vid.stab";

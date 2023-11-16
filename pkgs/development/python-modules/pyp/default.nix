@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  coreutils,
-  pythonOlder,
-  astunparse,
-  flit-core,
-  jq,
-  bc,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, coreutils
+, pythonOlder, astunparse, flit-core, jq, bc }:
 
 buildPythonPackage rec {
   pname = "pyp";
@@ -33,17 +23,13 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    coreutils
-    jq
-    bc
-  ];
+  nativeCheckInputs = [ pytestCheckHook coreutils jq bc ];
 
   pythonImportsCheck = [ "pyp" ];
 
   meta = with lib; {
-    description = "Easily run Python at the shell! Magical, but never mysterious";
+    description =
+      "Easily run Python at the shell! Magical, but never mysterious";
     homepage = "https://github.com/hauntsaninja/pyp";
     license = licenses.mit;
     maintainers = with maintainers; [ rmcgibbo ];

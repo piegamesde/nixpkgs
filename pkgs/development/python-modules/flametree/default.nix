@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fontconfig,
-  matplotlib,
-  pandas,
-  pytestCheckHook,
-  weasyprint,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fontconfig, matplotlib, pandas
+, pytestCheckHook, weasyprint }:
 
 buildPythonPackage rec {
   pname = "flametree";
@@ -20,22 +12,16 @@ buildPythonPackage rec {
     hash = "sha256-oyiuhsYouGDKRssKc0aYIoG32H7GS6Bn4RtI7/9N158=";
   };
 
-  nativeCheckInputs = [
-    matplotlib
-    pandas
-    pytestCheckHook
-    weasyprint
-  ];
+  nativeCheckInputs = [ matplotlib pandas pytestCheckHook weasyprint ];
 
   preCheck = ''
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
   '';
 
-  disabledTests =
-    [
-      # AssertionError, https://github.com/Edinburgh-Genome-Foundry/Flametree/issues/9
-      "test_weasyprint"
-    ];
+  disabledTests = [
+    # AssertionError, https://github.com/Edinburgh-Genome-Foundry/Flametree/issues/9
+    "test_weasyprint"
+  ];
 
   pythonImportsCheck = [ "flametree" ];
 

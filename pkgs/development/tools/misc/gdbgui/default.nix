@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchPypi,
-  gdb,
-  eventlet,
-  flask-compress,
-  flask-socketio,
-  pygdbmi,
-  pygments,
-}:
+{ lib, buildPythonApplication, fetchPypi, gdb, eventlet, flask-compress
+, flask-socketio, pygdbmi, pygments, }:
 
 buildPythonApplication rec {
   pname = "gdbgui";
@@ -16,13 +7,8 @@ buildPythonApplication rec {
   version = "0.15.1.0";
 
   buildInputs = [ gdb ];
-  propagatedBuildInputs = [
-    eventlet
-    flask-compress
-    flask-socketio
-    pygdbmi
-    pygments
-  ];
+  propagatedBuildInputs =
+    [ eventlet flask-compress flask-socketio pygdbmi pygments ];
 
   src = fetchPypi {
     inherit pname version;
@@ -48,9 +34,6 @@ buildPythonApplication rec {
     homepage = "https://www.gdbgui.com/";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      yrashk
-      dump_stack
-    ];
+    maintainers = with maintainers; [ yrashk dump_stack ];
   };
 }

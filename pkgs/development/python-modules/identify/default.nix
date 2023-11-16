@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  editdistance-s,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  ukkonen,
-}:
+{ lib, buildPythonPackage, editdistance-s, fetchFromGitHub, pytestCheckHook
+, pythonOlder, ukkonen }:
 
 buildPythonPackage rec {
   pname = "identify";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-L73M+lWonuT7sSk+piBkZZJtxxeBvZ1XUXUypvS65G0=";
   };
 
-  nativeCheckInputs = [
-    editdistance-s
-    pytestCheckHook
-    ukkonen
-  ];
+  nativeCheckInputs = [ editdistance-s pytestCheckHook ukkonen ];
 
   pythonImportsCheck = [ "identify" ];
 

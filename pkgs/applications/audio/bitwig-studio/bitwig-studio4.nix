@@ -1,42 +1,18 @@
-{
-  stdenv,
-  fetchurl,
-  alsa-lib,
-  cairo,
-  dpkg,
-  ffmpeg,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  lib,
-  libglvnd,
-  libjack2,
-  libjpeg,
-  libxkbcommon,
-  makeWrapper,
-  pipewire,
-  pulseaudio,
-  wrapGAppsHook,
-  xdg-utils,
-  xorg,
-  zlib,
-}:
+{ stdenv, fetchurl, alsa-lib, cairo, dpkg, ffmpeg, freetype, gdk-pixbuf, glib
+, gtk3, lib, libglvnd, libjack2, libjpeg, libxkbcommon, makeWrapper, pipewire
+, pulseaudio, wrapGAppsHook, xdg-utils, xorg, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
   version = "4.4.10";
 
   src = fetchurl {
-    url = "https://downloads.bitwig.com/stable/${version}/${pname}-${version}.deb";
+    url =
+      "https://downloads.bitwig.com/stable/${version}/${pname}-${version}.deb";
     sha256 = "sha256-gtQ1mhXk0AqGidZk5TCzSR58pD1JJoELMBmELtqyb4U=";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook ];
 
   unpackCmd = ''
     mkdir -p root
@@ -120,10 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.bitwig.com/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      bfortz
-      michalrus
-      mrVanDalo
-    ];
+    maintainers = with maintainers; [ bfortz michalrus mrVanDalo ];
   };
 }

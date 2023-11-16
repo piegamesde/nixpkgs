@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  python-dateutil,
-  python-slugify,
-  pythonAtLeast,
-  pythonOlder,
-  requests,
-  sortedcontainers,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, python-dateutil
+, python-slugify, pythonAtLeast, pythonOlder, requests, sortedcontainers }:
 
 buildPythonPackage rec {
   pname = "blinkpy";
@@ -25,12 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-0sEZlnS6CJj8nMyjtSFZRALRKdmY0Uu5N6sozPiDG6w=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    python-slugify
-    requests
-    sortedcontainers
-  ];
+  propagatedBuildInputs =
+    [ python-dateutil python-slugify requests sortedcontainers ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

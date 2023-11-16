@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "helm-cm-push";
@@ -26,10 +22,7 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     install -Dm644 plugin.yaml $out/helm-cm-push/plugin.yaml

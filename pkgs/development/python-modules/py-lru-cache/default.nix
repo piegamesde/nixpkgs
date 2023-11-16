@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "py-lru-cache";
@@ -20,4 +16,5 @@ buildPythonPackage rec {
     license = licenses.gpl3;
     maintainers = [ maintainers.costrouc ];
   };
+
 }

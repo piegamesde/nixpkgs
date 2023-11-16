@@ -12,8 +12,7 @@ let
     CFBundlePackageType = "APPL";
     CFBundleSignature = "???";
   };
-in
-writeScriptBin "write-darwin-bundle" ''
+in writeScriptBin "write-darwin-bundle" ''
       shopt -s nullglob
 
       readonly prefix=$1

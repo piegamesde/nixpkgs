@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "parastoo-fonts";

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pyrss2gen";
@@ -23,4 +19,5 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ domenkozar ];
   };
+
 }

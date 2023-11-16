@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  cachecontrol,
-  cwl-upgrader,
-  cwlformat,
-  fetchFromGitHub,
-  packaging,
-  pytest-mock,
-  pytest-xdist,
-  pytestCheckHook,
-  pythonOlder,
-  rdflib,
-  requests,
-  schema-salad,
-}:
+{ lib, buildPythonPackage, cachecontrol, cwl-upgrader, cwlformat
+, fetchFromGitHub, packaging, pytest-mock, pytest-xdist, pytestCheckHook
+, pythonOlder, rdflib, requests, schema-salad }:
 
 buildPythonPackage rec {
   pname = "cwl-utils";
@@ -29,21 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-T82zaXILbQFOIE0/HhNjpYutSdA1UeaxXO/M7Z4sSfo=";
   };
 
-  propagatedBuildInputs = [
-    cachecontrol
-    cwl-upgrader
-    packaging
-    rdflib
-    requests
-    schema-salad
-  ];
+  propagatedBuildInputs =
+    [ cachecontrol cwl-upgrader packaging rdflib requests schema-salad ];
 
-  nativeCheckInputs = [
-    cwlformat
-    pytest-mock
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ cwlformat pytest-mock pytest-xdist pytestCheckHook ];
 
   pythonImportsCheck = [ "cwl_utils" ];
 
@@ -59,7 +35,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Utilities for CWL";
     homepage = "https://github.com/common-workflow-language/cwl-utils";
-    changelog = "https://github.com/common-workflow-language/cwl-utils/releases/tag/v${version}";
+    changelog =
+      "https://github.com/common-workflow-language/cwl-utils/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

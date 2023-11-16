@@ -1,23 +1,6 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  fetchpatch,
-  qmake,
-  qtbase,
-  SDL,
-  SDL_mixer,
-  boost,
-  curl,
-  gsasl,
-  libgcrypt,
-  libircclient,
-  protobuf,
-  sqlite,
-  wrapQtAppsHook,
-  tinyxml2,
-  target ? "client",
-}:
+{ lib, mkDerivation, fetchFromGitHub, fetchpatch, qmake, qtbase, SDL, SDL_mixer
+, boost, curl, gsasl, libgcrypt, libircclient, protobuf, sqlite, wrapQtAppsHook
+, tinyxml2, target ? "client" }:
 
 mkDerivation rec {
   pname = "pokerth-${target}";
@@ -33,17 +16,20 @@ mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "pokerth-1.1.2.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/pokerth-1.1.2.patch?h=pokerth&id=7734029cf9c6ef58f42ed873e1b9c3c19eb1df3b";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/pokerth-1.1.2.patch?h=pokerth&id=7734029cf9c6ef58f42ed873e1b9c3c19eb1df3b";
       hash = "sha256-we2UOCFF5J/Wlji/rJeCHDu/dNsUU+R+bTw83AmvDxs=";
     })
     (fetchpatch {
       name = "pokerth-1.1.2.patch.2019";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/pokerth-1.1.2.patch.2019?h=pokerth&id=7734029cf9c6ef58f42ed873e1b9c3c19eb1df3b";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/pokerth-1.1.2.patch.2019?h=pokerth&id=7734029cf9c6ef58f42ed873e1b9c3c19eb1df3b";
       hash = "sha256-m6uFPmPC3T9kV7EI1p33vQSi0d/w+YCH0dKjviAphMY=";
     })
     (fetchpatch {
       name = "pokerth-1.1.2.patch.2020";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/pokerth-1.1.2.patch.2020?h=pokerth&id=7734029cf9c6ef58f42ed873e1b9c3c19eb1df3b";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/pokerth-1.1.2.patch.2020?h=pokerth&id=7734029cf9c6ef58f42ed873e1b9c3c19eb1df3b";
       hash = "sha256-I2qrgLGSMvFDHyUZFWGPGnuecZ914NBf2uGK02X/wOg=";
     })
   ];
@@ -57,10 +43,7 @@ mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
   buildInputs = [
     SDL
@@ -76,10 +59,7 @@ mkDerivation rec {
     tinyxml2
   ];
 
-  qmakeFlags = [
-    "CONFIG+=${target}"
-    "pokerth.pro"
-  ];
+  qmakeFlags = [ "CONFIG+=${target}" "pokerth.pro" ];
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL}/include/SDL";
 
@@ -87,10 +67,7 @@ mkDerivation rec {
     homepage = "https://www.pokerth.net";
     description = "Poker game ${target}";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      obadz
-      yana
-    ];
+    maintainers = with maintainers; [ obadz yana ];
     platforms = platforms.all;
   };
 }

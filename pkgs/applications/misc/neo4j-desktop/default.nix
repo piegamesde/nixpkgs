@@ -1,21 +1,17 @@
-{
-  appimageTools,
-  lib,
-  fetchurl,
-}:
+{ appimageTools, lib, fetchurl }:
 let
   pname = "neo4j-desktop";
   version = "1.5.8";
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://s3-eu-west-1.amazonaws.com/dist.neo4j.org/${pname}/linux-offline/${name}-x86_64.AppImage";
+    url =
+      "https://s3-eu-west-1.amazonaws.com/dist.neo4j.org/${pname}/linux-offline/${name}-x86_64.AppImage";
     hash = "sha256-RqzR4TuvDasbkj/wKvOOS7r46sXDxvw3B5ydFGZeHX8=";
   };
 
   appimageContents = appimageTools.extract { inherit name src; };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit name src;
 
   extraPkgs = pkgs: with pkgs; [ libsecret ];

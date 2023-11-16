@@ -6,8 +6,7 @@ final: prev:
 let
   # Removing recurseForDerivation prevents derivations of aliased attribute
   # set to appear while listing all the packages available.
-  removeRecurseForDerivations =
-    alias:
+  removeRecurseForDerivations = alias:
     with lib;
     if alias.recurseForDerivations or false then
       removeAttrs alias [ "recurseForDerivations" ]
@@ -16,27 +15,29 @@ let
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
-  removeDistribute = alias: with lib; if isDerivation alias then dontDistribute alias else alias;
+  removeDistribute = alias:
+    with lib;
+    if isDerivation alias then dontDistribute alias else alias;
 
   # Make sure that we are not shadowing something from
   # all-packages.nix.
-  checkInPkgs =
-    n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in vim-plugins" else alias;
+  checkInPkgs = n: alias:
+    if builtins.hasAttr n prev then
+      throw "Alias ${n} is still in vim-plugins"
+    else
+      alias;
 
-  mapAliases =
-    aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
-      aliases;
+  mapAliases = aliases:
+    lib.mapAttrs (n: alias:
+      removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
+    aliases;
 
-  deprecations =
-    lib.mapAttrs
-      (
-        old: info: throw "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
-      )
-      (lib.importJSON ./deprecated.json);
-in
-mapAliases (
-  with prev;
+  deprecations = lib.mapAttrs (old: info:
+    throw
+    "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}.")
+    (lib.importJSON ./deprecated.json);
+
+in mapAliases (with prev;
   {
     airline = vim-airline;
     alternative = a-vim; # backwards compat, added 2014-10-21
@@ -84,7 +85,8 @@ mapAliases (
     hlint-refactor = hlint-refactor-vim;
     hoogle = vim-hoogle;
     Hoogle = vim-hoogle;
-    indent-blankline-nvim-lua = indent-blankline-nvim; # backwards compat, added 2021-07-05
+    indent-blankline-nvim-lua =
+      indent-blankline-nvim; # backwards compat, added 2021-07-05
     ipython = vim-ipython;
     latex-live-preview = vim-latex-live-preview;
     maktaba = vim-maktaba;
@@ -132,7 +134,8 @@ mapAliases (
     unite = unite-vim;
     UltiSnips = ultisnips;
     vim-addon-vim2nix = vim2nix;
-    vim-sourcetrail = throw "vim-sourcetrail has been removed: abandoned by upstream"; # Added 2022-08-14
+    vim-sourcetrail = throw
+      "vim-sourcetrail has been removed: abandoned by upstream"; # Added 2022-08-14
     vimproc = vimproc-vim;
     vimshell = vimshell-vim;
     vinegar = vim-vinegar;
@@ -143,6 +146,4 @@ mapAliases (
     Yankring = YankRing-vim;
     xterm-color-table = xterm-color-table-vim;
     zeavim = zeavim-vim;
-  }
-  // deprecations
-)
+  } // deprecations)

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock }:
 
 buildPythonPackage rec {
   pname = "file-read-backwards";
@@ -20,7 +15,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/RobinNil/file_read_backwards";
-    description = "Memory efficient way of reading files line-by-line from the end of file";
+    description =
+      "Memory efficient way of reading files line-by-line from the end of file";
     license = licenses.mit;
     maintainers = with maintainers; [ j0hax ];
   };

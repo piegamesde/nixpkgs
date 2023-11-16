@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  dict,
-}:
-(
-  {
-    dictlist,
-    allowList ? [ "127.0.0.1" ],
-    denyList ? [ ],
-  }:
+{ stdenv, lib, dict }:
+({ dictlist, allowList ? [ "127.0.0.1" ], denyList ? [ ] }:
 
   /* dictlist is a list of form
      [ { filename = /path/to/files/basename;
@@ -21,27 +12,15 @@
 
   let
     link_arguments = map (x: ''"${x.filename}" '') dictlist;
-    databases = lib.concatStrings (
-      map
-        (x: ''
-          ${x.name}  ${x.filename}
-        '')
-        dictlist
-    );
-    allow = lib.concatStrings (
-      map
-        (x: ''
-          allow ${x}
-        '')
-        allowList
-    );
-    deny = lib.concatStrings (
-      map
-        (x: ''
-          deny ${x}
-        '')
-        denyList
-    );
+    databases = lib.concatStrings (map (x: ''
+      ${x.name}  ${x.filename}
+    '') dictlist);
+    allow = lib.concatStrings (map (x: ''
+      allow ${x}
+    '') allowList);
+    deny = lib.concatStrings (map (x: ''
+      deny ${x}
+    '') denyList);
     accessSection = "\n  access {\n    ${allow}\n    ${deny}\n  }\n";
     installPhase = ''
         mkdir -p $out/share/dictd
@@ -86,14 +65,12 @@
         echo "}" >> dictd.conf
       done
     '';
-  in
 
-  stdenv.mkDerivation {
+  in stdenv.mkDerivation {
     name = "dictd-dbs";
 
     buildInputs = [ dict ];
 
     dontUnpack = true;
     inherit installPhase;
-  }
-)
+  })

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  python3Packages,
-  asciidoc,
-  makeWrapper,
-  iw,
-}:
+{ lib, stdenv, fetchFromGitLab, python3Packages, asciidoc, makeWrapper, iw }:
 
 stdenv.mkDerivation rec {
   pname = "networkd-dispatcher";
@@ -20,12 +12,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-yO9/HlUkaQmW/n9N3vboHw//YMzBjxIHA2zAxgZNEv0=";
   };
 
-  patches =
-    [
-      # Support rule files in NixOS store paths. Required for the networkd-dispatcher
-      # module to work
-      ./support_nix_store_path.patch
-    ];
+  patches = [
+    # Support rule files in NixOS store paths. Required for the networkd-dispatcher
+    # module to work
+    ./support_nix_store_path.patch
+  ];
 
   postPatch = ''
     # Fix paths in systemd unit file
@@ -36,11 +27,7 @@ stdenv.mkDerivation rec {
     sed -i '/ConditionPathExistsGlob/g' networkd-dispatcher.service
   '';
 
-  nativeBuildInputs = [
-    asciidoc
-    makeWrapper
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs = [ asciidoc makeWrapper python3Packages.wrapPython ];
 
   checkInputs = with python3Packages; [
     dbus-python
@@ -50,11 +37,7 @@ stdenv.mkDerivation rec {
     pytestCheckHook
   ];
 
-  pythonPath = with python3Packages; [
-    configparser
-    dbus-python
-    pygobject3
-  ];
+  pythonPath = with python3Packages; [ configparser dbus-python pygobject3 ];
 
   installPhase = ''
     runHook preInstall
@@ -69,11 +52,14 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapPythonPrograms
-    wrapProgram $out/bin/networkd-dispatcher --prefix PATH : ${lib.makeBinPath [ iw ]}
+    wrapProgram $out/bin/networkd-dispatcher --prefix PATH : ${
+      lib.makeBinPath [ iw ]
+    }
   '';
 
   meta = with lib; {
-    description = "Dispatcher service for systemd-networkd connection status changes";
+    description =
+      "Dispatcher service for systemd-networkd connection status changes";
     homepage = "https://gitlab.com/craftyguy/networkd-dispatcher";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

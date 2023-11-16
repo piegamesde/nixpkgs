@@ -1,12 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  qtbase,
-  kcolorpicker,
-  qttools,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, kcolorpicker, qttools }:
 
 mkDerivation rec {
   pname = "kimageannotator";
@@ -19,14 +11,8 @@ mkDerivation rec {
     sha256 = "sha256-lNoYAJ5yTC5H0gWPVkBGhLroRhFCPyC1DsVBy0IrqL4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-  ];
-  buildInputs = [
-    qtbase
-    kcolorpicker
-  ];
+  nativeBuildInputs = [ cmake qttools ];
+  buildInputs = [ qtbase kcolorpicker ];
 
   meta = with lib; {
     description = "Tool for annotating images";

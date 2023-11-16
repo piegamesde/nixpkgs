@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.ethercalc;
-in
-{
+let cfg = config.services.ethercalc;
+in {
   options = {
     services.ethercalc = {
       enable = mkOption {
@@ -40,7 +33,8 @@ in
       host = mkOption {
         type = types.str;
         default = "0.0.0.0";
-        description = lib.mdDoc "Address to listen on (use 0.0.0.0 to allow access from any address).";
+        description = lib.mdDoc
+          "Address to listen on (use 0.0.0.0 to allow access from any address).";
       };
 
       port = mkOption {
@@ -58,7 +52,9 @@ in
       after = [ "network.target" ];
       serviceConfig = {
         DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/ethercalc --host ${cfg.host} --port ${toString cfg.port}";
+        ExecStart = "${cfg.package}/bin/ethercalc --host ${cfg.host} --port ${
+            toString cfg.port
+          }";
         Restart = "always";
         StateDirectory = "ethercalc";
         WorkingDirectory = "/var/lib/ethercalc";

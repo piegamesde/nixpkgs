@@ -13,10 +13,8 @@
       "lib/string/strlen.c"
       "lib/mes/mini-write.c"
     ];
-    libmescc_SOURCES = [
-      "lib/mes/globals.c"
-      "lib/linux/x86-mes-mescc/syscall-internal.c"
-    ];
+    libmescc_SOURCES =
+      [ "lib/mes/globals.c" "lib/linux/x86-mes-mescc/syscall-internal.c" ];
     libtcc1_SOURCES = [ "lib/libtcc1.c" ];
     libc_SOURCES = [
       "lib/mes/eputs.c"
@@ -532,10 +530,8 @@
       "lib/string/strlen.c"
       "lib/mes/mini-write.c"
     ];
-    libmescc_SOURCES = [
-      "lib/mes/globals.c"
-      "lib/linux/x86-mes-gcc/syscall-internal.c"
-    ];
+    libmescc_SOURCES =
+      [ "lib/mes/globals.c" "lib/linux/x86-mes-gcc/syscall-internal.c" ];
     libtcc1_SOURCES = [ "lib/libtcc1.c" ];
     libc_SOURCES = [
       "lib/mes/eputs.c"

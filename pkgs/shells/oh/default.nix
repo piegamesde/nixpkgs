@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "oh";
@@ -23,7 +19,5 @@ buildGoModule rec {
     license = licenses.mit;
   };
 
-  passthru = {
-    shellPath = "/bin/oh";
-  };
+  passthru = { shellPath = "/bin/oh"; };
 }

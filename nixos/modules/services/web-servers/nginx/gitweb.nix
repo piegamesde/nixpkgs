@@ -1,18 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.nginx.gitweb;
   gitwebConfig = config.services.gitweb;
-  package = pkgs.gitweb.override (optionalAttrs gitwebConfig.gitwebTheme { gitwebTheme = true; });
-in
-{
+  package = pkgs.gitweb.override
+    (optionalAttrs gitwebConfig.gitwebTheme { gitwebTheme = true; });
+
+in {
 
   options.services.nginx.gitweb = {
 
@@ -55,6 +51,7 @@ in
         VirtualHost to serve gitweb on. Default is catch-all.
       '';
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -62,9 +59,7 @@ in
     systemd.services.gitweb = {
       description = "GitWeb service";
       script = "${package}/gitweb.cgi --fastcgi --nproc=1";
-      environment = {
-        FCGI_SOCKET_PATH = "/run/gitweb/gitweb.sock";
-      };
+      environment = { FCGI_SOCKET_PATH = "/run/gitweb/gitweb.sock"; };
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -75,9 +70,7 @@ in
 
     services.nginx = {
       virtualHosts.${cfg.virtualHost} = {
-        locations."${cfg.location}/static/" = {
-          alias = "${package}/static/";
-        };
+        locations."${cfg.location}/static/" = { alias = "${package}/static/"; };
         locations."${cfg.location}/" = {
           extraConfig = ''
             include ${config.services.nginx.package}/conf/fastcgi_params;
@@ -87,7 +80,9 @@ in
         };
       };
     };
+
   };
 
   meta.maintainers = with maintainers; [ ];
+
 }

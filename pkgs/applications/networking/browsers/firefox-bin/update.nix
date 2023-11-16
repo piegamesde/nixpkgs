@@ -1,24 +1,10 @@
-{
-  pname,
-  channel,
-  lib,
-  writeScript,
-  xidel,
-  coreutils,
-  gnused,
-  gnugrep,
-  curl,
-  gnupg,
-  runtimeShell,
-  baseName ? "firefox",
-  basePath ? "pkgs/applications/networking/browsers/firefox-bin",
-  baseUrl,
-}:
+{ pname, channel, lib, writeScript, xidel, coreutils, gnused, gnugrep, curl
+, gnupg, runtimeShell, baseName ? "firefox"
+, basePath ? "pkgs/applications/networking/browsers/firefox-bin", baseUrl }:
 
-let
-  isBeta = channel != "release";
-in
-writeScript "update-${pname}" ''
+let isBeta = channel != "release";
+
+in writeScript "update-${pname}" ''
   #!${runtimeShell}
   PATH=${coreutils}/bin:${gnused}/bin:${gnugrep}/bin:${xidel}/bin:${curl}/bin:${gnupg}/bin
   set -eux
@@ -47,7 +33,9 @@ writeScript "update-${pname}" ''
            grep "^[0-9]" | \
            sort --version-sort | \
            grep -v "funnelcake" | \
-           grep -e "${lib.optionalString isBeta "b"}\([[:digit:]]\|[[:digit:]][[:digit:]]\)$" | ${
+           grep -e "${
+             lib.optionalString isBeta "b"
+           }\([[:digit:]]\|[[:digit:]][[:digit:]]\)$" | ${
              lib.optionalString (!isBeta) ''grep -v "b" |''
            } \
            tail -1`

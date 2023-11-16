@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  SDL2,
-  SDL2_mixer,
-  libpng,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, SDL2, SDL2_mixer, libpng }:
 
 stdenv.mkDerivation rec {
   pname = "augustus";
@@ -20,14 +12,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    SDL2
-    SDL2_mixer
-    libpng
-  ];
+  buildInputs = [ SDL2 SDL2_mixer libpng ];
 
   meta = with lib; {
-    description = "An open source re-implementation of Caesar III. Fork of Julius incorporating gameplay changes";
+    description =
+      "An open source re-implementation of Caesar III. Fork of Julius incorporating gameplay changes";
     homepage = "https://github.com/Keriew/augustus";
     license = licenses.agpl3Only;
     platforms = platforms.all;

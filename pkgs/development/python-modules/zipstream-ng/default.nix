@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "zipstream-ng";
@@ -31,7 +25,8 @@ buildPythonPackage rec {
       and folders on the fly without needing temporary files or excessive memory
     '';
     homepage = "https://github.com/pR0Ps/zipstream-ng";
-    changelog = "https://github.com/pR0Ps/zipstream-ng/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/pR0Ps/zipstream-ng/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ gador ];
   };

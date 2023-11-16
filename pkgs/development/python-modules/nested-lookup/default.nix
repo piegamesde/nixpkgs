@@ -1,10 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lib,
-  pytestCheckHook,
-  six,
-}:
+{ buildPythonPackage, fetchPypi, lib, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "nested-lookup";
@@ -22,7 +16,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nested_lookup" ];
 
   meta = with lib; {
-    description = "Python functions for working with deeply nested documents (lists and dicts)";
+    description =
+      "Python functions for working with deeply nested documents (lists and dicts)";
     homepage = "https://github.com/russellballestrini/nested-lookup";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ tboerger ];

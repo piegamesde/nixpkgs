@@ -1,30 +1,25 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  gnuplot,
-}:
+{ stdenv, lib, fetchurl, gnuplot }:
 
 let
-  target =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      "linux"
-    else if stdenv.hostPlatform.system == "x86_64-linux" then
-      "linux-AMD64"
-    else if stdenv.hostPlatform.system == "x86_64-darwin" then
-      "macosx"
-    else if stdenv.hostPlatform.system == "aarch64-linux" then
-      "linux-arm"
-    else
-      throw "Platform ${stdenv.hostPlatform.system} not yet supported.";
-in
+  target = if stdenv.hostPlatform.system == "i686-linux" then
+    "linux"
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    "linux-AMD64"
+  else if stdenv.hostPlatform.system == "x86_64-darwin" then
+    "macosx"
+  else if stdenv.hostPlatform.system == "aarch64-linux" then
+    "linux-arm"
+  else
+    throw "Platform ${stdenv.hostPlatform.system} not yet supported.";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "iozone";
   version = "3.493";
 
   src = fetchurl {
-    url = "http://www.iozone.org/src/current/iozone${lib.replaceStrings [ "." ] [ "_" ] version}.tgz";
+    url = "http://www.iozone.org/src/current/iozone${
+        lib.replaceStrings [ "." ] [ "_" ] version
+      }.tgz";
     hash = "sha256-Y0wSNgC0u0LoJ0g/oVsq+uba2ikHt4SxTgFBWTPUMZg=";
   };
 
@@ -63,15 +58,7 @@ stdenv.mkDerivation rec {
     description = "IOzone Filesystem Benchmark";
     homepage = "http://www.iozone.org/";
     license = lib.licenses.unfreeRedistributable;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-linux"
-    ];
-    maintainers = with lib.maintainers; [
-      Baughn
-      makefu
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" "x86_64-darwin" "aarch64-linux" ];
+    maintainers = with lib.maintainers; [ Baughn makefu ];
   };
 }

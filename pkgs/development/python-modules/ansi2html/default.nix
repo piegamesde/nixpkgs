@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  six,
-  mock,
-  pytestCheckHook,
-  setuptools,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, six, mock, pytestCheckHook
+, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "ansi2html";
@@ -23,16 +14,10 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ setuptools-scm ];
-  propagatedBuildInputs = [
-    six
-    setuptools
-  ];
+  propagatedBuildInputs = [ six setuptools ];
 
   preCheck = "export PATH=$PATH:$out/bin";
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "ansi2html" ];
 

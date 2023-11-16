@@ -1,20 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.ddccontrol;
-in
+let cfg = config.services.ddccontrol;
 
-{
+in {
   ###### interface
 
   options = {
     services.ddccontrol = {
-      enable = lib.mkEnableOption (lib.mdDoc "ddccontrol for controlling displays");
+      enable =
+        lib.mkEnableOption (lib.mdDoc "ddccontrol for controlling displays");
     };
   };
 

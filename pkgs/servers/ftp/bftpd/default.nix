@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchurl, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "bftpd";
   version = "6.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/${pname}/${pname}/${pname}-${version}/${pname}-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/${pname}/${pname}/${pname}-${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-lyHQYU4aXQ/muAyaigStqO/ULL393SOelagFmuKDqm8=";
   };
 

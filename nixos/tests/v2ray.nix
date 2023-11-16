@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+import ./make-test-python.nix ({ lib, pkgs, ... }:
   let
 
     v2rayUser = {
@@ -29,13 +28,11 @@ import ./make-test-python.nix (
         {
           tag = "vmess_out";
           protocol = "vmess";
-          settings.vnext = [
-            {
-              address = "127.0.0.1";
-              port = 1081;
-              users = [ v2rayUser ];
-            }
-          ];
+          settings.vnext = [{
+            address = "127.0.0.1";
+            port = 1081;
+            users = [ v2rayUser ];
+          }];
         }
         {
           tag = "direct";
@@ -63,23 +60,21 @@ import ./make-test-python.nix (
         }
       ];
     };
-  in
-  {
+
+  in {
     name = "v2ray";
     meta = with lib.maintainers; { maintainers = [ servalcatty ]; };
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.curl ];
-        services.v2ray = {
-          enable = true;
-          config = v2rayConfig;
-        };
-        services.httpd = {
-          enable = true;
-          adminAddr = "foo@example.org";
-        };
+    nodes.machine = { pkgs, ... }: {
+      environment.systemPackages = [ pkgs.curl ];
+      services.v2ray = {
+        enable = true;
+        config = v2rayConfig;
       };
+      services.httpd = {
+        enable = true;
+        adminAddr = "foo@example.org";
+      };
+    };
 
     testScript = ''
       start_all()
@@ -92,5 +87,4 @@ import ./make-test-python.nix (
           "curl --fail --max-time 10 --proxy http://localhost:1080 http://localhost"
       )
     '';
-  }
-)
+  })

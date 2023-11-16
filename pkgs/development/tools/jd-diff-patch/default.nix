@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "jd-diff-patch";
@@ -16,21 +12,16 @@ buildGoModule rec {
   };
 
   # not including web ui
-  excludedPackages = [
-    "gae"
-    "pack"
-  ];
+  excludedPackages = [ "gae" "pack" ];
 
   vendorHash = null;
 
   meta = with lib; {
-    description = "Commandline utility and Go library for diffing and patching JSON values";
+    description =
+      "Commandline utility and Go library for diffing and patching JSON values";
     homepage = "https://github.com/josephburnett/jd";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      bryanasdev000
-      blaggacao
-    ];
+    maintainers = with maintainers; [ bryanasdev000 blaggacao ];
     mainProgram = "jd";
   };
 }

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  appdirs,
-  requests,
-  click,
-  setuptools,
-  pytestCheckHook,
-  freezegun,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, appdirs, requests, click, setuptools
+, pytestCheckHook, freezegun }:
 
 buildPythonPackage rec {
   pname = "taxi";
@@ -21,17 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-wtLlO/W+39kTPjb2U6c54bxWxAQB7CxGxBh8gur+RCQ=";
   };
 
-  propagatedBuildInputs = [
-    appdirs
-    requests
-    click
-    setuptools
-  ];
+  propagatedBuildInputs = [ appdirs requests click setuptools ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytestCheckHook ];
 
   pythonImportsCheck = [ "taxi" ];
 

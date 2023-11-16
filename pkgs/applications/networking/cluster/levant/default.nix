@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "levant";
@@ -21,7 +17,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "An open source templating and deployment tool for HashiCorp Nomad jobs";
+    description =
+      "An open source templating and deployment tool for HashiCorp Nomad jobs";
     homepage = "https://github.com/hashicorp/levant";
     license = licenses.mpl20;
     maintainers = with maintainers; [ max-niederman ];

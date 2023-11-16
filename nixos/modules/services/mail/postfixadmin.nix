@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
+{ lib, config, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +7,7 @@ let
   fpm = config.services.phpfpm.pools.postfixadmin;
   localDB = cfg.database.host == "localhost";
   user = if localDB then cfg.database.username else "nginx";
-in
-{
+in {
   options.services.postfixadmin = {
     enable = mkOption {
       type = types.bool;
@@ -72,9 +66,8 @@ in
       };
       passwordFile = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Password file for the postgresql connection. Must be readable by user `nginx`.";
+        description = lib.mdDoc
+          "Password file for the postgresql connection. Must be readable by user `nginx`.";
       };
       dbname = mkOption {
         type = types.str;
@@ -86,9 +79,8 @@ in
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options.";
+      description = lib.mdDoc
+        "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options.";
     };
   };
 
@@ -99,10 +91,16 @@ in
       $CONF['setup_password'] = file_get_contents('${cfg.setupPasswordFile}');
 
       $CONF['database_type'] = 'pgsql';
-      $CONF['database_host'] = ${if localDB then "null" else "'${cfg.database.host}'"};
-      ${optionalString localDB "$CONF['database_user'] = '${cfg.database.username}';"}
+      $CONF['database_host'] = ${
+        if localDB then "null" else "'${cfg.database.host}'"
+      };
+      ${optionalString localDB
+      "$CONF['database_user'] = '${cfg.database.username}';"}
       $CONF['database_password'] = ${
-        if localDB then "'dummy'" else "file_get_contents('${cfg.database.passwordFile}')"
+        if localDB then
+          "'dummy'"
+        else
+          "file_get_contents('${cfg.database.passwordFile}')"
       };
       $CONF['database_name'] = '${cfg.database.dbname}';
       $CONF['configured'] = true;
@@ -110,7 +108,8 @@ in
       ${cfg.extraConfig}
     '';
 
-    systemd.tmpfiles.rules = [ "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}" ];
+    systemd.tmpfiles.rules =
+      [ "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}" ];
 
     services.nginx = {
       enable = true;
@@ -136,23 +135,18 @@ in
 
     services.postgresql = mkIf localDB {
       enable = true;
-      ensureUsers = [ { name = cfg.database.username; } ];
+      ensureUsers = [{ name = cfg.database.username; }];
     };
     # The postgresql module doesn't currently support concepts like
     # objects owners and extensions; for now we tack on what's needed
     # here.
     systemd.services.postfixadmin-postgres =
-      let
-        pgsql = config.services.postgresql;
-      in
-      mkIf localDB {
+      let pgsql = config.services.postgresql;
+      in mkIf localDB {
         after = [ "postgresql.service" ];
         bindsTo = [ "postgresql.service" ];
         wantedBy = [ "multi-user.target" ];
-        path = [
-          pgsql.package
-          pkgs.util-linux
-        ];
+        path = [ pgsql.package pkgs.util-linux ];
         script = ''
           set -eu
 

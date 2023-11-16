@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 # This package requires a locale ru_RU.cp1251 locale entry.
 # Waiting for a better idea, I created it modifying a store file using:

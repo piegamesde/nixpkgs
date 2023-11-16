@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.agate;
-in
-{
+let cfg = config.services.agate;
+in {
   options = {
     services.agate = {
       enable = mkEnableOption (lib.mdDoc "Agate Server");
@@ -55,13 +48,15 @@ in
       language = mkOption {
         default = null;
         type = types.nullOr types.str;
-        description = lib.mdDoc "RFC 4646 Language code for text/gemini documents.";
+        description =
+          lib.mdDoc "RFC 4646 Language code for text/gemini documents.";
       };
 
       onlyTls_1_3 = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Only use TLSv1.3 (default also allows TLSv1.2).";
+        description =
+          lib.mdDoc "Only use TLSv1.3 (default also allows TLSv1.2).";
       };
 
       extraArgs = mkOption {
@@ -81,44 +76,25 @@ in
     systemd.services.agate = {
       description = "Agate";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "network-online.target"
-      ];
+      after = [ "network.target" "network-online.target" ];
 
-      script =
-        let
-          prefixKeyList =
-            key: list:
-            concatMap
-              (v: [
-                key
-                v
-              ])
-              list;
-          addresses = prefixKeyList "--addr" cfg.addresses;
-          hostnames = prefixKeyList "--hostname" cfg.hostnames;
-        in
-        ''
-          exec ${cfg.package}/bin/agate ${
-            escapeShellArgs (
-              [
-                "--content"
-                "${cfg.contentDir}"
-                "--certs"
-                "${cfg.certificatesDir}"
-              ]
-              ++ addresses
-              ++ (optionals (cfg.hostnames != [ ]) hostnames)
-              ++ (optionals (cfg.language != null) [
-                "--lang"
-                cfg.language
-              ])
-              ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
-              ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs)
-            )
-          }
-        '';
+      script = let
+        prefixKeyList = key: list: concatMap (v: [ key v ]) list;
+        addresses = prefixKeyList "--addr" cfg.addresses;
+        hostnames = prefixKeyList "--hostname" cfg.hostnames;
+      in ''
+        exec ${cfg.package}/bin/agate ${
+          escapeShellArgs ([
+            "--content"
+            "${cfg.contentDir}"
+            "--certs"
+            "${cfg.certificatesDir}"
+          ] ++ addresses ++ (optionals (cfg.hostnames != [ ]) hostnames)
+            ++ (optionals (cfg.language != null) [ "--lang" cfg.language ])
+            ++ (optionals cfg.onlyTls_1_3 [ "--only-tls13" ])
+            ++ (optionals (cfg.extraArgs != [ ]) cfg.extraArgs))
+        }
+      '';
 
       serviceConfig = {
         Restart = "always";
@@ -147,10 +123,7 @@ in
         ProtectKernelTunables = true;
 
         RestrictNamespaces = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictRealtime = true;
 
         SystemCallArchitectures = "native";

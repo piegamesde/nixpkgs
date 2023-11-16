@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "wuzz";
@@ -22,6 +18,7 @@ buildGoModule rec {
     description = "Interactive cli tool for HTTP inspection";
     license = licenses.agpl3;
     maintainers = with maintainers; [ pradeepchhetri ];
-    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken =
+      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

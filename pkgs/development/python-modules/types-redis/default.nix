@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cryptography,
-  types-pyopenssl,
-}:
+{ lib, buildPythonPackage, fetchPypi, cryptography, types-pyopenssl }:
 
 buildPythonPackage rec {
   pname = "types-redis";
@@ -16,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-L+gvN02d3fAH3q8j2B/dz9lSPZUivxFSPFxDvFsnCZ4=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    types-pyopenssl
-  ];
+  propagatedBuildInputs = [ cryptography types-pyopenssl ];
 
   # Module doesn't have tests
   doCheck = false;

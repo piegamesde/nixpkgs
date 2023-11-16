@@ -1,8 +1,4 @@
-{
-  rustPlatform,
-  fetchFromGitHub,
-  lib,
-}:
+{ rustPlatform, fetchFromGitHub, lib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bunyan-rs";
@@ -18,12 +14,10 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-sQ6f8BHGsPFPchFDjNlZimnu9i99SGYf5bYfM1/2Gac=";
 
   meta = with lib; {
-    description = "A CLI to pretty print logs in bunyan format (Rust port of the original JavaScript bunyan CLI)";
+    description =
+      "A CLI to pretty print logs in bunyan format (Rust port of the original JavaScript bunyan CLI)";
     homepage = "https://github.com/LukeMathWalker/bunyan";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ netcrns ];
     mainProgram = "bunyan";
   };

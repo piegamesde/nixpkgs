@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  einops,
-  fetchFromGitHub,
-  jax,
-  jaxlib,
-  lib,
-}:
+{ buildPythonPackage, einops, fetchFromGitHub, jax, jaxlib, lib }:
 
 buildPythonPackage rec {
   pname = "augmax";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     sha256 = "046n43v7161w7najzlbi0443q60436xv24nh1mv23yw6psqqhx5i";
   };
 
-  propagatedBuildInputs = [
-    einops
-    jax
-  ];
+  propagatedBuildInputs = [ einops jax ];
 
   # augmax does not have any tests at the time of writing (2022-02-19), but
   # jaxlib is necessary for the pythonImportsCheckPhase.
@@ -32,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "augmax" ];
 
   meta = with lib; {
-    description = "Efficiently Composable Data Augmentation on the GPU with Jax";
+    description =
+      "Efficiently Composable Data Augmentation on the GPU with Jax";
     homepage = "https://github.com/khdlr/augmax";
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];

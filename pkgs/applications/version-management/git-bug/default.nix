@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "git-bug";
@@ -22,10 +17,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  excludedPackages = [
-    "doc"
-    "misc"
-  ];
+  excludedPackages = [ "doc" "misc" ];
 
   ldflags = [
     "-X github.com/MichaelMure/git-bug/commands.GitCommit=v${version}"
@@ -46,9 +38,6 @@ buildGoModule rec {
     description = "Distributed bug tracker embedded in Git";
     homepage = "https://github.com/MichaelMure/git-bug";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      royneary
-      DeeUnderscore
-    ];
+    maintainers = with maintainers; [ royneary DeeUnderscore ];
   };
 }

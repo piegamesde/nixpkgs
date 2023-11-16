@@ -1,12 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  csxcad,
-  tinyxml,
-  vtkWithQt5,
-  qtbase,
+{ lib, mkDerivation, fetchFromGitHub, cmake, csxcad, tinyxml, vtkWithQt5, qtbase
 }:
 
 mkDerivation {
@@ -20,24 +12,13 @@ mkDerivation {
     hash = "sha256-kc9Vnx6jGiQC2K88ZH00b61D/DbWxAIZZwYCsINqtrY=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [
-    "-DCSXCAD_ROOT_DIR=${csxcad}"
-    "-DENABLE_RPATH=OFF"
-  ];
+  cmakeFlags = [ "-DCSXCAD_ROOT_DIR=${csxcad}" "-DENABLE_RPATH=OFF" ];
 
-  buildInputs = [
-    csxcad
-    tinyxml
-    vtkWithQt5
-    qtbase
-  ];
+  buildInputs = [ csxcad tinyxml vtkWithQt5 qtbase ];
 
   meta = with lib; {
     description = "Qt library for CSXCAD";

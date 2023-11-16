@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  glibcLocales,
-  coreutils,
-  git,
-}:
+{ lib, fetchFromGitHub, python3Packages, glibcLocales, coreutils, git }:
 
 python3Packages.buildPythonApplication rec {
   pname = "xonsh";
@@ -37,7 +30,9 @@ python3Packages.buildPythonApplication rec {
   '';
 
   makeWrapperArgs = [
-    "--prefix PYTHONPATH : ${placeholder "out"}/lib/${python3Packages.python.libPrefix}/site-packages"
+    "--prefix PYTHONPATH : ${
+      placeholder "out"
+    }/lib/${python3Packages.python.libPrefix}/site-packages"
   ];
 
   postInstall = ''
@@ -76,25 +71,14 @@ python3Packages.buildPythonApplication rec {
     HOME=$TMPDIR
   '';
 
-  nativeCheckInputs =
-    [
-      glibcLocales
-      git
-    ]
-    ++ (
-      with python3Packages; [
-        pyte
-        pytestCheckHook
-        pytest-mock
-        pytest-subprocess
-      ]
-    );
+  nativeCheckInputs = [ glibcLocales git ] ++ (with python3Packages; [
+    pyte
+    pytestCheckHook
+    pytest-mock
+    pytest-subprocess
+  ]);
 
-  propagatedBuildInputs = with python3Packages; [
-    ply
-    prompt-toolkit
-    pygments
-  ];
+  propagatedBuildInputs = with python3Packages; [ ply prompt-toolkit pygments ];
 
   meta = with lib; {
     description = "A Python-ish, BASHwards-compatible shell";
@@ -104,7 +88,5 @@ python3Packages.buildPythonApplication rec {
     maintainers = with maintainers; [ vrthra ];
   };
 
-  passthru = {
-    shellPath = "/bin/xonsh";
-  };
+  passthru = { shellPath = "/bin/xonsh"; };
 }

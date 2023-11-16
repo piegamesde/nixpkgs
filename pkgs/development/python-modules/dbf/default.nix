@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  aenum,
-  pythonOlder,
-  python,
-}:
+{ lib, fetchPypi, buildPythonPackage, aenum, pythonOlder, python }:
 
 buildPythonPackage rec {
   pname = "dbf";
@@ -28,7 +21,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dbf" ];
 
   meta = with lib; {
-    description = "Module for reading/writing dBase, FoxPro, and Visual FoxPro .dbf files";
+    description =
+      "Module for reading/writing dBase, FoxPro, and Visual FoxPro .dbf files";
     homepage = "https://github.com/ethanfurman/dbf";
     license = licenses.bsd2;
     maintainers = with maintainers; [ vrthra ];

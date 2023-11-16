@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  madonctl,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, madonctl }:
 
 buildGoModule rec {
   pname = "madonctl";
@@ -22,10 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     installShellCompletion --cmd madonctl \

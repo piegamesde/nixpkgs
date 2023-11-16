@@ -1,63 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  pkg-config,
-  ninja,
-  wrapGAppsHook,
-  wayland,
-  wlroots,
-  gtkmm3,
-  libsigcxx,
-  jsoncpp,
-  scdoc,
-  spdlog,
-  gtk-layer-shell,
-  howard-hinnant-date,
-  libinotify-kqueue,
-  libxkbcommon,
-  cavaSupport ? true,
-  alsa-lib,
-  fftw,
-  iniparser,
-  ncurses,
-  pipewire,
-  portaudio,
-  SDL2,
-  evdevSupport ? true,
-  libevdev,
-  inputSupport ? true,
-  libinput,
-  jackSupport ? true,
-  libjack2,
-  mpdSupport ? true,
-  libmpdclient,
-  mprisSupport ? stdenv.isLinux,
-  playerctl ? false,
-  nlSupport ? true,
-  libnl,
-  pulseSupport ? true,
-  libpulseaudio,
-  rfkillSupport ? true,
-  runTests ? true,
-  catch2_3,
-  sndioSupport ? true,
-  sndio,
-  swaySupport ? true,
-  sway,
-  traySupport ? true,
-  libdbusmenu-gtk3,
-  udevSupport ? true,
-  udev,
-  upowerSupport ? true,
-  upower,
-  wireplumberSupport ? true,
-  wireplumber,
-  withMediaPlayer ? mprisSupport && false,
-  glib,
-  gobject-introspection,
-  python3,
+{ lib, stdenv, fetchFromGitHub, meson, pkg-config, ninja, wrapGAppsHook, wayland
+, wlroots, gtkmm3, libsigcxx, jsoncpp, scdoc, spdlog, gtk-layer-shell
+, howard-hinnant-date, libinotify-kqueue, libxkbcommon, cavaSupport ? true
+, alsa-lib, fftw, iniparser, ncurses, pipewire, portaudio, SDL2
+, evdevSupport ? true, libevdev, inputSupport ? true, libinput
+, jackSupport ? true, libjack2, mpdSupport ? true, libmpdclient
+, mprisSupport ? stdenv.isLinux, playerctl ? false, nlSupport ? true, libnl
+, pulseSupport ? true, libpulseaudio, rfkillSupport ? true, runTests ? true
+, catch2_3, sndioSupport ? true, sndio, swaySupport ? true, sway
+, traySupport ? true, libdbusmenu-gtk3, udevSupport ? true, udev
+, upowerSupport ? true, upower, wireplumberSupport ? true, wireplumber
+, withMediaPlayer ? mprisSupport && false, glib, gobject-introspection, python3
 }:
 let
   # Derived from subprojects/cava.wrap
@@ -70,8 +22,7 @@ let
       hash = "sha256-66uc0CEriV9XOjSjFTt+bxghEXY1OGrpjd+7d6piJUI=";
     };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "waybar";
   version = "0.9.18";
 
@@ -90,24 +41,15 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    scdoc
-    wrapGAppsHook
-  ] ++ lib.optional withMediaPlayer gobject-introspection;
+  nativeBuildInputs = [ meson ninja pkg-config scdoc wrapGAppsHook ]
+    ++ lib.optional withMediaPlayer gobject-introspection;
 
-  propagatedBuildInputs = lib.optionals withMediaPlayer [
-    glib
-    playerctl
-    python3.pkgs.pygobject3
-  ];
+  propagatedBuildInputs =
+    lib.optionals withMediaPlayer [ glib playerctl python3.pkgs.pygobject3 ];
 
   strictDeps = false;
 
-  buildInputs =
-    with lib;
+  buildInputs = with lib;
     [
       wayland
       wlroots
@@ -118,34 +60,23 @@ stdenv.mkDerivation rec {
       gtk-layer-shell
       howard-hinnant-date
       libxkbcommon
-    ]
-    ++ optional (!stdenv.isLinux) libinotify-kqueue
-    ++ optional cavaSupport alsa-lib
-    ++ optional cavaSupport iniparser
-    ++ optional cavaSupport fftw
-    ++ optional cavaSupport ncurses
-    ++ optional cavaSupport pipewire
-    ++ optional cavaSupport portaudio
-    ++ optional cavaSupport SDL2
-    ++ optional evdevSupport libevdev
-    ++ optional inputSupport libinput
-    ++ optional jackSupport libjack2
-    ++ optional mpdSupport libmpdclient
-    ++ optional mprisSupport playerctl
-    ++ optional nlSupport libnl
-    ++ optional pulseSupport libpulseaudio
-    ++ optional sndioSupport sndio
-    ++ optional swaySupport sway
-    ++ optional traySupport libdbusmenu-gtk3
-    ++ optional udevSupport udev
-    ++ optional upowerSupport upower
-    ++ optional wireplumberSupport wireplumber;
+    ] ++ optional (!stdenv.isLinux) libinotify-kqueue
+    ++ optional cavaSupport alsa-lib ++ optional cavaSupport iniparser
+    ++ optional cavaSupport fftw ++ optional cavaSupport ncurses
+    ++ optional cavaSupport pipewire ++ optional cavaSupport portaudio
+    ++ optional cavaSupport SDL2 ++ optional evdevSupport libevdev
+    ++ optional inputSupport libinput ++ optional jackSupport libjack2
+    ++ optional mpdSupport libmpdclient ++ optional mprisSupport playerctl
+    ++ optional nlSupport libnl ++ optional pulseSupport libpulseaudio
+    ++ optional sndioSupport sndio ++ optional swaySupport sway
+    ++ optional traySupport libdbusmenu-gtk3 ++ optional udevSupport udev
+    ++ optional upowerSupport upower ++ optional wireplumberSupport wireplumber;
 
   nativeCheckInputs = [ catch2_3 ];
   doCheck = runTests;
 
-  mesonFlags =
-    (lib.mapAttrsToList (option: enable: "-D${option}=${if enable then "enabled" else "disabled"}") {
+  mesonFlags = (lib.mapAttrsToList (option: enable:
+    "-D${option}=${if enable then "enabled" else "disabled"}") {
       cava = cavaSupport;
       dbusmenu-gtk = traySupport;
       jack = jackSupport;
@@ -160,8 +91,7 @@ stdenv.mkDerivation rec {
       tests = runTests;
       upower_glib = upowerSupport;
       wireplumber = wireplumberSupport;
-    })
-    ++ [
+    }) ++ [
       "-Dsystemd=disabled"
       "-Dgtk-layer-shell=enabled"
       "-Dman-pages=enabled"
@@ -176,7 +106,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     changelog = "https://github.com/alexays/waybar/releases/tag/${version}";
-    description = "Highly customizable Wayland bar for Sway and Wlroots based compositors";
+    description =
+      "Highly customizable Wayland bar for Sway and Wlroots based compositors";
     license = licenses.mit;
     maintainers = with maintainers; [
       FlorianFranzen

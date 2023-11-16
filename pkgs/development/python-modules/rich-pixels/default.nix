@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  syrupy,
-  pillow,
-  rich,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook, syrupy
+, pillow, rich }:
 
 buildPythonPackage rec {
   pname = "rich-pixels";
@@ -27,17 +19,16 @@ buildPythonPackage rec {
 
   checkInputs = [ syrupy ];
 
-  propagatedBuildInputs = [
-    pillow
-    rich
-  ];
+  propagatedBuildInputs = [ pillow rich ];
 
   pythonImportsCheck = [ "rich_pixels" ];
 
   meta = with lib; {
-    description = "A Rich-compatible library for writing pixel images and ASCII art to the terminal";
+    description =
+      "A Rich-compatible library for writing pixel images and ASCII art to the terminal";
     homepage = "https://github.com/darrenburns/rich-pixels";
-    changelog = "https://github.com/darrenburns/rich-pixels/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/darrenburns/rich-pixels/releases/tag/${src.rev}";
     # upstream has no license specified
     # https://github.com/darrenburns/rich-pixels/issues/11
     license = licenses.unfree;

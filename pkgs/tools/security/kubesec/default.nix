@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "kubesec";
@@ -22,7 +17,9 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/controlplaneio/kubesec/v${lib.versions.major version}/cmd.version=v${version}"
+    "-X github.com/controlplaneio/kubesec/v${
+      lib.versions.major version
+    }/cmd.version=v${version}"
   ];
 
   # Tests wants to download the kubernetes schema for use with kubeval
@@ -48,11 +45,9 @@ buildGoModule rec {
   meta = with lib; {
     description = "Security risk analysis tool for Kubernetes resources";
     homepage = "https://github.com/controlplaneio/kubesec";
-    changelog = "https://github.com/controlplaneio/kubesec/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/controlplaneio/kubesec/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [
-      fab
-      jk
-    ];
+    maintainers = with maintainers; [ fab jk ];
   };
 }

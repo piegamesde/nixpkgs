@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  buildEnv,
-  makeWrapper,
-  lua,
-  luajit,
-  readline,
-  useLuaJit ? false,
-  extraLibraries ? [ ],
-}:
+{ lib, stdenv, fetchFromGitLab, buildEnv, makeWrapper, lua, luajit, readline
+, useLuaJit ? false, extraLibraries ? [ ] }:
 
 let
   version = "0.7.2";
@@ -19,20 +9,12 @@ let
   urn-rt = buildEnv {
     name = "urn-rt-${version}";
     ignoreCollisions = true;
-    paths =
-      if useLuaJit then
-        [
-          luajit
-          readline
-        ]
-      else
-        [ lua ];
+    paths = if useLuaJit then [ luajit readline ] else [ lua ];
   };
 
   inherit (lib) optionalString concatMapStringsSep;
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "urn${optionalString (extraLibraries != [ ]) "-with-libraries"}";
   inherit version;
 
@@ -56,7 +38,9 @@ stdenv.mkDerivation {
     cp -r lib $out/lib/urn
     wrapProgram $out/bin/urn \
       --add-flags "-i $out/lib/urn --prelude $out/lib/urn/prelude.lisp" \
-      --add-flags "${concatMapStringsSep " " (x: "-i ${x.libraryPath}") extraLibraries}" \
+      --add-flags "${
+        concatMapStringsSep " " (x: "-i ${x.libraryPath}") extraLibraries
+      }" \
       --prefix PATH : ${urn-rt}/bin/ \
       --prefix LD_LIBRARY_PATH : ${urn-rt}/lib/
   '';
@@ -69,7 +53,5 @@ stdenv.mkDerivation {
     platforms = platforms.all;
   };
 
-  passthru = {
-    inherit urn-rt;
-  };
+  passthru = { inherit urn-rt; };
 }

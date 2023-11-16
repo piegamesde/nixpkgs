@@ -1,23 +1,8 @@
-{
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jre,
-  callPackage,
-}:
+{ stdenv, fetchurl, makeWrapper, jre, callPackage }:
 
-let
-  bare = callPackage ./bare.nix {
-    inherit
-      stdenv
-      fetchurl
-      makeWrapper
-      jre
-    ;
-  };
-in
+let bare = callPackage ./bare.nix { inherit stdenv fetchurl makeWrapper jre; };
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "scala";
   inherit (bare) version;
 
@@ -32,7 +17,6 @@ stdenv.mkDerivation {
   '';
 
   inherit (bare) meta;
-}
-// {
+} // {
   inherit bare;
 }

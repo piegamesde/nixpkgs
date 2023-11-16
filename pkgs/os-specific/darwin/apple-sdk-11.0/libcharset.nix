@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  buildPackages,
-  MacOSX-SDK,
-}:
+{ stdenvNoCC, buildPackages, MacOSX-SDK }:
 
 stdenvNoCC.mkDerivation {
   pname = "libcharset";

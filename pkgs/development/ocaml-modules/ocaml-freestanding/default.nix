@@ -1,22 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  pkg-config,
-  solo5,
-  target ? "xen",
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, pkg-config, solo5, target ? "xen" }:
 
 # note: this is not technically an ocaml-module,
 # but can be built with different compilers, so
 # the ocamlPackages set is very useful.
 
-let
-  pname = "ocaml-freestanding";
-in
+let pname = "ocaml-freestanding";
 
-if lib.versionOlder ocaml.version "4.08" then
+in if lib.versionOlder ocaml.version "4.08" then
   builtins.throw "${pname} is not available for OCaml ${ocaml.version}"
 else
 
@@ -38,17 +28,11 @@ else
       tar --strip-components=1 -xf ${ocaml.src} -C "${src.name}/ocaml"
     '';
 
-    patches = [
-      ./no-opam.patch
-      ./configurable-binding.patch
-    ];
+    patches = [ ./no-opam.patch ./configurable-binding.patch ];
 
     strictDeps = true;
 
-    nativeBuildInputs = [
-      ocaml
-      pkg-config
-    ];
+    nativeBuildInputs = [ ocaml pkg-config ];
 
     propagatedBuildInputs = [ solo5 ];
 
@@ -70,15 +54,11 @@ else
       license = licenses.mit;
       maintainers = [ maintainers.sternenseemann ];
       homepage = "https://github.com/mirage/ocaml-freestanding";
-      platforms = builtins.map ({ arch, os }: "${arch}-${os}") (
-        cartesianProductOfSets {
-          arch = [
-            "aarch64"
-            "x86_64"
-          ];
+      platforms = builtins.map ({ arch, os }: "${arch}-${os}")
+        (cartesianProductOfSets {
+          arch = [ "aarch64" "x86_64" ];
           os = [ "linux" ];
-        }
-        ++ [
+        } ++ [
           {
             arch = "x86_64";
             os = "freebsd";
@@ -87,7 +67,6 @@ else
             arch = "x86_64";
             os = "openbsd";
           }
-        ]
-      );
+        ]);
     };
   }

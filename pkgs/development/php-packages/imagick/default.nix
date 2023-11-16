@@ -1,10 +1,4 @@
-{
-  buildPecl,
-  lib,
-  imagemagick,
-  pkg-config,
-  pcre2,
-}:
+{ buildPecl, lib, imagemagick, pkg-config, pcre2 }:
 
 buildPecl {
   pname = "imagick";
@@ -17,7 +11,8 @@ buildPecl {
   buildInputs = [ pcre2 ];
 
   meta = with lib; {
-    description = "Imagick is a native php extension to create and modify images using the ImageMagick API";
+    description =
+      "Imagick is a native php extension to create and modify images using the ImageMagick API";
     license = licenses.php301;
     homepage = "https://pecl.php.net/package/imagick";
     maintainers = teams.php.members;

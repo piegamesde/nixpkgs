@@ -1,11 +1,5 @@
-{
-  lib,
-  pycryptodome,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, pycryptodome, buildPythonPackage, fetchFromGitHub, pythonOlder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "cart";
@@ -32,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for the CaRT Neutering format";
     homepage = "https://github.com/CybercentreCanada/cart";
-    changelog = "https://github.com/CybercentreCanada/cart/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CybercentreCanada/cart/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cairo,
-  expat,
-  guile,
-  guile-lib,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, cairo, expat, guile, guile-lib, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "guile-cairo";
@@ -19,11 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    cairo
-    expat
-    guile
-  ];
+  buildInputs = [ cairo expat guile ];
 
   enableParallelBuilding = true;
 

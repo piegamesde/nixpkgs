@@ -1,8 +1,4 @@
-{
-  runCommand,
-  tailwindcss,
-  nodePackages,
-}:
+{ runCommand, tailwindcss, nodePackages }:
 
 let
 
@@ -14,9 +10,8 @@ let
     @tailwind utilities;
   '';
 
-  tailwindcssWithPlugins = tailwindcss.overrideAttrs (
-    oldAttrs: { plugins = [ nodePackages."@tailwindcss/typography" ]; }
-  );
+  tailwindcssWithPlugins = tailwindcss.overrideAttrs
+    (oldAttrs: { plugins = [ nodePackages."@tailwindcss/typography" ]; });
 
   tailwindcssWithPluginsConfig = builtins.toFile "tailwind.config.js" ''
     module.exports = {
@@ -26,9 +21,8 @@ let
       ],
     }
   '';
-in
 
-runCommand "${packageName}-tests" { meta.timeout = 60; } ''
+in runCommand "${packageName}-tests" { meta.timeout = 60; } ''
   mkdir $out
 
   # Ensure CLI runs

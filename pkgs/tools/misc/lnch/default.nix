@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "lnch";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://github.com/oem/lnch";

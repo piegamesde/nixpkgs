@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  ruby,
-  which,
-  nix-update-script,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, ruby, which, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rbspy";
@@ -45,10 +37,8 @@ rustPlatform.buildRustPackage rec {
     "--skip=test_sample_subprocesses"
   ];
 
-  nativeBuildInputs = [
-    ruby
-    which
-  ] ++ lib.optional stdenv.isDarwin rustPlatform.bindgenHook;
+  nativeBuildInputs = [ ruby which ]
+    ++ lib.optional stdenv.isDarwin rustPlatform.bindgenHook;
 
   passthru.updateScript = nix-update-script { };
 

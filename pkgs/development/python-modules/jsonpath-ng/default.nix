@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  decorator,
-  fetchFromGitHub,
-  ply,
-  pytestCheckHook,
-  six,
+{ lib, buildPythonPackage, decorator, fetchFromGitHub, ply, pytestCheckHook, six
 }:
 
 buildPythonPackage rec {
@@ -20,19 +13,14 @@ buildPythonPackage rec {
     hash = "sha256-+9iQHQs5TQhZFeIqMlsa3FFPfZEktAWy1lSdJU7kZrc=";
   };
 
-  propagatedBuildInputs = [
-    decorator
-    ply
-    six
-  ];
+  propagatedBuildInputs = [ decorator ply six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Exclude tests that require oslotest
-      "tests/test_jsonpath_rw_ext.py"
-    ];
+  disabledTestPaths = [
+    # Exclude tests that require oslotest
+    "tests/test_jsonpath_rw_ext.py"
+  ];
 
   pythonImportsCheck = [ "jsonpath_ng" ];
 

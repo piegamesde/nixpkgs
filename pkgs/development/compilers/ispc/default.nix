@@ -1,20 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  which,
-  m4,
-  python3,
-  bison,
-  flex,
-  llvmPackages,
-  ncurses,
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, which, m4, python3, bison
+, flex, llvmPackages, ncurses
 
-  # the default test target is sse4, but that is not supported by all Hydra agents
-  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then [ "neon-i32x4" ] else [ "sse2-i32x4" ],
-}:
+# the default test target is sse4, but that is not supported by all Hydra agents
+, testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then
+  [ "neon-i32x4" ]
+else
+  [ "sse2-i32x4" ] }:
 
 stdenv.mkDerivation rec {
   pname = "ispc";
@@ -27,21 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WBAVgjQjW4x9JGx6xotPoTVOePsPjBJEyBYA7TCTBvc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    which
-    m4
-    bison
-    flex
-    python3
-    llvmPackages.libllvm.dev
-  ];
-  buildInputs = with llvmPackages; [
-    libllvm
-    libclang
-    openmp
-    ncurses
-  ];
+  nativeBuildInputs =
+    [ cmake which m4 bison flex python3 llvmPackages.libllvm.dev ];
+  buildInputs = with llvmPackages; [ libllvm libclang openmp ncurses ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -80,13 +59,16 @@ stdenv.mkDerivation rec {
     "-DCLANGPP_EXECUTABLE=${llvmPackages.clang}/bin/clang++"
     "-DISPC_INCLUDE_EXAMPLES=OFF"
     "-DISPC_INCLUDE_UTILS=OFF"
-    ("-DARM_ENABLED=" + (if stdenv.isAarch64 || stdenv.isAarch32 then "TRUE" else "FALSE"))
-    ("-DX86_ENABLED=" + (if stdenv.isx86_64 || stdenv.isx86_32 then "TRUE" else "FALSE"))
+    ("-DARM_ENABLED="
+      + (if stdenv.isAarch64 || stdenv.isAarch32 then "TRUE" else "FALSE"))
+    ("-DX86_ENABLED="
+      + (if stdenv.isx86_64 || stdenv.isx86_32 then "TRUE" else "FALSE"))
   ];
 
   meta = with lib; {
     homepage = "https://ispc.github.io/";
-    description = "Intel 'Single Program, Multiple Data' Compiler, a vectorised language";
+    description =
+      "Intel 'Single Program, Multiple Data' Compiler, a vectorised language";
     license = licenses.bsd3;
     platforms = [
       "x86_64-linux"
@@ -94,10 +76,6 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
       "aarch64-darwin"
     ]; # TODO: buildable on more platforms?
-    maintainers = with maintainers; [
-      aristid
-      thoughtpolice
-      athas
-    ];
+    maintainers = with maintainers; [ aristid thoughtpolice athas ];
   };
 }

@@ -1,40 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  autoconf,
-  automake,
-  libtool,
-  mm-common,
-  intltool,
-  itstool,
-  doxygen,
-  graphviz,
-  makeFontsConf,
-  freefont_ttf,
-  boost,
-  libxmlxx3,
-  libxslt,
-  libgdamm,
-  libarchive,
-  libepc,
-  python3,
-  ncurses,
-  glibmm,
-  gtk3,
-  openssl,
-  gtkmm3,
-  goocanvasmm2,
-  evince,
-  isocodes,
-  gtksourceview,
-  gtksourceviewmm,
-  postgresql_11,
-  gobject-introspection,
-  yelp-tools,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchurl, pkg-config, autoconf, automake, libtool, mm-common
+, intltool, itstool, doxygen, graphviz, makeFontsConf, freefont_ttf, boost
+, libxmlxx3, libxslt, libgdamm, libarchive, libepc, python3, ncurses, glibmm
+, gtk3, openssl, gtkmm3, goocanvasmm2, evince, isocodes, gtksourceview
+, gtksourceviewmm, postgresql_11, gobject-introspection, yelp-tools
+, wrapGAppsHook }:
 
 let
   gda = libgdamm.override {
@@ -42,32 +11,21 @@ let
     postgresSupport = true;
   };
   python = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
-  sphinx-build = python3.pkgs.sphinx.overrideAttrs (
-    super: {
-      postFixup =
-        super.postFixup or ""
-        + ''
-          # Do not propagate Python
-          rm $out/nix-support/propagated-build-inputs
-        '';
-    }
-  );
+  sphinx-build = python3.pkgs.sphinx.overrideAttrs (super: {
+    postFixup = super.postFixup or "" + ''
+      # Do not propagate Python
+      rm $out/nix-support/propagated-build-inputs
+    '';
+  });
   boost_python = boost.override {
     enablePython = true;
     inherit python;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "glom";
   version = "1.32.0";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "doc"
-    "devdoc"
-  ];
+  outputs = [ "out" "lib" "dev" "doc" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -142,10 +100,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An easy-to-use database designer and user interface";
     homepage = "http://www.glom.org/";
-    license = [
-      licenses.lgpl2
-      licenses.gpl2
-    ];
+    license = [ licenses.lgpl2 licenses.gpl2 ];
     maintainers = teams.gnome.members;
     platforms = platforms.linux;
   };

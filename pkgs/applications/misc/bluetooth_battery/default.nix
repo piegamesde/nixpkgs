@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonApplication,
-  pybluez,
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, pybluez }:
 
 buildPythonApplication rec {
   pname = "bluetooth_battery";

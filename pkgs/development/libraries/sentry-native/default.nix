@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  curl,
-  breakpad,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, curl, breakpad, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "sentry-native";
@@ -19,25 +11,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-GefuMsMFmNyAn+xmnRqUjyWFHqiF/kIzqBCF6mk3vx0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    curl
-    breakpad
-  ];
+  buildInputs = [ curl breakpad ];
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
-    "-DSENTRY_BREAKPAD_SYSTEM=On"
-  ];
+  cmakeFlags =
+    [ "-DCMAKE_BUILD_TYPE=RelWithDebInfo" "-DSENTRY_BREAKPAD_SYSTEM=On" ];
 
   meta = with lib; {
     homepage = "https://github.com/getsentry/sentry-native";
     description = "Sentry SDK for C, C++ and native applications";
-    changelog = "https://github.com/getsentry/sentry-native/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/getsentry/sentry-native/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ wheelsandmetal ];

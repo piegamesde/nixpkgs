@@ -1,19 +1,12 @@
-{
-  lib,
-  stdenv,
-  pkgs,
-  fetchurl,
-  wrapGAppsHook,
-}:
-let
-  libPathNative = { packages }: lib.makeLibraryPath packages;
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, pkgs, fetchurl, wrapGAppsHook }:
+let libPathNative = { packages }: lib.makeLibraryPath packages;
+in stdenv.mkDerivation rec {
   pname = "rocketchat-desktop";
   version = "3.8.11";
 
   src = fetchurl {
-    url = "https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/${version}/rocketchat-${version}-linux-amd64.deb";
+    url =
+      "https://github.com/RocketChat/Rocket.Chat.Electron/releases/download/${version}/rocketchat-${version}-linux-amd64.deb";
     sha256 = "sha256-gRMoLzCAXByLVtzYAZnhmbgbfsav6CkbP3ZE0NDdlMw=";
   };
 
@@ -80,17 +73,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postFixup =
-    let
-      libpath = libPathNative { packages = buildInputs; };
-    in
-    ''
-      app=$out/opt/Rocket.Chat
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libpath}:$app" \
-        $app/rocketchat-desktop
-      sed -i -e "s|Exec=.*$|Exec=$out/bin/rocketchat-desktop|" $out/share/applications/rocketchat-desktop.desktop
-    '';
+  postFixup = let libpath = libPathNative { packages = buildInputs; };
+  in ''
+    app=$out/opt/Rocket.Chat
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libpath}:$app" \
+      $app/rocketchat-desktop
+    sed -i -e "s|Exec=.*$|Exec=$out/bin/rocketchat-desktop|" $out/share/applications/rocketchat-desktop.desktop
+  '';
 
   meta = with lib; {
     description = "Official Desktop client for Rocket.Chat";

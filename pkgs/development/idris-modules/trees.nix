@@ -1,18 +1,9 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  contrib,
-  bi,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, contrib, bi, lib }:
 build-idris-package {
   pname = "trees";
   version = "2018-03-19";
 
-  idrisDeps = [
-    contrib
-    bi
-  ];
+  idrisDeps = [ contrib bi ];
 
   src = fetchFromGitHub {
     owner = "clayrat";

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  fltk,
-  which,
-  libjpeg,
-}:
+{ lib, stdenv, fetchurl, unzip, fltk, which, libjpeg }:
 
 stdenv.mkDerivation rec {
   pname = "fltrator";
@@ -17,14 +9,8 @@ stdenv.mkDerivation rec {
     sha256 = "125aqq1sfrm0c9cm6gyylwdmc8xrb0rjf563xvw7q28sdbl6ayp7";
   };
 
-  buildInputs = [
-    fltk
-    libjpeg
-  ];
-  nativeBuildInputs = [
-    unzip
-    which
-  ];
+  buildInputs = [ fltk libjpeg ];
+  nativeBuildInputs = [ unzip which ];
 
   postPatch = ''
     substituteInPlace src/fltrator.cxx\
@@ -37,10 +23,7 @@ stdenv.mkDerivation rec {
 
   dontAddPrefix = true;
 
-  makeFlags = [
-    "HOME=$(out)"
-    "RSC_PATH=$(out)/fltrator"
-  ];
+  makeFlags = [ "HOME=$(out)" "RSC_PATH=$(out)/fltrator" ];
 
   postInstall = ''
     mkdir -p $out/share/applications
@@ -59,4 +42,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.marius851000 ];
     license = licenses.gpl3;
   };
+
 }

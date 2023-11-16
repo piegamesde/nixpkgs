@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  uhk-agent,
-}:
+{ lib, stdenv, uhk-agent }:
 
 stdenv.mkDerivation {
   pname = "uhk-udev-rules";
@@ -17,7 +13,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "udev rules for UHK keyboards from https://ultimatehackingkeyboard.com";
+    description =
+      "udev rules for UHK keyboards from https://ultimatehackingkeyboard.com";
     inherit (uhk-agent.meta) license;
     maintainers = [ lib.maintainers.ngiger ];
   };

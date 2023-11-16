@@ -1,24 +1,8 @@
-{
-  ocamlPackages,
-  fetchFromGitHub,
-  lib,
-  zlib,
-  pkg-config,
-  cacert,
-  gmp,
-  libev,
-  autoconf,
-  sqlite,
-  stdenv,
-}:
+{ ocamlPackages, fetchFromGitHub, lib, zlib, pkg-config, cacert, gmp, libev
+, autoconf, sqlite, stdenv }:
 let
   mkCombyPackage =
-    {
-      pname,
-      extraBuildInputs ? [ ],
-      extraNativeInputs ? [ ],
-      preBuild ? "",
-    }:
+    { pname, extraBuildInputs ? [ ], extraNativeInputs ? [ ], preBuild ? "" }:
     ocamlPackages.buildDunePackage rec {
       inherit pname preBuild;
       version = "1.8.1";
@@ -64,8 +48,7 @@ let
     pname = "comby-semantic";
     extraBuildInputs = [ ocamlPackages.cohttp-lwt-unix ];
   };
-in
-mkCombyPackage {
+in mkCombyPackage {
   pname = "comby";
 
   # tests have to be removed before building otherwise installPhase will fail
@@ -101,10 +84,11 @@ mkCombyPackage {
     ocamlPackages.dune-configurator
     combyKernel
     combySemantic
-  ] ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then [ ocamlPackages.hack_parallel ] else [ ]);
+  ] ++ (if !stdenv.isAarch32 && !stdenv.isAarch64 then
+    [ ocamlPackages.hack_parallel ]
+  else
+    [ ]);
 
-  extraNativeInputs = [
-    autoconf
-    pkg-config
-  ];
+  extraNativeInputs = [ autoconf pkg-config ];
+
 }

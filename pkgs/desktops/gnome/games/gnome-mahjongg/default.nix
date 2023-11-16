@@ -1,22 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  gnome,
-  gtk4,
-  wrapGAppsHook4,
-  libadwaita,
-  librsvg,
-  gettext,
-  itstool,
-  libxml2,
-  meson,
-  ninja,
-  glib,
-  vala,
-  desktop-file-utils,
-}:
+{ stdenv, lib, fetchurl, pkg-config, gnome, gtk4, wrapGAppsHook4, libadwaita
+, librsvg, gettext, itstool, libxml2, meson, ninja, glib, vala
+, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-mahjongg";
@@ -42,12 +26,7 @@ stdenv.mkDerivation rec {
     glib # for glib-compile-schemas
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-    librsvg
-  ];
+  buildInputs = [ glib gtk4 libadwaita librsvg ];
 
   passthru = {
     updateScript = gnome.updateScript {

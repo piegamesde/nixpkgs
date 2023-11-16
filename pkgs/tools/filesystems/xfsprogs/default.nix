@@ -1,33 +1,17 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchurl,
-  gettext,
-  pkg-config,
-  icu,
-  libuuid,
-  readline,
-  inih,
-  liburcu,
-  nixosTests,
-}:
+{ lib, stdenv, buildPackages, fetchurl, gettext, pkg-config, icu, libuuid
+, readline, inih, liburcu, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "xfsprogs";
   version = "6.3.0";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/fs/xfs/xfsprogs/${pname}-${version}.tar.xz";
+    url =
+      "mirror://kernel/linux/utils/fs/xfs/xfsprogs/${pname}-${version}.tar.xz";
     hash = "sha256-7Jh8nwvLLbKZG/+4DTUxULOJw6K3m2gwQR9wQq32mQw=";
   };
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "doc"
-  ];
+  outputs = [ "bin" "dev" "out" "doc" ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [
@@ -36,12 +20,7 @@ stdenv.mkDerivation rec {
     libuuid # codegen tool uses libuuid
     liburcu # required by crc32selftest
   ];
-  buildInputs = [
-    readline
-    icu
-    inih
-    liburcu
-  ];
+  buildInputs = [ readline icu inih liburcu ];
   propagatedBuildInputs = [ libuuid ]; # Dev headers include <uuid/uuid.h>
 
   enableParallelBuilding = true;
@@ -70,9 +49,7 @@ stdenv.mkDerivation rec {
     find . -type d -name .libs | xargs rm -rf
   '';
 
-  passthru.tests = {
-    inherit (nixosTests.installer) lvm;
-  };
+  passthru.tests = { inherit (nixosTests.installer) lvm; };
 
   meta = with lib; {
     homepage = "https://xfs.org/";
@@ -83,9 +60,6 @@ stdenv.mkDerivation rec {
       gpl3Plus
     ]; # see https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git/tree/debian/copyright
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      dezgeg
-      ajs124
-    ];
+    maintainers = with maintainers; [ dezgeg ajs124 ];
   };
 }

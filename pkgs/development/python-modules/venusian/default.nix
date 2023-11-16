@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  pytest,
-  pytest-cov,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, pytest, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "venusian";
@@ -17,10 +10,7 @@ buildPythonPackage rec {
     sha256 = "f6842b7242b1039c0c28f6feef29016e7e7dd3caaeb476a193acf737db31ee38";
   };
 
-  nativeCheckInputs = [
-    pytest
-    pytest-cov
-  ];
+  nativeCheckInputs = [ pytest pytest-cov ];
 
   checkPhase = ''
     pytest

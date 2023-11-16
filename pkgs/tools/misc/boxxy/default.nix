@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  oniguruma,
-  stdenv,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, oniguruma, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "boxxy";
@@ -24,18 +17,13 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ oniguruma ];
 
-  env = {
-    RUSTONIG_SYSTEM_LIBONIG = true;
-  };
+  env = { RUSTONIG_SYSTEM_LIBONIG = true; };
 
   meta = with lib; {
     description = "Puts bad Linux applications in a box with only their files";
     homepage = "https://github.com/queer/boxxy";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      dit7ya
-      figsoda
-    ];
+    maintainers = with maintainers; [ dit7ya figsoda ];
     platforms = platforms.linux;
     broken = stdenv.isAarch64;
   };

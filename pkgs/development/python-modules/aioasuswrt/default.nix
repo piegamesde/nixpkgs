@@ -1,12 +1,5 @@
-{
-  lib,
-  asyncssh,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-}:
+{ lib, asyncssh, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytest-mock, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aioasuswrt";
@@ -21,11 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ asyncssh ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  tcl,
-  tcllib,
-}:
+{ lib, fetchFromGitHub, tcl, tcllib }:
 
 tcl.mkTclDerivation rec {
   pname = "mustache-tcl";
@@ -32,3 +27,4 @@ tcl.mkTclDerivation rec {
     maintainers = with maintainers; [ nat-418 ];
   };
 }
+

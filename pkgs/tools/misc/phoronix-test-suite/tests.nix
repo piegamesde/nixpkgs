@@ -1,10 +1,8 @@
 { runCommand, phoronix-test-suite }:
 
-let
-  inherit (phoronix-test-suite) pname version;
-in
+let inherit (phoronix-test-suite) pname version;
 
-runCommand "${pname}-tests" { meta.timeout = 60; } ''
+in runCommand "${pname}-tests" { meta.timeout = 60; } ''
   # automatic initial setup to prevent interactive questions
   ${phoronix-test-suite}/bin/phoronix-test-suite enterprise-setup >/dev/null
   # get version of installed program and compare with package version

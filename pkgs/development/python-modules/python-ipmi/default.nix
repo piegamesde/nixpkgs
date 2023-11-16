@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  future,
-  mock,
-  nose,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, future, mock, nose, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "python-ipmi";
@@ -30,11 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-  nativeCheckInputs = [
-    mock
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock nose pytestCheckHook ];
 
   pythonImportsCheck = [ "pyipmi" ];
 

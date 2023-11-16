@@ -1,9 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  nasm,
-}:
+{ stdenv, fetchFromGitHub, cmake, nasm }:
 stdenv.mkDerivation {
   pname = "libcbs";
   version = "unstable-2022-02-07";
@@ -17,10 +12,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-6xQDJey5JrZXyZxS/yhUBvFi6UD5MsQ3uVtUFrG09Vc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    nasm
-  ];
+  nativeBuildInputs = [ cmake nasm ];
 
   # modify paths to allow patches to be applied directly by derivation
   prePatch = ''

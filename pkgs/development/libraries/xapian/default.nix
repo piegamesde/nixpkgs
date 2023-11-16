@@ -1,46 +1,32 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  libuuid,
-  zlib,
+{ lib, stdenv, fetchurl, autoreconfHook, libuuid, zlib
 
-  # tests
-  mu,
-}:
+# tests
+, mu }:
 
 let
-  generic =
-    version: hash:
+  generic = version: hash:
     stdenv.mkDerivation {
       pname = "xapian";
       inherit version;
-      passthru = {
-        inherit version;
-      };
+      passthru = { inherit version; };
 
       src = fetchurl {
-        url = "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz";
+        url =
+          "https://oligarchy.co.uk/xapian/${version}/xapian-core-${version}.tar.xz";
         inherit hash;
       };
 
-      outputs = [
-        "out"
-        "man"
-        "doc"
-      ];
+      outputs = [ "out" "man" "doc" ];
 
-      buildInputs = [
-        libuuid
-        zlib
-      ];
+      buildInputs = [ libuuid zlib ];
       nativeBuildInputs = [ autoreconfHook ];
 
       doCheck = true;
-      env.AUTOMATED_TESTING = true; # https://trac.xapian.org/changeset/8be35f5e1/git
+      env.AUTOMATED_TESTING =
+        true; # https://trac.xapian.org/changeset/8be35f5e1/git
 
-      patches = lib.optionals stdenv.isDarwin [ ./skip-flaky-darwin-test.patch ];
+      patches =
+        lib.optionals stdenv.isDarwin [ ./skip-flaky-darwin-test.patch ];
 
       # the configure script thinks that Darwin has ___exp10
       # but it’s not available on my systems (or hydra apparently)
@@ -49,9 +35,7 @@ let
           --replace "#define HAVE___EXP10 1" "#undef HAVE___EXP10"
       '';
 
-      passthru.tests = {
-        inherit mu;
-      };
+      passthru.tests = { inherit mu; };
 
       meta = with lib; {
         description = "Search engine library";
@@ -62,10 +46,10 @@ let
         platforms = platforms.unix;
       };
     };
-in
-{
+in {
   # Don't forget to change the hashes in xapian-omega and
   # python3Packages.xapian. They inherit the version from this package, and
   # should always be built with the equivalent xapian version.
-  xapian_1_4 = generic "1.4.21" "sha256-gPhgNNL7VZAHlUgd+uaBv6oQ776BirrTYizcDFXgb4g=";
+  xapian_1_4 =
+    generic "1.4.21" "sha256-gPhgNNL7VZAHlUgd+uaBv6oQ776BirrTYizcDFXgb4g=";
 }

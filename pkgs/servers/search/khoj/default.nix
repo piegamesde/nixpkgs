@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  qt6,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, qt6 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "khoj";
@@ -38,16 +32,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace "uvicorn == 0.17.6" "uvicorn"
   '';
 
-  nativeBuildInputs =
-    with python3.pkgs;
-    [
-      hatch-vcs
-      hatchling
-    ]
-    ++ (with qt6; [ wrapQtAppsHook ]);
+  nativeBuildInputs = with python3.pkgs;
+    [ hatch-vcs hatchling ] ++ (with qt6; [ wrapQtAppsHook ]);
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ qt6.qtwayland ]
+  buildInputs = lib.optionals stdenv.isLinux [ qt6.qtwayland ]
     ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ];
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -100,7 +88,8 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   meta = with lib; {
-    description = "Natural Language Search Assistant for your Org-Mode and Markdown notes, Beancount transactions and Photos";
+    description =
+      "Natural Language Search Assistant for your Org-Mode and Markdown notes, Beancount transactions and Photos";
     homepage = "https://github.com/debanjum/khoj";
     changelog = "https://github.com/debanjum/khoj/releases/tag/${version}";
     license = licenses.gpl3Only;

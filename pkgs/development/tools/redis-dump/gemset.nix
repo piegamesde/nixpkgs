@@ -20,12 +20,7 @@
     version = "4.1.0";
   };
   redis-dump = {
-    dependencies = [
-      "drydock"
-      "redis"
-      "uri-redis"
-      "yajl-ruby"
-    ];
+    dependencies = [ "drydock" "redis" "uri-redis" "yajl-ruby" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -1,20 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libbladeRF,
-  soapysdr,
-  libobjc,
-  IOKit,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libbladeRF, soapysdr, libobjc
+, IOKit, Security }:
 
-let
-  version = "0.4.1";
-in
-stdenv.mkDerivation {
+let version = "0.4.1";
+
+in stdenv.mkDerivation {
   pname = "soapybladerf";
   inherit version;
 
@@ -25,20 +14,9 @@ stdenv.mkDerivation {
     sha256 = "02wh09850vinqg248fw4lxmx7y857cqmnnb8jm9zhyrsggal0hki";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs =
-    [
-      libbladeRF
-      soapysdr
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      libobjc
-      IOKit
-      Security
-    ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ libbladeRF soapysdr ]
+    ++ lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 

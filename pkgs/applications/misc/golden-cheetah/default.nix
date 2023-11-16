@@ -1,26 +1,7 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  mkDerivation,
-  qtbase,
-  qtsvg,
-  qtserialport,
-  qtwebengine,
-  qtmultimedia,
-  qttools,
-  qtconnectivity,
-  qtcharts,
-  libusb-compat-0_1,
-  gsl,
-  blas,
-  bison,
-  flex,
-  zlib,
-  qmake,
-  makeDesktopItem,
-  wrapQtAppsHook,
-}:
+{ lib, fetchFromGitHub, fetchpatch, mkDerivation, qtbase, qtsvg, qtserialport
+, qtwebengine, qtmultimedia, qttools, qtconnectivity, qtcharts
+, libusb-compat-0_1, gsl, blas, bison, flex, zlib, qmake, makeDesktopItem
+, wrapQtAppsHook }:
 
 let
   desktopItem = makeDesktopItem {
@@ -32,8 +13,7 @@ let
     comment = "Performance software for cyclists, runners and triathletes";
     categories = [ "Utility" ];
   };
-in
-mkDerivation rec {
+in mkDerivation rec {
   pname = "golden-cheetah";
   version = "3.6-RC4";
 
@@ -58,29 +38,18 @@ mkDerivation rec {
     gsl
     blas
   ];
-  nativeBuildInputs = [
-    flex
-    wrapQtAppsHook
-    qmake
-    bison
-  ];
+  nativeBuildInputs = [ flex wrapQtAppsHook qmake bison ];
 
-  patches =
-    [
-      # allow building with bison 3.7
-      # Included in https://github.com/GoldenCheetah/GoldenCheetah/pull/3590,
-      # which is periodically rebased but pre 3.6 release, as it'll break other CI systems
-      ./0001-Fix-building-with-bison-3.7.patch
-    ];
+  patches = [
+    # allow building with bison 3.7
+    # Included in https://github.com/GoldenCheetah/GoldenCheetah/pull/3590,
+    # which is periodically rebased but pre 3.6 release, as it'll break other CI systems
+    ./0001-Fix-building-with-bison-3.7.patch
+  ];
 
   NIX_LDFLAGS = "-lz -lgsl -lblas";
 
-  qtWrapperArgs = [
-    "--prefix"
-    "LD_LIBRARY_PATH"
-    ":"
-    "${zlib.out}/lib"
-  ];
+  qtWrapperArgs = [ "--prefix" "LD_LIBRARY_PATH" ":" "${zlib.out}/lib" ];
 
   preConfigure = ''
     cp src/gcconfig.pri.in src/gcconfig.pri
@@ -103,7 +72,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Performance software for cyclists, runners and triathletes. Built from source and without API tokens";
+    description =
+      "Performance software for cyclists, runners and triathletes. Built from source and without API tokens";
     platforms = platforms.linux;
     maintainers = with maintainers; [ adamcstephens ];
     license = licenses.gpl2Plus;

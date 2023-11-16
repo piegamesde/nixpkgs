@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses }:
 
 stdenv.mkDerivation rec {
   version = "1.2.0";
@@ -27,10 +22,7 @@ stdenv.mkDerivation rec {
       your selection will be sent to standard output.
     '';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [
-      matthiasbeyer
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ matthiasbeyer SuperSandro2000 ];
     platforms = platforms.unix;
   };
 }

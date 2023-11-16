@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zeroad-unwrapped,
-}:
+{ lib, stdenv, fetchurl, zeroad-unwrapped }:
 
 stdenv.mkDerivation rec {
   pname = "0ad-data";
   inherit (zeroad-unwrapped) version;
 
   src = fetchurl {
-    url = "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-data.tar.xz";
+    url =
+      "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-data.tar.xz";
     sha256 = "sgDkhVj4goB5EOPGhlZ7ajliSNnUGAROz94JCwV3LX0=";
   };
 

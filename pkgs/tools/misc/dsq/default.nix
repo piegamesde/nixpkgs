@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildGoModule,
-  runCommand,
-  nix-update-script,
-  fetchurl,
-  testers,
-  python3,
-  curl,
-  jq,
-  p7zip,
-  dsq,
-}:
+{ lib, stdenv, fetchFromGitHub, buildGoModule, runCommand, nix-update-script
+, fetchurl, testers, python3, curl, jq, p7zip, dsq }:
 
 buildGoModule rec {
   pname = "dsq";
@@ -27,17 +14,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-MbBR+OC1OGhZZGcZqc+Jzmabdc5ZfFEwzqP5YMrj6mY=";
 
-  ldflags = [
-    "-X"
-    "main.Version=${version}"
-  ];
+  ldflags = [ "-X" "main.Version=${version}" ];
 
-  nativeCheckInputs = [
-    python3
-    curl
-    jq
-    p7zip
-  ];
+  nativeCheckInputs = [ python3 curl jq p7zip ];
 
   preCheck = ''
     substituteInPlace scripts/test.py \
@@ -61,7 +40,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Commandline tool for running SQL queries against JSON, CSV, Excel, Parquet, and more";
+    description =
+      "Commandline tool for running SQL queries against JSON, CSV, Excel, Parquet, and more";
     homepage = "https://github.com/multiprocessio/dsq";
     license = licenses.asl20;
     maintainers = with maintainers; [ liff ];

@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gperf,
-  file,
-  ncurses,
-  openssl,
-  readline,
-  sqlite,
-  zlib,
-  AppKit,
-  Cocoa,
-  Foundation,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gperf, file, ncurses, openssl, readline
+, sqlite, zlib, AppKit, Cocoa, Foundation }:
 
 stdenv.mkDerivation rec {
   pname = "nchat";
@@ -31,32 +17,24 @@ stdenv.mkDerivation rec {
       --replace "get_git_head_revision" "#get_git_head_revision"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    gperf
-  ];
+  nativeBuildInputs = [ cmake gperf ];
 
-  buildInputs =
-    [
-      file # for libmagic
-      ncurses
-      openssl
-      readline
-      sqlite
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      Cocoa
-      Foundation
-    ];
+  buildInputs = [
+    file # for libmagic
+    ncurses
+    openssl
+    readline
+    sqlite
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation ];
 
   cmakeFlags = [
     "-DHAS_WHATSAPP=OFF" # go module build required
   ];
 
   meta = with lib; {
-    description = "Terminal-based chat client with support for Telegram and WhatsApp";
+    description =
+      "Terminal-based chat client with support for Telegram and WhatsApp";
     homepage = "https://github.com/d99kris/nchat";
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];

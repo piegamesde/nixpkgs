@@ -1,34 +1,7 @@
-{
-  stdenv,
-  lib,
-  pythonOlder,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  scipy,
-  pandas,
-  matplotlib,
-  tox,
-  coverage,
-  flake8,
-  nbval,
-  pyvisa,
-  networkx,
-  ipython,
-  ipykernel,
-  ipywidgets,
-  jupyter-client,
-  sphinx-rtd-theme,
-  sphinx,
-  nbsphinx,
-  openpyxl,
-  qtpy,
-  pyqtgraph,
-  pyqt5,
-  setuptools,
-  pytestCheckHook,
-  pytest-cov,
-}:
+{ stdenv, lib, pythonOlder, buildPythonPackage, fetchFromGitHub, numpy, scipy
+, pandas, matplotlib, tox, coverage, flake8, nbval, pyvisa, networkx, ipython
+, ipykernel, ipywidgets, jupyter-client, sphinx-rtd-theme, sphinx, nbsphinx
+, openpyxl, qtpy, pyqtgraph, pyqt5, setuptools, pytestCheckHook, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "scikit-rf";
@@ -46,11 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    pandas
-  ];
+  propagatedBuildInputs = [ numpy scipy pandas ];
 
   passthru.optional-dependencies = {
     plot = [ matplotlib ];
@@ -67,11 +36,7 @@ buildPythonPackage rec {
       nbsphinx
       openpyxl
     ];
-    qtapps = [
-      qtpy
-      pyqtgraph
-      pyqt5
-    ];
+    qtapps = [ qtpy pyqtgraph pyqt5 ];
   };
 
   nativeCheckInputs = [
@@ -93,7 +58,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A Python library for RF/Microwave engineering";
     homepage = "https://scikit-rf.org/";
-    changelog = "https://github.com/scikit-rf/scikit-rf/releases/tag/v${version}";
+    changelog =
+      "https://github.com/scikit-rf/scikit-rf/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lugarun ];
   };

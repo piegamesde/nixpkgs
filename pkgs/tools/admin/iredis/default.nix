@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-}:
+{ lib, python3Packages, fetchPypi }:
 
 with python3Packages;
 
@@ -16,17 +12,9 @@ buildPythonApplication rec {
     sha256 = "d1e4e7936d0be456f70a39abeb1c97d931f66ccd60e891f4fd796ffb06dfeaf9";
   };
 
-  pythonRelaxDeps = [
-    "configobj"
-    "wcwidth"
-    "click"
-    "packaging"
-  ];
+  pythonRelaxDeps = [ "configobj" "wcwidth" "click" "packaging" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     pygments
@@ -41,10 +29,7 @@ buildPythonApplication rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pexpect
-  ];
+  nativeCheckInputs = [ pytestCheckHook pexpect ];
 
   pytestFlagsArray = [
     # Fails on sandbox
@@ -59,8 +44,10 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "iredis" ];
 
   meta = with lib; {
-    description = "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting";
-    changelog = "https://github.com/laixintao/iredis/raw/v${version}/CHANGELOG.md";
+    description =
+      "A Terminal Client for Redis with AutoCompletion and Syntax Highlighting";
+    changelog =
+      "https://github.com/laixintao/iredis/raw/v${version}/CHANGELOG.md";
     homepage = "https://iredis.io/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];

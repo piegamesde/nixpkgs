@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  makeWrapper,
-  surf,
-  wmctrl,
-  matchbox,
-  xdotool,
-  unclutter,
-  xorg,
-  pulseaudio,
-  xprintidle-ng,
-}:
+{ lib, stdenv, fetchgit, makeWrapper, surf, wmctrl, matchbox, xdotool, unclutter
+, xorg, pulseaudio, xprintidle-ng }:
 
 stdenv.mkDerivation rec {
   pname = "surf-display";
@@ -54,9 +42,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  passthru = {
-    providedSessions = [ "surf-display" ];
-  };
+  passthru = { providedSessions = [ "surf-display" ]; };
 
   meta = with lib; {
     description = "Kiosk browser session manager based on the surf browser";

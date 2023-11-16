@@ -1,22 +1,11 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  python,
-  toposort,
-  rpm,
-}:
+{ lib, stdenv, makeWrapper, python, toposort, rpm }:
 
 stdenv.mkDerivation {
   pname = "nix-template-rpm";
   version = "0.1";
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    python
-    toposort
-    rpm
-  ];
+  buildInputs = [ python toposort rpm ];
 
   dontUnpack = true;
 

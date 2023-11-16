@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cyrus_sasl,
-  libevent,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, cyrus_sasl, libevent, nixosTests }:
 
 stdenv.mkDerivation rec {
   version = "1.6.20";
@@ -17,19 +10,17 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags = [
-    "ac_cv_c_endian=${if stdenv.hostPlatform.isBigEndian then "big" else "little"}"
+    "ac_cv_c_endian=${
+      if stdenv.hostPlatform.isBigEndian then "big" else "little"
+    }"
   ];
 
-  buildInputs = [
-    cyrus_sasl
-    libevent
-  ];
+  buildInputs = [ cyrus_sasl libevent ];
 
   hardeningEnable = [ "pie" ];
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    [ "-Wno-error=deprecated-declarations" ] ++ lib.optional stdenv.isDarwin "-Wno-error"
-  );
+  env.NIX_CFLAGS_COMPILE = toString ([ "-Wno-error=deprecated-declarations" ]
+    ++ lib.optional stdenv.isDarwin "-Wno-error");
 
   meta = with lib; {
     description = "A distributed memory object caching system";
@@ -38,7 +29,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.coconnor ];
     platforms = platforms.linux ++ platforms.darwin;
   };
-  passthru.tests = {
-    smoke-tests = nixosTests.memcached;
-  };
+  passthru.tests = { smoke-tests = nixosTests.memcached; };
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "toot";
@@ -36,4 +32,6 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl3;
     maintainers = [ maintainers.matthiasbeyer ];
   };
+
 }
+

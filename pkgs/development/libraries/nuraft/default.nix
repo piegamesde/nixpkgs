@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  asio,
-  openssl,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, asio, openssl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "nuraft";
@@ -21,16 +12,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    boost
-    asio
-    openssl
-    zlib
-  ];
+  buildInputs = [ boost asio openssl zlib ];
 
   meta = with lib; {
     homepage = "https://github.com/eBay/NuRaft";
-    description = "C++ implementation of Raft core logic as a replication library";
+    description =
+      "C++ implementation of Raft core logic as a replication library";
     license = licenses.asl20;
     maintainers = with maintainers; [ wheelsandmetal ];
     platforms = platforms.all;

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchPypi,
-  dnspython,
-  pytestCheckHook,
-}:
+{ lib, buildPythonApplication, fetchPypi, dnspython, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "nxdomain";

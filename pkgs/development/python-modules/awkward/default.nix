@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  awkward-cpp,
-  hatch-fancy-pypi-readme,
-  hatchling,
-  numba,
-  numpy,
-  packaging,
-  typing-extensions,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, awkward-cpp
+, hatch-fancy-pypi-readme, hatchling, numba, numpy, packaging, typing-extensions
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "awkward";
@@ -25,23 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-Lui3ZJrEkPEGc5yz1M9R8wPDedNw6Iyf4sIZCoWR11M=";
   };
 
-  nativeBuildInputs = [
-    hatch-fancy-pypi-readme
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-fancy-pypi-readme hatchling ];
 
-  propagatedBuildInputs = [
-    awkward-cpp
-    numpy
-    packaging
-  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs = [ awkward-cpp numpy packaging ]
+    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    numba
-  ];
+  nativeCheckInputs = [ pytestCheckHook numba ];
 
   disabledTestPaths = [ "tests-cuda" ];
 

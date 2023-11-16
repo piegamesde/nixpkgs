@@ -1,23 +1,6 @@
-{
-  stdenv,
-  fetchgit,
-  lib,
-  meson,
-  ninja,
-  pkg-config,
-  makeFontsConf,
-  openssl,
-  libdrm,
-  libevent,
-  libyaml,
-  lttng-ust,
-  gst_all_1,
-  gtest,
-  graphviz,
-  doxygen,
-  python3,
-  python3Packages,
-  systemd, # for libudev
+{ stdenv, fetchgit, lib, meson, ninja, pkg-config, makeFontsConf, openssl
+, libdrm, libevent, libyaml, lttng-ust, gst_all_1, gtest, graphviz, doxygen
+, python3, python3Packages, systemd # for libudev
 }:
 
 stdenv.mkDerivation rec {
@@ -30,11 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-rd1YIEosg4+H/FJBYCoxdQlV9F0evU5fckHJrSdVPOE=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "doc" ];
 
   postPatch = ''
     patchShebangs utils/
@@ -107,7 +86,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An open source camera stack and framework for Linux, Android, and ChromeOS";
+    description =
+      "An open source camera stack and framework for Linux, Android, and ChromeOS";
     homepage = "https://libcamera.org";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ citadelcore ];

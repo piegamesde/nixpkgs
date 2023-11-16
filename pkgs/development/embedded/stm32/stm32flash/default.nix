@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "stm32flash";
@@ -22,7 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Open source flash program for the STM32 ARM processors using the ST bootloader";
+    description =
+      "Open source flash program for the STM32 ARM processors using the ST bootloader";
     homepage = "https://sourceforge.net/projects/stm32flash/";
     license = lib.licenses.gpl2;
     platforms = platforms.all; # Should work on all platforms

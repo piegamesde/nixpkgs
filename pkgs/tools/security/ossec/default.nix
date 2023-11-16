@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  which,
-}:
+{ lib, stdenv, fetchurl, which }:
 
 stdenv.mkDerivation rec {
   pname = "ossec-client";
@@ -47,3 +42,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
+

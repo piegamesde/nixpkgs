@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  bison,
-  cmake,
-  flex,
-  perl,
-}:
+{ stdenv, lib, fetchFromGitHub, bison, cmake, flex, perl }:
 
 stdenv.mkDerivation rec {
   pname = "elkhound";
@@ -25,12 +17,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/src";
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    flex
-    perl
-  ];
+  nativeBuildInputs = [ bison cmake flex perl ];
 
   installPhase = ''
     runHook preInstall
@@ -46,7 +33,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A parser generator which emits GLR parsers, either in OCaml or C++";
+    description =
+      "A parser generator which emits GLR parsers, either in OCaml or C++";
     homepage = "https://scottmcpeak.com/elkhound/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ peterhoeg ];

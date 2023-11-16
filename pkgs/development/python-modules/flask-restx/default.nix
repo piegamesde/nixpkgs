@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  aniso8601,
-  jsonschema,
-  flask,
-  werkzeug,
-  pytz,
-  faker,
-  mock,
-  blinker,
-  py,
-  pytest-flask,
-  pytest-mock,
-  pytest-benchmark,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aniso8601, jsonschema
+, flask, werkzeug, pytz, faker, mock, blinker, py, pytest-flask, pytest-mock
+, pytest-benchmark, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flask-restx";
@@ -33,13 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-alXuo6TGDX2ko6VIKpAtyrg0EBkxEnC3DabH8GYqEs0=";
   };
 
-  propagatedBuildInputs = [
-    aniso8601
-    flask
-    jsonschema
-    pytz
-    werkzeug
-  ];
+  propagatedBuildInputs = [ aniso8601 flask jsonschema pytz werkzeug ];
 
   nativeCheckInputs = [
     blinker
@@ -62,9 +40,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flask_restx" ];
 
   meta = with lib; {
-    description = "Fully featured framework for fast, easy and documented API development with Flask";
+    description =
+      "Fully featured framework for fast, easy and documented API development with Flask";
     homepage = "https://github.com/python-restx/flask-restx";
-    changelog = "https://github.com/python-restx/flask-restx/raw/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/python-restx/flask-restx/raw/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = [ maintainers.marsam ];
   };

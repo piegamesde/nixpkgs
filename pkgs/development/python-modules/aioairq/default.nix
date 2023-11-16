@@ -1,10 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pycryptodome,
-  pythonOlder,
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pycryptodome, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-+5FyBfsB3kjyX/V9CdZ072mZ3THyvALyym+uk7/kZLo=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ aiohttp pycryptodome ];
 
   # Module has no tests
   doCheck = false;

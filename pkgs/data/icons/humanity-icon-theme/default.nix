@@ -1,27 +1,18 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  gtk3,
-  gnome,
-  hicolor-icon-theme,
-}:
+{ lib, stdenvNoCC, fetchurl, gtk3, gnome, hicolor-icon-theme }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "humanity-icon-theme";
   version = "0.6.16";
 
   src = fetchurl {
-    url = "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${version}.tar.xz";
+    url =
+      "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${version}.tar.xz";
     sha256 = "sha256-AyHl4zMyFE2/5Cui3Y/SB1yEUuyafDdybFPrafo4Ki0=";
   };
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    gnome.adwaita-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ gnome.adwaita-icon-theme hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 

@@ -1,18 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools-scm,
-  importlib-metadata,
-  packaging,
-  # Check Inputs
-  pytestCheckHook,
-  pytest-subtests,
-  numpy,
-  matplotlib,
-  uncertainties,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm
+, importlib-metadata, packaging
+# Check Inputs
+, pytestCheckHook, pytest-subtests, numpy, matplotlib, uncertainties }:
 
 buildPythonPackage rec {
   pname = "pint";
@@ -28,15 +17,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ packaging ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-subtests
-    numpy
-    matplotlib
-    uncertainties
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook pytest-subtests numpy matplotlib uncertainties ];
 
   dontUseSetuptoolsCheck = true;
 
@@ -48,9 +33,6 @@ buildPythonPackage rec {
     description = "Physical quantities module";
     license = licenses.bsd3;
     homepage = "https://github.com/hgrecco/pint/";
-    maintainers = with maintainers; [
-      costrouc
-      doronbehar
-    ];
+    maintainers = with maintainers; [ costrouc doronbehar ];
   };
 }

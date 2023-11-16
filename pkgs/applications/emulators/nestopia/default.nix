@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  SDL2,
-  alsa-lib,
-  gtk3,
-  makeWrapper,
-  libGLU,
-  libGL,
-  libarchive,
-  libao,
-  unzip,
-  xdg-utils,
-  libepoxy,
-  gdk-pixbuf,
-  gnome,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, alsa-lib, gtk3, makeWrapper
+, libGLU, libGL, libarchive, libao, unzip, xdg-utils, libepoxy, gdk-pixbuf
+, gnome, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   version = "1.47";
@@ -49,12 +32,7 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    wrapGAppsHook
-    unzip
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper wrapGAppsHook unzip ];
 
   installPhase = ''
     mkdir -p $out/{bin,share/nestopia}
@@ -86,3 +64,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ MP2E ];
   };
 }
+

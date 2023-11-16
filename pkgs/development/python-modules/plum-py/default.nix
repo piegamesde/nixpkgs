@@ -1,11 +1,5 @@
-{
-  lib,
-  baseline,
-  buildPythonPackage,
-  fetchFromGitLab,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, baseline, buildPythonPackage, fetchFromGitLab, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "plum-py";
@@ -26,10 +20,7 @@ buildPythonPackage rec {
     sed -i "/python_requires =/d" setup.cfg
   '';
 
-  nativeCheckInputs = [
-    baseline
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ baseline pytestCheckHook ];
 
   pythonImportsCheck = [ "plum" ];
 
@@ -38,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Classes and utilities for packing/unpacking bytes";
     homepage = "https://plum-py.readthedocs.io/";
-    changelog = "https://gitlab.com/dangass/plum/-/blob/${version}/docs/release_notes.rst";
+    changelog =
+      "https://gitlab.com/dangass/plum/-/blob/${version}/docs/release_notes.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dnr ];
   };

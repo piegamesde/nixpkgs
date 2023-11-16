@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jasper,
-  libpng,
-  libjpeg,
-  zlib,
-  llvmPackages,
-}:
+{ lib, stdenv, fetchurl, jasper, libpng, libjpeg, zlib, llvmPackages }:
 
 stdenv.mkDerivation rec {
   pname = "aaphoto";
@@ -20,12 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
-  buildInputs = [
-    jasper
-    libpng
-    libjpeg
-    zlib
-  ];
+  buildInputs = [ jasper libpng libjpeg zlib ];
 
   postInstall = ''
     install -Dm644 NEWS README REMARKS TODO -t $out/share/doc/${pname}

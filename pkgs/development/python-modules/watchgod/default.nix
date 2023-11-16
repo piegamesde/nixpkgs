@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  anyio,
-}:
+{ lib, buildPythonPackage, fetchPypi, anyio }:
 
 buildPythonPackage rec {
   pname = "watchgod";
@@ -27,4 +22,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ globin ];
   };
+
 }

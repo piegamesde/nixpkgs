@@ -1,13 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  cfg = config.services.clickhouse;
-in
-with lib; {
+{ config, lib, pkgs, ... }:
+let cfg = config.services.clickhouse;
+in with lib; {
 
   ###### interface
 
@@ -25,7 +18,9 @@ with lib; {
           ClickHouse package to use.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -56,7 +51,8 @@ with lib; {
         AmbientCapabilities = "CAP_SYS_NICE";
         StateDirectory = "clickhouse";
         LogsDirectory = "clickhouse";
-        ExecStart = "${cfg.package}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
+        ExecStart =
+          "${cfg.package}/bin/clickhouse-server --config-file=/etc/clickhouse-server/config.xml";
         TimeoutStartSec = "infinity";
       };
 
@@ -80,5 +76,7 @@ with lib; {
 
     # startup requires a `/etc/localtime` which only if exists if `time.timeZone != null`
     time.timeZone = mkDefault "UTC";
+
   };
+
 }

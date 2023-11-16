@@ -6,27 +6,18 @@ let
   platforms = import ./platforms.nix { inherit lib; };
 
   riscv = bits: { config = "riscv${bits}-unknown-linux-gnu"; };
-in
 
-rec {
+in rec {
   #
   # Linux
   #
-  powernv = {
-    config = "powerpc64le-unknown-linux-gnu";
-  };
-  musl-power = {
-    config = "powerpc64le-unknown-linux-musl";
-  };
+  powernv = { config = "powerpc64le-unknown-linux-gnu"; };
+  musl-power = { config = "powerpc64le-unknown-linux-musl"; };
 
-  ppc64 = {
-    config = "powerpc64-unknown-linux-gnuabielfv2";
-  };
+  ppc64 = { config = "powerpc64-unknown-linux-gnuabielfv2"; };
   ppc64-musl = {
     config = "powerpc64-unknown-linux-musl";
-    gcc = {
-      abi = "elfv2";
-    };
+    gcc = { abi = "elfv2"; };
   };
 
   sheevaplug = {
@@ -45,13 +36,9 @@ rec {
     config = "armv7l-unknown-linux-gnueabihf";
   } // platforms.zero-sugar;
 
-  armv7l-hf-multiplatform = {
-    config = "armv7l-unknown-linux-gnueabihf";
-  };
+  armv7l-hf-multiplatform = { config = "armv7l-unknown-linux-gnueabihf"; };
 
-  aarch64-multiplatform = {
-    config = "aarch64-unknown-linux-gnu";
-  };
+  aarch64-multiplatform = { config = "aarch64-unknown-linux-gnu"; };
 
   armv7a-android-prebuilt = {
     config = "armv7a-unknown-linux-androideabi";
@@ -114,27 +101,15 @@ rec {
     config = "mips64el-unknown-linux-gnuabi64";
   } // platforms.gcc_mips64r2_64;
 
-  muslpi = raspberryPi // {
-    config = "armv6l-unknown-linux-musleabihf";
-  };
+  muslpi = raspberryPi // { config = "armv6l-unknown-linux-musleabihf"; };
 
-  aarch64-multiplatform-musl = {
-    config = "aarch64-unknown-linux-musl";
-  };
+  aarch64-multiplatform-musl = { config = "aarch64-unknown-linux-musl"; };
 
-  gnu64 = {
-    config = "x86_64-unknown-linux-gnu";
-  };
-  gnu32 = {
-    config = "i686-unknown-linux-gnu";
-  };
+  gnu64 = { config = "x86_64-unknown-linux-gnu"; };
+  gnu32 = { config = "i686-unknown-linux-gnu"; };
 
-  musl64 = {
-    config = "x86_64-unknown-linux-musl";
-  };
-  musl32 = {
-    config = "i686-unknown-linux-musl";
-  };
+  musl64 = { config = "x86_64-unknown-linux-musl"; };
+  musl32 = { config = "i686-unknown-linux-musl"; };
 
   riscv64 = riscv "64";
   riscv32 = riscv "32";
@@ -149,9 +124,7 @@ rec {
     libc = "newlib";
   };
 
-  loongarch64-linux = {
-    config = "loongarch64-unknown-linux-gnu";
-  };
+  loongarch64-linux = { config = "loongarch64-unknown-linux-gnu"; };
 
   mmix = {
     config = "mmix-unknown-mmixware";
@@ -168,9 +141,7 @@ rec {
     libc = "newlib";
   };
 
-  avr = {
-    config = "avr";
-  };
+  avr = { config = "avr"; };
 
   vc4 = {
     config = "vc4-elf";
@@ -182,17 +153,11 @@ rec {
     libc = "newlib";
   };
 
-  m68k = {
-    config = "m68k-unknown-linux-gnu";
-  };
+  m68k = { config = "m68k-unknown-linux-gnu"; };
 
-  s390 = {
-    config = "s390-unknown-linux-gnu";
-  };
+  s390 = { config = "s390-unknown-linux-gnu"; };
 
-  s390x = {
-    config = "s390x-unknown-linux-gnu";
-  };
+  s390x = { config = "s390x-unknown-linux-gnu"; };
 
   arm-embedded = {
     config = "arm-none-eabi";
@@ -326,9 +291,7 @@ rec {
     useLLVM = true;
   };
 
-  x86_64-netbsd = {
-    config = "x86_64-unknown-netbsd";
-  };
+  x86_64-netbsd = { config = "x86_64-unknown-netbsd"; };
 
   # this is broken and never worked fully
   x86_64-netbsd-llvm = {

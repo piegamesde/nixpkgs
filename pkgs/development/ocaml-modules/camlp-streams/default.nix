@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-}:
+{ lib, buildDunePackage, fetchFromGitHub }:
 
 buildDunePackage rec {
   pname = "camlp-streams";
@@ -20,4 +16,5 @@ buildDunePackage rec {
     license = lib.licenses.lgpl21Only;
     maintainers = [ lib.maintainers.vbgl ];
   };
+
 }

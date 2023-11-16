@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pdal,
-  curl,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pdal, curl, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "entwine";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dhYJhXtfMmqQLWuV3Dux/sGTsVxCI7RXR2sPlwIry0g=";
   };
 
-  buildInputs = [
-    openssl
-    pdal
-    curl
-  ];
+  buildInputs = [ openssl pdal curl ];
 
   nativeBuildInputs = [ cmake ];
 

@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  buildEnv,
-  ...
-}:
+{ config, lib, pkgs, buildEnv, ... }:
 
 with lib;
 
@@ -19,9 +13,8 @@ let
     DB_NAME = "${cfg.dataDir}/healthchecks.sqlite";
   } // cfg.settings;
 
-  environmentFile = pkgs.writeText "healthchecks-environment" (
-    lib.generators.toKeyValue { } environment
-  );
+  environmentFile = pkgs.writeText "healthchecks-environment"
+    (lib.generators.toKeyValue { } environment);
 
   healthchecksManageScript = pkgs.writeShellScriptBin "healthchecks-manage" ''
     sudo=exec
@@ -31,8 +24,7 @@ let
     export $(cat ${environmentFile} | xargs)
     $sudo ${pkg}/opt/healthchecks/manage.py "$@"
   '';
-in
-{
+in {
   options.services.healthchecks = {
     enable = mkEnableOption (lib.mdDoc "healthchecks") // {
       description = lib.mdDoc ''
@@ -122,7 +114,8 @@ in
           ALLOWED_HOSTS = lib.mkOption {
             type = types.listOf types.str;
             default = [ "*" ];
-            description = lib.mdDoc "The host/domain names that this site can serve.";
+            description =
+              lib.mdDoc "The host/domain names that this site can serve.";
             apply = lib.concatStringsSep ",";
           };
 
@@ -162,84 +155,81 @@ in
     systemd.targets.healthchecks = {
       description = "Target for all Healthchecks services";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "network-online.target"
-      ];
+      after = [ "network.target" "network-online.target" ];
     };
 
-    systemd.services =
-      let
-        commonConfig = {
-          WorkingDirectory = cfg.dataDir;
-          User = cfg.user;
-          Group = cfg.group;
-          EnvironmentFile = [ environmentFile ];
-          StateDirectory = mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
-          StateDirectoryMode = mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
-        };
-      in
-      {
-        healthchecks-migration = {
-          description = "Healthchecks migrations";
-          wantedBy = [ "healthchecks.target" ];
+    systemd.services = let
+      commonConfig = {
+        WorkingDirectory = cfg.dataDir;
+        User = cfg.user;
+        Group = cfg.group;
+        EnvironmentFile = [ environmentFile ];
+        StateDirectory =
+          mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
+        StateDirectoryMode =
+          mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
+      };
+    in {
+      healthchecks-migration = {
+        description = "Healthchecks migrations";
+        wantedBy = [ "healthchecks.target" ];
 
-          serviceConfig = commonConfig // {
-            Restart = "on-failure";
-            Type = "oneshot";
-            ExecStart = ''
-              ${pkg}/opt/healthchecks/manage.py migrate
-            '';
-          };
-        };
-
-        healthchecks = {
-          description = "Healthchecks WSGI Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks-migration.service" ];
-
-          preStart = ''
-            ${pkg}/opt/healthchecks/manage.py collectstatic --no-input
-            ${pkg}/opt/healthchecks/manage.py remove_stale_contenttypes --no-input
-            ${pkg}/opt/healthchecks/manage.py compress
+        serviceConfig = commonConfig // {
+          Restart = "on-failure";
+          Type = "oneshot";
+          ExecStart = ''
+            ${pkg}/opt/healthchecks/manage.py migrate
           '';
-
-          serviceConfig = commonConfig // {
-            Restart = "always";
-            ExecStart = ''
-              ${pkgs.python3Packages.gunicorn}/bin/gunicorn hc.wsgi \
-                --bind ${cfg.listenAddress}:${toString cfg.port} \
-                --pythonpath ${pkg}/opt/healthchecks
-            '';
-          };
-        };
-
-        healthchecks-sendalerts = {
-          description = "Healthchecks Alert Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks.service" ];
-
-          serviceConfig = commonConfig // {
-            Restart = "always";
-            ExecStart = ''
-              ${pkg}/opt/healthchecks/manage.py sendalerts
-            '';
-          };
-        };
-
-        healthchecks-sendreports = {
-          description = "Healthchecks Reporting Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks.service" ];
-
-          serviceConfig = commonConfig // {
-            Restart = "always";
-            ExecStart = ''
-              ${pkg}/opt/healthchecks/manage.py sendreports --loop
-            '';
-          };
         };
       };
+
+      healthchecks = {
+        description = "Healthchecks WSGI Service";
+        wantedBy = [ "healthchecks.target" ];
+        after = [ "healthchecks-migration.service" ];
+
+        preStart = ''
+          ${pkg}/opt/healthchecks/manage.py collectstatic --no-input
+          ${pkg}/opt/healthchecks/manage.py remove_stale_contenttypes --no-input
+          ${pkg}/opt/healthchecks/manage.py compress
+        '';
+
+        serviceConfig = commonConfig // {
+          Restart = "always";
+          ExecStart = ''
+            ${pkgs.python3Packages.gunicorn}/bin/gunicorn hc.wsgi \
+              --bind ${cfg.listenAddress}:${toString cfg.port} \
+              --pythonpath ${pkg}/opt/healthchecks
+          '';
+        };
+      };
+
+      healthchecks-sendalerts = {
+        description = "Healthchecks Alert Service";
+        wantedBy = [ "healthchecks.target" ];
+        after = [ "healthchecks.service" ];
+
+        serviceConfig = commonConfig // {
+          Restart = "always";
+          ExecStart = ''
+            ${pkg}/opt/healthchecks/manage.py sendalerts
+          '';
+        };
+      };
+
+      healthchecks-sendreports = {
+        description = "Healthchecks Reporting Service";
+        wantedBy = [ "healthchecks.target" ];
+        after = [ "healthchecks.service" ];
+
+        serviceConfig = commonConfig // {
+          Restart = "always";
+          ExecStart = ''
+            ${pkg}/opt/healthchecks/manage.py sendreports --loop
+          '';
+        };
+      };
+    };
 
     users.users = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -250,9 +240,7 @@ in
     };
 
     users.groups = optionalAttrs (cfg.user == defaultUser) {
-      ${defaultUser} = {
-        members = [ defaultUser ];
-      };
+      ${defaultUser} = { members = [ defaultUser ]; };
     };
   };
 }

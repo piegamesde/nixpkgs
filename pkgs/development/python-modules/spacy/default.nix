@@ -1,40 +1,8 @@
-{
-  lib,
-  stdenv,
-  blis,
-  buildPythonPackage,
-  callPackage,
-  catalogue,
-  cymem,
-  fetchPypi,
-  jinja2,
-  jsonschema,
-  langcodes,
-  murmurhash,
-  numpy,
-  packaging,
-  pathy,
-  preshed,
-  pydantic,
-  pytest,
-  python,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  requests,
-  setuptools,
-  spacy-legacy,
-  spacy-loggers,
-  srsly,
-  thinc,
-  tqdm,
-  typer,
-  typing-extensions,
-  wasabi,
-  writeScript,
-  nix,
-  git,
-  nix-update,
-}:
+{ lib, stdenv, blis, buildPythonPackage, callPackage, catalogue, cymem
+, fetchPypi, jinja2, jsonschema, langcodes, murmurhash, numpy, packaging, pathy
+, preshed, pydantic, pytest, python, pythonOlder, pythonRelaxDepsHook, requests
+, setuptools, spacy-legacy, spacy-loggers, srsly, thinc, tqdm, typer
+, typing-extensions, wasabi, writeScript, nix, git, nix-update }:
 
 buildPythonPackage rec {
   pname = "spacy";
@@ -94,13 +62,7 @@ buildPythonPackage rec {
     updateScript = writeScript "update-spacy" ''
       #!${stdenv.shell}
       set -eou pipefail
-      PATH=${
-        lib.makeBinPath [
-          nix
-          git
-          nix-update
-        ]
-      }
+      PATH=${lib.makeBinPath [ nix git nix-update ]}
 
       nix-update python3Packages.spacy
 

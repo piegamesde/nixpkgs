@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libndtypes,
-}:
+{ lib, stdenv, fetchFromGitHub, libndtypes }:
 
 stdenv.mkDerivation {
   pname = "libxnd";
@@ -40,7 +35,8 @@ stdenv.mkDerivation {
   doCheck = true;
 
   meta = {
-    description = "C library for managing typed memory blocks and Python container module";
+    description =
+      "C library for managing typed memory blocks and Python container module";
     homepage = "https://xnd.io/";
     license = lib.licenses.bsdOriginal;
     maintainers = with lib.maintainers; [ costrouc ];

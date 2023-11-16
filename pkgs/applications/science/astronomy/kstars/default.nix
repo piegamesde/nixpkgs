@@ -1,39 +1,13 @@
-{
-  lib,
-  mkDerivation,
-  extra-cmake-modules,
-  fetchurl,
+{ lib, mkDerivation, extra-cmake-modules, fetchurl,
 
-  kconfig,
-  kdoctools,
-  kguiaddons,
-  ki18n,
-  kinit,
-  kiconthemes,
-  kio,
-  knewstuff,
-  kplotting,
-  kwidgetsaddons,
-  kxmlgui,
-  knotifyconfig,
+kconfig, kdoctools, kguiaddons, ki18n, kinit, kiconthemes, kio, knewstuff
+, kplotting, kwidgetsaddons, kxmlgui, knotifyconfig,
 
-  qtx11extras,
-  qtwebsockets,
-  qtkeychain,
-  libsecret,
+qtx11extras, qtwebsockets, qtkeychain, libsecret,
 
-  eigen,
-  zlib,
+eigen, zlib,
 
-  cfitsio,
-  indi-full,
-  xplanet,
-  libnova,
-  libraw,
-  gsl,
-  wcslib,
-  stellarsolver,
-}:
+cfitsio, indi-full, xplanet, libnova, libraw, gsl, wcslib, stellarsolver }:
 
 mkDerivation rec {
   pname = "kstars";
@@ -44,10 +18,7 @@ mkDerivation rec {
     sha256 = "sha256-9MJqJVgSZVBzlLv08Z6i8yO4YV1exsD5+yLJjqIGD20=";
   };
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     kconfig
     kdoctools
@@ -80,10 +51,7 @@ mkDerivation rec {
     stellarsolver
   ];
 
-  cmakeFlags = [
-    "-DINDI_PREFIX=${indi-full}"
-    "-DXPLANET_PREFIX=${xplanet}"
-  ];
+  cmakeFlags = [ "-DINDI_PREFIX=${indi-full}" "-DXPLANET_PREFIX=${xplanet}" ];
 
   meta = with lib; {
     description = "Virtual planetarium astronomy software";
@@ -95,9 +63,6 @@ mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      timput
-      hjones2199
-    ];
+    maintainers = with maintainers; [ timput hjones2199 ];
   };
 }

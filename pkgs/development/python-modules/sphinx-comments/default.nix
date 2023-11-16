@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  sphinx,
-}:
+{ lib, buildPythonPackage, fetchPypi, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinx-comments";

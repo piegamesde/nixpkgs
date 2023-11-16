@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  ocaml,
-  camlp-streams,
-  markup,
-  ounit2,
+{ lib, fetchFromGitHub, buildDunePackage, ocaml, camlp-streams, markup, ounit2
 }:
 
 buildDunePackage rec {
@@ -21,10 +14,7 @@ buildDunePackage rec {
     hash = "sha256-PZkhN5vkkLu8A3gYrh5O+nq9wFtig0Q4qD8zLGUGTRI=";
   };
 
-  propagatedBuildInputs = [
-    camlp-streams
-    markup
-  ];
+  propagatedBuildInputs = [ camlp-streams markup ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
   checkInputs = [ ounit2 ];
@@ -35,4 +25,5 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
   };
+
 }

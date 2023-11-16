@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  glibcLocales,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, glibcLocales, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "geojson";
@@ -24,7 +18,8 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/jazzband/geojson";
-    changelog = "https://github.com/jazzband/geojson/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/jazzband/geojson/blob/${version}/CHANGELOG.rst";
     description = "Python bindings and utilities for GeoJSON";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ oxzi ];

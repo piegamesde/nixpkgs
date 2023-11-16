@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  protobuf,
-  libsodium,
-  openssl,
-  xz,
-  zeromq,
-  cacert,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, protobuf, libsodium, openssl
+, xz, zeromq, cacert }:
 
 rustPlatform.buildRustPackage rec {
   pname = "habitat";
@@ -29,27 +19,17 @@ rustPlatform.buildRustPackage rec {
       "configopt-0.1.0" = "sha256-DvpC4WDIzknN5A6+68H7p8bG5lwZ2f+kc9yYhTl16ZM=";
       "rants-0.6.0" = "sha256-B8uDoiqddCki3j7aC8kilEcmJjvB4ICjZjjTun2UEkY=";
       "retry-1.0.0" = "sha256-ZaHnzOCelV4V0+MTIbH3DXxdz8QZVgcMq2YeV0S6X6o=";
-      "structopt-0.3.15" = "sha256-0vIX7J7VktKytT3ZnOm45qPRMHDkdJg20eU6pZBIH+Q=";
+      "structopt-0.3.15" =
+        "sha256-0vIX7J7VktKytT3ZnOm45qPRMHDkdJg20eU6pZBIH+Q=";
       "zmq-0.9.2" = "sha256-bsDCPYLb9hUr6htPQ7rSoasKAqoWBx5FiEY1gOOtdJQ=";
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    protobuf
-  ];
+  nativeBuildInputs = [ pkg-config protobuf ];
 
-  buildInputs = [
-    libsodium
-    openssl
-    xz
-    zeromq
-  ];
+  buildInputs = [ libsodium openssl xz zeromq ];
 
-  cargoBuildFlags = [
-    "-p"
-    "hab"
-  ];
+  cargoBuildFlags = [ "-p" "hab" ];
   cargoTestFlags = cargoBuildFlags;
 
   env = {
@@ -61,7 +41,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "An application automation framework";
     homepage = "https://www.habitat.sh";
-    changelog = "https://github.com/habitat-sh/habitat/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/habitat-sh/habitat/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ rushmorem ];
     mainProgram = "hab";

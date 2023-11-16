@@ -1,16 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  unzip,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, jre, unzip, runtimeShell }:
 stdenv.mkDerivation rec {
   version = "0.9.0";
   pname = "zgrviewer";
   src = fetchurl {
-    url = "mirror://sourceforge/zvtm/${pname}/${version}/${pname}-${version}.zip";
+    url =
+      "mirror://sourceforge/zvtm/${pname}/${version}/${pname}-${version}.zip";
     sha256 = "1yg2rck81sqqrgfi5kn6c1bz42dr7d0zqpcsdjhicssi1y159f23";
   };
   nativeBuildInputs = [ unzip ];

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  wayland-scanner,
-}:
+{ lib, stdenv, fetchFromGitLab, wayland-scanner }:
 
 stdenv.mkDerivation rec {
   pname = "wlr-protocols";
@@ -32,10 +27,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "check";
 
-  installFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   meta = with lib; {
     description = "Wayland roots protocol extensions";

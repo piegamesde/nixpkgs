@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  itstool,
-  gtk3,
-  libmpc,
-  libxml2,
-  mpfr,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, itstool, gtk3, libmpc, libxml2
+, mpfr, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-calc";
@@ -24,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "0mddfh9ixhh60nfgx5kcprcl9liavwqyina11q3pnpfs3n02df3y";
   };
 
-  nativeBuildInputs = [
-    gettext
-    itstool
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext itstool pkg-config wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    libmpc
-    libxml2
-    mpfr
-  ];
+  buildInputs = [ gtk3 libmpc libxml2 mpfr ];
 
   enableParallelBuilding = true;
 

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  lxml,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, lxml, setuptools
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "xmldiff";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-GbAws/o30fC1xa2a2pBZiEw78sdRxd2PHrTtSc/j/GA=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-    setuptools
-  ];
+  propagatedBuildInputs = [ lxml setuptools ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

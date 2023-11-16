@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3Packages,
-  libspnav,
-  jq,
-}:
+{ lib, stdenv, fetchFromGitHub, python3Packages, libspnav, jq }:
 
 let
 
@@ -30,7 +23,8 @@ let
       '';
 
       meta = with lib; {
-        description = "Enables printing directly to OctoPrint and monitoring the process";
+        description =
+          "Enables printing directly to OctoPrint and monitoring the process";
         homepage = "https://github.com/fieldOfView/Cura-OctoPrintPlugin";
         license = licenses.agpl3;
         maintainers = with maintainers; [ gebner ];
@@ -73,6 +67,7 @@ let
         maintainers = with maintainers; [ gebner ];
       };
     };
+
   };
-in
-self
+
+in self

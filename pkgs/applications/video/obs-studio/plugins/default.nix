@@ -1,8 +1,4 @@
-{
-  callPackage,
-  qt6Packages,
-  pkgsi686Linux,
-}:
+{ callPackage, qt6Packages, pkgsi686Linux }:
 
 # When adding new plugins:
 # - Respect alphabetical order. On diversion, file a PR.
@@ -10,7 +6,8 @@
 # - Add plugin to it's own directory (because of future patches).
 
 {
-  advanced-scene-switcher = qt6Packages.callPackage ./advanced-scene-switcher { };
+  advanced-scene-switcher =
+    qt6Packages.callPackage ./advanced-scene-switcher { };
 
   droidcam-obs = callPackage ./droidcam-obs { };
 
@@ -56,9 +53,8 @@
     obs-vkcapture32 = pkgsi686Linux.obs-studio-plugins.obs-vkcapture;
   };
 
-  obs-websocket =
-    throw
-      "obs-websocket has been removed: Functionality has been integrated into obs-studio itself.";
+  obs-websocket = throw
+    "obs-websocket has been removed: Functionality has been integrated into obs-studio itself.";
 
   wlrobs = callPackage ./wlrobs.nix { };
 }

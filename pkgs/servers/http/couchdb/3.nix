@@ -1,21 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  erlang,
-  icu,
-  openssl,
-  spidermonkey_91,
-  python3,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, erlang, icu, openssl, spidermonkey_91, python3
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "couchdb";
   version = "3.3.2";
 
   src = fetchurl {
-    url = "mirror://apache/couchdb/source/${version}/apache-${pname}-${version}.tar.gz";
+    url =
+      "mirror://apache/couchdb/source/${version}/apache-${pname}-${version}.tar.gz";
     hash = "sha256-PWgj1C0Qzw1PhsnE/lnJkyyJ1oV4/LbEtCeNx2kwjao=";
   };
 
@@ -47,12 +39,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) couchdb;
-  };
+  passthru.tests = { inherit (nixosTests) couchdb; };
 
   meta = with lib; {
-    description = "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";
+    description =
+      "A database that uses JSON for documents, JavaScript for MapReduce queries, and regular HTTP for an API";
     homepage = "https://couchdb.apache.org";
     license = licenses.asl20;
     platforms = platforms.all;

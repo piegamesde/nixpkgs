@@ -1,5 +1,4 @@
-import ../make-test-python.nix (
-  { lib, pkgs, ... }:
+import ../make-test-python.nix ({ lib, pkgs, ... }:
 
   let
     inherit (lib) mkMerge nameValuePair maintainers;
@@ -26,26 +25,26 @@ import ../make-test-python.nix (
     extraNodeConfs = {
       sqlite = { };
 
-      socket =
-        { config, ... }:
-        {
-          services.grafana.settings.server = {
-            protocol = "socket";
-            socket = "/run/grafana/sock";
-            socket_gid = config.users.groups.nginx.gid;
-          };
-
-          users.users.grafana.extraGroups = [ "nginx" ];
-
-          services.nginx = {
-            enable = true;
-            recommendedProxySettings = true;
-            virtualHosts."_".locations."/".proxyPass = "http://unix:/run/grafana/sock";
-          };
+      socket = { config, ... }: {
+        services.grafana.settings.server = {
+          protocol = "socket";
+          socket = "/run/grafana/sock";
+          socket_gid = config.users.groups.nginx.gid;
         };
 
+        users.users.grafana.extraGroups = [ "nginx" ];
+
+        services.nginx = {
+          enable = true;
+          recommendedProxySettings = true;
+          virtualHosts."_".locations."/".proxyPass =
+            "http://unix:/run/grafana/sock";
+        };
+      };
+
       declarativePlugins = {
-        services.grafana.declarativePlugins = [ pkgs.grafanaPlugins.grafana-clock-panel ];
+        services.grafana.declarativePlugins =
+          [ pkgs.grafanaPlugins.grafana-clock-panel ];
       };
 
       postgresql = {
@@ -56,12 +55,10 @@ import ../make-test-python.nix (
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "grafana" ];
-          ensureUsers = [
-            {
-              name = "grafana";
-              ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
-            }
-          ];
+          ensureUsers = [{
+            name = "grafana";
+            ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
+          }];
         };
         systemd.services.grafana.after = [ "postgresql.service" ];
       };
@@ -71,30 +68,19 @@ import ../make-test-python.nix (
         services.mysql = {
           enable = true;
           ensureDatabases = [ "grafana" ];
-          ensureUsers = [
-            {
-              name = "grafana";
-              ensurePermissions."grafana.*" = "ALL PRIVILEGES";
-            }
-          ];
+          ensureUsers = [{
+            name = "grafana";
+            ensurePermissions."grafana.*" = "ALL PRIVILEGES";
+          }];
           package = pkgs.mariadb;
         };
         systemd.services.grafana.after = [ "mysql.service" ];
       };
     };
 
-    nodes =
-      builtins.mapAttrs
-        (
-          _: val:
-          mkMerge [
-            val
-            baseGrafanaConf
-          ]
-        )
-        extraNodeConfs;
-  in
-  {
+    nodes = builtins.mapAttrs (_: val: mkMerge [ val baseGrafanaConf ])
+      extraNodeConfs;
+  in {
     name = "grafana-basic";
 
     meta = with maintainers; { maintainers = [ willibutz ]; };
@@ -154,5 +140,4 @@ import ../make-test-python.nix (
           )
           mysql.shutdown()
     '';
-  }
-)
+  })

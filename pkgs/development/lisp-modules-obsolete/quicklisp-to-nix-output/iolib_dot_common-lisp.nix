@@ -1,16 +1,11 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "iolib_dot_common-lisp";
   version = "iolib-v0.8.4";
 
   description = "Slightly modified Common Lisp.";
 
-  deps = [
-    args."alexandria"
-    args."iolib_dot_asdf"
-    args."iolib_dot_conf"
-  ];
+  deps = [ args."alexandria" args."iolib_dot_asdf" args."iolib_dot_conf" ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/iolib/2021-06-30/iolib-v0.8.4.tgz";

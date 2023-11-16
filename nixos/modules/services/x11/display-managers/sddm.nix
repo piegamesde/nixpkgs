@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -17,12 +12,12 @@ let
   iniFmt = pkgs.formats.ini { };
 
   xserverWrapper = pkgs.writeShellScript "xserver-wrapper" ''
-    ${concatMapStrings
-      (n: ''
-        export ${n}="${getAttr n xEnv}"
-      '')
-      (attrNames xEnv)}
-    exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} "$@"
+    ${concatMapStrings (n: ''
+      export ${n}="${getAttr n xEnv}"
+    '') (attrNames xEnv)}
+    exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${
+      toString dmcfg.xserverArgs
+    } "$@"
   '';
 
   Xsetup = pkgs.writeShellScript "Xsetup" ''
@@ -34,114 +29,90 @@ let
     ${cfg.stopScript}
   '';
 
-  defaultConfig =
-    {
-      General = {
-        HaltCommand = "/run/current-system/systemd/bin/systemctl poweroff";
-        RebootCommand = "/run/current-system/systemd/bin/systemctl reboot";
-        Numlock = if cfg.autoNumlock then "on" else "none"; # on, off none
+  defaultConfig = {
+    General = {
+      HaltCommand = "/run/current-system/systemd/bin/systemctl poweroff";
+      RebootCommand = "/run/current-system/systemd/bin/systemctl reboot";
+      Numlock = if cfg.autoNumlock then "on" else "none"; # on, off none
 
-        # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
-        DefaultSession = optionalString (dmcfg.defaultSession != null) "${dmcfg.defaultSession}.desktop";
-      };
-
-      Theme = {
-        Current = cfg.theme;
-        ThemeDir = "/run/current-system/sw/share/sddm/themes";
-        FacesDir = "/run/current-system/sw/share/sddm/faces";
-      };
-
-      Users = {
-        MaximumUid = config.ids.uids.nixbld;
-        HideUsers = concatStringsSep "," dmcfg.hiddenUsers;
-        HideShells = "/run/current-system/sw/bin/nologin";
-      };
-
-      X11 = {
-        MinimumVT = if xcfg.tty != null then xcfg.tty else 7;
-        ServerPath = toString xserverWrapper;
-        XephyrPath = "${pkgs.xorg.xorgserver.out}/bin/Xephyr";
-        SessionCommand = toString dmcfg.sessionData.wrapper;
-        SessionDir = "${dmcfg.sessionData.desktops}/share/xsessions";
-        XauthPath = "${pkgs.xorg.xauth}/bin/xauth";
-        DisplayCommand = toString Xsetup;
-        DisplayStopCommand = toString Xstop;
-        EnableHiDPI = cfg.enableHidpi;
-      };
-
-      Wayland = {
-        EnableHiDPI = cfg.enableHidpi;
-        SessionDir = "${dmcfg.sessionData.desktops}/share/wayland-sessions";
-      };
-    }
-    // lib.optionalAttrs dmcfg.autoLogin.enable {
-      Autologin = {
-        User = dmcfg.autoLogin.user;
-        Session = autoLoginSessionName;
-        Relogin = cfg.autoLogin.relogin;
-      };
+      # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
+      DefaultSession = optionalString (dmcfg.defaultSession != null)
+        "${dmcfg.defaultSession}.desktop";
     };
 
-  cfgFile = iniFmt.generate "sddm.conf" (lib.recursiveUpdate defaultConfig cfg.settings);
+    Theme = {
+      Current = cfg.theme;
+      ThemeDir = "/run/current-system/sw/share/sddm/themes";
+      FacesDir = "/run/current-system/sw/share/sddm/faces";
+    };
+
+    Users = {
+      MaximumUid = config.ids.uids.nixbld;
+      HideUsers = concatStringsSep "," dmcfg.hiddenUsers;
+      HideShells = "/run/current-system/sw/bin/nologin";
+    };
+
+    X11 = {
+      MinimumVT = if xcfg.tty != null then xcfg.tty else 7;
+      ServerPath = toString xserverWrapper;
+      XephyrPath = "${pkgs.xorg.xorgserver.out}/bin/Xephyr";
+      SessionCommand = toString dmcfg.sessionData.wrapper;
+      SessionDir = "${dmcfg.sessionData.desktops}/share/xsessions";
+      XauthPath = "${pkgs.xorg.xauth}/bin/xauth";
+      DisplayCommand = toString Xsetup;
+      DisplayStopCommand = toString Xstop;
+      EnableHiDPI = cfg.enableHidpi;
+    };
+
+    Wayland = {
+      EnableHiDPI = cfg.enableHidpi;
+      SessionDir = "${dmcfg.sessionData.desktops}/share/wayland-sessions";
+    };
+  } // lib.optionalAttrs dmcfg.autoLogin.enable {
+    Autologin = {
+      User = dmcfg.autoLogin.user;
+      Session = autoLoginSessionName;
+      Relogin = cfg.autoLogin.relogin;
+    };
+  };
+
+  cfgFile = iniFmt.generate "sddm.conf"
+    (lib.recursiveUpdate defaultConfig cfg.settings);
 
   autoLoginSessionName = "${dmcfg.sessionData.autologinSession}.desktop";
-in
-{
+
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "themes"
-      ]
-      "Set the option `services.xserver.displayManager.sddm.package' instead."
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "autoLogin"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "enable"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "autoLogin"
-        "user"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "user"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "extraConfig"
-      ]
-      "Set the option `services.xserver.displayManager.sddm.settings' instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "sddm"
+      "themes"
+    ] "Set the option `services.xserver.displayManager.sddm.package' instead.")
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "sddm"
+      "autoLogin"
+      "enable"
+    ] [ "services" "xserver" "displayManager" "autoLogin" "enable" ])
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "sddm"
+      "autoLogin"
+      "user"
+    ] [ "services" "xserver" "displayManager" "autoLogin" "user" ])
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "sddm"
+      "extraConfig"
+    ] "Set the option `services.xserver.displayManager.sddm.settings' instead.")
   ];
 
   options = {
@@ -257,8 +228,10 @@ in
     services.xserver.displayManager.job = {
       environment = {
         # Load themes from system environment
-        QT_PLUGIN_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtPluginPrefix;
-        QML2_IMPORT_PATH = "/run/current-system/sw/" + pkgs.qt5.qtbase.qtQmlPrefix;
+        QT_PLUGIN_PATH = "/run/current-system/sw/"
+          + pkgs.qt5.qtbase.qtPluginPrefix;
+        QML2_IMPORT_PATH = "/run/current-system/sw/"
+          + pkgs.qt5.qtbase.qtQmlPrefix;
       };
 
       execCmd = "exec /run/current-system/sw/bin/sddm";
@@ -290,7 +263,9 @@ in
 
       sddm-autologin.text = ''
         auth     requisite pam_nologin.so
-        auth     required  pam_succeed_if.so uid >= ${toString cfg.autoLogin.minimumUid} quiet
+        auth     required  pam_succeed_if.so uid >= ${
+          toString cfg.autoLogin.minimumUid
+        } quiet
         auth     required  pam_permit.so
 
         account  include   sddm

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  git,
-  gnused,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, git, gnused }:
 
 stdenv.mkDerivation rec {
   pname = "git-reparent";
@@ -28,10 +21,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/git-reparent --prefix PATH : "${
-      lib.makeBinPath [
-        git
-        gnused
-      ]
+      lib.makeBinPath [ git gnused ]
     }"
   '';
 

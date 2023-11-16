@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  azure-mgmt-common,
-  azure-mgmt-core,
-  isodate,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, azure-mgmt-common, azure-mgmt-core
+, isodate, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-compute";
@@ -21,11 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-cyD7r8OSdwsD7QK2h2AYXmCUVS7ZjX/V6nchClpRPHg=";
   };
 
-  propagatedBuildInputs = [
-    azure-mgmt-common
-    azure-mgmt-core
-    isodate
-  ];
+  propagatedBuildInputs = [ azure-mgmt-common azure-mgmt-core isodate ];
 
   pythonNamespaces = [ "azure.mgmt" ];
 
@@ -35,12 +24,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.mgmt.compute" ];
 
   meta = with lib; {
-    description = "This is the Microsoft Azure Compute Management Client Library";
+    description =
+      "This is the Microsoft Azure Compute Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      olcai
-      maxwilson
-    ];
+    maintainers = with maintainers; [ olcai maxwilson ];
   };
 }

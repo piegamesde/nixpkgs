@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  ocamlPackages,
-  opaline,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, ocamlPackages, opaline }:
 
 stdenv.mkDerivation rec {
   pname = "ott";
@@ -20,25 +13,15 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      opaline
-    ]
-    ++ (
-      with ocamlPackages; [
-        findlib
-        ocaml
-      ]
-    );
+  nativeBuildInputs = [ pkg-config opaline ]
+    ++ (with ocamlPackages; [ findlib ocaml ]);
   buildInputs = with ocamlPackages; [ ocamlgraph ];
 
   installTargets = "ott.install";
 
-  postInstall =
-    ''
-      opaline -prefix $out
-    ''
+  postInstall = ''
+    opaline -prefix $out
+  ''
     # There is `emacsPackages.ott-mode` for this now.
     + ''
       rm -r $out/share/emacs

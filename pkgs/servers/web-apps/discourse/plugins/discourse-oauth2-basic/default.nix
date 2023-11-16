@@ -1,8 +1,4 @@
-{
-  lib,
-  mkDiscoursePlugin,
-  fetchFromGitHub,
-}:
+{ lib, mkDiscoursePlugin, fetchFromGitHub }:
 
 mkDiscoursePlugin rec {
   name = "discourse-oauth2-basic";

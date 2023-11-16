@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  gtk3,
-  playerctl,
-  libsoup,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, gtk3, playerctl, libsoup }:
 
 stdenv.mkDerivation rec {
   pname = "gtklock-playerctl-module";
@@ -21,11 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk3
-    playerctl
-    libsoup
-  ];
+  buildInputs = [ gtk3 playerctl libsoup ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

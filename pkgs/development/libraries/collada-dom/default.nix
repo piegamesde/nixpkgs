@@ -1,13 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  libxml2,
-  minizip,
-  readline,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, boost, libxml2, minizip, readline }:
 
 stdenv.mkDerivation {
   pname = "collada-dom";
@@ -27,12 +18,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-    libxml2
-    minizip
-    readline
-  ];
+  buildInputs = [ boost libxml2 minizip readline ];
 
   meta = with lib; {
     description = "Lightweight version of collada-dom, with only the parser.";

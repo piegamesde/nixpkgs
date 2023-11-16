@@ -1,17 +1,11 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  cmake,
-}:
+{ stdenv, lib, fetchurl, cmake }:
 
 let
   isCross = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
   isStatic = stdenv.hostPlatform.isStatic;
   isMusl = stdenv.hostPlatform.isMusl;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libptytty";
   version = "2.0";
 
@@ -22,8 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags =
-    lib.optional isStatic "-DBUILD_SHARED_LIBS=OFF"
+  cmakeFlags = lib.optional isStatic "-DBUILD_SHARED_LIBS=OFF"
     ++ lib.optional (isCross || isStatic) "-DTTY_GID_SUPPORT=OFF"
     # Musl lacks UTMP/WTMP built-in support
     ++ lib.optionals isMusl [
@@ -42,4 +35,5 @@ stdenv.mkDerivation rec {
     #   ln: failed to create symbolic link './include': File exists
     broken = isStatic && isMusl;
   };
+
 }

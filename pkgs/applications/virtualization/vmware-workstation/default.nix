@@ -1,38 +1,8 @@
-{
-  stdenv,
-  buildFHSEnv,
-  fetchurl,
-  lib,
-  zlib,
-  gdbm,
-  bzip2,
-  libxslt,
-  libxml2,
-  libuuid,
-  readline,
-  xz,
-  cups,
-  glibc,
-  libaio,
-  vulkan-loader,
-  alsa-lib,
-  libpulseaudio,
-  libxcrypt-legacy,
-  libGL,
-  numactl,
-  libX11,
-  libXi,
-  kmod,
-  python3,
-  autoPatchelfHook,
-  makeWrapper,
-  sqlite,
-  enableInstaller ? false,
-  enableMacOSGuests ? false,
-  fetchFromGitHub,
-  gnutar,
-  unzip,
-}:
+{ stdenv, buildFHSEnv, fetchurl, lib, zlib, gdbm, bzip2, libxslt, libxml2
+, libuuid, readline, xz, cups, glibc, libaio, vulkan-loader, alsa-lib
+, libpulseaudio, libxcrypt-legacy, libGL, numactl, libX11, libXi, kmod, python3
+, autoPatchelfHook, makeWrapper, sqlite, enableInstaller ? false
+, enableMacOSGuests ? false, fetchFromGitHub, gnutar, unzip }:
 
 let
   # macOS - versions
@@ -42,7 +12,8 @@ let
 
   # macOS - ISOs
   darwinIsoSrc = fetchurl {
-    url = "https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${fusionVersion}/${fusionBuild}/x86/core/com.vmware.fusion.zip.tar";
+    url =
+      "https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${fusionVersion}/${fusionBuild}/x86/core/com.vmware.fusion.zip.tar";
     sha256 = "sha256-cSboek+nhkVj8rjdic6yzWQfjXiiLlch6gBWn73BzRU=";
   };
 
@@ -54,28 +25,25 @@ let
     sha256 = "sha256-kpvrRiiygfjQni8z+ju9mPBVqy2gs08Wj4cHxE9eorQ=";
   };
 
-  gdbm3 = gdbm.overrideAttrs (
-    old: rec {
-      version = "1.8.3";
+  gdbm3 = gdbm.overrideAttrs (old: rec {
+    version = "1.8.3";
 
-      src = fetchurl {
-        url = "mirror://gnu/gdbm/gdbm-${version}.tar.gz";
-        sha256 = "sha256-zDQDOKLii0AFirnrU1SiHVP4ihWC6iG6C7GFw3ooHck=";
-      };
+    src = fetchurl {
+      url = "mirror://gnu/gdbm/gdbm-${version}.tar.gz";
+      sha256 = "sha256-zDQDOKLii0AFirnrU1SiHVP4ihWC6iG6C7GFw3ooHck=";
+    };
 
-      installPhase = ''
-        mkdir -p $out/lib
-        cp .libs/libgdbm*.so* $out/lib/
-      '';
-    }
-  );
+    installPhase = ''
+      mkdir -p $out/lib
+      cp .libs/libgdbm*.so* $out/lib/
+    '';
+  });
 
   vmware-unpack-env = buildFHSEnv rec {
     name = "vmware-unpack-env";
     targetPkgs = pkgs: [ zlib ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "vmware-workstation";
   version = "17.0.0";
   build = "20800274";
@@ -101,24 +69,13 @@ stdenv.mkDerivation rec {
     kmod
   ];
 
-  nativeBuildInputs =
-    [
-      python3
-      vmware-unpack-env
-      autoPatchelfHook
-      makeWrapper
-    ]
-    ++ lib.optionals enableInstaller [
-      sqlite
-      bzip2
-    ]
-    ++ lib.optionals enableMacOSGuests [
-      gnutar
-      unzip
-    ];
+  nativeBuildInputs = [ python3 vmware-unpack-env autoPatchelfHook makeWrapper ]
+    ++ lib.optionals enableInstaller [ sqlite bzip2 ]
+    ++ lib.optionals enableMacOSGuests [ gnutar unzip ];
 
   src = fetchurl {
-    url = "https://download3.vmware.com/software/WKST-1700-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";
+    url =
+      "https://download3.vmware.com/software/WKST-1700-LX/VMware-Workstation-Full-${version}-${build}.x86_64.bundle";
     sha256 = "sha256-kBTocGb1tg5i+dvWmOaPfPUHxrWcX8/obeKqRGR+mRA=";
   };
 
@@ -408,14 +365,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Industry standard desktop hypervisor for x86-64 architecture";
+    description =
+      "Industry standard desktop hypervisor for x86-64 architecture";
     homepage = "https://www.vmware.com/products/workstation-pro.html";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      cawilliamson
-      deinferno
-    ];
+    maintainers = with maintainers; [ cawilliamson deinferno ];
   };
 }

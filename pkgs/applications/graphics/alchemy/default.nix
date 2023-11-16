@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, jre, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "alchemy";

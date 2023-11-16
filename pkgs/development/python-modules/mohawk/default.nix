@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  nose,
-  pytest,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, nose, pytest, six }:
 
 buildPythonPackage rec {
   pname = "mohawk";
@@ -19,11 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    mock
-    nose
-    pytest
-  ];
+  nativeCheckInputs = [ mock nose pytest ];
 
   checkPhase = ''
     pytest mohawk/tests.py

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, numpy }:
 
 buildPythonPackage rec {
   pname = "jsonconversion";
@@ -19,15 +13,13 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "'pytest-runner'" ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    numpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook numpy ];
 
   pythonImportsCheck = [ "jsonconversion" ];
 
   meta = with lib; {
-    description = "This python module helps converting arbitrary Python objects into JSON strings and back";
+    description =
+      "This python module helps converting arbitrary Python objects into JSON strings and back";
     homepage = "https://pypi.org/project/jsonconversion/";
     license = licenses.bsd2;
     maintainers = [ maintainers.terlar ];

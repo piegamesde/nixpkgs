@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  util-linux,
-  bash,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, util-linux, bash }:
 
 stdenv.mkDerivation rec {
   pname = "bcache-tools";
@@ -32,10 +25,7 @@ stdenv.mkDerivation rec {
         -i Makefile
   '';
 
-  patches = [
-    ./bcache-udev-modern.patch
-    ./fix-static.patch
-  ];
+  patches = [ ./bcache-udev-modern.patch ./fix-static.patch ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -51,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "User-space tools required for bcache (Linux block layer cache)";
+    description =
+      "User-space tools required for bcache (Linux block layer cache)";
     longDescription = ''
       Bcache is a Linux kernel block layer cache. It allows one or more fast
       disk drives such as flash-based solid state drives (SSDs) to act as a

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_interface,
-  zope_exceptions,
-  zope_testing,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_interface, zope_exceptions
+, zope_testing, six }:
 
 buildPythonPackage rec {
   pname = "zope.testrunner";
@@ -17,12 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-1r1y9E6jLKpBW5bP4UFSsnhjF67xzW9IqCe2Le8Fj9Q=";
   };
 
-  propagatedBuildInputs = [
-    zope_interface
-    zope_exceptions
-    zope_testing
-    six
-  ];
+  propagatedBuildInputs = [ zope_interface zope_exceptions zope_testing six ];
 
   doCheck = false; # custom test modifies sys.path
 

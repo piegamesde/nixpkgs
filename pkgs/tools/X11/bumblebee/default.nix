@@ -16,71 +16,45 @@
 #
 # To use at startup, see hardware.bumblebee options.
 
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchpatch,
-  pkg-config,
-  help2man,
-  makeWrapper,
-  glib,
-  libbsd,
-  libX11,
-  xorgserver,
-  kmod,
-  xf86videonouveau,
-  nvidia_x11,
-  virtualgl,
-  libglvnd,
-  automake111x,
-  autoconf,
-  # The below should only be non-null in a x86_64 system. On a i686
-  # system the above nvidia_x11 and virtualgl will be the i686 packages.
-  # TODO: Confusing. Perhaps use "SubArch" instead of i686?
-  nvidia_x11_i686 ? null,
-  libglvnd_i686 ? null,
-  useDisplayDevice ? false,
-  extraNvidiaDeviceOptions ? "",
-  extraNouveauDeviceOptions ? "",
-  useNvidia ? true,
-}:
+{ stdenv, lib, fetchurl, fetchpatch, pkg-config, help2man, makeWrapper, glib
+, libbsd, libX11, xorgserver, kmod, xf86videonouveau, nvidia_x11, virtualgl
+, libglvnd, automake111x, autoconf
+# The below should only be non-null in a x86_64 system. On a i686
+# system the above nvidia_x11 and virtualgl will be the i686 packages.
+# TODO: Confusing. Perhaps use "SubArch" instead of i686?
+, nvidia_x11_i686 ? null, libglvnd_i686 ? null, useDisplayDevice ? false
+, extraNvidiaDeviceOptions ? "", extraNouveauDeviceOptions ? ""
+, useNvidia ? true }:
 
 let
-  nvidia_x11s =
-    [ nvidia_x11 ]
-    ++ lib.optional nvidia_x11.useGLVND libglvnd
-    ++ lib.optionals (nvidia_x11_i686 != null) (
-      [ nvidia_x11_i686 ] ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686
-    );
+  nvidia_x11s = [ nvidia_x11 ] ++ lib.optional nvidia_x11.useGLVND libglvnd
+    ++ lib.optionals (nvidia_x11_i686 != null) ([ nvidia_x11_i686 ]
+      ++ lib.optional nvidia_x11_i686.useGLVND libglvnd_i686);
 
   nvidiaLibs = lib.makeLibraryPath nvidia_x11s;
 
-  bbdPath = lib.makeBinPath [
-    kmod
-    xorgserver
-  ];
+  bbdPath = lib.makeBinPath [ kmod xorgserver ];
 
-  xmodules = lib.concatStringsSep "," (
-    map (x: "${x.out or x}/lib/xorg/modules") (
-      [ xorgserver ] ++ lib.optional (!useNvidia) xf86videonouveau
-    )
-  );
+  xmodules = lib.concatStringsSep "," (map (x: "${x.out or x}/lib/xorg/modules")
+    ([ xorgserver ] ++ lib.optional (!useNvidia) xf86videonouveau));
 
   modprobePatch = fetchpatch {
-    url = "https://github.com/Bumblebee-Project/Bumblebee/commit/1ada79fe5916961fc4e4917f8c63bb184908d986.patch";
+    url =
+      "https://github.com/Bumblebee-Project/Bumblebee/commit/1ada79fe5916961fc4e4917f8c63bb184908d986.patch";
     sha256 = "02vq3vba6nx7gglpjdfchws9vjhs1x02a543yvqrxqpvvdfim2x2";
   };
   libkmodPatch = fetchpatch {
-    url = "https://github.com/Bumblebee-Project/Bumblebee/commit/deceb14cdf2c90ff64ebd1010a674305464587da.patch";
+    url =
+      "https://github.com/Bumblebee-Project/Bumblebee/commit/deceb14cdf2c90ff64ebd1010a674305464587da.patch";
     sha256 = "00c05i5lxz7vdbv445ncxac490vbl5g9w3vy3gd71qw1f0si8vwh";
   };
   gcc10Patch = fetchpatch {
-    url = "https://github.com/Bumblebee-Project/Bumblebee/commit/f94a118a88cd76e2dbea33d735bd53cf54b486a1.patch";
+    url =
+      "https://github.com/Bumblebee-Project/Bumblebee/commit/f94a118a88cd76e2dbea33d735bd53cf54b486a1.patch";
     hash = "sha256-3b5tLoMrGYSdg9Hz5bh0c44VIrbSZrY56JpWEyU/Pik=";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "bumblebee";
   version = "3.2.1";
 
@@ -98,13 +72,11 @@ stdenv.mkDerivation rec {
   ];
 
   # By default we don't want to use a display device
-  nvidiaDeviceOptions =
-    lib.optionalString (!useDisplayDevice) ''
-      # Disable display device
-      Option "UseEDID" "false"
-      Option "UseDisplayDevice" "none"
-    ''
-    + extraNvidiaDeviceOptions;
+  nvidiaDeviceOptions = lib.optionalString (!useDisplayDevice) ''
+    # Disable display device
+    Option "UseEDID" "false"
+    Option "UseDisplayDevice" "none"
+  '' + extraNvidiaDeviceOptions;
 
   nouveauDeviceOptions = extraNouveauDeviceOptions;
 
@@ -130,19 +102,8 @@ stdenv.mkDerivation rec {
 
   # Build-time dependencies of bumblebeed and optirun.
   # Note that it has several runtime dependencies.
-  buildInputs = [
-    libX11
-    glib
-    libbsd
-    kmod
-  ];
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    help2man
-    automake111x
-    autoconf
-  ];
+  buildInputs = [ libX11 glib libbsd kmod ];
+  nativeBuildInputs = [ makeWrapper pkg-config help2man automake111x autoconf ];
 
   # The order of LDPATH is very specific: First X11 then the host
   # environment then the optional sub architecture paths.
@@ -151,16 +112,14 @@ stdenv.mkDerivation rec {
   # includes the acceleration driver. As this is used for the X11
   # server, which runs under the host architecture, this does not
   # include the sub architecture components.
-  configureFlags =
-    [
-      "--with-udev-rules=$out/lib/udev/rules.d"
-      # see #10282
-      #"CONF_PRIMUS_LD_PATH=${primusLibs}"
-    ]
-    ++ lib.optionals useNvidia [
-      "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
-      "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
-    ];
+  configureFlags = [
+    "--with-udev-rules=$out/lib/udev/rules.d"
+    # see #10282
+    #"CONF_PRIMUS_LD_PATH=${primusLibs}"
+  ] ++ lib.optionals useNvidia [
+    "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
+    "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
+  ];
 
   CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
 
@@ -173,7 +132,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Daemon for managing Optimus videocards (power-on/off, spawns xservers)";
+    description =
+      "Daemon for managing Optimus videocards (power-on/off, spawns xservers)";
     homepage = "https://github.com/Bumblebee-Project/Bumblebee";
     license = licenses.gpl3;
     maintainers = with maintainers; [ abbradar ];

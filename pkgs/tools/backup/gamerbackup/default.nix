@@ -1,10 +1,4 @@
-{
-  lib,
-  makeWrapper,
-  buildGoModule,
-  fetchFromGitHub,
-  lepton,
-}:
+{ lib, makeWrapper, buildGoModule, fetchFromGitHub, lepton }:
 
 buildGoModule {
   pname = "gb-backup";

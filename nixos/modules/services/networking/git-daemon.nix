@@ -1,15 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
 
   cfg = config.services.gitDaemon;
-in
-{
+
+in {
 
   ###### interface
 
@@ -60,10 +55,7 @@ in
       repositories = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "/srv/git"
-          "/home/user/git/repo2"
-        ];
+        example = [ "/srv/git" "/home/user/git/repo2" ];
         description = lib.mdDoc ''
           A whitelist of paths of git repositories, or directories containing repositories
           all of which would be published. Paths must not end in "/".
@@ -89,7 +81,8 @@ in
       options = mkOption {
         type = types.str;
         default = "";
-        description = lib.mdDoc "Extra configuration options to be passed to Git daemon.";
+        description =
+          lib.mdDoc "Extra configuration options to be passed to Git daemon.";
       };
 
       user = mkOption {
@@ -101,8 +94,10 @@ in
       group = mkOption {
         type = types.str;
         default = "git";
-        description = lib.mdDoc "Group under which Git daemon would be running.";
+        description =
+          lib.mdDoc "Group under which Git daemon would be running.";
       };
+
     };
   };
 
@@ -118,19 +113,22 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "git") { git.gid = config.ids.gids.git; };
+    users.groups =
+      optionalAttrs (cfg.group == "git") { git.gid = config.ids.gids.git; };
 
     systemd.services.git-daemon = {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      script =
-        "${pkgs.git}/bin/git daemon --reuseaddr "
+      script = "${pkgs.git}/bin/git daemon --reuseaddr "
         + (optionalString (cfg.basePath != "") "--base-path=${cfg.basePath} ")
-        + (optionalString (cfg.listenAddress != "") "--listen=${cfg.listenAddress} ")
-        + "--port=${toString cfg.port} --user=${cfg.user} --group=${cfg.group} ${cfg.options} "
-        + "--verbose "
-        + (optionalString cfg.exportAll "--export-all ")
+        + (optionalString (cfg.listenAddress != "")
+          "--listen=${cfg.listenAddress} ") + "--port=${
+          toString cfg.port
+        } --user=${cfg.user} --group=${cfg.group} ${cfg.options} "
+        + "--verbose " + (optionalString cfg.exportAll "--export-all ")
         + concatStringsSep " " cfg.repositories;
     };
+
   };
+
 }

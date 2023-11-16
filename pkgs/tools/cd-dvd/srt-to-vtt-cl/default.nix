@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  substituteAll,
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll }:
 
 stdenv.mkDerivation rec {
   pname = "srt-to-vtt-cl";

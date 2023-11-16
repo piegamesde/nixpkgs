@@ -1,16 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  simdExtensions ? null,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, simdExtensions ? null }:
 
 with rec {
   # SIMD instruction sets to compile for. If none are specified by the user,
   # an appropriate one is selected based on the detected host system
-  isas =
-    with stdenv.hostPlatform;
+  isas = with stdenv.hostPlatform;
     if simdExtensions != null then
       lib.toList simdExtensions
     else if avx2Support then
@@ -32,24 +25,14 @@ with rec {
 
   # The suffix of the binary to link as 'astcenc'
   mainBinary =
-    builtins.replaceStrings
-      [
-        "AVX2"
-        "SSE41"
-        "SSE2"
-        "NEON"
-        "NONE"
-        "NATIVE"
-      ]
-      [
-        "avx2"
-        "sse4.1"
-        "sse2"
-        "neon"
-        "none"
-        "native"
-      ]
-      (builtins.head isas);
+    builtins.replaceStrings [ "AVX2" "SSE41" "SSE2" "NEON" "NONE" "NATIVE" ] [
+      "avx2"
+      "sse4.1"
+      "sse2"
+      "neon"
+      "none"
+      "native"
+    ] (builtins.head isas);
 };
 
 stdenv.mkDerivation rec {

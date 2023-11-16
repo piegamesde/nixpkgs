@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  which,
-  libxslt,
-  libxml2,
-  docbook_xml_dtd_412,
-  docbook_xsl,
-  glib,
-  imagemagick,
-  Foundation,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, which
+, libxslt, libxml2, docbook_xml_dtd_412, docbook_xsl, glib, imagemagick
+, Foundation }:
 
 stdenv.mkDerivation rec {
   version = "1.12.5";
@@ -39,10 +25,7 @@ stdenv.mkDerivation rec {
     docbook_xsl
   ];
 
-  buildInputs = [
-    glib
-    imagemagick
-  ] ++ lib.optional stdenv.isDarwin Foundation;
+  buildInputs = [ glib imagemagick ] ++ lib.optional stdenv.isDarwin Foundation;
 
   patches = [ ./xmlcatalog_patch.patch ];
 

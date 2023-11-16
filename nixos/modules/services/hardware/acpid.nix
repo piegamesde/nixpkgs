@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -36,14 +31,15 @@ let
       f = name: handler: ''
         fn=$out/${name}
         echo "event=${handler.event}" > $fn
-        echo "action=${pkgs.writeShellScriptBin "${name}.sh" handler.action}/bin/${name}.sh '%e'" >> $fn
+        echo "action=${
+          pkgs.writeShellScriptBin "${name}.sh" handler.action
+        }/bin/${name}.sh '%e'" >> $fn
       '';
-    in
-    concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))}
+    in concatStringsSep "\n"
+    (mapAttrsToList f (canonicalHandlers // cfg.handlers))}
   '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -60,25 +56,22 @@ in
       };
 
       handlers = mkOption {
-        type = types.attrsOf (
-          types.submodule {
-            options = {
-              event = mkOption {
-                type = types.str;
-                example =
-                  literalExpression
-                    ''
-                      "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"'';
-                description = lib.mdDoc "Event type.";
-              };
-
-              action = mkOption {
-                type = types.lines;
-                description = lib.mdDoc "Shell commands to execute when the event is triggered.";
-              };
+        type = types.attrsOf (types.submodule {
+          options = {
+            event = mkOption {
+              type = types.str;
+              example = literalExpression ''
+                "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"'';
+              description = lib.mdDoc "Event type.";
             };
-          }
-        );
+
+            action = mkOption {
+              type = types.lines;
+              description = lib.mdDoc
+                "Shell commands to execute when the event is triggered.";
+            };
+          };
+        });
 
         description = lib.mdDoc ''
           Event handlers.
@@ -112,21 +105,26 @@ in
       powerEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Shell commands to execute on a button/power.* event.";
+        description =
+          lib.mdDoc "Shell commands to execute on a button/power.* event.";
       };
 
       lidEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Shell commands to execute on a button/lid.* event.";
+        description =
+          lib.mdDoc "Shell commands to execute on a button/lid.* event.";
       };
 
       acEventCommands = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Shell commands to execute on an ac_adapter.* event.";
+        description =
+          lib.mdDoc "Shell commands to execute on an ac_adapter.* event.";
       };
+
     };
+
   };
 
   ###### implementation
@@ -140,21 +138,21 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = escapeShellArgs (
-          [
-            "${pkgs.acpid}/bin/acpid"
-            "--foreground"
-            "--netlink"
-            "--confdir"
-            "${acpiConfDir}"
-          ]
-          ++ optional cfg.logEvents "--logevents"
-        );
+        ExecStart = escapeShellArgs ([
+          "${pkgs.acpid}/bin/acpid"
+          "--foreground"
+          "--netlink"
+          "--confdir"
+          "${acpiConfDir}"
+        ] ++ optional cfg.logEvents "--logevents");
       };
       unitConfig = {
         ConditionVirtualization = "!systemd-nspawn";
         ConditionPathExists = [ "/proc/acpi" ];
       };
+
     };
+
   };
+
 }

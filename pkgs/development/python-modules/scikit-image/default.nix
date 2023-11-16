@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPythonPackage,
-  python,
-  cython,
-  pythran,
-  numpy,
-  scipy,
-  matplotlib,
-  networkx,
-  six,
-  pillow,
-  pywavelets,
-  dask,
-  cloudpickle,
-  imageio,
-  tifffile,
-  pytestCheckHook,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, python, cython, pythran
+, numpy, scipy, matplotlib, networkx, six, pillow, pywavelets, dask, cloudpickle
+, imageio, tifffile, pytestCheckHook }:
 
 let
   installedPackageRoot = "${builtins.placeholder "out"}/${python.sitePackages}";
@@ -35,10 +17,7 @@ let
 
     patches = [ ./add-testing-data.patch ];
 
-    nativeBuildInputs = [
-      cython
-      pythran
-    ];
+    nativeBuildInputs = [ cython pythran ];
 
     propagatedBuildInputs = [
       cloudpickle
@@ -67,32 +46,23 @@ let
       rm -r skimage
     '';
 
-    disabledTestPaths =
-      [
-        # Requires network access (actually some data is loaded via `skimage._shared.testing.fetch` in the global scope, which calls `pytest.skip` when a network is unaccessible, leading to a pytest collection error).
-        "${installedPackageRoot}/skimage/filters/rank/tests/test_rank.py"
-      ];
-    pytestFlagsArray =
-      [
-        "${installedPackageRoot}"
-        "--pyargs"
-        "skimage"
-      ]
-      ++ builtins.map (testid: "--deselect=" + testid) (
-        [
-          # These tests require network access
-          "skimage/data/test_data.py::test_skin"
-          "skimage/data/tests/test_data.py::test_skin"
-          "skimage/io/tests/test_io.py::test_imread_http_url"
-          "skimage/restoration/tests/test_rolling_ball.py::test_ndim"
-        ]
-        ++ lib.optionals stdenv.isDarwin [
-          # Matplotlib tests are broken inside darwin sandbox
-          "skimage/feature/tests/test_util.py::test_plot_matches"
-          "skimage/filters/tests/test_thresholding.py::TestSimpleImage::test_try_all_threshold"
-          "skimage/io/tests/test_mpl_imshow.py::"
-        ]
-      );
+    disabledTestPaths = [
+      # Requires network access (actually some data is loaded via `skimage._shared.testing.fetch` in the global scope, which calls `pytest.skip` when a network is unaccessible, leading to a pytest collection error).
+      "${installedPackageRoot}/skimage/filters/rank/tests/test_rank.py"
+    ];
+    pytestFlagsArray = [ "${installedPackageRoot}" "--pyargs" "skimage" ]
+      ++ builtins.map (testid: "--deselect=" + testid) ([
+        # These tests require network access
+        "skimage/data/test_data.py::test_skin"
+        "skimage/data/tests/test_data.py::test_skin"
+        "skimage/io/tests/test_io.py::test_imread_http_url"
+        "skimage/restoration/tests/test_rolling_ball.py::test_ndim"
+      ] ++ lib.optionals stdenv.isDarwin [
+        # Matplotlib tests are broken inside darwin sandbox
+        "skimage/feature/tests/test_util.py::test_plot_matches"
+        "skimage/filters/tests/test_thresholding.py::TestSimpleImage::test_try_all_threshold"
+        "skimage/io/tests/test_mpl_imshow.py::"
+      ]);
 
     # Check cythonized modules
     pythonImportsCheck = [
@@ -112,9 +82,7 @@ let
       "skimage.segmentation"
     ];
 
-    passthru.tests = {
-      all-tests = self.override { doCheck = true; };
-    };
+    passthru.tests = { all-tests = self.override { doCheck = true; }; };
 
     meta = {
       description = "Image processing routines for SciPy";
@@ -123,5 +91,4 @@ let
       maintainers = with lib.maintainers; [ yl3dy ];
     };
   };
-in
-self
+in self

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libX11,
-  xorgproto,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libX11, xorgproto }:
 
 stdenv.mkDerivation {
   pname = "wmderlandc";
@@ -22,10 +15,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libX11
-    xorgproto
-  ];
+  buildInputs = [ libX11 xorgproto ];
 
   meta = with lib; {
     description = "A tiny program to interact with wmderland";

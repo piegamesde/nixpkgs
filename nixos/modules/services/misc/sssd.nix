@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.sssd;
@@ -11,9 +6,9 @@ let
 
   dataDir = "/var/lib/sssd";
   settingsFile = "${dataDir}/sssd.conf";
-  settingsFileUnsubstituted = pkgs.writeText "${dataDir}/sssd-unsubstituted.conf" cfg.config;
-in
-{
+  settingsFileUnsubstituted =
+    pkgs.writeText "${dataDir}/sssd-unsubstituted.conf" cfg.config;
+in {
   options = {
     services.sssd = {
       enable = mkEnableOption (lib.mdDoc "the System Security Services Daemon");
@@ -90,18 +85,9 @@ in
       systemd.services.sssd = {
         description = "System Security Services Daemon";
         wantedBy = [ "multi-user.target" ];
-        before = [
-          "systemd-user-sessions.service"
-          "nss-user-lookup.target"
-        ];
-        after = [
-          "network-online.target"
-          "nscd.service"
-        ];
-        requires = [
-          "network-online.target"
-          "nscd.service"
-        ];
+        before = [ "systemd-user-sessions.service" "nss-user-lookup.target" ];
+        after = [ "network-online.target" "nscd.service" ];
+        requires = [ "network-online.target" "nscd.service" ];
         wants = [ "nss-user-lookup.target" ];
         restartTriggers = [
           config.environment.etc."nscd.conf".source
@@ -117,7 +103,8 @@ in
           PIDFile = "/run/sssd.pid";
           StateDirectory = baseNameOf dataDir;
           # We cannot use LoadCredential here because it's not available in ExecStartPre
-          EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+          EnvironmentFile =
+            lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         };
         preStart = ''
           mkdir -p "${dataDir}/conf.d"
@@ -171,7 +158,8 @@ in
           exec ${pkgs.sssd}/bin/sss_ssh_authorizedkeys "$@"
         '';
       };
-      services.openssh.authorizedKeysCommand = "/etc/ssh/authorized_keys_command";
+      services.openssh.authorizedKeysCommand =
+        "/etc/ssh/authorized_keys_command";
       services.openssh.authorizedKeysCommandUser = "nobody";
     })
   ];

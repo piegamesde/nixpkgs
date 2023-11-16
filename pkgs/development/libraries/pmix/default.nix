@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-  autoconf,
-  automake,
-  libtool,
-  flex,
-  libevent,
-  hwloc,
-  munge,
-  zlib,
-  pandoc,
-}:
+{ lib, stdenv, fetchFromGitHub, perl, autoconf, automake, libtool, flex
+, libevent, hwloc, munge, zlib, pandoc }:
 
 stdenv.mkDerivation rec {
   pname = "pmix";
@@ -30,21 +17,9 @@ stdenv.mkDerivation rec {
     patchShebangs ./config
   '';
 
-  nativeBuildInputs = [
-    pandoc
-    perl
-    autoconf
-    automake
-    libtool
-    flex
-  ];
+  nativeBuildInputs = [ pandoc perl autoconf automake libtool flex ];
 
-  buildInputs = [
-    libevent
-    hwloc
-    munge
-    zlib
-  ];
+  buildInputs = [ libevent hwloc munge zlib ];
 
   configureFlags = [
     "--with-libevent=${libevent.dev}"
@@ -66,3 +41,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
+

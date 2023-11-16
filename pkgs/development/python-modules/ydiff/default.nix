@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  docutils,
-  pygments,
-  gitMinimal,
-  mercurial,
-  subversion,
-  patchutils,
-  less,
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils, pygments, gitMinimal, mercurial
+, subversion, patchutils, less }:
 
 buildPythonPackage rec {
   pname = "ydiff";
@@ -34,10 +24,7 @@ buildPythonPackage rec {
     patchShebangs tests/*.sh
   '';
 
-  nativeCheckInputs = [
-    docutils
-    pygments
-  ];
+  nativeCheckInputs = [ docutils pygments ];
 
   checkPhase = ''
     runHook preCheck

@@ -1,24 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  sqlite,
-  libosmoabis,
-  libosmo-netif,
-  libosmo-sccp,
-  osmo-mgw,
-  osmo-hlr,
-  lksctp-tools,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore, sqlite
+, libosmoabis, libosmo-netif, libosmo-sccp, osmo-mgw, osmo-hlr, lksctp-tools }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-msc";
   version = "1.10.0";
 
@@ -33,10 +18,7 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
     libosmocore
@@ -52,7 +34,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "Osmocom implementation of 3GPP Mobile Swtiching Centre (MSC)";
+    description =
+      "Osmocom implementation of 3GPP Mobile Swtiching Centre (MSC)";
     homepage = "https://osmocom.org/projects/osmomsc/wiki";
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ janik ];

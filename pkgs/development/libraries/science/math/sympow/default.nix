@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  fetchpatch,
-  makeWrapper,
-  which,
-  autoconf,
-  help2man,
-  file,
-  pari,
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, makeWrapper, which, autoconf
+, help2man, file, pari }:
 
 stdenv.mkDerivation rec {
   version = "2.023.6";
@@ -36,14 +26,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    which
-    autoconf
-    help2man
-    file
-    pari
-  ];
+  nativeBuildInputs = [ makeWrapper which autoconf help2man file pari ];
 
   configurePhase = ''
     runHook preConfigure
@@ -74,7 +57,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Compute special values of symmetric power elliptic curve L-functions";
+    description =
+      "Compute special values of symmetric power elliptic curve L-functions";
     license = {
       shortName = "sympow";
       fullName = "Custom, BSD-like. See COPYING file.";

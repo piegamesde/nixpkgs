@@ -1,26 +1,7 @@
-{
-  stdenv,
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  extra-cmake-modules,
-  pkg-config,
-  libpthreadstubs,
-  libxcb,
-  libXdmcp,
-  qtsvg,
-  qttools,
-  qtwebengine,
-  qtx11extras,
-  qtwayland,
-  wrapQtAppsHook,
-  kwallet,
-  kpurpose,
-  karchive,
-  kio,
-}:
+{ stdenv, mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake
+, extra-cmake-modules, pkg-config, libpthreadstubs, libxcb, libXdmcp, qtsvg
+, qttools, qtwebengine, qtx11extras, qtwayland, wrapQtAppsHook, kwallet
+, kpurpose, karchive, kio }:
 
 mkDerivation rec {
   pname = "falkon";
@@ -46,13 +27,8 @@ mkDerivation rec {
     kio
   ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs =
+    [ cmake extra-cmake-modules pkg-config qttools wrapQtAppsHook ];
 
   meta = with lib; {
     description = "QtWebEngine based cross-platform web browser";

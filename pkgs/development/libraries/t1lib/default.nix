@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  libX11,
-  libXaw,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, libX11, libXaw }:
 
 let
-  getPatch =
-    { name, sha256 }:
+  getPatch = { name, sha256 }:
     fetchpatch {
       inherit name sha256;
       url =
@@ -40,8 +32,7 @@ let
     }
     # this ^ also fixes CVE-2011-5244
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "t1lib";
   version = "5.1.2";
 
@@ -51,10 +42,7 @@ stdenv.mkDerivation rec {
   };
   inherit patches;
 
-  buildInputs = [
-    libX11
-    libXaw
-  ];
+  buildInputs = [ libX11 libXaw ];
   buildFlags = [ "without_doc" ];
 
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
@@ -65,10 +53,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.t1lib.org/";
     description = "A type 1 font rasterizer library for UNIX/X11";
-    license = with licenses; [
-      gpl2
-      lgpl2
-    ];
+    license = with licenses; [ gpl2 lgpl2 ];
     platforms = platforms.unix;
   };
 }

@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  cmake,
-  desktop-file-utils,
-  wrapGAppsHook4,
-  onnxruntime,
-  libadwaita,
-  libpulseaudio,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, meson, ninja, pkg-config, cmake
+, desktop-file-utils, wrapGAppsHook4, onnxruntime, libadwaita, libpulseaudio
+, xorg, }:
 let
   aprilAsr = fetchFromGitHub {
     name = "april-asr";
@@ -28,8 +15,7 @@ let
     url = "https://april.sapples.net/april-english-dev-01110_en.april";
     hash = "sha256-d+uV0PpPdwijfoaMImUwHubELcsl5jymPuo9nLrbwfM=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "livecaptions";
   version = "0.4.0";
 
@@ -49,12 +35,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    onnxruntime
-    libadwaita
-    libpulseaudio
-    xorg.libX11
-  ];
+  buildInputs = [ onnxruntime libadwaita libpulseaudio xorg.libX11 ];
 
   postUnpack = ''
     rm -r source/subprojects/april-asr

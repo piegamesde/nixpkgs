@@ -1,13 +1,8 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
-let
-  bName = "check_esxi_hardware";
-in
-python3Packages.buildPythonApplication rec {
+let bName = "check_esxi_hardware";
+
+in python3Packages.buildPythonApplication rec {
   pname = lib.replaceStrings [ "_" ] [ "-" ] bName;
   version = "20200710";
   format = "other";
@@ -31,11 +26,7 @@ python3Packages.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  propagatedBuildInputs = with python3Packages; [
-    pywbem
-    requests
-    setuptools
-  ];
+  propagatedBuildInputs = with python3Packages; [ pywbem requests setuptools ];
 
   meta = with lib; {
     homepage = "https://www.claudiokuenzler.com/nagios-plugins/";

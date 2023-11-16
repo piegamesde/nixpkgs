@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  llvmPackages,
-}:
+{ lib, stdenv, fetchurl, unzip, llvmPackages }:
 
 stdenv.mkDerivation rec {
   pname = "bayescan";
@@ -38,7 +32,8 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
 
   meta = with lib; {
-    description = "Detecting natural selection from population-based genetic data";
+    description =
+      "Detecting natural selection from population-based genetic data";
     homepage = "http://cmpg.unibe.ch/software/BayeScan";
     license = licenses.gpl3;
     maintainers = [ maintainers.bzizou ];

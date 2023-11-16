@@ -1,19 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  buildPythonPackage,
-  click,
-  dateparser,
-  fetchFromGitHub,
-  marshmallow-dataclass,
-  poetry-core,
-  pyjwt,
-  pythonOlder,
-  pytest-asyncio,
-  pytestCheckHook,
-  tabulate,
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, click, dateparser
+, fetchFromGitHub, marshmallow-dataclass, poetry-core, pyjwt, pythonOlder
+, pytest-asyncio, pytestCheckHook, tabulate }:
 
 buildPythonPackage rec {
   pname = "renault-api";
@@ -31,20 +18,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    click
-    dateparser
-    marshmallow-dataclass
-    pyjwt
-    tabulate
-  ];
+  propagatedBuildInputs =
+    [ aiohttp click dateparser marshmallow-dataclass pyjwt tabulate ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses pytest-asyncio pytestCheckHook ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
@@ -53,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to interact with the Renault API";
     homepage = "https://github.com/hacf-fr/renault-api";
-    changelog = "https://github.com/hacf-fr/renault-api/releases/tag/v${version}";
+    changelog =
+      "https://github.com/hacf-fr/renault-api/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

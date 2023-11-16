@@ -1,29 +1,20 @@
-{
-  lib,
-  buildDotnetModule,
-  dotnetCorePackages,
-  fetchFromGitHub,
-  SDL2,
-  freetype,
-  openal,
-  lua51Packages,
-}:
+{ lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, SDL2, freetype
+, openal, lua51Packages }:
 engine:
 
 buildDotnetModule rec {
   pname = "openra-${engine.build}";
   inherit (engine) version;
 
-  src =
-    if engine ? src then
-      engine.src
-    else
-      fetchFromGitHub {
-        owner = "OpenRA";
-        repo = "OpenRA";
-        rev = "${engine.build}-${engine.version}";
-        sha256 = engine.sha256;
-      };
+  src = if engine ? src then
+    engine.src
+  else
+    fetchFromGitHub {
+      owner = "OpenRA";
+      repo = "OpenRA";
+      rev = "${engine.build}-${engine.version}";
+      sha256 = engine.sha256;
+    };
 
   nugetDeps = engine.deps;
 
@@ -32,7 +23,9 @@ buildDotnetModule rec {
 
   useAppHost = false;
 
-  dotnetFlags = [ "-p:Version=0.0.0.0" ]; # otherwise dotnet build complains, version is saved in VERSION file anyway
+  dotnetFlags = [
+    "-p:Version=0.0.0.0"
+  ]; # otherwise dotnet build complains, version is saved in VERSION file anyway
 
   dotnetBuildFlags = [ "-p:TargetPlaform=unix-generic" ];
   dotnetInstallFlags = [
@@ -82,7 +75,8 @@ buildDotnetModule rec {
   '';
 
   meta = with lib; {
-    description = "Open Source real-time strategy game engine for early Westwood games such as Command & Conquer: Red Alert. ${engine.build} version.";
+    description =
+      "Open Source real-time strategy game engine for early Westwood games such as Command & Conquer: Red Alert. ${engine.build} version.";
     homepage = "https://www.openra.net/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ mdarocha ];

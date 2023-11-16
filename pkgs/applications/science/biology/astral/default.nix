@@ -1,17 +1,8 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  jdk8,
-  makeWrapper,
-  jre8,
-  zip,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, jdk8, makeWrapper, jre8, zip }:
 let
   jdk = jdk8;
   jre = jre8;
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "astral";
   version = "5.7.1";
 
@@ -22,12 +13,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "043w2z6gbrisqirdid022f4b8jps1pp5syi344krv2bis1gjq5sn";
   };
 
-  nativeBuildInputs = [
-    jdk
-    makeWrapper
-    jre
-    zip
-  ];
+  nativeBuildInputs = [ jdk makeWrapper jre zip ];
 
   buildPhase = ''
     patchShebangs ./make.sh
@@ -55,7 +41,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/smirarab/ASTRAL";
-    description = "Tool for estimating an unrooted species tree given a set of unrooted gene trees";
+    description =
+      "Tool for estimating an unrooted species tree given a set of unrooted gene trees";
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryBytecode # source bundles dependencies as jars

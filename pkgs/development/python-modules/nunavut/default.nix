@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  importlib-resources,
-  pydsdl,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, importlib-resources, pydsdl
+, pyyaml }:
 
 buildPythonPackage rec {
   pname = "nunavut";
@@ -25,11 +18,7 @@ buildPythonPackage rec {
       --replace "pydsdl ~= 1.16" "pydsdl"
   '';
 
-  propagatedBuildInputs = [
-    importlib-resources
-    pydsdl
-    pyyaml
-  ];
+  propagatedBuildInputs = [ importlib-resources pydsdl pyyaml ];
 
   # allow for writable directory for darwin
   preBuild = ''
@@ -51,9 +40,6 @@ buildPythonPackage rec {
     homepage = "https://nunavut.readthedocs.io/";
     changelog = "https://github.com/OpenCyphal/nunavut/releases/tag/${version}";
     maintainers = with maintainers; [ wucke13 ];
-    license = with licenses; [
-      bsd3
-      mit
-    ];
+    license = with licenses; [ bsd3 mit ];
   };
 }

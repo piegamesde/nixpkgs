@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  uget,
-  python3Packages,
-}:
+{ lib, stdenv, fetchFromGitHub, uget, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "uget-integrator";
@@ -19,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python3Packages.wrapPython ];
 
-  buildInputs = [
-    uget
-    python3Packages.python
-  ];
+  buildInputs = [ uget python3Packages.python ];
 
   installPhase = ''
     for f in conf/com.ugetdm.{chrome,firefox}.json; do
@@ -39,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Native messaging host to integrate uGet Download Manager with web browsers";
+    description =
+      "Native messaging host to integrate uGet Download Manager with web browsers";
     homepage = "https://github.com/ugetdm/uget-integrator";
     license = licenses.gpl3;
     platforms = platforms.linux;

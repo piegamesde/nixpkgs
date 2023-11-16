@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  cmigemo,
-  pytestCheckHook,
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, six, cmigemo, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "cmigemo";

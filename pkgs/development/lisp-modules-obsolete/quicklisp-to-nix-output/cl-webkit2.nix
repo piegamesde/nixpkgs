@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-webkit2";
   version = "cl-webkit-20211209-git";
 
@@ -26,7 +25,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-webkit/2021-12-09/cl-webkit-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-webkit/2021-12-09/cl-webkit-20211209-git.tgz";
     sha256 = "1lpzp9rb011zbl8j2jpqhal38slyqq1p6cxxjk51h6mdq7x7z1a0";
   };
 

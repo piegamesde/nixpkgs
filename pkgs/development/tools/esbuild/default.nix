@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "esbuild";
@@ -19,20 +15,14 @@ buildGoModule rec {
 
   subPackages = [ "cmd/esbuild" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "An extremely fast JavaScript bundler";
     homepage = "https://esbuild.github.io";
-    changelog = "https://github.com/evanw/esbuild/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/evanw/esbuild/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      lucus16
-      marsam
-      undefined-moe
-    ];
+    maintainers = with maintainers; [ lucus16 marsam undefined-moe ];
   };
 }

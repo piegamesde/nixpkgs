@@ -1,10 +1,4 @@
-{
-  buildDunePackage,
-  qcheck-core,
-  qcheck,
-  ppxlib,
-  ppx_deriving,
-}:
+{ buildDunePackage, qcheck-core, qcheck, ppxlib, ppx_deriving }:
 
 buildDunePackage {
   pname = "ppx_deriving_qcheck";
@@ -13,13 +7,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    qcheck
-    ppxlib
-    ppx_deriving
-  ];
+  propagatedBuildInputs = [ qcheck ppxlib ppx_deriving ];
 
-  meta = qcheck-core.meta // {
-    description = "PPX Deriver for QCheck";
-  };
+  meta = qcheck-core.meta // { description = "PPX Deriver for QCheck"; };
 }

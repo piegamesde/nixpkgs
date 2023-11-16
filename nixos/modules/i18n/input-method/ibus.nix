@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -12,17 +7,9 @@ let
   ibusPackage = pkgs.ibus-with-plugins.override { plugins = cfg.engines; };
   ibusEngine = types.package // {
     name = "ibus-engine";
-    check =
-      x:
+    check = x:
       (lib.types.package.check x)
-      && (attrByPath
-        [
-          "meta"
-          "isIbusEngine"
-        ]
-        false
-        x
-      );
+      && (attrByPath [ "meta" "isIbusEngine" ] false x);
   };
 
   impanel = optionalString (cfg.panel != null) "--panel=${cfg.panel}";
@@ -39,22 +26,14 @@ let
       NotShowIn=GNOME;
     '';
   };
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "programs"
-        "ibus"
-        "plugins"
-      ]
-      [
-        "i18n"
-        "inputMethod"
-        "ibus"
-        "engines"
-      ]
-    )
+    (mkRenamedOptionModule [ "programs" "ibus" "plugins" ] [
+      "i18n"
+      "inputMethod"
+      "ibus"
+      "engines"
+    ])
   ];
 
   options = {
@@ -63,19 +42,17 @@ in
         type = with types; listOf ibusEngine;
         default = [ ];
         example = literalExpression "with pkgs.ibus-engines; [ mozc hangul ]";
-        description =
-          let
-            enginesDrv = filterAttrs (const isDerivation) pkgs.ibus-engines;
-            engines = concatStringsSep ", " (map (name: "`${name}`") (attrNames enginesDrv));
-          in
-          lib.mdDoc "Enabled IBus engines. Available engines are: ${engines}.";
+        description = let
+          enginesDrv = filterAttrs (const isDerivation) pkgs.ibus-engines;
+          engines = concatStringsSep ", "
+            (map (name: "`${name}`") (attrNames enginesDrv));
+        in lib.mdDoc "Enabled IBus engines. Available engines are: ${engines}.";
       };
       panel = mkOption {
         type = with types; nullOr path;
         default = null;
-        example =
-          literalExpression
-            ''"''${pkgs.plasma5Packages.plasma-desktop}/lib/libexec/kimpanel-ibus-panel"'';
+        example = literalExpression ''
+          "''${pkgs.plasma5Packages.plasma-desktop}/lib/libexec/kimpanel-ibus-panel"'';
         description = lib.mdDoc "Replace the IBus panel with another panel.";
       };
     };

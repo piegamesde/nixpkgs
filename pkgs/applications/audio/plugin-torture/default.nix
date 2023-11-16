@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  ladspaH,
-  lilv,
-  lv2,
-  pkg-config,
-  serd,
-  sord,
-  sratom,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, ladspaH, lilv, lv2, pkg-config, serd
+, sord, sratom }:
 
 stdenv.mkDerivation {
   pname = "plugin-torture";
@@ -24,15 +13,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    boost
-    ladspaH
-    lilv
-    lv2
-    serd
-    sord
-    sratom
-  ];
+  buildInputs = [ boost ladspaH lilv lv2 serd sord sratom ];
 
   installPhase = ''
     mkdir -p $out/bin

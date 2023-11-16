@@ -8,4 +8,5 @@ faust.wrap {
   baseName = "faust2firefox";
 
   runtimeInputs = [ xdg-utils ];
+
 }

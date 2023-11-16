@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "btrfs";
@@ -22,9 +18,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/knorrie/python-btrfs";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      evils
-      Luflosi
-    ];
+    maintainers = with maintainers; [ evils Luflosi ];
   };
 }

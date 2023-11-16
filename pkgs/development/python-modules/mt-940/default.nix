@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  enum34,
-  pyyaml,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, enum34, pyyaml, pytest }:
 
 buildPythonPackage rec {
   version = "4.28.0";
@@ -19,10 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optional (!isPy3k) enum34;
 
-  nativeCheckInputs = [
-    pyyaml
-    pytest
-  ];
+  nativeCheckInputs = [ pyyaml pytest ];
 
   # requires tests files that are not present
   doCheck = false;
@@ -33,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mt940" ];
 
   meta = with lib; {
-    description = "A library to parse MT940 files and returns smart Python collections for statistics and manipulation";
+    description =
+      "A library to parse MT940 files and returns smart Python collections for statistics and manipulation";
     homepage = "https://github.com/WoLpH/mt940";
     license = licenses.bsd3;
   };

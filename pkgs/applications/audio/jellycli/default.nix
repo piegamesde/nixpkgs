@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  alsa-lib,
-}:
+{ stdenv, lib, fetchFromGitHub, buildGoModule, alsa-lib }:
 
 buildGoModule rec {
   pname = "jellycli";
@@ -19,11 +13,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-3tmNZd1FH1D/1w4gRmaul2epKb70phSUAjUBCbPV3Ak=";
 
-  patches =
-    [
-      # Fixes log file path for tests.
-      ./fix-test-dir.patch
-    ];
+  patches = [
+    # Fixes log file path for tests.
+    ./fix-test-dir.patch
+  ];
 
   buildInputs = [ alsa-lib ];
 

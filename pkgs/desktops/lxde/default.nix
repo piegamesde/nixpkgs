@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-}:
+{ config, lib, pkgs }:
 
-lib.makeScope pkgs.newScope (
-  self:
+lib.makeScope pkgs.newScope (self:
   with self; {
 
     inherit (pkgs) gtk2-x11;
@@ -26,5 +21,4 @@ lib.makeScope pkgs.newScope (
     lxsession = callPackage ./core/lxsession { };
 
     lxtask = callPackage ./core/lxtask { };
-  }
-)
+  })

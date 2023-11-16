@@ -1,16 +1,9 @@
-{
-  stdenv,
-  coq,
-  simple-io,
-}:
+{ stdenv, coq, simple-io }:
 
 stdenv.mkDerivation {
   pname = "coq-simple-io-test";
   inherit (simple-io) src version;
-  nativeCheckInputs = [
-    coq
-    simple-io
-  ];
+  nativeCheckInputs = [ coq simple-io ];
   dontConfigure = true;
   dontBuild = true;
   doCheck = true;
@@ -24,4 +17,5 @@ stdenv.mkDerivation {
   '';
 
   installPhase = "touch $out";
+
 }

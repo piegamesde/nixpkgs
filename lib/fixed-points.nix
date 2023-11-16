@@ -1,5 +1,4 @@
-{ lib, ... }:
-rec {
+{ lib, ... }: rec {
   # Compute the fixed point of the given function `f`, which is usually an
   # attribute set that expects its final, non-recursive representation as an
   # argument:
@@ -16,37 +15,20 @@ rec {
   #
   # See https://en.wikipedia.org/wiki/Fixed-point_combinator for further
   # details.
-  fix =
-    f:
-    let
-      x = f x;
-    in
-    x;
+  fix = f: let x = f x; in x;
 
   # A variant of `fix` that records the original recursive attribute set in the
   # result. This is useful in combination with the `extends` function to
   # implement deep overriding. See pkgs/development/haskell-modules/default.nix
   # for a concrete example.
-  fix' =
-    f:
-    let
-      x = f x // {
-        __unfix__ = f;
-      };
-    in
-    x;
+  fix' = f: let x = f x // { __unfix__ = f; }; in x;
 
   # Return the fixpoint that `f` converges to when called recursively, starting
   # with the input `x`.
   #
   #     nix-repl> converge (x: x / 2) 16
   #     0
-  converge =
-    f: x:
-    let
-      x' = f x;
-    in
-    if x' == x then x else converge f x';
+  converge = f: x: let x' = f x; in if x' == x then x else converge f x';
 
   # Modify the contents of an explicitly recursive attribute set in a way that
   # honors `self`-references. This is accomplished with a function
@@ -77,23 +59,16 @@ rec {
   #             = self: { foo = "foo"; bar = "bar"; foobar = self.foo + self.bar; } // { foo = "foo" + " + "; }
   #             = self: { foo = "foo + "; bar = "bar"; foobar = self.foo + self.bar; }
   #
-  extends =
-    f: rattrs: self:
-    let
-      super = rattrs self;
-    in
-    super // f self super;
+  extends = f: rattrs: self: let super = rattrs self; in super // f self super;
 
   # Compose two extending functions of the type expected by 'extends'
   # into one where changes made in the first are available in the
   # 'super' of the second
-  composeExtensions =
-    f: g: final: prev:
+  composeExtensions = f: g: final: prev:
     let
       fApplied = f final prev;
       prev' = prev // fApplied;
-    in
-    fApplied // g final prev';
+    in fApplied // g final prev';
 
   # Compose several extending functions of the type expected by 'extends' into
   # one where changes made in preceding functions are made available to
@@ -101,7 +76,8 @@ rec {
   #
   # composeManyExtensions : [packageSet -> packageSet -> packageSet] -> packageSet -> packageSet -> packageSet
   #                          ^final        ^prev         ^overrides     ^final        ^prev         ^overrides
-  composeManyExtensions = lib.foldr (x: y: composeExtensions x y) (final: prev: { });
+  composeManyExtensions =
+    lib.foldr (x: y: composeExtensions x y) (final: prev: { });
 
   # Create an overridable, recursive attribute set. For example:
   #
@@ -123,13 +99,10 @@ rec {
 
   # Same as `makeExtensible` but the name of the extending attribute is
   # customized.
-  makeExtensibleWithCustomName =
-    extenderName: rattrs:
-    fix' (
-      self:
-      (rattrs self)
-      // {
-        ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs);
-      }
-    );
+  makeExtensibleWithCustomName = extenderName: rattrs:
+    fix' (self:
+      (rattrs self) // {
+        ${extenderName} = f:
+          makeExtensibleWithCustomName extenderName (extends f rattrs);
+      });
 }

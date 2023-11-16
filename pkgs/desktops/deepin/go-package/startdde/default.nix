@@ -1,25 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  buildGoPackage,
-  pkg-config,
-  go-dbus-factory,
-  go-gir-generator,
-  go-lib,
-  gettext,
-  dde-api,
-  libgnome-keyring,
-  gtk3,
-  alsa-lib,
-  libpulseaudio,
-  libgudev,
-  libsecret,
-  jq,
-  wrapGAppsHook,
-  runtimeShell,
-  dde-polkit-agent,
-}:
+{ stdenv, lib, fetchFromGitHub, buildGoPackage, pkg-config, go-dbus-factory
+, go-gir-generator, go-lib, gettext, dde-api, libgnome-keyring, gtk3, alsa-lib
+, libpulseaudio, libgudev, libsecret, jq, wrapGAppsHook, runtimeShell
+, dde-polkit-agent }:
 
 buildGoPackage rec {
   pname = "startdde";
@@ -51,12 +33,7 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs = [
-    gettext
-    pkg-config
-    jq
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext pkg-config jq wrapGAppsHook ];
 
   buildInputs = [
     go-dbus-factory

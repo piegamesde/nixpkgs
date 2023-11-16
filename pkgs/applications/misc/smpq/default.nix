@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  StormLib,
-}:
+{ lib, stdenv, fetchurl, cmake, StormLib }:
 
 stdenv.mkDerivation rec {
   pname = "smpq";
   version = "1.6";
 
   src = fetchurl {
-    url = "https://launchpad.net/smpq/trunk/${version}/+download/${pname}_${version}.orig.tar.gz";
+    url =
+      "https://launchpad.net/smpq/trunk/${version}/+download/${pname}_${version}.orig.tar.gz";
     sha256 = "1jqq5x3b17jy66x3kkf5hs5l322dx2v14djxxrqrnqp8bn5drlmm";
   };
 
@@ -25,9 +20,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/smpq";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      aanderse
-      karolchmist
-    ];
+    maintainers = with maintainers; [ aanderse karolchmist ];
   };
 }

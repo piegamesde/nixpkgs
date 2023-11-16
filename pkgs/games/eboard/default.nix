@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-  pkg-config,
-  gtk2,
-}:
+{ lib, stdenv, fetchurl, perl, pkg-config, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "eboard";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   patches = [ ./eboard.patch ];
 
   buildInputs = [ gtk2 ];
-  nativeBuildInputs = [
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ perl pkg-config ];
 
   hardeningDisable = [ "format" ];
 

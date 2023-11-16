@@ -1,31 +1,24 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.varnish;
 
-  commandLine =
-    "-f ${pkgs.writeText "default.vcl" cfg.config}"
-    +
-      optionalString (cfg.extraModules != [ ])
-        " -p vmod_path='${
-           makeSearchPathOutput "lib" "lib/varnish/vmods" ([ cfg.package ] ++ cfg.extraModules)
-         }' -r vmod_path";
-in
-{
+  commandLine = "-f ${pkgs.writeText "default.vcl" cfg.config}"
+    + optionalString (cfg.extraModules != [ ]) " -p vmod_path='${
+       makeSearchPathOutput "lib" "lib/varnish/vmods"
+       ([ cfg.package ] ++ cfg.extraModules)
+     }' -r vmod_path";
+in {
   options = {
     services.varnish = {
       enable = mkEnableOption (lib.mdDoc "Varnish Server");
 
-      enableConfigCheck = mkEnableOption (lib.mdDoc "checking the config during build time") // {
-        default = true;
-      };
+      enableConfigCheck =
+        mkEnableOption (lib.mdDoc "checking the config during build time") // {
+          default = true;
+        };
 
       package = mkOption {
         type = types.package;
@@ -54,7 +47,8 @@ in
       stateDir = mkOption {
         type = types.path;
         default = "/var/spool/varnish/${config.networking.hostName}";
-        defaultText = literalExpression ''"/var/spool/varnish/''${config.networking.hostName}"'';
+        defaultText = literalExpression
+          ''"/var/spool/varnish/''${config.networking.hostName}"'';
         description = lib.mdDoc ''
           Directory holding all state for Varnish to run.
         '';
@@ -78,6 +72,7 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -96,7 +91,8 @@ in
       serviceConfig = {
         Type = "simple";
         PermissionsStartOnly = true;
-        ExecStart = "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}";
+        ExecStart =
+          "${cfg.package}/sbin/varnishd -a ${cfg.http_address} -n ${cfg.stateDir} -F ${cfg.extraCommandLine} ${commandLine}";
         Restart = "always";
         RestartSec = "5s";
         User = "varnish";

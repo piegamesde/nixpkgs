@@ -1,24 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  isPyPy,
-  fetchFromGitHub,
-  attrs,
-  exceptiongroup,
-  pexpect,
-  doCheck ? true,
-  pytestCheckHook,
-  pytest-xdist,
-  sortedcontainers,
-  pythonOlder,
-  sphinxHook,
-  sphinx-rtd-theme,
-  sphinx-hoverxref,
-  sphinx-codeautolink,
-  tzdata,
-  # Used to break internal dependency loop.
-  enableDocumentation ? true,
-}:
+{ lib, buildPythonPackage, isPyPy, fetchFromGitHub, attrs, exceptiongroup
+, pexpect, doCheck ? true, pytestCheckHook, pytest-xdist, sortedcontainers
+, pythonOlder, sphinxHook, sphinx-rtd-theme, sphinx-hoverxref
+, sphinx-codeautolink, tzdata
+# Used to break internal dependency loop.
+, enableDocumentation ? true }:
 
 buildPythonPackage rec {
   pname = "hypothesis";
@@ -57,16 +42,11 @@ buildPythonPackage rec {
     sphinx-codeautolink
   ];
 
-  propagatedBuildInputs = [
-    attrs
-    sortedcontainers
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  propagatedBuildInputs = [ attrs sortedcontainers ]
+    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
-  nativeCheckInputs = [
-    pexpect
-    pytest-xdist
-    pytestCheckHook
-  ] ++ lib.optionals (isPyPy) [ tzdata ];
+  nativeCheckInputs = [ pexpect pytest-xdist pytestCheckHook ]
+    ++ lib.optionals (isPyPy) [ tzdata ];
 
   inherit doCheck;
 

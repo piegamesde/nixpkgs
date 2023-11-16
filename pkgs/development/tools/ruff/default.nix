@@ -1,13 +1,6 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  darwin,
-  # tests
-  ruff-lsp,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, darwin
+# tests
+, ruff-lsp }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ruff";
@@ -24,14 +17,17 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "libcst-0.1.0" = "sha256-jG9jYJP4reACkFLrQBWOYH6nbKniNyFVItD0cTZ+nW0=";
-      "ruff_text_size-0.0.0" = "sha256-hiM4+YAb0UUt8mUoKhMqTAiR3hCyoRMyEDe6di6Ohrc=";
-      "unicode_names2-0.6.0" = "sha256-eWg9+ISm/vztB0KIdjhq5il2ZnwGJQCleCYfznCI3Wg=";
+      "ruff_text_size-0.0.0" =
+        "sha256-hiM4+YAb0UUt8mUoKhMqTAiR3hCyoRMyEDe6di6Ohrc=";
+      "unicode_names2-0.6.0" =
+        "sha256-eWg9+ISm/vztB0KIdjhq5il2ZnwGJQCleCYfznCI3Wg=";
     };
   };
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
   cargoBuildFlags = [ "--package=ruff_cli" ];
   cargoTestFlags = cargoBuildFlags;
@@ -49,14 +45,13 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/ruff generate-shell-completion zsh)
   '';
 
-  passthru.tests = {
-    inherit ruff-lsp;
-  };
+  passthru.tests = { inherit ruff-lsp; };
 
   meta = with lib; {
     description = "An extremely fast Python linter";
     homepage = "https://github.com/charliermarsh/ruff";
-    changelog = "https://github.com/charliermarsh/ruff/releases/tag/v${version}";
+    changelog =
+      "https://github.com/charliermarsh/ruff/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

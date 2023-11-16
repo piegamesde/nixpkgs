@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  colorama,
-  intervaltree,
-  json5,
-  pyyaml,
-  scipy,
-  tqdm,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, colorama, intervaltree, json5, pyyaml, scipy, tqdm, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "graphtage";
@@ -31,15 +19,8 @@ buildPythonPackage rec {
       --replace "json5==0.9.5" "json5>=0.9.5"
   '';
 
-  propagatedBuildInputs = [
-    colorama
-    intervaltree
-    json5
-    pyyaml
-    scipy
-    tqdm
-    typing-extensions
-  ];
+  propagatedBuildInputs =
+    [ colorama intervaltree json5 pyyaml scipy tqdm typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -48,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A utility to diff tree-like files such as JSON and XML";
     homepage = "https://github.com/trailofbits/graphtage";
-    changelog = "https://github.com/trailofbits/graphtage/releases/tag/v${version}";
+    changelog =
+      "https://github.com/trailofbits/graphtage/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ veehaitch ];
   };

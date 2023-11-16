@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "crex";
@@ -23,7 +18,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "Explore, test, and check regular expressions in the terminal";
+    description =
+      "Explore, test, and check regular expressions in the terminal";
     homepage = "https://octobanana.com/software/crex";
     license = licenses.mit;
     maintainers = with maintainers; [ dtzWill ];

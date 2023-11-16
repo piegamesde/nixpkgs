@@ -1,39 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  wrapQtAppsHook,
-  freeglut,
-  freealut,
-  libGLU,
-  libGL,
-  libICE,
-  libjpeg,
-  openal,
-  openscenegraph,
-  plib,
-  libSM,
-  libunwind,
-  libX11,
-  xorgproto,
-  libXext,
-  libXi,
-  libXmu,
-  libXt,
-  simgear,
-  zlib,
-  boost,
-  cmake,
-  libpng,
-  udev,
-  fltk13,
-  apr,
-  makeDesktopItem,
-  qtbase,
-  qtdeclarative,
-  glew,
-  curl,
-}:
+{ lib, stdenv, fetchurl, wrapQtAppsHook, freeglut, freealut, libGLU, libGL
+, libICE, libjpeg, openal, openscenegraph, plib, libSM, libunwind, libX11
+, xorgproto, libXext, libXi, libXmu, libXt, simgear, zlib, boost, cmake, libpng
+, udev, fltk13, apr, makeDesktopItem, qtbase, qtdeclarative, glew, curl }:
 
 let
   version = "2020.3.18";
@@ -43,7 +11,8 @@ let
     inherit version;
 
     src = fetchurl {
-      url = "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz";
+      url =
+        "mirror://sourceforge/flightgear/release-${shortVersion}/FlightGear-${version}-data.txz";
       sha256 = "sha256-U8lsHrw40Xo6a3jZw6GiPnOALvvg9PdecVAdkZewUjg=";
     };
 
@@ -54,14 +23,14 @@ let
       tar xf "${src}" -C "$out/share/FlightGear/" --strip-components=1
     '';
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "flightgear";
   # inheriting data for `nix-prefetch-url -A pkgs.flightgear.data.src`
   inherit version data;
 
   src = fetchurl {
-    url = "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
+    url =
+      "mirror://sourceforge/flightgear/release-${shortVersion}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-OajjGj/Bgqg8H/6PjXkwJHwbSQqtzbQ1b3Xwk3aI3jc=";
   };
 
@@ -79,16 +48,10 @@ stdenv.mkDerivation rec {
     comment = "FlightGear Flight Simulator";
     desktopName = "FlightGear";
     genericName = "Flight simulator";
-    categories = [
-      "Game"
-      "Simulation"
-    ];
+    categories = [ "Game" "Simulation" ];
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
   buildInputs = [
     freeglut
     freealut

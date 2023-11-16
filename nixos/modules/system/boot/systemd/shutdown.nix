@@ -1,38 +1,27 @@
-{
-  config,
-  lib,
-  utils,
-  pkgs,
-  ...
-}:
+{ config, lib, utils, pkgs, ... }:
 let
 
   cfg = config.systemd.shutdownRamfs;
 
-  ramfsContents =
-    let
-      storePaths =
-        map
-          (p: ''
-            ${p}
-          '')
-          cfg.storePaths;
-      contents =
-        lib.mapAttrsToList
-          (_: v: ''
-            ${v.source}
-            ${v.target}'')
-          (lib.filterAttrs (_: v: v.enable) cfg.contents);
-    in
-    pkgs.writeText "shutdown-ramfs-contents" (lib.concatStringsSep "\n" (storePaths ++ contents));
-in
-{
+  ramfsContents = let
+    storePaths = map (p: ''
+      ${p}
+    '') cfg.storePaths;
+    contents = lib.mapAttrsToList (_: v: ''
+      ${v.source}
+      ${v.target}'') (lib.filterAttrs (_: v: v.enable) cfg.contents);
+  in pkgs.writeText "shutdown-ramfs-contents"
+  (lib.concatStringsSep "\n" (storePaths ++ contents));
+
+in {
   options.systemd.shutdownRamfs = {
-    enable = lib.mkEnableOption (lib.mdDoc "pivoting back to an initramfs for shutdown") // {
-      default = true;
-    };
+    enable = lib.mkEnableOption
+      (lib.mdDoc "pivoting back to an initramfs for shutdown") // {
+        default = true;
+      };
     contents = lib.mkOption {
-      description = lib.mdDoc "Set of files that have to be linked into the shutdown ramfs";
+      description =
+        lib.mdDoc "Set of files that have to be linked into the shutdown ramfs";
       example = lib.literalExpression ''
         {
           "/lib/systemd/system-shutdown/zpool-sync-shutdown".source = writeShellScript "zpool" "exec ''${zfs}/bin/zpool sync"
@@ -51,19 +40,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.shutdownRamfs.contents."/shutdown".source = "${config.systemd.package}/lib/systemd/systemd-shutdown";
-    systemd.shutdownRamfs.storePaths = [
-      pkgs.runtimeShell
-      "${pkgs.coreutils}/bin"
-    ];
+    systemd.shutdownRamfs.contents."/shutdown".source =
+      "${config.systemd.package}/lib/systemd/systemd-shutdown";
+    systemd.shutdownRamfs.storePaths =
+      [ pkgs.runtimeShell "${pkgs.coreutils}/bin" ];
 
-    systemd.mounts = [
-      {
-        what = "tmpfs";
-        where = "/run/initramfs";
-        type = "tmpfs";
-      }
-    ];
+    systemd.mounts = [{
+      what = "tmpfs";
+      where = "/run/initramfs";
+      type = "tmpfs";
+    }];
 
     systemd.services.generate-shutdown-ramfs = {
       description = "Generate shutdown ramfs";
@@ -79,7 +65,8 @@ in
         Type = "oneshot";
         ProtectSystem = "strict";
         ReadWritePaths = "/run/initramfs";
-        ExecStart = "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs";
+        ExecStart =
+          "${pkgs.makeInitrdNGTool}/bin/make-initrd-ng ${ramfsContents} /run/initramfs";
       };
     };
   };

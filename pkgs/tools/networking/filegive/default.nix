@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  lib,
-  fetchurl,
-}:
+{ buildGoModule, lib, fetchurl }:
 
 buildGoModule rec {
   pname = "filegive";
@@ -10,16 +6,14 @@ buildGoModule rec {
   rev = "5b28e7087a";
 
   src = fetchurl {
-    url = "https://viric.name/cgi-bin/filegive/tarball/${rev}/filegive-${rev}.tar.gz";
+    url =
+      "https://viric.name/cgi-bin/filegive/tarball/${rev}/filegive-${rev}.tar.gz";
     hash = "sha256-A69oys59GEysZvQLaYsfoX/X2ENMMH2BGfJqXohQjpc=";
   };
 
   vendorHash = "sha256-l7FRl58NWGBynMlGu1SCxeVBEzTdxREvUWzmJDiliZM=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://viric.name/cgi-bin/filegive";

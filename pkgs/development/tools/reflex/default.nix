@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "reflex";
@@ -17,13 +13,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-JCtVYDHbhH2i7tGNK1jvgHCjU6gMMkNhQ2ZnlTeqtmA=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "A small tool to watch a directory and rerun a command when certain files change";
+    description =
+      "A small tool to watch a directory and rerun a command when certain files change";
     homepage = "https://github.com/cespare/reflex";
     license = licenses.mit;
     maintainers = with maintainers; [ nicknovitski ];

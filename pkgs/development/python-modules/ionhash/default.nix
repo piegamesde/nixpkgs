@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  amazon-ion,
-  six,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, amazon-ion, six
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ionhash";
@@ -22,7 +15,8 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/amzn/ion-hash-python/commit/5cab56d694ecc176e394bb455c2d726ba1514ce0.patch";
+      url =
+        "https://github.com/amzn/ion-hash-python/commit/5cab56d694ecc176e394bb455c2d726ba1514ce0.patch";
       hash = "sha256-P5QByNafgxI//e3m+b0oG00+rVymCsT/J4dOZSk3354=";
     })
   ];
@@ -31,10 +25,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "'pytest-runner'," ""
   '';
 
-  propagatedBuildInputs = [
-    amazon-ion
-    six
-  ];
+  propagatedBuildInputs = [ amazon-ion six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

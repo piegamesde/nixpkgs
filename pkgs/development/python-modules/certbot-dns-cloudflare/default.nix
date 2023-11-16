@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  acme,
-  certbot,
-  cloudflare,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ buildPythonPackage, acme, certbot, cloudflare, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "certbot-dns-cloudflare";
@@ -13,11 +6,7 @@ buildPythonPackage rec {
   inherit (certbot) src version;
   disabled = pythonOlder "3.6";
 
-  propagatedBuildInputs = [
-    acme
-    certbot
-    cloudflare
-  ];
+  propagatedBuildInputs = [ acme certbot cloudflare ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

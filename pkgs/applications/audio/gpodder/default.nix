@@ -1,17 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  gitUpdater,
-  glibcLocales,
-  gnome,
-  gobject-introspection,
-  gtk3,
-  intltool,
-  python3,
-  python3Packages,
-  wrapGAppsHook,
-  xdg-utils,
-}:
+{ lib, fetchFromGitHub, gitUpdater, glibcLocales, gnome, gobject-introspection
+, gtk3, intltool, python3, python3Packages, wrapGAppsHook, xdg-utils }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gpodder";
@@ -31,18 +19,10 @@ python3Packages.buildPythonApplication rec {
     sed -i -re 's,^( *gpodder_dir *= *).*,\1"'"$out"'",' bin/gpodder
   '';
 
-  nativeBuildInputs = [
-    intltool
-    wrapGAppsHook
-    glibcLocales
-    gobject-introspection
-  ];
+  nativeBuildInputs =
+    [ intltool wrapGAppsHook glibcLocales gobject-introspection ];
 
-  buildInputs = [
-    python3
-    gtk3
-    gnome.adwaita-icon-theme
-  ];
+  buildInputs = [ python3 gtk3 gnome.adwaita-icon-theme ];
 
   nativeCheckInputs = with python3Packages; [
     minimock
@@ -93,9 +73,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://gpodder.org/";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [
-      skeidel
-      mic92
-    ];
+    maintainers = with maintainers; [ skeidel mic92 ];
   };
 }

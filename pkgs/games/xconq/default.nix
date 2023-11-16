@@ -1,42 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cpio,
-  xorgproto,
-  libX11,
-  libXmu,
-  libXaw,
-  libXt,
-  tcl,
-  tk,
-  libXext,
-  fontconfig,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, cpio, xorgproto, libX11, libXmu, libXaw, libXt, tcl, tk
+, libXext, fontconfig, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "xconq";
   version = "7.5.0-0pre.0.20050612";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/xconq/xconq/xconq-${version}/xconq-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/xconq/xconq/xconq-${version}/xconq-${version}.tar.gz";
     sha256 = "1za78yx57mgwcmmi33wx3533yz1x093dnqis8q2qmqivxav51lca";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    cpio
-    xorgproto
-    libX11
-    libXmu
-    libXaw
-    libXt
-    tcl
-    tk
-    libXext
-    fontconfig
-  ];
+  buildInputs =
+    [ cpio xorgproto libX11 libXmu libXaw libXt tcl tk libXext fontconfig ];
 
   configureFlags = [
     "--enable-alternate-scoresdir=scores"
@@ -44,11 +21,8 @@ stdenv.mkDerivation rec {
     "--with-tkconfig=${tk}/lib"
   ];
 
-  env.CXXFLAGS = toString [
-    "-std=c++11"
-    "-DUSE_INTERP_RESULT"
-    "-Wno-writable-strings"
-  ];
+  env.CXXFLAGS =
+    toString [ "-std=c++11" "-DUSE_INTERP_RESULT" "-Wno-writable-strings" ];
 
   enableParallelBuilding = true;
 

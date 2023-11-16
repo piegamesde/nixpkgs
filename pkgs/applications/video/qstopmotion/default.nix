@@ -1,28 +1,7 @@
-{
-  lib,
-  stdenv,
-  mkDerivation,
-  fetchurl,
-  qtbase,
-  qtmultimedia,
-  qtquickcontrols,
-  qtimageformats,
-  qtxmlpatterns,
-  ffmpeg,
-  guvcview,
-  cmake,
-  ninja,
-  libxml2,
-  gettext,
-  pkg-config,
-  libgphoto2,
-  gphoto2,
-  v4l-utils,
-  libv4l,
-  pcre,
-  qwt,
-  extra-cmake-modules,
-}:
+{ lib, stdenv, mkDerivation, fetchurl, qtbase, qtmultimedia, qtquickcontrols
+, qtimageformats, qtxmlpatterns, ffmpeg, guvcview, cmake, ninja, libxml2
+, gettext, pkg-config, libgphoto2, gphoto2, v4l-utils, libv4l, pcre, qwt
+, extra-cmake-modules }:
 
 mkDerivation rec {
   pname = "qstopmotion";
@@ -67,12 +46,7 @@ mkDerivation rec {
     grep -rl 'qwt' . | xargs sed -i 's@<qwt/qwt_slider.h>@<qwt_slider.h>@g'
   '';
 
-  qtWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [ ffmpeg ])
-  ];
+  qtWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ]) ];
 
   meta = with lib; {
     homepage = "http://www.qstopmotion.org";

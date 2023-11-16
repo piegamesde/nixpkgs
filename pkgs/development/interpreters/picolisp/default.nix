@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jdk,
-  w3m,
-  openssl,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jdk, w3m, openssl, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "picoLisp";
@@ -67,8 +59,6 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateInfo = {
-      downloadPage = "http://www.software-lab.de/down.html";
-    };
+    updateInfo = { downloadPage = "http://www.software-lab.de/down.html"; };
   };
 }

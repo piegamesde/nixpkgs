@@ -1,12 +1,4 @@
-{
-  lib,
-  mkXfceDerivation,
-  gtk3,
-  libnotify,
-  libpulseaudio,
-  keybinder3,
-  xfconf,
-}:
+{ lib, mkXfceDerivation, gtk3, libnotify, libpulseaudio, keybinder3, xfconf }:
 
 mkXfceDerivation {
   category = "apps";
@@ -21,13 +13,7 @@ mkXfceDerivation {
       --replace "2.16" "2.26"
   '';
 
-  buildInputs = [
-    gtk3
-    libnotify
-    libpulseaudio
-    keybinder3
-    xfconf
-  ];
+  buildInputs = [ gtk3 libnotify libpulseaudio keybinder3 xfconf ];
 
   meta = with lib; {
     description = "A volume keys control daemon for Xfce using pulseaudio";

@@ -1,13 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  python3,
-  makeWrapper,
-}:
+{ stdenv, lib, fetchFromGitHub, python3, makeWrapper }:
 let
-  pyenv = python3.withPackages (
-    pp:
+  pyenv = python3.withPackages (pp:
     with pp; [
       beautifulsoup4
       certifi
@@ -20,10 +13,8 @@ let
       soupsieve
       stem
       torrequest
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+in stdenv.mkDerivation rec {
   pname = "sherlock";
   version = "0.14.3";
 
@@ -59,7 +50,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://sherlock-project.github.io/";
-    description = "Hunt down social media accounts by username across social networks";
+    description =
+      "Hunt down social media accounts by username across social networks";
     license = licenses.mit;
     maintainers = with maintainers; [ applePrincess ];
   };

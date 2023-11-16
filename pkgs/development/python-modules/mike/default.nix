@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  git,
-  importlib-metadata,
-  importlib-resources,
-  jinja2,
-  mkdocs,
-  pythonOlder,
-  pyyaml,
-  unittestCheckHook,
-  verspec,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, git, importlib-metadata
+, importlib-resources, jinja2, mkdocs, pythonOlder, pyyaml, unittestCheckHook
+, verspec }:
 
 buildPythonPackage rec {
   pname = "mike";
@@ -27,19 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-Sjj2275IJDtLjG6uO9h4FbgxXTMgqD8c/rJj6iOxfuI=";
   };
 
-  propagatedBuildInputs = [
-    importlib-metadata
-    importlib-resources
-    jinja2
-    mkdocs
-    pyyaml
-    verspec
-  ];
+  propagatedBuildInputs =
+    [ importlib-metadata importlib-resources jinja2 mkdocs pyyaml verspec ];
 
-  nativeCheckInputs = [
-    git
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ git unittestCheckHook ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -51,7 +31,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mike" ];
 
   meta = with lib; {
-    description = "Manage multiple versions of your MkDocs-powered documentation";
+    description =
+      "Manage multiple versions of your MkDocs-powered documentation";
     homepage = "https://github.com/jimporter/mike";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];

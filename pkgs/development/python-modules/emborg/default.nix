@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pytestCheckHook,
-  pythonOlder,
-  borgbackup,
-  appdirs,
-  arrow,
-  docopt,
-  inform,
-  nestedtext,
-  parametrize-from-file,
-  quantiphy,
-  requests,
-  shlib,
-  voluptuous,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
+, pythonOlder, borgbackup, appdirs, arrow, docopt, inform, nestedtext
+, parametrize-from-file, quantiphy, requests, shlib, voluptuous }:
 
 buildPythonPackage rec {
   pname = "emborg";
@@ -32,14 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-bHYs+vlNku/T5Hb9u77Xml9/FNj5vgqPeXSzcilsS+I=";
   };
 
-  propagatedBuildInputs = [
-    appdirs
-    arrow
-    docopt
-    inform
-    quantiphy
-    requests
-  ];
+  propagatedBuildInputs = [ appdirs arrow docopt inform quantiphy requests ];
 
   nativeCheckInputs = [
     nestedtext
@@ -60,7 +37,8 @@ buildPythonPackage rec {
   # this patch fixes a whitespace issue in the message that a test is expecting, https://github.com/KenKundert/emborg/pull/67
   patches = [
     (fetchpatch {
-      url = "https://github.com/KenKundert/emborg/commit/afac6d1ddcecdb4bddbec87b6c8eed4cfbf4ebf9.diff";
+      url =
+        "https://github.com/KenKundert/emborg/commit/afac6d1ddcecdb4bddbec87b6c8eed4cfbf4ebf9.diff";
       sha256 = "3xg2z03FLKH4ckmiBZqE1FDjpgjgdO8OZL1ewrJlQ4o=";
     })
   ];

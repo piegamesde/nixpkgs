@@ -1,15 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  libcap,
-  zlib,
-  bzip2,
-  perl,
-  iconv,
-  darwin,
-}:
+{ lib, stdenv, fetchurl, cmake, libcap, zlib, bzip2, perl, iconv, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "cdrkit";
@@ -21,23 +10,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs =
-    [
-      zlib
-      bzip2
-      perl
-    ]
-    ++ lib.optionals stdenv.isLinux [ libcap ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
-        Carbon
-        IOKit
-        iconv
-      ]
-    );
+  buildInputs = [ zlib bzip2 perl ] ++ lib.optionals stdenv.isLinux [ libcap ]
+    ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ Carbon IOKit iconv ]);
 
   hardeningDisable = [ "format" ];
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl "-D__THROW=";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.hostPlatform.isMusl "-D__THROW=";
 
   # efi-boot-patch extracted from http://arm.koji.fedoraproject.org/koji/rpminfo?rpmID=174244
   patches = [
@@ -77,12 +56,14 @@ stdenv.mkDerivation rec {
     ln -s $out/bin/wodim $out/bin/cdrecord
   '';
 
-  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-DBITFIELDS_HTOL=0" ];
+  cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "-DBITFIELDS_HTOL=0" ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = {
-    description = "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";
+    description =
+      "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";
 
     longDescription = ''
       Cdrkit is a suite of programs for recording CDs and DVDs,

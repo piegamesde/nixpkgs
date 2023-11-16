@@ -1,20 +1,6 @@
-{
-  lib,
-  args,
-  buildPythonPackage,
-  clint,
-  fetchFromGitHub,
-  libffi,
-  matlink-gpapi,
-  ndg-httpsclient,
-  protobuf,
-  pyasn1,
-  pyaxmlparser,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  setuptools,
-}:
+{ lib, args, buildPythonPackage, clint, fetchFromGitHub, libffi, matlink-gpapi
+, ndg-httpsclient, protobuf, pyasn1, pyaxmlparser, pytestCheckHook, pythonOlder
+, requests, setuptools }:
 
 buildPythonPackage rec {
   pname = "gplaycli";

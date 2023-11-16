@@ -1,10 +1,4 @@
-{
-  lib,
-  python,
-  buildPythonPackage,
-  fetchPypi,
-  typing-extensions,
-}:
+{ lib, python, buildPythonPackage, fetchPypi, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "stringly";

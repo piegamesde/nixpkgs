@@ -1,18 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  geopy,
-  imageio,
-  lxml,
-  pandas,
-  pillow,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  voluptuous,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, geopy, imageio, lxml
+, pandas, pillow, pytestCheckHook, python-dateutil, pythonOlder, voluptuous }:
 
 buildPythonPackage rec {
   pname = "env-canada";
@@ -28,16 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-gnNncWhrqGTWq8cNVmNMzkgqW0hoglzVGrLjqyUvOIc=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    geopy
-    imageio
-    lxml
-    pandas
-    pillow
-    python-dateutil
-    voluptuous
-  ];
+  propagatedBuildInputs =
+    [ aiohttp geopy imageio lxml pandas pillow python-dateutil voluptuous ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -59,7 +38,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to get Environment Canada weather data";
     homepage = "https://github.com/michaeldavie/env_canada";
-    changelog = "https://github.com/michaeldavie/env_canada/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/michaeldavie/env_canada/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

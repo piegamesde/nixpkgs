@@ -1,11 +1,4 @@
-{
-  lib,
-  callPackage,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, callPackage, buildPythonPackage, fetchPypi, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "attrs";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  outputs = [
-    "out"
-    "testout"
-  ];
+  outputs = [ "out" "testout" ];
 
   postInstall = ''
     # Install tests as the tests output.
@@ -37,9 +27,7 @@ buildPythonPackage rec {
   # Instead, we do this as a passthru.tests test.
   doCheck = false;
 
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = with lib; {
     description = "Python attributes without boilerplate";

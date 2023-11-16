@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  makeWrapper,
-  zlib,
-  bzip2,
-  libpng,
-  lua5_1,
-  toluapp,
-  SDL2,
-  SDL2_mixer,
-  SDL2_image,
-  libGL,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, makeWrapper, zlib, bzip2
+, libpng, lua5_1, toluapp, SDL2, SDL2_mixer, SDL2_image, libGL }:
 
 stdenv.mkDerivation rec {
   pname = "stratagus";
@@ -27,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-q8AvIWr/bOzI0wV0D2emxIXYEKDYmFxbtwr2BS+xYfA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
     zlib
     bzip2

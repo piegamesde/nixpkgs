@@ -1,37 +1,24 @@
-{
-  binaryen,
-  fetchFromGitHub,
-  fetchpatch,
-  fetchzip,
-  lib,
-  lldap,
-  nixosTests,
-  rustPlatform,
-  rustc,
-  stdenv,
-  wasm-bindgen-cli,
-  wasm-pack,
-  which,
-}:
+{ binaryen, fetchFromGitHub, fetchpatch, fetchzip, lib, lldap, nixosTests
+, rustPlatform, rustc, stdenv, wasm-bindgen-cli, wasm-pack, which }:
 
 let
 
   # replace with upstream wasm rustc, after resolution of
   # https://github.com/NixOS/nixpkgs/issues/89426
-  rustc-wasm =
-    (rustc.override {
-      stdenv = stdenv.override {
-        targetPlatform = stdenv.targetPlatform // {
-          parsed = {
-            cpu.name = "wasm32";
-            vendor.name = "unknown";
-            kernel.name = "unknown";
-            abi.name = "unknown";
-          };
+  rustc-wasm = (rustc.override {
+    stdenv = stdenv.override {
+      targetPlatform = stdenv.targetPlatform // {
+        parsed = {
+          cpu.name = "wasm32";
+          vendor.name = "unknown";
+          kernel.name = "unknown";
+          abi.name = "unknown";
         };
       };
-    }).overrideAttrs
-      (attrs: { configureFlags = attrs.configureFlags ++ [ "--set=build.docs=false" ]; });
+    };
+  }).overrideAttrs (attrs: {
+    configureFlags = attrs.configureFlags ++ [ "--set=build.docs=false" ];
+  });
 
   commonDerivationAttrs = rec {
     pname = "lldap";
@@ -56,81 +43,66 @@ let
       lockFile = ./Cargo.lock;
       outputHashes = {
         "lber-0.4.1" = "sha256-2rGTpg8puIAXggX9rEbXPdirfetNOHWfFc80xqzPMT4=";
-        "opaque-ke-0.6.1" = "sha256-99gaDv7eIcYChmvOKQ4yXuaGVzo2Q6BcgSQOzsLF+fM=";
-        "yew_form-0.1.8" = "sha256-1n9C7NiFfTjbmc9B5bDEnz7ZpYJo9ZT8/dioRXJ65hc=";
+        "opaque-ke-0.6.1" =
+          "sha256-99gaDv7eIcYChmvOKQ4yXuaGVzo2Q6BcgSQOzsLF+fM=";
+        "yew_form-0.1.8" =
+          "sha256-1n9C7NiFfTjbmc9B5bDEnz7ZpYJo9ZT8/dioRXJ65hc=";
       };
     };
   };
 
-  frontend = rustPlatform.buildRustPackage (
-    commonDerivationAttrs
-    // {
-      pname = commonDerivationAttrs.pname + "-frontend";
+  frontend = rustPlatform.buildRustPackage (commonDerivationAttrs // {
+    pname = commonDerivationAttrs.pname + "-frontend";
 
-      nativeBuildInputs = [
-        wasm-pack
-        wasm-bindgen-cli
-        binaryen
-        which
-        rustc-wasm
-        rustc-wasm.llvmPackages.lld
-      ];
-
-      buildPhase = ''
-        HOME=`pwd` RUSTFLAGS="-C linker=lld" ./app/build.sh
-      '';
-
-      installPhase = ''
-        mkdir -p $out
-        cp -R app/{index.html,pkg,static} $out/
-      '';
-
-      doCheck = false;
-    }
-  );
-in
-rustPlatform.buildRustPackage (
-  commonDerivationAttrs
-  // {
-
-    cargoBuildFlags = [
-      "-p"
-      "lldap"
-      "-p"
-      "migration-tool"
-      "-p"
-      "lldap_set_password"
+    nativeBuildInputs = [
+      wasm-pack
+      wasm-bindgen-cli
+      binaryen
+      which
+      rustc-wasm
+      rustc-wasm.llvmPackages.lld
     ];
 
-    patches = [ ./static-frontend-path.patch ];
-
-    postPatch =
-      commonDerivationAttrs.postPatch
-      + ''
-        substituteInPlace server/src/infra/tcp_server.rs --subst-var-by frontend '${frontend}'
-      '';
-
-    postInstall = ''
-      mv $out/bin/migration-tool $out/bin/lldap_migration_tool
+    buildPhase = ''
+      HOME=`pwd` RUSTFLAGS="-C linker=lld" ./app/build.sh
     '';
 
-    passthru = {
-      inherit frontend;
-      tests = {
-        inherit (nixosTests) lldap;
-      };
-    };
+    installPhase = ''
+      mkdir -p $out
+      cp -R app/{index.html,pkg,static} $out/
+    '';
 
-    meta = with lib; {
-      description = "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
-      homepage = "https://github.com/lldap/lldap";
-      changelog = "https://github.com/lldap/lldap/blob/v${lldap.version}/CHANGELOG.md";
-      license = licenses.gpl3Only;
-      platforms = platforms.linux;
-      maintainers = with maintainers; [
-        emilylange
-        bendlas
-      ];
-    };
-  }
-)
+    doCheck = false;
+  });
+
+in rustPlatform.buildRustPackage (commonDerivationAttrs // {
+
+  cargoBuildFlags =
+    [ "-p" "lldap" "-p" "migration-tool" "-p" "lldap_set_password" ];
+
+  patches = [ ./static-frontend-path.patch ];
+
+  postPatch = commonDerivationAttrs.postPatch + ''
+    substituteInPlace server/src/infra/tcp_server.rs --subst-var-by frontend '${frontend}'
+  '';
+
+  postInstall = ''
+    mv $out/bin/migration-tool $out/bin/lldap_migration_tool
+  '';
+
+  passthru = {
+    inherit frontend;
+    tests = { inherit (nixosTests) lldap; };
+  };
+
+  meta = with lib; {
+    description =
+      "A lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
+    homepage = "https://github.com/lldap/lldap";
+    changelog =
+      "https://github.com/lldap/lldap/blob/v${lldap.version}/CHANGELOG.md";
+    license = licenses.gpl3Only;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ emilylange bendlas ];
+  };
+})

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  wheel,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, wheel, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -31,18 +25,18 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Test fails with a an error: AssertionError: assert 30 == 31
-      "test_recurring_task_5"
-    ];
+  disabledTests = [
+    # Test fails with a an error: AssertionError: assert 30 == 31
+    "test_recurring_task_5"
+  ];
 
   pythonImportsCheck = [ "bacpypes" ];
 
   meta = with lib; {
     description = "Module for the BACnet application layer and network layer";
     homepage = "https://github.com/JoelBender/bacpypes";
-    changelog = "https://github.com/JoelBender/bacpypes/releases/tag/v${version}";
+    changelog =
+      "https://github.com/JoelBender/bacpypes/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ bachp ];
   };

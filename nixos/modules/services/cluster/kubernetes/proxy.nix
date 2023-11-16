@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -12,23 +6,14 @@ let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.proxy;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "proxy"
-        "address"
-      ]
-      [
-        "services"
-        "kubernetes"
-        "proxy"
-        "bindAddress"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "kubernetes" "proxy" "address" ] [
+      "services"
+      "kubernetes"
+      "proxy"
+      "bindAddress"
+    ])
   ];
 
   ###### interface
@@ -72,6 +57,7 @@ in
       default = null;
       type = nullOr int;
     };
+
   };
 
   ###### implementation
@@ -80,35 +66,42 @@ in
       description = "Kubernetes Proxy Service";
       wantedBy = [ "kubernetes.target" ];
       after = [ "kube-apiserver.service" ];
-      path = with pkgs; [
-        iptables
-        conntrack-tools
-      ];
+      path = with pkgs; [ iptables conntrack-tools ];
       serviceConfig = {
         Slice = "kubernetes.slice";
         ExecStart = ''
           ${top.package}/bin/kube-proxy \
                     --bind-address=${cfg.bindAddress} \
-                    ${optionalString (top.clusterCidr != null) "--cluster-cidr=${top.clusterCidr}"} \
+                    ${
+                      optionalString (top.clusterCidr != null)
+                      "--cluster-cidr=${top.clusterCidr}"
+                    } \
                     ${
                       optionalString (cfg.featureGates != [ ])
-                        "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
+                      "--feature-gates=${
+                        concatMapStringsSep "," (feature: "${feature}=true")
+                        cfg.featureGates
+                      }"
                     } \
                     --hostname-override=${cfg.hostname} \
-                    --kubeconfig=${top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig} \
-                    ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
+                    --kubeconfig=${
+                      top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig
+                    } \
+                    ${
+                      optionalString (cfg.verbosity != null)
+                      "--v=${toString cfg.verbosity}"
+                    } \
                     ${cfg.extraOpts}
         '';
         WorkingDirectory = top.dataDir;
         Restart = "on-failure";
         RestartSec = 5;
       };
-      unitConfig = {
-        StartLimitIntervalSec = 0;
-      };
+      unitConfig = { StartLimitIntervalSec = 0; };
     };
 
-    services.kubernetes.proxy.hostname = with config.networking; mkDefault hostName;
+    services.kubernetes.proxy.hostname = with config.networking;
+      mkDefault hostName;
 
     services.kubernetes.pki.certs = {
       kubeProxyClient = top.lib.mkCert {
@@ -118,7 +111,8 @@ in
       };
     };
 
-    services.kubernetes.proxy.kubeconfig.server = mkDefault top.apiserverAddress;
+    services.kubernetes.proxy.kubeconfig.server =
+      mkDefault top.apiserverAddress;
   };
 
   meta.buildDocsInSandbox = false;

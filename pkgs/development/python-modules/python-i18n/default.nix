@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pyyaml }:
 
 buildPythonPackage rec {
   pname = "python-i18n";
@@ -17,10 +11,7 @@ buildPythonPackage rec {
     sha256 = "6FahoHZqaOWYGaT9RqLARCm2kLfUIlYuauB6+0eX7jA=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ];
 
   pytestFlagsArray = [ "i18n/tests/run_tests.py" ];
 

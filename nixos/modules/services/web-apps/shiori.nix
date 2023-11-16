@@ -1,15 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.shiori;
-in
-{
+let cfg = config.services.shiori;
+in {
   options = {
     services.shiori = {
       enable = mkEnableOption (lib.mdDoc "Shiori simple bookmarks manager");
@@ -46,7 +39,10 @@ in
       environment.SHIORI_DIR = "/var/lib/shiori";
 
       serviceConfig = {
-        ExecStart = "${package}/bin/shiori serve --address '${address}' --port '${toString port}'";
+        ExecStart =
+          "${package}/bin/shiori serve --address '${address}' --port '${
+            toString port
+          }'";
 
         DynamicUser = true;
         StateDirectory = "shiori";
@@ -82,10 +78,7 @@ in
         ProtectKernelTunables = true;
 
         RestrictNamespaces = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 

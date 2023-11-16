@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  flit-core,
-  markdown-it-py,
-  pytest-regressions,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, flit-core
+, markdown-it-py, pytest-regressions, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mdit-py-plugins";
@@ -27,17 +19,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ markdown-it-py ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-regressions
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-regressions ];
 
   pythonImportsCheck = [ "mdit_py_plugins" ];
 
   meta = with lib; {
     description = "Collection of core plugins for markdown-it-py";
     homepage = "https://github.com/executablebooks/mdit-py-plugins";
-    changelog = "https://github.com/executablebooks/mdit-py-plugins/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/executablebooks/mdit-py-plugins/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ AluisioASG ];
   };

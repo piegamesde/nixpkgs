@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  attrs,
-  bitstruct,
-  click,
-  future,
-  pathlib2,
-  typing ? null,
-  lxml,
-  xlwt,
-  xlrd,
-  xlsxwriter,
-  pyyaml,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, attrs, bitstruct, click
+, future, pathlib2, typing ? null, lxml, xlwt, xlrd, xlsxwriter, pyyaml
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "canmatrix";
@@ -57,8 +42,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/ebroecker/canmatrix";
-    description = "Support and convert several CAN (Controller Area Network) database formats .arxml .dbc .dbf .kcd .sym fibex xls(x)";
+    description =
+      "Support and convert several CAN (Controller Area Network) database formats .arxml .dbc .dbf .kcd .sym fibex xls(x)";
     license = licenses.bsd2;
     maintainers = with maintainers; [ sorki ];
   };
 }
+

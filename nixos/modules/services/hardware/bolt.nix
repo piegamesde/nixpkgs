@@ -1,11 +1,6 @@
 # Thunderbolt 3 device manager
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -24,7 +19,9 @@ with lib;
           Bolt is used by GNOME 3 to handle Thunderbolt settings.
         '';
       };
+
     };
+
   };
 
   config = mkIf config.services.hardware.bolt.enable {
@@ -32,5 +29,6 @@ with lib;
     environment.systemPackages = [ pkgs.bolt ];
     services.udev.packages = [ pkgs.bolt ];
     systemd.packages = [ pkgs.bolt ];
+
   };
 }

@@ -1,22 +1,8 @@
-{
-  lib,
-  python3,
-  fetchzip,
-  fetchFromGitHub,
-  wrapQtAppsHook,
-  qtbase,
-  qttools,
-  qtsvg,
-  buildEnv,
-  aspellDicts,
-  # Use `lib.collect lib.isDerivation aspellDicts;` to make all dictionaries
-  # available.
-  enchantAspellDicts ? with aspellDicts; [
-    en
-    en-computers
-    en-science
-  ],
-}:
+{ lib, python3, fetchzip, fetchFromGitHub, wrapQtAppsHook, qtbase, qttools
+, qtsvg, buildEnv, aspellDicts
+# Use `lib.collect lib.isDerivation aspellDicts;` to make all dictionaries
+# available.
+, enchantAspellDicts ? with aspellDicts; [ en en-computers en-science ] }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "retext";
@@ -35,15 +21,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-LQtSFCGWcKvXis9pFDmPqAMd1m6QieHQiz2yykeTdnI=";
   };
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    qttools.dev
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook qttools.dev ];
 
-  buildInputs = [
-    qtbase
-    qtsvg
-  ];
+  buildInputs = [ qtbase qtsvg ];
 
   propagatedBuildInputs = with python3.pkgs; [
     chardet

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  setuptools-scm,
-  vcver,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, setuptools-scm, vcver
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "deepmerge";

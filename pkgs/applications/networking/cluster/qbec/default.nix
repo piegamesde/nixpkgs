@@ -1,9 +1,4 @@
-{
-  lib,
-  go,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, go, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "qbec";
@@ -29,7 +24,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "Configure kubernetes objects on multiple clusters using jsonnet https://qbec.io";
+    description =
+      "Configure kubernetes objects on multiple clusters using jsonnet https://qbec.io";
     homepage = "https://github.com/splunk/qbec";
     license = licenses.asl20;
     maintainers = with maintainers; [ groodt ];

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libtirpc,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libtirpc, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "teapot";
@@ -32,10 +25,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libtirpc
-    ncurses
-  ];
+  buildInputs = [ libtirpc ncurses ];
 
   # By no known reason libtirpc is not detected
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];

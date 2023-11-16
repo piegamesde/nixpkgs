@@ -1,18 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  csxcad,
-  qcsxcad,
-  hdf5,
-  vtkWithQt5,
-  qtbase,
-  fparser,
-  tinyxml,
-  cgal,
-  boost,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, csxcad, qcsxcad, hdf5, vtkWithQt5
+, qtbase, fparser, tinyxml, cgal, boost }:
 
 mkDerivation {
   pname = "appcsxcad";
@@ -27,17 +14,8 @@ mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    csxcad
-    qcsxcad
-    hdf5
-    vtkWithQt5
-    qtbase
-    fparser
-    tinyxml
-    cgal
-    boost
-  ];
+  buildInputs =
+    [ csxcad qcsxcad hdf5 vtkWithQt5 qtbase fparser tinyxml cgal boost ];
 
   postFixup = ''
     rm $out/bin/AppCSXCAD.sh

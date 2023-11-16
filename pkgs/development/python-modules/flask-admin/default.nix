@@ -1,31 +1,8 @@
-{
-  lib,
-  arrow,
-  azure-storage-blob,
-  boto,
-  buildPythonPackage,
-  colour,
-  email-validator,
-  enum34,
-  fetchPypi,
-  flask,
-  flask-babelex,
-  flask-mongoengine,
-  flask-sqlalchemy,
-  geoalchemy2,
-  mongoengine,
-  pillow,
-  psycopg2,
-  pymongo,
-  pytestCheckHook,
-  pythonOlder,
-  shapely,
-  sqlalchemy,
-  sqlalchemy-citext,
-  sqlalchemy-utils,
-  wtf-peewee,
-  wtforms,
-}:
+{ lib, arrow, azure-storage-blob, boto, buildPythonPackage, colour
+, email-validator, enum34, fetchPypi, flask, flask-babelex, flask-mongoengine
+, flask-sqlalchemy, geoalchemy2, mongoengine, pillow, psycopg2, pymongo
+, pytestCheckHook, pythonOlder, shapely, sqlalchemy, sqlalchemy-citext
+, sqlalchemy-utils, wtf-peewee, wtforms }:
 
 buildPythonPackage rec {
   pname = "flask-admin";
@@ -40,10 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-JMrir4MramEaAdfcNfQtJmwdbHWkJrhp2MskG3gjM2k=";
   };
 
-  propagatedBuildInputs = [
-    flask
-    wtforms
-  ];
+  propagatedBuildInputs = [ flask wtforms ];
 
   passthru.optional-dependencies = {
     aws = [ boto ];
@@ -101,7 +75,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Admin interface framework for Flask";
     homepage = "https://github.com/flask-admin/flask-admin/";
-    changelog = "https://github.com/flask-admin/flask-admin/releases/tag/v${version}";
+    changelog =
+      "https://github.com/flask-admin/flask-admin/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

@@ -1,8 +1,4 @@
-{
-  newScope,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ newScope, fetchFromGitHub, python3Packages }:
 
 let
   callPackage = newScope self;
@@ -12,5 +8,5 @@ let
 
     platformio-chrootenv = callPackage ./chrootenv.nix { };
   };
-in
-self
+
+in self

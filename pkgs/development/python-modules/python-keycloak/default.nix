@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  python-jose,
-  pythonOlder,
-  requests,
-  requests-toolbelt,
-  urllib3,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, python-jose
+, pythonOlder, requests, requests-toolbelt, urllib3 }:
 
 buildPythonPackage rec {
   pname = "python-keycloak";
@@ -32,12 +23,7 @@ buildPythonPackage rec {
 
   buildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    python-jose
-    urllib3
-    requests
-    requests-toolbelt
-  ];
+  propagatedBuildInputs = [ python-jose urllib3 requests requests-toolbelt ];
 
   # Test fixtures require a running keycloak instance
   doCheck = false;

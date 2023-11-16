@@ -1,20 +1,10 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchFromGitHub,
-  # Octave's Python (Python 3)
-  python,
-}:
+{ buildOctavePackage, lib, fetchFromGitHub
+# Octave's Python (Python 3)
+, python }:
 
-let
-  pythonEnv = python.withPackages (
-    ps: [
-      ps.sympy
-      ps.mpmath
-    ]
-  );
-in
-buildOctavePackage rec {
+let pythonEnv = python.withPackages (ps: [ ps.sympy ps.mpmath ]);
+
+in buildOctavePackage rec {
   pname = "symbolic";
   version = "3.1.1";
 

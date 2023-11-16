@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gtest,
-  xsimd,
-  xtl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gtest, xsimd, xtl }:
 stdenv.mkDerivation rec {
   pname = "xtensor";
   version = "0.23.10";
@@ -19,10 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [
-    xtl
-    xsimd
-  ];
+  propagatedBuildInputs = [ xtl xsimd ];
 
   cmakeFlags = [ "-DBUILD_TESTS=ON" ];
 
@@ -37,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Multi-dimensional arrays with broadcasting and lazy computing.";
+    description =
+      "Multi-dimensional arrays with broadcasting and lazy computing.";
     homepage = "https://github.com/xtensor-stack/xtensor";
     license = licenses.bsd3;
     maintainers = with maintainers; [ cpcloud ];

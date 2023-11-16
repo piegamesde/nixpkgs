@@ -1,14 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ stdenv, lib, fetchFromGitHub, ncurses }:
 
-let
-  INSTALL_PATH = "${placeholder "out"}/share/fzf-tab";
-in
-stdenv.mkDerivation rec {
+let INSTALL_PATH = "${placeholder "out"}/share/fzf-tab";
+in stdenv.mkDerivation rec {
   pname = "zsh-fzf-tab";
   version = "unstable-2023-05-19";
 

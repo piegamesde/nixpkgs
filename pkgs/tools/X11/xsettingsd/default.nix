@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libX11,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "xsettingsd";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CIYshZqJICuL8adKHIN4R6nudaqWOCK2UPrGhsKf9pE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ libX11 ];
 
@@ -32,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Provides settings to X11 applications via the XSETTINGS specification";
+    description =
+      "Provides settings to X11 applications via the XSETTINGS specification";
     homepage = "https://github.com/derat/xsettingsd";
     license = licenses.bsd3;
     maintainers = with maintainers; [ romildo ];

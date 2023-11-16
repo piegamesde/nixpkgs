@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "dlinfo";

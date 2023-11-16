@@ -1,38 +1,22 @@
-{
-  stdenv,
-  lib,
-  makeWrapper,
-  pkg-config,
-  mono,
-  dotnetbuildhelpers,
-}:
+{ stdenv, lib, makeWrapper, pkg-config, mono, dotnetbuildhelpers }:
 
-attrsOrig@{
-  pname,
-  version,
-  nativeBuildInputs ? [ ],
-  xBuildFiles ? [ ],
-  xBuildFlags ? [ "/p:Configuration=Release" ],
-  outputFiles ? [ "bin/Release/*" ],
-  dllFiles ? [ "*.dll" ],
-  exeFiles ? [ "*.exe" ],
-  # Additional arguments to pass to the makeWrapper function, which wraps
-  # generated binaries.
-  makeWrapperArgs ? [ ],
-  ...
-}:
+attrsOrig@{ pname, version, nativeBuildInputs ? [ ], xBuildFiles ? [ ]
+, xBuildFlags ? [ "/p:Configuration=Release" ]
+, outputFiles ? [ "bin/Release/*" ], dllFiles ? [ "*.dll" ], exeFiles ? [
+  "*.exe"
+]
+# Additional arguments to pass to the makeWrapper function, which wraps
+# generated binaries.
+, makeWrapperArgs ? [ ], ... }:
 let
-  arrayToShell = (a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>	")) a));
+  arrayToShell =
+    (a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>	")) a));
 
   attrs = {
     inherit pname version;
 
-    nativeBuildInputs = [
-      pkg-config
-      makeWrapper
-      dotnetbuildhelpers
-      mono
-    ] ++ nativeBuildInputs;
+    nativeBuildInputs = [ pkg-config makeWrapper dotnetbuildhelpers mono ]
+      ++ nativeBuildInputs;
 
     configurePhase = ''
       runHook preConfigure
@@ -120,5 +104,5 @@ let
       runHook postInstall
     '';
   };
-in
-stdenv.mkDerivation (attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ]))
+in stdenv.mkDerivation
+(attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ]))

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -17,9 +12,9 @@ let
   # The builder used to write during system activation
   builder = import ./extlinux-conf-builder.nix { inherit pkgs; };
   # The builder exposed in populateCmd, which runs on the build architecture
-  populateBuilder = import ./extlinux-conf-builder.nix { pkgs = pkgs.buildPackages; };
-in
-{
+  populateBuilder =
+    import ./extlinux-conf-builder.nix { pkgs = pkgs.buildPackages; };
+in {
   options = {
     boot.loader.generic-extlinux-compatible = {
       enable = mkOption {
@@ -69,20 +64,19 @@ in
           Useful to have for sdImage.populateRootCommands
         '';
       };
+
     };
   };
 
-  config =
-    let
-      builderArgs =
-        "-g ${toString cfg.configurationLimit} -t ${timeoutStr}"
-        + lib.optionalString (dtCfg.name != null) " -n ${dtCfg.name}"
-        + lib.optionalString (!cfg.useGenerationDeviceTree) " -r";
-    in
-    mkIf cfg.enable {
-      system.build.installBootLoader = "${builder} ${builderArgs} -c";
-      system.boot.loader.id = "generic-extlinux-compatible";
+  config = let
+    builderArgs = "-g ${toString cfg.configurationLimit} -t ${timeoutStr}"
+      + lib.optionalString (dtCfg.name != null) " -n ${dtCfg.name}"
+      + lib.optionalString (!cfg.useGenerationDeviceTree) " -r";
+  in mkIf cfg.enable {
+    system.build.installBootLoader = "${builder} ${builderArgs} -c";
+    system.boot.loader.id = "generic-extlinux-compatible";
 
-      boot.loader.generic-extlinux-compatible.populateCmd = "${populateBuilder} ${builderArgs}";
-    };
+    boot.loader.generic-extlinux-compatible.populateCmd =
+      "${populateBuilder} ${builderArgs}";
+  };
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  requests,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, requests }:
 
 buildPythonPackage rec {
   pname = "starline";

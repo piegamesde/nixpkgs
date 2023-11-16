@@ -1,16 +1,5 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  pytest-httpbin,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-mock,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, lxml, pytest-httpbin
+, pytest-mock, pytestCheckHook, pythonOlder, requests, requests-mock }:
 
 buildPythonPackage rec {
   pname = "mechanicalsoup";
@@ -26,18 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-Q5oDAgAZYYUYqjDByXNXFNVKmRyjzIGVE4LN9j8vk4c=";
   };
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    lxml
-    requests
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 lxml requests ];
 
-  nativeCheckInputs = [
-    pytest-httpbin
-    pytest-mock
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs =
+    [ pytest-httpbin pytest-mock pytestCheckHook requests-mock ];
 
   postPatch = ''
     # Is in setup_requires but not used in setup.py
@@ -53,9 +34,6 @@ buildPythonPackage rec {
     description = "Python library for automating interaction with websites";
     homepage = "https://github.com/hickford/MechanicalSoup";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      jgillich
-      fab
-    ];
+    maintainers = with maintainers; [ jgillich fab ];
   };
 }

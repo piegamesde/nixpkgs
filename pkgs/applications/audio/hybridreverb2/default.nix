@@ -1,34 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  lv2,
-  alsa-lib,
-  libjack2,
-  freetype,
-  libX11,
-  gtk3,
-  pcre,
-  libpthreadstubs,
-  libXdmcp,
-  libxkbcommon,
-  libepoxy,
-  at-spi2-core,
-  dbus,
-  curl,
-  fftwFloat,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, lv2, alsa-lib, libjack2
+, freetype, libX11, gtk3, pcre, libpthreadstubs, libXdmcp, libxkbcommon
+, libepoxy, at-spi2-core, dbus, curl, fftwFloat }:
 
 let
   pname = "HybridReverb2";
   version = "2.1.2";
   owner = "jpcima";
   DBversion = "1.0.0";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname version;
 
   impulseDB = fetchFromGitHub {
@@ -46,10 +26,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
   buildInputs = [
     lv2
     alsa-lib

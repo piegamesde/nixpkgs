@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  pycryptodomex,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, pycryptodomex }:
 
 buildPythonPackage rec {
   pname = "pyzipper";
@@ -43,7 +37,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python zipfile extensions";
     homepage = "https://github.com/danifus/pyzipper";
-    changelog = "https://github.com/danifus/pyzipper/blob/v${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/danifus/pyzipper/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

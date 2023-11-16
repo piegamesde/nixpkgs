@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pytestCheckHook,
-  js2py,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pytestCheckHook, js2py }:
 
 let
   pyjsparser = buildPythonPackage rec {
@@ -18,10 +12,7 @@ let
       hash = "sha256-Hqay9/qsjUfe62U7Q79l0Yy01L2Bnj5xNs6427k3Br8=";
     };
 
-    nativeCheckInputs = [
-      pytestCheckHook
-      js2py
-    ];
+    nativeCheckInputs = [ pytestCheckHook js2py ];
 
     # escape infinite recursion with js2py
     doCheck = false;
@@ -39,5 +30,4 @@ let
       maintainers = with maintainers; [ onny ];
     };
   };
-in
-pyjsparser
+in pyjsparser

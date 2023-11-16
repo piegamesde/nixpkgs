@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  obs-studio,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, obs-studio }:
 
 stdenv.mkDerivation rec {
   pname = "obs-vintage-filter";
@@ -28,13 +22,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An OBS Studio filter where the source can be set to be black & white or sepia.";
+    description =
+      "An OBS Studio filter where the source can be set to be black & white or sepia.";
     homepage = "https://github.com/cg2121/obs-vintage-filter";
     maintainers = with maintainers; [ flexiondotorg ];
     license = licenses.gpl2Plus;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

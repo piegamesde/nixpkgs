@@ -5,31 +5,15 @@
 # it turns on GCC's coverage analysis feature.  It then runs `make
 # check' and produces a coverage analysis report using `lcov'.
 
-{
-  buildOutOfSourceTree ? false,
-  preConfigure ? null,
-  doCoverageAnalysis ? false,
-  doClangAnalysis ? false,
-  doCoverityAnalysis ? false,
-  lcovFilter ? [ ],
-  lcovExtraTraceFiles ? [ ],
-  src,
-  lib,
-  stdenv,
-  name ? if doCoverageAnalysis then "nix-coverage" else "nix-build",
-  failureHook ? null,
-  prePhases ? [ ],
-  postPhases ? [ ],
-  buildInputs ? [ ],
-  preHook ? "",
-  postHook ? "",
-  ...
-}@args:
+{ buildOutOfSourceTree ? false, preConfigure ? null, doCoverageAnalysis ? false
+, doClangAnalysis ? false, doCoverityAnalysis ? false, lcovFilter ? [ ]
+, lcovExtraTraceFiles ? [ ], src, lib, stdenv
+, name ? if doCoverageAnalysis then "nix-coverage" else "nix-build"
+, failureHook ? null, prePhases ? [ ], postPhases ? [ ], buildInputs ? [ ]
+, preHook ? "", postHook ? "", ... }@args:
 
-let
-  doingAnalysis = doCoverageAnalysis || doClangAnalysis || doCoverityAnalysis;
-in
-stdenv.mkDerivation (
+let doingAnalysis = doCoverageAnalysis || doClangAnalysis || doCoverityAnalysis;
+in stdenv.mkDerivation (
 
   {
     # Also run a `make check'.
@@ -72,21 +56,21 @@ stdenv.mkDerivation (
       fi
     '';
 
-    failureHook =
-      (lib.optionalString (failureHook != null) failureHook)
-      + ''
-        if test -n "$succeedOnFailure"; then
-            if test -n "$keepBuildDirectory"; then
-                KEEPBUILDDIR="$out/`basename $TMPDIR`"
-                echo "Copying build directory to $KEEPBUILDDIR"
-                mkdir -p $KEEPBUILDDIR
-                cp -R "$TMPDIR/"* $KEEPBUILDDIR
-            fi
-        fi
-      '';
+    failureHook = (lib.optionalString (failureHook != null) failureHook) + ''
+      if test -n "$succeedOnFailure"; then
+          if test -n "$keepBuildDirectory"; then
+              KEEPBUILDDIR="$out/`basename $TMPDIR`"
+              echo "Copying build directory to $KEEPBUILDDIR"
+              mkdir -p $KEEPBUILDDIR
+              cp -R "$TMPDIR/"* $KEEPBUILDDIR
+          fi
+      fi
+    '';
   }
 
-  // removeAttrs args [ "lib" ] # Propagating lib causes the evaluation to fail, because lib is a function that can't be converted to a string
+  // removeAttrs args [
+    "lib"
+  ] # Propagating lib causes the evaluation to fail, because lib is a function that can't be converted to a string
 
   // {
     name = name + (lib.optionalString (src ? version) "-${src.version}");
@@ -137,8 +121,7 @@ stdenv.mkDerivation (
 
     prePhases = [ "initPhase" ] ++ prePhases;
 
-    buildInputs =
-      buildInputs
+    buildInputs = buildInputs
       ++ (lib.optional doCoverageAnalysis args.makeGCOVReport)
       ++ (lib.optional doClangAnalysis args.clang-analyzer)
       ++ (lib.optional doCoverityAnalysis args.cov-build)
@@ -151,32 +134,30 @@ stdenv.mkDerivation (
     postPhases = postPhases ++ [ "finalPhase" ];
 
     meta = (if args ? meta then args.meta else { }) // {
-      description =
-        if doCoverageAnalysis then "Coverage analysis" else "Nix package for ${stdenv.hostPlatform.system}";
+      description = if doCoverageAnalysis then
+        "Coverage analysis"
+      else
+        "Nix package for ${stdenv.hostPlatform.system}";
     };
+
   }
 
   //
 
-    (
-      if buildOutOfSourceTree then
-        {
-          preConfigure =
-            # Build out of source tree and make the source tree read-only.  This
-            # helps catch violations of the GNU Coding Standards (info
-            # "(standards) Configuration"), like `make distcheck' does.
-            ''
-              mkdir "../build"
-                       cd "../build"
-                       configureScript="../$sourceRoot/configure"
-                       chmod -R a-w "../$sourceRoot"
+  (if buildOutOfSourceTree then {
+    preConfigure =
+      # Build out of source tree and make the source tree read-only.  This
+      # helps catch violations of the GNU Coding Standards (info
+      # "(standards) Configuration"), like `make distcheck' does.
+      ''
+        mkdir "../build"
+                 cd "../build"
+                 configureScript="../$sourceRoot/configure"
+                 chmod -R a-w "../$sourceRoot"
 
-                       echo "building out of source tree, from \`$PWD'..."
+                 echo "building out of source tree, from \`$PWD'..."
 
-                       ${lib.optionalString (preConfigure != null) preConfigure}
-            '';
-        }
-      else
-        { }
-    )
-)
+                 ${lib.optionalString (preConfigure != null) preConfigure}
+      '';
+  } else
+    { }))

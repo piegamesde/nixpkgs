@@ -1,28 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  meson,
-  ninja,
-  gettext,
-  gobject-introspection,
-  gtk-doc,
-  docbook_xsl,
-  docbook_xml_dtd_412,
-  glib,
-  gupnp,
-  gnome,
-}:
+{ lib, stdenv, fetchurl, pkg-config, meson, ninja, gettext
+, gobject-introspection, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gupnp
+, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gupnp-igd";
   version = "1.2.0";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs = [ "out" "dev" ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -44,14 +29,15 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_412
   ];
 
-  propagatedBuildInputs = [
-    glib
-    gupnp
-  ];
+  propagatedBuildInputs = [ glib gupnp ];
 
   mesonFlags = [
-    "-Dgtk_doc=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
-    "-Dintrospection=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
+    "-Dgtk_doc=${
+      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
+    }"
+    "-Dintrospection=${
+      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
+    }"
   ];
 
   # Seems to get stuck sometimes.

@@ -1,15 +1,5 @@
-{
-  stdenv,
-  fetchurl,
-  xar,
-  cpio,
-  pkgs,
-  python3,
-  pbzx,
-  lib,
-  darwin-stubs,
-  print-reexports,
-}:
+{ stdenv, fetchurl, xar, cpio, pkgs, python3, pbzx, lib, darwin-stubs
+, print-reexports }:
 
 let
   # sadly needs to be exported because security_tool needs it
@@ -23,22 +13,14 @@ let
     #  3. ???
     #  4. Profit
     src = fetchurl {
-      url = "http://swcdn.apple.com/content/downloads/33/36/041-90419-A_7JJ4H9ZHO2/xs88ob5wjz6riz7g6764twblnvksusg4ps/DevSDK_OSX1012.pkg";
+      url =
+        "http://swcdn.apple.com/content/downloads/33/36/041-90419-A_7JJ4H9ZHO2/xs88ob5wjz6riz7g6764twblnvksusg4ps/DevSDK_OSX1012.pkg";
       sha256 = "13xq34sb7383b37hwy076gnhf96prpk1b4087p87xnwswxbrisih";
     };
 
-    nativeBuildInputs = [
-      xar
-      cpio
-      python3
-      pbzx
-    ];
+    nativeBuildInputs = [ xar cpio python3 pbzx ];
 
-    outputs = [
-      "out"
-      "dev"
-      "man"
-    ];
+    outputs = [ "out" "dev" "man" ];
 
     unpackPhase = ''
       xar -x -f $src
@@ -73,25 +55,14 @@ let
     };
   };
 
-  mkFrameworkSubs =
-    name: deps:
+  mkFrameworkSubs = name: deps:
     let
-      deps' = deps // {
-        "${name}" = placeholder "out";
-      };
-      substArgs =
-        lib.concatMap
-          (x: [
-            "--subst-var-by"
-            x
-            deps'."${x}"
-          ])
-          (lib.attrNames deps');
-    in
-    lib.escapeShellArgs substArgs;
+      deps' = deps // { "${name}" = placeholder "out"; };
+      substArgs = lib.concatMap (x: [ "--subst-var-by" x deps'."${x}" ])
+        (lib.attrNames deps');
+    in lib.escapeShellArgs substArgs;
 
-  framework =
-    name: deps:
+  framework = name: deps:
     stdenv.mkDerivation {
       name = "apple-framework-${name}";
 
@@ -218,11 +189,8 @@ let
       };
     };
 
-  tbdOnlyFramework =
-    name:
-    {
-      private ? true,
-    }:
+  tbdOnlyFramework = name:
+    { private ? true }:
     stdenv.mkDerivation {
       name = "apple-framework-${name}";
       dontUnpack = true;
@@ -249,8 +217,7 @@ let
         # NOTE there's no re-export checking here, this is probably wrong
       '';
     };
-in
-rec {
+in rec {
   libs = {
     xpc = stdenv.mkDerivation {
       name = "apple-lib-xpc";
@@ -316,117 +283,87 @@ rec {
     };
   };
 
-  overrides =
-    super:
+  overrides = super:
     {
-      AppKit = lib.overrideDerivation super.AppKit (
-        drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
-            "/System/Library/PrivateFrameworks/"
-          ];
-        }
-      );
+      AppKit = lib.overrideDerivation super.AppKit (drv: {
+        __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ]
+          ++ [ "/System/Library/PrivateFrameworks/" ];
+      });
 
-      Carbon = lib.overrideDerivation super.Carbon (
-        drv: {
-          extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ];
-        }
-      );
+      Carbon = lib.overrideDerivation super.Carbon (drv: {
+        extraTBDFiles = [
+          "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd"
+        ];
+      });
 
-      CoreFoundation = lib.overrideDerivation super.CoreFoundation (
-        drv: { setupHook = ./cf-setup-hook.sh; }
-      );
+      CoreFoundation = lib.overrideDerivation super.CoreFoundation
+        (drv: { setupHook = ./cf-setup-hook.sh; });
 
-      CoreMedia = lib.overrideDerivation super.CoreMedia (
-        drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
-            "/System/Library/Frameworks/CoreImage.framework"
-          ];
-        }
-      );
+      CoreMedia = lib.overrideDerivation super.CoreMedia (drv: {
+        __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ]
+          ++ [ "/System/Library/Frameworks/CoreImage.framework" ];
+      });
 
-      CoreMIDI = lib.overrideDerivation super.CoreMIDI (
-        drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
-            "/System/Library/PrivateFrameworks/"
-          ];
-          setupHook = ./private-frameworks-setup-hook.sh;
-        }
-      );
+      CoreMIDI = lib.overrideDerivation super.CoreMIDI (drv: {
+        __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ]
+          ++ [ "/System/Library/PrivateFrameworks/" ];
+        setupHook = ./private-frameworks-setup-hook.sh;
+      });
 
-      IMServicePlugIn = lib.overrideDerivation super.IMServicePlugIn (
-        drv: {
-          extraTBDFiles = [
-            "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd"
-          ];
-        }
-      );
+      IMServicePlugIn = lib.overrideDerivation super.IMServicePlugIn (drv: {
+        extraTBDFiles = [
+          "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd"
+        ];
+      });
 
-      Security = lib.overrideDerivation super.Security (drv: { setupHook = ./security-setup-hook.sh; });
+      Security = lib.overrideDerivation super.Security
+        (drv: { setupHook = ./security-setup-hook.sh; });
 
-      QuartzCore = lib.overrideDerivation super.QuartzCore (
-        drv: {
-          installPhase =
-            drv.installPhase
-            + ''
-              f="$out/Library/Frameworks/QuartzCore.framework/Headers/CoreImage.h"
-              substituteInPlace "$f" \
-                --replace "QuartzCore/../Frameworks/CoreImage.framework/Headers" "CoreImage"
-            '';
-        }
-      );
+      QuartzCore = lib.overrideDerivation super.QuartzCore (drv: {
+        installPhase = drv.installPhase + ''
+          f="$out/Library/Frameworks/QuartzCore.framework/Headers/CoreImage.h"
+          substituteInPlace "$f" \
+            --replace "QuartzCore/../Frameworks/CoreImage.framework/Headers" "CoreImage"
+        '';
+      });
 
-      MetalKit = lib.overrideDerivation super.MetalKit (
-        drv: {
-          installPhase =
-            drv.installPhase
-            + ''
-              mkdir -p $out/include/simd
-              cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
-            '';
-        }
-      );
+      MetalKit = lib.overrideDerivation super.MetalKit (drv: {
+        installPhase = drv.installPhase + ''
+          mkdir -p $out/include/simd
+          cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
+        '';
+      });
 
-      System = lib.overrideDerivation super.System (
-        drv: {
-          installPhase = ''
-            mkdir -p $out/Library/Frameworks/System.framework/Versions/B
-            ln -s $out/Library/Frameworks/System.framework/Versions/{B,Current}
-            ln -s ${pkgs.darwin.Libsystem}/lib/libSystem.B.tbd $out/Library/Frameworks/System.framework/Versions/B/System.tbd
-            ln -s $out/Library/Frameworks/System.framework/{Versions/Current/,}System.tbd
-          '';
-        }
-      );
+      System = lib.overrideDerivation super.System (drv: {
+        installPhase = ''
+          mkdir -p $out/Library/Frameworks/System.framework/Versions/B
+          ln -s $out/Library/Frameworks/System.framework/Versions/{B,Current}
+          ln -s ${pkgs.darwin.Libsystem}/lib/libSystem.B.tbd $out/Library/Frameworks/System.framework/Versions/B/System.tbd
+          ln -s $out/Library/Frameworks/System.framework/{Versions/Current/,}System.tbd
+        '';
+      });
 
-      WebKit = lib.overrideDerivation super.WebKit (
-        drv: {
-          extraTBDFiles = [
-            "Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore.tbd"
-            "Versions/A/Frameworks/WebKitLegacy.framework/Versions/A/WebKitLegacy.tbd"
-          ];
-        }
-      );
-    }
-    //
-      lib.genAttrs
-        [
-          "ContactsPersistence"
-          "CoreSymbolication"
-          "DebugSymbols"
-          "DisplayServices"
-          "GameCenter"
-          "MultitouchSupport"
-          "SkyLight"
-          "UIFoundation"
-        ]
-        (x: tbdOnlyFramework x { });
+      WebKit = lib.overrideDerivation super.WebKit (drv: {
+        extraTBDFiles = [
+          "Versions/A/Frameworks/WebCore.framework/Versions/A/WebCore.tbd"
+          "Versions/A/Frameworks/WebKitLegacy.framework/Versions/A/WebKitLegacy.tbd"
+        ];
+      });
+    } // lib.genAttrs [
+      "ContactsPersistence"
+      "CoreSymbolication"
+      "DebugSymbols"
+      "DisplayServices"
+      "GameCenter"
+      "MultitouchSupport"
+      "SkyLight"
+      "UIFoundation"
+    ] (x: tbdOnlyFramework x { });
 
-  bareFrameworks = lib.mapAttrs framework (
-    import ./frameworks.nix {
-      inherit frameworks libs;
-      inherit (pkgs.darwin) libobjc;
-    }
-  );
+  bareFrameworks = lib.mapAttrs framework (import ./frameworks.nix {
+    inherit frameworks libs;
+    inherit (pkgs.darwin) libobjc;
+  });
 
   frameworks = bareFrameworks // overrides bareFrameworks;
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  bearer,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, bearer }:
 
 buildGoModule rec {
   pname = "bearer";
@@ -35,7 +29,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Code security scanning tool (SAST) to discover, filter and prioritize security and privacy risks";
+    description =
+      "Code security scanning tool (SAST) to discover, filter and prioritize security and privacy risks";
     homepage = "https://github.com/bearer/bearer";
     changelog = "https://github.com/Bearer/bearer/releases/tag/v${version}";
     license = with licenses; [ elastic ];

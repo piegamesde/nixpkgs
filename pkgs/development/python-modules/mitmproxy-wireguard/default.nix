@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  stdenv,
-  darwin,
-  pytestCheckHook,
-  pythonOlder,
-  rustPlatform,
-  setuptools-rust,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, stdenv, darwin, pytestCheckHook
+, pythonOlder, rustPlatform, setuptools-rust }:
 
 buildPythonPackage rec {
   pname = "mitmproxy-wireguard";
@@ -29,14 +20,8 @@ buildPythonPackage rec {
     darwin.apple_sdk.frameworks.Security
   ];
 
-  nativeBuildInputs =
-    [ setuptools-rust ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        maturinBuildHook
-      ]
-    );
+  nativeBuildInputs = [ setuptools-rust ]
+    ++ (with rustPlatform; [ cargoSetupHook maturinBuildHook ]);
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -52,7 +37,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "WireGuard frontend for mitmproxy";
     homepage = "https://github.com/decathorpe/mitmproxy_wireguard";
-    changelog = "https://github.com/decathorpe/mitmproxy_wireguard/releases/tag/${version}";
+    changelog =
+      "https://github.com/decathorpe/mitmproxy_wireguard/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

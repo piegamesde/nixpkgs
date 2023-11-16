@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cadvisor";
@@ -19,11 +15,8 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-dg+osxsxdJ8Tg++wdd4L6FMjiPLLFQj0NXb2aSC7vQg=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/google/cadvisor/version.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/google/cadvisor/version.Version=${version}" ];
 
   postInstall = ''
     mv $out/bin/{cmd,cadvisor}
@@ -35,7 +28,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Analyzes resource usage and performance characteristics of running docker containers";
+    description =
+      "Analyzes resource usage and performance characteristics of running docker containers";
     homepage = "https://github.com/google/cadvisor";
     license = licenses.asl20;
     maintainers = with maintainers; [ offline ];

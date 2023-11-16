@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "thumbs";
@@ -21,7 +17,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/fcsonline/tmux-thumbs";
-    description = "A lightning fast version copy/pasting like vimium/vimperator";
+    description =
+      "A lightning fast version copy/pasting like vimium/vimperator";
     license = licenses.mit;
     maintainers = with maintainers; [ ghostbuster91 ];
   };

@@ -1,25 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, nixosTests }:
 let
-  libDir =
-    if
-      builtins.elem stdenv.system [
-        "x86_64-linux"
-        "mips64-linux"
-        "powerpc64le-linux"
-      ]
-    then
-      "/lib64"
-    else
-      "/lib";
-in
-stdenv.mkDerivation rec {
+  libDir = if builtins.elem stdenv.system [
+    "x86_64-linux"
+    "mips64-linux"
+    "powerpc64le-linux"
+  ] then
+    "/lib64"
+  else
+    "/lib";
+in stdenv.mkDerivation rec {
   pname = "nix-ld";
   version = "1.1.0";
 
@@ -32,10 +21,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
   mesonFlags = [ "-Dnix-system=${stdenv.system}" ];
 

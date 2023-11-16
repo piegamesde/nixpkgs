@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  numpy,
-  nunavut,
-  pyserial,
-  pytest,
-  ruamel-yaml,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, numpy, nunavut
+, pyserial, pytest, ruamel-yaml }:
 
 buildPythonPackage rec {
   pname = "pyuavcan";
@@ -22,13 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-ChNoYHuZulPLrxYvxeVO9Tyt8rymlk3p/OkYaG2rqzo=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    nunavut
-    pyserial
-    pytest
-    ruamel-yaml
-  ];
+  propagatedBuildInputs = [ numpy nunavut pyserial pytest ruamel-yaml ];
 
   # allow for writable directory for darwin
   preBuild = ''

@@ -1,14 +1,5 @@
-{
-  lib,
-  resholve,
-  fetchFromGitHub,
-  bash,
-  coreutils,
-  gnused,
-  gnugrep,
-  findutils,
-  ncurses,
-}:
+{ lib, resholve, fetchFromGitHub, bash, coreutils, gnused, gnugrep, findutils
+, ncurses }:
 
 resholve.mkDerivation rec {
   pname = "shunit2";
@@ -37,13 +28,7 @@ resholve.mkDerivation rec {
       # Caution: see __SHUNIT_CMD_ECHO_ESC before changing
       interpreter = "${bash}/bin/sh";
       scripts = [ "bin/shunit2" ];
-      inputs = [
-        coreutils
-        gnused
-        gnugrep
-        findutils
-        ncurses
-      ];
+      inputs = [ coreutils gnused gnugrep findutils ncurses ];
       # resholve's Nix API is analogous to the CLI flags
       # documented in 'man resholve'
       fake = {
@@ -74,30 +59,24 @@ resholve.mkDerivation rec {
       };
       keep = {
         # dynamically defined in shunit2:_shunit_mktempFunc
-        eval = [
-          "shunit_condition_"
-          "_shunit_test_"
-          "_shunit_prepForSourcing"
-        ];
+        eval =
+          [ "shunit_condition_" "_shunit_test_" "_shunit_prepForSourcing" ];
 
         # dynamic based on CLI flag
         "$_SHUNIT_LINENO_" = true;
       };
-      execer =
-        [
-          # drop after https://github.com/abathur/binlore/issues/2
-          "cannot:${ncurses}/bin/tput"
-        ];
+      execer = [
+        # drop after https://github.com/abathur/binlore/issues/2
+        "cannot:${ncurses}/bin/tput"
+      ];
     };
   };
 
   meta = with lib; {
     homepage = "https://github.com/kward/shunit2";
-    description = "An xUnit based unit test framework for Bourne based shell scripts";
-    maintainers = with maintainers; [
-      abathur
-      utdemir
-    ];
+    description =
+      "An xUnit based unit test framework for Bourne based shell scripts";
+    maintainers = with maintainers; [ abathur utdemir ];
     license = licenses.asl20;
     platforms = platforms.unix;
   };

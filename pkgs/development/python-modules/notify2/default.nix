@@ -1,10 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-  pygobject3,
-  dbus-python,
-}:
+{ buildPythonPackage, lib, fetchPypi, pygobject3, dbus-python }:
 
 buildPythonPackage rec {
   pname = "notify2";
@@ -17,10 +11,7 @@ buildPythonPackage rec {
 
   # Tests require Xorg and Dbus instance
   doCheck = false;
-  propagatedBuildInputs = [
-    pygobject3
-    dbus-python
-  ];
+  propagatedBuildInputs = [ pygobject3 dbus-python ];
 
   meta = {
     description = "Pure Python interface to DBus notifications";

@@ -1,14 +1,5 @@
-{
-  stdenv,
-  fetchzip,
-  lib,
-  makeWrapper,
-  autoPatchelfHook,
-  openjdk17,
-  pam,
-  makeDesktopItem,
-  icoutils,
-}:
+{ stdenv, fetchzip, lib, makeWrapper, autoPatchelfHook, openjdk17, pam
+, makeDesktopItem, icoutils }:
 
 let
 
@@ -22,26 +13,22 @@ let
     genericName = "Ghidra Software Reverse Engineering Suite";
     categories = [ "Development" ];
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "ghidra";
   version = "10.3";
   versiondate = "20230510";
 
   src = fetchzip {
-    url = "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${version}_build/ghidra_${version}_PUBLIC_${versiondate}.zip";
+    url =
+      "https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${version}_build/ghidra_${version}_PUBLIC_${versiondate}.zip";
     hash = "sha256-uFyTMWhj3yMVIPxEwkLtTqpJUi2S8A2GFjjY3rNTC2c=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    icoutils
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [ makeWrapper icoutils ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-    pam
-  ];
+  buildInputs = [ stdenv.cc.cc.lib pam ];
 
   dontStrip = true;
 
@@ -69,18 +56,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
+    description =
+      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://github.com/NationalSecurityAgency/ghidra";
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      ck3d
-      govanify
-      mic92
-    ];
+    maintainers = with maintainers; [ ck3d govanify mic92 ];
   };
+
 }

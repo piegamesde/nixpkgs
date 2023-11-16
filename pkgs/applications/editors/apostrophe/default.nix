@@ -1,31 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  meson,
-  ninja,
-  wrapGAppsHook,
-  pkg-config,
-  desktop-file-utils,
-  appstream-glib,
-  pythonPackages,
-  glib,
-  gobject-introspection,
-  gtk3,
-  webkitgtk,
-  glib-networking,
-  gnome,
-  gspell,
-  texlive,
-  shared-mime-info,
-  libhandy,
-  fira,
-  sassc,
-}:
+{ lib, stdenv, fetchFromGitLab, meson, ninja, wrapGAppsHook, pkg-config
+, desktop-file-utils, appstream-glib, pythonPackages, glib
+, gobject-introspection, gtk3, webkitgtk, glib-networking, gnome, gspell
+, texlive, shared-mime-info, libhandy, fira, sassc }:
 
 let
-  pythonEnv = pythonPackages.python.withPackages (
-    p:
+  pythonEnv = pythonPackages.python.withPackages (p:
     with p; [
       regex
       setuptools
@@ -35,10 +14,9 @@ let
       pycairo
       pypandoc
       chardet
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+
+in stdenv.mkDerivation rec {
   pname = "apostrophe";
   version = "2.6.3";
 

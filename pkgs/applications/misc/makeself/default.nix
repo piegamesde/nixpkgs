@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  which,
-  zstd,
-  pbzip2,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, which, zstd, pbzip2, installShellFiles }:
 
 stdenv.mkDerivation rec {
   version = "2.4.5";
@@ -29,11 +21,7 @@ stdenv.mkDerivation rec {
   # when running these tests inside build, based on free disk space.
   doCheck = false;
   checkTarget = "test";
-  nativeCheckInputs = [
-    which
-    zstd
-    pbzip2
-  ];
+  nativeCheckInputs = [ which zstd pbzip2 ];
 
   installPhase = ''
     runHook preInstall

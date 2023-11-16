@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "mysqld_exporter";
@@ -17,19 +13,16 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-M6u+ZBEUqCd6cKVHPvHqRiXLbuWz66GK+ybIQm+5tQE=";
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Revision=${src.rev}"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-    ];
+  ldflags = let t = "github.com/prometheus/common/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Revision=${src.rev}"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+  ];
 
   # skips tests with external dependencies, e.g. on mysqld
   preCheck = ''
@@ -40,9 +33,6 @@ buildGoModule rec {
     description = "Prometheus exporter for MySQL server metrics";
     homepage = "https://github.com/prometheus/mysqld_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      benley
-      globin
-    ];
+    maintainers = with maintainers; [ benley globin ];
   };
 }

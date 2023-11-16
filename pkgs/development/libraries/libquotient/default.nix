@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  olm,
-  openssl,
-  qtbase,
-  qtmultimedia,
-  qtkeychain,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, olm, openssl, qtbase, qtmultimedia
+, qtkeychain }:
 
 stdenv.mkDerivation rec {
   pname = "libquotient";
@@ -21,13 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Lq404O2VjZ8vlXOW+rhsvWDvZsNd3APNbv6AadQCjhk=";
   };
 
-  buildInputs = [
-    olm
-    openssl
-    qtbase
-    qtmultimedia
-    qtkeychain
-  ];
+  buildInputs = [ olm openssl qtbase qtmultimedia qtkeychain ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -43,7 +28,8 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   meta = with lib; {
-    description = "A Qt5/Qt6 library to write cross-platform clients for Matrix";
+    description =
+      "A Qt5/Qt6 library to write cross-platform clients for Matrix";
     homepage = "https://matrix.org/docs/projects/sdk/quotient";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ colemickens ];

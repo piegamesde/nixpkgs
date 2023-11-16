@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  dnspython,
-  fetchFromGitHub,
-  ldap3,
-  pyasn1,
-  pycryptodome,
-  pythonOlder,
-  pytz,
-  six,
-}:
+{ lib, buildPythonPackage, dnspython, fetchFromGitHub, ldap3, pyasn1
+, pycryptodome, pythonOlder, pytz, six }:
 
 buildPythonPackage rec {
   pname = "ms-active-directory";
@@ -25,14 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-mErQib8xTgo29iPAtiLnhxLXyFboAzyEW9A/QMseM6k=";
   };
 
-  propagatedBuildInputs = [
-    dnspython
-    ldap3
-    pyasn1
-    pycryptodome
-    pytz
-    six
-  ];
+  propagatedBuildInputs = [ dnspython ldap3 pyasn1 pycryptodome pytz six ];
 
   # Module has no tests
   doCheck = false;
@@ -40,7 +23,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ms_active_directory" ];
 
   meta = with lib; {
-    description = "Python module for integrating with Microsoft Active Directory domains";
+    description =
+      "Python module for integrating with Microsoft Active Directory domains";
     homepage = "https://github.com/zorn96/ms_active_directory/";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

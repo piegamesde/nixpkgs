@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  xorg,
-  cairo,
-  lv2,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, xorg, cairo, lv2, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "bsequencer";
@@ -20,11 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    xorg.libX11
-    cairo
-    lv2
-  ];
+  buildInputs = [ xorg.libX11 cairo lv2 ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

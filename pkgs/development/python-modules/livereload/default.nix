@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  django,
-  tornado,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, django, tornado, six }:
 
 buildPythonPackage rec {
   pname = "livereload";
@@ -21,10 +13,7 @@ buildPythonPackage rec {
 
   buildInputs = [ django ];
 
-  propagatedBuildInputs = [
-    tornado
-    six
-  ];
+  propagatedBuildInputs = [ tornado six ];
 
   nativeCheckInputs = [ nose ];
   # TODO: retry running all tests after v2.6.1

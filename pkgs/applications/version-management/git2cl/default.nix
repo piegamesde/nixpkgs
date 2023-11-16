@@ -1,9 +1,4 @@
-{
-  fetchgit,
-  lib,
-  stdenv,
-  perl,
-}:
+{ fetchgit, lib, stdenv, perl }:
 
 stdenv.mkDerivation rec {
   pname = "git2cl";

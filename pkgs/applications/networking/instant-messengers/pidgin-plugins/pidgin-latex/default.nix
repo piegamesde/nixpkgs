@@ -1,19 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  pidgin,
-  texLive,
-  imagemagick,
-  glib,
-  gtk2,
-}:
+{ lib, stdenv, fetchurl, pkg-config, pidgin, texLive, imagemagick, glib, gtk2 }:
 
-let
-  version = "1.5.0";
-in
-stdenv.mkDerivation {
+let version = "1.5.0";
+in stdenv.mkDerivation {
   pname = "pidgin-latex";
   inherit version;
 
@@ -23,11 +11,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gtk2
-    glib
-    pidgin
-  ];
+  buildInputs = [ gtk2 glib pidgin ];
   makeFlags = [ "PREFIX=$(out)" ];
 
   postPatch = ''
@@ -35,12 +19,7 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    wrapArgs = "--prefix PATH ':' ${
-        lib.makeBinPath [
-          texLive
-          imagemagick
-        ]
-      }";
+    wrapArgs = "--prefix PATH ':' ${lib.makeBinPath [ texLive imagemagick ]}";
   };
 
   meta = with lib; {

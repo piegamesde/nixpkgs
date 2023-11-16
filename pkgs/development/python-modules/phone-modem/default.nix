@@ -1,10 +1,4 @@
-{
-  lib,
-  aioserial,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, aioserial, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "phone-modem";

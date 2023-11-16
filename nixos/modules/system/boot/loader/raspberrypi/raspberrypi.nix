@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,11 +11,12 @@ let
   };
   builderGeneric = import ./raspberrypi-builder.nix { inherit pkgs configTxt; };
 
-  builder =
-    if cfg.uboot.enable then
-      "${builderUboot} -g ${toString cfg.uboot.configurationLimit} -t ${timeoutStr} -c"
-    else
-      "${builderGeneric} -c";
+  builder = if cfg.uboot.enable then
+    "${builderUboot} -g ${
+      toString cfg.uboot.configurationLimit
+    } -t ${timeoutStr} -c"
+  else
+    "${builderGeneric} -c";
 
   blCfg = config.boot.loader;
   timeoutStr = if blCfg.timeout == null then "-1" else toString blCfg.timeout;
@@ -28,36 +24,25 @@ let
   isAarch64 = pkgs.stdenv.hostPlatform.isAarch64;
   optional = pkgs.lib.optionalString;
 
-  configTxt = pkgs.writeText "config.txt" (
-    ''
-      # U-Boot used to need this to work, regardless of whether UART is actually used or not.
-      # TODO: check when/if this can be removed.
-      enable_uart=1
+  configTxt = pkgs.writeText "config.txt" (''
+    # U-Boot used to need this to work, regardless of whether UART is actually used or not.
+    # TODO: check when/if this can be removed.
+    enable_uart=1
 
-      # Prevent the firmware from smashing the framebuffer setup done by the mainline kernel
-      # when attempting to show low-voltage or overtemperature warnings.
-      avoid_warnings=1
-    ''
-    + optional isAarch64 ''
-      # Boot in 64-bit mode.
-      arm_64bit=1
-    ''
-    + (
-      if cfg.uboot.enable then
-        ''
-          kernel=u-boot-rpi.bin
-        ''
-      else
-        ''
-          kernel=kernel.img
-          initramfs initrd followkernel
-        ''
-    )
-    + optional (cfg.firmwareConfig != null) cfg.firmwareConfig
-  );
-in
+    # Prevent the firmware from smashing the framebuffer setup done by the mainline kernel
+    # when attempting to show low-voltage or overtemperature warnings.
+    avoid_warnings=1
+  '' + optional isAarch64 ''
+    # Boot in 64-bit mode.
+    arm_64bit=1
+  '' + (if cfg.uboot.enable then ''
+    kernel=u-boot-rpi.bin
+  '' else ''
+    kernel=kernel.img
+    initramfs initrd followkernel
+  '') + optional (cfg.firmwareConfig != null) cfg.firmwareConfig);
 
-{
+in {
   options = {
 
     boot.loader.raspberryPi = {
@@ -73,13 +58,7 @@ in
 
       version = mkOption {
         default = 2;
-        type = types.enum [
-          0
-          1
-          2
-          3
-          4
-        ];
+        type = types.enum [ 0 1 2 3 4 ];
         description = lib.mdDoc "";
       };
 
@@ -100,6 +79,7 @@ in
             Maximum number of configurations in the boot menu.
           '';
         };
+
       };
 
       firmwareConfig = mkOption {
@@ -121,6 +101,7 @@ in
 
     system.build.installBootLoader = builder;
     system.boot.loader.id = "raspberrypi";
-    system.boot.loader.kernelFile = pkgs.stdenv.hostPlatform.linux-kernel.target;
+    system.boot.loader.kernelFile =
+      pkgs.stdenv.hostPlatform.linux-kernel.target;
   };
 }

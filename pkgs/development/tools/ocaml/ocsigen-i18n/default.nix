@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocamlPackages,
-}:
+{ lib, stdenv, fetchFromGitHub, ocamlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "ocsigen-i18n";
@@ -11,10 +6,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = with ocamlPackages; [
-    ocaml
-    findlib
-  ];
+  nativeBuildInputs = with ocamlPackages; [ ocaml findlib ];
   buildInputs = with ocamlPackages; [ ppx_tools ];
 
   dontStrip = true;
@@ -37,4 +29,5 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl21;
     maintainers = [ lib.maintainers.gal_bolle ];
   };
+
 }

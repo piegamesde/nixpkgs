@@ -1,10 +1,8 @@
 { runCommand, autoprefixer }:
 
-let
-  inherit (autoprefixer) packageName version;
-in
+let inherit (autoprefixer) packageName version;
 
-runCommand "${packageName}-tests" { meta.timeout = 60; } ''
+in runCommand "${packageName}-tests" { meta.timeout = 60; } ''
   # get version of installed program and compare with package version
   claimed_version="$(${autoprefixer}/bin/autoprefixer --version | awk '{print $2}')"
   if [[ "$claimed_version" != "${version}" ]]; then

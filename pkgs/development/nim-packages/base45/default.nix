@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromSourcehut,
-}:
+{ lib, buildNimPackage, fetchFromSourcehut }:
 
 buildNimPackage rec {
   pname = "base45";

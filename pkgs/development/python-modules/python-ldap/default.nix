@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyasn1,
-  pyasn1-modules,
-  pythonAtLeast,
-  pythonOlder,
-  pytestCheckHook,
-  openldap,
-  cyrus_sasl,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pyasn1, pyasn1-modules
+, pythonAtLeast, pythonOlder, pytestCheckHook, openldap, cyrus_sasl }:
 
 buildPythonPackage rec {
   pname = "python-ldap";
@@ -24,15 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-/ehvSs2qjuTPhaaOP0agPbWyyRugBpUlPq/Ny9t2C58=";
   };
 
-  buildInputs = [
-    openldap
-    cyrus_sasl
-  ];
+  buildInputs = [ openldap cyrus_sasl ];
 
-  propagatedBuildInputs = [
-    pyasn1
-    pyasn1-modules
-  ];
+  propagatedBuildInputs = [ pyasn1 pyasn1-modules ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -44,11 +27,10 @@ buildPythonPackage rec {
     export SCHEMA="${openldap}/etc/schema"
   '';
 
-  disabledTests =
-    [
-      # https://github.com/python-ldap/python-ldap/issues/501
-      "test_tls_ext_noca"
-    ];
+  disabledTests = [
+    # https://github.com/python-ldap/python-ldap/issues/501
+    "test_tls_ext_noca"
+  ];
 
   doCheck = !stdenv.isDarwin;
 

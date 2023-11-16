@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoPatchelfHook,
-  cmake,
-  pkg-config,
-  alsa-lib,
-  freetype,
-  libjack2,
-  libX11,
-  libXext,
-  libXcursor,
-  libXinerama,
-  libXrandr,
-  libXrender,
-}:
+{ lib, stdenv, fetchFromGitHub, autoPatchelfHook, cmake, pkg-config, alsa-lib
+, freetype, libjack2, libX11, libXext, libXcursor, libXinerama, libXrandr
+, libXrender }:
 
 stdenv.mkDerivation rec {
   pname = "proteus";
@@ -28,11 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-WhJh+Sx64JYxQQ1LXpDUwXeodFU1EZ0TmMhn+6w0hQg=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoPatchelfHook cmake pkg-config ];
   buildInputs = [
     alsa-lib
     freetype

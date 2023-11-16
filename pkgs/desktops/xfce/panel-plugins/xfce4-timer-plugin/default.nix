@@ -1,23 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  libxfce4util,
-  xfce4-panel,
-  libxfce4ui,
-  glib,
-  gtk3,
-  hicolor-icon-theme,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, libxfce4util, xfce4-panel
+, libxfce4ui, glib, gtk3, hicolor-icon-theme, gitUpdater }:
 
-let
-  category = "panel-plugins";
-in
+let category = "panel-plugins";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "xfce4-timer-plugin";
   version = "1.7.2";
 
@@ -28,19 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/rO4wtOVBegWaDVAoyJr172ocMy8tMfQ9qv+7/XFi30=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    libxfce4util
-    libxfce4ui
-    xfce4-panel
-    glib
-    gtk3
-    hicolor-icon-theme
-  ];
+  buildInputs =
+    [ libxfce4util libxfce4ui xfce4-panel glib gtk3 hicolor-icon-theme ];
 
   hardeningDisable = [ "format" ];
 

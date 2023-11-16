@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -24,10 +19,15 @@ with lib;
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${pkgs.util-linux}/sbin/hwclock --systohc ${
-          if config.time.hardwareClockInLocalTime then "--localtime" else "--utc"
+          if config.time.hardwareClockInLocalTime then
+            "--localtime"
+          else
+            "--utc"
         }";
     };
   };
 
-  boot.kernel.sysctl."kernel.poweroff_cmd" = "${config.systemd.package}/sbin/poweroff";
+  boot.kernel.sysctl."kernel.poweroff_cmd" =
+    "${config.systemd.package}/sbin/poweroff";
+
 }

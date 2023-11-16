@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-}:
+{ lib, fetchPypi, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "pymorphy3-dicts-uk";

@@ -1,29 +1,8 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  fetchpatch,
-  installShellFiles,
-  libcdio-paranoia,
-  cdrdao,
-  libsndfile,
-  flac,
-  sox,
-  util-linux,
-  testers,
-  whipper,
-}:
+{ lib, python3, fetchFromGitHub, fetchpatch, installShellFiles, libcdio-paranoia
+, cdrdao, libsndfile, flac, sox, util-linux, testers, whipper }:
 
-let
-  bins = [
-    libcdio-paranoia
-    cdrdao
-    flac
-    sox
-    util-linux
-  ];
-in
-python3.pkgs.buildPythonApplication rec {
+let bins = [ libcdio-paranoia cdrdao flac sox util-linux ];
+in python3.pkgs.buildPythonApplication rec {
   pname = "whipper";
   version = "0.10.0";
 
@@ -38,7 +17,8 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       # Use custom YAML subclass to be compatible with ruamel_yaml>=0.17
       # https://github.com/whipper-team/whipper/pull/543
-      url = "https://github.com/whipper-team/whipper/commit/3ce5964dfe8be1e625c3e3b091360dd0bc34a384.patch";
+      url =
+        "https://github.com/whipper-team/whipper/commit/3ce5964dfe8be1e625c3e3b091360dd0bc34a384.patch";
       sha256 = "0n9dmib884y8syvypsg88j0h71iy42n1qsrh0am8pwna63sl15ah";
     })
   ];
@@ -66,21 +46,13 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python3.pkgs; [ twisted ] ++ bins;
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath bins)
-  ];
+  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath bins) ];
 
   preBuild = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION="${version}"
   '';
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
   postBuild = ''
     make -C man
   '';

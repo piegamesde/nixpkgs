@@ -1,16 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, jre, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "zap";
   version = "2.12.0";
   src = fetchurl {
-    url = "https://github.com/zaproxy/zaproxy/releases/download/v${version}/ZAP_${version}_Linux.tar.gz";
+    url =
+      "https://github.com/zaproxy/zaproxy/releases/download/v${version}/ZAP_${version}_Linux.tar.gz";
     sha256 = "sha256-nESTyZHLk0cGOGTSQ2o3lc87aXYGJeez20Ac00LT/FU=";
   };
 
@@ -44,10 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.owasp.org/index.php/ZAP";
     description = "Java application for web penetration testing";
-    maintainers = with maintainers; [
-      mog
-      rafael
-    ];
+    maintainers = with maintainers; [ mog rafael ];
     platforms = platforms.linux;
     license = licenses.asl20;
   };

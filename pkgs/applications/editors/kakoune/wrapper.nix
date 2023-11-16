@@ -1,17 +1,11 @@
-{
-  symlinkJoin,
-  makeWrapper,
-  kakoune,
-  plugins ? [ ],
-  configure ? { },
-}:
+{ symlinkJoin, makeWrapper, kakoune, plugins ? [ ], configure ? { } }:
 
 let
   # "plugins" is the preferred way, but some configurations may be
   # using "configure.plugins", so accept both
   requestedPlugins = plugins ++ (configure.plugins or [ ]);
-in
-symlinkJoin {
+
+in symlinkJoin {
   name = "kakoune-${kakoune.version}";
 
   nativeBuildInputs = [ makeWrapper ];
@@ -32,7 +26,5 @@ symlinkJoin {
     rm -Rf "$out/DELETE_ME"
   '';
 
-  meta = kakoune.meta // {
-    priority = (kakoune.meta.priority or 0) - 1;
-  };
+  meta = kakoune.meta // { priority = (kakoune.meta.priority or 0) - 1; };
 }

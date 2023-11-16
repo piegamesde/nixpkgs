@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGraalvmNativeImage,
-  babashka,
-  fetchurl,
-  fetchFromGitHub,
-  clojure,
-  writeScript,
-}:
+{ lib, stdenv, buildGraalvmNativeImage, babashka, fetchurl, fetchFromGitHub
+, clojure, writeScript }:
 
 buildGraalvmNativeImage rec {
   pname = "clojure-lsp";
@@ -21,23 +13,20 @@ buildGraalvmNativeImage rec {
   };
 
   jar = fetchurl {
-    url = "https://github.com/clojure-lsp/clojure-lsp/releases/download/${version}/clojure-lsp-standalone.jar";
+    url =
+      "https://github.com/clojure-lsp/clojure-lsp/releases/download/${version}/clojure-lsp-standalone.jar";
     sha256 = "48503b147a247cef4c106084b0c15e10bb0f1de8f0b15d528ca9d66e76bba465";
   };
 
-  extraNativeImageBuildArgs = [
-    "--no-fallback"
-    "--native-image-info"
-  ];
+  extraNativeImageBuildArgs = [ "--no-fallback" "--native-image-info" ];
 
   doCheck = true;
-  checkPhase =
-    ''
-      runHook preCheck
+  checkPhase = ''
+    runHook preCheck
 
-      export HOME="$(mktemp -d)"
-      ./${pname} --version | fgrep -q '${version}'
-    ''
+    export HOME="$(mktemp -d)"
+    ./${pname} --version | fgrep -q '${version}'
+  ''
     # TODO: fix classpath issue per https://github.com/NixOS/nixpkgs/pull/153770
     #${babashka}/bin/bb integration-test ./${pname}
     + ''
@@ -70,9 +59,6 @@ buildGraalvmNativeImage rec {
     homepage = "https://github.com/clojure-lsp/clojure-lsp";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;
-    maintainers = with maintainers; [
-      ericdallo
-      babariviere
-    ];
+    maintainers = with maintainers; [ ericdallo babariviere ];
   };
 }

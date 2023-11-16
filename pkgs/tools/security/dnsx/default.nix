@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "dnsx";
@@ -29,7 +25,8 @@ buildGoModule rec {
       resolvers.
     '';
     homepage = "https://github.com/projectdiscovery/dnsx";
-    changelog = "https://github.com/projectdiscovery/dnsx/releases/tag/v${version}";
+    changelog =
+      "https://github.com/projectdiscovery/dnsx/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

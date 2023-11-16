@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools-scm,
-  kombu,
-  shortuuid,
-  celery,
-  funcy,
-  pytest-celery,
-  pytest-mock,
-  pytest-test-utils,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools-scm, kombu
+, shortuuid, celery, funcy, pytest-celery, pytest-mock, pytest-test-utils
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "dvc-task";
@@ -32,19 +20,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    kombu
-    shortuuid
-    celery
-    funcy
-  ];
+  propagatedBuildInputs = [ kombu shortuuid celery funcy ];
 
-  nativeCheckInputs = [
-    pytest-celery
-    pytest-mock
-    pytest-test-utils
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ pytest-celery pytest-mock pytest-test-utils pytestCheckHook ];
 
   pythonImportsCheck = [ "dvc_task" ];
 

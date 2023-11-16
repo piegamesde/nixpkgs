@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gtk-engine-murrine,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk-engine-murrine }:
 
 stdenvNoCC.mkDerivation {
   pname = "tokyo-night-gtk";

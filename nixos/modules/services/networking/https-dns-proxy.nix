@@ -1,53 +1,28 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
-  inherit (lib)
-    concatStringsSep
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-  ;
+  inherit (lib) concatStringsSep mkEnableOption mkIf mkOption types;
 
   cfg = config.services.https-dns-proxy;
 
   providers = {
     cloudflare = {
-      ips = [
-        "1.1.1.1"
-        "1.0.0.1"
-      ];
+      ips = [ "1.1.1.1" "1.0.0.1" ];
       url = "https://cloudflare-dns.com/dns-query";
     };
     google = {
-      ips = [
-        "8.8.8.8"
-        "8.8.4.4"
-      ];
+      ips = [ "8.8.8.8" "8.8.4.4" ];
       url = "https://dns.google/dns-query";
     };
     quad9 = {
-      ips = [
-        "9.9.9.9"
-        "149.112.112.112"
-      ];
+      ips = [ "9.9.9.9" "149.112.112.112" ];
       url = "https://dns.quad9.net/dns-query";
     };
     opendns = {
-      ips = [
-        "208.67.222.222"
-        "208.67.220.220"
-      ];
+      ips = [ "208.67.222.222" "208.67.220.220" ];
       url = "https://doh.opendns.com/dns-query";
     };
-    custom = {
-      inherit (cfg.provider) ips url;
-    };
+    custom = { inherit (cfg.provider) ips url; };
   };
 
   defaultProvider = "quad9";
@@ -58,8 +33,8 @@ let
     "-r"
     providers."${cfg.provider.kind}".url
   ];
-in
-{
+
+in {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
   ###### interface
@@ -89,7 +64,9 @@ in
           trade-offs when using any upstream provider. Please consider that
           before using any of them.
 
-          Supported providers: ${concatStringsSep ", " (builtins.attrNames providers)}
+          Supported providers: ${
+            concatStringsSep ", " (builtins.attrNames providers)
+          }
 
           If you pick the custom provider, you will need to provide the
           bootstrap IP addresses as well as the resolver https URL.
@@ -139,17 +116,13 @@ in
         Type = "exec";
         DynamicUser = true;
         ProtectHome = "tmpfs";
-        ExecStart = lib.concatStringsSep " " (
-          [
-            (lib.getExe pkgs.https-dns-proxy)
-            "-a ${toString cfg.address}"
-            "-p ${toString cfg.port}"
-            "-l -"
-            providerCfg
-          ]
-          ++ lib.optional cfg.preferIPv4 "-4"
-          ++ cfg.extraArgs
-        );
+        ExecStart = lib.concatStringsSep " " ([
+          (lib.getExe pkgs.https-dns-proxy)
+          "-a ${toString cfg.address}"
+          "-p ${toString cfg.port}"
+          "-l -"
+          providerCfg
+        ] ++ lib.optional cfg.preferIPv4 "-4" ++ cfg.extraArgs);
         Restart = "on-failure";
       };
     };

@@ -1,29 +1,11 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  gettext,
-  gi-docgen,
-  gnome,
-  glib,
-  gtk3,
-  gobject-introspection,
-  python3,
-  ncurses,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gettext, gi-docgen, gnome
+, glib, gtk3, gobject-introspection, python3, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "libpeas";
   version = "1.36.0";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -34,28 +16,15 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gettext
-    gi-docgen
+  nativeBuildInputs =
+    [ pkg-config meson ninja gettext gi-docgen gobject-introspection ];
+
+  buildInputs = [ glib gtk3 ncurses python3 python3.pkgs.pygobject3 ];
+
+  propagatedBuildInputs = [
+    # Required by libpeas-1.0.pc
     gobject-introspection
   ];
-
-  buildInputs = [
-    glib
-    gtk3
-    ncurses
-    python3
-    python3.pkgs.pygobject3
-  ];
-
-  propagatedBuildInputs =
-    [
-      # Required by libpeas-1.0.pc
-      gobject-introspection
-    ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

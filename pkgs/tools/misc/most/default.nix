@@ -1,30 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  slang,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, slang, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "most";
   version = "5.1.0";
 
   src = fetchurl {
-    url = "https://www.jedsoft.org/releases/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "https://www.jedsoft.org/releases/${pname}/${pname}-${version}.tar.gz";
     sha256 = "008537ns659pw2aag15imwjrxj73j26aqq90h285is6kz8gmv06v";
   };
 
-  patches =
-    [
-      # Upstream patch to fix parallel build failure
-      ./parallel-make.patch
-    ];
-
-  outputs = [
-    "out"
-    "doc"
+  patches = [
+    # Upstream patch to fix parallel build failure
+    ./parallel-make.patch
   ];
+
+  outputs = [ "out" "doc" ];
 
   makeFlags = [ "DOC_DIR=${placeholder "doc"}/share/doc/most" ];
 
@@ -37,10 +28,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-slang=${slang.dev}" ];
 
-  buildInputs = [
-    slang
-    ncurses
-  ];
+  buildInputs = [ slang ncurses ];
 
   enableParallelBuilding = true;
 

@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchurl,
-  pkg-config,
-  qmake,
-  qttools,
-  hunspell,
-  qtbase,
-  qtmultimedia,
-  mkDerivation,
-}:
+{ lib, fetchurl, pkg-config, qmake, qttools, hunspell, qtbase, qtmultimedia
+, mkDerivation }:
 
 mkDerivation rec {
   pname = "focuswriter";
@@ -19,16 +10,8 @@ mkDerivation rec {
     sha256 = "0h85f6cs9zbxv118mjfxqfv41j19zkx2xq36mpnlmrlzkjj7dx9l";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    qttools
-  ];
-  buildInputs = [
-    hunspell
-    qtbase
-    qtmultimedia
-  ];
+  nativeBuildInputs = [ pkg-config qmake qttools ];
+  buildInputs = [ hunspell qtbase qtmultimedia ];
 
   qmakeFlags = [ "PREFIX=/" ];
   installFlags = [ "INSTALL_ROOT=$(out)" ];

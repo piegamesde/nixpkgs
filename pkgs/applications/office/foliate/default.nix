@@ -1,21 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  meson,
-  gettext,
-  glib,
-  gjs,
-  ninja,
-  python3,
-  gtk3,
-  webkitgtk,
-  gsettings-desktop-schemas,
-  wrapGAppsHook,
-  desktop-file-utils,
-  gobject-introspection,
-  glib-networking,
-}:
+{ stdenv, lib, fetchFromGitHub, meson, gettext, glib, gjs, ninja, python3, gtk3
+, webkitgtk, gsettings-desktop-schemas, wrapGAppsHook, desktop-file-utils
+, gobject-introspection, glib-networking }:
 
 stdenv.mkDerivation rec {
   pname = "foliate";
@@ -28,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Pr2YA2MHXD4W7lyCxGAVLKyoZarZ8t92RSkWle3LNuc=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    python3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja python3 wrapGAppsHook ];
 
   postPatch = ''
     patchShebangs build-aux/meson/postinstall.py

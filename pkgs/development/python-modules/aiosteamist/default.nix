@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-  xmltodict,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder
+, xmltodict }:
 
 buildPythonPackage rec {
   pname = "aiosteamist";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    xmltodict
-  ];
+  propagatedBuildInputs = [ aiohttp xmltodict ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

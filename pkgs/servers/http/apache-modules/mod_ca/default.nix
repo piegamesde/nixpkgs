@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  apacheHttpd,
-  openssl,
-  openldap,
-  apr,
-  aprutil,
-}:
+{ lib, stdenv, fetchurl, pkg-config, apacheHttpd, openssl, openldap, apr
+, aprutil }:
 
 stdenv.mkDerivation rec {
   pname = "mod_ca";
@@ -20,13 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    apacheHttpd
-    openssl
-    openldap
-    apr
-    aprutil
-  ];
+  buildInputs = [ apacheHttpd openssl openldap apr aprutil ];
 
   # Note that configureFlags and installFlags are inherited by
   # the various submodules.

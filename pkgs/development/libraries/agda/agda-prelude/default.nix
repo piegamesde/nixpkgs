@@ -1,8 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-}:
+{ lib, mkDerivation, fetchFromGitHub }:
 
 mkDerivation rec {
   version = "unstable-2022-01-14";
@@ -27,10 +23,6 @@ mkDerivation rec {
     description = "Programming library for Agda";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with maintainers; [
-      mudri
-      alexarice
-      turion
-    ];
+    maintainers = with maintainers; [ mudri alexarice turion ];
   };
 }

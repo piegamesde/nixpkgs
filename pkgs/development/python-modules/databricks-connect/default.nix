@@ -1,12 +1,4 @@
-{
-  lib,
-  jdk8,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  py4j,
-  pythonOlder,
-}:
+{ lib, jdk8, buildPythonPackage, fetchPypi, six, py4j, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "databricks-connect";
@@ -22,11 +14,7 @@ buildPythonPackage rec {
 
   sourceRoot = ".";
 
-  propagatedBuildInputs = [
-    py4j
-    six
-    jdk8
-  ];
+  propagatedBuildInputs = [ py4j six jdk8 ];
 
   # requires network access
   doCheck = false;
@@ -41,11 +29,7 @@ buildPythonPackage rec {
       --replace find_spark_home.py .find_spark_home.py-wrapped
   '';
 
-  pythonImportsCheck = [
-    "pyspark"
-    "six"
-    "py4j"
-  ];
+  pythonImportsCheck = [ "pyspark" "six" "py4j" ];
 
   meta = with lib; {
     description = "Client for connecting to remote Databricks clusters";

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  libsForQt5,
-  ghostscript,
-  qt5,
-}:
+{ lib, fetchFromGitHub, python3Packages, libsForQt5, ghostscript, qt5 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "krop";

@@ -1,26 +1,6 @@
-{
-  stdenv,
-  lib,
-  cmake,
-  cfitsio,
-  libusb1,
-  zlib,
-  boost,
-  libnova,
-  curl,
-  libjpeg,
-  gsl,
-  fftw,
-  indilib,
-  libgphoto2,
-  libraw,
-  libftdi1,
-  libdc1394,
-  gpsd,
-  ffmpeg,
-  version,
-  src,
-}:
+{ stdenv, lib, cmake, cfitsio, libusb1, zlib, boost, libnova, curl, libjpeg, gsl
+, fftw, indilib, libgphoto2, libraw, libftdi1, libdc1394, gpsd, ffmpeg, version
+, src }:
 
 stdenv.mkDerivation rec {
   pname = "indi-firmware";
@@ -72,8 +52,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.indilib.org/";
-    description = "Third party firmware for the INDI astronomical software suite";
-    changelog = "https://github.com/indilib/indi-3rdparty/releases/tag/v${version}";
+    description =
+      "Third party firmware for the INDI astronomical software suite";
+    changelog =
+      "https://github.com/indilib/indi-3rdparty/releases/tag/v${version}";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ hjones2199 ];
     platforms = platforms.linux;

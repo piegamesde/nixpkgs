@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromSourcehut,
-  bearssl,
-  scdoc,
-}:
+{ stdenv, lib, fetchFromSourcehut, bearssl, scdoc }:
 
 stdenv.mkDerivation rec {
   pname = "gmni";
@@ -24,10 +18,7 @@ stdenv.mkDerivation rec {
     description = "A Gemini client";
     homepage = "https://git.sr.ht/~sircmpwn/gmni";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      bsima
-      jb55
-    ];
+    maintainers = with maintainers; [ bsima jb55 ];
     platforms = platforms.linux;
   };
 }

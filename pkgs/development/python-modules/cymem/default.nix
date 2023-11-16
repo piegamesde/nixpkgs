@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cython,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "cymem";

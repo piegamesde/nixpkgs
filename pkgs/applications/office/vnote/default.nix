@@ -1,11 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qmake,
-  qtbase,
-  qtwebengine,
-}:
+{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtwebengine }:
 
 mkDerivation rec {
   pname = "vnote";
@@ -21,10 +14,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [
-    qtbase
-    qtwebengine
-  ];
+  buildInputs = [ qtbase qtwebengine ];
 
   meta = with lib; {
     homepage = "https://vnotex.github.io/vnote";

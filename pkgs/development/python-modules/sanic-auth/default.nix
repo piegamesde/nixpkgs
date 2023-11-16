@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  sanic,
-  sanic-testing,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, sanic, sanic-testing, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "Sanic-Auth";
@@ -19,16 +12,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ sanic ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    sanic-testing
-  ];
+  nativeCheckInputs = [ pytestCheckHook sanic-testing ];
 
-  disabledTests =
-    [
-      # incompatible with sanic>=22.3.0
-      "test_login_required"
-    ];
+  disabledTests = [
+    # incompatible with sanic>=22.3.0
+    "test_login_required"
+  ];
 
   postPatch = ''
     # Support for httpx>=0.20.0

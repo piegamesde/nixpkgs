@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  stdune,
-  dyn,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, stdune, dyn }:
 
 buildDunePackage rec {
   pname = "fiber";
@@ -19,10 +13,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  buildInputs = [
-    stdune
-    dyn
-  ];
+  buildInputs = [ stdune dyn ];
 
   meta = with lib; {
     description = "Structured concurrency library";

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gcc-unwrapped,
-}:
+{ lib, stdenv, fetchurl, gcc-unwrapped }:
 
 stdenv.mkDerivation rec {
   version = "1.4.0";
@@ -14,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LkcVF4AnuslzpIg/S8sGNJQye6iGcQRGqCqAhg8aN5E=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   buildInputs = [ gcc-unwrapped ];
 
@@ -32,7 +24,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://libthreadar.sourceforge.net/";
-    description = "A C++ library that provides several classes to manipulate threads";
+    description =
+      "A C++ library that provides several classes to manipulate threads";
     longDescription = ''
       Libthreadar is a C++ library providing a small set of C++ classes to manipulate
       threads in a very simple and efficient way from your C++ code.

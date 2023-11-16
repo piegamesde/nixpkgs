@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libX11,
-  procps,
-  python3,
-  libdwarf,
-  qtbase,
-  wrapQtAppsHook,
-  libglvnd,
-  gtest,
-  brotli,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11, procps, python3
+, libdwarf, qtbase, wrapQtAppsHook, libglvnd, gtest, brotli, }:
 
 stdenv.mkDerivation rec {
   pname = "apitrace";
@@ -29,21 +15,9 @@ stdenv.mkDerivation rec {
 
   # LD_PRELOAD wrappers need to be statically linked to work against all kinds
   # of games -- so it's fine to use e.g. bundled snappy.
-  buildInputs = [
-    libX11
-    procps
-    python3
-    libdwarf
-    qtbase
-    gtest
-    brotli
-  ];
+  buildInputs = [ libX11 procps python3 libdwarf qtbase gtest brotli ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
   # Don't automatically wrap all binaries, I prefer to explicitly only wrap
   # `qapitrace`.
@@ -80,7 +54,9 @@ stdenv.mkDerivation rec {
     for i in $out/bin/eglretrace $out/bin/glretrace
     do
       echo "Patching RPath for $i"
-      patchelf --set-rpath "${lib.makeLibraryPath [ libglvnd ]}:$(patchelf --print-rpath $i)" $i
+      patchelf --set-rpath "${
+        lib.makeLibraryPath [ libglvnd ]
+      }:$(patchelf --print-rpath $i)" $i
     done
 
     wrapQtApp $out/bin/qapitrace
@@ -88,7 +64,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://apitrace.github.io";
-    description = "Tools to trace OpenGL, OpenGL ES, Direct3D, and DirectDraw APIs";
+    description =
+      "Tools to trace OpenGL, OpenGL ES, Direct3D, and DirectDraw APIs";
     license = licenses.mit;
     platforms = platforms.linux;
   };

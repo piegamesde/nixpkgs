@@ -1,15 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  python3,
-  qtbase,
-  qtquickcontrols2,
-  qtgraphicaleffects,
-  curaengine,
-  plugins ? [ ],
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, python3, qtbase, qtquickcontrols2
+, qtgraphicaleffects, curaengine, plugins ? [ ] }:
 
 mkDerivation rec {
   pname = "cura";
@@ -29,13 +19,8 @@ mkDerivation rec {
     sha256 = "sha256-7y4OcbeQHv+loJ4cMgPU0e818Zsv90EwARdztNWS8zM=";
   };
 
-  buildInputs = [
-    qtbase
-    qtquickcontrols2
-    qtgraphicaleffects
-  ];
-  propagatedBuildInputs =
-    with python3.pkgs;
+  buildInputs = [ qtbase qtquickcontrols2 qtgraphicaleffects ];
+  propagatedBuildInputs = with python3.pkgs;
     [
       libsavitar
       numpy-stl
@@ -47,23 +32,16 @@ mkDerivation rec {
       sentry-sdk
       trimesh
       keyring
-    ]
-    ++ plugins;
-  nativeBuildInputs = [
-    cmake
-    python3.pkgs.wrapPython
-  ];
+    ] ++ plugins;
+  nativeBuildInputs = [ cmake python3.pkgs.wrapPython ];
 
-  cmakeFlags = [
-    "-DURANIUM_DIR=${python3.pkgs.uranium.src}"
-    "-DCURA_VERSION=${version}"
-  ];
+  cmakeFlags =
+    [ "-DURANIUM_DIR=${python3.pkgs.uranium.src}" "-DCURA_VERSION=${version}" ];
 
-  makeWrapperArgs =
-    [
-      # hacky workaround for https://github.com/NixOS/nixpkgs/issues/59901
-      "--set OMP_NUM_THREADS 1"
-    ];
+  makeWrapperArgs = [
+    # hacky workaround for https://github.com/NixOS/nixpkgs/issues/59901
+    "--set OMP_NUM_THREADS 1"
+  ];
 
   postPatch = ''
     sed -i 's,/python''${PYTHON_VERSION_MAJOR}/dist-packages,/python''${PYTHON_VERSION_MAJOR}.''${PYTHON_VERSION_MINOR}/site-packages,g' CMakeLists.txt
@@ -85,13 +63,11 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "3D printer / slicing GUI built on top of the Uranium framework";
+    description =
+      "3D printer / slicing GUI built on top of the Uranium framework";
     homepage = "https://github.com/Ultimaker/Cura";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      abbradar
-      gebner
-    ];
+    maintainers = with maintainers; [ abbradar gebner ];
   };
 }

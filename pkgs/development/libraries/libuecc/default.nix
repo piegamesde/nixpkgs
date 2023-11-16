@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  cmake,
-}:
+{ lib, stdenv, fetchgit, cmake }:
 
 stdenv.mkDerivation rec {
   version = "7";

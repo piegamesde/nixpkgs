@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  unzip,
-  nixosTests,
-  ...
-}:
+{ stdenv, lib, fetchurl, unzip, nixosTests, ... }:
 
 stdenv.mkDerivation rec {
   pname = "vikunja-frontend";
@@ -32,7 +25,8 @@ stdenv.mkDerivation rec {
   passthru.tests.vikunja = nixosTests.vikunja;
 
   meta = {
-    changelog = "https://kolaente.dev/vikunja/frontend/src/tag/v${version}/CHANGELOG.md";
+    changelog =
+      "https://kolaente.dev/vikunja/frontend/src/tag/v${version}/CHANGELOG.md";
     description = "Frontend of the Vikunja to-do list app";
     homepage = "https://vikunja.io/";
     license = lib.licenses.agpl3Plus;

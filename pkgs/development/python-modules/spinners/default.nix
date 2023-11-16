@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  lib,
-}:
+{ buildPythonPackage, fetchPypi, isPy27, lib }:
 
 buildPythonPackage rec {
   pname = "spinners";

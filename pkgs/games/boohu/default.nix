@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildGoPackage,
-}:
+{ lib, fetchurl, buildGoPackage }:
 
 buildGoPackage rec {
 
@@ -12,7 +8,8 @@ buildGoPackage rec {
   goPackagePath = "git.tuxfamily.org/boohu/boohu.git";
 
   src = fetchurl {
-    url = "https://download.tuxfamily.org/boohu/downloads/${pname}-${version}.tar.gz";
+    url =
+      "https://download.tuxfamily.org/boohu/downloads/${pname}-${version}.tar.gz";
     sha256 = "0q89yv4klldjpli6y9xpyr6k8nsn7qa68gp90vb3dgxynn91sh68";
   };
 

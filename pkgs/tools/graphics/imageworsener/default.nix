@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  libpng,
-  libjpeg,
-  libwebp,
-}:
+{ lib, stdenv, fetchurl, zlib, libpng, libjpeg, libwebp }:
 
 stdenv.mkDerivation rec {
   pname = "imageworsener";
@@ -26,12 +18,7 @@ stdenv.mkDerivation rec {
     cp readme.txt technical.txt $out/share/doc/imageworsener
   '';
 
-  buildInputs = [
-    zlib
-    libpng
-    libjpeg
-    libwebp
-  ];
+  buildInputs = [ zlib libpng libjpeg libwebp ];
 
   doCheck = true;
 
@@ -40,12 +27,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A raster image scaling and processing utility";
     homepage = "https://entropymine.com/imageworsener/";
-    changelog = "https://github.com/jsummers/${pname}/blob/${version}/changelog.txt";
+    changelog =
+      "https://github.com/jsummers/${pname}/blob/${version}/changelog.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      emily
-      smitop
-    ];
+    maintainers = with maintainers; [ emily smitop ];
     mainProgram = "imagew";
     platforms = platforms.all;
   };

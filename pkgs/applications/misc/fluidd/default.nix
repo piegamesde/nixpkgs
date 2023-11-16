@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  unzip,
-}:
+{ lib, stdenvNoCC, fetchurl, unzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "fluidd";
@@ -11,7 +6,8 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchurl {
     name = "fluidd-v${version}.zip";
-    url = "https://github.com/cadriel/fluidd/releases/download/v${version}/fluidd.zip";
+    url =
+      "https://github.com/cadriel/fluidd/releases/download/v${version}/fluidd.zip";
     sha256 = "sha256-iTh8vU6NrJZLyUdeY1wegUue0NIHQtpCEr9pJnC2Wx4=";
   };
 

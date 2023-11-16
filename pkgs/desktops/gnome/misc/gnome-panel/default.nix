@@ -1,37 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  autoreconfHook,
-  dconf,
-  evolution-data-server,
-  gdm,
-  geocode-glib_2,
-  gettext,
-  glib,
-  gnome-desktop,
-  gnome-menus,
-  gnome,
-  gtk3,
-  itstool,
-  libgweather,
-  libwnck,
-  libxml2,
-  pkg-config,
-  polkit,
-  systemd,
-  wrapGAppsHook,
-}:
+{ stdenv, lib, fetchurl, autoreconfHook, dconf, evolution-data-server, gdm
+, geocode-glib_2, gettext, glib, gnome-desktop, gnome-menus, gnome, gtk3
+, itstool, libgweather, libwnck, libxml2, pkg-config, polkit, systemd
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-panel";
   version = "3.47.1";
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -40,13 +16,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-2PbixllmjHffgsPdlboE/O+MQMIo4sImBfmhepFh7IM=";
   };
 
-  patches =
-    [
-      # Load modules from path in `NIX_GNOME_PANEL_MODULESDIR` environment variable
-      # instead of gnome-panel’s libdir so that the NixOS module can make gnome-panel
-      # load modules from other packages as well.
-      ./modulesdir-env-var.patch
-    ];
+  patches = [
+    # Load modules from path in `NIX_GNOME_PANEL_MODULESDIR` environment variable
+    # instead of gnome-panel’s libdir so that the NixOS module can make gnome-panel
+    # load modules from other packages as well.
+    ./modulesdir-env-var.patch
+  ];
 
   # make .desktop Exec absolute
   postPatch = ''
@@ -65,14 +40,8 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    itstool
-    libxml2
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook gettext itstool libxml2 pkg-config wrapGAppsHook ];
 
   buildInputs = [
     dconf
@@ -104,7 +73,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Component of Gnome Flashback that provides panels and default applets for the desktop";
+    description =
+      "Component of Gnome Flashback that provides panels and default applets for the desktop";
     homepage = "https://wiki.gnome.org/Projects/GnomePanel";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

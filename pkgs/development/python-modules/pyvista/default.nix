@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  imageio,
-  matplotlib,
-  numpy,
-  pillow,
-  pooch,
-  scooby,
-  vtk,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, imageio, matplotlib, numpy, pillow
+, pooch, scooby, vtk }:
 
 buildPythonPackage rec {
   pname = "pyvista";
@@ -23,15 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-N+1FfTKDITBmLaOjKZsahMd6s26W19ObcWXk8gGQ0QI=";
   };
 
-  propagatedBuildInputs = [
-    imageio
-    matplotlib
-    numpy
-    pillow
-    pooch
-    scooby
-    vtk
-  ];
+  propagatedBuildInputs = [ imageio matplotlib numpy pillow pooch scooby vtk ];
 
   # Fatal Python error: Aborted
   doCheck = false;

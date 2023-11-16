@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "vhdl-ls";
@@ -17,13 +13,10 @@ rustPlatform.buildRustPackage rec {
 
   # No Cargo.lock upstream, see:
   # https://github.com/VHDL-LS/rust_hdl/issues/166
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
-  postPatch =
-    ''
-      ln -s ${./Cargo.lock} Cargo.lock
-    ''
+  cargoLock = { lockFile = ./Cargo.lock; };
+  postPatch = ''
+    ln -s ${./Cargo.lock} Cargo.lock
+  ''
     # Also make it look up vhdl_libraries in an expected location
     + ''
       substituteInPlace vhdl_lang/src/config.rs \

@@ -1,10 +1,4 @@
-{
-  lib,
-  nimPackages,
-  fetchurl,
-  gentium,
-  makeDesktopItem,
-}:
+{ lib, nimPackages, fetchurl, gentium, makeDesktopItem }:
 
 nimPackages.buildNimPackage rec {
   pname = "hottext";
@@ -17,10 +11,7 @@ nimPackages.buildNimPackage rec {
     sha256 = "sha256-hIUofi81zowSMbt1lUsxCnVzfJGN3FEiTtN8CEFpwzY=";
   };
 
-  buildInputs = with nimPackages; [
-    pixie
-    sdl2
-  ];
+  buildInputs = with nimPackages; [ pixie sdl2 ];
 
   HOTTEXT_FONT_PATH = "${gentium}/share/fonts/truetype/GentiumPlus-Regular.ttf";
 

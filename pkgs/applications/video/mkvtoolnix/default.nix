@@ -1,45 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  fetchpatch,
-  pkg-config,
-  autoreconfHook,
-  rake,
-  boost,
-  cmark,
-  docbook_xsl,
-  expat,
-  file,
-  flac,
-  fmt,
-  gettext,
-  gmp,
-  gtest,
-  libdvdread,
-  libebml,
-  libiconv,
-  libmatroska,
-  libogg,
-  libvorbis,
-  libxslt,
-  nlohmann_json,
-  pugixml,
-  qtbase,
-  qtmultimedia,
-  xdg-utils,
-  zlib,
-  withGUI ? true,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, pkg-config, autoreconfHook, rake
+, boost, cmark, docbook_xsl, expat, file, flac, fmt, gettext, gmp, gtest
+, libdvdread, libebml, libiconv, libmatroska, libogg, libvorbis, libxslt
+, nlohmann_json, pugixml, qtbase, qtmultimedia, xdg-utils, zlib, withGUI ? true
+, wrapQtAppsHook }:
 
 let
-  inherit (lib)
-    enableFeature
-    optional
-    optionals
-    optionalString
-  ;
+  inherit (lib) enableFeature optional optionals optionalString;
 
   phase = name: args: ''
     runHook pre${name}
@@ -48,8 +14,8 @@ let
 
     runHook post${name}
   '';
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "mkvtoolnix";
   version = "77.0";
 
@@ -60,15 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "t+kfFS5c8w+c9wxNh59nceFesfdMy8qvHlUqDbZAxkk=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    docbook_xsl
-    gettext
-    gtest
-    libxslt
-    pkg-config
-    rake
-  ] ++ optional withGUI wrapQtAppsHook;
+  nativeBuildInputs =
+    [ autoreconfHook docbook_xsl gettext gtest libxslt pkg-config rake ]
+    ++ optional withGUI wrapQtAppsHook;
 
   # 1. qtbase and qtmultimedia are needed without the GUI
   # 2. we have utf8cpp in nixpkgs but it doesn't find it
@@ -129,10 +89,7 @@ stdenv.mkDerivation rec {
     homepage = "https://mkvtoolnix.download/";
     license = licenses.gpl2Only;
     mainProgram = if withGUI then "mkvtoolnix-gui" else "mkvtoolnix";
-    maintainers = with maintainers; [
-      codyopel
-      rnhmjoj
-    ];
+    maintainers = with maintainers; [ codyopel rnhmjoj ];
     platforms = platforms.unix;
   };
 }

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +7,7 @@ let
 
   configFormat = pkgs.formats.yaml { };
   configFile = configFormat.generate "alertmanager-irc-relay.yml" cfg.settings;
-in
-{
+in {
   options.services.prometheus.alertmanagerIrcRelay = {
     enable = mkEnableOption (mdDoc "Alertmanager IRC Relay");
 
@@ -27,7 +21,8 @@ in
     extraFlags = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      description = mdDoc "Extra command line options to pass to alertmanager-irc-relay.";
+      description =
+        mdDoc "Extra command line options to pass to alertmanager-irc-relay.";
     };
 
     settings = mkOption {
@@ -92,10 +87,7 @@ in
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
 
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 

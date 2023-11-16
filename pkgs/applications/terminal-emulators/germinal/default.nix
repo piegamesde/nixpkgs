@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  appstream-glib,
-  dbus,
-  pango,
-  pcre2,
-  tmux,
-  vte,
-  wrapGAppsHook,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, appstream-glib, dbus
+, pango, pcre2, tmux, vte, wrapGAppsHook, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "germinal";
@@ -25,20 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HUi+skF4bJj5CY2cNTOC4tl7jhvpXYKqBx2rqKzjlo0=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    wrapGAppsHook
-  ];
-  buildInputs = [
-    appstream-glib
-    dbus
-    pango
-    pcre2
-    vte
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config wrapGAppsHook ];
+  buildInputs = [ appstream-glib dbus pango pcre2 vte ];
 
-  configureFlags = [ "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/" ];
+  configureFlags = [
+    "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/"
+  ];
 
   dontWrapGApps = true;
 

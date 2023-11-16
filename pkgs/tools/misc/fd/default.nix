@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  fd,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, testers, fd }:
 
 rustPlatform.buildRustPackage rec {
   pname = "fd";
@@ -50,12 +43,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [
-      dywedir
-      figsoda
-      globin
-      ma27
-      zowoq
-    ];
+    maintainers = with maintainers; [ dywedir figsoda globin ma27 zowoq ];
   };
 }

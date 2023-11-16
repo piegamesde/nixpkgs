@@ -1,18 +1,7 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
-let
-  inherit (lib)
-    concatStringsSep
-    concatMap
-    id
-    mapAttrsToList
-  ;
-in
-buildGoModule rec {
+let inherit (lib) concatStringsSep concatMap id mapAttrsToList;
+in buildGoModule rec {
   pname = "pomerium-cli";
   version = "0.22.0";
 
@@ -27,29 +16,22 @@ buildGoModule rec {
 
   subPackages = [ "cmd/pomerium-cli" ];
 
-  ldflags =
-    let
-      # Set a variety of useful meta variables for stamping the build with.
-      setVars = {
-        "github.com/pomerium/cli/version" = {
-          Version = "v${version}";
-          BuildMeta = "nixpkgs";
-          ProjectName = "pomerium-cli";
-          ProjectURL = "github.com/pomerium/cli";
-        };
+  ldflags = let
+    # Set a variety of useful meta variables for stamping the build with.
+    setVars = {
+      "github.com/pomerium/cli/version" = {
+        Version = "v${version}";
+        BuildMeta = "nixpkgs";
+        ProjectName = "pomerium-cli";
+        ProjectURL = "github.com/pomerium/cli";
       };
-      concatStringsSpace = list: concatStringsSep " " list;
-      mapAttrsToFlatList = fn: list: concatMap id (mapAttrsToList fn list);
-      varFlags = concatStringsSpace (
-        mapAttrsToFlatList
-          (
-            package: packageVars:
-            mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}") packageVars
-          )
-          setVars
-      );
-    in
-    [ "${varFlags}" ];
+    };
+    concatStringsSpace = list: concatStringsSep " " list;
+    mapAttrsToFlatList = fn: list: concatMap id (mapAttrsToList fn list);
+    varFlags = concatStringsSpace (mapAttrsToFlatList (package: packageVars:
+      mapAttrsToList (variable: value: "-X ${package}.${variable}=${value}")
+      packageVars) setVars);
+  in [ "${varFlags}" ];
 
   installPhase = ''
     runHook preInstall
@@ -61,7 +43,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://pomerium.io";
-    description = "Client-side helper for Pomerium authenticating reverse proxy";
+    description =
+      "Client-side helper for Pomerium authenticating reverse proxy";
     license = licenses.asl20;
     maintainers = with maintainers; [ lukegb ];
     platforms = platforms.unix;

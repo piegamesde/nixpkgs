@@ -1,16 +1,7 @@
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+import ./make-test-python.nix ({ lib, pkgs, ... }:
 
-  let
-    nodes = {
-      machine = {
-        services.grafana-agent = {
-          enable = true;
-        };
-      };
-    };
-  in
-  {
+  let nodes = { machine = { services.grafana-agent = { enable = true; }; }; };
+  in {
     name = "grafana-agent";
 
     meta = with lib.maintainers; { maintainers = [ zimbatm ]; };
@@ -28,5 +19,4 @@ import ./make-test-python.nix (
           )
           machine.shutdown()
     '';
-  }
-)
+  })

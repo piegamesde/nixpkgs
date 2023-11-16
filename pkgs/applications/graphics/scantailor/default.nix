@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qt4,
-  cmake,
-  libjpeg,
-  libtiff,
-  boost,
-}:
+{ lib, stdenv, fetchFromGitHub, qt4, cmake, libjpeg, libtiff, boost }:
 
 stdenv.mkDerivation rec {
   pname = "scantailor";
@@ -21,12 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    qt4
-    libjpeg
-    libtiff
-    boost
-  ];
+  buildInputs = [ qt4 libjpeg libtiff boost ];
 
   meta = {
     homepage = "https://scantailor.org/";

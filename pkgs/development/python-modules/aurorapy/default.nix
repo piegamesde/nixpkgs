@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitLab,
-  future,
-  pyserial,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, future, pyserial, pytestCheckHook
+, pythonOlder, setuptools, six }:
 
 buildPythonPackage rec {
   pname = "aurorapy";
@@ -26,20 +17,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    future
-    pyserial
-  ];
+  propagatedBuildInputs = [ future pyserial ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    six
-  ];
+  nativeCheckInputs = [ pytestCheckHook six ];
 
   pythonImportsCheck = [ "aurorapy" ];
 
   meta = with lib; {
-    description = "Implementation of the communication protocol for Power-One Aurora inverters";
+    description =
+      "Implementation of the communication protocol for Power-One Aurora inverters";
     homepage = "https://gitlab.com/energievalsabbia/aurorapy";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

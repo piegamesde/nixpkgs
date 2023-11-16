@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  git,
-  pytestCheckHook,
-  pytest-mock,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, git, pytestCheckHook
+, pytest-mock }:
 
 buildPythonApplication rec {
   pname = "git-archive-all";
@@ -37,10 +31,7 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ git ];
 
-  checkInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+  checkInputs = [ pytestCheckHook pytest-mock ];
 
   disabledTests = [ "pycodestyle" ];
 

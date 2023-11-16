@@ -1,30 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  gnome-icon-theme,
-  gnome,
-  gtk-engine-murrine,
-  gtk3,
-  hicolor-icon-theme,
-  humanity-icon-theme,
-  python3Packages,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, gnome-icon-theme, gnome, gtk-engine-murrine
+, gtk3, hicolor-icon-theme, humanity-icon-theme, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "ubuntu-themes";
   version = "20.10";
 
   src = fetchurl {
-    url = "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${version}.orig.tar.gz";
+    url =
+      "https://launchpad.net/ubuntu/+archive/primary/+files/${pname}_${version}.orig.tar.gz";
     sha256 = "00frn2dd4kjhlmwkasrx4a820fwrg8f8hmiwh51m63bpj00vwn0r";
   };
 
-  nativeBuildInputs = [
-    gtk3
-    python3Packages.python
-  ];
+  nativeBuildInputs = [ gtk3 python3Packages.python ];
 
   propagatedBuildInputs = [
     gnome-icon-theme
@@ -68,12 +55,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Ubuntu monochrome and Suru icon themes, Ambiance and Radiance themes, and Ubuntu artwork";
+    description =
+      "Ubuntu monochrome and Suru icon themes, Ambiance and Radiance themes, and Ubuntu artwork";
     homepage = "https://launchpad.net/ubuntu-themes";
-    license = with licenses; [
-      cc-by-sa-40
-      gpl3
-    ];
+    license = with licenses; [ cc-by-sa-40 gpl3 ];
     platforms = platforms.linux;
     maintainers = [ maintainers.romildo ];
   };

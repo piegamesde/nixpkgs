@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  deprecated,
-  hatchling,
-  importlib-metadata,
-  opentelemetry-test-utils,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, deprecated, hatchling
+, importlib-metadata, opentelemetry-test-utils, setuptools, pytestCheckHook }:
 
 let
   self = buildPythonPackage {
@@ -17,30 +7,21 @@ let
     version = "1.18.0";
     disabled = pythonOlder "3.7";
 
-    src =
-      fetchFromGitHub {
-        owner = "open-telemetry";
-        repo = "opentelemetry-python";
-        rev = "refs/tags/v${self.version}";
-        hash = "sha256-h6XDzM29wYiC51S7OpBXvWFCfZ7DmIyGMG2pFjJV7pI=";
-        sparseCheckout = [ "/${self.pname}" ];
-      }
-      + "/${self.pname}";
+    src = fetchFromGitHub {
+      owner = "open-telemetry";
+      repo = "opentelemetry-python";
+      rev = "refs/tags/v${self.version}";
+      hash = "sha256-h6XDzM29wYiC51S7OpBXvWFCfZ7DmIyGMG2pFjJV7pI=";
+      sparseCheckout = [ "/${self.pname}" ];
+    } + "/${self.pname}";
 
     format = "pyproject";
 
     nativeBuildInputs = [ hatchling ];
 
-    propagatedBuildInputs = [
-      deprecated
-      importlib-metadata
-      setuptools
-    ];
+    propagatedBuildInputs = [ deprecated importlib-metadata setuptools ];
 
-    nativeCheckInputs = [
-      opentelemetry-test-utils
-      pytestCheckHook
-    ];
+    nativeCheckInputs = [ opentelemetry-test-utils pytestCheckHook ];
 
     pythonImportsCheck = [ "opentelemetry" ];
 
@@ -56,5 +37,4 @@ let
       maintainers = teams.deshaw.members;
     };
   };
-in
-self
+in self

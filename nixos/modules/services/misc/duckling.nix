@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.duckling;
-in
-{
+let cfg = config.services.duckling;
+in {
   options = {
     services.duckling = {
       enable = mkEnableOption (lib.mdDoc "duckling");
@@ -31,12 +24,11 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      environment = {
-        PORT = builtins.toString cfg.port;
-      };
+      environment = { PORT = builtins.toString cfg.port; };
 
       serviceConfig = {
-        ExecStart = "${pkgs.haskellPackages.duckling}/bin/duckling-example-exe --no-access-log --no-error-log";
+        ExecStart =
+          "${pkgs.haskellPackages.duckling}/bin/duckling-example-exe --no-access-log --no-error-log";
         Restart = "always";
         DynamicUser = true;
       };

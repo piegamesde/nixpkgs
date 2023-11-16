@@ -1,13 +1,7 @@
 # This module defines a global environment configuration and
 # a common configuration for all shells.
 
-{
-  config,
-  lib,
-  utils,
-  pkgs,
-  ...
-}:
+{ config, lib, utils, pkgs, ... }:
 
 with lib;
 
@@ -15,26 +9,23 @@ let
 
   cfg = config.environment;
 
-  exportedEnvVars =
-    let
-      absoluteVariables = mapAttrs (n: toList) cfg.variables;
+  exportedEnvVars = let
+    absoluteVariables = mapAttrs (n: toList) cfg.variables;
 
-      suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars (
-        envVar: listSuffixes:
-        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes) cfg.profiles
-      );
+    suffixedVariables = flip mapAttrs cfg.profileRelativeEnvVars
+      (envVar: listSuffixes:
+        concatMap (profile: map (suffix: "${profile}${suffix}") listSuffixes)
+        cfg.profiles);
 
-      allVariables = zipAttrsWith (n: concatLists) [
-        absoluteVariables
-        suffixedVariables
-      ];
+    allVariables =
+      zipAttrsWith (n: concatLists) [ absoluteVariables suffixedVariables ];
 
-      exportVariables = mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'') allVariables;
-    in
-    concatStringsSep "\n" exportVariables;
-in
+    exportVariables =
+      mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
+      allVariables;
+  in concatStringsSep "\n" exportVariables;
 
-{
+in {
 
   options = {
 
@@ -51,16 +42,9 @@ in
         strings.  The latter is concatenated, interspersed with colon
         characters.
       '';
-      type =
-        with types;
-        attrsOf (
-          oneOf [
-            (listOf str)
-            str
-            path
-          ]
-        );
-      apply = mapAttrs (n: v: if isList v then concatStringsSep ":" v else "${v}");
+      type = with types; attrsOf (oneOf [ (listOf str) str path ]);
+      apply =
+        mapAttrs (n: v: if isList v then concatStringsSep ":" v else "${v}");
     };
 
     environment.profiles = mkOption {
@@ -75,10 +59,7 @@ in
       type = types.attrsOf (types.listOf types.str);
       example = {
         PATH = [ "/bin" ];
-        MANPATH = [
-          "/man"
-          "/share/man"
-        ];
+        MANPATH = [ "/man" "/share/man" ];
       };
       description = lib.mdDoc ''
         Attribute set of environment variable.  Each attribute maps to a list
@@ -162,7 +143,8 @@ in
 
     environment.binsh = mkOption {
       default = "${config.system.build.binsh}/bin/sh";
-      defaultText = literalExpression ''"''${config.system.build.binsh}/bin/sh"'';
+      defaultText =
+        literalExpression ''"''${config.system.build.binsh}/bin/sh"'';
       example = literalExpression ''"''${pkgs.dash}/bin/dash"'';
       type = types.path;
       visible = false;
@@ -184,6 +166,7 @@ in
       '';
       type = types.listOf (types.either types.shellPackage types.path);
     };
+
   };
 
   config = {
@@ -196,7 +179,8 @@ in
     # terminal instead of logging out of X11).
     environment.variables = config.environment.sessionVariables;
 
-    environment.profileRelativeEnvVars = config.environment.profileRelativeSessionVariables;
+    environment.profileRelativeEnvVars =
+      config.environment.profileRelativeSessionVariables;
 
     environment.shellAliases = mapAttrs (name: mkDefault) {
       ls = "ls --color=tty";
@@ -240,5 +224,7 @@ in
       ln -sfn "${cfg.binsh}" /bin/.sh.tmp
       mv /bin/.sh.tmp /bin/sh # atomically replace /bin/sh
     '';
+
   };
+
 }

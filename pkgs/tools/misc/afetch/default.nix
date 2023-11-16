@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "afetch";
@@ -21,10 +17,7 @@ stdenv.mkDerivation rec {
     description = "A fetch program written in C";
     homepage = "https://github.com/13-CF/afetch";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      dan4ik605743
-      jk
-    ];
+    maintainers = with maintainers; [ dan4ik605743 jk ];
     platforms = platforms.linux;
   };
 }

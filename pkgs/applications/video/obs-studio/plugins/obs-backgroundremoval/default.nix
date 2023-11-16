@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  obs-studio,
-  onnxruntime,
-  opencv,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, obs-studio, onnxruntime, opencv }:
 
 stdenv.mkDerivation rec {
   pname = "obs-backgroundremoval";
@@ -20,18 +12,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    obs-studio
-    onnxruntime
-    opencv
-  ];
+  buildInputs = [ obs-studio onnxruntime opencv ];
 
   dontWrapQtApps = true;
 
-  cmakeFlags = [
-    "-DUSE_SYSTEM_ONNXRUNTIME=ON"
-    "-DUSE_SYSTEM_OPENCV=ON"
-  ];
+  cmakeFlags = [ "-DUSE_SYSTEM_ONNXRUNTIME=ON" "-DUSE_SYSTEM_OPENCV=ON" ];
 
   postInstall = ''
     mkdir $out/lib $out/share
@@ -41,13 +26,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "OBS plugin to replace the background in portrait images and video";
+    description =
+      "OBS plugin to replace the background in portrait images and video";
     homepage = "https://github.com/royshil/obs-backgroundremoval";
     maintainers = with maintainers; [ zahrun ];
     license = licenses.mit;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

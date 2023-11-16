@@ -1,21 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  aiocoap,
-  bleak,
-  bleak-retry-connector,
-  chacha20poly1305,
-  chacha20poly1305-reuseable,
-  commentjson,
-  cryptography,
-  fetchFromGitHub,
-  orjson,
-  poetry-core,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-  zeroconf,
-}:
+{ lib, buildPythonPackage, aiocoap, bleak, bleak-retry-connector
+, chacha20poly1305, chacha20poly1305-reuseable, commentjson, cryptography
+, fetchFromGitHub, orjson, poetry-core, pytest-aiohttp, pytestCheckHook
+, pythonOlder, zeroconf }:
 
 buildPythonPackage rec {
   pname = "aiohomekit";
@@ -47,16 +33,12 @@ buildPythonPackage rec {
 
   doCheck = lib.versionAtLeast pytest-aiohttp.version "1.0.0";
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Tests require network access
-      "tests/test_ip_pairing.py"
-    ];
+  disabledTestPaths = [
+    # Tests require network access
+    "tests/test_ip_pairing.py"
+  ];
 
   pythonImportsCheck = [ "aiohomekit" ];
 

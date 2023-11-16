@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  pkg-config,
-  libsndfile,
-  rapidjson,
-  libjack2,
-  lv2,
-  libX11,
-  cairo,
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, pkg-config, libsndfile, rapidjson
+, libjack2, lv2, libX11, cairo }:
 
 stdenv.mkDerivation rec {
   pname = "geonkick";
@@ -23,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XSqcj8+X6QMBnIusPB9VNrgcbdiWhNMOYeFyKklGmO8=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libsndfile
-    rapidjson
-    libjack2
-    lv2
-    libX11
-    cairo
-  ];
+  buildInputs = [ libsndfile rapidjson libjack2 lv2 libX11 cairo ];
 
   # https://github.com/iurie-sw/geonkick/issues/120
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];

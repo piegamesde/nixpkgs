@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  SDL,
-  alsa-lib,
-  autoreconfHook,
-  gtk2,
-  libjack2,
-  ladspaH,
-  ladspaPlugins,
-  libsamplerate,
-  libsndfile,
-  pkg-config,
-  libpulseaudio,
-  lame,
-  vorbis-tools,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, SDL, alsa-lib, autoreconfHook, gtk2
+, libjack2, ladspaH, ladspaPlugins, libsamplerate, libsndfile, pkg-config
+, libpulseaudio, lame, vorbis-tools }:
 
 stdenv.mkDerivation rec {
   pname = "mhwaveedit";
@@ -29,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "037pbq23kh8hsih994x2sv483imglwcrqrx6m8visq9c46fi0j1y";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook makeWrapper pkg-config ];
 
   preAutoreconf = "(cd docgen && sh gendocs.sh)";
 
@@ -57,7 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Graphical program for editing, playing and recording sound files";
+    description =
+      "Graphical program for editing, playing and recording sound files";
     homepage = "https://github.com/magnush/mhwaveedit";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  mrustc,
-  mrustc-minicargo,
-  rust,
-  llvm_12,
-  llvmPackages_12,
-  libffi,
-  cmake,
-  python3,
-  zlib,
-  libxml2,
-  openssl,
-  pkg-config,
-  curl,
-  which,
-  time,
-}:
+{ lib, stdenv, fetchurl, mrustc, mrustc-minicargo, rust, llvm_12
+, llvmPackages_12, libffi, cmake, python3, zlib, libxml2, openssl, pkg-config
+, curl, which, time }:
 
 let
   mrustcTargetVersion = "1.54";
@@ -28,9 +11,8 @@ let
   };
   rustcDir = "rustc-${rustcVersion}-src";
   outputDir = "output-${rustcVersion}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mrustc-bootstrap";
   version = "${mrustc.version}_${rustcVersion}";
 
@@ -52,15 +34,8 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
 
   strictDeps = true;
-  nativeBuildInputs = [
-    cmake
-    mrustc
-    mrustc-minicargo
-    pkg-config
-    python3
-    time
-    which
-  ];
+  nativeBuildInputs =
+    [ cmake mrustc mrustc-minicargo pkg-config python3 time which ];
   buildInputs = [
     # for rustc
     llvm_12
@@ -132,7 +107,9 @@ stdenv.mkDerivation rec {
     cp run_rustc/${outputDir}/prefix/bin/rustc_binary $out/bin/rustc
 
     cp -r run_rustc/${outputDir}/prefix/lib/* $out/lib/
-    cp $out/lib/rustlib/${rust.toRustTarget stdenv.targetPlatform}/lib/*.so $out/lib/
+    cp $out/lib/rustlib/${
+      rust.toRustTarget stdenv.targetPlatform
+    }/lib/*.so $out/lib/
     runHook postInstall
   '';
 
@@ -144,14 +121,9 @@ stdenv.mkDerivation rec {
       This is useful for bootstrapping the main Rust compiler without
       an initial binary toolchain download.
     '';
-    maintainers = with maintainers; [
-      progval
-      r-burns
-    ];
-    license = with licenses; [
-      mit
-      asl20
-    ];
+    maintainers = with maintainers; [ progval r-burns ];
+    license = with licenses; [ mit asl20 ];
     platforms = [ "x86_64-linux" ];
   };
 }
+

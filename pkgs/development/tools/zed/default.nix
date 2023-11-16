@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  zed,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, zed }:
 
 buildGoModule rec {
   pname = "zed";
@@ -19,16 +13,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-n/7HV3dyV8qsJeEk+vikZvuM5G7nf0QOwVBtInJdU2k=";
 
-  subPackages = [
-    "cmd/zed"
-    "cmd/zq"
-  ];
+  subPackages = [ "cmd/zed" "cmd/zq" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=github.com/brimdata/zed/cli.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=github.com/brimdata/zed/cli.version=${version}" ];
 
   passthru.tests = {
     zed-version = testers.testVersion { package = zed; };
@@ -43,9 +30,6 @@ buildGoModule rec {
     homepage = "https://zed.brimdata.io";
     changelog = "https://github.com/brimdata/zed/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      dit7ya
-      knl
-    ];
+    maintainers = with maintainers; [ dit7ya knl ];
   };
 }

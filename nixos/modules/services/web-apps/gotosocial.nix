@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.gotosocial;
   settingsFormat = pkgs.formats.yaml { };
@@ -29,8 +24,7 @@ let
       -q -t -G --wait --service-type=exec \
       ${cfg.package}/bin/gotosocial --config-path ${configFile} admin "$@"
   '';
-in
-{
+in {
   meta.doc = ./gotosocial.md;
   meta.maintainers = with lib.maintainers; [ misuzu ];
 
@@ -90,27 +84,22 @@ in
       default = null;
       example = "/root/nixos/secrets/gotosocial.env";
     };
+
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.settings.host or null != null;
-        message = ''
-          You have to define a hostname for GoToSocial (`services.gotosocial.settings.host`), it cannot be changed later without starting over!
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = cfg.settings.host or null != null;
+      message = ''
+        You have to define a hostname for GoToSocial (`services.gotosocial.settings.host`), it cannot be changed later without starting over!
+      '';
+    }];
 
-    services.gotosocial.settings =
-      (lib.mapAttrs (name: lib.mkDefault) (
-        defaultSettings
-        // {
-          web-asset-base-dir = "${cfg.package}/share/gotosocial/web/assets/";
-          web-template-base-dir = "${cfg.package}/share/gotosocial/web/template/";
-        }
-      ))
-      // (lib.optionalAttrs cfg.setupPostgresqlDB {
+    services.gotosocial.settings = (lib.mapAttrs (name: lib.mkDefault)
+      (defaultSettings // {
+        web-asset-base-dir = "${cfg.package}/share/gotosocial/web/assets/";
+        web-template-base-dir = "${cfg.package}/share/gotosocial/web/template/";
+      })) // (lib.optionalAttrs cfg.setupPostgresqlDB {
         db-type = "postgres";
         db-address = "/run/postgresql";
         db-database = "gotosocial";
@@ -125,31 +114,31 @@ in
       isSystemUser = true;
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall =
+      lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
 
     services.postgresql = lib.mkIf cfg.setupPostgresqlDB {
       enable = true;
       ensureDatabases = [ "gotosocial" ];
-      ensureUsers = [
-        {
-          name = "gotosocial";
-          ensurePermissions = {
-            "DATABASE gotosocial" = "ALL PRIVILEGES";
-          };
-        }
-      ];
+      ensureUsers = [{
+        name = "gotosocial";
+        ensurePermissions = { "DATABASE gotosocial" = "ALL PRIVILEGES"; };
+      }];
     };
 
     systemd.services.gotosocial = {
       description = "ActivityPub social network server";
       wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ] ++ lib.optional cfg.setupPostgresqlDB "postgresql.service";
+      after = [ "network.target" ]
+        ++ lib.optional cfg.setupPostgresqlDB "postgresql.service";
       requires = lib.optional cfg.setupPostgresqlDB "postgresql.service";
       restartTriggers = [ configFile ];
 
       serviceConfig = {
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
-        ExecStart = "${cfg.package}/bin/gotosocial --config-path ${configFile} server start";
+        EnvironmentFile =
+          lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+        ExecStart =
+          "${cfg.package}/bin/gotosocial --config-path ${configFile} server start";
         Restart = "on-failure";
         Group = "gotosocial";
         User = "gotosocial";
@@ -158,7 +147,8 @@ in
 
         # Security options:
         # Based on https://github.com/superseriousbusiness/gotosocial/blob/v0.8.1/example/gotosocial.service
-        AmbientCapabilities = lib.optional (cfg.settings.port < 1024) "CAP_NET_BIND_SERVICE";
+        AmbientCapabilities =
+          lib.optional (cfg.settings.port < 1024) "CAP_NET_BIND_SERVICE";
         NoNewPrivileges = true;
         PrivateTmp = true;
         PrivateDevices = true;

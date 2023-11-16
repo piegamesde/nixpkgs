@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bison,
-  flex,
-}:
+{ lib, stdenv, fetchFromGitHub, bison, flex }:
 
 stdenv.mkDerivation rec {
   pname = "boxes";
@@ -19,10 +13,7 @@ stdenv.mkDerivation rec {
 
   # Building instructions:
   # https://boxes.thomasjensen.com/build.html#building-on-linux--unix
-  nativeBuildInputs = [
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ bison flex ];
 
   dontConfigure = true;
 

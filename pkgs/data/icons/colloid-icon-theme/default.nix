@@ -1,93 +1,79 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gitUpdater,
-  gtk3,
-  hicolor-icon-theme,
-  jdupes,
-  schemeVariants ? [ ],
-  colorVariants ? [ ] # default is blue
-  ,
+{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gtk3, hicolor-icon-theme, jdupes
+, schemeVariants ? [ ], colorVariants ? [ ] # default is blue
 }:
 
-let
-  pname = "colloid-icon-theme";
-in
-lib.checkListOfEnum "${pname}: scheme variants"
-  [
-    "default"
-    "nord"
-    "dracula"
-    "all"
-  ]
-  schemeVariants
-  lib.checkListOfEnum
-  "${pname}: color variants"
-  [
-    "default"
-    "purple"
-    "pink"
-    "red"
-    "orange"
-    "yellow"
-    "green"
-    "teal"
-    "grey"
-    "all"
-  ]
-  colorVariants
+let pname = "colloid-icon-theme";
 
-  stdenvNoCC.mkDerivation
-  rec {
-    inherit pname;
-    version = "2023-03-28";
+in lib.checkListOfEnum "${pname}: scheme variants" [
+  "default"
+  "nord"
+  "dracula"
+  "all"
+] schemeVariants lib.checkListOfEnum "${pname}: color variants" [
+  "default"
+  "purple"
+  "pink"
+  "red"
+  "orange"
+  "yellow"
+  "green"
+  "teal"
+  "grey"
+  "all"
+] colorVariants
 
-    src = fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = pname;
-      rev = version;
-      hash = "sha256-R7QKxZdcKUeTD6E9gj02Tu5tYv9JyqyH2sCsdOk9zTM=";
-    };
+stdenvNoCC.mkDerivation rec {
+  inherit pname;
+  version = "2023-03-28";
 
-    nativeBuildInputs = [
-      gtk3
-      jdupes
-    ];
+  src = fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = pname;
+    rev = version;
+    hash = "sha256-R7QKxZdcKUeTD6E9gj02Tu5tYv9JyqyH2sCsdOk9zTM=";
+  };
 
-    propagatedBuildInputs = [ hicolor-icon-theme ];
+  nativeBuildInputs = [ gtk3 jdupes ];
 
-    dontDropIconThemeCache = true;
+  propagatedBuildInputs = [ hicolor-icon-theme ];
 
-    # These fixup steps are slow and unnecessary for this package.
-    # Package may install almost 400 000 small files.
-    dontPatchELF = true;
-    dontRewriteSymlinks = true;
+  dontDropIconThemeCache = true;
 
-    postPatch = ''
-      patchShebangs install.sh
-    '';
+  # These fixup steps are slow and unnecessary for this package.
+  # Package may install almost 400 000 small files.
+  dontPatchELF = true;
+  dontRewriteSymlinks = true;
 
-    installPhase = ''
-      runHook preInstall
+  postPatch = ''
+    patchShebangs install.sh
+  '';
 
-      name= ./install.sh \
-        ${lib.optionalString (schemeVariants != [ ]) ("--scheme " + builtins.toString schemeVariants)} \
-        ${lib.optionalString (colorVariants != [ ]) ("--theme " + builtins.toString colorVariants)} \
-        --dest $out/share/icons
+  installPhase = ''
+    runHook preInstall
 
-      jdupes --quiet --link-soft --recurse $out/share
+    name= ./install.sh \
+      ${
+        lib.optionalString (schemeVariants != [ ])
+        ("--scheme " + builtins.toString schemeVariants)
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ])
+        ("--theme " + builtins.toString colorVariants)
+      } \
+      --dest $out/share/icons
 
-      runHook postInstall
-    '';
+    jdupes --quiet --link-soft --recurse $out/share
 
-    passthru.updateScript = gitUpdater { };
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "Colloid icon theme";
-      homepage = "https://github.com/vinceliuice/colloid-icon-theme";
-      license = licenses.gpl3Only;
-      platforms = platforms.unix;
-      maintainers = with maintainers; [ romildo ];
-    };
-  }
+  passthru.updateScript = gitUpdater { };
+
+  meta = with lib; {
+    description = "Colloid icon theme";
+    homepage = "https://github.com/vinceliuice/colloid-icon-theme";
+    license = licenses.gpl3Only;
+    platforms = platforms.unix;
+    maintainers = with maintainers; [ romildo ];
+  };
+}

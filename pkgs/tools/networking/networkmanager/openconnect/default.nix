@@ -1,26 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  substituteAll,
-  glib,
-  libxml2,
-  openconnect,
-  intltool,
-  pkg-config,
-  autoreconfHook,
-  networkmanager,
-  gcr,
-  libsecret,
-  file,
-  gtk3,
-  libnma,
-  libnma-gtk4,
-  gtk4,
-  withGnome ? true,
-  gnome,
-  kmod,
-}:
+{ stdenv, lib, fetchurl, substituteAll, glib, libxml2, openconnect, intltool
+, pkg-config, autoreconfHook, networkmanager, gcr, libsecret, file, gtk3, libnma
+, libnma-gtk4, gtk4, withGnome ? true, gnome, kmod }:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-openconnect";
@@ -40,27 +20,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs =
-    [
-      glib
-      libxml2
-      openconnect
-      networkmanager
-    ]
-    ++ lib.optionals withGnome [
-      gtk3
-      libnma
-      libnma-gtk4
-      gtk4
-      gcr
-      libsecret
-    ];
+  buildInputs = [ glib libxml2 openconnect networkmanager ]
+    ++ lib.optionals withGnome [ gtk3 libnma libnma-gtk4 gtk4 gcr libsecret ];
 
-  nativeBuildInputs = [
-    intltool
-    pkg-config
-    file
-  ];
+  nativeBuildInputs = [ intltool pkg-config file ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

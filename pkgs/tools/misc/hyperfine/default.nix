@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hyperfine";
@@ -34,14 +27,12 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Command-line benchmarking tool";
     homepage = "https://github.com/sharkdp/hyperfine";
-    changelog = "https://github.com/sharkdp/hyperfine/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/sharkdp/hyperfine/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [
-      figsoda
-      thoughtpolice
-    ];
+    maintainers = with maintainers; [ figsoda thoughtpolice ];
   };
 }

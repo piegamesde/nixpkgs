@@ -1,9 +1,4 @@
-{
-  buildOctavePackage,
-  stdenv,
-  lib,
-  fetchurl,
-}:
+{ buildOctavePackage, stdenv, lib, fetchurl }:
 
 buildOctavePackage rec {
   pname = "ocl";

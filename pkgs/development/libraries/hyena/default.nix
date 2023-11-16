@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  mono,
-  gtk-sharp-2_0,
-  monoDLLFixer,
-}:
+{ lib, stdenv, fetchurl, pkg-config, mono, gtk-sharp-2_0, monoDLLFixer }:
 
 stdenv.mkDerivation rec {
   pname = "hyena";
@@ -20,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    mono
-    gtk-sharp-2_0
-  ];
+  buildInputs = [ mono gtk-sharp-2_0 ];
 
   postPatch = ''
     patchShebangs build/dll-map-makefile-verifier

@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "resvg";
@@ -17,11 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-PEJjtrsQF4h9rCP1DFFP5EFjW/6ZMgdMCawIc9cW76s=";
 
-  cargoBuildFlags = [
-    "--package=resvg"
-    "--package=resvg-capi"
-    "--package=usvg"
-  ];
+  cargoBuildFlags =
+    [ "--package=resvg" "--package=resvg-capi" "--package=usvg" ];
 
   postInstall = ''
     install -Dm644 -t $out/include crates/c-api/*.h
@@ -30,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "An SVG rendering library";
     homepage = "https://github.com/RazrFalcon/resvg";
-    changelog = "https://github.com/RazrFalcon/resvg/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/RazrFalcon/resvg/raw/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = [ maintainers.marsam ];
   };

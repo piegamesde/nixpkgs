@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gtk3,
-  breeze-icons,
-  hicolor-icon-theme,
-  pantheon,
-  gitUpdater,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, breeze-icons, hicolor-icon-theme
+, pantheon, gitUpdater }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "luna-icons";
@@ -22,11 +14,8 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    breeze-icons
-    hicolor-icon-theme
-    pantheon.elementary-icon-theme
-  ];
+  propagatedBuildInputs =
+    [ breeze-icons hicolor-icon-theme pantheon.elementary-icon-theme ];
 
   dontDropIconThemeCache = true;
 

@@ -1,18 +1,5 @@
-{
-  lib,
-  resholve,
-  fetchFromGitHub,
-  bc,
-  coreutils,
-  file,
-  gawk,
-  ghostscript,
-  gnused,
-  imagemagick,
-  zip,
-  bash,
-  findutils,
-}:
+{ lib, resholve, fetchFromGitHub, bc, coreutils, file, gawk, ghostscript, gnused
+, imagemagick, zip, bash, findutils }:
 
 resholve.mkDerivation rec {
   pname = "pdf2odt";
@@ -37,17 +24,8 @@ resholve.mkDerivation rec {
     default = {
       scripts = [ "bin/pdf2odt" ];
       interpreter = "${bash}/bin/bash";
-      inputs = [
-        coreutils
-        bc
-        file
-        imagemagick
-        gawk
-        gnused
-        ghostscript
-        zip
-        findutils
-      ];
+      inputs =
+        [ coreutils bc file imagemagick gawk gnused ghostscript zip findutils ];
     };
   };
 

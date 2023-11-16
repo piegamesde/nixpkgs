@@ -1,21 +1,19 @@
-import ../make-test-python.nix (
-  { pkgs, lib, ... }:
+import ../make-test-python.nix ({ pkgs, lib, ... }:
 
   let
-    testOnlySSHCredentials =
-      pkgs.runCommand "pam-ussh-test-ca" { nativeBuildInputs = [ pkgs.openssh ]; }
-        ''
-          mkdir $out
-          ssh-keygen -t ed25519 -N "" -f $out/ca
+    testOnlySSHCredentials = pkgs.runCommand "pam-ussh-test-ca" {
+      nativeBuildInputs = [ pkgs.openssh ];
+    } ''
+      mkdir $out
+      ssh-keygen -t ed25519 -N "" -f $out/ca
 
-          ssh-keygen -t ed25519 -N "" -f $out/alice
-          ssh-keygen -s $out/ca -I "alice user key" -n "alice,root" -V 19700101:forever $out/alice.pub
+      ssh-keygen -t ed25519 -N "" -f $out/alice
+      ssh-keygen -s $out/ca -I "alice user key" -n "alice,root" -V 19700101:forever $out/alice.pub
 
-          ssh-keygen -t ed25519 -N "" -f $out/bob
-          ssh-keygen -s $out/ca -I "bob user key" -n "bob" -V 19700101:forever $out/bob.pub
-        '';
-    makeTestScript =
-      user:
+      ssh-keygen -t ed25519 -N "" -f $out/bob
+      ssh-keygen -s $out/ca -I "bob user key" -n "bob" -V 19700101:forever $out/bob.pub
+    '';
+    makeTestScript = user:
       pkgs.writeShellScript "pam-ussh-${user}-test-script" ''
         set -euo pipefail
 
@@ -34,36 +32,33 @@ import ../make-test-python.nix (
 
         exec sudo id -u -n
       '';
-  in
-  {
+  in {
     name = "pam-ussh";
     meta.maintainers = with lib.maintainers; [ lukegb ];
 
-    machine =
-      { ... }:
-      {
-        users.users.alice = {
-          isNormalUser = true;
-          extraGroups = [ "wheel" ];
-        };
-        users.users.bob = {
-          isNormalUser = true;
-          extraGroups = [ "wheel" ];
-        };
-
-        security.pam.ussh = {
-          enable = true;
-          authorizedPrincipals = "root";
-          caFile = "${testOnlySSHCredentials}/ca.pub";
-        };
-
-        security.sudo = {
-          enable = true;
-          extraConfig = ''
-            Defaults lecture="never"
-          '';
-        };
+    machine = { ... }: {
+      users.users.alice = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
       };
+      users.users.bob = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
+      };
+
+      security.pam.ussh = {
+        enable = true;
+        authorizedPrincipals = "root";
+        caFile = "${testOnlySSHCredentials}/ca.pub";
+      };
+
+      security.sudo = {
+        enable = true;
+        extraConfig = ''
+          Defaults lecture="never"
+        '';
+      };
+    };
 
     testScript = ''
       with subtest("alice should be allowed to escalate to root"):
@@ -76,5 +71,4 @@ import ../make-test-python.nix (
             'su -c "${makeTestScript "bob"}" -l bob | grep root'
         )
     '';
-  }
-)
+  })

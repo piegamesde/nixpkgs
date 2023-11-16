@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  stdenv,
-  libsixel,
-}:
+{ buildPythonPackage, lib, stdenv, libsixel }:
 
 buildPythonPackage rec {
   version = libsixel.version;

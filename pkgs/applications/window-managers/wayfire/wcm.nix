@@ -1,21 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  wayland,
-  wrapGAppsHook,
-  wayfire,
-  wf-shell,
-  wf-config,
-  wayland-scanner,
-  wayland-protocols,
-  gtk3,
-  libevdev,
-  libxml2,
-}:
+{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, wayland, wrapGAppsHook
+, wayfire, wf-shell, wf-config, wayland-scanner, wayland-protocols, gtk3
+, libevdev, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "wcm";
@@ -29,13 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LJR9JGl49o4O6LARofz3jOeAqseGcmzVhMnhk/aobUU=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner wrapGAppsHook ];
 
   buildInputs = [
     wayfire
@@ -54,11 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/WayfireWM/wcm";
     description = "Wayfire Config Manager";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      qyliss
-      wucke13
-      rewine
-    ];
+    maintainers = with maintainers; [ qyliss wucke13 rewine ];
     platforms = platforms.unix;
   };
 }

@@ -9,9 +9,8 @@ let
   inherit (lib.strings) hasPrefix;
 
   inherit (lib.filesystem) pathType;
-in
 
-{
+in {
 
   /* The type of a path. The path needs to exist and be accessible.
      The result is either "directory" for a directory, "regular" for a regular file, "symlink" for a symlink, or "unknown" for anything else.
@@ -26,25 +25,21 @@ in
        pathType /some/file.nix
        => "regular"
   */
-  pathType =
-    builtins.readFileType or
-      # Nix <2.14 compatibility shim
-      (
-        path:
-        if
-          !pathExists path
-        # Fail irrecoverably to mimic the historic behavior of this function and
-        # the new builtins.readFileType
-        then
-          abort "lib.filesystem.pathType: Path ${toString path} does not exist."
+  pathType = builtins.readFileType or
+    # Nix <2.14 compatibility shim
+    (path:
+      if !pathExists path
+      # Fail irrecoverably to mimic the historic behavior of this function and
+      # the new builtins.readFileType
+      then
+        abort "lib.filesystem.pathType: Path ${toString path} does not exist."
         # The filesystem root is the only path where `dirOf / == /` and
         # `baseNameOf /` is not valid. We can detect this and directly return
         # "directory", since we know the filesystem root can't be anything else.
-        else if dirOf path == path then
-          "directory"
-        else
-          (readDir (dirOf path)).${baseNameOf path}
-      );
+      else if dirOf path == path then
+        "directory"
+      else
+        (readDir (dirOf path)).${baseNameOf path});
 
   /* Whether a path exists and is a directory.
 
@@ -89,23 +84,18 @@ in
   haskellPathsInDir =
     # The directory within to search
     root:
-    let
-      # Files in the root
+    let # Files in the root
       root-files = builtins.attrNames (builtins.readDir root);
       # Files with their full paths
-      root-files-with-paths =
-        map
-          (file: {
-            name = file;
-            value = root + "/${file}";
-          })
-          root-files;
+      root-files-with-paths = map (file: {
+        name = file;
+        value = root + "/${file}";
+      }) root-files;
       # Subdirectories of the root with a cabal file.
-      cabal-subdirs =
-        builtins.filter ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
-          root-files-with-paths;
-    in
-    builtins.listToAttrs cabal-subdirs;
+      cabal-subdirs = builtins.filter
+        ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
+        root-files-with-paths;
+    in builtins.listToAttrs cabal-subdirs;
   /* Find the first directory containing a file matching 'pattern'
      upward from a given 'file'.
      Returns 'null' if no directories contain a file matching 'pattern'.
@@ -118,27 +108,23 @@ in
     # The file to start searching upward from
     file:
     let
-      go =
-        path:
+      go = path:
         let
           files = builtins.attrNames (builtins.readDir path);
-          matches = builtins.filter (match: match != null) (map (builtins.match pattern) files);
-        in
-        if builtins.length matches != 0 then
-          { inherit path matches; }
-        else if path == /. then
+          matches = builtins.filter (match: match != null)
+            (map (builtins.match pattern) files);
+        in if builtins.length matches != 0 then {
+          inherit path matches;
+        } else if path == /. then
           null
         else
           go (dirOf path);
       parent = dirOf file;
-      isDir =
-        let
-          base = baseNameOf file;
-          type = (builtins.readDir parent).${base} or null;
-        in
-        file == /. || type == "directory";
-    in
-    go (if isDir then file else parent);
+      isDir = let
+        base = baseNameOf file;
+        type = (builtins.readDir parent).${base} or null;
+      in file == /. || type == "directory";
+    in go (if isDir then file else parent);
 
   /* Given a directory, return a flattened list of all files within it recursively.
 
@@ -147,15 +133,10 @@ in
   listFilesRecursive =
     # The path to recursively list
     dir:
-    lib.flatten (
-      lib.mapAttrsToList
-        (
-          name: type:
-          if type == "directory" then
-            lib.filesystem.listFilesRecursive (dir + "/${name}")
-          else
-            dir + "/${name}"
-        )
-        (builtins.readDir dir)
-    );
+    lib.flatten (lib.mapAttrsToList (name: type:
+      if type == "directory" then
+        lib.filesystem.listFilesRecursive (dir + "/${name}")
+      else
+        dir + "/${name}") (builtins.readDir dir));
+
 }

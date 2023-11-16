@@ -1,13 +1,5 @@
-{
-  lib,
-  arrow,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hypothesis,
-  isodate,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, arrow, buildPythonPackage, fetchFromGitHub, hypothesis, isodate
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "isoduration";
@@ -25,17 +17,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ arrow ];
 
-  nativeCheckInputs = [
-    hypothesis
-    isodate
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis isodate pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # We don't care about benchmarks
-      "tests/test_benchmark.py"
-    ];
+  disabledTestPaths = [
+    # We don't care about benchmarks
+    "tests/test_benchmark.py"
+  ];
 
   pythonImportsCheck = [ "isoduration" ];
 

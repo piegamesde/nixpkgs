@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pygments,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pygments }:
 
 buildPythonPackage rec {
   pname = "accessible-pygments";
@@ -23,15 +17,13 @@ buildPythonPackage rec {
   # Tests only execute pygments with these styles
   doCheck = false;
 
-  pythonImportsCheck = [
-    "a11y_pygments"
-    "a11y_pygments.utils"
-  ];
+  pythonImportsCheck = [ "a11y_pygments" "a11y_pygments.utils" ];
 
   meta = with lib; {
     description = "A collection of accessible pygments styles";
     homepage = "https://github.com/Quansight-Labs/accessible-pygments";
-    changelog = "https://github.com/Quansight-Labs/accessible-pygments/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Quansight-Labs/accessible-pygments/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];
   };

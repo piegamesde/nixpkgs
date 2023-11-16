@@ -1,26 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  tcl,
-  tk,
-  Cocoa,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, tcl, tk, Cocoa, makeWrapper }:
 
 stdenv.mkDerivation rec {
   version = "3.0";
   pname = "wordnet";
   src = fetchurl {
-    url = "http://wordnetcode.princeton.edu/${version}/WordNet-${version}.tar.bz2";
+    url =
+      "http://wordnetcode.princeton.edu/${version}/WordNet-${version}.tar.bz2";
     sha256 = "08pgjvd2vvmqk3h641x63nxp7wqimb9r30889mkyfh2agc62sjbc";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    tcl
-    tk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [ tcl tk ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   hardeningDisable = [ "format" ];
 
@@ -29,10 +19,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Needs the path to `tclConfig.sh' and `tkConfig.sh'.
-  configureFlags = [
-    "--with-tcl=${tcl}/lib"
-    "--with-tk=${tk}/lib"
-  ];
+  configureFlags = [ "--with-tcl=${tcl}/lib" "--with-tk=${tk}/lib" ];
 
   postInstall = ''
     wrapProgram $out/bin/wnb    --prefix PATH : "$out/bin"

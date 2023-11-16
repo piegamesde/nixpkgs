@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "osicat";
   version = "20211209-git";
 
@@ -19,7 +18,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/osicat/2021-12-09/osicat-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/osicat/2021-12-09/osicat-20211209-git.tgz";
     sha256 = "0c85aapyvr2f5c3lvpfv3hfdghwmsqf40qgyk9hwjva8s9242pgl";
   };
 

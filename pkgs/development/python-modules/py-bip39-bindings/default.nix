@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  buildPythonPackage,
-  pythonOlder,
-  pytestCheckHook,
-  rustPlatform,
-  stdenv,
-  libiconv,
-}:
+{ lib, fetchFromGitHub, fetchpatch, buildPythonPackage, pythonOlder
+, pytestCheckHook, rustPlatform, stdenv, libiconv }:
 
 buildPythonPackage rec {
   pname = "py-bip39-bindings";
@@ -27,7 +18,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       name = "update-to-latest-maturin-and-pyo3.patch";
-      url = "https://github.com/polkascan/py-bip39-bindings/commit/f05cced028b43b59cfa67e17fbf0f337bdd3aa8d.patch";
+      url =
+        "https://github.com/polkascan/py-bip39-bindings/commit/f05cced028b43b59cfa67e17fbf0f337bdd3aa8d.patch";
       hash = "sha256-/pFNSFtYyKiOoIDVqEWdZCbQxFZ7FIcvAHY2m5STlEc=";
     })
   ];
@@ -38,10 +30,7 @@ buildPythonPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

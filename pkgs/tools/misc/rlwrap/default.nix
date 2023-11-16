@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  perl,
-  readline,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, perl, readline }:
 
 stdenv.mkDerivation rec {
   pname = "rlwrap";
@@ -23,10 +16,7 @@ stdenv.mkDerivation rec {
       --replace "if(*p >= 0 && *p < ' ')" "if(*p >= 0 && (*p >= 0) && (*p < ' '))"
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-  ];
+  nativeBuildInputs = [ autoreconfHook perl ];
 
   buildInputs = [ readline ];
 

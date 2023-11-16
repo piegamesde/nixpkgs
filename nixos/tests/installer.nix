@@ -1,9 +1,5 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-  systemdStage1 ? false,
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, systemdStage1 ? false }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -11,15 +7,8 @@ with pkgs.lib;
 let
 
   # The configuration to install.
-  makeConfig =
-    {
-      bootLoader,
-      grubDevice,
-      grubIdentifier,
-      grubUseEfi,
-      extraConfig,
-      forceGrubReinstallCount ? 0,
-    }:
+  makeConfig = { bootLoader, grubDevice, grubIdentifier, grubUseEfi, extraConfig
+    , forceGrubReinstallCount ? 0 }:
     pkgs.writeText "configuration.nix" ''
       { config, lib, pkgs, modulesPath, ... }:
 
@@ -38,19 +27,18 @@ let
         ${
           optionalString (bootLoader == "grub") ''
             boot.loader.grub.extraConfig = "serial; terminal_output serial";
-            ${if grubUseEfi then
-              ''
-                boot.loader.grub.device = "nodev";
-                boot.loader.grub.efiSupport = true;
-                boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
-              ''
-            else
-              ''
-                boot.loader.grub.device = "${grubDevice}";
-                boot.loader.grub.fsIdentifier = "${grubIdentifier}";
-              ''}
+            ${if grubUseEfi then ''
+              boot.loader.grub.device = "nodev";
+              boot.loader.grub.efiSupport = true;
+              boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
+            '' else ''
+              boot.loader.grub.device = "${grubDevice}";
+              boot.loader.grub.fsIdentifier = "${grubIdentifier}";
+            ''}
 
-            boot.loader.grub.configurationLimit = 100 + ${toString forceGrubReinstallCount};
+            boot.loader.grub.configurationLimit = 100 + ${
+              toString forceGrubReinstallCount
+            };
           ''
         }
 
@@ -78,28 +66,17 @@ let
   # disk, and then reboot from the hard disk.  It's parameterized with
   # a test script fragment `createPartitions', which must create
   # partitions and filesystems.
-  testScriptFun =
-    {
-      bootLoader,
-      createPartitions,
-      grubDevice,
-      grubUseEfi,
-      grubIdentifier,
-      preBootCommands,
-      postBootCommands,
-      extraConfig,
-      testSpecialisationConfig,
-    }:
+  testScriptFun = { bootLoader, createPartitions, grubDevice, grubUseEfi
+    , grubIdentifier, preBootCommands, postBootCommands, extraConfig
+    , testSpecialisationConfig }:
     let
       iface = "virtio";
-      isEfi = bootLoader == "systemd-boot" || (bootLoader == "grub" && grubUseEfi);
+      isEfi = bootLoader == "systemd-boot"
+        || (bootLoader == "grub" && grubUseEfi);
       bios = if pkgs.stdenv.isAarch64 then "QEMU_EFI.fd" else "OVMF.fd";
-    in
-    if !isEfi && !pkgs.stdenv.hostPlatform.isx86 then
-      ''
-        machine.succeed("true")
-      ''
-    else
+    in if !isEfi && !pkgs.stdenv.hostPlatform.isx86 then ''
+      machine.succeed("true")
+    '' else
       ''
         def assemble_qemu_flags():
             flags = "-cpu max"
@@ -107,7 +84,8 @@ let
               if (system == "x86_64-linux" || system == "i686-linux") then
                 ''flags += " -m 1024"''
               else
-                ''flags += " -m 768 -enable-kvm -machine virt,gic-version=host"''
+                ''
+                  flags += " -m 768 -enable-kvm -machine virt,gic-version=host"''
             }
             return flags
 
@@ -145,18 +123,15 @@ let
             machine.copy_from_host(
                 "${
                   makeConfig {
-                    inherit
-                      bootLoader
-                      grubDevice
-                      grubIdentifier
-                      grubUseEfi
-                      extraConfig
-                    ;
+                    inherit bootLoader grubDevice grubIdentifier grubUseEfi
+                      extraConfig;
                   }
                 }",
                 "/mnt/etc/nixos/configuration.nix",
             )
-            machine.copy_from_host("${pkgs.writeText "secret" "secret"}", "/mnt/etc/nixos/secret")
+            machine.copy_from_host("${
+              pkgs.writeText "secret" "secret"
+            }", "/mnt/etc/nixos/secret")
 
         with subtest("Perform the installation"):
             machine.succeed("nixos-install < /dev/null >&2")
@@ -224,13 +199,8 @@ let
             machine.copy_from_host_via_shell(
                 "${
                   makeConfig {
-                    inherit
-                      bootLoader
-                      grubDevice
-                      grubIdentifier
-                      grubUseEfi
-                      extraConfig
-                    ;
+                    inherit bootLoader grubDevice grubIdentifier grubUseEfi
+                      extraConfig;
                     forceGrubReinstallCount = 1;
                   }
                 }",
@@ -259,13 +229,8 @@ let
         machine.copy_from_host_via_shell(
             "${
               makeConfig {
-                inherit
-                  bootLoader
-                  grubDevice
-                  grubIdentifier
-                  grubUseEfi
-                  extraConfig
-                ;
+                inherit bootLoader grubDevice grubIdentifier grubUseEfi
+                  extraConfig;
                 forceGrubReinstallCount = 2;
               }
             }",
@@ -283,8 +248,7 @@ let
         machine.shutdown()
 
         # Tests for validating clone configuration entries in grub menu
-      ''
-      + optionalString testSpecialisationConfig ''
+      '' + optionalString testSpecialisationConfig ''
         # Reboot Machine
         machine = create_machine_named("clone-default-config")
         ${preBootCommands}
@@ -321,23 +285,12 @@ let
         machine.shutdown()
       '';
 
-  makeInstallerTest =
-    name:
-    {
-      createPartitions,
-      preBootCommands ? "",
-      postBootCommands ? "",
-      extraConfig ? "",
-      extraInstallerConfig ? { },
-      bootLoader ? "grub" # either "grub" or "systemd-boot"
-      ,
-      grubDevice ? "/dev/vda",
-      grubIdentifier ? "uuid",
-      grubUseEfi ? false,
-      enableOCR ? false,
-      meta ? { },
-      testSpecialisationConfig ? false,
-    }:
+  makeInstallerTest = name:
+    { createPartitions, preBootCommands ? "", postBootCommands ? ""
+    , extraConfig ? "", extraInstallerConfig ? { }
+    , bootLoader ? "grub" # either "grub" or "systemd-boot"
+    , grubDevice ? "/dev/vda", grubIdentifier ? "uuid", grubUseEfi ? false
+    , enableOCR ? false, meta ? { }, testSpecialisationConfig ? false }:
     makeTest {
       inherit enableOCR;
       name = "installer-" + name;
@@ -348,119 +301,102 @@ let
       nodes = {
 
         # The configuration of the machine used to run "nixos-install".
-        machine =
-          { pkgs, ... }:
-          {
-            imports = [
-              ../modules/profiles/installation-device.nix
-              ../modules/profiles/base.nix
-              extraInstallerConfig
-            ];
+        machine = { pkgs, ... }: {
+          imports = [
+            ../modules/profiles/installation-device.nix
+            ../modules/profiles/base.nix
+            extraInstallerConfig
+          ];
 
-            # builds stuff in the VM, needs more juice
-            virtualisation.diskSize = 8 * 1024;
-            virtualisation.cores = 8;
-            virtualisation.memorySize = 1536;
+          # builds stuff in the VM, needs more juice
+          virtualisation.diskSize = 8 * 1024;
+          virtualisation.cores = 8;
+          virtualisation.memorySize = 1536;
 
-            boot.initrd.systemd.enable = systemdStage1;
+          boot.initrd.systemd.enable = systemdStage1;
 
-            # Use a small /dev/vdb as the root disk for the
-            # installer. This ensures the target disk (/dev/vda) is
-            # the same during and after installation.
-            virtualisation.emptyDiskImages = [ 512 ];
-            virtualisation.rootDevice = "/dev/vdb";
-            virtualisation.bootLoaderDevice = "/dev/vda";
-            virtualisation.qemu.diskInterface = "virtio";
+          # Use a small /dev/vdb as the root disk for the
+          # installer. This ensures the target disk (/dev/vda) is
+          # the same during and after installation.
+          virtualisation.emptyDiskImages = [ 512 ];
+          virtualisation.rootDevice = "/dev/vdb";
+          virtualisation.bootLoaderDevice = "/dev/vda";
+          virtualisation.qemu.diskInterface = "virtio";
 
-            # We don't want to have any networking in the guest whatsoever.
-            # Also, if any vlans are enabled, the guest will reboot
-            # (with a different configuration for legacy reasons),
-            # and spend 5 minutes waiting for the vlan interface to show up
-            # (which will never happen).
-            virtualisation.vlans = [ ];
+          # We don't want to have any networking in the guest whatsoever.
+          # Also, if any vlans are enabled, the guest will reboot
+          # (with a different configuration for legacy reasons),
+          # and spend 5 minutes waiting for the vlan interface to show up
+          # (which will never happen).
+          virtualisation.vlans = [ ];
 
-            boot.loader.systemd-boot.enable = mkIf (bootLoader == "systemd-boot") true;
+          boot.loader.systemd-boot.enable =
+            mkIf (bootLoader == "systemd-boot") true;
 
-            hardware.enableAllFirmware = mkForce false;
+          hardware.enableAllFirmware = mkForce false;
 
-            # The test cannot access the network, so any packages we
-            # need must be included in the VM.
-            system.extraDependencies =
-              with pkgs;
-              [
-                brotli
-                brotli.dev
-                brotli.lib
-                desktop-file-utils
-                docbook5
-                docbook_xsl_ns
-                (docbook-xsl-ns.override { withManOptDedupPatch = true; })
-                kbd.dev
-                kmod.dev
-                libarchive.dev
-                libxml2.bin
-                libxslt.bin
-                nixos-artwork.wallpapers.simple-dark-gray-bottom
-                ntp
-                perlPackages.ListCompare
-                perlPackages.XMLLibXML
-                python3Minimal
-                # make-options-doc/default.nix
-                (
-                  let
-                    self =
-                      (pkgs.python3Minimal.override {
-                        inherit self;
-                        includeSiteCustomize = true;
-                      });
-                  in
-                  self.withPackages (p: [ p.mistune ])
-                )
-                shared-mime-info
-                sudo
-                texinfo
-                unionfs-fuse
-                xorg.lndir
+          # The test cannot access the network, so any packages we
+          # need must be included in the VM.
+          system.extraDependencies = with pkgs;
+            [
+              brotli
+              brotli.dev
+              brotli.lib
+              desktop-file-utils
+              docbook5
+              docbook_xsl_ns
+              (docbook-xsl-ns.override { withManOptDedupPatch = true; })
+              kbd.dev
+              kmod.dev
+              libarchive.dev
+              libxml2.bin
+              libxslt.bin
+              nixos-artwork.wallpapers.simple-dark-gray-bottom
+              ntp
+              perlPackages.ListCompare
+              perlPackages.XMLLibXML
+              python3Minimal
+              # make-options-doc/default.nix
+              (let
+                self = (pkgs.python3Minimal.override {
+                  inherit self;
+                  includeSiteCustomize = true;
+                });
+              in self.withPackages (p: [ p.mistune ]))
+              shared-mime-info
+              sudo
+              texinfo
+              unionfs-fuse
+              xorg.lndir
 
-                # add curl so that rather than seeing the test attempt to download
-                # curl's tarball, we see what it's trying to download
-                curl
-              ]
-              ++ optionals (bootLoader == "grub") (
-                let
-                  zfsSupport = lib.any (x: x == "zfs") (extraInstallerConfig.boot.supportedFilesystems or [ ]);
-                in
-                [
-                  (pkgs.grub2.override { inherit zfsSupport; })
-                  (pkgs.grub2_efi.override { inherit zfsSupport; })
-                ]
-              );
+              # add curl so that rather than seeing the test attempt to download
+              # curl's tarball, we see what it's trying to download
+              curl
+            ] ++ optionals (bootLoader == "grub") (let
+              zfsSupport = lib.any (x: x == "zfs")
+                (extraInstallerConfig.boot.supportedFilesystems or [ ]);
+            in [
+              (pkgs.grub2.override { inherit zfsSupport; })
+              (pkgs.grub2_efi.override { inherit zfsSupport; })
+            ]);
 
-            nix.settings = {
-              substituters = mkForce [ ];
-              hashed-mirrors = null;
-              connect-timeout = 1;
-            };
+          nix.settings = {
+            substituters = mkForce [ ];
+            hashed-mirrors = null;
+            connect-timeout = 1;
           };
+        };
+
       };
 
       testScript = testScriptFun {
-        inherit
-          bootLoader
-          createPartitions
-          preBootCommands
-          postBootCommands
-          grubDevice
-          grubIdentifier
-          grubUseEfi
-          extraConfig
-          testSpecialisationConfig
-        ;
+        inherit bootLoader createPartitions preBootCommands postBootCommands
+          grubDevice grubIdentifier grubUseEfi extraConfig
+          testSpecialisationConfig;
       };
     };
 
-  makeLuksRootTest =
-    name: luksFormatOpts:
+  makeLuksRootTest = name: luksFormatOpts:
     makeInstallerTest name {
       createPartitions = ''
         machine.succeed(
@@ -551,11 +487,12 @@ let
   # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
     nixpkgs.overlays = [
-      (final: super: { zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; }); })
+      (final: super: {
+        zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; });
+      })
     ];
   };
-in
-{
+in {
 
   # !!! `parted mkpart' seems to silently create overlapping partitions.
 
@@ -564,9 +501,8 @@ in
   simple = makeInstallerTest "simple" simple-test-config;
 
   # Test cloned configurations with the simple grub configuration
-  simpleSpecialised = makeInstallerTest "simpleSpecialised" (
-    simple-test-config // specialisation-test-extraconfig
-  );
+  simpleSpecialised = makeInstallerTest "simpleSpecialised"
+    (simple-test-config // specialisation-test-extraconfig);
 
   # Simple GPT/UEFI configuration using systemd-boot with 3 partitions: ESP, swap & root filesystem
   simpleUefiSystemdBoot = makeInstallerTest "simpleUefiSystemdBoot" {
@@ -593,9 +529,9 @@ in
   simpleUefiGrub = makeInstallerTest "simpleUefiGrub" simple-uefi-grub-config;
 
   # Test cloned configurations with the uefi grub configuration
-  simpleUefiGrubSpecialisation = makeInstallerTest "simpleUefiGrubSpecialisation" (
-    simple-uefi-grub-config // specialisation-test-extraconfig
-  );
+  simpleUefiGrubSpecialisation =
+    makeInstallerTest "simpleUefiGrubSpecialisation"
+    (simple-uefi-grub-config // specialisation-test-extraconfig);
 
   # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {
@@ -639,9 +575,7 @@ in
 
   # zfs on / with swap
   zfsroot = makeInstallerTest "zfs-root" {
-    extraInstallerConfig = {
-      boot.supportedFilesystems = [ "zfs" ];
-    };
+    extraInstallerConfig = { boot.supportedFilesystems = [ "zfs" ]; };
 
     extraConfig = ''
       boot.supportedFilesystems = [ "zfs" ];
@@ -1065,8 +999,7 @@ in
       )
     '';
   };
-}
-// optionalAttrs systemdStage1 {
+} // optionalAttrs systemdStage1 {
   stratisRoot = makeInstallerTest "stratisRoot" {
     createPartitions = ''
       machine.succeed(
@@ -1089,18 +1022,16 @@ in
       )
     '';
     bootLoader = "systemd-boot";
-    extraInstallerConfig =
-      { modulesPath, ... }:
-      {
-        config = {
-          services.stratis.enable = true;
-          environment.systemPackages = [
-            pkgs.stratis-cli
-            pkgs.thin-provisioning-tools
-            pkgs.lvm2.bin
-            pkgs.stratisd.initrd
-          ];
-        };
+    extraInstallerConfig = { modulesPath, ... }: {
+      config = {
+        services.stratis.enable = true;
+        environment.systemPackages = [
+          pkgs.stratis-cli
+          pkgs.thin-provisioning-tools
+          pkgs.lvm2.bin
+          pkgs.stratisd.initrd
+        ];
       };
+    };
   };
 }

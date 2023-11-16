@@ -1,20 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.fractalart;
-in
-{
+let cfg = config.services.fractalart;
+in {
   options.services.fractalart = {
     enable = mkOption {
       type = types.bool;
       default = false;
       example = true;
-      description = lib.mdDoc "Enable FractalArt for generating colorful wallpapers on login";
+      description = lib.mdDoc
+        "Enable FractalArt for generating colorful wallpapers on login";
     };
 
     width = mkOption {

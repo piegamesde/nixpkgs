@@ -1,8 +1,7 @@
 with import ../../../default.nix { };
 mkShell {
   nativeBuildInputs = [
-    (lispPackages_new.sbclWithPackages (
-      ps:
+    (lispPackages_new.sbclWithPackages (ps:
       with ps; [
         alexandria
         str
@@ -11,7 +10,6 @@ mkShell {
         sqlite
         arrow-macros
         jzon
-      ]
-    ))
+      ]))
   ];
 }

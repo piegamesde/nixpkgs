@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchurl, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "thttpd";

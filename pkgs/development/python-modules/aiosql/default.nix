@@ -1,20 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  sphinxHook,
-  sphinx-rtd-theme,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
+, sphinxHook, sphinx-rtd-theme }:
 
 buildPythonPackage rec {
   pname = "aiosql";
   version = "8.0";
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
   format = "pyproject";
 
   src = fetchFromGitHub {
@@ -26,12 +16,8 @@ buildPythonPackage rec {
 
   sphinxRoot = "docs/source";
 
-  nativeBuildInputs = [
-    pytestCheckHook
-    sphinxHook
-    poetry-core
-    sphinx-rtd-theme
-  ];
+  nativeBuildInputs =
+    [ pytestCheckHook sphinxHook poetry-core sphinx-rtd-theme ];
 
   pythonImportsCheck = [ "aiosql" ];
 

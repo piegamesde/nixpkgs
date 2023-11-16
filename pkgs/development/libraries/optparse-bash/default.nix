@@ -1,12 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  bash,
-  gnused,
-  gawk,
-  coreutils,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, bash, gnused, gawk, coreutils }:
 
 stdenvNoCC.mkDerivation {
   pname = "optparse-bash-unstable";
@@ -55,7 +47,8 @@ stdenvNoCC.mkDerivation {
   dontPatchShebangs = true;
 
   meta = with lib; {
-    description = "A BASH wrapper for getopts, for simple command-line argument parsing";
+    description =
+      "A BASH wrapper for getopts, for simple command-line argument parsing";
     homepage = "https://github.com/nk412/optparse";
     license = licenses.mit;
     platforms = platforms.all;

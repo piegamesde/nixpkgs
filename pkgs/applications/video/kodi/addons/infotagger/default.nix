@@ -1,9 +1,4 @@
-{
-  lib,
-  buildKodiAddon,
-  fetchFromGitHub,
-  addonUpdateScript,
-}:
+{ lib, buildKodiAddon, fetchFromGitHub, addonUpdateScript }:
 buildKodiAddon rec {
   pname = "infotagger";
   namespace = "script.module.infotagger";
@@ -24,7 +19,8 @@ buildKodiAddon rec {
 
   meta = with lib; {
     homepage = "https://github.com/jurialmunkey/script.module.infotagger";
-    description = "Wrapper for new Nexus InfoTagVideo ListItem methods to maintain backwards compatibility";
+    description =
+      "Wrapper for new Nexus InfoTagVideo ListItem methods to maintain backwards compatibility";
     license = licenses.gpl3Plus;
     maintainers = teams.kodi.members;
   };

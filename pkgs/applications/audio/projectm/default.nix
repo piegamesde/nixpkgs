@@ -1,16 +1,5 @@
-{
-  stdenv,
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  SDL2,
-  qtdeclarative,
-  libpulseaudio,
-  glm,
-  which,
-}:
+{ stdenv, mkDerivation, lib, fetchFromGitHub, autoreconfHook, pkg-config, SDL2
+, qtdeclarative, libpulseaudio, glm, which }:
 
 mkDerivation rec {
   pname = "projectm";
@@ -23,36 +12,22 @@ mkDerivation rec {
     sha256 = "sha256-oEfOx93JyR94II5NkUCvMwqxuV7ktpOHZ8PNMLCiqDw=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    which
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook which ];
 
-  buildInputs = [
-    SDL2
-    qtdeclarative
-    libpulseaudio
-    glm
-  ];
+  buildInputs = [ SDL2 qtdeclarative libpulseaudio glm ];
 
-  configureFlags = [
-    "--enable-qt"
-    "--enable-sdl"
-  ];
+  configureFlags = [ "--enable-qt" "--enable-sdl" ];
 
-  fixupPhase =
-    lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
-      # NOTE: 2019-10-05: Upstream inserts the src path buring build into ELF rpath, so must delete it out
-      # upstream report: https://github.com/projectM-visualizer/projectm/issues/245
-      for entry in $out/bin/* ; do
-        patchelf --set-rpath "$(patchelf --print-rpath $entry | tr ':' '\n' | grep -v 'src/libprojectM' | tr '\n' ':')" "$entry"
-      done
-    ''
-    + ''
-      wrapQtApp $out/bin/projectM-pulseaudio
-      rm $out/bin/projectM-unittest
-    '';
+  fixupPhase = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+    # NOTE: 2019-10-05: Upstream inserts the src path buring build into ELF rpath, so must delete it out
+    # upstream report: https://github.com/projectM-visualizer/projectm/issues/245
+    for entry in $out/bin/* ; do
+      patchelf --set-rpath "$(patchelf --print-rpath $entry | tr ':' '\n' | grep -v 'src/libprojectM' | tr '\n' ':')" "$entry"
+    done
+  '' + ''
+    wrapQtApp $out/bin/projectM-pulseaudio
+    rm $out/bin/projectM-unittest
+  '';
 
   meta = {
     homepage = "https://github.com/projectM-visualizer/projectm";

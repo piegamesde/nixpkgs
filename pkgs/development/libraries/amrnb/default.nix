@@ -1,15 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-}:
+{ lib, stdenv, fetchurl, unzip }:
 
 stdenv.mkDerivation {
   pname = "amrnb";
   version = "11.0.0.0";
   srcAmr = fetchurl {
-    url = "https://www.3gpp.org/ftp/Specs/latest/Rel-11/26_series/26104-b00.zip";
+    url =
+      "https://www.3gpp.org/ftp/Specs/latest/Rel-11/26_series/26104-b00.zip";
     sha256 = "1wf8ih0hk7w20vdlnw7jb7w73v15hbxgbvmq4wq7h2ghn0j8ppr3";
   };
 
@@ -20,10 +16,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ unzip ];
 
-  configureFlags = [
-    "--cache-file=config.cache"
-    "--with-downloader=true"
-  ];
+  configureFlags = [ "--cache-file=config.cache" "--with-downloader=true" ];
 
   postConfigure = ''
     cp $srcAmr 26104-b00.zip

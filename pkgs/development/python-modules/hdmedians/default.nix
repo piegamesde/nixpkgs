@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  cython,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, cython, numpy }:
 
 buildPythonPackage rec {
   version = "0.14.2";
@@ -17,10 +10,7 @@ buildPythonPackage rec {
   };
 
   # nose was specified in setup.py as a build dependency...
-  buildInputs = [
-    cython
-    nose
-  ];
+  buildInputs = [ cython nose ];
   propagatedBuildInputs = [ numpy ];
 
   # cannot resolve path for packages in tests

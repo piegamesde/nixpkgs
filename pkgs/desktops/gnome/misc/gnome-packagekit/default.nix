@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  meson,
-  ninja,
-  gettext,
-  gnome,
-  packagekit,
-  polkit,
-  gtk3,
-  systemd,
-  wrapGAppsHook,
-  desktop-file-utils,
-}:
+{ lib, stdenv, fetchurl, pkg-config, meson, ninja, gettext, gnome, packagekit
+, polkit, gtk3, systemd, wrapGAppsHook, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-packagekit";
@@ -26,21 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "zaRVplKpI7LqL3Axa9D92Clve2Lu8/r9nOUMjmbF8ZU=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gettext
-    wrapGAppsHook
-    desktop-file-utils
-  ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja gettext wrapGAppsHook desktop-file-utils ];
 
-  buildInputs = [
-    gtk3
-    packagekit
-    systemd
-    polkit
-  ];
+  buildInputs = [ gtk3 packagekit systemd polkit ];
 
   postPatch = ''
     patchShebangs meson_post_install.sh
@@ -58,6 +33,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
-    description = "Tools for installing software on the GNOME desktop using PackageKit";
+    description =
+      "Tools for installing software on the GNOME desktop using PackageKit";
   };
 }

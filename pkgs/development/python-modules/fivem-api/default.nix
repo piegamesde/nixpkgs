@@ -1,11 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "fivem-api";

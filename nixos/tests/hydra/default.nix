@@ -1,8 +1,5 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../../.. { inherit system config; } }:
 
 with import ../../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -11,30 +8,18 @@ let
 
   inherit (import ./common.nix { inherit system; }) baseConfig;
 
-  hydraPkgs = {
-    inherit (pkgs) hydra_unstable;
-  };
+  hydraPkgs = { inherit (pkgs) hydra_unstable; };
 
-  makeHydraTest =
-    with pkgs.lib;
+  makeHydraTest = with pkgs.lib;
     name: package:
     makeTest {
       name = "hydra-${name}";
-      meta = with pkgs.lib.maintainers; {
-        maintainers = [
-          lewo
-          ma27
-        ];
-      };
+      meta = with pkgs.lib.maintainers; { maintainers = [ lewo ma27 ]; };
 
-      nodes.machine =
-        { pkgs, lib, ... }:
-        {
-          imports = [ baseConfig ];
-          services.hydra = {
-            inherit package;
-          };
-        };
+      nodes.machine = { pkgs, lib, ... }: {
+        imports = [ baseConfig ];
+        services.hydra = { inherit package; };
+      };
 
       testScript = ''
         # let the system boot up
@@ -64,6 +49,5 @@ let
         )
       '';
     };
-in
 
-mapAttrs makeHydraTest hydraPkgs
+in mapAttrs makeHydraTest hydraPkgs

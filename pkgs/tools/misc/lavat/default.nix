@@ -1,12 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
-let
-  version = "2.0.0";
-in
-stdenv.mkDerivation {
+{ lib, stdenv, fetchFromGitHub, }:
+let version = "2.0.0";
+in stdenv.mkDerivation {
   pname = "lavat";
   inherit version;
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubestroyer";
@@ -17,15 +13,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-x0lIi4QUuYn0kv0HV4h8k61kRu10LCyELudisqUdTAg=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "Kubernetes exploitation tool";
     homepage = "https://github.com/Rolix44/Kubestroyer";
-    changelog = "https://github.com/Rolix44/Kubestroyer/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Rolix44/Kubestroyer/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

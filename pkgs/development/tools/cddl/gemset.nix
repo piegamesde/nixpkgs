@@ -10,11 +10,7 @@
     version = "0.1.0";
   };
   cbor-diag = {
-    dependencies = [
-      "json"
-      "neatjson"
-      "treetop"
-    ];
+    dependencies = [ "json" "neatjson" "treetop" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -25,13 +21,7 @@
     version = "0.5.6";
   };
   cddl = {
-    dependencies = [
-      "abnc"
-      "cbor-diag"
-      "colorize"
-      "json"
-      "regexp-examples"
-    ];
+    dependencies = [ "abnc" "cbor-diag" "colorize" "json" "regexp-examples" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bison,
-  flex,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, bison, flex, perl, }:
 
 stdenv.mkDerivation rec {
   pname = "jbofihe";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xx7x1256sjncyzx656jl6jl546vn8zz0siymqalz6v9yf341p98";
   };
 
-  nativeBuildInputs = [
-    bison
-    flex
-    perl
-  ];
+  nativeBuildInputs = [ bison flex perl ];
 
   doCheck = true;
   checkPhase = ''

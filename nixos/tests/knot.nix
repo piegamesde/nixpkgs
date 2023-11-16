@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     common = {
       networking.firewall.enable = false;
@@ -27,10 +26,7 @@ import ./make-test-python.nix (
 
     knotZonesEnv = pkgs.buildEnv {
       name = "knot-zones";
-      paths = [
-        exampleZone
-        delegatedZone
-      ];
+      paths = [ exampleZone delegatedZone ];
     };
     # DO NOT USE pkgs.writeText IN PRODUCTION. This put secrets in the nix store!
     tsigFile = pkgs.writeText "tsig.conf" ''
@@ -39,166 +35,149 @@ import ./make-test-python.nix (
           algorithm: hmac-sha256
           secret: zOYgOgnzx3TGe5J5I/0kxd7gTcxXhLYMEq3Ek3fY37s=
     '';
-  in
-  {
+  in {
     name = "knot";
     meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
 
     nodes = {
-      primary =
-        { lib, ... }:
-        {
-          imports = [ common ];
+      primary = { lib, ... }: {
+        imports = [ common ];
 
-          # trigger sched_setaffinity syscall
-          virtualisation.cores = 2;
+        # trigger sched_setaffinity syscall
+        virtualisation.cores = 2;
 
-          networking.interfaces.eth1 = {
-            ipv4.addresses = lib.mkForce [
-              {
-                address = "192.168.0.1";
-                prefixLength = 24;
-              }
-            ];
-            ipv6.addresses = lib.mkForce [
-              {
-                address = "fd00::1";
-                prefixLength = 64;
-              }
-            ];
-          };
-          services.knot.enable = true;
-          services.knot.extraArgs = [ "-v" ];
-          services.knot.keyFiles = [ tsigFile ];
-          services.knot.extraConfig = ''
-            server:
-                listen: 0.0.0.0@53
-                listen: ::@53
-                automatic-acl: true
-
-            remote:
-              - id: secondary
-                address: 192.168.0.2@53
-                key: xfr_key
-
-            template:
-              - id: default
-                storage: ${knotZonesEnv}
-                notify: [secondary]
-                dnssec-signing: on
-                # Input-only zone files
-                # https://www.knot-dns.cz/docs/2.8/html/operation.html#example-3
-                # prevents modification of the zonefiles, since the zonefiles are immutable
-                zonefile-sync: -1
-                zonefile-load: difference
-                journal-content: changes
-                # move databases below the state directory, because they need to be writable
-                journal-db: /var/lib/knot/journal
-                kasp-db: /var/lib/knot/kasp
-                timer-db: /var/lib/knot/timer
-
-            zone:
-              - domain: example.com
-                file: example.com.zone
-
-              - domain: sub.example.com
-                file: sub.example.com.zone
-
-            log:
-              - target: syslog
-                any: info
-          '';
+        networking.interfaces.eth1 = {
+          ipv4.addresses = lib.mkForce [{
+            address = "192.168.0.1";
+            prefixLength = 24;
+          }];
+          ipv6.addresses = lib.mkForce [{
+            address = "fd00::1";
+            prefixLength = 64;
+          }];
         };
+        services.knot.enable = true;
+        services.knot.extraArgs = [ "-v" ];
+        services.knot.keyFiles = [ tsigFile ];
+        services.knot.extraConfig = ''
+          server:
+              listen: 0.0.0.0@53
+              listen: ::@53
+              automatic-acl: true
 
-      secondary =
-        { lib, ... }:
-        {
-          imports = [ common ];
-          networking.interfaces.eth1 = {
-            ipv4.addresses = lib.mkForce [
-              {
-                address = "192.168.0.2";
-                prefixLength = 24;
-              }
-            ];
-            ipv6.addresses = lib.mkForce [
-              {
-                address = "fd00::2";
-                prefixLength = 64;
-              }
-            ];
-          };
-          services.knot.enable = true;
-          services.knot.keyFiles = [ tsigFile ];
-          services.knot.extraArgs = [ "-v" ];
-          services.knot.extraConfig = ''
-            server:
-                listen: 0.0.0.0@53
-                listen: ::@53
-                automatic-acl: true
+          remote:
+            - id: secondary
+              address: 192.168.0.2@53
+              key: xfr_key
 
-            remote:
-              - id: primary
-                address: 192.168.0.1@53
-                key: xfr_key
+          template:
+            - id: default
+              storage: ${knotZonesEnv}
+              notify: [secondary]
+              dnssec-signing: on
+              # Input-only zone files
+              # https://www.knot-dns.cz/docs/2.8/html/operation.html#example-3
+              # prevents modification of the zonefiles, since the zonefiles are immutable
+              zonefile-sync: -1
+              zonefile-load: difference
+              journal-content: changes
+              # move databases below the state directory, because they need to be writable
+              journal-db: /var/lib/knot/journal
+              kasp-db: /var/lib/knot/kasp
+              timer-db: /var/lib/knot/timer
 
-            template:
-              - id: default
-                master: primary
-                # zonefileless setup
-                # https://www.knot-dns.cz/docs/2.8/html/operation.html#example-2
-                zonefile-sync: -1
-                zonefile-load: none
-                journal-content: all
-                # move databases below the state directory, because they need to be writable
-                journal-db: /var/lib/knot/journal
-                kasp-db: /var/lib/knot/kasp
-                timer-db: /var/lib/knot/timer
+          zone:
+            - domain: example.com
+              file: example.com.zone
 
-            zone:
-              - domain: example.com
-                file: example.com.zone
+            - domain: sub.example.com
+              file: sub.example.com.zone
 
-              - domain: sub.example.com
-                file: sub.example.com.zone
+          log:
+            - target: syslog
+              any: info
+        '';
+      };
 
-            log:
-              - target: syslog
-                any: info
-          '';
+      secondary = { lib, ... }: {
+        imports = [ common ];
+        networking.interfaces.eth1 = {
+          ipv4.addresses = lib.mkForce [{
+            address = "192.168.0.2";
+            prefixLength = 24;
+          }];
+          ipv6.addresses = lib.mkForce [{
+            address = "fd00::2";
+            prefixLength = 64;
+          }];
         };
-      client =
-        { lib, nodes, ... }:
-        {
-          imports = [ common ];
-          networking.interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "192.168.0.3";
-                prefixLength = 24;
-              }
-            ];
-            ipv6.addresses = [
-              {
-                address = "fd00::3";
-                prefixLength = 64;
-              }
-            ];
-          };
-          environment.systemPackages = [ pkgs.knot-dns ];
+        services.knot.enable = true;
+        services.knot.keyFiles = [ tsigFile ];
+        services.knot.extraArgs = [ "-v" ];
+        services.knot.extraConfig = ''
+          server:
+              listen: 0.0.0.0@53
+              listen: ::@53
+              automatic-acl: true
+
+          remote:
+            - id: primary
+              address: 192.168.0.1@53
+              key: xfr_key
+
+          template:
+            - id: default
+              master: primary
+              # zonefileless setup
+              # https://www.knot-dns.cz/docs/2.8/html/operation.html#example-2
+              zonefile-sync: -1
+              zonefile-load: none
+              journal-content: all
+              # move databases below the state directory, because they need to be writable
+              journal-db: /var/lib/knot/journal
+              kasp-db: /var/lib/knot/kasp
+              timer-db: /var/lib/knot/timer
+
+          zone:
+            - domain: example.com
+              file: example.com.zone
+
+            - domain: sub.example.com
+              file: sub.example.com.zone
+
+          log:
+            - target: syslog
+              any: info
+        '';
+      };
+      client = { lib, nodes, ... }: {
+        imports = [ common ];
+        networking.interfaces.eth1 = {
+          ipv4.addresses = [{
+            address = "192.168.0.3";
+            prefixLength = 24;
+          }];
+          ipv6.addresses = [{
+            address = "fd00::3";
+            prefixLength = 64;
+          }];
         };
+        environment.systemPackages = [ pkgs.knot-dns ];
+      };
     };
 
-    testScript =
-      { nodes, ... }:
+    testScript = { nodes, ... }:
       let
-        primary4 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address;
-        primary6 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address;
+        primary4 = (lib.head
+          nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address;
+        primary6 = (lib.head
+          nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address;
 
-        secondary4 = (lib.head nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address;
-        secondary6 = (lib.head nodes.secondary.config.networking.interfaces.eth1.ipv6.addresses).address;
-      in
-      ''
+        secondary4 = (lib.head
+          nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address;
+        secondary6 = (lib.head
+          nodes.secondary.config.networking.interfaces.eth1.ipv6.addresses).address;
+      in ''
         import re
 
         start_all()
@@ -232,5 +211,4 @@ import ./make-test-python.nix (
 
         primary.log(primary.succeed("systemd-analyze security knot.service | grep -v '✓'"))
       '';
-  }
-)
+  })

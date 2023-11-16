@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 let
   sortedcontainers = buildPythonPackage rec {
@@ -28,11 +23,11 @@ let
     };
 
     meta = with lib; {
-      description = "Python Sorted Container Types: SortedList, SortedDict, and SortedSet";
+      description =
+        "Python Sorted Container Types: SortedList, SortedDict, and SortedSet";
       homepage = "https://grantjenks.com/docs/sortedcontainers/";
       license = licenses.asl20;
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in
-sortedcontainers
+in sortedcontainers

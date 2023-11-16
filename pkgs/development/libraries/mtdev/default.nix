@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  evdev-proto,
-}:
+{ lib, stdenv, fetchurl, evdev-proto }:
 
 stdenv.mkDerivation rec {
   pname = "mtdev";

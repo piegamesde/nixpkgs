@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  llvm_meta,
-  monorepoSrc,
-  runCommand,
-  cmake,
-  llvm,
-  targetLlvm,
-  lit,
-  clang-unwrapped,
-  perl,
-  pkg-config,
-  version,
-}:
+{ lib, stdenv, llvm_meta, monorepoSrc, runCommand, cmake, llvm, targetLlvm, lit
+, clang-unwrapped, perl, pkg-config, version }:
 
 stdenv.mkDerivation rec {
   pname = "openmp";
@@ -26,23 +13,14 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  patches = [
-    ./gnu-install-dirs.patch
-    ./run-lit-directly.patch
-  ];
+  patches = [ ./gnu-install-dirs.patch ./run-lit-directly.patch ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-    lit
+  nativeBuildInputs = [ cmake perl pkg-config lit ];
+  buildInputs = [
+    (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)
   ];
-  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm) ];
 
   # Unsup:Pass:XFail:Fail
   # 26:267:16:8
@@ -71,9 +49,6 @@ stdenv.mkDerivation rec {
     '';
     # "All of the code is dual licensed under the MIT license and the UIUC
     # License (a BSD-like license)":
-    license = with lib.licenses; [
-      mit
-      ncsa
-    ];
+    license = with lib.licenses; [ mit ncsa ];
   };
 }

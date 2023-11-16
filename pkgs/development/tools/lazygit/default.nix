@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "lazygit";
@@ -18,19 +14,14 @@ buildGoModule rec {
   vendorHash = null;
   subPackages = [ "." ];
 
-  ldflags = [
-    "-X main.version=${version}"
-    "-X main.buildSource=nix"
-  ];
+  ldflags = [ "-X main.version=${version}" "-X main.buildSource=nix" ];
 
   meta = with lib; {
     description = "Simple terminal UI for git commands";
     homepage = "https://github.com/jesseduffield/lazygit";
-    changelog = "https://github.com/jesseduffield/lazygit/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jesseduffield/lazygit/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      equirosa
-      Br1ght0ne
-    ];
+    maintainers = with maintainers; [ equirosa Br1ght0ne ];
   };
 }

@@ -1,20 +1,13 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
   cfg = config.services.xserver.windowManager.qtile;
-  pyEnv = pkgs.python3.withPackages (
-    p: [ (cfg.package.unwrapped or cfg.package) ] ++ (cfg.extraPackages p)
-  );
-in
+  pyEnv = pkgs.python3.withPackages
+    (p: [ (cfg.package.unwrapped or cfg.package) ] ++ (cfg.extraPackages p));
 
-{
+in {
   options.services.xserver.windowManager.qtile = {
     enable = mkEnableOption (lib.mdDoc "qtile");
 
@@ -31,10 +24,7 @@ in
     };
 
     backend = mkOption {
-      type = types.enum [
-        "x11"
-        "wayland"
-      ];
+      type = types.enum [ "x11" "wayland" ];
       default = "x11";
       description = lib.mdDoc ''
         Backend to use in qtile: `x11` or `wayland`.
@@ -61,23 +51,23 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.windowManager.session = [
-      {
-        name = "qtile";
-        start = ''
-          ${pyEnv}/bin/qtile start -b ${cfg.backend} \
-          ${optionalString (cfg.configFile != null) ''--config "${cfg.configFile}"''} &
-          waitPID=$!
-        '';
-      }
-    ];
+    services.xserver.windowManager.session = [{
+      name = "qtile";
+      start = ''
+        ${pyEnv}/bin/qtile start -b ${cfg.backend} \
+        ${
+          optionalString (cfg.configFile != null)
+          ''--config "${cfg.configFile}"''
+        } &
+        waitPID=$!
+      '';
+    }];
 
-    environment.systemPackages =
-      [
-        # pkgs.qtile is currently a buildenv of qtile and its dependencies.
-        # For userland commands, we want the underlying package so that
-        # packages such as python don't bleed into userland and overwrite intended behavior.
-        (cfg.package.unwrapped or cfg.package)
-      ];
+    environment.systemPackages = [
+      # pkgs.qtile is currently a buildenv of qtile and its dependencies.
+      # For userland commands, we want the underlying package so that
+      # packages such as python don't bleed into userland and overwrite intended behavior.
+      (cfg.package.unwrapped or cfg.package)
+    ];
   };
 }

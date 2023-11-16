@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libX11,
-  libXinerama,
-}:
+{ lib, stdenv, fetchurl, libX11, libXinerama }:
 
 stdenv.mkDerivation rec {
   pname = "libfakeXinerama";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gxb8jska2anbb3c1m8asbglgnwylgdr44x9lr8yh91hjxsqadkx";
   };
 
-  buildInputs = [
-    libX11
-    libXinerama
-  ];
+  buildInputs = [ libX11 libXinerama ];
 
   buildPhase = ''
     gcc -O2 -Wall fakeXinerama.c -fPIC -o libfakeXinerama.so.1.0 -shared

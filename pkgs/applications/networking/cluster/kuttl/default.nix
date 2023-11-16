@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kuttl";
@@ -27,7 +23,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "The KUbernetes Test TooL (KUTTL) provides a declarative approach to testing production-grade Kubernetes operators";
+    description =
+      "The KUbernetes Test TooL (KUTTL) provides a declarative approach to testing production-grade Kubernetes operators";
     homepage = "https://github.com/kudobuilder/kuttl";
     license = licenses.asl20;
     maintainers = with maintainers; [ diegolelis ];

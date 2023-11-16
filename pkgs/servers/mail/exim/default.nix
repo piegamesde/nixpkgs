@@ -1,29 +1,7 @@
-{
-  coreutils,
-  db,
-  fetchurl,
-  openssl,
-  pcre2,
-  perl,
-  pkg-config,
-  lib,
-  stdenv,
-  enableLDAP ? false,
-  openldap,
-  enableMySQL ? false,
-  libmysqlclient,
-  zlib,
-  enableAuthDovecot ? false,
-  dovecot,
-  enablePAM ? false,
-  pam,
-  enableSPF ? true,
-  libspf2,
-  enableDMARC ? true,
-  opendmarc,
-  enableRedis ? false,
-  hiredis,
-}:
+{ coreutils, db, fetchurl, openssl, pcre2, perl, pkg-config, lib, stdenv
+, enableLDAP ? false, openldap, enableMySQL ? false, libmysqlclient, zlib
+, enableAuthDovecot ? false, dovecot, enablePAM ? false, pam, enableSPF ? true
+, libspf2, enableDMARC ? true, opendmarc, enableRedis ? false, hiredis }:
 
 stdenv.mkDerivation rec {
   pname = "exim";
@@ -37,23 +15,11 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      coreutils
-      db
-      openssl
-      perl
-      pcre2
-    ]
+  buildInputs = [ coreutils db openssl perl pcre2 ]
     ++ lib.optional enableLDAP openldap
-    ++ lib.optionals enableMySQL [
-      libmysqlclient
-      zlib
-    ]
-    ++ lib.optional enableAuthDovecot dovecot
-    ++ lib.optional enablePAM pam
-    ++ lib.optional enableSPF libspf2
-    ++ lib.optional enableDMARC opendmarc
+    ++ lib.optionals enableMySQL [ libmysqlclient zlib ]
+    ++ lib.optional enableAuthDovecot dovecot ++ lib.optional enablePAM pam
+    ++ lib.optional enableSPF libspf2 ++ lib.optional enableDMARC opendmarc
     ++ lib.optional enableRedis hiredis;
 
   configurePhase = ''
@@ -162,16 +128,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://exim.org/";
     description = "A mail transfer agent (MTA)";
-    license = with licenses; [
-      gpl2Plus
-      bsd3
-    ];
+    license = with licenses; [ gpl2Plus bsd3 ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      tv
-      ajs124
-      das_j
-    ];
-    changelog = "https://github.com/Exim/exim/blob/exim-${version}/doc/doc-txt/ChangeLog";
+    maintainers = with maintainers; [ tv ajs124 das_j ];
+    changelog =
+      "https://github.com/Exim/exim/blob/exim-${version}/doc/doc-txt/ChangeLog";
   };
 }

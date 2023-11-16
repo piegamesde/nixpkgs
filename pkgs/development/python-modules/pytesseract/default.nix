@@ -1,14 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  packaging,
-  pillow,
-  tesseract,
-  substituteAll,
-  pytestCheckHook,
-  setuptools,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, packaging, pillow, tesseract
+, substituteAll, pytestCheckHook, setuptools }:
 
 buildPythonPackage rec {
   pname = "pytesseract";
@@ -33,10 +24,7 @@ buildPythonPackage rec {
 
   buildInputs = [ tesseract ];
 
-  propagatedBuildInputs = [
-    packaging
-    pillow
-  ];
+  propagatedBuildInputs = [ packaging pillow ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  typing-extensions,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "async-timeout";

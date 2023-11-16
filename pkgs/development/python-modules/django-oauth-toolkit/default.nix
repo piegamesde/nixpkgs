@@ -1,21 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonRelaxDepsHook,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonRelaxDepsHook
 
-  # propagates
-  django,
-  jwcrypto,
-  requests,
-  oauthlib,
+# propagates
+, django, jwcrypto, requests, oauthlib
 
-  # tests
-  djangorestframework,
-  pytest-django,
-  pytest-xdist,
-  pytest-mock,
-  pytestCheckHook,
+# tests
+, djangorestframework, pytest-django, pytest-xdist, pytest-mock, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -34,12 +23,7 @@ buildPythonPackage rec {
     sed -i '/cov/d' tox.ini
   '';
 
-  propagatedBuildInputs = [
-    django
-    jwcrypto
-    oauthlib
-    requests
-  ];
+  propagatedBuildInputs = [ django jwcrypto oauthlib requests ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   pythonRelaxDeps = [ "django" ];
@@ -54,11 +38,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Failed to get a valid response from authentication server. Status code: 404, Reason: Not Found.
-      "test_response_when_auth_server_response_return_404"
-    ];
+  disabledTests = [
+    # Failed to get a valid response from authentication server. Status code: 404, Reason: Not Found.
+    "test_response_when_auth_server_response_return_404"
+  ];
 
   meta = with lib; {
     description = "OAuth2 goodies for the Djangonauts";

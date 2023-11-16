@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  writeShellScript,
-  SDL,
-  SDL_mixer,
-  makeDesktopItem,
-  copyDesktopItems,
-  runtimeShell,
-  buildShareware ? false,
-}:
+{ stdenv, lib, fetchurl, writeShellScript, SDL, SDL_mixer, makeDesktopItem
+, copyDesktopItems, runtimeShell, buildShareware ? false }:
 
 let
   # Allow the game to be launched from a user's PATH and load the game data from the user's home directory.
@@ -20,8 +10,8 @@ let
     cd $dir
     exec @out@/libexec/rott "$@"
   '';
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "rott";
   version = "1.1.2";
 
@@ -32,10 +22,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ copyDesktopItems ];
 
-  buildInputs = [
-    SDL
-    SDL_mixer
-  ];
+  buildInputs = [ SDL SDL_mixer ];
 
   sourceRoot = "rott-${version}/rott";
 
@@ -59,7 +46,9 @@ stdenv.mkDerivation rec {
     (makeDesktopItem {
       name = "rott";
       exec = "rott";
-      desktopName = "Rise of the Triad: ${if buildShareware then "The HUNT Begins" else "Dark War"}";
+      desktopName = "Rise of the Triad: ${
+          if buildShareware then "The HUNT Begins" else "Dark War"
+        }";
       categories = [ "Game" ];
     })
   ];

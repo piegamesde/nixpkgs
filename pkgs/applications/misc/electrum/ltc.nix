@@ -1,33 +1,22 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
-  wrapQtAppsHook,
-  python3,
-  zbar,
-  secp256k1,
-  enableQt ? true,
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, wrapQtAppsHook, python3, zbar
+, secp256k1, enableQt ? true }:
 
 let
   version = "4.2.2.1";
 
-  libsecp256k1_name =
-    if stdenv.isLinux then
-      "libsecp256k1.so.0"
-    else if stdenv.isDarwin then
-      "libsecp256k1.0.dylib"
-    else
-      "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libsecp256k1_name = if stdenv.isLinux then
+    "libsecp256k1.so.0"
+  else if stdenv.isDarwin then
+    "libsecp256k1.0.dylib"
+  else
+    "libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-  libzbar_name =
-    if stdenv.isLinux then
-      "libzbar.so.0"
-    else if stdenv.isDarwin then
-      "libzbar.0.dylib"
-    else
-      "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libzbar_name = if stdenv.isLinux then
+    "libzbar.so.0"
+  else if stdenv.isDarwin then
+    "libzbar.0.dylib"
+  else
+    "libzbar${stdenv.hostPlatform.extensions.sharedLibrary}";
 
   # Not provided in official source releases, which are what upstream signs.
   tests = fetchFromGitHub {
@@ -41,9 +30,8 @@ let
       mv ./all/electrum_ltc/tests $out
     '';
   };
-in
 
-python3.pkgs.buildPythonApplication {
+in python3.pkgs.buildPythonApplication {
   pname = "electrum-ltc";
   inherit version;
 
@@ -59,8 +47,7 @@ python3.pkgs.buildPythonApplication {
 
   nativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       aiohttp
       aiohttp-socks
@@ -83,29 +70,18 @@ python3.pkgs.buildPythonApplication {
       ckcc-protocol
       keepkey
       trezor
-    ]
-    ++ lib.optionals enableQt [
-      pyqt5
-      qdarkstyle
-    ];
+    ] ++ lib.optionals enableQt [ pyqt5 qdarkstyle ];
 
-  preBuild =
-    ''
-      sed -i 's,usr_share = .*,usr_share = "'$out'/share",g' setup.py
-      substituteInPlace ./electrum_ltc/ecc_fast.py \
-        --replace ${libsecp256k1_name} ${secp256k1}/lib/libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}
-    ''
-    + (
-      if enableQt then
-        ''
-          substituteInPlace ./electrum_ltc/qrscanner.py \
-            --replace ${libzbar_name} ${zbar.lib}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}
-        ''
-      else
-        ''
-          sed -i '/qdarkstyle/d' contrib/requirements/requirements.txt
-        ''
-    );
+  preBuild = ''
+    sed -i 's,usr_share = .*,usr_share = "'$out'/share",g' setup.py
+    substituteInPlace ./electrum_ltc/ecc_fast.py \
+      --replace ${libsecp256k1_name} ${secp256k1}/lib/libsecp256k1${stdenv.hostPlatform.extensions.sharedLibrary}
+  '' + (if enableQt then ''
+    substituteInPlace ./electrum_ltc/qrscanner.py \
+      --replace ${libzbar_name} ${zbar.lib}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}
+  '' else ''
+    sed -i '/qdarkstyle/d' contrib/requirements/requirements.txt
+  '');
 
   postInstall = lib.optionalString stdenv.isLinux ''
     # Despite setting usr_share above, these files are installed under

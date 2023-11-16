@@ -1,19 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  par2cmdline,
-  unzip,
-  unrar,
-  p7zip,
-  makeWrapper,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, par2cmdline, unzip, unrar, p7zip
+, makeWrapper, nixosTests }:
 
 let
-  pythonEnv = python3.withPackages (
-    ps:
+  pythonEnv = python3.withPackages (ps:
     with ps; [
       chardet
       cheetah3
@@ -25,16 +14,9 @@ let
       puremagic
       guessit
       pysocks
-    ]
-  );
-  path = lib.makeBinPath [
-    par2cmdline
-    unrar
-    unzip
-    p7zip
-  ];
-in
-stdenv.mkDerivation rec {
+    ]);
+  path = lib.makeBinPath [ par2cmdline unrar unzip p7zip ];
+in stdenv.mkDerivation rec {
   version = "3.7.2";
   pname = "sabnzbd";
 
@@ -61,18 +43,14 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    smoke-test = nixosTests.sabnzbd;
-  };
+  passthru.tests = { smoke-test = nixosTests.sabnzbd; };
 
   meta = with lib; {
-    description = "Usenet NZB downloader, par2 repairer and auto extracting server";
+    description =
+      "Usenet NZB downloader, par2 repairer and auto extracting server";
     homepage = "https://sabnzbd.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [
-      fridh
-      jojosch
-    ];
+    maintainers = with lib.maintainers; [ fridh jojosch ];
   };
 }

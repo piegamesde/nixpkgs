@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "mk-string-metrics";
   version = "20180131-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/mk-string-metrics/2018-01-31/mk-string-metrics-20180131-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/mk-string-metrics/2018-01-31/mk-string-metrics-20180131-git.tgz";
     sha256 = "10xb9n6568nh019nq3phijbc7l6hkv69yllfiqvc1zzsprxpkwc4";
   };
 

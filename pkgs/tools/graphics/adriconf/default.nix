@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  cmake,
-  pkg-config,
-  libdrm,
-  libGL,
-  atkmm,
-  pcre,
-  gtkmm3,
-  pugixml,
-  mesa,
-  pciutils,
-}:
+{ stdenv, lib, fetchFromGitLab, cmake, pkg-config, libdrm, libGL, atkmm, pcre
+, gtkmm3, pugixml, mesa, pciutils }:
 
 stdenv.mkDerivation rec {
   pname = "adriconf";
@@ -26,20 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RhHmrjb5TvJnZ6R0aefqdmwMBpu4iTrxSHru7JAwrgs=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    libdrm
-    libGL
-    atkmm
-    pcre
-    gtkmm3
-    pugixml
-    mesa
-    pciutils
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ libdrm libGL atkmm pcre gtkmm3 pugixml mesa pciutils ];
 
   cmakeFlags = [ "-DENABLE_UNIT_TESTS=off" ];
 

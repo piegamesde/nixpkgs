@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  popt,
-}:
+{ lib, stdenv, fetchurl, popt }:
 
 stdenv.mkDerivation rec {
   pname = "libdv";
@@ -29,7 +24,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ popt ];
 
   meta = with lib; {
-    description = "Software decoder for DV format video, as defined by the IEC 61834 and SMPTE 314M standards";
+    description =
+      "Software decoder for DV format video, as defined by the IEC 61834 and SMPTE 314M standards";
     homepage = "https://sourceforge.net/projects/libdv/";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;

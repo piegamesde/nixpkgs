@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  gtk3,
-  xsettingsd,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, gtk3, xsettingsd }:
 
 stdenv.mkDerivation rec {
   pname = "font-config-info";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk3
-    xsettingsd
-  ];
+  buildInputs = [ gtk3 xsettingsd ];
 
   postPatch = ''
     substituteInPlace font-config-info.c --replace "dump_xsettings |" "${xsettingsd}/bin/dump_xsettings |"

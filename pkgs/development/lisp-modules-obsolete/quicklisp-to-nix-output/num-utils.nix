@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "num-utils";
   version = "numerical-utilities-20210411-git";
 
@@ -18,7 +17,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/numerical-utilities/2021-04-11/numerical-utilities-20210411-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/numerical-utilities/2021-04-11/numerical-utilities-20210411-git.tgz";
     sha256 = "19d1vm9hasgba9l2mwby8izd7pzmisckf52h6fmh170lwkqixqxb";
   };
 

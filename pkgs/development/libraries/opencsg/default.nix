@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libGLU,
-  libGL,
-  freeglut,
-  glew,
-  libXmu,
-  libXext,
-  libX11,
-  qmake,
-  GLUT,
-  fixDarwinDylibNames,
-}:
+{ lib, stdenv, fetchurl, libGLU, libGL, freeglut, glew, libXmu, libXext, libX11
+, qmake, GLUT, fixDarwinDylibNames }:
 
 stdenv.mkDerivation rec {
   version = "1.4.2";
@@ -22,19 +9,17 @@ stdenv.mkDerivation rec {
     sha256 = "1ysazynm759gnw1rdhn9xw9nixnzrlzrc462340a6iif79fyqlnr";
   };
 
-  nativeBuildInputs = [ qmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [ qmake ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
-  buildInputs =
-    [ glew ]
-    ++ lib.optionals stdenv.isLinux [
-      libGLU
-      libGL
-      freeglut
-      libXmu
-      libXext
-      libX11
-    ]
-    ++ lib.optional stdenv.isDarwin GLUT;
+  buildInputs = [ glew ] ++ lib.optionals stdenv.isLinux [
+    libGLU
+    libGL
+    freeglut
+    libXmu
+    libXext
+    libX11
+  ] ++ lib.optional stdenv.isDarwin GLUT;
 
   doCheck = false;
 
@@ -45,15 +30,13 @@ stdenv.mkDerivation rec {
     qmakeFlags=("''${qmakeFlags[@]}" "INSTALLDIR=$out")
   '';
 
-  postInstall =
-    ''
-      install -D license.txt "$out/share/doc/opencsg/license.txt"
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      mkdir -p $out/Applications
-      mv $out/bin/*.app $out/Applications
-      rmdir $out/bin || true
-    '';
+  postInstall = ''
+    install -D license.txt "$out/share/doc/opencsg/license.txt"
+  '' + lib.optionalString stdenv.isDarwin ''
+    mkdir -p $out/Applications
+    mv $out/bin/*.app $out/Applications
+    rmdir $out/bin || true
+  '';
 
   dontWrapQtApps = true;
 
@@ -73,3 +56,4 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2;
   };
 }
+

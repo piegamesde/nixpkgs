@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mwparserfromhell";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "MWParserFromHell is a parser for MediaWiki wikicode";
     homepage = "https://mwparserfromhell.readthedocs.io/";
-    changelog = "https://github.com/earwig/mwparserfromhell/releases/tag/v${version}";
+    changelog =
+      "https://github.com/earwig/mwparserfromhell/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ melling ];
   };

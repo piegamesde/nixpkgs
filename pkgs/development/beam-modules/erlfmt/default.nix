@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  rebar3Relx,
-  lib,
-}:
+{ fetchFromGitHub, rebar3Relx, lib }:
 
 rebar3Relx rec {
   pname = "erlfmt";

@@ -1,15 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  callPackage,
-  fetchFromGitHub,
-  gmp,
-}:
+{ lib, buildPythonPackage, callPackage, fetchFromGitHub, gmp }:
 
-let
-  test-vectors = callPackage ./vectors.nix { };
-in
-buildPythonPackage rec {
+let test-vectors = callPackage ./vectors.nix { };
+in buildPythonPackage rec {
   pname = "pycryptodome";
   version = "3.17.0";
   format = "setuptools";

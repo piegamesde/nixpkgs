@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 let
   python = python3.override {
@@ -11,17 +7,9 @@ let
   };
 
   inherit (python.pkgs)
-    buildPythonApplication
-    iowait
-    psutil
-    pyzmq
-    tornado
-    mock
-    six
-  ;
-in
+    buildPythonApplication iowait psutil pyzmq tornado mock six;
 
-buildPythonApplication rec {
+in buildPythonApplication rec {
   pname = "circus";
   version = "0.16.1";
 
@@ -40,13 +28,7 @@ buildPythonApplication rec {
 
   doCheck = false; # weird error
 
-  propagatedBuildInputs = [
-    iowait
-    psutil
-    pyzmq
-    tornado
-    six
-  ];
+  propagatedBuildInputs = [ iowait psutil pyzmq tornado six ];
 
   meta = with lib; {
     description = "A process and socket manager";

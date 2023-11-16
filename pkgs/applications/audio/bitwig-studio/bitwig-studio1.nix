@@ -1,47 +1,19 @@
-{
-  stdenv,
-  fetchurl,
-  alsa-lib,
-  bzip2,
-  cairo,
-  dpkg,
-  freetype,
-  gdk-pixbuf,
-  wrapGAppsHook,
-  gtk2,
-  gtk3,
-  harfbuzz,
-  jdk,
-  lib,
-  xorg,
-  libbsd,
-  libjack2,
-  libpng,
-  ffmpeg,
-  libxkbcommon,
-  makeWrapper,
-  pixman,
-  autoPatchelfHook,
-  xdg-utils,
-  zenity,
-  zlib,
-}:
+{ stdenv, fetchurl, alsa-lib, bzip2, cairo, dpkg, freetype, gdk-pixbuf
+, wrapGAppsHook, gtk2, gtk3, harfbuzz, jdk, lib, xorg, libbsd, libjack2, libpng
+, ffmpeg, libxkbcommon, makeWrapper, pixman, autoPatchelfHook, xdg-utils, zenity
+, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
   version = "1.3.16";
 
   src = fetchurl {
-    url = "https://downloads.bitwig.com/stable/${version}/bitwig-studio-${version}.deb";
+    url =
+      "https://downloads.bitwig.com/stable/${version}/bitwig-studio-${version}.deb";
     sha256 = "0n0fxh9gnmilwskjcayvjsjfcs3fz9hn00wh7b3gg0cv3qqhich8";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-    autoPatchelfHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook wrapGAppsHook ];
 
   unpackCmd = "mkdir root ; dpkg-deb -x $curSrc root";
 
@@ -121,12 +93,7 @@ stdenv.mkDerivation rec {
       -not -path '*/resources/*' | \
     while IFS= read -r f ; do
       wrapProgram $f \
-        --suffix PATH : "${
-          lib.makeBinPath [
-            ffmpeg
-            zenity
-          ]
-        }" \
+        --suffix PATH : "${lib.makeBinPath [ ffmpeg zenity ]}" \
         --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
         "''${gappsWrapperArgs[@]}" \
         --set LD_PRELOAD "${libxkbcommon.out}/lib/libxkbcommon.so" || true
@@ -143,9 +110,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.bitwig.com/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      michalrus
-      mrVanDalo
-    ];
+    maintainers = with maintainers; [ michalrus mrVanDalo ];
   };
 }

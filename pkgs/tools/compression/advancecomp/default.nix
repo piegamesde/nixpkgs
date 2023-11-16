@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "advancecomp";
@@ -33,5 +27,6 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.raskin ];
     platforms = platforms.linux ++ platforms.darwin;
     homepage = "https://github.com/amadvance/advancecomp";
+
   };
 }

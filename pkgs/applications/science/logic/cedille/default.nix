@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  alex,
-  happy,
-  Agda,
-  buildPackages,
-  ghcWithPackages,
-}:
+{ stdenv, lib, fetchFromGitHub, alex, happy, Agda, buildPackages
+, ghcWithPackages }:
 
 stdenv.mkDerivation rec {
   version = "1.1.2";
@@ -23,19 +15,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./Fix-to-string.agda-to-compile-with-Agda-2.6.1.patch ];
 
-  nativeBuildInputs = [
-    alex
-    happy
-  ];
-  buildInputs = [
-    Agda
-    (ghcWithPackages (ps: [ ps.ieee ]))
-  ];
+  nativeBuildInputs = [ alex happy ];
+  buildInputs = [ Agda (ghcWithPackages (ps: [ ps.ieee ])) ];
 
   LANG = "en_US.UTF-8";
-  LOCALE_ARCHIVE =
-    lib.optionalString (stdenv.buildPlatform.libc == "glibc")
-      "${buildPackages.glibcLocales}/lib/locale/locale-archive";
+  LOCALE_ARCHIVE = lib.optionalString (stdenv.buildPlatform.libc == "glibc")
+    "${buildPackages.glibcLocales}/lib/locale/locale-archive";
 
   postPatch = ''
     patchShebangs create-libraries.sh
@@ -51,13 +36,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An interactive theorem-prover and dependently typed programming language, based on extrinsic (aka Curry-style) type theory";
+    description =
+      "An interactive theorem-prover and dependently typed programming language, based on extrinsic (aka Curry-style) type theory";
     homepage = "https://cedille.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      marsam
-      mpickering
-    ];
+    maintainers = with maintainers; [ marsam mpickering ];
     platforms = platforms.unix;
 
     # Broken due to Agda update.  See

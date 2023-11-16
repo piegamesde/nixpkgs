@@ -1,9 +1,4 @@
-{
-  config,
-  options,
-  lib,
-  ...
-}:
+{ config, options, lib, ... }:
 
 with lib;
 
@@ -23,7 +18,9 @@ with lib;
           Configuration for the sendmail setuid wapper.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -31,5 +28,7 @@ with lib;
   config = mkIf (config.services.mail.sendmailSetuidWrapper != null) {
 
     security.wrappers.sendmail = config.services.mail.sendmailSetuidWrapper;
+
   };
+
 }

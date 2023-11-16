@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeText,
-  glib,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  coreutils,
-  gnome-desktop,
-  gnupg,
-  gtk3,
-  systemdMinimal,
-  udisks,
-}:
+{ lib, stdenv, fetchFromGitHub, writeText, glib, meson, ninja, pkg-config
+, python3, coreutils, gnome-desktop, gnupg, gtk3, systemdMinimal, udisks }:
 
 stdenv.mkDerivation rec {
   pname = "eos-installer";
@@ -29,20 +14,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    glib
-    gnupg
-    meson
-    ninja
-    pkg-config
-    python3
-  ];
-  buildInputs = [
-    gnome-desktop
-    gtk3
-    systemdMinimal
-    udisks
-  ];
+  nativeBuildInputs = [ glib gnupg meson ninja pkg-config python3 ];
+  buildInputs = [ gnome-desktop gtk3 systemdMinimal udisks ];
 
   preConfigure = ''
     patchShebangs tests
@@ -61,7 +34,8 @@ stdenv.mkDerivation rec {
     }"
   ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
+    "${placeholder "out"}/lib/systemd/system";
 
   doCheck = true;
 

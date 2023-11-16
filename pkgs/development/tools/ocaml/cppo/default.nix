@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  buildDunePackage,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, buildDunePackage }:
 
 let
   pname = "cppo";
@@ -20,9 +12,8 @@ let
     maintainers = [ maintainers.vbgl ];
     license = licenses.bsd3;
   };
-in
 
-if lib.versionAtLeast ocaml.version "4.02" then
+in if lib.versionAtLeast ocaml.version "4.02" then
 
   buildDunePackage rec {
     inherit pname;
@@ -44,11 +35,9 @@ if lib.versionAtLeast ocaml.version "4.02" then
 
 else
 
-  let
-    version = "1.5.0";
-  in
+  let version = "1.5.0";
 
-  stdenv.mkDerivation {
+  in stdenv.mkDerivation {
 
     name = "${pname}-${version}";
 
@@ -61,11 +50,7 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild ];
 
     inherit meta;
 
@@ -76,4 +61,5 @@ else
     preBuild = ''
       mkdir -p $out/bin
     '';
+
   }

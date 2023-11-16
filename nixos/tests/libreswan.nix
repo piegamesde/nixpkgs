@@ -3,8 +3,7 @@
 # Eve can eavesdrop the plaintext traffic between Alice and Bob, but once they
 # enable the secure tunnel Eve's spying becomes ineffective.
 
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+import ./make-test-python.nix ({ lib, pkgs, ... }:
 
   let
 
@@ -20,7 +19,8 @@ import ./make-test-python.nix (
         auto=add
       '';
       environment.etc."ipsec.d/tunnel.secrets" = {
-        text = ''@alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"'';
+        text = ''
+          @alice @bob : PSK "j1JbIi9WY07rxwcNQ6nbyThKCf9DGxWOyokXIQcAQUnafsNTUJxfsxwk9WYK8fHj"'';
         mode = "600";
       };
     };
@@ -43,70 +43,51 @@ import ./make-test-python.nix (
 
     # Adds an address and route from a to b via Eve
     addRoute = a: b: {
-      interfaces.eth1.ipv6.addresses = [
-        {
-          address = a;
-          prefixLength = 64;
-        }
-      ];
-      interfaces.eth1.ipv6.routes = [
-        {
-          address = b;
-          prefixLength = 128;
-          via = "fd::e";
-        }
-      ];
+      interfaces.eth1.ipv6.addresses = [{
+        address = a;
+        prefixLength = 64;
+      }];
+      interfaces.eth1.ipv6.routes = [{
+        address = b;
+        prefixLength = 128;
+        via = "fd::e";
+      }];
     };
-  in
 
-  {
+  in {
     name = "libreswan";
     meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
 
     # Our protagonist
-    nodes.alice =
-      { ... }:
+    nodes.alice = { ... }:
       {
         virtualisation.vlans = [ 1 ];
         networking = baseNetwork // addRoute "fd::a" "fd::b";
-      }
-      // tunnelConfig;
+      } // tunnelConfig;
 
     # Her best friend
-    nodes.bob =
-      { ... }:
+    nodes.bob = { ... }:
       {
         virtualisation.vlans = [ 2 ];
         networking = baseNetwork // addRoute "fd::b" "fd::a";
-      }
-      // tunnelConfig;
+      } // tunnelConfig;
 
     # The malicious network operator
-    nodes.eve =
-      { ... }:
-      {
-        virtualisation.vlans = [
-          1
-          2
-        ];
-        networking = lib.mkMerge [
-          baseNetwork
-          {
-            interfaces.br0.ipv6.addresses = [
-              {
-                address = "fd::e";
-                prefixLength = 64;
-              }
-            ];
-            bridges.br0.interfaces = [
-              "eth1"
-              "eth2"
-            ];
-          }
-        ];
-        environment.systemPackages = [ pkgs.tcpdump ];
-        boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
-      };
+    nodes.eve = { ... }: {
+      virtualisation.vlans = [ 1 2 ];
+      networking = lib.mkMerge [
+        baseNetwork
+        {
+          interfaces.br0.ipv6.addresses = [{
+            address = "fd::e";
+            prefixLength = 64;
+          }];
+          bridges.br0.interfaces = [ "eth1" "eth2" ];
+        }
+      ];
+      environment.systemPackages = [ pkgs.tcpdump ];
+      boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
+    };
 
     testScript = ''
       def alice_to_bob(msg: str):
@@ -157,5 +138,4 @@ import ./make-test-python.nix (
           eve.sleep(1)
           eve.fail("grep rhubarb /tmp/log")
     '';
-  }
-)
+  })

@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-  six,
-  pycrypto,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, django, six, pycrypto, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "libthumbor";
@@ -22,10 +14,7 @@ buildPythonPackage rec {
 
   buildInputs = [ django ];
 
-  propagatedBuildInputs = [
-    six
-    pycrypto
-  ];
+  propagatedBuildInputs = [ six pycrypto ];
 
   doCheck = false;
 

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  Carbon,
-  Cocoa,
-  Kernel,
-  UserNotifications,
-  xorg,
-  libglvnd,
-  pkg-config,
-  withGui ? true,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, Carbon, Cocoa, Kernel
+, UserNotifications, xorg, libglvnd, pkg-config, withGui ? true }:
 
 buildGoModule rec {
   pname = "go2tv" + lib.optionalString (!withGui) "-lite";
@@ -28,29 +16,18 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXrandr
-      xorg.libXinerama
-      xorg.libXi
-      xorg.libXext
-      xorg.libXxf86vm
-      libglvnd
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      Cocoa
-      Kernel
-      UserNotifications
-    ];
+  buildInputs = [
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXrandr
+    xorg.libXinerama
+    xorg.libXi
+    xorg.libXext
+    xorg.libXxf86vm
+    libglvnd
+  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa Kernel UserNotifications ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-linkmode=external"
-  ];
+  ldflags = [ "-s" "-w" "-linkmode=external" ];
 
   # conditionally build with GUI or not (go2tv or go2tv-lite sub-packages)
   subPackages = [ "cmd/${pname}" ];

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  makeWrapper,
-  metasploit,
-}:
+{ lib, fetchFromGitHub, python3Packages, makeWrapper, metasploit }:
 
 python3Packages.buildPythonApplication rec {
   pname = "social-engineer-toolkit";
@@ -53,14 +47,18 @@ python3Packages.buildPythonApplication rec {
 
   makeWrapperArgs = [
     "--chdir ${placeholder "out"}/share/social-engineer-toolkit"
-    ''--prefix PYTHONPATH : "${placeholder "out"}/share/social-engineer-toolkit"''
+    ''
+      --prefix PYTHONPATH : "${
+        placeholder "out"
+      }/share/social-engineer-toolkit"''
   ];
 
   # Project has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "Open-source penetration testing framework designed for social engineering";
+    description =
+      "Open-source penetration testing framework designed for social engineering";
     longDescription = ''
       The Social-Engineer Toolkit is an open-source penetration testing framework
       designed for social engineering. SET has a number of custom attack vectors

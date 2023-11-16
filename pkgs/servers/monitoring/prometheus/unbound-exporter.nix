@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  openssl,
-  pkg-config,
-  nixosTests,
-  Security,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, openssl, pkg-config, nixosTests
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "unbound-telemetry";
@@ -23,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "native-tls-0.2.3" = "sha256-I1+ZNLDVGS1x9Iu81RD2//xnqhKhNGBmlrT0ryNFSlE=";
+      "native-tls-0.2.3" =
+        "sha256-I1+ZNLDVGS1x9Iu81RD2//xnqhKhNGBmlrT0ryNFSlE=";
     };
   };
 
@@ -31,9 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) unbound;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) unbound; };
 
   meta = with lib; {
     description = "Prometheus exporter for Unbound DNS resolver";

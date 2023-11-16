@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pyparsing,
-}:
+{ lib, buildPythonPackage, fetchPypi, pyparsing }:
 buildPythonPackage rec {
   pname = "pylibconfig2";
   version = "0.2.5";

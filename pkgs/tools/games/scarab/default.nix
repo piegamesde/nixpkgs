@@ -1,20 +1,6 @@
-{
-  lib,
-  buildDotnetModule,
-  fetchFromGitHub,
-  dotnetCorePackages,
-  glibc,
-  zlib,
-  libX11,
-  libICE,
-  libSM,
-  fontconfig,
-  gtk3,
-  copyDesktopItems,
-  graphicsmagick,
-  wrapGAppsHook,
-  makeDesktopItem,
-}:
+{ lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, glibc, zlib
+, libX11, libICE, libSM, fontconfig, gtk3, copyDesktopItems, graphicsmagick
+, wrapGAppsHook, makeDesktopItem }:
 
 buildDotnetModule rec {
   pname = "scarab";
@@ -31,23 +17,11 @@ buildDotnetModule rec {
   projectFile = "Scarab.sln";
   executables = [ "Scarab" ];
 
-  runtimeDeps = [
-    glibc
-    zlib
-    libX11
-    libICE
-    libSM
-    fontconfig
-    gtk3
-  ];
+  runtimeDeps = [ glibc zlib libX11 libICE libSM fontconfig gtk3 ];
 
   buildInputs = [ gtk3 ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    graphicsmagick
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ copyDesktopItems graphicsmagick wrapGAppsHook ];
 
   postFixup = ''
     # Icon for the desktop file

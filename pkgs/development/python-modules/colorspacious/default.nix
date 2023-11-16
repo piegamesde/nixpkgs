@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy }:
 
 buildPythonPackage rec {
   pname = "colorspacious";
@@ -18,7 +13,8 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/njsmith/colorspacious";
-    description = "A powerful, accurate, and easy-to-use Python library for doing colorspace conversions ";
+    description =
+      "A powerful, accurate, and easy-to-use Python library for doing colorspace conversions ";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ tbenst ];
   };

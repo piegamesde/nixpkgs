@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  gosu,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, gosu }:
 
 buildGoModule rec {
   pname = "gosu";
@@ -19,16 +13,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-3HIAPI1bbfwE2/cUsQnp2Vz2uvlvSFDUrp2xuGNr8Gk=";
 
-  ldflags = [
-    "-d"
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-d" "-s" "-w" ];
 
   passthru.tests.version = testers.testVersion { package = gosu; };
 
   meta = with lib; {
-    description = "Tool that avoids TTY and signal-forwarding behavior of sudo and su";
+    description =
+      "Tool that avoids TTY and signal-forwarding behavior of sudo and su";
     homepage = "https://github.com/tianon/gosu";
     license = licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

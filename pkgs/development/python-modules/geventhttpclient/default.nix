@@ -1,16 +1,5 @@
-{
-  lib,
-  brotli,
-  buildPythonPackage,
-  certifi,
-  dpkt,
-  fetchPypi,
-  gevent,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-  urllib3,
-}:
+{ lib, brotli, buildPythonPackage, certifi, dpkt, fetchPypi, gevent
+, pytestCheckHook, pythonOlder, six, urllib3 }:
 
 buildPythonPackage rec {
   pname = "geventhttpclient";
@@ -24,18 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-X3gsQZZD90vk0JGMDStjlW723ceiEn8Hy7gDOnWrNm8=";
   };
 
-  propagatedBuildInputs = [
-    brotli
-    certifi
-    gevent
-    six
-  ];
+  propagatedBuildInputs = [ brotli certifi gevent six ];
 
-  nativeCheckInputs = [
-    dpkt
-    pytestCheckHook
-    urllib3
-  ];
+  nativeCheckInputs = [ dpkt pytestCheckHook urllib3 ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -54,7 +34,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/geventhttpclient/geventhttpclient";
-    description = "High performance, concurrent HTTP client library using gevent";
+    description =
+      "High performance, concurrent HTTP client library using gevent";
     license = licenses.mit;
     maintainers = with maintainers; [ koral ];
   };

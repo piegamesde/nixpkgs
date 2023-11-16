@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-mock,
-  pytestCheckHook,
-  python-socks,
-  pythonOlder,
-  tldextract,
-  whodap,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-mock, pytestCheckHook
+, python-socks, pythonOlder, tldextract, whodap }:
 
 buildPythonPackage rec {
   pname = "asyncwhois";
@@ -24,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-SakO+s05P1Kj2NWlhMcdNa4bDs+DaVZ1W2ybs51U+BQ=";
   };
 
-  propagatedBuildInputs = [
-    python-socks
-    tldextract
-    whodap
-  ];
+  propagatedBuildInputs = [ python-socks tldextract whodap ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \

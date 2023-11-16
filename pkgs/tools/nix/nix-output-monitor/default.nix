@@ -1,9 +1,4 @@
-{
-  haskell,
-  haskellPackages,
-  installShellFiles,
-  lib,
-}:
+{ haskell, haskellPackages, installShellFiles, lib, }:
 let
   inherit (haskell.lib.compose) justStaticExecutables overrideCabal;
 
@@ -23,8 +18,4 @@ let
     '';
   };
   raw-pkg = haskellPackages.callPackage ./generated-package.nix { };
-in
-lib.pipe raw-pkg [
-  (overrideCabal overrides)
-  justStaticExecutables
-]
+in lib.pipe raw-pkg [ (overrideCabal overrides) justStaticExecutables ]

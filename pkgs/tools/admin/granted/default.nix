@@ -1,12 +1,4 @@
-{
-  bash,
-  buildGoModule,
-  fetchFromGitHub,
-  fish,
-  lib,
-  makeWrapper,
-  xdg-utils,
-}:
+{ bash, buildGoModule, fetchFromGitHub, fish, lib, makeWrapper, xdg-utils }:
 
 buildGoModule rec {
   pname = "granted";
@@ -52,7 +44,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "The easiest way to access your cloud.";
     homepage = "https://github.com/common-fate/granted";
-    changelog = "https://github.com/common-fate/granted/releases/tag/${version}";
+    changelog =
+      "https://github.com/common-fate/granted/releases/tag/${version}";
     license = licenses.mit;
     maintainers = [ maintainers.ivankovnatsky ];
   };

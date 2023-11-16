@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.coredns;
   configFile = pkgs.writeText "Corefile" cfg.config;
-in
-{
+in {
   options.services.coredns = {
     enable = mkEnableOption (lib.mdDoc "Coredns dns server");
 

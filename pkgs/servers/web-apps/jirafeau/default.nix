@@ -1,17 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  writeText,
-}:
+{ lib, stdenv, fetchFromGitLab, writeText }:
 let
   localConfig = writeText "config.local.php" ''
     <?php
       return require(getenv('JIRAFEAU_CONFIG'));
     ?>
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "jirafeau";
   version = "4.4.0";
 
@@ -29,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Website permitting upload of a file in a simple way and giving a unique link to it";
+    description =
+      "Website permitting upload of a file in a simple way and giving a unique link to it";
     license = licenses.agpl3;
     homepage = "https://gitlab.com/mojo42/Jirafeau";
     platforms = platforms.all;

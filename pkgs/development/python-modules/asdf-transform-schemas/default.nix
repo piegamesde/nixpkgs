@@ -1,12 +1,5 @@
-{
-  lib,
-  asdf-standard,
-  buildPythonPackage,
-  fetchPypi,
-  importlib-resources,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, asdf-standard, buildPythonPackage, fetchPypi, importlib-resources
+, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "asdf-transform-schemas";
@@ -23,9 +16,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    asdf-standard
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [ asdf-standard ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   # Circular dependency on asdf
   doCheck = false;

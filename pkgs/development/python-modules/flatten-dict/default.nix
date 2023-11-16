@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
+, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "flatten-dict";

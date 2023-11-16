@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  requests,
-  oauthlib,
-  python-dateutil,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, requests, oauthlib, python-dateutil
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "discogs-client";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-Si1EH5TalNC3BY7L/GqbGSCjDBWzbodB4NZlNayhZYs=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    oauthlib
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ requests oauthlib python-dateutil ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -36,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Unofficial Python API client for Discogs";
     homepage = "https://github.com/joalla/discogs_client";
-    changelog = "https://github.com/joalla/discogs_client/releases/tag/v${version}";
+    changelog =
+      "https://github.com/joalla/discogs_client/releases/tag/v${version}";
     license = licenses.bsd2;
     maintainers = with maintainers; [ fab ];
   };

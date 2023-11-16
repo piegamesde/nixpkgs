@@ -1,14 +1,6 @@
-{
-  lib,
-  callPackage,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  mkYarnPackage,
-}:
-let
-  common = callPackage ./common.nix { };
-in
-mkYarnPackage {
+{ lib, callPackage, fetchFromGitHub, fetchYarnDeps, mkYarnPackage }:
+let common = callPackage ./common.nix { };
+in mkYarnPackage {
   pname = "woodpecker-frontend";
   inherit (common) version;
 

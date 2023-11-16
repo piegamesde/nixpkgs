@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  autoreconfHook,
-  installShellFiles,
-  libuuid,
-  libobjc ? null,
-  maloader ? null,
-  enableTapiSupport ? true,
-  libtapi,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, autoreconfHook
+, installShellFiles, libuuid, libobjc ? null, maloader ? null
+, enableTapiSupport ? true, libtapi, fetchpatch }:
 
 let
 
@@ -21,11 +8,10 @@ let
   # PATH to both be usable.
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-";
-in
+    "${stdenv.targetPlatform.config}-";
 
-# Non-Darwin alternatives
-assert (!stdenv.hostPlatform.isDarwin) -> maloader != null;
+  # Non-Darwin alternatives
+in assert (!stdenv.hostPlatform.isDarwin) -> maloader != null;
 
 stdenv.mkDerivation {
   pname = "${targetPrefix}cctools-port";
@@ -42,32 +28,24 @@ stdenv.mkDerivation {
     sha256 = "0ns12q7vg9yand4dmdsps1917cavfbw67yl5q7bm6kb4ia5kkx13";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    autoreconfHook
-    installShellFiles
-  ];
-  buildInputs = [
-    libuuid
-  ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ lib.optional enableTapiSupport libtapi;
+  nativeBuildInputs =
+    [ autoconf automake libtool autoreconfHook installShellFiles ];
+  buildInputs = [ libuuid ] ++ lib.optionals stdenv.isDarwin [ libobjc ]
+    ++ lib.optional enableTapiSupport libtapi;
 
   patches = [
     ./ld-ignore-rpath-link.patch
     ./ld-rpath-nonfinal.patch
     (fetchpatch {
-      url = "https://github.com/tpoechtrager/cctools-port/commit/4a734070cd2838e49658464003de5b92271d8b9e.patch";
+      url =
+        "https://github.com/tpoechtrager/cctools-port/commit/4a734070cd2838e49658464003de5b92271d8b9e.patch";
       hash = "sha256-72KaJyu7CHXxJJ1GNq/fz+kW1RslO3UaKI91LhBtiXA=";
     })
     (fetchpatch {
-      url = "https://github.com/MercuryTechnologies/cctools-port/commit/025899b7b3593dedb0c681e689e57c0e7bbd9b80.patch";
+      url =
+        "https://github.com/MercuryTechnologies/cctools-port/commit/025899b7b3593dedb0c681e689e57c0e7bbd9b80.patch";
       hash = "sha256-SWVUzFaJHH2fu9y8RcU3Nx/QKx60hPE5zFx0odYDeQs=";
     })
   ] ++ lib.optional stdenv.isDarwin ./darwin-no-memstream.patch;
@@ -81,38 +59,32 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   # TODO(@Ericson2314): Always pass "--target" and always targetPrefix.
-  configurePlatforms = [
-    "build"
-    "host"
-  ] ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
-  configureFlags =
-    [ "--disable-clang-as" ]
-    ++ lib.optionals enableTapiSupport [
-      "--enable-tapi-support"
-      "--with-libtapi=${libtapi}"
-    ];
+  configurePlatforms = [ "build" "host" ]
+    ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
+  configureFlags = [ "--disable-clang-as" ] ++ lib.optionals enableTapiSupport [
+    "--enable-tapi-support"
+    "--with-libtapi=${libtapi}"
+  ];
 
-  postPatch =
-    lib.optionalString stdenv.hostPlatform.isDarwin ''
-      substituteInPlace cctools/Makefile.am --replace libobjc2 ""
-    ''
-    + ''
-      sed -i -e 's/addStandardLibraryDirectories = true/addStandardLibraryDirectories = false/' cctools/ld64/src/ld/Options.cpp
+  postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    substituteInPlace cctools/Makefile.am --replace libobjc2 ""
+  '' + ''
+    sed -i -e 's/addStandardLibraryDirectories = true/addStandardLibraryDirectories = false/' cctools/ld64/src/ld/Options.cpp
 
-      # FIXME: there are far more absolute path references that I don't want to fix right now
-      substituteInPlace cctools/configure.ac \
-        --replace "-isystem /usr/local/include -isystem /usr/pkg/include" "" \
-        --replace "-L/usr/local/lib" "" \
+    # FIXME: there are far more absolute path references that I don't want to fix right now
+    substituteInPlace cctools/configure.ac \
+      --replace "-isystem /usr/local/include -isystem /usr/pkg/include" "" \
+      --replace "-L/usr/local/lib" "" \
 
-      # Appears to use new libdispatch API not available in macOS SDK 10.12.
-      substituteInPlace cctools/ld64/src/ld/libcodedirectory.c \
-        --replace "#define LIBCD_PARALLEL 1" ""
+    # Appears to use new libdispatch API not available in macOS SDK 10.12.
+    substituteInPlace cctools/ld64/src/ld/libcodedirectory.c \
+      --replace "#define LIBCD_PARALLEL 1" ""
 
-      patchShebangs tools
-      sed -i -e 's/which/type -P/' tools/*.sh
+    patchShebangs tools
+    sed -i -e 's/which/type -P/' tools/*.sh
 
-      cd cctools
-    '';
+    cd cctools
+  '';
 
   preInstall = ''
     installManPage ar/ar.{1,5}
@@ -199,9 +171,7 @@ stdenv.mkDerivation {
     popd
   '';
 
-  passthru = {
-    inherit targetPrefix;
-  };
+  passthru = { inherit targetPrefix; };
 
   meta = {
     broken = !stdenv.targetPlatform.isDarwin; # Only supports darwin targets

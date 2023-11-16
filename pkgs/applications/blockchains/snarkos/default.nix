@@ -1,14 +1,5 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-  Security,
-  curl,
-  pkg-config,
-  openssl,
-  llvmPackages,
-}:
+{ stdenv, fetchFromGitHub, lib, rustPlatform, Security, curl, pkg-config
+, openssl, llvmPackages }:
 rustPlatform.buildRustPackage rec {
   pname = "snarkos";
   version = "2.0.2";
@@ -24,10 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   # buildAndTestSubdir = "cli";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [
-    pkg-config
-    rustPlatform.bindgenHook
-  ];
+  nativeBuildInputs =
+    lib.optionals stdenv.isLinux [ pkg-config rustPlatform.bindgenHook ];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
@@ -40,10 +29,7 @@ rustPlatform.buildRustPackage rec {
   # ROCKSDB_INCLUDE_DIR="${rocksdb}/include";
   # ROCKSDB_LIB_DIR="${rocksdb}/lib";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-    curl
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security curl ];
 
   # some tests are flaky and some need network access
   # TODO finish filtering the tests to enable them
@@ -56,7 +42,8 @@ rustPlatform.buildRustPackage rec {
   # ];
 
   meta = with lib; {
-    description = "A Decentralized Operating System for Zero-Knowledge Applications";
+    description =
+      "A Decentralized Operating System for Zero-Knowledge Applications";
     homepage = "https://snarkos.org";
     license = licenses.asl20;
     maintainers = with maintainers; [ happysalada ];

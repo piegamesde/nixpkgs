@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromSourcehut,
-}:
+{ lib, rustPlatform, fetchFromSourcehut }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dlm";

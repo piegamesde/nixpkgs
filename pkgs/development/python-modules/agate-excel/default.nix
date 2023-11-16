@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  agate,
-  openpyxl,
-  xlrd,
-  olefile,
-  pytestCheckHook,
-}:
+{ lib, fetchPypi, buildPythonPackage, agate, openpyxl, xlrd, olefile
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "agate-excel";
@@ -18,12 +10,7 @@ buildPythonPackage rec {
     sha256 = "62315708433108772f7f610ca769996b468a4ead380076dbaf6ffe262831b153";
   };
 
-  propagatedBuildInputs = [
-    agate
-    openpyxl
-    xlrd
-    olefile
-  ];
+  propagatedBuildInputs = [ agate openpyxl xlrd olefile ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

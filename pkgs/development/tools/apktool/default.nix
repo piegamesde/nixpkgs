@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jre,
-  build-tools,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jre, build-tools }:
 
 stdenv.mkDerivation rec {
   pname = "apktool";
@@ -25,17 +18,14 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  installPhase =
-    let
-      tools = builtins.head build-tools;
-    in
-    ''
-      install -D ${src} "$out/libexec/apktool/apktool.jar"
-      mkdir -p "$out/bin"
-      makeWrapper "${jre}/bin/java" "$out/bin/apktool" \
-          --add-flags "-jar $out/libexec/apktool/apktool.jar" \
-          --prefix PATH : "${tools}/libexec/android-sdk/build-tools/${tools.version}"
-    '';
+  installPhase = let tools = builtins.head build-tools;
+  in ''
+    install -D ${src} "$out/libexec/apktool/apktool.jar"
+    mkdir -p "$out/bin"
+    makeWrapper "${jre}/bin/java" "$out/bin/apktool" \
+        --add-flags "-jar $out/libexec/apktool/apktool.jar" \
+        --prefix PATH : "${tools}/libexec/android-sdk/build-tools/${tools.version}"
+  '';
 
   meta = with lib; {
     description = "A tool for reverse engineering Android apk files";
@@ -45,4 +35,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ offline ];
     platforms = with platforms; unix;
   };
+
 }

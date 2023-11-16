@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  decorator,
-  six,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, decorator, six, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "validators";
@@ -18,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-JBSM5OZBAKLV4mcjPiPnr+tVMWtH0w+q5+tucpK8Imo=";
   };
 
-  propagatedBuildInputs = [
-    decorator
-    six
-  ];
+  propagatedBuildInputs = [ decorator six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

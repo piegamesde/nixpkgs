@@ -1,27 +1,9 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  automake,
-  ocaml,
-  autoconf,
-  gnum4,
-  pkg-config,
-  freetype,
-  lablgtk,
-  unzip,
-  cairo,
-  findlib,
-  gdk-pixbuf,
-  gtk2,
-  pango,
-}:
+{ stdenv, lib, fetchurl, automake, ocaml, autoconf, gnum4, pkg-config, freetype
+, lablgtk, unzip, cairo, findlib, gdk-pixbuf, gtk2, pango }:
 
-let
-  pname = "ocaml-cairo";
-in
+let pname = "ocaml-cairo";
 
-if lib.versionAtLeast ocaml.version "4.06" then
+in if lib.versionAtLeast ocaml.version "4.06" then
   throw "${pname} is not available for OCaml ${ocaml.version}"
 else
 
@@ -30,7 +12,8 @@ else
     version = "1.2.0";
 
     src = fetchurl {
-      url = "http://cgit.freedesktop.org/cairo-ocaml/snapshot/cairo-ocaml-${version}.zip";
+      url =
+        "http://cgit.freedesktop.org/cairo-ocaml/snapshot/cairo-ocaml-${version}.zip";
       sha256 = "0l4p9bp6kclr570mxma8wafibr1g5fsjj8h10yr4b507g0hmlh0l";
     };
 
@@ -38,23 +21,9 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [
-      pkg-config
-      unzip
-      ocaml
-      automake
-      gnum4
-      autoconf
-      findlib
-    ];
-    buildInputs = [
-      freetype
-      lablgtk
-      cairo
-      gdk-pixbuf
-      gtk2
-      pango
-    ];
+    nativeBuildInputs =
+      [ pkg-config unzip ocaml automake gnum4 autoconf findlib ];
+    buildInputs = [ freetype lablgtk cairo gdk-pixbuf gtk2 pango ];
 
     createFindlibDestdir = true;
 
@@ -71,7 +40,8 @@ else
       cp META $out/lib/ocaml/${ocaml.version}/site-lib/cairo/
     '';
 
-    makeFlags = [ "INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo" ];
+    makeFlags =
+      [ "INSTALLDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/cairo" ];
 
     meta = {
       homepage = "http://cairographics.org/cairo-ocaml";

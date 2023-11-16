@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "fcgi";
@@ -23,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A language independent, scalable, open extension to CG";
-    homepage = "https://fastcgi-archives.github.io/"; # Formerly http://www.fastcgi.com/
+    homepage =
+      "https://fastcgi-archives.github.io/"; # Formerly http://www.fastcgi.com/
     license = "FastCGI see LICENSE.TERMS";
     mainProgram = "cgi-fcgi";
     platforms = platforms.all;

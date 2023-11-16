@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cheetah3";
@@ -26,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A template engine and code generation tool";
     homepage = "http://www.cheetahtemplate.org/";
-    changelog = "https://github.com/CheetahTemplate3/cheetah3/releases/tag/${version}";
+    changelog =
+      "https://github.com/CheetahTemplate3/cheetah3/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ pjjw ];
   };

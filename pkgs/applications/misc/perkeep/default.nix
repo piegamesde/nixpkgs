@@ -1,9 +1,4 @@
-{
-  buildGoModule,
-  fetchurl,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchurl, fetchFromGitHub, lib }:
 
 let
   gouiJS = fetchurl {
@@ -12,7 +7,8 @@ let
   };
 
   publisherJS = fetchurl {
-    url = "https://storage.googleapis.com/perkeep-release/gopherjs/publisher.js";
+    url =
+      "https://storage.googleapis.com/perkeep-release/gopherjs/publisher.js";
     sha256 = "09hd7p0xscqnh612jbrjvh3njmlm4292zd5sbqx2lg0aw688q8p2";
   };
 
@@ -23,8 +19,8 @@ let
     "perkeep.org/cmd/pk-put"
     "perkeep.org/cmd/pk-mount"
   ];
-in
-buildGoModule rec {
+
+in buildGoModule rec {
   pname = "perkeep";
   version = "0.11";
 
@@ -56,13 +52,10 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A way of storing, syncing, sharing, modelling and backing up content (née Camlistore)";
+    description =
+      "A way of storing, syncing, sharing, modelling and backing up content (née Camlistore)";
     homepage = "https://perkeep.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      cstrahan
-      danderson
-      kalbasit
-    ];
+    maintainers = with maintainers; [ cstrahan danderson kalbasit ];
   };
 }

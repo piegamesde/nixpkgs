@@ -1,23 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  openssl,
-  cargo,
-  rustPlatform,
-  rustc,
-  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd,
-  nixosTests,
-  enableRedis ? true,
-  callPackage,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, openssl, cargo, rustPlatform, rustc
+, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform python3.pkgs.systemd
+, nixosTests, enableRedis ? true, callPackage }:
 
 let
   plugins = python3.pkgs.callPackage ./plugins { };
   tools = callPackage ./tools { };
-in
-with python3.pkgs;
+in with python3.pkgs;
 buildPythonApplication rec {
   pname = "matrix-synapse";
   version = "1.85.2";
@@ -42,85 +30,67 @@ buildPythonApplication rec {
     sed -i '/^setuptools_rust =/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [
-    poetry-core
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-    cargo
-    rustc
-  ];
+  nativeBuildInputs =
+    [ poetry-core rustPlatform.cargoSetupHook setuptools-rust cargo rustc ];
 
   buildInputs = [ openssl ];
 
-  propagatedBuildInputs =
-    [
-      authlib
-      bcrypt
-      bleach
-      canonicaljson
-      daemonize
-      ijson
-      immutabledict
-      jinja2
-      jsonschema
-      lxml
-      matrix-common
-      msgpack
-      netaddr
-      phonenumbers
-      pillow
-      prometheus-client
-      psutil
-      psycopg2
-      pyasn1
-      pydantic
-      pyicu
-      pymacaroons
-      pynacl
-      pyopenssl
-      pysaml2
-      pyyaml
-      requests
-      setuptools
-      signedjson
-      sortedcontainers
-      treq
-      twisted
-      typing-extensions
-      unpaddedbase64
-    ]
-    ++ lib.optional enableSystemd systemd
-    ++ lib.optionals enableRedis [
-      hiredis
-      txredisapi
-    ];
+  propagatedBuildInputs = [
+    authlib
+    bcrypt
+    bleach
+    canonicaljson
+    daemonize
+    ijson
+    immutabledict
+    jinja2
+    jsonschema
+    lxml
+    matrix-common
+    msgpack
+    netaddr
+    phonenumbers
+    pillow
+    prometheus-client
+    psutil
+    psycopg2
+    pyasn1
+    pydantic
+    pyicu
+    pymacaroons
+    pynacl
+    pyopenssl
+    pysaml2
+    pyyaml
+    requests
+    setuptools
+    signedjson
+    sortedcontainers
+    treq
+    twisted
+    typing-extensions
+    unpaddedbase64
+  ] ++ lib.optional enableSystemd systemd
+    ++ lib.optionals enableRedis [ hiredis txredisapi ];
 
-  nativeCheckInputs = [
-    mock
-    parameterized
-    openssl
-  ];
+  nativeCheckInputs = [ mock parameterized openssl ];
 
   doCheck = !stdenv.isDarwin;
 
-  checkPhase =
-    let
-      testFlags = lib.optionalString (!stdenv.isAarch64) "-j $NIX_BUILD_CORES";
-    in
-    ''
-      runHook preCheck
+  checkPhase = let
+    testFlags = lib.optionalString (!stdenv.isAarch64) "-j $NIX_BUILD_CORES";
+  in ''
+    runHook preCheck
 
-      # remove src module, so tests use the installed module instead
-      rm -rf ./synapse
+    # remove src module, so tests use the installed module instead
+    rm -rf ./synapse
 
-      PYTHONPATH=".:$PYTHONPATH" ${python3.interpreter} -m twisted.trial ${testFlags} tests
+    PYTHONPATH=".:$PYTHONPATH" ${python3.interpreter} -m twisted.trial ${testFlags} tests
 
-      runHook postCheck
-    '';
+    runHook postCheck
+  '';
 
-  passthru.tests = {
-    inherit (nixosTests) matrix-synapse;
-  };
+  passthru.tests = { inherit (nixosTests) matrix-synapse; };
   passthru.plugins = plugins;
   passthru.tools = tools;
   passthru.python = python3;

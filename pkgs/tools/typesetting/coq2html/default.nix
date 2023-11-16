@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml }:
 
 stdenv.mkDerivation rec {
   pname = "coq2html";
@@ -35,10 +30,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/xavierleroy/coq2html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      jwiegley
-      siraben
-    ];
+    maintainers = with maintainers; [ jwiegley siraben ];
     platforms = platforms.unix;
   };
 }

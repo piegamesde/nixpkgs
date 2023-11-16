@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  django,
-  django-jinja,
-  python,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, django-jinja, python }:
 
 buildPythonPackage rec {
   pname = "django-sites";

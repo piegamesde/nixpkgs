@@ -1,41 +1,12 @@
-{
-  lib,
-  buildDotnetModule,
-  dotnetCorePackages,
-  fetchFromGitHub,
-  wrapGAppsHook,
-  iconConvTools,
-  copyDesktopItems,
-  makeDesktopItem,
-  libX11,
-  libICE,
-  libSM,
-  libXi,
-  libXcursor,
-  libXext,
-  libXrandr,
-  fontconfig,
-  glew,
-  SDL2,
-  glfw,
-  glibc,
-  libGL,
-  freetype,
-  openal,
-  fluidsynth,
-  gtk3,
-  pango,
-  atk,
-  cairo,
-  zlib,
-  glib,
-  gdk-pixbuf,
+{ lib, buildDotnetModule, dotnetCorePackages, fetchFromGitHub, wrapGAppsHook
+, iconConvTools, copyDesktopItems, makeDesktopItem, libX11, libICE, libSM, libXi
+, libXcursor, libXext, libXrandr, fontconfig, glew, SDL2, glfw, glibc, libGL
+, freetype, openal, fluidsynth, gtk3, pango, atk, cairo, zlib, glib, gdk-pixbuf
 }:
 let
   version = "0.21.1";
   pname = "space-station-14-launcher";
-in
-buildDotnetModule rec {
+in buildDotnetModule rec {
   inherit pname;
 
   # Workaround to prevent buildDotnetModule from overriding assembly versions.
@@ -52,10 +23,8 @@ buildDotnetModule rec {
   buildType = "Release";
   selfContainedBuild = false;
 
-  projectFile = [
-    "SS14.Loader/SS14.Loader.csproj"
-    "SS14.Launcher/SS14.Launcher.csproj"
-  ];
+  projectFile =
+    [ "SS14.Loader/SS14.Loader.csproj" "SS14.Launcher/SS14.Launcher.csproj" ];
 
   nugetDeps = ./deps.nix;
 
@@ -67,17 +36,9 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_7_0;
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
-  dotnetFlags = [
-    "-p:FullRelease=true"
-    "-p:RobustILLink=true"
-    "-nologo"
-  ];
+  dotnetFlags = [ "-p:FullRelease=true" "-p:RobustILLink=true" "-nologo" ];
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    iconConvTools
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ wrapGAppsHook iconConvTools copyDesktopItems ];
 
   runtimeDeps = [
     # Required by the game.
@@ -138,7 +99,8 @@ buildDotnetModule rec {
   '';
 
   meta = with lib; {
-    description = "Launcher for Space Station 14, a multiplayer game about paranoia and disaster";
+    description =
+      "Launcher for Space Station 14, a multiplayer game about paranoia and disaster";
     homepage = "https://spacestation14.io";
     license = licenses.mit;
     maintainers = [ maintainers.zumorica ];

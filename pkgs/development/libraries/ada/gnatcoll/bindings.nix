@@ -1,22 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gnat,
-  gprbuild,
-  gnatcoll-core,
-  component,
-  # component dependencies
-  gmp,
-  libiconv,
-  xz,
-  gcc-unwrapped,
-  readline,
-  zlib,
-  python3,
-  ncurses,
-  darwin,
-}:
+{ stdenv, lib, fetchFromGitHub, gnat, gprbuild, gnatcoll-core, component
+# component dependencies
+, gmp, libiconv, xz, gcc-unwrapped, readline, zlib, python3, ncurses, darwin }:
 
 let
   # omit python (2.7), no need to introduce a
@@ -26,16 +10,12 @@ let
     gmp = [ gmp ];
     lzma = [ xz ];
     readline = [ readline ];
-    python3 = [
-      python3
-      ncurses
-    ];
+    python3 = [ python3 ncurses ];
     syslog = [ ];
     zlib = [ zlib ];
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gnatcoll-${component}";
   version = "23.0.0";
 
@@ -46,13 +26,10 @@ stdenv.mkDerivation rec {
     sha256 = "1jnnfsvll4jh6ip0fww4mh2cm61h7dzpxz3zaa2psrc1w54x34nn";
   };
 
-  nativeBuildInputs = [
-    gprbuild
-    gnat
-    python3
-  ];
+  nativeBuildInputs = [ gprbuild gnat python3 ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreFoundation ];
+  buildInputs = lib.optionals stdenv.isDarwin
+    [ darwin.apple_sdk.frameworks.CoreFoundation ];
 
   # propagate since gprbuild needs to find referenced .gpr files
   # and all dependency C libraries when statically linking a

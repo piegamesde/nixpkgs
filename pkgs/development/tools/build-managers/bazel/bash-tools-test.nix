@@ -1,10 +1,4 @@
-{
-  writeText,
-  bazel,
-  runLocal,
-  bazelTest,
-  distDir,
-}:
+{ writeText, bazel, runLocal, bazelTest, distDir }:
 
 # Tests that certain executables are available in bazel-executed bash shells.
 
@@ -46,5 +40,5 @@ let
       echo "Testing content" && [ "$(cat $out | wc -l)" == "2" ] && echo "OK"
     '';
   };
-in
-testBazel
+
+in testBazel

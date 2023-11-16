@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  substituteAll,
-  installShellFiles,
-  qmake,
-  qttools,
-  qtsvg,
-  qttranslations,
-  qtxmlpatterns,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitLab, substituteAll, installShellFiles, qmake, qttools
+, qtsvg, qttranslations, qtxmlpatterns, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "valentina";
@@ -23,29 +12,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-N9fC2tCP4TVNncatHaz5W5Mp3jOmAcEWYCl30+0myaE=";
   };
 
-  patches =
-    (substituteAll {
-      # See https://github.com/NixOS/nixpkgs/issues/86054
-      src = ./fix-qttranslations-path.patch;
-      inherit qttranslations;
-    });
+  patches = (substituteAll {
+    # See https://github.com/NixOS/nixpkgs/issues/86054
+    src = ./fix-qttranslations-path.patch;
+    inherit qttranslations;
+  });
 
   postPatch = ''
     substituteInPlace src/app/translations.pri \
-      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${lib.getDev qttools}/bin/lrelease'
+      --replace '$$[QT_INSTALL_BINS]/$$LRELEASE' '${
+        lib.getDev qttools
+      }/bin/lrelease'
   '';
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-    wrapQtAppsHook
-    installShellFiles
-  ];
+  nativeBuildInputs = [ qmake qttools wrapQtAppsHook installShellFiles ];
 
-  buildInputs = [
-    qtsvg
-    qtxmlpatterns
-  ];
+  buildInputs = [ qtsvg qtxmlpatterns ];
 
   qmakeFlags = [
     "-r"
@@ -64,7 +46,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open source sewing pattern drafting software";
     homepage = "https://smart-pattern.com.ua/";
-    changelog = "https://gitlab.com/smart-pattern/valentina/-/blob/v${version}/ChangeLog.txt";
+    changelog =
+      "https://gitlab.com/smart-pattern/valentina/-/blob/v${version}/ChangeLog.txt";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ jfrankenau ];

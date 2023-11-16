@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeDesktopItem,
-  makeWrapper,
-  unzip,
-  language ? "en_US",
-}:
+{ lib, stdenv, fetchurl, jre, makeDesktopItem, makeWrapper, unzip
+, language ? "en_US" }:
 let
   pname = "geogebra";
   version = "5-0-745-0";
@@ -24,34 +16,22 @@ let
     desktopName = "Geogebra";
     genericName = "Geogebra";
     comment = meta.description;
-    categories = [
-      "Education"
-      "Science"
-      "Math"
-    ];
-    mimeTypes = [
-      "application/vnd.geogebra.file"
-      "application/vnd.geogebra.tool"
-    ];
+    categories = [ "Education" "Science" "Math" ];
+    mimeTypes =
+      [ "application/vnd.geogebra.file" "application/vnd.geogebra.tool" ];
   };
 
   meta = with lib; {
-    description = "Dynamic mathematics software with graphics, algebra and spreadsheets";
+    description =
+      "Dynamic mathematics software with graphics, algebra and spreadsheets";
     longDescription = ''
       Dynamic mathematics software for all levels of education that brings
       together geometry, algebra, spreadsheets, graphing, statistics and
       calculus in one easy-to-use package.
     '';
     homepage = "https://www.geogebra.org/";
-    maintainers = with maintainers; [
-      sikmir
-      imsofi
-    ];
-    license = with licenses; [
-      gpl3
-      cc-by-nc-sa-30
-      geogebra
-    ];
+    maintainers = with maintainers; [ sikmir imsofi ];
+    license = with licenses; [ gpl3 cc-by-nc-sa-30 geogebra ];
     sourceProvenance = with sourceTypes; [
       binaryBytecode
       binaryNativeCode # some jars include native binaries
@@ -61,13 +41,7 @@ let
   };
 
   linuxPkg = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      meta
-      srcIcon
-      desktopItem
-    ;
+    inherit pname version meta srcIcon desktopItem;
 
     preferLocalBuild = true;
 
@@ -119,5 +93,4 @@ let
       unzip $src -d $out/Applications
     '';
   };
-in
-if stdenv.isDarwin then darwinPkg else linuxPkg
+in if stdenv.isDarwin then darwinPkg else linuxPkg

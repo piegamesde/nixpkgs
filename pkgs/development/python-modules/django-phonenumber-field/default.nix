@@ -1,15 +1,5 @@
-{
-  lib,
-  babel,
-  buildPythonPackage,
-  django,
-  djangorestframework,
-  fetchFromGitHub,
-  phonenumbers,
-  python,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, babel, buildPythonPackage, django, djangorestframework, fetchFromGitHub
+, phonenumbers, python, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "django-phonenumber-field";
@@ -29,12 +19,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ django ] ++ passthru.optional-dependencies.phonenumbers;
+  propagatedBuildInputs = [ django ]
+    ++ passthru.optional-dependencies.phonenumbers;
 
-  nativeCheckInputs = [
-    babel
-    djangorestframework
-  ];
+  nativeCheckInputs = [ babel djangorestframework ];
 
   pythonImportsCheck = [ "phonenumber_field" ];
 
@@ -42,14 +30,14 @@ buildPythonPackage rec {
     ${python.interpreter} -m django test --settings tests.settings
   '';
 
-  passthru.optional-dependencies = {
-    phonenumbers = [ phonenumbers ];
-  };
+  passthru.optional-dependencies = { phonenumbers = [ phonenumbers ]; };
 
   meta = with lib; {
-    description = "A django model and form field for normalised phone numbers using python-phonenumbers";
+    description =
+      "A django model and form field for normalised phone numbers using python-phonenumbers";
     homepage = "https://github.com/stefanfoulis/django-phonenumber-field/";
-    changelog = "https://github.com/stefanfoulis/django-phonenumber-field/releases/tag/${version}";
+    changelog =
+      "https://github.com/stefanfoulis/django-phonenumber-field/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sephi ];
   };

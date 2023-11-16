@@ -1,18 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gsasl,
-  gnutls,
-  pkg-config,
-  cmake,
-  zlib,
-  libtasn1,
-  libgcrypt,
-  gtk3,
-  # this will not work on non-nixos systems
-  sendmailPath ? "/run/wrappers/bin/sendmail",
-}:
+{ lib, stdenv, fetchFromGitHub, gsasl, gnutls, pkg-config, cmake, zlib, libtasn1
+, libgcrypt, gtk3
+# this will not work on non-nixos systems
+, sendmailPath ? "/run/wrappers/bin/sendmail" }:
 
 stdenv.mkDerivation rec {
   pname = "vmime";
@@ -26,18 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DUcGQcT7hp5Rs2Z5C8wo+3BYwWqED0KrF3h3vgLiiow=";
   };
 
-  buildInputs = [
-    gsasl
-    gnutls
-    zlib
-    libtasn1
-    libgcrypt
-    gtk3
-  ];
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  buildInputs = [ gsasl gnutls zlib libtasn1 libgcrypt gtk3 ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
   cmakeFlags = [ "-DVMIME_SENDMAIL_PATH=${sendmailPath}" ];
 

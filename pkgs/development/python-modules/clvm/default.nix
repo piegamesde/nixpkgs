@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  blspy,
-  setuptools-scm,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, blspy, setuptools-scm
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "clvm";
@@ -29,11 +22,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # all tests in this file have a circular dependency on clvm-tools
-      "tests/cmds_test.py"
-    ];
+  disabledTestPaths = [
+    # all tests in this file have a circular dependency on clvm-tools
+    "tests/cmds_test.py"
+  ];
 
   pythonImportsCheck = [ "clvm" ];
 

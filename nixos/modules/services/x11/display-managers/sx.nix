@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.displayManager.sx;
-in
-{
+let cfg = config.services.xserver.displayManager.sx;
+
+in {
   options = {
     services.xserver.displayManager.sx = {
       enable = mkEnableOption (lib.mdDoc "sx pseudo-display manager") // {

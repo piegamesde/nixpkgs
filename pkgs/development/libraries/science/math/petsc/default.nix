@@ -1,17 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  darwin,
-  gfortran,
-  python3,
-  blas,
-  lapack,
-  mpi, # generic mpi dependency
-  openssh, # required for openmpi tests
-  petsc-withp4est ? true,
-  p4est,
-  zlib, # propagated by p4est but required by petsc
+{ lib, stdenv, fetchurl, darwin, gfortran, python3, blas, lapack
+, mpi # generic mpi dependency
+, openssh # required for openmpi tests
+, petsc-withp4est ? true, p4est
+, zlib # propagated by p4est but required by petsc
 }:
 
 # This version of PETSc does not support a non-MPI p4est build
@@ -22,7 +13,8 @@ stdenv.mkDerivation rec {
   version = "3.19.2";
 
   src = fetchurl {
-    url = "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${version}.tar.gz";
+    url =
+      "http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-${version}.tar.gz";
     sha256 = "sha256-EU82P3ebsWg5slwOcPiwrg2UfVDnL3xs3csRsAEHmxY=";
   };
 
@@ -30,14 +22,9 @@ stdenv.mkDerivation rec {
   withp4est = petsc-withp4est;
 
   strictDeps = true;
-  nativeBuildInputs = [
-    python3
-    gfortran
-  ] ++ lib.optional mpiSupport mpi ++ lib.optional (mpiSupport && mpi.pname == "openmpi") openssh;
-  buildInputs = [
-    blas
-    lapack
-  ] ++ lib.optional withp4est p4est;
+  nativeBuildInputs = [ python3 gfortran ] ++ lib.optional mpiSupport mpi
+    ++ lib.optional (mpiSupport && mpi.pname == "openmpi") openssh;
+  buildInputs = [ blas lapack ] ++ lib.optional withp4est p4est;
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace config/install.py \
@@ -56,17 +43,14 @@ stdenv.mkDerivation rec {
     configureFlagsArray=(
       $configureFlagsArray
       ${
-        if !mpiSupport then
-          ''
-            "--with-mpi=0"
-          ''
-        else
-          ''
-            "--CC=mpicc"
-            "--with-cxx=mpicxx"
-            "--with-fc=mpif90"
-            "--with-mpi=1"
-          ''
+        if !mpiSupport then ''
+          "--with-mpi=0"
+        '' else ''
+          "--CC=mpicc"
+          "--with-cxx=mpicxx"
+          "--with-fc=mpif90"
+          "--with-mpi=1"
+        ''
       }
       ${
         lib.optionalString withp4est ''

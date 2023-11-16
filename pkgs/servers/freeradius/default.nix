@@ -1,37 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  autoreconfHook,
-  bsd-finger,
-  perl,
-  talloc,
-  linkOpenssl ? true,
-  openssl,
-  withCap ? true,
-  libcap,
-  withCollectd ? false,
-  collectd,
-  withJson ? false,
-  json_c,
-  withLdap ? true,
-  openldap,
-  withMemcached ? false,
-  libmemcached,
-  withMysql ? false,
-  libmysqlclient,
-  withPcap ? true,
-  libpcap,
-  withRedis ? false,
-  hiredis,
-  withRest ? false,
-  curl,
-  withSqlite ? true,
-  sqlite,
-  withYubikey ? false,
-  libyubikey,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, bsd-finger, perl, talloc
+, linkOpenssl ? true, openssl, withCap ? true, libcap, withCollectd ? false
+, collectd, withJson ? false, json_c, withLdap ? true, openldap
+, withMemcached ? false, libmemcached, withMysql ? false, libmysqlclient
+, withPcap ? true, libpcap, withRedis ? false, hiredis, withRest ? false, curl
+, withSqlite ? true, sqlite, withYubikey ? false, libyubikey }:
 
 assert withRest -> withJson;
 
@@ -40,35 +12,23 @@ stdenv.mkDerivation rec {
   version = "3.2.3";
 
   src = fetchurl {
-    url = "ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-${version}.tar.gz";
+    url =
+      "ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-${version}.tar.gz";
     hash = "sha256-S94EcSLliMY/4tWZpz96uahjgG+ecW6Io9dwgLSCxXc=";
   };
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs =
-    [
-      openssl
-      talloc
-      bsd-finger
-      perl
-    ]
-    ++ lib.optional withCap libcap
-    ++ lib.optional withCollectd collectd
-    ++ lib.optional withJson json_c
-    ++ lib.optional withLdap openldap
+  buildInputs = [ openssl talloc bsd-finger perl ]
+    ++ lib.optional withCap libcap ++ lib.optional withCollectd collectd
+    ++ lib.optional withJson json_c ++ lib.optional withLdap openldap
     ++ lib.optional withMemcached libmemcached
-    ++ lib.optional withMysql libmysqlclient
-    ++ lib.optional withPcap libpcap
-    ++ lib.optional withRedis hiredis
-    ++ lib.optional withRest curl
-    ++ lib.optional withSqlite sqlite
-    ++ lib.optional withYubikey libyubikey;
+    ++ lib.optional withMysql libmysqlclient ++ lib.optional withPcap libpcap
+    ++ lib.optional withRedis hiredis ++ lib.optional withRest curl
+    ++ lib.optional withSqlite sqlite ++ lib.optional withYubikey libyubikey;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ] ++ lib.optional (!linkOpenssl) "--with-openssl=no";
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ]
+    ++ lib.optional (!linkOpenssl) "--with-openssl=no";
 
   postPatch = ''
     substituteInPlace src/main/checkrad.in \
@@ -90,22 +50,13 @@ stdenv.mkDerivation rec {
     "INSTALL_CERT_FILES=" # see comment at makeFlags
   ];
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "man" "doc" ];
 
   meta = with lib; {
     homepage = "https://freeradius.org/";
     description = "A modular, high performance free RADIUS suite";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-      sheenobu
-      willibutz
-      lheckemann
-    ];
+    maintainers = with maintainers; [ sheenobu willibutz lheckemann ];
     platforms = with platforms; linux;
   };
 }

@@ -1,9 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  patchResolver ? true,
-}:
+{ buildGoModule, fetchFromGitHub, lib, patchResolver ? true }:
 
 buildGoModule rec {
   pname = "summon";
@@ -29,7 +24,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "CLI that provides on-demand secrets access for common DevOps tools";
+    description =
+      "CLI that provides on-demand secrets access for common DevOps tools";
     homepage = "https://cyberark.github.io/summon";
     license = lib.licenses.mit;
     maintainers = with maintainers; [ quentini ];

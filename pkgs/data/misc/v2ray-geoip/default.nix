@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  pkgsBuildBuild,
-  jq,
-  moreutils,
-  dbip-country-lite,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, pkgsBuildBuild, jq, moreutils
+, dbip-country-lite }:
 
 let
   generator = pkgsBuildBuild.buildGoModule {
@@ -32,19 +25,13 @@ let
   input = {
     type = "maxmindMMDB";
     action = "add";
-    args = {
-      uri = dbip-country-lite.mmdb;
-    };
+    args = { uri = dbip-country-lite.mmdb; };
   };
-in
-stdenvNoCC.mkDerivation {
+in stdenvNoCC.mkDerivation {
   inherit (generator) pname src;
   inherit (dbip-country-lite) version;
 
-  nativeBuildInputs = [
-    jq
-    moreutils
-  ];
+  nativeBuildInputs = [ jq moreutils ];
 
   postPatch = ''
     jq '.input[0] |= ${builtins.toJSON input}' config.json | sponge config.json
@@ -64,7 +51,5 @@ stdenvNoCC.mkDerivation {
 
   passthru.generator = generator;
 
-  meta = generator.meta // {
-    inherit (dbip-country-lite.meta) license;
-  };
+  meta = generator.meta // { inherit (dbip-country-lite.meta) license; };
 }

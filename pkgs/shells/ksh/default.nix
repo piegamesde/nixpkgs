@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  meson,
-  ninja,
-  fetchFromGitHub,
-  which,
-  python3,
-  fetchpatch,
-  libiconv,
-}:
+{ lib, stdenv, meson, ninja, fetchFromGitHub, which, python3, fetchpatch
+, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "ksh";
@@ -23,17 +14,13 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/att/ast/commit/11983a71f5e29df578b7e2184400728b4e3f451d.patch";
+      url =
+        "https://github.com/att/ast/commit/11983a71f5e29df578b7e2184400728b4e3f451d.patch";
       sha256 = "1n9558c4v2qpgpjb1vafs29n3qn3z0770wr1ayc0xjf5z5j4g3kv";
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    which
-    python3
-  ];
+  nativeBuildInputs = [ meson ninja which python3 ];
 
   buildInputs = [ libiconv ];
 
@@ -53,7 +40,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 
-  passthru = {
-    shellPath = "/bin/ksh";
-  };
+  passthru = { shellPath = "/bin/ksh"; };
 }

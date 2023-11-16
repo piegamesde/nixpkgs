@@ -1,40 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libuuid,
-  sane-backends,
-  podofo,
-  libjpeg,
-  djvulibre,
-  libxmlxx3,
-  libzip,
-  tesseract,
-  intltool,
-  poppler,
-  json-glib,
-  ninja,
-  python3,
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libuuid, sane-backends
+, podofo, libjpeg, djvulibre, libxmlxx3, libzip, tesseract, intltool, poppler
+, json-glib, ninja, python3
 
-  # Gtk deps
-  # upstream gImagereader supports Qt too
-  gobject-introspection,
-  wrapGAppsHook,
-  gtkmm3,
-  gtksourceview3,
-  gtksourceviewmm,
-  gtkspell3,
-  gtkspellmm,
-  cairomm,
-}:
+# Gtk deps
+# upstream gImagereader supports Qt too
+, gobject-introspection, wrapGAppsHook, gtkmm3, gtksourceview3, gtksourceviewmm
+, gtkspell3, gtkspellmm, cairomm }:
 
 let
   variant = "gtk";
   pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gImageReader";
   version = "3.4.1";
 

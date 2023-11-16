@@ -1,23 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
+{ lib, buildPythonPackage
 
-  # build-system
-  pybind11,
-  setuptools,
+# build-system
+, pybind11, setuptools
 
-  # dependencies
-  ctranslate2-cpp,
-  numpy,
-  pyyaml,
+# dependencies
+, ctranslate2-cpp, numpy, pyyaml
 
-  # tests
-  pytestCheckHook,
-  tensorflow,
-  torch,
-  transformers,
-  wurlitzer,
-}:
+# tests
+, pytestCheckHook, tensorflow, torch, transformers, wurlitzer }:
 
 buildPythonPackage rec {
   inherit (ctranslate2-cpp) pname version src;
@@ -26,17 +16,11 @@ buildPythonPackage rec {
   # https://github.com/OpenNMT/CTranslate2/tree/master/python
   sourceRoot = "source/python";
 
-  nativeBuildInputs = [
-    pybind11
-    setuptools
-  ];
+  nativeBuildInputs = [ pybind11 setuptools ];
 
   buildInputs = [ ctranslate2-cpp ];
 
-  propagatedBuildInputs = [
-    numpy
-    pyyaml
-  ];
+  propagatedBuildInputs = [ numpy pyyaml ];
 
   pythonImportsCheck = [
     # https://opennmt.net/CTranslate2/python/overview.html
@@ -46,13 +30,8 @@ buildPythonPackage rec {
     "ctranslate2.specs"
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    tensorflow
-    torch
-    transformers
-    wurlitzer
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook tensorflow torch transformers wurlitzer ];
 
   preCheck = ''
     # run tests against build result, not sources
@@ -61,11 +40,10 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  disabledTests =
-    [
-      # AssertionError: assert 'int8' in {'float32'}
-      "test_get_supported_compute_types"
-    ];
+  disabledTests = [
+    # AssertionError: assert 'int8' in {'float32'}
+    "test_get_supported_compute_types"
+  ];
 
   disabledTestPaths = [
     # TODO: ModuleNotFoundError: No module named 'opennmt'
@@ -77,7 +55,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Fast inference engine for Transformer models";
     homepage = "https://github.com/OpenNMT/CTranslate2";
-    changelog = "https://github.com/OpenNMT/CTranslate2/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/OpenNMT/CTranslate2/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

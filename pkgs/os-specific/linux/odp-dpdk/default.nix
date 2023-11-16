@@ -1,35 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  pkg-config,
-  dpdk,
-  libbpf,
-  libconfig,
-  libpcap,
-  numactl,
-  openssl,
-  zlib,
-  libbsd,
-  libelf,
-  jansson,
-  libnl,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, pkg-config, dpdk, libbpf, libconfig
+, libpcap, numactl, openssl, zlib, libbsd, libelf, jansson, libnl }:
 
 stdenv.mkDerivation rec {
   pname = "odp-dpdk";
   version = "1.41.0.0_DPDK_22.11";
 
   src = fetchurl {
-    url = "https://git.linaro.org/lng/odp-dpdk.git/snapshot/${pname}-${version}.tar.gz";
+    url =
+      "https://git.linaro.org/lng/odp-dpdk.git/snapshot/${pname}-${version}.tar.gz";
     hash = "sha256-4p+R+7IeDKQFqBzQTvXfR407exxhoS8pnKxF9Qnr8tw=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
     dpdk

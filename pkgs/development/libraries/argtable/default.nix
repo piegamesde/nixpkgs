@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "argtable";
@@ -37,10 +32,7 @@ stdenv.mkDerivation rec {
       are essential but tedious to implement for a robust CLI program.
     '';
     license = with licenses; bsd3;
-    maintainers = with maintainers; [
-      AndersonTorres
-      artuuge
-    ];
+    maintainers = with maintainers; [ AndersonTorres artuuge ];
     platforms = with platforms; all;
   };
 }

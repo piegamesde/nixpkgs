@@ -14,29 +14,21 @@
 self:
 let
 
-  generateNongnu = lib.makeOverridable (
-    {
-      generated ? ./nongnu-generated.nix,
-    }:
+  generateNongnu = lib.makeOverridable ({ generated ? ./nongnu-generated.nix }:
     let
 
       imported = import generated {
-        callPackage =
-          pkgs: args:
-          self.callPackage pkgs (
-            args
-            // {
-              # Use custom elpa url fetcher with fallback/uncompress
-              fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
-            }
-          );
+        callPackage = pkgs: args:
+          self.callPackage pkgs (args // {
+            # Use custom elpa url fetcher with fallback/uncompress
+            fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
+          });
       };
 
       super = imported;
 
       overrides = { };
-    in
-    super // overrides
-  );
-in
-generateNongnu { }
+
+    in super // overrides);
+
+in generateNongnu { }

@@ -1,74 +1,46 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
 
   inherit (builtins) toFile;
   inherit (lib)
-    concatMapStringsSep
-    concatStringsSep
-    mapAttrsToList
-    mkIf
-    mkEnableOption
-    mkOption
-    types
-    literalExpression
-    optionalString
-  ;
+    concatMapStringsSep concatStringsSep mapAttrsToList mkIf mkEnableOption
+    mkOption types literalExpression optionalString;
 
   cfg = config.services.strongswan;
 
-  ipsecSecrets =
-    secrets: toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets);
+  ipsecSecrets = secrets:
+    toFile "ipsec.secrets"
+    (concatMapStringsSep "\n" (f: "include ${f}") secrets);
 
-  ipsecConf =
-    {
-      setup,
-      connections,
-      ca,
-    }:
+  ipsecConf = { setup, connections, ca }:
     let
       # https://wiki.strongswan.org/projects/strongswan/wiki/IpsecConf
-      makeSections =
-        type: sections:
-        concatStringsSep "\n\n" (
-          mapAttrsToList
-            (
-              sec: attrs:
-              ''
-                ${type} ${sec}
-              ''
-              + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
-            )
-            sections
-        );
+      makeSections = type: sections:
+        concatStringsSep "\n\n" (mapAttrsToList (sec: attrs:
+          ''
+            ${type} ${sec}
+          '' + (concatStringsSep "\n"
+            (mapAttrsToList (k: v: "  ${k}=${v}") attrs))) sections);
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;
       caConf = makeSections "ca" ca;
-    in
-    builtins.toFile "ipsec.conf" ''
+
+    in builtins.toFile "ipsec.conf" ''
       ${setupConf}
       ${connectionsConf}
       ${caConf}
     '';
 
   strongswanConf =
-    {
-      setup,
-      connections,
-      ca,
-      secretsFile,
-      managePlugins,
-      enabledPlugins,
-    }:
+    { setup, connections, ca, secretsFile, managePlugins, enabledPlugins }:
     toFile "strongswan.conf" ''
       charon {
         ${optionalString managePlugins "load_modular = no"}
-        ${optionalString managePlugins ("load = " + (concatStringsSep " " enabledPlugins))}
+        ${
+          optionalString managePlugins
+          ("load = " + (concatStringsSep " " enabledPlugins))
+        }
         plugins {
           stroke {
             secrets_file = ${secretsFile}
@@ -80,8 +52,8 @@ let
         config_file = ${ipsecConf { inherit setup connections ca; }}
       }
     '';
-in
-{
+
+in {
   options.services.strongswan = {
     enable = mkEnableOption (lib.mdDoc "strongSwan");
 
@@ -172,12 +144,9 @@ in
     };
   };
 
-  config =
-    with cfg;
-    let
-      secretsFile = ipsecSecrets cfg.secrets;
-    in
-    mkIf enable {
+  config = with cfg;
+    let secretsFile = ipsecSecrets cfg.secrets;
+    in mkIf enable {
 
       # here we should use the default strongswan ipsec.secrets and
       # append to it (default one is empty so not a pb for now)
@@ -186,23 +155,12 @@ in
       systemd.services.strongswan = {
         description = "strongSwan IPSec Service";
         wantedBy = [ "multi-user.target" ];
-        path = with pkgs; [
-          kmod
-          iproute2
-          iptables
-          util-linux
-        ]; # XXX Linux
+        path = with pkgs; [ kmod iproute2 iptables util-linux ]; # XXX Linux
         after = [ "network-online.target" ];
         environment = {
           STRONGSWAN_CONF = strongswanConf {
-            inherit
-              setup
-              connections
-              ca
-              secretsFile
-              managePlugins
-              enabledPlugins
-            ;
+            inherit setup connections ca secretsFile managePlugins
+              enabledPlugins;
           };
         };
         serviceConfig = {
@@ -215,3 +173,4 @@ in
       };
     };
 }
+

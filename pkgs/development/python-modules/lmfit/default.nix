@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  setuptools-scm,
-  asteval,
-  numpy,
-  scipy,
-  uncertainties,
-  pytestCheckHook,
-  pandas,
-  matplotlib,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, setuptools-scm, asteval, numpy
+, scipy, uncertainties, pytestCheckHook, pandas, matplotlib, }:
 
 buildPythonPackage rec {
   pname = "lmfit";
@@ -28,23 +16,11 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "--cov=lmfit --cov-report html" ""
   '';
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    asteval
-    numpy
-    scipy
-    uncertainties
-  ];
+  propagatedBuildInputs = [ asteval numpy scipy uncertainties ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pandas
-    matplotlib
-  ];
+  nativeCheckInputs = [ pytestCheckHook pandas matplotlib ];
 
   disabledTests = [
     # https://github.com/lmfit/lmfit-py/issues/878

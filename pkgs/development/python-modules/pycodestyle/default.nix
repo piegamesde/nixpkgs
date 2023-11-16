@@ -1,10 +1,4 @@
-{
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  lib,
-  python,
-}:
+{ buildPythonPackage, pythonOlder, fetchPypi, lib, python }:
 
 buildPythonPackage rec {
   pname = "pycodestyle";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pycodestyle" ];
 
   meta = with lib; {
-    changelog = "https://github.com/PyCQA/pycodestyle/blob/${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/PyCQA/pycodestyle/blob/${version}/CHANGES.txt";
     description = "Python style guide checker";
     homepage = "https://pycodestyle.pycqa.org/";
     license = licenses.mit;

@@ -1,38 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPackages,
-  version,
-  src,
-  extraMeta ? { },
-  callPackage,
-  self,
-  packageOverrides ? (final: prev: { }),
-  pkgsBuildBuild,
-  pkgsBuildHost,
-  pkgsBuildTarget,
-  pkgsHostHost,
-  pkgsTargetTarget,
-  passthruFun,
-  enableFFI ? true,
-  enableJIT ? true,
-  enableJITDebugModule ? enableJIT,
-  enableGC64 ? true,
-  enable52Compat ? false,
-  enableValgrindSupport ? false,
-  valgrind ? null,
-  enableGDBJITSupport ? false,
-  enableAPICheck ? false,
-  enableVMAssertions ? false,
-  useSystemMalloc ? false,
+{ lib, stdenv, fetchFromGitHub, buildPackages, version, src, extraMeta ? { }
+, callPackage, self, packageOverrides ? (final: prev: { }), pkgsBuildBuild
+, pkgsBuildHost, pkgsBuildTarget, pkgsHostHost, pkgsTargetTarget, passthruFun
+, enableFFI ? true, enableJIT ? true, enableJITDebugModule ? enableJIT
+, enableGC64 ? true, enable52Compat ? false, enableValgrindSupport ? false
+, valgrind ? null, enableGDBJITSupport ? false, enableAPICheck ? false
+, enableVMAssertions ? false, useSystemMalloc ? false
   # Upstream generates randomized string id's by default for security reasons
   # https://github.com/LuaJIT/LuaJIT/issues/626. Deterministic string id's should
   # never be needed for correctness (that should be fixed in the lua code),
   # but may be helpful when you want to embed jit-compiled raw lua blobs in
   # binaries that you want to be reproducible.
-  deterministicStringIds ? false,
-  luaAttr ? "luajit_${lib.versions.major version}_${lib.versions.minor version}",
+, deterministicStringIds ? false
+, luaAttr ? "luajit_${lib.versions.major version}_${lib.versions.minor version}"
 }@inputs:
 assert enableJITDebugModule -> enableJIT;
 assert enableGDBJITSupport -> enableJIT;
@@ -41,8 +20,7 @@ let
 
   luaPackages = self.pkgs;
 
-  XCFLAGS =
-    with lib;
+  XCFLAGS = with lib;
     optional (!enableFFI) "-DLUAJIT_DISABLE_FFI"
     ++ optional (!enableJIT) "-DLUAJIT_DISABLE_JIT"
     ++ optional enable52Compat "-DLUAJIT_ENABLE_LUA52COMPAT"
@@ -58,13 +36,12 @@ let
   # TODO support also other build architectures. The ideal way would be to use
   # stdenv_32bit but that doesn't work due to host platform mismatch:
   # https://github.com/NixOS/nixpkgs/issues/212494
-  buildStdenv =
-    if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
-      buildPackages.pkgsi686Linux.buildPackages.stdenv
-    else
-      buildPackages.stdenv;
-in
-stdenv.mkDerivation rec {
+  buildStdenv = if buildPackages.stdenv.isx86_64 && stdenv.is32bit then
+    buildPackages.pkgsi686Linux.buildPackages.stdenv
+  else
+    buildPackages.stdenv;
+
+in stdenv.mkDerivation rec {
   pname = "luajit";
   inherit version src;
 
@@ -115,40 +92,31 @@ stdenv.mkDerivation rec {
   LuaPathSearchPaths = luaPackages.luaLib.luaPathList;
   LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
 
-  setupHook =
-    luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
-      luaPackages.luaLib.luaCPathList;
+  setupHook = luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
+    luaPackages.luaLib.luaCPathList;
 
   # copied from python
-  passthru =
-    let
-      # When we override the interpreter we also need to override the spliced versions of the interpreter
-      inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
-      override =
-        attr:
-        let
-          lua = attr.override (inputs' // { self = lua; });
-        in
-        lua;
-    in
-    passthruFun rec {
-      inherit
-        self
-        luaversion
-        packageOverrides
-        luaAttr
-      ;
-      executable = "lua";
-      luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
-      luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
-      luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
-      luaOnHostForHost = override pkgsHostHost.${luaAttr};
-      luaOnTargetForTarget =
-        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else { };
-    };
+  passthru = let
+    # When we override the interpreter we also need to override the spliced versions of the interpreter
+    inputs' =
+      lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
+    override = attr:
+      let lua = attr.override (inputs' // { self = lua; });
+      in lua;
+  in passthruFun rec {
+    inherit self luaversion packageOverrides luaAttr;
+    executable = "lua";
+    luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
+    luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
+    luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
+    luaOnHostForHost = override pkgsHostHost.${luaAttr};
+    luaOnTargetForTarget = if lib.hasAttr luaAttr pkgsTargetTarget then
+      (override pkgsTargetTarget.${luaAttr})
+    else
+      { };
+  };
 
-  meta =
-    with lib;
+  meta = with lib;
     {
       description = "High-performance JIT compiler for Lua 5.1";
       homepage = "https://luajit.org/";
@@ -159,12 +127,6 @@ stdenv.mkDerivation rec {
         "riscv64-linux" # See https://github.com/LuaJIT/LuaJIT/issues/628
         "powerpc64le-linux" # `#error "No support for PPC64"`
       ];
-      maintainers = with maintainers; [
-        thoughtpolice
-        smironov
-        vcunat
-        lblasc
-      ];
-    }
-    // extraMeta;
+      maintainers = with maintainers; [ thoughtpolice smironov vcunat lblasc ];
+    } // extraMeta;
 }

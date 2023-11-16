@@ -1,12 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  # build inputs
-  typing-extensions,
-  uri-template,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
+# build inputs
+, typing-extensions, uri-template }:
 
 buildPythonPackage rec {
   pname = "json-home-client";
@@ -25,10 +19,7 @@ buildPythonPackage rec {
     sed -i -e 's/0.0.0/${version}/' setup.py
   '';
 
-  propagatedBuildInputs = [
-    typing-extensions
-    uri-template
-  ];
+  propagatedBuildInputs = [ typing-extensions uri-template ];
 
   pythonImportsCheck = [ "json_home_client" ];
 

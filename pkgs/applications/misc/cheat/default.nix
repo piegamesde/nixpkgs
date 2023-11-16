@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  installShellFiles,
-}:
+{ lib, fetchFromGitHub, buildGoModule, installShellFiles }:
 
 buildGoModule rec {
   pname = "cheat";
@@ -32,10 +27,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Create and view interactive cheatsheets on the command-line";
     maintainers = with maintainers; [ mic92 ];
-    license = with licenses; [
-      gpl3
-      mit
-    ];
+    license = with licenses; [ gpl3 mit ];
     inherit (src.meta) homepage;
   };
 }

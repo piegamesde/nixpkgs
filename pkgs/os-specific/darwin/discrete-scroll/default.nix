@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  Cocoa,
-}:
+{ stdenv, lib, fetchFromGitHub, Cocoa }:
 
 ## after launching for the first time, grant access for parent application (e.g. Terminal.app)
 ## from 'system preferences >> security & privacy >> accessibility'

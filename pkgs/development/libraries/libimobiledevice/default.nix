@@ -1,27 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  gnutls,
-  libgcrypt,
-  libplist,
-  libtasn1,
-  libusbmuxd,
-  libimobiledevice-glue,
-  SystemConfiguration,
-  CoreFoundation,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gnutls, libgcrypt
+, libplist, libtasn1, libusbmuxd, libimobiledevice-glue, SystemConfiguration
+, CoreFoundation }:
 
 stdenv.mkDerivation rec {
   pname = "libimobiledevice";
   version = "1.3.0+date=2022-05-22";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "libimobiledevice";
@@ -34,33 +19,18 @@ stdenv.mkDerivation rec {
     echo '${version}' > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   propagatedBuildInputs =
-    [
-      gnutls
-      libgcrypt
-      libplist
-      libtasn1
-      libusbmuxd
-      libimobiledevice-glue
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      SystemConfiguration
-      CoreFoundation
-    ];
+    [ gnutls libgcrypt libplist libtasn1 libusbmuxd libimobiledevice-glue ]
+    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration CoreFoundation ];
 
-  configureFlags = [
-    "--with-gnutls"
-    "--without-cython"
-  ];
+  configureFlags = [ "--with-gnutls" "--without-cython" ];
 
   meta = with lib; {
     homepage = "https://github.com/libimobiledevice/libimobiledevice";
-    description = "A software library that talks the protocols to support iPhone®, iPod Touch® and iPad® devices on Linux";
+    description =
+      "A software library that talks the protocols to support iPhone®, iPod Touch® and iPad® devices on Linux";
     longDescription = ''
       libimobiledevice is a software library that talks the protocols to support
       iPhone®, iPod Touch® and iPad® devices on Linux. Unlike other projects, it

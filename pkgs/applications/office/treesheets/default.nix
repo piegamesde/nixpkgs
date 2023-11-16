@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  wrapGAppsHook,
-  makeWrapper,
-  wxGTK,
-  Cocoa,
-  unstableGitUpdater,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, wrapGAppsHook, makeWrapper, wxGTK
+, Cocoa, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "treesheets";
@@ -22,17 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "4yN/ZS0f7En/LJzf2lJBqAB60Oy5+5UX+ROlUWAARKs=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    wrapGAppsHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake ninja wrapGAppsHook makeWrapper ];
 
   buildInputs = [ wxGTK ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   env.NIX_CFLAGS_COMPILE = ''
-    -DPACKAGE_VERSION="${builtins.replaceStrings [ "unstable-" ] [ "" ] version}"'';
+    -DPACKAGE_VERSION="${
+      builtins.replaceStrings [ "unstable-" ] [ "" ] version
+    }"'';
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     shopt -s extglob
@@ -42,9 +29,7 @@ stdenv.mkDerivation rec {
       --chdir $out/share/treesheets
   '';
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   meta = with lib; {
     description = "Free Form Data Organizer";
@@ -59,10 +44,7 @@ stdenv.mkDerivation rec {
     '';
 
     homepage = "https://strlen.com/treesheets/";
-    maintainers = with maintainers; [
-      obadz
-      avery
-    ];
+    maintainers = with maintainers; [ obadz avery ];
     platforms = platforms.unix;
     license = licenses.zlib;
   };

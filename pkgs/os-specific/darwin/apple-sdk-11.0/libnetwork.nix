@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  buildPackages,
-  MacOSX-SDK,
-}:
+{ stdenvNoCC, buildPackages, MacOSX-SDK }:
 
 let
   self = stdenvNoCC.mkDerivation {
@@ -23,5 +19,4 @@ let
       };
     };
   };
-in
-self
+in self

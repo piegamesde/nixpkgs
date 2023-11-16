@@ -1,13 +1,5 @@
-{
-  lib,
-  bleak,
-  bleak-retry-connector,
-  buildPythonPackage,
-  cryptography,
-  fetchPypi,
-  poetry-core,
-  pythonOlder,
-}:
+{ lib, bleak, bleak-retry-connector, buildPythonPackage, cryptography, fetchPypi
+, poetry-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "eufylife-ble-client";
@@ -24,11 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    bleak
-    bleak-retry-connector
-    cryptography
-  ];
+  propagatedBuildInputs = [ bleak bleak-retry-connector cryptography ];
 
   # Module has no tests
   doCheck = false;

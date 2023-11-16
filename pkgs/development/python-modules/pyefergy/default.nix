@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  iso4217,
-  pytest-asyncio,
-  pythonOlder,
-  pytz,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, iso4217, pytest-asyncio
+, pythonOlder, pytz }:
 
 buildPythonPackage rec {
   pname = "pyefergy";
@@ -29,11 +21,7 @@ buildPythonPackage rec {
       --replace 'version="master",' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    iso4217
-    pytz
-  ];
+  propagatedBuildInputs = [ aiohttp iso4217 pytz ];
 
   # Tests require network access
   doCheck = false;

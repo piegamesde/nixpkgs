@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pycryptodomex,
-  pysnmp-pyasn1,
-  pysnmp-pysmi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pycryptodomex
+, pysnmp-pyasn1, pysnmp-pysmi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysnmplib";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pysnmp-pysmi
-    pysnmp-pyasn1
-    pycryptodomex
-  ];
+  propagatedBuildInputs = [ pysnmp-pysmi pysnmp-pyasn1 pycryptodomex ];
 
   # Module has no test, examples are used for testing
   doCheck = false;

@@ -1,23 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  makeWrapper,
-  matrix-sdk-crypto-nodejs,
-  mkYarnPackage,
-  rust,
-  cargo,
-  rustPlatform,
-  rustc,
-  napi-rs-cli,
-  nodejs,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, makeWrapper
+, matrix-sdk-crypto-nodejs, mkYarnPackage, rust, cargo, rustPlatform, rustc
+, napi-rs-cli, nodejs }:
 
-let
-  data = lib.importJSON ./pin.json;
-in
-mkYarnPackage rec {
+let data = lib.importJSON ./pin.json;
+in mkYarnPackage rec {
   pname = "matrix-hookshot";
   version = data.version;
 
@@ -42,16 +28,12 @@ mkYarnPackage rec {
   };
 
   packageResolutions = {
-    "@matrix-org/matrix-sdk-crypto-nodejs" = "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
+    "@matrix-org/matrix-sdk-crypto-nodejs" =
+      "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    cargo
-    rustc
-    napi-rs-cli
-    makeWrapper
-  ];
+  nativeBuildInputs =
+    [ rustPlatform.cargoSetupHook cargo rustc napi-rs-cli makeWrapper ];
 
   buildPhase = ''
     runHook preBuild
@@ -74,7 +56,8 @@ mkYarnPackage rec {
   doDist = false;
 
   meta = with lib; {
-    description = "A bridge between Matrix and multiple project management services, such as GitHub, GitLab and JIRA";
+    description =
+      "A bridge between Matrix and multiple project management services, such as GitHub, GitLab and JIRA";
     maintainers = with maintainers; [ chvp ];
     license = licenses.asl20;
     platforms = platforms.linux;

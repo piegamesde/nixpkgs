@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  requests,
-  websocket-client,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests
+, websocket-client, xmltodict }:
 
 buildPythonPackage rec {
   pname = "pyskyqremote";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-yDeGY5BFj0DKqqK+CzrIxqLa7G5C6Le+GIcFHwtJK9E=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    websocket-client
-    xmltodict
-  ];
+  propagatedBuildInputs = [ requests websocket-client xmltodict ];
 
   # Project has no tests, only a test script which looks like anusage example
   doCheck = false;
@@ -36,7 +25,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for accessing SkyQ boxes";
     homepage = "https://github.com/RogerSelwyn/skyq_remote";
-    changelog = "https://github.com/RogerSelwyn/skyq_remote/releases/tag/${version}";
+    changelog =
+      "https://github.com/RogerSelwyn/skyq_remote/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

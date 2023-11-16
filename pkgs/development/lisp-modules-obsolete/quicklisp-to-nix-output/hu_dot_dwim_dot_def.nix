@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "hu_dot_dwim_dot_def";
   version = "20201016-darcs";
 
@@ -15,7 +14,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/hu.dwim.def/2020-10-16/hu.dwim.def-20201016-darcs.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/hu.dwim.def/2020-10-16/hu.dwim.def-20201016-darcs.tgz";
     sha256 = "0m9id405f0s1438yr2qppdw5z7xdx3ajaa1frd04pibqgf4db4cj";
   };
 

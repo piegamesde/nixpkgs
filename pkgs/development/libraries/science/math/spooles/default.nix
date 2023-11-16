@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-}:
+{ lib, stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation rec {
   pname = "spooles";
@@ -47,7 +42,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.netlib.org/linalg/spooles/";
-    description = "Library for solving sparse real and complex linear systems of equations";
+    description =
+      "Library for solving sparse real and complex linear systems of equations";
     license = licenses.publicDomain;
     maintainers = with maintainers; [ gebner ];
     platforms = platforms.unix;

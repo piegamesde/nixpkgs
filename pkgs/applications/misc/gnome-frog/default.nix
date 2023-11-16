@@ -1,25 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  wrapGAppsHook4,
-  gtk4,
-  meson,
-  ninja,
-  pkg-config,
-  appstream-glib,
-  desktop-file-utils,
-  glib,
-  gobject-introspection,
-  libnotify,
-  libadwaita,
-  libportal,
-  gettext,
-  librsvg,
-  tesseract5,
-  zbar,
-}:
+{ stdenv, lib, fetchFromGitHub, python3Packages, wrapGAppsHook4, gtk4, meson
+, ninja, pkg-config, appstream-glib, desktop-file-utils, glib
+, gobject-introspection, libnotify, libadwaita, libportal, gettext, librsvg
+, tesseract5, zbar }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gnome-frog";
@@ -55,14 +37,7 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    librsvg
-    libnotify
-    libadwaita
-    libportal
-    zbar
-    tesseract5
-  ];
+  buildInputs = [ librsvg libnotify libadwaita libportal zbar tesseract5 ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

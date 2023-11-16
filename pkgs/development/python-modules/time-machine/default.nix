@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonAtLeast,
-  pythonOlder,
-  backports-zoneinfo,
-  python-dateutil,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonAtLeast, pythonOlder
+, backports-zoneinfo, python-dateutil, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "time-machine";
@@ -23,9 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-mE9unzVh0QXSl93hHH43o8AshDEzrl2NXsBJ2fph5is=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  propagatedBuildInputs = [ python-dateutil ]
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

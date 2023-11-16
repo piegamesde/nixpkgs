@@ -1,23 +1,6 @@
-{
-  bctoolbox,
-  belcard,
-  belle-sip,
-  belr,
-  cmake,
-  doxygen,
-  fetchFromGitLab,
-  jsoncpp,
-  libxml2,
-  lime,
-  mediastreamer,
-  python3,
-  bc-soci,
-  sqlite,
-  lib,
-  stdenv,
-  xercesc,
-  zxing-cpp,
-}:
+{ bctoolbox, belcard, belle-sip, belr, cmake, doxygen, fetchFromGitLab, jsoncpp
+, libxml2, lime, mediastreamer, python3, bc-soci, sqlite, lib, stdenv, xercesc
+, zxing-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "liblinphone";
@@ -56,21 +39,13 @@ stdenv.mkDerivation rec {
 
     jsoncpp
     libxml2
-    (python3.withPackages (
-      ps: [
-        ps.pystache
-        ps.six
-      ]
-    ))
+    (python3.withPackages (ps: [ ps.pystache ps.six ]))
     sqlite
     xercesc
     zxing-cpp
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-  ];
+  nativeBuildInputs = [ cmake doxygen ];
 
   strictDeps = true;
 

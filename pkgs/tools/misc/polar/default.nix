@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ruby,
-  bundlerEnv,
-}:
+{ lib, stdenv, fetchFromGitHub, ruby, bundlerEnv }:
 let
 
   # To create Gemfile.lock and gemset.nix
@@ -16,8 +10,8 @@ let
     inherit ruby;
     gemdir = ./.;
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
 
   pname = "polar";
   # The package has no releases so let's use the latest commit
@@ -36,10 +30,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $script --replace "#{File.dirname(__FILE__)}/lib" "$out/lib/polar"
     done
   '';
-  buildInputs = [
-    gems
-    ruby
-  ];
+  buildInputs = [ gems ruby ];
 
   # See: https://nixos.wiki/wiki/Packaging/Ruby
   #

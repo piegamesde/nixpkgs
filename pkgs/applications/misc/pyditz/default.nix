@@ -1,15 +1,9 @@
-{
-  lib,
-  pythonPackages,
-  fetchPypi,
-}:
+{ lib, pythonPackages, fetchPypi }:
 
 with pythonPackages;
 
-let
-  cerberus_1_1 = callPackage ./cerberus.nix { };
-in
-buildPythonApplication rec {
+let cerberus_1_1 = callPackage ./cerberus.nix { };
+in buildPythonApplication rec {
   pname = "pyditz";
   version = "0.11";
 
@@ -18,12 +12,7 @@ buildPythonApplication rec {
     sha256 = "da0365ae9064e30c4a27526fb0d7a802fda5c8651cda6990d17be7ede89a2551";
   };
   nativeBuildInputs = [ setuptools-scm ];
-  propagatedBuildInputs = [
-    pyyaml
-    six
-    jinja2
-    cerberus_1_1
-  ];
+  propagatedBuildInputs = [ pyyaml six jinja2 cerberus_1_1 ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

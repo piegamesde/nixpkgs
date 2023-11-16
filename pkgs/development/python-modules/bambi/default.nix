@@ -1,19 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pytestCheckHook,
-  arviz,
-  blackjax,
-  formulae,
-  graphviz,
-  numpy,
-  numpyro,
-  pandas,
-  pymc,
-  scipy,
-  setuptools,
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, arviz
+, blackjax, formulae, graphviz, numpy, numpyro, pandas, pymc, scipy, setuptools
 }:
 
 buildPythonPackage rec {
@@ -32,25 +18,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    arviz
-    formulae
-    numpy
-    pandas
-    pymc
-    scipy
-  ];
+  propagatedBuildInputs = [ arviz formulae numpy pandas pymc scipy ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = [
-    blackjax
-    graphviz
-    numpyro
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ blackjax graphviz numpyro pytestCheckHook ];
 
   disabledTests = [
     # Tests require network access

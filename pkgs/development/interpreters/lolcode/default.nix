@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  doxygen,
-  cmake,
-  readline,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, doxygen, cmake, readline }:
 
 stdenv.mkDerivation rec {
 
@@ -20,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VMBW3/sw+1kI6iuOckSPU1TIeY6QORcSfFLFkRYw3Gs=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    doxygen
-  ];
+  nativeBuildInputs = [ pkg-config cmake doxygen ];
   buildInputs = [ readline ];
 
   # Maybe it clashes with lci scientific logic software package...
@@ -42,4 +30,5 @@ stdenv.mkDerivation rec {
     mainProgram = "lolcode-lci";
     platforms = lib.platforms.unix;
   };
+
 }

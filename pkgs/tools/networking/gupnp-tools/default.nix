@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  gupnp_1_6,
-  libsoup_3,
-  gssdp_1_6,
-  pkg-config,
-  gtk3,
-  gettext,
-  gupnp-av,
-  gtksourceview4,
-  gnome,
-  wrapGAppsHook,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, gupnp_1_6, libsoup_3, gssdp_1_6
+, pkg-config, gtk3, gettext, gupnp-av, gtksourceview4, gnome, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gupnp-tools";
@@ -27,22 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "XqdgfuNlZCxVWSf+3FteH+COdPBh0MPrCL2QG16yAII=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config gettext wrapGAppsHook ];
 
-  buildInputs = [
-    gupnp_1_6
-    libsoup_3
-    gssdp_1_6
-    gtk3
-    gupnp-av
-    gtksourceview4
-  ];
+  buildInputs = [ gupnp_1_6 libsoup_3 gssdp_1_6 gtk3 gupnp-av gtksourceview4 ];
 
   passthru = {
     updateScript = gnome.updateScript {

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  h5py,
-  nose,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, h5py, nose, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "annoy";
@@ -26,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "annoy" ];
 
   meta = with lib; {
-    description = "Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk";
+    description =
+      "Approximate Nearest Neighbors in C++/Python optimized for memory usage and loading/saving to disk";
     homepage = "https://github.com/spotify/annoy";
     changelog = "https://github.com/spotify/annoy/releases/tag/v${version}";
     license = licenses.asl20;

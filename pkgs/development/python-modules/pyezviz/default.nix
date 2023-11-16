@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  paho-mqtt,
-  pandas,
-  pycryptodome,
-  pythonOlder,
-  requests,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, paho-mqtt, pandas, pycryptodome
+, pythonOlder, requests, xmltodict }:
 
 buildPythonPackage rec {
   pname = "pyezviz";
@@ -24,13 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-Yc1M/O08PlRb0+YIB4etscaWMnb+r9fkMje94Tvcwus=";
   };
 
-  propagatedBuildInputs = [
-    paho-mqtt
-    pandas
-    pycryptodome
-    requests
-    xmltodict
-  ];
+  propagatedBuildInputs = [ paho-mqtt pandas pycryptodome requests xmltodict ];
 
   # Project has no tests. test_cam_rtsp.py is more a sample for using the module
   doCheck = false;

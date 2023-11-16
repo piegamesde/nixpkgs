@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  xdg-utils,
-}:
+{ lib, stdenv, fetchFromGitLab, xdg-utils }:
 
 stdenv.mkDerivation rec {
   pname = "anarchism";

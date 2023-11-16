@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  importlib-metadata,
-  passlib,
-  python-dateutil,
-  pythonOlder,
-  scramp,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, importlib-metadata, passlib
+, python-dateutil, pythonOlder, scramp, setuptools }:
 
 buildPythonPackage rec {
   pname = "pg8000";
@@ -24,11 +15,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    passlib
-    python-dateutil
-    scramp
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ passlib python-dateutil scramp ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   postPatch = ''
     sed '/^\[metadata\]/a version = ${version}' setup.cfg

@@ -1,16 +1,13 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "power-profiles-daemon";
     meta = with pkgs.lib.maintainers; { maintainers = [ mvnetbiz ]; };
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        security.polkit.enable = true;
-        services.power-profiles-daemon.enable = true;
-        environment.systemPackages = [ pkgs.glib ];
-      };
+    nodes.machine = { pkgs, ... }: {
+      security.polkit.enable = true;
+      services.power-profiles-daemon.enable = true;
+      environment.systemPackages = [ pkgs.glib ];
+    };
 
     testScript = ''
       def get_profile():
@@ -44,5 +41,4 @@ import ./make-test-python.nix (
       if not "balanced" in profile:
           raise Exception("Unable to set balanced profile")
     '';
-  }
-)
+  })

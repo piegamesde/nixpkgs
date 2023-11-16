@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "storrent";
@@ -17,14 +13,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-iPKZPXsa6ya29N/u9QYd5LAm42+FtHZLGStRDxsAxe4=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://github.com/jech/storrent";
-    description = "An implementation of the BitTorrent protocol that is optimised for streaming media";
+    description =
+      "An implementation of the BitTorrent protocol that is optimised for streaming media";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = [ maintainers.marsam ];

@@ -51,12 +51,8 @@
     version = "1.769.0";
   };
   aws-sdk-core = {
-    dependencies = [
-      "aws-eventstream"
-      "aws-partitions"
-      "aws-sigv4"
-      "jmespath"
-    ];
+    dependencies =
+      [ "aws-eventstream" "aws-partitions" "aws-sigv4" "jmespath" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -67,10 +63,7 @@
     version = "3.173.1";
   };
   aws-sdk-kms = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -81,11 +74,7 @@
     version = "1.64.0";
   };
   aws-sdk-s3 = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sdk-kms"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sdk-kms" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -254,10 +243,7 @@
     version = "1.10.3";
   };
   faraday-cookie_jar = {
-    dependencies = [
-      "faraday"
-      "http-cookie"
-    ];
+    dependencies = [ "faraday" "http-cookie" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -513,10 +499,7 @@
     version = "0.19.0";
   };
   google-cloud-core = {
-    dependencies = [
-      "google-cloud-env"
-      "google-cloud-errors"
-    ];
+    dependencies = [ "google-cloud-env" "google-cloud-errors" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -567,14 +550,7 @@
     version = "1.44.0";
   };
   googleauth = {
-    dependencies = [
-      "faraday"
-      "jwt"
-      "memoist"
-      "multi_json"
-      "os"
-      "signet"
-    ];
+    dependencies = [ "faraday" "jwt" "memoist" "multi_json" "os" "signet" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -766,11 +742,7 @@
     version = "13.0.6";
   };
   representable = {
-    dependencies = [
-      "declarative"
-      "trailblazer-option"
-      "uber"
-    ];
+    dependencies = [ "declarative" "trailblazer-option" "uber" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -841,12 +813,7 @@
     version = "0.1.3";
   };
   signet = {
-    dependencies = [
-      "addressable"
-      "faraday"
-      "jwt"
-      "multi_json"
-    ];
+    dependencies = [ "addressable" "faraday" "jwt" "multi_json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -857,10 +824,7 @@
     version = "0.17.0";
   };
   simctl = {
-    dependencies = [
-      "CFPropertyList"
-      "naturally"
-    ];
+    dependencies = [ "CFPropertyList" "naturally" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -994,14 +958,8 @@
     version = "1.0.0";
   };
   xcodeproj = {
-    dependencies = [
-      "CFPropertyList"
-      "atomos"
-      "claide"
-      "colored2"
-      "nanaimo"
-      "rexml"
-    ];
+    dependencies =
+      [ "CFPropertyList" "atomos" "claide" "colored2" "nanaimo" "rexml" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

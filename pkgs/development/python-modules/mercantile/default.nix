@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  click,
-  pytestCheckHook,
-  hypothesis,
+{ lib, buildPythonPackage, fetchFromGitHub, click, pytestCheckHook, hypothesis
 }:
 
 buildPythonPackage rec {
@@ -20,10 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis ];
 
   meta = with lib; {
     description = "Spherical mercator tile and coordinate utilities";

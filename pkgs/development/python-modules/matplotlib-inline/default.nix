@@ -1,12 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  traitlets,
+{ lib, buildPythonPackage, fetchPypi, traitlets
 
-  # tests
-  ipython,
-}:
+# tests
+, ipython }:
 
 buildPythonPackage rec {
   pname = "matplotlib-inline";
@@ -23,15 +18,12 @@ buildPythonPackage rec {
   doCheck = false;
 
   #
-  pythonImportsCheck =
-    [
-      # tries to import matplotlib, which can't work with doCheck disabled
-      #"matplotlib_inline"
-    ];
+  pythonImportsCheck = [
+    # tries to import matplotlib, which can't work with doCheck disabled
+    #"matplotlib_inline"
+  ];
 
-  passthru.tests = {
-    inherit ipython;
-  };
+  passthru.tests = { inherit ipython; };
 
   meta = with lib; {
     description = "Matplotlib Inline Back-end for IPython and Jupyter";

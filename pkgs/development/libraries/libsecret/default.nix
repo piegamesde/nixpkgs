@@ -1,36 +1,14 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  glib,
-  meson,
-  ninja,
-  pkg-config,
-  gettext,
-  libxslt,
-  python3,
-  docbook-xsl-nons,
-  docbook_xml_dtd_42,
-  libgcrypt,
-  gobject-introspection,
-  buildPackages,
-  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
-  vala,
-  gi-docgen,
-  gnome,
-  gjs,
-  libintl,
-  dbus,
-}:
+{ stdenv, lib, fetchurl, glib, meson, ninja, pkg-config, gettext, libxslt
+, python3, docbook-xsl-nons, docbook_xml_dtd_42, libgcrypt
+, gobject-introspection, buildPackages
+, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages, vala
+, gi-docgen, gnome, gjs, libintl, dbus }:
 
 stdenv.mkDerivation rec {
   pname = "libsecret";
   version = "0.20.5";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs = [ "out" "dev" ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -41,35 +19,25 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      pkg-config
-      gettext
-      libxslt # for xsltproc for building man pages
-      docbook-xsl-nons
-      docbook_xml_dtd_42
-      libintl
-      vala
-      glib
-    ]
-    ++ lib.optionals withIntrospection [
-      gi-docgen
-      gobject-introspection
-    ];
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    gettext
+    libxslt # for xsltproc for building man pages
+    docbook-xsl-nons
+    docbook_xml_dtd_42
+    libintl
+    vala
+    glib
+  ] ++ lib.optionals withIntrospection [ gi-docgen gobject-introspection ];
 
   buildInputs = [ libgcrypt ];
 
   propagatedBuildInputs = [ glib ];
 
-  nativeCheckInputs = [
-    python3
-    python3.pkgs.dbus-python
-    python3.pkgs.pygobject3
-    dbus
-    gjs
-  ];
+  nativeCheckInputs =
+    [ python3 python3.pkgs.dbus-python python3.pkgs.pygobject3 dbus gjs ];
 
   mesonFlags = [
     (lib.mesonBool "introspection" withIntrospection)
@@ -121,7 +89,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "A library for storing and retrieving passwords and other secrets";
+    description =
+      "A library for storing and retrieving passwords and other secrets";
     homepage = "https://wiki.gnome.org/Projects/Libsecret";
     license = lib.licenses.lgpl21Plus;
     mainProgram = "secret-tool";

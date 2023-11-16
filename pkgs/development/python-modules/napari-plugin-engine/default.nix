@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "napari-plugin-engine";

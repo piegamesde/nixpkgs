@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "zilla-slab";
   version = "1.002";
 
   src = fetchzip {
-    url = "https://github.com/mozilla/zilla-slab/releases/download/v${version}/Zilla-Slab-Fonts-v${version}.zip";
+    url =
+      "https://github.com/mozilla/zilla-slab/releases/download/v${version}/Zilla-Slab-Fonts-v${version}.zip";
     stripRoot = false;
     hash = "sha256-yOHu+dSWlyI7w1N1teED9R1Fphso2bKAlYDC1KdqBCc=";
   };

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  python,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "typing-extensions";

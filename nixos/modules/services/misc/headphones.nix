@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -14,9 +8,8 @@ let
 
   cfg = config.services.headphones;
   opt = options.services.headphones;
-in
 
-{
+in {
 
   ###### interface
 
@@ -35,7 +28,8 @@ in
       configFile = mkOption {
         type = types.path;
         default = "${cfg.dataDir}/config.ini";
-        defaultText = literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
         description = lib.mdDoc "Path to config file.";
       };
       host = mkOption {
@@ -75,7 +69,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == name) { ${name}.gid = config.ids.gids.headphones; };
+    users.groups = optionalAttrs (cfg.group == name) {
+      ${name}.gid = config.ids.gids.headphones;
+    };
 
     systemd.services.headphones = {
       description = "Headphones Server";
@@ -84,7 +80,8 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${pkgs.headphones}/bin/headphones --datadir ${cfg.dataDir} --config ${cfg.configFile} --host ${cfg.host} --port ${
+        ExecStart =
+          "${pkgs.headphones}/bin/headphones --datadir ${cfg.dataDir} --config ${cfg.configFile} --host ${cfg.host} --port ${
             toString cfg.port
           }";
       };

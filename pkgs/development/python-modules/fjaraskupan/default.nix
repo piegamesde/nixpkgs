@@ -1,12 +1,5 @@
-{
-  lib,
-  bleak,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, bleak, buildPythonPackage, fetchFromGitHub, pytest-mock, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fjaraskupan";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bleak ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   pythonImportsCheck = [ "fjaraskupan" ];
 

@@ -1,17 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  jre,
-  makeWrapper,
-}:
+{ stdenv, lib, fetchurl, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "tabula-java";
   version = "1.0.5";
 
   src = fetchurl {
-    url = "https://github.com/tabulapdf/tabula-java/releases/download/v${version}/tabula-${version}-jar-with-dependencies.jar";
+    url =
+      "https://github.com/tabulapdf/tabula-java/releases/download/v${version}/tabula-${version}-jar-with-dependencies.jar";
     sha256 = "sha256-IWHj//ZZOdfOCBJHnPnKNoYNtWl/f8H6ARYe1AkqB0U=";
   };
 

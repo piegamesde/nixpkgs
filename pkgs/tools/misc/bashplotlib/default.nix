@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication {
   pname = "bashplotlib";

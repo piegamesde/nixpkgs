@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  itstool,
-  glib,
-  libwnck,
-  librsvg,
-  libxml2,
-  dconf,
-  gtk3,
-  mate,
-  hicolor-icon-theme,
-  gobject-introspection,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, itstool, glib, libwnck, librsvg
+, libxml2, dconf, gtk3, mate, hicolor-icon-theme, gobject-introspection
+, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-panel";
@@ -29,13 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "8z8Q1SdFC6fpjMcKslWsSBMwqp5m28x8URtrqhcd4Ck=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    gettext
-    itstool
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gobject-introspection gettext itstool pkg-config wrapGAppsHook ];
 
   buildInputs = [
     glib
@@ -71,11 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The MATE panel";
     homepage = "https://github.com/mate-desktop/mate-panel";
-    license = with licenses; [
-      gpl2Plus
-      lgpl2Plus
-      fdl11Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl2Plus fdl11Plus ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

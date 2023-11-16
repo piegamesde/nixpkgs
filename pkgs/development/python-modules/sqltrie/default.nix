@@ -1,14 +1,5 @@
-{
-  lib,
-  attrs,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pygtrie,
-  orjson,
-  python,
-  setuptools-scm,
-}:
+{ lib, attrs, buildPythonPackage, fetchFromGitHub, pythonOlder, pygtrie, orjson
+, python, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "sqltrie";
@@ -28,11 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    orjson
-    pygtrie
-  ];
+  propagatedBuildInputs = [ attrs orjson pygtrie ];
 
   # nox is not available at the moment
   doCheck = false;

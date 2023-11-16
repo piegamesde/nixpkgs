@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  writeText,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, writeText, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "mediawiki";
@@ -21,27 +15,23 @@ stdenv.mkDerivation rec {
     sed -i 's|$vars = Installer::getExistingLocalSettings();|$vars = null;|' includes/installer/CliInstaller.php
   '';
 
-  installPhase =
-    let
-      phpConfig = writeText "LocalSettings.php" ''
-        <?php
-          return require(getenv('MEDIAWIKI_CONFIG'));
-        ?>
-      '';
-    in
-    ''
-      runHook preInstall
-
-      mkdir -p $out/share/mediawiki
-      cp -r * $out/share/mediawiki
-      cp ${phpConfig} $out/share/mediawiki/LocalSettings.php
-
-      runHook postInstall
+  installPhase = let
+    phpConfig = writeText "LocalSettings.php" ''
+      <?php
+        return require(getenv('MEDIAWIKI_CONFIG'));
+      ?>
     '';
+  in ''
+    runHook preInstall
 
-  passthru.tests = {
-    inherit (nixosTests.mediawiki) mysql postgresql;
-  };
+    mkdir -p $out/share/mediawiki
+    cp -r * $out/share/mediawiki
+    cp ${phpConfig} $out/share/mediawiki/LocalSettings.php
+
+    runHook postInstall
+  '';
+
+  passthru.tests = { inherit (nixosTests.mediawiki) mysql postgresql; };
 
   meta = with lib; {
     description = "The collaborative editing software that runs Wikipedia";

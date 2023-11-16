@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  setuptools,
-}:
+{ lib, fetchPypi, buildPythonPackage, setuptools }:
 
 buildPythonPackage rec {
   pname = "distro";

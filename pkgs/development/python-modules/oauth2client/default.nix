@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  httplib2,
-  pyasn1-modules,
-  rsa,
-}:
+{ lib, buildPythonPackage, fetchPypi, six, httplib2, pyasn1-modules, rsa }:
 
 buildPythonPackage rec {
   pname = "oauth2client";
@@ -17,12 +9,7 @@ buildPythonPackage rec {
     sha256 = "d486741e451287f69568a4d26d70d9acd73a2bbfa275746c535b4209891cccc6";
   };
 
-  propagatedBuildInputs = [
-    six
-    httplib2
-    pyasn1-modules
-    rsa
-  ];
+  propagatedBuildInputs = [ six httplib2 pyasn1-modules rsa ];
   doCheck = false;
 
   meta = with lib; {

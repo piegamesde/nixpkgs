@@ -1,15 +1,12 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-}:
+{ fetchurl, lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "ltl2ba";
   version = "1.3";
 
   src = fetchurl {
-    url = "http://www.lsv.ens-cachan.fr/~gastin/ltl2ba/${pname}-${version}.tar.gz";
+    url =
+      "http://www.lsv.ens-cachan.fr/~gastin/ltl2ba/${pname}-${version}.tar.gz";
     sha256 = "1bz9gjpvby4mnvny0nmxgd81rim26mqlcnjlznnxxk99575pfa4i";
   };
 

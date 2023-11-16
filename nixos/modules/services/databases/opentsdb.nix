@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,8 @@ let
   cfg = config.services.opentsdb;
 
   configFile = pkgs.writeText "opentsdb.conf" cfg.config;
-in
-{
+
+in {
 
   ###### interface
 
@@ -65,7 +60,9 @@ in
           The contents of OpenTSDB's configuration file
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -88,7 +85,8 @@ in
         PermissionsStartOnly = true;
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/tsdb tsd --staticroot=${cfg.package}/share/opentsdb/static --cachedir=/tmp/opentsdb --port=${
+        ExecStart =
+          "${cfg.package}/bin/tsdb tsd --staticroot=${cfg.package}/share/opentsdb/static --cachedir=/tmp/opentsdb --port=${
             toString cfg.port
           } --config=${configFile}";
       };
@@ -101,5 +99,6 @@ in
     };
 
     users.groups.opentsdb.gid = config.ids.gids.opentsdb;
+
   };
 }

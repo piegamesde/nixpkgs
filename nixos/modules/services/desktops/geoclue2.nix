@@ -1,72 +1,55 @@
 # GeoClue 2 daemon.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   # the demo agent isn't built by default, but we need it here
-  package = pkgs.geoclue2.override { withDemoAgent = config.services.geoclue2.enableDemoAgent; };
+  package = pkgs.geoclue2.override {
+    withDemoAgent = config.services.geoclue2.enableDemoAgent;
+  };
 
   cfg = config.services.geoclue2;
 
-  defaultWhitelist = [
-    "gnome-shell"
-    "io.elementary.desktop.agent-geoclue2"
-  ];
+  defaultWhitelist = [ "gnome-shell" "io.elementary.desktop.agent-geoclue2" ];
 
-  appConfigModule = types.submodule (
-    { name, ... }:
-    {
-      options = {
-        desktopID = mkOption {
-          type = types.str;
-          description = lib.mdDoc "Desktop ID of the application.";
-        };
-
-        isAllowed = mkOption {
-          type = types.bool;
-          description = lib.mdDoc ''
-            Whether the application will be allowed access to location information.
-          '';
-        };
-
-        isSystem = mkOption {
-          type = types.bool;
-          description = lib.mdDoc ''
-            Whether the application is a system component or not.
-          '';
-        };
-
-        users = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          description = lib.mdDoc ''
-            List of UIDs of all users for which this application is allowed location
-            info access, Defaults to an empty string to allow it for all users.
-          '';
-        };
+  appConfigModule = types.submodule ({ name, ... }: {
+    options = {
+      desktopID = mkOption {
+        type = types.str;
+        description = lib.mdDoc "Desktop ID of the application.";
       };
 
-      config.desktopID = mkDefault name;
-    }
-  );
+      isAllowed = mkOption {
+        type = types.bool;
+        description = lib.mdDoc ''
+          Whether the application will be allowed access to location information.
+        '';
+      };
 
-  appConfigToINICompatible =
-    _:
-    {
-      desktopID,
-      isAllowed,
-      isSystem,
-      users,
-      ...
-    }:
-    {
+      isSystem = mkOption {
+        type = types.bool;
+        description = lib.mdDoc ''
+          Whether the application is a system component or not.
+        '';
+      };
+
+      users = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        description = lib.mdDoc ''
+          List of UIDs of all users for which this application is allowed location
+          info access, Defaults to an empty string to allow it for all users.
+        '';
+      };
+    };
+
+    config.desktopID = mkDefault name;
+  });
+
+  appConfigToINICompatible = _:
+    { desktopID, isAllowed, isSystem, users, ... }: {
       name = desktopID;
       value = {
         allowed = isAllowed;
@@ -74,8 +57,8 @@ let
         users = concatStringsSep ";" users;
       };
     };
-in
-{
+
+in {
 
   ###### interface
 
@@ -144,8 +127,10 @@ in
 
       geoProviderUrl = mkOption {
         type = types.str;
-        default = "https://location.services.mozilla.com/v1/geolocate?key=geoclue";
-        example = "https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_KEY";
+        default =
+          "https://location.services.mozilla.com/v1/geolocate?key=geoclue";
+        example =
+          "https://www.googleapis.com/geolocation/v1/geolocate?key=YOUR_KEY";
         description = lib.mdDoc ''
           The url to the wifi GeoLocation Service.
         '';
@@ -190,7 +175,9 @@ in
           Specify extra settings per application.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -218,7 +205,8 @@ in
     systemd.services.geoclue = {
       after = lib.optionals cfg.enableWifi [ "network-online.target" ];
       # restart geoclue service when the configuration changes
-      restartTriggers = [ config.environment.etc."geoclue/geoclue.conf".source ];
+      restartTriggers =
+        [ config.environment.etc."geoclue/geoclue.conf".source ];
       serviceConfig.StateDirectory = "geoclue";
     };
 
@@ -252,36 +240,27 @@ in
       isSystem = false;
     };
 
-    environment.etc."geoclue/geoclue.conf".text = generators.toINI { } (
-      {
-        agent = {
-          whitelist = concatStringsSep ";" (
-            optional cfg.enableDemoAgent "geoclue-demo-agent" ++ defaultWhitelist
-          );
-        };
-        network-nmea = {
-          enable = cfg.enableNmea;
-        };
-        "3g" = {
-          enable = cfg.enable3G;
-        };
-        cdma = {
-          enable = cfg.enableCDMA;
-        };
-        modem-gps = {
-          enable = cfg.enableModemGPS;
-        };
-        wifi = {
-          enable = cfg.enableWifi;
-          url = cfg.geoProviderUrl;
-          submit-data = boolToString cfg.submitData;
-          submission-url = cfg.submissionUrl;
-          submission-nick = cfg.submissionNick;
-        };
-      }
-      // mapAttrs' appConfigToINICompatible cfg.appConfig
-    );
+    environment.etc."geoclue/geoclue.conf".text = generators.toINI { } ({
+      agent = {
+        whitelist = concatStringsSep ";"
+          (optional cfg.enableDemoAgent "geoclue-demo-agent"
+            ++ defaultWhitelist);
+      };
+      network-nmea = { enable = cfg.enableNmea; };
+      "3g" = { enable = cfg.enable3G; };
+      cdma = { enable = cfg.enableCDMA; };
+      modem-gps = { enable = cfg.enableModemGPS; };
+      wifi = {
+        enable = cfg.enableWifi;
+        url = cfg.geoProviderUrl;
+        submit-data = boolToString cfg.submitData;
+        submission-url = cfg.submissionUrl;
+        submission-nick = cfg.submissionNick;
+      };
+    } // mapAttrs' appConfigToINICompatible cfg.appConfig);
   };
 
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {
+    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+  };
 }

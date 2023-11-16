@@ -1,16 +1,5 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  fetchpatch,
-  lib,
-  coreutils,
-  makeWrapper,
-  google-guest-configs,
-  google-guest-oslogin,
-  iproute2,
-  dhcp,
-  procps,
-}:
+{ buildGoModule, fetchFromGitHub, fetchpatch, lib, coreutils, makeWrapper
+, google-guest-configs, google-guest-oslogin, iproute2, dhcp, procps }:
 
 buildGoModule rec {
   pname = "guest-agent";

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "levmar";
@@ -26,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "ANSI C implementations of Levenberg-Marquardt, usable also from C++";
+    description =
+      "ANSI C implementations of Levenberg-Marquardt, usable also from C++";
     homepage = "https://www.ics.forth.gr/~lourakis/levmar/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;

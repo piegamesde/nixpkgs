@@ -1,11 +1,4 @@
-{
-  fetchFromGitHub,
-  buildPythonPackage,
-  pillow,
-  numpy,
-  libdmtx,
-  lib,
-}:
+{ fetchFromGitHub, buildPythonPackage, pillow, numpy, libdmtx, lib }:
 
 buildPythonPackage rec {
   pname = "pylibdmtx";
@@ -35,15 +28,13 @@ buildPythonPackage rec {
     rm pylibdmtx/tests/test_dmtx_library.py
   '';
 
-  propagatedBuildInputs = [
-    pillow
-    numpy
-  ];
+  propagatedBuildInputs = [ pillow numpy ];
 
   pythonImportsCheck = [ "pylibdmtx" ];
 
   meta = with lib; {
-    description = "Read and write Data Matrix barcodes from Python 2 and 3 using the libdmtx library";
+    description =
+      "Read and write Data Matrix barcodes from Python 2 and 3 using the libdmtx library";
     homepage = "https://github.com/NaturalHistoryMuseum/pylibdmtx/";
     license = licenses.mit;
     maintainers = with maintainers; [ grahamc ];

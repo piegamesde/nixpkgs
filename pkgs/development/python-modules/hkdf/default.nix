@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose }:
 
 buildPythonPackage rec {
   pname = "hkdf";
@@ -24,8 +19,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "HMAC-based Extract-and-Expand Key Derivation Function (HKDF)";
+    description =
+      "HMAC-based Extract-and-Expand Key Derivation Function (HKDF)";
     homepage = "https://github.com/casebeer/python-hkdf";
     license = licenses.bsd2;
   };
+
 }

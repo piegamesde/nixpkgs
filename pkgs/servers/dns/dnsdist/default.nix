@@ -1,22 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  systemd,
-  boost,
-  libsodium,
-  libedit,
-  re2,
-  net-snmp,
-  lua,
-  protobuf,
-  openssl,
-  zlib,
-  h2o,
-  nghttp2,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, pkg-config, systemd, boost, libsodium, libedit, re2
+, net-snmp, lua, protobuf, openssl, zlib, h2o, nghttp2, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "dnsdist";
@@ -27,17 +10,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-HA03XCVFPTSbiOA/9YmqJgPKhpL8mDZMBo6tNygEcE8=";
   };
 
-  patches =
-    [
-      # Disable tests requiring networking:
-      # "Error connecting to new server with address 192.0.2.1:53: connecting socket to 192.0.2.1:53: Network is unreachable"
-      ./disable-network-tests.patch
-    ];
-
-  nativeBuildInputs = [
-    pkg-config
-    protobuf
+  patches = [
+    # Disable tests requiring networking:
+    # "Error connecting to new server with address 192.0.2.1:53: connecting socket to 192.0.2.1:53: Network is unreachable"
+    ./disable-network-tests.patch
   ];
+
+  nativeBuildInputs = [ pkg-config protobuf ];
   buildInputs = [
     systemd
     boost
@@ -69,9 +48,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = {
-    inherit (nixosTests) dnsdist;
-  };
+  passthru.tests = { inherit (nixosTests) dnsdist; };
 
   meta = with lib; {
     description = "DNS Loadbalancer";

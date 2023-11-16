@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoPackage, fetchFromGitHub, installShellFiles }:
 
 buildGoPackage rec {
   pname = "tmsu";

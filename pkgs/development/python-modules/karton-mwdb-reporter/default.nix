@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  karton-core,
-  mwdblib,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, karton-core, mwdblib, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "karton-mwdb-reporter";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-QVxczXT74Xt0AtCSDm4nhIK4qtHQ6bqmVNb/CALZSE4=";
   };
 
-  propagatedBuildInputs = [
-    karton-core
-    mwdblib
-  ];
+  propagatedBuildInputs = [ karton-core mwdblib ];
 
   # Project has no tests
   doCheck = false;
@@ -32,9 +22,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "karton.mwdb_reporter" ];
 
   meta = with lib; {
-    description = "Karton service that uploads analyzed artifacts and metadata to MWDB Core";
+    description =
+      "Karton service that uploads analyzed artifacts and metadata to MWDB Core";
     homepage = "https://github.com/CERT-Polska/karton-mwdb-reporter";
-    changelog = "https://github.com/CERT-Polska/karton-mwdb-reporter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CERT-Polska/karton-mwdb-reporter/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

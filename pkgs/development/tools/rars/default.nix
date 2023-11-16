@@ -1,17 +1,12 @@
-{
-  lib,
-  fetchurl,
-  stdenvNoCC,
-  makeWrapper,
-  jre,
-}:
+{ lib, fetchurl, stdenvNoCC, makeWrapper, jre }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "rars";
   version = "1.5";
 
   src = fetchurl {
-    url = "https://github.com/TheThirdOne/rars/releases/download/v${version}/rars1_5.jar";
+    url =
+      "https://github.com/TheThirdOne/rars/releases/download/v${version}/rars1_5.jar";
     sha256 = "sha256-w75gfARfR46Up6qng1GYL0u8ENfpD3xHhl/yp9lEcUE=";
   };
 

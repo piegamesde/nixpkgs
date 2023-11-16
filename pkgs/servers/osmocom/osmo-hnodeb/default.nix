@@ -1,23 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  lksctp-tools,
-  libasn1c,
-  libosmoabis,
-  libosmo-netif,
-  libosmo-sccp,
-  osmo-iuh,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore
+, lksctp-tools, libasn1c, libosmoabis, libosmo-netif, libosmo-sccp, osmo-iuh }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-hnodeb";
   version = "0.1.1";
 
@@ -32,10 +18,7 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
     libosmocore

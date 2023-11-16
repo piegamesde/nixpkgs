@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  inform,
-  pythonOlder,
-  sly,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, inform, pythonOlder, sly }:
 
 buildPythonPackage rec {
   pname = "quantiphy-eval";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-7VHcuINhe17lRNkHUnZkVOEtD6mVWk5gu0NbrLZwprg=";
   };
 
-  propagatedBuildInputs = [
-    inform
-    sly
-  ];
+  propagatedBuildInputs = [ inform sly ];
 
   # this has a circular dependency on quantiphy
   preBuild = ''
@@ -42,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "QuantiPhy support for evals in-line";
     homepage = "https://github.com/KenKundert/quantiphy_eval/";
-    changelog = "https://github.com/KenKundert/quantiphy_eval/releases/tag/v${version}";
+    changelog =
+      "https://github.com/KenKundert/quantiphy_eval/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

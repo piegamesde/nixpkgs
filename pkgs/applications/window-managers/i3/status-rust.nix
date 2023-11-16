@@ -1,18 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  makeWrapper,
-  dbus,
-  libpulseaudio,
-  notmuch,
-  openssl,
-  ethtool,
-  lm_sensors,
-  iw,
-  iproute2,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, makeWrapper, dbus
+, libpulseaudio, notmuch, openssl, ethtool, lm_sensors, iw, iproute2 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "i3status-rust";
@@ -27,24 +14,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-+wrZG7jzK8ksTpm6g25O/09sAnMYwmY5DYKqmUMuCFU=";
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs = [
-    dbus
-    libpulseaudio
-    notmuch
-    openssl
-    lm_sensors
-  ];
+  buildInputs = [ dbus libpulseaudio notmuch openssl lm_sensors ];
 
-  buildFeatures = [
-    "notmuch"
-    "maildir"
-    "pulseaudio"
-  ];
+  buildFeatures = [ "notmuch" "maildir" "pulseaudio" ];
 
   prePatch = ''
     substituteInPlace src/util.rs \
@@ -58,11 +32,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram $out/bin/i3status-rs --prefix PATH : ${
-      lib.makeBinPath [
-        iproute2
-        ethtool
-        iw
-      ]
+      lib.makeBinPath [ iproute2 ethtool iw ]
     }
   '';
 
@@ -70,14 +40,12 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Very resource-friendly and feature-rich replacement for i3status";
+    description =
+      "Very resource-friendly and feature-rich replacement for i3status";
     homepage = "https://github.com/greshake/i3status-rust";
     license = licenses.gpl3Only;
     mainProgram = "i3status-rs";
-    maintainers = with maintainers; [
-      backuitist
-      globin
-    ];
+    maintainers = with maintainers; [ backuitist globin ];
     platforms = platforms.linux;
   };
 }

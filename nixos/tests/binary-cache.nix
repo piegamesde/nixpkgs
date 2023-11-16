@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { lib, ... }:
+import ./make-test-python.nix ({ lib, ... }:
 
   with lib;
 
@@ -7,16 +6,14 @@ import ./make-test-python.nix (
     name = "binary-cache";
     meta.maintainers = with maintainers; [ thomasjm ];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        imports = [ ../modules/installer/cd-dvd/channel.nix ];
-        environment.systemPackages = with pkgs; [ python3 ];
-        system.extraDependencies = with pkgs; [ hello.inputDerivation ];
-        nix.extraOptions = ''
-          experimental-features = nix-command
-        '';
-      };
+    nodes.machine = { pkgs, ... }: {
+      imports = [ ../modules/installer/cd-dvd/channel.nix ];
+      environment.systemPackages = with pkgs; [ python3 ];
+      system.extraDependencies = with pkgs; [ hello.inputDerivation ];
+      nix.extraOptions = ''
+        experimental-features = nix-command
+      '';
+    };
 
     testScript = ''
       # Build the cache, then remove it from the store
@@ -61,5 +58,4 @@ import ./make-test-python.nix (
       # Store path should exist in the store now
       machine.succeed("[ -d %s ] || exit 1" % storePath)
     '';
-  }
-)
+  })

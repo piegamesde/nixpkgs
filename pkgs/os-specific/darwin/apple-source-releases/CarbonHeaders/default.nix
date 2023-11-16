@@ -1,8 +1,4 @@
-{
-  lib,
-  appleDerivation',
-  stdenvNoCC,
-}:
+{ lib, appleDerivation', stdenvNoCC }:
 
 appleDerivation' stdenvNoCC {
   dontBuild = true;

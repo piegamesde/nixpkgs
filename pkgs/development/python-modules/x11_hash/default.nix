@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "1.4";
@@ -19,4 +15,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ np ];
   };
+
 }

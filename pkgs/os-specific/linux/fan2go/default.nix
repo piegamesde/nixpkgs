@@ -1,9 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  lm_sensors,
-}:
+{ buildGoModule, fetchFromGitHub, lib, lm_sensors }:
 
 buildGoModule rec {
   pname = "fan2go";
@@ -27,7 +22,8 @@ buildGoModule rec {
   CGO_LDFLAGS = "-L ${lm_sensors}/lib";
 
   meta = with lib; {
-    description = "A simple daemon providing dynamic fan speed control based on temperature sensors";
+    description =
+      "A simple daemon providing dynamic fan speed control based on temperature sensors";
     homepage = "https://github.com/markusressel/fan2go";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ mtoohey ];

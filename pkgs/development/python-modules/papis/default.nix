@@ -1,35 +1,8 @@
-{
-  lib,
-  stdenv,
-  arxiv2bib,
-  beautifulsoup4,
-  bibtexparser,
-  buildPythonPackage,
-  chardet,
-  click,
-  colorama,
-  configparser,
-  dominate,
-  fetchFromGitHub,
-  filetype,
-  habanero,
-  isbnlib,
-  lxml,
-  prompt-toolkit,
-  pygments,
-  pyparsing,
-  pytestCheckHook,
-  python-doi,
-  python-slugify,
-  pythonAtLeast,
-  pythonOlder,
-  pyyaml,
-  requests,
-  stevedore,
-  tqdm,
-  typing-extensions,
-  whoosh,
-}:
+{ lib, stdenv, arxiv2bib, beautifulsoup4, bibtexparser, buildPythonPackage
+, chardet, click, colorama, configparser, dominate, fetchFromGitHub, filetype
+, habanero, isbnlib, lxml, prompt-toolkit, pygments, pyparsing, pytestCheckHook
+, python-doi, python-slugify, pythonAtLeast, pythonOlder, pyyaml, requests
+, stevedore, tqdm, typing-extensions, whoosh }:
 
 buildPythonPackage rec {
   pname = "papis";
@@ -84,10 +57,7 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "papis tests" ];
 
-  disabledTestPaths = [
-    "tests/downloaders"
-    "papis/downloaders/usenix.py"
-  ];
+  disabledTestPaths = [ "tests/downloaders" "papis/downloaders/usenix.py" ];
 
   disabledTests = [
     "get_document_url"
@@ -109,10 +79,6 @@ buildPythonPackage rec {
     homepage = "https://papis.readthedocs.io/";
     changelog = "https://github.com/papis/papis/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      nico202
-      teto
-      marsam
-    ];
+    maintainers = with maintainers; [ nico202 teto marsam ];
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  SDL,
-  SDL_mixer,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, SDL, SDL_mixer, zlib }:
 
 stdenv.mkDerivation {
   pname = "cuyo";
@@ -16,11 +9,7 @@ stdenv.mkDerivation {
     sha256 = "17yqv924x7yvwix7yz9jdhgyar8lzdhqvmpvv0any8rdkajhj23c";
   };
 
-  buildInputs = [
-    SDL
-    SDL_mixer
-    zlib
-  ];
+  buildInputs = [ SDL SDL_mixer zlib ];
 
   meta = {
     homepage = "http://karimmi.de/cuyo";
@@ -28,4 +17,5 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };
+
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromBitbucket,
-}:
+{ lib, stdenv, fetchFromBitbucket }:
 
 stdenv.mkDerivation {
   pname = "u9fs";

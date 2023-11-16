@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "scss_lint";
@@ -15,10 +11,7 @@ bundlerApp {
     description = "A tool to help keep your SCSS files clean and readable";
     homepage = "https://github.com/brigade/scss-lint";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      lovek323
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ lovek323 nicknovitski ];
     platforms = platforms.unix;
   };
 }

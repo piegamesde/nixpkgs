@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 
 let
   cfg = config.services.envfs;
@@ -13,14 +8,11 @@ let
       fsType = "envfs";
       options = [
         "fallback-path=${
-          pkgs.runCommand "fallback-path" { } (
-            ''
-              mkdir -p $out
-              ln -s ${config.environment.usrbinenv} $out/env
-              ln -s ${config.environment.binsh} $out/sh
-            ''
-            + cfg.extraFallbackPathCommands
-          )
+          pkgs.runCommand "fallback-path" { } (''
+            mkdir -p $out
+            ln -s ${config.environment.usrbinenv} $out/env
+            ln -s ${config.environment.binsh} $out/sh
+          '' + cfg.extraFallbackPathCommands)
         }"
         "nofail"
       ];
@@ -28,14 +20,10 @@ let
     "/bin" = {
       device = "/usr/bin";
       fsType = "none";
-      options = [
-        "bind"
-        "nofail"
-      ];
+      options = [ "bind" "nofail" ];
     };
   };
-in
-{
+in {
   options = {
     services.envfs = {
       enable = lib.mkEnableOption (lib.mdDoc "Envfs filesystem") // {
@@ -58,16 +46,16 @@ in
         type = lib.types.lines;
         default = "";
         example = "ln -s $''{pkgs.bash}/bin/bash $out/bash";
-        description =
-          lib.mdDoc
-            "Extra commands to run in the package that contains fallback executables in case not other executable is found";
+        description = lib.mdDoc
+          "Extra commands to run in the package that contains fallback executables in case not other executable is found";
       };
     };
   };
   config = lib.mkIf (cfg.enable) {
     environment.systemPackages = [ cfg.package ];
     # we also want these mounts in virtual machines.
-    fileSystems = if config.virtualisation ? qemu then lib.mkVMOverride mounts else mounts;
+    fileSystems =
+      if config.virtualisation ? qemu then lib.mkVMOverride mounts else mounts;
 
     # We no longer need those when using envfs
     system.activationScripts.usrbinenv = lib.mkForce "";

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  maven,
-  jdk,
-  jre,
-  buildMaven,
-  makeWrapper,
-  git,
-  fetchFromGitHub,
-  graphviz,
-  ensureNewerSourcesHook,
-}:
+{ lib, stdenv, callPackage, maven, jdk, jre, buildMaven, makeWrapper, git
+, fetchFromGitHub, graphviz, ensureNewerSourcesHook }:
 
 let
   version = "6.1.1-SNAPSHOT";
@@ -28,11 +16,7 @@ let
     name = "${pname}-${version}-deps";
     inherit src;
 
-    nativeBuildInputs = [
-      jdk
-      maven
-      git
-    ];
+    nativeBuildInputs = [ jdk maven git ];
     buildInputs = [ jre ];
 
     buildPhase = ''
@@ -51,8 +35,7 @@ let
 
     doCheck = false;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit version pname src;
 
   buildInputs = [ maven ];
@@ -92,3 +75,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jraygauthier ];
   };
 }
+

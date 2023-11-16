@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchzip,
-  cmake,
-  gmp,
-  mpfr,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchzip, cmake, gmp, mpfr }:
 
 let
   satlib-bmc = fetchzip {
@@ -22,8 +14,8 @@ let
     rev = "mpfrc++-3.6.9";
     sha256 = "sha256-l61SKEx4pBocADrEGPVacQ6F2ep9IuvNZ8W08dKeZKg=";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "sharpsat-td";
   version = "unstable-2021-09-05";
 
@@ -50,10 +42,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    gmp
-    mpfr
-  ];
+  buildInputs = [ gmp mpfr ];
 
   installPhase = ''
     runHook preInstall
@@ -79,15 +68,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A fast solver for the #SAT model counting problem";
     homepage = "https://github.com/Laakeri/sharpsat-td";
-    license = with lib.licenses; [
-      mit
-      asl20
-    ];
+    license = with lib.licenses; [ mit asl20 ];
     maintainers = with lib.maintainers; [ ris ];
     # uses clhash, which is non-portable
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
 }

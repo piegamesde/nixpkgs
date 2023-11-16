@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gtk3,
-  gnome-icon-theme,
-  hicolor-icon-theme,
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, gnome-icon-theme, hicolor-icon-theme
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -20,10 +14,7 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    gnome-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ gnome-icon-theme hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 

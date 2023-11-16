@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  lzop,
-  postgresql,
-  pv,
-}:
+{ lib, fetchFromGitHub, python3Packages, lzop, postgresql, pv }:
 
 python3Packages.buildPythonApplication rec {
   pname = "wal-e";
@@ -24,21 +17,12 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   propagatedBuildInputs =
-    (
-      with python3Packages; [
-        boto
-        gevent
-        google-cloud-storage
-      ]
-    )
-    ++ [
-      postgresql
-      lzop
-      pv
-    ];
+    (with python3Packages; [ boto gevent google-cloud-storage ])
+    ++ [ postgresql lzop pv ];
 
   meta = {
-    description = "A Postgres WAL-shipping disaster recovery and replication toolkit";
+    description =
+      "A Postgres WAL-shipping disaster recovery and replication toolkit";
     homepage = "https://github.com/wal-e/wal-e";
     maintainers = [ ];
     license = lib.licenses.bsd3;

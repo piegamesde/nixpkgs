@@ -1,21 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  nix-update-script,
-  cmake,
-  pkg-config,
-  adwaita-qt,
-  adwaita-qt6,
-  glib,
-  gtk3,
-  qtbase,
-  qtwayland,
-  pantheon,
-  substituteAll,
-  gsettings-desktop-schemas,
-  useQt6 ? false,
-}:
+{ stdenv, lib, fetchFromGitHub, nix-update-script, cmake, pkg-config, adwaita-qt
+, adwaita-qt6, glib, gtk3, qtbase, qtwayland, pantheon, substituteAll
+, gsettings-desktop-schemas, useQt6 ? false }:
 
 stdenv.mkDerivation rec {
   pname = "qgnomeplatform";
@@ -28,26 +13,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DaIBtWmce+58OOhqFG5802c3EprBAtDXhjiSPIImoOM=";
   };
 
-  patches =
-    [
-      # Hardcode GSettings schema path to avoid crashes from missing schemas
-      (substituteAll {
-        src = ./hardcode-gsettings.patch;
-        gds_gsettings_path = glib.getSchemaPath gsettings-desktop-schemas;
-      })
-    ];
-
-  nativeBuildInputs = [
-    cmake
-    pkg-config
+  patches = [
+    # Hardcode GSettings schema path to avoid crashes from missing schemas
+    (substituteAll {
+      src = ./hardcode-gsettings.patch;
+      gds_gsettings_path = glib.getSchemaPath gsettings-desktop-schemas;
+    })
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    qtbase
-    qtwayland
-  ] ++ lib.optionals (!useQt6) [ adwaita-qt ] ++ lib.optionals useQt6 [ adwaita-qt6 ];
+  nativeBuildInputs = [ cmake pkg-config ];
+
+  buildInputs = [ glib gtk3 qtbase qtwayland ]
+    ++ lib.optionals (!useQt6) [ adwaita-qt ]
+    ++ lib.optionals useQt6 [ adwaita-qt6 ];
 
   # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;
@@ -57,12 +35,11 @@ stdenv.mkDerivation rec {
     "-DQT_PLUGINS_DIR=${placeholder "out"}/${qtbase.qtPluginPrefix}"
   ] ++ lib.optionals useQt6 [ "-DUSE_QT6=true" ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "QPlatformTheme for a better Qt application inclusion in GNOME";
+    description =
+      "QPlatformTheme for a better Qt application inclusion in GNOME";
     homepage = "https://github.com/FedoraQt/QGnomePlatform";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members ++ (with maintainers; [ ]);

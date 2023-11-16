@@ -1,9 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  buildRubyGem,
-  ruby,
-}:
+{ lib, bundlerApp, buildRubyGem, ruby }:
 
 bundlerApp rec {
   pname = "haste";

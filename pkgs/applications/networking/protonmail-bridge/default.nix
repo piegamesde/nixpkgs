@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  libsecret,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, libsecret }:
 
 buildGoModule rec {
   pname = "protonmail-bridge";
@@ -29,10 +23,8 @@ buildGoModule rec {
   '';
 
   ldflags =
-    let
-      constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
-    in
-    [
+    let constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
+    in [
       "-X ${constants}.Version=${version}"
       "-X ${constants}.Revision=${src.rev}"
       "-X ${constants}.buildTime=unknown"
@@ -47,7 +39,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/ProtonMail/proton-bridge";
-    changelog = "https://github.com/ProtonMail/proton-bridge/blob/${src.rev}/Changelog.md";
+    changelog =
+      "https://github.com/ProtonMail/proton-bridge/blob/${src.rev}/Changelog.md";
     downloadPage = "https://github.com/ProtonMail/proton-bridge/releases";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ mrfreezeex ];

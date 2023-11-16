@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  gcc10,
-  cmake,
-  boost17x,
-  icu,
-  swig,
-  pcre,
-  opencascade-occt,
-  opencollada,
-  libxml2,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, gcc10, cmake, boost17x, icu
+, swig, pcre, opencascade-occt, opencollada, libxml2 }:
 
 buildPythonPackage rec {
   pname = "ifcopenshell";
@@ -27,17 +14,9 @@ buildPythonPackage rec {
     sha256 = "1g52asxrqcfj01iqvf03k3bb6rg3v04hh1wc3nmn329a2lwjbxpw";
   };
 
-  nativeBuildInputs = [
-    gcc10
-    cmake
-  ];
+  nativeBuildInputs = [ gcc10 cmake ];
 
-  buildInputs = [
-    boost17x
-    icu
-    pcre
-    libxml2
-  ];
+  buildInputs = [ boost17x icu pcre libxml2 ];
 
   preConfigure = ''
     cd cmake

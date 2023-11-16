@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  autogen,
-  pkg-config,
-  python3,
-  flac,
-  lame,
-  libmpg123,
-  libogg,
-  libopus,
-  libvorbis,
-  alsa-lib,
-  Carbon,
-  AudioToolbox,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, autogen, pkg-config, python3
+, flac, lame, libmpg123, libogg, libopus, libvorbis, alsa-lib, Carbon
+, AudioToolbox }:
 
 stdenv.mkDerivation rec {
   pname = "libsndfile";
@@ -28,36 +13,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-zd0HDUzVYLyFjhIudBJQaKJUtYMjZeQRLALSkyD9tXU=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    autogen
-    pkg-config
-    python3
-  ];
-  buildInputs =
-    [
-      flac
-      lame
-      libmpg123
-      libogg
-      libopus
-      libvorbis
-    ]
+  nativeBuildInputs = [ autoreconfHook autogen pkg-config python3 ];
+  buildInputs = [ flac lame libmpg123 libogg libopus libvorbis ]
     ++ lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      AudioToolbox
-    ];
+    ++ lib.optionals stdenv.isDarwin [ Carbon AudioToolbox ];
 
   enableParallelBuilding = true;
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-    "doc"
-  ];
+  outputs = [ "bin" "dev" "out" "man" "doc" ];
 
   # need headers from the Carbon.framework in /System/Library/Frameworks to
   # compile this on darwin -- not sure how to handle
@@ -69,9 +32,11 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_LINK = "-logg -lvorbis";
 
   meta = with lib; {
-    description = "A C library for reading and writing files containing sampled sound";
+    description =
+      "A C library for reading and writing files containing sampled sound";
     homepage = "https://libsndfile.github.io/libsndfile/";
-    changelog = "https://github.com/libsndfile/libsndfile/releases/tag/${version}";
+    changelog =
+      "https://github.com/libsndfile/libsndfile/releases/tag/${version}";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ lovek323 ];
     platforms = platforms.unix;

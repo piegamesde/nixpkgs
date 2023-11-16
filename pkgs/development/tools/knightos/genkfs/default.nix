@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  asciidoc,
-  cmake,
-  libxslt,
-}:
+{ lib, stdenv, fetchFromGitHub, asciidoc, cmake, libxslt }:
 
 stdenv.mkDerivation rec {
   pname = "genkfs";
@@ -20,11 +13,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    asciidoc
-    libxslt.bin
-    cmake
-  ];
+  nativeBuildInputs = [ asciidoc libxslt.bin cmake ];
 
   hardeningDisable = [ "format" ];
 

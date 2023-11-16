@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  unstableGitUpdater,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, unstableGitUpdater }:
 
 stdenv.mkDerivation {
   pname = "libcxxrt";

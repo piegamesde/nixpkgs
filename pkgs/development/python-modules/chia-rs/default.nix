@@ -1,10 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
-  pytestCheckHook,
-  rustPlatform,
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, pytestCheckHook, rustPlatform }:
 
 buildPythonPackage rec {
   pname = "chia-rs";
@@ -17,11 +11,10 @@ buildPythonPackage rec {
     hash = "sha256-kjURkzynrrb5iD5s77Q3nETt71SCGGazm/2lt9HS5JU=";
   };
 
-  patches =
-    [
-      # undo a hack from upstream that confuses our build hook
-      ./fix-build.patch
-    ];
+  patches = [
+    # undo a hack from upstream that confuses our build hook
+    ./fix-build.patch
+  ];
 
   cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 
@@ -29,10 +22,7 @@ buildPythonPackage rec {
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   preBuild = ''
     # avoid ENOENT in maturinBuildHook

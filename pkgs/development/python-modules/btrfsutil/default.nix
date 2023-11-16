@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  btrfs-progs,
-}:
+{ lib, buildPythonPackage, btrfs-progs }:
 buildPythonPackage {
   pname = "btrfsutil";
   inherit (btrfs-progs) version src;
@@ -22,9 +18,6 @@ buildPythonPackage {
     description = "Library for managing Btrfs filesystems";
     homepage = "https://btrfs.wiki.kernel.org/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [
-      raskin
-      lopsided98
-    ];
+    maintainers = with maintainers; [ raskin lopsided98 ];
   };
 }

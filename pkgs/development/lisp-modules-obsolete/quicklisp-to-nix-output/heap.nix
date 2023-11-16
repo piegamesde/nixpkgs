@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "heap";
   version = "20181018-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/heap/2018-10-18/heap-20181018-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/heap/2018-10-18/heap-20181018-git.tgz";
     sha256 = "1376i9vq5kcskzhqfxvsfvxz7kwkp6d3bd7rxn94dgnha988fd77";
   };
 

@@ -1,40 +1,20 @@
 # Xen hypervisor (Dom0) support.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.virtualisation.xen;
-in
+let cfg = config.virtualisation.xen;
 
-{
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "xen"
-        "qemu"
-      ]
-      "You don't need this option anymore, it will work without it."
-    )
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "xen"
-        "qemu-package"
-      ]
-      [
-        "virtualisation"
-        "xen"
-        "package-qemu"
-      ]
-    )
+    (mkRemovedOptionModule [ "virtualisation" "xen" "qemu" ]
+      "You don't need this option anymore, it will work without it.")
+    (mkRenamedOptionModule [ "virtualisation" "xen" "qemu-package" ] [
+      "virtualisation"
+      "xen"
+      "package-qemu"
+    ])
   ];
 
   ###### interface
@@ -61,10 +41,7 @@ in
       description = lib.mdDoc ''
         The package used for Xen binary.
       '';
-      relatedPackages = [
-        "xen"
-        "xen-light"
-      ];
+      relatedPackages = [ "xen" "xen-light" ];
     };
 
     virtualisation.xen.package-qemu = mkOption {
@@ -138,6 +115,7 @@ in
           servers specified in /etc/resolv.conf .
         '';
       };
+
     };
 
     virtualisation.xen.stored = mkOption {
@@ -160,6 +138,7 @@ in
     };
 
     virtualisation.xen.trace = mkEnableOption (lib.mdDoc "Xen tracing");
+
   };
 
   ###### implementation
@@ -168,10 +147,12 @@ in
     assertions = [
       {
         assertion = pkgs.stdenv.isx86_64;
-        message = "Xen currently not supported on ${pkgs.stdenv.hostPlatform.system}";
+        message =
+          "Xen currently not supported on ${pkgs.stdenv.hostPlatform.system}";
       }
       {
-        assertion = config.boot.loader.grub.enable && (config.boot.loader.grub.efiSupport == false);
+        assertion = config.boot.loader.grub.enable
+          && (config.boot.loader.grub.efiSupport == false);
         message = "Xen currently does not support EFI boot";
       }
     ];
@@ -223,13 +204,10 @@ in
       options loop max_loop=64
     '';
 
-    virtualisation.xen.bootParams =
-      [ ]
-      ++ optionals cfg.trace [
-        "loglvl=all"
-        "guest_loglvl=all"
-      ]
-      ++ optional (cfg.domain0MemorySize != 0) "dom0_mem=${toString cfg.domain0MemorySize}M";
+    virtualisation.xen.bootParams = [ ]
+      ++ optionals cfg.trace [ "loglvl=all" "guest_loglvl=all" ]
+      ++ optional (cfg.domain0MemorySize != 0)
+      "dom0_mem=${toString cfg.domain0MemorySize}M";
 
     system.extraSystemBuilderCmds = ''
       ln -s ${cfg.package}/boot/xen.gz $out/xen.gz
@@ -265,17 +243,16 @@ in
       (isYes "XEN_SCRUB_PAGES")
     ];
 
-    environment.etc =
-      {
-        "xen/xl.conf".source = "${cfg.package}/etc/xen/xl.conf";
-        "xen/scripts".source = "${cfg.package}/etc/xen/scripts";
-        "default/xendomains".text = ''
-          source ${cfg.package}/etc/default/xendomains
+    environment.etc = {
+      "xen/xl.conf".source = "${cfg.package}/etc/xen/xl.conf";
+      "xen/scripts".source = "${cfg.package}/etc/xen/scripts";
+      "default/xendomains".text = ''
+        source ${cfg.package}/etc/default/xendomains
 
-          ${cfg.domains.extraConfig}
-        '';
-      }
-      // optionalAttrs (builtins.compareVersions cfg.package.version "4.10" >= 0) {
+        ${cfg.domains.extraConfig}
+      '';
+    } // optionalAttrs
+      (builtins.compareVersions cfg.package.version "4.10" >= 0) {
         # in V 4.10 oxenstored requires /etc/xen/oxenstored.conf to start
         "xen/oxenstored.conf".source = "${cfg.package}/etc/xen/oxenstored.conf";
       };
@@ -283,18 +260,12 @@ in
     # Xen provides udev rules.
     services.udev.packages = [ cfg.package ];
 
-    services.udev.path = [
-      pkgs.bridge-utils
-      pkgs.iproute2
-    ];
+    services.udev.path = [ pkgs.bridge-utils pkgs.iproute2 ];
 
     systemd.services.xen-store = {
       description = "Xen Store Daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "xen-store.socket"
-      ];
+      after = [ "network.target" "xen-store.socket" ];
       requires = [ "xen-store.socket" ];
       preStart = ''
         export XENSTORED_ROOTDIR="/var/lib/xenstored"
@@ -306,23 +277,23 @@ in
         grep -q control_d /proc/xen/capabilities
       '';
       serviceConfig =
-        if (builtins.compareVersions cfg.package.version "4.8" < 0) then
-          {
-            ExecStart = ''
-              ${cfg.stored}${optionalString cfg.trace " -T /var/log/xen/xenstored-trace.log"} --no-fork
-            '';
-          }
-        else
-          {
-            ExecStart = ''
-              ${cfg.package}/etc/xen/scripts/launch-xenstore
-            '';
-            Type = "notify";
-            RemainAfterExit = true;
-            NotifyAccess = "all";
-          };
+        if (builtins.compareVersions cfg.package.version "4.8" < 0) then {
+          ExecStart = ''
+            ${cfg.stored}${
+              optionalString cfg.trace " -T /var/log/xen/xenstored-trace.log"
+            } --no-fork
+          '';
+        } else {
+          ExecStart = ''
+            ${cfg.package}/etc/xen/scripts/launch-xenstore
+          '';
+          Type = "notify";
+          RemainAfterExit = true;
+          NotifyAccess = "all";
+        };
       postStart = ''
-        ${optionalString (builtins.compareVersions cfg.package.version "4.8" < 0) ''
+        ${optionalString
+        (builtins.compareVersions cfg.package.version "4.8" < 0) ''
           time=0
           timeout=30
           # Wait for xenstored to actually come up, timing out after 30 seconds
@@ -346,10 +317,8 @@ in
       description = "XenStore Socket for userspace API";
       wantedBy = [ "sockets.target" ];
       socketConfig = {
-        ListenStream = [
-          "/var/run/xenstored/socket"
-          "/var/run/xenstored/socket_ro"
-        ];
+        ListenStream =
+          [ "/var/run/xenstored/socket" "/var/run/xenstored/socket_ro" ];
         SocketMode = "0660";
         SocketUser = "root";
         SocketGroup = "root";
@@ -369,7 +338,10 @@ in
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/xenconsoled\
-            ${optionalString ((builtins.compareVersions cfg.package.version "4.8" >= 0)) " -i"}\
+            ${
+              optionalString
+              ((builtins.compareVersions cfg.package.version "4.8" >= 0)) " -i"
+            }\
             ${optionalString cfg.trace " --log=all --log-dir=/var/log/xen"}
         '';
       };
@@ -390,10 +362,7 @@ in
     systemd.services.xen-watchdog = {
       description = "Xen Watchdog Daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "xen-qemu.service"
-        "xen-domains.service"
-      ];
+      after = [ "xen-qemu.service" "xen-domains.service" ];
       serviceConfig.ExecStart = "${cfg.package}/bin/xenwatchdogd 30 15";
       serviceConfig.Type = "forking";
       serviceConfig.RestartSec = "1";
@@ -434,7 +403,9 @@ in
         interface=${cfg.bridge.name}
         except-interface=lo
         bind-interfaces
-        auth-zone=xen.local,$XEN_BRIDGE_NETWORK_ADDRESS/${toString cfg.bridge.prefixLength}
+        auth-zone=xen.local,$XEN_BRIDGE_NETWORK_ADDRESS/${
+          toString cfg.bridge.prefixLength
+        }
         domain=xen.local
         addn-hosts=/var/run/xen/dnsmasq.hostsfile
         expand-hosts
@@ -473,7 +444,8 @@ in
         ${pkgs.inetutils}/bin/ifconfig ${cfg.bridge.name} netmask $XEN_BRIDGE_NETMASK
         ${pkgs.inetutils}/bin/ifconfig ${cfg.bridge.name} up
       '';
-      serviceConfig.ExecStart = "${pkgs.dnsmasq}/bin/dnsmasq --conf-file=/var/run/xen/dnsmasq.conf";
+      serviceConfig.ExecStart =
+        "${pkgs.dnsmasq}/bin/dnsmasq --conf-file=/var/run/xen/dnsmasq.conf";
       postStop = ''
         IFS='-' read -a data <<< `${pkgs.sipcalc}/bin/sipcalc ${cfg.bridge.address}/${
           toString cfg.bridge.prefixLength
@@ -497,30 +469,23 @@ in
     };
 
     systemd.services.xen-domains = {
-      description = "Xen domains - automatically starts, saves and restores Xen domains";
+      description =
+        "Xen domains - automatically starts, saves and restores Xen domains";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "xen-bridge.service"
-        "xen-qemu.service"
-      ];
-      requires = [
-        "xen-bridge.service"
-        "xen-qemu.service"
-      ];
+      after = [ "xen-bridge.service" "xen-qemu.service" ];
+      requires = [ "xen-bridge.service" "xen-qemu.service" ];
       ## To prevent a race between dhcpcd and xend's bridge setup script
       ## (which renames eth* to peth* and recreates eth* as a virtual
       ## device), start dhcpcd after xend.
       before = [ "dhcpd.service" ];
       restartIfChanged = false;
       serviceConfig.RemainAfterExit = "yes";
-      path = [
-        cfg.package
-        cfg.package-qemu
-      ];
+      path = [ cfg.package cfg.package-qemu ];
       environment.XENDOM_CONFIG = "${cfg.package}/etc/sysconfig/xendomains";
       preStart = "mkdir -p /var/lock/subsys -m 755";
       serviceConfig.ExecStart = "${cfg.package}/etc/init.d/xendomains start";
       serviceConfig.ExecStop = "${cfg.package}/etc/init.d/xendomains stop";
     };
+
   };
 }

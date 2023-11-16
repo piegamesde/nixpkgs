@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "peg";
@@ -17,7 +13,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://piumarta.com/software/peg/";
-    description = "Tools for generating recursive-descent parsers: programs that perform pattern matching on text";
+    description =
+      "Tools for generating recursive-descent parsers: programs that perform pattern matching on text";
     platforms = platforms.all;
     license = licenses.mit;
   };

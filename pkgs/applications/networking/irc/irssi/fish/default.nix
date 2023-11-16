@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  glib,
-  openssl,
-  irssi,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, glib, openssl, irssi }:
 
 stdenv.mkDerivation rec {
   pname = "fish-irssi";
@@ -22,15 +13,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./irssi-include-dir.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    glib
-    openssl
-  ];
+  buildInputs = [ glib openssl ];
 
   cmakeFlags = [ "-DIRSSI_INCLUDE_PATH:PATH=${irssi}/include" ];
 

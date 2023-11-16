@@ -1,14 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  setuptools,
+{ lib, buildPythonPackage, fetchFromGitHub, python, setuptools
 
-  # passthru tests
-  apache-beam,
-  datasets,
-}:
+# passthru tests
+, apache-beam, datasets }:
 
 buildPythonPackage rec {
   pname = "dill";
@@ -30,9 +23,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  passthru.tests = {
-    inherit apache-beam datasets;
-  };
+  passthru.tests = { inherit apache-beam datasets; };
 
   pythonImportsCheck = [ "dill" ];
 

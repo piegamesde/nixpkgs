@@ -51,11 +51,7 @@
     version = "0.1.1";
   };
   rspec = {
-    dependencies = [
-      "rspec-core"
-      "rspec-expectations"
-      "rspec-mocks"
-    ];
+    dependencies = [ "rspec-core" "rspec-expectations" "rspec-mocks" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -77,10 +73,7 @@
     version = "3.12.1";
   };
   rspec-expectations = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -91,10 +84,7 @@
     version = "3.12.2";
   };
   rspec-its = {
-    dependencies = [
-      "rspec-core"
-      "rspec-expectations"
-    ];
+    dependencies = [ "rspec-core" "rspec-expectations" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -105,10 +95,7 @@
     version = "1.3.0";
   };
   rspec-mocks = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -129,12 +116,7 @@
     version = "3.12.0";
   };
   serverspec = {
-    dependencies = [
-      "multi_json"
-      "rspec"
-      "rspec-its"
-      "specinfra"
-    ];
+    dependencies = [ "multi_json" "rspec" "rspec-its" "specinfra" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -155,12 +137,7 @@
     version = "2.3";
   };
   specinfra = {
-    dependencies = [
-      "net-scp"
-      "net-ssh"
-      "net-telnet"
-      "sfl"
-    ];
+    dependencies = [ "net-scp" "net-ssh" "net-telnet" "sfl" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

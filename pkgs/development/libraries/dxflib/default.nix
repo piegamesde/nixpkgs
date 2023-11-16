@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  qmake,
-}:
+{ lib, stdenv, fetchurl, qmake }:
 
 stdenv.mkDerivation rec {
   version = "3.26.4";

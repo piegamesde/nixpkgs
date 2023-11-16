@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "minimock";

@@ -1,25 +1,9 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  gobject-introspection,
-  meson,
-  ninja,
-  python3,
-  gtk3,
-  gdk-pixbuf,
-  xapp,
-  wrapGAppsHook,
-  gettext,
-  polkit,
-  glib,
-  gitUpdater,
-  bubblewrap,
-}:
+{ stdenv, fetchFromGitHub, lib, gobject-introspection, meson, ninja, python3
+, gtk3, gdk-pixbuf, xapp, wrapGAppsHook, gettext, polkit, glib, gitUpdater
+, bubblewrap }:
 
 let
-  pythonEnv = python3.withPackages (
-    pp:
+  pythonEnv = python3.withPackages (pp:
     with pp; [
       grpcio-tools
       protobuf
@@ -32,10 +16,8 @@ let
       cryptography
       pynacl
       netifaces
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+in stdenv.mkDerivation rec {
   pname = "warpinator";
   version = "1.6.3";
 
@@ -55,13 +37,7 @@ stdenv.mkDerivation rec {
     polkit # for its gettext
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    gdk-pixbuf
-    pythonEnv
-    xapp
-  ];
+  buildInputs = [ glib gtk3 gdk-pixbuf pythonEnv xapp ];
 
   mesonFlags = [ "-Dbundle-zeroconf=false" ];
 

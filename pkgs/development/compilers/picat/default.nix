@@ -1,20 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, zlib }:
 
 let
-  ARCH =
-    {
-      i686-linux = "linux32";
-      x86_64-linux = "linux64";
-      aarch64-linux = "linux64";
-    }
-    ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-in
-stdenv.mkDerivation {
+  ARCH = {
+    i686-linux = "linux32";
+    x86_64-linux = "linux64";
+    aarch64-linux = "linux64";
+  }."${stdenv.hostPlatform.system}" or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
+in stdenv.mkDerivation {
   pname = "picat";
   version = "3.3p3";
 
@@ -38,9 +31,6 @@ stdenv.mkDerivation {
     homepage = "http://picat-lang.org/";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      earldouglas
-      thoughtpolice
-    ];
+    maintainers = with maintainers; [ earldouglas thoughtpolice ];
   };
 }

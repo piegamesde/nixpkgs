@@ -1,13 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ...
-}:
-let
-  inherit (stdenv.hostPlatform) system;
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchurl, ... }:
+let inherit (stdenv.hostPlatform) system;
+in stdenv.mkDerivation rec {
   pname = "libtensorflow-photoprism";
   version = "1.15.2";
 
@@ -15,27 +8,22 @@ stdenv.mkDerivation rec {
     # Photoprism-packaged libtensorflow tarball (with pre-built libs for both arm64 and amd64)
     # We need this specific version because of https://github.com/photoprism/photoprism/issues/222
     (fetchurl {
-      sha256 =
-        {
-          x86_64-linux = "sha256-bZAC3PJxqcjuGM4RcNtzYtkg3FD3SrO5beDsPoKenzc=";
-          aarch64-linux = "sha256-qnj4vhSWgrk8SIjzIH1/4waMxMsxMUvqdYZPaSaUJRk=";
-        }
-        .${system};
+      sha256 = {
+        x86_64-linux = "sha256-bZAC3PJxqcjuGM4RcNtzYtkg3FD3SrO5beDsPoKenzc=";
+        aarch64-linux = "sha256-qnj4vhSWgrk8SIjzIH1/4waMxMsxMUvqdYZPaSaUJRk=";
+      }.${system};
 
-      url =
-        let
-          systemName =
-            {
-              x86_64-linux = "amd64";
-              aarch64-linux = "arm64";
-            }
-            .${system};
-        in
-        "https://dl.photoprism.app/tensorflow/${systemName}/libtensorflow-${systemName}-${version}.tar.gz";
+      url = let
+        systemName = {
+          x86_64-linux = "amd64";
+          aarch64-linux = "arm64";
+        }.${system};
+      in "https://dl.photoprism.app/tensorflow/${systemName}/libtensorflow-${systemName}-${version}.tar.gz";
     })
     # Upstream tensorflow tarball (with .h's photoprism's tarball is missing)
     (fetchurl {
-      url = "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.15.0.tar.gz";
+      url =
+        "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-linux-x86_64-1.15.0.tar.gz";
       sha256 = "sha256-3sv9WnCeztNSP1XM+iOTN6h+GrPgAO/aNhfbeeEDTe0=";
     })
   ];
@@ -61,13 +49,8 @@ stdenv.mkDerivation rec {
 
   # Patch library to use our libc, libstdc++ and others
   patchPhase =
-    let
-      rpath = lib.makeLibraryPath [
-        stdenv.cc.libc
-        stdenv.cc.cc.lib
-      ];
-    in
-    ''
+    let rpath = lib.makeLibraryPath [ stdenv.cc.libc stdenv.cc.cc.lib ];
+    in ''
       chmod -R +w lib
       patchelf --set-rpath "${rpath}:$out/lib" lib/libtensorflow.so
       patchelf --set-rpath "${rpath}" lib/libtensorflow_framework.so
@@ -94,10 +77,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://dl.photoprism.app/tensorflow/";
     description = "Libtensorflow version for usage with photoprism backend";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     license = licenses.asl20;
     maintainers = with maintainers; [ benesim ];
   };

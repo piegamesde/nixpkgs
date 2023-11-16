@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytest-sugar,
-  pytest-timeout,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytest-asyncio
+, pytest-sugar, pytest-timeout, pytestCheckHook, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "pylutron-caseta";
@@ -29,12 +19,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ cryptography ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-sugar
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ pytest-asyncio pytest-sugar pytest-timeout pytestCheckHook ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
@@ -43,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module o control Lutron Caseta devices";
     homepage = "https://github.com/gurumitts/pylutron-caseta";
-    changelog = "https://github.com/gurumitts/pylutron-caseta/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/gurumitts/pylutron-caseta/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

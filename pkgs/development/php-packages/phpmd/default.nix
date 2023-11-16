@@ -1,20 +1,14 @@
-{
-  mkDerivation,
-  fetchurl,
-  makeWrapper,
-  lib,
-  php,
-}:
+{ mkDerivation, fetchurl, makeWrapper, lib, php }:
 
 let
   pname = "phpmd";
   version = "2.13.0";
-in
-mkDerivation {
+in mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/phpmd/phpmd/releases/download/${version}/phpmd.phar";
+    url =
+      "https://github.com/phpmd/phpmd/releases/download/${version}/phpmd.phar";
     sha256 = "LNR7qT3KIhIeq9WPdXVGsnuzzXN4ze/juDMpt1Ke/A0=";
   };
 

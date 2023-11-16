@@ -1,44 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  writeShellScriptBin,
-  cmake,
-  wrapQtAppsHook,
-  pkg-config,
-  qmake,
-  curl,
-  grantlee,
-  hidapi,
-  libgit2,
-  libssh2,
-  libusb1,
-  libxml2,
-  libxslt,
-  libzip,
-  zlib,
-  qtbase,
-  qtconnectivity,
-  qtlocation,
-  qtsvg,
-  qttools,
-  qtwebengine,
-  libXcomposite,
-  bluez,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, writeShellScriptBin, cmake
+, wrapQtAppsHook, pkg-config, qmake, curl, grantlee, hidapi, libgit2, libssh2
+, libusb1, libxml2, libxslt, libzip, zlib, qtbase, qtconnectivity, qtlocation
+, qtsvg, qttools, qtwebengine, libXcomposite, bluez }:
 
 let
   version = "5.0.10";
 
-  subsurfaceSrc =
-    (fetchFromGitHub {
-      owner = "Subsurface";
-      repo = "subsurface";
-      rev = "v${version}";
-      hash = "sha256-KzUBhFGvocaS1VrVT2stvKrj3uVxYka+dyYZUfkIoNs=";
-      fetchSubmodules = true;
-    });
+  subsurfaceSrc = (fetchFromGitHub {
+    owner = "Subsurface";
+    repo = "subsurface";
+    rev = "v${version}";
+    hash = "sha256-KzUBhFGvocaS1VrVT2stvKrj3uVxYka+dyYZUfkIoNs=";
+    fetchSubmodules = true;
+  });
 
   libdc = stdenv.mkDerivation {
     pname = "libdivecomputer-ssrf";
@@ -48,23 +22,16 @@ let
 
     sourceRoot = "source/libdivecomputer";
 
-    nativeBuildInputs = [
-      autoreconfHook
-      pkg-config
-    ];
+    nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-    buildInputs = [
-      zlib
-      libusb1
-      bluez
-      hidapi
-    ];
+    buildInputs = [ zlib libusb1 bluez hidapi ];
 
     enableParallelBuilding = true;
 
     meta = with lib; {
       homepage = "https://www.libdivecomputer.org";
-      description = "A cross-platform and open source library for communication with dive computers from various manufacturers";
+      description =
+        "A cross-platform and open source library for communication with dive computers from various manufacturers";
       maintainers = with maintainers; [ mguentner ];
       license = licenses.lgpl21;
       platforms = platforms.all;
@@ -84,11 +51,7 @@ let
 
     nativeBuildInputs = [ qmake ];
 
-    buildInputs = [
-      qtbase
-      qtlocation
-      libXcomposite
-    ];
+    buildInputs = [ qtbase qtlocation libXcomposite ];
 
     dontWrapQtApps = true;
 
@@ -113,8 +76,8 @@ let
   get-version = writeShellScriptBin "get-version" ''
     echo -n ${version}
   '';
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "subsurface";
   inherit version;
 
@@ -142,20 +105,11 @@ stdenv.mkDerivation {
     qtwebengine
   ];
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook pkg-config ];
 
-  cmakeFlags = [
-    "-DLIBDC_FROM_PKGCONFIG=ON"
-    "-DNO_PRINTING=OFF"
-  ];
+  cmakeFlags = [ "-DLIBDC_FROM_PKGCONFIG=ON" "-DNO_PRINTING=OFF" ];
 
-  passthru = {
-    inherit version libdc googlemaps;
-  };
+  passthru = { inherit version libdc googlemaps; };
 
   meta = with lib; {
     description = "A divelog program";
@@ -167,10 +121,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://subsurface-divelog.org";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-      mguentner
-      adisbladis
-    ];
+    maintainers = with maintainers; [ mguentner adisbladis ];
     platforms = platforms.all;
   };
 }

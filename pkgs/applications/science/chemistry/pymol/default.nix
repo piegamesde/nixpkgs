@@ -1,19 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeDesktopItem,
-  python3,
-  python3Packages,
-  netcdf,
-  glew,
-  glm,
-  libpng,
-  libxml2,
-  freetype,
-  msgpack,
-  qt5,
-}:
+{ stdenv, lib, fetchFromGitHub, makeDesktopItem, python3, python3Packages
+, netcdf, glew, glm, libpng, libxml2, freetype, msgpack, qt5 }:
 let
   pname = "pymol";
   description = "A Python-enhanced molecular graphics tool";
@@ -34,15 +20,9 @@ let
       "chemical/x-xyz"
       "chemical/x-mdl-sdf"
     ];
-    categories = [
-      "Graphics"
-      "Education"
-      "Science"
-      "Chemistry"
-    ];
+    categories = [ "Graphics" "Education" "Science" "Chemistry" ];
   };
-in
-python3Packages.buildPythonApplication rec {
+in python3Packages.buildPythonApplication rec {
   inherit pname;
   version = "2.5.0";
   src = fetchFromGitHub {

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  msgpack,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, msgpack, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "msgspec";

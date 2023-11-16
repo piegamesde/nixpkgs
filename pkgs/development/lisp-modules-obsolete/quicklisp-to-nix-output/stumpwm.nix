@@ -1,19 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "stumpwm";
   version = "20211209-git";
 
   description = "A tiling, keyboard driven window manager";
 
-  deps = [
-    args."alexandria"
-    args."cl-ppcre"
-    args."clx"
-  ];
+  deps = [ args."alexandria" args."cl-ppcre" args."clx" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/stumpwm/2021-12-09/stumpwm-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/stumpwm/2021-12-09/stumpwm-20211209-git.tgz";
     sha256 = "1n7wj2jn6sydnyrjmic53lqkqigk1cg140b9pcnk09ngsrq3cn60";
   };
 

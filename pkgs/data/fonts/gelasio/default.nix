@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation {
   pname = "gelasio";
@@ -39,3 +35,4 @@ stdenvNoCC.mkDerivation {
     maintainers = with maintainers; [ colemickens ];
   };
 }
+

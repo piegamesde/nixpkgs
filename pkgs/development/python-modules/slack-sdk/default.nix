@@ -1,24 +1,6 @@
-{
-  stdenv,
-  lib,
-  aiodns,
-  aiohttp,
-  boto3,
-  buildPythonPackage,
-  codecov,
-  databases,
-  fetchFromGitHub,
-  flake8,
-  flask-sockets,
-  moto,
-  pythonOlder,
-  psutil,
-  pytest-asyncio,
-  pytestCheckHook,
-  sqlalchemy,
-  websocket-client,
-  websockets,
-}:
+{ stdenv, lib, aiodns, aiohttp, boto3, buildPythonPackage, codecov, databases
+, fetchFromGitHub, flake8, flask-sockets, moto, pythonOlder, psutil
+, pytest-asyncio, pytestCheckHook, sqlalchemy, websocket-client, websockets }:
 
 buildPythonPackage rec {
   pname = "slack-sdk";
@@ -34,14 +16,8 @@ buildPythonPackage rec {
     hash = "sha256-2MPXV+rVXZYMTZe11T8x8GKQmHZwUlkwarCkheVkERo=";
   };
 
-  propagatedBuildInputs = [
-    aiodns
-    aiohttp
-    boto3
-    sqlalchemy
-    websocket-client
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aiodns aiohttp boto3 sqlalchemy websocket-client websockets ];
 
   nativeCheckInputs = [
     codecov
@@ -58,11 +34,10 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTestPaths =
-    [
-      # Exclude tests that requires network features
-      "integration_tests"
-    ];
+  disabledTestPaths = [
+    # Exclude tests that requires network features
+    "integration_tests"
+  ];
 
   disabledTests = [
     # Requires network features
@@ -76,7 +51,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Slack Developer Kit for Python";
     homepage = "https://slack.dev/python-slack-sdk/";
-    changelog = "https://github.com/slackapi/python-slack-sdk/releases/tag/v${version}";
+    changelog =
+      "https://github.com/slackapi/python-slack-sdk/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

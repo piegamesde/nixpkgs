@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  jre,
-  setJavaClassPath,
-  coursier,
-  makeWrapper,
-}:
+{ lib, stdenv, jre, setJavaClassPath, coursier, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "firrtl";
@@ -26,10 +19,7 @@ stdenv.mkDerivation rec {
     outputHash = "sha256-xy3zdJZk6Q2HbEn5tRQ9Z0AjyXEteXepoWDaATjiUUw=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    setJavaClassPath
-  ];
+  nativeBuildInputs = [ makeWrapper setJavaClassPath ];
   buildInputs = [ deps ];
 
   dontUnpack = true;

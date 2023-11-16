@@ -1,28 +1,7 @@
-{
-  lib,
-  stdenv,
-  mkDerivation,
-  fetchFromGitHub,
-  symlinkJoin,
-  qttools,
-  cmake,
-  clang_8,
-  grpc,
-  protobuf,
-  openssl,
-  pkg-config,
-  c-ares,
-  libGL,
-  zlib,
-  curl,
-  v2ray,
-  v2ray-geoip,
-  v2ray-domain-list-community,
-  assets ? [
-    v2ray-geoip
-    v2ray-domain-list-community
-  ],
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, symlinkJoin, qttools, cmake
+, clang_8, grpc, protobuf, openssl, pkg-config, c-ares, libGL, zlib, curl, v2ray
+, v2ray-geoip, v2ray-domain-list-community
+, assets ? [ v2ray-geoip v2ray-domain-list-community ] }:
 
 mkDerivation rec {
   pname = "qv2ray";
@@ -60,14 +39,7 @@ mkDerivation rec {
     export _QV2RAY_BUILD_EXTRA_INFO_="(Nixpkgs build) nixpkgs"
   '';
 
-  buildInputs = [
-    libGL
-    zlib
-    grpc
-    protobuf
-    openssl
-    c-ares
-  ];
+  buildInputs = [ libGL zlib grpc protobuf openssl c-ares ];
 
   nativeBuildInputs = [
     cmake
@@ -81,10 +53,7 @@ mkDerivation rec {
     description = "An GUI frontend to v2ray";
     homepage = "https://github.com/Qv2ray/Qv2ray";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      poscat
-      rewine
-    ];
+    maintainers = with maintainers; [ poscat rewine ];
     platforms = platforms.all;
     # never built on aarch64-darwin, x86_64-darwin since update to unstable-2022-09-25
     broken = stdenv.isDarwin;

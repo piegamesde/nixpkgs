@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  runCommand,
-  yallback,
-  yara,
-}:
+{ lib, fetchFromGitHub, runCommand, yallback, yara }:
 
 /* TODO/CAUTION:
 
@@ -46,10 +40,7 @@ let
     # YARA rule file
     rules = (src + "/execers.yar");
     # output filenames; "types" of lore
-    types = [
-      "execers"
-      "wrappers"
-    ];
+    types = [ "execers" "wrappers" ];
     # shell rule callbacks; see github.com/abathur/yallback
     yallback = (src + "/execers.yall");
     # TODO:
@@ -58,8 +49,7 @@ let
     #   in here, but I'm erring on the side of flexibility
     #   since this form will make it easier to pilot other
     #   uses of binlore.
-    callback =
-      lore: drv: overrides:
+    callback = lore: drv: overrides:
       ''
         if [[ -d "${drv}/bin" ]] || [[ -d "${drv}/lib" ]] || [[ -d "${drv}/libexec" ]]; then
           echo generating binlore for $drv by running:
@@ -67,65 +57,57 @@ let
         else
           echo "failed to generate binlore for $drv (none of ${drv}/{bin,lib,libexec} exist)"
         fi
+      '' +
+      /* Override lore for some packages. Unsure, but for now:
+         1. start with the ~name (pname-version)
+         2. remove characters from the end until we find a match
+            in overrides/
+         3. execute the override script with the list of expected
+            lore types
+      */
       ''
-      +
-        /* Override lore for some packages. Unsure, but for now:
-           1. start with the ~name (pname-version)
-           2. remove characters from the end until we find a match
-              in overrides/
-           3. execute the override script with the list of expected
-              lore types
-        */
-        ''
-          i=''${#identifier}
-          filter=
-          while [[ $i > 0 ]] && [[ -z "$filter" ]]; do
-            if [[ -f "${overrides}/''${identifier:0:$i}" ]]; then
-              filter="${overrides}/''${identifier:0:$i}"
-              echo using "${overrides}/''${identifier:0:$i}" to generate overriden binlore for $drv
-              break
-            fi
-            ((i--)) || true # don't break build
-          done # || true # don't break build
-          if [[ -d "${drv}/bin" ]] || [[ -d "${drv}/lib" ]] || [[ -d "${drv}/libexec" ]]; then
-            ${yara}/bin/yara --scan-list --recursive ${lore.rules} <(printf '%s\n' ${drv}/{bin,lib,libexec}) | ${yallback}/bin/yallback ${lore.yallback} "$filter"
+        i=''${#identifier}
+        filter=
+        while [[ $i > 0 ]] && [[ -z "$filter" ]]; do
+          if [[ -f "${overrides}/''${identifier:0:$i}" ]]; then
+            filter="${overrides}/''${identifier:0:$i}"
+            echo using "${overrides}/''${identifier:0:$i}" to generate overriden binlore for $drv
+            break
           fi
-        '';
+          ((i--)) || true # don't break build
+        done # || true # don't break build
+        if [[ -d "${drv}/bin" ]] || [[ -d "${drv}/lib" ]] || [[ -d "${drv}/libexec" ]]; then
+          ${yara}/bin/yara --scan-list --recursive ${lore.rules} <(printf '%s\n' ${drv}/{bin,lib,libexec}) | ${yallback}/bin/yallback ${lore.yallback} "$filter"
+        fi
+      '';
   };
   overrides = (src + "/overrides");
-in
-rec {
-  collect =
-    {
-      lore ? loreDef,
-      drvs,
-      strip ? [ ],
-    }:
+
+in rec {
+  collect = { lore ? loreDef, drvs, strip ? [ ] }:
     (runCommand "more-binlore" { } ''
       mkdir $out
       for lorefile in ${toString lore.types}; do
         cat ${
-          lib.concatMapStrings (x: x + "/$lorefile ") (
-            map (make lore) (map lib.getBin (builtins.filter lib.isDerivation drvs))
-          )
+          lib.concatMapStrings (x: x + "/$lorefile ") (map (make lore)
+            (map lib.getBin (builtins.filter lib.isDerivation drvs)))
         } > $out/$lorefile
-        substituteInPlace $out/$lorefile ${lib.concatMapStrings (x: "--replace '${x}/' '' ") strip}
+        substituteInPlace $out/$lorefile ${
+          lib.concatMapStrings (x: "--replace '${x}/' '' ") strip
+        }
       done
     '');
   # TODO: echo for debug, can be removed at some point
-  make =
-    lore: drv:
-    runCommand "${drv.name}-binlore"
-      {
-        identifier = drv.name;
-        drv = drv;
-      }
-      (''
-        mkdir $out
-        touch $out/{${builtins.concatStringsSep "," lore.types}}
+  make = lore: drv:
+    runCommand "${drv.name}-binlore" {
+      identifier = drv.name;
+      drv = drv;
+    } (''
+      mkdir $out
+      touch $out/{${builtins.concatStringsSep "," lore.types}}
 
-        ${lore.callback lore drv overrides}
+      ${lore.callback lore drv overrides}
 
-        echo binlore for $drv written to $out
-      '');
+      echo binlore for $drv written to $out
+    '');
 }

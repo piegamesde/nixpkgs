@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  makefun,
-  decopatch,
-  pythonOlder,
-  pytest,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, makefun, decopatch, pythonOlder, pytest
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pytest-cases";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    decopatch
-    makefun
-  ];
+  propagatedBuildInputs = [ decopatch makefun ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -45,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Separate test code from test cases in pytest";
     homepage = "https://github.com/smarie/python-pytest-cases";
-    changelog = "https://github.com/smarie/python-pytest-cases/releases/tag/${version}";
+    changelog =
+      "https://github.com/smarie/python-pytest-cases/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];
   };

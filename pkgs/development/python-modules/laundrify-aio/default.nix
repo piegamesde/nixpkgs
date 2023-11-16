@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  aiohttp,
-  pyjwt,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aiohttp, pyjwt }:
 
 buildPythonPackage rec {
   pname = "laundrify-aio";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-+dTvYn4hux3Y19kWZwxhdkBARmfD8SuNlYWM/ET9K2M=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    pyjwt
-  ];
+  propagatedBuildInputs = [ aiohttp pyjwt ];
 
   # Module has no tests
   doCheck = false;

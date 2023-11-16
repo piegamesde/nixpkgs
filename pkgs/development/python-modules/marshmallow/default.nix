@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  simplejson,
-  packaging,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, pytz
+, simplejson, packaging }:
 
 buildPythonPackage rec {
   pname = "marshmallow";
@@ -25,17 +17,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-    simplejson
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytz simplejson ];
 
   pythonImportsCheck = [ "marshmallow" ];
 
   meta = with lib; {
-    changelog = "https://github.com/marshmallow-code/marshmallow/blob/${src.rev}/CHANGELOG.rst";
-    description = "Library for converting complex objects to and from simple Python datatypes";
+    changelog =
+      "https://github.com/marshmallow-code/marshmallow/blob/${src.rev}/CHANGELOG.rst";
+    description =
+      "Library for converting complex objects to and from simple Python datatypes";
     homepage = "https://github.com/marshmallow-code/marshmallow";
     license = licenses.mit;
     maintainers = with maintainers; [ cript0nauta ];

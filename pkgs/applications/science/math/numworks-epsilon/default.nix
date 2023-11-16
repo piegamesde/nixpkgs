@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  libpng,
-  libjpeg,
-  freetype,
-  xorg,
-  python3,
-  imagemagick,
-  gcc-arm-embedded,
-  pkg-config,
-}:
+{ stdenv, lib, fetchFromGitHub, libpng, libjpeg, freetype, xorg, python3
+, imagemagick, gcc-arm-embedded, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "numworks-epsilon";
@@ -36,12 +25,11 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PLATFORM=simulator" ];
 
-  patches =
-    [
-      # Remove make rule Introduced in cba596dde7
-      # which causes it to not build with nix
-      ./0001-ion-linux-makerules.patch
-    ];
+  patches = [
+    # Remove make rule Introduced in cba596dde7
+    # which causes it to not build with nix
+    ./0001-ion-linux-makerules.patch
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -54,7 +42,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simulator for Epsilon, a High-performance graphing calculator operating system";
+    description =
+      "Simulator for Epsilon, a High-performance graphing calculator operating system";
     homepage = "https://numworks.com/";
     license = licenses.cc-by-nc-sa-40;
     maintainers = with maintainers; [ erikbackman ];

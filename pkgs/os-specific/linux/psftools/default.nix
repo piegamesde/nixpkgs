@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   pname = "psftools";
   version = "1.1.1";
@@ -10,12 +6,7 @@ stdenv.mkDerivation rec {
     url = "https://www.seasip.info/Unix/PSF/${pname}-${version}.tar.gz";
     sha256 = "sha256-MecY4JsIXTgHdkrFkQ+C3fC6OEFRUgjUgf7qxfKeZtM=";
   };
-  outputs = [
-    "out"
-    "man"
-    "dev"
-    "lib"
-  ];
+  outputs = [ "out" "man" "dev" "lib" ];
 
   meta = with lib; {
     homepage = "https://www.seasip.info/Unix/PSF";

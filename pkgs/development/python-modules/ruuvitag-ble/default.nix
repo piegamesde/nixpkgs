@@ -1,15 +1,6 @@
-{
-  lib,
-  bluetooth-data-tools,
-  bluetooth-sensor-state-data,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  home-assistant-bluetooth,
-  pytestCheckHook,
-  pythonOlder,
-  sensor-state-data,
-}:
+{ lib, bluetooth-data-tools, bluetooth-sensor-state-data, buildPythonPackage
+, fetchFromGitHub, hatchling, home-assistant-bluetooth, pytestCheckHook
+, pythonOlder, sensor-state-data }:
 
 buildPythonPackage rec {
   pname = "ruuvitag-ble";

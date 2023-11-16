@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  requests-mock,
-  pythonOlder,
-  pytest-asyncio,
-  pytestCheckHook,
-  python-dateutil,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, requests-mock
+, pythonOlder, pytest-asyncio, pytestCheckHook, python-dateutil, requests }:
 
 buildPythonPackage rec {
   pname = "flipr-api";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ python-dateutil requests ];
 
-  nativeCheckInputs = [
-    requests-mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ requests-mock pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "flipr_api" ];
 

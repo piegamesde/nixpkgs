@@ -1,13 +1,11 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   {
     name = "pantheon";
 
     meta.maintainers = lib.teams.pantheon.members;
 
-    nodes.machine =
-      { ... }:
+    nodes.machine = { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -20,13 +18,11 @@ import ./make-test-python.nix (
 
     enableOCR = true;
 
-    testScript =
-      { nodes, ... }:
+    testScript = { nodes, ... }:
       let
         user = nodes.machine.users.users.alice;
         bob = nodes.machine.users.users.bob;
-      in
-      ''
+      in ''
         machine.wait_for_unit("display-manager.service")
 
         with subtest("Test we can see usernames in elementary-greeter"):
@@ -68,5 +64,4 @@ import ./make-test-python.nix (
             machine.sleep(20)
             machine.screenshot("screen")
       '';
-  }
-)
+  })

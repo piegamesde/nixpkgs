@@ -1,29 +1,22 @@
-{
-  lib,
-  python38,
-  fetchPypi,
-  fetchFromGitHub,
-}:
+{ lib, python38, fetchPypi, fetchFromGitHub }:
 let
   python = python38.override {
     self = python;
     packageOverrides = self: super: {
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.3.24";
-          src = fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-67t3fL+TEjWbiXv4G6ANrg9ctp+6KhgmXcwYpvXvdRk=";
-          };
-          doCheck = false;
-        }
-      );
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
+        version = "1.3.24";
+        src = fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-67t3fL+TEjWbiXv4G6ANrg9ctp+6KhgmXcwYpvXvdRk=";
+        };
+        doCheck = false;
+      });
       tornado = super.tornado_4;
     };
   };
-in
-with python.pkgs;
+
+in with python.pkgs;
 buildPythonApplication rec {
   pname = "grab-site";
   version = "2.2.7";

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-}:
+{ lib, buildPythonPackage, fetchPypi, flask }:
 
 buildPythonPackage rec {
   pname = "flask-paginate";

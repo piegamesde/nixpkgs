@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitLab,
-}:
+{ lib, buildNpmPackage, fetchFromGitLab }:
 
 buildNpmPackage rec {
   pname = "antora";
@@ -29,7 +25,8 @@ buildNpmPackage rec {
   '';
 
   meta = with lib; {
-    description = "A modular documentation site generator. Designed for users of Asciidoctor.";
+    description =
+      "A modular documentation site generator. Designed for users of Asciidoctor.";
     homepage = "https://antora.org";
     license = licenses.mpl20;
     maintainers = [ maintainers.ehllie ];

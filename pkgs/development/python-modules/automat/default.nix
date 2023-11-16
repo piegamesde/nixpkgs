@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  attrs,
-  pytest-benchmark,
-  pytestCheckHook,
-  setuptools-scm,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, attrs, pytest-benchmark, pytestCheckHook
+, setuptools-scm, six }:
 
 let
   automat = buildPythonPackage rec {
@@ -22,15 +14,9 @@ let
 
     nativeBuildInputs = [ setuptools-scm ];
 
-    propagatedBuildInputs = [
-      six
-      attrs
-    ];
+    propagatedBuildInputs = [ six attrs ];
 
-    nativeCheckInputs = [
-      pytest-benchmark
-      pytestCheckHook
-    ];
+    nativeCheckInputs = [ pytest-benchmark pytestCheckHook ];
 
     # escape infinite recursion with twisted
     doCheck = false;
@@ -41,10 +27,10 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/glyph/Automat";
-      description = "Self-service finite-state machines for the programmer on the go";
+      description =
+        "Self-service finite-state machines for the programmer on the go";
       license = licenses.mit;
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in
-automat
+in automat

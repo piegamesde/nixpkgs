@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  httpx,
-  importlib-metadata,
-  requests,
-  tokenizers,
-  aiohttp,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, httpx, importlib-metadata
+, requests, tokenizers, aiohttp, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "anthropic";
@@ -25,12 +15,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    httpx
-    requests
-    tokenizers
-    aiohttp
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ httpx requests tokenizers aiohttp ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # try downloading tokenizer in tests
   # relates https://github.com/anthropics/anthropic-sdk-python/issues/24
@@ -41,7 +27,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Anthropic's safety-first language model APIs";
     homepage = "https://github.com/anthropics/anthropic-sdk-python";
-    changelog = "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ natsukium ];
   };

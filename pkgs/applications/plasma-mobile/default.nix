@@ -19,52 +19,37 @@
    4. Commit the changes and open a pull request.
 */
 
-{
-  lib,
-  libsForQt5,
-  fetchurl,
-}:
+{ lib, libsForQt5, fetchurl }:
 
 let
   mirror = "mirror://kde";
   srcs = import ./srcs.nix { inherit fetchurl mirror; };
 
-  mkDerivation =
-    args:
+  mkDerivation = args:
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
-      mkDerivation = libsForQt5.callPackage ({ mkDerivation }: mkDerivation) { };
-    in
-    mkDerivation (
-      args
-      // {
-        inherit pname version src;
+      mkDerivation =
+        libsForQt5.callPackage ({ mkDerivation }: mkDerivation) { };
+    in mkDerivation (args // {
+      inherit pname version src;
 
-        outputs = args.outputs or [ "out" ];
+      outputs = args.outputs or [ "out" ];
 
-        meta =
-          let
-            meta = args.meta or { };
-          in
-          meta
-          // {
-            homepage = meta.homepage or "https://www.plasma-mobile.org/";
-            platforms = meta.platforms or lib.platforms.linux;
-          };
-      }
-    );
+      meta = let meta = args.meta or { };
+      in meta // {
+        homepage = meta.homepage or "https://www.plasma-mobile.org/";
+        platforms = meta.platforms or lib.platforms.linux;
+      };
+    });
 
-  packages =
-    self:
-    let
-      callPackage = self.newScope { inherit mkDerivation; };
-    in
-    {
+  packages = self:
+    let callPackage = self.newScope { inherit mkDerivation; };
+    in {
       plasma-dialer = callPackage ./plasma-dialer.nix { };
       plasma-phonebook = callPackage ./plasma-phonebook.nix { };
       plasma-settings = callPackage ./plasma-settings.nix { };
       spacebar = callPackage ./spacebar.nix { };
     };
-in
-lib.makeScope libsForQt5.newScope packages
+
+in lib.makeScope libsForQt5.newScope packages

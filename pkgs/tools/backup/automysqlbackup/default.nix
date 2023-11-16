@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  mariadb,
-  mailutils,
-  pbzip2,
-  pigz,
-  bzip2,
-  gzip,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, mariadb, mailutils, pbzip2, pigz
+, bzip2, gzip }:
 
 stdenv.mkDerivation rec {
   pname = "automysqlbackup";
@@ -31,19 +21,13 @@ stdenv.mkDerivation rec {
     cp automysqlbackup.conf $out/etc/
 
     wrapProgram $out/bin/automysqlbackup --prefix PATH : ${
-      lib.makeBinPath [
-        mariadb
-        mailutils
-        pbzip2
-        pigz
-        bzip2
-        gzip
-      ]
+      lib.makeBinPath [ mariadb mailutils pbzip2 pigz bzip2 gzip ]
     }
   '';
 
   meta = with lib; {
-    description = "A script to run daily, weekly and monthly backups for your MySQL database";
+    description =
+      "A script to run daily, weekly and monthly backups for your MySQL database";
     homepage = "https://github.com/sixhop/AutoMySQLBackup";
     platforms = platforms.linux;
     maintainers = [ maintainers.aanderse ];

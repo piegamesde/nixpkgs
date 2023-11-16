@@ -1,60 +1,25 @@
-{
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  lib,
-  pkg-config,
-  util-linux,
-  libcap,
-  libtirpc,
-  libevent,
-  sqlite,
-  libkrb5,
-  kmod,
-  libuuid,
-  keyutils,
-  lvm2,
-  systemd,
-  coreutils,
-  tcp_wrappers,
-  python3,
-  buildPackages,
-  nixosTests,
-  rpcsvc-proto,
-  enablePython ? true,
-}:
+{ stdenv, fetchurl, fetchpatch, lib, pkg-config, util-linux, libcap, libtirpc
+, libevent, sqlite, libkrb5, kmod, libuuid, keyutils, lvm2, systemd, coreutils
+, tcp_wrappers, python3, buildPackages, nixosTests, rpcsvc-proto
+, enablePython ? true }:
 
-let
-  statdPath = lib.makeBinPath [
-    systemd
-    util-linux
-    coreutils
-  ];
-in
+let statdPath = lib.makeBinPath [ systemd util-linux coreutils ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "nfs-utils";
   version = "2.6.2";
 
   src = fetchurl {
-    url = "mirror://kernel/linux/utils/nfs-utils/${version}/${pname}-${version}.tar.xz";
+    url =
+      "mirror://kernel/linux/utils/nfs-utils/${version}/${pname}-${version}.tar.xz";
     hash = "sha256-UgCHPoHE1hDiRi/CYv4YE18tvni3l5+VrM0VmuZNUBE=";
   };
 
   # libnfsidmap is built together with nfs-utils from the same source,
   # put it in the "lib" output, and the headers in "dev"
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-    "man"
-  ];
+  outputs = [ "out" "dev" "lib" "man" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    buildPackages.stdenv.cc
-    rpcsvc-proto
-  ];
+  nativeBuildInputs = [ pkg-config buildPackages.stdenv.cc rpcsvc-proto ];
 
   buildInputs = [
     libtirpc
@@ -83,20 +48,21 @@ stdenv.mkDerivation rec {
     "--with-krb5=${lib.getLib libkrb5}"
     "--with-systemd=${placeholder "out"}/etc/systemd/system"
     "--enable-libmount-mount"
-    "--with-pluginpath=${placeholder "lib"}/lib/libnfsidmap" # this installs libnfsidmap
+    "--with-pluginpath=${
+      placeholder "lib"
+    }/lib/libnfsidmap" # this installs libnfsidmap
     "--with-rpcgen=${buildPackages.rpcsvc-proto}/bin/rpcgen"
     "--with-modprobedir=${placeholder "out"}/etc/modprobe.d"
   ];
 
-  patches =
-    lib.optionals stdenv.hostPlatform.isMusl
-      [
-        # http://openwall.com/lists/musl/2015/08/18/10
-        (fetchpatch {
-          url = "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
-          sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
-        })
-      ];
+  patches = lib.optionals stdenv.hostPlatform.isMusl [
+    # http://openwall.com/lists/musl/2015/08/18/10
+    (fetchpatch {
+      url =
+        "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
+      sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
+    })
+  ];
 
   postPatch = ''
     patchShebangs tests
@@ -122,30 +88,20 @@ stdenv.mkDerivation rec {
     "generator_dir=$(out)/etc/systemd/system-generators"
   ];
 
-  installFlags = [
-    "statedir=$(TMPDIR)"
-    "statdpath=$(TMPDIR)"
-  ];
+  installFlags = [ "statedir=$(TMPDIR)" "statdpath=$(TMPDIR)" ];
 
-  stripDebugList = [
-    "lib"
-    "libexec"
-    "bin"
-    "etc/systemd/system-generators"
-  ];
+  stripDebugList = [ "lib" "libexec" "bin" "etc/systemd/system-generators" ];
 
-  postInstall =
-    ''
-      # Not used on NixOS
-      sed -i \
-        -e "s,/sbin/modprobe,${kmod}/bin/modprobe,g" \
-        -e "s,/usr/sbin,$out/bin,g" \
-        $out/etc/systemd/system/*
-    ''
-    + lib.optionalString (!enablePython) ''
-      # Remove all scripts that require python (currently mountstats and nfsiostat)
-      grep -l /usr/bin/python $out/bin/* | xargs -I {} rm -v {}
-    '';
+  postInstall = ''
+    # Not used on NixOS
+    sed -i \
+      -e "s,/sbin/modprobe,${kmod}/bin/modprobe,g" \
+      -e "s,/usr/sbin,$out/bin,g" \
+      $out/etc/systemd/system/*
+  '' + lib.optionalString (!enablePython) ''
+    # Remove all scripts that require python (currently mountstats and nfsiostat)
+    grep -l /usr/bin/python $out/bin/* | xargs -I {} rm -v {}
+  '';
 
   # One test fails on mips.
   # doCheck = !stdenv.isMips;

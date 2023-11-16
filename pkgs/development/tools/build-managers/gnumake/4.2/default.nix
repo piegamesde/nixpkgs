@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  guileSupport ? false,
-  pkg-config ? null,
-  guile ? null,
+{ lib, stdenv, fetchurl, guileSupport ? false, pkg-config ? null, guile ? null
 }:
 
 assert guileSupport -> (pkg-config != null && guile != null);
@@ -33,8 +27,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = lib.optionals guileSupport [ pkg-config ];
   buildInputs = lib.optionals guileSupport [ guile ];
 
-  configureFlags =
-    lib.optional guileSupport "--with-guile"
+  configureFlags = lib.optional guileSupport "--with-guile"
 
     # Make uses this test to decide whether it should keep track of
     # subseconds. Apple made this possible with APFS and macOS 10.13.
@@ -45,14 +38,11 @@ stdenv.mkDerivation rec {
     # See https://github.com/NixOS/nixpkgs/issues/51221 for discussion.
     ++ lib.optional stdenv.isDarwin "ac_cv_struct_st_mtim_nsec=no";
 
-  outputs = [
-    "out"
-    "man"
-    "info"
-  ];
+  outputs = [ "out" "man" "info" ];
 
   meta = with lib; {
-    description = "A tool to control the generation of non-source files from sources";
+    description =
+      "A tool to control the generation of non-source files from sources";
     longDescription = ''
       Make is a tool which controls the generation of executables and
       other non-source files of a program from the program's source files.

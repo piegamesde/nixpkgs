@@ -1,14 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !enableStatic,
+{ lib, stdenv, fetchFromGitHub, enableStatic ? stdenv.hostPlatform.isStatic
+, enableShared ? !enableStatic
   # Multi-threading with OpenMP is disabled by default
   # more info on https://www.cryptopp.com/wiki/OpenMP
-  withOpenMP ? false,
-  llvmPackages,
-}:
+, withOpenMP ? false, llvmPackages }:
 
 stdenv.mkDerivation rec {
   pname = "crypto++";
@@ -22,10 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-KtZXW7+J9a4uKHnK8sqj5WVaIjG3d6tzBBDxa7Wv4AE=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   postPatch = ''
     substituteInPlace GNUmakefile \
@@ -33,12 +24,13 @@ stdenv.mkDerivation rec {
       --replace "ARFLAGS = -static -o" "ARFLAGS = -cru"
   '';
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
+  buildInputs =
+    lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  buildFlags =
-    lib.optional enableStatic "static" ++ lib.optional enableShared "shared" ++ [ "libcryptopp.pc" ];
+  buildFlags = lib.optional enableStatic "static"
+    ++ lib.optional enableShared "shared" ++ [ "libcryptopp.pc" ];
 
   enableParallelBuilding = true;
   hardeningDisable = [ "fortify" ];
@@ -59,10 +51,7 @@ stdenv.mkDerivation rec {
       "https://raw.githubusercontent.com/weidai11/cryptopp/CRYPTOPP_${underscoredVersion}/History.txt"
       "https://github.com/weidai11/cryptopp/releases/tag/CRYPTOPP_${underscoredVersion}"
     ];
-    license = with licenses; [
-      boost
-      publicDomain
-    ];
+    license = with licenses; [ boost publicDomain ];
     platforms = platforms.all;
     maintainers = with maintainers; [ c0bw3b ];
   };

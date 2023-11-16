@@ -1,17 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libX11,
-  libXext,
-  libXft,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libX11, libXext, libXft }:
 
-let
-  version = "1.40";
-in
-stdenv.mkDerivation {
+let version = "1.40";
+in stdenv.mkDerivation {
   pname = "windowlab";
   inherit version;
 
@@ -21,11 +11,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libX11
-    libXext
-    libXft
-  ];
+  buildInputs = [ libX11 libXext libXft ];
 
   postPatch = ''
     mv Makefile Makefile.orig

@@ -1,16 +1,5 @@
-{
-  lib,
-  copyDesktopItems,
-  fetchurl,
-  ffmpeg,
-  gitUpdater,
-  jre,
-  libarchive,
-  makeDesktopItem,
-  openjfx,
-  stdenvNoCC,
-  wrapGAppsHook,
-}:
+{ lib, copyDesktopItems, fetchurl, ffmpeg, gitUpdater, jre, libarchive
+, makeDesktopItem, openjfx, stdenvNoCC, wrapGAppsHook }:
 let
   pname = "maptool";
   version = "1.13.1";
@@ -21,40 +10,27 @@ let
   };
 
   icon = fetchurl {
-    url = "https://raw.githubusercontent.com/RPTools/${pname}/${version}/package/linux/MapTool.png";
+    url =
+      "https://raw.githubusercontent.com/RPTools/${pname}/${version}/package/linux/MapTool.png";
     hash = "sha256-xkVYjMprTanHu8r4b9PHORI8E1aJp+9KDSP5mqCE8ew=";
   };
 
   meta = with lib; {
-    description = "Virtual Tabletop for playing roleplaying games with remote players or face to face";
+    description =
+      "Virtual Tabletop for playing roleplaying games with remote players or face to face";
     homepage = "https://www.rptools.net/toolbox/maptool/";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
+    sourceProvenance = with sourceTypes; [ binaryBytecode binaryNativeCode ];
     license = licenses.agpl3;
     maintainers = with maintainers; [ rhendric ];
   };
 
-  javafxModules = [
-    "base"
-    "controls"
-    "media"
-    "swing"
-    "web"
-    "fxml"
-    "graphics"
-  ];
+  javafxModules = [ "base" "controls" "media" "swing" "web" "fxml" "graphics" ];
 
-  classpath =
-    lib.concatMap
-      (mod: [
-        "${openjfx}/modules_src/javafx.${mod}/module-info.java"
-        "${openjfx}/modules/javafx.${mod}"
-        "${openjfx}/modules_libs/javafx.${mod}"
-      ])
-      javafxModules
-    ++ [ src ];
+  classpath = lib.concatMap (mod: [
+    "${openjfx}/modules_src/javafx.${mod}/module-info.java"
+    "${openjfx}/modules/javafx.${mod}"
+    "${openjfx}/modules_libs/javafx.${mod}"
+  ]) javafxModules ++ [ src ];
 
   jvmArgs = [
     "-cp"
@@ -83,24 +59,14 @@ let
 
   binName = pname;
   rdnsName = "net.rptools.maptool";
-in
-stdenvNoCC.mkDerivation {
-  inherit
-    pname
-    version
-    src
-    meta
-  ;
+in stdenvNoCC.mkDerivation {
+  inherit pname version src meta;
 
   dontUnpack = true;
   dontBuild = true;
   dontWrapGApps = true;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    libarchive
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ copyDesktopItems libarchive wrapGAppsHook ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -120,7 +86,9 @@ stdenvNoCC.mkDerivation {
     makeWrapper ${jre}/bin/java $out/bin/${binName} \
       "''${gappsWrapperArgs[@]}" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ ffmpeg ]} \
-      --add-flags '${lib.concatStringsSep " " jvmArgs} net.rptools.maptool.client.LaunchInstructions'
+      --add-flags '${
+        lib.concatStringsSep " " jvmArgs
+      } net.rptools.maptool.client.LaunchInstructions'
 
     dest=$out/share/icons/hicolor/256x256/apps
     mkdir -p "$dest"

@@ -1,30 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  aws-c-auth,
-  aws-c-cal,
-  aws-c-common,
-  aws-c-compression,
-  aws-c-event-stream,
-  aws-c-http,
-  aws-c-io,
-  aws-c-mqtt,
-  aws-c-s3,
-  aws-checksums,
-  cmake,
-  s2n-tls,
-  nix,
-}:
+{ lib, stdenv, fetchFromGitHub, aws-c-auth, aws-c-cal, aws-c-common
+, aws-c-compression, aws-c-event-stream, aws-c-http, aws-c-io, aws-c-mqtt
+, aws-c-s3, aws-checksums, cmake, s2n-tls, nix }:
 
 stdenv.mkDerivation rec {
   pname = "aws-crt-cpp";
   version = "0.20.2";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "awslabs";
@@ -33,12 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6oRVAL4pn+1+/LqLijKiBV6fZy3k9fZySwMwYHB1aUY=";
   };
 
-  patches =
-    [
-      # Correct include path for split outputs.
-      # https://github.com/awslabs/aws-crt-cpp/pull/325
-      ./0001-build-Make-includedir-properly-overrideable.patch
-    ];
+  patches = [
+    # Correct include path for split outputs.
+    # https://github.com/awslabs/aws-crt-cpp/pull/325
+    ./0001-build-Make-includedir-properly-overrideable.patch
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace '-Werror' ""
@@ -60,19 +41,14 @@ stdenv.mkDerivation rec {
     s2n-tls
   ];
 
-  cmakeFlags = [
-    "-DBUILD_DEPS=OFF"
-    "-DBUILD_SHARED_LIBS=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_DEPS=OFF" "-DBUILD_SHARED_LIBS=ON" ];
 
   postInstall = ''
     # Prevent dependency cycle.
     moveToOutput lib/aws-crt-cpp/cmake "$dev"
   '';
 
-  passthru.tests = {
-    inherit nix;
-  };
+  passthru.tests = { inherit nix; };
 
   meta = with lib; {
     description = "C++ wrapper around the aws-c-* libraries";

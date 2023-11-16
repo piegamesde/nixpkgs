@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "vttest";
@@ -17,9 +13,11 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Tests the compatibility of so-called 'VT100-compatible' terminals";
+    description =
+      "Tests the compatibility of so-called 'VT100-compatible' terminals";
     homepage = "https://invisible-island.net/vttest/";
     license = licenses.mit;
     platforms = platforms.all;
   };
 }
+

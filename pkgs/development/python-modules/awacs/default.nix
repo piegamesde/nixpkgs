@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  python,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, python, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "awacs";
@@ -18,7 +11,8 @@ buildPythonPackage rec {
     hash = "sha256-0tizZWcHe1qbLxpXS/IngExaFFUHZyXXlksWcNL/vEw=";
   };
 
-  propagatedBuildInputs = lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover
@@ -29,7 +23,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "AWS Access Policy Language creation library";
     homepage = "https://github.com/cloudtools/awacs";
-    changelog = "https://github.com/cloudtools/awacs/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/cloudtools/awacs/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [ jlesquembre ];
   };

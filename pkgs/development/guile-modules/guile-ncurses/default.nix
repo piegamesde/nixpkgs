@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  guile,
-  libffi,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, pkg-config, guile, libffi, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "guile-ncurses";
@@ -18,11 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    guile
-    libffi
-    ncurses
-  ];
+  buildInputs = [ guile libffi ncurses ];
 
   preConfigure = ''
     configureFlags="$configureFlags --with-guilesitedir=$out/share/guile/site"

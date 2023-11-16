@@ -1,85 +1,14 @@
-{
-  sage-src,
-  env-locations,
-  python,
-  buildPythonPackage,
-  m4,
-  perl,
-  pkg-config,
-  sage-setup,
-  gd,
-  iml,
-  libpng,
-  readline,
-  arb,
-  blas,
-  boost,
-  brial,
-  cliquer,
-  eclib,
-  ecm,
-  fflas-ffpack,
-  flint,
-  gap,
-  giac,
-  givaro,
-  glpk,
-  gsl,
-  lapack,
-  lcalc,
-  libbraiding,
-  libhomfly,
-  libmpc,
-  linbox,
-  lisp-compiler,
-  lrcalc,
-  m4ri,
-  m4rie,
-  mpfi,
-  mpfr,
-  ntl,
-  pari,
-  planarity,
-  ppl,
-  rankwidth,
-  ratpoints,
-  singular,
-  sqlite,
-  symmetrica,
-  cvxopt,
-  cypari2,
-  cysignals,
-  cython,
-  fpylll,
-  gmpy2,
-  importlib-metadata,
-  importlib-resources,
-  ipykernel,
-  ipython,
-  ipywidgets,
-  jinja2,
-  jupyter-client,
-  jupyter-core,
-  lrcalc-python,
-  matplotlib,
-  memory-allocator,
-  mpmath,
-  networkx,
-  numpy,
-  pexpect,
-  pillow,
-  pip,
-  pkgconfig,
-  pplpy,
-  primecountpy,
-  ptyprocess,
-  requests,
-  rpy2,
-  scipy,
-  sphinx,
-  sympy,
-  typing-extensions,
-}:
+{ sage-src, env-locations, python, buildPythonPackage, m4, perl, pkg-config
+, sage-setup, gd, iml, libpng, readline, arb, blas, boost, brial, cliquer, eclib
+, ecm, fflas-ffpack, flint, gap, giac, givaro, glpk, gsl, lapack, lcalc
+, libbraiding, libhomfly, libmpc, linbox, lisp-compiler, lrcalc, m4ri, m4rie
+, mpfi, mpfr, ntl, pari, planarity, ppl, rankwidth, ratpoints, singular, sqlite
+, symmetrica, cvxopt, cypari2, cysignals, cython, fpylll, gmpy2
+, importlib-metadata, importlib-resources, ipykernel, ipython, ipywidgets
+, jinja2, jupyter-client, jupyter-core, lrcalc-python, matplotlib
+, memory-allocator, mpmath, networkx, numpy, pexpect, pillow, pip, pkgconfig
+, pplpy, primecountpy, ptyprocess, requests, rpy2, scipy, sphinx, sympy
+, typing-extensions }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 
@@ -103,12 +32,7 @@ buildPythonPackage rec {
     sage-setup
   ];
 
-  buildInputs = [
-    gd
-    iml
-    libpng
-    readline
-  ];
+  buildInputs = [ gd iml libpng readline ];
 
   propagatedBuildInputs = [
     # native dependencies (TODO: determine which ones need to be propagated)

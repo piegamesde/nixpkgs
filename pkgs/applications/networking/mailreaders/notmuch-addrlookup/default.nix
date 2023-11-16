@@ -1,16 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  glib,
-  notmuch,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, glib, notmuch }:
 
-let
-  version = "10";
-in
-stdenv.mkDerivation {
+let version = "10";
+in stdenv.mkDerivation {
   pname = "notmuch-addrlookup";
   inherit version;
 
@@ -22,10 +13,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    glib
-    notmuch
-  ];
+  buildInputs = [ glib notmuch ];
 
   installPhase = "install -D notmuch-addrlookup $out/bin/notmuch-addrlookup";
 

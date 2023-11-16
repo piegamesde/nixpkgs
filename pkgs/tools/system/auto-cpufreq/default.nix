@@ -1,9 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  substituteAll,
-}:
+{ lib, python3Packages, fetchFromGitHub, substituteAll }:
 
 python3Packages.buildPythonPackage rec {
   pname = "auto-cpufreq";
@@ -16,11 +11,7 @@ python3Packages.buildPythonPackage rec {
     sha256 = "1r27ydv258c6pc82za0wq8q8fj0j3r50c8wxc6r7dwr6wx8q3asx";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    click
-    distro
-    psutil
-  ];
+  propagatedBuildInputs = with python3Packages; [ click distro psutil ];
 
   doCheck = false;
   pythonImportsCheck = [ "auto_cpufreq" ];

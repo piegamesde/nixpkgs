@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
 
   options.value = lib.mkOption { type = lib.types.anything; };
 
@@ -9,4 +8,5 @@
     { value.l1.l2.foo = null; }
     { value.l1.l2.l3.foo = null; }
   ];
+
 }

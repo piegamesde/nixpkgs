@@ -1,23 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  lksctp-tools,
-  libosmo-netif,
-  libasn1c,
-  libosmo-sccp,
-  osmo-iuh,
-  osmo-mgw,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore
+, lksctp-tools, libosmo-netif, libasn1c, libosmo-sccp, osmo-iuh, osmo-mgw }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-hnbgw";
   version = "1.4.0";
 
@@ -32,10 +18,7 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [
     libosmocore
@@ -50,7 +33,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "Osmocom Home NodeB Gateway, for attaching femtocells to the 3G CN (OsmoMSC, OsmoSGSN)";
+    description =
+      "Osmocom Home NodeB Gateway, for attaching femtocells to the 3G CN (OsmoMSC, OsmoSGSN)";
     homepage = "https://osmocom.org/projects/osmohnbgw";
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ janik ];

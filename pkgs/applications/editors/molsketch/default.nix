@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  mkDerivation,
-  fetchurl,
-  cmake,
-  pkg-config,
-  hicolor-icon-theme,
-  openbabel,
-  desktop-file-utils,
-  qttranslations,
-}:
+{ lib, stdenv, mkDerivation, fetchurl, cmake, pkg-config, hicolor-icon-theme
+, openbabel, desktop-file-utils, qttranslations }:
 
 mkDerivation rec {
   pname = "molsketch";
@@ -24,16 +14,9 @@ mkDerivation rec {
     cmakeFlags="$cmakeFlags -DMSK_PREFIX=$out"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    hicolor-icon-theme
-    openbabel
-    desktop-file-utils
-    qttranslations
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs =
+    [ hicolor-icon-theme openbabel desktop-file-utils qttranslations ];
 
   meta = with lib; {
     description = "2D molecule editor";

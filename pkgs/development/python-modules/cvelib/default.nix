@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  jsonschema,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  testers,
-  cve,
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, jsonschema, pytestCheckHook
+, pythonOlder, requests, testers, cve }:
 
 buildPythonPackage rec {
   pname = "cvelib";
@@ -27,11 +17,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
-  propagatedBuildInputs = [
-    click
-    jsonschema
-    requests
-  ];
+  propagatedBuildInputs = [ click jsonschema requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -40,7 +26,8 @@ buildPythonPackage rec {
   passthru.tests.version = testers.testVersion { package = cve; };
 
   meta = with lib; {
-    description = "Library and a command line interface for the CVE Services API";
+    description =
+      "Library and a command line interface for the CVE Services API";
     homepage = "https://github.com/RedHatProductSecurity/cvelib";
     license = licenses.mit;
     maintainers = with maintainers; [ raboof ];

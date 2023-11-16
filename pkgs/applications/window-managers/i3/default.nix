@@ -1,35 +1,8 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  pkg-config,
-  makeWrapper,
-  meson,
-  ninja,
-  installShellFiles,
-  libxcb,
-  xcbutilkeysyms,
-  xcbutil,
-  xcbutilwm,
-  xcbutilxrm,
-  libstartup_notification,
-  libX11,
-  pcre2,
-  libev,
-  yajl,
-  xcb-util-cursor,
-  perl,
-  pango,
-  perlPackages,
-  libxkbcommon,
-  xorgserver,
-  xvfb-run,
-  asciidoc,
-  xmlto,
-  docbook_xml_dtd_45,
-  docbook_xsl,
-  findXMLCatalogs,
-}:
+{ fetchurl, lib, stdenv, pkg-config, makeWrapper, meson, ninja
+, installShellFiles, libxcb, xcbutilkeysyms, xcbutil, xcbutilwm, xcbutilxrm
+, libstartup_notification, libX11, pcre2, libev, yajl, xcb-util-cursor, perl
+, pango, perlPackages, libxkbcommon, xorgserver, xvfb-run, asciidoc, xmlto
+, docbook_xml_dtd_45, docbook_xsl, findXMLCatalogs }:
 
 stdenv.mkDerivation rec {
   pname = "i3";
@@ -54,10 +27,7 @@ stdenv.mkDerivation rec {
     findXMLCatalogs
   ];
 
-  mesonFlags = [
-    "-Ddocs=true"
-    "-Dmans=true"
-  ];
+  mesonFlags = [ "-Ddocs=true" "-Dmans=true" ];
 
   buildInputs = [
     libxcb
@@ -97,10 +67,11 @@ stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/issues/7957
   doCheck = false; # stdenv.hostPlatform.system == "x86_64-linux";
 
-  checkPhase = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-    (cd testcases && xvfb-run ./complete-run.pl -p 1 --keep-xserver-output)
-    ! grep -q '^not ok' testcases/latest/complete-run.log
-  '';
+  checkPhase =
+    lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
+      (cd testcases && xvfb-run ./complete-run.pl -p 1 --keep-xserver-output)
+      ! grep -q '^not ok' testcases/latest/complete-run.log
+    '';
 
   postInstall = ''
     wrapProgram "$out/bin/i3-save-tree" --prefix PERL5LIB ":" "$PERL5LIB"
@@ -116,11 +87,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A tiling window manager";
     homepage = "https://i3wm.org";
-    maintainers = with maintainers; [
-      modulistic
-      fpletz
-      globin
-    ];
+    maintainers = with maintainers; [ modulistic fpletz globin ];
     license = licenses.bsd3;
     platforms = platforms.all;
 
@@ -132,4 +99,5 @@ stdenv.mkDerivation rec {
       UTF-8 clean.
     '';
   };
+
 }

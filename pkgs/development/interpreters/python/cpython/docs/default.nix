@@ -1,8 +1,4 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-}:
+{ stdenv, fetchurl, lib }:
 
 let
   pythonDocs = {
@@ -31,5 +27,4 @@ let
       python310 = import ./3.10-texinfo.nix { inherit stdenv fetchurl lib; };
     };
   };
-in
-pythonDocs
+in pythonDocs

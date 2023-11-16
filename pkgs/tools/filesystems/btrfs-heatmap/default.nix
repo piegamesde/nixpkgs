@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  python3,
-  installShellFiles,
-}:
+{ stdenv, lib, fetchFromGitHub, python3, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "btrfs-heatmap";
@@ -18,15 +12,9 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ python3 ];
-  nativeBuildInputs = [
-    python3.pkgs.wrapPython
-    installShellFiles
-  ];
+  nativeBuildInputs = [ python3.pkgs.wrapPython installShellFiles ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   installPhase = ''
     runHook preInstall

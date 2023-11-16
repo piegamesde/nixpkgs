@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  more-itertools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, more-itertools
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "class-doc";

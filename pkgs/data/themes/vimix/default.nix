@@ -1,109 +1,84 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gnome-shell,
-  gtk-engine-murrine,
-  gtk_engines,
-  jdupes,
-  sassc,
-  gitUpdater,
-  themeVariants ? [ ] # default: doder (blue)
-  ,
-  colorVariants ? [ ] # default: all
-  ,
-  sizeVariants ? [ ] # default: standard
-  ,
-  tweaks ? [ ],
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gnome-shell, gtk-engine-murrine, gtk_engines
+, jdupes, sassc, gitUpdater, themeVariants ? [ ] # default: doder (blue)
+, colorVariants ? [ ] # default: all
+, sizeVariants ? [ ] # default: standard
+, tweaks ? [ ] }:
 
-let
-  pname = "vimix-gtk-themes";
-in
-lib.checkListOfEnum "${pname}: theme variants"
-  [
-    "doder"
-    "beryl"
-    "ruby"
-    "amethyst"
-    "jade"
-    "grey"
-    "all"
-  ]
-  themeVariants
-  lib.checkListOfEnum
-  "${pname}: color variants"
-  [
-    "standard"
-    "light"
-    "dark"
-  ]
-  colorVariants
-  lib.checkListOfEnum
-  "${pname}: size variants"
-  [
-    "standard"
-    "compact"
-    "all"
-  ]
-  sizeVariants
-  lib.checkListOfEnum
-  "${pname}: tweaks"
-  [
-    "flat"
-    "grey"
-    "mix"
-    "translucent"
-  ]
-  tweaks
+let pname = "vimix-gtk-themes";
 
-  stdenvNoCC.mkDerivation
-  rec {
-    inherit pname;
-    version = "2023-01-25";
+in lib.checkListOfEnum "${pname}: theme variants" [
+  "doder"
+  "beryl"
+  "ruby"
+  "amethyst"
+  "jade"
+  "grey"
+  "all"
+] themeVariants lib.checkListOfEnum
+"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
+lib.checkListOfEnum "${pname}: size variants" [ "standard" "compact" "all" ]
+sizeVariants lib.checkListOfEnum
+"${pname}: tweaks" [ "flat" "grey" "mix" "translucent" ] tweaks
 
-    src = fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = pname;
-      rev = version;
-      sha256 = "4IJMLSUsZvtPfuMS+NYkKo8K3laec2YJk20d5tL0vKI=";
-    };
+stdenvNoCC.mkDerivation rec {
+  inherit pname;
+  version = "2023-01-25";
 
-    nativeBuildInputs = [
-      gnome-shell # needed to determine the gnome-shell version
-      jdupes
-      sassc
-    ];
+  src = fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = pname;
+    rev = version;
+    sha256 = "4IJMLSUsZvtPfuMS+NYkKo8K3laec2YJk20d5tL0vKI=";
+  };
 
-    buildInputs = [ gtk_engines ];
+  nativeBuildInputs = [
+    gnome-shell # needed to determine the gnome-shell version
+    jdupes
+    sassc
+  ];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  buildInputs = [ gtk_engines ];
 
-    postPatch = ''
-      patchShebangs install.sh
-    '';
+  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/share/themes
-      name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
-        --dest $out/share/themes
-      rm $out/share/themes/*/{AUTHORS,LICENSE}
-      jdupes --quiet --link-soft --recurse $out/share
-      runHook postInstall
-    '';
+  postPatch = ''
+    patchShebangs install.sh
+  '';
 
-    passthru.updateScript = gitUpdater { };
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/share/themes
+    name= HOME="$TMPDIR" ./install.sh \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (sizeVariants != [ ]) "--size "
+        + builtins.toString sizeVariants
+      } \
+      ${
+        lib.optionalString (tweaks != [ ]) "--tweaks "
+        + builtins.toString tweaks
+      } \
+      --dest $out/share/themes
+    rm $out/share/themes/*/{AUTHORS,LICENSE}
+    jdupes --quiet --link-soft --recurse $out/share
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "Flat Material Design theme for GTK based desktop environments";
-      homepage = "https://github.com/vinceliuice/vimix-gtk-themes";
-      license = licenses.gpl3Only;
-      platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
-    };
-  }
+  passthru.updateScript = gitUpdater { };
+
+  meta = with lib; {
+    description =
+      "Flat Material Design theme for GTK based desktop environments";
+    homepage = "https://github.com/vinceliuice/vimix-gtk-themes";
+    license = licenses.gpl3Only;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.romildo ];
+  };
+}

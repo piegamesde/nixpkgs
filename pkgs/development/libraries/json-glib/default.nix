@@ -1,31 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  glib,
-  meson,
-  ninja,
-  nixosTests,
-  pkg-config,
-  gettext,
-  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
-  buildPackages,
-  gobject-introspection,
-  gi-docgen,
-  libxslt,
-  fixDarwinDylibNames,
-  gnome,
-}:
+{ lib, stdenv, fetchurl, glib, meson, ninja, nixosTests, pkg-config, gettext
+, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
+, buildPackages, gobject-introspection, gi-docgen, libxslt, fixDarwinDylibNames
+, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "json-glib";
   version = "1.6.6";
 
-  outputs = [
-    "out"
-    "dev"
-    "installedTests"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs = [ "out" "dev" "installedTests" ]
+    ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -34,30 +17,18 @@ stdenv.mkDerivation rec {
     sha256 = "luyYvnqR9t3jNjZyDj2i/27LuQ52zKpJSX8xpoVaSQ4=";
   };
 
-  patches =
-    [
-      # Add option for changing installation path of installed tests.
-      ./meson-add-installed-tests-prefix-option.patch
-    ];
+  patches = [
+    # Add option for changing installation path of installed tests.
+    ./meson-add-installed-tests-prefix-option.patch
+  ];
 
   strictDeps = true;
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      pkg-config
-      gettext
-      glib
-      libxslt
-    ]
+  nativeBuildInputs = [ meson ninja pkg-config gettext glib libxslt ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ]
-    ++ lib.optionals withIntrospection [
-      gobject-introspection
-      gi-docgen
-    ];
+    ++ lib.optionals withIntrospection [ gobject-introspection gi-docgen ];
 
   propagatedBuildInputs = [ glib ];
 
@@ -90,9 +61,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = {
-      installedTests = nixosTests.installed-tests.json-glib;
-    };
+    tests = { installedTests = nixosTests.installed-tests.json-glib; };
 
     updateScript = gnome.updateScript {
       packageName = pname;
@@ -101,7 +70,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format";
+    description =
+      "A library providing (de)serialization support for the JavaScript Object Notation (JSON) format";
     homepage = "https://wiki.gnome.org/Projects/JsonGlib";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

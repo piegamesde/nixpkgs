@@ -1,36 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  addOpenGLRunpath,
-  wrapGAppsHook,
-  cmake,
-  glslang,
-  nasm,
-  pkg-config,
+{ lib, stdenv, fetchFromGitHub, addOpenGLRunpath, wrapGAppsHook, cmake, glslang
+, nasm, pkg-config
 
-  SDL2,
-  boost,
-  cubeb,
-  curl,
-  fmt_9,
-  glm,
-  gtk3,
-  imgui,
-  libpng,
-  libzip,
-  libXrender,
-  pugixml,
-  rapidjson,
-  vulkan-headers,
-  wayland,
-  wxGTK32,
-  zarchive,
-  gamemode,
-  vulkan-loader,
+, SDL2, boost, cubeb, curl, fmt_9, glm, gtk3, imgui, libpng, libzip, libXrender
+, pugixml, rapidjson, vulkan-headers, wayland, wxGTK32, zarchive, gamemode
+, vulkan-loader
 
-  nix-update-script,
-}:
+, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "cemu";
@@ -43,22 +18,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-+2V78G4SDFb6ZQDDorvT13yqnZw2JAObF+WGYMMGYHE=";
   };
 
-  patches =
-    [
-      # glslangTargets want SPIRV-Tools-opt to be defined:
-      # > The following imported targets are referenced, but are missing:
-      # > SPIRV-Tools-opt
-      ./cmakelists.patch
-    ];
-
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    wrapGAppsHook
-    cmake
-    glslang
-    nasm
-    pkg-config
+  patches = [
+    # glslangTargets want SPIRV-Tools-opt to be defined:
+    # > The following imported targets are referenced, but are missing:
+    # > SPIRV-Tools-opt
+    ./cmakelists.patch
   ];
+
+  nativeBuildInputs =
+    [ addOpenGLRunpath wrapGAppsHook cmake glslang nasm pkg-config ];
 
   buildInputs = [
     SDL2
@@ -91,12 +59,9 @@ stdenv.mkDerivation rec {
     "-DPORTABLE=OFF"
   ];
 
-  preConfigure =
-    with lib;
-    let
-      tag = last (splitString "-" version);
-    in
-    ''
+  preConfigure = with lib;
+    let tag = last (splitString "-" version);
+    in ''
       rm -rf dependencies/imgui
       ln -s ${imgui}/include/imgui dependencies/imgui
       substituteInPlace src/Common/version.h --replace " (experimental)" "-${tag} (experimental)"
@@ -119,15 +84,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  preFixup =
-    let
-      libs = [ vulkan-loader ] ++ cubeb.passthru.backendLibs;
-    in
-    ''
-      gappsWrapperArgs+=(
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"
-      )
-    '';
+  preFixup = let libs = [ vulkan-loader ] ++ cubeb.passthru.backendLibs;
+  in ''
+    gappsWrapperArgs+=(
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"
+    )
+  '';
 
   passthru.updateScript = nix-update-script { };
 
@@ -136,9 +98,6 @@ stdenv.mkDerivation rec {
     homepage = "https://cemu.info";
     license = licenses.mpl20;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      zhaofengli
-      baduhai
-    ];
+    maintainers = with maintainers; [ zhaofengli baduhai ];
   };
 }

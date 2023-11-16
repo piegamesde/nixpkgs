@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "hdparm";
@@ -24,4 +20,5 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers = [ ];
   };
+
 }

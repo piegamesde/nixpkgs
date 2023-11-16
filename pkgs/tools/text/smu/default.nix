@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "smu";
@@ -27,3 +23,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ oxzi ];
   };
 }
+

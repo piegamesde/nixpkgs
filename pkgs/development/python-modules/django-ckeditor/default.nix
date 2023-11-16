@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  django-js-asset,
-  fetchFromGitHub,
-  python,
-  setuptools-scm,
-  django-extensions,
-  selenium,
-  pillow,
-}:
+{ lib, buildPythonPackage, django, django-js-asset, fetchFromGitHub, python
+, setuptools-scm, django-extensions, selenium, pillow }:
 
 buildPythonPackage rec {
   pname = "django-ckeditor";
@@ -27,18 +17,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-    django-js-asset
-    pillow
-  ];
+  propagatedBuildInputs = [ django django-js-asset pillow ];
 
   DJANGO_SETTINGS_MODULE = "ckeditor_demo.settings";
 
-  checkInputs = [
-    django-extensions
-    selenium
-  ];
+  checkInputs = [ django-extensions selenium ];
 
   checkPhase = ''
     runHook preCheck

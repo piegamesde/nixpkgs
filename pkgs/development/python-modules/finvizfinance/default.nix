@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  beautifulsoup4,
-  datetime,
-  lxml,
-  pandas,
-  pytest-mock,
-  pytestCheckHook,
-  requests,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, beautifulsoup4
+, datetime, lxml, pandas, pytest-mock, pytestCheckHook, requests }:
 
 buildPythonPackage rec {
   pname = "finvizfinance";
@@ -31,18 +20,9 @@ buildPythonPackage rec {
       --replace "bs4" "beautifulsoup4"
   '';
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    datetime
-    lxml
-    pandas
-    requests
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 datetime lxml pandas requests ];
 
   pythonImportsCheck = [ "finvizfinance" ];
 
@@ -62,8 +42,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Finviz Finance information downloader";
     homepage = "https://github.com/lit26/finvizfinance";
-    changelog = "https://github.com/lit26/finvizfinance/releases/tag/v${version}";
+    changelog =
+      "https://github.com/lit26/finvizfinance/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ icyrockcom ];
   };
 }
+

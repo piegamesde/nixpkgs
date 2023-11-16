@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  asciidoctor,
-  gawk,
-  gnused,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchFromGitHub, asciidoctor, gawk, gnused, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "esh";
@@ -21,15 +13,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ asciidoctor ];
 
-  buildInputs = [
-    gawk
-    gnused
-  ];
+  buildInputs = [ gawk gnused ];
 
-  makeFlags = [
-    "prefix=$(out)"
-    "DESTDIR="
-  ];
+  makeFlags = [ "prefix=$(out)" "DESTDIR=" ];
 
   postPatch = ''
     patchShebangs .

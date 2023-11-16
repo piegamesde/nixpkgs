@@ -1,26 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  cmake,
-  double-conversion,
-  fetchpatch,
-  fmt_8,
-  gflags,
-  glog,
-  libevent,
-  libiberty,
-  libunwind,
-  lz4,
-  openssl,
-  pkg-config,
-  xz,
-  zlib,
-  zstd,
-  jemalloc,
-  follyMobile ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, cmake, double-conversion, fetchpatch
+, fmt_8, gflags, glog, libevent, libiberty, libunwind, lz4, openssl, pkg-config
+, xz, zlib, zstd, jemalloc, follyMobile ? false }:
 
 stdenv.mkDerivation rec {
   pname = "folly";
@@ -33,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DfZiVxncpKSPn9BN25d8o0/tC27+HhSG/t53WgzAT/s=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   # See CMake/folly-deps.cmake in the Folly source tree.
   buildInputs = [
@@ -67,7 +44,9 @@ stdenv.mkDerivation rec {
 
     # temporary hack until folly builds work on aarch64,
     # see https://github.com/facebook/folly/issues/1880
-    "-DCMAKE_LIBRARY_ARCHITECTURE=${if stdenv.isx86_64 then "x86_64" else "dummy"}"
+    "-DCMAKE_LIBRARY_ARCHITECTURE=${
+      if stdenv.isx86_64 then "x86_64" else "dummy"
+    }"
   ];
 
   postFixup = ''
@@ -88,15 +67,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/facebook/folly";
     license = licenses.asl20;
     # 32bit is not supported: https://github.com/facebook/folly/issues/103
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-      "aarch64-linux"
-    ];
-    maintainers = with maintainers; [
-      abbradar
-      pierreis
-    ];
+    platforms =
+      [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" "aarch64-linux" ];
+    maintainers = with maintainers; [ abbradar pierreis ];
   };
 }

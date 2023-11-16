@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  lzip,
-}:
+{ lib, stdenv, fetchurl, lzip }:
 
 stdenv.mkDerivation rec {
   pname = "ddrescue";
@@ -50,9 +45,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
 
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      domenkozar
-      fpletz
-    ];
+    maintainers = with maintainers; [ domenkozar fpletz ];
   };
 }

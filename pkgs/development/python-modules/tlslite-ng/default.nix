@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ecdsa,
-}:
+{ lib, buildPythonPackage, fetchPypi, ecdsa }:
 
 buildPythonPackage rec {
   pname = "tlslite-ng";
@@ -22,4 +17,5 @@ buildPythonPackage rec {
     license = licenses.lgpl2;
     maintainers = [ ];
   };
+
 }

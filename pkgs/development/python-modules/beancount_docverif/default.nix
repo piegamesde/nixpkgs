@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  setuptools-scm,
-  beancount,
-  pytest,
-  sh,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, setuptools-scm, beancount, pytest
+, sh }:
 
 buildPythonPackage rec {
   version = "1.0.1";
@@ -24,10 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ beancount ];
 
-  nativeCheckInputs = [
-    pytest
-    sh
-  ];
+  nativeCheckInputs = [ pytest sh ];
 
   checkPhase = ''
     pytest

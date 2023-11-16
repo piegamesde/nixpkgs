@@ -1,18 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, lib, pkgs, utils, ... }:
 
 with lib;
 
 let
   cfg = config.systemd.coredump;
   systemd = config.systemd.package;
-in
-{
+in {
   options = {
     systemd.coredump.enable = mkOption {
       default = true;
@@ -38,10 +31,8 @@ in
   config = mkMerge [
 
     (mkIf cfg.enable {
-      systemd.additionalUpstreamSystemUnits = [
-        "systemd-coredump.socket"
-        "systemd-coredump@.service"
-      ];
+      systemd.additionalUpstreamSystemUnits =
+        [ "systemd-coredump.socket" "systemd-coredump@.service" ];
 
       environment.etc = {
         "systemd/coredump.conf".text = ''
@@ -68,7 +59,8 @@ in
             ];
           };
 
-        "sysctl.d/50-default.conf".source = "${systemd}/example/sysctl.d/50-default.conf";
+        "sysctl.d/50-default.conf".source =
+          "${systemd}/example/sysctl.d/50-default.conf";
       };
 
       users.users.systemd-coredump = {
@@ -78,6 +70,10 @@ in
       users.groups.systemd-coredump = { };
     })
 
-    (mkIf (!cfg.enable) { boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core"; })
+    (mkIf (!cfg.enable) {
+      boot.kernel.sysctl."kernel.core_pattern" = mkDefault "core";
+    })
+
   ];
+
 }

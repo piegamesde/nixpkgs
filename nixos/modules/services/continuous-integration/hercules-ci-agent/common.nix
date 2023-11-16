@@ -3,77 +3,38 @@
    Platform-specific code is in the respective default.nix files.
 */
 
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 let
   inherit (lib)
-    filterAttrs
-    literalExpression
-    mkIf
-    mkOption
-    mkRemovedOptionModule
-    mkRenamedOptionModule
-    types
+    filterAttrs literalExpression mkIf mkOption mkRemovedOptionModule
+    mkRenamedOptionModule types
 
   ;
 
   cfg = config.services.hercules-ci-agent;
 
   inherit (import ./settings.nix { inherit pkgs lib; }) format settingsModule;
-in
-{
+
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "hercules-ci-agent"
-        "extraOptions"
-      ]
-      [
-        "services"
-        "hercules-ci-agent"
-        "settings"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "hercules-ci-agent"
-        "baseDirectory"
-      ]
-      [
-        "services"
-        "hercules-ci-agent"
-        "settings"
-        "baseDirectory"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "hercules-ci-agent"
-        "concurrentTasks"
-      ]
-      [
-        "services"
-        "hercules-ci-agent"
-        "settings"
-        "concurrentTasks"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "hercules-ci-agent"
-        "patchNix"
-      ]
-      "Nix versions packaged in this version of Nixpkgs don't need a patched nix-daemon to work correctly in Hercules CI Agent clusters."
-    )
+    (mkRenamedOptionModule [ "services" "hercules-ci-agent" "extraOptions" ] [
+      "services"
+      "hercules-ci-agent"
+      "settings"
+    ])
+    (mkRenamedOptionModule [ "services" "hercules-ci-agent" "baseDirectory" ] [
+      "services"
+      "hercules-ci-agent"
+      "settings"
+      "baseDirectory"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "hercules-ci-agent"
+      "concurrentTasks"
+    ] [ "services" "hercules-ci-agent" "settings" "concurrentTasks" ])
+    (mkRemovedOptionModule [ "services" "hercules-ci-agent" "patchNix" ]
+      "Nix versions packaged in this version of Nixpkgs don't need a patched nix-daemon to work correctly in Hercules CI Agent clusters.")
   ];
 
   options.services.hercules-ci-agent = {
@@ -125,30 +86,23 @@ in
 
   config = mkIf cfg.enable {
     # Make sure that nix.extraOptions does not override trusted-users
-    assertions = [
-      {
-        assertion =
-          (cfg.settings.nixUserIsTrusted or false)
-          ->
-            builtins.match
-              ''
-                .*(^|
-                )[ 	]*trusted-users[ 	]*=.*''
-              config.nix.extraOptions == null;
-        message = ''
-          hercules-ci-agent: Please do not set `trusted-users` in `nix.extraOptions`.
+    assertions = [{
+      assertion = (cfg.settings.nixUserIsTrusted or false) -> builtins.match ''
+        .*(^|
+        )[ 	]*trusted-users[ 	]*=.*'' config.nix.extraOptions == null;
+      message = ''
+        hercules-ci-agent: Please do not set `trusted-users` in `nix.extraOptions`.
 
-          The hercules-ci-agent module by default relies on `nix.settings.trusted-users`
-          to be effectful, but a line like `trusted-users = ...` in `nix.extraOptions`
-          will override the value set in `nix.settings.trusted-users`.
+        The hercules-ci-agent module by default relies on `nix.settings.trusted-users`
+        to be effectful, but a line like `trusted-users = ...` in `nix.extraOptions`
+        will override the value set in `nix.settings.trusted-users`.
 
-          Instead of setting `trusted-users` in the `nix.extraOptions` string, you should
-          set an option with additive semantics, such as
-           - the NixOS option `nix.settings.trusted-users`, or
-           - the Nix option in the `extraOptions` string, `extra-trusted-users`
-        '';
-      }
-    ];
+        Instead of setting `trusted-users` in the `nix.extraOptions` string, you should
+        set an option with additive semantics, such as
+         - the NixOS option `nix.settings.trusted-users`, or
+         - the Nix option in the `extraOptions` string, `extra-trusted-users`
+      '';
+    }];
     nix.extraOptions = ''
       # A store path that was missing at first may well have finished building,
       # even shortly after the previous lookup. This *also* applies to the daemon.

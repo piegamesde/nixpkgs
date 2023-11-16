@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libminc,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libminc }:
 
 stdenv.mkDerivation rec {
   pname = "EBTKS";

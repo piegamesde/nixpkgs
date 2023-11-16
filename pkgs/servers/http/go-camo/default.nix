@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "go-camo";
@@ -17,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-C66QxlMBupbHYktyzHapUrl0yk+pvWZN0BLhpjIGVzI=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.ServerVersion=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.ServerVersion=${version}" ];
 
   preCheck = ''
     # requires network access
@@ -29,7 +21,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A camo server is a special type of image proxy that proxies non-secure images over SSL/TLS";
+    description =
+      "A camo server is a special type of image proxy that proxies non-secure images over SSL/TLS";
     homepage = "https://github.com/cactus/go-camo";
     changelog = "https://github.com/cactus/go-camo/releases/tag/v${version}";
     license = licenses.mit;

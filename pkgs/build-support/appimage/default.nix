@@ -1,15 +1,5 @@
-{
-  lib,
-  bash,
-  binutils-unwrapped,
-  coreutils,
-  gawk,
-  libarchive,
-  pv,
-  squashfsTools,
-  buildFHSEnv,
-  pkgs,
-}:
+{ lib, bash, binutils-unwrapped, coreutils, gawk, libarchive, pv, squashfsTools
+, buildFHSEnv, pkgs }:
 
 rec {
   appimage-exec = pkgs.substituteAll {
@@ -27,12 +17,7 @@ rec {
     ];
   };
 
-  extract =
-    args@{
-      name ? "${args.pname}-${args.version}",
-      src,
-      ...
-    }:
+  extract = args@{ name ? "${args.pname}-${args.version}", src, ... }:
     pkgs.runCommand "${name}-extracted" { buildInputs = [ appimage-exec ]; } ''
       appimage-exec.sh -x $out ${src}
     '';
@@ -42,67 +27,41 @@ rec {
   extractType2 = extract;
   wrapType1 = wrapType2;
 
-  wrapAppImage =
-    args@{
-      name ? "${args.pname}-${args.version}",
-      src,
-      extraPkgs,
-      meta ? { },
-      ...
-    }:
-    buildFHSEnv (
-      defaultFhsEnvArgs
-      // {
-        inherit name;
+  wrapAppImage = args@{ name ? "${args.pname}-${args.version}", src, extraPkgs
+    , meta ? { }, ... }:
+    buildFHSEnv (defaultFhsEnvArgs // {
+      inherit name;
 
-        targetPkgs = pkgs: [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
+      targetPkgs = pkgs:
+        [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs
+        ++ extraPkgs pkgs;
 
-        runScript = "appimage-exec.sh -w ${src} --";
+      runScript = "appimage-exec.sh -w ${src} --";
 
-        meta = {
-          sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-        } // meta;
-      }
-      // (removeAttrs args (
-        [
-          "pname"
-          "version"
-        ]
-        ++ (builtins.attrNames (builtins.functionArgs wrapAppImage))
-      ))
-    );
+      meta = {
+        sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      } // meta;
+    } // (removeAttrs args ([ "pname" "version" ]
+      ++ (builtins.attrNames (builtins.functionArgs wrapAppImage)))));
 
-  wrapType2 =
-    args@{
-      name ? "${args.pname}-${args.version}",
-      src,
-      extraPkgs ? pkgs: [ ],
-      ...
-    }:
-    wrapAppImage (
-      args
-      // {
-        inherit name extraPkgs;
-        src = extract { inherit name src; };
+  wrapType2 = args@{ name ? "${args.pname}-${args.version}", src
+    , extraPkgs ? pkgs: [ ], ... }:
+    wrapAppImage (args // {
+      inherit name extraPkgs;
+      src = extract { inherit name src; };
 
-        # passthru src to make nix-update work
-        # hack to keep the origin position (unsafeGetAttrPos)
-        passthru =
-          lib.pipe args [
-            lib.attrNames
-            (lib.remove "src")
-            (removeAttrs args)
-          ]
-          // args.passthru or { };
-      }
-    );
+      # passthru src to make nix-update work
+      # hack to keep the origin position (unsafeGetAttrPos)
+      passthru =
+        lib.pipe args [ lib.attrNames (lib.remove "src") (removeAttrs args) ]
+        // args.passthru or { };
+    });
 
   defaultFhsEnvArgs = {
     name = "appimage-env";
 
     # Most of the packages were taken from the Steam chroot
-    targetPkgs =
-      pkgs:
+    targetPkgs = pkgs:
       with pkgs; [
         gtk3
         bashInteractive
@@ -119,8 +78,7 @@ rec {
 
     # list of libraries expected in an appimage environment:
     # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
-    multiPkgs =
-      pkgs:
+    multiPkgs = pkgs:
       with pkgs; [
         desktop-file-utils
         xorg.libXcomposite
@@ -222,7 +180,8 @@ rec {
         alsa-lib
 
         harfbuzz
-        e2fsprogs
+        0.0
+        fsprogs
         libgpg-error
         keyutils.lib
         libjack2

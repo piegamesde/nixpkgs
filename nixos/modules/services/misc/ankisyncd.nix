@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,22 +13,19 @@ let
 
   sessionDbPath = "${stateDir}/session.db";
 
-  configFile = pkgs.writeText "ankisyncd.conf" (
-    lib.generators.toINI { } {
-      sync_app = {
-        host = cfg.host;
-        port = cfg.port;
-        data_root = stateDir;
-        auth_db_path = authDbPath;
-        session_db_path = sessionDbPath;
+  configFile = pkgs.writeText "ankisyncd.conf" (lib.generators.toINI { } {
+    sync_app = {
+      host = cfg.host;
+      port = cfg.port;
+      data_root = stateDir;
+      auth_db_path = authDbPath;
+      session_db_path = sessionDbPath;
 
-        base_url = "/sync/";
-        base_media_url = "/msync/";
-      };
-    }
-  );
-in
-{
+      base_url = "/sync/";
+      base_media_url = "/msync/";
+    };
+  });
+in {
   options.services.ankisyncd = {
     enable = mkEnableOption (lib.mdDoc "ankisyncd");
 
@@ -59,7 +51,8 @@ in
     openFirewall = mkOption {
       default = false;
       type = types.bool;
-      description = lib.mdDoc "Whether to open the firewall for the specified port.";
+      description =
+        lib.mdDoc "Whether to open the firewall for the specified port.";
     };
   };
 

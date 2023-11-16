@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  autoPatchelfHook,
-  libX11,
-  libXext,
-  libXrandr,
-  libXinerama,
-  libglvnd,
-  openal,
-  glibc,
-  makeDesktopItem,
-  copyDesktopItems,
-  imagemagick,
-  liberation_ttf,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook, libX11, libXext
+, libXrandr, libXinerama, libglvnd, openal, glibc, makeDesktopItem
+, copyDesktopItems, imagemagick, liberation_ttf }:
 stdenv.mkDerivation rec {
   pname = "unigine-sanctuary";
   version = "2.3";
@@ -25,11 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KKi70ctkEm+tx0kjBMWVKMLDrJ1TsPH+CKLDMXA6OdU=";
   };
 
-  libPath = lib.makeLibraryPath [
-    libglvnd
-    openal
-    glibc
-  ];
+  libPath = lib.makeLibraryPath [ libglvnd openal glibc ];
 
   installPhase = ''
     bash $src --target ${pname}-${version}
@@ -71,20 +52,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    imagemagick
-    copyDesktopItems
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook makeWrapper imagemagick copyDesktopItems ];
 
-  buildInputs = [
-    stdenv.cc.cc
-    libX11
-    libXext
-    libXrandr
-    libXinerama
-  ];
+  buildInputs = [ stdenv.cc.cc libX11 libXext libXrandr libXinerama ];
 
   dontUnpack = true;
 
@@ -94,10 +65,7 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.BarinovMaxim ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     mainProgram = "Sanctuary";
   };
 }

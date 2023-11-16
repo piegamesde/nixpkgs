@@ -1,33 +1,8 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  fetchzip,
-  alembic,
-  async_generator,
-  certipy,
-  python-dateutil,
-  entrypoints,
-  jinja2,
-  jupyter-telemetry,
-  oauthlib,
-  pamela,
-  prometheus-client,
-  requests,
-  sqlalchemy,
-  tornado,
-  traitlets,
-  nodePackages,
-  beautifulsoup4,
-  cryptography,
-  notebook,
-  pytest-asyncio,
-  pytestCheckHook,
-  requests-mock,
-  virtualenv,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, fetchzip, alembic
+, async_generator, certipy, python-dateutil, entrypoints, jinja2
+, jupyter-telemetry, oauthlib, pamela, prometheus-client, requests, sqlalchemy
+, tornado, traitlets, nodePackages, beautifulsoup4, cryptography, notebook
+, pytest-asyncio, pytestCheckHook, requests-mock, virtualenv }:
 
 let
   # js/css assets that setup.py tries to fetch via `npm install` when building
@@ -52,9 +27,8 @@ let
     url = "https://registry.npmjs.org/requirejs/-/requirejs-2.3.6.tgz";
     sha256 = "165hkli3qcd59cjqvli9r5f92i0h7czkmhcg1cgwamw2d0b7xibz";
   };
-in
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "jupyterhub";
   version = "1.5.0";
   disabled = pythonOlder "3.6";
@@ -152,11 +126,9 @@ buildPythonPackage rec {
     broken = lib.versionAtLeast sqlalchemy.version "2.0";
     description = "Serves multiple Jupyter notebook instances";
     homepage = "https://jupyter.org/";
-    changelog = "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/changelog.md";
+    changelog =
+      "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/changelog.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      ixxie
-      cstrahan
-    ];
+    maintainers = with maintainers; [ ixxie cstrahan ];
   };
 }

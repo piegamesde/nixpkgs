@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  markdown,
-  mkdocs,
-  pytestCheckHook,
-  pdm-pep517,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, markdown, mkdocs, pytestCheckHook
+, pdm-pep517, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mkdocs-autorefs";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    markdown
-    mkdocs
-  ];
+  propagatedBuildInputs = [ markdown mkdocs ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

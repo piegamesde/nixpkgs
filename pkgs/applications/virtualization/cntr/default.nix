@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, rustPlatform, fetchFromGitHub, nixosTests }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cntr";

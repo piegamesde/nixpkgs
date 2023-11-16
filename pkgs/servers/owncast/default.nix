@@ -1,15 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-  bash,
-  which,
-  ffmpeg,
-  makeWrapper,
-  coreutils,
-  ...
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests, bash, which, ffmpeg
+, makeWrapper, coreutils, ... }:
 
 buildGoModule rec {
   pname = "owncast";
@@ -33,31 +23,25 @@ buildGoModule rec {
     cp -r $src/{static,webroot} $out
   '';
 
-  postInstall =
-    let
+  postInstall = let
 
-      setupScript = ''
-        [ ! -d "$PWD/webroot" ] && (
-          ${coreutils}/bin/cp --no-preserve=mode -r "${placeholder "out"}/webroot" "$PWD"
-        )
+    setupScript = ''
+      [ ! -d "$PWD/webroot" ] && (
+        ${coreutils}/bin/cp --no-preserve=mode -r "${
+          placeholder "out"
+        }/webroot" "$PWD"
+      )
 
-        [ ! -d "$PWD/static" ] && (
-          [ -L "$PWD/static" ] && ${coreutils}/bin/rm "$PWD/static"
-          ${coreutils}/bin/ln -s "${placeholder "out"}/static" "$PWD"
-        )
-      '';
-    in
-    ''
-      wrapProgram $out/bin/owncast \
-        --run '${setupScript}' \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            bash
-            which
-            ffmpeg
-          ]
-        }
+      [ ! -d "$PWD/static" ] && (
+        [ -L "$PWD/static" ] && ${coreutils}/bin/rm "$PWD/static"
+        ${coreutils}/bin/ln -s "${placeholder "out"}/static" "$PWD"
+      )
     '';
+  in ''
+    wrapProgram $out/bin/owncast \
+      --run '${setupScript}' \
+      --prefix PATH : ${lib.makeBinPath [ bash which ffmpeg ]}
+  '';
 
   installCheckPhase = ''
     runHook preCheck
@@ -74,4 +58,5 @@ buildGoModule rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ MayNiklas ];
   };
+
 }

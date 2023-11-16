@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  scheme48,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, scheme48 }:
 
 stdenv.mkDerivation {
   pname = "scsh";

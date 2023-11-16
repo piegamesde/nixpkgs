@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "xcaddy";
@@ -17,10 +13,7 @@ buildGoModule rec {
     hash = "sha256-CJzh1/rX9JjIiSyBReCt/lxUBQnXxY8NjRnSSqna9p4=";
   };
 
-  patches = [
-    ./inject_version_info.diff
-    ./use_tmpdir_on_darwin.diff
-  ];
+  patches = [ ./inject_version_info.diff ./use_tmpdir_on_darwin.diff ];
 
   ldflags = [
     "-s"
@@ -34,9 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/caddyserver/xcaddy";
     description = "Build Caddy with plugins";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      tjni
-      emilylange
-    ];
+    maintainers = with maintainers; [ tjni emilylange ];
   };
 }

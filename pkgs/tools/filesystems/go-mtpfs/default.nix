@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  libusb1,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, pkg-config, libusb1 }:
 
 buildGoModule rec {
   pname = "go-mtpfs";
@@ -20,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-OrAEvD2rF0Y0bvCD9TUv/E429lASsvC3uK3qNvbg734=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libusb1 ];
@@ -35,7 +25,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A simple FUSE filesystem for mounting Android devices as a MTP device";
+    description =
+      "A simple FUSE filesystem for mounting Android devices as a MTP device";
     homepage = "https://github.com/hanwen/go-mtpfs";
     license = licenses.bsd3;
     maintainers = with maintainers; [ aaronjheng ];

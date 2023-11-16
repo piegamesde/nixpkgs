@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.power-profiles-daemon;
   package = pkgs.power-profiles-daemon;
-in
 
-{
+in {
 
   ###### interface
 
@@ -28,22 +22,22 @@ in
           changing system behavior based upon user-selected power profiles.
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = !config.services.tlp.enable;
-        message = ''
-          You have set services.power-profiles-daemon.enable = true;
-          which conflicts with services.tlp.enable = true;
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = !config.services.tlp.enable;
+      message = ''
+        You have set services.power-profiles-daemon.enable = true;
+        which conflicts with services.tlp.enable = true;
+      '';
+    }];
 
     environment.systemPackages = [ package ];
 
@@ -52,5 +46,7 @@ in
     services.udev.packages = [ package ];
 
     systemd.packages = [ package ];
+
   };
+
 }

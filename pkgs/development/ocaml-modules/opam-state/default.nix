@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  unzip,
-  opam,
-  opam-repository,
-}:
+{ lib, buildDunePackage, unzip, opam, opam-repository }:
 
 buildDunePackage rec {
   pname = "opam-state";
@@ -21,7 +15,8 @@ buildDunePackage rec {
   propagatedBuildInputs = [ opam-repository ];
 
   meta = opam.meta // {
-    description = "OPAM development library handling the ~/.opam hierarchy, repository and switch states";
+    description =
+      "OPAM development library handling the ~/.opam hierarchy, repository and switch states";
     maintainers = with lib.maintainers; [ sternenseemann ];
   };
 }

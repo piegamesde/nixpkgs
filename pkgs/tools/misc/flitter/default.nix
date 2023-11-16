@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  ocamlPackages,
-  fetchFromGitHub,
-  makeWrapper,
-  python3,
-}:
+{ lib, stdenv, ocamlPackages, fetchFromGitHub, makeWrapper, python3 }:
 
 ocamlPackages.buildDunePackage rec {
   pname = "flitter";
@@ -51,7 +44,8 @@ ocamlPackages.buildDunePackage rec {
   '';
 
   meta = with lib; {
-    description = "A Livesplit-inspired speedrunning split timer for Linux/macOS terminal";
+    description =
+      "A Livesplit-inspired speedrunning split timer for Linux/macOS terminal";
     license = licenses.mit;
     maintainers = with maintainers; [ fgaz ];
     homepage = "https://github.com/alexozer/flitter";

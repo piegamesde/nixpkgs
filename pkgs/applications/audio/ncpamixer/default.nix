@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ncurses,
-  libpulseaudio,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ncurses, libpulseaudio, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "ncpamixer";
@@ -19,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TxSfiBSsCAImzCXv6o64Jy7tSefpYCkU0xtuHx26Ss4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    ncurses
-    libpulseaudio
-  ];
+  buildInputs = [ ncurses libpulseaudio ];
 
   configurePhase = ''
     make PREFIX=$out USE_WIDE=1 RELEASE=1 build/Makefile

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  requests,
-  httpx,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests, httpx
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "telegraph";
@@ -24,9 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  passthru.optional-dependencies = {
-    aio = [ httpx ];
-  };
+  passthru.optional-dependencies = { aio = [ httpx ]; };
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -41,8 +32,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Telegraph API wrapper";
     homepage = "https://github.com/python273/telegraph";
-    changelog = "https://github.com/python273/telegraph/releases/tag/v${version}";
+    changelog =
+      "https://github.com/python273/telegraph/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ gp2112 ];
   };
 }
+

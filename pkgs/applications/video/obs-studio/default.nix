@@ -1,54 +1,15 @@
-{
-  config,
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  addOpenGLRunpath,
-  cmake,
-  fdk_aac,
-  ffmpeg_4,
-  jansson,
-  libjack2,
-  libxkbcommon,
-  libpthreadstubs,
-  libXdmcp,
-  qtbase,
-  qtsvg,
-  speex,
-  libv4l,
-  x264,
-  curl,
-  wayland,
-  xorg,
-  pkg-config,
-  libvlc,
-  mbedtls,
-  wrapGAppsHook,
-  scriptingSupport ? true,
-  luajit,
-  swig,
-  python3,
-  alsaSupport ? stdenv.isLinux,
-  alsa-lib,
-  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
-  libpulseaudio,
-  libcef,
-  pciutils,
-  pipewireSupport ? stdenv.isLinux,
-  pipewire,
-  libdrm,
-  libajantv2,
-  librist,
-  libva,
-  srt,
-  qtwayland,
-  wrapQtAppsHook,
-}:
+{ config, lib, stdenv, fetchFromGitHub, addOpenGLRunpath, cmake, fdk_aac
+, ffmpeg_4, jansson, libjack2, libxkbcommon, libpthreadstubs, libXdmcp, qtbase
+, qtsvg, speex, libv4l, x264, curl, wayland, xorg, pkg-config, libvlc, mbedtls
+, wrapGAppsHook, scriptingSupport ? true, luajit, swig, python3
+, alsaSupport ? stdenv.isLinux, alsa-lib
+, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio, libcef
+, pciutils, pipewireSupport ? stdenv.isLinux, pipewire, libdrm, libajantv2
+, librist, libva, srt, qtwayland, wrapQtAppsHook }:
 
-let
-  inherit (lib) optional optionals;
-in
-stdenv.mkDerivation rec {
+let inherit (lib) optional optionals;
+
+in stdenv.mkDerivation rec {
   pname = "obs-studio";
   version = "29.0.2";
 
@@ -66,50 +27,37 @@ stdenv.mkDerivation rec {
     ./Provide-runtime-plugin-destination-as-relative-path.patch
   ];
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    cmake
-    pkg-config
-    wrapGAppsHook
-    wrapQtAppsHook
-  ] ++ optional scriptingSupport swig;
+  nativeBuildInputs =
+    [ addOpenGLRunpath cmake pkg-config wrapGAppsHook wrapQtAppsHook ]
+    ++ optional scriptingSupport swig;
 
-  buildInputs =
-    [
-      curl
-      fdk_aac
-      ffmpeg_4
-      jansson
-      libcef
-      libjack2
-      libv4l
-      libxkbcommon
-      libpthreadstubs
-      libXdmcp
-      qtbase
-      qtsvg
-      speex
-      wayland
-      x264
-      libvlc
-      mbedtls
-      pciutils
-      libajantv2
-      librist
-      libva
-      srt
-      qtwayland
-    ]
-    ++ optionals scriptingSupport [
-      luajit
-      python3
-    ]
-    ++ optional alsaSupport alsa-lib
-    ++ optional pulseaudioSupport libpulseaudio
-    ++ optionals pipewireSupport [
-      pipewire
-      libdrm
-    ];
+  buildInputs = [
+    curl
+    fdk_aac
+    ffmpeg_4
+    jansson
+    libcef
+    libjack2
+    libv4l
+    libxkbcommon
+    libpthreadstubs
+    libXdmcp
+    qtbase
+    qtsvg
+    speex
+    wayland
+    x264
+    libvlc
+    mbedtls
+    pciutils
+    libajantv2
+    librist
+    libva
+    srt
+    qtwayland
+  ] ++ optionals scriptingSupport [ luajit python3 ]
+    ++ optional alsaSupport alsa-lib ++ optional pulseaudioSupport libpulseaudio
+    ++ optionals pipewireSupport [ pipewire libdrm ];
 
   # Copied from the obs-linuxbrowser
   postUnpack = ''
@@ -139,12 +87,7 @@ stdenv.mkDerivation rec {
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          xorg.libX11
-          libvlc
-        ]
-      }"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xorg.libX11 libvlc ]}"
       ''${gappsWrapperArgs[@]}
     )
   '';
@@ -155,25 +98,17 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Free and open source software for video recording and live streaming";
+    description =
+      "Free and open source software for video recording and live streaming";
     longDescription = ''
       This project is a rewrite of what was formerly known as "Open Broadcaster
       Software", software originally designed for recording and streaming live
       video content, efficiently
     '';
     homepage = "https://obsproject.com";
-    maintainers = with maintainers; [
-      jb55
-      MP2E
-      V
-      miangraham
-    ];
+    maintainers = with maintainers; [ jb55 MP2E V miangraham ];
     license = licenses.gpl2Plus;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
     mainProgram = "obs";
   };
 }

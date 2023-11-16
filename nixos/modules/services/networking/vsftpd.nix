@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -108,11 +103,9 @@ let
   ];
 
   configFile = pkgs.writeText "vsftpd.conf" ''
-    ${concatMapStrings
-      (x: ''
-        ${x.cfgText}
-      '')
-      optionDescription}
+    ${concatMapStrings (x: ''
+      ${x.cfgText}
+    '') optionDescription}
     ${optionalString (cfg.rsaCertFile != null) ''
       ssl_enable=YES
       rsa_cert_file=${cfg.rsaCertFile}
@@ -146,9 +139,8 @@ let
     pam_service_name=vsftpd
     ${cfg.extraConfig}
   '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -166,16 +158,11 @@ in
 
       userlistFile = mkOption {
         type = types.path;
-        default = pkgs.writeText "userlist" (
-          concatMapStrings
-            (x: ''
-              ${x}
-            '')
-            cfg.userlist
-        );
-        defaultText =
-          literalExpression
-            ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
+        default = pkgs.writeText "userlist" (concatMapStrings (x: ''
+          ${x}
+        '') cfg.userlist);
+        defaultText = literalExpression ''
+          pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`
           is `true`. Meaning see {option}`userlistDeny`.
@@ -272,11 +259,12 @@ in
         type = types.lines;
         default = "";
         example = "ftpd_banner=Hello";
-        description =
-          lib.mdDoc
-            "Extra configuration to add at the bottom of the generated configuration file.";
+        description = lib.mdDoc
+          "Extra configuration to add at the bottom of the generated configuration file.";
       };
+
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
+
   };
 
   ###### implementation
@@ -285,41 +273,38 @@ in
 
     assertions = [
       {
-        assertion =
-          (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
+        assertion = (cfg.forceLocalLoginsSSL -> cfg.rsaCertFile != null)
           && (cfg.forceLocalDataSSL -> cfg.rsaCertFile != null);
-        message = "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
+        message =
+          "vsftpd: If forceLocalLoginsSSL or forceLocalDataSSL is true then a rsaCertFile must be provided!";
       }
       {
-        assertion =
-          (cfg.enableVirtualUsers -> cfg.userDbPath != null)
+        assertion = (cfg.enableVirtualUsers -> cfg.userDbPath != null)
           && (cfg.enableVirtualUsers -> cfg.localUsers != null);
-        message = "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options.";
+        message =
+          "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options.";
       }
     ];
 
-    users.users =
-      {
-        "vsftpd" = {
-          group = "vsftpd";
-          isSystemUser = true;
-          description = "VSFTPD user";
-          home =
-            if cfg.localRoot != null then
-              cfg.localRoot # <= Necessary for virtual users.
-            else
-              "/homeless-shelter";
-        };
-      }
-      // optionalAttrs cfg.anonymousUser {
-        "ftp" = {
-          name = "ftp";
-          uid = config.ids.uids.ftp;
-          group = "ftp";
-          description = "Anonymous FTP user";
-          home = cfg.anonymousUserHome;
-        };
+    users.users = {
+      "vsftpd" = {
+        group = "vsftpd";
+        isSystemUser = true;
+        description = "VSFTPD user";
+        home = if cfg.localRoot != null then
+          cfg.localRoot # <= Necessary for virtual users.
+        else
+          "/homeless-shelter";
       };
+    } // optionalAttrs cfg.anonymousUser {
+      "ftp" = {
+        name = "ftp";
+        uid = config.ids.uids.ftp;
+        group = "ftp";
+        description = "Anonymous FTP user";
+        home = cfg.anonymousUserHome;
+      };
+    };
 
     users.groups.vsftpd = { };
     users.groups.ftp.gid = config.ids.gids.ftp;
@@ -329,10 +314,11 @@ in
     services.vsftpd.userlist = if cfg.userlistDeny then [ "root" ] else [ ];
 
     systemd = {
-      tmpfiles.rules =
-        optional cfg.anonymousUser
-          #Type Path                       Mode User   Gr    Age Arg
-          "d    '${builtins.toString cfg.anonymousUserHome}' 0555 'ftp'  'ftp' -   -";
+      tmpfiles.rules = optional cfg.anonymousUser
+        #Type Path                       Mode User   Gr    Age Arg
+        "d    '${
+          builtins.toString cfg.anonymousUserHome
+        }' 0555 'ftp'  'ftp' -   -";
       services.vsftpd = {
         description = "Vsftpd Server";
 
@@ -344,9 +330,10 @@ in
       };
     };
 
-    security.pam.services.vsftpd.text = mkIf (cfg.enableVirtualUsers && cfg.userDbPath != null) ''
-      auth required pam_userdb.so db=${cfg.userDbPath}
-      account required pam_userdb.so db=${cfg.userDbPath}
-    '';
+    security.pam.services.vsftpd.text =
+      mkIf (cfg.enableVirtualUsers && cfg.userDbPath != null) ''
+        auth required pam_userdb.so db=${cfg.userDbPath}
+        account required pam_userdb.so db=${cfg.userDbPath}
+      '';
   };
 }

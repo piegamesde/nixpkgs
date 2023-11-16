@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  bashInteractive,
-  rpm,
-  urllib3,
-  cryptography,
-  diffstat,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, bashInteractive, rpm
+, urllib3, cryptography, diffstat }:
 
 buildPythonPackage rec {
   pname = "osc";
@@ -22,14 +13,8 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ bashInteractive ]; # needed for bash-completion helper
-  nativeCheckInputs = [
-    rpm
-    diffstat
-  ];
-  propagatedBuildInputs = [
-    urllib3
-    cryptography
-  ];
+  nativeCheckInputs = [ rpm diffstat ];
+  propagatedBuildInputs = [ urllib3 cryptography ];
 
   postInstall = ''
     install -D -m444 osc.fish $out/etc/fish/completions/osc.fish
@@ -52,4 +37,5 @@ buildPythonPackage rec {
     maintainers = [ maintainers.peti ];
     license = licenses.gpl2;
   };
+
 }

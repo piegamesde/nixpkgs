@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  flaky,
-  numpy,
-  pandas,
-  torch,
-  scikit-learn,
-  scipy,
-  tabulate,
-  tqdm,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pytestCheckHook, flaky, numpy
+, pandas, torch, scikit-learn, scipy, tabulate, tqdm }:
 
 buildPythonPackage rec {
   pname = "skorch";
@@ -23,19 +10,8 @@ buildPythonPackage rec {
     hash = "sha256-k9Zs4uqskHLqVHOKK7dIOmBSUmbDpOMuPS9eSdxNjO0=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    torch
-    scikit-learn
-    scipy
-    tabulate
-    tqdm
-  ];
-  nativeCheckInputs = [
-    flaky
-    pandas
-    pytestCheckHook
-  ];
+  propagatedBuildInputs = [ numpy torch scikit-learn scipy tabulate tqdm ];
+  nativeCheckInputs = [ flaky pandas pytestCheckHook ];
 
   # patch out pytest-cov dep/invocation
   postPatch = ''
@@ -45,30 +21,24 @@ buildPythonPackage rec {
       --replace "--cov-config .coveragerc" ""
   '';
 
-  disabledTests =
-    [
-      # on CPU, these expect artifacts from previous GPU run
-      "test_load_cuda_params_to_cpu"
-      # failing tests
-      "test_pickle_load"
-    ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # there is a problem with the compiler selection
-        "test_fit_and_predict_with_compile"
-      ];
+  disabledTests = [
+    # on CPU, these expect artifacts from previous GPU run
+    "test_load_cuda_params_to_cpu"
+    # failing tests
+    "test_pickle_load"
+  ] ++ lib.optionals stdenv.isDarwin [
+    # there is a problem with the compiler selection
+    "test_fit_and_predict_with_compile"
+  ];
 
-  disabledTestPaths =
-    [
-      # tries to import `transformers` and download HuggingFace data
-      "skorch/tests/test_hf.py"
-    ]
-    ++ lib.optionals (stdenv.hostPlatform.system != "x86_64-linux")
-      [
-        # torch.distributed is disabled by default in darwin
-        # aarch64-linux also failed these tests
-        "skorch/tests/test_history.py"
-      ];
+  disabledTestPaths = [
+    # tries to import `transformers` and download HuggingFace data
+    "skorch/tests/test_hf.py"
+  ] ++ lib.optionals (stdenv.hostPlatform.system != "x86_64-linux") [
+    # torch.distributed is disabled by default in darwin
+    # aarch64-linux also failed these tests
+    "skorch/tests/test_history.py"
+  ];
 
   pythonImportsCheck = [ "skorch" ];
 

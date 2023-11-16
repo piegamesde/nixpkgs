@@ -1,20 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  removeReferencesTo,
-  zlibSupport ? true,
-  zlib,
-  enableShared ? !stdenv.hostPlatform.isStatic,
-  javaSupport ? false,
-  jdk,
-}:
+{ lib, stdenv, fetchurl, removeReferencesTo, zlibSupport ? true, zlib
+, enableShared ? !stdenv.hostPlatform.isStatic, javaSupport ? false, jdk }:
 
-let
-  inherit (lib) optional optionals;
-in
+let inherit (lib) optional optionals;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "1.10.9";
   pname = "hdf5";
   src = fetchurl {
@@ -24,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AMS+cJbzb9yvpPl04SbGwUEkKOOOvHsYHZB0WeeB8ZE=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   buildInputs = optional javaSupport jdk;
 
@@ -35,7 +21,8 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = optional zlibSupport zlib;
 
-  configureFlags = optional enableShared "--enable-shared" ++ optional javaSupport "--enable-java";
+  configureFlags = optional enableShared "--enable-shared"
+    ++ optional javaSupport "--enable-java";
 
   patches = [ ];
 
@@ -48,21 +35,19 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Data model, library, and file format for storing and managing data";
+    description =
+      "Data model, library, and file format for storing and managing data";
     longDescription = ''
       HDF5 supports an unlimited variety of datatypes, and is designed for flexible and efficient
       I/O and for high volume and complex data. HDF5 is portable and is extensible, allowing
       applications to evolve in their use of HDF5. The HDF5 Technology suite includes tools and
       applications for managing, manipulating, viewing, and analyzing data in the HDF5 format.
     '';
-    license = lib.licenses.bsd3; # Lawrence Berkeley National Labs BSD 3-Clause variant
+    license =
+      lib.licenses.bsd3; # Lawrence Berkeley National Labs BSD 3-Clause variant
     homepage = "https://www.hdfgroup.org/HDF5/";
     platforms = lib.platforms.unix;
-    knownVulnerabilities = [
-      "CVE-2020-10809"
-      "CVE-2020-10810"
-      "CVE-2020-10811"
-      "CVE-2020-10812"
-    ];
+    knownVulnerabilities =
+      [ "CVE-2020-10809" "CVE-2020-10810" "CVE-2020-10811" "CVE-2020-10812" ];
   };
 }

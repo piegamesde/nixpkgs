@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  curl,
-  jdk,
-  libedit,
-  srt,
-}:
+{ lib, stdenv, fetchFromGitHub, curl, jdk, libedit, srt }:
 
 stdenv.mkDerivation rec {
   pname = "tsduck";
@@ -19,12 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-268TKCh3naebbw+sOQ6d4N/zl7UEVtc3l3flFAYHDU4=";
   };
 
-  buildInputs = [
-    curl
-    libedit
-    srt
-    jdk
-  ];
+  buildInputs = [ curl libedit srt jdk ];
 
   # remove tests which call out to https://tsduck.io/download/test/...
   postPatch = ''
@@ -61,26 +48,15 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  makeFlags = [
-    "NODEKTEC=1"
-    "NOHIDES=1"
-    "NOPCSC=1"
-    "NORIST=1"
-    "NOVATEK=1"
-  ] ++ installFlags;
+  makeFlags = [ "NODEKTEC=1" "NOHIDES=1" "NOPCSC=1" "NORIST=1" "NOVATEK=1" ]
+    ++ installFlags;
 
   checkTarget = "test";
   doCheck = true;
 
-  installFlags = [
-    "SYSROOT=${placeholder "out"}"
-    "SYSPREFIX=/"
-    "USRLIBDIR=/lib"
-  ];
-  installTargets = [
-    "install-tools"
-    "install-devel"
-  ];
+  installFlags =
+    [ "SYSROOT=${placeholder "out"}" "SYSPREFIX=/" "USRLIBDIR=/lib" ];
+  installTargets = [ "install-tools" "install-devel" ];
 
   meta = with lib; {
     description = "The MPEG Transport Stream Toolkit";

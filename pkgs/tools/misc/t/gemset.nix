@@ -73,12 +73,8 @@
     version = "4.3.4";
   };
   http = {
-    dependencies = [
-      "addressable"
-      "http-cookie"
-      "http-form_data"
-      "http_parser.rb"
-    ];
+    dependencies =
+      [ "addressable" "http-cookie" "http-form_data" "http_parser.rb" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

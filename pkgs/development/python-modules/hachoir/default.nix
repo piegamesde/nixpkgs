@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  urwid,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, urwid, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to view and edit a binary stream";
     homepage = "https://hachoir.readthedocs.io/";
-    changelog = "https://github.com/vstinner/hachoir/blob/${version}/doc/changelog.rst";
+    changelog =
+      "https://github.com/vstinner/hachoir/blob/${version}/doc/changelog.rst";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
   };

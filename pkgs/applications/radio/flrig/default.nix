@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fltk13,
-  libjpeg,
-  eudev,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, fltk13, libjpeg, eudev, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "2.0.01";
@@ -17,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TFZZaTtU7TLBPA7jpBTu2JtkZpxjG57Rin8OVFedHwA=";
   };
 
-  buildInputs = [
-    fltk13
-    libjpeg
-    eudev
-  ];
+  buildInputs = [ fltk13 libjpeg eudev ];
 
   nativeBuildInputs = [ pkg-config ];
 

@@ -1,12 +1,5 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  ledger,
-  hledger,
-  useLedger ? true,
-  useHledger ? true,
-}:
+{ lib, python3Packages, fetchFromGitHub, ledger, hledger, useLedger ? true
+, useHledger ? true }:
 
 python3Packages.buildPythonApplication rec {
   pname = "ledger-autosync";
@@ -23,8 +16,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ poetry-core ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       asn1crypto
       beautifulsoup4
@@ -45,9 +37,7 @@ python3Packages.buildPythonApplication rec {
       pycparser
       secretstorage
       six
-    ]
-    ++ lib.optional useLedger ledger
-    ++ lib.optional useHledger hledger;
+    ] ++ lib.optional useLedger ledger ++ lib.optional useHledger hledger;
 
   # Checks require ledger as a python package,
   # ledger does not support python3 while ledger-autosync requires it.
@@ -61,10 +51,7 @@ python3Packages.buildPythonApplication rec {
 
   # Disable some non-passing tests:
   # https://github.com/egh/ledger-autosync/issues/127
-  disabledTests = [
-    "test_payee_match"
-    "test_args_only"
-  ];
+  disabledTests = [ "test_payee_match" "test_args_only" ];
 
   meta = with lib; {
     homepage = "https://github.com/egh/ledger-autosync";

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "ferretdb";
@@ -41,10 +37,6 @@ buildGoModule rec {
     description = "A truly Open Source MongoDB alternative";
     homepage = "https://www.ferretdb.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      dit7ya
-      noisersup
-      julienmalka
-    ];
+    maintainers = with maintainers; [ dit7ya noisersup julienmalka ];
   };
 }

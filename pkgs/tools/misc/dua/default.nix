@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dua";
@@ -24,18 +18,18 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-jgPOC8xtxYyKhYzsJezefwgopVL+1MED+Wf5h6bCYBg=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
 
   doCheck = false;
 
   meta = with lib; {
-    description = "A tool to conveniently learn about the disk usage of directories";
+    description =
+      "A tool to conveniently learn about the disk usage of directories";
     homepage = "https://github.com/Byron/dua-cli";
-    changelog = "https://github.com/Byron/dua-cli/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Byron/dua-cli/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [
-      figsoda
-      killercup
-    ];
+    maintainers = with maintainers; [ figsoda killercup ];
   };
 }

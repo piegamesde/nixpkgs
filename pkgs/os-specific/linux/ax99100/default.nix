@@ -1,20 +1,10 @@
-{
-  kernel,
-  stdenv,
-  kmod,
-  lib,
-  fetchzip,
-  dos2unix,
-}:
+{ kernel, stdenv, kmod, lib, fetchzip, dos2unix }:
 
 stdenv.mkDerivation {
   pname = "ax99100";
   version = "1.8.0";
 
-  nativeBuildInputs = [
-    dos2unix
-    kmod
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [ dos2unix kmod ] ++ kernel.moduleBuildDependencies;
 
   src = fetchzip {
     url = "https://www.asix.com.tw/en/support/download/file/1229";
@@ -33,16 +23,16 @@ stdenv.mkDerivation {
   # We included them here instead of fetching them, because of line
   # ending issues that are easier to fix manually. Also the
   # set_termios patch needs to be applied for 6.1 not for 6.0.
-  patches =
-    [
-      ./kernel-5.18-pci_free_consistent-pci_alloc_consistent.patch
-      ./kernel-6.1-set_termios-const-ktermios.patch
-    ]
-    ++ lib.optionals (lib.versionAtLeast kernel.version "6.2") [ ./kernel-6.2-fix-pointer-type.patch ];
+  patches = [
+    ./kernel-5.18-pci_free_consistent-pci_alloc_consistent.patch
+    ./kernel-6.1-set_termios-const-ktermios.patch
+  ] ++ lib.optionals (lib.versionAtLeast kernel.version "6.2")
+    [ ./kernel-6.2-fix-pointer-type.patch ];
 
   patchFlags = [ "-p0" ];
 
-  makeFlags = [ "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'" ];
+  makeFlags =
+    [ "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'" ];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/tty/serial
@@ -51,7 +41,8 @@ stdenv.mkDerivation {
 
   meta = {
     description = "ASIX AX99100 Serial and Parallel Port driver";
-    homepage = "https://www.asix.com.tw/en/product/Interface/PCIe_Bridge/AX99100";
+    homepage =
+      "https://www.asix.com.tw/en/product/Interface/PCIe_Bridge/AX99100";
     # According to the source code in the tarball, the license is gpl2.
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  glibcLocales,
-  mpmath,
-}:
+{ lib, buildPythonPackage, fetchPypi, glibcLocales, mpmath }:
 
 buildPythonPackage rec {
   pname = "sympy";

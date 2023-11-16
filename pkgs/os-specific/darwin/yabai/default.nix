@@ -1,21 +1,7 @@
-{
-  lib,
-  stdenv,
-  stdenvNoCC,
-  fetchFromGitHub,
-  fetchzip,
-  writeShellScript,
-  installShellFiles,
-  testers,
-  yabai,
-  xxd,
-  xcodebuild,
-  # These all need to be from SDK 11.0 or later starting with yabai 5.0.0
-  Carbon,
-  Cocoa,
-  ScriptingBridge,
-  SkyLight,
-}:
+{ lib, stdenv, stdenvNoCC, fetchFromGitHub, fetchzip, writeShellScript
+, installShellFiles, testers, yabai, xxd, xcodebuild
+# These all need to be from SDK 11.0 or later starting with yabai 5.0.0
+, Carbon, Cocoa, ScriptingBridge, SkyLight }:
 
 let
   pname = "yabai";
@@ -27,7 +13,8 @@ let
   };
 
   _meta = with lib; {
-    description = "A tiling window manager for macOS based on binary space partitioning";
+    description =
+      "A tiling window manager for macOS based on binary space partitioning";
     longDescription = ''
       yabai is a window management utility that is designed to work as an extension to the built-in
       window manager of macOS. yabai allows you to control your windows, spaces and displays freely
@@ -35,24 +22,21 @@ let
       using skhd and other third-party software.
     '';
     homepage = "https://github.com/koekeishiya/yabai";
-    changelog = "https://github.com/koekeishiya/yabai/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/koekeishiya/yabai/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [
-      cmacrae
-      shardy
-      ivar
-    ];
+    maintainers = with maintainers; [ cmacrae shardy ivar ];
   };
-in
-{
+in {
   # Unfortunately compiling yabai from source on aarch64-darwin is a bit complicated. We use the precompiled binary instead for now.
   # See the comments on https://github.com/NixOS/nixpkgs/pull/188322 for more information.
   aarch64-darwin = stdenvNoCC.mkDerivation {
     inherit pname version;
 
     src = fetchzip {
-      url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
+      url =
+        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
       sha256 = "sha256-2PH3Hi9x0323MjKHPybNmFddvNNlsaDb1LdiVcZTNJc=";
     };
 
@@ -88,18 +72,9 @@ in
       sha256 = "sha256-TCY0EvP0+2+U1k9kYIi8jMt4mj3ZRaQPsb1wtU3Z2U4=";
     };
 
-    nativeBuildInputs = [
-      installShellFiles
-      xcodebuild
-      xxd
-    ];
+    nativeBuildInputs = [ installShellFiles xcodebuild xxd ];
 
-    buildInputs = [
-      Carbon
-      Cocoa
-      ScriptingBridge
-      SkyLight
-    ];
+    buildInputs = [ Carbon Cocoa ScriptingBridge SkyLight ];
 
     dontConfigure = true;
     enableParallelBuilding = true;
@@ -137,5 +112,5 @@ in
       sourceProvenance = with lib.sourceTypes; [ fromSource ];
     };
   };
-}
-.${stdenv.hostPlatform.system} or (throw "Unsupported platform ${stdenv.hostPlatform.system}")
+}.${stdenv.hostPlatform.system} or (throw
+  "Unsupported platform ${stdenv.hostPlatform.system}")

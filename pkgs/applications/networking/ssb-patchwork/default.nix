@@ -1,10 +1,4 @@
-{
-  appimageTools,
-  symlinkJoin,
-  lib,
-  fetchurl,
-  makeDesktopItem,
-}:
+{ appimageTools, symlinkJoin, lib, fetchurl, makeDesktopItem }:
 
 let
   pname = "ssb-patchwork";
@@ -12,7 +6,8 @@ let
   name = "Patchwork-${version}";
 
   src = fetchurl {
-    url = "https://github.com/ssbc/patchwork/releases/download/v${version}/${name}.AppImage";
+    url =
+      "https://github.com/ssbc/patchwork/releases/download/v${version}/${name}.AppImage";
     sha256 = "F8n6LLbgkg3z55lSY60T+pn2lra8aPt6Ztepw1gf2rI=";
   };
 
@@ -32,8 +27,8 @@ let
     genericName = "Patchwork";
     categories = [ "Network" ];
   };
-in
-symlinkJoin {
+
+in symlinkJoin {
   inherit name;
   paths = [ binary ];
 
@@ -44,17 +39,14 @@ symlinkJoin {
   '';
 
   meta = with lib; {
-    description = "A decentralized messaging and sharing app built on top of Secure Scuttlebutt (SSB)";
+    description =
+      "A decentralized messaging and sharing app built on top of Secure Scuttlebutt (SSB)";
     longDescription = ''
       sea-slang for gossip - a scuttlebutt is basically a watercooler on a ship.
     '';
     homepage = "https://www.scuttlebutt.nz/";
     license = licenses.agpl3;
-    maintainers = with maintainers; [
-      asymmetric
-      ninjatrappeur
-      cyplo
-    ];
+    maintainers = with maintainers; [ asymmetric ninjatrappeur cyplo ];
     platforms = [ "x86_64-linux" ];
   };
 }

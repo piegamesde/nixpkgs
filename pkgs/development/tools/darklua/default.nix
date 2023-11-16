@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "darklua";
@@ -25,7 +21,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A command line tool that transforms Lua code";
     homepage = "https://darklua.com";
-    changelog = "https://github.com/seaofvoices/darklua/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/seaofvoices/darklua/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ tomodachi94 ];
   };

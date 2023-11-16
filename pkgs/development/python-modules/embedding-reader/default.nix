@@ -1,14 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  fsspec,
-  lib,
-  numpy,
-  pandas,
-  pyarrow,
-  pytestCheckHook,
-  pythonRelaxDepsHook,
-}:
+{ buildPythonPackage, fetchFromGitHub, fsspec, lib, numpy, pandas, pyarrow
+, pytestCheckHook, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "embedding-reader";
@@ -25,12 +16,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "pyarrow" ];
 
-  propagatedBuildInputs = [
-    fsspec
-    numpy
-    pandas
-    pyarrow
-  ];
+  propagatedBuildInputs = [ fsspec numpy pandas pyarrow ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

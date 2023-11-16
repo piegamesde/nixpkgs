@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.services.dendrite;
   settingsFormat = pkgs.formats.yaml { };
   configurationYaml = settingsFormat.generate "dendrite.yaml" cfg.settings;
   workingDir = "/var/lib/dendrite";
-in
-{
+in {
   options.services.dendrite = {
     enable = lib.mkEnableOption (lib.mdDoc "matrix.org dendrite");
     httpPort = lib.mkOption {
@@ -103,7 +97,8 @@ in
             '';
           };
           private_key = lib.mkOption {
-            type = lib.types.either lib.types.path (lib.types.strMatching "^\\$CREDENTIALS_DIRECTORY/.+");
+            type = lib.types.either lib.types.path
+              (lib.types.strMatching "^\\$CREDENTIALS_DIRECTORY/.+");
             example = "$CREDENTIALS_DIRECTORY/private_key";
             description = lib.mdDoc ''
               The path to the signing private key file, used to sign
@@ -117,10 +112,7 @@ in
           trusted_third_party_id_servers = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             example = [ "matrix.org" ];
-            default = [
-              "matrix.org"
-              "vector.im"
-            ];
+            default = [ "matrix.org" "vector.im" ];
             description = lib.mdDoc ''
               Lists of domains that the server will trust as identity
               servers to verify third party identifiers such as phone
@@ -211,7 +203,8 @@ in
           };
         };
         options.sync_api.search = {
-          enable = lib.mkEnableOption (lib.mdDoc "Dendrite's full-text search engine");
+          enable =
+            lib.mkEnableOption (lib.mdDoc "Dendrite's full-text search engine");
           index_path = lib.mkOption {
             type = lib.types.str;
             default = "${workingDir}/searchindex";
@@ -278,16 +271,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.httpsPort != null -> (cfg.tlsCert != null && cfg.tlsKey != null);
-        message = ''
-          If Dendrite is configured to use https, tlsCert and tlsKey must be provided.
+    assertions = [{
+      assertion = cfg.httpsPort != null
+        -> (cfg.tlsCert != null && cfg.tlsKey != null);
+      message = ''
+        If Dendrite is configured to use https, tlsCert and tlsKey must be provided.
 
-          nix-shell -p dendrite --command "generate-keys --tls-cert server.crt --tls-key server.key"
-        '';
-      }
-    ];
+        nix-shell -p dendrite --command "generate-keys --tls-cert server.crt --tls-key server.key"
+      '';
+    }];
 
     systemd.services.dendrite = {
       description = "Dendrite Matrix homeserver";
@@ -301,28 +293,25 @@ in
         RuntimeDirectory = "dendrite";
         RuntimeDirectoryMode = "0700";
         LimitNOFILE = 65535;
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile =
+          lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         LoadCredential = cfg.loadCredential;
-        ExecStartPre = [
-          ''
-            ${pkgs.envsubst}/bin/envsubst \
-              -i ${configurationYaml} \
-              -o /run/dendrite/dendrite.yaml
-          ''
-        ];
-        ExecStart = lib.strings.concatStringsSep " " (
-          [
-            "${pkgs.dendrite}/bin/dendrite"
-            "--config /run/dendrite/dendrite.yaml"
-          ]
-          ++ lib.optionals (cfg.httpPort != null) [ "--http-bind-address :${builtins.toString cfg.httpPort}" ]
+        ExecStartPre = [''
+          ${pkgs.envsubst}/bin/envsubst \
+            -i ${configurationYaml} \
+            -o /run/dendrite/dendrite.yaml
+        ''];
+        ExecStart = lib.strings.concatStringsSep " " ([
+          "${pkgs.dendrite}/bin/dendrite"
+          "--config /run/dendrite/dendrite.yaml"
+        ] ++ lib.optionals (cfg.httpPort != null)
+          [ "--http-bind-address :${builtins.toString cfg.httpPort}" ]
           ++ lib.optionals (cfg.httpsPort != null) [
             "--https-bind-address :${builtins.toString cfg.httpsPort}"
             "--tls-cert ${cfg.tlsCert}"
             "--tls-key ${cfg.tlsKey}"
-          ]
-          ++ lib.optionals cfg.openRegistration [ "--really-enable-open-registration" ]
-        );
+          ] ++ lib.optionals cfg.openRegistration
+          [ "--really-enable-open-registration" ]);
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "on-failure";
       };

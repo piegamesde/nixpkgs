@@ -2,11 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager;
-in
+let cfg = config.services.xserver.windowManager;
 
-{
+in {
   imports = [
     ./2bwm.nix
     ./afterstep.nix
@@ -58,12 +56,10 @@ in
       session = mkOption {
         internal = true;
         default = [ ];
-        example = [
-          {
-            name = "wmii";
-            start = "...";
-          }
-        ];
+        example = [{
+          name = "wmii";
+          start = "...";
+        }];
         description = lib.mdDoc ''
           Internal option used to add some common line to window manager
           scripts before forwarding the value to the
@@ -82,10 +78,10 @@ in
           Default window manager loaded if none have been chosen.
         '';
       };
+
     };
+
   };
 
-  config = {
-    services.xserver.displayManager.session = cfg.session;
-  };
+  config = { services.xserver.displayManager.session = cfg.session; };
 }

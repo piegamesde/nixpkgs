@@ -1,19 +1,8 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  watchdog,
-  ephemeral-port-reserve,
-  pytest-timeout,
-  pytest-xprocess,
-  pytestCheckHook,
-  markupsafe,
-  # for passthru.tests
-  moto,
-  sentry-sdk,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, watchdog
+, ephemeral-port-reserve, pytest-timeout, pytest-xprocess, pytestCheckHook
+, markupsafe
+# for passthru.tests
+, moto, sentry-sdk }:
 
 buildPythonPackage rec {
   pname = "werkzeug";
@@ -28,39 +17,28 @@ buildPythonPackage rec {
     hash = "sha256-LhzMlBfU2jWLnebxdOOsCUOR6h1PvvLWZ4ZdgZ39Cv4=";
   };
 
-  propagatedBuildInputs =
-    [ markupsafe ]
-    ++ lib.optionals (!stdenv.isDarwin)
-      [
-        # watchdog requires macos-sdk 10.13+
-        watchdog
-      ];
-
-  nativeCheckInputs = [
-    ephemeral-port-reserve
-    pytest-timeout
-    pytest-xprocess
-    pytestCheckHook
+  propagatedBuildInputs = [ markupsafe ] ++ lib.optionals (!stdenv.isDarwin) [
+    # watchdog requires macos-sdk 10.13+
+    watchdog
   ];
+
+  nativeCheckInputs =
+    [ ephemeral-port-reserve pytest-timeout pytest-xprocess pytestCheckHook ];
 
   disabledTests = lib.optionals stdenv.isDarwin [ "test_get_machine_id" ];
 
-  disabledTestPaths =
-    [
-      # ConnectionRefusedError: [Errno 111] Connection refused
-      "tests/test_serving.py"
-    ];
+  disabledTestPaths = [
+    # ConnectionRefusedError: [Errno 111] Connection refused
+    "tests/test_serving.py"
+  ];
 
-  pytestFlagsArray =
-    [
-      # don't run tests that are marked with filterwarnings, they fail with
-      # warnings._OptionError: unknown warning category: 'pytest.PytestUnraisableExceptionWarning'
-      "-m 'not filterwarnings'"
-    ];
+  pytestFlagsArray = [
+    # don't run tests that are marked with filterwarnings, they fail with
+    # warnings._OptionError: unknown warning category: 'pytest.PytestUnraisableExceptionWarning'
+    "-m 'not filterwarnings'"
+  ];
 
-  passthru.tests = {
-    inherit moto sentry-sdk;
-  };
+  passthru.tests = { inherit moto sentry-sdk; };
 
   meta = with lib; {
     homepage = "https://palletsprojects.com/p/werkzeug/";

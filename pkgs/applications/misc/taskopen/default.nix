@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  which,
-  perl,
-  perlPackages,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, which, perl, perlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "taskopen";
@@ -26,14 +18,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs =
-    [ which ]
-    ++ (
-      with perlPackages; [
-        JSON
-        perl
-      ]
-    );
+  buildInputs = [ which ] ++ (with perlPackages; [ JSON perl ]);
 
   installPhase = ''
     make PREFIX=$out

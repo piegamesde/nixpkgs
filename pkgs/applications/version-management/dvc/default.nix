@@ -1,13 +1,5 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  fetchpatch,
-  enableGoogle ? false,
-  enableAWS ? false,
-  enableAzure ? false,
-  enableSSH ? false,
-}:
+{ lib, python3, fetchFromGitHub, fetchpatch, enableGoogle ? false
+, enableAWS ? false, enableAzure ? false, enableSSH ? false }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dvc";
@@ -21,23 +13,16 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-sq5jrGtUVe8R4ZdjwEBW9yEYBe8o1xyFVZGcZ+tMvCs=";
   };
 
-  pythonRelaxDeps = [
-    "dvc-data"
-    "platformdirs"
-  ];
+  pythonRelaxDeps = [ "dvc-data" "platformdirs" ];
 
   postPatch = ''
     substituteInPlace dvc/daemon.py \
       --subst-var-by dvc "$out/bin/dcv"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    pythonRelaxDepsHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook setuptools-scm ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       appdirs
       colorama
@@ -75,8 +60,7 @@ python3.pkgs.buildPythonApplication rec {
       typing-extensions
       voluptuous
       zc_lockfile
-    ]
-    ++ lib.optionals enableGoogle [ dvc-gs ]
+    ] ++ lib.optionals enableGoogle [ dvc-gs ]
     ++ lib.optionals enableAWS [ dvc-s3 ]
     ++ lib.optionals enableAzure [ dvc-azure ]
     ++ lib.optionals enableSSH [ dvc-ssh ]
@@ -91,9 +75,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://dvc.org";
     changelog = "https://github.com/iterative/dvc/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      cmcdragonkai
-      fab
-    ];
+    maintainers = with maintainers; [ cmcdragonkai fab ];
   };
 }

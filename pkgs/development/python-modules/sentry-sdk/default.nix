@@ -1,43 +1,9 @@
-{
-  lib,
-  stdenv,
-  aiohttp,
-  apache-beam,
-  asttokens,
-  blinker,
-  botocore,
-  bottle,
-  buildPythonPackage,
-  celery,
-  certifi,
-  chalice,
-  django,
-  executing,
-  falcon,
-  fetchFromGitHub,
-  flask,
-  flask-login,
-  gevent,
-  httpx,
-  jsonschema,
-  mock,
-  pure-eval,
-  pyramid,
-  pyrsistent,
-  pyspark,
-  pytest-forked,
-  pytest-localserver,
-  pytest-watch,
-  pytestCheckHook,
-  pythonOlder,
-  rq,
-  sanic,
-  sqlalchemy,
-  tornado,
-  trytond,
-  urllib3,
-  werkzeug,
-}:
+{ lib, stdenv, aiohttp, apache-beam, asttokens, blinker, botocore, bottle
+, buildPythonPackage, celery, certifi, chalice, django, executing, falcon
+, fetchFromGitHub, flask, flask-login, gevent, httpx, jsonschema, mock
+, pure-eval, pyramid, pyrsistent, pyspark, pytest-forked, pytest-localserver
+, pytest-watch, pytestCheckHook, pythonOlder, rq, sanic, sqlalchemy, tornado
+, trytond, urllib3, werkzeug }:
 
 buildPythonPackage rec {
   pname = "sentry-sdk";
@@ -53,10 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-aY6oZf6S6jioeL10euxo1ijvzE7FcHQoWjadE21ILA4=";
   };
 
-  propagatedBuildInputs = [
-    certifi
-    urllib3
-  ];
+  propagatedBuildInputs = [ certifi urllib3 ];
 
   passthru.optional-dependencies = {
     aiohttp = [ aiohttp ];
@@ -66,22 +29,14 @@ buildPythonPackage rec {
     chalice = [ chalice ];
     django = [ django ];
     falcon = [ falcon ];
-    flask = [
-      flask
-      blinker
-    ];
+    flask = [ flask blinker ];
     httpx = [ httpx ];
     pyspark = [ pyspark ];
-    pure_eval = [
-      asttokens
-      executing
-      pure-eval
+    pure_eval = [ asttokens executing pure-eval ];
+    quart = [
+      # quart missing
+      blinker
     ];
-    quart =
-      [
-        # quart missing
-        blinker
-      ];
     rq = [ rq ];
     sanic = [ sanic ];
     sqlalchemy = [ sqlalchemy ];
@@ -104,34 +59,28 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  disabledTests =
-    [
-      # Issue with the asseration
-      "test_auto_enabling_integrations_catches_import_error"
-    ];
+  disabledTests = [
+    # Issue with the asseration
+    "test_auto_enabling_integrations_catches_import_error"
+  ];
 
-  disabledTestPaths =
-    [
-      # Varius integration tests fail every once in a while when we
-      # upgrade depencies, so don't bother testing them.
-      "tests/integrations/"
-    ]
-    ++ lib.optionals (stdenv.buildPlatform != "x86_64-linux")
-      [
-        # test crashes on aarch64
-        "tests/test_transport.py"
-      ];
+  disabledTestPaths = [
+    # Varius integration tests fail every once in a while when we
+    # upgrade depencies, so don't bother testing them.
+    "tests/integrations/"
+  ] ++ lib.optionals (stdenv.buildPlatform != "x86_64-linux") [
+    # test crashes on aarch64
+    "tests/test_transport.py"
+  ];
 
   pythonImportsCheck = [ "sentry_sdk" ];
 
   meta = with lib; {
     description = "Python SDK for Sentry.io";
     homepage = "https://github.com/getsentry/sentry-python";
-    changelog = "https://github.com/getsentry/sentry-python/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/getsentry/sentry-python/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [
-      fab
-      gebner
-    ];
+    maintainers = with maintainers; [ fab gebner ];
   };
 }

@@ -1,45 +1,14 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchFromGitHub,
-  nix-update-script,
-  substituteAll,
-  plymouth,
-  pam,
-  pkg-config,
-  autoconf,
-  automake,
-  libtool,
-  libxcb,
-  glib,
-  libXdmcp,
-  itstool,
-  intltool,
-  libxklavier,
-  libgcrypt,
-  audit,
-  busybox,
-  polkit,
-  accountsservice,
-  gtk-doc,
-  gnome,
-  gobject-introspection,
-  vala,
-  fetchpatch,
-  withQt5 ? false,
-  qtbase,
-  yelp-tools,
-}:
+{ lib, stdenv, buildPackages, fetchFromGitHub, nix-update-script, substituteAll
+, plymouth, pam, pkg-config, autoconf, automake, libtool, libxcb, glib, libXdmcp
+, itstool, intltool, libxklavier, libgcrypt, audit, busybox, polkit
+, accountsservice, gtk-doc, gnome, gobject-introspection, vala, fetchpatch
+, withQt5 ? false, qtbase, yelp-tools }:
 
 stdenv.mkDerivation rec {
   pname = "lightdm";
   version = "1.32.0";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "canonical";
@@ -77,7 +46,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Adds option to disable writing dmrc files
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/lightdm/raw/4cf0d2bed8d1c68970b0322ccd5dbbbb7a0b12bc/f/lightdm-1.25.1-disable_dmrc.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/lightdm/raw/4cf0d2bed8d1c68970b0322ccd5dbbbb7a0b12bc/f/lightdm-1.25.1-disable_dmrc.patch";
       sha256 = "06f7iabagrsiws2l75sx2jyljknr9js7ydn151p3qfi104d1541n";
     })
 
@@ -101,10 +71,8 @@ stdenv.mkDerivation rec {
     "--disable-dmrc"
   ] ++ lib.optional withQt5 "--enable-liblightdm-qt5";
 
-  installFlags = [
-    "sysconfdir=${placeholder "out"}/etc"
-    "localstatedir=\${TMPDIR}"
-  ];
+  installFlags =
+    [ "sysconfdir=${placeholder "out"}/etc" "localstatedir=\${TMPDIR}" ];
 
   prePatch = ''
     substituteInPlace autogen.sh \
@@ -118,9 +86,7 @@ stdenv.mkDerivation rec {
     rm -rf $out/etc/apparmor.d $out/etc/init $out/etc/pam.d
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/canonical/lightdm";

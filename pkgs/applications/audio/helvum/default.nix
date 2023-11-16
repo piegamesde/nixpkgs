@@ -1,21 +1,5 @@
-{
-  lib,
-  cargo,
-  clang,
-  desktop-file-utils,
-  fetchFromGitLab,
-  fetchpatch,
-  glib,
-  gtk4,
-  libclang,
-  meson,
-  ninja,
-  pipewire,
-  pkg-config,
-  rustPlatform,
-  rustc,
-  stdenv,
-}:
+{ lib, cargo, clang, desktop-file-utils, fetchFromGitLab, fetchpatch, glib, gtk4
+, libclang, meson, ninja, pipewire, pkg-config, rustPlatform, rustc, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "helvum";
@@ -46,12 +30,7 @@ stdenv.mkDerivation rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [
-    desktop-file-utils
-    glib
-    gtk4
-    pipewire
-  ];
+  buildInputs = [ desktop-file-utils glib gtk4 pipewire ];
 
   meta = with lib; {
     description = "A GTK patchbay for pipewire";

@@ -1,73 +1,18 @@
-{
-  stdenv,
-  lib,
-  buildPackages,
-  fetchFromGitLab,
-  fetchpatch,
-  python3,
-  meson,
-  ninja,
-  eudev,
-  systemd,
-  enableSystemd ? true,
-  pkg-config,
-  docutils,
-  doxygen,
-  graphviz,
-  glib,
-  dbus,
-  alsa-lib,
-  libjack2,
-  libusb1,
-  udev,
-  libsndfile,
-  vulkan-headers,
-  vulkan-loader,
-  webrtc-audio-processing,
-  ncurses,
-  readline, # meson can't find <7 as those versions don't have a .pc file
-  lilv,
-  makeFontsConf,
-  callPackage,
-  nixosTests,
-  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind,
-  valgrind,
-  libcameraSupport ? true,
-  libcamera,
-  libdrm,
-  gstreamerSupport ? true,
-  gst_all_1,
-  ffmpegSupport ? true,
-  ffmpeg,
-  bluezSupport ? true,
-  bluez,
-  sbc,
-  libfreeaptx,
-  ldacbt,
-  liblc3,
-  fdk_aac,
-  libopus,
-  nativeHspSupport ? true,
-  nativeHfpSupport ? true,
-  nativeModemManagerSupport ? true,
-  modemmanager,
-  ofonoSupport ? true,
-  hsphfpdSupport ? true,
-  pulseTunnelSupport ? true,
-  libpulseaudio,
-  zeroconfSupport ? true,
-  avahi,
-  raopSupport ? true,
-  openssl,
-  rocSupport ? true,
-  roc-toolkit,
-  x11Support ? true,
-  libcanberra,
-  xorg,
-  mysofaSupport ? true,
-  libmysofa,
-  tinycompress,
-}:
+{ stdenv, lib, buildPackages, fetchFromGitLab, fetchpatch, python3, meson, ninja
+, eudev, systemd, enableSystemd ? true, pkg-config, docutils, doxygen, graphviz
+, glib, dbus, alsa-lib, libjack2, libusb1, udev, libsndfile, vulkan-headers
+, vulkan-loader, webrtc-audio-processing, ncurses
+, readline # meson can't find <7 as those versions don't have a .pc file
+, lilv, makeFontsConf, callPackage, nixosTests
+, withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind, valgrind
+, libcameraSupport ? true, libcamera, libdrm, gstreamerSupport ? true, gst_all_1
+, ffmpegSupport ? true, ffmpeg, bluezSupport ? true, bluez, sbc, libfreeaptx
+, ldacbt, liblc3, fdk_aac, libopus, nativeHspSupport ? true
+, nativeHfpSupport ? true, nativeModemManagerSupport ? true, modemmanager
+, ofonoSupport ? true, hsphfpdSupport ? true, pulseTunnelSupport ? true
+, libpulseaudio, zeroconfSupport ? true, avahi, raopSupport ? true, openssl
+, rocSupport ? true, roc-toolkit, x11Support ? true, libcanberra, xorg
+, mysofaSupport ? true, libmysofa, tinycompress }:
 
 let
   mesonEnableFeature = b: if b then "enabled" else "disabled";
@@ -76,16 +21,7 @@ let
     pname = "pipewire";
     version = "0.3.71";
 
-    outputs = [
-      "out"
-      "lib"
-      "pulse"
-      "jack"
-      "dev"
-      "doc"
-      "man"
-      "installedTests"
-    ];
+    outputs = [ "out" "lib" "pulse" "jack" "dev" "doc" "man" "installedTests" ];
 
     src = fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
@@ -113,45 +49,30 @@ let
     ];
 
     strictDeps = true;
-    nativeBuildInputs = [
-      docutils
-      doxygen
-      graphviz
-      meson
-      ninja
-      pkg-config
-      python3
-      glib
-    ];
+    nativeBuildInputs =
+      [ docutils doxygen graphviz meson ninja pkg-config python3 glib ];
 
-    buildInputs =
-      [
-        alsa-lib
-        dbus
-        glib
-        libjack2
-        libusb1
-        libsndfile
-        lilv
-        ncurses
-        readline
-        udev
-        vulkan-headers
-        vulkan-loader
-        webrtc-audio-processing
-        tinycompress
-      ]
-      ++ (if enableSystemd then [ systemd ] else [ eudev ])
+    buildInputs = [
+      alsa-lib
+      dbus
+      glib
+      libjack2
+      libusb1
+      libsndfile
+      lilv
+      ncurses
+      readline
+      udev
+      vulkan-headers
+      vulkan-loader
+      webrtc-audio-processing
+      tinycompress
+    ] ++ (if enableSystemd then [ systemd ] else [ eudev ])
       ++ lib.optionals gstreamerSupport [
         gst_all_1.gst-plugins-base
         gst_all_1.gstreamer
-      ]
-      ++ lib.optionals libcameraSupport [
-        libcamera
-        libdrm
-      ]
-      ++ lib.optional ffmpegSupport ffmpeg
-      ++ lib.optionals bluezSupport [
+      ] ++ lib.optionals libcameraSupport [ libcamera libdrm ]
+      ++ lib.optional ffmpegSupport ffmpeg ++ lib.optionals bluezSupport [
         bluez
         libfreeaptx
         ldacbt
@@ -159,17 +80,11 @@ let
         sbc
         fdk_aac
         libopus
-      ]
-      ++ lib.optional nativeModemManagerSupport modemmanager
+      ] ++ lib.optional nativeModemManagerSupport modemmanager
       ++ lib.optional pulseTunnelSupport libpulseaudio
-      ++ lib.optional zeroconfSupport avahi
-      ++ lib.optional raopSupport openssl
+      ++ lib.optional zeroconfSupport avahi ++ lib.optional raopSupport openssl
       ++ lib.optional rocSupport roc-toolkit
-      ++ lib.optionals x11Support [
-        libcanberra
-        xorg.libX11
-        xorg.libXfixes
-      ]
+      ++ lib.optionals x11Support [ libcanberra xorg.libX11 xorg.libXfixes ]
       ++ lib.optional mysofaSupport libmysofa;
 
     # Valgrind binary is required for running one optional test.
@@ -195,7 +110,9 @@ let
       "-Dbluez5=${mesonEnableFeature bluezSupport}"
       "-Dbluez5-backend-hsp-native=${mesonEnableFeature nativeHspSupport}"
       "-Dbluez5-backend-hfp-native=${mesonEnableFeature nativeHfpSupport}"
-      "-Dbluez5-backend-native-mm=${mesonEnableFeature nativeModemManagerSupport}"
+      "-Dbluez5-backend-native-mm=${
+        mesonEnableFeature nativeModemManagerSupport
+      }"
       "-Dbluez5-backend-ofono=${mesonEnableFeature ofonoSupport}"
       "-Dbluez5-backend-hsphfpd=${mesonEnableFeature hsphfpdSupport}"
       # source code is not easily obtainable
@@ -241,15 +158,13 @@ let
     passthru.tests = nixosTests.installed-tests.pipewire;
 
     meta = with lib; {
-      description = "Server and user space API to deal with multimedia pipelines";
+      description =
+        "Server and user space API to deal with multimedia pipelines";
       homepage = "https://pipewire.org/";
       license = licenses.mit;
       platforms = platforms.linux;
-      maintainers = with maintainers; [
-        kranzes
-        k900
-      ];
+      maintainers = with maintainers; [ kranzes k900 ];
     };
   };
-in
-self
+
+in self

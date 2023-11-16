@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "vat-moss";
@@ -21,7 +15,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # Update API URL to HTTPS
-      url = "https://github.com/raphaelm/vat_moss-python/commit/ed32b7d893da101332d3bb202d17b1bf89e5d9ed.patch";
+      url =
+        "https://github.com/raphaelm/vat_moss-python/commit/ed32b7d893da101332d3bb202d17b1bf89e5d9ed.patch";
       hash = "sha256-GpxaQ6/1LdFdxzXT/p4HS7FHU0WeM0i3LbdRFeqnFdw=";
     })
   ];
@@ -32,16 +27,17 @@ buildPythonPackage rec {
 
   disabledTests = [ "test_fetch" ];
 
-  disabledTestPaths =
-    [
-      # network access
-      "tests/test_id.py"
-    ];
+  disabledTestPaths = [
+    # network access
+    "tests/test_id.py"
+  ];
 
   meta = with lib; {
-    description = "A Python library for dealing with VAT MOSS and Norway VAT on digital services. Includes VAT ID validation, rate calculation based on place of supply, exchange rate and currency tools for invoices";
+    description =
+      "A Python library for dealing with VAT MOSS and Norway VAT on digital services. Includes VAT ID validation, rate calculation based on place of supply, exchange rate and currency tools for invoices";
     homepage = "https://github.com/raphaelm/vat_moss-python";
-    changelog = "https://github.com/raphaelm/vat_moss-python/blob/${src.rev}/changelog.md";
+    changelog =
+      "https://github.com/raphaelm/vat_moss-python/blob/${src.rev}/changelog.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

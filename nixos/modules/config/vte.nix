@@ -1,11 +1,6 @@
 # VTE
 
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -16,13 +11,10 @@ let
     # Supports both bash and zsh, requires interactive shell.
     . ${pkgs.vte}/etc/profile.d/vte.sh
   '';
-in
 
-{
+in {
 
-  meta = {
-    maintainers = teams.gnome.members;
-  };
+  meta = { maintainers = teams.gnome.members; };
 
   options = {
 
@@ -45,6 +37,7 @@ in
         across terminals.
       '';
     };
+
   };
 
   config = mkMerge [
@@ -52,6 +45,8 @@ in
       programs.bash.interactiveShellInit = mkBefore vteInitSnippet;
     })
 
-    (mkIf config.programs.zsh.vteIntegration { programs.zsh.interactiveShellInit = vteInitSnippet; })
+    (mkIf config.programs.zsh.vteIntegration {
+      programs.zsh.interactiveShellInit = vteInitSnippet;
+    })
   ];
 }

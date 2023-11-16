@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder, pytz }:
 
 buildPythonPackage rec {
   pname = "pyclimacell";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-jWHjnebg4Aar48gid7bB7XYXOQtSqbmVmASsZd0YoPc=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    pytz
-  ];
+  propagatedBuildInputs = [ aiohttp pytz ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

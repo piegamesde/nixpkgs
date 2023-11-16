@@ -1,19 +1,6 @@
-{
-  lib,
-  astroid,
-  beautifulsoup4,
-  buildPythonPackage,
-  crossplane,
-  fetchFromGitHub,
-  jellyfish,
-  jproperties,
-  luhn,
-  lxml,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, astroid, beautifulsoup4, buildPythonPackage, crossplane, fetchFromGitHub
+, jellyfish, jproperties, luhn, lxml, pytest-mock, pytestCheckHook, pythonOlder
+, pyyaml }:
 
 buildPythonPackage rec {
   pname = "whispers";
@@ -40,10 +27,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -58,7 +42,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "whispers" ];
 
   meta = with lib; {
-    description = "Tool to identify hardcoded secrets in static structured text";
+    description =
+      "Tool to identify hardcoded secrets in static structured text";
     homepage = "https://github.com/Skyscanner/whispers";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

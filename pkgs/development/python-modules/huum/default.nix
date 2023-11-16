@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pydantic,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core, pydantic
+, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "huum";
@@ -26,15 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "huum" ];
 

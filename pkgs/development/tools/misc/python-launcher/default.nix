@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, rustPlatform, fetchFromGitHub, python3 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "python-launcher";
@@ -23,9 +18,11 @@ rustPlatform.buildRustPackage rec {
   useNextest = true;
 
   meta = with lib; {
-    description = "An implementation of the `py` command for Unix-based platforms";
+    description =
+      "An implementation of the `py` command for Unix-based platforms";
     homepage = "https://github.com/brettcannon/python-launcher";
-    changelog = "https://github.com/brettcannon/python-launcher/releases/tag/v${version}";
+    changelog =
+      "https://github.com/brettcannon/python-launcher/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
     mainProgram = "py";

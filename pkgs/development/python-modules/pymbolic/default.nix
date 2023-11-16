@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fetchpatch,
-  matchpy,
-  pytestCheckHook,
-  pythonOlder,
-  pytools,
-}:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, matchpy, pytestCheckHook
+, pythonOlder, pytools }:
 
 buildPythonPackage rec {
   pname = "pymbolic";
@@ -23,7 +15,8 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/inducer/pymbolic/commit/cb3d999e4788dad3edf053387b6064adf8b08e19.patch";
+      url =
+        "https://github.com/inducer/pymbolic/commit/cb3d999e4788dad3edf053387b6064adf8b08e19.patch";
       excludes = [ ".github/workflows/ci.yml" ];
       hash = "sha256-P0YjqAo0z0LZMIUTeokwMkfP8vxBXi3TcV4BSFaO1lU=";
     })
@@ -31,10 +24,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytools ];
 
-  nativeCheckInputs = [
-    matchpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ matchpy pytestCheckHook ];
 
   postPatch = ''
     # pytest is a test requirement not a run-time one

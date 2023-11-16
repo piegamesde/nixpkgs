@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  libsodium,
-  json_c,
-  ncurses,
-  libxml2,
-  jq,
+{ lib, stdenv, fetchFromGitLab, cmake, libsodium, json_c, ncurses, libxml2, jq
 }:
 
 stdenv.mkDerivation rec {
@@ -22,17 +13,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    libxml2
-    jq
-  ];
+  nativeBuildInputs = [ cmake libxml2 jq ];
 
-  buildInputs = [
-    libsodium
-    json_c
-    ncurses
-  ];
+  buildInputs = [ libsodium json_c ncurses ];
 
   cmakeFlags = [ "-DBUILD_SPECTRE_TESTS=ON" ];
 

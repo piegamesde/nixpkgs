@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub }:
 
 buildNpmPackage rec {
   pname = "cz-cli";
@@ -21,10 +17,7 @@ buildNpmPackage rec {
     description = "The commitizen command line utility";
     homepage = "https://commitizen.github.io/cz-cli";
     changelog = "https://github.com/commitizen/cz-cli/releases/tag/v${version}";
-    maintainers = with maintainers; [
-      freezeboy
-      natsukium
-    ];
+    maintainers = with maintainers; [ freezeboy natsukium ];
     license = licenses.mit;
   };
 }

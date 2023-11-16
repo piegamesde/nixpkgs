@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  opusfile,
-  libogg,
-  SDL2,
-  openal,
-  freetype,
-  libjpeg,
-  curl,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, opusfile, libogg, SDL2, openal, freetype
+, libjpeg, curl, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "iortcw-sp";
@@ -36,21 +25,11 @@ stdenv.mkDerivation rec {
 
   installTargets = [ "copyfiles" ];
 
-  buildInputs = [
-    opusfile
-    libogg
-    SDL2
-    freetype
-    libjpeg
-    openal
-    curl
-  ];
+  buildInputs = [ opusfile libogg SDL2 freetype libjpeg openal curl ];
   nativeBuildInputs = [ makeWrapper ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-I${SDL2.dev}/include/SDL2"
-    "-I${opusfile.dev}/include/opus"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString [ "-I${SDL2.dev}/include/SDL2" "-I${opusfile.dev}/include/opus" ];
   NIX_CFLAGS_LINK = [ "-lSDL2" ];
 
   postInstall = ''
@@ -60,7 +39,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Single player version of game engine for Return to Castle Wolfenstein";
+    description =
+      "Single player version of game engine for Return to Castle Wolfenstein";
     homepage = src.meta.homepage;
     license = licenses.gpl3;
     platforms = platforms.linux;

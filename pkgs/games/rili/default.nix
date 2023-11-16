@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  SDL_mixer,
-  SDL,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, SDL_mixer, SDL, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "ri_li";
@@ -24,18 +16,18 @@ stdenv.mkDerivation rec {
     #  https://sourceforge.net/p/ri-li/bugs/2/
     (fetchpatch {
       name = "gcc-11.patch";
-      url = "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch";
+      url =
+        "https://sourceforge.net/p/ri-li/bugs/2/attachment/0001-Fix-build-on-gcc-11.patch";
       sha256 = "01il9lm3amwp3b435ka9q63p0jwlzajwnbshyazx6n9vcnrr17yw";
     })
   ];
 
-  CPPFLAGS = "-I${lib.getDev SDL}/include -I${lib.getDev SDL}/include/SDL -I${SDL_mixer}/include";
+  CPPFLAGS = "-I${lib.getDev SDL}/include -I${
+      lib.getDev SDL
+    }/include/SDL -I${SDL_mixer}/include";
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    SDL
-    SDL_mixer
-  ];
+  buildInputs = [ SDL SDL_mixer ];
 
   meta = {
     homepage = "https://ri-li.sourceforge.net";

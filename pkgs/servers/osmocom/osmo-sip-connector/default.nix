@@ -1,19 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  sofia_sip,
-  glib,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore
+, sofia_sip, glib }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-sip-connector";
   version = "1.6.2";
 
@@ -28,21 +18,15 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libosmocore
-    sofia_sip
-    glib
-  ];
+  buildInputs = [ libosmocore sofia_sip glib ];
 
   enableParallelBuilding = true;
 
   meta = {
-    description = "This implements an interface between the MNCC (Mobile Network Call Control) interface of OsmoMSC (and also previously OsmoNITB) and SIP";
+    description =
+      "This implements an interface between the MNCC (Mobile Network Call Control) interface of OsmoMSC (and also previously OsmoNITB) and SIP";
     homepage = "https://osmocom.org/projects/osmo-sip-conector";
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ janik ];

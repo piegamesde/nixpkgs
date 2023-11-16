@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  camlidl,
-  fuse,
-  dune-configurator,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, camlidl, fuse, dune-configurator }:
 
 buildDunePackage rec {
   pname = "ocamlfuse";
@@ -20,10 +13,7 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ camlidl ];
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [
-    camlidl
-    fuse
-  ];
+  propagatedBuildInputs = [ camlidl fuse ];
 
   meta = {
     homepage = "https://sourceforge.net/projects/ocamlfuse";

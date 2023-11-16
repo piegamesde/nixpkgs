@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromBitbucket,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromBitbucket, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   version = "20200125";

@@ -1,22 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.tailscale;
   isNetworkd = config.networking.useNetworkd;
-in
-{
-  meta.maintainers = with maintainers; [
-    danderson
-    mbaillie
-    twitchyliquid64
-  ];
+in {
+  meta.maintainers = with maintainers; [ danderson mbaillie twitchyliquid64 ];
 
   options.services.tailscale = {
     enable = mkEnableOption (lib.mdDoc "Tailscale client daemon");
@@ -24,23 +14,22 @@ in
     port = mkOption {
       type = types.port;
       default = 41641;
-      description = lib.mdDoc "The port to listen on for tunnel traffic (0=autoselect).";
+      description =
+        lib.mdDoc "The port to listen on for tunnel traffic (0=autoselect).";
     };
 
     interfaceName = mkOption {
       type = types.str;
       default = "tailscale0";
-      description =
-        lib.mdDoc
-          ''The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
+      description = lib.mdDoc ''
+        The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
     };
 
     permitCertUid = mkOption {
       type = types.nullOr types.nonEmptyStr;
       default = null;
-      description =
-        lib.mdDoc
-          "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
+      description = lib.mdDoc
+        "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
     };
 
     package = mkOption {
@@ -51,12 +40,7 @@ in
     };
 
     useRoutingFeatures = mkOption {
-      type = types.enum [
-        "none"
-        "client"
-        "server"
-        "both"
-      ];
+      type = types.enum [ "none" "client" "server" "both" ];
       default = "none";
       example = "server";
       description = lib.mdDoc ''
@@ -83,7 +67,8 @@ in
       serviceConfig.Environment = [
         "PORT=${toString cfg.port}"
         ''"FLAGS=--tun ${lib.escapeShellArg cfg.interfaceName}"''
-      ] ++ (lib.optionals (cfg.permitCertUid != null) [ "TS_PERMIT_CERT_UID=${cfg.permitCertUid}" ]);
+      ] ++ (lib.optionals (cfg.permitCertUid != null)
+        [ "TS_PERMIT_CERT_UID=${cfg.permitCertUid}" ]);
       # Restart tailscaled with a single `systemctl restart` at the
       # end of activation, rather than a `stop` followed by a later
       # `start`. Activation over Tailscale can hang for tens of
@@ -98,21 +83,20 @@ in
       stopIfChanged = false;
     };
 
-    boot.kernel.sysctl = mkIf (cfg.useRoutingFeatures == "server" || cfg.useRoutingFeatures == "both") {
-      "net.ipv4.conf.all.forwarding" = mkOverride 97 true;
-      "net.ipv6.conf.all.forwarding" = mkOverride 97 true;
-    };
+    boot.kernel.sysctl = mkIf
+      (cfg.useRoutingFeatures == "server" || cfg.useRoutingFeatures == "both") {
+        "net.ipv4.conf.all.forwarding" = mkOverride 97 true;
+        "net.ipv6.conf.all.forwarding" = mkOverride 97 true;
+      };
 
-    networking.firewall.checkReversePath =
-      mkIf (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
-        "loose";
+    networking.firewall.checkReversePath = mkIf
+      (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
+      "loose";
 
     networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
 
     systemd.network.networks."50-tailscale" = mkIf isNetworkd {
-      matchConfig = {
-        Name = cfg.interfaceName;
-      };
+      matchConfig = { Name = cfg.interfaceName; };
       linkConfig = {
         Unmanaged = true;
         ActivationPolicy = "manual";

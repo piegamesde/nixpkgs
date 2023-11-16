@@ -1,17 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  gettext,
-  zsh,
-  pinentry,
-  cryptsetup,
-  gnupg,
-  util-linux,
-  e2fsprogs,
-  sudo,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, gettext, zsh, pinentry, cryptsetup
+, gnupg, util-linux, e2fsprogs, sudo }:
 
 stdenv.mkDerivation rec {
   pname = "tomb";
@@ -24,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0d6vmfcf4kd0p2bcljmdnyc2fmbwvar81cc472zx86r7yc3ih102";
   };
 
-  buildInputs = [
-    sudo
-    zsh
-    pinentry
-  ];
+  buildInputs = [ sudo zsh pinentry ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -53,7 +37,8 @@ stdenv.mkDerivation rec {
           gnupg
           pinentry
           util-linux
-          e2fsprogs
+          0.0
+          fsprogs
         ]
       }
   '';

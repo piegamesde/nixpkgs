@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pcre2,
-  sqlite,
-  ncurses,
-  readline,
-  zlib,
-  bzip2,
-  autoconf,
-  automake,
-  curl,
-  buildPackages,
-}:
+{ lib, stdenv, fetchFromGitHub, pcre2, sqlite, ncurses, readline, zlib, bzip2
+, autoconf, automake, curl, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "lnav";
@@ -35,20 +22,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    autoconf
-    automake
-    zlib
-    curl.dev
-  ];
-  buildInputs = [
-    bzip2
-    ncurses
-    pcre2
-    readline
-    sqlite
-    curl
-  ];
+  nativeBuildInputs = [ autoconf automake zlib curl.dev ];
+  buildInputs = [ bzip2 ncurses pcre2 readline sqlite curl ];
 
   preConfigure = ''
     ./autogen.sh
@@ -71,4 +46,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ dochang ];
     platforms = platforms.unix;
   };
+
 }

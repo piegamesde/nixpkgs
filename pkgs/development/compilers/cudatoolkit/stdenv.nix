@@ -1,11 +1,5 @@
-{
-  lib,
-  nixpkgsCompatibleLibstdcxx,
-  nvccCompatibleCC,
-  overrideCC,
-  stdenv,
-  wrapCCWith,
-}:
+{ lib, nixpkgsCompatibleLibstdcxx, nvccCompatibleCC, overrideCC, stdenv
+, wrapCCWith }:
 
 let
   cc = wrapCCWith {
@@ -25,5 +19,5 @@ let
     # cc already exposed
   };
   assertCondition = true;
-in
-lib.extendDerivation assertCondition passthruExtra cudaStdenv
+in lib.extendDerivation assertCondition passthruExtra cudaStdenv
+

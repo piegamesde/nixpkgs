@@ -1,25 +1,15 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl
 
-  # darwin
-  Security,
+# darwin
+, Security
 
-  # tests
-  firefox-esr-unwrapped,
-  firefox-unwrapped,
-  thunderbird-unwrapped,
-}:
+# tests
+, firefox-esr-unwrapped, firefox-unwrapped, thunderbird-unwrapped }:
 
 let
   pname = "dump_syms";
   version = "2.2.1";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -48,7 +38,8 @@ rustPlatform.buildRustPackage {
 
   meta = with lib; {
     changelog = "https://github.com/mozilla/dump_syms/releases/tag/v${version}";
-    description = "Command-line utility for parsing the debugging information the compiler provides in ELF or stand-alone PDB files";
+    description =
+      "Command-line utility for parsing the debugging information the compiler provides in ELF or stand-alone PDB files";
     license = licenses.asl20;
     homepage = "https://github.com/mozilla/dump_syms/";
     maintainers = with maintainers; [ hexa ];

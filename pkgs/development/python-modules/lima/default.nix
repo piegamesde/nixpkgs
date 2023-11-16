@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "lima";

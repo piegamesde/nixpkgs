@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  substituteAll,
-  cinnamon,
-  gettext,
-  gobject-introspection,
-  mpv,
-  python3,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, cinnamon, gettext
+, gobject-introspection, mpv, python3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "hypnotix";
@@ -25,7 +15,9 @@ stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./libmpv-path.patch;
-      libmpv = "${lib.getLib mpv}/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libmpv = "${
+          lib.getLib mpv
+        }/lib/libmpv${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
@@ -35,12 +27,8 @@ stdenv.mkDerivation rec {
       --replace /usr/share/hypnotix $out/share/hypnotix
   '';
 
-  nativeBuildInputs = [
-    gettext
-    gobject-introspection
-    python3.pkgs.wrapPython
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gettext gobject-introspection python3.pkgs.wrapPython wrapGAppsHook ];
 
   dontWrapGApps = true;
 
@@ -78,12 +66,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "IPTV streaming application";
     homepage = "https://github.com/linuxmint/hypnotix";
-    changelog = "https://github.com/linuxmint/hypnotix/blob/${src.rev}/debian/changelog";
+    changelog =
+      "https://github.com/linuxmint/hypnotix/blob/${src.rev}/debian/changelog";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      dotlambda
-      bobby285271
-    ];
+    maintainers = with lib.maintainers; [ dotlambda bobby285271 ];
     platforms = lib.platforms.linux;
   };
 }

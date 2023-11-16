@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "gentium";
   version = "6.200";
 
   src = fetchzip {
-    url = "http://software.sil.org/downloads/r/gentium/GentiumPlus-${version}.zip";
+    url =
+      "http://software.sil.org/downloads/r/gentium/GentiumPlus-${version}.zip";
     hash = "sha256-gpVOtmF4Kp3y1Rm00c4o3WQEskO7mY1Z5SVaYHI0hzg=";
   };
 
@@ -25,7 +22,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/gentium/";
-    description = "A high-quality typeface family for Latin, Cyrillic, and Greek";
+    description =
+      "A high-quality typeface family for Latin, Cyrillic, and Greek";
     longDescription = ''
       Gentium is a typeface family designed to enable the diverse ethnic groups
       around the world who use the Latin, Cyrillic and Greek scripts to produce
@@ -42,10 +40,7 @@ stdenvNoCC.mkDerivation rec {
       font family, along with documentation.
     '';
     downloadPage = "https://software.sil.org/gentium/download/";
-    maintainers = with maintainers; [
-      raskin
-      rycee
-    ];
+    maintainers = with maintainers; [ raskin rycee ];
     license = licenses.ofl;
     platforms = platforms.all;
   };

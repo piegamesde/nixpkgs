@@ -1,9 +1,4 @@
-{
-  buildDunePackage,
-  kafka,
-  lwt,
-  cmdliner,
-}:
+{ buildDunePackage, kafka, lwt, cmdliner }:
 
 buildDunePackage rec {
   pname = "kafka_lwt";
@@ -12,10 +7,7 @@ buildDunePackage rec {
 
   buildInputs = [ cmdliner ];
 
-  propagatedBuildInputs = [
-    kafka
-    lwt
-  ];
+  propagatedBuildInputs = [ kafka lwt ];
 
   meta = kafka.meta // {
     description = "OCaml bindings for Kafka, Lwt bindings";

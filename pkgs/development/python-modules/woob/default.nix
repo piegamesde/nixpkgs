@@ -1,28 +1,7 @@
-{
-  lib,
-  babel,
-  buildPythonPackage,
-  fetchFromGitLab,
-  fetchpatch,
-  gnupg,
-  html2text,
-  libyaml,
-  lxml,
-  nose,
-  packaging,
-  pillow,
-  prettytable,
-  pycountry,
-  python-dateutil,
-  pythonOlder,
-  pyyaml,
-  requests,
-  rich,
-  termcolor,
-  testers,
-  unidecode,
-  woob,
-}:
+{ lib, babel, buildPythonPackage, fetchFromGitLab, fetchpatch, gnupg, html2text
+, libyaml, lxml, nose, packaging, pillow, prettytable, pycountry
+, python-dateutil, pythonOlder, pyyaml, requests, rich, termcolor, testers
+, unidecode, woob }:
 
 buildPythonPackage rec {
   pname = "woob";
@@ -72,7 +51,8 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "Collection of applications and APIs to interact with websites";
+    description =
+      "Collection of applications and APIs to interact with websites";
     homepage = "https://woob.tech";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ DamienCassou ];

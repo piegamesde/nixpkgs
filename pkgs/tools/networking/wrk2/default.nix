@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  luajit,
-  openssl,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, luajit, openssl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "wrk2";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1aqdwmgdd74wq73f1zp28yqj91gd6p6nf9nbdfibl7mlklbzvak8";
   };
 
-  buildInputs = [
-    luajit
-    openssl
-    zlib
-  ];
+  buildInputs = [ luajit openssl zlib ];
 
   patchPhase = ''
     rm -rf deps/luajit && mkdir deps/luajit
@@ -44,7 +33,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Constant throughput, correct latency recording variant of wrk";
+    description =
+      "Constant throughput, correct latency recording variant of wrk";
     homepage = "https://github.com/giltene/wrk2";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;

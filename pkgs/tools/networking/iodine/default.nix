@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  nettools,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, nettools, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "iodine";
@@ -26,9 +19,7 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "prefix=\${out}" ];
 
-  passthru.tests = {
-    inherit (nixosTests) iodine;
-  };
+  passthru.tests = { inherit (nixosTests) iodine; };
 
   meta = {
     homepage = "http://code.kryo.se/iodine/";

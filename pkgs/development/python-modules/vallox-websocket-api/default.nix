@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  setuptools,
-  construct,
-  websockets,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools, construct
+, websockets, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "vallox-websocket-api";
@@ -26,15 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    construct
-    websockets
-  ];
+  propagatedBuildInputs = [ construct websockets ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "vallox_websocket_api" ];
 

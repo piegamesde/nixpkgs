@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchPypi,
-  iso8601,
-  progressbar2,
-  requests,
-}:
+{ lib, buildPythonApplication, fetchPypi, iso8601, progressbar2, requests }:
 
 buildPythonApplication rec {
   pname = "twitch-chat-downloader";
@@ -20,11 +13,7 @@ buildPythonApplication rec {
     sha256 = "sha256-dvj0HoF/2n5aQGMOD8UYY4EZegQwThPy1XJFvXyRT4Q=";
   };
 
-  propagatedBuildInputs = [
-    iso8601
-    progressbar2
-    requests
-  ];
+  propagatedBuildInputs = [ iso8601 progressbar2 requests ];
 
   doCheck = false; # no tests
 

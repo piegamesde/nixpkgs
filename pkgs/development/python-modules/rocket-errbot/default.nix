@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  fetchpatch,
-  buildPythonPackage,
-}:
+{ lib, fetchPypi, fetchpatch, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "rocket-errbot";
@@ -28,3 +23,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
   };
 }
+

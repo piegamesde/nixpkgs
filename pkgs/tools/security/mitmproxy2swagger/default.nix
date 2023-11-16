@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mitmproxy2swagger";
@@ -32,7 +28,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to automagically reverse-engineer REST APIs";
     homepage = "https://github.com/alufers/mitmproxy2swagger";
-    changelog = "https://github.com/alufers/mitmproxy2swagger/releases/tag/${version}";
+    changelog =
+      "https://github.com/alufers/mitmproxy2swagger/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

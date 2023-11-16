@@ -1,29 +1,11 @@
-{
-  lib,
-  stdenv,
-  pythonPackages,
-  fetchPypi,
-  pkg-config,
-  qmake,
-  qtbase,
-  qtsvg,
-  qtwebengine,
-  wrapQtAppsHook,
-  darwin,
-}:
+{ lib, stdenv, pythonPackages, fetchPypi, pkg-config, qmake, qtbase, qtsvg
+, qtwebengine, wrapQtAppsHook, darwin }:
 
 let
   inherit (pythonPackages)
-    buildPythonPackage
-    python
-    isPy27
-    pyqt5
-    sip
-    pyqt-builder
-  ;
+    buildPythonPackage python isPy27 pyqt5 sip pyqt-builder;
   inherit (darwin) autoSignDarwinBinariesHook;
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "PyQtWebEngine";
   version = "5.15.4";
   format = "pyproject";
@@ -41,10 +23,7 @@ buildPythonPackage rec {
     sip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
   '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [
     pkg-config
@@ -55,14 +34,10 @@ buildPythonPackage rec {
     qtwebengine
     pyqt-builder
     pythonPackages.setuptools
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+    [ autoSignDarwinBinariesHook ];
 
-  buildInputs = [
-    sip
-    qtbase
-    qtsvg
-    qtwebengine
-  ];
+  buildInputs = [ sip qtbase qtsvg qtwebengine ];
 
   propagatedBuildInputs = [ pyqt5 ];
 
@@ -74,21 +49,17 @@ buildPythonPackage rec {
   # Checked using pythonImportsCheck
   doCheck = false;
 
-  pythonImportsCheck = [
-    "PyQt5.QtWebEngine"
-    "PyQt5.QtWebEngineWidgets"
-  ];
+  pythonImportsCheck = [ "PyQt5.QtWebEngine" "PyQt5.QtWebEngineWidgets" ];
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit wrapQtAppsHook;
-  };
+  passthru = { inherit wrapQtAppsHook; };
 
   meta = with lib; {
     description = "Python bindings for Qt5";
     homepage = "http://www.riverbankcomputing.co.uk";
     license = licenses.gpl3;
-    platforms = lib.lists.intersectLists qtwebengine.meta.platforms platforms.mesaPlatforms;
+    platforms = lib.lists.intersectLists qtwebengine.meta.platforms
+      platforms.mesaPlatforms;
   };
 }

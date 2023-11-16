@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  darwin,
-  bootstrap-chicken ? null,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, darwin, bootstrap-chicken ? null }:
 
 let
-  platform =
-    with stdenv;
+  platform = with stdenv;
     if isDarwin then
       "macosx"
     else if isCygwin then
@@ -20,15 +12,15 @@ let
       "solaris"
     else
       "linux"; # Should be a sane default
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "chicken";
   version = "5.3.0";
 
   binaryVersion = 11;
 
   src = fetchurl {
-    url = "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
+    url =
+      "https://code.call-cc.org/releases/${version}/chicken-${version}.tar.gz";
     sha256 = "sha256-w62Z2PnhftgQkS75gaw7DC4vRvsOzAM7XDttyhvbDXY=";
   };
 
@@ -37,11 +29,7 @@ stdenv.mkDerivation rec {
   # -fno-strict-overflow is not a supported argument in clang on darwin
   hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
 
-  makeFlags =
-    [
-      "PLATFORM=${platform}"
-      "PREFIX=$(out)"
-    ]
+  makeFlags = [ "PLATFORM=${platform}" "PREFIX=$(out)" ]
     ++ (lib.optionals stdenv.isDarwin [
       "XCODE_TOOL_PATH=${darwin.binutils.bintools}/bin"
       "C_COMPILER=$(CC)"
@@ -50,9 +38,9 @@ stdenv.mkDerivation rec {
       "POSTINSTALL_PROGRAM=install_name_tool"
     ]);
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+    [ darwin.autoSignDarwinBinariesHook ];
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 
@@ -67,7 +55,9 @@ stdenv.mkDerivation rec {
   doCheck = !stdenv.isDarwin;
   postCheck = ''
     ./csi -R chicken.pathname -R chicken.platform \
-       -p "(assert (equal? \"${toString binaryVersion}\" (pathname-file (car (repository-path)))))"
+       -p "(assert (equal? \"${
+         toString binaryVersion
+       }\" (pathname-file (car (repository-path)))))"
   '';
 
   doInstallCheck = true;
@@ -78,11 +68,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://call-cc.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [
-      corngood
-      nagy
-      konst-aa
-    ];
+    maintainers = with lib.maintainers; [ corngood nagy konst-aa ];
     platforms = lib.platforms.unix;
     description = "A portable compiler for the Scheme programming language";
     longDescription = ''

@@ -1,16 +1,9 @@
-{
-  lib,
-  newScope,
-  libsForQt5,
-  clangStdenv,
-}:
-lib.makeScope newScope (
-  self:
+{ lib, newScope, libsForQt5, clangStdenv }:
+lib.makeScope newScope (self:
   let
     callPackage = self.newScope { stdenv = clangStdenv; };
     callQtPackage = self.newScope (libsForQt5 // { stdenv = clangStdenv; });
-  in
-  {
+  in {
     mkOpenModelicaDerivation = callPackage ./mkderivation { };
     omcompiler = callPackage ./omcompiler { };
     omplot = callQtPackage ./omplot { };
@@ -20,5 +13,4 @@ lib.makeScope newScope (
     omlibrary = callPackage ./omlibrary { };
     omshell = callQtPackage ./omshell { };
     combined = callPackage ./combined { };
-  }
-)
+  })

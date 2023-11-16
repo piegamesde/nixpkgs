@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  pkg-config,
-  wrapGAppsHook4,
-  gdk-pixbuf,
-  gtk4,
-  libadwaita,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, wrapGAppsHook4, gdk-pixbuf, gtk4
+, libadwaita, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "fclones-gui";
@@ -22,16 +12,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-rDAUA75KCWlhf13bCucV5w9WAJ+Uw+s8sUCCeWBYJeA=";
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook4 ];
 
-  buildInputs = [
-    gdk-pixbuf
-    gtk4
-    libadwaita
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.IOKit ];
+  buildInputs = [ gdk-pixbuf gtk4 libadwaita ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.IOKit ];
 
   meta = with lib; {
     description = "Interactive duplicate file remover";

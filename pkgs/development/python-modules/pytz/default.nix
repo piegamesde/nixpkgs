@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytz";
@@ -18,10 +13,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [
-    "-s"
-    "pytz/tests"
-  ];
+  unittestFlagsArray = [ "-s" "pytz/tests" ];
 
   pythonImportsCheck = [ "pytz" ];
 

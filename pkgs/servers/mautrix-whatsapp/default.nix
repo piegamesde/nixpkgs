@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  olm,
-}:
+{ lib, buildGoModule, fetchFromGitHub, olm }:
 
 buildGoModule rec {
   pname = "mautrix-whatsapp";
@@ -26,10 +21,6 @@ buildGoModule rec {
     homepage = "https://github.com/tulir/mautrix-whatsapp";
     description = "Matrix <-> Whatsapp hybrid puppeting/relaybot bridge";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      vskilet
-      ma27
-      chvp
-    ];
+    maintainers = with maintainers; [ vskilet ma27 chvp ];
   };
 }

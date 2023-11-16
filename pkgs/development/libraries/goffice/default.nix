@@ -1,32 +1,11 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  pkg-config,
-  intltool,
-  glib,
-  gtk3,
-  lasem,
-  libgsf,
-  libxml2,
-  libxslt,
-  cairo,
-  pango,
-  librsvg,
-  gnome,
-  autoreconfHook,
-  gtk-doc,
-}:
+{ fetchurl, lib, stdenv, pkg-config, intltool, glib, gtk3, lasem, libgsf
+, libxml2, libxslt, cairo, pango, librsvg, gnome, autoreconfHook, gtk-doc }:
 
 stdenv.mkDerivation rec {
   pname = "goffice";
   version = "0.10.55";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -43,20 +22,9 @@ stdenv.mkDerivation rec {
     glib # for glib-genmarshal
   ];
 
-  propagatedBuildInputs = [
-    glib
-    gtk3
-    libxml2
-    cairo
-    pango
-    libgsf
-    lasem
-  ];
+  propagatedBuildInputs = [ glib gtk3 libxml2 cairo pango libgsf lasem ];
 
-  buildInputs = [
-    libxslt
-    librsvg
-  ];
+  buildInputs = [ libxslt librsvg ];
 
   enableParallelBuilding = true;
 

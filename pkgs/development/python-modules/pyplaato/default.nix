@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  aiohttp,
-  python-dateutil,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, aiohttp, python-dateutil, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyplaato";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-HZF3Yxb/dTQSVzTkdAbfeD1Zyf8jFHoF3nt6OcdCnAM=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ aiohttp python-dateutil ];
 
   # Module has no tests
   doCheck = false;

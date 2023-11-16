@@ -1,12 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pyvlx";

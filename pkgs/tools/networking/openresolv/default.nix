@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  coreutils,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "openresolv";

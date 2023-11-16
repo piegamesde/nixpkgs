@@ -1,16 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libsndfile,
-  libpulseaudio,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libsndfile, libpulseaudio }:
 
-let
-  version = "5.8.2";
-in
-stdenv.mkDerivation rec {
+let version = "5.8.2";
+in stdenv.mkDerivation rec {
   pname = "ekho";
   inherit version;
 
@@ -30,19 +21,19 @@ stdenv.mkDerivation rec {
   };
 
   src = fetchurl {
-    url = "mirror://sourceforge/e-guidedog/Ekho/${version}/${pname}-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/e-guidedog/Ekho/${version}/${pname}-${version}.tar.xz";
     sha256 = "0ym6lpcpsvwvsiwlzkl1509a2hljwcw7synngrmqjq1n49ww00nj";
   };
 
   preConfigure = with lib; ''
-    NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE ${optionalString stdenv.is64bit "-D_x86_64"}"
+    NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE ${
+      optionalString stdenv.is64bit "-D_x86_64"
+    }"
     NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -DEKHO_DATA_PATH=\"$out/share/ekho-data\""
   '';
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libsndfile
-    libpulseaudio
-  ];
+  buildInputs = [ libsndfile libpulseaudio ];
 }

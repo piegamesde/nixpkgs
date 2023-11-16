@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  clang,
-}:
+{ lib, stdenv, fetchFromGitHub, clang }:
 
 stdenv.mkDerivation {
   pname = "blocksruntime";

@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  xorg,
-}:
+{ lib, stdenvNoCC, fetchurl, xorg }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "spleen";
   version = "2.0.0";
 
   src = fetchurl {
-    url = "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz";
+    url =
+      "https://github.com/fcambus/spleen/releases/download/${version}/spleen-${version}.tar.gz";
     hash = "sha256-d4d4s13UhwG4A9skemrIdZFUzl/Dq9XMC225ikS6Wgw=";
   };
 

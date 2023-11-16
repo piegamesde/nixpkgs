@@ -1,25 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libX11,
-  libXi,
-  libXt,
-  libXfixes,
-  libXext,
-}:
+{ lib, stdenv, fetchFromGitHub, libX11, libXi, libXt, libXfixes, libXext }:
 
 stdenv.mkDerivation rec {
   version = "1.8";
   pname = "xbanish";
 
-  buildInputs = [
-    libX11
-    libXi
-    libXt
-    libXfixes
-    libXext
-  ];
+  buildInputs = [ libX11 libXi libXt libXfixes libXext ];
 
   src = fetchFromGitHub {
     owner = "jcs";

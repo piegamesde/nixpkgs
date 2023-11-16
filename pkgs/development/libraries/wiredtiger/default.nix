@@ -1,24 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  automake,
-  autoconf,
-  libtool,
+{ lib, stdenv, fetchFromGitHub, automake, autoconf, libtool
 
-  # Optional Dependencies
-  lz4 ? null,
-  snappy ? null,
-  zlib ? null,
-  bzip2 ? null,
-  db ? null,
-  gperftools ? null,
-  leveldb ? null,
-}:
+# Optional Dependencies
+, lz4 ? null, snappy ? null, zlib ? null, bzip2 ? null, db ? null
+, gperftools ? null, leveldb ? null }:
 
 let
-  shouldUsePkg =
-    pkg: if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then pkg else null;
+  shouldUsePkg = pkg:
+    if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
+      pkg
+    else
+      null;
 
   optLz4 = shouldUsePkg lz4;
   optSnappy = shouldUsePkg snappy;
@@ -27,8 +18,7 @@ let
   optDb = shouldUsePkg db;
   optGperftools = shouldUsePkg gperftools;
   optLeveldb = shouldUsePkg leveldb;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "wiredtiger";
   version = "3.2.1";
 
@@ -39,20 +29,9 @@ stdenv.mkDerivation rec {
     sha256 = "04j2zw8b9jym43r682rh4kpdippxx7iw3ry16nxlbybzar9kgk83";
   };
 
-  nativeBuildInputs = [
-    automake
-    autoconf
-    libtool
-  ];
-  buildInputs = [
-    optLz4
-    optSnappy
-    optZlib
-    optBzip2
-    optDb
-    optGperftools
-    optLeveldb
-  ];
+  nativeBuildInputs = [ automake autoconf libtool ];
+  buildInputs =
+    [ optLz4 optSnappy optZlib optBzip2 optDb optGperftools optLeveldb ];
 
   configureFlags = [
     (lib.withFeature false "attach")

@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  fontconfig,
-  ocaml,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, fontconfig, ocaml }:
 
 stdenv.mkDerivation {
   pname = "ocaml-fontconfig";
@@ -18,10 +11,7 @@ stdenv.mkDerivation {
     sha256 = "1fw6bzydmnyh2g4x35mcbg0hypnxqhynivk4nakcsx7prr8zr3yh";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    ocaml
-  ];
+  nativeBuildInputs = [ pkg-config ocaml ];
   buildInputs = [ fontconfig ];
 
   strictDeps = true;

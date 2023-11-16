@@ -1,21 +1,6 @@
-{
-  lib,
-  bleak,
-  buildPythonPackage,
-  ecpy,
-  fetchPypi,
-  future,
-  hidapi,
-  nfcpy,
-  pillow,
-  protobuf,
-  pycrypto,
-  pycryptodomex,
-  pyelftools,
-  python-u2flib-host,
-  pythonOlder,
-  websocket-client,
-}:
+{ lib, bleak, buildPythonPackage, ecpy, fetchPypi, future, hidapi, nfcpy, pillow
+, protobuf, pycrypto, pycryptodomex, pyelftools, python-u2flib-host, pythonOlder
+, websocket-client }:
 
 buildPythonPackage rec {
   pname = "ledgerblue";

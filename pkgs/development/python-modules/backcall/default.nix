@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   pname = "backcall";
@@ -25,4 +20,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/takluyver/backcall";
     license = lib.licenses.bsd3;
   };
+
 }

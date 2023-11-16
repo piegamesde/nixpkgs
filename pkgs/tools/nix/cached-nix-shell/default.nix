@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  nix,
-  openssl,
-  pkg-config,
-  ronn,
-  rustPlatform,
-}:
+{ lib, fetchFromGitHub, nix, openssl, pkg-config, ronn, rustPlatform }:
 
 let
   blake3-src = fetchFromGitHub {
@@ -15,8 +7,8 @@ let
     rev = "0.3.3";
     sha256 = "0av41ld0gqf3g60gcllpz59nqlr7r62v99mgfq9gs0p8diw5gi7x";
   };
-in
-rustPlatform.buildRustPackage rec {
+
+in rustPlatform.buildRustPackage rec {
   pname = "cached-nix-shell";
   version = "0.1.5";
 
@@ -34,10 +26,7 @@ rustPlatform.buildRustPackage rec {
   # https://github.com/BLAKE3-team/BLAKE3/blob/0.3.1/c/README.md#building
   BLAKE3_CSRC = "${blake3-src}/c";
 
-  nativeBuildInputs = [
-    nix
-    ronn
-  ];
+  nativeBuildInputs = [ nix ronn ];
 
   postBuild = ''
     make -f nix/Makefile post-build

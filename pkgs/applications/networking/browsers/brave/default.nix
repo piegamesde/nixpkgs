@@ -1,84 +1,29 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  wrapGAppsHook,
-  makeWrapper,
-  dpkg,
-  alsa-lib,
-  at-spi2-atk,
-  at-spi2-core,
-  atk,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gnome,
-  gsettings-desktop-schemas,
-  gtk3,
-  libuuid,
-  libdrm,
-  libX11,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
-  libxkbcommon,
-  libXrandr,
-  libXrender,
-  libXScrnSaver,
-  libxshmfence,
-  libXtst,
-  mesa,
-  nspr,
-  nss,
-  pango,
-  pipewire,
-  udev,
-  wayland,
-  xorg,
-  zlib,
-  xdg-utils,
-  snappy,
+{ lib, stdenv, fetchurl, wrapGAppsHook, makeWrapper, dpkg, alsa-lib, at-spi2-atk
+, at-spi2-core, atk, cairo, cups, dbus, expat, fontconfig, freetype, gdk-pixbuf
+, glib, gnome, gsettings-desktop-schemas, gtk3, libuuid, libdrm, libX11
+, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libxkbcommon
+, libXrandr, libXrender, libXScrnSaver, libxshmfence, libXtst, mesa, nspr, nss
+, pango, pipewire, udev, wayland, xorg, zlib, xdg-utils, snappy
 
-  # command line arguments which are always set e.g "--disable-gpu"
-  commandLineArgs ? "",
+# command line arguments which are always set e.g "--disable-gpu"
+, commandLineArgs ? ""
 
   # Necessary for USB audio devices.
-  pulseSupport ? stdenv.isLinux,
-  libpulseaudio,
+, pulseSupport ? stdenv.isLinux, libpulseaudio
 
-  # For GPU acceleration support on Wayland (without the lib it doesn't seem to work)
-  libGL,
+# For GPU acceleration support on Wayland (without the lib it doesn't seem to work)
+, libGL
 
-  # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder,VaapiVideoEncoder)
-  libvaSupport ? stdenv.isLinux,
-  libva,
-  enableVideoAcceleration ? libvaSupport,
+# For video acceleration via VA-API (--enable-features=VaapiVideoDecoder,VaapiVideoEncoder)
+, libvaSupport ? stdenv.isLinux, libva, enableVideoAcceleration ? libvaSupport
 
   # For Vulkan support (--enable-features=Vulkan); disabled by default as it seems to break VA-API
-  vulkanSupport ? false,
-  addOpenGLRunpath,
-  enableVulkan ? vulkanSupport,
-}:
+, vulkanSupport ? false, addOpenGLRunpath, enableVulkan ? vulkanSupport }:
 
 let
   inherit (lib)
-    optional
-    optionals
-    makeLibraryPath
-    makeSearchPathOutput
-    makeBinPath
-    optionalString
-    strings
-    escapeShellArg
-  ;
+    optional optionals makeLibraryPath makeSearchPathOutput makeBinPath
+    optionalString strings escapeShellArg;
 
   deps = [
     alsa-lib
@@ -125,23 +70,22 @@ let
   rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
   binpath = makeBinPath deps;
 
-  enableFeatures =
-    optionals enableVideoAcceleration [
-      "VaapiVideoDecoder"
-      "VaapiVideoEncoder"
-    ]
-    ++ optional enableVulkan "Vulkan";
+  enableFeatures = optionals enableVideoAcceleration [
+    "VaapiVideoDecoder"
+    "VaapiVideoEncoder"
+  ] ++ optional enableVulkan "Vulkan";
 
   # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
-  disableFeatures = optional enableVideoAcceleration "UseChromeOSDirectVideoDecoder";
-in
+  disableFeatures =
+    optional enableVideoAcceleration "UseChromeOSDirectVideoDecoder";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "brave";
   version = "1.52.122";
 
   src = fetchurl {
-    url = "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb";
+    url =
+      "https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb";
     sha256 = "sha256-TX/wbsfIv1Ymk7pnn2GcurEulZbnIkiNRnvrqnRBRVw=";
   };
 
@@ -150,10 +94,8 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   doInstallCheck = true;
 
-  nativeBuildInputs = [
-    dpkg
-    (wrapGAppsHook.override { inherit makeWrapper; })
-  ];
+  nativeBuildInputs =
+    [ dpkg (wrapGAppsHook.override { inherit makeWrapper; }) ];
 
   buildInputs = [
     # needed for GSETTINGS_SCHEMAS_PATH
@@ -165,7 +107,8 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
   ];
 
-  unpackPhase = "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
+  unpackPhase =
+    "dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner";
 
   installPhase = ''
     runHook preInstall
@@ -223,12 +166,16 @@ stdenv.mkDerivation rec {
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
       ${
         optionalString (enableFeatures != [ ]) ''
-          --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}"
+          --add-flags "--enable-features=${
+            strings.concatStringsSep "," enableFeatures
+          }"
         ''
       }
       ${
         optionalString (disableFeatures != [ ]) ''
-          --add-flags "--disable-features=${strings.concatStringsSep "," disableFeatures}"
+          --add-flags "--disable-features=${
+            strings.concatStringsSep "," disableFeatures
+          }"
         ''
       }
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
@@ -261,12 +208,7 @@ stdenv.mkDerivation rec {
     '';
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mpl20;
-    maintainers = with maintainers; [
-      uskudnik
-      rht
-      jefflabonte
-      nasirhm
-    ];
+    maintainers = with maintainers; [ uskudnik rht jefflabonte nasirhm ];
     platforms = [ "x86_64-linux" ];
   };
 }

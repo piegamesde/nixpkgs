@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "tockloader";
@@ -39,3 +35,4 @@ python3.pkgs.buildPythonApplication rec {
     maintainers = with maintainers; [ ];
   };
 }
+

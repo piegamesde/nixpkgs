@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  meson,
-  ninja,
-  pkg-config,
-  wayland,
-  wayland-scanner,
-}:
+{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, wayland
+, wayland-scanner }:
 
 stdenv.mkDerivation rec {
   pname = "wlr-randr";
@@ -21,12 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
   buildInputs = [ wayland ];
 
   meta = with lib; {

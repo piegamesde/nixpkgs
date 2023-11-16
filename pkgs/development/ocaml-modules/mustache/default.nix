@@ -1,12 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ezjsonm,
-  menhir,
-  menhirLib,
-  ounit,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ezjsonm, menhir, menhirLib, ounit }:
 
 buildDunePackage rec {
   pname = "mustache";

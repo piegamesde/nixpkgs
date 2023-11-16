@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  vcrpy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, requests, vcrpy }:
 
 buildPythonPackage rec {
   pname = "libpyvivotek";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    vcrpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook vcrpy ];
 
   pythonImportsCheck = [ "libpyvivotek" ];
 

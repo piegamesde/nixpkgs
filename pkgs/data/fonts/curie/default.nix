@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-}:
+{ lib, stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "curie";
   version = "1.0";
 
   src = fetchurl {
-    url = "https://github.com/NerdyPepper/curie/releases/download/v${version}/curie-v${version}.tar.gz";
+    url =
+      "https://github.com/NerdyPepper/curie/releases/download/v${version}/curie-v${version}.tar.gz";
     hash = "sha256-B89GNbOmm3lY/cRWQJEFu/5morCM/WrRQb/m6covbt8=";
   };
 

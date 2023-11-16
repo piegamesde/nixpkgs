@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -33,7 +27,10 @@ let
     defaultconfig = "${configDir}/exhibitor.properties";
     port = toString cfg.port;
     hostname = cfg.hostname;
-    headingtext = if (cfg.headingText != null) then (lib.escapeShellArg cfg.headingText) else null;
+    headingtext = if (cfg.headingText != null) then
+      (lib.escapeShellArg cfg.headingText)
+    else
+      null;
     nodemodification = lib.boolToString cfg.nodeModification;
     configcheckms = toString cfg.configCheckMs;
     jquerystyle = cfg.jqueryStyle;
@@ -54,32 +51,26 @@ let
       zkconfigconnect = concatStringsSep "," cfg.zkConfigConnect;
       zkconfigexhibitorpath = cfg.zkConfigExhibitorPath;
       zkconfigpollms = toString cfg.zkConfigPollMs;
-      zkconfigretry = "${toString cfg.zkConfigRetry.sleepMs}:${toString cfg.zkConfigRetry.retryQuantity}";
+      zkconfigretry = "${toString cfg.zkConfigRetry.sleepMs}:${
+          toString cfg.zkConfigRetry.retryQuantity
+        }";
       zkconfigzpath = cfg.zkConfigZPath;
-      zkconfigexhibitorport = toString cfg.zkConfigExhibitorPort; # NB: This might be null
+      zkconfigexhibitorport =
+        toString cfg.zkConfigExhibitorPort; # NB: This might be null
     };
     file = {
       fsconfigdir = cfg.fsConfigDir;
       fsconfiglockprefix = cfg.fsConfigLockPrefix;
       fsConfigName = fsConfigName;
     };
-    none = {
-      noneconfigdir = configDir;
-    };
+    none = { noneconfigdir = configDir; };
   };
-  cliOptions = concatStringsSep " " (
-    mapAttrsToList (k: v: "--${k} ${v}") (
-      filterAttrs (k: v: v != null && v != "") (
-        cliOptionsCommon
-        // cliOptionsPerConfig.${cfg.configType}
-        // s3CommonOptions
-        // optionalAttrs cfg.s3Backup { s3backup = "true"; }
-        // optionalAttrs cfg.fileSystemBackup { filesystembackup = "true"; }
-      )
-    )
-  );
-in
-{
+  cliOptions = concatStringsSep " " (mapAttrsToList (k: v: "--${k} ${v}")
+    (filterAttrs (k: v: v != null && v != "") (cliOptionsCommon
+      // cliOptionsPerConfig.${cfg.configType} // s3CommonOptions
+      // optionalAttrs cfg.s3Backup { s3backup = "true"; }
+      // optionalAttrs cfg.fileSystemBackup { filesystembackup = "true"; })));
+in {
   options = {
     services.exhibitor = {
       enable = mkEnableOption (lib.mdDoc "exhibitor server");
@@ -101,12 +92,7 @@ in
         '';
       };
       configType = mkOption {
-        type = types.enum [
-          "file"
-          "s3"
-          "zookeeper"
-          "none"
-        ];
+        type = types.enum [ "file" "s3" "zookeeper" "none" ];
         description = lib.mdDoc ''
           Which configuration type you want to use. Additional config will be
           required depending on which type you are using.
@@ -141,11 +127,7 @@ in
         default = null;
       };
       jqueryStyle = mkOption {
-        type = types.enum [
-          "red"
-          "black"
-          "custom"
-        ];
+        type = types.enum [ "red" "black" "custom" ];
         description = lib.mdDoc ''
           Styling used for the JQuery-based UI.
         '';
@@ -275,10 +257,7 @@ in
         description = lib.mdDoc ''
           The initial connection string for ZooKeeper shared config storage
         '';
-        example = [
-          "host1:2181"
-          "host2:2181"
-        ];
+        example = [ "host1:2181" "host2:2181" ];
       };
       zkConfigExhibitorPath = mkOption {
         type = types.str;
@@ -398,9 +377,7 @@ in
       description = "Exhibitor Daemon";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      environment = {
-        ZOO_LOG_DIR = cfg.baseDir;
-      };
+      environment = { ZOO_LOG_DIR = cfg.baseDir; };
       serviceConfig = {
         /* **
              Exhibitor is a bit un-nixy. It wants to present to you a user interface in order to

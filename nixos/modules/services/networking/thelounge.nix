@@ -1,47 +1,31 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, lib, config, ... }:
 
 with lib;
 
 let
   cfg = config.services.thelounge;
   dataDir = "/var/lib/thelounge";
-  configJsData =
-    "module.exports = " + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig);
+  configJsData = "module.exports = "
+    + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig);
   pluginManifest = {
-    dependencies = builtins.listToAttrs (
-      builtins.map
-        (pkg: {
-          name = getName pkg;
-          value = getVersion pkg;
-        })
-        cfg.plugins
-    );
+    dependencies = builtins.listToAttrs (builtins.map (pkg: {
+      name = getName pkg;
+      value = getVersion pkg;
+    }) cfg.plugins);
   };
   plugins = pkgs.runCommandLocal "thelounge-plugins" { } ''
     mkdir -p $out/node_modules
     echo ${escapeShellArg (builtins.toJSON pluginManifest)} >> $out/package.json
-    ${concatMapStringsSep "\n"
-      (pkg: ''
-        ln -s ${pkg}/lib/node_modules/${getName pkg} $out/node_modules/${getName pkg}
-      '')
-      cfg.plugins}
+    ${concatMapStringsSep "\n" (pkg: ''
+      ln -s ${pkg}/lib/node_modules/${getName pkg} $out/node_modules/${
+        getName pkg
+      }
+    '') cfg.plugins}
   '';
-in
-{
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "thelounge"
-        "private"
-      ]
-      "The option was renamed to `services.thelounge.public` to follow upstream changes."
-    )
+    (mkRemovedOptionModule [ "services" "thelounge" "private" ]
+      "The option was renamed to `services.thelounge.public` to follow upstream changes.")
   ];
 
   options.services.thelounge = {
@@ -113,7 +97,9 @@ in
     systemd.services.thelounge = {
       description = "The Lounge web IRC client";
       wantedBy = [ "multi-user.target" ];
-      preStart = "ln -sf ${pkgs.writeText "config.js" configJsData} ${dataDir}/config.js";
+      preStart = "ln -sf ${
+          pkgs.writeText "config.js" configJsData
+        } ${dataDir}/config.js";
       environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != [ ]) "${plugins}";
       serviceConfig = {
         User = "thelounge";
@@ -125,7 +111,5 @@ in
     environment.systemPackages = [ cfg.package ];
   };
 
-  meta = {
-    maintainers = with lib.maintainers; [ winter ];
-  };
+  meta = { maintainers = with lib.maintainers; [ winter ]; };
 }

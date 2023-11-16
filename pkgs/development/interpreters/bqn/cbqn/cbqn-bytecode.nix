@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenvNoCC,
-}:
+{ lib, fetchFromGitHub, stdenvNoCC }:
 
 stdenvNoCC.mkDerivation {
   pname = "cbqn-bytecode";

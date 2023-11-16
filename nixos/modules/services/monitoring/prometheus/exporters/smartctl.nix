@@ -1,25 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
 let
   cfg = config.services.prometheus.exporters.smartctl;
-  args = lib.escapeShellArgs (
-    [
-      "--web.listen-address=${cfg.listenAddress}:${toString cfg.port}"
-      "--smartctl.path=${pkgs.smartmontools}/bin/smartctl"
-      "--smartctl.interval=${cfg.maxInterval}"
-    ]
-    ++ map (device: "--smartctl.device=${device}") cfg.devices
-    ++ cfg.extraFlags
-  );
-in
-{
+  args = lib.escapeShellArgs ([
+    "--web.listen-address=${cfg.listenAddress}:${toString cfg.port}"
+    "--smartctl.path=${pkgs.smartmontools}/bin/smartctl"
+    "--smartctl.interval=${cfg.maxInterval}"
+  ] ++ map (device: "--smartctl.device=${device}") cfg.devices
+    ++ cfg.extraFlags);
+in {
   port = 9633;
 
   extraOpts = {
@@ -46,20 +37,11 @@ in
 
   serviceOpts = {
     serviceConfig = {
-      AmbientCapabilities = [
-        "CAP_SYS_RAWIO"
-        "CAP_SYS_ADMIN"
-      ];
-      CapabilityBoundingSet = [
-        "CAP_SYS_RAWIO"
-        "CAP_SYS_ADMIN"
-      ];
+      AmbientCapabilities = [ "CAP_SYS_RAWIO" "CAP_SYS_ADMIN" ];
+      CapabilityBoundingSet = [ "CAP_SYS_RAWIO" "CAP_SYS_ADMIN" ];
       DevicePolicy = "closed";
-      DeviceAllow = lib.mkOverride 50 [
-        "block-blkext rw"
-        "block-sd rw"
-        "char-nvme rw"
-      ];
+      DeviceAllow =
+        lib.mkOverride 50 [ "block-blkext rw" "block-sd rw" "char-nvme rw" ];
       ExecStart = ''
         ${pkgs.prometheus-smartctl-exporter}/bin/smartctl_exporter ${args}
       '';
@@ -67,10 +49,7 @@ in
       ProtectProc = "invisible";
       ProcSubset = "pid";
       SupplementaryGroups = [ "disk" ];
-      SystemCallFilter = [
-        "@system-service"
-        "~@privileged"
-      ];
+      SystemCallFilter = [ "@system-service" "~@privileged" ];
     };
   };
 }

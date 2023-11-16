@@ -1,13 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  dbus,
-  signal-cli,
-  xclip,
-  testers,
-  scli,
-}:
+{ lib, python3, fetchFromGitHub, dbus, signal-cli, xclip, testers, scli }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "scli";
@@ -20,11 +11,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-7yyORM77oByH1gxx/TNkjJQBsig6ZxsfeI3ijg71oBs=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pyqrcode
-    urwid
-    urwid-readline
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pyqrcode urwid urwid-readline ];
   format = "other";
 
   dontBuild = true;
@@ -39,16 +26,8 @@ python3.pkgs.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [
-      dbus
-      signal-cli
-      xclip
-    ])
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "PATH" ":" (lib.makeBinPath [ dbus signal-cli xclip ]) ];
 
   passthru.tests = {
     version = testers.testVersion {

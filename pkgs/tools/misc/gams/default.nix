@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  file,
-  licenseFile ? null,
-  optgamsFile ? null,
-}:
+{ lib, stdenv, fetchurl, unzip, file, licenseFile ? null, optgamsFile ? null }:
 
 assert licenseFile != null;
 
@@ -14,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "25.0.2";
   pname = "gams";
   src = fetchurl {
-    url = "https://d37drm4t2jghv5.cloudfront.net/distributions/${version}/linux/linux_x64_64_sfx.exe";
+    url =
+      "https://d37drm4t2jghv5.cloudfront.net/distributions/${version}/linux/linux_x64_64_sfx.exe";
     sha256 = "4f95389579f33ff7c2586838a2c19021aa0746279555cbb51aa6e0efd09bd297";
   };
   unpackCmd = "unzip $src";
@@ -22,17 +15,15 @@ stdenv.mkDerivation rec {
   buildInputs = [ file ];
   dontBuild = true;
 
-  installPhase =
-    ''
-      mkdir -p "$out/bin" "$out/share/gams"
-      cp -a * "$out/share/gams"
+  installPhase = ''
+    mkdir -p "$out/bin" "$out/share/gams"
+    cp -a * "$out/share/gams"
 
-      cp ${licenseFile} $out/share/gams/gamslice.txt
-    ''
-    + lib.optionalString (optgamsFile != null) ''
-      cp ${optgamsFile} $out/share/gams/optgams.def
-      ln -s $out/share/gams/optgams.def $out/bin/optgams.def
-    '';
+    cp ${licenseFile} $out/share/gams/gamslice.txt
+  '' + lib.optionalString (optgamsFile != null) ''
+    cp ${optgamsFile} $out/share/gams/optgams.def
+    ln -s $out/share/gams/optgams.def $out/bin/optgams.def
+  '';
 
   postFixup = ''
     for f in $out/share/gams/*; do
@@ -59,3 +50,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
+

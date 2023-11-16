@@ -1,51 +1,35 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 let
   cfg = config.services.ergo;
   opt = options.services.ergo;
 
   inherit (lib)
-    literalExpression
-    mkEnableOption
-    mkIf
-    mkOption
-    optionalString
-    types
-  ;
+    literalExpression mkEnableOption mkIf mkOption optionalString types;
 
-  configFile = pkgs.writeText "ergo.conf" (
-    ''
-      ergo {
-        directory = "${cfg.dataDir}"
-        node {
-          mining = false
-        }
-        wallet.secretStorage.secretDir = "${cfg.dataDir}/wallet/keystore"
+  configFile = pkgs.writeText "ergo.conf" (''
+    ergo {
+      directory = "${cfg.dataDir}"
+      node {
+        mining = false
       }
+      wallet.secretStorage.secretDir = "${cfg.dataDir}/wallet/keystore"
+    }
 
-      scorex {
-        network {
-          bindAddress = "${cfg.listen.ip}:${toString cfg.listen.port}"
-        }
-    ''
-    + optionalString (cfg.api.keyHash != null) ''
-      restApi {
-         apiKeyHash = "${cfg.api.keyHash}"
-         bindAddress = "${cfg.api.listen.ip}:${toString cfg.api.listen.port}"
+    scorex {
+      network {
+        bindAddress = "${cfg.listen.ip}:${toString cfg.listen.port}"
       }
-    ''
-    + ''
-      }
-    ''
-  );
-in
-{
+  '' + optionalString (cfg.api.keyHash != null) ''
+    restApi {
+       apiKeyHash = "${cfg.api.keyHash}"
+       bindAddress = "${cfg.api.listen.ip}:${toString cfg.api.listen.port}"
+    }
+  '' + ''
+    }
+  '');
+
+in {
 
   options = {
 
@@ -62,7 +46,8 @@ in
         ip = mkOption {
           type = types.str;
           default = "0.0.0.0";
-          description = lib.mdDoc "IP address on which the Ergo node should listen.";
+          description =
+            lib.mdDoc "IP address on which the Ergo node should listen.";
         };
 
         port = mkOption {
@@ -76,25 +61,25 @@ in
         keyHash = mkOption {
           type = types.nullOr types.str;
           default = null;
-          example = "324dcf027dd4a30a932c441f365a25e86b173defa4b8e58948253471b81b72cf";
-          description =
-            lib.mdDoc
-              "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string.";
+          example =
+            "324dcf027dd4a30a932c441f365a25e86b173defa4b8e58948253471b81b72cf";
+          description = lib.mdDoc
+            "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string.";
         };
 
         listen = {
           ip = mkOption {
             type = types.str;
             default = "0.0.0.0";
-            description =
-              lib.mdDoc
-                "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined.";
+            description = lib.mdDoc
+              "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined.";
           };
 
           port = mkOption {
             type = types.port;
             default = 9052;
-            description = lib.mdDoc "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
+            description = lib.mdDoc
+              "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
           };
         };
       };
@@ -102,7 +87,8 @@ in
       testnet = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Connect to testnet network instead of the default mainnet.";
+        description = lib.mdDoc
+          "Connect to testnet network instead of the default mainnet.";
       };
 
       user = mkOption {
@@ -121,14 +107,16 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open ports in the firewall for the Ergo node as well as the API.";
+        description = lib.mdDoc
+          "Open ports in the firewall for the Ergo node as well as the API.";
       };
     };
   };
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
 
     systemd.services.ergo = {
       description = "ergo server";
@@ -157,5 +145,6 @@ in
     };
 
     users.groups.${cfg.group} = { };
+
   };
 }

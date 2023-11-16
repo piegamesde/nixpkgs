@@ -1,20 +1,9 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 
 let
   inherit (lib)
-    mkIf
-    concatStrings
-    concatStringsSep
-    concatMapStrings
-    toList
-    mapAttrs
-    mapAttrsToList
-  ;
+    mkIf concatStrings concatStringsSep concatMapStrings toList mapAttrs
+    mapAttrsToList;
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
   stateDir = "/var/lib/krb5kdc";
@@ -28,39 +17,19 @@ let
     modify = "m";
     all = "*";
   };
-  aclFiles =
-    mapAttrs
-      (
-        name:
-        { acl, ... }:
-        (pkgs.writeText "${name}.acl" (
-          concatMapStrings
-            (
-              {
-                principal,
-                access,
-                target,
-                ...
-              }:
-              let
-                access_code = map (a: aclMap.${a}) (toList access);
-              in
-              ''
-                ${principal} ${concatStrings access_code} ${target}
-              ''
-            )
-            acl
-        ))
-      )
-      cfg.realms;
-  kdcConfigs =
-    mapAttrsToList
-      (name: value: ''
-        ${name} = {
-          acl_file = ${value}
-        }
-      '')
-      aclFiles;
+  aclFiles = mapAttrs (name:
+    { acl, ... }:
+    (pkgs.writeText "${name}.acl" (concatMapStrings
+      ({ principal, access, target, ... }:
+        let access_code = map (a: aclMap.${a}) (toList access);
+        in ''
+          ${principal} ${concatStrings access_code} ${target}
+        '') acl))) cfg.realms;
+  kdcConfigs = mapAttrsToList (name: value: ''
+    ${name} = {
+      acl_file = ${value}
+    }
+  '') aclFiles;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [realms]
     ${concatStringsSep "\n" kdcConfigs}
@@ -69,9 +38,8 @@ let
     # What Debian uses, could possibly link directly to Nix store?
     KRB5_KDC_PROFILE = "/etc/krb5kdc/kdc.conf";
   };
-in
 
-{
+in {
   config = mkIf (cfg.enable && kerberos == pkgs.krb5) {
     systemd.services.kadmind = {
       description = "Kerberos Administration Daemon";
@@ -99,9 +67,7 @@ in
       environment = env;
     };
 
-    environment.etc = {
-      "krb5kdc/kdc.conf".source = kdcConfFile;
-    };
+    environment.etc = { "krb5kdc/kdc.conf".source = kdcConfFile; };
     environment.variables = env;
   };
 }

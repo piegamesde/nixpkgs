@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  mimic,
-  happy-eyeballs-mirage,
-}:
+{ lib, buildDunePackage, mimic, happy-eyeballs-mirage }:
 
 buildDunePackage {
   pname = "mimic-happy-eyeballs";
@@ -15,10 +10,7 @@ buildDunePackage {
 
   strictDeps = true;
 
-  propagatedBuildInputs = [
-    mimic
-    happy-eyeballs-mirage
-  ];
+  propagatedBuildInputs = [ mimic happy-eyeballs-mirage ];
   doCheck = false;
 
   meta = {

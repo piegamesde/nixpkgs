@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  msrest,
-  msrestazure,
-  azure-common,
-  azure-mgmt-core,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common
+, azure-mgmt-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-signalr";
@@ -22,12 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-jbFhVoJbObpvcVJr2VoUzY5CmSblJ6OK7Q3l17SARfg=";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-common
-    azure-mgmt-core
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-core ];
 
   # has no tests
   doCheck = false;

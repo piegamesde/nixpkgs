@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-}:
+{ lib, buildDunePackage, fetchFromGitHub }:
 
 buildDunePackage rec {
   pname = "memtrace";

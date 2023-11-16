@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPyPy,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pyptlib";
@@ -20,7 +14,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pypi.org/project/pyptlib/";
-    description = "A python implementation of the Pluggable Transports for Circumvention specification for Tor";
+    description =
+      "A python implementation of the Pluggable Transports for Circumvention specification for Tor";
     license = licenses.bsd2;
   };
+
 }

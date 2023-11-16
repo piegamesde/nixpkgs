@@ -1,13 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-  # darwin
-  CoreFoundation,
-  IOKit,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, nixosTests
+# darwin
+, CoreFoundation, IOKit }:
 
 buildGoModule rec {
   pname = "node_exporter";
@@ -26,10 +19,7 @@ buildGoModule rec {
   # FIXME: tests fail due to read-only nix store
   doCheck = false;
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreFoundation
-    IOKit
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreFoundation IOKit ];
 
   excludedPackages = [ "docs/node-mixin" ];
 
@@ -43,19 +33,12 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.BuildDate=unknown"
   ];
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) node;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) node; };
 
   meta = with lib; {
     description = "Prometheus exporter for machine metrics";
     homepage = "https://github.com/prometheus/node_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      benley
-      fpletz
-      globin
-      Frostman
-    ];
+    maintainers = with maintainers; [ benley fpletz globin Frostman ];
   };
 }

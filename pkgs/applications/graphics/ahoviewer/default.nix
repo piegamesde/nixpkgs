@@ -1,23 +1,6 @@
-{
-  config,
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  libconfig,
-  gtkmm2,
-  glibmm,
-  libxml2,
-  libsecret,
-  curl,
-  libzip,
-  librsvg,
-  gst_all_1,
-  autoreconfHook,
-  makeWrapper,
-  useUnrar ? config.ahoviewer.useUnrar or false,
-  unrar,
-}:
+{ config, lib, stdenv, fetchFromGitHub, pkg-config, libconfig, gtkmm2, glibmm
+, libxml2, libsecret, curl, libzip, librsvg, gst_all_1, autoreconfHook
+, makeWrapper, useUnrar ? config.ahoviewer.useUnrar or false, unrar }:
 
 assert useUnrar -> unrar != null;
 
@@ -34,11 +17,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper ];
   buildInputs = [
     glibmm
     libconfig
@@ -75,3 +54,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
+

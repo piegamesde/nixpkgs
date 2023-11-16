@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  gitUpdater,
-  pkg-config,
-  ffmpeg_4,
-}:
+{ lib, buildGoModule, fetchFromGitHub, gitUpdater, pkg-config, ffmpeg_4 }:
 
 buildGoModule rec {
   pname = "hydron";

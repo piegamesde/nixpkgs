@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  autoreconfHook,
-  giflib,
-  libjpeg,
-  libpng,
-  libX11,
-  zlib,
-  static ? stdenv.hostPlatform.isStatic,
-  withX ? !stdenv.isDarwin,
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, giflib, libjpeg, libpng
+, libX11, zlib, static ? stdenv.hostPlatform.isStatic, withX ? !stdenv.isDarwin
 }:
 
 stdenv.mkDerivation {
@@ -30,14 +19,16 @@ stdenv.mkDerivation {
     # add back --with-gif option
     (fetchpatch {
       name = "libafterimage-gif.patch";
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-gif.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-gif.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
       sha256 = "16pa94wlqpd7h6mzs4f0qm794yk1xczrwsgf93kdd3g0zbjq3rnr";
     })
 
     # fix build with newer giflib
     (fetchpatch {
       name = "libafterimage-giflib5-v2.patch";
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-giflib5-v2.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-giflib5-v2.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
       sha256 = "0qwydqy9bm73cg5n3vm97aj4jfi70p7fxqmfbi54vi78z593brln";
       stripLen = 1;
     })
@@ -45,14 +36,16 @@ stdenv.mkDerivation {
     # fix build with newer libpng
     (fetchpatch {
       name = "libafterimage-libpng15.patch";
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-libpng15.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-libpng15.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
       sha256 = "1qyvf7786hayasfnnilfbri3p99cfz5wjpbli3gdqj2cvk6mpydv";
     })
 
     # fix an ldconfig problem
     (fetchpatch {
       name = "libafterimage-makefile.patch";
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-makefile.in.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-libs/libafterimage/files/libafterimage-makefile.in.patch?id=4aa4fca00611b0b3a4007870da43cc5fd63f76c4";
       sha256 = "1n6fniz6dldms615046yhc4mlg9gb53y4yfia8wfz6szgq5zicj4";
     })
 
@@ -60,7 +53,8 @@ stdenv.mkDerivation {
     #  https://sourceforge.net/p/afterstep/bugs/5/
     (fetchpatch {
       name = "binutils-2.36.patch";
-      url = "https://sourceforge.net/p/afterstep/bugs/5/attachment/libafterimage-binutils-2.36-support.patch";
+      url =
+        "https://sourceforge.net/p/afterstep/bugs/5/attachment/libafterimage-binutils-2.36-support.patch";
       sha256 = "1cfgm2ffwlsmhvvfmrxlglddaigr99k88d5xqva9pkl3mmzy3jym";
       # workaround '-p0' patchflags below.
       stripLen = 1;
@@ -68,7 +62,8 @@ stdenv.mkDerivation {
 
     # fix https://github.com/root-project/root/issues/10990
     (fetchpatch {
-      url = "https://github.com/root-project/root/pull/11243/commits/e177a477b0be05ef139094be1e96a99ece06350a.diff";
+      url =
+        "https://github.com/root-project/root/pull/11243/commits/e177a477b0be05ef139094be1e96a99ece06350a.diff";
       hash = "sha256-2DQmJGHmATHawl3dk9dExncVe1sXzJQyy4PPwShoLTY=";
       stripLen = 5;
     })
@@ -76,23 +71,16 @@ stdenv.mkDerivation {
   patchFlags = [ "-p0" ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    giflib
-    libjpeg
-    libpng
-    zlib
-  ] ++ lib.optional withX libX11;
+  buildInputs = [ giflib libjpeg libpng zlib ] ++ lib.optional withX libX11;
 
-  preConfigure =
-    ''
-      rm -rf {libjpeg,libpng,libungif,zlib}/
-      substituteInPlace Makefile.in \
-        --replace "include .depend" ""
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      substituteInPlace Makefile.in \
-        --replace "-soname," "-install_name,$out/lib/"
-    '';
+  preConfigure = ''
+    rm -rf {libjpeg,libpng,libungif,zlib}/
+    substituteInPlace Makefile.in \
+      --replace "include .depend" ""
+  '' + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace Makefile.in \
+      --replace "-soname," "-install_name,$out/lib/"
+  '';
 
   configureFlags = [
     "--with-gif"

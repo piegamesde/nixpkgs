@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  pkg-config,
-  libtraceevent,
-  asciidoc,
-  xmlto,
-  docbook_xml_dtd_45,
-  docbook_xsl,
-  coreutils,
-  which,
-  valgrind,
-  sourceHighlight,
+{ lib, stdenv, fetchgit, pkg-config, libtraceevent, asciidoc, xmlto
+, docbook_xml_dtd_45, docbook_xsl, coreutils, which, valgrind, sourceHighlight
 }:
 
 stdenv.mkDerivation rec {
@@ -29,12 +17,7 @@ stdenv.mkDerivation rec {
     patchShebangs check-manpages.sh
   '';
 
-  outputs = [
-    "out"
-    "dev"
-    "devman"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "devman" "doc" ];
   enableParallelBuilding = true;
   nativeBuildInputs = [
     pkg-config
@@ -51,10 +34,8 @@ stdenv.mkDerivation rec {
     "prefix=${placeholder "out"}"
     "doc" # build docs
   ];
-  installFlags = [
-    "pkgconfig_dir=${placeholder "out"}/lib/pkgconfig"
-    "install_doc"
-  ];
+  installFlags =
+    [ "pkgconfig_dir=${placeholder "out"}/lib/pkgconfig" "install_doc" ];
 
   meta = with lib; {
     description = "Linux kernel trace file system library";

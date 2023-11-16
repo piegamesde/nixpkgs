@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cudd,
-  gmp-static,
-  gperf,
-  autoreconfHook,
-  libpoly,
+{ lib, stdenv, fetchFromGitHub, cudd, gmp-static, gperf, autoreconfHook, libpoly
 }:
 
 stdenv.mkDerivation rec {
@@ -21,20 +13,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qdxh86CkKdm65oHcRgaafTG9GUOoIgTDjeWmRofIpNE=";
   };
 
-  patches =
-    [
-      # musl has no ldconfig, create symlinks explicitly
-      ./linux-no-ldconfig.patch
-    ];
+  patches = [
+    # musl has no ldconfig, create symlinks explicitly
+    ./linux-no-ldconfig.patch
+  ];
   postPatch = "patchShebangs tests/regress/check.sh";
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    cudd
-    gmp-static
-    gperf
-    libpoly
-  ];
+  buildInputs = [ cudd gmp-static gperf libpoly ];
   configureFlags = [
     "--with-static-gmp=${gmp-static.out}/lib/libgmp.a"
     "--with-static-gmp-include-dir=${gmp-static.dev}/include"

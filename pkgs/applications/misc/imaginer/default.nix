@@ -1,21 +1,6 @@
-{
-  stdenv,
-  lib,
-  appstream-glib,
-  blueprint-compiler,
-  desktop-file-utils,
-  fetchFromGitHub,
-  gettext,
-  glib,
-  gobject-introspection,
-  libadwaita,
-  libsoup_3,
-  meson,
-  ninja,
-  pkg-config,
-  python3Packages,
-  wrapGAppsHook4,
-}:
+{ stdenv, lib, appstream-glib, blueprint-compiler, desktop-file-utils
+, fetchFromGitHub, gettext, glib, gobject-introspection, libadwaita, libsoup_3
+, meson, ninja, pkg-config, python3Packages, wrapGAppsHook4 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "imaginer";
@@ -44,10 +29,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    libadwaita
-    libsoup_3
-  ];
+  buildInputs = [ libadwaita libsoup_3 ];
 
   propagatedBuildInputs = with python3Packages; [
     openai

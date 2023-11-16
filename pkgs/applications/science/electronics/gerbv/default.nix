@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoconf,
-  automake,
-  autoreconfHook,
-  cairo,
-  fetchFromGitHub,
-  gettext,
-  gtk2-x11,
-  libtool,
-  pkg-config,
-}:
+{ lib, stdenv, autoconf, automake, autoreconfHook, cairo, fetchFromGitHub
+, gettext, gtk2-x11, libtool, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "gerbv";
@@ -27,19 +16,9 @@ stdenv.mkDerivation rec {
     sed -i '/AC_INIT/s/m4_esyscmd.*/${version}])/' configure.ac
   '';
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake autoreconfHook pkg-config ];
 
-  buildInputs = [
-    cairo
-    gettext
-    gtk2-x11
-    libtool
-  ];
+  buildInputs = [ cairo gettext gtk2-x11 libtool ];
 
   configureFlags = [ "--disable-update-desktop-database" ];
 

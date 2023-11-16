@@ -1,51 +1,10 @@
-{
-  lib,
-  stdenv,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  gitpython,
-  boost,
-  coin3d,
-  eigen,
-  gfortran,
-  gts,
-  hdf5,
-  libGLU,
-  libXmu,
-  libf2c,
-  libredwg,
-  libspnav,
-  matplotlib,
-  medfile,
-  mpi,
-  ode,
-  opencascade-occt,
-  pivy,
-  pkg-config,
-  ply,
-  pycollada,
-  pyside2,
-  pyside2-tools,
-  python,
-  pyyaml,
-  qtbase,
-  qttools,
-  qtwebengine,
-  qtx11extras,
-  qtxmlpatterns,
-  scipy,
-  shiboken2,
-  soqt,
-  spaceNavSupport ? stdenv.isLinux,
-  swig,
-  vtk,
-  wrapQtAppsHook,
-  wrapGAppsHook,
-  xercesc,
-  zlib,
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, cmake, ninja, gitpython, boost
+, coin3d, eigen, gfortran, gts, hdf5, libGLU, libXmu, libf2c, libredwg, libspnav
+, matplotlib, medfile, mpi, ode, opencascade-occt, pivy, pkg-config, ply
+, pycollada, pyside2, pyside2-tools, python, pyyaml, qtbase, qttools
+, qtwebengine, qtx11extras, qtxmlpatterns, scipy, shiboken2, soqt
+, spaceNavSupport ? stdenv.isLinux, swig, vtk, wrapQtAppsHook, wrapGAppsHook
+, xercesc, zlib }:
 
 mkDerivation rec {
   pname = "freecad";
@@ -68,45 +27,40 @@ mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      gitpython # for addon manager
-      boost
-      coin3d
-      eigen
-      gts
-      hdf5
-      libGLU
-      libXmu
-      libf2c
-      matplotlib
-      medfile
-      mpi
-      ode
-      opencascade-occt
-      pivy
-      ply # for openSCAD file support
-      pycollada
-      pyside2
-      pyside2-tools
-      python
-      pyyaml # (at least for) PyrateWorkbench
-      qtbase
-      qttools
-      qtwebengine
-      qtxmlpatterns
-      scipy
-      shiboken2
-      soqt
-      swig
-      vtk
-      xercesc
-      zlib
-    ]
-    ++ lib.optionals spaceNavSupport [
-      libspnav
-      qtx11extras
-    ];
+  buildInputs = [
+    gitpython # for addon manager
+    boost
+    coin3d
+    eigen
+    gts
+    hdf5
+    libGLU
+    libXmu
+    libf2c
+    matplotlib
+    medfile
+    mpi
+    ode
+    opencascade-occt
+    pivy
+    ply # for openSCAD file support
+    pycollada
+    pyside2
+    pyside2-tools
+    python
+    pyyaml # (at least for) PyrateWorkbench
+    qtbase
+    qttools
+    qtwebengine
+    qtxmlpatterns
+    scipy
+    shiboken2
+    soqt
+    swig
+    vtk
+    xercesc
+    zlib
+  ] ++ lib.optionals spaceNavSupport [ libspnav qtx11extras ];
 
   cmakeFlags = [
     "-Wno-dev" # turns off warnings which otherwise makes it hard to see what is going on
@@ -114,12 +68,10 @@ mkDerivation rec {
     "-DBUILD_QT5=ON"
     "-DSHIBOKEN_INCLUDE_DIR=${shiboken2}/include"
     "-DSHIBOKEN_LIBRARY=Shiboken2::libshiboken"
-    (
-      "-DPYSIDE_INCLUDE_DIR=${pyside2}/include"
+    ("-DPYSIDE_INCLUDE_DIR=${pyside2}/include"
       + ";${pyside2}/include/PySide2/QtCore"
       + ";${pyside2}/include/PySide2/QtWidgets"
-      + ";${pyside2}/include/PySide2/QtGui"
-    )
+      + ";${pyside2}/include/PySide2/QtGui")
     "-DPYSIDE_LIBRARY=PySide2::pyside2"
   ];
 
@@ -167,11 +119,7 @@ mkDerivation rec {
       right at home with FreeCAD.
     '';
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [
-      viric
-      gebner
-      AndersonTorres
-    ];
+    maintainers = with maintainers; [ viric gebner AndersonTorres ];
     platforms = platforms.linux;
   };
 }

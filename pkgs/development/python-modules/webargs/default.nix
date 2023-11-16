@@ -1,21 +1,6 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lib,
-  isPy27,
-  marshmallow,
-  pytestCheckHook,
-  pytest-aiohttp,
-  webtest,
-  webtest-aiohttp,
-  flask,
-  django,
-  bottle,
-  tornado,
-  pyramid,
-  falcon,
-  aiohttp,
-}:
+{ buildPythonPackage, fetchPypi, lib, isPy27, marshmallow, pytestCheckHook
+, pytest-aiohttp, webtest, webtest-aiohttp, flask, django, bottle, tornado
+, pyramid, falcon, aiohttp }:
 
 buildPythonPackage rec {
   pname = "webargs";
@@ -46,7 +31,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Declarative parsing and validation of HTTP request objects, with built-in support for popular web frameworks";
+    description =
+      "Declarative parsing and validation of HTTP request objects, with built-in support for popular web frameworks";
     homepage = "https://github.com/marshmallow-code/webargs";
     license = licenses.mit;
     maintainers = with maintainers; [ cript0nauta ];

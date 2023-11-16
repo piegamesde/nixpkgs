@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "simplenote";
@@ -23,4 +19,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
+
 }

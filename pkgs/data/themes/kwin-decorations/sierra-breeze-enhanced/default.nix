@@ -1,11 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  wrapQtAppsHook,
-  kwin,
-  lib,
+{ stdenv, fetchFromGitHub, cmake, extra-cmake-modules, wrapQtAppsHook, kwin, lib
 }:
 
 stdenv.mkDerivation rec {
@@ -19,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zTUTsSzy4p0Y7RPOidCtxTjjyvPRyWSQCxA5sUzXcLc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules wrapQtAppsHook ];
   buildInputs = [ kwin ];
 
   cmakeFlags = [
@@ -36,7 +25,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OSX-like window decoration for KDE Plasma written in C++";
     homepage = "https://github.com/kupiqu/SierraBreezeEnhanced";
-    changelog = "https://github.com/kupiqu/SierraBreezeEnhanced/releases/tag/V${version}";
+    changelog =
+      "https://github.com/kupiqu/SierraBreezeEnhanced/releases/tag/V${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ flexagoon ];
   };

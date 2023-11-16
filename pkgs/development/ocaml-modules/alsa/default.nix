@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  dune-configurator,
-  alsa-lib,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, alsa-lib }:
 
 buildDunePackage rec {
   pname = "alsa";

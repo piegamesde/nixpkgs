@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "opsdroid";
@@ -20,8 +16,7 @@ python3Packages.buildPythonPackage rec {
   # tests folder is not included in release
   doCheck = false;
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       click
       babel
@@ -56,18 +51,14 @@ python3Packages.buildPythonPackage rec {
       appdirs
       bitstring
       matrix-nio
-    ]
-    ++ matrix-nio.optional-dependencies.e2e;
+    ] ++ matrix-nio.optional-dependencies.e2e;
 
   passthru.python = python3Packages.python;
 
   meta = with lib; {
     description = "An open source chat-ops bot framework";
     homepage = "https://opsdroid.dev";
-    maintainers = with maintainers; [
-      globin
-      willibutz
-    ];
+    maintainers = with maintainers; [ globin willibutz ];
     license = licenses.asl20;
     platforms = platforms.unix;
   };

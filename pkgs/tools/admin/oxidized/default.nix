@@ -1,9 +1,4 @@
-{
-  lib,
-  ruby,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, ruby, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "oxidized";
@@ -11,22 +6,16 @@ bundlerApp {
 
   inherit ruby;
 
-  exes = [
-    "oxidized"
-    "oxs"
-  ];
+  exes = [ "oxidized" "oxs" ];
 
   passthru.updateScript = bundlerUpdateScript "oxidized";
 
   meta = with lib; {
-    description = "A network device configuration backup tool. It's a RANCID replacement!";
+    description =
+      "A network device configuration backup tool. It's a RANCID replacement!";
     homepage = "https://github.com/ytti/oxidized";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      willibutz
-      nicknovitski
-      netali
-    ];
+    maintainers = with maintainers; [ willibutz nicknovitski netali ];
     platforms = platforms.linux;
   };
 }

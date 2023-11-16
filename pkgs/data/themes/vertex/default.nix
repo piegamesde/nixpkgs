@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  gtk-engine-murrine,
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, gtk-engine-murrine
 }:
 
 stdenv.mkDerivation rec {
@@ -18,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0c9mhrs95ahz37djrv176vn41ywvj26ilwmnr1h9171giv6hid98";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

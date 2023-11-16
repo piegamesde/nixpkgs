@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  dune-configurator,
-  liblo,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, liblo }:
 
 buildDunePackage rec {
   pname = "lo";

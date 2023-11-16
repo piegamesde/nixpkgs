@@ -1,31 +1,8 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  autoreconfHook,
-  pkg-config,
-  bison,
-  libiconv,
-  pcre,
-  libgcrypt,
-  libxcrypt,
-  json_c,
-  libxml2,
-  ipv6Support ? false,
-  mccpSupport ? false,
-  zlib,
-  mysqlSupport ? false,
-  libmysqlclient,
-  postgresSupport ? false,
-  postgresql,
-  sqliteSupport ? false,
-  sqlite,
-  tlsSupport ? false,
-  openssl,
-  pythonSupport ? false,
-  python310,
-  ...
-}:
+{ lib, fetchFromGitHub, stdenv, autoreconfHook, pkg-config, bison, libiconv
+, pcre, libgcrypt, libxcrypt, json_c, libxml2, ipv6Support ? false
+, mccpSupport ? false, zlib, mysqlSupport ? false, libmysqlclient
+, postgresSupport ? false, postgresql, sqliteSupport ? false, sqlite
+, tlsSupport ? false, openssl, pythonSupport ? false, python310, ... }:
 
 stdenv.mkDerivation rec {
   pname = "ldmud";
@@ -40,24 +17,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    bison
-  ];
-  buildInputs =
-    [
-      libgcrypt
-      libxcrypt
-      pcre
-      json_c
-      libxml2
-    ]
-    ++ lib.optional mccpSupport zlib
-    ++ lib.optional mysqlSupport libmysqlclient
+  nativeBuildInputs = [ autoreconfHook pkg-config bison ];
+  buildInputs = [ libgcrypt libxcrypt pcre json_c libxml2 ]
+    ++ lib.optional mccpSupport zlib ++ lib.optional mysqlSupport libmysqlclient
     ++ lib.optional postgresSupport postgresql
-    ++ lib.optional sqliteSupport sqlite
-    ++ lib.optional tlsSupport openssl
+    ++ lib.optional sqliteSupport sqlite ++ lib.optional tlsSupport openssl
     ++ lib.optional pythonSupport python310
     ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
@@ -87,11 +51,7 @@ stdenv.mkDerivation rec {
     export LDFLAGS="-L${libmysqlclient}/lib/mysql"
   '';
 
-  installTargets = [
-    "install-driver"
-    "install-utils"
-    "install-headers"
-  ];
+  installTargets = [ "install-driver" "install-utils" "install-headers" ];
 
   postInstall = ''
     mkdir -p "$out/share/"
@@ -99,7 +59,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime";
+    description =
+      "A gamedriver for LPMuds including a LPC compiler, interpreter and runtime";
     homepage = "https://ldmud.eu";
     changelog = "https://github.com/ldmud/ldmud/blob/${version}/HISTORY";
     longDescription = ''

@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools-scm,
-  pytestCheckHook,
-  filelock,
-  execnet,
-  pytest,
-  psutil,
-  setproctitle,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm
+, pytestCheckHook, filelock, execnet, pytest, psutil, setproctitle }:
 
 buildPythonPackage rec {
   pname = "pytest-xdist";
@@ -30,21 +19,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ execnet ];
 
-  nativeCheckInputs = [
-    filelock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ filelock pytestCheckHook ];
 
   passthru.optional-dependencies = {
     psutil = [ psutil ];
     setproctitle = [ setproctitle ];
   };
 
-  pytestFlagsArray =
-    [
-      # pytest can already use xdist at this point
-      "--numprocesses=$NIX_BUILD_CORES"
-    ];
+  pytestFlagsArray = [
+    # pytest can already use xdist at this point
+    "--numprocesses=$NIX_BUILD_CORES"
+  ];
 
   # access file system
   disabledTests = [
@@ -61,8 +46,10 @@ buildPythonPackage rec {
   setupHook = ./setup-hook.sh;
 
   meta = with lib; {
-    changelog = "https://github.com/pytest-dev/pytest-xdist/blob/v${version}/CHANGELOG.rst";
-    description = "Pytest xdist plugin for distributed testing and loop-on-failing modes";
+    changelog =
+      "https://github.com/pytest-dev/pytest-xdist/blob/v${version}/CHANGELOG.rst";
+    description =
+      "Pytest xdist plugin for distributed testing and loop-on-failing modes";
     homepage = "https://github.com/pytest-dev/pytest-xdist";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

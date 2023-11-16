@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  ncurses,
-  CoreServices,
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, ncurses, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dijo";

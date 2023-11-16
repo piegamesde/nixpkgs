@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "prefixed";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Prefixed alternative numeric library";
     homepage = "https://github.com/Rockhopper-Technologies/prefixed";
-    changelog = "https://github.com/Rockhopper-Technologies/prefixed/releases/tag/${version}";
+    changelog =
+      "https://github.com/Rockhopper-Technologies/prefixed/releases/tag/${version}";
     license = with licenses; [ mpl20 ];
     maintainers = with maintainers; [ veprbl ];
   };

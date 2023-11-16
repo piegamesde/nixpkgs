@@ -1,17 +1,6 @@
-{
-  lib,
-  beautifultable,
-  buildPythonPackage,
-  click,
-  click-default-group,
-  fetchFromGitHub,
-  humanize,
-  keyring,
-  unittestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  requests,
-}:
+{ lib, beautifultable, buildPythonPackage, click, click-default-group
+, fetchFromGitHub, humanize, keyring, unittestCheckHook, python-dateutil
+, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "mwdblib";
@@ -44,7 +33,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client library for the mwdb service";
     homepage = "https://github.com/CERT-Polska/mwdblib";
-    changelog = "https://github.com/CERT-Polska/mwdblib/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CERT-Polska/mwdblib/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

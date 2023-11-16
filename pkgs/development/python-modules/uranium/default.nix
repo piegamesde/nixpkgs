@@ -1,19 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  cmake,
-  pyqt5,
-  numpy,
-  scipy,
-  shapely,
-  libarcus,
-  cryptography,
-  doxygen,
-  gettext,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, cmake, pyqt5, numpy, scipy
+, shapely, libarcus, cryptography, doxygen, gettext, pythonOlder }:
 
 buildPythonPackage rec {
   version = "4.12.0";
@@ -29,22 +15,9 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.5.0";
 
-  buildInputs = [
-    python
-    gettext
-  ];
-  propagatedBuildInputs = [
-    pyqt5
-    numpy
-    scipy
-    shapely
-    libarcus
-    cryptography
-  ];
-  nativeBuildInputs = [
-    cmake
-    doxygen
-  ];
+  buildInputs = [ python gettext ];
+  propagatedBuildInputs = [ pyqt5 numpy scipy shapely libarcus cryptography ];
+  nativeBuildInputs = [ cmake doxygen ];
 
   postPatch = ''
     sed -i 's,/python''${PYTHON_VERSION_MAJOR}/dist-packages,/python''${PYTHON_VERSION_MAJOR}.''${PYTHON_VERSION_MINOR}/site-packages,g' CMakeLists.txt
@@ -59,9 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Ultimaker/Uranium";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      abbradar
-      gebner
-    ];
+    maintainers = with maintainers; [ abbradar gebner ];
   };
 }

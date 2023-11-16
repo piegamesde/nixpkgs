@@ -1,13 +1,5 @@
-{
-  lib,
-  mkYarnPackage,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  matrix-sdk-crypto-nodejs,
-  makeWrapper,
-  nodejs,
-  nixosTests,
-}:
+{ lib, mkYarnPackage, fetchFromGitHub, fetchYarnDeps, matrix-sdk-crypto-nodejs
+, makeWrapper, nodejs, nixosTests }:
 
 mkYarnPackage rec {
   pname = "mjolnir";
@@ -28,7 +20,8 @@ mkYarnPackage rec {
   };
 
   packageResolutions = {
-    "@matrix-org/matrix-sdk-crypto-nodejs" = "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
+    "@matrix-org/matrix-sdk-crypto-nodejs" =
+      "${matrix-sdk-crypto-nodejs}/lib/node_modules/@matrix-org/matrix-sdk-crypto-nodejs";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -48,11 +41,7 @@ mkYarnPackage rec {
       --add-flags "$out/libexec/mjolnir/deps/mjolnir/lib/index.js"
   '';
 
-  passthru = {
-    tests = {
-      inherit (nixosTests) mjolnir;
-    };
-  };
+  passthru = { tests = { inherit (nixosTests) mjolnir; }; };
 
   meta = with lib; {
     description = "A moderation tool for Matrix";

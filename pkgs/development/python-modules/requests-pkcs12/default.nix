@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyopenssl,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyopenssl, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "requests-pkcs12";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-Uva9H2ToL7qpcXH/gmiBPKw+2gfmOxMKwxh4b43xFcA=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    pyopenssl
-  ];
+  propagatedBuildInputs = [ requests pyopenssl ];
 
   # Project has no tests
   doCheck = false;

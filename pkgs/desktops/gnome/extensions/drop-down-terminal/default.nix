@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  substituteAll,
-  gjs,
-  vte,
-  gnome,
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, gjs, vte, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-drop-down-terminal";

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  curl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, curl }:
 
 stdenv.mkDerivation rec {
   pname = "curlpp";

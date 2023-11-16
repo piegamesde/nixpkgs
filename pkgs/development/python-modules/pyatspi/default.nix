@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchurl,
-  pkg-config,
-  buildPythonPackage,
-  isPy3k,
-  at-spi2-core,
-  pygobject3,
-  gnome,
-  python,
-}:
+{ lib, fetchurl, pkg-config, buildPythonPackage, isPy3k, at-spi2-core
+, pygobject3, gnome, python }:
 
 buildPythonPackage rec {
   pname = "pyatspi";
@@ -24,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    at-spi2-core
-    pygobject3
-  ];
+  buildInputs = [ at-spi2-core pygobject3 ];
 
   configureFlags = [ "PYTHON=${python.pythonForBuild.interpreter}" ];
 

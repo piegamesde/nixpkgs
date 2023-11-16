@@ -1,81 +1,49 @@
-{
-  lib,
-  fetchurl,
-  fetchFromGitLab,
-  gettext,
-  wrapGAppsHook,
+{ lib, fetchurl, fetchFromGitLab, gettext, wrapGAppsHook
 
-  # Native dependencies
-  python3,
-  gtk3,
-  gobject-introspection,
-  gnome,
-  gtksourceview4,
-  glib-networking,
+# Native dependencies
+, python3, gtk3, gobject-introspection, gnome, gtksourceview4, glib-networking
 
-  # Test dependencies
-  xvfb-run,
-  dbus,
+# Test dependencies
+, xvfb-run, dbus
 
-  # Optional dependencies
-  enableJingle ? true,
-  farstream,
-  gstreamer,
-  gst-plugins-base,
-  gst-libav,
-  gst-plugins-good,
-  libnice,
-  enableE2E ? true,
-  enableSecrets ? true,
-  libsecret,
-  enableRST ? true,
-  docutils,
-  enableSpelling ? true,
-  gspell,
-  enableUPnP ? true,
-  gupnp-igd,
-  enableOmemoPluginDependencies ? true,
-  enableAppIndicator ? true,
-  libappindicator-gtk3,
-  extraPythonPackages ? ps: [ ],
-}:
+# Optional dependencies
+, enableJingle ? true, farstream, gstreamer, gst-plugins-base, gst-libav
+, gst-plugins-good, libnice, enableE2E ? true, enableSecrets ? true, libsecret
+, enableRST ? true, docutils, enableSpelling ? true, gspell, enableUPnP ? true
+, gupnp-igd, enableOmemoPluginDependencies ? true, enableAppIndicator ? true
+, libappindicator-gtk3, extraPythonPackages ? ps: [ ] }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gajim";
   version = "1.7.3";
 
   src = fetchurl {
-    url = "https://gajim.org/downloads/${lib.versions.majorMinor version}/gajim-${version}.tar.gz";
+    url = "https://gajim.org/downloads/${
+        lib.versions.majorMinor version
+      }/gajim-${version}.tar.gz";
     hash = "sha256-t8yzWfdsY8pXye7Dn5hME0bOHgf+MzuyVY3hweXc0xg=";
   };
 
   format = "pyproject";
 
-  buildInputs =
-    [
-      gobject-introspection
-      gtk3
-      gnome.adwaita-icon-theme
-      gtksourceview4
-      glib-networking
-    ]
-    ++ lib.optionals enableJingle [
-      farstream
-      gstreamer
-      gst-plugins-base
-      gst-libav
-      gst-plugins-good
-      libnice
-    ]
-    ++ lib.optional enableSecrets libsecret
-    ++ lib.optional enableSpelling gspell
-    ++ lib.optional enableUPnP gupnp-igd
+  buildInputs = [
+    gobject-introspection
+    gtk3
+    gnome.adwaita-icon-theme
+    gtksourceview4
+    glib-networking
+  ] ++ lib.optionals enableJingle [
+    farstream
+    gstreamer
+    gst-plugins-base
+    gst-libav
+    gst-plugins-good
+    libnice
+  ] ++ lib.optional enableSecrets libsecret
+    ++ lib.optional enableSpelling gspell ++ lib.optional enableUPnP gupnp-igd
     ++ lib.optional enableAppIndicator libappindicator-gtk3;
 
-  nativeBuildInputs = [
-    gettext
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext wrapGAppsHook ];
 
   dontWrapGApps = true;
 
@@ -83,8 +51,7 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       nbxmpp
       pygobject3
@@ -96,22 +63,12 @@ python3.pkgs.buildPythonApplication rec {
       setuptools
       packaging
       gssapi
-    ]
-    ++ lib.optionals enableE2E [
-      pycrypto
-      python-gnupg
-    ]
+    ] ++ lib.optionals enableE2E [ pycrypto python-gnupg ]
     ++ lib.optional enableRST docutils
-    ++ lib.optionals enableOmemoPluginDependencies [
-      python-axolotl
-      qrcode
-    ]
+    ++ lib.optionals enableOmemoPluginDependencies [ python-axolotl qrcode ]
     ++ extraPythonPackages python3.pkgs;
 
-  nativeCheckInputs = [
-    xvfb-run
-    dbus
-  ];
+  nativeCheckInputs = [ xvfb-run dbus ];
 
   preBuild = ''
     python pep517build/build_metadata.py -o dist/metadata
@@ -138,10 +95,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "http://gajim.org/";
     description = "Jabber client written in PyGTK";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      raskin
-      abbradar
-    ];
+    maintainers = with lib.maintainers; [ raskin abbradar ];
     downloadPage = "http://gajim.org/download/";
     platforms = lib.platforms.linux;
   };

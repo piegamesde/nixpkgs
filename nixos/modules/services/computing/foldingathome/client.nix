@@ -1,58 +1,24 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.foldingathome;
 
-  args =
-    [
-      "--team"
-      "${toString cfg.team}"
-    ]
-    ++ lib.optionals (cfg.user != null) [
-      "--user"
-      cfg.user
-    ]
-    ++ cfg.extraArgs;
-in
-{
+  args = [ "--team" "${toString cfg.team}" ]
+    ++ lib.optionals (cfg.user != null) [ "--user" cfg.user ] ++ cfg.extraArgs;
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "foldingAtHome"
-      ]
-      [
-        "services"
-        "foldingathome"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "foldingathome"
-        "nickname"
-      ]
-      [
-        "services"
-        "foldingathome"
-        "user"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "foldingathome"
-        "config"
-      ]
-      ''
-        Use <literal>services.foldingathome.extraArgs instead<literal>
-      ''
-    )
+    (mkRenamedOptionModule [ "services" "foldingAtHome" ] [
+      "services"
+      "foldingathome"
+    ])
+    (mkRenamedOptionModule [ "services" "foldingathome" "nickname" ] [
+      "services"
+      "foldingathome"
+      "user"
+    ])
+    (mkRemovedOptionModule [ "services" "foldingathome" "config" ] ''
+      Use <literal>services.foldingathome.extraArgs instead<literal>
+    '')
   ];
   options.services.foldingathome = {
     enable = mkEnableOption (lib.mdDoc "Folding@home client");
@@ -122,7 +88,5 @@ in
     };
   };
 
-  meta = {
-    maintainers = with lib.maintainers; [ zimbatm ];
-  };
+  meta = { maintainers = with lib.maintainers; [ zimbatm ]; };
 }

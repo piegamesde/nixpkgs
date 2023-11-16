@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "bingo";
@@ -23,13 +19,11 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Like `go get` but for Go tools! CI Automating versioning of Go binaries in a nested, isolated Go modules.";
+    description =
+      "Like `go get` but for Go tools! CI Automating versioning of Go binaries in a nested, isolated Go modules.";
     homepage = "https://github.com/bwplotka/bingo";
     license = licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

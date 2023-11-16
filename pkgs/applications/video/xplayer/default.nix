@@ -1,42 +1,16 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  autoreconfHook,
-  autoconf-archive,
-  clutter-gst,
-  clutter-gtk,
-  gettext,
-  glib,
-  gobject-introspection,
-  gst-plugins-bad,
-  gst-plugins-base,
-  gst-plugins-good,
-  gstreamer,
-  gtk-doc,
-  gtk3,
-  intltool,
-  itstool,
-  libpeas,
-  libxml2,
-  libxplayer-plparser,
-  pkg-config,
-  python3,
-  wrapGAppsHook,
-  xapp,
-  yelp-tools,
-}:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, autoconf-archive, clutter-gst
+, clutter-gtk, gettext, glib, gobject-introspection, gst-plugins-bad
+, gst-plugins-base, gst-plugins-good, gstreamer, gtk-doc, gtk3, intltool
+, itstool, libpeas, libxml2, libxplayer-plparser, pkg-config, python3
+, wrapGAppsHook, xapp, yelp-tools }:
 
 let
-  pythonenv = python3.withPackages (
-    ps: [
-      ps.pygobject3
-      ps.dbus-python # For one plugin
-    ]
-  );
-in
+  pythonenv = python3.withPackages (ps: [
+    ps.pygobject3
+    ps.dbus-python # For one plugin
+  ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "xplayer";
   version = "2.4.4";
 
@@ -99,15 +73,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A generic media player from Linux Mint";
-    license = with licenses; [
-      gpl2Plus
-      lgpl21Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl21Plus ];
     homepage = "https://github.com/linuxmint/xplayer";
-    maintainers = with maintainers; [
-      tu-maurice
-      bobby285271
-    ];
+    maintainers = with maintainers; [ tu-maurice bobby285271 ];
     platforms = platforms.linux;
   };
 }

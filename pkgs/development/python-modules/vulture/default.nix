@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pint,
-  pythonOlder,
-  pytestCheckHook,
-  toml,
+{ lib, buildPythonPackage, fetchPypi, pint, pythonOlder, pytestCheckHook, toml
 }:
 
 buildPythonPackage rec {
@@ -27,10 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ toml ];
 
-  nativeCheckInputs = [
-    pint
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pint pytestCheckHook ];
 
   pythonImportsCheck = [ "vulture" ];
 

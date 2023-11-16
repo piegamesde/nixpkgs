@@ -1,5 +1,4 @@
-import ../make-test-python.nix (
-  { pkgs, lib, ... }:
+import ../make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     krb5 = {
@@ -24,66 +23,55 @@ import ../make-test-python.nix (
         uid = 1000;
       };
     };
-  in
 
-  {
+  in {
     name = "nfsv4-with-kerberos";
 
     nodes = {
-      client =
-        { lib, ... }:
-        {
-          inherit krb5 users;
+      client = { lib, ... }: {
+        inherit krb5 users;
 
-          networking.extraHosts = hosts;
-          networking.domain = "nfs.test";
-          networking.hostName = "client";
+        networking.extraHosts = hosts;
+        networking.domain = "nfs.test";
+        networking.hostName = "client";
 
-          virtualisation.fileSystems = {
-            "/data" = {
-              device = "server.nfs.test:/";
-              fsType = "nfs";
-              options = [
-                "nfsvers=4"
-                "sec=krb5p"
-                "noauto"
-              ];
-            };
+        virtualisation.fileSystems = {
+          "/data" = {
+            device = "server.nfs.test:/";
+            fsType = "nfs";
+            options = [ "nfsvers=4" "sec=krb5p" "noauto" ];
           };
         };
+      };
 
-      server =
-        { lib, ... }:
-        {
-          inherit krb5 users;
+      server = { lib, ... }: {
+        inherit krb5 users;
 
-          networking.extraHosts = hosts;
-          networking.domain = "nfs.test";
-          networking.hostName = "server";
+        networking.extraHosts = hosts;
+        networking.domain = "nfs.test";
+        networking.hostName = "server";
 
-          networking.firewall.allowedTCPPorts = [
-            111 # rpc
-            2049 # nfs
-            88 # kerberos
-            749 # kerberos admin
-          ];
+        networking.firewall.allowedTCPPorts = [
+          111 # rpc
+          2049 # nfs
+          88 # kerberos
+          749 # kerberos admin
+        ];
 
-          services.kerberos_server.enable = true;
-          services.kerberos_server.realms = {
-            "NFS.TEST".acl = [
-              {
-                access = "all";
-                principal = "admin/admin";
-              }
-            ];
-          };
-
-          services.nfs.server.enable = true;
-          services.nfs.server.createMountPoints = true;
-          services.nfs.server.exports = ''
-            /data *(rw,no_root_squash,fsid=0,sec=krb5p)
-          '';
+        services.kerberos_server.enable = true;
+        services.kerberos_server.realms = {
+          "NFS.TEST".acl = [{
+            access = "all";
+            principal = "admin/admin";
+          }];
         };
+
+        services.nfs.server.enable = true;
+        services.nfs.server.createMountPoints = true;
+        services.nfs.server.exports = ''
+          /data *(rw,no_root_squash,fsid=0,sec=krb5p)
+        '';
+      };
     };
 
     testScript = ''
@@ -137,5 +125,4 @@ import ../make-test-python.nix (
           expected = ["alice", "users"]
           assert ids == expected, f"ids incorrect: got {ids} expected {expected}"
     '';
-  }
-)
+  })

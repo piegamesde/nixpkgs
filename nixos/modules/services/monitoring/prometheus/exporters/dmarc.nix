@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
@@ -25,8 +20,7 @@ let
       disable_existing_loggers = false;
     };
   };
-in
-{
+in {
   port = 9797;
   extraOpts = {
     imap = {
@@ -107,10 +101,7 @@ in
     };
   };
   serviceOpts = {
-    path = with pkgs; [
-      envsubst
-      coreutils
-    ];
+    path = with pkgs; [ envsubst coreutils ];
     serviceConfig = {
       StateDirectory = "prometheus-dmarc-exporter";
       WorkingDirectory = "/var/lib/prometheus-dmarc-exporter";

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,8 @@ let
   cfg = config.services.softether;
 
   package = cfg.package.override { inherit (cfg) dataDir; };
-in
-{
+
+in {
 
   ###### interface
 
@@ -60,7 +55,9 @@ in
           Data directory for SoftEther VPN.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -160,6 +157,7 @@ in
         };
         boot.kernelModules = [ "tun" ];
       })
-    ]
-  );
+
+    ]);
+
 }

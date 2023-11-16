@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  m4,
-  fixDarwinDylibNames,
-}:
+{ lib, stdenv, fetchurl, m4, fixDarwinDylibNames }:
 
 stdenv.mkDerivation rec {
   pname = "libmilter";
@@ -38,13 +32,10 @@ stdenv.mkDerivation rec {
     sh Build -f ./a.m4
   '';
 
-  patches = [
-    ./install.patch
-    ./sharedlib.patch
-    ./darwin.patch
-  ];
+  patches = [ ./install.patch ./sharedlib.patch ./darwin.patch ];
 
-  nativeBuildInputs = [ m4 ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [ m4 ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     fixDarwinDylibNames $out/lib/libmilter.*.1

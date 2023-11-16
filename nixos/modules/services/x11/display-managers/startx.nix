@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.xserver.displayManager.startx;
-in
 
-{
+in {
 
   ###### interface
 
@@ -36,9 +30,7 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    services.xserver = {
-      exportConfiguration = true;
-    };
+    services.xserver = { exportConfiguration = true; };
 
     # Other displayManagers log to /dev/null because they're services and put
     # Xorg's stdout in the journal
@@ -48,11 +40,13 @@ in
     services.xserver.logFile = mkDefault null;
 
     # Implement xserverArgs via xinit's system-wide xserverrc
-    environment.etc."X11/xinit/xserverrc".source = pkgs.writeShellScript "xserverrc" ''
-      exec ${pkgs.xorg.xorgserver}/bin/X ${
-        toString config.services.xserver.displayManager.xserverArgs
-      } "$@"
-    '';
+    environment.etc."X11/xinit/xserverrc".source =
+      pkgs.writeShellScript "xserverrc" ''
+        exec ${pkgs.xorg.xorgserver}/bin/X ${
+          toString config.services.xserver.displayManager.xserverArgs
+        } "$@"
+      '';
     environment.systemPackages = with pkgs; [ xorg.xinit ];
   };
+
 }

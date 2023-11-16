@@ -1,17 +1,5 @@
-{
-  lib,
-  asn1crypto,
-  buildPythonPackage,
-  dnspython,
-  dsinternals,
-  fetchFromGitHub,
-  impacket,
-  ldap3,
-  pyasn1,
-  pycryptodome,
-  pyopenssl,
-  pythonOlder,
-  requests_ntlm,
+{ lib, asn1crypto, buildPythonPackage, dnspython, dsinternals, fetchFromGitHub
+, impacket, ldap3, pyasn1, pycryptodome, pyopenssl, pythonOlder, requests_ntlm
 }:
 
 buildPythonPackage rec {
@@ -52,7 +40,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "certipy" ];
 
   meta = with lib; {
-    description = "Library and CLI tool to enumerate and abuse misconfigurations in Active Directory Certificate Services";
+    description =
+      "Library and CLI tool to enumerate and abuse misconfigurations in Active Directory Certificate Services";
     homepage = "https://github.com/ly4k/Certipy";
     changelog = "https://github.com/ly4k/Certipy/releases/tag/${version}";
     license = with licenses; [ mit ];

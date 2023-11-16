@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  cython,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, cython
+, numpy }:
 
 buildPythonPackage rec {
   pname = "pylibjpeg-libjpeg";
@@ -36,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A JPEG, JPEG-LS and JPEG XT plugin for pylibjpeg";
     homepage = "https://github.com/pydicom/pylibjpeg-libjpeg";
-    changelog = "https://github.com/pydicom/pylibjpeg-libjpeg/releases/tag/v${version}";
+    changelog =
+      "https://github.com/pydicom/pylibjpeg-libjpeg/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ bcdarwin ];
   };

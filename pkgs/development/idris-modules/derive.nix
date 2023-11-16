@@ -1,18 +1,9 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  contrib,
-  pruviloj,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, contrib, pruviloj, lib }:
 build-idris-package {
   pname = "derive";
   version = "2018-07-02";
 
-  idrisDeps = [
-    contrib
-    pruviloj
-  ];
+  idrisDeps = [ contrib pruviloj ];
 
   src = fetchFromGitHub {
     owner = "david-christiansen";

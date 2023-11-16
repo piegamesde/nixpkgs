@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation {
   pname = "undaemonize";
@@ -18,10 +14,12 @@ stdenv.mkDerivation {
     install -D undaemonize $out/bin/undaemonize
   '';
   meta = {
-    description = "Tiny helper utility to force programs which insist on daemonizing themselves to run in the foreground";
+    description =
+      "Tiny helper utility to force programs which insist on daemonizing themselves to run in the foreground";
     homepage = "https://github.com/nickstenning/undaemonize";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.canndrew ];
     platforms = lib.platforms.linux;
   };
 }
+

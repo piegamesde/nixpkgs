@@ -1,15 +1,5 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  fetchurl,
-  go-bindata,
-  lib,
-  perl,
-  pkg-config,
-  rustPlatform,
-  stdenv,
-  libiconv,
-}:
+{ buildGoModule, fetchFromGitHub, fetchurl, go-bindata, lib, perl, pkg-config
+, rustPlatform, stdenv, libiconv }:
 
 let
   version = "2.5.1";
@@ -27,7 +17,8 @@ let
   };
 
   ui = fetchurl {
-    url = "https://github.com/influxdata/ui/releases/download/${ui_version}/build.tar.gz";
+    url =
+      "https://github.com/influxdata/ui/releases/download/${ui_version}/build.tar.gz";
     sha256 = "sha256-YKDp1jLyo4n+YTeMaWl8dhN4Lr3H8FXV7stJ3p3zFe8=";
   };
 
@@ -52,34 +43,25 @@ let
       Libs: -L/out/lib -lflux -lpthread
     '';
     passAsFile = [ "pkgcfg" ];
-    postInstall =
-      ''
-        mkdir -p $out/include $out/pkgconfig
-        cp -r $NIX_BUILD_TOP/source/libflux/include/influxdata $out/include
-        substitute $pkgcfgPath $out/pkgconfig/flux.pc \
-          --replace /out $out
-      ''
-      + lib.optionalString stdenv.isDarwin ''
-        install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
-      '';
+    postInstall = ''
+      mkdir -p $out/include $out/pkgconfig
+      cp -r $NIX_BUILD_TOP/source/libflux/include/influxdata $out/include
+      substitute $pkgcfgPath $out/pkgconfig/flux.pc \
+        --replace /out $out
+    '' + lib.optionalString stdenv.isDarwin ''
+      install_name_tool -id $out/lib/libflux.dylib $out/lib/libflux.dylib
+    '';
   };
-in
-buildGoModule {
+
+in buildGoModule {
   pname = "influxdb";
   version = version;
   inherit src;
 
-  nativeBuildInputs = [
-    go-bindata
-    pkg-config
-    perl
-  ];
+  nativeBuildInputs = [ go-bindata pkg-config perl ];
 
   vendorSha256 = "sha256-02x+HsWkng7OnKVSfkQR8LL1Qk42Bdrw0IMtBpS7xQc=";
-  subPackages = [
-    "cmd/influxd"
-    "cmd/telemetryd"
-  ];
+  subPackages = [ "cmd/influxd" "cmd/telemetryd" ];
 
   PKG_CONFIG_PATH = "${flux}/pkgconfig";
 
@@ -115,18 +97,12 @@ buildGoModule {
 
   tags = [ "assets" ];
 
-  ldflags = [
-    "-X main.commit=v${version}"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-X main.commit=v${version}" "-X main.version=${version}" ];
 
   meta = with lib; {
     description = "An open-source distributed time series database";
     license = licenses.mit;
     homepage = "https://influxdata.com/";
-    maintainers = with maintainers; [
-      abbradar
-      danderson
-    ];
+    maintainers = with maintainers; [ abbradar danderson ];
   };
 }

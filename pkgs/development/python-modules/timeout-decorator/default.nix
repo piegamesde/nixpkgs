@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 buildPythonPackage rec {
   pname = "timeout-decorator";
   version = "0.5.0";

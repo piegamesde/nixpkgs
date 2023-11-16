@@ -1,25 +1,13 @@
-{
-  lib,
-  runCommandLocal,
-  recurseIntoAttrs,
-  installShellFiles,
-}:
+{ lib, runCommandLocal, recurseIntoAttrs, installShellFiles }:
 
 let
-  runTest =
-    name: env: buildCommand:
-    runCommandLocal "install-shell-files--${name}"
-      (
-        {
-          nativeBuildInputs = [ installShellFiles ];
-          meta.platforms = lib.platforms.all;
-        }
-        // env
-      )
-      buildCommand;
-in
+  runTest = name: env: buildCommand:
+    runCommandLocal "install-shell-files--${name}" ({
+      nativeBuildInputs = [ installShellFiles ];
+      meta.platforms = lib.platforms.all;
+    } // env) buildCommand;
 
-recurseIntoAttrs {
+in recurseIntoAttrs {
   # installManPage
 
   install-manpage = runTest "install-manpage" { } ''
@@ -35,34 +23,26 @@ recurseIntoAttrs {
     cmp doc/baz.3 $out/share/man/man3/baz.3
   '';
   install-manpage-outputs =
-    runTest "install-manpage-outputs"
-      {
-        outputs = [
-          "out"
-          "man"
-          "devman"
-        ];
-      }
-      ''
-        mkdir -p doc
-        echo foo > doc/foo.1
-        echo bar > doc/bar.3
+    runTest "install-manpage-outputs" { outputs = [ "out" "man" "devman" ]; } ''
+      mkdir -p doc
+      echo foo > doc/foo.1
+      echo bar > doc/bar.3
 
-        installManPage doc/*
+      installManPage doc/*
 
-        # assert they didn't go into $out
-        [[ ! -f $out/share/man/man1/foo.1 && ! -f $out/share/man/man3/bar.3 ]]
+      # assert they didn't go into $out
+      [[ ! -f $out/share/man/man1/foo.1 && ! -f $out/share/man/man3/bar.3 ]]
 
-        # foo.1 alone went into man
-        cmp doc/foo.1 ''${!outputMan:?}/share/man/man1/foo.1
-        [[ ! -f ''${!outputMan:?}/share/man/man3/bar.3 ]]
+      # foo.1 alone went into man
+      cmp doc/foo.1 ''${!outputMan:?}/share/man/man1/foo.1
+      [[ ! -f ''${!outputMan:?}/share/man/man3/bar.3 ]]
 
-        # bar.3 alone went into devman
-        cmp doc/bar.3 ''${!outputDevman:?}/share/man/man3/bar.3
-        [[ ! -f ''${!outputDevman:?}/share/man/man1/foo.1 ]]
+      # bar.3 alone went into devman
+      cmp doc/bar.3 ''${!outputDevman:?}/share/man/man3/bar.3
+      [[ ! -f ''${!outputDevman:?}/share/man/man1/foo.1 ]]
 
-        touch $out
-      '';
+      touch $out
+    '';
 
   # installShellCompletion
 
@@ -82,25 +62,18 @@ recurseIntoAttrs {
     cmp quux $out/share/fish/vendor_completions.d/quux
   '';
   install-completion-output =
-    runTest "install-completion-output"
-      {
-        outputs = [
-          "out"
-          "bin"
-        ];
-      }
-      ''
-        echo foo > foo
+    runTest "install-completion-output" { outputs = [ "out" "bin" ]; } ''
+      echo foo > foo
 
-        installShellCompletion --bash foo
+      installShellCompletion --bash foo
 
-        # assert it didn't go into $out
-        [[ ! -f $out/share/bash-completion/completions/foo ]]
+      # assert it didn't go into $out
+      [[ ! -f $out/share/bash-completion/completions/foo ]]
 
-        cmp foo ''${!outputBin:?}/share/bash-completion/completions/foo
+      cmp foo ''${!outputBin:?}/share/bash-completion/completions/foo
 
-        touch $out
-      '';
+      touch $out
+    '';
   install-completion-name = runTest "install-completion-name" { } ''
     echo foo > foo
     echo bar > bar

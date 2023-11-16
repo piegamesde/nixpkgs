@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -18,9 +12,7 @@ let
     state = "/run/containerd";
     oom_score = 0;
 
-    grpc = {
-      address = "/run/containerd/containerd.sock";
-    };
+    grpc = { address = "/run/containerd/containerd.sock"; };
 
     plugins."io.containerd.grpc.v1.cri" = {
       sandbox_image = "pause:latest";
@@ -37,63 +29,39 @@ let
     };
   };
 
-  mkKubeConfig =
-    name: conf:
-    pkgs.writeText "${name}-kubeconfig" (
-      builtins.toJSON {
-        apiVersion = "v1";
-        kind = "Config";
-        clusters = [
-          {
-            name = "local";
-            cluster.certificate-authority = conf.caFile or cfg.caFile;
-            cluster.server = conf.server;
-          }
-        ];
-        users = [
-          {
-            inherit name;
-            user = {
-              client-certificate = conf.certFile;
-              client-key = conf.keyFile;
-            };
-          }
-        ];
-        contexts = [
-          {
-            context = {
-              cluster = "local";
-              user = name;
-            };
-            name = "local";
-          }
-        ];
-        current-context = "local";
-      }
-    );
+  mkKubeConfig = name: conf:
+    pkgs.writeText "${name}-kubeconfig" (builtins.toJSON {
+      apiVersion = "v1";
+      kind = "Config";
+      clusters = [{
+        name = "local";
+        cluster.certificate-authority = conf.caFile or cfg.caFile;
+        cluster.server = conf.server;
+      }];
+      users = [{
+        inherit name;
+        user = {
+          client-certificate = conf.certFile;
+          client-key = conf.keyFile;
+        };
+      }];
+      contexts = [{
+        context = {
+          cluster = "local";
+          user = name;
+        };
+        name = "local";
+      }];
+      current-context = "local";
+    });
 
   caCert = secret "ca";
 
   etcdEndpoints = [ "https://${cfg.masterAddress}:2379" ];
 
-  mkCert =
-    {
-      name,
-      CN,
-      hosts ? [ ],
-      fields ? { },
-      action ? "",
-      privateKeyOwner ? "kubernetes",
-    }:
-    rec {
-      inherit
-        name
-        caCert
-        CN
-        hosts
-        fields
-        action
-      ;
+  mkCert = { name, CN, hosts ? [ ], fields ? { }, action ? ""
+    , privateKeyOwner ? "kubernetes" }: rec {
+      inherit name caCert CN hosts fields action;
       cert = secret name;
       key = secret "${name}-key";
       privateKeyOptions = {
@@ -113,45 +81,33 @@ let
     };
 
     caFile = mkOption {
-      description = lib.mdDoc "${prefix} certificate authority file used to connect to kube-apiserver.";
+      description = lib.mdDoc
+        "${prefix} certificate authority file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = cfg.caFile;
       defaultText = literalExpression "config.${opt.caFile}";
     };
 
     certFile = mkOption {
-      description = lib.mdDoc "${prefix} client certificate file used to connect to kube-apiserver.";
+      description = lib.mdDoc
+        "${prefix} client certificate file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = null;
     };
 
     keyFile = mkOption {
-      description = lib.mdDoc "${prefix} client key file used to connect to kube-apiserver.";
+      description = lib.mdDoc
+        "${prefix} client key file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = null;
     };
   };
-in
-{
+in {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "addons"
-        "dashboard"
-      ]
-      "Removed due to it being an outdated version"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "verbose"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [ "services" "kubernetes" "addons" "dashboard" ]
+      "Removed due to it being an outdated version")
+    (mkRemovedOptionModule [ "services" "kubernetes" "verbose" ] "")
   ];
 
   ###### interface
@@ -166,12 +122,7 @@ in
         Node role will enable flannel, docker, kubelet and proxy services.
       '';
       default = [ ];
-      type = types.listOf (
-        types.enum [
-          "master"
-          "node"
-        ]
-      );
+      type = types.listOf (types.enum [ "master" "node" ]);
     };
 
     package = mkOption {
@@ -199,13 +150,15 @@ in
     };
 
     dataDir = mkOption {
-      description = lib.mdDoc "Kubernetes root directory for managing kubelet files.";
+      description =
+        lib.mdDoc "Kubernetes root directory for managing kubelet files.";
       default = "/var/lib/kubernetes";
       type = types.path;
     };
 
     easyCerts = mkOption {
-      description = lib.mdDoc "Automatically setup x509 certificates and keys for the entire cluster.";
+      description = lib.mdDoc
+        "Automatically setup x509 certificates and keys for the entire cluster.";
       default = false;
       type = types.bool;
     };
@@ -217,23 +170,22 @@ in
     };
 
     masterAddress = mkOption {
-      description =
-        lib.mdDoc
-          "Clusterwide available network address or hostname for the kubernetes master server.";
+      description = lib.mdDoc
+        "Clusterwide available network address or hostname for the kubernetes master server.";
       example = "master.example.com";
       type = types.str;
     };
 
     path = mkOption {
-      description =
-        lib.mdDoc
-          "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
+      description = lib.mdDoc
+        "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
       type = types.listOf types.package;
       default = [ ];
     };
 
     clusterCidr = mkOption {
-      description = lib.mdDoc "Kubernetes controller manager and proxy CIDR Range for Pods in cluster.";
+      description = lib.mdDoc
+        "Kubernetes controller manager and proxy CIDR Range for Pods in cluster.";
       default = "10.1.0.0/16";
       type = types.nullOr types.str;
     };
@@ -249,7 +201,8 @@ in
     };
 
     secretsPath = mkOption {
-      description = lib.mdDoc "Default location for kubernetes secrets. Not a store location.";
+      description = lib.mdDoc
+        "Default location for kubernetes secrets. Not a store location.";
       type = types.path;
       default = cfg.dataDir + "/secrets";
       defaultText = literalExpression ''
@@ -273,7 +226,8 @@ in
       services.kubernetes.controllerManager.enable = mkDefault true;
       services.kubernetes.addonManager.enable = mkDefault true;
       services.kubernetes.proxy.enable = mkDefault true;
-      services.etcd.enable = true; # Cannot mkDefault because of flannel default options
+      services.etcd.enable =
+        true; # Cannot mkDefault because of flannel default options
       services.kubernetes.kubelet = {
         enable = mkDefault true;
         taints = mkIf (!(elem "node" cfg.roles)) {
@@ -304,14 +258,16 @@ in
     })
 
     (mkIf cfg.apiserver.enable {
-      services.kubernetes.pki.etcClusterAdminKubeconfig = mkDefault "kubernetes/cluster-admin.kubeconfig";
+      services.kubernetes.pki.etcClusterAdminKubeconfig =
+        mkDefault "kubernetes/cluster-admin.kubeconfig";
       services.kubernetes.apiserver.etcd.servers = mkDefault etcdEndpoints;
     })
 
     (mkIf cfg.kubelet.enable {
       virtualisation.containerd = {
         enable = mkDefault true;
-        settings = mapAttrsRecursive (name: mkDefault) defaultContainerdSettings;
+        settings =
+          mapAttrsRecursive (name: mkDefault) defaultContainerdSettings;
       };
     })
 
@@ -329,16 +285,9 @@ in
       };
     })
 
-    (mkIf
-      (
-        cfg.apiserver.enable
-        || cfg.scheduler.enable
-        || cfg.controllerManager.enable
-        || cfg.kubelet.enable
-        || cfg.proxy.enable
-        || cfg.addonManager.enable
-      )
-      {
+    (mkIf (cfg.apiserver.enable || cfg.scheduler.enable
+      || cfg.controllerManager.enable || cfg.kubelet.enable || cfg.proxy.enable
+      || cfg.addonManager.enable) {
         systemd.targets.kubernetes = {
           description = "Kubernetes";
           wantedBy = [ "multi-user.target" ];
@@ -362,16 +311,13 @@ in
         # dns addon is enabled by default
         services.kubernetes.addons.dns.enable = mkDefault true;
 
-        services.kubernetes.apiserverAddress = mkDefault (
-          "https://${
+        services.kubernetes.apiserverAddress = mkDefault ("https://${
             if cfg.apiserver.advertiseAddress != null then
               cfg.apiserver.advertiseAddress
             else
               "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
-          }"
-        );
-      }
-    )
+          }");
+      })
   ];
 
   meta.buildDocsInSandbox = false;

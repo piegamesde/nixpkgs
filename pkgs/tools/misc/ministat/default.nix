@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-}:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   pname = "ministat";

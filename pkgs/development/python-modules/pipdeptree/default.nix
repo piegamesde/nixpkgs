@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  diff-cover,
-  graphviz,
-  hatchling,
-  hatch-vcs,
-  pytest-mock,
-  pytestCheckHook,
-  pip,
-  virtualenv,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, diff-cover, graphviz
+, hatchling, hatch-vcs, pytest-mock, pytestCheckHook, pip, virtualenv }:
 
 buildPythonPackage rec {
   pname = "pipdeptree";
@@ -29,23 +17,14 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatchling
-    hatch-vcs
-  ];
+  nativeBuildInputs = [ hatchling hatch-vcs ];
 
   propagatedBuildInput = [ pip ];
 
-  passthru.optional-dependencies = {
-    graphviz = [ graphviz ];
-  };
+  passthru.optional-dependencies = { graphviz = [ graphviz ]; };
 
-  nativeCheckInputs = [
-    diff-cover
-    pytest-mock
-    pytestCheckHook
-    virtualenv
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ diff-cover pytest-mock pytestCheckHook virtualenv ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "pipdeptree" ];
 

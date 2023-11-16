@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  alsa-lib,
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, alsa-lib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "kord";
@@ -23,7 +17,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "bincode-2.0.0-rc.2" = "sha256-0BfKKGOi5EVIoF0HvIk0QS2fHUMG3tpsMLe2SkXeZlo=";
+      "bincode-2.0.0-rc.2" =
+        "sha256-0BfKKGOi5EVIoF0HvIk0QS2fHUMG3tpsMLe2SkXeZlo=";
     };
   };
 

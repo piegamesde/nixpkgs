@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  openssl,
-}:
+{ stdenv, lib, fetchFromGitHub, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "hcxdumptool";

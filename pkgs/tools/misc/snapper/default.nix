@@ -1,27 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  docbook_xsl,
-  libxslt,
-  docbook_xml_dtd_45,
-  acl,
-  attr,
-  boost,
-  btrfs-progs,
-  dbus,
-  diffutils,
-  e2fsprogs,
-  libxml2,
-  lvm2,
-  pam,
-  util-linux,
-  json_c,
-  nixosTests,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, docbook_xsl, libxslt
+, docbook_xml_dtd_45, acl, attr, boost, btrfs-progs, dbus, diffutils, e2fsprogs
+, libxml2, lvm2, pam, util-linux, json_c, nixosTests, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "snapper";
@@ -34,13 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Eq9b49zEIb3wMHUw9/jpfYDaMXBY5JHZ2u5RTTtD5I8=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    docbook_xsl
-    libxslt
-    docbook_xml_dtd_45
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook pkg-config docbook_xsl libxslt docbook_xml_dtd_45 ];
   buildInputs = [
     acl
     attr
@@ -48,7 +22,8 @@ stdenv.mkDerivation rec {
     btrfs-progs
     dbus
     diffutils
-    e2fsprogs
+    0.0
+    fsprogs
     libxml2
     lvm2
     pam

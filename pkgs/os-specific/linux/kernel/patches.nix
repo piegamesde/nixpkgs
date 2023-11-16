@@ -1,15 +1,12 @@
-{
-  lib,
-  fetchpatch,
-  fetchurl,
-}:
+{ lib, fetchpatch, fetchurl }:
 
 {
   ath_regd_optional = rec {
     name = "ath_regd_optional";
     patch = fetchpatch {
       name = name + ".patch";
-      url = "https://github.com/openwrt/openwrt/raw/ed2015c38617ed6624471e77f27fbb0c58c8c660/package/kernel/mac80211/patches/ath/402-ath_regd_optional.patch";
+      url =
+        "https://github.com/openwrt/openwrt/raw/ed2015c38617ed6624471e77f27fbb0c58c8c660/package/kernel/mac80211/patches/ath/402-ath_regd_optional.patch";
       sha256 = "1ssDXSweHhF+pMZyd6kSrzeW60eb6MO6tlf0il17RC0=";
       postFetch = ''
         sed -i 's/CPTCFG_/CONFIG_/g' $out
@@ -40,27 +37,18 @@
 
   cpu-cgroup-v2 = import ./cpu-cgroup-v2-patches;
 
-  hardened =
-    let
-      mkPatch =
-        kernelVersion:
-        {
-          version,
-          sha256,
-          patch,
-        }:
-        let
-          src = patch;
-        in
-        {
-          name = lib.removeSuffix ".patch" src.name;
-          patch = fetchurl (lib.filterAttrs (k: v: k != "extra") src);
-          extra = src.extra;
-          inherit version sha256;
-        };
-      patches = lib.importJSON ./hardened/patches.json;
-    in
-    lib.mapAttrs mkPatch patches;
+  hardened = let
+    mkPatch = kernelVersion:
+      { version, sha256, patch }:
+      let src = patch;
+      in {
+        name = lib.removeSuffix ".patch" src.name;
+        patch = fetchurl (lib.filterAttrs (k: v: k != "extra") src);
+        extra = src.extra;
+        inherit version sha256;
+      };
+    patches = lib.importJSON ./hardened/patches.json;
+  in lib.mapAttrs mkPatch patches;
 
   # Adapted for Linux 5.4 from:
   # https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=04896832c94aae4842100cafb8d3a73e1bed3a45
@@ -78,7 +66,8 @@
     name = "CVE-2023-32233";
     patch = fetchpatch {
       name = name + ".patch";
-      url = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/patch/?id=c1592a89942e9678f7d9c8030efa777c0d57edab";
+      url =
+        "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/patch/?id=c1592a89942e9678f7d9c8030efa777c0d57edab";
       hash = "sha256-DYPWgraXPNeFkjtuDYkFXHnCJ4yDewrukM2CCAqC2BE=";
     };
   };

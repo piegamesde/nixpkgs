@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchMavenArtifact,
-}:
+{ lib, stdenv, fetchMavenArtifact }:
 
 stdenv.mkDerivation rec {
   pname = "sqlite-jdbc";
@@ -21,10 +17,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/xerial/sqlite-jdbc";
-    description = "Library for accessing and creating SQLite database files in Java";
+    description =
+      "Library for accessing and creating SQLite database files in Java";
     license = licenses.asl20;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ jraygauthier ];
   };
 }
+

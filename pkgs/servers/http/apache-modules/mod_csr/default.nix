@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  mod_ca,
-  apr,
-  aprutil,
-}:
+{ lib, stdenv, fetchurl, pkg-config, mod_ca, apr, aprutil }:
 
 stdenv.mkDerivation rec {
   pname = "mod_csr";
@@ -18,15 +10,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    mod_ca
-    apr
-    aprutil
-  ];
+  buildInputs = [ mod_ca apr aprutil ];
   inherit (mod_ca) configureFlags installFlags;
 
   meta = with lib; {
-    description = "RedWax CA service module to handle Certificate Signing Requests";
+    description =
+      "RedWax CA service module to handle Certificate Signing Requests";
 
     homepage = "https://redwax.eu";
     license = licenses.asl20;

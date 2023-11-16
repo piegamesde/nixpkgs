@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27 }:
 
 buildPythonPackage rec {
   pname = "python-wifi";
@@ -17,13 +12,12 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "Read & write wireless card capabilities using the Linux Wireless Extensions";
+    description =
+      "Read & write wireless card capabilities using the Linux Wireless Extensions";
     homepage = "http://pythonwifi.tuxfamily.org/";
     # From the README: "pythonwifi is licensed under LGPLv2+, however, the
     # examples (e.g. iwconfig.py and iwlist.py) are licensed under GPLv2+."
-    license = with licenses; [
-      lgpl2Plus
-      gpl2Plus
-    ];
+    license = with licenses; [ lgpl2Plus gpl2Plus ];
   };
+
 }

@@ -1,12 +1,7 @@
 # This module defines the packages that appear in
 # /run/current-system/sw.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -46,26 +41,14 @@ let
     pkgs.zstd
   ];
 
-  defaultPackageNames = [
-    "nano"
-    "perl"
-    "rsync"
-    "strace"
-  ];
+  defaultPackageNames = [ "nano" "perl" "rsync" "strace" ];
   defaultPackages =
-    map
-      (
-        n:
-        let
-          pkg = pkgs.${n};
-        in
-        setPrio ((pkg.meta.priority or 5) + 3) pkg
-      )
-      defaultPackageNames;
-  defaultPackagesText = "[ ${concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
-in
+    map (n: let pkg = pkgs.${n}; in setPrio ((pkg.meta.priority or 5) + 3) pkg)
+    defaultPackageNames;
+  defaultPackagesText =
+    "[ ${concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
 
-{
+in {
   options = {
 
     environment = {
@@ -120,29 +103,25 @@ in
         # to work.
         default = [ ];
         example = [ "/" ];
-        description = lib.mdDoc "List of directories to be symlinked in {file}`/run/current-system/sw`.";
+        description = lib.mdDoc
+          "List of directories to be symlinked in {file}`/run/current-system/sw`.";
       };
 
       extraOutputsToInstall = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "doc"
-          "info"
-          "devdoc"
-        ];
-        description =
-          lib.mdDoc
-            "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`.";
+        example = [ "doc" "info" "devdoc" ];
+        description = lib.mdDoc
+          "List of additional package outputs to be symlinked into {file}`/run/current-system/sw`.";
       };
 
       extraSetup = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Shell fragments to be run after the system environment has been created. This should only be used for things that need to modify the internals of the environment, e.g. generating MIME caches. The environment being built can be accessed at $out.";
+        description = lib.mdDoc
+          "Shell fragments to be run after the system environment has been created. This should only be used for things that need to modify the internals of the environment, e.g. generating MIME caches. The environment being built can be accessed at $out.";
       };
+
     };
 
     system = {
@@ -153,12 +132,15 @@ in
           The packages you want in the boot environment.
         '';
       };
+
     };
+
   };
 
   config = {
 
-    environment.systemPackages = requiredPackages ++ config.environment.defaultPackages;
+    environment.systemPackages = requiredPackages
+      ++ config.environment.defaultPackages;
 
     environment.pathsToLink = [
       "/bin"
@@ -199,5 +181,6 @@ in
         ${config.environment.extraSetup}
       '';
     };
+
   };
 }

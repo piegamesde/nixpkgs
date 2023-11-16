@@ -1,24 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  mpfr,
-  m4,
-  binutils,
-  emacs,
-  zlib,
-  which,
-  texinfo,
-  libX11,
-  xorgproto,
-  libXi,
-  gmp,
-  readline,
-  libXext,
-  libXt,
-  libXaw,
-  libXmu,
-}:
+{ lib, stdenv, fetchgit, mpfr, m4, binutils, emacs, zlib, which, texinfo, libX11
+, xorgproto, libXi, gmp, readline, libXext, libXt, libXaw, libXmu }:
 
 assert stdenv ? cc;
 assert stdenv.cc.isGNU;
@@ -32,7 +13,8 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     sha256 = "sha256-e4cUQlNSfdz+B3urlZ82pf7fTc6aoloUyDDorAUi5kc=";
     url = "https://git.savannah.gnu.org/r/gcl.git";
-    rev = "refs/tags/Version_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev =
+      "refs/tags/Version_${builtins.replaceStrings [ "." ] [ "_" ] version}";
   };
 
   postPatch = ''
@@ -67,10 +49,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-ansi" ];
 
-  hardeningDisable = [
-    "pic"
-    "bindnow"
-  ];
+  hardeningDisable = [ "pic" "bindnow" ];
 
   meta = {
     description = "GNU Common Lisp compiler working via GCC";

@@ -1,19 +1,5 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-  isPy27,
-  mock,
-  pytest,
-  pytest-runner,
-  sh,
-  coverage,
-  docopt,
-  requests,
-  urllib3,
-  git,
-  isPy3k,
-}:
+{ buildPythonPackage, lib, fetchPypi, isPy27, mock, pytest, pytest-runner, sh
+, coverage, docopt, requests, urllib3, git, isPy3k }:
 
 buildPythonPackage rec {
   pname = "coveralls";
@@ -26,12 +12,7 @@ buildPythonPackage rec {
     sha256 = "b32a8bb5d2df585207c119d6c01567b81fba690c9c10a753bfe27a335bfc43ea";
   };
 
-  nativeCheckInputs = [
-    mock
-    sh
-    pytest
-    git
-  ];
+  nativeCheckInputs = [ mock sh pytest git ];
 
   buildInputs = [ pytest-runner ];
 
@@ -46,11 +27,8 @@ buildPythonPackage rec {
     python setup.py test
   '';
 
-  propagatedBuildInputs = [
-    coverage
-    docopt
-    requests
-  ] ++ lib.optional (!isPy3k) urllib3;
+  propagatedBuildInputs = [ coverage docopt requests ]
+    ++ lib.optional (!isPy3k) urllib3;
 
   meta = {
     description = "Show coverage stats online via coveralls.io";
@@ -58,3 +36,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
   };
 }
+

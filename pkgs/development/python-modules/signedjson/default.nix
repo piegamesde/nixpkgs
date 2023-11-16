@@ -1,16 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  canonicaljson,
-  fetchPypi,
-  importlib-metadata,
-  pynacl,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  typing-extensions,
-  unpaddedbase64,
-}:
+{ lib, buildPythonPackage, canonicaljson, fetchPypi, importlib-metadata, pynacl
+, pytestCheckHook, pythonOlder, setuptools-scm, typing-extensions
+, unpaddedbase64 }:
 
 buildPythonPackage rec {
   pname = "signedjson";
@@ -26,12 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [
-      canonicaljson
-      unpaddedbase64
-      pynacl
-    ]
+  propagatedBuildInputs = [ canonicaljson unpaddedbase64 pynacl ]
     ++ lib.optionals (pythonOlder "3.8") [
       importlib-metadata
       typing-extensions

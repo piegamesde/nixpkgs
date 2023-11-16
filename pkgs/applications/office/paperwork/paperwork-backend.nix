@@ -1,31 +1,8 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchpatch,
-  fetchFromGitLab,
-  pyenchant,
-  scikit-learn,
-  pypillowfight,
-  pycountry,
-  whoosh,
-  termcolor,
-  levenshtein,
-  pygobject3,
-  pyocr,
-  natsort,
-  libinsane,
-  distro,
-  openpaperwork-core,
-  openpaperwork-gtk,
-  psutil,
-  gtk3,
-  poppler_gi,
-  gettext,
-  which,
-  shared-mime-info,
-  libreoffice,
-  unittestCheckHook,
-}:
+{ buildPythonPackage, lib, fetchpatch, fetchFromGitLab, pyenchant, scikit-learn
+, pypillowfight, pycountry, whoosh, termcolor, levenshtein, pygobject3, pyocr
+, natsort, libinsane, distro, openpaperwork-core, openpaperwork-gtk, psutil
+, gtk3, poppler_gi, gettext, which, shared-mime-info, libreoffice
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "paperwork-backend";
@@ -37,7 +14,8 @@ buildPythonPackage rec {
     # disables a flaky test https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/issues/1035#note_1493700
     ./flaky_test.patch
     (fetchpatch {
-      url = "https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/0f5cf0fe7ef223000e02c28e4c7576f74a778fe6.patch";
+      url =
+        "https://gitlab.gnome.org/World/OpenPaperwork/paperwork/-/commit/0f5cf0fe7ef223000e02c28e4c7576f74a778fe6.patch";
       hash = "sha256-NIK3j2TdydfeK3/udS/Pc+tJa/pPkfAmSPPeaYuaCq4=";
     })
   ];
@@ -71,22 +49,14 @@ buildPythonPackage rec {
     whoosh
   ];
 
-  nativeBuildInputs = [
-    gettext
-    shared-mime-info
-    which
-  ];
+  nativeBuildInputs = [ gettext shared-mime-info which ];
 
   preBuild = ''
     make l10n_compile
   '';
 
-  nativeCheckInputs = [
-    libreoffice
-    openpaperwork-gtk
-    psutil
-    unittestCheckHook
-  ];
+  nativeCheckInputs =
+    [ libreoffice openpaperwork-gtk psutil unittestCheckHook ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -96,9 +66,6 @@ buildPythonPackage rec {
     description = "Backend part of Paperwork (Python API, no UI)";
     homepage = "https://openpaper.work";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      aszlig
-      symphorien
-    ];
+    maintainers = with maintainers; [ aszlig symphorien ];
   };
 }

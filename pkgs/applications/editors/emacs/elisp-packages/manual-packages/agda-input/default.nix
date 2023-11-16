@@ -11,6 +11,7 @@ trivialBuild {
 
   meta = {
     inherit (haskellPackages.Agda.meta) homepage license;
-    description = "Standalone package providing the agda-input method without building Agda.";
+    description =
+      "Standalone package providing the agda-input method without building Agda.";
   };
 }

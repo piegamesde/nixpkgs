@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qmake,
-  pkg-config,
-  wrapQtAppsHook,
-  qtbase,
-  qttools,
-  qtwebkit,
-  sqlite,
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, pkg-config, wrapQtAppsHook, qtbase
+, qttools, qtwebkit, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "quiterss";
@@ -22,17 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1cgvl67vhn5y7bj5gbjbgk26bhb0196bgrgsp3r5fmrislarj8s6";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-  ];
-  buildInputs = [
-    qtbase
-    qttools
-    qtwebkit
-    sqlite.dev
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
+  buildInputs = [ qtbase qttools qtwebkit sqlite.dev ];
 
   meta = with lib; {
     description = "A Qt-based RSS/Atom news feed reader";
@@ -41,7 +22,8 @@ stdenv.mkDerivation rec {
       written on Qt/C++
     '';
     homepage = "https://quiterss.org";
-    changelog = "https://github.com/QuiteRSS/quiterss/blob/${version}/CHANGELOG";
+    changelog =
+      "https://github.com/QuiteRSS/quiterss/blob/${version}/CHANGELOG";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ primeos ];

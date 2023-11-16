@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jf";
@@ -29,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A small utility to safely format and print JSON objects in the commandline";
+    description =
+      "A small utility to safely format and print JSON objects in the commandline";
     homepage = "https://github.com/sayanarijit/jf";
     license = licenses.mit;
     maintainers = [ maintainers.sayanarijit ];

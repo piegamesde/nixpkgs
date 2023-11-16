@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
   pname = "simplehttp2server";
@@ -25,4 +21,5 @@ buildGoPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ yrashk ];
   };
+
 }

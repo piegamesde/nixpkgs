@@ -1,14 +1,7 @@
-{
-  buildPecl,
-  lib,
-  php,
-  fetchFromGitHub,
-}:
+{ buildPecl, lib, php, fetchFromGitHub }:
 
-let
-  version = "5.3.7";
-in
-buildPecl {
+let version = "5.3.7";
+in buildPecl {
   inherit version;
   pname = "redis";
 

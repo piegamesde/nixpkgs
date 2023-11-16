@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "python-hpilo";
@@ -22,10 +18,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to access the HP iLO XML interface";
     homepage = "https://seveas.github.io/python-hpilo/";
-    license = with licenses; [
-      asl20
-      gpl3Plus
-    ];
+    license = with licenses; [ asl20 gpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };
 }

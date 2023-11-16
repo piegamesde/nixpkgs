@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  mpi,
-  perl,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, mpi, perl, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "ior";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    mpi
-    perl
-  ];
+  buildInputs = [ mpi perl ];
 
   enableParallelBuilding = true;
 

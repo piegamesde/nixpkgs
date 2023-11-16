@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,9 +6,8 @@ let
 
   cfg = config.services.fprintd;
   fprintdPkg = if cfg.tod.enable then pkgs.fprintd-tod else pkgs.fprintd;
-in
 
-{
+in {
 
   ###### interface
 
@@ -21,16 +15,14 @@ in
 
     services.fprintd = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "fprintd daemon and PAM module for fingerprint readers handling"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "fprintd daemon and PAM module for fingerprint readers handling");
 
       package = mkOption {
         type = types.package;
         default = fprintdPkg;
-        defaultText =
-          literalExpression
-            "if config.services.fprintd.tod.enable then pkgs.fprintd-tod else pkgs.fprintd";
+        defaultText = literalExpression
+          "if config.services.fprintd.tod.enable then pkgs.fprintd-tod else pkgs.fprintd";
         description = lib.mdDoc ''
           fprintd package to use.
         '';
@@ -64,5 +56,7 @@ in
     systemd.services.fprintd.environment = mkIf cfg.tod.enable {
       FP_TOD_DRIVERS_DIR = "${cfg.tod.driver}${cfg.tod.driver.driverPath}";
     };
+
   };
+
 }

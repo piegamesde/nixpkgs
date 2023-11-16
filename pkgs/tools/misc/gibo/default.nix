@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  coreutils,
-  findutils,
-  git,
-}:
+{ lib, stdenv, fetchFromGitHub, coreutils, findutils, git }:
 
 stdenv.mkDerivation rec {
   pname = "gibo";

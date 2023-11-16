@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  glibc,
-  go-md2man,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, glibc, go-md2man, installShellFiles }:
 
 buildGoModule rec {
   pname = "toolbox";
@@ -28,10 +21,7 @@ buildGoModule rec {
 
   modRoot = "src";
 
-  nativeBuildInputs = [
-    go-md2man
-    installShellFiles
-  ];
+  nativeBuildInputs = [ go-md2man installShellFiles ];
 
   ldflags = [
     "-s"

@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  makeWrapper,
-  symlinkJoin,
-  pkg-config,
-  libtool,
-  gtk2,
-  libxml2,
-  libxslt,
-  libusb-compat-0_1,
-  sane-backends,
-  rpm,
-  cpio,
-  getopt,
-  autoPatchelfHook,
-  gcc,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, makeWrapper, symlinkJoin, pkg-config
+, libtool, gtk2, libxml2, libxslt, libusb-compat-0_1, sane-backends, rpm, cpio
+, getopt, autoPatchelfHook, gcc }:
 let
   common_meta = {
     homepage = "http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX";
@@ -25,15 +8,14 @@ let
     license = with lib.licenses; epson;
     platforms = with lib.platforms; linux;
   };
-in
-############################
-#
-#  PLUGINS
-#
-############################
+  ############################
+  #
+  #  PLUGINS
+  #
+  ############################
 
-# adding a plugin for another printer shouldn't be too difficult, but you need the firmware to test...
-let
+  # adding a plugin for another printer shouldn't be too difficult, but you need the firmware to test...
+in let
   plugins = {
     v330 = stdenv.mkDerivation rec {
       name = "iscan-v330-bundle";
@@ -52,10 +34,7 @@ let
         sha256 = "056c04pfsf98nnknphg28l489isqb6y4l2c8g7wqhclwgj7m338i";
       };
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        rpm
-      ];
+      nativeBuildInputs = [ autoPatchelfHook rpm ];
 
       installPhase = ''
         ${rpm}/bin/rpm2cpio plugins/esci-interpreter-perfection-v330-*.x86_64.rpm | ${cpio}/bin/cpio -idmv
@@ -86,10 +65,7 @@ let
         sha256 = "1ff7adp9mha1i2ibllz540xkagpy8r757h4s3h60bgxbyzv2yggr";
       };
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        rpm
-      ];
+      nativeBuildInputs = [ autoPatchelfHook rpm ];
 
       installPhase = ''
         cd plugins
@@ -117,10 +93,7 @@ let
       pname = "iscan-gt-x820-bundle";
       version = "2.30.4";
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        rpm
-      ];
+      nativeBuildInputs = [ autoPatchelfHook rpm ];
       src = fetchurl {
         urls = [
           "https://download2.ebz.epson.net/iscan/plugin/gt-x820/rpm/x64/iscan-gt-x820-bundle-${version}.x64.rpm.tar.gz"
@@ -151,10 +124,7 @@ let
       pname = "iscan-gt-x770-bundle";
       version = "2.30.4";
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        rpm
-      ];
+      nativeBuildInputs = [ autoPatchelfHook rpm ];
       src = fetchurl {
         urls = [
           "https://download2.ebz.epson.net/iscan/plugin/gt-x770/rpm/x64/iscan-gt-x770-bundle-${version}.x64.rpm.tar.gz"
@@ -218,10 +188,7 @@ let
       version = "2.30.4";
 
       nativeBuildInputs = [ autoPatchelfHook ];
-      buildInputs = [
-        gcc.cc.lib
-        libtool
-      ];
+      buildInputs = [ gcc.cc.lib libtool ];
       src = fetchurl {
         urls = [
           "https://download2.ebz.epson.net/iscan/plugin/gt-s80/rpm/x64/iscan-gt-s80-bundle-${version}.x64.rpm.tar.gz"
@@ -265,10 +232,7 @@ let
         sha256 = "0fn4lz4g0a8l301v6yv7fwl37wgwhz5y90nf681f655xxc91hqh7";
       };
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        rpm
-      ];
+      nativeBuildInputs = [ autoPatchelfHook rpm ];
 
       installPhase = ''
         cd plugins
@@ -303,10 +267,7 @@ let
         sha256 = "sha256-9EeBHmh1nwSxnTnevPP8RZ4WBdyY+itR3VXo2I7f5N0=";
       };
 
-      nativeBuildInputs = [
-        autoPatchelfHook
-        rpm
-      ];
+      nativeBuildInputs = [ autoPatchelfHook rpm ];
 
       installPhase = ''
         cd plugins
@@ -357,19 +318,15 @@ let
         hw = "network";
       };
 
-      meta = common_meta // {
-        description = "iscan network plugin";
-      };
+      meta = common_meta // { description = "iscan network plugin"; };
     };
   };
-in
-let
+in let
   fwdir = symlinkJoin {
     name = "esci-firmware-dir";
     paths = lib.mapAttrsToList (name: value: value + /share/esci) plugins;
   };
-in
-let
+in let
   iscan-data = stdenv.mkDerivation rec {
     pname = "iscan-data";
     version = "1.39.2-1";
@@ -386,8 +343,7 @@ let
 
     meta = common_meta;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "iscan";
   version = "2.30.4-2";
 
@@ -399,17 +355,8 @@ stdenv.mkDerivation rec {
     sha256 = "1ma76jj0k3bz0fy06fiyl4di4y77rcryb0mwjmzs5ms2vq9rjysr";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    libtool
-    makeWrapper
-  ];
-  buildInputs = [
-    gtk2
-    libxml2
-    libusb-compat-0_1
-    sane-backends
-  ];
+  nativeBuildInputs = [ pkg-config libtool makeWrapper ];
+  buildInputs = [ gtk2 libxml2 libusb-compat-0_1 sane-backends ];
 
   patches = [
     # Patch for compatibility with libpng versions greater than 10499
@@ -427,10 +374,7 @@ stdenv.mkDerivation rec {
   ];
   patchFlags = [ "-p0" ];
 
-  configureFlags = [
-    "--enable-dependency-reduction"
-    "--disable-frontend"
-  ];
+  configureFlags = [ "--enable-dependency-reduction" "--disable-frontend" ];
 
   postConfigure = ''
     echo '#define NIX_ESCI_PREFIX "'${fwdir}'"' >> config.h
@@ -444,31 +388,21 @@ stdenv.mkDerivation rec {
     mkdir -p $out/lib/iscan
     ln -s ${plugins.network}/lib/iscan/network $out/lib/iscan/network
   '';
-  postFixup =
-    ''
-      # iscan-registry is a shell script requiring getopt
-      wrapProgram $out/bin/iscan-registry --prefix PATH : ${getopt}/bin
-      registry=$out/bin/iscan-registry;
-    ''
-    + lib.concatStrings (
-      lib.mapAttrsToList
-        (name: value: ''
-          plugin=${value};
-          ${value.passthru.registrationCommand}
-        '')
-        plugins
-    );
+  postFixup = ''
+    # iscan-registry is a shell script requiring getopt
+    wrapProgram $out/bin/iscan-registry --prefix PATH : ${getopt}/bin
+    registry=$out/bin/iscan-registry;
+  '' + lib.concatStrings (lib.mapAttrsToList (name: value: ''
+    plugin=${value};
+    ${value.passthru.registrationCommand}
+  '') plugins);
   meta = common_meta // {
     description = "sane-epkowa backend for some epson scanners";
-    longDescription =
-      ''
-        Includes gui-less iscan (aka. Image Scan! for Linux).
-        Supported hardware: at least :
-      ''
-      + lib.concatStringsSep ", " (lib.mapAttrsToList (name: value: value.passthru.hw) plugins);
-    maintainers = with lib.maintainers; [
-      symphorien
-      dominikh
-    ];
+    longDescription = ''
+      Includes gui-less iscan (aka. Image Scan! for Linux).
+      Supported hardware: at least :
+    '' + lib.concatStringsSep ", "
+      (lib.mapAttrsToList (name: value: value.passthru.hw) plugins);
+    maintainers = with lib.maintainers; [ symphorien dominikh ];
   };
 }

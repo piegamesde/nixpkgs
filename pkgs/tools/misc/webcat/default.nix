@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitea,
-  asciidoctor,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitea, asciidoctor, installShellFiles }:
 
 buildGoModule rec {
   pname = "webcat";
@@ -20,10 +14,7 @@ buildGoModule rec {
 
   vendorSha256 = "1apnra58mqrazbq53f0qlqnyyhjdvvdz995yridxva0fxmwpwcjy";
 
-  nativeBuildInputs = [
-    asciidoctor
-    installShellFiles
-  ];
+  nativeBuildInputs = [ asciidoctor installShellFiles ];
 
   postInstall = ''
     make -C man man

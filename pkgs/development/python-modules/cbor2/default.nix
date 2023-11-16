@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "cbor2";

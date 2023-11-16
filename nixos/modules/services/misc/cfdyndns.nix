@@ -1,25 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.cfdyndns;
-in
-{
+let cfg = config.services.cfdyndns;
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "cfdyndns"
-        "apikey"
-      ]
-      "Use services.cfdyndns.apikeyFile instead."
-    )
+    (mkRemovedOptionModule [ "services" "cfdyndns" "apikey" ]
+      "Use services.cfdyndns.apikeyFile instead.")
   ];
 
   options = {
@@ -83,10 +70,6 @@ in
       };
     };
 
-    users.groups = {
-      cfdyndns = {
-        gid = config.ids.gids.cfdyndns;
-      };
-    };
+    users.groups = { cfdyndns = { gid = config.ids.gids.cfdyndns; }; };
   };
 }

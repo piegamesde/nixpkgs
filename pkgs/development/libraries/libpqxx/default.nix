@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "libpqxx";

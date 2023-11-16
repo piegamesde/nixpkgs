@@ -1,23 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.xserver.windowManager."2bwm";
-in
 
-{
+in {
 
   ###### interface
 
   options = {
-    services.xserver.windowManager."2bwm".enable = mkEnableOption (lib.mdDoc "2bwm");
+    services.xserver.windowManager."2bwm".enable =
+      mkEnableOption (lib.mdDoc "2bwm");
   };
 
   ###### implementation
@@ -33,5 +28,7 @@ in
     };
 
     environment.systemPackages = [ pkgs._2bwm ];
+
   };
+
 }

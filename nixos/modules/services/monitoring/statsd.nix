@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,19 +6,16 @@ let
 
   cfg = config.services.statsd;
 
-  isBuiltinBackend =
-    name:
-    builtins.elem name [
-      "graphite"
-      "console"
-      "repeater"
-    ];
+  isBuiltinBackend = name:
+    builtins.elem name [ "graphite" "console" "repeater" ];
 
-  backendsToPackages =
-    let
-      mkMap = list: name: if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ];
-    in
-    foldl mkMap [ ];
+  backendsToPackages = let
+    mkMap = list: name:
+      if isBuiltinBackend name then
+        list
+      else
+        list ++ [ pkgs.nodePackages.${name} ];
+  in foldl mkMap [ ];
 
   configFile = pkgs.writeText "statsd.conf" ''
     {
@@ -32,19 +24,29 @@ let
       mgmt_address: "${cfg.mgmt_address}",
       mgmt_port: "${toString cfg.mgmt_port}",
       backends: [${
-        concatMapStringsSep ","
-          (name: if (isBuiltinBackend name) then ''"./backends/${name}"'' else ''"${name}"'')
-          cfg.backends
+        concatMapStringsSep "," (name:
+          if (isBuiltinBackend name) then
+            ''"./backends/${name}"''
+          else
+            ''"${name}"'') cfg.backends
       }],
-      ${optionalString (cfg.graphiteHost != null) ''graphiteHost: "${cfg.graphiteHost}",''}
-      ${optionalString (cfg.graphitePort != null) ''graphitePort: "${toString cfg.graphitePort}",''}
+      ${
+        optionalString (cfg.graphiteHost != null)
+        ''graphiteHost: "${cfg.graphiteHost}",''
+      }
+      ${
+        optionalString (cfg.graphitePort != null)
+        ''graphitePort: "${toString cfg.graphitePort}",''
+      }
       console: {
         prettyprint: false
       },
       log: {
         backend: "stdout"
       },
-      automaticConfigReload: false${optionalString (cfg.extraConfig != null) ","}
+      automaticConfigReload: false${
+        optionalString (cfg.extraConfig != null) ","
+      }
       ${cfg.extraConfig}
     }
   '';
@@ -56,9 +58,8 @@ let
 
     paths = backendsToPackages cfg.backends;
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -73,7 +74,8 @@ in
     };
 
     port = mkOption {
-      description = lib.mdDoc "Port that stats listens for messages on over UDP";
+      description =
+        lib.mdDoc "Port that stats listens for messages on over UDP";
       default = 8125;
       type = types.int;
     };
@@ -91,7 +93,8 @@ in
     };
 
     backends = mkOption {
-      description = lib.mdDoc "List of backends statsd will use for data persistence";
+      description =
+        lib.mdDoc "List of backends statsd will use for data persistence";
       default = [ ];
       example = [
         "graphite"
@@ -121,19 +124,19 @@ in
       default = "";
       type = types.nullOr types.str;
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions =
-      map
-        (backend: {
-          assertion = !isBuiltinBackend backend -> hasAttrByPath [ backend ] pkgs.nodePackages;
-          message = "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
-        })
-        cfg.backends;
+    assertions = map (backend: {
+      assertion = !isBuiltinBackend backend
+        -> hasAttrByPath [ backend ] pkgs.nodePackages;
+      message =
+        "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
+    }) cfg.backends;
 
     users.users.statsd = {
       uid = config.ids.uids.statsd;
@@ -143,9 +146,7 @@ in
     systemd.services.statsd = {
       description = "Statsd Server";
       wantedBy = [ "multi-user.target" ];
-      environment = {
-        NODE_PATH = "${deps}/lib/node_modules";
-      };
+      environment = { NODE_PATH = "${deps}/lib/node_modules"; };
       serviceConfig = {
         ExecStart = "${pkgs.statsd}/bin/statsd ${configFile}";
         User = "statsd";
@@ -153,5 +154,7 @@ in
     };
 
     environment.systemPackages = [ pkgs.statsd ];
+
   };
+
 }

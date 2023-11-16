@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  imake,
-  gccmakedep,
-  libX11,
-  libXext,
-  libXScrnSaver,
-  xorgproto,
-}:
+{ lib, stdenv, fetchFromGitHub, imake, gccmakedep, libX11, libXext
+, libXScrnSaver, xorgproto }:
 
 stdenv.mkDerivation rec {
   pname = "xautolock";
@@ -23,29 +14,16 @@ stdenv.mkDerivation rec {
     sha256 = "10j61rl0sx9sh84rjyfyddl73xb5i2cpb17fyrli8kwj39nw0v2g";
   };
 
-  nativeBuildInputs = [
-    imake
-    gccmakedep
-  ];
-  buildInputs = [
-    libX11
-    libXext
-    libXScrnSaver
-    xorgproto
-  ];
+  nativeBuildInputs = [ imake gccmakedep ];
+  buildInputs = [ libX11 libXext libXScrnSaver xorgproto ];
 
-  makeFlags = [
-    "BINDIR=$(out)/bin"
-    "MANPATH=$(out)/share/man"
-  ];
+  makeFlags = [ "BINDIR=$(out)/bin" "MANPATH=$(out)/share/man" ];
 
-  installTargets = [
-    "install"
-    "install.man"
-  ];
+  installTargets = [ "install" "install.man" ];
 
   meta = with lib; {
-    description = "Launch a given program when your X session has been idle for a given time";
+    description =
+      "Launch a given program when your X session has been idle for a given time";
     homepage = "http://www.ibiblio.org/pub/linux/X11/screensavers";
     maintainers = with maintainers; [ peti ];
     platforms = platforms.linux;

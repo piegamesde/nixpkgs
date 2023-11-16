@@ -1,16 +1,5 @@
-{
-  lib,
-  aioconsole,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  websockets,
-}:
+{ lib, aioconsole, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytest-mock, pytestCheckHook, pythonOlder, setuptools, websockets }:
 
 buildPythonPackage rec {
   pname = "whirlpool-sixth-sense";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aioconsole
-    aiohttp
-    websockets
-  ];
+  propagatedBuildInputs = [ aioconsole aiohttp websockets ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
 
   # https://github.com/abmantis/whirlpool-sixth-sense/issues/15
   doCheck = false;

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "insteon-frontend-home-assistant";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "insteon_frontend" ];
 
   meta = with lib; {
-    changelog = "https://github.com/pyinsteon/insteon-panel/releases/tag/${version}";
+    changelog =
+      "https://github.com/pyinsteon/insteon-panel/releases/tag/${version}";
     description = "The Insteon frontend for Home Assistant";
     homepage = "https://github.com/pyinsteon/insteon-panel";
     license = licenses.mit;

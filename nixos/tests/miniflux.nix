@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     port = 3142;
@@ -16,50 +15,46 @@ import ./make-test-python.nix (
       ADMIN_USERNAME=${username}
       ADMIN_PASSWORD=${password}
     '';
-  in
-  {
+
+  in {
     name = "miniflux";
     meta.maintainers = [ ];
 
     nodes = {
-      default =
-        { ... }:
-        {
-          services.miniflux = {
-            enable = true;
-            inherit adminCredentialsFile;
-          };
+      default = { ... }: {
+        services.miniflux = {
+          enable = true;
+          inherit adminCredentialsFile;
         };
+      };
 
-      withoutSudo =
-        { ... }:
-        {
-          services.miniflux = {
-            enable = true;
-            inherit adminCredentialsFile;
-          };
-          security.sudo.enable = false;
+      withoutSudo = { ... }: {
+        services.miniflux = {
+          enable = true;
+          inherit adminCredentialsFile;
         };
+        security.sudo.enable = false;
+      };
 
-      customized =
-        { ... }:
-        {
-          services.miniflux = {
-            enable = true;
-            config = {
-              CLEANUP_FREQUENCY = "48";
-              LISTEN_ADDR = "localhost:${toString port}";
-            };
-            adminCredentialsFile = customAdminCredentialsFile;
+      customized = { ... }: {
+        services.miniflux = {
+          enable = true;
+          config = {
+            CLEANUP_FREQUENCY = "48";
+            LISTEN_ADDR = "localhost:${toString port}";
           };
+          adminCredentialsFile = customAdminCredentialsFile;
         };
+      };
     };
     testScript = ''
       start_all()
 
       default.wait_for_unit("miniflux.service")
       default.wait_for_open_port(${toString defaultPort})
-      default.succeed("curl --fail 'http://localhost:${toString defaultPort}/healthcheck' | grep OK")
+      default.succeed("curl --fail 'http://localhost:${
+        toString defaultPort
+      }/healthcheck' | grep OK")
       default.succeed(
           "curl 'http://localhost:${
             toString defaultPort
@@ -68,7 +63,9 @@ import ./make-test-python.nix (
 
       withoutSudo.wait_for_unit("miniflux.service")
       withoutSudo.wait_for_open_port(${toString defaultPort})
-      withoutSudo.succeed("curl --fail 'http://localhost:${toString defaultPort}/healthcheck' | grep OK")
+      withoutSudo.succeed("curl --fail 'http://localhost:${
+        toString defaultPort
+      }/healthcheck' | grep OK")
       withoutSudo.succeed(
           "curl 'http://localhost:${
             toString defaultPort
@@ -77,12 +74,13 @@ import ./make-test-python.nix (
 
       customized.wait_for_unit("miniflux.service")
       customized.wait_for_open_port(${toString port})
-      customized.succeed("curl --fail 'http://localhost:${toString port}/healthcheck' | grep OK")
+      customized.succeed("curl --fail 'http://localhost:${
+        toString port
+      }/healthcheck' | grep OK")
       customized.succeed(
           "curl 'http://localhost:${
             toString port
           }/v1/me' -u '${username}:${password}' -H Content-Type:application/json | grep '\"is_admin\":true'"
       )
     '';
-  }
-)
+  })

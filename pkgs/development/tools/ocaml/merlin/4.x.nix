@@ -1,22 +1,9 @@
-{
-  lib,
-  substituteAll,
-  fetchurl,
-  ocaml,
-  dune_3,
-  buildDunePackage,
-  yojson,
-  csexp,
-  merlin-lib,
-  dot-merlin-reader,
-  jq,
-  menhir,
-  menhirLib,
-  menhirSdk,
-}:
+{ lib, substituteAll, fetchurl, ocaml, dune_3, buildDunePackage, yojson, csexp
+, merlin-lib, dot-merlin-reader, jq, menhir, menhirLib, menhirSdk }:
 
 let
-  merlinVersion = if lib.versionAtLeast ocaml.version "4.14" then "4.9" else "4.7";
+  merlinVersion =
+    if lib.versionAtLeast ocaml.version "4.14" then "4.9" else "4.7";
 
   hashes = {
     "4.7-412" = "sha256-0U3Ia7EblKULNy8AuXFVKACZvGN0arYJv7BWiBRgT0Y=";
@@ -27,13 +14,14 @@ let
     "4.9-500" = "sha256-uQfGazoxTxclHSiTfjji+tKJv8MKqRdHMPD/xfMZlSY=";
   };
 
-  ocamlVersionShorthand = lib.substring 0 3 (lib.concatStrings (lib.splitVersion ocaml.version));
+  ocamlVersionShorthand =
+    lib.substring 0 3 (lib.concatStrings (lib.splitVersion ocaml.version));
 
   version = "${merlinVersion}-${ocamlVersionShorthand}";
-in
 
-if !lib.hasAttr version hashes then
-  builtins.throw "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"
+in if !lib.hasAttr version hashes then
+  builtins.throw
+  "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"
 else
 
   buildDunePackage {
@@ -42,7 +30,8 @@ else
     duneVersion = "3";
 
     src = fetchurl {
-      url = "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
+      url =
+        "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
       sha256 = hashes."${version}";
     };
 
@@ -56,10 +45,7 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [
-      menhir
-      jq
-    ];
+    nativeBuildInputs = [ menhir jq ];
     buildInputs = [
       dot-merlin-reader
       yojson
@@ -77,12 +63,10 @@ else
     '';
 
     meta = with lib; {
-      description = "An editor-independent tool to ease the development of programs in OCaml";
+      description =
+        "An editor-independent tool to ease the development of programs in OCaml";
       homepage = "https://github.com/ocaml/merlin";
       license = licenses.mit;
-      maintainers = [
-        maintainers.vbgl
-        maintainers.sternenseemann
-      ];
+      maintainers = [ maintainers.vbgl maintainers.sternenseemann ];
     };
   }

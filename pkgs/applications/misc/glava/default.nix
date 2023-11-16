@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  writeScript,
-  fetchFromGitHub,
-  libGL,
-  libX11,
-  libXext,
-  python3,
-  libXrandr,
-  libXrender,
-  libpulseaudio,
-  libXcomposite,
-  enableGlfw ? false,
-  glfw,
-  runtimeShell,
-}:
+{ lib, stdenv, writeScript, fetchFromGitHub, libGL, libX11, libXext, python3
+, libXrandr, libXrender, libpulseaudio, libXcomposite, enableGlfw ? false, glfw
+, runtimeShell }:
 
 let
   inherit (lib) optional makeLibraryPath;
@@ -33,8 +19,7 @@ let
         exec @out@/bin/.glava-unwrapped "$@"
     esac
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "glava";
   version = "1.6.3";
 
@@ -45,14 +30,9 @@ stdenv.mkDerivation rec {
     sha256 = "0kqkjxmpqkmgby05lsf6c6iwm45n33jk5qy6gi3zvjx4q4yzal1i";
   };
 
-  buildInputs = [
-    libX11
-    libXext
-    libXrandr
-    libXrender
-    libpulseaudio
-    libXcomposite
-  ] ++ optional enableGlfw glfw;
+  buildInputs =
+    [ libX11 libXext libXrandr libXrender libpulseaudio libXcomposite ]
+    ++ optional enableGlfw glfw;
 
   nativeBuildInputs = [ python3 ];
 
@@ -79,7 +59,9 @@ stdenv.mkDerivation rec {
     rm -rf $out/usr
 
     patchelf \
-      --set-rpath "$(patchelf --print-rpath $out/bin/.glava-unwrapped):${makeLibraryPath [ libGL ]}" \
+      --set-rpath "$(patchelf --print-rpath $out/bin/.glava-unwrapped):${
+        makeLibraryPath [ libGL ]
+      }" \
       $out/bin/.glava-unwrapped
 
     substitute ${wrapperScript} $out/bin/glava --subst-var out

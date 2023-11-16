@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  llvmPackages,
-  cmake,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, llvmPackages, cmake, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "clazy";
@@ -18,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kcl4dUg84fNdizKUS4kpvIKFfajtTRdz+MYUbKcMFvg=";
   };
 
-  buildInputs = [
-    llvmPackages.llvm
-    llvmPackages.libclang
-  ];
+  buildInputs = [ llvmPackages.llvm llvmPackages.libclang ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
 
   postInstall = ''
     wrapProgram $out/bin/clazy \
@@ -46,10 +33,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Qt-oriented static code analyzer based on the Clang framework";
+    description =
+      "Qt-oriented static code analyzer based on the Clang framework";
     homepage = "https://github.com/KDE/clazy";
     license = lib.licenses.lgpl2Plus;
     maintainers = [ lib.maintainers.cadkin ];
     platforms = lib.platforms.linux;
   };
+
 }

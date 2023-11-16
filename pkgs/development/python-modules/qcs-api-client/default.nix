@@ -1,25 +1,7 @@
-{
-  lib,
-  attrs,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  httpx,
-  iso8601,
-  poetry-core,
-  pydantic,
-  pyjwt,
-  pytest-asyncio,
-  pytestCheckHook,
-  python-dateutil,
-  pythonAtLeast,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  respx,
-  retrying,
-  rfc3339,
-  toml,
-}:
+{ lib, attrs, buildPythonPackage, fetchFromGitHub, fetchpatch, httpx, iso8601
+, poetry-core, pydantic, pyjwt, pytest-asyncio, pytestCheckHook, python-dateutil
+, pythonAtLeast, pythonOlder, pythonRelaxDepsHook, respx, retrying, rfc3339
+, toml }:
 
 buildPythonPackage rec {
   pname = "qcs-api-client";
@@ -35,25 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-lw6jswIaqDFExz/hjIrpZf4BC757l83MeCfOyZaTbfg=";
   };
 
-  patches =
-    [
-      # Switch to poetry-core, https://github.com/rigetti/qcs-api-client-python/pull/2
-      (fetchpatch {
-        name = "switch-to-poetry-core.patch";
-        url = "https://github.com/rigetti/qcs-api-client-python/commit/32f0b3c7070a65f4edf5b2552648d88435469e44.patch";
-        hash = "sha256-mOc+Q/5cmwPziojtxeEMWWHSDvqvzZlNRbPtOSeTinQ=";
-      })
-    ];
-
-  pythonRelaxDeps = [
-    "attrs"
-    "httpx"
+  patches = [
+    # Switch to poetry-core, https://github.com/rigetti/qcs-api-client-python/pull/2
+    (fetchpatch {
+      name = "switch-to-poetry-core.patch";
+      url =
+        "https://github.com/rigetti/qcs-api-client-python/commit/32f0b3c7070a65f4edf5b2552648d88435469e44.patch";
+      hash = "sha256-mOc+Q/5cmwPziojtxeEMWWHSDvqvzZlNRbPtOSeTinQ=";
+    })
   ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  pythonRelaxDeps = [ "attrs" "httpx" ];
+
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = [
     attrs
@@ -67,11 +43,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    respx
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook respx ];
 
   # Tests are failing on Python 3.11, Fatal Python error: Aborted
   doCheck = !(pythonAtLeast "3.11");
@@ -81,7 +53,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for accessing the Rigetti QCS API";
     homepage = "https://qcs-api-client-python.readthedocs.io/";
-    changelog = "https://github.com/rigetti/qcs-api-client-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/rigetti/qcs-api-client-python/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

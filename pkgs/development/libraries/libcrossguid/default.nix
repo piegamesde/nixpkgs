@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libuuid,
-}:
+{ lib, stdenv, fetchFromGitHub, libuuid }:
 
 stdenv.mkDerivation rec {
   name = "lib" + pname + "-" + version;
@@ -36,4 +31,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/graeme-hill/crossguid";
     platforms = with platforms; linux;
   };
+
 }

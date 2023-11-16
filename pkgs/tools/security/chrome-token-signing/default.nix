@@ -1,12 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qmake,
-  pcsclite,
-  pkg-config,
-  opensc,
-}:
+{ lib, mkDerivation, fetchFromGitHub, qmake, pcsclite, pkg-config, opensc }:
 
 mkDerivation rec {
   pname = "chrome-token-signing";
@@ -20,10 +12,7 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    qmake
-    pcsclite
-  ];
+  buildInputs = [ qmake pcsclite ];
   dontUseQmakeConfigure = true;
 
   patchPhase = ''
@@ -41,7 +30,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Chrome and Firefox extension for signing with your eID on the web";
+    description =
+      "Chrome and Firefox extension for signing with your eID on the web";
     homepage = "https://github.com/open-eid/chrome-token-signing/wiki";
     license = licenses.lgpl21;
     maintainers = [ maintainers.mmahut ];

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-}:
+{ lib, stdenvNoCC, fetchurl }:
 let
   fonts = {
     assamese = {
@@ -95,18 +91,14 @@ let
     };
   };
 
-  mkpkg =
-    license: pname:
-    {
-      label,
-      version,
-      hash,
-    }:
+  mkpkg = license: pname:
+    { label, version, hash }:
     stdenvNoCC.mkDerivation {
       inherit pname version;
 
       src = fetchurl {
-        url = "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz";
+        url =
+          "https://releases.pagure.org/lohit/lohit-${pname}-ttf-${version}.tar.gz";
         inherit hash;
       };
 
@@ -127,17 +119,16 @@ let
 
       meta = {
         inherit license;
-        description = "Free and open source fonts for Indian languages (" + label + ")";
+        description = "Free and open source fonts for Indian languages ("
+          + label + ")";
         homepage = "https://pagure.io/lohit";
-        maintainers = [
-          lib.maintainers.mathnerd314
-          lib.maintainers.ttuegel
-        ];
+        maintainers = [ lib.maintainers.mathnerd314 lib.maintainers.ttuegel ];
         # Set a non-zero priority to allow easy overriding of the
         # fontconfig configuration files.
         priority = 5;
       };
     };
-in
-# Technically, GPLv2 with usage exceptions
-lib.mapAttrs (mkpkg lib.licenses.gpl2) gplfonts // lib.mapAttrs (mkpkg lib.licenses.ofl) fonts
+
+  # Technically, GPLv2 with usage exceptions
+in lib.mapAttrs (mkpkg lib.licenses.gpl2) gplfonts
+// lib.mapAttrs (mkpkg lib.licenses.ofl) fonts

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  postgresql,
-  getopt,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, postgresql, getopt, makeWrapper }:
 stdenv.mkDerivation rec {
   pname = "ephemeralpg";
   version = "3.1";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     PREFIX=$out make install
     wrapProgram $out/bin/pg_tmp --prefix PATH : ${
-      lib.makeBinPath [
-        postgresql
-        getopt
-      ]
+      lib.makeBinPath [ postgresql getopt ]
     }
   '';
   meta = with lib; {

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  systemd,
-  fcgi,
-  autoreconfHook,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, systemd, fcgi, autoreconfHook, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "fcgiwrap";
@@ -25,14 +17,8 @@ stdenv.mkDerivation rec {
     "--with-systemdsystemunitdir=$(out)/etc/systemd/system"
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    systemd
-    fcgi
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ systemd fcgi ];
 
   # systemd 230 no longer has libsystemd-daemon as a separate entity from libsystemd
   postPatch = ''

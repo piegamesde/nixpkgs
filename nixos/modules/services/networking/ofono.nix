@@ -1,10 +1,5 @@
 # Ofono daemon.
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,10 +7,11 @@ let
 
   cfg = config.services.ofono;
 
-  plugin_path = lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/ofono/plugins") cfg.plugins;
-in
+  plugin_path =
+    lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/ofono/plugins")
+    cfg.plugins;
 
-{
+in {
   ###### interface
   options = {
     services.ofono = {
@@ -38,6 +34,8 @@ in
 
     systemd.packages = [ pkgs.ofono ];
 
-    systemd.services.ofono.environment.OFONO_PLUGIN_PATH = mkIf (cfg.plugins != [ ]) plugin_path;
+    systemd.services.ofono.environment.OFONO_PLUGIN_PATH =
+      mkIf (cfg.plugins != [ ]) plugin_path;
+
   };
 }

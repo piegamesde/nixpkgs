@@ -1,8 +1,4 @@
-{
-  fetchCrate,
-  lib,
-  rustPlatform,
-}:
+{ fetchCrate, lib, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo2junit";
@@ -16,7 +12,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-u5Pd967qxjqFl9fV/KkClLDBwKql7p66WqbIVBvWKuM=";
 
   meta = with lib; {
-    description = "Converts cargo's json output (from stdin) to JUnit XML (to stdout).";
+    description =
+      "Converts cargo's json output (from stdin) to JUnit XML (to stdout).";
     homepage = "https://github.com/johnterickson/cargo2junit";
     license = licenses.mit;
     maintainers = with maintainers; [ alekseysidorov ];

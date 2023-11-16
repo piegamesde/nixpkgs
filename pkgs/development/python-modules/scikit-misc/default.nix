@@ -1,15 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  cython,
-  gfortran,
-  git,
-  meson-python,
-  pkg-config,
-  numpy,
-  openblas,
-}:
+{ lib, fetchPypi, buildPythonPackage, cython, gfortran, git, meson-python
+, pkg-config, numpy, openblas }:
 
 buildPythonPackage rec {
   pname = "scikit-misc";
@@ -26,18 +16,9 @@ buildPythonPackage rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [
-    cython
-    gfortran
-    git
-    meson-python
-    pkg-config
-  ];
+  nativeBuildInputs = [ cython gfortran git meson-python pkg-config ];
 
-  buildInputs = [
-    numpy
-    openblas
-  ];
+  buildInputs = [ numpy openblas ];
 
   pythonImportsCheck = [ "skmisc" ];
 

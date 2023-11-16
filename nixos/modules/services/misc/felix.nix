@@ -1,19 +1,13 @@
 # Felix server
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.felix;
-in
 
-{
+in {
 
   ###### interface
 
@@ -27,7 +21,8 @@ in
         type = types.listOf types.package;
         default = [ pkgs.felix_remoteshell ];
         defaultText = literalExpression "[ pkgs.felix_remoteshell ]";
-        description = lib.mdDoc "List of bundles that should be activated on startup";
+        description =
+          lib.mdDoc "List of bundles that should be activated on startup";
       };
 
       user = mkOption {
@@ -41,7 +36,9 @@ in
         default = "osgi";
         description = lib.mdDoc "Group account under which Apache Felix runs.";
       };
+
     };
+
   };
 
   ###### implementation

@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pillow,
-  regex,
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pillow, regex }:
 
 buildPythonPackage rec {
   pname = "material-color-utilities-python";
@@ -16,10 +9,7 @@ buildPythonPackage rec {
     sha256 = "sha256-PG8C585wWViFRHve83z3b9NijHyV+iGY2BdMJpyVH64=";
   };
 
-  propagatedBuildInputs = [
-    pillow
-    regex
-  ];
+  propagatedBuildInputs = [ pillow regex ];
 
   # No tests implemented.
   doCheck = false;
@@ -28,7 +18,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pypi.org/project/material_color_utilities_python";
-    description = "Python port of material_color_utilities used for Material You colors";
+    description =
+      "Python port of material_color_utilities used for Material You colors";
     license = licenses.asl20;
     maintainers = with maintainers; [ foo-dogsquared ];
   };

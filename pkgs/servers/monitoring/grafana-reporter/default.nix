@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-  tetex,
-  makeWrapper,
-}:
+{ lib, buildGoPackage, fetchFromGitHub, tetex, makeWrapper }:
 
 with lib;
 

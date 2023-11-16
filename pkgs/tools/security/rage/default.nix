@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  Foundation,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, installShellFiles, Foundation }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rage";
@@ -38,16 +31,12 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A simple, secure and modern encryption tool with small explicit keys, no config options, and UNIX-style composability";
+    description =
+      "A simple, secure and modern encryption tool with small explicit keys, no config options, and UNIX-style composability";
     homepage = "https://github.com/str4d/rage";
-    changelog = "https://github.com/str4d/rage/raw/v${version}/rage/CHANGELOG.md";
-    license = with licenses; [
-      asl20
-      mit
-    ]; # either at your option
-    maintainers = with maintainers; [
-      marsam
-      ryantm
-    ];
+    changelog =
+      "https://github.com/str4d/rage/raw/v${version}/rage/CHANGELOG.md";
+    license = with licenses; [ asl20 mit ]; # either at your option
+    maintainers = with maintainers; [ marsam ryantm ];
   };
 }

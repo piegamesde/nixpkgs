@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  django,
-  colorama,
-  coverage,
-  unidecode,
-  lxml,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, django, colorama, coverage
+, unidecode, lxml }:
 
 buildPythonPackage rec {
   pname = "green";
@@ -29,12 +20,7 @@ buildPythonPackage rec {
       --subst-var-by green "$out/bin/green"
   '';
 
-  propagatedBuildInputs = [
-    colorama
-    coverage
-    unidecode
-    lxml
-  ];
+  propagatedBuildInputs = [ colorama coverage unidecode lxml ];
 
   # let green run it's own test suite
   checkPhase = ''

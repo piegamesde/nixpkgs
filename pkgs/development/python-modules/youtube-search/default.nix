@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "youtube-search";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "youtube_search" ];
 
   meta = with lib; {
-    description = "Tool for searching for youtube videos to avoid using their heavily rate-limited API";
+    description =
+      "Tool for searching for youtube videos to avoid using their heavily rate-limited API";
     homepage = "https://github.com/joetats/youtube_search";
     license = licenses.mit;
     maintainers = with maintainers; [ j0hax ];

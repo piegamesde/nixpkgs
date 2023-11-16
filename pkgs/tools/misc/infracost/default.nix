@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "infracost";
@@ -63,17 +58,16 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://infracost.io";
-    changelog = "https://github.com/infracost/infracost/releases/tag/v${version}";
-    description = "Cloud cost estimates for Terraform in your CLI and pull requests";
+    changelog =
+      "https://github.com/infracost/infracost/releases/tag/v${version}";
+    description =
+      "Cloud cost estimates for Terraform in your CLI and pull requests";
     longDescription = ''
       Infracost shows hourly and monthly cost estimates for a Terraform project.
       This helps developers, DevOps et al. quickly see the cost breakdown and
       compare different deployment options upfront.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      davegallant
-      jk
-    ];
+    maintainers = with maintainers; [ davegallant jk ];
   };
 }

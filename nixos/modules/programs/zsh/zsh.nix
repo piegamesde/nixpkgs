@@ -1,12 +1,6 @@
 # This module defines global configuration for the zshell.
 
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -17,11 +11,9 @@ let
   cfg = config.programs.zsh;
   opt = options.programs.zsh;
 
-  zshAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}") (
-      filterAttrs (k: v: v != null) cfg.shellAliases
-    )
-  );
+  zshAliases = concatStringsSep "\n"
+    (mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}")
+      (filterAttrs (k: v: v != null) cfg.shellAliases));
 
   zshStartupNotes = ''
     # Note that generated /etc/zprofile and /etc/zshrc files do a lot of
@@ -40,9 +32,8 @@ let
     #
     # See "STARTUP/SHUTDOWN FILES" section of zsh(1) for more info.
   '';
-in
 
-{
+in {
 
   options = {
 
@@ -124,15 +115,8 @@ in
 
       setOptions = mkOption {
         type = types.listOf types.str;
-        default = [
-          "HIST_IGNORE_DUPS"
-          "SHARE_HISTORY"
-          "HIST_FCNTL_LOCK"
-        ];
-        example = [
-          "EXTENDED_HISTORY"
-          "RM_STAR_WAIT"
-        ];
+        default = [ "HIST_IGNORE_DUPS" "SHARE_HISTORY" "HIST_FCNTL_LOCK" ];
+        example = [ "EXTENDED_HISTORY" "RM_STAR_WAIT" ];
         description = lib.mdDoc ''
           Configure zsh options. See
           {manpage}`zshoptions(1)`.
@@ -167,7 +151,9 @@ in
         '';
         type = types.bool;
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -292,15 +278,16 @@ in
     # see https://github.com/NixOS/nixpkgs/issues/132732
     environment.etc.zinputrc.text = builtins.readFile ./zinputrc;
 
-    environment.systemPackages = [ pkgs.zsh ] ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
+    environment.systemPackages = [ pkgs.zsh ]
+      ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
 
     environment.pathsToLink = optional cfg.enableCompletion "/share/zsh";
 
     #users.defaultUserShell = mkDefault "/run/current-system/sw/bin/zsh";
 
-    environment.shells = [
-      "/run/current-system/sw/bin/zsh"
-      "${pkgs.zsh}/bin/zsh"
-    ];
+    environment.shells =
+      [ "/run/current-system/sw/bin/zsh" "${pkgs.zsh}/bin/zsh" ];
+
   };
+
 }

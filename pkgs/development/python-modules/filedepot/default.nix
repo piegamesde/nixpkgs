@@ -1,18 +1,5 @@
-{
-  lib,
-  anyascii,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flaky,
-  mock,
-  paste,
-  pillow,
-  pymongo,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  sqlalchemy,
-}:
+{ lib, anyascii, buildPythonPackage, fetchFromGitHub, flaky, mock, paste, pillow
+, pymongo, pytestCheckHook, pythonOlder, requests, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "filedepot";
@@ -30,16 +17,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ anyascii ];
 
-  nativeCheckInputs = [
-    flaky
-    mock
-    paste
-    pillow
-    pymongo
-    pytestCheckHook
-    requests
-    sqlalchemy
-  ];
+  nativeCheckInputs =
+    [ flaky mock paste pillow pymongo pytestCheckHook requests sqlalchemy ];
 
   disabledTestPaths = [
     # The examples have tests
@@ -52,7 +31,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "depot" ];
 
   meta = with lib; {
-    description = "Toolkit for storing files and attachments in web applications";
+    description =
+      "Toolkit for storing files and attachments in web applications";
     homepage = "https://github.com/amol-/depot";
     changelog = "https://github.com/amol-/depot/releases/tag/${version}";
     license = licenses.mit;

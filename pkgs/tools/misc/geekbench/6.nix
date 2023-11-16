@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoPatchelfHook,
-  addOpenGLRunpath,
-  makeWrapper,
-  ocl-icd,
-  vulkan-loader,
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, addOpenGLRunpath, makeWrapper
+, ocl-icd, vulkan-loader }:
 
 stdenv.mkDerivation rec {
   pname = "geekbench";
@@ -21,10 +13,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildGoModule,
-  asciidoctor,
-  ruby,
-}:
+{ lib, fetchurl, buildGoModule, asciidoctor, ruby }:
 
 buildGoModule rec {
   pname = "reposurgeon";
@@ -19,10 +13,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  nativeBuildInputs = [
-    asciidoctor
-    ruby
-  ];
+  nativeBuildInputs = [ asciidoctor ruby ];
 
   postBuild = ''
     patchShebangs .

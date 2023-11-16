@@ -1,17 +1,10 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
   let
     client = { pkgs, ... }: { environment.systemPackages = [ pkgs.croc ]; };
     pass = pkgs.writeText "pass" "PassRelay";
-  in
-  {
+  in {
     name = "croc";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        hax404
-        julm
-      ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ hax404 julm ]; };
 
     nodes = {
       relay = {
@@ -51,5 +44,4 @@ import ./make-test-python.nix (
       assert "Hello World" in receiver.succeed("cat testfile01.txt")
       assert "Hello Earth" in receiver.succeed("cat testfile02.txt")
     '';
-  }
-)
+  })

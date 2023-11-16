@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  jinja2,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  toml,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, jinja2, poetry-core
+, pytestCheckHook, pythonOlder, pyyaml, toml }:
 
 buildPythonPackage rec {
   pname = "netutils";
@@ -27,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    jinja2
-    pytestCheckHook
-    pyyaml
-    toml
-  ];
+  nativeCheckInputs = [ jinja2 pytestCheckHook pyyaml toml ];
 
   pythonImportsCheck = [ "netutils" ];
 
@@ -49,9 +34,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Library that is a collection of objects for common network automation tasks";
+    description =
+      "Library that is a collection of objects for common network automation tasks";
     homepage = "https://github.com/networktocode/netutils";
-    changelog = "https://github.com/networktocode/netutils/releases/tag/v${version}";
+    changelog =
+      "https://github.com/networktocode/netutils/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
     broken = stdenv.isDarwin;

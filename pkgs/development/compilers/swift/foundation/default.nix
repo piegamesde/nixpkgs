@@ -3,43 +3,19 @@
 # This is separate because the CF build is completely different and part of
 # stdenv. Merging the two was kept outside of the scope of Swift work.
 
-{
-  lib,
-  stdenv,
-  callPackage,
-  cmake,
-  ninja,
-  swift,
-  Dispatch,
-  icu,
-  libxml2,
-  curl,
-}:
+{ lib, stdenv, callPackage, cmake, ninja, swift, Dispatch, icu, libxml2, curl }:
 
-let
-  sources = callPackage ../sources.nix { };
-in
-stdenv.mkDerivation {
+let sources = callPackage ../sources.nix { };
+in stdenv.mkDerivation {
   pname = "swift-corelibs-foundation";
 
   inherit (sources) version;
   src = sources.swift-corelibs-foundation;
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    swift
-  ];
-  buildInputs = [
-    icu
-    libxml2
-    curl
-  ];
+  nativeBuildInputs = [ cmake ninja swift ];
+  buildInputs = [ icu libxml2 curl ];
   propagatedBuildInputs = [ Dispatch ];
 
   preConfigure = ''
@@ -61,11 +37,14 @@ stdenv.mkDerivation {
     mkdir -p $dev/lib/cmake/Foundation
     export dylibExt="${stdenv.hostPlatform.extensions.sharedLibrary}"
     export swiftOs="${swift.swiftOs}"
-    substituteAll ${./glue.cmake} $dev/lib/cmake/Foundation/FoundationConfig.cmake
+    substituteAll ${
+      ./glue.cmake
+    } $dev/lib/cmake/Foundation/FoundationConfig.cmake
   '';
 
   meta = {
-    description = "Core utilities, internationalization, and OS independence for Swift";
+    description =
+      "Core utilities, internationalization, and OS independence for Swift";
     homepage = "https://github.com/apple/swift-corelibs-foundation";
     platforms = lib.platforms.linux;
     license = lib.licenses.asl20;

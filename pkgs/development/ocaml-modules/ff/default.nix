@@ -1,26 +1,13 @@
-{
-  lib,
-  buildDunePackage,
-  ff-pbt,
-  ff-sig,
-  zarith,
-  alcotest,
-}:
+{ lib, buildDunePackage, ff-pbt, ff-sig, zarith, alcotest }:
 
 buildDunePackage rec {
   pname = "ff";
   inherit (ff-sig) version src;
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    ff-sig
-    zarith
-  ];
+  propagatedBuildInputs = [ ff-sig zarith ];
 
-  checkInputs = [
-    alcotest
-    ff-pbt
-  ];
+  checkInputs = [ alcotest ff-pbt ];
 
   doCheck = true;
 

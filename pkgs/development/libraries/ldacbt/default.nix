@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "ldacBT";
@@ -17,18 +12,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags =
-    [
-      # CMakeLists.txt by default points to $out
-      "-DINSTALL_INCLUDEDIR=${placeholder "dev"}/include"
-    ];
+  cmakeFlags = [
+    # CMakeLists.txt by default points to $out
+    "-DINSTALL_INCLUDEDIR=${placeholder "dev"}/include"
+  ];
 
   meta = with lib; {
     description = "AOSP libldac dispatcher";

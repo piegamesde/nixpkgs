@@ -1,26 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  coreutils,
-  jdk,
-  rlwrap,
-  gnupg,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, coreutils, jdk, rlwrap, gnupg }:
 
 stdenv.mkDerivation rec {
   pname = "leiningen";
   version = "2.10.0";
 
   src = fetchurl {
-    url = "https://codeberg.org/leiningen/leiningen/raw/tag/${version}/bin/lein-pkg";
+    url =
+      "https://codeberg.org/leiningen/leiningen/raw/tag/${version}/bin/lein-pkg";
     hash = "sha256-sXV86UHky/Fcv2Sbe09BM2XmEtqJLSKEHsFyg5G7Zq8=";
   };
 
   # Check https://codeberg.org/leiningen/leiningen/releases to get the URL for the new version
   jarsrc = fetchurl {
-    url = "https://codeberg.org/attachments/43cebda5-a7c2-405b-b641-5143a00051b5";
+    url =
+      "https://codeberg.org/attachments/43cebda5-a7c2-405b-b641-5143a00051b5";
     hash = "sha256-0nKZutNAdawoZNC9BVn4NcbixHbAsKKDvL21dP2tuzQ=";
   };
 
@@ -52,12 +45,7 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/bin/lein \
       --replace 'LEIN_JAR=/usr/share/java/leiningen-$LEIN_VERSION-standalone.jar' "LEIN_JAR=$out/share/$JARNAME"
     wrapProgram $out/bin/lein \
-      --prefix PATH ":" "${
-        lib.makeBinPath [
-          rlwrap
-          coreutils
-        ]
-      }" \
+      --prefix PATH ":" "${lib.makeBinPath [ rlwrap coreutils ]}" \
       --set LEIN_GPG ${gnupg}/bin/gpg \
       --set JAVA_CMD ${jdk}/bin/java
 

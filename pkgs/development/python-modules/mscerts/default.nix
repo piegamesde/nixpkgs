@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mscerts";
@@ -27,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mscerts" ];
 
   meta = with lib; {
-    description = "Makes the Microsoft Trusted Root Program's Certificate Trust Lists available in Python";
+    description =
+      "Makes the Microsoft Trusted Root Program's Certificate Trust Lists available in Python";
     homepage = "https://github.com/ralphje/mscerts";
     license = with licenses; [ mpl20 ];
     maintainers = with maintainers; [ fab ];

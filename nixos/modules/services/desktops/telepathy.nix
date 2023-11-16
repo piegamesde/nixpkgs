@@ -1,19 +1,12 @@
 # Telepathy daemon.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 {
 
-  meta = {
-    maintainers = teams.gnome.members;
-  };
+  meta = { maintainers = teams.gnome.members; };
 
   ###### interface
 
@@ -29,7 +22,9 @@ with lib;
           that enables real-time communication via pluggable protocol backends.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -46,4 +41,5 @@ with lib;
       telepathy-logger
     ];
   };
+
 }

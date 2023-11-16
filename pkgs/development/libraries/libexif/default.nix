@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  gettext,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "libexif";
@@ -17,16 +11,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Eqgnm31s8iPJdhTpk5HM89HSZTXTK+e7YZ/CCdbeJX4=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-  ];
+  nativeBuildInputs = [ autoreconfHook gettext ];
 
   meta = with lib; {
     homepage = "https://libexif.github.io/";
-    description = "A library to read and manipulate EXIF data in digital photographs";
+    description =
+      "A library to read and manipulate EXIF data in digital photographs";
     license = licenses.lgpl21;
     platforms = platforms.unix;
     maintainers = with maintainers; [ erictapen ];
   };
+
 }

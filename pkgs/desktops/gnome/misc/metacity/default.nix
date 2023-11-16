@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gettext,
-  glib,
-  gnome,
-  gsettings-desktop-schemas,
-  gtk3,
-  xorg,
-  libcanberra-gtk3,
-  libgtop,
-  libstartup_notification,
-  libxml2,
-  pkg-config,
-  substituteAll,
-  wrapGAppsHook,
-  zenity,
-}:
+{ lib, stdenv, fetchurl, gettext, glib, gnome, gsettings-desktop-schemas, gtk3
+, xorg, libcanberra-gtk3, libgtop, libstartup_notification, libxml2, pkg-config
+, substituteAll, wrapGAppsHook, zenity }:
 
 stdenv.mkDerivation rec {
   pname = "metacity";
@@ -36,12 +20,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    gettext
-    libxml2
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext libxml2 pkg-config wrapGAppsHook ];
 
   buildInputs = [
     xorg.libXres

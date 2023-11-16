@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  openssl,
-  buildPythonPackage,
-  pytest,
-  dnspython,
-  pynacl,
-  authres,
-  python,
-}:
+{ lib, fetchPypi, openssl, buildPythonPackage, pytest, dnspython, pynacl
+, authres, python }:
 
 buildPythonPackage rec {
   pname = "dkimpy";
@@ -20,12 +11,7 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [
-    openssl
-    dnspython
-    pynacl
-    authres
-  ];
+  propagatedBuildInputs = [ openssl dnspython pynacl authres ];
 
   patchPhase = ''
     substituteInPlace dkim/dknewkey.py --replace \

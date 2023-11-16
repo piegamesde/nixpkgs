@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  cmake,
-  curl,
-  ruby,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, cmake, curl, ruby }:
 
 stdenv.mkDerivation rec {
   pname = "leatherman";
@@ -24,11 +16,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    boost
-    curl
-    ruby
-  ];
+  buildInputs = [ boost curl ruby ];
 
   meta = with lib; {
     homepage = "https://github.com/puppetlabs/leatherman/";
@@ -37,4 +25,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.womfoo ];
     platforms = platforms.unix;
   };
+
 }

@@ -1,9 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchurl,
-  buildFHSEnv,
-}:
+{ stdenvNoCC, lib, fetchurl, buildFHSEnv }:
 
 let
   version = "2.3";
@@ -30,8 +25,8 @@ let
     targetPkgs = _: [ left4gore-unwrapped ];
     runScript = "left4gore";
   };
-in
-stdenvNoCC.mkDerivation {
+
+in stdenvNoCC.mkDerivation {
   pname = "left4gore";
   inherit version;
 

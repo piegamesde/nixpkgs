@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  msrest,
-  msrestazure,
-  azure-common,
-  azure-mgmt-core,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common
+, azure-mgmt-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-reservations";
@@ -22,12 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-BHCFEFst5jfyIEo0hm86belpxW7EygZCBJ8PTqzqHKc=";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-common
-    azure-mgmt-core
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-common azure-mgmt-core ];
 
   # has no tests
   doCheck = false;

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, six }:
 
 buildPythonPackage rec {
   pname = "scales";
@@ -26,4 +20,5 @@ buildPythonPackage rec {
     homepage = "https://www.github.com/Cue/scales";
     license = licenses.asl20;
   };
+
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sv-ttk";
@@ -24,9 +19,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sv_ttk" ];
 
   meta = with lib; {
-    description = "A gorgeous theme for Tkinter/ttk, based on the Sun Valley visual style";
+    description =
+      "A gorgeous theme for Tkinter/ttk, based on the Sun Valley visual style";
     homepage = "https://github.com/rdbende/Sun-Valley-ttk-theme";
-    changelog = "https://github.com/rdbende/Sun-Valley-ttk-theme/releases/tag/v${version}";
+    changelog =
+      "https://github.com/rdbende/Sun-Valley-ttk-theme/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ AngryAnt ];
   };

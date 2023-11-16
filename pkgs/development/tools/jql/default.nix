@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jql";
@@ -21,13 +17,7 @@ rustPlatform.buildRustPackage rec {
     description = "A JSON Query Language CLI tool built with Rust";
     homepage = "https://github.com/yamafaktory/jql";
     changelog = "https://github.com/yamafaktory/jql/releases/tag/${src.rev}";
-    license = with licenses; [
-      asl20
-      mit
-    ];
-    maintainers = with maintainers; [
-      akshgpt7
-      figsoda
-    ];
+    license = with licenses; [ asl20 mit ];
+    maintainers = with maintainers; [ akshgpt7 figsoda ];
   };
 }

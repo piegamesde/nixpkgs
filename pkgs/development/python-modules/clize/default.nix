@@ -1,18 +1,6 @@
-{
-  lib,
-  attrs,
-  buildPythonPackage,
-  docutils,
-  fetchPypi,
-  od,
-  pygments,
-  pytestCheckHook,
-  pythonOlder,
-  python-dateutil,
-  repeated-test,
-  setuptools-scm,
-  sigtools,
-}:
+{ lib, attrs, buildPythonPackage, docutils, fetchPypi, od, pygments
+, pytestCheckHook, pythonOlder, python-dateutil, repeated-test, setuptools-scm
+, sigtools }:
 
 buildPythonPackage rec {
   pname = "clize";
@@ -28,23 +16,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    docutils
-    od
-    sigtools
-  ];
+  propagatedBuildInputs = [ attrs docutils od sigtools ];
 
-  passthru.optional-dependencies = {
-    datetime = [ python-dateutil ];
-  };
+  passthru.optional-dependencies = { datetime = [ python-dateutil ]; };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    python-dateutil
-    pygments
-    repeated-test
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook python-dateutil pygments repeated-test ];
 
   pythonImportsCheck = [ "clize" ];
 

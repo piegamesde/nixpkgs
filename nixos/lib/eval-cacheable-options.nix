@@ -1,11 +1,4 @@
-{
-  libPath,
-  pkgsLibPath,
-  nixosPath,
-  modules,
-  stateVersion,
-  release,
-}:
+{ libPath, pkgsLibPath, nixosPath, modules, stateVersion, release }:
 
 let
   lib = import libPath;
@@ -39,8 +32,9 @@ let
     pkgs = pkgs // {
       inherit lib;
       # duplicate of the declaration in all-packages.nix
-      buildPackages.nixosOptionsDoc =
-        attrs: (import "${nixosPath}/lib/make-options-doc") ({ inherit pkgs lib; } // attrs);
+      buildPackages.nixosOptionsDoc = attrs:
+        (import "${nixosPath}/lib/make-options-doc")
+        ({ inherit pkgs lib; } // attrs);
     };
     config = config.config;
     options = eval.options;
@@ -48,5 +42,4 @@ let
     revision = "release-${release}";
     prefix = modulesPath;
   };
-in
-docs.optionsNix
+in docs.optionsNix

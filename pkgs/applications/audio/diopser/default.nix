@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libjack2,
-  alsa-lib,
-  freetype,
-  libX11,
-  libXrandr,
-  libXinerama,
-  libXext,
-  libXcursor,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libjack2, alsa-lib, freetype
+, libX11, libXrandr, libXinerama, libXext, libXcursor }:
 
 let
 
@@ -36,8 +23,8 @@ let
       sha256 = "1ri7w4sz3sy5xilibg53ls9526fx7jwbv8rc54ccrqfhxqyin308";
     };
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "diopser";
   version = "unstable-2021-5-13";
 
@@ -65,10 +52,7 @@ stdenv.mkDerivation rec {
     cp -r Diopser_artefacts/Release/VST3/Diopser.vst3 $out/lib/vst3
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     libjack2

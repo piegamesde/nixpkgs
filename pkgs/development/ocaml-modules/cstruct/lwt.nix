@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  cstruct,
-  lwt,
-}:
+{ lib, buildDunePackage, cstruct, lwt }:
 
 if lib.versionOlder (cstruct.version or "1") "3" then
   cstruct
@@ -16,8 +11,5 @@ else
     minimalOCamlVersion = "4.08";
     duneVersion = "3";
 
-    propagatedBuildInputs = [
-      cstruct
-      lwt
-    ];
+    propagatedBuildInputs = [ cstruct lwt ];
   }

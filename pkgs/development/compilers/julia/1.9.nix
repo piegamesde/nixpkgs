@@ -1,24 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  which,
-  python3,
-  gfortran,
-  cmake,
-  perl,
-  gnum4,
-  openssl,
-  libxml2,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, which, python3, gfortran, cmake, perl
+, gnum4, openssl, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "julia";
   version = "1.9.1";
 
   src = fetchurl {
-    url = "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
+    url =
+      "https://github.com/JuliaLang/julia/releases/download/v${version}/julia-${version}-full.tar.gz";
     hash = "sha256-oTznFrY9PkbZEIOV4f/Iod5xLmqEimA6xZK88IDqATk=";
   };
 
@@ -26,7 +15,8 @@ stdenv.mkDerivation rec {
     ./patches/1.8/0002-skip-failing-and-flaky-tests.patch
     # https://github.com/JuliaLang/julia/issues/46530
     (fetchpatch {
-      url = "https://github.com/JuliaLang/julia/commit/b9b60fcde61ff18d77cb548421b3f71a369b4e02.patch";
+      url =
+        "https://github.com/JuliaLang/julia/commit/b9b60fcde61ff18d77cb548421b3f71a369b4e02.patch";
       revert = true;
       hash = "sha256-XXn4U8aWkWwZYwpvIx+Gk5E16prjeXooF9AafK0aEfg=";
     })
@@ -34,15 +24,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    which
-    python3
-    gfortran
-    cmake
-    perl
-    gnum4
-    openssl
-  ];
+  nativeBuildInputs = [ which python3 gfortran cmake perl gnum4 openssl ];
 
   buildInputs = [ libxml2 ];
 
@@ -52,21 +34,17 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  makeFlags =
-    [
-      "prefix=$(out)"
-      "USE_BINARYBUILDER=0"
-      # workaround for https://github.com/JuliaLang/julia/issues/47989
-      "USE_INTEL_JITEVENTS=0"
-    ]
-    ++ lib.optionals stdenv.isx86_64
-      [
-        # https://github.com/JuliaCI/julia-buildbot/blob/master/master/inventory.py
-        "JULIA_CPU_TARGET=generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
-      ]
-    ++ lib.optionals stdenv.isAarch64 [
-      "JULIA_CPU_TARGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm"
-    ];
+  makeFlags = [
+    "prefix=$(out)"
+    "USE_BINARYBUILDER=0"
+    # workaround for https://github.com/JuliaLang/julia/issues/47989
+    "USE_INTEL_JITEVENTS=0"
+  ] ++ lib.optionals stdenv.isx86_64 [
+    # https://github.com/JuliaCI/julia-buildbot/blob/master/master/inventory.py
+    "JULIA_CPU_TARGET=generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
+  ] ++ lib.optionals stdenv.isAarch64 [
+    "JULIA_CPU_TARGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm"
+  ];
 
   # remove forbidden reference to $TMPDIR
   preFixup = ''
@@ -88,16 +66,11 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "High-level performance-oriented dynamical language for technical computing";
+    description =
+      "High-level performance-oriented dynamical language for technical computing";
     homepage = "https://julialang.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      nickcao
-      joshniemela
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    maintainers = with maintainers; [ nickcao joshniemela ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 }

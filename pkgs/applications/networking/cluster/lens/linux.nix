@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchurl,
-  appimageTools,
-  wrapGAppsHook,
-  makeWrapper,
-}:
+{ lib, fetchurl, appimageTools, wrapGAppsHook, makeWrapper }:
 
 let
   pname = "lens";
@@ -19,8 +13,8 @@ let
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
-in
-appimageTools.wrapType2 {
+
+in appimageTools.wrapType2 {
   inherit name src;
 
   extraInstallCommands = ''
@@ -40,10 +34,7 @@ appimageTools.wrapType2 {
     description = "The Kubernetes IDE";
     homepage = "https://k8slens.dev/";
     license = licenses.lens;
-    maintainers = with maintainers; [
-      dbirks
-      RossComputerGuy
-    ];
+    maintainers = with maintainers; [ dbirks RossComputerGuy ];
     platforms = [ "x86_64-linux" ];
   };
 }

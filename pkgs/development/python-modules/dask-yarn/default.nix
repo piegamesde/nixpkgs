@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  dask,
-  distributed,
-  fetchFromGitHub,
-  grpcio,
-  pytestCheckHook,
-  pythonOlder,
-  skein,
-}:
+{ lib, stdenv, buildPythonPackage, dask, distributed, fetchFromGitHub, grpcio
+, pytestCheckHook, pythonOlder, skein }:
 
 buildPythonPackage rec {
   pname = "dask-yarn";
@@ -25,12 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-/BTsxQSiVQrihrCa9DE7pueyg3aPAdjd/Dt4dpUwdtM=";
   };
 
-  propagatedBuildInputs = [
-    distributed
-    dask
-    grpcio
-    skein
-  ];
+  propagatedBuildInputs = [ distributed dask grpcio skein ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,15 +1,5 @@
-{
-  lib,
-  bash,
-  coreutils,
-  fetchFromGitHub,
-  gawk,
-  gnugrep,
-  gnused,
-  help2man,
-  resholve,
-  xrandr,
-}:
+{ lib, bash, coreutils, fetchFromGitHub, gawk, gnugrep, gnused, help2man
+, resholve, xrandr }:
 
 resholve.mkDerivation rec {
   pname = "mons";
@@ -42,19 +32,9 @@ resholve.mkDerivation rec {
 
   solutions = {
     mons = {
-      scripts = [
-        "bin/mons"
-        "lib/libshlist/liblist.sh"
-      ];
+      scripts = [ "bin/mons" "lib/libshlist/liblist.sh" ];
       interpreter = "${bash}/bin/sh";
-      inputs = [
-        bash
-        coreutils
-        gawk
-        gnugrep
-        gnused
-        xrandr
-      ];
+      inputs = [ bash coreutils gawk gnugrep gnused xrandr ];
       fix = {
         "$lib" = [ "lib/libshlist/liblist.sh" ];
         "$XRANDR" = [ "xrandr" ];
@@ -82,10 +62,7 @@ resholve.mkDerivation rec {
 
   nativeBuildInputs = [ help2man ];
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   meta = with lib; {
     description = "POSIX Shell script to quickly manage 2-monitors display";

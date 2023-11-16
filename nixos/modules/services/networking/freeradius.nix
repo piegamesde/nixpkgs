@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -22,7 +17,8 @@ let
 
     serviceConfig = {
       ExecStart =
-        "${pkgs.freeradius}/bin/radiusd -f -d ${cfg.configDir} -l stdout" + optionalString cfg.debug " -xx";
+        "${pkgs.freeradius}/bin/radiusd -f -d ${cfg.configDir} -l stdout"
+        + optionalString cfg.debug " -xx";
       ExecReload = [
         "${pkgs.freeradius}/bin/radiusd -C -d ${cfg.configDir} -l stdout"
         "${pkgs.coreutils}/bin/kill -HUP $MAINPID"
@@ -56,16 +52,14 @@ let
         sensitive data such as passwords in the logs.
       '';
     };
-  };
-in
 
-{
+  };
+
+in {
 
   ###### interface
 
-  options = {
-    services.freeradius = freeradiusConfig;
-  };
+  options = { services.freeradius = freeradiusConfig; };
 
   ###### implementation
 
@@ -80,8 +74,9 @@ in
     };
 
     systemd.services.freeradius = freeradiusService cfg;
-    warnings =
-      optional cfg.debug
-        "Freeradius debug logging is enabled. This will log passwords in plaintext to the journal!";
+    warnings = optional cfg.debug
+      "Freeradius debug logging is enabled. This will log passwords in plaintext to the journal!";
+
   };
+
 }

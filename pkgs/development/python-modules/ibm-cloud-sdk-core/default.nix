@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pyjwt,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  requests,
-  responses,
-}:
+{ lib, buildPythonPackage, fetchPypi, pyjwt, pytestCheckHook, python-dateutil
+, pythonOlder, requests, responses }:
 
 buildPythonPackage rec {
   pname = "ibm-cloud-sdk-core";
@@ -22,16 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-lFpaMteVj8TBpcK1zLV95TwG3zY3PZG7QUzY0/LSF/c=";
   };
 
-  propagatedBuildInputs = [
-    pyjwt
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ pyjwt python-dateutil requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   disabledTests = [
     # Various tests try to access credential files which are not included with the source distribution
@@ -55,7 +39,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Client library for the IBM Cloud services";
     homepage = "https://github.com/IBM/python-sdk-core";
-    changelog = "https://github.com/IBM/python-sdk-core/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/IBM/python-sdk-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ globin ];
   };

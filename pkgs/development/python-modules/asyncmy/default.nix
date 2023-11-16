@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub, poetry-core, pythonOlder
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "asyncmy";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-2DqQclwTfHo3YFlJ7xL3cVnhGyS4ZE7VYYv6TBqRNL0=";
   };
 
-  nativeBuildInputs = [
-    cython
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ cython poetry-core setuptools ];
 
   # Not running tests as aiomysql is missing support for pymysql>=0.9.3
   doCheck = false;

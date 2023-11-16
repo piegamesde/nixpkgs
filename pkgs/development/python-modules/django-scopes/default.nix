@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  django,
-  pytestCheckHook,
-  pytest-django,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, pytestCheckHook
+, pytest-django }:
 
 buildPythonPackage rec {
   pname = "django-scopes";
@@ -20,10 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ django ];
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
   pythonImportsCheck = [ "django_scopes" ];
 

@@ -40,64 +40,40 @@
    [1] maybe this behaviour should be removed to keep things simple (?)
 */
 
-let
-  inherit (lib)
-    concatStringsSep
-    head
-    isAttrs
-    listToAttrs
-    tail
-  ;
-in
-rec {
+let inherit (lib) concatStringsSep head isAttrs listToAttrs tail;
+in rec {
 
   /* !!! The interface of this function is kind of messed up, since
      it's way too overloaded and almost but not quite computes a
      topological sort of the depstrings.
   */
 
-  textClosureList =
-    predefined: arg:
+  textClosureList = predefined: arg:
     let
-      f =
-        done: todo:
-        if todo == [ ] then
-          {
-            result = [ ];
-            inherit done;
-          }
-        else
-          let
-            entry = head todo;
-          in
-          if isAttrs entry then
+      f = done: todo:
+        if todo == [ ] then {
+          result = [ ];
+          inherit done;
+        } else
+          let entry = head todo;
+          in if isAttrs entry then
             let
               x = f done entry.deps;
               y = f x.done (tail todo);
-            in
-            {
+            in {
               result = x.result ++ [ entry.text ] ++ y.result;
               done = y.done;
             }
           else if done ? ${entry} then
             f done (tail todo)
           else
-            f
-              (
-                done
-                // listToAttrs [
-                  {
-                    name = entry;
-                    value = 1;
-                  }
-                ]
-              )
-              ([ predefined.${entry} ] ++ tail todo);
-    in
-    (f { } arg).result;
+            f (done // listToAttrs [{
+              name = entry;
+              value = 1;
+            }]) ([ predefined.${entry} ] ++ tail todo);
+    in (f { } arg).result;
 
-  textClosureMap =
-    f: predefined: names:
+  textClosureMap = f: predefined: names:
     concatStringsSep "\n" (map f (textClosureList predefined names));
 
   noDepEntry = text: {
@@ -111,4 +87,5 @@ rec {
   };
 
   stringAfter = deps: text: { inherit text deps; };
+
 }

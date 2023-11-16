@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  substituteAll,
-}:
+{ lib, stdenv, substituteAll }:
 
 # Provides a facility to hook into rfkill changes.
 #
@@ -34,8 +30,7 @@ let
     isExecutable = true;
     src = ./rfkill-hook.sh;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "rfkill-udev";
 
   dontUnpack = true;

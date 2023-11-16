@@ -1,13 +1,6 @@
-{
-  lib,
-  obs-studio,
-  symlinkJoin,
-  makeWrapper,
-}:
+{ lib, obs-studio, symlinkJoin, makeWrapper }:
 
-{
-  plugins ? [ ],
-}:
+{ plugins ? [ ] }:
 
 symlinkJoin {
   name = "wrapped-${obs-studio.name}";
@@ -15,11 +8,11 @@ symlinkJoin {
   nativeBuildInputs = [ makeWrapper ];
   paths = [ obs-studio ] ++ plugins;
 
-  postBuild =
-    with lib;
+  postBuild = with lib;
     let
       # Some plugins needs extra environment, see obs-gstreamer for an example.
-      pluginArguments = lists.concatMap (plugin: plugin.obsWrapperArguments or [ ]) plugins;
+      pluginArguments =
+        lists.concatMap (plugin: plugin.obsWrapperArguments or [ ]) plugins;
 
       pluginsJoined = symlinkJoin {
         name = "obs-studio-plugins";
@@ -32,8 +25,7 @@ symlinkJoin {
         ''--set OBS_PLUGINS_PATH "${pluginsJoined}/lib/obs-plugins"''
         ''--set OBS_PLUGINS_DATA_PATH "${pluginsJoined}/share/obs/obs-plugins"''
       ] ++ lists.unique pluginArguments;
-    in
-    ''
+    in ''
       ${concatStringsSep " " wrapCommandLine}
 
       # Remove unused obs-plugins dir to not cause confusion
@@ -43,7 +35,5 @@ symlinkJoin {
     '';
 
   inherit (obs-studio) meta;
-  passthru = obs-studio.passthru // {
-    passthru.unwrapped = obs-studio;
-  };
+  passthru = obs-studio.passthru // { passthru.unwrapped = obs-studio; };
 }

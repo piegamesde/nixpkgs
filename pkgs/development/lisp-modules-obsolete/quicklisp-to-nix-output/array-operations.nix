@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "array-operations";
   version = "20210411-git";
 
@@ -8,15 +7,11 @@ rec {
 
   description = "Simple array operations library for Common Lisp.";
 
-  deps = [
-    args."alexandria"
-    args."anaphora"
-    args."clunit2"
-    args."let-plus"
-  ];
+  deps = [ args."alexandria" args."anaphora" args."clunit2" args."let-plus" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/array-operations/2021-04-11/array-operations-20210411-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/array-operations/2021-04-11/array-operations-20210411-git.tgz";
     sha256 = "0l6wxd3a1xdcmcsc93prq8ymainfsy15imiwnaik1i9g94fcbjz8";
   };
 

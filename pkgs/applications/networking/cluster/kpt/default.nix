@@ -1,9 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  stdenv,
-}:
+{ buildGoModule, fetchFromGitHub, lib, stdenv }:
 
 buildGoModule rec {
   pname = "kpt";
@@ -27,7 +22,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "A toolkit to help you manage, manipulate, customize, and apply Kubernetes Resource configuration data files";
+    description =
+      "A toolkit to help you manage, manipulate, customize, and apply Kubernetes Resource configuration data files";
     homepage = "https://googlecontainertools.github.io/kpt/";
     license = licenses.asl20;
     maintainers = with maintainers; [ mikefaille ];

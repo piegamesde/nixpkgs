@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pygments,
-}:
+{ lib, buildPythonPackage, fetchPypi, pygments }:
 
 buildPythonPackage rec {
   pname = "pygments-markdown-lexer";
@@ -21,7 +16,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/jhermann/pygments-markdown-lexer";
-    description = "Pygments Markdown Lexer – A Markdown lexer for Pygments to highlight Markdown code snippets";
+    description =
+      "Pygments Markdown Lexer – A Markdown lexer for Pygments to highlight Markdown code snippets";
     license = licenses.asl20;
   };
+
 }

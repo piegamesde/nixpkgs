@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "gotestfmt";
@@ -20,7 +16,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Go test output for humans";
     homepage = "https://github.com/gotesttools/gotestfmt";
-    changelog = "https://github.com/GoTestTools/gotestfmt/releases/tag/v${version}";
+    changelog =
+      "https://github.com/GoTestTools/gotestfmt/releases/tag/v${version}";
     license = licenses.unlicense;
     maintainers = with maintainers; [ urandom ];
   };

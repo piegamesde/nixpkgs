@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  braintree,
-  cryptography,
-  django,
-  django-phonenumber-field,
-  fetchFromGitHub,
-  mercadopago,
-  pythonOlder,
-  requests,
-  setuptools-scm,
-  sphinx-rtd-theme,
-  stripe,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, braintree, cryptography, django
+, django-phonenumber-field, fetchFromGitHub, mercadopago, pythonOlder, requests
+, setuptools-scm, sphinx-rtd-theme, stripe, xmltodict }:
 
 buildPythonPackage rec {
   pname = "django-payments";
@@ -38,11 +25,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-    django-phonenumber-field
-    requests
-  ] ++ django-phonenumber-field.optional-dependencies.phonenumbers;
+  propagatedBuildInputs = [ django django-phonenumber-field requests ]
+    ++ django-phonenumber-field.optional-dependencies.phonenumbers;
 
   # require internet connection
   doCheck = false;
@@ -58,10 +42,8 @@ buildPythonPackage rec {
       stripe
     ];
     braintree = [ braintree ];
-    cybersource =
-      [
-        # suds-community
-      ];
+    cybersource = [ # suds-community
+    ];
     docs = [ sphinx-rtd-theme ];
     mercadopago = [ mercadopago ];
     sagepay = [ cryptography ];
@@ -72,7 +54,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Universal payment handling for Django.";
     homepage = "https://github.com/jazzband/django-payments/";
-    changelog = "https://github.com/jazzband/django-payments/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jazzband/django-payments/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ derdennisop ];
   };

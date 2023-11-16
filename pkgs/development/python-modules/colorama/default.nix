@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  hatchling,
-  pytestCheckHook,
-}:
+{ lib, fetchPypi, buildPythonPackage, hatchling, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "colorama";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cross-platform colored terminal text";
     homepage = "https://github.com/tartley/colorama";
-    changelog = "https://github.com/tartley/colorama/raw/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/tartley/colorama/raw/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

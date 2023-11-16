@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  isPyPy,
-  lazy-object-proxy,
-  setuptools,
-  typing-extensions,
-  typed-ast,
-  pylint,
-  pytestCheckHook,
-  wrapt,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, isPyPy
+, lazy-object-proxy, setuptools, typing-extensions, typed-ast, pylint
+, pytestCheckHook, wrapt }:
 
 buildPythonPackage rec {
   pname = "astroid";
@@ -29,28 +18,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [
-      lazy-object-proxy
-      wrapt
-    ]
+  propagatedBuildInputs = [ lazy-object-proxy wrapt ]
     ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
     ++ lib.optionals (!isPyPy && pythonOlder "3.8") [ typed-ast ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    typing-extensions
+  nativeCheckInputs = [ pytestCheckHook typing-extensions ];
+
+  disabledTests = [
+    # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('tests.testdata.python3.data.path_pkg_resources_1.package')`.
+    "test_identify_old_namespace_package_protocol"
   ];
 
-  disabledTests =
-    [
-      # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('tests.testdata.python3.data.path_pkg_resources_1.package')`.
-      "test_identify_old_namespace_package_protocol"
-    ];
-
-  passthru.tests = {
-    inherit pylint;
-  };
+  passthru.tests = { inherit pylint; };
 
   meta = with lib; {
     changelog = "https://github.com/PyCQA/astroid/blob/${src.rev}/ChangeLog";

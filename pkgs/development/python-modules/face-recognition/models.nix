@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-  setuptools,
-}:
+{ buildPythonPackage, lib, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "face-recognition-models";

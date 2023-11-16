@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  extras ? [ "all" ],
-}:
+{ lib, python3, fetchFromGitHub, extras ? [ "all" ] }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "browsr";
@@ -23,8 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       art
       click
@@ -37,36 +31,15 @@ python3.pkgs.buildPythonApplication rec {
       rich-pixels
       textual
       universal-pathlib
-    ]
-    ++ lib.attrVals extras passthru.optional-dependencies;
+    ] ++ lib.attrVals extras passthru.optional-dependencies;
 
   passthru.optional-dependencies = with python3.pkgs; {
-    all = [
-      adlfs
-      aiohttp
-      gcsfs
-      paramiko
-      pyarrow
-      requests
-      s3fs
-    ];
+    all = [ adlfs aiohttp gcsfs paramiko pyarrow requests s3fs ];
     parquet = [ pyarrow ];
-    remote = [
-      adlfs
-      aiohttp
-      gcsfs
-      paramiko
-      requests
-      s3fs
-    ];
+    remote = [ adlfs aiohttp gcsfs paramiko requests s3fs ];
   };
 
-  pythonRelaxDeps = [
-    "fsspec"
-    "pymupdf"
-    "rich-click"
-    "textual"
-  ];
+  pythonRelaxDeps = [ "fsspec" "pymupdf" "rich-click" "textual" ];
 
   pythonImportsCheck = [ "browsr" ];
 
@@ -80,7 +53,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "A file explorer in your terminal";
     homepage = "https://github.com/juftin/browsr";
-    changelog = "https://github.com/fsspec/universal_pathlib/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/fsspec/universal_pathlib/releases/tag/${src.rev}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

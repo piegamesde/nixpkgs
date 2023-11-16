@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  rain,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, rain }:
 
 buildGoModule rec {
   pname = "rain";
@@ -21,10 +15,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/rain" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   passthru.tests.version = testers.testVersion {
     package = rain;
@@ -33,7 +24,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "A development workflow tool for working with AWS CloudFormation";
+    description =
+      "A development workflow tool for working with AWS CloudFormation";
     homepage = "https://github.com/aws-cloudformation/rain";
     license = licenses.asl20;
     maintainers = with maintainers; [ jiegec ];

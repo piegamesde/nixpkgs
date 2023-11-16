@@ -1,27 +1,19 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.security.polkit;
-in
 
-{
+in {
 
   options = {
 
     security.polkit.enable = mkEnableOption (lib.mdDoc "polkit");
 
-    security.polkit.debug = mkEnableOption (
-      lib.mdDoc
-        "debug logs from polkit. This is required in order to see log messages from rule definitions"
-    );
+    security.polkit.debug = mkEnableOption (lib.mdDoc
+      "debug logs from polkit. This is required in order to see log messages from rule definitions");
 
     security.polkit.extraConfig = mkOption {
       type = types.lines;
@@ -47,10 +39,7 @@ in
     security.polkit.adminIdentities = mkOption {
       type = types.listOf types.str;
       default = [ "unix-group:wheel" ];
-      example = [
-        "unix-user:alice"
-        "unix-group:admin"
-      ];
+      example = [ "unix-user:alice" "unix-group:admin" ];
       description = lib.mdDoc ''
         Specifies which users are considered “administrators”, for those
         actions that require the user to authenticate as an
@@ -58,20 +47,20 @@ in
         value).  By default, this is all users in the `wheel` group.
       '';
     };
+
   };
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [
-      pkgs.polkit.bin
-      pkgs.polkit.out
-    ];
+    environment.systemPackages = [ pkgs.polkit.bin pkgs.polkit.out ];
 
     systemd.packages = [ pkgs.polkit.out ];
 
     systemd.services.polkit.serviceConfig.ExecStart = [
       ""
-      "${pkgs.polkit.out}/lib/polkit-1/polkitd ${optionalString (!cfg.debug) "--no-debug"}"
+      "${pkgs.polkit.out}/lib/polkit-1/polkitd ${
+        optionalString (!cfg.debug) "--no-debug"
+      }"
     ];
 
     systemd.services.polkit.restartTriggers = [ config.system.path ];
@@ -83,7 +72,9 @@ in
     # PolKit rules for NixOS.
     environment.etc."polkit-1/rules.d/10-nixos.rules".text = ''
       polkit.addAdminRule(function(action, subject) {
-        return [${concatStringsSep ", " (map (i: ''"${i}"'') cfg.adminIdentities)}];
+        return [${
+          concatStringsSep ", " (map (i: ''"${i}"'') cfg.adminIdentities)
+        }];
       });
 
       ${cfg.extraConfig}
@@ -122,4 +113,6 @@ in
 
     users.groups.polkituser = { };
   };
+
 }
+

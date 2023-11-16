@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  unixtools,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, unixtools }:
 
 stdenv.mkDerivation rec {
   pname = "microscheme";
@@ -21,10 +15,7 @@ stdenv.mkDerivation rec {
     substituteInPlace makefile --replace gcc ${stdenv.cc.targetPrefix}cc
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    unixtools.xxd
-  ];
+  nativeBuildInputs = [ makeWrapper unixtools.xxd ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

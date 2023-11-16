@@ -1,37 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  mesonEmulatorHook,
-  ninja,
-  pkg-config,
-  python3,
-  gettext,
-  vala,
-  glib,
-  liboauth,
-  gtk3,
-  gtk-doc,
-  docbook-xsl-nons,
-  docbook_xml_dtd_43,
-  libxml2,
-  gnome,
-  gobject-introspection,
-  libsoup_3,
-  totem-pl-parser,
-}:
+{ stdenv, lib, fetchurl, meson, mesonEmulatorHook, ninja, pkg-config, python3
+, gettext, vala, glib, liboauth, gtk3, gtk-doc, docbook-xsl-nons
+, docbook_xml_dtd_43, libxml2, gnome, gobject-introspection, libsoup_3
+, totem-pl-parser }:
 
 stdenv.mkDerivation rec {
   pname = "grilo";
   version = "0.3.16"; # if you change minor, also change ./setup-hook.sh
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "man" "devdoc" ];
   outputBin = "dev";
 
   setupHook = ./setup-hook.sh;
@@ -56,16 +32,10 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     docbook_xml_dtd_43
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    glib
-    liboauth
-    gtk3
-    libxml2
-    libsoup_3
-    totem-pl-parser
-  ];
+  buildInputs = [ glib liboauth gtk3 libxml2 libsoup_3 totem-pl-parser ];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -76,7 +46,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Projects/Grilo";
-    description = "Framework that provides access to various sources of multimedia content, using a pluggable system";
+    description =
+      "Framework that provides access to various sources of multimedia content, using a pluggable system";
     maintainers = teams.gnome.members;
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;

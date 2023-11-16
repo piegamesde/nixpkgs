@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  mock,
-  fetchPypi,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-  setuptools-scm,
-  setuptools,
-}:
+{ lib, buildPythonPackage, mock, fetchPypi, pytestCheckHook, python, pythonOlder
+, setuptools-scm, setuptools }:
 
 buildPythonPackage rec {
   pname = "pytest-console-scripts";
@@ -28,10 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     # Patch the shebang of a script generated during test.

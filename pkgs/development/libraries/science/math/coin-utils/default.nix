@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "2.11.9";
@@ -21,7 +16,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     license = licenses.epl20;
     homepage = "https://github.com/coin-or/CoinUtils";
-    description = "Collection of classes and helper functions that are generally useful to multiple COIN-OR projects";
+    description =
+      "Collection of classes and helper functions that are generally useful to multiple COIN-OR projects";
     maintainers = with maintainers; [ tmarkus ];
   };
 }

@@ -8,7 +8,8 @@ with self;
 with super; {
   attrs = callPackage ../development/python2-modules/attrs { };
 
-  bootstrapped-pip = toPythonModule (callPackage ../development/python2-modules/bootstrapped-pip { });
+  bootstrapped-pip = toPythonModule
+    (callPackage ../development/python2-modules/bootstrapped-pip { });
 
   cffi = callPackage ../development/python2-modules/cffi { inherit cffi; };
 
@@ -26,7 +27,8 @@ with super; {
 
   hypothesis = callPackage ../development/python2-modules/hypothesis { };
 
-  importlib-metadata = callPackage ../development/python2-modules/importlib-metadata { };
+  importlib-metadata =
+    callPackage ../development/python2-modules/importlib-metadata { };
 
   jinja2 = callPackage ../development/python2-modules/jinja2 { };
 
@@ -34,7 +36,8 @@ with super; {
 
   mock = callPackage ../development/python2-modules/mock { };
 
-  more-itertools = callPackage ../development/python2-modules/more-itertools { };
+  more-itertools =
+    callPackage ../development/python2-modules/more-itertools { };
 
   packaging = callPackage ../development/python2-modules/packaging { };
 
@@ -73,19 +76,19 @@ with super; {
 
   setuptools = callPackage ../development/python2-modules/setuptools { };
 
-  setuptools-scm = callPackage ../development/python2-modules/setuptools-scm { };
+  setuptools-scm =
+    callPackage ../development/python2-modules/setuptools-scm { };
 
   typing = callPackage ../development/python2-modules/typing { };
 
-  six = super.six.overridePythonAttrs (
-    _: {
-      doCheck = false; # circular dependency with pytest
-    }
-  );
+  six = super.six.overridePythonAttrs (_: {
+    doCheck = false; # circular dependency with pytest
+  });
 
   wheel = callPackage ../development/python2-modules/wheel { };
 
   zeek = disabled super.zeek;
 
   zipp = callPackage ../development/python2-modules/zipp { };
+
 }

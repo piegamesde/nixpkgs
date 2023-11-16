@@ -1,44 +1,23 @@
-{
-  lib,
-  pkgs,
-  kernel ? pkgs.linux,
-  img ? pkgs.stdenv.hostPlatform.linux-kernel.target,
-  storeDir ? builtins.storeDir,
-  rootModules ? [
-    "virtio_pci"
-    "virtio_mmio"
-    "virtio_blk"
-    "virtio_balloon"
-    "virtio_rng"
-    "ext4"
-    "unix"
-    "9p"
-    "9pnet_virtio"
-    "crc32c_generic"
-  ]
-    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos",
-}:
+{ lib, pkgs, kernel ? pkgs.linux
+, img ? pkgs.stdenv.hostPlatform.linux-kernel.target
+, storeDir ? builtins.storeDir, rootModules ? [
+  "virtio_pci"
+  "virtio_mmio"
+  "virtio_blk"
+  "virtio_balloon"
+  "virtio_rng"
+  "ext4"
+  "unix"
+  "9p"
+  "9pnet_virtio"
+  "crc32c_generic"
+] ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos" }:
 
 let
   inherit (pkgs)
-    bash
-    bashInteractive
-    busybox
-    cpio
-    coreutils
-    e2fsprogs
-    fetchurl
-    kmod
-    rpm
-    stdenv
-    util-linux
-    buildPackages
-    writeScript
-    writeText
-    runCommand
-  ;
-in
-rec {
+    bash bashInteractive busybox cpio coreutils e2fsprogs fetchurl kmod rpm
+    stdenv util-linux buildPackages writeScript writeText runCommand;
+in rec {
   qemu-common = import ../../../nixos/lib/qemu-common.nix { inherit lib pkgs; };
 
   qemu = buildPackages.qemu_kvm;
@@ -50,40 +29,37 @@ rec {
 
   hd = "vda"; # either "sda" or "vda"
 
-  initrdUtils =
-    runCommand "initrd-utils"
-      {
-        nativeBuildInputs = [ buildPackages.nukeReferences ];
-        allowedReferences = [
-          "out"
-          modulesClosure
-        ]; # prevent accidents like glibc being included in the initrd
-      }
-      ''
-        mkdir -p $out/bin
-        mkdir -p $out/lib
+  initrdUtils = runCommand "initrd-utils" {
+    nativeBuildInputs = [ buildPackages.nukeReferences ];
+    allowedReferences = [
+      "out"
+      modulesClosure
+    ]; # prevent accidents like glibc being included in the initrd
+  } ''
+    mkdir -p $out/bin
+    mkdir -p $out/lib
 
-        # Copy what we need from Glibc.
-        cp -p \
-          ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
-          ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
-          ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
-          ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
-          $out/lib
+    # Copy what we need from Glibc.
+    cp -p \
+      ${pkgs.stdenv.cc.libc}/lib/ld-*.so.? \
+      ${pkgs.stdenv.cc.libc}/lib/libc.so.* \
+      ${pkgs.stdenv.cc.libc}/lib/libm.so.* \
+      ${pkgs.stdenv.cc.libc}/lib/libresolv.so.* \
+      $out/lib
 
-        # Copy BusyBox.
-        cp -pd ${pkgs.busybox}/bin/* $out/bin
+    # Copy BusyBox.
+    cp -pd ${pkgs.busybox}/bin/* $out/bin
 
-        # Run patchelf to make the programs refer to the copied libraries.
-        for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
+    # Run patchelf to make the programs refer to the copied libraries.
+    for i in $out/bin/* $out/lib/*; do if ! test -L $i; then nuke-refs $i; fi; done
 
-        for i in $out/bin/*; do
-            if [ -f "$i" -a ! -L "$i" ]; then
-                echo "patching $i..."
-                patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
-            fi
-        done
-      ''; # */
+    for i in $out/bin/*; do
+        if [ -f "$i" -a ! -L "$i" ]; then
+            echo "patching $i..."
+            patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
+        fi
+    done
+  ''; # */
 
   stage1Init = writeScript "vm-run-stage1" ''
     #! ${initrdUtils}/bin/ash -e
@@ -174,12 +150,10 @@ rec {
   '';
 
   initrd = pkgs.makeInitrd {
-    contents = [
-      {
-        object = stage1Init;
-        symlink = "/init";
-      }
-    ];
+    contents = [{
+      object = stage1Init;
+      symlink = "/init";
+    }];
   };
 
   stage2Init = writeScript "vm-run-stage2" ''
@@ -245,8 +219,7 @@ rec {
       $QEMU_OPTS
   '';
 
-  vmRunCommand =
-    qemuCommand:
+  vmRunCommand = qemuCommand:
     writeText "vm-run" ''
       export > saved-env
 
@@ -294,16 +267,13 @@ rec {
     '';
 
   # A bash script fragment that produces a disk image at `destination`.
-  createEmptyImage =
-    {
-      # Disk image size in MiB
-      size,
-      # Name that will be written to ${destination}/nix-support/full-name
-      fullName,
-      # Where to write the image files, defaulting to $out
-      destination ? "$out",
-    }:
-    ''
+  createEmptyImage = {
+    # Disk image size in MiB
+    size,
+    # Name that will be written to ${destination}/nix-support/full-name
+    fullName,
+    # Where to write the image files, defaulting to $out
+    destination ? "$out" }: ''
       mkdir -p ${destination}
       diskImage=${destination}/disk-image.qcow2
       ${qemu}/bin/qemu-img create -f qcow2 $diskImage "${toString size}M"
@@ -314,7 +284,7 @@ rec {
 
   defaultCreateRootFS = ''
     mkdir /mnt
-    ${e2fsprogs}/bin/mkfs.ext4 /dev/${hd}
+    ${0.0 fsprogs}/bin/mkfs.ext4 /dev/${hd}
     ${util-linux}/bin/mount -t ext4 /dev/${hd} /mnt
 
     if test -e /mnt/.debug; then
@@ -347,90 +317,68 @@ rec {
      that allows you to boot into the VM and debug it interactively.
   */
 
-  runInLinuxVM =
-    drv:
-    lib.overrideDerivation drv (
-      {
-        memSize ? 512,
-        QEMU_OPTS ? "",
-        args,
-        builder,
-        ...
-      }:
-      {
-        requiredSystemFeatures = [ "kvm" ];
-        builder = "${bash}/bin/sh";
-        args = [
-          "-e"
-          (vmRunCommand qemuCommandLinux)
-        ];
-        origArgs = args;
-        origBuilder = builder;
-        QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize}";
-        passAsFile = [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
-      }
-    );
+  runInLinuxVM = drv:
+    lib.overrideDerivation drv
+    ({ memSize ? 512, QEMU_OPTS ? "", args, builder, ... }: {
+      requiredSystemFeatures = [ "kvm" ];
+      builder = "${bash}/bin/sh";
+      args = [ "-e" (vmRunCommand qemuCommandLinux) ];
+      origArgs = args;
+      origBuilder = builder;
+      QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize}";
+      passAsFile =
+        [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
+    });
 
-  extractFs =
-    {
-      file,
-      fs ? null,
-    }:
-    runInLinuxVM (
-      stdenv.mkDerivation {
-        name = "extract-file";
-        buildInputs = [ util-linux ];
-        buildCommand = ''
-          ln -s ${kernel}/lib /lib
-          ${kmod}/bin/modprobe loop
-          ${kmod}/bin/modprobe ext4
-          ${kmod}/bin/modprobe hfs
-          ${kmod}/bin/modprobe hfsplus
-          ${kmod}/bin/modprobe squashfs
-          ${kmod}/bin/modprobe iso9660
-          ${kmod}/bin/modprobe ufs
-          ${kmod}/bin/modprobe cramfs
+  extractFs = { file, fs ? null }:
+    runInLinuxVM (stdenv.mkDerivation {
+      name = "extract-file";
+      buildInputs = [ util-linux ];
+      buildCommand = ''
+        ln -s ${kernel}/lib /lib
+        ${kmod}/bin/modprobe loop
+        ${kmod}/bin/modprobe ext4
+        ${kmod}/bin/modprobe hfs
+        ${kmod}/bin/modprobe hfsplus
+        ${kmod}/bin/modprobe squashfs
+        ${kmod}/bin/modprobe iso9660
+        ${kmod}/bin/modprobe ufs
+        ${kmod}/bin/modprobe cramfs
 
-          mkdir -p $out
-          mkdir -p tmp
-          mount -o loop,ro,ufstype=44bsd ${lib.optionalString (fs != null) "-t ${fs} "}${file} tmp ||
-            mount -o loop,ro ${lib.optionalString (fs != null) "-t ${fs} "}${file} tmp
-          cp -Rv tmp/* $out/ || exit 0
-        '';
-      }
-    );
+        mkdir -p $out
+        mkdir -p tmp
+        mount -o loop,ro,ufstype=44bsd ${
+          lib.optionalString (fs != null) "-t ${fs} "
+        }${file} tmp ||
+          mount -o loop,ro ${
+            lib.optionalString (fs != null) "-t ${fs} "
+          }${file} tmp
+        cp -Rv tmp/* $out/ || exit 0
+      '';
+    });
 
-  extractMTDfs =
-    {
-      file,
-      fs ? null,
-    }:
-    runInLinuxVM (
-      stdenv.mkDerivation {
-        name = "extract-file-mtd";
-        buildInputs = [
-          pkgs.util-linux
-          pkgs.mtdutils
-        ];
-        buildCommand = ''
-          ln -s ${kernel}/lib /lib
-          ${kmod}/bin/modprobe mtd
-          ${kmod}/bin/modprobe mtdram total_size=131072
-          ${kmod}/bin/modprobe mtdchar
-          ${kmod}/bin/modprobe mtdblock
-          ${kmod}/bin/modprobe jffs2
-          ${kmod}/bin/modprobe zlib
+  extractMTDfs = { file, fs ? null }:
+    runInLinuxVM (stdenv.mkDerivation {
+      name = "extract-file-mtd";
+      buildInputs = [ pkgs.util-linux pkgs.mtdutils ];
+      buildCommand = ''
+        ln -s ${kernel}/lib /lib
+        ${kmod}/bin/modprobe mtd
+        ${kmod}/bin/modprobe mtdram total_size=131072
+        ${kmod}/bin/modprobe mtdchar
+        ${kmod}/bin/modprobe mtdblock
+        ${kmod}/bin/modprobe jffs2
+        ${kmod}/bin/modprobe zlib
 
-          mkdir -p $out
-          mkdir -p tmp
+        mkdir -p $out
+        mkdir -p tmp
 
-          dd if=${file} of=/dev/mtd0
-          mount ${lib.optionalString (fs != null) "-t ${fs} "}/dev/mtdblock0 tmp
+        dd if=${file} of=/dev/mtd0
+        mount ${lib.optionalString (fs != null) "-t ${fs} "}/dev/mtdblock0 tmp
 
-          cp -R tmp/* $out/
-        '';
-      }
-    );
+        cp -R tmp/* $out/
+      '';
+    });
 
   /* Like runInLinuxVM, but run the build not using the stdenv from
      the Nix store, but using the tools provided by /bin, /usr/bin
@@ -438,134 +386,110 @@ rec {
      filesystem containing a non-NixOS Linux distribution.
   */
 
-  runInLinuxImage =
-    drv:
-    runInLinuxVM (
-      lib.overrideDerivation drv (
-        attrs: {
-          mountDisk = true;
+  runInLinuxImage = drv:
+    runInLinuxVM (lib.overrideDerivation drv (attrs: {
+      mountDisk = true;
 
-          /* Mount `image' as the root FS, but use a temporary copy-on-write
-             image since we don't want to (and can't) write to `image'.
-          */
-          preVM = ''
-            diskImage=$(pwd)/disk-image.qcow2
-            origImage=${attrs.diskImage}
-            if test -d "$origImage"; then origImage="$origImage/disk-image.qcow2"; fi
-            ${qemu}/bin/qemu-img create -F ${attrs.diskImageFormat} -b "$origImage" -f qcow2 $diskImage
-          '';
+      /* Mount `image' as the root FS, but use a temporary copy-on-write
+         image since we don't want to (and can't) write to `image'.
+      */
+      preVM = ''
+        diskImage=$(pwd)/disk-image.qcow2
+        origImage=${attrs.diskImage}
+        if test -d "$origImage"; then origImage="$origImage/disk-image.qcow2"; fi
+        ${qemu}/bin/qemu-img create -F ${attrs.diskImageFormat} -b "$origImage" -f qcow2 $diskImage
+      '';
 
-          /* Inside the VM, run the stdenv setup script normally, but at the
-             very end set $PATH and $SHELL to the `native' paths for the
-             distribution inside the VM.
-          */
-          postHook = ''
-            PATH=/usr/bin:/bin:/usr/sbin:/sbin
-            SHELL=/bin/sh
-            eval "$origPostHook"
-          '';
+      /* Inside the VM, run the stdenv setup script normally, but at the
+         very end set $PATH and $SHELL to the `native' paths for the
+         distribution inside the VM.
+      */
+      postHook = ''
+        PATH=/usr/bin:/bin:/usr/sbin:/sbin
+        SHELL=/bin/sh
+        eval "$origPostHook"
+      '';
 
-          origPostHook = lib.optionalString (attrs ? postHook) attrs.postHook;
+      origPostHook = lib.optionalString (attrs ? postHook) attrs.postHook;
 
-          # Don't run Nix-specific build steps like patchelf.
-          fixupPhase = "true";
-        }
-      )
-    );
+      # Don't run Nix-specific build steps like patchelf.
+      fixupPhase = "true";
+    }));
 
   /* Create a filesystem image of the specified size and fill it with
      a set of RPM packages.
   */
 
-  fillDiskWithRPMs =
-    {
-      size ? 4096,
-      rpms,
-      name,
-      fullName,
-      preInstall ? "",
-      postInstall ? "",
-      runScripts ? true,
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-      unifiedSystemDir ? false,
-    }:
+  fillDiskWithRPMs = { size ? 4096, rpms, name, fullName, preInstall ? ""
+    , postInstall ? "", runScripts ? true, createRootFS ? defaultCreateRootFS
+    , QEMU_OPTS ? "", memSize ? 512, unifiedSystemDir ? false }:
 
-    runInLinuxVM (
-      stdenv.mkDerivation {
-        inherit
-          name
-          preInstall
-          postInstall
-          rpms
-          QEMU_OPTS
-          memSize
-        ;
-        preVM = createEmptyImage { inherit size fullName; };
+    runInLinuxVM (stdenv.mkDerivation {
+      inherit name preInstall postInstall rpms QEMU_OPTS memSize;
+      preVM = createEmptyImage { inherit size fullName; };
 
-        buildCommand = ''
-          ${createRootFS}
+      buildCommand = ''
+        ${createRootFS}
 
-          chroot=$(type -tP chroot)
+        chroot=$(type -tP chroot)
 
-          # Make the Nix store available in /mnt, because that's where the RPMs live.
-          mkdir -p /mnt${storeDir}
-          ${util-linux}/bin/mount -o bind ${storeDir} /mnt${storeDir}
+        # Make the Nix store available in /mnt, because that's where the RPMs live.
+        mkdir -p /mnt${storeDir}
+        ${util-linux}/bin/mount -o bind ${storeDir} /mnt${storeDir}
 
-          # Newer distributions like Fedora 18 require /lib etc. to be
-          # symlinked to /usr.
-          ${lib.optionalString unifiedSystemDir ''
-            mkdir -p /mnt/usr/bin /mnt/usr/sbin /mnt/usr/lib /mnt/usr/lib64
-            ln -s /usr/bin /mnt/bin
-            ln -s /usr/sbin /mnt/sbin
-            ln -s /usr/lib /mnt/lib
-            ln -s /usr/lib64 /mnt/lib64
-            ${util-linux}/bin/mount -t proc none /mnt/proc
-          ''}
+        # Newer distributions like Fedora 18 require /lib etc. to be
+        # symlinked to /usr.
+        ${lib.optionalString unifiedSystemDir ''
+          mkdir -p /mnt/usr/bin /mnt/usr/sbin /mnt/usr/lib /mnt/usr/lib64
+          ln -s /usr/bin /mnt/bin
+          ln -s /usr/sbin /mnt/sbin
+          ln -s /usr/lib /mnt/lib
+          ln -s /usr/lib64 /mnt/lib64
+          ${util-linux}/bin/mount -t proc none /mnt/proc
+        ''}
 
-          echo "unpacking RPMs..."
-          set +o pipefail
-          for i in $rpms; do
-              echo "$i..."
-              ${rpm}/bin/rpm2cpio "$i" | chroot /mnt ${cpio}/bin/cpio -i --make-directories --unconditional
-          done
+        echo "unpacking RPMs..."
+        set +o pipefail
+        for i in $rpms; do
+            echo "$i..."
+            ${rpm}/bin/rpm2cpio "$i" | chroot /mnt ${cpio}/bin/cpio -i --make-directories --unconditional
+        done
 
-          eval "$preInstall"
+        eval "$preInstall"
 
-          echo "initialising RPM DB..."
-          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-            ldconfig -v || true
-          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-            rpm --initdb
+        echo "initialising RPM DB..."
+        PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+          ldconfig -v || true
+        PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+          rpm --initdb
 
-          ${util-linux}/bin/mount -o bind /tmp /mnt/tmp
+        ${util-linux}/bin/mount -o bind /tmp /mnt/tmp
 
-          echo "installing RPMs..."
-          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-            rpm -iv --nosignature ${if runScripts then "" else "--noscripts"} $rpms
+        echo "installing RPMs..."
+        PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+          rpm -iv --nosignature ${
+            if runScripts then "" else "--noscripts"
+          } $rpms
 
-          echo "running post-install script..."
-          eval "$postInstall"
+        echo "running post-install script..."
+        eval "$postInstall"
 
-          rm /mnt/.debug
+        rm /mnt/.debug
 
-          ${util-linux}/bin/umount /mnt${storeDir} /mnt/tmp ${lib.optionalString unifiedSystemDir "/mnt/proc"}
-          ${util-linux}/bin/umount /mnt
-        '';
+        ${util-linux}/bin/umount /mnt${storeDir} /mnt/tmp ${
+          lib.optionalString unifiedSystemDir "/mnt/proc"
+        }
+        ${util-linux}/bin/umount /mnt
+      '';
 
-        passthru = {
-          inherit fullName;
-        };
-      }
-    );
+      passthru = { inherit fullName; };
+    });
 
   /* Generate a script that can be used to run an interactive session
      in the given image.
   */
 
-  makeImageTestScript =
-    image:
+  makeImageTestScript = image:
     writeScript "image-test" ''
       #! ${bash}/bin/sh
       if test -z "$1"; then
@@ -591,72 +515,63 @@ rec {
      tarball must contain an RPM specfile.
   */
 
-  buildRPM =
-    attrs:
-    runInLinuxImage (
-      stdenv.mkDerivation (
-        {
-          prePhases = [
-            "prepareImagePhase"
-            "sysInfoPhase"
-          ];
-          dontConfigure = true;
+  buildRPM = attrs:
+    runInLinuxImage (stdenv.mkDerivation ({
+      prePhases = [ "prepareImagePhase" "sysInfoPhase" ];
+      dontConfigure = true;
 
-          outDir = "rpms/${attrs.diskImage.name}";
+      outDir = "rpms/${attrs.diskImage.name}";
 
-          prepareImagePhase = ''
-            if test -n "$extraRPMs"; then
-              for rpmdir in $extraRPMs ; do
-                rpm -iv $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)
-              done
-            fi
-          '';
+      prepareImagePhase = ''
+        if test -n "$extraRPMs"; then
+          for rpmdir in $extraRPMs ; do
+            rpm -iv $(ls $rpmdir/rpms/*/*.rpm | grep -v 'src\.rpm' | sort | head -1)
+          done
+        fi
+      '';
 
-          sysInfoPhase = ''
-            echo "System/kernel: $(uname -a)"
-            if test -e /etc/fedora-release; then echo "Fedora release: $(cat /etc/fedora-release)"; fi
-            if test -e /etc/SuSE-release; then echo "SUSE release: $(cat /etc/SuSE-release)"; fi
-            echo "installed RPM packages"
-            rpm -qa --qf "%{Name}-%{Version}-%{Release} (%{Arch}; %{Distribution}; %{Vendor})\n"
-          '';
+      sysInfoPhase = ''
+        echo "System/kernel: $(uname -a)"
+        if test -e /etc/fedora-release; then echo "Fedora release: $(cat /etc/fedora-release)"; fi
+        if test -e /etc/SuSE-release; then echo "SUSE release: $(cat /etc/SuSE-release)"; fi
+        echo "installed RPM packages"
+        rpm -qa --qf "%{Name}-%{Version}-%{Release} (%{Arch}; %{Distribution}; %{Vendor})\n"
+      '';
 
-          buildPhase = ''
-            eval "$preBuild"
+      buildPhase = ''
+        eval "$preBuild"
 
-            srcName="$(rpmspec --srpm -q --qf '%{source}' *.spec)"
-            cp "$src" "$srcName" # `ln' doesn't work always work: RPM requires that the file is owned by root
+        srcName="$(rpmspec --srpm -q --qf '%{source}' *.spec)"
+        cp "$src" "$srcName" # `ln' doesn't work always work: RPM requires that the file is owned by root
 
-            export HOME=/tmp/home
-            mkdir $HOME
+        export HOME=/tmp/home
+        mkdir $HOME
 
-            rpmout=/tmp/rpmout
-            mkdir $rpmout $rpmout/SPECS $rpmout/BUILD $rpmout/RPMS $rpmout/SRPMS
+        rpmout=/tmp/rpmout
+        mkdir $rpmout $rpmout/SPECS $rpmout/BUILD $rpmout/RPMS $rpmout/SRPMS
 
-            echo "%_topdir $rpmout" >> $HOME/.rpmmacros
+        echo "%_topdir $rpmout" >> $HOME/.rpmmacros
 
-            if [ `uname -m` = i686 ]; then extra="--target i686-linux"; fi
-            rpmbuild -vv $extra -ta "$srcName"
+        if [ `uname -m` = i686 ]; then extra="--target i686-linux"; fi
+        rpmbuild -vv $extra -ta "$srcName"
 
-            eval "$postBuild"
-          '';
+        eval "$postBuild"
+      '';
 
-          installPhase = ''
-            eval "$preInstall"
+      installPhase = ''
+        eval "$preInstall"
 
-            mkdir -p $out/$outDir
-            find $rpmout -name "*.rpm" -exec cp {} $out/$outDir \;
+        mkdir -p $out/$outDir
+        find $rpmout -name "*.rpm" -exec cp {} $out/$outDir \;
 
-            for i in $out/$outDir/*.rpm; do
-              echo "Generated RPM/SRPM: $i"
-              rpm -qip $i
-            done
+        for i in $out/$outDir/*.rpm; do
+          echo "Generated RPM/SRPM: $i"
+          rpm -qip $i
+        done
 
-            eval "$postInstall"
-          ''; # */
-        }
-        // attrs
-      )
-    );
+        eval "$postInstall"
+      ''; # */
+    } // attrs));
 
   /* Create a filesystem image of the specified size and fill it with
      a set of Debian packages.  `debs' must be a list of list of
@@ -664,114 +579,90 @@ rec {
      strongly connected components.  See deb/deb-closure.nix.
   */
 
-  fillDiskWithDebs =
-    {
-      size ? 4096,
-      debs,
-      name,
-      fullName,
-      postInstall ? null,
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-    }:
+  fillDiskWithDebs = { size ? 4096, debs, name, fullName, postInstall ? null
+    , createRootFS ? defaultCreateRootFS, QEMU_OPTS ? "", memSize ? 512 }:
 
-    runInLinuxVM (
-      stdenv.mkDerivation {
-        inherit
-          name
-          postInstall
-          QEMU_OPTS
-          memSize
-        ;
+    runInLinuxVM (stdenv.mkDerivation {
+      inherit name postInstall QEMU_OPTS memSize;
 
-        debs = (lib.intersperse "|" debs);
+      debs = (lib.intersperse "|" debs);
 
-        preVM = createEmptyImage { inherit size fullName; };
+      preVM = createEmptyImage { inherit size fullName; };
 
-        buildCommand = ''
-          ${createRootFS}
+      buildCommand = ''
+        ${createRootFS}
 
-          PATH=$PATH:${
-            lib.makeBinPath [
-              pkgs.dpkg
-              pkgs.glibc
-              pkgs.xz
-            ]
-          }
+        PATH=$PATH:${lib.makeBinPath [ pkgs.dpkg pkgs.glibc pkgs.xz ]}
 
-          # Unpack the .debs.  We do this to prevent pre-install scripts
-          # (which have lots of circular dependencies) from barfing.
-          echo "unpacking Debs..."
+        # Unpack the .debs.  We do this to prevent pre-install scripts
+        # (which have lots of circular dependencies) from barfing.
+        echo "unpacking Debs..."
 
-          for deb in $debs; do
-            if test "$deb" != "|"; then
-              echo "$deb..."
-              dpkg-deb --extract "$deb" /mnt
-            fi
+        for deb in $debs; do
+          if test "$deb" != "|"; then
+            echo "$deb..."
+            dpkg-deb --extract "$deb" /mnt
+          fi
+        done
+
+        # Make the Nix store available in /mnt, because that's where the .debs live.
+        mkdir -p /mnt/inst${storeDir}
+        ${util-linux}/bin/mount -o bind ${storeDir} /mnt/inst${storeDir}
+        ${util-linux}/bin/mount -o bind /proc /mnt/proc
+        ${util-linux}/bin/mount -o bind /dev /mnt/dev
+
+        # Misc. files/directories assumed by various packages.
+        echo "initialising Dpkg DB..."
+        touch /mnt/etc/shells
+        touch /mnt/var/lib/dpkg/status
+        touch /mnt/var/lib/dpkg/available
+        touch /mnt/var/lib/dpkg/diversions
+
+        # Now install the .debs.  This is basically just to register
+        # them with dpkg and to make their pre/post-install scripts
+        # run.
+        echo "installing Debs..."
+
+        export DEBIAN_FRONTEND=noninteractive
+
+        oldIFS="$IFS"
+        IFS="|"
+        for component in $debs; do
+          IFS="$oldIFS"
+          echo
+          echo ">>> INSTALLING COMPONENT: $component"
+          debs=
+          for i in $component; do
+            debs="$debs /inst/$i";
           done
+          chroot=$(type -tP chroot)
 
-          # Make the Nix store available in /mnt, because that's where the .debs live.
-          mkdir -p /mnt/inst${storeDir}
-          ${util-linux}/bin/mount -o bind ${storeDir} /mnt/inst${storeDir}
-          ${util-linux}/bin/mount -o bind /proc /mnt/proc
-          ${util-linux}/bin/mount -o bind /dev /mnt/dev
+          # Create a fake start-stop-daemon script, as done in debootstrap.
+          mv "/mnt/sbin/start-stop-daemon" "/mnt/sbin/start-stop-daemon.REAL"
+          echo "#!/bin/true" > "/mnt/sbin/start-stop-daemon"
+          chmod 755 "/mnt/sbin/start-stop-daemon"
 
-          # Misc. files/directories assumed by various packages.
-          echo "initialising Dpkg DB..."
-          touch /mnt/etc/shells
-          touch /mnt/var/lib/dpkg/status
-          touch /mnt/var/lib/dpkg/available
-          touch /mnt/var/lib/dpkg/diversions
+          PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
+            /usr/bin/dpkg --install --force-all $debs < /dev/null || true
 
-          # Now install the .debs.  This is basically just to register
-          # them with dpkg and to make their pre/post-install scripts
-          # run.
-          echo "installing Debs..."
+          # Move the real start-stop-daemon back into its place.
+          mv "/mnt/sbin/start-stop-daemon.REAL" "/mnt/sbin/start-stop-daemon"
+        done
 
-          export DEBIAN_FRONTEND=noninteractive
+        echo "running post-install script..."
+        eval "$postInstall"
+        ln -sf dash /mnt/bin/sh
 
-          oldIFS="$IFS"
-          IFS="|"
-          for component in $debs; do
-            IFS="$oldIFS"
-            echo
-            echo ">>> INSTALLING COMPONENT: $component"
-            debs=
-            for i in $component; do
-              debs="$debs /inst/$i";
-            done
-            chroot=$(type -tP chroot)
+        rm /mnt/.debug
 
-            # Create a fake start-stop-daemon script, as done in debootstrap.
-            mv "/mnt/sbin/start-stop-daemon" "/mnt/sbin/start-stop-daemon.REAL"
-            echo "#!/bin/true" > "/mnt/sbin/start-stop-daemon"
-            chmod 755 "/mnt/sbin/start-stop-daemon"
+        ${util-linux}/bin/umount /mnt/inst${storeDir}
+        ${util-linux}/bin/umount /mnt/proc
+        ${util-linux}/bin/umount /mnt/dev
+        ${util-linux}/bin/umount /mnt
+      '';
 
-            PATH=/usr/bin:/bin:/usr/sbin:/sbin $chroot /mnt \
-              /usr/bin/dpkg --install --force-all $debs < /dev/null || true
-
-            # Move the real start-stop-daemon back into its place.
-            mv "/mnt/sbin/start-stop-daemon.REAL" "/mnt/sbin/start-stop-daemon"
-          done
-
-          echo "running post-install script..."
-          eval "$postInstall"
-          ln -sf dash /mnt/bin/sh
-
-          rm /mnt/.debug
-
-          ${util-linux}/bin/umount /mnt/inst${storeDir}
-          ${util-linux}/bin/umount /mnt/proc
-          ${util-linux}/bin/umount /mnt/dev
-          ${util-linux}/bin/umount /mnt
-        '';
-
-        passthru = {
-          inherit fullName;
-        };
-      }
-    );
+      passthru = { inherit fullName; };
+    });
 
   /* Generate a Nix expression containing fetchurl calls for the
      closure of a set of top-level RPM packages from the
@@ -779,176 +670,96 @@ rec {
   */
 
   rpmClosureGenerator =
-    {
-      name,
-      packagesLists,
-      urlPrefixes,
-      packages,
-      archs ? [ ],
-    }:
+    { name, packagesLists, urlPrefixes, packages, archs ? [ ] }:
     assert (builtins.length packagesLists) == (builtins.length urlPrefixes);
-    runCommand "${name}.nix"
-      {
-        nativeBuildInputs = [
-          buildPackages.perl
-          buildPackages.perlPackages.XMLSimple
-        ];
-        inherit archs;
-      }
-      ''
-        ${lib.concatImapStrings
-          (i: pl: ''
-            gunzip < ${pl} > ./packages_${toString i}.xml
-          '')
-          packagesLists}
-        perl -w ${rpm/rpm-closure.pl} \
-          ${
-            lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ") (
-              lib.zipLists packagesLists urlPrefixes
-            )
-          } \
-          ${toString packages} > $out
-      '';
+    runCommand "${name}.nix" {
+      nativeBuildInputs =
+        [ buildPackages.perl buildPackages.perlPackages.XMLSimple ];
+      inherit archs;
+    } ''
+      ${lib.concatImapStrings (i: pl: ''
+        gunzip < ${pl} > ./packages_${toString i}.xml
+      '') packagesLists}
+      perl -w ${rpm/rpm-closure.pl} \
+        ${
+          lib.concatImapStrings
+          (i: pl: "./packages_${toString i}.xml ${pl.snd} ")
+          (lib.zipLists packagesLists urlPrefixes)
+        } \
+        ${toString packages} > $out
+    '';
 
   /* Helper function that combines rpmClosureGenerator and
      fillDiskWithRPMs to generate a disk image from a set of package
      names.
   */
 
-  makeImageFromRPMDist =
-    {
-      name,
-      fullName,
-      size ? 4096,
-      urlPrefix ? "",
-      urlPrefixes ? [ urlPrefix ],
-      packagesList ? "",
-      packagesLists ? [ packagesList ],
-      packages,
-      extraPackages ? [ ],
-      preInstall ? "",
-      postInstall ? "",
-      archs ? [
-        "noarch"
-        "i386"
-      ],
-      runScripts ? true,
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-      unifiedSystemDir ? false,
-    }:
+  makeImageFromRPMDist = { name, fullName, size ? 4096, urlPrefix ? ""
+    , urlPrefixes ? [ urlPrefix ], packagesList ? ""
+    , packagesLists ? [ packagesList ], packages, extraPackages ? [ ]
+    , preInstall ? "", postInstall ? "", archs ? [ "noarch" "i386" ]
+    , runScripts ? true, createRootFS ? defaultCreateRootFS, QEMU_OPTS ? ""
+    , memSize ? 512, unifiedSystemDir ? false }:
 
     fillDiskWithRPMs {
-      inherit
-        name
-        fullName
-        size
-        preInstall
-        postInstall
-        runScripts
-        createRootFS
-        unifiedSystemDir
-        QEMU_OPTS
-        memSize
-      ;
-      rpms =
-        import
-          (rpmClosureGenerator {
-            inherit
-              name
-              packagesLists
-              urlPrefixes
-              archs
-            ;
-            packages = packages ++ extraPackages;
-          })
-          { inherit fetchurl; };
+      inherit name fullName size preInstall postInstall runScripts createRootFS
+        unifiedSystemDir QEMU_OPTS memSize;
+      rpms = import (rpmClosureGenerator {
+        inherit name packagesLists urlPrefixes archs;
+        packages = packages ++ extraPackages;
+      }) { inherit fetchurl; };
     };
 
   /* Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
      (i.e. generate a closure from a Packages.bz2 file).
   */
 
-  debClosureGenerator =
-    {
-      name,
-      packagesLists,
-      urlPrefix,
-      packages,
-    }:
+  debClosureGenerator = { name, packagesLists, urlPrefix, packages }:
 
-    runCommand "${name}.nix"
-      {
-        nativeBuildInputs = [
-          buildPackages.perl
-          buildPackages.dpkg
-        ];
-      }
-      ''
-        for i in ${toString packagesLists}; do
-          echo "adding $i..."
-          case $i in
-            *.xz | *.lzma)
-              xz -d < $i >> ./Packages
-              ;;
-            *.bz2)
-              bunzip2 < $i >> ./Packages
-              ;;
-            *.gz)
-              gzip -dc < $i >> ./Packages
-              ;;
-          esac
-        done
+    runCommand "${name}.nix" {
+      nativeBuildInputs = [ buildPackages.perl buildPackages.dpkg ];
+    } ''
+      for i in ${toString packagesLists}; do
+        echo "adding $i..."
+        case $i in
+          *.xz | *.lzma)
+            xz -d < $i >> ./Packages
+            ;;
+          *.bz2)
+            bunzip2 < $i >> ./Packages
+            ;;
+          *.gz)
+            gzip -dc < $i >> ./Packages
+            ;;
+        esac
+      done
 
-        # Work around this bug: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=452279
-        sed -i ./Packages -e s/x86_64-linux-gnu/x86-64-linux-gnu/g
+      # Work around this bug: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=452279
+      sed -i ./Packages -e s/x86_64-linux-gnu/x86-64-linux-gnu/g
 
-        perl -w ${deb/deb-closure.pl} \
-          ./Packages ${urlPrefix} ${toString packages} > $out
-      '';
+      perl -w ${deb/deb-closure.pl} \
+        ./Packages ${urlPrefix} ${toString packages} > $out
+    '';
 
   /* Helper function that combines debClosureGenerator and
      fillDiskWithDebs to generate a disk image from a set of package
      names.
   */
 
-  makeImageFromDebDist =
-    {
-      name,
-      fullName,
-      size ? 4096,
-      urlPrefix,
-      packagesList ? "",
-      packagesLists ? [ packagesList ],
-      packages,
-      extraPackages ? [ ],
-      postInstall ? "",
-      extraDebs ? [ ],
-      createRootFS ? defaultCreateRootFS,
-      QEMU_OPTS ? "",
-      memSize ? 512,
-    }:
+  makeImageFromDebDist = { name, fullName, size ? 4096, urlPrefix
+    , packagesList ? "", packagesLists ? [ packagesList ], packages
+    , extraPackages ? [ ], postInstall ? "", extraDebs ? [ ]
+    , createRootFS ? defaultCreateRootFS, QEMU_OPTS ? "", memSize ? 512 }:
 
     let
       expr = debClosureGenerator {
         inherit name packagesLists urlPrefix;
         packages = packages ++ extraPackages;
       };
-    in
-    (fillDiskWithDebs {
-      inherit
-        name
-        fullName
-        size
-        postInstall
-        createRootFS
-        QEMU_OPTS
-        memSize
-      ;
+    in (fillDiskWithDebs {
+      inherit name fullName size postInstall createRootFS QEMU_OPTS memSize;
       debs = import expr { inherit fetchurl; } ++ extraDebs;
-    })
-    // {
+    }) // {
       inherit expr;
     };
 
@@ -957,109 +768,82 @@ rec {
   rpmDistros = {
 
     # Note: no i386 release for Fedora >= 26
-    fedora26x86_64 =
-      let
-        version = "26";
-      in
-      {
-        name = "fedora-${version}-x86_64";
-        fullName = "Fedora ${version} (x86_64)";
-        packagesList = fetchurl rec {
-          url = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
-          sha256 = "880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e";
-        };
-        urlPrefix = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
-        archs = [
-          "noarch"
-          "x86_64"
-        ];
-        packages = commonFedoraPackages ++ [
-          "cronie"
-          "util-linux"
-        ];
-        unifiedSystemDir = true;
+    fedora26x86_64 = let version = "26";
+    in {
+      name = "fedora-${version}-x86_64";
+      fullName = "Fedora ${version} (x86_64)";
+      packagesList = fetchurl rec {
+        url =
+          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "880055a50c05b20641530d09b23f64501a000b2f92fe252417c530178730a95e";
       };
+      urlPrefix =
+        "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
+      archs = [ "noarch" "x86_64" ];
+      packages = commonFedoraPackages ++ [ "cronie" "util-linux" ];
+      unifiedSystemDir = true;
+    };
 
-    fedora27x86_64 =
-      let
-        version = "27";
-      in
-      {
-        name = "fedora-${version}-x86_64";
-        fullName = "Fedora ${version} (x86_64)";
-        packagesList = fetchurl rec {
-          url = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
-          sha256 = "48986ce4583cd09825c6d437150314446f0f49fa1a1bd62dcfa1085295030fe9";
-        };
-        urlPrefix = "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
-        archs = [
-          "noarch"
-          "x86_64"
-        ];
-        packages = commonFedoraPackages ++ [
-          "cronie"
-          "util-linux"
-        ];
-        unifiedSystemDir = true;
+    fedora27x86_64 = let version = "27";
+    in {
+      name = "fedora-${version}-x86_64";
+      fullName = "Fedora ${version} (x86_64)";
+      packagesList = fetchurl rec {
+        url =
+          "mirror://fedora/linux/releases/${version}/Everything/x86_64/os/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "48986ce4583cd09825c6d437150314446f0f49fa1a1bd62dcfa1085295030fe9";
       };
+      urlPrefix =
+        "mirror://fedora/linux/releases/${version}/Everything/x86_64/os";
+      archs = [ "noarch" "x86_64" ];
+      packages = commonFedoraPackages ++ [ "cronie" "util-linux" ];
+      unifiedSystemDir = true;
+    };
 
-    centos6i386 =
-      let
-        version = "6.9";
-      in
-      rec {
-        name = "centos-${version}-i386";
-        fullName = "CentOS ${version} (i386)";
-        urlPrefix = "mirror://centos/${version}/os/i386";
-        packagesList = fetchurl rec {
-          url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 = "b826a45082ef68340325c0855f3d2e5d5a4d0f77d28ba3b871791d6f14a97aeb";
-        };
-        archs = [
-          "noarch"
-          "i386"
-        ];
-        packages = commonCentOSPackages ++ [ "procps" ];
+    centos6i386 = let version = "6.9";
+    in rec {
+      name = "centos-${version}-i386";
+      fullName = "CentOS ${version} (i386)";
+      urlPrefix = "mirror://centos/${version}/os/i386";
+      packagesList = fetchurl rec {
+        url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "b826a45082ef68340325c0855f3d2e5d5a4d0f77d28ba3b871791d6f14a97aeb";
       };
+      archs = [ "noarch" "i386" ];
+      packages = commonCentOSPackages ++ [ "procps" ];
+    };
 
-    centos6x86_64 =
-      let
-        version = "6.9";
-      in
-      rec {
-        name = "centos-${version}-x86_64";
-        fullName = "CentOS ${version} (x86_64)";
-        urlPrefix = "mirror://centos/${version}/os/x86_64";
-        packagesList = fetchurl rec {
-          url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 = "ed2b2d4ac98d774d4cd3e91467e1532f7e8b0275cfc91a0d214b532dcaf1e979";
-        };
-        archs = [
-          "noarch"
-          "x86_64"
-        ];
-        packages = commonCentOSPackages ++ [ "procps" ];
+    centos6x86_64 = let version = "6.9";
+    in rec {
+      name = "centos-${version}-x86_64";
+      fullName = "CentOS ${version} (x86_64)";
+      urlPrefix = "mirror://centos/${version}/os/x86_64";
+      packagesList = fetchurl rec {
+        url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "ed2b2d4ac98d774d4cd3e91467e1532f7e8b0275cfc91a0d214b532dcaf1e979";
       };
+      archs = [ "noarch" "x86_64" ];
+      packages = commonCentOSPackages ++ [ "procps" ];
+    };
 
     # Note: no i386 release for 7.x
-    centos7x86_64 =
-      let
-        version = "7.4.1708";
-      in
-      rec {
-        name = "centos-${version}-x86_64";
-        fullName = "CentOS ${version} (x86_64)";
-        urlPrefix = "mirror://centos/${version}/os/x86_64";
-        packagesList = fetchurl rec {
-          url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
-          sha256 = "b686d3a0f337323e656d9387b9a76ce6808b26255fc3a138b1a87d3b1cb95ed5";
-        };
-        archs = [
-          "noarch"
-          "x86_64"
-        ];
-        packages = commonCentOSPackages ++ [ "procps-ng" ];
+    centos7x86_64 = let version = "7.4.1708";
+    in rec {
+      name = "centos-${version}-x86_64";
+      fullName = "CentOS ${version} (x86_64)";
+      urlPrefix = "mirror://centos/${version}/os/x86_64";
+      packagesList = fetchurl rec {
+        url = "${urlPrefix}/repodata/${sha256}-primary.xml.gz";
+        sha256 =
+          "b686d3a0f337323e656d9387b9a76ce6808b26255fc3a138b1a87d3b1cb95ed5";
       };
+      archs = [ "noarch" "x86_64" ];
+      packages = commonCentOSPackages ++ [ "procps-ng" ];
+    };
   };
 
   # The set of supported Dpkg-based distributions.
@@ -1074,15 +858,13 @@ rec {
           sha256 = "1d5y3v3v079gdq45hc07ja0bjlmzqfwdwwlq0brwxi8m75k3iz7x";
         })
         (fetchurl {
-          url = "mirror://ubuntu/dists/trusty/universe/binary-i386/Packages.bz2";
+          url =
+            "mirror://ubuntu/dists/trusty/universe/binary-i386/Packages.bz2";
           sha256 = "03x9w92by320rfklrqhcl3qpwmnxds9c8ijl5zhcb21d6dcz5z1a";
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu1404x86_64 = {
@@ -1094,15 +876,13 @@ rec {
           sha256 = "1hhzbyqfr5i0swahwnl5gfp5l9p9hspywb1vpihr3b74p1z935bh";
         })
         (fetchurl {
-          url = "mirror://ubuntu/dists/trusty/universe/binary-amd64/Packages.bz2";
+          url =
+            "mirror://ubuntu/dists/trusty/universe/binary-amd64/Packages.bz2";
           sha256 = "04560ba8s4z4v5iawknagrkn9q1nzvpn081ycmqvhh73p3p3g1jm";
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu1604i386 = {
@@ -1119,10 +899,7 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu1604x86_64 = {
@@ -1134,15 +911,13 @@ rec {
           sha256 = "110qnkhjkkwm316fbig3aivm2595ydz6zskc4ld5cr8ngcrqm1bn";
         })
         (fetchurl {
-          url = "mirror://ubuntu/dists/xenial/universe/binary-amd64/Packages.xz";
+          url =
+            "mirror://ubuntu/dists/xenial/universe/binary-amd64/Packages.xz";
           sha256 = "0mm7gj491yi6q4v0n4qkbsm94s59bvqir6fk60j73w7y4la8rg68";
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu1804i386 = {
@@ -1159,10 +934,7 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu1804x86_64 = {
@@ -1174,15 +946,13 @@ rec {
           sha256 = "1ls81bjyvmfz6i919kszl7xks1ibrh1xqhsk6698ackndkm0wp39";
         })
         (fetchurl {
-          url = "mirror://ubuntu/dists/bionic/universe/binary-amd64/Packages.xz";
+          url =
+            "mirror://ubuntu/dists/bionic/universe/binary-amd64/Packages.xz";
           sha256 = "1832nqpn4ap95b3sj870xqayrza9in4kih9jkmjax27pq6x15v1r";
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu2004i386 = {
@@ -1199,10 +969,7 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu2004x86_64 = {
@@ -1219,10 +986,7 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu2204i386 = {
@@ -1239,10 +1003,7 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     ubuntu2204x86_64 = {
@@ -1259,17 +1020,15 @@ rec {
         })
       ];
       urlPrefix = "mirror://ubuntu";
-      packages = commonDebPackages ++ [
-        "diffutils"
-        "libc-bin"
-      ];
+      packages = commonDebPackages ++ [ "diffutils" "libc-bin" ];
     };
 
     debian10i386 = {
       name = "debian-10.13-buster-i386";
       fullName = "Debian 10.13 Buster (i386)";
       packagesList = fetchurl {
-        url = "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-i386/Packages.xz";
+        url =
+          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-i386/Packages.xz";
         hash = "sha256-n9JquhtZgxw3qr9BX0MQoY3ZTIHN0dit+iru3DC31UY=";
       };
       urlPrefix = "mirror://debian";
@@ -1280,7 +1039,8 @@ rec {
       name = "debian-10.13-buster-amd64";
       fullName = "Debian 10.13 Buster (amd64)";
       packagesList = fetchurl {
-        url = "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-amd64/Packages.xz";
+        url =
+          "https://snapshot.debian.org/archive/debian/20221126T084953Z/dists/buster/main/binary-amd64/Packages.xz";
         hash = "sha256-YukIIB3u87jgp9oudwklsxyKVKjSL618wFgDSXiFmjU=";
       };
       urlPrefix = "mirror://debian";
@@ -1291,7 +1051,8 @@ rec {
       name = "debian-11.6-bullseye-i386";
       fullName = "Debian 11.6 Bullseye (i386)";
       packagesList = fetchurl {
-        url = "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-i386/Packages.xz";
+        url =
+          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-i386/Packages.xz";
         hash = "sha256-z9eG7RlvelEnZAaeCfIO+XxTZVL3d+zTA7ShU43l/pw=";
       };
       urlPrefix = "mirror://debian";
@@ -1302,7 +1063,8 @@ rec {
       name = "debian-11.6-bullseye-amd64";
       fullName = "Debian 11.6 Bullseye (amd64)";
       packagesList = fetchurl {
-        url = "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-amd64/Packages.xz";
+        url =
+          "https://snapshot.debian.org/archive/debian/20230131T034648Z/dists/bullseye/main/binary-amd64/Packages.xz";
         hash = "sha256-mz0eCWdn6uWt40OxsSPheHzEnMeLE52yR/vpb48/VF0=";
       };
       urlPrefix = "mirror://debian";
@@ -1432,10 +1194,7 @@ rec {
     "passwd"
   ];
 
-  commonDebianPackages = commonDebPackages ++ [
-    "sysvinit"
-    "diff"
-  ];
+  commonDebianPackages = commonDebPackages ++ [ "sysvinit" "diff" ];
 
   /* A set of functions that build the Linux distributions specified
      in `rpmDistros' and `debDistros'.  For instance,
@@ -1451,32 +1210,18 @@ rec {
      addition to the default packages.
   */
   diskImageFuns =
-    (lib.mapAttrs
-      (
-        name: as: as2:
-        makeImageFromRPMDist (as // as2)
-      )
-      rpmDistros
-    )
-    // (lib.mapAttrs
-      (
-        name: as: as2:
-        makeImageFromDebDist (as // as2)
-      )
-      debDistros
-    );
+    (lib.mapAttrs (name: as: as2: makeImageFromRPMDist (as // as2)) rpmDistros)
+    // (lib.mapAttrs (name: as: as2: makeImageFromDebDist (as // as2))
+      debDistros);
 
   # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.
   diskImageExtraFuns =
-    lib.mapAttrs
-      (
-        name: f: extraPackages:
-        f { inherit extraPackages; }
-      )
-      diskImageFuns;
+    lib.mapAttrs (name: f: extraPackages: f { inherit extraPackages; })
+    diskImageFuns;
 
   /* Default disk images generated from the `rpmDistros' and
      `debDistros' sets.
   */
   diskImages = lib.mapAttrs (name: f: f { }) diskImageFuns;
+
 }

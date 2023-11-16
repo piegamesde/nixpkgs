@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysmartthings";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -37,9 +27,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pysmartthings" ];
 
   meta = with lib; {
-    description = "Python library for interacting with the SmartThings cloud API";
+    description =
+      "Python library for interacting with the SmartThings cloud API";
     homepage = "https://github.com/andrewsayre/pysmartthings";
-    changelog = "https://github.com/andrewsayre/pysmartthings/releases/tag/${version}";
+    changelog =
+      "https://github.com/andrewsayre/pysmartthings/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

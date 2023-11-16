@@ -1,24 +1,14 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
-  let
-    testUser = "alice";
-  in
-  {
+import ./make-test-python.nix ({ pkgs, ... }:
+  let testUser = "alice";
+  in {
     name = "opentabletdriver";
-    meta = {
-      maintainers = with pkgs.lib.maintainers; [ thiagokokada ];
-    };
+    meta = { maintainers = with pkgs.lib.maintainers; [ thiagokokada ]; };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        imports = [
-          ./common/user-account.nix
-          ./common/x11.nix
-        ];
-        test-support.displayManager.auto.user = testUser;
-        hardware.opentabletdriver.enable = true;
-      };
+    nodes.machine = { pkgs, ... }: {
+      imports = [ ./common/user-account.nix ./common/x11.nix ];
+      test-support.displayManager.auto.user = testUser;
+      hardware.opentabletdriver.enable = true;
+    };
 
     testScript = ''
       machine.start()
@@ -30,5 +20,4 @@ import ./make-test-python.nix (
       # Needs to run as the same user that started the service
       machine.succeed("su - ${testUser} -c 'otd detect'")
     '';
-  }
-)
+  })

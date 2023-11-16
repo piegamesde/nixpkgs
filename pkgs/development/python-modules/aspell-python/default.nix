@@ -1,13 +1,5 @@
-{
-  lib,
-  aspell,
-  aspellDicts,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  pytestCheckHook,
-  pythonAtLeast,
-}:
+{ lib, aspell, aspellDicts, buildPythonPackage, fetchPypi, isPy27
+, pytestCheckHook, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "aspell-python";

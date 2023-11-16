@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchurl,
-  makeWrapper,
-  git,
-  bash,
-  coreutils,
-  gitea,
-  gzip,
-  openssh,
-  pam,
-  sqliteSupport ? true,
-  pamSupport ? true,
-  runCommand,
-  brotli,
-  xorg,
-  nixosTests,
-}:
+{ lib, stdenv, buildGoModule, fetchurl, makeWrapper, git, bash, coreutils, gitea
+, gzip, openssh, pam, sqliteSupport ? true, pamSupport ? true, runCommand
+, brotli, xorg, nixosTests }:
 
 buildGoModule rec {
   pname = "gitea";
@@ -43,12 +26,8 @@ buildGoModule rec {
 
   buildInputs = lib.optional pamSupport pam;
 
-  tags =
-    lib.optional pamSupport "pam"
-    ++ lib.optionals sqliteSupport [
-      "sqlite"
-      "sqlite_unlock_notify"
-    ];
+  tags = lib.optional pamSupport "pam"
+    ++ lib.optionals sqliteSupport [ "sqlite" "sqlite_unlock_notify" ];
 
   ldflags = [
     "-s"
@@ -57,10 +36,7 @@ buildGoModule rec {
     "-X 'main.Tags=${lib.concatStringsSep " " tags}'"
   ];
 
-  outputs = [
-    "out"
-    "data"
-  ];
+  outputs = [ "out" "data" ];
 
   postInstall = ''
     mkdir $data
@@ -69,35 +45,21 @@ buildGoModule rec {
     cp -R ./options/locale $out/locale
 
     wrapProgram $out/bin/gitea \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          bash
-          coreutils
-          git
-          gzip
-          openssh
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ bash coreutils git gzip openssh ]}
   '';
 
   passthru = {
-    data-compressed =
-      runCommand "gitea-data-compressed"
-        {
-          nativeBuildInputs = [
-            brotli
-            xorg.lndir
-          ];
-        }
-        ''
-          mkdir $out
-          lndir ${gitea.data}/ $out/
+    data-compressed = runCommand "gitea-data-compressed" {
+      nativeBuildInputs = [ brotli xorg.lndir ];
+    } ''
+      mkdir $out
+      lndir ${gitea.data}/ $out/
 
-          # Create static gzip and brotli files
-          find -L $out -type f -regextype posix-extended -iregex '.*\.(css|html|js|svg|ttf|txt)' \
-            -exec gzip --best --keep --force {} ';' \
-            -exec brotli --best --keep --no-copy-stat {} ';'
-        '';
+      # Create static gzip and brotli files
+      find -L $out -type f -regextype posix-extended -iregex '.*\.(css|html|js|svg|ttf|txt)' \
+        -exec gzip --best --keep --force {} ';' \
+        -exec brotli --best --keep --no-copy-stat {} ';'
+    '';
 
     tests = nixosTests.gitea;
   };

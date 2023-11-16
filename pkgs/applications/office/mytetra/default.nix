@@ -1,12 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qmake,
-  qtsvg,
-  makeWrapper,
-  xdg-utils,
-}:
+{ lib, mkDerivation, fetchFromGitHub, qmake, qtsvg, makeWrapper, xdg-utils }:
 
 mkDerivation rec {
   pname = "mytetra";
@@ -19,10 +11,7 @@ mkDerivation rec {
     sha256 = "sha256-jQXnDoLkqbDZxfsYKPDsTOE7p/BFeA8wEznpbkRVGdw=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ qmake makeWrapper ];
   buildInputs = [ qtsvg ];
 
   hardeningDisable = [ "format" ];

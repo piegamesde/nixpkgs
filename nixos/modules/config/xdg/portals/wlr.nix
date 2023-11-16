@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -11,23 +6,19 @@ let
   cfg = config.xdg.portal.wlr;
   package = pkgs.xdg-desktop-portal-wlr;
   settingsFormat = pkgs.formats.ini { };
-  configFile = settingsFormat.generate "xdg-desktop-portal-wlr.ini" cfg.settings;
-in
-{
-  meta = {
-    maintainers = with maintainers; [ minijackson ];
-  };
+  configFile =
+    settingsFormat.generate "xdg-desktop-portal-wlr.ini" cfg.settings;
+in {
+  meta = { maintainers = with maintainers; [ minijackson ]; };
 
   options.xdg.portal.wlr = {
-    enable = mkEnableOption (
-      lib.mdDoc ''
-        desktop portal for wlroots-based desktops
+    enable = mkEnableOption (lib.mdDoc ''
+      desktop portal for wlroots-based desktops
 
-        This will add the `xdg-desktop-portal-wlr` package into
-        the {option}`xdg.portal.extraPortals` option, and provide the
-        configuration file
-      ''
-    );
+      This will add the `xdg-desktop-portal-wlr` package into
+      the {option}`xdg.portal.extraPortals` option, and provide the
+      configuration file
+    '');
 
     settings = mkOption {
       description = lib.mdDoc ''

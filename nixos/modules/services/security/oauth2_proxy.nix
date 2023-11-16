@@ -1,11 +1,6 @@
 # NixOS module for oauth2_proxy.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -21,15 +16,10 @@ let
       resource = cfg.azure.resource;
     };
 
-    github = cfg: {
-      github = {
-        inherit (cfg.github) org team;
-      };
-    };
+    github = cfg: { github = { inherit (cfg.github) org team; }; };
 
     google = cfg: {
-      google =
-        with cfg.google;
+      google = with cfg.google;
         optionalAttrs (groups != [ ]) {
           admin-email = adminEmail;
           service-account = serviceAccountJSON;
@@ -38,12 +28,13 @@ let
     };
   };
 
-  authenticatedEmailsFile = pkgs.writeText "authenticated-emails" cfg.email.addresses;
+  authenticatedEmailsFile =
+    pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
-  getProviderOptions = cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
+  getProviderOptions = cfg: provider:
+    providerSpecificOptions.${provider} or (_: { }) cfg;
 
-  allConfig =
-    with cfg;
+  allConfig = with cfg;
     {
       inherit (cfg) provider scope upstream;
       approval-prompt = approvalPrompt;
@@ -68,53 +59,39 @@ let
       validate-url = validateURL;
       htpasswd-file = htpasswd.file;
       cookie = {
-        inherit (cookie)
-          domain
-          secure
-          expire
-          name
-          secret
-          refresh
-        ;
+        inherit (cookie) domain secure expire name secret refresh;
         httponly = cookie.httpOnly;
       };
       set-xauthrequest = setXauthrequest;
-    }
-    // lib.optionalAttrs (cfg.email.addresses != null) {
+    } // lib.optionalAttrs (cfg.email.addresses != null) {
       authenticated-emails-file = authenticatedEmailsFile;
-    }
-    // lib.optionalAttrs (cfg.passBasicAuth) { basic-auth-password = cfg.basicAuthPassword; }
-    // lib.optionalAttrs (cfg.htpasswd.file != null) {
+    } // lib.optionalAttrs (cfg.passBasicAuth) {
+      basic-auth-password = cfg.basicAuthPassword;
+    } // lib.optionalAttrs (cfg.htpasswd.file != null) {
       display-htpasswd-file = cfg.htpasswd.displayForm;
-    }
-    // lib.optionalAttrs tls.enable {
+    } // lib.optionalAttrs tls.enable {
       tls-cert-file = tls.certificate;
       tls-key-file = tls.key;
       https-address = tls.httpsAddress;
-    }
-    // (getProviderOptions cfg cfg.provider)
-    // cfg.extraConfig;
+    } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig;
 
-  mapConfig =
-    key: attr:
-    optionalString (attr != null && attr != [ ]) (
-      if isDerivation attr then
-        mapConfig key (toString attr)
-      else if (builtins.typeOf attr) == "set" then
-        concatStringsSep " " (mapAttrsToList (name: value: mapConfig (key + "-" + name) value) attr)
-      else if (builtins.typeOf attr) == "list" then
-        concatMapStringsSep " " (mapConfig key) attr
-      else if (builtins.typeOf attr) == "bool" then
-        "--${key}=${boolToString attr}"
-      else if (builtins.typeOf attr) == "string" then
-        "--${key}='${attr}'"
-      else
-        "--${key}=${toString attr}"
-    );
+  mapConfig = key: attr:
+    optionalString (attr != null && attr != [ ]) (if isDerivation attr then
+      mapConfig key (toString attr)
+    else if (builtins.typeOf attr) == "set" then
+      concatStringsSep " "
+      (mapAttrsToList (name: value: mapConfig (key + "-" + name) value) attr)
+    else if (builtins.typeOf attr) == "list" then
+      concatMapStringsSep " " (mapConfig key) attr
+    else if (builtins.typeOf attr) == "bool" then
+      "--${key}=${boolToString attr}"
+    else if (builtins.typeOf attr) == "string" then
+      "--${key}='${attr}'"
+    else
+      "--${key}=${toString attr}");
 
   configString = concatStringsSep " " (mapAttrsToList mapConfig allConfig);
-in
-{
+in {
   options.services.oauth2_proxy = {
     enable = mkEnableOption (lib.mdDoc "oauth2_proxy");
 
@@ -154,10 +131,7 @@ in
     };
 
     approvalPrompt = mkOption {
-      type = types.enum [
-        "force"
-        "auto"
-      ];
+      type = types.enum [ "force" "auto" ];
       default = "force";
       description = lib.mdDoc ''
         OAuth approval_prompt.
@@ -589,6 +563,7 @@ in
       '';
       example = "/run/keys/oauth2_proxy";
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -620,5 +595,6 @@ in
         EnvironmentFile = mkIf (cfg.keyFile != null) cfg.keyFile;
       };
     };
+
   };
 }

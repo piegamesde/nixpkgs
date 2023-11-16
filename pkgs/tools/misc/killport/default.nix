@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "killport";
@@ -18,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
 
   meta = with lib; {
-    description = "A command-line tool to easily kill processes running on a specified port";
+    description =
+      "A command-line tool to easily kill processes running on a specified port";
     homepage = "https://github.com/jkfran/killport";
     license = licenses.mit;
     maintainers = with maintainers; [ sno2wman ];

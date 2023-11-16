@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  coverage,
-  ipykernel,
-  jupyter-client,
-  nbformat,
-  pytestCheckHook,
-  pytest,
-  six,
-  glibcLocales,
-  matplotlib,
-  sympy,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, coverage, ipykernel
+, jupyter-client, nbformat, pytestCheckHook, pytest, six, glibcLocales
+, matplotlib, sympy }:
 
 buildPythonPackage rec {
   pname = "nbval";
@@ -29,19 +16,9 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
 
-  propagatedBuildInputs = [
-    coverage
-    ipykernel
-    jupyter-client
-    nbformat
-    pytest
-  ];
+  propagatedBuildInputs = [ coverage ipykernel jupyter-client nbformat pytest ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    matplotlib
-    sympy
-  ];
+  nativeCheckInputs = [ pytestCheckHook matplotlib sympy ];
 
   disabledTestPaths = [
     "tests/test_ignore.py"

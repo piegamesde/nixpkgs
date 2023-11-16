@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,20 +7,14 @@ let
 
   dataDir = "/var/lib/magnetico";
 
-  credFile =
-    with cfg.web;
+  credFile = with cfg.web;
     if credentialsFile != null then
       credentialsFile
     else
-      pkgs.writeText "magnetico-credentials" (
-        concatStrings (
-          mapAttrsToList
-            (user: hash: ''
-              ${user}:${hash}
-            '')
-            cfg.web.credentials
-        )
-      );
+      pkgs.writeText "magnetico-credentials" (concatStrings (mapAttrsToList
+        (user: hash: ''
+          ${user}:${hash}
+        '') cfg.web.credentials));
 
   # default options in magneticod/main.go
   dbURI = concatStrings [
@@ -35,35 +24,25 @@ let
     "&_foreign_keys=true"
   ];
 
-  crawlerArgs =
-    with cfg.crawler;
-    escapeShellArgs (
-      [
-        "--database=${dbURI}"
-        "--indexer-addr=${address}:${toString port}"
-        "--indexer-max-neighbors=${toString maxNeighbors}"
-        "--leech-max-n=${toString maxLeeches}"
-      ]
-      ++ extraOptions
-    );
+  crawlerArgs = with cfg.crawler;
+    escapeShellArgs ([
+      "--database=${dbURI}"
+      "--indexer-addr=${address}:${toString port}"
+      "--indexer-max-neighbors=${toString maxNeighbors}"
+      "--leech-max-n=${toString maxLeeches}"
+    ] ++ extraOptions);
 
-  webArgs =
-    with cfg.web;
-    escapeShellArgs (
-      [
-        "--database=${dbURI}"
-        (
-          if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then
-            "--credentials=${toString credFile}"
-          else
-            "--no-auth"
-        )
-        "--addr=${address}:${toString port}"
-      ]
-      ++ extraOptions
-    );
-in
-{
+  webArgs = with cfg.web;
+    escapeShellArgs ([
+      "--database=${dbURI}"
+      (if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then
+        "--credentials=${toString credFile}"
+      else
+        "--no-auth")
+      "--addr=${address}:${toString port}"
+    ] ++ extraOptions);
+
+in {
 
   ###### interface
 
@@ -186,6 +165,7 @@ in
         Extra command line arguments to pass to magneticow.
       '';
     };
+
   };
 
   ###### implementation
@@ -214,10 +194,7 @@ in
     systemd.services.magneticow = {
       description = "Magnetico web interface";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "magneticod.service"
-      ];
+      after = [ "network.target" "magneticod.service" ];
 
       serviceConfig = {
         User = "magnetico";
@@ -227,16 +204,16 @@ in
       };
     };
 
-    assertions = [
-      {
-        assertion = cfg.web.credentialsFile == null || cfg.web.credentials == { };
-        message = ''
-          The options services.magnetico.web.credentialsFile and
-          services.magnetico.web.credentials are mutually exclusives.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = cfg.web.credentialsFile == null || cfg.web.credentials == { };
+      message = ''
+        The options services.magnetico.web.credentialsFile and
+        services.magnetico.web.credentials are mutually exclusives.
+      '';
+    }];
+
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+
 }

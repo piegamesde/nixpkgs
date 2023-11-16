@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "apko";
@@ -42,12 +37,11 @@ buildGoModule rec {
     ldflags+=" -X sigs.k8s.io/release-utils/version.buildDate=$(cat SOURCE_DATE_EPOCH)"
   '';
 
-  checkFlags =
-    [
-      # networking required to fetch alpine-keys
-      # pulled out into a separate library next release
-      "-skip=TestInitDB"
-    ];
+  checkFlags = [
+    # networking required to fetch alpine-keys
+    # pulled out into a separate library next release
+    "-skip=TestInitDB"
+  ];
 
   postInstall = ''
     installShellCompletion --cmd apko \
@@ -71,9 +65,6 @@ buildGoModule rec {
     changelog = "https://github.com/chainguard-dev/apko/blob/main/NEWS.md";
     description = "Build OCI images using APK directly without Dockerfile";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      jk
-      developer-guy
-    ];
+    maintainers = with maintainers; [ jk developer-guy ];
   };
 }

@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gperf,
-  guile,
-  gmp,
-  zlib,
-  liboop,
-  readline,
-  gnum4,
-  pam,
-  nettools,
-  lsof,
-  procps,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchurl, gperf, guile, gmp, zlib, liboop, readline, gnum4, pam
+, nettools, lsof, procps, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "lsh";
@@ -25,10 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "614b9d63e13ad3e162c82b6405d1f67713fc622a8bc11337e72949d613713091";
   };
 
-  patches = [
-    ./pam-service-name.patch
-    ./lshd-no-root-login.patch
-  ];
+  patches = [ ./pam-service-name.patch ./lshd-no-root-login.patch ];
 
   preConfigure = ''
     # Patch `lsh-make-seed' so that it can gather enough entropy.
@@ -56,17 +38,7 @@ stdenv.mkDerivation rec {
   # Should be present in upcoming 2.1 release.
   env.NIX_CFLAGS_COMPILE = "-std=gnu90 -fcommon";
 
-  buildInputs = [
-    gperf
-    guile
-    gmp
-    zlib
-    liboop
-    readline
-    gnum4
-    pam
-    libxcrypt
-  ];
+  buildInputs = [ gperf guile gmp zlib liboop readline gnum4 pam libxcrypt ];
 
   meta = {
     description = "GPL'd implementation of the SSH protocol";

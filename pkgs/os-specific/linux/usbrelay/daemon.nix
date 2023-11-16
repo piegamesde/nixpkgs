@@ -1,22 +1,10 @@
-{
-  stdenv,
-  usbrelay,
-  python3,
-  installShellFiles,
-}:
+{ stdenv, usbrelay, python3, installShellFiles }:
 let
-  python = python3.withPackages (
-    ps:
-    with ps; [
-      usbrelay-py
-      paho-mqtt
-    ]
-  );
-in
-# This is a separate derivation, not just an additional output of
-# usbrelay, because otherwise, we have a cyclic dependency between
-# usbrelay (default.nix) and the python module (python.nix).
-stdenv.mkDerivation {
+  python = python3.withPackages (ps: with ps; [ usbrelay-py paho-mqtt ]);
+  # This is a separate derivation, not just an additional output of
+  # usbrelay, because otherwise, we have a cyclic dependency between
+  # usbrelay (default.nix) and the python module (python.nix).
+in stdenv.mkDerivation {
   pname = "usbrelayd";
 
   inherit (usbrelay) src version;
@@ -45,11 +33,6 @@ stdenv.mkDerivation {
 
   meta = {
     description = "USB Relay MQTT service";
-    inherit (usbrelay.meta)
-      homepage
-      license
-      maintainers
-      platforms
-    ;
+    inherit (usbrelay.meta) homepage license maintainers platforms;
   };
 }

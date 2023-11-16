@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  installShellFiles,
-  nixosTests,
-  makeWrapper,
-  gawk,
-  glibc,
-}:
+{ stdenv, lib, fetchFromGitHub, buildGoModule, installShellFiles, nixosTests
+, makeWrapper, gawk, glibc }:
 
 buildGoModule rec {
   pname = "vault";
@@ -25,10 +16,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
 
   tags = [ "vault" ];
 
@@ -40,34 +28,23 @@ buildGoModule rec {
     "-X github.com/hashicorp/vault/sdk/version.VersionPrerelease="
   ];
 
-  postInstall =
-    ''
-      echo "complete -C $out/bin/vault vault" > vault.bash
-      installShellCompletion vault.bash
-    ''
-    + lib.optionalString stdenv.isLinux ''
-      wrapProgram $out/bin/vault \
-        --prefix PATH ${
-          lib.makeBinPath [
-            gawk
-            glibc
-          ]
-        }
-    '';
+  postInstall = ''
+    echo "complete -C $out/bin/vault vault" > vault.bash
+    installShellCompletion vault.bash
+  '' + lib.optionalString stdenv.isLinux ''
+    wrapProgram $out/bin/vault \
+      --prefix PATH ${lib.makeBinPath [ gawk glibc ]}
+  '';
 
   passthru.tests = {
-    inherit (nixosTests)
-      vault
-      vault-postgresql
-      vault-dev
-      vault-agent
-    ;
+    inherit (nixosTests) vault vault-postgresql vault-dev vault-agent;
   };
 
   meta = with lib; {
     homepage = "https://www.vaultproject.io/";
     description = "A tool for managing secrets";
-    changelog = "https://github.com/hashicorp/vault/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/hashicorp/vault/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [
       rushmorem

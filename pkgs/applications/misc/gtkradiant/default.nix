@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchsvn,
-  scons,
-  pkg-config,
-  python3,
-  glib,
-  libxml2,
-  gtk2,
-  libGLU,
-  gnome2,
-  runCommand,
-  writeScriptBin,
-  runtimeShell,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchsvn, scons, pkg-config, python3, glib
+, libxml2, gtk2, libGLU, gnome2, runCommand, writeScriptBin, runtimeShell
+, makeDesktopItem, copyDesktopItems }:
 
 let
   q3Pack = fetchsvn {
@@ -65,7 +49,8 @@ let
     sha256 = "sha256-693k6KiIchQddVGBhRJf7ikv6ut5L9rcLt0FTZ7pSvw=";
   };
   unvanquishedPack = fetchsvn {
-    url = "https://github.com/Unvanquished/unvanquished-mapeditor-support.git/trunk/build/gtkradiant/";
+    url =
+      "https://github.com/Unvanquished/unvanquished-mapeditor-support.git/trunk/build/gtkradiant/";
     rev = 212;
     sha256 = "sha256-weBlnSBezPppbhsMOT66vubioTxpDC+AcKIOC2Xitdo=";
   };
@@ -88,8 +73,8 @@ let
     ln -s ${unvanquishedPack} $out/UnvanquishedPack
     ln -s ${q1Pack} $out/Q1Pack
   '';
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "gtkradiant";
 
   version = "unstable-2022-07-31";
@@ -110,41 +95,27 @@ stdenv.mkDerivation rec {
       --replace 'strGamesPath += "games";' 'strGamesPath += "/.cache/radiant/games";'
   '';
 
-  nativeBuildInputs =
-    let
-      python = python3.withPackages (ps: with ps; [ urllib3 ]);
-      svn = writeScriptBin "svn" ''
-        #!${runtimeShell} -e
-        if [ "$1" = checkout ]; then
-          # link predownloaded pack to destination
-          mkdir -p $(dirname $3)
-          ln -s ${packs}/$(basename $3) $3
-          # verify existence
-          test -e $(readlink $3)
-        elif [ "$1" = update ]; then
-          # verify existence
-          test -e $(readlink $3)
-        else
-          echo "$@"
-          exit 1
-        fi
-      '';
-    in
-    [
-      scons
-      pkg-config
-      python
-      svn
-      copyDesktopItems
-    ];
+  nativeBuildInputs = let
+    python = python3.withPackages (ps: with ps; [ urllib3 ]);
+    svn = writeScriptBin "svn" ''
+      #!${runtimeShell} -e
+      if [ "$1" = checkout ]; then
+        # link predownloaded pack to destination
+        mkdir -p $(dirname $3)
+        ln -s ${packs}/$(basename $3) $3
+        # verify existence
+        test -e $(readlink $3)
+      elif [ "$1" = update ]; then
+        # verify existence
+        test -e $(readlink $3)
+      else
+        echo "$@"
+        exit 1
+      fi
+    '';
+  in [ scons pkg-config python svn copyDesktopItems ];
 
-  buildInputs = [
-    glib
-    libxml2
-    gtk2
-    libGLU
-    gnome2.gtkglext
-  ];
+  buildInputs = [ glib libxml2 gtk2 libGLU gnome2.gtkglext ];
 
   enableParallelBuilding = true;
 
@@ -175,11 +146,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Level editor for idTech games";
     homepage = "https://icculus.org/gtkradiant/";
-    license = with licenses; [
-      gpl2Only
-      bsdOriginal
-      lgpl21Only
-    ];
+    license = with licenses; [ gpl2Only bsdOriginal lgpl21Only ];
     maintainers = with maintainers; [ astro ];
     platforms = platforms.unix;
   };

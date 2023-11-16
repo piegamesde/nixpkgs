@@ -1,13 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ocamlbuild,
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild }:
 
-if lib.versionOlder ocaml.version "4.08" || lib.versionAtLeast ocaml.version "5.0" then
+if lib.versionOlder ocaml.version "4.08"
+|| lib.versionAtLeast ocaml.version "5.0" then
   throw "wasm is not available for OCaml ${ocaml.version}"
 else
 
@@ -22,20 +16,13 @@ else
       sha256 = "sha256:09s0v79x0ymzcp2114zkm3phxavdfnkkq67qz1ndnknbkziwqf3v";
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild ];
     strictDeps = true;
 
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable = lib.optional stdenv.hostPlatform.isStatic "pie";
 
-    makeFlags = [
-      "-C"
-      "interpreter"
-    ];
+    makeFlags = [ "-C" "interpreter" ];
 
     createFindlibDestdir = true;
 
@@ -45,7 +32,8 @@ else
     '';
 
     meta = {
-      description = "An executable and OCaml library to run, read and write Web Assembly (wasm) files and manipulate their AST";
+      description =
+        "An executable and OCaml library to run, read and write Web Assembly (wasm) files and manipulate their AST";
       license = lib.licenses.asl20;
       maintainers = [ lib.maintainers.vbgl ];
       homepage = "https://github.com/WebAssembly/spec/tree/master/interpreter";

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  opaline,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, findlib, opaline }:
 
 stdenv.mkDerivation rec {
   pname = "afl-persistent";
@@ -21,10 +14,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-  ];
+  nativeBuildInputs = [ ocaml findlib ];
 
   # don't run tests in buildPhase
   # don't overwrite test binary

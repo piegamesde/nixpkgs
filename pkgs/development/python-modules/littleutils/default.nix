@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "littleutils";
@@ -25,7 +20,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Small collection of Python utility functions";
     homepage = "https://github.com/alexmojaki/littleutils";
-    changelog = "https://github.com/alexmojaki/littleutils/releases/tag/v${version}";
+    changelog =
+      "https://github.com/alexmojaki/littleutils/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jluttine ];
   };

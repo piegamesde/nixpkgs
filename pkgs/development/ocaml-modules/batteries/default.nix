@@ -1,16 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  qtest,
-  qcheck,
-  num,
-  camlp-streams,
-  doCheck ? lib.versionAtLeast ocaml.version "4.08" && !stdenv.isAarch64,
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild, qtest, qcheck, num
+, camlp-streams
+, doCheck ? lib.versionAtLeast ocaml.version "4.08" && !stdenv.isAarch64 }:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "batteries is not available for OCaml ${ocaml.version}"
@@ -27,17 +17,10 @@ else
       hash = "sha256-D/0h0/70V8jmzHIUR6i2sT2Jz9/+tfR2dQgp4Bxtimc=";
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild ];
     nativeCheckInputs = [ qtest ];
     checkInputs = [ qcheck ];
-    propagatedBuildInputs = [
-      camlp-streams
-      num
-    ];
+    propagatedBuildInputs = [ camlp-streams num ];
 
     strictDeps = true;
 
@@ -47,7 +30,8 @@ else
     createFindlibDestdir = true;
 
     meta = {
-      homepage = "https://ocaml-batteries-team.github.io/batteries-included/hdoc2/";
+      homepage =
+        "https://ocaml-batteries-team.github.io/batteries-included/hdoc2/";
       description = "OCaml Batteries Included";
       longDescription = ''
         A community-driven effort to standardize on an consistent, documented,

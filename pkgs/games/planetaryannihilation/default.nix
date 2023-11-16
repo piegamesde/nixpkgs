@@ -1,28 +1,6 @@
-{
-  lib,
-  stdenv,
-  config,
-  fetchurl,
-  patchelf,
-  makeWrapper,
-  gtk2,
-  glib,
-  udev,
-  alsa-lib,
-  atk,
-  nspr,
-  fontconfig,
-  cairo,
-  pango,
-  nss,
-  freetype,
-  gnome2,
-  gdk-pixbuf,
-  curl,
-  systemd,
-  xorg,
-  requireFile,
-}:
+{ lib, stdenv, config, fetchurl, patchelf, makeWrapper, gtk2, glib, udev
+, alsa-lib, atk, nspr, fontconfig, cairo, pango, nss, freetype, gnome2
+, gdk-pixbuf, curl, systemd, xorg, requireFile }:
 
 stdenv.mkDerivation rec {
   pname = "planetary-annihalation";
@@ -34,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0imi3k5144dsn3ka9khx3dj76klkw46ga7m6rddqjk4yslwabh3k";
   };
 
-  nativeBuildInputs = [
-    patchelf
-    makeWrapper
-  ];
+  nativeBuildInputs = [ patchelf makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib}
@@ -106,7 +81,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.uberent.com/pa/";
-    description = "Next-generation RTS that takes the genre to a planetary scale";
+    description =
+      "Next-generation RTS that takes the genre to a planetary scale";
     license = lib.licenses.unfree;
     platforms = platforms.linux;
     maintainers = [ maintainers.domenkozar ];

@@ -1,43 +1,30 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, options, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.couchdb;
   opt = options.services.couchdb;
-  configFile = pkgs.writeText "couchdb.ini" (
-    ''
-      [couchdb]
-      database_dir = ${cfg.databaseDir}
-      uri_file = ${cfg.uriFile}
-      view_index_dir = ${cfg.viewIndexDir}
-    ''
-    + (
-      optionalString (cfg.adminPass != null) ''
-        [admins]
-        ${cfg.adminUser} = ${cfg.adminPass}
-      ''
-      + ''
-        [chttpd]
-      ''
-    )
-    + ''
-      port = ${toString cfg.port}
-      bind_address = ${cfg.bindAddress}
+  configFile = pkgs.writeText "couchdb.ini" (''
+    [couchdb]
+    database_dir = ${cfg.databaseDir}
+    uri_file = ${cfg.uriFile}
+    view_index_dir = ${cfg.viewIndexDir}
+  '' + (optionalString (cfg.adminPass != null) ''
+    [admins]
+    ${cfg.adminUser} = ${cfg.adminPass}
+  '' + ''
+    [chttpd]
+  '') + ''
+    port = ${toString cfg.port}
+    bind_address = ${cfg.bindAddress}
 
-      [log]
-      file = ${cfg.logFile}
-    ''
-  );
+    [log]
+    file = ${cfg.logFile}
+  '');
   executable = "${cfg.package}/bin/couchdb";
-in
-{
+
+in {
 
   ###### interface
 
@@ -172,7 +159,9 @@ in
           needs to be readable and writable from couchdb user/group.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -231,5 +220,6 @@ in
     };
 
     users.groups.couchdb.gid = config.ids.gids.couchdb;
+
   };
 }

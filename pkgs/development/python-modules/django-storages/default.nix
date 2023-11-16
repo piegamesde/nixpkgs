@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-  azure-storage-blob,
-  boto3,
-  dropbox,
-  google-cloud-storage,
-  libcloud,
-  paramiko,
-}:
+{ lib, buildPythonPackage, fetchPypi, django, azure-storage-blob, boto3, dropbox
+, google-cloud-storage, libcloud, paramiko }:
 
 buildPythonPackage rec {
   pname = "django-storages";
@@ -30,21 +20,16 @@ buildPythonPackage rec {
       --replace 'test_modified_time' 'dont_test_modified_time'
   '';
 
-  nativeCheckInputs = [
-    azure-storage-blob
-    boto3
-    dropbox
-    google-cloud-storage
-    libcloud
-    paramiko
-  ];
+  nativeCheckInputs =
+    [ azure-storage-blob boto3 dropbox google-cloud-storage libcloud paramiko ];
 
   pythonImportsCheck = [ "storages" ];
 
   meta = with lib; {
     description = "Collection of custom storage backends for Django";
     homepage = "https://django-storages.readthedocs.io";
-    changelog = "https://github.com/jschneier/django-storages/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/jschneier/django-storages/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

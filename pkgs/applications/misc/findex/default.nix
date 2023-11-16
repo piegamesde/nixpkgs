@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  keybinder3,
-  gtk3,
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, keybinder3, gtk3 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "findex";
@@ -22,13 +15,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk3
-    keybinder3
-  ];
+  buildInputs = [ gtk3 keybinder3 ];
 
   meta = with lib; {
-    description = "Highly customizable application finder written in Rust and uses Gtk3";
+    description =
+      "Highly customizable application finder written in Rust and uses Gtk3";
     homepage = "https://github.com/mdgaziur/findex";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

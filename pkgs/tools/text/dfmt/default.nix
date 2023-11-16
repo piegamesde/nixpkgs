@@ -1,13 +1,7 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
-let
-  inherit (python3.pkgs) buildPythonApplication pythonOlder;
-in
-buildPythonApplication rec {
+let inherit (python3.pkgs) buildPythonApplication pythonOlder;
+in buildPythonApplication rec {
   pname = "dfmt";
   version = "1.2.0";
   disabled = pythonOlder "3.7";

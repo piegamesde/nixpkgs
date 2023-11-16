@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "funcy";
@@ -17,8 +13,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Collection of fancy functional tools focused on practicality";
+    description =
+      "Collection of fancy functional tools focused on practicality";
     homepage = "https://funcy.readthedocs.org/";
     license = licenses.bsd3;
   };
+
 }

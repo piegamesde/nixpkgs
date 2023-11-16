@@ -1,13 +1,9 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "mgl-pax";
   version = "20211209-git";
 
-  parasites = [
-    "mgl-pax/document"
-    "mgl-pax/navigate"
-  ];
+  parasites = [ "mgl-pax/document" "mgl-pax/navigate" ];
 
   description = ''
     Exploratory programming tool and documentation
@@ -25,7 +21,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/mgl-pax/2021-12-09/mgl-pax-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/mgl-pax/2021-12-09/mgl-pax-20211209-git.tgz";
     sha256 = "19d47msc8240bldkc0fi60cpzsx1q9392dxhmqn28gn7998pdkgh";
   };
 

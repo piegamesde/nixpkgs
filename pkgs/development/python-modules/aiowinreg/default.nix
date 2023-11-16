@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  prompt-toolkit,
-  pythonOlder,
-  winacl,
+{ lib, buildPythonPackage, fetchFromGitHub, prompt-toolkit, pythonOlder, winacl
 }:
 
 buildPythonPackage rec {
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-PkrBjH+yeSLpwL9kH242xQKBsjv6a11k2c26qBwR6Fw=";
   };
 
-  propagatedBuildInputs = [
-    prompt-toolkit
-    winacl
-  ];
+  propagatedBuildInputs = [ prompt-toolkit winacl ];
 
   # Project doesn't have tests
   doCheck = false;

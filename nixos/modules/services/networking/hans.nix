@@ -1,11 +1,6 @@
 # NixOS module for hans, ip over icmp daemon
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,8 +8,8 @@ let
   cfg = config.services.hans;
 
   hansUser = "hans";
-in
-{
+
+in {
 
   ### configuration
 
@@ -39,31 +34,30 @@ in
             }
           }
         '';
-        type = types.attrsOf (
-          types.submodule ({
-            options = {
-              server = mkOption {
-                type = types.str;
-                default = "";
-                description = lib.mdDoc "IP address of server running hans";
-                example = "192.0.2.1";
-              };
-
-              extraConfig = mkOption {
-                type = types.str;
-                default = "";
-                description = lib.mdDoc "Additional command line parameters";
-                example = "-v";
-              };
-
-              passwordFile = mkOption {
-                type = types.str;
-                default = "";
-                description = lib.mdDoc "File that contains password";
-              };
+        type = types.attrsOf (types.submodule ({
+          options = {
+            server = mkOption {
+              type = types.str;
+              default = "";
+              description = lib.mdDoc "IP address of server running hans";
+              example = "192.0.2.1";
             };
-          })
-        );
+
+            extraConfig = mkOption {
+              type = types.str;
+              default = "";
+              description = lib.mdDoc "Additional command line parameters";
+              example = "-v";
+            };
+
+            passwordFile = mkOption {
+              type = types.str;
+              default = "";
+              description = lib.mdDoc "File that contains password";
+            };
+
+          };
+        }));
       };
 
       server = {
@@ -99,6 +93,7 @@ in
           description = lib.mdDoc "File that contains password";
         };
       };
+
     };
   };
 
@@ -111,33 +106,35 @@ in
 
     boot.kernelModules = [ "tun" ];
 
-    systemd.services =
-      let
-        createHansClientService = name: cfg: {
-          description = "hans client - ${name}";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-          script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
-              optionalString (cfg.passwordFile != "") ''-p $(cat "${cfg.passwordFile}")''
-            }";
-          serviceConfig = {
-            RestartSec = "30s";
-            Restart = "always";
-          };
+    systemd.services = let
+      createHansClientService = name: cfg: {
+        description = "hans client - ${name}";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
+        script =
+          "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
+            optionalString (cfg.passwordFile != "")
+            ''-p $(cat "${cfg.passwordFile}")''
+          }";
+        serviceConfig = {
+          RestartSec = "30s";
+          Restart = "always";
         };
-      in
-      listToAttrs (
-        mapAttrsToList (name: value: nameValuePair "hans-${name}" (createHansClientService name value))
-          cfg.clients
-      )
-      // {
+      };
+    in listToAttrs (mapAttrsToList (name: value:
+      nameValuePair "hans-${name}" (createHansClientService name value))
+      cfg.clients) // {
         hans = mkIf (cfg.server.enable) {
           description = "hans, ip over icmp server daemon";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
-          script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
+          script =
+            "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${
               optionalString cfg.server.respondToSystemPings "-r"
-            } ${optionalString (cfg.server.passwordFile != "") ''-p $(cat "${cfg.server.passwordFile}")''}";
+            } ${
+              optionalString (cfg.server.passwordFile != "")
+              ''-p $(cat "${cfg.server.passwordFile}")''
+            }";
         };
       };
 

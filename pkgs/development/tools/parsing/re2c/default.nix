@@ -1,16 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  nix-update-script,
-  python3,
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, nix-update-script, python3
 
-  # for passthru.tests
-  ninja,
-  php,
-  spamassassin,
-}:
+# for passthru.tests
+, ninja, php, spamassassin }:
 
 stdenv.mkDerivation rec {
   pname = "re2c";
@@ -23,10 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ovwmltu97fzNQT0oZHefrAo4yV9HV1NwcY4PTSM5Bro=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    python3
-  ];
+  nativeBuildInputs = [ autoreconfHook python3 ];
 
   doCheck = true;
   enableParallelBuilding = true;
@@ -37,9 +25,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     updateScript = nix-update-script { };
-    tests = {
-      inherit ninja php spamassassin;
-    };
+    tests = { inherit ninja php spamassassin; };
   };
 
   meta = with lib; {

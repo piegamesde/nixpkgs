@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyparsing,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyparsing }:
 
 buildPythonPackage rec {
   pname = "asn1ate";

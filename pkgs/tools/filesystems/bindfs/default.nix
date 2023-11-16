@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fuse,
-  fuse3,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, fuse, fuse3, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "1.17.3";
@@ -23,13 +16,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A FUSE filesystem for mounting a directory to another location";
+    description =
+      "A FUSE filesystem for mounting a directory to another location";
     homepage = "https://bindfs.org";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [
-      lovek323
-      lovesegfault
-    ];
+    maintainers = with lib.maintainers; [ lovek323 lovesegfault ];
     platforms = lib.platforms.unix;
   };
 }

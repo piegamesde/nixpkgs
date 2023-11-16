@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bison,
-  flex,
-}:
+{ lib, stdenv, fetchFromGitHub, bison, flex }:
 
 stdenv.mkDerivation rec {
   pname = "iouyap";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "028s9kx67b9x7gwzg0fhc6546diw4n0x4kk1xhl3v7hbsz3wdh6s";
   };
 
-  buildInputs = [
-    bison
-    flex
-  ];
+  buildInputs = [ bison flex ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

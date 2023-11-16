@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  protobuf,
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, protobuf }:
 
 stdenv.mkDerivation rec {
   pname = "goldberg-emu";

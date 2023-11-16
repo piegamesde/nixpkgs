@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,12 +7,13 @@ let
   cfg = config.services.go-autoconfig;
   format = pkgs.formats.yaml { };
   configFile = format.generate "config.yml" cfg.settings;
-in
-{
+
+in {
   options = {
     services.go-autoconfig = {
 
-      enable = mkEnableOption (mdDoc "IMAP/SMTP autodiscover feature for mail clients");
+      enable = mkEnableOption
+        (mdDoc "IMAP/SMTP autodiscover feature for mail clients");
 
       settings = mkOption {
         default = { };
@@ -42,6 +38,7 @@ in
           }
         '';
       };
+
     };
   };
 
@@ -53,14 +50,17 @@ in
         description = "IMAP/SMTP autodiscover server";
         after = [ "network.target" ];
         serviceConfig = {
-          ExecStart = "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
+          ExecStart =
+            "${pkgs.go-autoconfig}/bin/go-autoconfig -config ${configFile}";
           Restart = "on-failure";
           WorkingDirectory = "${pkgs.go-autoconfig}/";
           DynamicUser = true;
         };
       };
     };
+
   };
 
   meta.maintainers = with lib.maintainers; [ onny ];
+
 }

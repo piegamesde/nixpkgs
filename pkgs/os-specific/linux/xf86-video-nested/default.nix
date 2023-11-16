@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  autoreconfHook,
-  xorgproto,
-  libX11,
-  libXext,
-  pixman,
-  pkg-config,
-  utilmacros,
-  xorgserver,
-}:
+{ lib, stdenv, fetchgit, autoreconfHook, xorgproto, libX11, libXext, pixman
+, pkg-config, utilmacros, xorgserver }:
 
 stdenv.mkDerivation {
   pname = "xf86-video-nested";
@@ -22,19 +11,9 @@ stdenv.mkDerivation {
     sha256 = "133rd2kvr2q2wmwpx82bb93qbi8wm8qp1vlmbhgc7aslz0j4cqqv";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs = [
-    xorgproto
-    libX11
-    libXext
-    pixman
-    utilmacros
-    xorgserver
-  ];
+  buildInputs = [ xorgproto libX11 libXext pixman utilmacros xorgserver ];
 
   hardeningDisable = [ "fortify" ];
 

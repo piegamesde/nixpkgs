@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  kernel,
-}:
+{ lib, stdenv, fetchurl, kernel }:
 
 stdenv.mkDerivation rec {
   pname = "vhba";

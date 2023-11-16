@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.kbdlight;
-in
-{
+let cfg = config.programs.kbdlight;
+
+in {
   options.programs.kbdlight.enable = mkEnableOption (lib.mdDoc "kbdlight");
 
   config = mkIf cfg.enable {

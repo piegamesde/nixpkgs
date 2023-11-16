@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "zeyple";
@@ -23,7 +19,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Utility program to automatically encrypt outgoing emails with GPG";
+    description =
+      "Utility program to automatically encrypt outgoing emails with GPG";
     homepage = "https://infertux.com/labs/zeyple/";
     maintainers = with maintainers; [ ettom ];
     license = licenses.agpl3Plus;

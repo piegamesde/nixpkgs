@@ -1,30 +1,23 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "4th";
   version = "3.64.1";
 
   src = fetchurl {
-    url = "https://sourceforge.net/projects/forth-4th/files/${pname}-${version}/${pname}-${version}-unix.tar.gz";
+    url =
+      "https://sourceforge.net/projects/forth-4th/files/${pname}-${version}/${pname}-${version}-unix.tar.gz";
     hash = "sha256-+W6nTNsqrf3Dvr+NbSz3uJdrXVbBI3OHR5v/rs7en+M=";
   };
 
-  patches =
-    [
-      # Fix install manual; report this patch to upstream
-      ./001-install-manual-fixup.diff
-    ];
+  patches = [
+    # Fix install manual; report this patch to upstream
+    ./001-install-manual-fixup.diff
+  ];
 
   dontConfigure = true;
 
-  makeFlags = [
-    "-C sources"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "-C sources" "CC=${stdenv.cc.targetPrefix}cc" ];
 
   preInstall = ''
     install -d ${placeholder "out"}/bin \

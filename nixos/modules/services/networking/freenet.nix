@@ -1,11 +1,6 @@
 # NixOS module for Freenet daemon
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,9 +8,8 @@ let
 
   cfg = config.services.freenet;
   varDir = "/var/lib/freenet";
-in
 
-{
+in {
 
   ### configuration
 
@@ -34,7 +28,9 @@ in
         default = 10;
         description = lib.mdDoc "Set the nice level for the Freenet daemon";
       };
+
     };
+
   };
 
   ### implementation
@@ -62,4 +58,5 @@ in
 
     users.groups.freenet.gid = config.ids.gids.freenet;
   };
+
 }

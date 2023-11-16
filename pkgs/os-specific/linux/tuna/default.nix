@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchgit,
-  pygobject3,
-  pytestCheckHook,
-  gdk-pixbuf,
-  glib,
-  gobject-introspection,
-  gtk3,
-  python-linux-procfs,
-  python-ethtool,
-  wrapGAppsHook,
-}:
+{ lib, buildPythonApplication, fetchgit, pygobject3, pytestCheckHook, gdk-pixbuf
+, glib, gobject-introspection, gtk3, python-linux-procfs, python-ethtool
+, wrapGAppsHook }:
 
 buildPythonApplication rec {
   pname = "tuna";
@@ -35,18 +24,9 @@ buildPythonApplication rec {
       --replace 'tuna_glade_dirs = [".", "tuna", "/usr/share/tuna"]' "tuna_glade_dirs = [ \"$out/share/tuna\" ]"
   '';
 
-  nativeBuildInputs = [
-    glib.dev
-    gobject-introspection
-    gtk3
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ glib.dev gobject-introspection gtk3 wrapGAppsHook ];
 
-  propagatedBuildInputs = [
-    pygobject3
-    python-linux-procfs
-    python-ethtool
-  ];
+  propagatedBuildInputs = [ pygobject3 python-linux-procfs python-ethtool ];
 
   postInstall = ''
     mkdir -p $out/share/tuna

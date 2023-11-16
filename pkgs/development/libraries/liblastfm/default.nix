@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  pkg-config,
-  which,
-  cmake,
-  fftwSinglePrec,
-  libsamplerate,
-  qtbase,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, which, cmake
+, fftwSinglePrec, libsamplerate, qtbase, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "liblastfm-unstable";
@@ -25,26 +14,21 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/lastfm/liblastfm/commit/9c5d072b55f2863310e40291677e6397e9cbc3c2.patch";
-      name = "0001-Remove-deprecated-staging-server-and-fix-test-for-QT5-at-Ubuntu-19.10.patch";
+      url =
+        "https://github.com/lastfm/liblastfm/commit/9c5d072b55f2863310e40291677e6397e9cbc3c2.patch";
+      name =
+        "0001-Remove-deprecated-staging-server-and-fix-test-for-QT5-at-Ubuntu-19.10.patch";
       sha256 = "04r14prydxshjgfws3pjajjmp2msszhjjs1mjh8s66yg29vq620l";
     })
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    which
-    cmake
-  ];
-  buildInputs = [
-    fftwSinglePrec
-    libsamplerate
-    qtbase
-  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.SystemConfiguration;
+  nativeBuildInputs = [ pkg-config which cmake ];
+  buildInputs = [ fftwSinglePrec libsamplerate qtbase ]
+    ++ lib.optional stdenv.isDarwin
+    darwin.apple_sdk.frameworks.SystemConfiguration;
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-      "-std=c++11";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString
+    (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") "-std=c++11";
 
   dontWrapQtApps = true;
 

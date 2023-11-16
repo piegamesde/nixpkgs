@@ -1,37 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  fetchpatch,
-  meson,
-  ninja,
-  pkg-config,
-  gobject-introspection,
-  wrapGAppsNoGuiHook,
-  glib,
-  coreutils,
-  accountsservice,
-  dbus,
-  pam,
-  polkit,
-  glib-testing,
-  python3,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitLab, fetchpatch, meson, ninja, pkg-config
+, gobject-introspection, wrapGAppsNoGuiHook, glib, coreutils, accountsservice
+, dbus, pam, polkit, glib-testing, python3, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "malcontent";
   version = "0.11.0";
 
-  outputs = [
-    "bin"
-    "out"
-    "lib"
-    "pam"
-    "dev"
-    "man"
-    "installedTests"
-  ];
+  outputs = [ "bin" "out" "lib" "pam" "dev" "man" "installedTests" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -49,13 +24,8 @@ stdenv.mkDerivation rec {
     ./better-separation.patch
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    wrapGAppsNoGuiHook
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config gobject-introspection wrapGAppsNoGuiHook ];
 
   buildInputs = [
     accountsservice
@@ -91,19 +61,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = {
-      installedTests = nixosTests.installed-tests.malcontent;
-    };
+    tests = { installedTests = nixosTests.installed-tests.malcontent; };
   };
 
   meta = with lib; {
     # We need to install Polkit & AccountsService data files in `out`
     # but `buildEnv` only uses `bin` when both `bin` and `out` are present.
-    outputsToInstall = [
-      "bin"
-      "out"
-      "man"
-    ];
+    outputsToInstall = [ "bin" "out" "man" ];
 
     description = "Parental controls library";
     homepage = "https://gitlab.freedesktop.org/pwithnall/malcontent";

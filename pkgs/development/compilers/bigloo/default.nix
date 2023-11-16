@@ -1,13 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  autoconf,
-  automake,
-  libtool,
-  gmp,
-  darwin,
-  libunistring,
+{ fetchurl, lib, stdenv, autoconf, automake, libtool, gmp, darwin, libunistring
 }:
 
 stdenv.mkDerivation rec {
@@ -19,11 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oxOSJwKWmwo7PYAwmeoFrKaYdYvmvQquWXyutolc488=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-  ];
+  nativeBuildInputs = [ autoconf automake libtool ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.ApplicationServices
@@ -36,12 +23,11 @@ stdenv.mkDerivation rec {
     # For libuv on darwin
     lib.optionalString stdenv.isDarwin ''
       export LIBTOOLIZE=libtoolize
+    '' +
+    # Help libgc's configure.
     ''
-    +
-      # Help libgc's configure.
-      ''
-        export CXXCPP="$CXX -E"
-      '';
+      export CXXCPP="$CXX -E"
+    '';
 
   patchPhase = ''
     # Fix absolute paths.

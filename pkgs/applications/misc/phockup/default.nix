@@ -1,15 +1,6 @@
-{
-  lib,
-  stdenv,
-  python3,
-  fetchFromGitHub,
-  exiftool,
-  makeWrapper,
-}:
-let
-  pythonEnv = python3.withPackages (p: with p; [ tqdm ]);
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, python3, fetchFromGitHub, exiftool, makeWrapper }:
+let pythonEnv = python3.withPackages (p: with p; [ tqdm ]);
+in stdenv.mkDerivation rec {
   pname = "phockup";
   version = "1.10.1";
 
@@ -36,7 +27,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Media sorting tool to organize photos and videos from your camera in folders by year, month and day";
+    description =
+      "Media sorting tool to organize photos and videos from your camera in folders by year, month and day";
     homepage = "https://github.com/ivandokov/phockup";
     license = licenses.mit;
     maintainers = with maintainers; [ aanderse ];

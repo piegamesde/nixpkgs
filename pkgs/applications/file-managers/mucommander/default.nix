@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gradle_7,
-  perl,
-  makeWrapper,
-  writeText,
-  jdk,
-  gsettings-desktop-schemas,
-}:
+{ lib, stdenv, fetchFromGitHub, gradle_7, perl, makeWrapper, writeText, jdk
+, gsettings-desktop-schemas }:
 
 let
   version = "1.2.0-1";
@@ -32,10 +23,7 @@ let
   deps = stdenv.mkDerivation {
     pname = "mucommander-deps";
     inherit version src postPatch;
-    nativeBuildInputs = [
-      gradle_7
-      perl
-    ];
+    nativeBuildInputs = [ gradle_7 perl ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon tgz
@@ -55,15 +43,11 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-T4UhEzkaYh237+ZsoQTv1RgqcAKY4dPc/3x+dEie4A8=";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "mucommander";
   inherit version src postPatch;
-  nativeBuildInputs = [
-    gradle_7
-    perl
-    makeWrapper
-  ];
+  nativeBuildInputs = [ gradle_7 perl makeWrapper ];
 
   # Point to our local deps repo
   gradleInit = writeText "init.gradle" ''

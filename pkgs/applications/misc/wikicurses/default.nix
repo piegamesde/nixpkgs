@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  pythonPackages,
-}:
+{ lib, fetchFromGitHub, pythonPackages }:
 
 pythonPackages.buildPythonApplication rec {
   version = "1.4";
@@ -15,16 +11,9 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "0f14s4qx3q5pr5vn460c34b5mbz2xs62d8ljs3kic8gmdn8x2knm";
   };
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
-  propagatedBuildInputs = with pythonPackages; [
-    urwid
-    beautifulsoup4
-    lxml
-  ];
+  propagatedBuildInputs = with pythonPackages; [ urwid beautifulsoup4 lxml ];
 
   postInstall = ''
     mkdir -p $man/share/man/man{1,5}
@@ -35,10 +24,13 @@ pythonPackages.buildPythonApplication rec {
   doCheck = false;
 
   meta = {
-    description = "A simple curses interface for MediaWiki sites such as Wikipedia";
+    description =
+      "A simple curses interface for MediaWiki sites such as Wikipedia";
     homepage = "https://github.com/ids1024/wikicurses/";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ pSub ];
   };
+
 }
+

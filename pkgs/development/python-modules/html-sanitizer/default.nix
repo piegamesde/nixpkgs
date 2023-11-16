@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  beautifulsoup4,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, lxml, beautifulsoup4
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "html-sanitizer";
@@ -18,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-1JSdi1PFM+N+UuEPfgWkOZw8S2PZ4ntadU0wnVJNnjw=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-    beautifulsoup4
-  ];
+  propagatedBuildInputs = [ lxml beautifulsoup4 ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

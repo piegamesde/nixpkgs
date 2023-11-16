@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "yams";
@@ -15,12 +11,7 @@ python3Packages.buildPythonPackage rec {
     sha256 = "1zkhcys9i0s6jkaz24an690rvnkv1r84jxpaa84sf46abi59ijh8";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    pyyaml
-    psutil
-    mpd2
-    requests
-  ];
+  propagatedBuildInputs = with python3Packages; [ pyyaml psutil mpd2 requests ];
 
   doCheck = false;
 

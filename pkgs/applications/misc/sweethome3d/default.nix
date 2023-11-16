@@ -1,57 +1,28 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  makeDesktopItem,
-  # sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
-  jdk8,
-  jre8,
-  ant,
-  gtk3,
-  gsettings-desktop-schemas,
-  p7zip,
-  autoPatchelfHook,
-  libXxf86vm,
-  unzip,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem
+# sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
+, jdk8, jre8, ant, gtk3, gsettings-desktop-schemas, p7zip, autoPatchelfHook
+, libXxf86vm, unzip }:
 
 let
 
   # TODO: Should we move this to `lib`? Seems like its would be useful in many cases.
-  extensionOf =
-    filePath: lib.concatStringsSep "." (lib.tail (lib.splitString "." (builtins.baseNameOf filePath)));
+  extensionOf = filePath:
+    lib.concatStringsSep "."
+    (lib.tail (lib.splitString "." (builtins.baseNameOf filePath)));
 
-  installIcons =
-    iconName: icons:
-    lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (size: iconFile: ''
-          mkdir -p "$out/share/icons/hicolor/${size}/apps"
-          ln -s -T "${iconFile}" "$out/share/icons/hicolor/${size}/apps/${iconName}.${extensionOf iconFile}"
-        '')
-        icons
-    );
+  installIcons = iconName: icons:
+    lib.concatStringsSep "\n" (lib.mapAttrsToList (size: iconFile: ''
+      mkdir -p "$out/share/icons/hicolor/${size}/apps"
+      ln -s -T "${iconFile}" "$out/share/icons/hicolor/${size}/apps/${iconName}.${
+        extensionOf iconFile
+      }"
+    '') icons);
 
   mkSweetHome3D =
-    {
-      pname,
-      module,
-      version,
-      src,
-      license,
-      description,
-      desktopName,
-      icons,
-    }:
+    { pname, module, version, src, license, description, desktopName, icons }:
 
     stdenv.mkDerivation rec {
-      inherit
-        pname
-        version
-        src
-        description
-      ;
+      inherit pname version src description;
       exec = lib.toLower module;
       sweethome3dItem = makeDesktopItem {
         inherit exec desktopName;
@@ -59,11 +30,7 @@ let
         icon = pname;
         comment = description;
         genericName = "Computer Aided (Interior) Design";
-        categories = [
-          "Graphics"
-          "2DGraphics"
-          "3DGraphics"
-        ];
+        categories = [ "Graphics" "2DGraphics" "3DGraphics" ];
       };
 
       postPatch = ''
@@ -76,19 +43,9 @@ let
         find . -name '*.so' | xargs strings | { grep '/nix/store' || :; } >> ./.jar-paths
       '';
 
-      nativeBuildInputs = [
-        makeWrapper
-        unzip
-        autoPatchelfHook
-      ];
-      buildInputs = [
-        ant
-        jdk8
-        p7zip
-        gtk3
-        gsettings-desktop-schemas
-        libXxf86vm
-      ];
+      nativeBuildInputs = [ makeWrapper unzip autoPatchelfHook ];
+      buildInputs =
+        [ ant jdk8 p7zip gtk3 gsettings-desktop-schemas libXxf86vm ];
 
       buildPhase = ''
         runHook preBuild
@@ -144,8 +101,8 @@ let
     };
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
-in
-{
+
+in {
 
   application = mkSweetHome3D rec {
     pname = lib.toLower module + "-application";
@@ -160,13 +117,16 @@ in
     desktopName = "Sweet Home 3D";
     icons = {
       "32x32" = fetchurl {
-        url = "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon32x32.png";
+        url =
+          "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon32x32.png";
         sha256 = "1r2fhfg27mx00nfv0qj66rhf719s2g1vhdis7bdc9mqk9x0mb0ir";
       };
       "48x48" = fetchurl {
-        url = "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon48x48.png";
+        url =
+          "http://sweethome3d.cvs.sourceforge.net/viewvc/sweethome3d/SweetHome3D/deploy/SweetHome3DIcon48x48.png";
         sha256 = "1ap6d75dyqqvx21wddvn8vw2apq3v803vmbxdriwd0dw9rq3zn4g";
       };
     };
   };
+
 }

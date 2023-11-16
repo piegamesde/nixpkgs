@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  xsel,
-}:
+{ lib, stdenv, fetchFromGitHub, xsel }:
 
 stdenv.mkDerivation rec {
   pname = "yank";
@@ -34,4 +29,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.dochang ];
     platforms = platforms.unix;
   };
+
 }

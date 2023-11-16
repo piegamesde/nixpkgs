@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  cmake,
-  pkg-config,
-  protobuf,
-  python3Packages,
-  ffmpeg,
-  libopus,
-  mkDerivation,
-  qtbase,
-  qtmultimedia,
-  qtsvg,
-  SDL2,
-  libevdev,
-  udev,
-  qtmacextras,
-}:
+{ lib, stdenv, fetchgit, cmake, pkg-config, protobuf, python3Packages, ffmpeg
+, libopus, mkDerivation, qtbase, qtmultimedia, qtsvg, SDL2, libevdev, udev
+, qtmacextras }:
 
 mkDerivation rec {
   pname = "chiaki";
@@ -37,20 +21,8 @@ mkDerivation rec {
     python3Packages.python
   ];
 
-  buildInputs =
-    [
-      ffmpeg
-      libopus
-      qtbase
-      qtmultimedia
-      qtsvg
-      protobuf
-      SDL2
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      libevdev
-      udev
-    ]
+  buildInputs = [ ffmpeg libopus qtbase qtmultimedia qtsvg protobuf SDL2 ]
+    ++ lib.optionals stdenv.isLinux [ libevdev udev ]
     ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   doCheck = true;

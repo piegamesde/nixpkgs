@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ibm-plex";
   version = "6.2.0";
 
   src = fetchzip {
-    url = "https://github.com/IBM/plex/releases/download/v${version}/OpenType.zip";
+    url =
+      "https://github.com/IBM/plex/releases/download/v${version}/OpenType.zip";
     hash = "sha256-RvD/aeZrvltJiuAHqYMNaRsjLgTdcC1/5zqlcd4qKAA=";
   };
 

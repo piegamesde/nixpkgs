@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rates";
@@ -22,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
-    description = "CLI tool that brings currency exchange rates right into your terminal";
+    description =
+      "CLI tool that brings currency exchange rates right into your terminal";
     homepage = "https://github.com/lunush/rates";
     license = with licenses; [
       asl20 # or

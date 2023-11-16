@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.lidarr;
-in
-{
+let cfg = config.services.lidarr;
+in {
   options = {
     services.lidarr = {
       enable = mkEnableOption (lib.mdDoc "Lidarr");
@@ -18,7 +11,8 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/lidarr/.config/Lidarr";
-        description = lib.mdDoc "The directory where Lidarr stores its data files.";
+        description =
+          lib.mdDoc "The directory where Lidarr stores its data files.";
       };
 
       package = mkOption {
@@ -55,7 +49,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.lidarr = {
       description = "Lidarr";
@@ -66,7 +61,8 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/Lidarr -nobrowser -data='${cfg.dataDir}'";
+        ExecStart =
+          "${cfg.package}/bin/Lidarr -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };
@@ -82,9 +78,7 @@ in
     };
 
     users.groups = mkIf (cfg.group == "lidarr") {
-      lidarr = {
-        gid = config.ids.gids.lidarr;
-      };
+      lidarr = { gid = config.ids.gids.lidarr; };
     };
   };
 }

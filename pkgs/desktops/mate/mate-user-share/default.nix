@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  itstool,
-  gtk3,
-  dbus-glib,
-  libnotify,
-  libxml2,
-  libcanberra-gtk3,
-  mod_dnssd,
-  apacheHttpd,
-  hicolor-icon-theme,
-  mate,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, itstool, gtk3, dbus-glib
+, libnotify, libxml2, libcanberra-gtk3, mod_dnssd, apacheHttpd
+, hicolor-icon-theme, mate, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-user-share";
@@ -29,13 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1wh0b4qw5wzpl7sg44lpwjb9r6xllch3xfz8c2cchl8rcgbh2kph";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    itstool
-    libxml2
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config gettext itstool libxml2 wrapGAppsHook ];
 
   buildInputs = [
     gtk3

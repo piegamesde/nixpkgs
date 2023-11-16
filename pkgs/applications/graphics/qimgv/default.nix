@@ -1,18 +1,8 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
+{ mkDerivation, lib, fetchFromGitHub
 
-  cmake,
-  pkg-config,
+, cmake, pkg-config
 
-  exiv2,
-  mpv,
-  opencv4,
-  qtbase,
-  qtimageformats,
-  qtsvg,
-}:
+, exiv2, mpv, opencv4, qtbase, qtimageformats, qtsvg }:
 
 mkDerivation rec {
   pname = "qimgv";
@@ -25,19 +15,9 @@ mkDerivation rec {
     sha256 = "sha256-fHMSo8zlOl9Lt8nYwClUzON4TPB9Ogwven+TidsesxY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    exiv2
-    mpv
-    opencv4
-    qtbase
-    qtimageformats
-    qtsvg
-  ];
+  buildInputs = [ exiv2 mpv opencv4 qtbase qtimageformats qtsvg ];
 
   postPatch = ''
     sed -i "s@/usr/bin/mpv@${mpv}/bin/mpv@" \

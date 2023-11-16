@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  certifi,
-  chardet,
-  datadog,
-  decorator,
-  fetchPypi,
-  idna,
-  requests,
-  urllib3,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, certifi, chardet, datadog, decorator, fetchPypi, idna
+, requests, urllib3, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gradient-statsd";
@@ -25,15 +14,8 @@ buildPythonPackage rec {
     hash = "sha256-iWlNX43ZtvU73wz4+8DgDulQNOnssJGxTBkvAaLj530=";
   };
 
-  propagatedBuildInputs = [
-    certifi
-    chardet
-    datadog
-    decorator
-    idna
-    requests
-    urllib3
-  ];
+  propagatedBuildInputs =
+    [ certifi chardet datadog decorator idna requests urllib3 ];
 
   pythonImportsCheck = [ "gradient_statsd" ];
 

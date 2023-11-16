@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  util-linux,
-}:
+{ lib, stdenv, fetchFromGitHub, util-linux }:
 
 stdenv.mkDerivation {
   pname = "bin2c";

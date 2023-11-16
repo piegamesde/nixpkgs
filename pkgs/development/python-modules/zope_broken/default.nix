@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_interface,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_interface }:
 
 buildPythonPackage rec {
   pname = "zope.broken";
@@ -23,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
+
 }

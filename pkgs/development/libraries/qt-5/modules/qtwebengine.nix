@@ -1,121 +1,28 @@
-{
-  qtModule,
-  qtdeclarative,
-  qtquickcontrols,
-  qtlocation,
-  qtwebchannel,
+{ qtModule, qtdeclarative, qtquickcontrols, qtlocation, qtwebchannel
 
-  bison,
-  flex,
-  git,
-  gperf,
-  ninja,
-  pkg-config,
-  python,
-  which,
-  nodejs,
-  qtbase,
-  perl,
+, bison, flex, git, gperf, ninja, pkg-config, python, which, nodejs, qtbase
+, perl
 
-  xorg,
-  libXcursor,
-  libXScrnSaver,
-  libXrandr,
-  libXtst,
-  fontconfig,
-  freetype,
-  harfbuzz,
-  icu,
-  dbus,
-  libdrm,
-  zlib,
-  minizip,
-  libjpeg,
-  libpng,
-  libtiff,
-  libwebp,
-  libopus,
-  jsoncpp,
-  protobuf,
-  libvpx,
-  srtp,
-  snappy,
-  nss,
-  libevent,
-  alsa-lib,
-  libcap,
-  pciutils,
-  systemd,
-  enableProprietaryCodecs ? true,
-  gn,
-  cctools,
-  libobjc,
-  libpm,
-  libunwind,
-  sandbox,
-  xnu,
-  ApplicationServices,
-  AVFoundation,
-  Foundation,
-  ForceFeedback,
-  GameController,
-  AppKit,
-  ImageCaptureCore,
-  CoreBluetooth,
-  IOBluetooth,
-  CoreWLAN,
-  Quartz,
-  Cocoa,
-  LocalAuthentication,
-  MediaPlayer,
-  MediaAccessibility,
-  SecurityInterface,
-  Vision,
-  CoreML,
-  OpenDirectory,
-  Accelerate,
-  cups,
-  openbsm,
-  runCommand,
-  xcbuild,
-  writeScriptBin,
-  ffmpeg_4 ? null,
-  lib,
-  stdenv,
-  fetchpatch,
-  version ? null,
-  qtCompatVersion,
-  pipewireSupport ? stdenv.isLinux,
-  pipewire_0_2,
-  postPatch ? "",
-}:
+, xorg, libXcursor, libXScrnSaver, libXrandr, libXtst, fontconfig, freetype
+, harfbuzz, icu, dbus, libdrm, zlib, minizip, libjpeg, libpng, libtiff, libwebp
+, libopus, jsoncpp, protobuf, libvpx, srtp, snappy, nss, libevent, alsa-lib
+, libcap, pciutils, systemd, enableProprietaryCodecs ? true, gn, cctools
+, libobjc, libpm, libunwind, sandbox, xnu, ApplicationServices, AVFoundation
+, Foundation, ForceFeedback, GameController, AppKit, ImageCaptureCore
+, CoreBluetooth, IOBluetooth, CoreWLAN, Quartz, Cocoa, LocalAuthentication
+, MediaPlayer, MediaAccessibility, SecurityInterface, Vision, CoreML
+, OpenDirectory, Accelerate, cups, openbsm, runCommand, xcbuild, writeScriptBin
+, ffmpeg_4 ? null, lib, stdenv, fetchpatch, version ? null, qtCompatVersion
+, pipewireSupport ? stdenv.isLinux, pipewire_0_2, postPatch ? "" }:
 
 qtModule {
   pname = "qtwebengine";
-  qtInputs = [
-    qtdeclarative
-    qtquickcontrols
-    qtlocation
-    qtwebchannel
-  ];
-  nativeBuildInputs = [
-    bison
-    flex
-    git
-    gperf
-    ninja
-    pkg-config
-    python
-    which
-    gn
-    nodejs
-  ] ++ lib.optional stdenv.isDarwin xcbuild;
+  qtInputs = [ qtdeclarative qtquickcontrols qtlocation qtwebchannel ];
+  nativeBuildInputs =
+    [ bison flex git gperf ninja pkg-config python which gn nodejs ]
+    ++ lib.optional stdenv.isDarwin xcbuild;
   doCheck = true;
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "out" ];
 
   enableParallelBuilding = true;
 
@@ -126,20 +33,19 @@ qtModule {
   # which cannot be set at the same time as -Wformat-security
   hardeningDisable = [ "format" ];
 
-  postPatch =
-    ''
-      # Patch Chromium build tools
-      (
-        cd src/3rdparty/chromium;
+  postPatch = ''
+    # Patch Chromium build tools
+    (
+      cd src/3rdparty/chromium;
 
-        # Manually fix unsupported shebangs
-        substituteInPlace third_party/harfbuzz-ng/src/src/update-unicode-tables.make \
-          --replace "/usr/bin/env -S make -f" "/usr/bin/make -f" || true
+      # Manually fix unsupported shebangs
+      substituteInPlace third_party/harfbuzz-ng/src/src/update-unicode-tables.make \
+        --replace "/usr/bin/env -S make -f" "/usr/bin/make -f" || true
 
-        # TODO: be more precise
-        patchShebangs .
-      )
-    ''
+      # TODO: be more precise
+      patchShebangs .
+    )
+  ''
     # Prevent Chromium build script from making the path to `clang` relative to
     # the build directory.  `clang_base_path` is the value of `QMAKE_CLANG_DIR`
     # from `src/core/config/mac_osx.pri`.
@@ -157,13 +63,14 @@ qtModule {
     ''
     # Patch library paths in Chromium sources
     + lib.optionalString (!stdenv.isDarwin) ''
-      sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${lib.getLib systemd}/lib/\1!' \
+      sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
+        lib.getLib systemd
+      }/lib/\1!' \
         src/3rdparty/chromium/device/udev_linux/udev?_loader.cc
 
       sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
         src/3rdparty/chromium/gpu/config/gpu_info_collector_linux.cc
-    ''
-    + lib.optionalString stdenv.isDarwin (''
+    '' + lib.optionalString stdenv.isDarwin (''
       substituteInPlace src/buildtools/config/mac_osx.pri \
         --replace 'QMAKE_CLANG_DIR = "/usr"' 'QMAKE_CLANG_DIR = "${stdenv.cc}"'
 
@@ -182,24 +89,16 @@ qtModule {
       # ld: fatal warning(s) induced error (-fatal_warnings)
       substituteInPlace src/3rdparty/chromium/build/config/compiler/BUILD.gn \
         --replace "-Wl,-fatal_warnings" ""
-    '')
-    + postPatch;
+    '') + postPatch;
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU
-      [
-        # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
-        "-Wno-class-memaccess"
-      ]
-    ++
-      lib.optionals (stdenv.hostPlatform.gcc.arch or "" == "sandybridge")
-        [
-          # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
-          # TODO: investigate and fix properly
-          "-march=westmere"
-        ]
-    ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
+    # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
+    "-Wno-class-memaccess"
+  ] ++ lib.optionals (stdenv.hostPlatform.gcc.arch or "" == "sandybridge") [
+    # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
+    # TODO: investigate and fix properly
+    "-march=westmere"
+  ] ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]);
 
   preConfigure = ''
     export NINJAFLAGS=-j$NIX_BUILD_CORES
@@ -209,76 +108,68 @@ qtModule {
     fi
   '';
 
-  qmakeFlags =
-    [
-      "--"
-      "-system-ffmpeg"
-    ]
+  qmakeFlags = [ "--" "-system-ffmpeg" ]
     ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
     ++ lib.optional enableProprietaryCodecs "-proprietary-codecs";
 
-  propagatedBuildInputs =
-    [
-      # Image formats
-      libjpeg
-      libpng
-      libtiff
-      libwebp
+  propagatedBuildInputs = [
+    # Image formats
+    libjpeg
+    libpng
+    libtiff
+    libwebp
 
-      # Video formats
-      srtp
-      libvpx
+    # Video formats
+    srtp
+    libvpx
 
-      # Audio formats
-      libopus
+    # Audio formats
+    libopus
 
-      # Text rendering
-      harfbuzz
-      icu
+    # Text rendering
+    harfbuzz
+    icu
 
-      libevent
-      ffmpeg_4
-    ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      dbus
-      zlib
-      minizip
-      snappy
-      nss
-      protobuf
-      jsoncpp
+    libevent
+    ffmpeg_4
+  ] ++ lib.optionals (!stdenv.isDarwin) [
+    dbus
+    zlib
+    minizip
+    snappy
+    nss
+    protobuf
+    jsoncpp
 
-      # Audio formats
-      alsa-lib
+    # Audio formats
+    alsa-lib
 
-      # Text rendering
-      fontconfig
-      freetype
+    # Text rendering
+    fontconfig
+    freetype
 
-      libcap
-      pciutils
+    libcap
+    pciutils
 
-      # X11 libs
-      xorg.xrandr
-      libXScrnSaver
-      libXcursor
-      libXrandr
-      xorg.libpciaccess
-      libXtst
-      xorg.libXcomposite
-      xorg.libXdamage
-      libdrm
-      xorg.libxkbfile
-    ]
-    ++
-      lib.optionals pipewireSupport
-        [
-          # Pipewire
-          pipewire_0_2
-        ]
+    # X11 libs
+    xorg.xrandr
+    libXScrnSaver
+    libXcursor
+    libXrandr
+    xorg.libpciaccess
+    libXtst
+    xorg.libXcomposite
+    xorg.libXdamage
+    libdrm
+    xorg.libxkbfile
 
-    # FIXME These dependencies shouldn't be needed but can't find a way
-    # around it. Chromium pulls this in while bootstrapping GN.
+  ] ++ lib.optionals pipewireSupport [
+    # Pipewire
+    pipewire_0_2
+  ]
+
+  # FIXME These dependencies shouldn't be needed but can't find a way
+  # around it. Chromium pulls this in while bootstrapping GN.
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       cctools
@@ -333,20 +224,18 @@ qtModule {
   dontUseNinjaBuild = true;
   dontUseNinjaInstall = true;
 
-  postInstall =
-    lib.optionalString stdenv.isLinux ''
-      cat > $out/libexec/qt.conf <<EOF
-      [Paths]
-      Prefix = ..
-      EOF
+  postInstall = lib.optionalString stdenv.isLinux ''
+    cat > $out/libexec/qt.conf <<EOF
+    [Paths]
+    Prefix = ..
+    EOF
 
-    ''
-    + ''
-      # Fix for out-of-sync QtWebEngine and Qt releases (since 5.15.3)
-      sed 's/${
-        lib.head (lib.splitString "-" version)
-      } /${qtCompatVersion} /' -i "$out"/lib/cmake/*/*Config.cmake
-    '';
+  '' + ''
+    # Fix for out-of-sync QtWebEngine and Qt releases (since 5.15.3)
+    sed 's/${
+      lib.head (lib.splitString "-" version)
+    } /${qtCompatVersion} /' -i "$out"/lib/cmake/*/*Config.cmake
+  '';
 
   requiredSystemFeatures = [ "big-parallel" ];
 
@@ -358,11 +247,10 @@ qtModule {
     # x86-64, ARM, Aarch64, and MIPSel architectures."
     platforms = lib.trivial.pipe lib.systems.doubles.all [
       (map (double: lib.systems.elaborate { system = double; }))
-      (lib.lists.filter (
-        parsedPlatform:
+      (lib.lists.filter (parsedPlatform:
         with parsedPlatform;
-        isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64 || (isMips && isLittleEndian))
-      ))
+        isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64
+          || (isMips && isLittleEndian))))
       (map (plat: plat.system))
     ];
     broken = stdenv.isDarwin && stdenv.isx86_64;

@@ -1,8 +1,4 @@
-{
-  lib,
-  mkDiscoursePlugin,
-  fetchFromGitHub,
-}:
+{ lib, mkDiscoursePlugin, fetchFromGitHub }:
 
 mkDiscoursePlugin {
   name = "discourse-assign";

@@ -1,22 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
-  # build
-  cython,
-  pkg-config,
-  setuptools,
+# build
+, cython, pkg-config, setuptools
 
-  # runtime
-  ffmpeg,
+# runtime
+, ffmpeg
 
-  # tests
-  numpy,
-  pillow,
-  pytestCheckHook,
-}:
+# tests
+, numpy, pillow, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "av";
@@ -32,11 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-XcHP8RwC2iwD64Jc7SS+t9OxjFTsz3FbrnjMgJnN7Ak=";
   };
 
-  nativeBuildInputs = [
-    cython
-    pkg-config
-    setuptools
-  ];
+  nativeBuildInputs = [ cython pkg-config setuptools ];
 
   buildInputs = [ ffmpeg ];
 
@@ -45,11 +32,7 @@ buildPythonPackage rec {
     rm -r av
   '';
 
-  nativeCheckInputs = [
-    numpy
-    pillow
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pillow pytestCheckHook ];
 
   pytestFlagsArray = [
     # Tests that want to download FATE data
@@ -102,11 +85,10 @@ buildPythonPackage rec {
     "--deselect=tests/test_videoframe.py::TestVideoFrameImage::test_roundtrip"
   ];
 
-  disabledTests =
-    [
-      # urlopen fails during DNS resolution
-      "test_writing_to_custom_io"
-    ];
+  disabledTests = [
+    # urlopen fails during DNS resolution
+    "test_writing_to_custom_io"
+  ];
 
   disabledTestPaths = [
     # urlopen fails during DNS resolution

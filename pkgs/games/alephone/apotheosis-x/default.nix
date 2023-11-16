@@ -14,7 +14,8 @@ alephone.makeWrapper rec {
   sourceRoot = "Apotheosis X 1.1";
 
   meta = {
-    description = "Total conversion for Marathon Infinity running on the Aleph One engine";
+    description =
+      "Total conversion for Marathon Infinity running on the Aleph One engine";
     homepage = "https://simplici7y.com/items/apotheosis-x-5";
   };
 }

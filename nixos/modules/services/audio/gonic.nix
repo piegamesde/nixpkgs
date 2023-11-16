@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,8 +8,7 @@ let
     mkKeyValue = lib.generators.mkKeyValueDefault { } " ";
     listsAsDuplicateKeys = true;
   };
-in
-{
+in {
   options = {
     services.gonic = {
 
@@ -37,6 +31,7 @@ in
           Configuration for Gonic, see <https://github.com/sentriz/gonic#configuration-options> for supported values.
         '';
       };
+
     };
   };
 
@@ -46,14 +41,14 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart =
-          let
-            # these values are null by default but should not appear in the final config
-            filteredSettings =
-              filterAttrs (n: v: !((n == "tls-cert" || n == "tls-key") && v == null))
-                cfg.settings;
-          in
-          "${pkgs.gonic}/bin/gonic -config-path ${settingsFormat.generate "gonic" filteredSettings}";
+        ExecStart = let
+          # these values are null by default but should not appear in the final config
+          filteredSettings = filterAttrs
+            (n: v: !((n == "tls-cert" || n == "tls-key") && v == null))
+            cfg.settings;
+        in "${pkgs.gonic}/bin/gonic -config-path ${
+          settingsFormat.generate "gonic" filteredSettings
+        }";
         DynamicUser = true;
         StateDirectory = "gonic";
         CacheDirectory = "gonic";
@@ -61,22 +56,16 @@ in
         RuntimeDirectory = "gonic";
         RootDirectory = "/run/gonic";
         ReadWritePaths = "";
-        BindReadOnlyPaths =
-          [
-            # gonic can access scrobbling services
-            "-/etc/ssl/certs/ca-certificates.crt"
-            builtins.storeDir
-            cfg.settings.podcast-path
-          ]
-          ++ cfg.settings.music-path
+        BindReadOnlyPaths = [
+          # gonic can access scrobbling services
+          "-/etc/ssl/certs/ca-certificates.crt"
+          builtins.storeDir
+          cfg.settings.podcast-path
+        ] ++ cfg.settings.music-path
           ++ lib.optional (cfg.settings.tls-cert != null) cfg.settings.tls-cert
           ++ lib.optional (cfg.settings.tls-key != null) cfg.settings.tls-key;
         CapabilityBoundingSet = "";
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         PrivateDevices = true;
         PrivateUsers = true;
@@ -87,10 +76,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
         RestrictRealtime = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

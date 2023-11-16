@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  packaging,
-  protobuf,
-  onnx,
-  unittestCheckHook,
-  onnxruntime,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, packaging, protobuf, onnx
+, unittestCheckHook, onnxruntime }:
 
 buildPythonPackage rec {
   pname = "onnxconverter-common";
@@ -23,22 +14,11 @@ buildPythonPackage rec {
     hash = "sha256-VT9ly0d0Yhw1J6C521oUyaCx4WtFSdpyk8EdIKlre3c=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    protobuf
-    onnx
-  ];
+  propagatedBuildInputs = [ numpy packaging protobuf onnx ];
 
-  nativeCheckInputs = [
-    onnxruntime
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ onnxruntime unittestCheckHook ];
 
-  unittestFlagsArray = [
-    "-s"
-    "tests"
-  ];
+  unittestFlagsArray = [ "-s" "tests" ];
 
   # Failing tests
   # https://github.com/microsoft/onnxconverter-common/issues/242
@@ -47,7 +27,8 @@ buildPythonPackage rec {
   meta = {
     description = "ONNX Converter and Optimization Tools";
     homepage = "https://github.com/microsoft/onnxconverter-common";
-    changelog = "https://github.com/microsoft/onnxconverter-common/releases/tag/v${version}";
+    changelog =
+      "https://github.com/microsoft/onnxconverter-common/releases/tag/v${version}";
     maintainers = with lib.maintainers; [ fridh ];
     license = with lib.licenses; [ mit ];
   };

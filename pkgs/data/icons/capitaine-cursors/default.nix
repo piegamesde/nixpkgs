@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  fetchpatch,
-  makeFontsConf,
-  inkscape,
-  xcursorgen,
-  bc,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, fetchpatch, makeFontsConf, inkscape
+, xcursorgen, bc }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "capitaine-cursors";
@@ -20,15 +12,15 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0652ydy73x29z7wc6ccyqihmfg4bk0ksl7yryycln6c7i0iqfmc9";
   };
 
-  patches =
-    [
-      # Fixes the build on inscape => 1.0, without this it generates empty cursor files
-      (fetchpatch {
-        name = "inkscape-1.0-compat";
-        url = "https://github.com/keeferrourke/capitaine-cursors/commit/9da0b53e6098ed023c5c24c6ef6bfb1f68a79924.patch";
-        sha256 = "0lx5i60ahy6a2pir4zzlqn5lqsv6claqg8mv17l1a028h9aha3cv";
-      })
-    ];
+  patches = [
+    # Fixes the build on inscape => 1.0, without this it generates empty cursor files
+    (fetchpatch {
+      name = "inkscape-1.0-compat";
+      url =
+        "https://github.com/keeferrourke/capitaine-cursors/commit/9da0b53e6098ed023c5c24c6ef6bfb1f68a79924.patch";
+      sha256 = "0lx5i60ahy6a2pir4zzlqn5lqsv6claqg8mv17l1a028h9aha3cv";
+    })
+  ];
 
   postPatch = ''
     patchShebangs .
@@ -37,11 +29,7 @@ stdenvNoCC.mkDerivation rec {
   # Complains about not being able to find the fontconfig config file otherwise
   FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
 
-  buildInputs = [
-    inkscape
-    xcursorgen
-    bc
-  ];
+  buildInputs = [ inkscape xcursorgen bc ];
 
   buildPhase = ''
     for variant in dark light ; do

@@ -1,13 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchFromGitHub,
-  jre,
-  makeWrapper,
-  bash,
-  gnused,
-}:
+{ stdenv, lib, fetchurl, fetchFromGitHub, jre, makeWrapper, bash, gnused }:
 
 stdenv.mkDerivation rec {
   pname = "confluent-platform";
@@ -21,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    jre
-    bash
-  ];
+  buildInputs = [ jre bash ];
 
   installPhase = ''
     mkdir -p $out

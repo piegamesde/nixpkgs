@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  ocamlPackages,
-  autoreconfHook,
-  libxml2,
-  pkg-config,
-  getopt,
-}:
+{ lib, stdenv, fetchgit, ocamlPackages, autoreconfHook, libxml2, pkg-config
+, getopt }:
 
 stdenv.mkDerivation rec {
   pname = "virt-top";
@@ -28,15 +20,8 @@ stdenv.mkDerivation rec {
     ocamlPackages.ocaml
     ocamlPackages.findlib
   ];
-  buildInputs =
-    with ocamlPackages;
-    [
-      ocamlPackages.ocaml
-      calendar
-      curses
-      gettext-stub
-      ocaml_libvirt
-    ]
+  buildInputs = with ocamlPackages;
+    [ ocamlPackages.ocaml calendar curses gettext-stub ocaml_libvirt ]
     ++ [ libxml2 ];
 
   prePatch = ''

@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  bitlbee,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  json-glib,
-}:
+{ lib, fetchFromGitHub, stdenv, bitlbee, autoconf, automake, libtool, pkg-config
+, json-glib }:
 
 stdenv.mkDerivation rec {
   pname = "bitlbee-facebook";
@@ -21,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "1qiiiq17ybylbhwgbwsvmshb517589r8yy5rsh1rfaylmlcxyy7z";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
 
-  buildInputs = [
-    bitlbee
-    json-glib
-  ];
+  buildInputs = [ bitlbee json-glib ];
 
   preConfigure = ''
     export BITLBEE_PLUGINDIR=$out/lib/bitlbee

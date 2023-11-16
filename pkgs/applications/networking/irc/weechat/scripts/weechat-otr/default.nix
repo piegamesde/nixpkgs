@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  substituteAll,
-  buildEnv,
-  fetchgit,
-  fetchFromGitHub,
-  python3Packages,
-  gmp,
-}:
+{ lib, stdenv, substituteAll, buildEnv, fetchgit, fetchFromGitHub
+, python3Packages, gmp }:
 
 let
   # pure-python-otr (potr) requires an older version of pycrypto, which is
@@ -42,11 +34,9 @@ let
     '';
   };
 
-  potr = python3Packages.potr.overridePythonAttrs (
-    oldAttrs: { propagatedBuildInputs = [ pycrypto ]; }
-  );
-in
-stdenv.mkDerivation rec {
+  potr = python3Packages.potr.overridePythonAttrs
+    (oldAttrs: { propagatedBuildInputs = [ pycrypto ]; });
+in stdenv.mkDerivation rec {
   pname = "weechat-otr";
   version = "1.9.2";
 
@@ -63,10 +53,7 @@ stdenv.mkDerivation rec {
       env = "${
           buildEnv {
             name = "weechat-otr-env";
-            paths = [
-              potr
-              pycrypto
-            ];
+            paths = [ potr pycrypto ];
           }
         }/${python3Packages.python.sitePackages}";
     })

@@ -1,27 +1,16 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  buildbot,
+{ lib, buildPythonPackage, fetchPypi, buildbot
 
-  # patch
-  coreutils,
+# patch
+, coreutils
 
-  # propagates
-  autobahn,
-  future,
-  msgpack,
-  twisted,
+# propagates
+, autobahn, future, msgpack, twisted
 
-  # tests
-  mock,
-  parameterized,
-  psutil,
-  setuptoolsTrial,
+# tests
+, mock, parameterized, psutil, setuptoolsTrial
 
-  # passthru
-  nixosTests,
-}:
+# passthru
+, nixosTests }:
 
 buildPythonPackage (rec {
   pname = "buildbot-worker";
@@ -39,30 +28,16 @@ buildPythonPackage (rec {
 
   nativeBuildInputs = [ setuptoolsTrial ];
 
-  propagatedBuildInputs = [
-    autobahn
-    future
-    msgpack
-    twisted
-  ];
+  propagatedBuildInputs = [ autobahn future msgpack twisted ];
 
-  nativeCheckInputs = [
-    mock
-    parameterized
-    psutil
-  ];
+  nativeCheckInputs = [ mock parameterized psutil ];
 
-  passthru.tests = {
-    smoke-test = nixosTests.buildbot;
-  };
+  passthru.tests = { smoke-test = nixosTests.buildbot; };
 
   meta = with lib; {
     homepage = "https://buildbot.net/";
     description = "Buildbot Worker Daemon";
-    maintainers = with maintainers; [
-      ryansydnor
-      lopsided98
-    ];
+    maintainers = with maintainers; [ ryansydnor lopsided98 ];
     license = licenses.gpl2;
   };
 })

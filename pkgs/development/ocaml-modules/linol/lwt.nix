@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  linol,
-  jsonrpc,
-  lwt,
-  yojson,
-}:
+{ lib, buildDunePackage, linol, jsonrpc, lwt, yojson }:
 
 buildDunePackage {
   pname = "linol-lwt";
@@ -13,12 +6,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    linol
-    jsonrpc
-    lwt
-    yojson
-  ];
+  propagatedBuildInputs = [ linol jsonrpc lwt yojson ];
 
   meta = linol.meta // {
     description = "LSP server library (with Lwt for concurrency)";

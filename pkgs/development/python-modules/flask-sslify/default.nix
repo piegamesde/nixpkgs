@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  flask,
-}:
+{ lib, fetchPypi, buildPythonPackage, flask }:
 
 buildPythonPackage rec {
   pname = "Flask-SSLify";
@@ -20,7 +15,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flask_sslify" ];
 
   meta = with lib; {
-    description = "A Flask extension that redirects all incoming requests to HTTPS";
+    description =
+      "A Flask extension that redirects all incoming requests to HTTPS";
     homepage = "https://github.com/kennethreitz42/flask-sslify";
     license = licenses.bsd2;
     maintainers = with maintainers; [ zhaofengli ];

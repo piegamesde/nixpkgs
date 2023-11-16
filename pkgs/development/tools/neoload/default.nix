@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  writeTextFile,
-  jre,
-  makeWrapper,
-  fontsConf,
-  licenseAccepted ? false,
-}:
+{ lib, stdenv, fetchurl, writeTextFile, jre, makeWrapper, fontsConf
+, licenseAccepted ? false }:
 
 # If you happen to use this software on the XMonad window manager, you will have issues with
 # grey windows, no resizing, menus not showing and other glitches.
@@ -25,8 +17,7 @@ else
 
   # the installer is very picky and demands 1.7.0.07
   let
-    dotInstall4j =
-      path:
+    dotInstall4j = path:
       writeTextFile {
         name = "dot-install4j";
         text = ''
@@ -49,27 +40,24 @@ else
         sys.symlinkDir=INSTALLDIR/bin
       '';
     };
-  in
-  stdenv.mkDerivation rec {
+
+  in stdenv.mkDerivation rec {
     pname = "neoload";
     version = "4.1.4";
 
-    src = fetchurl (
-      if stdenv.hostPlatform.system == "x86_64-linux" then
-        {
-          url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${
-              lib.versions.majorMinor version
-            }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x64.sh";
-          sha256 = "199jcf5a0nwfm8wfld2rcjgq64g91vvz2bkmki8dxfzf1yasifcd";
-        }
-      else
-        {
-          url = "http://neoload.installers.neotys.com/documents/download/${pname}/v${
-              lib.versions.majorMinor version
-            }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x86.sh";
-          sha256 = "1z66jiwcxixsqqwa0f4q8m2p5kna4knq6lic8y8l74dgv25mw912";
-        }
-    );
+    src = fetchurl (if stdenv.hostPlatform.system == "x86_64-linux" then {
+      url =
+        "http://neoload.installers.neotys.com/documents/download/${pname}/v${
+          lib.versions.majorMinor version
+        }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x64.sh";
+      sha256 = "199jcf5a0nwfm8wfld2rcjgq64g91vvz2bkmki8dxfzf1yasifcd";
+    } else {
+      url =
+        "http://neoload.installers.neotys.com/documents/download/${pname}/v${
+          lib.versions.majorMinor version
+        }/${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}_linux_x86.sh";
+      sha256 = "1z66jiwcxixsqqwa0f4q8m2p5kna4knq6lic8y8l74dgv25mw912";
+    });
 
     nativeBuildInputs = [ makeWrapper ];
     phases = [ "installPhase" ];
@@ -98,7 +86,9 @@ else
       sed -i 's/Xmx450m/Xmx900m/;s/Xss192k/Xss384k/' $out/lib/neoload/conf/agent.properties
 
       for i in $out/bin/*; do
-        wrapProgram $i --run 'cp ${dotInstall4j "${jre.home}/jre"} ~/.install4j' \
+        wrapProgram $i --run 'cp ${
+          dotInstall4j "${jre.home}/jre"
+        } ~/.install4j' \
                        --run 'chmod u+w ~/.install4j'
       done
 
@@ -112,7 +102,8 @@ else
     '';
 
     meta = {
-      description = "Load testing software for Web applications to realistically simulate user activity and analyze server behavior";
+      description =
+        "Load testing software for Web applications to realistically simulate user activity and analyze server behavior";
 
       homepage = "https://www.neotys.com/product/overview-neoload.html";
 
@@ -121,9 +112,6 @@ else
       license = lib.licenses.unfree;
 
       maintainers = [ lib.maintainers.bluescreen303 ];
-      platforms = [
-        "i686-linux"
-        "x86_64-linux"
-      ];
+      platforms = [ "i686-linux" "x86_64-linux" ];
     };
   }

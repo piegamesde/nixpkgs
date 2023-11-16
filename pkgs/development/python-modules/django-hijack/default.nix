@@ -1,23 +1,13 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchNpmDeps,
-  buildPythonPackage,
+{ lib, fetchFromGitHub, fetchNpmDeps, buildPythonPackage
 
-  # build-system
-  gettext,
-  nodejs,
-  npmHooks,
-  setuptools-scm,
+# build-system
+, gettext, nodejs, npmHooks, setuptools-scm
 
-  # dependencies
-  django,
-  django_compat,
+# dependencies
+, django, django_compat
 
-  # tests
-  pytest-django,
-  pytestCheckHook,
-}:
+# tests
+, pytest-django, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-hijack";
@@ -46,36 +36,22 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    gettext
-    nodejs
-    npmHooks.npmConfigHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ gettext nodejs npmHooks.npmConfigHook setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-    django_compat
-  ];
+  propagatedBuildInputs = [ django django_compat ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-django
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-django ];
 
   env.DJANGO_SETTINGS_MODULE = "hijack.tests.test_app.settings";
 
-  pytestFlagsArray = [
-    "--pyargs"
-    "hijack"
-    "-W"
-    "ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "--pyargs" "hijack" "-W" "ignore::DeprecationWarning" ];
 
   meta = with lib; {
-    description = "Allows superusers to hijack (=login as) and work on behalf of another user";
+    description =
+      "Allows superusers to hijack (=login as) and work on behalf of another user";
     homepage = "https://github.com/arteria/django-hijack";
-    changelog = "https://github.com/django-hijack/django-hijack/releases/tag/${version}";
+    changelog =
+      "https://github.com/django-hijack/django-hijack/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ris ];
   };

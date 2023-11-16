@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  zlib,
-  openssl,
-  c-ares,
-  readline,
-  icu,
-  git,
-  gbenchmark,
-  nghttp2,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, zlib, openssl, c-ares, readline, icu, git
+, gbenchmark, nghttp2 }:
 
 stdenv.mkDerivation rec {
   pname = "tarantool";
@@ -25,15 +13,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [
-    nghttp2
-    git
-    readline
-    icu
-    zlib
-    openssl
-    c-ares
-  ];
+  buildInputs = [ nghttp2 git readline icu zlib openssl c-ares ];
 
   nativeCheckInputs = [ gbenchmark ];
 
@@ -46,7 +26,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "An in-memory computing platform consisting of a database and an application server";
+    description =
+      "An in-memory computing platform consisting of a database and an application server";
     homepage = "https://www.tarantool.io/";
     license = licenses.bsd2;
     mainProgram = "tarantool";

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  go-bindata,
-  go-bindata-assetfs,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, go-bindata, go-bindata-assetfs
+, nixosTests }:
 
 buildGoModule rec {
   pname = "documize-community";
@@ -22,10 +16,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [
-    go-bindata
-    go-bindata-assetfs
-  ];
+  nativeBuildInputs = [ go-bindata go-bindata-assetfs ];
 
   # This is really weird, but they've managed to screw up
   # their folder structure enough, you can only build by
@@ -34,16 +25,15 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  passthru.tests = {
-    inherit (nixosTests) documize;
-  };
+  passthru.tests = { inherit (nixosTests) documize; };
 
   postInstall = ''
     mv $out/bin/edition $out/bin/documize
   '';
 
   meta = with lib; {
-    description = "Open source Confluence alternative for internal & external docs built with Golang + EmberJS";
+    description =
+      "Open source Confluence alternative for internal & external docs built with Golang + EmberJS";
     license = licenses.agpl3;
     maintainers = with maintainers; [ ];
     mainProgram = "documize";

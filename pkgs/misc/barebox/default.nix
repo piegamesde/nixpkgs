@@ -1,26 +1,9 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  bison,
-  dtc,
-  flex,
-  libusb1,
-  lzop,
-  openssl,
-  pkg-config,
-  buildPackages,
-}:
+{ stdenv, lib, fetchurl, bison, dtc, flex, libusb1, lzop, openssl, pkg-config
+, buildPackages }:
 
 let
-  buildBarebox =
-    {
-      filesToInstall,
-      installDir ? "$out",
-      defconfig,
-      extraMeta ? { },
-      ...
-    }@args:
+  buildBarebox = { filesToInstall, installDir ? "$out", defconfig
+    , extraMeta ? { }, ... }@args:
     stdenv.mkDerivation rec {
       pname = "barebox-${defconfig}";
 
@@ -35,23 +18,12 @@ let
         patchShebangs scripts
       '';
 
-      nativeBuildInputs = [
-        bison
-        dtc
-        flex
-        openssl
-        libusb1
-        lzop
-        pkg-config
-      ];
+      nativeBuildInputs = [ bison dtc flex openssl libusb1 lzop pkg-config ];
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
       hardeningDisable = [ "all" ];
 
-      makeFlags = [
-        "DTC=dtc"
-        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-      ];
+      makeFlags = [ "DTC=dtc" "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
       configurePhase = ''
         runHook preConfigure
@@ -74,19 +46,16 @@ let
 
       dontStrip = true;
 
-      meta =
-        with lib;
+      meta = with lib;
         {
           homepage = "https://www.barebox.org";
           description = "The Swiss Army Knive for bare metal";
           license = licenses.gpl2;
           maintainers = with maintainers; [ emantor ];
-        }
-        // extraMeta;
-    }
-    // removeAttrs args [ "extraMeta" ];
-in
-{
+        } // extraMeta;
+    } // removeAttrs args [ "extraMeta" ];
+
+in {
   inherit buildBarebox;
 
   bareboxTools = buildBarebox {

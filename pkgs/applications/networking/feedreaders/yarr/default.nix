@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  yarr,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, yarr }:
 
 buildGoModule rec {
   pname = "yarr";
@@ -21,17 +15,9 @@ buildGoModule rec {
 
   subPackages = [ "src" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-    "-X main.GitHash=none"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" "-X main.GitHash=none" ];
 
-  tags = [
-    "sqlite_foreign_keys"
-    "release"
-  ];
+  tags = [ "sqlite_foreign_keys" "release" ];
 
   postInstall = ''
     mv $out/bin/{src,yarr}
@@ -45,7 +31,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Yet another rss reader";
     homepage = "https://github.com/nkanaev/yarr";
-    changelog = "https://github.com/nkanaev/yarr/blob/v${version}/doc/changelog.txt";
+    changelog =
+      "https://github.com/nkanaev/yarr/blob/v${version}/doc/changelog.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
   };

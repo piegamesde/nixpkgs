@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  runitor,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, runitor }:
 
 buildGoModule rec {
   pname = "runitor";
@@ -18,11 +12,7 @@ buildGoModule rec {
     sha256 = "sha256-lL9yfiqPIIfEvjiWcG6e1NrURHJFdk4x/od/w7/i2DE=";
   };
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=v${version}" ];
 
   passthru.tests.version = testers.testVersion {
     package = runitor;

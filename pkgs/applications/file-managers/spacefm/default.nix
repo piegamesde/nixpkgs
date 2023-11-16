@@ -1,22 +1,6 @@
-{
-  pkgs,
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  gtk3,
-  udev,
-  desktop-file-utils,
-  shared-mime-info,
-  intltool,
-  pkg-config,
-  wrapGAppsHook,
-  ffmpegthumbnailer,
-  jmtpfs,
-  ifuseSupport ? false,
-  ifuse ? null,
-  lsof,
-  udisks2,
-}:
+{ pkgs, fetchFromGitHub, lib, stdenv, gtk3, udev, desktop-file-utils
+, shared-mime-info, intltool, pkg-config, wrapGAppsHook, ffmpegthumbnailer
+, jmtpfs, ifuseSupport ? false, ifuse ? null, lsof, udisks2 }:
 
 stdenv.mkDerivation rec {
   pname = "spacefm";
@@ -59,10 +43,7 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(--prefix XDG_DATA_DIRS : "${shared-mime-info}/share")
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
   buildInputs = [
     gtk3
     udev
@@ -87,9 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "http://ignorantguru.github.io/spacefm/";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      jagajaga
-      obadz
-    ];
+    maintainers = with maintainers; [ jagajaga obadz ];
   };
 }

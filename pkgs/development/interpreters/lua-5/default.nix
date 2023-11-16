@@ -1,86 +1,63 @@
 # similar to interpreters/python/default.nix
-{
-  stdenv,
-  lib,
-  callPackage,
-  fetchFromGitHub,
-  fetchurl,
-  fetchpatch,
-  makeBinaryWrapper,
-}:
+{ stdenv, lib, callPackage, fetchFromGitHub, fetchurl, fetchpatch
+, makeBinaryWrapper }:
 
 let
 
   # Common passthru for all lua interpreters.
   # copied from python
-  passthruFun =
-    {
-      executable,
-      luaversion,
-      packageOverrides,
-      luaOnBuildForBuild,
-      luaOnBuildForHost,
-      luaOnBuildForTarget,
-      luaOnHostForHost,
-      luaOnTargetForTarget,
-      luaAttr ? null,
-      self, # is luaOnHostForTarget
+  passthruFun = { executable, luaversion, packageOverrides, luaOnBuildForBuild
+    , luaOnBuildForHost, luaOnBuildForTarget, luaOnHostForHost
+    , luaOnTargetForTarget, luaAttr ? null, self # is luaOnHostForTarget
     }:
     let
-      luaPackages =
-        callPackage
-          # Function that when called
-          # - imports lua-packages.nix
-          # - adds spliced package sets to the package set
-          # - applies overrides from `packageOverrides`
-          (
-            {
-              lua,
-              overrides,
-              callPackage,
-              makeScopeWithSplicing,
-            }:
-            let
-              luaPackagesFun = callPackage ../../../top-level/lua-packages.nix { lua = self; };
-              generatedPackages =
-                if (builtins.pathExists ../../lua-modules/generated-packages.nix) then
-                  (
-                    final: prev:
-                    callPackage ../../lua-modules/generated-packages.nix { inherit (final) callPackage; } final prev
-                  )
-                else
-                  (final: prev: { });
-              overriddenPackages = callPackage ../../lua-modules/overrides.nix { };
+      luaPackages = callPackage
+        # Function that when called
+        # - imports lua-packages.nix
+        # - adds spliced package sets to the package set
+        # - applies overrides from `packageOverrides`
+        ({ lua, overrides, callPackage, makeScopeWithSplicing }:
+          let
+            luaPackagesFun =
+              callPackage ../../../top-level/lua-packages.nix { lua = self; };
+            generatedPackages = if (builtins.pathExists
+              ../../lua-modules/generated-packages.nix) then
+              (final: prev:
+                callPackage ../../lua-modules/generated-packages.nix {
+                  inherit (final) callPackage;
+                } final prev)
+            else
+              (final: prev: { });
+            overriddenPackages =
+              callPackage ../../lua-modules/overrides.nix { };
 
-              otherSplices = {
-                selfBuildBuild = luaOnBuildForBuild.pkgs;
-                selfBuildHost = luaOnBuildForHost.pkgs;
-                selfBuildTarget = luaOnBuildForTarget.pkgs;
-                selfHostHost = luaOnHostForHost.pkgs;
-                selfTargetTarget = luaOnTargetForTarget.pkgs or { };
-              };
-              keep = self: { };
-              extra = spliced0: { };
-              extensions = lib.composeManyExtensions [
-                generatedPackages
-                overriddenPackages
-                overrides
-              ];
-            in
-            makeScopeWithSplicing otherSplices keep extra (lib.extends extensions luaPackagesFun)
-          )
-          {
+            otherSplices = {
+              selfBuildBuild = luaOnBuildForBuild.pkgs;
+              selfBuildHost = luaOnBuildForHost.pkgs;
+              selfBuildTarget = luaOnBuildForTarget.pkgs;
+              selfHostHost = luaOnHostForHost.pkgs;
+              selfTargetTarget = luaOnTargetForTarget.pkgs or { };
+            };
+            keep = self: { };
+            extra = spliced0: { };
+            extensions = lib.composeManyExtensions [
+              generatedPackages
+              overriddenPackages
+              overrides
+            ];
+          in makeScopeWithSplicing otherSplices keep extra
+          (lib.extends extensions luaPackagesFun)) {
             overrides = packageOverrides;
             lua = self;
           };
-    in
-    rec {
+    in rec {
       buildEnv = callPackage ./wrapper.nix {
         lua = self;
         makeWrapper = makeBinaryWrapper;
         inherit (luaPackages) requiredLuaModules;
       };
-      withPackages = import ./with-packages.nix { inherit buildEnv luaPackages; };
+      withPackages =
+        import ./with-packages.nix { inherit buildEnv luaPackages; };
       pkgs = luaPackages;
       interpreter = "${self}/bin/${executable}";
       inherit executable luaversion;
@@ -93,9 +70,8 @@ let
 
       inherit luaAttr;
     };
-in
 
-rec {
+in rec {
   lua5_4 = callPackage ./interpreter.nix {
     self = lua5_4;
     version = "5.4.6";
@@ -132,7 +108,8 @@ rec {
     hash = "0jwznq0l8qg9wh5grwg07b5cy3lzngvl5m2nl1ikp6vqssmf9qmr";
     makeWrapper = makeBinaryWrapper;
     inherit passthruFun;
-    patches = [ ./CVE-2022-28805.patch ] ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
+    patches = [ ./CVE-2022-28805.patch ]
+      ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
   };
 
   lua5_2_compat = lua5_2.override ({
@@ -146,17 +123,13 @@ rec {
     hash = "2640fc56a795f29d28ef15e13c34a47e223960b0240e8cb0a82d9b0738695333";
     makeWrapper = makeBinaryWrapper;
     inherit passthruFun;
-    patches = (lib.optional stdenv.isDarwin ./5.1.darwin.patch) ++ [ ./CVE-2014-5461.patch ];
+    patches = (lib.optional stdenv.isDarwin ./5.1.darwin.patch)
+      ++ [ ./CVE-2014-5461.patch ];
   };
 
   luajit_2_0 = import ../luajit/2.0.nix {
     self = luajit_2_0;
-    inherit
-      callPackage
-      fetchFromGitHub
-      lib
-      passthruFun
-    ;
+    inherit callPackage fetchFromGitHub lib passthruFun;
   };
 
   luajit_2_1 = import ../luajit/2.1.nix {

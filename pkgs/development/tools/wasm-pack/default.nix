@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  libressl,
-  curl,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, libressl, curl
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wasm-pack";
@@ -24,17 +16,12 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      # LibreSSL works around segfault issues caused by OpenSSL being unable to
-      # gracefully exit while doing work.
-      # See: https://github.com/rustwasm/wasm-pack/issues/650
-      libressl
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      curl
-      Security
-    ];
+  buildInputs = [
+    # LibreSSL works around segfault issues caused by OpenSSL being unable to
+    # gracefully exit while doing work.
+    # See: https://github.com/rustwasm/wasm-pack/issues/650
+    libressl
+  ] ++ lib.optionals stdenv.isDarwin [ curl Security ];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;

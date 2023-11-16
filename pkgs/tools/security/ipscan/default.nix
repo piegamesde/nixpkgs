@@ -1,21 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jdk,
-  jre,
-  swt,
-  makeWrapper,
-  xorg,
-  dpkg,
-}:
+{ lib, stdenv, fetchurl, jdk, jre, swt, makeWrapper, xorg, dpkg }:
 
 stdenv.mkDerivation rec {
   pname = "ipscan";
   version = "3.9.0";
 
   src = fetchurl {
-    url = "https://github.com/angryip/ipscan/releases/download/${version}/ipscan_${version}_all.deb";
+    url =
+      "https://github.com/angryip/ipscan/releases/download/${version}/ipscan_${version}_all.deb";
     sha256 = "sha256-HpsEp5XSz118cbV2wT81hzQT4cgDEBnpUbpl45ZVvlg=";
   };
 
@@ -32,10 +23,7 @@ stdenv.mkDerivation rec {
 
     makeWrapper ${jre}/bin/java $out/bin/ipscan \
       --prefix LD_LIBRARY_PATH : "$out/lib/:${
-        lib.makeLibraryPath [
-          swt
-          xorg.libXtst
-        ]
+        lib.makeLibraryPath [ swt xorg.libXtst ]
       }" \
       --add-flags "-Xmx256m -cp $out/share/${pname}-${version}.jar:${swt}/jars/swt.jar net.azib.ipscan.Main"
 

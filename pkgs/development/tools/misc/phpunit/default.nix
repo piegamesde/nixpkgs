@@ -1,16 +1,9 @@
-{
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  lib,
-  php,
-}:
+{ stdenv, fetchurl, makeWrapper, lib, php }:
 
 let
   pname = "phpunit";
   version = "10.2.2";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
@@ -35,7 +28,8 @@ stdenv.mkDerivation {
     description = "PHP Unit Testing framework";
     license = licenses.bsd3;
     homepage = "https://phpunit.de";
-    changelog = "https://github.com/sebastianbergmann/phpunit/blob/${version}/ChangeLog-${
+    changelog =
+      "https://github.com/sebastianbergmann/phpunit/blob/${version}/ChangeLog-${
         lib.versions.majorMinor version
       }.md";
     maintainers = with maintainers; [ onny ] ++ teams.php.members;

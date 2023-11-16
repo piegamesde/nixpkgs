@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  fetchFromGitHub,
-  lksctp-tools,
-  pkg-config,
-  libosmocore,
-  libosmo-netif,
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, lksctp-tools, pkg-config
+, libosmocore, libosmo-netif }:
 
 stdenv.mkDerivation rec {
   pname = "libosmo-sccp";
@@ -26,16 +18,9 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    lksctp-tools
-    libosmocore
-    libosmo-netif
-  ];
+  buildInputs = [ lksctp-tools libosmocore libosmo-netif ];
 
   enableParallelBuilding = true;
 
@@ -44,9 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://osmocom.org/projects/libosmo-sccp";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      janik
-      markuskowa
-    ];
+    maintainers = with maintainers; [ janik markuskowa ];
   };
 }

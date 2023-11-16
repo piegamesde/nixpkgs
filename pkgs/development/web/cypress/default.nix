@@ -1,19 +1,5 @@
-{
-  alsa-lib,
-  autoPatchelfHook,
-  callPackage,
-  fetchzip,
-  gtk2,
-  gtk3,
-  lib,
-  mesa,
-  nss,
-  stdenv,
-  udev,
-  unzip,
-  wrapGAppsHook,
-  xorg,
-}:
+{ alsa-lib, autoPatchelfHook, callPackage, fetchzip, gtk2, gtk3, lib, mesa, nss
+, stdenv, udev, unzip, wrapGAppsHook, xorg }:
 
 let
   availableBinaries = {
@@ -27,11 +13,10 @@ let
     };
   };
   inherit (stdenv.hostPlatform) system;
-  binary =
-    availableBinaries.${system} or (throw "cypress: No binaries available for system ${system}");
+  binary = availableBinaries.${system} or (throw
+    "cypress: No binaries available for system ${system}");
   inherit (binary) platform checksum;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "cypress";
   version = "12.9.0";
 
@@ -43,21 +28,10 @@ stdenv.mkDerivation rec {
   # don't remove runtime deps
   dontPatchELF = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    wrapGAppsHook
-    unzip
-  ];
+  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook unzip ];
 
-  buildInputs =
-    with xorg;
-    [
-      libXScrnSaver
-      libXdamage
-      libXtst
-      libxshmfence
-    ]
-    ++ [
+  buildInputs = with xorg;
+    [ libXScrnSaver libXdamage libXtst libxshmfence ] ++ [
       nss
       gtk2
       alsa-lib
@@ -97,16 +71,13 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Fast, easy and reliable testing for anything that runs in a browser";
+    description =
+      "Fast, easy and reliable testing for anything that runs in a browser";
     homepage = "https://www.cypress.io";
     mainProgram = "Cypress";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     platforms = lib.attrNames availableBinaries;
-    maintainers = with maintainers; [
-      tweber
-      mmahut
-      Crafter
-    ];
+    maintainers = with maintainers; [ tweber mmahut Crafter ];
   };
 }

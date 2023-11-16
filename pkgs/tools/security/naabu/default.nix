@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  libpcap,
-}:
+{ lib, buildGoModule, fetchFromGitHub, libpcap }:
 
 buildGoModule rec {
   pname = "naabu";
@@ -33,7 +28,8 @@ buildGoModule rec {
       all ports that return a reply.
     '';
     homepage = "https://github.com/projectdiscovery/naabu";
-    changelog = "https://github.com/projectdiscovery/naabu/releases/tag/v${version}";
+    changelog =
+      "https://github.com/projectdiscovery/naabu/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

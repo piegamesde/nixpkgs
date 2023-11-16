@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkgsBuildBuild,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchurl, pkgsBuildBuild, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "judy";
@@ -28,7 +22,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://judy.sourceforge.net/";
     license = lib.licenses.lgpl21Plus;
-    description = "State-of-the-art C library that implements a sparse dynamic array";
+    description =
+      "State-of-the-art C library that implements a sparse dynamic array";
     platforms = lib.platforms.unix;
   };
 }

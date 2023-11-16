@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  kernel,
-}:
+{ lib, stdenv, fetchFromGitHub, kernel }:
 
 stdenv.mkDerivation rec {
   pname = "veikk-linux-driver";
@@ -20,9 +15,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ kernel ];
 
-  makeFlags = kernel.makeFlags ++ [
-    "BUILD_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags = kernel.makeFlags
+    ++ [ "BUILD_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/veikk

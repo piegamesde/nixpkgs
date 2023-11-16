@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildGoModule,
-  scdoc,
-  nix-update-script,
-}:
+{ lib, fetchFromGitLab, buildGoModule, scdoc, nix-update-script }:
 
 buildGoModule rec {
   pname = "darkman";
@@ -45,7 +39,8 @@ buildGoModule rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "Framework for dark-mode and light-mode transitions on Linux desktop";
+    description =
+      "Framework for dark-mode and light-mode transitions on Linux desktop";
     homepage = "https://gitlab.com/WhyNotHugo/darkman";
     license = licenses.isc;
     maintainers = [ maintainers.ajgrf ];

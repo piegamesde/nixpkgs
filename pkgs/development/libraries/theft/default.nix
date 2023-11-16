@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   version = "0.4.5";
@@ -36,9 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/silentbicycle/theft/";
     platforms = platforms.unix;
     license = licenses.isc;
-    maintainers = with maintainers; [
-      kquick
-      thoughtpolice
-    ];
+    maintainers = with maintainers; [ kquick thoughtpolice ];
   };
 }

@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  alsa-lib,
-  cmake,
-  cppzmq,
-  doxygen,
-  ffmpeg,
-  imagemagick,
-  jsoncpp,
-  libopenshot-audio,
-  llvmPackages,
-  pkg-config,
-  python3,
-  qtbase,
-  qtmultimedia,
-  swig,
-  zeromq,
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, cmake, cppzmq, doxygen, ffmpeg
+, imagemagick, jsoncpp, libopenshot-audio, llvmPackages, pkg-config, python3
+, qtbase, qtmultimedia, swig, zeromq }:
 
 stdenv.mkDerivation rec {
   pname = "libopenshot";
@@ -34,12 +17,8 @@ stdenv.mkDerivation rec {
     sed -i 's/{UNITTEST++_INCLUDE_DIR}/ENV{UNITTEST++_INCLUDE_DIR}/g' tests/CMakeLists.txt
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ alsa-lib ] ++ [
-    cmake
-    doxygen
-    pkg-config
-    swig
-  ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ [ cmake doxygen pkg-config swig ];
 
   buildInputs = [
     cppzmq
@@ -57,10 +36,8 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  cmakeFlags = [
-    "-DENABLE_RUBY=OFF"
-    "-DPYTHON_MODULE_PATH=${python3.sitePackages}"
-  ];
+  cmakeFlags =
+    [ "-DENABLE_RUBY=OFF" "-DPYTHON_MODULE_PATH=${python3.sitePackages}" ];
 
   meta = with lib; {
     homepage = "http://openshot.org/";
@@ -75,7 +52,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 
-  passthru = {
-    inherit libopenshot-audio;
-  };
+  passthru = { inherit libopenshot-audio; };
 }

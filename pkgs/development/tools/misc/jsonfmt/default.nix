@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  jsonfmt,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, jsonfmt }:
 
 buildGoModule rec {
   pname = "jsonfmt";
@@ -19,15 +13,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-xtwN+TemiiyXOxZ2DNys4G6w4KA3BjLSWAmzox+boMY=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
-  passthru.tests = {
-    version = testers.testVersion { package = jsonfmt; };
-  };
+  passthru.tests = { version = testers.testVersion { package = jsonfmt; }; };
 
   meta = with lib; {
     description = "Formatter for JSON files";

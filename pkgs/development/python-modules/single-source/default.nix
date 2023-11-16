@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  importlib-metadata,
-  poetry-core,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, importlib-metadata, poetry-core
+, pytest-mock, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "single-source";
@@ -27,17 +19,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   pythonImportsCheck = [ "single_source" ];
 
   meta = with lib; {
-    description = "Access to the project version in Python code for PEP 621-style projects";
+    description =
+      "Access to the project version in Python code for PEP 621-style projects";
     homepage = "https://github.com/rabbit72/single-source";
-    changelog = "https://github.com/rabbit72/single-source/releases/tag/v${version}";
+    changelog =
+      "https://github.com/rabbit72/single-source/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

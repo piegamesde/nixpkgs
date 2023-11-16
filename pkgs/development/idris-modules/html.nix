@@ -1,20 +1,9 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  idrisscript,
-  hrtime,
-  webgl,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, idrisscript, hrtime, webgl, lib }:
 build-idris-package {
   pname = "html";
   version = "2017-04-23";
 
-  idrisDeps = [
-    idrisscript
-    hrtime
-    webgl
-  ];
+  idrisDeps = [ idrisscript hrtime webgl ];
 
   src = fetchFromGitHub {
     owner = "pierrebeaucamp";

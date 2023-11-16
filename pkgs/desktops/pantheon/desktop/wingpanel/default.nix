@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  wrapGAppsHook,
-  pkg-config,
-  meson,
-  ninja,
-  vala,
-  gala,
-  gtk3,
-  libgee,
-  granite,
-  gettext,
-  mutter,
-  mesa,
-  json-glib,
-  python3,
-  elementary-gtk-theme,
-  elementary-icon-theme,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, wrapGAppsHook, pkg-config
+, meson, ninja, vala, gala, gtk3, libgee, granite, gettext, mutter, mesa
+, json-glib, python3, elementary-gtk-theme, elementary-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel";
@@ -34,15 +15,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./indicators.patch ];
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gettext meson ninja pkg-config python3 vala wrapGAppsHook ];
 
   buildInputs = [
     elementary-icon-theme
@@ -70,9 +44,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "The extensible top panel for Pantheon";

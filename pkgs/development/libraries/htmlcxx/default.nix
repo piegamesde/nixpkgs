@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "htmlcxx";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [ libiconv ];
-  patches = [
-    ./ptrdiff.patch
-    ./c++17.patch
-  ];
+  patches = [ ./ptrdiff.patch ./c++17.patch ];
 
   meta = with lib; {
     homepage = "https://htmlcxx.sourceforge.net/";

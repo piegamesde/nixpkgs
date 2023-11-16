@@ -1,18 +1,12 @@
-{
-  mkDerivation,
-  fetchurl,
-  makeBinaryWrapper,
-  unzip,
-  lib,
-  php,
-}:
+{ mkDerivation, fetchurl, makeBinaryWrapper, unzip, lib, php }:
 
 mkDerivation rec {
   pname = "composer";
   version = "2.5.7";
 
   src = fetchurl {
-    url = "https://github.com/composer/composer/releases/download/${version}/composer.phar";
+    url =
+      "https://github.com/composer/composer/releases/download/${version}/composer.phar";
     sha256 = "sha256-klbEwcgDudDLemahq2xzfkjEPMbfe47J7CSXpyS/RN4=";
   };
 

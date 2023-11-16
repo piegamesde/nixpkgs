@@ -1,167 +1,112 @@
-{
-  lib,
-  stdenv,
-  llvm_meta,
-  runCommand,
-  monorepoSrc,
-  cmake,
-  ninja,
-  zlib,
-  ncurses,
-  swig,
-  which,
-  libedit,
-  libxml2,
-  libllvm,
-  libclang,
-  python3,
-  version,
-  libobjc,
-  xpc,
-  Foundation,
-  bootstrap_cmds,
-  Carbon,
-  Cocoa,
-  lit,
-  makeWrapper,
-  enableManpages ? false,
-  lua5_3,
-}:
+{ lib, stdenv, llvm_meta, runCommand, monorepoSrc, cmake, ninja, zlib, ncurses
+, swig, which, libedit, libxml2, libllvm, libclang, python3, version, libobjc
+, xpc, Foundation, bootstrap_cmds, Carbon, Cocoa, lit, makeWrapper
+, enableManpages ? false, lua5_3 }:
 
-stdenv.mkDerivation (
-  rec {
-    pname = "lldb";
-    inherit version;
+stdenv.mkDerivation (rec {
+  pname = "lldb";
+  inherit version;
 
-    src = runCommand "${pname}-src-${version}" { } ''
-      mkdir -p "$out"
-      cp -r ${monorepoSrc}/cmake "$out"
-      cp -r ${monorepoSrc}/${pname} "$out"
-    '';
+  src = runCommand "${pname}-src-${version}" { } ''
+    mkdir -p "$out"
+    cp -r ${monorepoSrc}/cmake "$out"
+    cp -r ${monorepoSrc}/${pname} "$out"
+  '';
 
-    sourceRoot = "${src.name}/${pname}";
+  sourceRoot = "${src.name}/${pname}";
 
-    patches = [
-      ./procfs.patch
-      (runCommand "resource-dir.patch" { clangLibDir = "${libclang.lib}/lib"; } ''
-        substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
-      '')
-      ./gnu-install-dirs.patch
+  patches = [
+    ./procfs.patch
+    (runCommand "resource-dir.patch" { clangLibDir = "${libclang.lib}/lib"; } ''
+      substitute '${./resource-dir.patch}' "$out" --subst-var clangLibDir
+    '')
+    ./gnu-install-dirs.patch
+  ];
+
+  outputs = [ "out" "lib" "dev" ];
+
+  nativeBuildInputs = [ cmake ninja python3 which swig lit makeWrapper lua5_3 ]
+    ++ lib.optionals enableManpages [
+      python3.pkgs.sphinx
+      python3.pkgs.recommonmark
     ];
 
-    outputs = [
-      "out"
-      "lib"
-      "dev"
+  buildInputs = [ ncurses zlib libedit libxml2 libllvm ]
+    ++ lib.optionals stdenv.isDarwin [
+      libobjc
+      xpc
+      Foundation
+      bootstrap_cmds
+      Carbon
+      Cocoa
     ];
 
-    nativeBuildInputs =
-      [
-        cmake
-        ninja
-        python3
-        which
-        swig
-        lit
-        makeWrapper
-        lua5_3
-      ]
-      ++ lib.optionals enableManpages [
-        python3.pkgs.sphinx
-        python3.pkgs.recommonmark
-      ];
+  hardeningDisable = [ "format" ];
 
-    buildInputs =
-      [
-        ncurses
-        zlib
-        libedit
-        libxml2
-        libllvm
-      ]
-      ++ lib.optionals stdenv.isDarwin [
-        libobjc
-        xpc
-        Foundation
-        bootstrap_cmds
-        Carbon
-        Cocoa
-      ];
+  cmakeFlags = [
+    "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
+    "-DLLVM_ENABLE_RTTI=OFF"
+    "-DClang_DIR=${libclang.dev}/lib/cmake"
+    "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
+  ] ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
+    ++ lib.optionals (!stdenv.isDarwin) [
+      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+    ] ++ lib.optionals enableManpages [
+      "-DLLVM_ENABLE_SPHINX=ON"
+      "-DSPHINX_OUTPUT_MAN=ON"
+      "-DSPHINX_OUTPUT_HTML=OFF"
+    ] ++ lib.optionals doCheck [
+      "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+      "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
+    ];
 
-    hardeningDisable = [ "format" ];
+  doCheck = false;
 
-    cmakeFlags =
-      [
-        "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
-        "-DLLVM_ENABLE_RTTI=OFF"
-        "-DClang_DIR=${libclang.dev}/lib/cmake"
-        "-DLLVM_EXTERNAL_LIT=${lit}/bin/lit"
-      ]
-      ++ lib.optionals stdenv.isDarwin [ "-DLLDB_USE_SYSTEM_DEBUGSERVER=ON" ]
-      ++ lib.optionals (!stdenv.isDarwin) [
-        "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-      ]
-      ++ lib.optionals enableManpages [
-        "-DLLVM_ENABLE_SPHINX=ON"
-        "-DSPHINX_OUTPUT_MAN=ON"
-        "-DSPHINX_OUTPUT_HTML=OFF"
-      ]
-      ++ lib.optionals doCheck [
-        "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-        "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-      ];
+  installCheckPhase = ''
+    if [ ! -e "$lib/${python3.sitePackages}/lldb/_lldb.so" ] ; then
+        return 1;
+    fi
+  '';
 
-    doCheck = false;
+  postInstall = ''
+    wrapProgram $out/bin/lldb --prefix PYTHONPATH : $lib/${python3.sitePackages}/
 
-    installCheckPhase = ''
-      if [ ! -e "$lib/${python3.sitePackages}/lldb/_lldb.so" ] ; then
-          return 1;
-      fi
+    # Editor support
+    # vscode:
+    install -D ../tools/lldb-vscode/package.json $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/package.json
+    mkdir -p $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/bin
+    ln -s $out/bin/lldb-vscode $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/bin
+  '';
+
+  meta = llvm_meta // {
+    homepage = "https://lldb.llvm.org/";
+    description = "A next-generation high-performance debugger";
+    longDescription = ''
+      LLDB is a next generation, high-performance debugger. It is built as a set
+      of reusable components which highly leverage existing libraries in the
+      larger LLVM Project, such as the Clang expression parser and LLVM
+      disassembler.
     '';
+  };
+} // lib.optionalAttrs enableManpages {
+  pname = "lldb-manpages";
 
-    postInstall = ''
-      wrapProgram $out/bin/lldb --prefix PYTHONPATH : $lib/${python3.sitePackages}/
+  ninjaFlags = [ "docs-lldb-man" ];
 
-      # Editor support
-      # vscode:
-      install -D ../tools/lldb-vscode/package.json $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/package.json
-      mkdir -p $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/bin
-      ln -s $out/bin/lldb-vscode $out/share/vscode/extensions/llvm-org.lldb-vscode-0.1.0/bin
-    '';
+  propagatedBuildInputs = [ ];
 
-    meta = llvm_meta // {
-      homepage = "https://lldb.llvm.org/";
-      description = "A next-generation high-performance debugger";
-      longDescription = ''
-        LLDB is a next generation, high-performance debugger. It is built as a set
-        of reusable components which highly leverage existing libraries in the
-        larger LLVM Project, such as the Clang expression parser and LLVM
-        disassembler.
-      '';
-    };
-  }
-  // lib.optionalAttrs enableManpages {
-    pname = "lldb-manpages";
+  # manually install lldb man page
+  installPhase = ''
+    mkdir -p $out/share/man/man1
+    install docs/man/lldb.1 -t $out/share/man/man1/
+  '';
 
-    ninjaFlags = [ "docs-lldb-man" ];
+  postPatch = null;
+  postInstall = null;
 
-    propagatedBuildInputs = [ ];
+  outputs = [ "out" ];
 
-    # manually install lldb man page
-    installPhase = ''
-      mkdir -p $out/share/man/man1
-      install docs/man/lldb.1 -t $out/share/man/man1/
-    '';
+  doCheck = false;
 
-    postPatch = null;
-    postInstall = null;
-
-    outputs = [ "out" ];
-
-    doCheck = false;
-
-    meta = llvm_meta // {
-      description = "man pages for LLDB ${version}";
-    };
-  }
-)
+  meta = llvm_meta // { description = "man pages for LLDB ${version}"; };
+})

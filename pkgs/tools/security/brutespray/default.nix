@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  python3,
-  fetchFromGitHub,
-  makeWrapper,
-  medusa,
-}:
+{ lib, stdenv, python3, fetchFromGitHub, makeWrapper, medusa }:
 
 stdenv.mkDerivation rec {
   pname = "brutespray";
@@ -24,10 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   dontBuild = true;
-  nativeBuildInputs = [
-    python3.pkgs.wrapPython
-    makeWrapper
-  ];
+  nativeBuildInputs = [ python3.pkgs.wrapPython makeWrapper ];
   buildInputs = [ python3 ];
 
   installPhase = ''

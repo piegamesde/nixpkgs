@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "zimg";
@@ -16,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1069x49l7kh1mqcq1h3f0m5j0h832jp5x230bh4c613ymgg5kn00";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "doc" ];
 
   nativeBuildInputs = [ autoreconfHook ];
 

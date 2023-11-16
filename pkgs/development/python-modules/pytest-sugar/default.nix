@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  termcolor,
-  pytest,
-  packaging,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, termcolor, pytest, packaging
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytest-sugar";
@@ -23,17 +15,15 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    termcolor
-    packaging
-  ];
+  propagatedBuildInputs = [ termcolor packaging ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "A plugin that changes the default look and feel of pytest";
     homepage = "https://github.com/Frozenball/pytest-sugar";
-    changelog = "https://github.com/Teemu/pytest-sugar/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Teemu/pytest-sugar/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

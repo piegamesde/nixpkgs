@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, python3 }:
 
 stdenv.mkDerivation rec {
   version = "0.6.3";
@@ -21,15 +14,13 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "python3-for-tests";
-      url = "https://github.com/docopt/docopt.cpp/commit/b3d909dc952ab102a4ad5a1541a41736f35b92ba.patch";
+      url =
+        "https://github.com/docopt/docopt.cpp/commit/b3d909dc952ab102a4ad5a1541a41736f35b92ba.patch";
       hash = "sha256-JJR09pbn3QhYaZAIAjs+pe28+g1VfgHUKspWorHzr8o=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ];
+  nativeBuildInputs = [ cmake python3 ];
 
   cmakeFlags = [ "-DWITH_TESTS=ON" ];
 
@@ -48,10 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "C++11 port of docopt";
     homepage = "https://github.com/docopt/docopt.cpp";
-    license = with licenses; [
-      mit
-      boost
-    ];
+    license = with licenses; [ mit boost ];
     platforms = platforms.all;
     maintainers = with maintainers; [ knedlsepp ];
   };

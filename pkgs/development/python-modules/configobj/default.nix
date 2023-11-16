@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, pythonOlder
+, six }:
 
 buildPythonPackage rec {
   pname = "configobj";
@@ -33,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Config file reading, writing and validation";
     homepage = "https://github.com/DiffSK/configobj";
-    changelog = "https://github.com/DiffSK/configobj/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/DiffSK/configobj/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

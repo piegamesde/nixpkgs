@@ -1,20 +1,15 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
   cfg = config.services.prometheus.sachet;
   configFile = pkgs.writeText "sachet.yml" (builtins.toJSON cfg.configuration);
-in
-{
+in {
   options = {
     services.prometheus.sachet = {
-      enable = mkEnableOption (lib.mdDoc "Sachet, an SMS alerting tool for the Prometheus Alertmanager");
+      enable = mkEnableOption (lib.mdDoc
+        "Sachet, an SMS alerting tool for the Prometheus Alertmanager");
 
       configuration = mkOption {
         type = types.nullOr types.attrs;
@@ -57,6 +52,7 @@ in
           The port Sachet will listen to.
         '';
       };
+
     };
   };
 
@@ -68,10 +64,7 @@ in
 
     systemd.services.sachet = {
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "network-online.target"
-      ];
+      after = [ "network.target" "network-online.target" ];
       script = ''
         ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /tmp/sachet.yaml
         exec ${pkgs.prometheus-sachet}/bin/sachet -config /tmp/sachet.yaml -listen-address ${cfg.address}:${

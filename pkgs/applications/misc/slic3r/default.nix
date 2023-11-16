@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  perl,
-  makeWrapper,
-  makeDesktopItem,
-  which,
-  perlPackages,
-  boost,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, perl, makeWrapper, makeDesktopItem
+, which, perlPackages, boost, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   version = "1.3.0";
@@ -23,42 +12,34 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cf0QTOzhLyTcbJryCQoTVzU8kfrPV6SLpqi4s36X5N0=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    which
-    wrapGAppsHook
-  ];
-  buildInputs =
-    [ boost ]
-    ++ (
-      with perlPackages; [
-        perl
-        EncodeLocale
-        MathClipper
-        ExtUtilsXSpp
-        MathConvexHullMonotoneChain
-        MathGeometryVoronoi
-        MathPlanePath
-        Moo
-        IOStringy
-        ClassXSAccessor
-        Wx
-        GrowlGNTP
-        NetDBus
-        ImportInto
-        XMLSAX
-        ExtUtilsMakeMaker
-        OpenGL
-        WxGLCanvas
-        ModuleBuild
-        LWP
-        ExtUtilsCppGuess
-        ModuleBuildWithXSpp
-        ExtUtilsTypemapsDefault
-        DevelChecklib
-        locallib
-      ]
-    );
+  nativeBuildInputs = [ makeWrapper which wrapGAppsHook ];
+  buildInputs = [ boost ] ++ (with perlPackages; [
+    perl
+    EncodeLocale
+    MathClipper
+    ExtUtilsXSpp
+    MathConvexHullMonotoneChain
+    MathGeometryVoronoi
+    MathPlanePath
+    Moo
+    IOStringy
+    ClassXSAccessor
+    Wx
+    GrowlGNTP
+    NetDBus
+    ImportInto
+    XMLSAX
+    ExtUtilsMakeMaker
+    OpenGL
+    WxGLCanvas
+    ModuleBuild
+    LWP
+    ExtUtilsCppGuess
+    ModuleBuildWithXSpp
+    ExtUtilsTypemapsDefault
+    DevelChecklib
+    locallib
+  ]);
 
   desktopItem = makeDesktopItem {
     name = "slic3r";
@@ -79,15 +60,18 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://web.archive.org/web/20230606220657if_/https://sources.debian.org/data/main/s/slic3r/1.3.0%2Bdfsg1-5/debian/patches/Drop-error-admesh-works-correctly-on-little-endian-machin.patch";
+      url =
+        "https://web.archive.org/web/20230606220657if_/https://sources.debian.org/data/main/s/slic3r/1.3.0%2Bdfsg1-5/debian/patches/Drop-error-admesh-works-correctly-on-little-endian-machin.patch";
       hash = "sha256-+F94jzMFBdI++SKgyEZTBaHFVbjxWwgJa8YVbpK0euI=";
     })
     (fetchpatch {
-      url = "https://web.archive.org/web/20230606220036if_/https://sources.debian.org/data/main/s/slic3r/1.3.0+dfsg1-5/debian/patches/0006-Fix-FTBFS-with-Boost-1.71.patch";
+      url =
+        "https://web.archive.org/web/20230606220036if_/https://sources.debian.org/data/main/s/slic3r/1.3.0+dfsg1-5/debian/patches/0006-Fix-FTBFS-with-Boost-1.71.patch";
       hash = "sha256-4jvNccttig5YI1hXSANAWxVz6C4+kowlacMXVCpFgOo=";
     })
     (fetchpatch {
-      url = "https://web.archive.org/web/20230606220054if_/https://sources.debian.org/data/main/s/slic3r/1.3.0+dfsg1-5/debian/patches/fix_boost_174.patch";
+      url =
+        "https://web.archive.org/web/20230606220054if_/https://sources.debian.org/data/main/s/slic3r/1.3.0+dfsg1-5/debian/patches/fix_boost_174.patch";
       hash = "sha256-aSmxc2htmrla9l/DIRWeKdBW0LTV96wMUZSLLNjgbzY=";
     })
   ];

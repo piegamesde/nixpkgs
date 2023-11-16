@@ -5,12 +5,9 @@ let
     shortName = tname;
     isSource = false;
   };
-in
-lib.mapAttrs (tname: tset: defaultSourceType tname // tset) {
+in lib.mapAttrs (tname: tset: defaultSourceType tname // tset) {
 
-  fromSource = {
-    isSource = true;
-  };
+  fromSource = { isSource = true; };
 
   binaryNativeCode = { };
 

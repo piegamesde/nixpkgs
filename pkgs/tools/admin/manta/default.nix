@@ -1,17 +1,8 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchurl,
-  nodejs,
-  installShellFiles,
-  testers,
-  node-manta,
+{ lib, buildNpmPackage, fetchurl, nodejs, installShellFiles, testers, node-manta
 }:
 
-let
-  source = lib.importJSON ./source.json;
-in
-buildNpmPackage rec {
+let source = lib.importJSON ./source.json;
+in buildNpmPackage rec {
   pname = "manta";
   inherit (source) version;
 
@@ -24,10 +15,7 @@ buildNpmPackage rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [
-    nodejs
-    installShellFiles
-  ];
+  nativeBuildInputs = [ nodejs installShellFiles ];
 
   postPatch = ''
     # Use generated package-lock.json as upstream does not provide one

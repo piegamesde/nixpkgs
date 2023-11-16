@@ -1,7 +1,4 @@
-{
-  pkgs ? (import ../.. { }),
-  nixpkgs ? { },
-}:
+{ pkgs ? (import ../.. { }), nixpkgs ? { } }:
 let
   inherit (pkgs) lib;
   inherit (lib) hasPrefix removePrefix;
@@ -57,8 +54,10 @@ let
     }
   ];
 
-  locationsXml = import ./lib-function-locations.nix { inherit pkgs nixpkgs libsets; };
-  functionDocs = import ./lib-function-docs.nix { inherit locationsXml pkgs libsets; };
+  locationsXml =
+    import ./lib-function-locations.nix { inherit pkgs nixpkgs libsets; };
+  functionDocs =
+    import ./lib-function-docs.nix { inherit locationsXml pkgs libsets; };
   version = pkgs.lib.version;
 
   epub-xsl = pkgs.writeText "epub.xsl" ''
@@ -84,38 +83,29 @@ let
   # NB: This file describes the Nixpkgs manual, which happens to use module
   #     docs infra originally developed for NixOS.
   optionsDoc = pkgs.nixosOptionsDoc {
-    inherit
-      (pkgs.lib.evalModules {
-        modules = [ ../../pkgs/top-level/config.nix ];
-        class = "nixpkgsConfig";
-      })
-      options
-    ;
+    inherit (pkgs.lib.evalModules {
+      modules = [ ../../pkgs/top-level/config.nix ];
+      class = "nixpkgsConfig";
+    })
+      options;
     documentType = "none";
-    transformOptions =
-      opt:
-      opt
-      // {
-        declarations =
-          map
-            (
-              decl:
-              if hasPrefix (toString ../..) (toString decl) then
-                let
-                  subpath = removePrefix "/" (removePrefix (toString ../..) (toString decl));
-                in
-                {
-                  url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
-                  name = subpath;
-                }
-              else
-                decl
-            )
-            opt.declarations;
+    transformOptions = opt:
+      opt // {
+        declarations = map (decl:
+          if hasPrefix (toString ../..) (toString decl) then
+            let
+              subpath = removePrefix "/"
+                (removePrefix (toString ../..) (toString decl));
+            in {
+              url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
+              name = subpath;
+            }
+          else
+            decl) opt.declarations;
       };
   };
-in
-pkgs.runCommand "doc-support" { } ''
+
+in pkgs.runCommand "doc-support" { } ''
   mkdir result
   (
     cd result

@@ -1,27 +1,20 @@
 # CFS Zen Tweaks
 
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
 
   cfg = config.programs.cfs-zen-tweaks;
-in
 
-{
+in {
 
-  meta = {
-    maintainers = with maintainers; [ mkg20001 ];
-  };
+  meta = { maintainers = with maintainers; [ mkg20001 ]; };
 
   options = {
-    programs.cfs-zen-tweaks.enable = mkEnableOption (lib.mdDoc "CFS Zen Tweaks");
+    programs.cfs-zen-tweaks.enable =
+      mkEnableOption (lib.mdDoc "CFS Zen Tweaks");
   };
 
   config = mkIf cfg.enable {

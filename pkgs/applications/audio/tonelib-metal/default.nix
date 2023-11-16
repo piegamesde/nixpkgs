@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoPatchelfHook,
-  dpkg,
-  alsa-lib,
-  freetype,
-  libglvnd,
-  mesa,
-  curl,
-  libXcursor,
-  libXinerama,
-  libXrandr,
-  libXrender,
-  libjack2,
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, alsa-lib, freetype, libglvnd
+, mesa, curl, libXcursor, libXinerama, libXrandr, libXrender, libjack2 }:
 
 stdenv.mkDerivation rec {
   pname = "tonelib-metal";
@@ -25,18 +10,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G80EKAsXomdk8GsnNyvjN8shz3YMKhqdWWYyVB7xTsU=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-    alsa-lib
-    freetype
-    libglvnd
-    mesa
-  ] ++ runtimeDependencies;
+  buildInputs = [ stdenv.cc.cc.lib alsa-lib freetype libglvnd mesa ]
+    ++ runtimeDependencies;
 
   runtimeDependencies = map lib.getLib [
     curl
@@ -55,7 +32,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "ToneLib Metal – Guitar amp simulator targeted at metal players";
+    description =
+      "ToneLib Metal – Guitar amp simulator targeted at metal players";
     homepage = "https://tonelib.net/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-  autoconf,
-}:
+{ lib, stdenv, fetchurl, perl, autoconf }:
 
 stdenv.mkDerivation rec {
   pname = "automake";
@@ -16,15 +10,13 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoconf
-    perl
-  ];
+  nativeBuildInputs = [ autoconf perl ];
   buildInputs = [ autoconf ];
 
   setupHook = ./setup-hook.sh;
 
-  doCheck = false; # takes _a lot_ of time, fails 3 out of 2698 tests, all seem to be related to paths
+  doCheck =
+    false; # takes _a lot_ of time, fails 3 out of 2698 tests, all seem to be related to paths
   doInstallCheck = false; # runs the same thing, fails the same tests
 
   # The test suite can run in parallel.

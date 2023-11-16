@@ -1,21 +1,6 @@
-{
-  lib,
-  python-dateutil,
-  buildPythonPackage,
-  emoji,
-  fetchFromGitHub,
-  freezegun,
-  tzdata,
-  py,
-  pyparsing,
-  pydantic,
-  pytest-asyncio,
-  pytest-benchmark,
-  pytest-golden,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, python-dateutil, buildPythonPackage, emoji, fetchFromGitHub, freezegun
+, tzdata, py, pyparsing, pydantic, pytest-asyncio, pytest-benchmark
+, pytest-golden, pytestCheckHook, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "ical";
@@ -31,13 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-CHo6khJ8Bqej/OdQBtcfa/luO1Gj8cu7h//MwPhWrMU=";
   };
 
-  propagatedBuildInputs = [
-    emoji
-    python-dateutil
-    tzdata
-    pydantic
-    pyparsing
-  ];
+  propagatedBuildInputs = [ emoji python-dateutil tzdata pydantic pyparsing ];
 
   nativeCheckInputs = [
     freezegun

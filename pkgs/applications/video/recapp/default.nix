@@ -1,22 +1,6 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  appstream-glib,
-  desktop-file-utils,
-  gettext,
-  glib,
-  gobject-introspection,
-  gtk3,
-  gst_all_1,
-  libnotify,
-  librsvg,
-  meson,
-  ninja,
-  pkg-config,
-  slop,
-  wrapGAppsHook,
-}:
+{ lib, python3, fetchFromGitHub, appstream-glib, desktop-file-utils, gettext
+, glib, gobject-introspection, gtk3, gst_all_1, libnotify, librsvg, meson, ninja
+, pkg-config, slop, wrapGAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "recapp";
@@ -58,11 +42,7 @@ python3.pkgs.buildPythonApplication rec {
     gst_all_1.gst-plugins-ugly
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pulsectl
-    pydbus
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pulsectl pydbus pygobject3 ];
 
   dontWrapGApps = true;
 
@@ -70,16 +50,14 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       "--prefix" "PATH" ":" "${
-        lib.makeBinPath [
-          gst_all_1.gstreamer.dev
-          slop
-        ]
+        lib.makeBinPath [ gst_all_1.gstreamer.dev slop ]
       }"
     )
   '';
 
   meta = with lib; {
-    description = "User friendly Open Source screencaster for Linux written in GTK";
+    description =
+      "User friendly Open Source screencaster for Linux written in GTK";
     homepage = "https://github.com/amikha1lov/RecApp";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dotlambda ];

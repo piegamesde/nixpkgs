@@ -1,21 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pythonOlder,
-  cryptography,
-  jinja2,
-  mako,
-  passlib,
-  pytest,
-  pyyaml,
-  requests,
-  rtoml,
-  setuptools,
-  tomlkit,
-  librouteros,
-  pytestCheckHook,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, cryptography, jinja2
+, mako, passlib, pytest, pyyaml, requests, rtoml, setuptools, tomlkit
+, librouteros, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "bundlewrap";
@@ -48,15 +33,15 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # only unit tests as integration tests need a OpenSSH client/server setup
-      "tests/unit"
-    ];
+  pytestFlagsArray = [
+    # only unit tests as integration tests need a OpenSSH client/server setup
+    "tests/unit"
+  ];
 
   meta = with lib; {
     homepage = "https://bundlewrap.org/";
-    description = "Easy, Concise and Decentralized Config management with Python";
+    description =
+      "Easy, Concise and Decentralized Config management with Python";
     license = [ licenses.gpl3 ];
     maintainers = with maintainers; [ wamserma ];
   };

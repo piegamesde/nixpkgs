@@ -1,9 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitLab,
-  vkbasalt,
-}:
+{ lib, python3Packages, fetchFromGitLab, vkbasalt }:
 
 python3Packages.buildPythonApplication rec {
   pname = "vkbasalt-cli";
@@ -26,10 +21,7 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "Command-line utility for vkBasalt";
     homepage = "https://gitlab.com/TheEvilSkeleton/vkbasalt-cli";
-    license = with licenses; [
-      lgpl3Only
-      gpl3Only
-    ];
+    license = with licenses; [ lgpl3Only gpl3Only ];
     maintainers = with maintainers; [ martfont ];
   };
 }

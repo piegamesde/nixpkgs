@@ -1,27 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gmp,
-  gwenhywfar,
-  libtool,
-  libxml2,
-  libxslt,
-  pkg-config,
-  gettext,
-  xmlsec,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, gmp, gwenhywfar, libtool, libxml2, libxslt, pkg-config
+, gettext, xmlsec, zlib }:
 
-let
-  inherit ((import ./sources.nix).aqbanking) hash releaseId version;
-in
-stdenv.mkDerivation rec {
+let inherit ((import ./sources.nix).aqbanking) hash releaseId version;
+in stdenv.mkDerivation rec {
   pname = "aqbanking";
   inherit version;
 
   src = fetchurl {
-    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
+    url =
+      "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
     inherit hash;
   };
 
@@ -35,23 +22,13 @@ stdenv.mkDerivation rec {
     }' configure
   '';
 
-  buildInputs = [
-    gmp
-    gwenhywfar
-    libtool
-    libxml2
-    libxslt
-    xmlsec
-    zlib
-  ];
+  buildInputs = [ gmp gwenhywfar libtool libxml2 libxslt xmlsec zlib ];
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-  ];
+  nativeBuildInputs = [ pkg-config gettext ];
 
   meta = with lib; {
-    description = "An interface to banking tasks, file formats and country information";
+    description =
+      "An interface to banking tasks, file formats and country information";
     homepage = "https://www.aquamaniac.de/rdm/";
     hydraPlatforms = [ ];
     license = licenses.gpl2Plus;

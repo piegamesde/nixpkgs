@@ -1,19 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  ant,
-  jre,
-  jdk,
-  makeWrapper,
-}:
+{ stdenv, lib, fetchurl, ant, jre, jdk, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "abcl";
   version = "1.9.1";
 
   src = fetchurl {
-    url = "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz";
+    url =
+      "https://common-lisp.net/project/armedbear/releases/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "sha256-pbxnfJRB9KgzwgpUG93Rb/+SZIRmkd6aHa9mmfj/EeI=";
   };
 
@@ -34,11 +27,7 @@ stdenv.mkDerivation rec {
 
   # note for the future:
   # if you use makeBinaryWrapper, you will trade bash for glibc, the closure will be slightly larger
-  nativeBuildInputs = [
-    makeWrapper
-    ant
-    jdk
-  ];
+  nativeBuildInputs = [ makeWrapper ant jdk ];
 
   buildPhase = ''
     runHook preBuild
@@ -60,8 +49,8 @@ stdenv.mkDerivation rec {
       --prefix CLASSPATH : $out/lib/abcl/abcl-contrib.jar \
       ${
         lib.optionalString (lib.versionAtLeast jre.version "17")
-          # Fix for https://github.com/armedbear/abcl/issues/484
-          "--add-flags --add-opens=java.base/java.util.jar=ALL-UNNAMED \\"
+        # Fix for https://github.com/armedbear/abcl/issues/484
+        "--add-flags --add-opens=java.base/java.util.jar=ALL-UNNAMED \\"
       }
       --add-flags org.armedbear.lisp.Main
 

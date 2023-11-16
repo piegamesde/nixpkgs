@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchgit,
-  pillow,
-  poetry-core,
-  pytest-benchmark,
-  pytest-mypy,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchgit, pillow, poetry-core, pytest-benchmark
+, pytest-mypy, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pixelmatch";
@@ -27,19 +18,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pillow
-    pytest-benchmark
-    pytest-mypy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pillow pytest-benchmark pytest-mypy pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # Incompatible types in assignment
-      #"--mypy"
-      "--benchmark-disable"
-    ];
+  pytestFlagsArray = [
+    # Incompatible types in assignment
+    #"--mypy"
+    "--benchmark-disable"
+  ];
 
   pythonImportsCheck = [ "pixelmatch" ];
 

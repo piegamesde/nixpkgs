@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  protobufc,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, protobufc, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "libgadu";
@@ -23,9 +16,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = {
-    description = "A library to deal with gadu-gadu protocol (most popular polish IM protocol)";
+    description =
+      "A library to deal with gadu-gadu protocol (most popular polish IM protocol)";
     homepage = "https://libgadu.net/index.en.html";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl21;
   };
+
 }

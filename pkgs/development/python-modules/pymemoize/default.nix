@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-}:
+{ lib, buildPythonPackage, fetchPypi, django }:
 
 buildPythonPackage rec {
   pname = "pymemoize";
@@ -27,3 +22,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ mmai ];
   };
 }
+

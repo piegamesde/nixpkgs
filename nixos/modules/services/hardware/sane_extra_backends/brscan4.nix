@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,71 +7,69 @@ let
 
   netDeviceList = attrValues cfg.netDevices;
 
-  etcFiles = pkgs.callPackage ./brscan4_etc_files.nix { netDevices = netDeviceList; };
+  etcFiles =
+    pkgs.callPackage ./brscan4_etc_files.nix { netDevices = netDeviceList; };
 
-  netDeviceOpts =
-    { name, ... }:
-    {
+  netDeviceOpts = { name, ... }: {
 
-      options = {
+    options = {
 
-        name = mkOption {
-          type = types.str;
-          description = lib.mdDoc ''
-            The friendly name you give to the network device. If undefined,
-            the name of attribute will be used.
-          '';
+      name = mkOption {
+        type = types.str;
+        description = lib.mdDoc ''
+          The friendly name you give to the network device. If undefined,
+          the name of attribute will be used.
+        '';
 
-          example = "office1";
-        };
-
-        model = mkOption {
-          type = types.str;
-          description = lib.mdDoc ''
-            The model of the network device.
-          '';
-
-          example = "MFC-7860DW";
-        };
-
-        ip = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc ''
-            The ip address of the device. If undefined, you will have to
-            provide a nodename.
-          '';
-
-          example = "192.168.1.2";
-        };
-
-        nodename = mkOption {
-          type = with types; nullOr str;
-          default = null;
-          description = lib.mdDoc ''
-            The node name of the device. If undefined, you will have to
-            provide an ip.
-          '';
-
-          example = "BRW0080927AFBCE";
-        };
+        example = "office1";
       };
 
-      config = {
-        name = mkDefault name;
+      model = mkOption {
+        type = types.str;
+        description = lib.mdDoc ''
+          The model of the network device.
+        '';
+
+        example = "MFC-7860DW";
       };
+
+      ip = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description = lib.mdDoc ''
+          The ip address of the device. If undefined, you will have to
+          provide a nodename.
+        '';
+
+        example = "192.168.1.2";
+      };
+
+      nodename = mkOption {
+        type = with types; nullOr str;
+        default = null;
+        description = lib.mdDoc ''
+          The node name of the device. If undefined, you will have to
+          provide an ip.
+        '';
+
+        example = "BRW0080927AFBCE";
+      };
+
     };
-in
 
-{
+    config = { name = mkDefault name; };
+  };
+
+in {
   options = {
 
-    hardware.sane.brscan4.enable = mkEnableOption (lib.mdDoc "Brother's brscan4 scan backend") // {
-      description = lib.mdDoc ''
-        When enabled, will automatically register the "brscan4" sane
-        backend and bring configuration files to their expected location.
-      '';
-    };
+    hardware.sane.brscan4.enable =
+      mkEnableOption (lib.mdDoc "Brother's brscan4 scan backend") // {
+        description = lib.mdDoc ''
+          When enabled, will automatically register the "brscan4" sane
+          backend and bring configuration files to their expected location.
+        '';
+      };
 
     hardware.sane.brscan4.netDevices = mkOption {
       default = { };
@@ -106,15 +99,14 @@ in
       source = "${etcFiles}/etc/opt/brother/scanner/brscan4";
     };
 
-    assertions = [
-      {
-        assertion = all (x: !(null != x.ip && null != x.nodename)) netDeviceList;
-        message = ''
-          When describing a network device as part of the attribute list
-          `hardware.sane.brscan4.netDevices`, only one of its `ip` or `nodename`
-          attribute should be specified, not both!
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = all (x: !(null != x.ip && null != x.nodename)) netDeviceList;
+      message = ''
+        When describing a network device as part of the attribute list
+        `hardware.sane.brscan4.netDevices`, only one of its `ip` or `nodename`
+        attribute should be specified, not both!
+      '';
+    }];
+
   };
 }

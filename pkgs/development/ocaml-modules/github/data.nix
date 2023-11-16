@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  github,
-  yojson,
-  atdgen,
-}:
+{ lib, buildDunePackage, github, yojson, atdgen }:
 
 buildDunePackage {
   pname = "github-data";
@@ -14,12 +8,7 @@ buildDunePackage {
 
   nativeBuildInputs = [ atdgen ];
 
-  propagatedBuildInputs = [
-    yojson
-    atdgen
-  ];
+  propagatedBuildInputs = [ yojson atdgen ];
 
-  meta = github.meta // {
-    description = "GitHub APIv3 data library";
-  };
+  meta = github.meta // { description = "GitHub APIv3 data library"; };
 }

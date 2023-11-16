@@ -1,17 +1,5 @@
-{
-  lib,
-  brotli,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  httpretty,
-  ijson,
-  poetry-core,
-  python-magic,
-  pytz,
-  pytestCheckHook,
-  requests-oauthlib,
-}:
+{ lib, brotli, buildPythonPackage, fetchFromGitHub, fetchpatch, httpretty, ijson
+, poetry-core, python-magic, pytz, pytestCheckHook, requests-oauthlib }:
 
 buildPythonPackage rec {
   pname = "pysnow";
@@ -27,28 +15,19 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    brotli
-    ijson
-    python-magic
-    pytz
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ brotli ijson python-magic pytz requests-oauthlib ];
 
-  nativeCheckInputs = [
-    httpretty
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ httpretty pytestCheckHook ];
 
-  patches =
-    [
-      # Switch to peotry-core, https://github.com/rbw/pysnow/pull/183
-      (fetchpatch {
-        name = "switch-to-poetry-core.patch";
-        url = "https://github.com/rbw/pysnow/commit/f214a203432b329df5317f3a25b2c0d9b55a9029.patch";
-        hash = "sha256-ViRR+9WStlaQwyrLGk/tMOUAcEMY+kB61ZEKGMQJ30o=";
-      })
-    ];
+  patches = [
+    # Switch to peotry-core, https://github.com/rbw/pysnow/pull/183
+    (fetchpatch {
+      name = "switch-to-poetry-core.patch";
+      url =
+        "https://github.com/rbw/pysnow/commit/f214a203432b329df5317f3a25b2c0d9b55a9029.patch";
+      hash = "sha256-ViRR+9WStlaQwyrLGk/tMOUAcEMY+kB61ZEKGMQJ30o=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -65,4 +44,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ almac ];
   };
+
 }

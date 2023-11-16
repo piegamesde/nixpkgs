@@ -1,16 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  pythonOlder,
-  buildPythonPackage,
-  setuptools,
-  versioningit,
-  qcodes,
-  packaging,
-  pytestCheckHook,
-  pytest-mock,
-  pyvisa-sim,
-}:
+{ lib, fetchFromGitHub, pythonOlder, buildPythonPackage, setuptools
+, versioningit, qcodes, packaging, pytestCheckHook, pytest-mock, pyvisa-sim }:
 
 buildPythonPackage rec {
   pname = "qcodes-contrib-drivers";
@@ -26,26 +15,17 @@ buildPythonPackage rec {
     sha256 = "sha256-hg3jSiuOkiuOInnUzzlKtBeoP5zkCDBQ3xP6KCwq+lU=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    versioningit
-  ];
+  nativeBuildInputs = [ setuptools versioningit ];
 
-  propagatedBuildInputs = [
-    qcodes
-    packaging
-  ];
+  propagatedBuildInputs = [ qcodes packaging ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    pyvisa-sim
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock pyvisa-sim ];
 
   pythonImportsCheck = [ "qcodes_contrib_drivers" ];
 
   # should be fixed starting with 0.19.0, remove at next release
-  disabledTestPaths = [ "qcodes_contrib_drivers/tests/test_Keysight_M3201A.py" ];
+  disabledTestPaths =
+    [ "qcodes_contrib_drivers/tests/test_Keysight_M3201A.py" ];
 
   postInstall = ''
     export HOME="$TMPDIR"

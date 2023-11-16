@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "frogmouth";
@@ -16,10 +12,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-BgJdcdIgYNZUJLWDgUWIDyiSSAkLdePYus3IYQo/QpY=";
   };
 
-  nativeBuildInputs = [
-    python3.pkgs.poetry-core
-    python3.pkgs.pythonRelaxDepsHook
-  ];
+  nativeBuildInputs =
+    [ python3.pkgs.poetry-core python3.pkgs.pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     httpx
@@ -35,7 +29,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "A Markdown browser for your terminal";
     homepage = "https://github.com/Textualize/frogmouth";
-    changelog = "https://github.com/Textualize/frogmouth/blob/${src.rev}/ChangeLog.md";
+    changelog =
+      "https://github.com/Textualize/frogmouth/blob/${src.rev}/ChangeLog.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

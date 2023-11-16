@@ -1,10 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-  git,
-  mercurial,
-}:
+{ lib, python3Packages, fetchPypi, git, mercurial }:
 
 with python3Packages;
 
@@ -17,11 +11,7 @@ buildPythonApplication rec {
     sha256 = "1228plh55id03qywsw0ai88ypdpbh9iz18jfcyhn21pci7mj77fv";
   };
 
-  nativeCheckInputs = [
-    git
-    mercurial
-    pytest
-  ];
+  nativeCheckInputs = [ git mercurial pytest ];
 
   checkPhase = ''
     export GIT_COMMITTER_NAME=nixbld
@@ -37,3 +27,4 @@ buildPythonApplication rec {
     maintainers = with maintainers; [ ];
   };
 }
+

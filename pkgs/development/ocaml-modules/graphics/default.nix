@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  dune-configurator,
-  libX11,
-}:
+{ lib, fetchurl, buildDunePackage, dune-configurator, libX11 }:
 
 buildDunePackage rec {
 
@@ -14,7 +8,8 @@ buildDunePackage rec {
   useDune2 = true;
 
   src = fetchurl {
-    url = "https://github.com/ocaml/graphics/releases/download/${version}/graphics-${version}.tbz";
+    url =
+      "https://github.com/ocaml/graphics/releases/download/${version}/graphics-${version}.tbz";
     sha256 = "sha256-QA/YHSPxy0FGuWl5NCwkeXHdVPWHn/0vgOx80CEuMtQ=";
   };
 

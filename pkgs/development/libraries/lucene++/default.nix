@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  boost,
-  gtest,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, boost, gtest, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "lucene++";
@@ -21,23 +12,21 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    boost
-    gtest
-    zlib
-  ];
+  buildInputs = [ boost gtest zlib ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 
   patches = [
     (fetchpatch {
       name = "pkgconfig_use_correct_LIBDIR_for_destination_library";
-      url = "https://github.com/luceneplusplus/LucenePlusPlus/commit/39cd44bd54e918d25ee464477992ad0dc234dcba.patch";
+      url =
+        "https://github.com/luceneplusplus/LucenePlusPlus/commit/39cd44bd54e918d25ee464477992ad0dc234dcba.patch";
       sha256 = "sha256-PP6ENNhPJMWrYDlTnr156XV8d5aX/VNX8v4vvi9ZiWo";
     })
     (fetchpatch {
       name = "fix-visibility-on-mac.patch";
-      url = "https://github.com/luceneplusplus/LucenePlusPlus/commit/bc436842227aea561b68c6ae89fbd1fdefcac7b3.patch";
+      url =
+        "https://github.com/luceneplusplus/LucenePlusPlus/commit/bc436842227aea561b68c6ae89fbd1fdefcac7b3.patch";
       sha256 = "sha256-/S7tFZ4ht5p0cv036xF2NKZQwExbPaGINyWZiUg/lS4=";
     })
   ];
@@ -64,10 +53,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "C++ port of the popular Java Lucene search engine";
     homepage = "https://github.com/luceneplusplus/LucenePlusPlus";
-    license = with lib.licenses; [
-      asl20
-      lgpl3Plus
-    ];
+    license = with lib.licenses; [ asl20 lgpl3Plus ];
     platforms = lib.platforms.unix;
   };
 }

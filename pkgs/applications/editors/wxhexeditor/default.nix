@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  autoconf,
-  automake,
-  gettext,
-  libtool,
-  python3,
-  wxGTK,
-  openmp,
-  Cocoa,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoconf, automake, gettext, libtool
+, python3, wxGTK, openmp, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "wxHexEditor";
@@ -26,32 +14,25 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    gettext
-    libtool
-    python3
-    wxGTK
-  ];
+  nativeBuildInputs = [ autoconf automake gettext libtool python3 wxGTK ];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ openmp ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = lib.optionals stdenv.cc.isClang [ openmp ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = "patchShebangs .";
 
-  prePatch =
-    ''
-      substituteInPlace Makefile --replace "/usr" "$out"
-      substituteInPlace Makefile --replace "mhash; ./configure" "mhash; ./configure --prefix=$out"
-    ''
-    + lib.optionalString stdenv.cc.isClang ''
-      substituteInPlace Makefile --replace "-lgomp" "-lomp"
-    '';
+  prePatch = ''
+    substituteInPlace Makefile --replace "/usr" "$out"
+    substituteInPlace Makefile --replace "mhash; ./configure" "mhash; ./configure --prefix=$out"
+  '' + lib.optionalString stdenv.cc.isClang ''
+    substituteInPlace Makefile --replace "-lgomp" "-lomp"
+  '';
 
   patches = [
     # https://github.com/EUA/wxHexEditor/issues/90
     (fetchpatch {
-      url = "https://github.com/EUA/wxHexEditor/commit/d0fa3ddc3e9dc9b05f90b650991ef134f74eed01.patch";
+      url =
+        "https://github.com/EUA/wxHexEditor/commit/d0fa3ddc3e9dc9b05f90b650991ef134f74eed01.patch";
       sha256 = "1wcb70hrnhq72frj89prcqylpqs74xrfz3kdfdkq84p5qfz9svyj";
     })
     ./missing-semicolon.patch

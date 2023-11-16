@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ace,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ace }:
 
 stdenv.mkDerivation rec {
   pname = "yarp";
@@ -38,3 +32,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.nico202 ];
   };
 }
+

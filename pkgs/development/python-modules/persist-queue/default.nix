@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  msgpack,
-  nose2,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, msgpack, nose2 }:
 
 buildPythonPackage rec {
   pname = "persist-queue";
@@ -18,10 +11,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-  nativeCheckInputs = [
-    msgpack
-    nose2
-  ];
+  nativeCheckInputs = [ msgpack nose2 ];
 
   checkPhase = ''
     runHook preCheck

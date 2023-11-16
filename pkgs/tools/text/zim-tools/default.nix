@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  docopt_cpp,
-  file,
-  gumbo,
-  mustache-hpp,
-  zimlib,
-  zlib,
-  gtest,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, docopt_cpp, file
+, gumbo, mustache-hpp, zimlib, zlib, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "zim-tools";
@@ -25,19 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-E4E2ETuhlzBZKXMy2hNA66Vq1z2VzomgCsQp2y00XHQ=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
-  buildInputs = [
-    docopt_cpp
-    file
-    gumbo
-    mustache-hpp
-    zimlib
-    zlib
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
+  buildInputs = [ docopt_cpp file gumbo mustache-hpp zimlib zlib ];
 
   nativeCheckInputs = [ gtest ];
   doCheck = true;

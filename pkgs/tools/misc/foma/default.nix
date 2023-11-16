@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  flex,
-  bison,
-  readline,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, flex, bison, readline, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "foma";
@@ -22,21 +13,11 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/foma";
 
-  nativeBuildInputs = [
-    flex
-    bison
-  ] ++ lib.optional stdenv.isDarwin darwin.cctools;
-  buildInputs = [
-    zlib
-    readline
-  ];
+  nativeBuildInputs = [ flex bison ]
+    ++ lib.optional stdenv.isDarwin darwin.cctools;
+  buildInputs = [ zlib readline ];
 
-  makeFlags =
-    [
-      "CC:=$(CC)"
-      "RANLIB:=$(RANLIB)"
-      "prefix=$(out)"
-    ]
+  makeFlags = [ "CC:=$(CC)" "RANLIB:=$(RANLIB)" "prefix=$(out)" ]
     ++ lib.optionals (!stdenv.isDarwin) [
       "AR:=$(AR)" # libtool is used for darwin
     ];
@@ -47,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A multi-purpose finite-state toolkit designed for applications ranging from natural language processing to research in automata theory";
+    description =
+      "A multi-purpose finite-state toolkit designed for applications ranging from natural language processing to research in automata theory";
     homepage = "https://github.com/mhulden/foma";
     license = licenses.asl20;
     maintainers = [ maintainers.tckmn ];

@@ -1,13 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  gfortran,
-  blas,
-  lapack,
-  mctc-lib,
-  mstore,
+{ stdenv, lib, fetchFromGitHub, cmake, gfortran, blas, lapack, mctc-lib, mstore
 }:
 
 assert !blas.isILP64 && !lapack.isILP64;
@@ -23,17 +14,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-oUI5x5/Gd0EZBb1w+0jlJUF9X51FnkHFu8H7KctqXl0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gfortran
-  ];
+  nativeBuildInputs = [ cmake gfortran ];
 
-  buildInputs = [
-    blas
-    lapack
-    mctc-lib
-    mstore
-  ];
+  buildInputs = [ blas lapack mctc-lib mstore ];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/${pname}.pc \
@@ -46,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Electronegativity equilibration model for atomic partial charges";
+    description =
+      "Electronegativity equilibration model for atomic partial charges";
     license = licenses.asl20;
     homepage = "https://github.com/grimme-lab/multicharge";
     platforms = platforms.linux;

@@ -1,19 +1,13 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  unzip,
-}:
+{ lib, stdenvNoCC, fetchurl, unzip }:
 
-let
-  rev = "e764ba00b9c34524e3ff3ffd19a44fa2a5c296a5";
-in
-stdenvNoCC.mkDerivation {
+let rev = "e764ba00b9c34524e3ff3ffd19a44fa2a5c296a5";
+in stdenvNoCC.mkDerivation {
   pname = "blobs.gg";
   version = "unstable-2019-07-24";
 
   src = fetchurl {
-    url = "https://git.pleroma.social/pleroma/emoji-index/-/raw/${rev}/packs/blobs_gg.zip";
+    url =
+      "https://git.pleroma.social/pleroma/emoji-index/-/raw/${rev}/packs/blobs_gg.zip";
     hash = "sha256-OhLzoYFnjVs1hKYglUEbDWCjNRGBNZENh5kg+K3lpX8=";
   };
 

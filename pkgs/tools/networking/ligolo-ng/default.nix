@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "ligolo-ng";
@@ -19,11 +15,7 @@ buildGoModule rec {
     export CGO_ENABLED=0
   '';
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-extldflags '-static'"
-  ];
+  ldflags = [ "-s" "-w" "-extldflags '-static'" ];
 
   vendorHash = "sha256-If0K6DmkGk3AmO3eb/ocAl1RJeBN/xgY7dOh9lnVLh8=";
 

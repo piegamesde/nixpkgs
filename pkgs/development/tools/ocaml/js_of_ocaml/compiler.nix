@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  cmdliner,
-  yojson,
-  ppxlib,
-  findlib,
-  menhir,
-  menhirLib,
-}:
+{ lib, fetchurl, buildDunePackage, cmdliner, yojson, ppxlib, findlib, menhir
+, menhirLib }:
 
 buildDunePackage rec {
   pname = "js_of_ocaml-compiler";
@@ -17,22 +8,16 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
   src = fetchurl {
-    url = "https://github.com/ocsigen/js_of_ocaml/releases/download/${version}/js_of_ocaml-${version}.tbz";
+    url =
+      "https://github.com/ocsigen/js_of_ocaml/releases/download/${version}/js_of_ocaml-${version}.tbz";
     sha256 = "sha256-kXk/KaWvPeq6P301zqsR5znP4KXMMFVvYgFGGm1CNu8=";
   };
 
   nativeBuildInputs = [ menhir ];
-  buildInputs = [
-    cmdliner
-    ppxlib
-  ];
+  buildInputs = [ cmdliner ppxlib ];
 
   configurePlatforms = [ ];
-  propagatedBuildInputs = [
-    menhirLib
-    yojson
-    findlib
-  ];
+  propagatedBuildInputs = [ menhirLib yojson findlib ];
 
   meta = {
     description = "Compiler from OCaml bytecode to Javascript";

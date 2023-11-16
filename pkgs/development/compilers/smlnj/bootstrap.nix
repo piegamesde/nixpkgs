@@ -2,15 +2,7 @@
 # and is preserved only for pre-existing direct usage. New use cases should
 # just use the regular smlnj derivation.
 
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cpio,
-  rsync,
-  xar,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, cpio, rsync, xar, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "smlnj-bootstrap";
@@ -18,15 +10,13 @@ stdenv.mkDerivation rec {
   version = "110.91";
 
   src = fetchurl {
-    url = "http://smlnj.cs.uchicago.edu/dist/working/${version}/smlnj-x86-${version}.pkg";
+    url =
+      "http://smlnj.cs.uchicago.edu/dist/working/${version}/smlnj-x86-${version}.pkg";
     sha256 = "12jn50h5jz0ac1vzld2mb94p1dyc8h0mk0hip2wj5xqk1dbzwxl4";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    cpio
-    rsync
-  ];
+  buildInputs = [ cpio rsync ];
 
   unpackPhase = ''
     ${xar}/bin/xar -xf $src

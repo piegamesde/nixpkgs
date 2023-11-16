@@ -1,22 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libpng,
-  libjpeg,
-  libtiff,
-  zlib,
-  bzip2,
-  libXcursor,
-  libXrandr,
-  libGLU,
-  libGL,
-  libXext,
-  libXft,
-  libXfixes,
-  xinput,
-  CoreServices,
-}:
+{ lib, stdenv, fetchurl, libpng, libjpeg, libtiff, zlib, bzip2, libXcursor
+, libXrandr, libGLU, libGL, libXext, libXft, libXfixes, xinput, CoreServices }:
 
 stdenv.mkDerivation rec {
   pname = "fox";
@@ -52,7 +35,8 @@ stdenv.mkDerivation rec {
   meta = {
     broken = stdenv.isDarwin;
     branch = "1.6";
-    description = "A C++ based class library for building Graphical User Interfaces";
+    description =
+      "A C++ based class library for building Graphical User Interfaces";
     longDescription = ''
       FOX stands for Free Objects for X.
       It is a C++ based class library for building Graphical User Interfaces.

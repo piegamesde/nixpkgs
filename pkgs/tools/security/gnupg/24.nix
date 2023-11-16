@@ -1,33 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  buildPackages,
-  pkg-config,
-  texinfo,
-  gettext,
-  libassuan,
-  libgcrypt,
-  libgpg-error,
-  libiconv,
-  libksba,
-  npth,
-  adns,
-  bzip2,
-  gnutls,
-  libusb1,
-  openldap,
-  readline,
-  sqlite,
-  zlib,
-  enableMinimal ? false,
-  withPcsc ? !enableMinimal,
-  pcsclite,
-  guiSupport ? stdenv.isDarwin,
-  pinentry,
-  withTpm2Tss ? !stdenv.isDarwin && !enableMinimal,
-  tpm2-tss,
-}:
+{ lib, stdenv, fetchurl, buildPackages, pkg-config, texinfo, gettext, libassuan
+, libgcrypt, libgpg-error, libiconv, libksba, npth, adns, bzip2, gnutls, libusb1
+, openldap, readline, sqlite, zlib, enableMinimal ? false
+, withPcsc ? !enableMinimal, pcsclite, guiSupport ? stdenv.isDarwin, pinentry
+, withTpm2Tss ? !stdenv.isDarwin && !enableMinimal, tpm2-tss }:
 
 assert guiSupport -> enableMinimal == false;
 
@@ -41,20 +16,9 @@ stdenv.mkDerivation rec {
   };
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    pkg-config
-    texinfo
-  ];
+  nativeBuildInputs = [ pkg-config texinfo ];
   buildInputs =
-    [
-      gettext
-      libassuan
-      libgcrypt
-      libgpg-error
-      libiconv
-      libksba
-      npth
-    ]
+    [ gettext libassuan libgcrypt libgpg-error libiconv libksba npth ]
     ++ lib.optionals (!enableMinimal) [
       adns
       bzip2
@@ -64,8 +28,7 @@ stdenv.mkDerivation rec {
       readline
       sqlite
       zlib
-    ]
-    ++ lib.optionals withTpm2Tss [ tpm2-tss ];
+    ] ++ lib.optionals withTpm2Tss [ tpm2-tss ];
 
   patches = [
     ./fix-libusb-include-path.patch
@@ -76,59 +39,53 @@ stdenv.mkDerivation rec {
     ./v3-0001-Disallow-compressed-signatures-and-certificates.patch
   ];
 
-  postPatch =
-    ''
-      sed -i 's,\(hkps\|https\)://keyserver.ubuntu.com,hkps://keys.openpgp.org,g' configure configure.ac doc/dirmngr.texi doc/gnupg.info-1
-    ''
-    + lib.optionalString (stdenv.isLinux && withPcsc) ''
-      sed -i 's,"libpcsclite\.so[^"]*","${lib.getLib pcsclite}/lib/libpcsclite.so",g' scd/scdaemon.c
-    '';
+  postPatch = ''
+    sed -i 's,\(hkps\|https\)://keyserver.ubuntu.com,hkps://keys.openpgp.org,g' configure configure.ac doc/dirmngr.texi doc/gnupg.info-1
+  '' + lib.optionalString (stdenv.isLinux && withPcsc) ''
+    sed -i 's,"libpcsclite\.so[^"]*","${
+      lib.getLib pcsclite
+    }/lib/libpcsclite.so",g' scd/scdaemon.c
+  '';
 
-  configureFlags =
-    [
-      "--sysconfdir=/etc"
-      "--with-libgpg-error-prefix=${libgpg-error.dev}"
-      "--with-libgcrypt-prefix=${libgcrypt.dev}"
-      "--with-libassuan-prefix=${libassuan.dev}"
-      "--with-ksba-prefix=${libksba.dev}"
-      "--with-npth-prefix=${npth}"
-    ]
-    ++ lib.optional guiSupport
-      "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--with-libgpg-error-prefix=${libgpg-error.dev}"
+    "--with-libgcrypt-prefix=${libgcrypt.dev}"
+    "--with-libassuan-prefix=${libassuan.dev}"
+    "--with-ksba-prefix=${libksba.dev}"
+    "--with-npth-prefix=${npth}"
+  ] ++ lib.optional guiSupport
+    "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
     ++ lib.optional withTpm2Tss "--with-tss=intel"
     ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
-  postInstall =
-    if enableMinimal then
-      ''
-        rm -r $out/{libexec,sbin,share}
-        for f in $(find $out/bin -type f -not -name gpg)
-        do
-          rm $f
-        done
-      ''
-    else
-      ''
-        mkdir -p $out/lib/systemd/user
-        for f in doc/examples/systemd-user/*.{service,socket} ; do
-          substitute $f $out/lib/systemd/user/$(basename $f) \
-            --replace /usr/bin $out/bin
-        done
+  postInstall = if enableMinimal then ''
+    rm -r $out/{libexec,sbin,share}
+    for f in $(find $out/bin -type f -not -name gpg)
+    do
+      rm $f
+    done
+  '' else ''
+    mkdir -p $out/lib/systemd/user
+    for f in doc/examples/systemd-user/*.{service,socket} ; do
+      substitute $f $out/lib/systemd/user/$(basename $f) \
+        --replace /usr/bin $out/bin
+    done
 
-        # add gpg2 symlink to make sure git does not break when signing commits
-        ln -s $out/bin/gpg $out/bin/gpg2
+    # add gpg2 symlink to make sure git does not break when signing commits
+    ln -s $out/bin/gpg $out/bin/gpg2
 
-        # Make libexec tools available in PATH
-        for f in $out/libexec/; do
-          if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
-          ln -s $f $out/bin/$(basename $f)
-        done
+    # Make libexec tools available in PATH
+    for f in $out/libexec/; do
+      if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
+      ln -s $f $out/bin/$(basename $f)
+    done
 
-        for f in $out/libexec/; do
-          if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
-          ln -s $f $out/bin/$(basename $f)
-        done
-      '';
+    for f in $out/libexec/; do
+      if [[ "$(basename $f)" == "gpg-wks-client" ]]; then continue; fi
+      ln -s $f $out/bin/$(basename $f)
+    done
+  '';
 
   enableParallelBuilding = true;
 
@@ -136,8 +93,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gnupg.org";
-    changelog = "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=${pname}.git;a=blob;f=NEWS;hb=refs/tags/${pname}-${version}";
-    description = "Modern release of the GNU Privacy Guard, a GPL OpenPGP implementation";
+    changelog =
+      "https://git.gnupg.org/cgi-bin/gitweb.cgi?p=${pname}.git;a=blob;f=NEWS;hb=refs/tags/${pname}-${version}";
+    description =
+      "Modern release of the GNU Privacy Guard, a GPL OpenPGP implementation";
     license = licenses.gpl3Plus;
     longDescription = ''
       The GNU Privacy Guard is the GNU project's complete and free
@@ -150,10 +109,7 @@ stdenv.mkDerivation rec {
       frontend applications and libraries are available.  Version 2 of GnuPG
       also provides support for S/MIME.
     '';
-    maintainers = with maintainers; [
-      fpletz
-      vrthra
-    ];
+    maintainers = with maintainers; [ fpletz vrthra ];
     platforms = platforms.all;
     mainProgram = "gpg";
   };

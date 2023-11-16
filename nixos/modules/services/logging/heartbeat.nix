@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,8 +11,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
   options = {
 
     services.heartbeat = {
@@ -49,7 +44,8 @@ in
       stateDir = mkOption {
         type = types.str;
         default = "/var/lib/heartbeat";
-        description = lib.mdDoc "The state directory. heartbeat's own logs and other data are stored here.";
+        description = lib.mdDoc
+          "The state directory. heartbeat's own logs and other data are stored here.";
       };
 
       extraConfig = mkOption {
@@ -60,8 +56,10 @@ in
             urls: ["http://localhost:9200"]
             schedule: '@every 10s'
         '';
-        description = lib.mdDoc "Any other configuration options you want to add";
+        description =
+          lib.mdDoc "Any other configuration options you want to add";
       };
+
     };
   };
 

@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.programs.wireshark;
   wireshark = cfg.package;
-in
-{
+in {
   options = {
     programs.wireshark = {
       enable = mkOption {

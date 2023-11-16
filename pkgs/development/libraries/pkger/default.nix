@@ -1,7 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
+{ buildGoModule, fetchFromGitHub, lib
 
 }:
 
@@ -21,7 +18,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Embed static files in Go binaries (replacement for gobuffalo/packr) ";
+    description =
+      "Embed static files in Go binaries (replacement for gobuffalo/packr) ";
     homepage = "https://github.com/markbates/pkger";
     changelog = "https://github.com/markbates/pkger/releases/tag/v${version}";
     license = licenses.mit;

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  crc16,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, crc16, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyoppleio";

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gtk3,
-  gtkdatabox,
-  fftw,
-  gnum4,
-  comedilib,
-  alsa-lib,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, gtk3, gtkdatabox, fftw, gnum4, comedilib, alsa-lib
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "xoscope";
@@ -20,17 +10,8 @@ stdenv.mkDerivation rec {
     sha256 = "0a5ycfc1qdmibvagc82r2mhv2i99m6pndy5i6ixas3j2297g6pgq";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gnum4
-  ];
-  buildInputs = [
-    gtk3
-    gtkdatabox
-    fftw
-    comedilib
-    alsa-lib
-  ];
+  nativeBuildInputs = [ pkg-config gnum4 ];
+  buildInputs = [ gtk3 gtkdatabox fftw comedilib alsa-lib ];
 
   meta = {
     description = "Oscilloscope through the sound card";

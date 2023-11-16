@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "Cerberus";
@@ -35,7 +29,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "http://python-cerberus.org/";
-    description = "Lightweight, extensible schema and data validation tool for Python dictionaries";
+    description =
+      "Lightweight, extensible schema and data validation tool for Python dictionaries";
     license = licenses.mit;
   };
 }

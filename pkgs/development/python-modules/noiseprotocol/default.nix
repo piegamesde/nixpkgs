@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cryptography,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cryptography, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "noiseprotocol";

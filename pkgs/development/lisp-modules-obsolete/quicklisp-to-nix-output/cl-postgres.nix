@@ -1,13 +1,9 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-postgres";
   version = "postmodern-20211209-git";
 
-  parasites = [
-    "cl-postgres/simple-date-tests"
-    "cl-postgres/tests"
-  ];
+  parasites = [ "cl-postgres/simple-date-tests" "cl-postgres/tests" ];
 
   description = "Low-level client library for PostgreSQL";
 
@@ -28,7 +24,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/postmodern/2021-12-09/postmodern-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/postmodern/2021-12-09/postmodern-20211209-git.tgz";
     sha256 = "1qcbg31mz5r7ibmq2y7r3vqvdwpznxvwdnwd94hfil7pg4j119d6";
   };
 

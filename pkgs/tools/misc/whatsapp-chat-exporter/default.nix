@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "whatsapp-chat-exporter";
@@ -26,7 +22,8 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/KnugiHK/Whatsapp-Chat-Exporter";
     description = "WhatsApp database parser";
-    changelog = "https://github.com/KnugiHK/Whatsapp-Chat-Exporter/releases/tag/${version}";
+    changelog =
+      "https://github.com/KnugiHK/Whatsapp-Chat-Exporter/releases/tag/${version}";
     longDescription = ''
       A customizable Android and iPhone WhatsApp database parser that will give
       you the history of your WhatsApp conversations inHTML and JSON. Android

@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  alsa-lib,
-  libpcap,
-  expect,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, alsa-lib, libpcap
+, expect }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nethoscope";
@@ -23,15 +15,9 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "0cl0i4m8fxyxfib95x90x6qr284y41wwgwqhflyfa7d3r6qwq8nk";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    alsa-lib
-    libpcap
-  ];
+  buildInputs = [ alsa-lib libpcap ];
 
-  LD_LIBRARY_PATH = lib.makeLibraryPath [
-    libpcap
-    alsa-lib
-  ];
+  LD_LIBRARY_PATH = lib.makeLibraryPath [ libpcap alsa-lib ];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -54,4 +40,5 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ _0x4A6F ];
     platforms = platforms.linux;
   };
+
 }

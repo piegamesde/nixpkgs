@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -17,7 +12,8 @@ let
   scdaemonUdevRev = "01898735a015541e3ffb43c7245ac1e612f40836";
 
   scdaemonRules = pkgs.fetchurl {
-    url = "https://salsa.debian.org/debian/gnupg2/-/raw/${scdaemonUdevRev}/debian/scdaemon.udev";
+    url =
+      "https://salsa.debian.org/debian/gnupg2/-/raw/${scdaemonUdevRev}/debian/scdaemon.udev";
     sha256 = "08v0vp6950bz7galvc92zdss89y9vcwbinmbfcdldy8x72w6rqr3";
   };
 
@@ -31,11 +27,11 @@ let
   '';
 
   cfg = config.hardware.gpgSmartcards;
-in
-{
+in {
   options.hardware.gpgSmartcards = {
     enable = mkEnableOption (lib.mdDoc "udev rules for gnupg smart cards");
   };
 
-  config = mkIf cfg.enable { services.udev.packages = [ scdaemonUdevRulesPkg ]; };
+  config =
+    mkIf cfg.enable { services.udev.packages = [ scdaemonUdevRulesPkg ]; };
 }

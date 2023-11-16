@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  ffmpeg,
-  poco,
-  ocl-icd,
-  opencl-clhpp,
+{ lib, stdenv, fetchFromGitHub, pkg-config, ffmpeg, poco, ocl-icd, opencl-clhpp
 }:
 
 stdenv.mkDerivation rec {
@@ -22,12 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    ffmpeg
-    poco
-    ocl-icd
-    opencl-clhpp
-  ];
+  buildInputs = [ ffmpeg poco ocl-icd opencl-clhpp ];
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/MCJack123/sanjuuni";
-    description = "A command-line tool that converts images and videos into a format that can be displayed in ComputerCraft";
+    description =
+      "A command-line tool that converts images and videos into a format that can be displayed in ComputerCraft";
     changelog = "https://github.com/MCJack123/sanjuuni/releases/tag/${version}";
     maintainers = [ maintainers.tomodachi94 ];
     license = licenses.gpl2Plus;

@@ -1,13 +1,5 @@
-{
-  lib,
-  adal,
-  azure-common,
-  buildPythonPackage,
-  fetchPypi,
-  msal,
-  pythonOlder,
-  requests,
-}:
+{ lib, adal, azure-common, buildPythonPackage, fetchPypi, msal, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "azure-datalake-store";
@@ -21,18 +13,14 @@ buildPythonPackage rec {
     sha256 = "sha256-BbbeYu4/KgpuaUHmkzt5K4AMPn9v/OL8MkvBmHV1c5M=";
   };
 
-  propagatedBuildInputs = [
-    adal
-    azure-common
-    msal
-    requests
-  ];
+  propagatedBuildInputs = [ adal azure-common msal requests ];
 
   # has no tests
   doCheck = false;
 
   meta = with lib; {
-    description = "This project is the Python filesystem library for Azure Data Lake Store";
+    description =
+      "This project is the Python filesystem library for Azure Data Lake Store";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

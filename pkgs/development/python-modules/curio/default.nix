@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  pytestCheckHook,
-  sphinx,
-  stdenv,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pytestCheckHook, sphinx, stdenv }:
 
 buildPythonPackage rec {
   pname = "curio";
@@ -19,10 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-VipYbbICFrp9K+gmPeuesHnlYEj5uJBtEdX0WqgcUkc=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    sphinx
-  ];
+  nativeCheckInputs = [ pytestCheckHook sphinx ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -38,7 +27,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "curio" ];
 
   meta = with lib; {
-    description = "Library for performing concurrent I/O with coroutines in Python";
+    description =
+      "Library for performing concurrent I/O with coroutines in Python";
     homepage = "https://github.com/dabeaz/curio";
     changelog = "https://github.com/dabeaz/curio/raw/${version}/CHANGES";
     license = licenses.bsd3;

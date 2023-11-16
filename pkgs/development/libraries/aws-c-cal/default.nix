@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  aws-c-common,
-  nix,
-  openssl,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, aws-c-common, nix, openssl, Security }:
 
 stdenv.mkDerivation rec {
   pname = "aws-c-cal";
@@ -22,18 +13,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    aws-c-common
-    openssl
-  ];
+  buildInputs = [ aws-c-common openssl ];
 
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ Security ];
+  propagatedBuildInputs =
+    lib.optionals stdenv.hostPlatform.isDarwin [ Security ];
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
-  passthru.tests = {
-    inherit nix;
-  };
+  passthru.tests = { inherit nix; };
 
   meta = with lib; {
     description = "AWS Crypto Abstraction Layer ";

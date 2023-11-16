@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  pcre,
-  python3,
-  libxslt,
-  docbook_xsl,
-  docbook_xml_dtd_45,
-  which,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, pcre, python3, libxslt
+, docbook_xsl, docbook_xml_dtd_45, which, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "cppcheck";
@@ -33,10 +22,7 @@ stdenv.mkDerivation rec {
     which
     python3
   ];
-  buildInputs = [
-    pcre
-    (python3.withPackages (ps: [ ps.pygments ]))
-  ];
+  buildInputs = [ pcre (python3.withPackages (ps: [ ps.pygments ])) ];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -45,10 +31,7 @@ stdenv.mkDerivation rec {
     "HAVE_RULES=yes"
   ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   enableParallelBuilding = true;
 

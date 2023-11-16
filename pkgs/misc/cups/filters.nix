@@ -1,66 +1,30 @@
-{
-  lib,
-  avahi,
-  bc,
-  coreutils,
-  cups,
-  dbus,
-  dejavu_fonts,
-  fetchurl,
-  fetchpatch,
-  fontconfig,
-  gawk,
-  ghostscript,
-  gnugrep,
-  gnused,
-  ijs,
-  libexif,
-  libjpeg,
-  liblouis,
-  libpng,
-  makeWrapper,
-  mupdf,
-  perl,
-  pkg-config,
-  poppler,
-  poppler_utils,
-  qpdf,
-  stdenv,
-  which,
-  withAvahi ? true,
-}:
+{ lib, avahi, bc, coreutils, cups, dbus, dejavu_fonts, fetchurl, fetchpatch
+, fontconfig, gawk, ghostscript, gnugrep, gnused, ijs, libexif, libjpeg
+, liblouis, libpng, makeWrapper, mupdf, perl, pkg-config, poppler, poppler_utils
+, qpdf, stdenv, which, withAvahi ? true }:
 
-let
-  binPath = lib.makeBinPath [
-    bc
-    coreutils
-    gawk
-    gnused
-    gnugrep
-    which
-  ];
-in
-stdenv.mkDerivation rec {
+let binPath = lib.makeBinPath [ bc coreutils gawk gnused gnugrep which ];
+
+in stdenv.mkDerivation rec {
   pname = "cups-filters";
   version = "1.28.17";
 
   src = fetchurl {
-    url = "https://github.com/OpenPrinting/cups-filters/releases/download/${version}/${pname}-${version}.tar.xz";
+    url =
+      "https://github.com/OpenPrinting/cups-filters/releases/download/${version}/${pname}-${version}.tar.xz";
     hash = "sha256-Jwo3UqlgNoqpnUMftdNPQDmyrJQ8V22EBhLR2Bhcm7k=";
   };
 
   patches = [
     (fetchpatch {
       name = "CVE-2023-24805.patch";
-      url = "https://github.com/OpenPrinting/cups-filters/commit/93e60d3df358c0ae6f3dba79e1c9684657683d89.patch";
+      url =
+        "https://github.com/OpenPrinting/cups-filters/commit/93e60d3df358c0ae6f3dba79e1c9684657683d89.patch";
       hash = "sha256-KgWTYFr2uShL040azzE+KaNyBPy7Gs/hCnEgQmmPCys=";
     })
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   buildInputs = [
     cups
@@ -126,8 +90,10 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = {
-    homepage = "http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters";
-    description = "Backends, filters, and other software that was once part of the core CUPS distribution but is no longer maintained by Apple Inc";
+    homepage =
+      "http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters";
+    description =
+      "Backends, filters, and other software that was once part of the core CUPS distribution but is no longer maintained by Apple Inc";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
   };

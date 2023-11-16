@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  ocaml,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, ocaml }:
 
 buildDunePackage rec {
   pname = "bigstring";
@@ -29,7 +24,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/c-cube/ocaml-bigstring";
-    description = "Bigstring built on top of bigarrays, and convenient functions";
+    description =
+      "Bigstring built on top of bigarrays, and convenient functions";
     license = licenses.bsd2;
     maintainers = [ maintainers.alexfmpe ];
   };

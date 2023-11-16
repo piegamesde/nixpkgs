@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  buildPackages,
-  buildsystem,
-}:
+{ lib, stdenv, fetchurl, pkg-config, buildPackages, buildsystem }:
 
 stdenv.mkDerivation rec {
   pname = "netsurf-${libname}";
@@ -13,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "0.2.1";
 
   src = fetchurl {
-    url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
+    url =
+      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
     sha256 = "sha256-nq6lNM1wtTxar0UxeulXcBaFprSojb407Sb0+q6Hmks=";
   };
 
@@ -32,10 +26,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netsurf-browser.org/projects/${libname}/";
     description = "GIF Decoder for netsurf browser";
     license = licenses.mit;
-    maintainers = [
-      maintainers.vrthra
-      maintainers.AndersonTorres
-    ];
+    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
     platforms = platforms.unix;
   };
 }

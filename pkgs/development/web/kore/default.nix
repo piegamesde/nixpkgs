@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  openssl,
-  curl,
-  postgresql,
-  yajl,
-}:
+{ lib, stdenv, fetchFromGitHub, openssl, curl, postgresql, yajl }:
 
 stdenv.mkDerivation rec {
   pname = "kore";
@@ -19,12 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-p0M2P02xwww5EnT28VnEtj5b+/jkPW3YkJMuK79vp4k=";
   };
 
-  buildInputs = [
-    openssl
-    curl
-    postgresql
-    yajl
-  ];
+  buildInputs = [ openssl curl postgresql yajl ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

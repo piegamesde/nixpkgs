@@ -1,19 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  gettext,
-  perlPackages,
-  buildPackages,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, gettext, perlPackages, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "intltool";
   version = "0.51.0";
 
   src = fetchurl {
-    url = "https://launchpad.net/intltool/trunk/${version}/+download/${pname}-${version}.tar.gz";
+    url =
+      "https://launchpad.net/intltool/trunk/${version}/+download/${pname}-${version}.tar.gz";
     sha256 = "1karx4sb7bnm2j67q0q74hspkfn6lqprpy5r99vkn5bb36a4viv7";
   };
 
@@ -29,24 +22,16 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = with perlPackages; [
-    perl
-    XMLParser
-  ];
-  propagatedBuildInputs =
-    [ gettext ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    );
+  nativeBuildInputs = with perlPackages; [ perl XMLParser ];
+  propagatedBuildInputs = [ gettext ]
+    ++ (with perlPackages; [ perl XMLParser ]);
 
-  postInstall = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
-    for f in $out/bin/*; do
-      substituteInPlace $f --replace "${buildPackages.perl}" "${perlPackages.perl}"
-    done
-  '';
+  postInstall =
+    lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      for f in $out/bin/*; do
+        substituteInPlace $f --replace "${buildPackages.perl}" "${perlPackages.perl}"
+      done
+    '';
   meta = with lib; {
     description = "Translation helper tool";
     homepage = "https://launchpad.net/intltool/";

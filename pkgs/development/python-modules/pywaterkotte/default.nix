@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  responses,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytestCheckHook
+, pythonOlder, requests, responses }:
 
 buildPythonPackage rec {
   pname = "pywaterkotte";
@@ -27,17 +19,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   pythonImportsCheck = [ "pywaterkotte" ];
 
   meta = with lib; {
     description = "Library to communicate with Waterkotte heatpumps";
     homepage = "https://github.com/chboland/pywaterkotte";
-    changelog = "https://github.com/chboland/pywaterkotte/releases/tag/v${version}";
+    changelog =
+      "https://github.com/chboland/pywaterkotte/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-ignore";
@@ -22,7 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   postInstall = ''
     assets=$releaseDir/../assets
@@ -31,9 +25,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Quickly and easily fetch .gitignore templates from gitignore.io";
+    description =
+      "Quickly and easily fetch .gitignore templates from gitignore.io";
     homepage = "https://github.com/sondr3/git-ignore";
-    changelog = "https://github.com/sondr3/git-ignore/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/sondr3/git-ignore/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ figsoda ];
   };

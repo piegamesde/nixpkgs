@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pylint,
-  pytest,
-  pytestCheckHook,
-  pythonOlder,
-  toml,
-}:
+{ lib, buildPythonPackage, fetchPypi, pylint, pytest, pytestCheckHook
+, pythonOlder, toml }:
 
 buildPythonPackage rec {
   pname = "pytest-pylint";
@@ -28,10 +20,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    pylint
-    toml
-  ];
+  propagatedBuildInputs = [ pylint toml ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

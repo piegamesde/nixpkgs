@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  callPackage,
-  fetchPypi,
-  hatchling,
-  pythonOlder,
-  comm,
-  ipython,
-  jupyter-client,
-  packaging,
-  psutil,
-  tornado,
-  traitlets,
-}:
+{ lib, buildPythonPackage, callPackage, fetchPypi, hatchling, pythonOlder, comm
+, ipython, jupyter-client, packaging, psutil, tornado, traitlets }:
 
 buildPythonPackage rec {
   pname = "ipykernel";
@@ -33,22 +20,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    comm
-    ipython
-    jupyter-client
-    packaging
-    psutil
-    tornado
-    traitlets
-  ];
+  propagatedBuildInputs =
+    [ comm ipython jupyter-client packaging psutil tornado traitlets ];
 
   # check in passthru.tests.pytest to escape infinite recursion with ipyparallel
   doCheck = false;
 
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = {
     description = "IPython Kernel for Jupyter";

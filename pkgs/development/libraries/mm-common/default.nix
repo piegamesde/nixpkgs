@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gnome,
-  meson,
-  python3,
-  ninja,
-}:
+{ lib, stdenv, fetchurl, gnome, meson, python3, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "mm-common";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "cFxtKfQRaim95ONs/BsEbJK274xtrk6uyFAYdH5tpao=";
   };
 
-  nativeBuildInputs = [
-    meson
-    python3
-    ninja
-  ];
+  nativeBuildInputs = [ meson python3 ninja ];
 
   passthru = {
     updateScript = gnome.updateScript {

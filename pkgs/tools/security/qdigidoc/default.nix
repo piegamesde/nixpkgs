@@ -1,26 +1,13 @@
-{
-  lib,
-  mkDerivation,
-  fetchurl,
-  cmake,
-  gettext,
-  pkg-config,
-  libdigidocpp,
-  opensc,
-  openldap,
-  openssl,
-  pcsclite,
-  qtbase,
-  qttranslations,
-  qtsvg,
-}:
+{ lib, mkDerivation, fetchurl, cmake, gettext, pkg-config, libdigidocpp, opensc
+, openldap, openssl, pcsclite, qtbase, qttranslations, qtsvg }:
 
 mkDerivation rec {
   pname = "qdigidoc";
   version = "4.2.12";
 
   src = fetchurl {
-    url = "https://github.com/open-eid/DigiDoc4-Client/releases/download/v${version}/qdigidoc4-${version}.tar.gz";
+    url =
+      "https://github.com/open-eid/DigiDoc4-Client/releases/download/v${version}/qdigidoc4-${version}.tar.gz";
     hash = "sha256-6bso1qvhVhbBfrcTq4S+aHtHli7X2A926N4r45ztq4E=";
   };
 
@@ -29,11 +16,7 @@ mkDerivation rec {
     sha256 = "1cikz36w9phgczcqnwk4k3mx3kk919wy2327jksmfa4cjfjq4a8d";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake gettext pkg-config ];
 
   postPatch = ''
     substituteInPlace client/CMakeLists.txt \
@@ -64,9 +47,6 @@ mkDerivation rec {
     homepage = "https://www.id.ee/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      mmahut
-      yana
-    ];
+    maintainers = with maintainers; [ mmahut yana ];
   };
 }

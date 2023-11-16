@@ -1,18 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  appimageTools,
-  makeWrapper,
-  electron_22,
-}:
+{ lib, stdenv, fetchurl, appimageTools, makeWrapper, electron_22 }:
 
 stdenv.mkDerivation rec {
   pname = "blockbench-electron";
   version = "4.5.2";
 
   src = fetchurl {
-    url = "https://github.com/JannisX11/blockbench/releases/download/v${version}/Blockbench_${version}.AppImage";
+    url =
+      "https://github.com/JannisX11/blockbench/releases/download/v${version}/Blockbench_${version}.AppImage";
     sha256 = "sha256-uUgVBdYMCF31+L/FV4ADIpUdEAmnW59KfscQxUStPWM=";
     name = "${pname}-${version}.AppImage";
   };

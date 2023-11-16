@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "starkbank-ecdsa";
@@ -26,10 +20,7 @@ buildPythonPackage rec {
     cd tests
   '';
 
-  pytestFlagsArray = [
-    "-v"
-    "*.py"
-  ];
+  pytestFlagsArray = [ "-v" "*.py" ];
 
   pythonImportsCheck = [ "ellipticcurve" ];
 

@@ -1,44 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  buildDunePackage,
-  alcotest,
-  mirage-crypto-rng,
-  git-binary,
-  angstrom,
-  astring,
-  cstruct,
-  decompress,
-  digestif,
-  encore,
-  fmt,
-  checkseum,
-  fpath,
-  ke,
-  logs,
-  lwt,
-  ocamlgraph,
-  uri,
-  rresult,
-  base64,
-  hxd,
-  result,
-  bigstringaf,
-  optint,
-  mirage-flow,
-  domain-name,
-  emile,
-  mimic,
-  carton,
-  carton-lwt,
-  carton-git,
-  ipaddr,
-  psq,
-  crowbar,
-  alcotest-lwt,
-  cmdliner,
-}:
+{ stdenv, lib, fetchurl, buildDunePackage, alcotest, mirage-crypto-rng
+, git-binary, angstrom, astring, cstruct, decompress, digestif, encore, fmt
+, checkseum, fpath, ke, logs, lwt, ocamlgraph, uri, rresult, base64, hxd, result
+, bigstringaf, optint, mirage-flow, domain-name, emile, mimic, carton
+, carton-lwt, carton-git, ipaddr, psq, crowbar, alcotest-lwt, cmdliner }:
 
 buildDunePackage rec {
   pname = "git";
@@ -48,7 +12,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-git/releases/download/${version}/git-${version}.tbz";
+    url =
+      "https://github.com/mirage/ocaml-git/releases/download/${version}/git-${version}.tbz";
     hash = "sha256-98w2Amze/B+YN/ENfSb0V8I2yyFUf8rSEOcUg1YbVdM=";
   };
 
@@ -89,22 +54,13 @@ buildDunePackage rec {
     hxd
   ];
   nativeCheckInputs = [ git-binary ];
-  checkInputs = [
-    alcotest
-    alcotest-lwt
-    mirage-crypto-rng
-    crowbar
-    cmdliner
-  ];
+  checkInputs = [ alcotest alcotest-lwt mirage-crypto-rng crowbar cmdliner ];
   doCheck = !stdenv.isAarch64;
 
   meta = {
     description = "Git format and protocol in pure OCaml";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [
-      sternenseemann
-      vbgl
-    ];
+    maintainers = with lib.maintainers; [ sternenseemann vbgl ];
     homepage = "https://github.com/mirage/ocaml-git";
   };
 }

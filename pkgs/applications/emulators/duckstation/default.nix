@@ -1,27 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL2,
-  cmake,
-  copyDesktopItems,
-  curl,
-  extra-cmake-modules,
-  libXrandr,
-  libpulseaudio,
-  makeDesktopItem,
-  mesa, # for libgbm
-  ninja,
-  pkg-config,
-  qtbase,
-  qtsvg,
-  qttools,
-  qtwayland,
-  vulkan-loader,
-  wayland,
-  wrapQtAppsHook,
-  enableWayland ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, cmake, copyDesktopItems, curl
+, extra-cmake-modules, libXrandr, libpulseaudio, makeDesktopItem
+, mesa # for libgbm
+, ninja, pkg-config, qtbase, qtsvg, qttools, qtwayland, vulkan-loader, wayland
+, wrapQtAppsHook, enableWayland ? true }:
 
 stdenv.mkDerivation {
   pname = "duckstation";
@@ -34,32 +15,16 @@ stdenv.mkDerivation {
     sha256 = "sha256-sRs/b4GVXhF3zrOef8DSBKJJGYECUER/nNWZAqv7suA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    copyDesktopItems
-    ninja
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ] ++ lib.optionals enableWayland [ extra-cmake-modules ];
+  nativeBuildInputs =
+    [ cmake copyDesktopItems ninja pkg-config qttools wrapQtAppsHook ]
+    ++ lib.optionals enableWayland [ extra-cmake-modules ];
 
   buildInputs =
-    [
-      SDL2
-      curl
-      libpulseaudio
-      libXrandr
-      mesa
-      qtbase
-      qtsvg
-      vulkan-loader
-    ]
-    ++ lib.optionals enableWayland [
-      qtwayland
-      wayland
-    ];
+    [ SDL2 curl libpulseaudio libXrandr mesa qtbase qtsvg vulkan-loader ]
+    ++ lib.optionals enableWayland [ qtwayland wayland ];
 
-  cmakeFlags = [ "-DUSE_DRMKMS=ON" ] ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
+  cmakeFlags = [ "-DUSE_DRMKMS=ON" ]
+    ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -70,11 +35,7 @@ stdenv.mkDerivation {
       tryExec = "duckstation-qt";
       exec = "duckstation-qt %f";
       comment = "Fast PlayStation 1 emulator";
-      categories = [
-        "Game"
-        "Emulator"
-        "Qt"
-      ];
+      categories = [ "Game" "Emulator" "Qt" ];
       type = "Application";
     })
   ];
@@ -101,10 +62,7 @@ stdenv.mkDerivation {
 
   qtWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [
-        libpulseaudio
-        vulkan-loader
-      ]
+      lib.makeLibraryPath [ libpulseaudio vulkan-loader ]
     }"
   ];
 
@@ -112,10 +70,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/stenzek/duckstation";
     description = "Fast PlayStation 1 emulator for x86-64/AArch32/AArch64";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      guibou
-      AndersonTorres
-    ];
+    maintainers = with maintainers; [ guibou AndersonTorres ];
     platforms = platforms.linux;
   };
 }

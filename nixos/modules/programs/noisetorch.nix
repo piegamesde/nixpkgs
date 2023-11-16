@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.noisetorch;
-in
-{
+let cfg = config.programs.noisetorch;
+in {
   options.programs.noisetorch = {
     enable = mkEnableOption (lib.mdDoc "noisetorch + setcap wrapper");
 

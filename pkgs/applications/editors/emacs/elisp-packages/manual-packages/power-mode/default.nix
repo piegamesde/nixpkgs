@@ -1,8 +1,4 @@
-{
-  trivialBuild,
-  fetchFromGitHub,
-  emacs,
-}:
+{ trivialBuild, fetchFromGitHub, emacs }:
 
 trivialBuild rec {
   pname = "power-mode";

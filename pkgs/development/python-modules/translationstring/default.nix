@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "translationstring";
@@ -15,8 +11,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pylonsproject.org/";
-    description = "Utility library for i18n relied on by various Repoze and Pyramid packages";
+    description =
+      "Utility library for i18n relied on by various Repoze and Pyramid packages";
     license = licenses.bsd0;
     maintainers = with maintainers; [ domenkozar ];
   };
+
 }

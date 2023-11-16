@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sockio";
@@ -28,10 +22,7 @@ buildPythonPackage rec {
       --replace "--durations=2 --verbose" ""
   '';
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "sockio" ];
 
@@ -65,11 +56,10 @@ buildPythonPackage rec {
     "test_root_socket_for_url"
   ];
 
-  disabledTestPaths =
-    [
-      # We don't care about Python 2.x
-      "tests/test_py2.py"
-    ];
+  disabledTestPaths = [
+    # We don't care about Python 2.x
+    "tests/test_py2.py"
+  ];
 
   meta = with lib; {
     description = "Implementation of the Modbus protocol";

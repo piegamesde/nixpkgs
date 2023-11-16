@@ -1,15 +1,6 @@
 # TODO check that no license information gets lost
-{
-  callPackage,
-  config,
-  lib,
-  vimUtils,
-  vim,
-  darwin,
-  llvmPackages,
-  neovimUtils,
-  luaPackages,
-}:
+{ callPackage, config, lib, vimUtils, vim, darwin, llvmPackages, neovimUtils
+, luaPackages }:
 
 let
 
@@ -36,10 +27,11 @@ let
     inherit llvmPackages luaPackages;
   };
 
-  aliases = if config.allowAliases then (import ./aliases.nix lib) else final: prev: { };
+  aliases = if config.allowAliases then
+    (import ./aliases.nix lib)
+  else
+    final: prev: { };
 
-  extensible-self = lib.makeExtensible (
-    extends aliases (extends overrides (extends plugins initialPackages))
-  );
-in
-extensible-self
+  extensible-self = lib.makeExtensible
+    (extends aliases (extends overrides (extends plugins initialPackages)));
+in extensible-self

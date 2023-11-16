@@ -1,52 +1,28 @@
-{
-  sourcePerArch,
-  knownVulnerabilities ? [ ],
-}:
+{ sourcePerArch, knownVulnerabilities ? [ ] }:
 
-{
-  stdenv,
-  lib,
-  fetchurl,
-  autoPatchelfHook,
-  makeWrapper,
-  setJavaClassPath,
-  # minimum dependencies
-  alsa-lib,
-  fontconfig,
-  freetype,
-  libffi,
-  xorg,
-  zlib,
-  # runtime dependencies
-  cups,
-  # runtime dependencies for GTK+ Look and Feel
-  gtkSupport ? true,
-  cairo,
-  glib,
-  gtk3,
-}:
+{ stdenv, lib, fetchurl, autoPatchelfHook, makeWrapper, setJavaClassPath
+# minimum dependencies
+, alsa-lib, fontconfig, freetype, libffi, xorg, zlib
+# runtime dependencies
+, cups
+# runtime dependencies for GTK+ Look and Feel
+, gtkSupport ? true, cairo, glib, gtk3 }:
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
-  runtimeDependencies =
-    [ cups ]
-    ++ lib.optionals gtkSupport [
-      cairo
-      glib
-      gtk3
-    ];
+  runtimeDependencies = [ cups ]
+    ++ lib.optionals gtkSupport [ cairo glib gtk3 ];
   runtimeLibraryPath = lib.makeLibraryPath runtimeDependencies;
-in
 
-let
+in let
   result = stdenv.mkDerivation rec {
-    pname =
-      if sourcePerArch.packageType == "jdk" then
-        "adoptopenjdk-${sourcePerArch.vmType}-bin"
-      else
-        "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
+    pname = if sourcePerArch.packageType == "jdk" then
+      "adoptopenjdk-${sourcePerArch.vmType}-bin"
+    else
+      "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
 
-    version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
+    version =
+      sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 
@@ -63,10 +39,7 @@ let
       zlib
     ] ++ lib.optional stdenv.isAarch32 libffi;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
-    ];
+    nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -122,16 +95,14 @@ let
 
     meta = with lib; {
       license = licenses.gpl2Classpath;
-      sourceProvenance = with sourceTypes; [
-        binaryNativeCode
-        binaryBytecode
-      ];
+      sourceProvenance = with sourceTypes; [ binaryNativeCode binaryBytecode ];
       description = "AdoptOpenJDK, prebuilt OpenJDK binary";
-      platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sourcePerArch; # some inherit jre.meta.platforms
+      platforms = lib.mapAttrsToList (arch: _: arch + "-linux")
+        sourcePerArch; # some inherit jre.meta.platforms
       maintainers = with lib.maintainers; [ taku0 ];
       inherit knownVulnerabilities;
       mainProgram = "java";
     };
+
   };
-in
-result
+in result

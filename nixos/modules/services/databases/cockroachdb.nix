@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, lib, pkgs, utils, ... }:
 
 with lib;
 
@@ -12,31 +6,28 @@ let
   cfg = config.services.cockroachdb;
   crdb = cfg.package;
 
-  startupCommand = utils.escapeSystemdExecArgs (
-    [
-      # Basic startup
-      "${crdb}/bin/cockroach"
-      "start"
-      "--logtostderr"
-      "--store=/var/lib/cockroachdb"
+  startupCommand = utils.escapeSystemdExecArgs ([
+    # Basic startup
+    "${crdb}/bin/cockroach"
+    "start"
+    "--logtostderr"
+    "--store=/var/lib/cockroachdb"
 
-      # WebUI settings
-      "--http-addr=${cfg.http.address}:${toString cfg.http.port}"
+    # WebUI settings
+    "--http-addr=${cfg.http.address}:${toString cfg.http.port}"
 
-      # Cluster listen address
-      "--listen-addr=${cfg.listen.address}:${toString cfg.listen.port}"
+    # Cluster listen address
+    "--listen-addr=${cfg.listen.address}:${toString cfg.listen.port}"
 
-      # Cache and memory settings.
-      "--cache=${cfg.cache}"
-      "--max-sql-memory=${cfg.maxSqlMemory}"
+    # Cache and memory settings.
+    "--cache=${cfg.cache}"
+    "--max-sql-memory=${cfg.maxSqlMemory}"
 
-      # Certificate/security settings.
-      (if cfg.insecure then "--insecure" else "--certs-dir=${cfg.certsDir}")
-    ]
-    ++ lib.optional (cfg.join != null) "--join=${cfg.join}"
+    # Certificate/security settings.
+    (if cfg.insecure then "--insecure" else "--certs-dir=${cfg.certsDir}")
+  ] ++ lib.optional (cfg.join != null) "--join=${cfg.join}"
     ++ lib.optional (cfg.locality != null) "--locality=${cfg.locality}"
-    ++ cfg.extraArgs
-  );
+    ++ cfg.extraArgs);
 
   addressOption = descr: defaultPort: {
     address = mkOption {
@@ -51,9 +42,8 @@ let
       description = lib.mdDoc "Port to bind to for ${descr}";
     };
   };
-in
 
-{
+in {
   options = {
     services.cockroachdb = {
       enable = mkEnableOption (lib.mdDoc "CockroachDB Server");
@@ -87,7 +77,8 @@ in
       join = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc "The addresses for connecting the node to a cluster.";
+        description =
+          lib.mdDoc "The addresses for connecting the node to a cluster.";
       };
 
       insecure = mkOption {
@@ -117,7 +108,8 @@ in
       openPorts = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open firewall ports for cluster communication by default";
+        description =
+          lib.mdDoc "Open firewall ports for cluster communication by default";
       };
 
       cache = mkOption {
@@ -168,10 +160,7 @@ in
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "--advertise-addr"
-          "[fe80::f6f2:::]"
-        ];
+        example = [ "--advertise-addr" "[fe80::f6f2:::]" ];
         description = lib.mdDoc ''
           Extra CLI arguments passed to {command}`cockroach start`.
           For the full list of supported arguments, check <https://www.cockroachlabs.com/docs/stable/cockroach-start.html#flags>
@@ -181,12 +170,11 @@ in
   };
 
   config = mkIf config.services.cockroachdb.enable {
-    assertions = [
-      {
-        assertion = !cfg.insecure -> cfg.certsDir != null;
-        message = "CockroachDB must have a set of SSL certificates (.certsDir), or run in Insecure Mode (.insecure = true)";
-      }
-    ];
+    assertions = [{
+      assertion = !cfg.insecure -> cfg.certsDir != null;
+      message =
+        "CockroachDB must have a set of SSL certificates (.certsDir), or run in Insecure Mode (.insecure = true)";
+    }];
 
     environment.systemPackages = [ crdb ];
 
@@ -202,22 +190,14 @@ in
       cockroachdb.gid = config.ids.gids.cockroachdb;
     };
 
-    networking.firewall.allowedTCPPorts = lib.optionals cfg.openPorts [
-      cfg.http.port
-      cfg.listen.port
-    ];
+    networking.firewall.allowedTCPPorts =
+      lib.optionals cfg.openPorts [ cfg.http.port cfg.listen.port ];
 
     systemd.services.cockroachdb = {
       description = "CockroachDB Server";
-      documentation = [
-        "man:cockroach(1)"
-        "https://www.cockroachlabs.com"
-      ];
+      documentation = [ "man:cockroach(1)" "https://www.cockroachlabs.com" ];
 
-      after = [
-        "network.target"
-        "time-sync.target"
-      ];
+      after = [ "network.target" "time-sync.target" ];
       requires = [ "time-sync.target" ];
       wantedBy = [ "multi-user.target" ];
 

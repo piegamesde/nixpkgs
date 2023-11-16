@@ -1,19 +1,6 @@
-{
-  lib,
-  pythonOlder,
-  pythonAtLeast,
-  asynctest,
-  buildPythonPackage,
-  docutils,
-  fetchFromGitHub,
-  imaplib2,
-  mock,
-  nose,
-  pyopenssl,
-  pytestCheckHook,
-  pytz,
-  tzlocal,
-}:
+{ lib, pythonOlder, pythonAtLeast, asynctest, buildPythonPackage, docutils
+, fetchFromGitHub, imaplib2, mock, nose, pyopenssl, pytestCheckHook, pytz
+, tzlocal }:
 
 buildPythonPackage rec {
   pname = "aioimaplib";

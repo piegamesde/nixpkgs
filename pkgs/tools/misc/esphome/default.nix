@@ -1,19 +1,12 @@
-{
-  lib,
-  callPackage,
-  python3,
-  fetchFromGitHub,
-  platformio,
-  esptool_3,
-  git,
-}:
+{ lib, callPackage, python3, fetchFromGitHub, platformio, esptool_3, git }:
 
 let
   python = python3.override {
-    packageOverrides = self: super: { esphome-dashboard = self.callPackage ./dashboard.nix { }; };
+    packageOverrides = self: super: {
+      esphome-dashboard = self.callPackage ./dashboard.nix { };
+    };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "esphome";
   version = "2023.5.5";
   format = "setuptools";
@@ -67,13 +60,7 @@ python.pkgs.buildPythonApplication rec {
     # platformio is used in esphomeyaml/platformio_api.py
     # esptool is used in esphomeyaml/__main__.py
     # git is used in esphomeyaml/writer.py
-    "--prefix PATH : ${
-      lib.makeBinPath [
-        platformio
-        esptool_3
-        git
-      ]
-    }"
+    "--prefix PATH : ${lib.makeBinPath [ platformio esptool_3 git ]}"
     "--set ESPHOME_USE_SUBPROCESS ''"
   ];
 
@@ -109,9 +96,6 @@ python.pkgs.buildPythonApplication rec {
       mit # The C++/runtime codebase of the ESPHome project (file extensions .c, .cpp, .h, .hpp, .tcc, .ino)
       gpl3Only # The python codebase and all other parts of this codebase
     ];
-    maintainers = with maintainers; [
-      globin
-      hexa
-    ];
+    maintainers = with maintainers; [ globin hexa ];
   };
 }

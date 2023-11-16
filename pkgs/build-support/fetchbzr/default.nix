@@ -1,9 +1,5 @@
 { stdenvNoCC, breezy }:
-{
-  url,
-  rev,
-  sha256,
-}:
+{ url, rev, sha256 }:
 
 stdenvNoCC.mkDerivation {
   name = "bzr-export";

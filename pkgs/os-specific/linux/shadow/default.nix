@@ -1,33 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  runtimeShell,
-  nixosTests,
-  fetchpatch,
-  autoreconfHook,
-  bison,
-  flex,
-  docbook_xml_dtd_45,
-  docbook_xsl,
-  itstool,
-  libxml2,
-  libxslt,
-  libxcrypt,
-  glibcCross ? null,
-  pam ? null,
-  withTcb ? lib.meta.availableOn stdenv.hostPlatform tcb,
-  tcb,
-}:
+{ lib, stdenv, fetchFromGitHub, runtimeShell, nixosTests, fetchpatch
+, autoreconfHook, bison, flex, docbook_xml_dtd_45, docbook_xsl, itstool, libxml2
+, libxslt, libxcrypt, glibcCross ? null, pam ? null
+, withTcb ? lib.meta.availableOn stdenv.hostPlatform tcb, tcb }:
 let
-  glibc =
-    if stdenv.hostPlatform != stdenv.buildPlatform then
-      glibcCross
-    else
-      assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;
-in
+  glibc = if stdenv.hostPlatform != stdenv.buildPlatform then
+    glibcCross
+  else
+    assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "shadow";
   version = "4.13";
 
@@ -38,12 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L54DhdBYthfB9436t/XWXiqKhW7rfd0GLS7pYGB32rA=";
   };
 
-  outputs = [
-    "out"
-    "su"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "su" "dev" "man" ];
 
   RUNTIME_SHELL = runtimeShell;
 
@@ -58,9 +34,9 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs = [
-    libxcrypt
-  ] ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb;
+  buildInputs = [ libxcrypt ]
+    ++ lib.optional (pam != null && stdenv.isLinux) pam
+    ++ lib.optional withTcb tcb;
 
   patches = [
     ./keep-path.patch
@@ -70,7 +46,8 @@ stdenv.mkDerivation rec {
     ./fix-install-with-tcb.patch
     # Fix HAVE_SHADOWGRP configure check
     (fetchpatch {
-      url = "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
+      url =
+        "https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef.patch";
       sha256 = "sha256-GJWg/8ggTnrbIgjI+HYa26DdVbjTHTk/IHhy7GU9G5w=";
     })
   ];
@@ -87,14 +64,12 @@ stdenv.mkDerivation rec {
     export shadow_cv_logdir=/var/log
   '';
 
-  configureFlags =
-    [
-      "--enable-man"
-      "--with-group-name-max-length=32"
-      "--with-bcrypt"
-      "--with-yescrypt"
-    ]
-    ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
+  configureFlags = [
+    "--enable-man"
+    "--with-group-name-max-length=32"
+    "--with-bcrypt"
+    "--with-yescrypt"
+  ] ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
     ++ lib.optional withTcb "--with-tcb";
 
   preBuild = lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
@@ -115,19 +90,18 @@ stdenv.mkDerivation rec {
 
   disallowedReferences =
     lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      stdenv.shellPackage;
+    stdenv.shellPackage;
 
   meta = with lib; {
     homepage = "https://github.com/shadow-maint";
-    description = "Suite containing authentication-related tools such as passwd and su";
+    description =
+      "Suite containing authentication-related tools such as passwd and su";
     license = licenses.bsd3;
     platforms = platforms.linux;
   };
 
   passthru = {
     shellPath = "/bin/nologin";
-    tests = {
-      inherit (nixosTests) shadow;
-    };
+    tests = { inherit (nixosTests) shadow; };
   };
 }

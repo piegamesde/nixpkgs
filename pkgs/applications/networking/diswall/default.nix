@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  darwin,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) Security;
-in
-rustPlatform.buildRustPackage rec {
+let inherit (darwin.apple_sdk.frameworks) Security;
+in rustPlatform.buildRustPackage rec {
   pname = "diswall";
   version = "0.4.0";
 

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  chardet,
-  lml,
-  pyexcel-io,
-  texttable,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, chardet, lml, pyexcel-io
+, texttable }:
 
 buildPythonPackage rec {
   pname = "pyexcel";
@@ -20,12 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-+/Du5dk7ls728ZqfAHA/IsCmTxlyjZG5VCgAmlISlwk=";
   };
 
-  propagatedBuildInputs = [
-    chardet
-    lml
-    pyexcel-io
-    texttable
-  ];
+  propagatedBuildInputs = [ chardet lml pyexcel-io texttable ];
 
   pythonImportsCheck = [ "pyexcel" ];
 
@@ -34,7 +21,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = {
-    description = "Single API for reading, manipulating and writing data in csv, ods, xls, xlsx and xlsm files";
+    description =
+      "Single API for reading, manipulating and writing data in csv, ods, xls, xlsx and xlsm files";
     homepage = "http://docs.pyexcel.org/";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ ];

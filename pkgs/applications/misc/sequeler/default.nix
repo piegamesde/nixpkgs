@@ -1,34 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  vala,
-  meson,
-  ninja,
-  pkg-config,
-  pantheon,
-  gettext,
-  wrapGAppsHook,
-  python3,
-  desktop-file-utils,
-  gtk3,
-  glib,
-  libgee,
-  libgda,
-  gtksourceview,
-  libxml2,
-  libsecret,
-  libssh2,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, vala, meson, ninja
+, pkg-config, pantheon, gettext, wrapGAppsHook, python3, desktop-file-utils
+, gtk3, glib, libgee, libgda, gtksourceview, libxml2, libsecret, libssh2 }:
 
 let
   sqlGda = libgda.override {
     mysqlSupport = true;
     postgresSupport = true;
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "sequeler";
   version = "0.8.2";
 
@@ -67,9 +47,7 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/meson_post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Friendly SQL Client";

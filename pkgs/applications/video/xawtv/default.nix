@@ -1,23 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  libjpeg,
-  libX11,
-  libXt,
-  alsa-lib,
-  aalib,
-  libXft,
-  xorgproto,
-  libv4l,
-  libFS,
-  libXaw,
-  libXpm,
-  libXext,
-  libSM,
-  libICE,
-  perl,
+{ lib, stdenv, fetchurl, ncurses, libjpeg, libX11, libXt, alsa-lib, aalib
+, libXft, xorgproto, libv4l, libFS, libXaw, libXpm, libXext, libSM, libICE, perl
 }:
 
 stdenv.mkDerivation rec {
@@ -56,7 +38,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description = "TV application for Linux with apps and tools such as a teletext browser";
+    description =
+      "TV application for Linux with apps and tools such as a teletext browser";
     license = lib.licenses.gpl2;
     homepage = "https://www.kraxel.org/blog/linux/xawtv/";
     maintainers = with lib.maintainers; [ domenkozar ];

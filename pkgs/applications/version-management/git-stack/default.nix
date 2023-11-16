@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  Security,
-  testers,
-  git-stack,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, Security, testers, git-stack }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-stack";
@@ -31,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Stacked branch management for Git";
     homepage = "https://github.com/gitext-rs/git-stack";
-    changelog = "https://github.com/gitext-rs/git-stack/releases/tag/v${version}";
+    changelog =
+      "https://github.com/gitext-rs/git-stack/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ stehessel ];
   };

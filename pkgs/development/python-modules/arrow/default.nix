@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  python-dateutil,
-  typing-extensions,
-  pytestCheckHook,
-  pytest-mock,
-  pytz,
-  simplejson,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, python-dateutil
+, typing-extensions, pytestCheckHook, pytest-mock, pytz, simplejson }:
 
 buildPythonPackage rec {
   pname = "arrow";
@@ -27,16 +17,10 @@ buildPythonPackage rec {
     sed -i "/addopts/d" tox.ini
   '';
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [ python-dateutil ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    pytz
-    simplejson
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock pytz simplejson ];
 
   # ParserError: Could not parse timezone expression "America/Nuuk"
   disabledTests = [ "test_parse_tz_name_zzz" ];

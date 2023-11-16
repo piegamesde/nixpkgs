@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  obs-studio,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, obs-studio }:
 
 stdenv.mkDerivation rec {
   pname = "obs-3d-effect";
@@ -31,9 +25,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/exeldro/obs-3d-effect";
     maintainers = with maintainers; [ flexiondotorg ];
     license = licenses.gpl2Plus;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

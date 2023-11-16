@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pyannotate,
-  pytest,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pyannotate, pytest }:
 
 buildPythonPackage rec {
   pname = "pytest-annotate";

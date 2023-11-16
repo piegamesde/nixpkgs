@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { lib, ... }:
+import ./make-test-python.nix ({ lib, ... }:
 
   {
     name = "sonarr";
@@ -12,5 +11,4 @@ import ./make-test-python.nix (
       machine.wait_for_open_port(8989)
       machine.succeed("curl --fail http://localhost:8989/")
     '';
-  }
-)
+  })

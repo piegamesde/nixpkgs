@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gtk3,
-  numix-icon-theme,
-  hicolor-icon-theme,
-  gitUpdater,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, numix-icon-theme, hicolor-icon-theme
+, gitUpdater }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "numix-icon-theme-circle";
@@ -21,10 +14,7 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    numix-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ numix-icon-theme hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 

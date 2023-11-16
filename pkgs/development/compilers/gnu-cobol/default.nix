@@ -1,30 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoconf269,
-  automake,
-  libtool,
-  # libs
-  cjson,
-  db,
-  gmp,
-  libxml2,
-  ncurses,
-  # docs
-  help2man,
-  texinfo,
-  texlive,
-  # test
-  writeText,
-}:
+{ lib, stdenv, fetchurl, autoconf269, automake, libtool
+# libs
+, cjson, db, gmp, libxml2, ncurses
+# docs
+, help2man, texinfo, texlive
+# test
+, writeText }:
 
 stdenv.mkDerivation rec {
   pname = "gnu-cobol";
   version = "3.1.2";
 
   src = fetchurl {
-    url = "mirror://sourceforge/gnucobol/${lib.versions.majorMinor version}/gnucobol-${version}.tar.xz";
+    url = "mirror://sourceforge/gnucobol/${
+        lib.versions.majorMinor version
+      }/gnucobol-${version}.tar.xz";
     sha256 = "0x15ybfm63g7c9340fc6712h9v59spnbyaz4rf85pmnp3zbhaw2r";
   };
 
@@ -37,20 +26,9 @@ stdenv.mkDerivation rec {
     texlive.combined.scheme-basic
   ];
 
-  buildInputs = [
-    cjson
-    db
-    gmp
-    libxml2
-    ncurses
-  ];
+  buildInputs = [ cjson db gmp libxml2 ncurses ];
 
-  outputs = [
-    "bin"
-    "dev"
-    "lib"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "lib" "out" ];
   # XXX: Without this, we get a cycle between bin and dev
   propagatedBuildOutputs = [ ];
 
@@ -67,11 +45,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installFlags = [
-    "install-pdf"
-    "install-html"
-    "localedir=$out/share/locale"
-  ];
+  installFlags = [ "install-pdf" "install-html" "localedir=$out/share/locale" ];
 
   # Tests must run after install.
   doCheck = false;
@@ -105,14 +79,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open-source COBOL compiler";
     homepage = "https://sourceforge.net/projects/gnucobol/";
-    license = with licenses; [
-      gpl3Only
-      lgpl3Only
-    ];
-    maintainers = with maintainers; [
-      ericsagnes
-      lovesegfault
-    ];
+    license = with licenses; [ gpl3Only lgpl3Only ];
+    maintainers = with maintainers; [ ericsagnes lovesegfault ];
     platforms = platforms.all;
   };
 }

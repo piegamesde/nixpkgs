@@ -1,15 +1,9 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cxml";
   version = "20200610-git";
 
-  parasites = [
-    "cxml/dom"
-    "cxml/klacks"
-    "cxml/test"
-    "cxml/xml"
-  ];
+  parasites = [ "cxml/dom" "cxml/klacks" "cxml/test" "cxml/xml" ];
 
   description = "Closure XML - a Common Lisp XML parser";
 
@@ -23,7 +17,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cxml/2020-06-10/cxml-20200610-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cxml/2020-06-10/cxml-20200610-git.tgz";
     sha256 = "0545rh4mfxqx2yn9b48s0hzd5w80kars7hpykbg0lgf7ys5218mq";
   };
 

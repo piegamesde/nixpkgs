@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-  pillow,
-  python-magic,
-}:
+{ lib, buildPythonPackage, fetchPypi, django, pillow, python-magic }:
 
 buildPythonPackage rec {
   pname = "django-versatileimagefield";
@@ -15,10 +8,7 @@ buildPythonPackage rec {
     inherit pname version;
     hash = "sha256-FlHbLtNthDz7F4jyYBRyopPZuoZyk2m29uVZERI1esc=";
   };
-  propagatedBuildInputs = [
-    pillow
-    python-magic
-  ];
+  propagatedBuildInputs = [ pillow python-magic ];
 
   nativeCheckInputs = [ django ];
 
@@ -34,3 +24,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ mmai ];
   };
 }
+

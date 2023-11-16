@@ -1,26 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  curl,
-  gnunet,
-  jansson,
-  libgcrypt,
-  libmicrohttpd_0_9_72,
-  qrencode,
-  libsodium,
-  libtool,
-  libunistring,
-  pkg-config,
-  postgresql,
-  autoreconfHook,
-  python39,
-  recutils,
-  wget,
-  jq,
-  gettext,
-  texinfo,
-}:
+{ lib, stdenv, fetchgit, curl, gnunet, jansson, libgcrypt, libmicrohttpd_0_9_72
+, qrencode, libsodium, libtool, libunistring, pkg-config, postgresql
+, autoreconfHook, python39, recutils, wget, jq, gettext, texinfo }:
 
 let
   taler-merchant-backoffice = fetchgit {
@@ -29,8 +9,8 @@ let
     rev = "1ef7150f32960cb65ebea67839cd5023f29a3d1d";
     sha256 = "sha256-ZtLYWHi6l5DxFvDm8RFGUD0BiAfJXCZr/ggrP3Uw7/0=";
   };
-in
-rec {
+
+in rec {
   taler-exchange = stdenv.mkDerivation rec {
     pname = "taler-exchange";
     version = "unstable-2022-07-17";
@@ -42,10 +22,7 @@ rec {
       sha256 = "sha256-BQxbwEf0wIkBOBVsPgMkMvUj4kFReXMUFTiSG0jXOJ0=";
     };
 
-    nativeBuildInputs = [
-      autoreconfHook
-      pkg-config
-    ];
+    nativeBuildInputs = [ autoreconfHook pkg-config ];
     buildInputs = [
       libgcrypt
       libmicrohttpd_0_9_72
@@ -68,10 +45,7 @@ rec {
 
     enableParallelBuilding = true;
 
-    nativeCheckInputs = [
-      wget
-      curl
-    ];
+    nativeCheckInputs = [ wget curl ];
     doInstallCheck = true;
     checkTarget = "check";
 
@@ -106,10 +80,7 @@ rec {
       ln -s ${taler-merchant-backoffice}/spa.html $sourceRoot/contrib/
     '';
 
-    nativeBuildInputs = [
-      pkg-config
-      autoreconfHook
-    ];
+    nativeBuildInputs = [ pkg-config autoreconfHook ];
     buildInputs = taler-exchange.buildInputs ++ [
       qrencode
       taler-exchange
@@ -118,10 +89,8 @@ rec {
     ];
     propagatedBuildInputs = [ gnunet ];
 
-    configureFlags = [
-      "--with-gnunet=${gnunet}"
-      "--with-exchange=${taler-exchange}"
-    ];
+    configureFlags =
+      [ "--with-gnunet=${gnunet}" "--with-exchange=${taler-exchange}" ];
 
     enableParallelBuilding = true;
 

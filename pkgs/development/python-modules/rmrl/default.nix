@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  pdfrw,
-  reportlab,
-  setuptools,
-  svglib,
-  xdg,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, pdfrw
+, reportlab, setuptools, svglib, xdg }:
 
 buildPythonPackage rec {
   pname = "rmrl";
@@ -28,13 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pdfrw
-    reportlab
-    setuptools
-    svglib
-    xdg
-  ];
+  propagatedBuildInputs = [ pdfrw reportlab setuptools svglib xdg ];
 
   # upstream has no tests
   doCheck = false;

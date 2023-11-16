@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  twisted,
-  requests,
-  cryptography,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, twisted, requests, cryptography
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "txrequests";
@@ -17,11 +10,7 @@ buildPythonPackage rec {
     sha256 = "b452a1cafa4d005678f6fa47922a330feb4907d5b4732d1841ca98e89f1362e1";
   };
 
-  propagatedBuildInputs = [
-    twisted
-    requests
-    cryptography
-  ];
+  propagatedBuildInputs = [ twisted requests cryptography ];
 
   # Require network access
   doCheck = false;
@@ -34,4 +23,5 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };
+
 }

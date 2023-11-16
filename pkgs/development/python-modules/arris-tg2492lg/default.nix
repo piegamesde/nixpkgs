@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-aiohttp
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "arris-tg2492lg";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
   pythonImportsCheck = [ "arris_tg2492lg" ];
 

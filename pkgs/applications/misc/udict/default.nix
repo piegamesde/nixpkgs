@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  darwin,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "udict";
@@ -25,12 +17,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.CoreFoundation
-      darwin.apple_sdk.frameworks.Security
-    ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreFoundation
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   meta = with lib; {
     description = "Urban Dictionary CLI - written in Rust";

@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "quasiquote-2_dot_0";
   version = "20150505-git";
 
@@ -8,13 +7,11 @@ rec {
 
   description = "Writing macros that write macros. Effortless.";
 
-  deps = [
-    args."fiveam"
-    args."iterate"
-  ];
+  deps = [ args."fiveam" args."iterate" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/quasiquote-2.0/2015-05-05/quasiquote-2.0-20150505-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/quasiquote-2.0/2015-05-05/quasiquote-2.0-20150505-git.tgz";
     sha256 = "0bgcqk7wp7qblw7avsawkg24zjiq9vgsbfa0yhk64avhxwjw6974";
   };
 

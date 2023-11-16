@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  roxctl,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, roxctl }:
 
 buildGoModule rec {
   pname = "roxctl";
@@ -43,7 +36,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Command-line client of the StackRox Kubernetes Security Platform";
+    description =
+      "Command-line client of the StackRox Kubernetes Security Platform";
     license = licenses.asl20;
     homepage = "https://www.stackrox.io";
     maintainers = with maintainers; [ stehessel ];

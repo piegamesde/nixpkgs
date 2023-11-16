@@ -1,11 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "life360";
@@ -31,7 +25,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to interact with Life360";
     homepage = "https://github.com/pnbruckner/life360";
-    changelog = "https://github.com/pnbruckner/life360/releases/tag/v${version}";
+    changelog =
+      "https://github.com/pnbruckner/life360/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

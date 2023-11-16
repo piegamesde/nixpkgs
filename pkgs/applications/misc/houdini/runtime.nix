@@ -1,14 +1,7 @@
-{
-  lib,
-  stdenv,
-  requireFile,
-  bc,
-}:
+{ lib, stdenv, requireFile, bc }:
 
-let
-  license_dir = "~/.config/houdini";
-in
-stdenv.mkDerivation rec {
+let license_dir = "~/.config/houdini";
+in stdenv.mkDerivation rec {
   version = "19.5.569";
   pname = "houdini-runtime";
   src = requireFile rec {
@@ -40,9 +33,6 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
     platforms = platforms.linux;
     hydraPlatforms = [ ]; # requireFile src's should be excluded
-    maintainers = with maintainers; [
-      canndrew
-      kwohlfahrt
-    ];
+    maintainers = with maintainers; [ canndrew kwohlfahrt ];
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  linuxHeaders,
-  freebsd,
-  runCommandCC,
-  buildPackages,
-}:
+{ lib, stdenv, linuxHeaders, freebsd, runCommandCC, buildPackages }:
 
 stdenv.mkDerivation {
   pname = "evdev-proto";

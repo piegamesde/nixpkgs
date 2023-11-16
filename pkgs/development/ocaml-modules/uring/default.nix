@@ -1,12 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  cstruct,
-  dune-configurator,
-  fetchurl,
-  fmt,
-  optint,
-  mdx,
+{ lib, buildDunePackage, cstruct, dune-configurator, fetchurl, fmt, optint, mdx
 }:
 
 buildDunePackage rec {
@@ -17,15 +9,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/ocaml-multicore/ocaml-${pname}/releases/download/v${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/ocaml-multicore/ocaml-${pname}/releases/download/v${version}/${pname}-${version}.tbz";
     sha256 = "ZltD9JnF1lJs0xjWwFXBfWMP8e5XRhCaB2P4iqHFreo=";
   };
 
-  propagatedBuildInputs = [
-    cstruct
-    fmt
-    optint
-  ];
+  propagatedBuildInputs = [ cstruct fmt optint ];
 
   buildInputs = [ dune-configurator ];
 
@@ -39,12 +28,10 @@ buildDunePackage rec {
 
   meta = {
     homepage = "https://github.com/ocaml-multicore/ocaml-${pname}";
-    changelog = "https://github.com/ocaml-multicore/ocaml-${pname}/raw/v${version}/CHANGES.md";
+    changelog =
+      "https://github.com/ocaml-multicore/ocaml-${pname}/raw/v${version}/CHANGES.md";
     description = "Bindings to io_uring for OCaml";
-    license = with lib.licenses; [
-      isc
-      mit
-    ];
+    license = with lib.licenses; [ isc mit ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ toastal ];
   };

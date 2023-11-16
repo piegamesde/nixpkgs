@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "prom2json";
@@ -18,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-m9f3tCX21CMdcXcUcLFOxgs9oDR2Uaj5u22eJPDmpeE=";
 
   meta = with lib; {
-    description = "Tool to scrape a Prometheus client and dump the result as JSON";
+    description =
+      "Tool to scrape a Prometheus client and dump the result as JSON";
     homepage = "https://github.com/prometheus/prom2json";
     license = licenses.asl20;
     maintainers = with maintainers; [ benley ];

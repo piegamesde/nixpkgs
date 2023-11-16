@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  srt,
-  ffmpeg,
-}:
+{ lib, buildGoModule, fetchFromGitHub, srt, ffmpeg }:
 
 buildGoModule rec {
   pname = "srtrelay";

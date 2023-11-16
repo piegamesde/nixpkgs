@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  setuptools-scm,
-  numpy,
-  pandas,
-  pillow,
-  crcmod,
-  openpyxl,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools-scm, numpy, pandas
+, pillow, crcmod, openpyxl }:
 
 buildPythonPackage rec {
   pname = "apycula";
@@ -26,13 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    numpy
-    pandas
-    pillow
-    crcmod
-    openpyxl
-  ];
+  propagatedBuildInputs = [ numpy pandas pillow crcmod openpyxl ];
 
   # tests require a physical FPGA
   doCheck = false;

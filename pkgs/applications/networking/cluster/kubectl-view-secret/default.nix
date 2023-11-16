@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubectl-view-secret";
@@ -26,7 +22,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Kubernetes CLI plugin to decode Kubernetes secrets";
     homepage = "https://github.com/elsesiy/kubectl-view-secret";
-    changelog = "https://github.com/elsesiy/kubectl-view-secret/releases/tag/v${version}";
+    changelog =
+      "https://github.com/elsesiy/kubectl-view-secret/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = [ maintainers.sagikazarmark ];
   };

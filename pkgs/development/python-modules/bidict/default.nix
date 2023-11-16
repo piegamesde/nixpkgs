@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  sphinx,
-  hypothesis,
-  py,
-  pytest-xdist,
-  pytestCheckHook,
-  pytest-benchmark,
-  sortedcollections,
-  sortedcontainers,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, sphinx, hypothesis, py
+, pytest-xdist, pytestCheckHook, pytest-benchmark, sortedcollections
+, sortedcontainers, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bidict";
@@ -47,7 +35,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/jab/bidict";
     changelog = "https://github.com/jab/bidict/blob/v${version}/CHANGELOG.rst";
-    description = "Efficient, Pythonic bidirectional map data structures and related functionality";
+    description =
+      "Efficient, Pythonic bidirectional map data structures and related functionality";
     license = licenses.mpl20;
     maintainers = with maintainers; [ jakewaksbaum ];
   };

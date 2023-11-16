@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "evtx";
@@ -26,7 +21,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Parser for the Windows XML Event Log (EVTX) format";
     homepage = "https://github.com/omerbenamram/evtx";
-    changelog = "https://github.com/omerbenamram/evtx/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/omerbenamram/evtx/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

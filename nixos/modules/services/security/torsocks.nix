@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -23,8 +18,7 @@ let
     AllowInbound ${if cfg.allowInbound then "1" else "0"}
   '';
 
-  wrapTorsocks =
-    name: server:
+  wrapTorsocks = name: server:
     pkgs.writeTextFile {
       name = name;
       text = ''
@@ -36,14 +30,16 @@ let
       executable = true;
       destination = "/bin/${name}";
     };
-in
-{
+
+in {
   options = {
     services.tor.torsocks = {
       enable = mkOption {
         type = types.bool;
-        default = config.services.tor.enable && config.services.tor.client.enable;
-        defaultText = literalExpression "config.services.tor.enable && config.services.tor.client.enable";
+        default = config.services.tor.enable
+          && config.services.tor.client.enable;
+        defaultText = literalExpression
+          "config.services.tor.enable && config.services.tor.client.enable";
         description = lib.mdDoc ''
           Whether to build `/etc/tor/torsocks.conf`
           containing the specified global torsocks configuration.
@@ -112,14 +108,13 @@ in
           allowed to be used with non localhost address.
         '';
       };
+
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.torsocks
-      (wrapTorsocks "torsocks-faster" cfg.fasterServer)
-    ];
+    environment.systemPackages =
+      [ pkgs.torsocks (wrapTorsocks "torsocks-faster" cfg.fasterServer) ];
 
     environment.etc."tor/torsocks.conf" = {
       source = pkgs.writeText "torsocks.conf" (configFile cfg.server);

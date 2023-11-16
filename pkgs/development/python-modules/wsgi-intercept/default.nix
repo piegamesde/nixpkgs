@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  httplib2,
-  py,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  urllib3,
-}:
+{ lib, buildPythonPackage, fetchPypi, six, httplib2, py, pytestCheckHook
+, pythonOlder, requests, urllib3 }:
 
 buildPythonPackage rec {
   pname = "wsgi-intercept";
@@ -26,13 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    httplib2
-    py
-    pytestCheckHook
-    requests
-    urllib3
-  ];
+  nativeCheckInputs = [ httplib2 py pytestCheckHook requests urllib3 ];
 
   disabledTests = [
     "test_http_not_intercepted"
@@ -43,7 +27,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "wsgi_intercept" ];
 
   meta = with lib; {
-    description = "Module that acts as a WSGI application in place of a real URI for testing";
+    description =
+      "Module that acts as a WSGI application in place of a real URI for testing";
     homepage = "https://github.com/cdent/wsgi-intercept";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

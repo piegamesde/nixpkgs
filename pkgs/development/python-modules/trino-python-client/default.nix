@@ -1,21 +1,12 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  # build
-  setuptools,
-  # required
-  pytz,
-  requests,
-  tzlocal,
-  # optional
-  requests-kerberos,
-  sqlalchemy,
-  keyring,
-  # tests
-  pytestCheckHook,
-  httpretty,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub
+# build
+, setuptools
+# required
+, pytz, requests, tzlocal
+# optional
+, requests-kerberos, sqlalchemy, keyring
+# tests
+, pytestCheckHook, httpretty }:
 
 buildPythonPackage rec {
   pname = "trino-python-client";
@@ -31,25 +22,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    pytz
-    requests
-    tzlocal
-  ];
+  propagatedBuildInputs = [ pytz requests tzlocal ];
 
-  passthru.optional-dependencies = lib.fix (
-    self: {
-      kerberos = [ requests-kerberos ];
-      sqlalchemy = [ sqlalchemy ];
-      external-authentication-token-cache = [ keyring ];
-      all = self.kerberos ++ self.sqlalchemy;
-    }
-  );
+  passthru.optional-dependencies = lib.fix (self: {
+    kerberos = [ requests-kerberos ];
+    sqlalchemy = [ sqlalchemy ];
+    external-authentication-token-cache = [ keyring ];
+    all = self.kerberos ++ self.sqlalchemy;
+  });
 
-  nativeCheckInputs = [
-    httpretty
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.all;
+  nativeCheckInputs = [ httpretty pytestCheckHook ]
+    ++ passthru.optional-dependencies.all;
 
   pythonImportsCheck = [ "trino" ];
 
@@ -63,7 +46,8 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "-k 'not auth'" ];
 
   meta = with lib; {
-    changelog = "https://github.com/trinodb/trino-python-client/blob/${version}/CHANGES.md";
+    changelog =
+      "https://github.com/trinodb/trino-python-client/blob/${version}/CHANGES.md";
     description = "Client for the Trino distributed SQL Engine";
     homepage = "https://github.com/trinodb/trino-python-client";
     license = licenses.asl20;

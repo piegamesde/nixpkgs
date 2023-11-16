@@ -1,23 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.calls;
-in
-{
+let cfg = config.programs.calls;
+in {
   options = {
     programs.calls = {
-      enable = mkEnableOption (
-        lib.mdDoc ''
-          Whether to enable GNOME calls: a phone dialer and call handler.
-        ''
-      );
+      enable = mkEnableOption (lib.mdDoc ''
+        Whether to enable GNOME calls: a phone dialer and call handler.
+      '');
     };
   };
 

@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  libopus,
-  pynacl,
-  pythonOlder,
-  withVoice ? true,
-  ffmpeg,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, libopus, pynacl
+, pythonOlder, withVoice ? true, ffmpeg }:
 
 buildPythonPackage rec {
   pname = "discord.py";
@@ -24,23 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-Rh3gijm67LVyOaliP7w3YwKviKydnxXvu4snNrM5H1c=";
   };
 
-  propagatedBuildInputs =
-    [ aiohttp ]
-    ++ lib.optionals withVoice [
-      libopus
-      pynacl
-      ffmpeg
-    ];
+  propagatedBuildInputs = [ aiohttp ]
+    ++ lib.optionals withVoice [ libopus pynacl ffmpeg ];
 
-  patchPhase =
-    ''
-      substituteInPlace "discord/opus.py" \
-        --replace "ctypes.util.find_library('opus')" "'${libopus}/lib/libopus.so.0'"
-    ''
-    + lib.optionalString withVoice ''
-      substituteInPlace "discord/player.py" \
-        --replace "executable='ffmpeg'" "executable='${ffmpeg}/bin/ffmpeg'"
-    '';
+  patchPhase = ''
+    substituteInPlace "discord/opus.py" \
+      --replace "ctypes.util.find_library('opus')" "'${libopus}/lib/libopus.so.0'"
+  '' + lib.optionalString withVoice ''
+    substituteInPlace "discord/player.py" \
+      --replace "executable='ffmpeg'" "executable='${ffmpeg}/bin/ffmpeg'"
+  '';
 
   # Only have integration tests with discord
   doCheck = false;
@@ -59,7 +43,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper for the Discord API";
     homepage = "https://discordpy.rtfd.org/";
-    changelog = "https://github.com/Rapptz/discord.py/blob/v${version}/docs/whats_new.rst";
+    changelog =
+      "https://github.com/Rapptz/discord.py/blob/v${version}/docs/whats_new.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ivar ];
   };

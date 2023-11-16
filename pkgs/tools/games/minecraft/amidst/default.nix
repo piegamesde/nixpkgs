@@ -1,18 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jre,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jre }:
 
 stdenv.mkDerivation rec {
   pname = "amidst";
   version = "4.7";
 
-  src = fetchurl {
-    # TODO: Compile from src
-    url = "https://github.com/toolbox4minecraft/amidst/releases/download/v${version}/amidst-v${
+  src = fetchurl { # TODO: Compile from src
+    url =
+      "https://github.com/toolbox4minecraft/amidst/releases/download/v${version}/amidst-v${
         lib.replaceStrings [ "." ] [ "-" ] version
       }.jar";
     sha256 = "sha256-oecRjD7JUuvFym8N/hSE5cbAFQojS6yxOuxpwWRlW9M=";
@@ -20,10 +14,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    jre
-    makeWrapper
-  ];
+  nativeBuildInputs = [ jre makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib/amidst}

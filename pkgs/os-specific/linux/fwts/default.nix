@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  autoreconfHook,
-  pkg-config,
-  gnumake42,
-  glib,
-  pcre,
-  json_c,
-  flex,
-  bison,
-  dtc,
-  pciutils,
-  dmidecode,
-  acpica-tools,
-  libbsd,
-}:
+{ lib, stdenv, fetchzip, autoreconfHook, pkg-config, gnumake42, glib, pcre
+, json_c, flex, bison, dtc, pciutils, dmidecode, acpica-tools, libbsd }:
 
 stdenv.mkDerivation rec {
   pname = "fwts";
@@ -28,23 +12,9 @@ stdenv.mkDerivation rec {
   };
 
   # fails with make 4.4
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    gnumake42
-  ];
-  buildInputs = [
-    glib
-    pcre
-    json_c
-    flex
-    bison
-    dtc
-    pciutils
-    dmidecode
-    acpica-tools
-    libbsd
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config gnumake42 ];
+  buildInputs =
+    [ glib pcre json_c flex bison dtc pciutils dmidecode acpica-tools libbsd ];
 
   postPatch = ''
     substituteInPlace src/lib/include/fwts_binpaths.h \

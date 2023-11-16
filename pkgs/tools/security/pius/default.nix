@@ -1,15 +1,7 @@
-{
-  fetchFromGitHub,
-  lib,
-  python3Packages,
-  gnupg,
-  perl,
-}:
+{ fetchFromGitHub, lib, python3Packages, gnupg, perl }:
 
-let
-  version = "3.0.0";
-in
-python3Packages.buildPythonApplication {
+let version = "3.0.0";
+in python3Packages.buildPythonApplication {
   pname = "pius";
   namePrefix = "";
   inherit version;
@@ -32,7 +24,8 @@ python3Packages.buildPythonApplication {
   meta = {
     homepage = "https://www.phildev.net/pius/";
 
-    description = "PGP Individual UID Signer (PIUS), quickly and easily sign UIDs on a set of PGP keys";
+    description =
+      "PGP Individual UID Signer (PIUS), quickly and easily sign UIDs on a set of PGP keys";
 
     longDescription = ''
       This software will allow you to quickly and easily sign each UID on

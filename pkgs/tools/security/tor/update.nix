@@ -1,15 +1,5 @@
-{
-  lib,
-  writeScript,
-  common-updater-scripts,
-  bash,
-  coreutils,
-  curl,
-  gnugrep,
-  gnupg,
-  gnused,
-  nix,
-}:
+{ lib, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep
+, gnupg, gnused, nix }:
 
 let
   downloadPageUrl = "https://dist.torproject.org";
@@ -20,9 +10,8 @@ let
     "B74417EDDF22AC9F9E90F49142E86A2A11F48D36" # David Goulet
     "2133BC600AB133E1D826D173FE43009C4607B1FB" # Nick Mathewson
   ];
-in
 
-writeScript "update-tor" ''
+in writeScript "update-tor" ''
   #! ${bash}/bin/bash
 
   set -eu -o pipefail
@@ -64,7 +53,9 @@ writeScript "update-tor" ''
   export GNUPGHOME=$PWD/gnupg
   mkdir -m 700 -p "$GNUPGHOME"
 
-  gpg --batch --recv-keys ${lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)}
+  gpg --batch --recv-keys ${
+    lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)
+  }
   gpg --batch --verify "$sigFile" "$checksumFile"
 
   sha256sum -c "$checksumFile"

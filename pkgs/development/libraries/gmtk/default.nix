@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  substituteAll,
-  fetchFromGitHub,
-  libtool,
-  pkg-config,
-  intltool,
-  glib,
-  gtk3,
-  libpulseaudio,
-  mplayer,
-  gnome_mplayer,
-}:
+{ lib, stdenv, substituteAll, fetchFromGitHub, libtool, pkg-config, intltool
+, glib, gtk3, libpulseaudio, mplayer, gnome_mplayer }:
 
 stdenv.mkDerivation rec {
   pname = "gmtk";
@@ -24,16 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1zb5m1y1gckal3140gvx31572a6xpccwfmdwa1w5lx2wdq1pwk1i";
   };
 
-  nativeBuildInputs = [
-    libtool
-    pkg-config
-    intltool
-  ];
-  buildInputs = [
-    glib
-    gtk3
-    libpulseaudio
-  ];
+  nativeBuildInputs = [ libtool pkg-config intltool ];
+  buildInputs = [ glib gtk3 libpulseaudio ];
 
   patches = [
     (substituteAll {

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  cmake,
-}:
+{ lib, fetchFromGitHub, rustPlatform, cmake }:
 rustPlatform.buildRustPackage rec {
   pname = "unused";
   version = "0.4.0";

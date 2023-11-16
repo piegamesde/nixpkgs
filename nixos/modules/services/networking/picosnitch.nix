@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.picosnitch;
-in
-{
+let cfg = config.services.picosnitch;
+in {
   options.services.picosnitch = {
     enable = mkEnableOption (lib.mdDoc "picosnitch daemon");
   };

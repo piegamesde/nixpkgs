@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,15 +6,13 @@ let
 
   cfg = config.services.uvcvideo;
 
-  uvcdynctrl-udev-rules =
-    packages:
+  uvcdynctrl-udev-rules = packages:
     pkgs.callPackage ./uvcdynctrl-udev-rules.nix {
       drivers = packages;
       udevDebug = false;
     };
-in
 
-{
+in {
 
   options = {
     services.uvcvideo.dynctrl = {
@@ -60,5 +53,6 @@ in
     services.udev.packages = [ (uvcdynctrl-udev-rules cfg.dynctrl.packages) ];
 
     environment.systemPackages = [ pkgs.libwebcam ];
+
   };
 }

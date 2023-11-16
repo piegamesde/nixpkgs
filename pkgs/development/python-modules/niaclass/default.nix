@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  niapy,
-  numpy,
-  pandas,
-  poetry-core,
-  scikit-learn,
-  toml-adapt,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, niapy, numpy, pandas, poetry-core
+, scikit-learn, toml-adapt, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "niaclass";
@@ -26,17 +15,9 @@ buildPythonPackage rec {
     sha256 = "sha256-md1e/cOIOQKoB760E5hjzjCsC5tS1CzgqAPTeVtrmuo=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    toml-adapt
-  ];
+  nativeBuildInputs = [ poetry-core toml-adapt ];
 
-  propagatedBuildInputs = [
-    niapy
-    numpy
-    pandas
-    scikit-learn
-  ];
+  propagatedBuildInputs = [ niapy numpy pandas scikit-learn ];
 
   # create scikit-learn dep version consistent
   preBuild = ''
@@ -48,9 +29,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "niaclass" ];
 
   meta = with lib; {
-    description = "A framework for solving classification tasks using Nature-inspired algorithms";
+    description =
+      "A framework for solving classification tasks using Nature-inspired algorithms";
     homepage = "https://github.com/lukapecnik/NiaClass";
     license = licenses.mit;
     maintainers = with maintainers; [ firefly-cpp ];
   };
 }
+

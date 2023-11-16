@@ -1,23 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  autoconf,
-  automake,
-  pkg-config,
-  help2man,
-  openssl,
-  libuuid,
-  gnu-efi,
-  libbfd,
-}:
+{ lib, stdenv, fetchgit, autoconf, automake, pkg-config, help2man, openssl
+, libuuid, gnu-efi, libbfd }:
 
 stdenv.mkDerivation rec {
   pname = "sbsigntool";
   version = "0.9.5";
 
   src = fetchgit {
-    url = "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git";
+    url =
+      "https://git.kernel.org/pub/scm/linux/kernel/git/jejb/sbsigntools.git";
     rev = "v${version}";
     hash = "sha256-5DInWgl1gThjjfGOsts1H1s1GbMCkd0gjbmG3gA3Fhg=";
   };
@@ -26,18 +16,8 @@ stdenv.mkDerivation rec {
 
   prePatch = "patchShebangs .";
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    pkg-config
-    help2man
-  ];
-  buildInputs = [
-    openssl
-    libuuid
-    libbfd
-    gnu-efi
-  ];
+  nativeBuildInputs = [ autoconf automake pkg-config help2man ];
+  buildInputs = [ openssl libuuid libbfd gnu-efi ];
 
   configurePhase = ''
     substituteInPlace configure.ac --replace "@@NIX_GNUEFI@@" "${gnu-efi}"
@@ -58,15 +38,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tools for maintaining UEFI signature databases";
-    homepage = "http://jk.ozlabs.org/docs/sbkeysync-maintaing-uefi-key-databases";
-    maintainers = with maintainers; [
-      hmenke
-      raitobezarius
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ]; # Broken on i686
+    homepage =
+      "http://jk.ozlabs.org/docs/sbkeysync-maintaing-uefi-key-databases";
+    maintainers = with maintainers; [ hmenke raitobezarius ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ]; # Broken on i686
     license = licenses.gpl3;
   };
 }

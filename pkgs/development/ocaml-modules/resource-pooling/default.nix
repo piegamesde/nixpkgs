@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  lwt_log,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, lwt_log }:
 
 buildDunePackage rec {
   version = "1.2";
@@ -24,7 +19,8 @@ buildDunePackage rec {
 
   meta = {
     inherit (src.meta) homepage;
-    description = "A library for pooling resources like connections, threads, or similar";
+    description =
+      "A library for pooling resources like connections, threads, or similar";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
   };

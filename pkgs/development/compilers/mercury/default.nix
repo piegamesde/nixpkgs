@@ -1,36 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gcc,
-  flex,
-  bison,
-  texinfo,
-  jdk_headless,
-  erlang,
-  makeWrapper,
-  readline,
-}:
+{ lib, stdenv, fetchurl, gcc, flex, bison, texinfo, jdk_headless, erlang
+, makeWrapper, readline }:
 
 stdenv.mkDerivation rec {
   pname = "mercury";
   version = "22.01.6";
 
   src = fetchurl {
-    url = "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
+    url =
+      "https://dl.mercurylang.org/release/mercury-srcdist-${version}.tar.gz";
     sha256 = "sha256-dpRW+DRGJZPIvUv6/y1TLAFjrPOldKBtpwn87nOgIt8=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    gcc
-    flex
-    bison
-    texinfo
-    jdk_headless
-    erlang
-    readline
-  ];
+  buildInputs = [ gcc flex bison texinfo jdk_headless erlang readline ];
 
   patchPhase = ''
     # Fix calls to programs in /bin

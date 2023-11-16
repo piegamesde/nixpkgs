@@ -1,23 +1,8 @@
-{
-  mkDerivation,
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  boost,
-  libtorrent-rasterbar,
-  qtbase,
-  qttools,
-  qtsvg,
-  debugSupport ? false,
-  guiSupport ? true,
-  dbus ? null # GUI (disable to run headless)
-  ,
-  webuiSupport ? true # WebUI
-  ,
-  trackerSearch ? true,
-  python3 ? null,
-}:
+{ mkDerivation, lib, stdenv, fetchFromGitHub, pkg-config, boost
+, libtorrent-rasterbar, qtbase, qttools, qtsvg, debugSupport ? false
+, guiSupport ? true, dbus ? null # GUI (disable to run headless)
+, webuiSupport ? true # WebUI
+, trackerSearch ? true, python3 ? null }:
 
 assert guiSupport -> (dbus != null);
 assert trackerSearch -> (python3 != null);
@@ -38,14 +23,7 @@ mkDerivation rec {
   # NOTE: 2018-05-31: CMake is working but it is not officially supported
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      boost
-      libtorrent-rasterbar
-      qtbase
-      qttools
-      qtsvg
-    ]
+  buildInputs = [ boost libtorrent-rasterbar qtbase qttools qtsvg ]
     ++ lib.optional guiSupport dbus # D(esktop)-Bus depends on GUI support
     ++ lib.optional trackerSearch python3;
 
@@ -53,10 +31,7 @@ mkDerivation rec {
   QMAKE_LRELEASE = "lrelease";
 
   configureFlags =
-    [
-      "--with-boost-libdir=${boost.out}/lib"
-      "--with-boost=${boost.dev}"
-    ]
+    [ "--with-boost-libdir=${boost.out}/lib" "--with-boost=${boost.dev}" ]
     ++ lib.optionals (!guiSupport) [
       "--disable-gui"
       "--enable-systemd"
@@ -64,7 +39,8 @@ mkDerivation rec {
     ++ lib.optional (!webuiSupport) "--disable-webui"
     ++ lib.optional debugSupport "--enable-debug";
 
-  qtWrapperArgs = lib.optional trackerSearch "--prefix PATH : ${lib.makeBinPath [ python3 ]}";
+  qtWrapperArgs =
+    lib.optional trackerSearch "--prefix PATH : ${lib.makeBinPath [ python3 ]}";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/{Applications,bin}
@@ -75,7 +51,8 @@ mkDerivation rec {
   meta = with lib; {
     description = "Featureful free software BitTorrent client";
     homepage = "https://www.qbittorrent.org/";
-    changelog = "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog";
+    changelog =
+      "https://github.com/qbittorrent/qBittorrent/blob/release-${version}/Changelog";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ Anton-Latukha ];

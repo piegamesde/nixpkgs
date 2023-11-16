@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "starspace";
@@ -17,15 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "0sc7a37z1skb9377a1qs8ggwrkz0nmpybx7sms38xj05b702kbvj";
   };
 
-  buildInputs = [
-    boost
-    zlib
-  ];
+  buildInputs = [ boost zlib ];
 
-  makeFlags = [
-    "CXX=${stdenv.cc.targetPrefix}c++"
-    "BOOST_DIR=${boost.dev}/include"
-  ];
+  makeFlags =
+    [ "CXX=${stdenv.cc.targetPrefix}c++" "BOOST_DIR=${boost.dev}/include" ];
 
   preBuild = ''
     cp makefile_compress makefile
@@ -37,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "General-purpose neural model for efficient learning of entity embeddings";
+    description =
+      "General-purpose neural model for efficient learning of entity embeddings";
     homepage = "https://ai.facebook.com/tools/starspace/";
     license = licenses.mit;
     platforms = platforms.unix;

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  cmake,
-  perl,
-}:
+{ lib, stdenv, fetchurl, pkg-config, cmake, perl }:
 
 stdenv.mkDerivation rec {
 
@@ -13,15 +6,13 @@ stdenv.mkDerivation rec {
   version = "1.14.0";
 
   src = fetchurl {
-    url = "https://web-cpan.shlomifish.org/downloads/${pname}-${version}.tar.xz";
+    url =
+      "https://web-cpan.shlomifish.org/downloads/${pname}-${version}.tar.xz";
     sha256 = "1ga7rqmppa8ady665736cx443icscqlgflkqmxd4xbkzypmdj9bk";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [
-    cmake
-    perl
-  ];
+  propagatedBuildInputs = [ cmake perl ];
 
   meta = with lib; {
     description = "A library to implement a test protocol";

@@ -1,28 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  gdb,
-  python3,
-  bintools-unwrapped,
-  file,
-  ps,
-  git,
-  coreutils,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, gdb, python3, bintools-unwrapped
+, file, ps, git, coreutils }:
 
 let
-  pythonPath =
-    with python3.pkgs;
-    makePythonPath [
-      keystone-engine
-      unicorn
-      capstone
-      ropper
-    ];
-in
-stdenv.mkDerivation rec {
+  pythonPath = with python3.pkgs;
+    makePythonPath [ keystone-engine unicorn capstone ropper ];
+
+in stdenv.mkDerivation rec {
   pname = "gef";
   version = "2023.06";
 
@@ -79,7 +62,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A modern experience for GDB with advanced debugging features for exploit developers & reverse engineers";
+    description =
+      "A modern experience for GDB with advanced debugging features for exploit developers & reverse engineers";
     homepage = "https://github.com/hugsy/gef";
     license = licenses.mit;
     platforms = platforms.all;

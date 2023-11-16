@@ -1,38 +1,23 @@
-{
-  lib,
-  stdenv,
-  llvm_meta,
-  cmake,
-  fetch,
-  libcxx,
-  libunwind,
-  llvm,
-  version,
-}:
+{ lib, stdenv, llvm_meta, cmake, fetch, libcxx, libunwind, llvm, version }:
 
 stdenv.mkDerivation {
   pname = "libcxxabi";
   inherit version;
 
-  src = fetch "libcxxabi" "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv";
+  src =
+    fetch "libcxxabi" "12lp799rskr4fc2xr64qn4jfkjnfd8b1aymvsxyn4k9ar7r9pgqv";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  postUnpack =
-    ''
-      unpackFile ${libcxx.src}
-      unpackFile ${llvm.src}
-      export cmakeFlags="-DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      export TRIPLE=x86_64-apple-darwin
-    ''
-    + lib.optionalString stdenv.hostPlatform.isMusl ''
-      patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
-    '';
+  postUnpack = ''
+    unpackFile ${libcxx.src}
+    unpackFile ${llvm.src}
+    export cmakeFlags="-DLLVM_PATH=$PWD/$(ls -d llvm-*) -DLIBCXXABI_LIBCXX_PATH=$PWD/$(ls -d libcxx-*)"
+  '' + lib.optionalString stdenv.isDarwin ''
+    export TRIPLE=x86_64-apple-darwin
+  '' + lib.optionalString stdenv.hostPlatform.isMusl ''
+    patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
+  '';
 
   patches = [ ./gnu-install-dirs.patch ];
 
@@ -63,12 +48,12 @@ stdenv.mkDerivation {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
+    install -m 644 ../include/${
+      if stdenv.isDarwin then "*" else "cxxabi.h"
+    } "$dev/include"
   '';
 
-  passthru = {
-    libName = "c++abi";
-  };
+  passthru = { libName = "c++abi"; };
 
   meta = llvm_meta // {
     homepage = "https://libcxxabi.llvm.org/";
@@ -78,10 +63,7 @@ stdenv.mkDerivation {
     '';
     # "All of the code in libc++abi is dual licensed under the MIT license and
     # the UIUC License (a BSD-like license)":
-    license = with lib.licenses; [
-      mit
-      ncsa
-    ];
+    license = with lib.licenses; [ mit ncsa ];
     maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
   };
 }

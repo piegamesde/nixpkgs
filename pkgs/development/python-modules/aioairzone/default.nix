@@ -1,11 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "aioairzone";
@@ -38,3 +31,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fab ];
   };
 }
+

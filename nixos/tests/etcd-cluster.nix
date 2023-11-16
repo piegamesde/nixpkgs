@@ -1,10 +1,10 @@
 # This test runs simple etcd cluster
 
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
   let
 
-    runWithOpenSSL = file: cmd: pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL = file: cmd:
+      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -28,7 +28,8 @@ import ./make-test-python.nix (
         -extfile ${openssl_cnf}
     '';
 
-    etcd_client_key = runWithOpenSSL "etcd-client-key.pem" "openssl genrsa -out $out 2048";
+    etcd_client_key =
+      runWithOpenSSL "etcd-client-key.pem" "openssl genrsa -out $out 2048";
 
     etcd_client_csr = runWithOpenSSL "etcd-client-key.pem" ''
       openssl req \
@@ -96,53 +97,42 @@ import ./make-test-python.nix (
 
       networking.firewall.allowedTCPPorts = [ 2380 ];
     };
-  in
-  {
+  in {
     name = "etcd-cluster";
 
     meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
 
     nodes = {
-      node1 =
-        { ... }:
-        {
-          require = [ nodeConfig ];
-          services.etcd = {
-            initialCluster = [
-              "node1=https://node1:2380"
-              "node2=https://node2:2380"
-            ];
-            initialAdvertisePeerUrls = [ "https://node1:2380" ];
-          };
+      node1 = { ... }: {
+        require = [ nodeConfig ];
+        services.etcd = {
+          initialCluster =
+            [ "node1=https://node1:2380" "node2=https://node2:2380" ];
+          initialAdvertisePeerUrls = [ "https://node1:2380" ];
         };
+      };
 
-      node2 =
-        { ... }:
-        {
-          require = [ nodeConfig ];
-          services.etcd = {
-            initialCluster = [
-              "node1=https://node1:2380"
-              "node2=https://node2:2380"
-            ];
-            initialAdvertisePeerUrls = [ "https://node2:2380" ];
-          };
+      node2 = { ... }: {
+        require = [ nodeConfig ];
+        services.etcd = {
+          initialCluster =
+            [ "node1=https://node1:2380" "node2=https://node2:2380" ];
+          initialAdvertisePeerUrls = [ "https://node2:2380" ];
         };
+      };
 
-      node3 =
-        { ... }:
-        {
-          require = [ nodeConfig ];
-          services.etcd = {
-            initialCluster = [
-              "node1=https://node1:2380"
-              "node2=https://node2:2380"
-              "node3=https://node3:2380"
-            ];
-            initialAdvertisePeerUrls = [ "https://node3:2380" ];
-            initialClusterState = "existing";
-          };
+      node3 = { ... }: {
+        require = [ nodeConfig ];
+        services.etcd = {
+          initialCluster = [
+            "node1=https://node1:2380"
+            "node2=https://node2:2380"
+            "node3=https://node3:2380"
+          ];
+          initialAdvertisePeerUrls = [ "https://node3:2380" ];
+          initialClusterState = "existing";
         };
+      };
     };
 
     testScript = ''
@@ -168,5 +158,4 @@ import ./make-test-python.nix (
           node1.succeed("etcdctl put /foo/bar 'Hello degraded world'")
           node1.succeed("etcdctl get /foo/bar | grep 'Hello degraded world'")
     '';
-  }
-)
+  })

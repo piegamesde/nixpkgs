@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  beets,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, beets, python3Packages }:
 
 python3Packages.buildPythonApplication {
   pname = "beets-extrafiles";
@@ -24,10 +19,7 @@ python3Packages.buildPythonApplication {
 
   propagatedBuildInputs = with python3Packages; [ mediafile ];
 
-  nativeCheckInputs = [
-    python3Packages.pytestCheckHook
-    beets
-  ];
+  nativeCheckInputs = [ python3Packages.pytestCheckHook beets ];
 
   preCheck = ''
     HOME="$(mktemp -d)"
@@ -35,7 +27,8 @@ python3Packages.buildPythonApplication {
 
   meta = {
     homepage = "https://github.com/Holzhaus/beets-extrafiles";
-    description = "A plugin for beets that copies additional files and directories during the import process";
+    description =
+      "A plugin for beets that copies additional files and directories during the import process";
     license = lib.licenses.mit;
     inherit (beets.meta) platforms;
   };

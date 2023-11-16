@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kcli";
@@ -24,6 +20,7 @@ buildGoModule rec {
     homepage = "https://github.com/cswank/kcli";
     license = licenses.mit;
     maintainers = with maintainers; [ cswank ];
-    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken =
+      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

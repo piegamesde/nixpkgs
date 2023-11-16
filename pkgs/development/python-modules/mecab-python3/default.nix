@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mecab,
-  swig,
-  setuptools-scm,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, mecab, swig, setuptools-scm, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -35,12 +28,9 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A python wrapper for mecab: Morphological Analysis engine";
     homepage = "https://github.com/SamuraiT/mecab-python3";
-    changelog = "https://github.com/SamuraiT/mecab-python3/releases/tag/v${version}";
-    license = with licenses; [
-      gpl2
-      lgpl21
-      bsd3
-    ]; # any of the three
+    changelog =
+      "https://github.com/SamuraiT/mecab-python3/releases/tag/v${version}";
+    license = with licenses; [ gpl2 lgpl21 bsd3 ]; # any of the three
     maintainers = with maintainers; [ ixxie ];
   };
 }

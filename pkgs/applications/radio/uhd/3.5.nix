@@ -1,44 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  # See https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html for dependencies explanations
-  boost,
-  enableLibuhd_C_api ? true,
+{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, pkg-config
+# See https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html for dependencies explanations
+, boost, enableLibuhd_C_api ? true
   # requires numpy
-  enableLibuhd_Python_api ? false,
-  python3,
-  enableExamples ? false,
-  enableUtils ? false,
-  enableLiberio ? false,
-  liberio,
-  libusb1,
-  enableDpdk ? false,
-  dpdk,
-  # Devices
-  enableOctoClock ? true,
-  enableMpmd ? true,
-  enableB100 ? true,
-  enableB200 ? true,
-  enableUsrp1 ? true,
-  enableUsrp2 ? true,
-  enableX300 ? true,
-  enableN230 ? true,
-  enableN300 ? true,
-  enableN320 ? true,
-  enableE300 ? true,
-  enableE320 ? true,
-}:
+, enableLibuhd_Python_api ? false, python3, enableExamples ? false
+, enableUtils ? false, enableLiberio ? false, liberio, libusb1
+, enableDpdk ? false, dpdk
+# Devices
+, enableOctoClock ? true, enableMpmd ? true, enableB100 ? true
+, enableB200 ? true, enableUsrp1 ? true, enableUsrp2 ? true, enableX300 ? true
+, enableN230 ? true, enableN300 ? true, enableN320 ? true, enableE300 ? true
+, enableE320 ? true }:
 
 let
   onOffBool = b: if b then "ON" else "OFF";
   inherit (lib) optionals;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "uhd";
   # UHD seems to use three different version number styles: x.y.z, xxx_yyy_zzz
   # and xxx.yyy.zzz. Hrmpf... style keeps changing
@@ -52,75 +29,63 @@ stdenv.mkDerivation rec {
   };
   # Firmware images are downloaded (pre-built) from the respective release on Github
   uhdImagesSrc = fetchurl {
-    url = "https://github.com/EttusResearch/uhd/releases/download/v${version}/uhd-images_${version}.tar.xz";
+    url =
+      "https://github.com/EttusResearch/uhd/releases/download/v${version}/uhd-images_${version}.tar.xz";
     sha256 = "1fir1a13ac07mqhm4sr34cixiqj2difxq0870qv1wr7a7cbfw6vp";
   };
 
-  cmakeFlags =
-    [
-      "-DENABLE_LIBUHD=ON"
-      "-DENABLE_USB=ON"
-      "-DENABLE_TESTS=ON" # This installs tests as well so we delete them via postPhases
-      "-DENABLE_EXAMPLES=${onOffBool enableExamples}"
-      "-DENABLE_UTILS=${onOffBool enableUtils}"
-      "-DENABLE_LIBUHD_C_API=${onOffBool enableLibuhd_C_api}"
-      "-DENABLE_LIBUHD_PYTHON_API=${onOffBool enableLibuhd_Python_api}"
-      "-DENABLE_LIBERIO=${onOffBool enableLiberio}"
-      "-DENABLE_DPDK=${onOffBool enableDpdk}"
-      # Devices
-      "-DENABLE_OCTOCLOCK=${onOffBool enableOctoClock}"
-      "-DENABLE_MPMD=${onOffBool enableMpmd}"
-      "-DENABLE_B100=${onOffBool enableB100}"
-      "-DENABLE_B200=${onOffBool enableB200}"
-      "-DENABLE_USRP1=${onOffBool enableUsrp1}"
-      "-DENABLE_USRP2=${onOffBool enableUsrp2}"
-      "-DENABLE_X300=${onOffBool enableX300}"
-      "-DENABLE_N230=${onOffBool enableN230}"
-      "-DENABLE_N300=${onOffBool enableN300}"
-      "-DENABLE_N320=${onOffBool enableN320}"
-      "-DENABLE_E300=${onOffBool enableE300}"
-      "-DENABLE_E320=${onOffBool enableE320}"
-    ]
-    # TODO: Check if this still needed
-    # ABI differences GCC 7.1
-    # /nix/store/wd6r25miqbk9ia53pp669gn4wrg9n9cj-gcc-7.3.0/include/c++/7.3.0/bits/vector.tcc:394:7: note: parameter passing for argument of type 'std::vector<uhd::range_t>::iterator {aka __gnu_cxx::__normal_iterator<uhd::range_t*, std::vector<uhd::range_t> >}' changed in GCC 7.1
+  cmakeFlags = [
+    "-DENABLE_LIBUHD=ON"
+    "-DENABLE_USB=ON"
+    "-DENABLE_TESTS=ON" # This installs tests as well so we delete them via postPhases
+    "-DENABLE_EXAMPLES=${onOffBool enableExamples}"
+    "-DENABLE_UTILS=${onOffBool enableUtils}"
+    "-DENABLE_LIBUHD_C_API=${onOffBool enableLibuhd_C_api}"
+    "-DENABLE_LIBUHD_PYTHON_API=${onOffBool enableLibuhd_Python_api}"
+    "-DENABLE_LIBERIO=${onOffBool enableLiberio}"
+    "-DENABLE_DPDK=${onOffBool enableDpdk}"
+    # Devices
+    "-DENABLE_OCTOCLOCK=${onOffBool enableOctoClock}"
+    "-DENABLE_MPMD=${onOffBool enableMpmd}"
+    "-DENABLE_B100=${onOffBool enableB100}"
+    "-DENABLE_B200=${onOffBool enableB200}"
+    "-DENABLE_USRP1=${onOffBool enableUsrp1}"
+    "-DENABLE_USRP2=${onOffBool enableUsrp2}"
+    "-DENABLE_X300=${onOffBool enableX300}"
+    "-DENABLE_N230=${onOffBool enableN230}"
+    "-DENABLE_N300=${onOffBool enableN300}"
+    "-DENABLE_N320=${onOffBool enableN320}"
+    "-DENABLE_E300=${onOffBool enableE300}"
+    "-DENABLE_E320=${onOffBool enableE320}"
+  ]
+  # TODO: Check if this still needed
+  # ABI differences GCC 7.1
+  # /nix/store/wd6r25miqbk9ia53pp669gn4wrg9n9cj-gcc-7.3.0/include/c++/7.3.0/bits/vector.tcc:394:7: note: parameter passing for argument of type 'std::vector<uhd::range_t>::iterator {aka __gnu_cxx::__normal_iterator<uhd::range_t*, std::vector<uhd::range_t> >}' changed in GCC 7.1
     ++ [ (lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi") ];
 
   # Python + mako are always required for the build itself but not necessary for runtime.
-  pythonEnv = python3.withPackages (
-    ps:
+  pythonEnv = python3.withPackages (ps:
     with ps;
-    [ mako ]
-    ++ optionals (enableLibuhd_Python_api) [
-      numpy
-      setuptools
-    ]
-    ++ optionals (enableUtils) [
-      requests
-      six
-    ]
-  );
+    [ mako ] ++ optionals (enableLibuhd_Python_api) [ numpy setuptools ]
+    ++ optionals (enableUtils) [ requests six ]);
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    # If both enableLibuhd_Python_api and enableUtils are off, we don't need
-    # pythonEnv in buildInputs as it's a 'build' dependency and not a runtime
-    # dependency
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ]
+  # If both enableLibuhd_Python_api and enableUtils are off, we don't need
+  # pythonEnv in buildInputs as it's a 'build' dependency and not a runtime
+  # dependency
     ++ optionals (!enableLibuhd_Python_api && !enableUtils) [ pythonEnv ];
-  buildInputs =
-    [
-      boost
-      libusb1
-    ]
-    # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
-    # pythonEnv for runtime as well. The utilities' runtime dependencies are
-    # handled at the environment
+  buildInputs = [
+    boost
+    libusb1
+  ]
+  # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
+  # pythonEnv for runtime as well. The utilities' runtime dependencies are
+  # handled at the environment
     ++ optionals (enableLibuhd_Python_api || enableUtils) [ pythonEnv ]
-    ++ optionals (enableLiberio) [ liberio ]
-    ++ optionals (enableDpdk) [ dpdk ];
+    ++ optionals (enableLiberio) [ liberio ] ++ optionals (enableDpdk) [ dpdk ];
 
   doCheck = true;
 
@@ -130,10 +95,8 @@ stdenv.mkDerivation rec {
   # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
   patches = if stdenv.isAarch32 then ./neon.patch else null;
 
-  postPhases = [
-    "installFirmware"
-    "removeInstalledTests"
-  ] ++ optionals (enableUtils) [ "moveUdevRules" ];
+  postPhases = [ "installFirmware" "removeInstalledTests" ]
+    ++ optionals (enableUtils) [ "moveUdevRules" ];
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''
@@ -166,10 +129,6 @@ stdenv.mkDerivation rec {
     homepage = "https://uhd.ettus.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [
-      bjornfor
-      fpletz
-      tomberek
-    ];
+    maintainers = with maintainers; [ bjornfor fpletz tomberek ];
   };
 }

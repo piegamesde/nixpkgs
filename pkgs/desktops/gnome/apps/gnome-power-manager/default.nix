@@ -1,19 +1,5 @@
-{
-  stdenv,
-  lib,
-  gettext,
-  fetchurl,
-  pkg-config,
-  gtk3,
-  glib,
-  meson,
-  ninja,
-  upower,
-  python3,
-  desktop-file-utils,
-  wrapGAppsHook,
-  gnome,
-}:
+{ stdenv, lib, gettext, fetchurl, pkg-config, gtk3, glib, meson, ninja, upower
+, python3, desktop-file-utils, wrapGAppsHook, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-power-manager";
@@ -39,11 +25,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    gtk3
-    glib
-    upower
-  ];
+  buildInputs = [ gtk3 glib upower ];
 
   passthru = {
     updateScript = gnome.updateScript {

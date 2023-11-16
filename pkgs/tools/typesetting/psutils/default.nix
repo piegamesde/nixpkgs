@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-}:
+{ lib, stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation rec {
   pname = "psutils";
@@ -25,7 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Collection of useful utilities for manipulating PS documents";
+    description =
+      "Collection of useful utilities for manipulating PS documents";
     homepage = "http://knackered.knackered.org/angus/psutils/";
     license = licenses.bsd3;
   };

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pam,
-  openssl,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, pam, openssl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "duo-unix";
@@ -16,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Oi8SPfPaGS3ITgRONt60PLy3B9QICeDDyIsP+iBpQmk=";
   };
 
-  buildInputs = [
-    pam
-    openssl
-    zlib
-  ];
+  buildInputs = [ pam openssl zlib ];
   configureFlags = [
     "--with-pam=$(out)/lib/security"
     "--prefix=$(out)"

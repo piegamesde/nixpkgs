@@ -1,73 +1,38 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  autoreconfHook,
-  yodl,
-  perl,
-  groff,
-  util-linux,
-  texinfo,
-  ncurses,
-  pcre,
-  buildPackages,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, yodl, perl, groff
+, util-linux, texinfo, ncurses, pcre, buildPackages }:
 
-let
-  version = "5.9";
-in
+let version = "5.9";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "zsh";
   inherit version;
-  outputs = [
-    "out"
-    "doc"
-    "info"
-    "man"
-  ];
+  outputs = [ "out" "doc" "info" "man" ];
 
   src = fetchurl {
     url = "mirror://sourceforge/zsh/zsh-${version}.tar.xz";
     sha256 = "sha256-m40ezt1bXoH78ZGOh2dSp92UjgXBoNuhCrhjhC1FrNU=";
   };
 
-  patches =
-    [
-      # fix location of timezone data for TZ= completion
-      ./tz_completion.patch
-    ];
-
-  strictDeps = true;
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      perl
-      groff
-      texinfo
-      pcre
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      util-linux
-      yodl
-    ];
-
-  buildInputs = [
-    ncurses
-    pcre
+  patches = [
+    # fix location of timezone data for TZ= completion
+    ./tz_completion.patch
   ];
 
-  configureFlags =
-    [
-      "--enable-maildir-support"
-      "--enable-multibyte"
-      "--with-tcsetpgrp"
-      "--enable-pcre"
-      "--enable-zshenv=${placeholder "out"}/etc/zshenv"
-      "--disable-site-fndir"
-    ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform && !stdenv.hostPlatform.isStatic) [
+  strictDeps = true;
+  nativeBuildInputs = [ autoreconfHook perl groff texinfo pcre ]
+    ++ lib.optionals stdenv.isLinux [ util-linux yodl ];
+
+  buildInputs = [ ncurses pcre ];
+
+  configureFlags = [
+    "--enable-maildir-support"
+    "--enable-multibyte"
+    "--with-tcsetpgrp"
+    "--enable-pcre"
+    "--enable-zshenv=${placeholder "out"}/etc/zshenv"
+    "--disable-site-fndir"
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform
+    && !stdenv.hostPlatform.isStatic) [
       # Also see: https://github.com/buildroot/buildroot/commit/2f32e668aa880c2d4a2cce6c789b7ca7ed6221ba
       "zsh_cv_shared_environ=yes"
       "zsh_cv_shared_tgetent=yes"
@@ -112,14 +77,13 @@ stdenv.mkDerivation {
     fi
     EOF
         ${
-          if stdenv.hostPlatform == stdenv.buildPlatform then
-            ''
-              $out/bin/zsh -c "zcompile $out/etc/zshenv"
-            ''
-          else
-            ''
-              ${lib.getBin buildPackages.zsh}/bin/zsh -c "zcompile $out/etc/zshenv"
-            ''
+          if stdenv.hostPlatform == stdenv.buildPlatform then ''
+            $out/bin/zsh -c "zcompile $out/etc/zshenv"
+          '' else ''
+            ${
+              lib.getBin buildPackages.zsh
+            }/bin/zsh -c "zcompile $out/etc/zshenv"
+          ''
         }
         mv $out/etc/zshenv $out/etc/zshenv_zwc_is_used
 
@@ -141,14 +105,9 @@ stdenv.mkDerivation {
     '';
     license = "MIT-like";
     homepage = "https://www.zsh.org/";
-    maintainers = with lib.maintainers; [
-      pSub
-      artturin
-    ];
+    maintainers = with lib.maintainers; [ pSub artturin ];
     platforms = lib.platforms.unix;
   };
 
-  passthru = {
-    shellPath = "/bin/zsh";
-  };
+  passthru = { shellPath = "/bin/zsh"; };
 }

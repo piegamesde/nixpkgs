@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  gettext,
-  makeWrapper,
-  alsa-lib,
-  libjack2,
-  tk,
-  fftw,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, gettext, makeWrapper, alsa-lib
+, libjack2, tk, fftw }:
 
 stdenv.mkDerivation rec {
   pname = "puredata";
@@ -20,17 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "0dz6r6jy0zfs1xy1xspnrxxks8kddi9c7pxz4vpg2ygwv83ghpg5";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook gettext makeWrapper ];
 
-  buildInputs = [
-    alsa-lib
-    libjack2
-    fftw
-  ];
+  buildInputs = [ alsa-lib libjack2 fftw ];
 
   configureFlags = [
     "--enable-alsa"

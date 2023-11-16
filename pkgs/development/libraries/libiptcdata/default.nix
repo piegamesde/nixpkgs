@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  libiconv,
-  libintl,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libiconv, libintl }:
 
 stdenv.mkDerivation rec {
   pname = "libiptcdata";
@@ -26,13 +19,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    libiconv
-    libintl
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv libintl ];
 
   meta = with lib; {
-    description = "Library for reading and writing the IPTC metadata in images and other files";
+    description =
+      "Library for reading and writing the IPTC metadata in images and other files";
     homepage = "https://github.com/ianw/libiptcdata";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

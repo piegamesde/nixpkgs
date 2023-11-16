@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  libX11,
-  libXext,
-  unstableGitUpdater,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, libX11, libXext
+, unstableGitUpdater }:
 
 stdenv.mkDerivation {
   pname = "minilibx";
@@ -19,18 +12,11 @@ stdenv.mkDerivation {
     hash = "sha256-aRYMpaPC7dC6EHmmXugvwcQnaizRCQZKFcQX0K2MLM4=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [
-    libX11
-    libXext
-  ];
+  buildInputs = [ libX11 libXext ];
 
   dontConfigure = true;
 
@@ -49,9 +35,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   meta = with lib; {
     description = "A simple X-Window (X11R6) programming API in C";

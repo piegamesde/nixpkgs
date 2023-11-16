@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "amoco";
@@ -46,18 +42,14 @@ python3.pkgs.buildPythonApplication rec {
       --replace "'pytest-runner'," ""
   '';
 
-  pythonRelaxDeps = [
-    "grandalf"
-    "crysp"
-  ];
+  pythonRelaxDeps = [ "grandalf" "crysp" ];
 
   pythonImportsCheck = [ "amoco" ];
 
-  disabledTests =
-    [
-      # AttributeError: 'str' object has no attribute '__dict__'
-      "test_func"
-    ];
+  disabledTests = [
+    # AttributeError: 'str' object has no attribute '__dict__'
+    "test_func"
+  ];
 
   meta = with lib; {
     description = "Tool for analysing binaries";

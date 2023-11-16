@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  zip,
-  love,
-  makeWrapper,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, stdenv, fetchFromGitLab, zip, love, makeWrapper, makeDesktopItem
+, copyDesktopItems }:
 
 stdenv.mkDerivation rec {
   pname = "wireworld";
@@ -20,11 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-8BshnGLuA8lmG9g7FU349DWKP/fZvlvjrQBau/LSJ4E=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-    zip
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems zip ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -47,15 +35,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Fascinating electronics logic puzzles, game where you'll learn how to build clocks, diodes, and logic gates";
-    license = with licenses; [
-      mit
-      ofl
-      blueOak100
-      cc-by-sa-30
-      cc-by-sa-40
-    ];
+    description =
+      "Fascinating electronics logic puzzles, game where you'll learn how to build clocks, diodes, and logic gates";
+    license = with licenses; [ mit ofl blueOak100 cc-by-sa-30 cc-by-sa-40 ];
     downloadPage = "https://ldjam.com/events/ludum-dare/53/wireworld";
     maintainers = with lib.maintainers; [ janik ];
   };
+
 }

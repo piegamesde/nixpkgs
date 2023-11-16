@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "godef";
@@ -25,10 +21,7 @@ buildGoModule rec {
   meta = {
     description = "Print where symbols are defined in Go source code";
     homepage = "https://github.com/rogpeppe/godef/";
-    maintainers = with lib.maintainers; [
-      vdemeester
-      rvolosatovs
-    ];
+    maintainers = with lib.maintainers; [ vdemeester rvolosatovs ];
     license = lib.licenses.bsd3;
   };
 }

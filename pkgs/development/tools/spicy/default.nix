@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "spicy";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-uy33vfsvyLCep1aN8qO0BMmpPylhzTLhosjjD5ghmHE=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "A Nintendo 64 segment assembler";

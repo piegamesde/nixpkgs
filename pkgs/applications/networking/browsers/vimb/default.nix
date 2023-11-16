@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  libsoup,
-  webkitgtk,
-  gtk3,
-  glib-networking,
-  gsettings-desktop-schemas,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, libsoup, webkitgtk, gtk3
+, glib-networking, gsettings-desktop-schemas, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "vimb";
@@ -22,21 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Eq4riJSznKpkW9JJDnTCLxZ9oMJTmWkIoGphOiCcSAg=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    pkg-config
-  ];
-  buildInputs = [
-    gtk3
-    libsoup
-    webkitgtk
-    glib-networking
-    gsettings-desktop-schemas
-  ];
+  nativeBuildInputs = [ wrapGAppsHook pkg-config ];
+  buildInputs =
+    [ gtk3 libsoup webkitgtk glib-networking gsettings-desktop-schemas ];
 
-  passthru = {
-    inherit gtk3;
-  };
+  passthru = { inherit gtk3; };
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

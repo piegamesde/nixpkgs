@@ -1,8 +1,4 @@
-{
-  bundlerEnv,
-  lib,
-  ruby,
-}:
+{ bundlerEnv, lib, ruby }:
 
 bundlerEnv {
   inherit ruby;

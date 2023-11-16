@@ -1,16 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  libX11,
-  libXcursor,
-  libxcb,
-  python3,
-  installShellFiles,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, libX11, libXcursor, libxcb
+, python3, installShellFiles, makeDesktopItem, copyDesktopItems }:
 
 rustPlatform.buildRustPackage rec {
   pname = "xcolor";
@@ -25,25 +14,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Zh73+FJ63SkusSavCqSCLbHVnU++4ZFSMFUIM7TnOj0=";
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-    installShellFiles
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ pkg-config python3 installShellFiles copyDesktopItems ];
 
-  buildInputs = [
-    libX11
-    libXcursor
-    libxcb
-  ];
+  buildInputs = [ libX11 libXcursor libxcb ];
 
   desktopItems = [
     (makeDesktopItem {
       name = "XColor";
       exec = "xcolor -s";
       desktopName = "XColor";
-      comment = "Select colors visible anywhere on the screen to get their RGB representation";
+      comment =
+        "Select colors visible anywhere on the screen to get their RGB representation";
       icon = "xcolor";
       categories = [ "Graphics" ];
     })

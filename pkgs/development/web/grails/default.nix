@@ -1,34 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  # If jdk is null, require JAVA_HOME in runtime environment, else store
-  # JAVA_HOME=${jdk.home} into grails.
-  jdk ? null,
-  coreutils,
-  ncurses,
-  gnused,
-  gnugrep, # for purity
+{ lib, stdenv, fetchurl, unzip
+# If jdk is null, require JAVA_HOME in runtime environment, else store
+# JAVA_HOME=${jdk.home} into grails.
+, jdk ? null, coreutils, ncurses, gnused, gnugrep # for purity
 }:
 
 let
-  binpath = lib.makeBinPath (
-    [
-      coreutils
-      ncurses
-      gnused
-      gnugrep
-    ]
-    ++ lib.optional (jdk != null) jdk
-  );
-in
-stdenv.mkDerivation rec {
+  binpath = lib.makeBinPath
+    ([ coreutils ncurses gnused gnugrep ] ++ lib.optional (jdk != null) jdk);
+in stdenv.mkDerivation rec {
   pname = "grails";
   version = "5.3.2";
 
   src = fetchurl {
-    url = "https://github.com/grails/grails-core/releases/download/v${version}/grails-${version}.zip";
+    url =
+      "https://github.com/grails/grails-core/releases/download/v${version}/grails-${version}.zip";
     sha256 = "sha256-UdRtrQiHbBc8VoVUulDCZmAfZ1YTVdgNfeF91HomSqc=";
   };
 
@@ -36,19 +21,17 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installPhase =
-    ''
-      mkdir -p "$out"
-      cp -vr . "$out"
-      # Remove (for now) uneeded Windows .bat files
-      rm -f "$out"/bin/*.bat
-      # Improve purity
-      sed -i -e '2iPATH=${binpath}:\$PATH' "$out"/bin/grails
-    ''
-    + lib.optionalString (jdk != null) ''
-      # Inject JDK path into grails
-      sed -i -e '2iJAVA_HOME=${jdk.home}' "$out"/bin/grails
-    '';
+  installPhase = ''
+    mkdir -p "$out"
+    cp -vr . "$out"
+    # Remove (for now) uneeded Windows .bat files
+    rm -f "$out"/bin/*.bat
+    # Improve purity
+    sed -i -e '2iPATH=${binpath}:\$PATH' "$out"/bin/grails
+  '' + lib.optionalString (jdk != null) ''
+    # Inject JDK path into grails
+    sed -i -e '2iJAVA_HOME=${jdk.home}' "$out"/bin/grails
+  '';
 
   preferLocalBuild = true;
 

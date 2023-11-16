@@ -11,15 +11,12 @@
 # `dhallDirectoryToNix` utility.  It is not possible to use
 # `dhallDirectoryToNix` in Nixpkgs, since the Nixpkgs Hydra doesn't allow IFD.
 
-{
-  src,
-  # The file to import, relative to the src root directory
-  file ? "package.dhall",
-}@args:
+{ src, # The file to import, relative to the src root directory
+file ? "package.dhall" }@args:
 
 let
   generatedPkg = dhallPackages.generateDhallDirectoryPackage args;
 
   builtPkg = dhallPackages.callPackage generatedPkg { };
-in
-dhallPackageToNix builtPkg
+
+in dhallPackageToNix builtPkg

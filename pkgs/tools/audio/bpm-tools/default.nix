@@ -1,30 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  gnuplot,
-  sox,
-  flac,
-  id3v2,
-  vorbis-tools,
-  makeWrapper,
-}:
+{ stdenv, lib, fetchurl, gnuplot, sox, flac, id3v2, vorbis-tools, makeWrapper }:
 
-let
-  path = lib.makeBinPath [
-    gnuplot
-    sox
-    flac
-    id3v2
-    vorbis-tools
-  ];
-in
-stdenv.mkDerivation rec {
+let path = lib.makeBinPath [ gnuplot sox flac id3v2 vorbis-tools ];
+in stdenv.mkDerivation rec {
   pname = "bpm-tools";
   version = "0.3";
 
   src = fetchurl {
-    url = "http://www.pogo.org.uk/~mark/bpm-tools/releases/bpm-tools-${version}.tar.gz";
+    url =
+      "http://www.pogo.org.uk/~mark/bpm-tools/releases/bpm-tools-${version}.tar.gz";
     sha256 = "151vfbs8h3cibs7kbdps5pqrsxhpjv16y2iyfqbxzsclylgfivrp";
   };
 
@@ -45,3 +28,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ doronbehar ];
   };
 }
+

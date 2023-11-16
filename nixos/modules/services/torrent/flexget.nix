@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,8 +11,7 @@ let
     ${optionalString cfg.systemScheduler "schedules: no"}
   '';
   configFile = "${toString cfg.homeDir}/flexget.yml";
-in
-{
+in {
   options = {
     services.flexget = {
       enable = mkEnableOption (lib.mdDoc "Run FlexGet Daemon");
@@ -42,18 +36,16 @@ in
         default = "10m";
         example = "1h";
         type = types.str;
-        description =
-          lib.mdDoc
-            "When to perform a {command}`flexget` run. See {command}`man 7 systemd.time` for the format.";
+        description = lib.mdDoc
+          "When to perform a {command}`flexget` run. See {command}`man 7 systemd.time` for the format.";
       };
 
       systemScheduler = mkOption {
         default = true;
         example = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "When true, execute the runs via the flexget-runner.timer. If false, you have to specify the settings yourself in the YML file.";
+        description = lib.mdDoc
+          "When true, execute the runs via the flexget-runner.timer. If false, you have to specify the settings yourself in the YML file.";
       };
 
       config = mkOption {
@@ -75,7 +67,8 @@ in
         serviceConfig = {
           User = cfg.user;
           Environment = "TZ=${config.time.timeZone}";
-          ExecStartPre = "${pkgs.coreutils}/bin/install -m644 ${ymlFile} ${configFile}";
+          ExecStartPre =
+            "${pkgs.coreutils}/bin/install -m644 ${ymlFile} ${configFile}";
           ExecStart = "${pkg}/bin/flexget -c ${configFile} daemon start";
           ExecStop = "${pkg}/bin/flexget -c ${configFile} daemon stop";
           ExecReload = "${pkg}/bin/flexget -c ${configFile} daemon reload";

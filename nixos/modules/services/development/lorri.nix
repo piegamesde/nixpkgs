@@ -1,15 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.lorri;
   socketPath = "lorri/daemon.socket";
-in
-{
+in {
   options = {
     services.lorri = {
       enable = lib.mkOption {
@@ -46,12 +40,7 @@ in
       description = "Lorri Daemon";
       requires = [ "lorri.socket" ];
       after = [ "lorri.socket" ];
-      path = with pkgs; [
-        config.nix.package
-        git
-        gnutar
-        gzip
-      ];
+      path = with pkgs; [ config.nix.package git gnutar gzip ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/lorri daemon";
         PrivateTmp = true;
@@ -61,9 +50,6 @@ in
       };
     };
 
-    environment.systemPackages = [
-      cfg.package
-      pkgs.direnv
-    ];
+    environment.systemPackages = [ cfg.package pkgs.direnv ];
   };
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "libmysofa";
@@ -17,18 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QEfkeofsVxB9gyISL/P7bvnbcBuG7Q3A4UoAyQAXxgE=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zlib ];
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=OFF"
-    "-DCODE_COVERAGE=OFF"
-  ];
+  cmakeFlags = [ "-DBUILD_TESTS=OFF" "-DCODE_COVERAGE=OFF" ];
 
   meta = with lib; {
     description = "Reader for AES SOFA files to get better HRTFs";

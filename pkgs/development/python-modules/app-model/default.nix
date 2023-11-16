@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  in-n-out,
-  psygnal,
-  pydantic,
-  pytestCheckHook,
-  pythonOlder,
-  typing-extensions,
-  hatch-vcs,
-  hatchling,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, in-n-out, psygnal, pydantic
+, pytestCheckHook, pythonOlder, typing-extensions, hatch-vcs, hatchling }:
 
 buildPythonPackage rec {
   pname = "app-model";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
-  propagatedBuildInputs = [
-    psygnal
-    pydantic
-    in-n-out
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ psygnal pydantic in-n-out typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -47,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to implement generic application schema";
     homepage = "https://github.com/pyapp-kit/app-model";
-    changelog = "https://github.com/pyapp-kit/app-model/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/pyapp-kit/app-model/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];
   };

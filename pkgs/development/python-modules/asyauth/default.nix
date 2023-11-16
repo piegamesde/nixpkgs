@@ -1,13 +1,5 @@
-{
-  lib,
-  asn1crypto,
-  asysocks,
-  buildPythonPackage,
-  fetchPypi,
-  minikerberos,
-  pythonOlder,
-  unicrypto,
-}:
+{ lib, asn1crypto, asysocks, buildPythonPackage, fetchPypi, minikerberos
+, pythonOlder, unicrypto }:
 
 buildPythonPackage rec {
   pname = "asyauth";
@@ -21,12 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-EJLuSvkJrQBIrSM/dODhTtwPpnz67lmg4ZEwI4TPOVc=";
   };
 
-  propagatedBuildInputs = [
-    asn1crypto
-    asysocks
-    minikerberos
-    unicrypto
-  ];
+  propagatedBuildInputs = [ asn1crypto asysocks minikerberos unicrypto ];
 
   # Project doesn't have tests
   doCheck = false;

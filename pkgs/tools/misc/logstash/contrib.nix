@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchzip,
-}:
+{ stdenv, lib, fetchzip }:
 
 # Note that plugins are supposed to be installed as:
 #   $path/logstash/{inputs,codecs,filters,outputs}/*.rb
@@ -11,7 +7,8 @@ stdenv.mkDerivation rec {
   pname = "logstash-contrib";
 
   src = fetchzip {
-    url = "https://download.elasticsearch.org/logstash/logstash/logstash-contrib-${version}.tar.gz";
+    url =
+      "https://download.elasticsearch.org/logstash/logstash/logstash-contrib-${version}.tar.gz";
     sha256 = "1yj8sf3b526gixh3c6zhgkfpg4f0c72p1lzhfhdx8b3lw7zjkj0k";
   };
 

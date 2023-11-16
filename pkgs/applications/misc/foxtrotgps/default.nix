@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchbzr,
-  autoreconfHook,
-  texinfo,
-  help2man,
-  imagemagick,
-  pkg-config,
-  curl,
-  gnome2,
-  gpsd,
-  gtk2,
-  wrapGAppsHook,
-  intltool,
-  libexif,
-  python3Packages,
-  sqlite,
-}:
+{ lib, stdenv, fetchbzr, autoreconfHook, texinfo, help2man, imagemagick
+, pkg-config, curl, gnome2, gpsd, gtk2, wrapGAppsHook, intltool, libexif
+, python3Packages, sqlite }:
 
 let
   srcs = {
@@ -31,8 +15,7 @@ let
       sha256 = "1sgysn3dhfhrv7rj7wf8f2119vmhc1s1zzsp4r3nlrr45d20wmsv";
     };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "foxtrotgps";
   version = "1.2.2+331";
 
@@ -56,14 +39,12 @@ stdenv.mkDerivation rec {
     gtk2.dev
     libexif
     sqlite.dev
-    (python3Packages.python.withPackages (
-      pythonPackages:
+    (python3Packages.python.withPackages (pythonPackages:
       with python3Packages; [
         beautifulsoup4
         feedparser
         sqlalchemy
-      ]
-    ))
+      ]))
   ];
 
   postUnpack = ''

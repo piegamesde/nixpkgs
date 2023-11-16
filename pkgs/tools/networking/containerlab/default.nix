@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "containerlab";
@@ -31,7 +27,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Container-based networking lab";
     homepage = "https://containerlab.dev/";
-    changelog = "https://github.com/srl-labs/containerlab/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/srl-labs/containerlab/releases/tag/${src.rev}";
     license = licenses.bsd3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ janik ];

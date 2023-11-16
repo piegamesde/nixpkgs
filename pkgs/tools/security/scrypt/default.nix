@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-  getconf,
-  util-linux,
-}:
+{ lib, stdenv, fetchurl, openssl, getconf, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "scrypt";
@@ -16,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "1hnl0r6pmyxiy4dmafmqk1db7wpc0x9rqpzqcwr9d2cmghcj6byz";
   };
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
+  outputs = [ "out" "lib" "dev" ];
 
   configureFlags = [ "--enable-libscrypt-kdf" ];
 

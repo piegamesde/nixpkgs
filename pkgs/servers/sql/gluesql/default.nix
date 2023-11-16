@@ -1,15 +1,9 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  nix-update-script,
-}:
+{ lib, fetchFromGitHub, rustPlatform, nix-update-script }:
 
 let
   pname = "gluesql";
   version = "0.14.0";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {

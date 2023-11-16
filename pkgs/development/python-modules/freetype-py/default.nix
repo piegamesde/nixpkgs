@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  substituteAll,
-  setuptools-scm,
-  freetype,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, substituteAll, setuptools-scm
+, freetype, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "freetype-py";
@@ -21,7 +13,8 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./library-paths.patch;
-      freetype = "${freetype.out}/lib/libfreetype${stdenv.hostPlatform.extensions.sharedLibrary}";
+      freetype =
+        "${freetype.out}/lib/libfreetype${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 

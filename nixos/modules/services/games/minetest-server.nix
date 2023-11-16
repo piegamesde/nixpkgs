@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -17,8 +12,7 @@ let
     (flag cfg.logPath "logfile")
     (flag cfg.port "port")
   ];
-in
-{
+in {
   options = {
     services.minetest-server = {
       enable = mkOption {

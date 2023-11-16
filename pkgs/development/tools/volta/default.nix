@@ -1,12 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  libiconv,
-  stdenv,
-  installShellFiles,
-  darwin,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, libiconv, stdenv, installShellFiles, darwin
+, fetchFromGitHub, }:
 rustPlatform.buildRustPackage rec {
   pname = "volta";
   version = "1.1.1";
@@ -21,18 +14,18 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "detect-indent-0.1.0" = "sha256-qtPkPaBiyuT8GhpEFdU7IkAgKnCbTES0FB2CvNKWqic=";
+      "detect-indent-0.1.0" =
+        "sha256-qtPkPaBiyuT8GhpEFdU7IkAgKnCbTES0FB2CvNKWqic=";
       "semver-0.9.0" = "sha256-nw1somkZe9Qi36vjfWlTcDqHAIbaJj72KBTfmucVxXs=";
-      "semver-parser-0.10.0" = "sha256-iTGnKSddsriF6JS6lvJNjp9aDzGtfjrHEiCijeie3uE=";
+      "semver-parser-0.10.0" =
+        "sha256-iTGnKSddsriF6JS6lvJNjp9aDzGtfjrHEiCijeie3uE=";
     };
   };
 
-  buildInputs =
-    [ installShellFiles ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.Security
-      libiconv
-    ];
+  buildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Security
+    libiconv
+  ];
 
   HOME = "$TMPDIR";
 

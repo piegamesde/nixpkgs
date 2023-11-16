@@ -1,14 +1,8 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
-let
-  srcInfo = lib.importJSON ./src.json;
-in
+let srcInfo = lib.importJSON ./src.json;
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "chroma";
   version = "2.7.0";
 

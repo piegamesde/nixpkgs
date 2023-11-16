@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.json;
-in
-{
+let cfg = config.services.prometheus.exporters.json;
+in {
   port = 7979;
   extraOpts = {
     configFile = mkOption {

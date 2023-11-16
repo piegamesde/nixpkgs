@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "viddy";
@@ -17,12 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-QxYM4N3E/BqmeNaofLR1crwFLVaF3IigDXKlKA2Bkuw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X"
-    "main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X" "main.version=${version}" ];
 
   meta = with lib; {
     description = "A modern watch command";

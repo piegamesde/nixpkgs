@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  CoreGraphics,
-  Foundation,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, CoreGraphics, Foundation }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-ndk";
@@ -20,10 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-RMP1Nz2uWVIOxSlsjTR6QsVy6Heu9dXhrBBI5xGMbtY=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreGraphics
-    Foundation
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreGraphics Foundation ];
 
   meta = with lib; {
     description = "Cargo extension for building Android NDK projects";
@@ -35,3 +25,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ mglolenstine ];
   };
 }
+

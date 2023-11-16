@@ -1,4 +1,4 @@
-############################################################################
+# ###########################################################################
 # This file mainly provides the `mathcomp` derivation, which is            #
 # essentially a meta-package containing all core mathcomp libraries        #
 # (ssreflect fingroup algebra solvable field character). They can be       #
@@ -10,84 +10,69 @@
 # See the documentation at doc/languages-frameworks/coq.section.md.        #
 ############################################################################
 
-{
-  lib,
-  ncurses,
-  graphviz,
-  lua,
-  fetchzip,
-  mkCoqDerivation,
-  recurseIntoAttrs,
-  withDoc ? false,
-  single ? false,
-  coqPackages,
-  coq,
-  hierarchy-builder,
-  version ? null,
-}@args:
+{ lib, ncurses, graphviz, lua, fetchzip, mkCoqDerivation, recurseIntoAttrs
+, withDoc ? false, single ? false, coqPackages, coq, hierarchy-builder
+, version ? null }@args:
 with builtins // lib;
 let
   repo = "math-comp";
   owner = "math-comp";
   withDoc = single && (args.withDoc or false);
-  defaultVersion =
-    with versions;
-    lib.switch coq.coq-version
-      [
-        {
-          case = isGe "8.15";
-          out = "1.17.0";
-        }
-        {
-          case = range "8.16" "8.17";
-          out = "2.0.0";
-        }
-        {
-          case = range "8.13" "8.17";
-          out = "1.16.0";
-        }
-        {
-          case = range "8.14" "8.16";
-          out = "1.15.0";
-        }
-        {
-          case = range "8.11" "8.15";
-          out = "1.14.0";
-        }
-        {
-          case = range "8.11" "8.15";
-          out = "1.13.0";
-        }
-        {
-          case = range "8.10" "8.13";
-          out = "1.12.0";
-        }
-        {
-          case = range "8.7" "8.12";
-          out = "1.11.0";
-        }
-        {
-          case = range "8.7" "8.11";
-          out = "1.10.0";
-        }
-        {
-          case = range "8.7" "8.11";
-          out = "1.9.0";
-        }
-        {
-          case = range "8.7" "8.9";
-          out = "1.8.0";
-        }
-        {
-          case = range "8.6" "8.9";
-          out = "1.7.0";
-        }
-        {
-          case = range "8.5" "8.7";
-          out = "1.6.4";
-        }
-      ]
-      null;
+  defaultVersion = with versions;
+    lib.switch coq.coq-version [
+      {
+        case = isGe "8.15";
+        out = "1.17.0";
+      }
+      {
+        case = range "8.16" "8.17";
+        out = "2.0.0";
+      }
+      {
+        case = range "8.13" "8.17";
+        out = "1.16.0";
+      }
+      {
+        case = range "8.14" "8.16";
+        out = "1.15.0";
+      }
+      {
+        case = range "8.11" "8.15";
+        out = "1.14.0";
+      }
+      {
+        case = range "8.11" "8.15";
+        out = "1.13.0";
+      }
+      {
+        case = range "8.10" "8.13";
+        out = "1.12.0";
+      }
+      {
+        case = range "8.7" "8.12";
+        out = "1.11.0";
+      }
+      {
+        case = range "8.7" "8.11";
+        out = "1.10.0";
+      }
+      {
+        case = range "8.7" "8.11";
+        out = "1.9.0";
+      }
+      {
+        case = range "8.7" "8.9";
+        out = "1.8.0";
+      }
+      {
+        case = range "8.6" "8.9";
+        out = "1.7.0";
+      }
+      {
+        case = range "8.5" "8.7";
+        out = "1.6.4";
+      }
+    ] null;
   release = {
     "2.0.0".sha256 = "sha256-dpOmrHYUXBBS9kmmz7puzufxlbNpIZofpcTvJFLG5DI=";
     "1.17.0".sha256 = "sha256-bUfoSTMiW/GzC1jKFay6DRqGzKPuLOSUsO6/wPSFwNg=";
@@ -107,129 +92,87 @@ let
   releaseRev = v: "mathcomp-${v}";
 
   # list of core mathcomp packages sorted by dependency order
-  packages = [
-    "ssreflect"
-    "fingroup"
-    "algebra"
-    "solvable"
-    "field"
-    "character"
-    "all"
-  ];
+  packages =
+    [ "ssreflect" "fingroup" "algebra" "solvable" "field" "character" "all" ];
 
-  mathcomp_ =
-    package:
+  mathcomp_ = package:
     let
-      mathcomp-deps =
-        if package == "single" then
-          [ ]
-        else
-          map mathcomp_ (head (splitList (lib.pred.equal package) packages));
-      pkgpath = if package == "single" then "mathcomp" else "mathcomp/${package}";
+      mathcomp-deps = if package == "single" then
+        [ ]
+      else
+        map mathcomp_ (head (splitList (lib.pred.equal package) packages));
+      pkgpath =
+        if package == "single" then "mathcomp" else "mathcomp/${package}";
       pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
       pkgallMake = ''
         echo "all.v"  > Make
         echo "-I ." >>   Make
         echo "-R . mathcomp.all" >> Make
       '';
-      derivation = mkCoqDerivation (
-        {
-          inherit
-            version
-            pname
-            defaultVersion
-            release
-            releaseRev
-            repo
-            owner
-          ;
+      derivation = mkCoqDerivation ({
+        inherit version pname defaultVersion release releaseRev repo owner;
 
-          mlPlugin = versions.isLe "8.6" coq.coq-version;
-          nativeBuildInputs = optionals withDoc [
-            graphviz
-            lua
-          ];
-          buildInputs = [ ncurses ];
-          propagatedBuildInputs = mathcomp-deps;
+        mlPlugin = versions.isLe "8.6" coq.coq-version;
+        nativeBuildInputs = optionals withDoc [ graphviz lua ];
+        buildInputs = [ ncurses ];
+        propagatedBuildInputs = mathcomp-deps;
 
-          buildFlags = optional withDoc "doc";
+        buildFlags = optional withDoc "doc";
 
-          preBuild =
-            ''
-              if [[ -f etc/utils/ssrcoqdep ]]
-              then patchShebangs etc/utils/ssrcoqdep
-              fi
-              if [[ -f etc/buildlibgraph ]]
-              then patchShebangs etc/buildlibgraph
-              fi
-            ''
-            + ''
-              cd ${pkgpath}
-            ''
-            + optionalString (package == "all") pkgallMake;
+        preBuild = ''
+          if [[ -f etc/utils/ssrcoqdep ]]
+          then patchShebangs etc/utils/ssrcoqdep
+          fi
+          if [[ -f etc/buildlibgraph ]]
+          then patchShebangs etc/buildlibgraph
+          fi
+        '' + ''
+          cd ${pkgpath}
+        '' + optionalString (package == "all") pkgallMake;
 
-          meta = {
-            homepage = "https://math-comp.github.io/";
-            license = licenses.cecill-b;
-            maintainers = with maintainers; [
-              vbgl
-              jwiegley
-              cohencyril
-            ];
-          };
-        }
-        // optionalAttrs (package != "single") { passthru = genAttrs packages mathcomp_; }
-        // optionalAttrs withDoc {
-          htmldoc_template = fetchzip {
-            url = "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
-            sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";
-          };
-          postBuild = ''
-            cp -rf _build_doc/* .
-            rm -r _build_doc
-          '';
-          postInstall =
-            let
-              tgt = "$out/share/coq/${coq.coq-version}/";
-            in
-            optionalString withDoc ''
-              mkdir -p ${tgt}
-              cp -r htmldoc ${tgt}
-              cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
-            '';
-          buildTargets = "doc";
-          extraInstallFlags = [ "-f Makefile.coq" ];
-        }
-      );
-      patched-derivation1 = derivation.overrideAttrs (
-        o:
-        optionalAttrs
-          (
-            o.pname != null
-            && o.pname == "mathcomp-all"
-            && o.version != null
-            && o.version != "dev"
-            && versions.isLt "1.7" o.version
-          )
-          {
+        meta = {
+          homepage = "https://math-comp.github.io/";
+          license = licenses.cecill-b;
+          maintainers = with maintainers; [ vbgl jwiegley cohencyril ];
+        };
+      } // optionalAttrs (package != "single") {
+        passthru = genAttrs packages mathcomp_;
+      } // optionalAttrs withDoc {
+        htmldoc_template = fetchzip {
+          url =
+            "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
+          sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";
+        };
+        postBuild = ''
+          cp -rf _build_doc/* .
+          rm -r _build_doc
+        '';
+        postInstall = let tgt = "$out/share/coq/${coq.coq-version}/";
+        in optionalString withDoc ''
+          mkdir -p ${tgt}
+          cp -r htmldoc ${tgt}
+          cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
+        '';
+        buildTargets = "doc";
+        extraInstallFlags = [ "-f Makefile.coq" ];
+      });
+      patched-derivation1 = derivation.overrideAttrs (o:
+        optionalAttrs (o.pname != null && o.pname == "mathcomp-all" && o.version
+          != null && o.version != "dev" && versions.isLt "1.7" o.version) {
             preBuild = "";
             buildPhase = "";
             installPhase = "echo doing nothing";
-          }
-      );
-      patched-derivation2 = patched-derivation1.overrideAttrs (
-        o:
-        optionalAttrs
-          (versions.isLe "8.7" coq.coq-version || (o.version != "dev" && versions.isLe "1.7" o.version))
-          { installFlags = o.installFlags ++ [ "-f Makefile.coq" ]; }
-      );
-      patched-derivation = patched-derivation2.overrideAttrs (
-        o:
-        optionalAttrs (o.version != null && (o.version == "dev" || versions.isGe "2.0.0" o.version)) {
-          propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ];
-        }
-      );
-    in
-    patched-derivation;
-in
-mathcomp_ (if single then "single" else "all")
+          });
+      patched-derivation2 = patched-derivation1.overrideAttrs (o:
+        optionalAttrs (versions.isLe "8.7" coq.coq-version
+          || (o.version != "dev" && versions.isLe "1.7" o.version)) {
+            installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
+          });
+      patched-derivation = patched-derivation2.overrideAttrs (o:
+        optionalAttrs (o.version != null
+          && (o.version == "dev" || versions.isGe "2.0.0" o.version)) {
+            propagatedBuildInputs = o.propagatedBuildInputs
+              ++ [ hierarchy-builder ];
+          });
+    in patched-derivation;
+in mathcomp_ (if single then "single" else "all")

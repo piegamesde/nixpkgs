@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  automake,
-  cmake,
-  autoconf,
-  curl,
-  numactl,
-}:
+{ lib, stdenv, fetchFromGitHub, automake, cmake, autoconf, curl, numactl }:
 
 stdenv.mkDerivation rec {
   pname = "grpc_cli";
@@ -19,18 +10,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-3FaNGrvd+EuknOsShLSZKAHmZoa8eLBw+BHbNK59PGU=";
     fetchSubmodules = true;
   };
-  nativeBuildInputs = [
-    automake
-    cmake
-    autoconf
-  ];
-  buildInputs = [
-    curl
-    numactl
-  ];
+  nativeBuildInputs = [ automake cmake autoconf ];
+  buildInputs = [ curl numactl ];
   cmakeFlags = [ "-DgRPC_BUILD_TESTS=ON" ];
   makeFlags = [ "grpc_cli" ];
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isAarch64 "-Wno-error=format-security";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isAarch64 "-Wno-error=format-security";
   installPhase = ''
     runHook preInstall
 

@@ -1,11 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  installShellFiles,
-  testers,
-  cue,
-}:
+{ buildGoModule, fetchFromGitHub, lib, installShellFiles, testers, cue }:
 
 buildGoModule rec {
   pname = "cue";
@@ -34,11 +27,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X cuelang.org/go/cmd/cue/cmd.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X cuelang.org/go/cmd/cue/cmd.version=${version}" ];
 
   postInstall = ''
     # Completions
@@ -59,7 +48,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "A data constraint language which aims to simplify tasks involving defining and using data";
+    description =
+      "A data constraint language which aims to simplify tasks involving defining and using data";
     homepage = "https://cuelang.org/";
     license = lib.licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

@@ -1,15 +1,11 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "zpng";
   version = "1.2.2";
 
   description = "Create PNG files";
 
-  deps = [
-    args."salza2"
-    args."trivial-gray-streams"
-  ];
+  deps = [ args."salza2" args."trivial-gray-streams" ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/zpng/2015-04-07/zpng-1.2.2.tgz";

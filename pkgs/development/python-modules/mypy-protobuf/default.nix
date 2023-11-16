@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  protobuf,
-  types-protobuf,
-  grpcio-tools,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchPypi, buildPythonPackage, protobuf, types-protobuf, grpcio-tools
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mypy-protobuf";
@@ -21,11 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-fXWgeWUbEFB2d2o1pUBeP6dzuKFnEY8bcS5EPppsGKI=";
   };
 
-  propagatedBuildInputs = [
-    protobuf
-    types-protobuf
-    grpcio-tools
-  ];
+  propagatedBuildInputs = [ protobuf types-protobuf grpcio-tools ];
 
   doCheck = false; # ModuleNotFoundError: No module named 'testproto'
 

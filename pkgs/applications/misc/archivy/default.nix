@@ -1,28 +1,21 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 let
   py = python3.override {
     packageOverrides = self: super: {
-      wtforms = super.wtforms.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "2.3.1";
+      wtforms = super.wtforms.overridePythonAttrs (oldAttrs: rec {
+        version = "2.3.1";
 
-          src = oldAttrs.src.override {
-            inherit version;
-            sha256 = "sha256-hhoTs65SHWcA2sOydxlwvTVKY7pwQ+zDqCtSiFlqGXI=";
-          };
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "sha256-hhoTs65SHWcA2sOydxlwvTVKY7pwQ+zDqCtSiFlqGXI=";
+        };
 
-          doCheck = false;
-        }
-      );
+        doCheck = false;
+      });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "archivy";

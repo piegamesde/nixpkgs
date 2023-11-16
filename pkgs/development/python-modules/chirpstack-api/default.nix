@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  google-api-core,
-  grpcio,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, google-api-core, grpcio, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -23,10 +17,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/python/src";
 
-  propagatedBuildInputs = [
-    google-api-core
-    grpcio
-  ];
+  propagatedBuildInputs = [ google-api-core grpcio ];
 
   # Module has no tests
   doCheck = false;

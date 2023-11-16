@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "cbor-diag";
@@ -33,10 +29,7 @@ bundlerApp {
     description = "CBOR diagnostic utilities";
     homepage = "https://github.com/cabo/cbor-diag";
     license = with licenses; asl20;
-    maintainers = with maintainers; [
-      fdns
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ fdns nicknovitski ];
     platforms = platforms.unix;
   };
 }

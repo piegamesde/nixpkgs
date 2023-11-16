@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.tvheadend;
   pidFile = "${config.users.users.tvheadend.home}/tvheadend.pid";
-in
 
-{
+in {
   options = {
     services.tvheadend = {
       enable = mkEnableOption (lib.mdDoc "Tvheadend");

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libpcap,
-  bash,
-}:
+{ lib, stdenv, fetchurl, libpcap, bash }:
 
 stdenv.mkDerivation rec {
   pname = "p0f";

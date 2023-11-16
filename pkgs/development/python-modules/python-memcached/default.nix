@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  six,
-  mock,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six, mock, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-memcached";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   # all tests fail
   doCheck = false;

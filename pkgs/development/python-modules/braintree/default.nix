@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "braintree";
@@ -24,18 +17,14 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook ];
 
   pythonImportsCheck = [ "braintree" ];
 
-  disabledTestPaths =
-    [
-      # Don't test integrations
-      "tests/integration"
-    ];
+  disabledTestPaths = [
+    # Don't test integrations
+    "tests/integration"
+  ];
 
   meta = with lib; {
     description = "Python library for integration with Braintree";

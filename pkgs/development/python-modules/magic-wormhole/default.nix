@@ -1,26 +1,7 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  spake2,
-  pynacl,
-  six,
-  attrs,
-  twisted,
-  autobahn,
-  automat,
-  hkdf,
-  tqdm,
-  click,
-  humanize,
-  txtorcon,
-  nettools,
-  mock,
-  magic-wormhole-transit-relay,
-  magic-wormhole-mailbox-server,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, spake2, pynacl, six, attrs
+, twisted, autobahn, automat, hkdf, tqdm, click, humanize, txtorcon, nettools
+, mock, magic-wormhole-transit-relay, magic-wormhole-mailbox-server
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "magic-wormhole";
@@ -44,7 +25,8 @@ buildPythonPackage rec {
     click
     humanize
     txtorcon
-  ] ++ autobahn.optional-dependencies.twisted ++ twisted.optional-dependencies.tls;
+  ] ++ autobahn.optional-dependencies.twisted
+    ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     mock
@@ -53,11 +35,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Expected: (<class 'wormhole.errors.WrongPasswordError'>,) Got: Failure instance: Traceback (failure with no frames): <class 'wormhole.errors.LonelyError'>:
-      "test_welcome"
-    ];
+  disabledTests = [
+    # Expected: (<class 'wormhole.errors.WrongPasswordError'>,) Got: Failure instance: Traceback (failure with no frames): <class 'wormhole.errors.LonelyError'>:
+    "test_welcome"
+  ];
 
   postPatch = lib.optionalString stdenv.isLinux ''
     sed -i -e "s|'ifconfig'|'${nettools}/bin/ifconfig'|" src/wormhole/ipaddrs.py
@@ -71,10 +52,7 @@ buildPythonPackage rec {
     description = "Securely transfer data between computers";
     homepage = "https://github.com/magic-wormhole/magic-wormhole";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      asymmetric
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ asymmetric SuperSandro2000 ];
     mainProgram = "wormhole";
   };
 }

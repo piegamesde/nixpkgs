@@ -1,24 +1,6 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  openssl,
-  fontconfig,
-  nasm,
-  libX11,
-  libXcursor,
-  libXrandr,
-  libXi,
-  libGL,
-  libxkbcommon,
-  wayland,
-  stdenv,
-  gtk3,
-  darwin,
-  perl,
-}:
+{ lib, rustPlatform, fetchFromGitHub, cmake, pkg-config, openssl, fontconfig
+, nasm, libX11, libXcursor, libXrandr, libXi, libGL, libxkbcommon, wayland
+, stdenv, gtk3, darwin, perl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "oculante";
@@ -31,43 +13,27 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-7Xe01Z4ea+EHaMHwb81cjJkCW/HDobmFZ29YxKcaYJg=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    nasm
-    perl
-  ];
+  nativeBuildInputs = [ cmake pkg-config nasm perl ];
 
   checkFlagsArray = [ "--skip=tests::net" ]; # requires network access
 
-  buildInputs =
-    [
-      openssl
-      fontconfig
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      libGL
-      libX11
-      libXcursor
-      libXi
-      libXrandr
-      gtk3
+  buildInputs = [ openssl fontconfig ] ++ lib.optionals stdenv.isLinux [
+    libGL
+    libX11
+    libXcursor
+    libXi
+    libXrandr
+    gtk3
 
-      libxkbcommon
-      wayland
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
+    libxkbcommon
+    wayland
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/oculante --add-rpath ${
-      lib.makeLibraryPath [
-        libxkbcommon
-        libX11
-      ]
+      lib.makeLibraryPath [ libxkbcommon libX11 ]
     }
   '';
 
@@ -75,11 +41,9 @@ rustPlatform.buildRustPackage rec {
     broken = stdenv.isDarwin;
     description = "A minimalistic crossplatform image viewer written in Rust";
     homepage = "https://github.com/woelper/oculante";
-    changelog = "https://github.com/woelper/oculante/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/woelper/oculante/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      dit7ya
-      figsoda
-    ];
+    maintainers = with maintainers; [ dit7ya figsoda ];
   };
 }

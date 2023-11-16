@@ -1,17 +1,5 @@
-{
-  fetchurl,
-  fetchpatch,
-  lib,
-  stdenv,
-  libX11,
-  xorgproto,
-  libXext,
-  libXtst,
-  gtk2,
-  libXi,
-  pkg-config,
-  texinfo,
-}:
+{ fetchurl, fetchpatch, lib, stdenv, libX11, xorgproto, libXext, libXtst, gtk2
+, libXi, pkg-config, texinfo }:
 
 stdenv.mkDerivation rec {
   version = "3.19";
@@ -22,16 +10,15 @@ stdenv.mkDerivation rec {
     sha256 = "04n2lac0vgpv8zsn7nmb50hf3qb56pmj90dmwnivg09gyrf1x92j";
   };
 
-  patches =
-    [
-      # Pull fix pending upstream inclusion for -fno-common
-      # toolchain support: https://savannah.gnu.org/bugs/?58810
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://savannah.gnu.org/bugs/download.php?file_id=49534";
-        sha256 = "04j2cjy2yaiigg31a6k01vw0fq19yj3zpriikkjcz9q4ab4m5gh2";
-      })
-    ];
+  patches = [
+    # Pull fix pending upstream inclusion for -fno-common
+    # toolchain support: https://savannah.gnu.org/bugs/?58810
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://savannah.gnu.org/bugs/download.php?file_id=49534";
+      sha256 = "04j2cjy2yaiigg31a6k01vw0fq19yj3zpriikkjcz9q4ab4m5gh2";
+    })
+  ];
 
   postPatch = ''
     for i in `find cnee/test -name \*.sh`
@@ -47,22 +34,11 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libX11
-    xorgproto
-    libXext
-    libXtst
-    gtk2
-    libXi
-    texinfo
-  ];
+  buildInputs = [ libX11 xorgproto libXext libXtst gtk2 libXi texinfo ];
 
   configureFlags =
     # Do a static build because `libxnee' doesn't get installed anyway.
-    [
-      "--disable-gnome-applet"
-      "--enable-static"
-    ];
+    [ "--disable-gnome-applet" "--enable-static" ];
 
   # `cnee' is linked without `-lXi' and as a consequence has a RUNPATH that
   # lacks libXi.

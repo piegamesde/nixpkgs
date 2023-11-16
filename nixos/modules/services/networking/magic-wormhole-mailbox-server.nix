@@ -1,23 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.magic-wormhole-mailbox-server;
   dataDir = "/var/lib/magic-wormhole-mailbox-server;";
-  python = pkgs.python3.withPackages (
-    py: [
-      py.magic-wormhole-mailbox-server
-      py.twisted
-    ]
-  );
-in
-{
+  python = pkgs.python3.withPackages
+    (py: [ py.magic-wormhole-mailbox-server py.twisted ]);
+in {
   options.services.magic-wormhole-mailbox-server = {
     enable = mkEnableOption (lib.mdDoc "Magic Wormhole Mailbox Server");
   };
@@ -33,5 +23,6 @@ in
         StateDirectory = baseNameOf dataDir;
       };
     };
+
   };
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ncurses,
-  x256,
-}:
+{ lib, buildPythonPackage, fetchPypi, ncurses, x256 }:
 
 buildPythonPackage rec {
   pname = "unicurses";

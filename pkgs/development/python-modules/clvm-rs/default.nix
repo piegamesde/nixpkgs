@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  rustPlatform,
-  pythonOlder,
-  openssl,
-  perl,
-  pkgs,
-}:
+{ stdenv, lib, fetchFromGitHub, buildPythonPackage, rustPlatform, pythonOlder
+, openssl, perl, pkgs }:
 
 buildPythonPackage rec {
   pname = "clvm_rs";
@@ -32,16 +23,9 @@ buildPythonPackage rec {
 
   buildAndTestSubdir = "wheel";
 
-  nativeBuildInputs =
-    [
-      perl # used by openssl-sys to configure
-    ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        maturinBuildHook
-      ]
-    );
+  nativeBuildInputs = [
+    perl # used by openssl-sys to configure
+  ] ++ (with rustPlatform; [ cargoSetupHook maturinBuildHook ]);
 
   buildInputs = [ openssl ];
 

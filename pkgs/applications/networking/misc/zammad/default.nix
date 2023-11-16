@@ -1,25 +1,6 @@
-{
-  stdenv,
-  lib,
-  nixosTests,
-  fetchFromGitHub,
-  applyPatches,
-  bundlerEnv,
-  defaultGemConfig,
-  callPackage,
-  writeText,
-  procps,
-  ruby,
-  postgresql,
-  imlib2,
-  jq,
-  moreutils,
-  nodejs,
-  yarn,
-  yarn2nix-moretea,
-  v8,
-  cacert,
-}:
+{ stdenv, lib, nixosTests, fetchFromGitHub, applyPatches, bundlerEnv
+, defaultGemConfig, callPackage, writeText, procps, ruby, postgresql, imlib2, jq
+, moreutils, nodejs, yarn, yarn2nix-moretea, v8, cacert }:
 
 let
   pname = "zammad";
@@ -29,10 +10,7 @@ let
 
     src = fetchFromGitHub (lib.importJSON ./source.json);
 
-    patches = [
-      ./0001-nulldb.patch
-      ./fix-sendmail-location.diff
-    ];
+    patches = [ ./0001-nulldb.patch ./fix-sendmail-location.diff ];
 
     postPatch = ''
       sed -i -e "s|ruby '3.1.[0-9]\+'|ruby '${ruby.version}'|" Gemfile
@@ -73,12 +51,11 @@ let
       "postgres" # database
     ];
     gemConfig = defaultGemConfig // {
-      pg = attrs: { buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ]; };
+      pg = attrs: {
+        buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ];
+      };
       rszr = attrs: {
-        buildInputs = [
-          imlib2
-          imlib2.dev
-        ];
+        buildInputs = [ imlib2 imlib2.dev ];
         buildFlags = [ "--without-imlib2-config" ];
       };
       mini_racer = attrs: {
@@ -105,19 +82,12 @@ let
       chmod -R +w deps/Zammad/.eslint-plugin-zammad
     '';
   };
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   inherit pname version src;
 
-  buildInputs = [
-    rubyEnv
-    rubyEnv.wrappedRuby
-    rubyEnv.bundler
-    yarn
-    nodejs
-    procps
-    cacert
-  ];
+  buildInputs =
+    [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler yarn nodejs procps cacert ];
 
   RAILS_ENV = "production";
 
@@ -137,28 +107,17 @@ stdenv.mkDerivation {
 
   passthru = {
     inherit rubyEnv yarnEnv;
-    updateScript = [
-      "${callPackage ./update.nix { }}/bin/update.sh"
-      pname
-      (toString ./.)
-    ];
-    tests = {
-      inherit (nixosTests) zammad;
-    };
+    updateScript =
+      [ "${callPackage ./update.nix { }}/bin/update.sh" pname (toString ./.) ];
+    tests = { inherit (nixosTests) zammad; };
   };
 
   meta = with lib; {
-    description = "Zammad, a web-based, open source user support/ticketing solution.";
+    description =
+      "Zammad, a web-based, open source user support/ticketing solution.";
     homepage = "https://zammad.org";
     license = licenses.agpl3Plus;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    maintainers = with maintainers; [
-      n0emis
-      garbas
-      taeer
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [ n0emis garbas taeer ];
   };
 }

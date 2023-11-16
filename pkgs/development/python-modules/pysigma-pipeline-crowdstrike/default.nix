@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pysigma,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pysigma
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysigma-pipeline-crowdstrike";

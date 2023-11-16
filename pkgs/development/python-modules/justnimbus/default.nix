@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-  requests,
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder, requests
 }:
 
 buildPythonPackage rec {
@@ -37,3 +31,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fab ];
   };
 }
+

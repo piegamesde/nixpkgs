@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  jre,
-  git,
-  gradle_7,
-  perl,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, jre, git, gradle_7, perl
+, makeWrapper }:
 
 let
   pname = "ma1sd";
@@ -23,24 +14,20 @@ let
 
   gradle = gradle_7;
 
-  patches =
-    [
-      # https://github.com/ma1uta/ma1sd/pull/122
-      (fetchpatch {
-        name = "java-16-compatibility.patch";
-        url = "https://github.com/ma1uta/ma1sd/commit/be2e2e97ce21741ca6a2e29a06f5748f45dd414e.patch";
-        hash = "sha256-dvCeK/0InNJtUG9CWrsg7BE0FGWtXuHo3TU0iFFUmIk=";
-      })
-    ];
+  patches = [
+    # https://github.com/ma1uta/ma1sd/pull/122
+    (fetchpatch {
+      name = "java-16-compatibility.patch";
+      url =
+        "https://github.com/ma1uta/ma1sd/commit/be2e2e97ce21741ca6a2e29a06f5748f45dd414e.patch";
+      hash = "sha256-dvCeK/0InNJtUG9CWrsg7BE0FGWtXuHo3TU0iFFUmIk=";
+    })
+  ];
 
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version patches;
-    nativeBuildInputs = [
-      gradle
-      perl
-      git
-    ];
+    nativeBuildInputs = [ gradle perl git ];
 
     buildPhase = ''
       export MA1SD_BUILD_VERSION=${version}
@@ -61,19 +48,10 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-Px8FLnREBC6pADcEPn/GfhrtGnmZqjXIX7l1xPjiCvQ=";
   };
-in
-stdenv.mkDerivation {
-  inherit
-    pname
-    src
-    version
-    patches
-  ;
-  nativeBuildInputs = [
-    gradle
-    perl
-    makeWrapper
-  ];
+
+in stdenv.mkDerivation {
+  inherit pname src version patches;
+  nativeBuildInputs = [ gradle perl makeWrapper ];
   buildInputs = [ jre ];
 
   postPatch = ''
@@ -110,4 +88,5 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ mguentner ];
     platforms = platforms.all;
   };
+
 }

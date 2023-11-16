@@ -1,14 +1,8 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
-let
-  version = "0.8.0";
-in
+let version = "0.8.0";
 
-buildGoModule {
+in buildGoModule {
   pname = "agola";
   inherit version;
 
@@ -21,11 +15,7 @@ buildGoModule {
 
   vendorHash = "sha256-k3Sip9CqTGRTWxr3RzZf0jCrm4AfUrpY/wSTmHy+yik=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X agola.io/agola/cmd.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X agola.io/agola/cmd.Version=${version}" ];
 
   tags = [ "sqlite_unlock_notify" ];
 

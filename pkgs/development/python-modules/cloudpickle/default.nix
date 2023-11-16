@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  psutil,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, psutil, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cloudpickle";
@@ -19,24 +12,19 @@ buildPythonPackage rec {
     hash = "sha256-2JaEuN6eNKKkOzRg+8oH0J1uJc6FjfTVpEJAQDthePU=";
   };
 
-  nativeCheckInputs = [
-    psutil
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ psutil pytestCheckHook ];
 
   pythonImportsCheck = [ "cloudpickle" ];
 
-  disabledTestPaths =
-    [
-      # ModuleNotFoundError: No module named '_cloudpickle_testpkg'
-      "tests/cloudpickle_test.py"
-    ];
+  disabledTestPaths = [
+    # ModuleNotFoundError: No module named '_cloudpickle_testpkg'
+    "tests/cloudpickle_test.py"
+  ];
 
-  disabledTests =
-    [
-      # TypeError: cannot pickle 'EncodedFile' object
-      "test_pickling_special_file_handles"
-    ];
+  disabledTests = [
+    # TypeError: cannot pickle 'EncodedFile' object
+    "test_pickling_special_file_handles"
+  ];
 
   meta = with lib; {
     description = "Extended pickling support for Python objects";

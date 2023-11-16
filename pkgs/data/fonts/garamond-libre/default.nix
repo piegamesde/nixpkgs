@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "garamond-libre";
   version = "1.4";
 
   src = fetchzip {
-    url = "https://github.com/dbenjaminmiller/garamond-libre/releases/download/${version}/garamond-libre_${version}.zip";
+    url =
+      "https://github.com/dbenjaminmiller/garamond-libre/releases/download/${version}/garamond-libre_${version}.zip";
     stripRoot = false;
     hash = "sha256-cD/JMICtb6MPIUcWs2VOTHnb/05ma0/KKtPyR4oJlIc=";
   };

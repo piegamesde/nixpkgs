@@ -1,13 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ocaml,
-  m4,
-  camlp-streams,
-  core_kernel,
-  ounit,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ocaml, m4, camlp-streams, core_kernel
+, ounit }:
 
 buildDunePackage rec {
   pname = "cfstream";
@@ -28,16 +20,14 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ m4 ];
   checkInputs = [ ounit ];
-  propagatedBuildInputs = [
-    camlp-streams
-    core_kernel
-  ];
+  propagatedBuildInputs = [ camlp-streams core_kernel ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
   meta = with lib; {
     inherit (src.meta) homepage;
-    description = "Simple Core-inspired wrapper for standard library Stream module";
+    description =
+      "Simple Core-inspired wrapper for standard library Stream module";
     maintainers = [ maintainers.bcdarwin ];
     license = licenses.lgpl21;
   };

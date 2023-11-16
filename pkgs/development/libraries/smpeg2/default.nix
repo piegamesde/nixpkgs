@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoconf,
-  automake,
-  darwin,
-  fetchFromGitHub,
-  makeWrapper,
-  pkg-config,
-  SDL2,
-}:
+{ lib, stdenv, autoconf, automake, darwin, fetchFromGitHub, makeWrapper
+, pkg-config, SDL2 }:
 
 stdenv.mkDerivation rec {
   pname = "smpeg2";
@@ -21,20 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Z0u83K1GIXd0jUYo5ZyWUH2Zt7Hn8z+yr06DAtAEukw=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake makeWrapper pkg-config ];
 
   buildInputs = [ SDL2 ] ++ lib.optional stdenv.isDarwin darwin.libobjc;
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
   preConfigure = ''
     sh autogen.sh

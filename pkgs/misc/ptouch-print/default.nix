@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  autoreconfHook,
-  gd,
-  libusb1,
-}:
+{ lib, stdenv, fetchgit, autoreconfHook, gd, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "ptouch-print";
@@ -19,13 +12,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    gd
-    libusb1
-  ];
+  buildInputs = [ gd libusb1 ];
 
   meta = with lib; {
-    description = "Command line tool to print labels on Brother P-Touch printers on Linux";
+    description =
+      "Command line tool to print labels on Brother P-Touch printers on Linux";
     license = licenses.gpl3Plus;
     homepage = "https://mockmoon-cybernetics.ch/computer/p-touch2430pc/";
     maintainers = with maintainers; [ shamilton ];

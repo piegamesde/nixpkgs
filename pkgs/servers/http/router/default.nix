@@ -1,12 +1,5 @@
-{
-  lib,
-  callPackage,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  protobuf,
-  elfutils,
-}:
+{ lib, callPackage, fetchFromGitHub, rustPlatform, pkg-config, protobuf
+, elfutils }:
 
 rustPlatform.buildRustPackage rec {
   pname = "router";
@@ -21,10 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-yeb+4lgRDssjkEx6bYfGIbn4DJGpZZ/JDmuwFjQ+U+8=";
 
-  nativeBuildInputs = [
-    pkg-config
-    protobuf
-  ];
+  nativeBuildInputs = [ pkg-config protobuf ];
 
   buildInputs = [ elfutils ];
 
@@ -32,10 +22,12 @@ rustPlatform.buildRustPackage rec {
   # To avoid this we pre-download the file and export it via RUSTY_V8_ARCHIVE
   RUSTY_V8_ARCHIVE = callPackage ./librusty_v8.nix { };
 
-  cargoTestFlags = [ "-- --skip=uplink::test::stream_from_uplink_error_no_retry" ];
+  cargoTestFlags =
+    [ "-- --skip=uplink::test::stream_from_uplink_error_no_retry" ];
 
   meta = with lib; {
-    description = "A configurable, high-performance routing runtime for Apollo Federation";
+    description =
+      "A configurable, high-performance routing runtime for Apollo Federation";
     homepage = "https://www.apollographql.com/docs/router/";
     license = licenses.elastic;
     maintainers = [ maintainers.bbigras ];

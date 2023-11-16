@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  django,
-  djangorestframework,
-  pytz,
-  pytest,
-  pytest-lazy-fixture,
-  python,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, django
+, djangorestframework, pytz, pytest, pytest-lazy-fixture, python }:
 
 buildPythonPackage rec {
   pname = "django-timezone-field";
@@ -27,11 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    django
-    djangorestframework
-    pytz
-  ];
+  propagatedBuildInputs = [ django djangorestframework pytz ];
 
   pythonImportsCheck = [ "timezone_field" ];
 
@@ -41,17 +26,15 @@ buildPythonPackage rec {
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  nativeCheckInputs = [
-    pytest
-    pytest-lazy-fixture
-  ];
+  nativeCheckInputs = [ pytest pytest-lazy-fixture ];
 
   checkPhase = ''
     ${python.interpreter} -m django test
   '';
 
   meta = with lib; {
-    description = "Django app providing database, form and serializer fields for pytz timezone objects";
+    description =
+      "Django app providing database, form and serializer fields for pytz timezone objects";
     homepage = "https://github.com/mfogel/django-timezone-field";
     license = licenses.bsd2;
     maintainers = with maintainers; [ hexa ];

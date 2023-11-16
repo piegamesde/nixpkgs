@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  logical-unification,
-  py,
-  pytestCheckHook,
-  pytest-html,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, logical-unification, py
+, pytestCheckHook, pytest-html }:
 
 buildPythonPackage rec {
   pname = "cons";
@@ -21,16 +14,9 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ logical-unification ];
 
-  nativeCheckInputs = [
-    py
-    pytestCheckHook
-    pytest-html
-  ];
+  nativeCheckInputs = [ py pytestCheckHook pytest-html ];
 
-  pytestFlagsArray = [
-    "--html=testing-report.html"
-    "--self-contained-html"
-  ];
+  pytestFlagsArray = [ "--html=testing-report.html" "--self-contained-html" ];
 
   pythonImportsCheck = [ "cons" ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  eks-node-viewer,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, eks-node-viewer }:
 
 buildGoModule rec {
   pname = "eks-node-viewer";
@@ -34,7 +28,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to visualize dynamic node usage within a cluster";
     homepage = "https://github.com/awslabs/eks-node-viewer";
-    changelog = "https://github.com/awslabs/eks-node-viewer/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/awslabs/eks-node-viewer/releases/tag/${src.rev}";
     license = licenses.asl20;
     maintainers = [ maintainers.ivankovnatsky ];
   };

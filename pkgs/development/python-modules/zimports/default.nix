@@ -1,15 +1,5 @@
-{
-  lib,
-  isPy3k,
-  fetchFromGitHub,
-  buildPythonPackage,
-  flake8-import-order,
-  pyflakes,
-  tomli,
-  setuptools,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, isPy3k, fetchFromGitHub, buildPythonPackage, flake8-import-order
+, pyflakes, tomli, setuptools, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "zimports";
@@ -25,12 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-qm5mA8pCSLbkupGBo+ppHSW6uy1j/FfV3idvGQGhjqU=";
   };
 
-  propagatedBuildInputs = [
-    flake8-import-order
-    pyflakes
-    setuptools
-    tomli
-  ];
+  propagatedBuildInputs = [ flake8-import-order pyflakes setuptools tomli ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

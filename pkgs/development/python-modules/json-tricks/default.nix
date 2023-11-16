@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pythonOlder,
-  pytestCheckHook,
-  numpy,
-  pandas,
-  pytz,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, pytestCheckHook, numpy
+, pandas, pytz }:
 
 buildPythonPackage rec {
   pname = "json-tricks";
@@ -21,12 +13,7 @@ buildPythonPackage rec {
     sha256 = "wdpqCqMO0EzKyqE4ishL3CTsSw3sZPGvJ0HEktKFgZU=";
   };
 
-  nativeCheckInputs = [
-    numpy
-    pandas
-    pytz
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numpy pandas pytz pytestCheckHook ];
 
   pythonImportsCheck = [ "json_tricks" ];
 

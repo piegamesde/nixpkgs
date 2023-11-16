@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  griffe,
-  mkdocs-material,
-  mkdocstrings,
-  pdm-backend,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, griffe, mkdocs-material
+, mkdocstrings, pdm-backend, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mkdocstrings-python";
@@ -26,15 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs = [
-    griffe
-    mkdocstrings
-  ];
+  propagatedBuildInputs = [ griffe mkdocstrings ];
 
-  nativeCheckInputs = [
-    mkdocs-material
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mkdocs-material pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -46,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python handler for mkdocstrings";
     homepage = "https://github.com/mkdocstrings/python";
-    changelog = "https://github.com/mkdocstrings/python/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mkdocstrings/python/blob/${version}/CHANGELOG.md";
     license = licenses.isc;
     maintainers = with maintainers; [ fab ];
   };

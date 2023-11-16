@@ -1,23 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pytestCheckHook,
-  writeText,
-  autograd,
-  cma,
-  cython,
-  deprecated,
-  dill,
-  matplotlib,
-  nbformat,
-  notebook,
-  numba,
-  numpy,
-  pandas,
-  scipy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
+, writeText, autograd, cma, cython, deprecated, dill, matplotlib, nbformat
+, notebook, numba, numpy, pandas, scipy }:
 
 buildPythonPackage rec {
   pname = "pymoo";
@@ -37,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-iGWPepZw3kJzw5HKV09CvemVvkvFQ38GVP+BAryBSs0=";
   };
 
-  patches =
-    [
-      # https://github.com/anyoptimization/pymoo/pull/407
-      (fetchpatch {
-        url = "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
-        hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
-      })
-    ];
+  patches = [
+    # https://github.com/anyoptimization/pymoo/pull/407
+    (fetchpatch {
+      url =
+        "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
+      hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -58,15 +41,8 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ cython ];
-  propagatedBuildInputs = [
-    autograd
-    cma
-    deprecated
-    dill
-    matplotlib
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs =
+    [ autograd cma deprecated dill matplotlib numpy scipy ];
 
   doCheck = true;
   preCheck = ''
@@ -74,12 +50,7 @@ buildPythonPackage rec {
       --replace "https://raw.githubusercontent.com/anyoptimization/pymoo-data/main/" \
                 "file://$pymoo_data/"
   '';
-  nativeCheckInputs = [
-    pytestCheckHook
-    nbformat
-    notebook
-    numba
-  ];
+  nativeCheckInputs = [ pytestCheckHook nbformat notebook numba ];
   # Select some lightweight tests
   pytestFlagsArray = [ "-m 'not long'" ];
   disabledTests = [

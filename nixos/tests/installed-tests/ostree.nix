@@ -1,17 +1,7 @@
-{
-  pkgs,
-  lib,
-  makeInstalledTest,
-  ...
-}:
+{ pkgs, lib, makeInstalledTest, ... }:
 
 makeInstalledTest {
   tested = pkgs.ostree;
 
-  testConfig = {
-    environment.systemPackages = with pkgs; [
-      gnupg
-      ostree
-    ];
-  };
+  testConfig = { environment.systemPackages = with pkgs; [ gnupg ostree ]; };
 }

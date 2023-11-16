@@ -1,23 +1,12 @@
-{
-  lib,
-  writeScript,
-  common-updater-scripts,
-  bash,
-  coreutils,
-  curl,
-  gnugrep,
-  gnupg,
-  gnused,
-  nix,
-}:
+{ lib, writeScript, common-updater-scripts, bash, coreutils, curl, gnugrep
+, gnupg, gnused, nix }:
 
 let
   downloadPageUrl = "https://download.electrum.org";
 
   signingKeys = [ "6694 D8DE 7BE8 EE56 31BE D950 2BD5 824B 7F94 70E6" ];
-in
 
-writeScript "update-electrum" ''
+in writeScript "update-electrum" ''
   #! ${bash}/bin/bash
 
   set -eu -o pipefail
@@ -51,7 +40,9 @@ writeScript "update-electrum" ''
   export GNUPGHOME=$PWD/gnupg
   mkdir -m 700 -p "$GNUPGHOME"
 
-  gpg --batch --recv-keys ${lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)}
+  gpg --batch --recv-keys ${
+    lib.concatStringsSep " " (map (x: "'${x}'") signingKeys)
+  }
   gpg --batch --verify "$sigFile" "$srcFile"
 
   sha256=$(nix-prefetch-url --type sha256 "file://$PWD/$srcFile")

@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  colorful,
-  fetchFromGitHub,
-  git,
-  httpx,
-  lxml,
-  packaging,
-  poetry-core,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  semver,
-  rich,
-  tomlkit,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, colorful, fetchFromGitHub, git, httpx, lxml
+, packaging, poetry-core, pytestCheckHook, python-dateutil, pythonOlder, semver
+, rich, tomlkit, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pontos";
@@ -43,12 +28,10 @@ buildPythonPackage rec {
     rich
     typing-extensions
     tomlkit
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ] ++ httpx.optional-dependencies.http2;
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ++ httpx.optional-dependencies.http2;
 
-  nativeCheckInputs = [
-    git
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ git pytestCheckHook ];
 
   disabledTests = [
     "PrepareTestCase"
@@ -69,7 +52,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pontos" ];
 
   meta = with lib; {
-    description = "Collection of Python utilities, tools, classes and functions";
+    description =
+      "Collection of Python utilities, tools, classes and functions";
     homepage = "https://github.com/greenbone/pontos";
     changelog = "https://github.com/greenbone/pontos/releases/tag/v${version}";
     license = with licenses; [ gpl3Plus ];

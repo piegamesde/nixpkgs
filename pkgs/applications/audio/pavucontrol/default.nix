@@ -1,24 +1,13 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  pkg-config,
-  intltool,
-  libpulseaudio,
-  gtkmm3,
-  libsigcxx,
-  libcanberra-gtk3,
-  json-glib,
-  gnome,
-  wrapGAppsHook,
-}:
+{ fetchurl, lib, stdenv, pkg-config, intltool, libpulseaudio, gtkmm3, libsigcxx
+, libcanberra-gtk3, json-glib, gnome, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "pavucontrol";
   version = "5.0";
 
   src = fetchurl {
-    url = "https://freedesktop.org/software/pulseaudio/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://freedesktop.org/software/pulseaudio/${pname}/${pname}-${version}.tar.xz";
     sha256 = "sha256-zityw7XxpwrQ3xndgXUPlFW9IIcNHTo20gU2ry6PTno=";
   };
 
@@ -31,11 +20,7 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config intltool wrapGAppsHook ];
 
   configureFlags = [ "--disable-lynx" ];
 
@@ -54,10 +39,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl2Plus;
 
-    maintainers = with maintainers; [
-      abbradar
-      globin
-    ];
+    maintainers = with maintainers; [ abbradar globin ];
     platforms = platforms.linux;
   };
 }

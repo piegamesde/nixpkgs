@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "funzzy";
@@ -19,7 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-pv05r5irKULRvik8kWyuT7/sr7GUDj0oExyyoGrMD6k=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
   # Cargo.lock is outdated
   preConfigure = ''
@@ -29,7 +24,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A lightweight watcher";
     homepage = "https://github.com/cristianoliveira/funzzy";
-    changelog = "https://github.com/cristianoliveira/funzzy/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/cristianoliveira/funzzy/releases/tag/${src.rev}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

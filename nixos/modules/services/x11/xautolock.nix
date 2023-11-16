@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.xautolock;
-in
-{
+let cfg = config.services.xserver.xautolock;
+in {
   options = {
     services.xserver.xautolock = {
       enable = mkEnableOption (lib.mdDoc "xautolock");
@@ -31,9 +24,11 @@ in
       };
 
       locker = mkOption {
-        default = "${pkgs.xlockmore}/bin/xlock"; # default according to `man xautolock`
+        default =
+          "${pkgs.xlockmore}/bin/xlock"; # default according to `man xautolock`
         defaultText = literalExpression ''"''${pkgs.xlockmore}/bin/xlock"'';
-        example = literalExpression ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"'';
+        example =
+          literalExpression ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"'';
         type = types.str;
 
         description = lib.mdDoc ''
@@ -43,7 +38,8 @@ in
 
       nowlocker = mkOption {
         default = null;
-        example = literalExpression ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"'';
+        example =
+          literalExpression ''"''${pkgs.i3lock}/bin/i3lock -i /path/to/img"'';
         type = types.nullOr types.str;
 
         description = lib.mdDoc ''
@@ -62,7 +58,8 @@ in
 
       notifier = mkOption {
         default = null;
-        example = literalExpression ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"'';
+        example = literalExpression
+          ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"'';
         type = types.nullOr types.str;
 
         description = lib.mdDoc ''
@@ -109,51 +106,39 @@ in
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig = with lib; {
-        ExecStart = strings.concatStringsSep " " (
-          [
-            "${pkgs.xautolock}/bin/xautolock"
-            "-noclose"
-            "-time ${toString cfg.time}"
-            "-locker '${cfg.locker}'"
-          ]
-          ++ optionals cfg.enableNotifier [
-            "-notify ${toString cfg.notify}"
-            "-notifier '${cfg.notifier}'"
-          ]
-          ++ optionals (cfg.nowlocker != null) [ "-nowlocker '${cfg.nowlocker}'" ]
+        ExecStart = strings.concatStringsSep " " ([
+          "${pkgs.xautolock}/bin/xautolock"
+          "-noclose"
+          "-time ${toString cfg.time}"
+          "-locker '${cfg.locker}'"
+        ] ++ optionals cfg.enableNotifier [
+          "-notify ${toString cfg.notify}"
+          "-notifier '${cfg.notifier}'"
+        ] ++ optionals (cfg.nowlocker != null)
+          [ "-nowlocker '${cfg.nowlocker}'" ]
           ++ optionals (cfg.killer != null) [
             "-killer '${cfg.killer}'"
             "-killtime ${toString cfg.killtime}"
-          ]
-          ++ cfg.extraOptions
-        );
+          ] ++ cfg.extraOptions);
         Restart = "always";
       };
     };
-    assertions =
-      [
-        {
-          assertion = cfg.enableNotifier -> cfg.notifier != null;
-          message = "When enabling the notifier for xautolock, you also need to specify the notify script";
-        }
-        {
-          assertion = cfg.killer != null -> cfg.killtime >= 10;
-          message = "killtime has to be at least 10 minutes according to `man xautolock`";
-        }
-      ]
-      ++ (lib.forEach
-        [
-          "locker"
-          "notifier"
-          "nowlocker"
-          "killer"
-        ]
-        (
-          option: {
-            assertion = cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
-            message = "Please specify a canonical path for `services.xserver.xautolock.${option}`";
-          }
-        )
-      );
+    assertions = [
+      {
+        assertion = cfg.enableNotifier -> cfg.notifier != null;
+        message =
+          "When enabling the notifier for xautolock, you also need to specify the notify script";
+      }
+      {
+        assertion = cfg.killer != null -> cfg.killtime >= 10;
+        message =
+          "killtime has to be at least 10 minutes according to `man xautolock`";
+      }
+    ] ++ (lib.forEach [ "locker" "notifier" "nowlocker" "killer" ] (option: {
+      assertion = cfg.${option} != null -> builtins.substring 0 1 cfg.${option}
+        == "/";
+      message =
+        "Please specify a canonical path for `services.xserver.xautolock.${option}`";
+    }));
   };
 }

@@ -1,15 +1,12 @@
-{
-  lib,
-  fetchurl,
-  stdenvNoCC,
-}:
+{ lib, fetchurl, stdenvNoCC }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "carlito";
   version = "20130920";
 
   src = fetchurl {
-    url = "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-carlito-${version}.tar.gz";
+    url =
+      "https://commondatastorage.googleapis.com/chromeos-localmirror/distfiles/crosextrafonts-carlito-${version}.tar.gz";
     sha256 = "sha256-S9ErbLwyHBzxbaduLFhcklzpVqCAZ65vbGTv9sz9r1o=";
   };
 

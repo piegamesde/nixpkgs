@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  libusb1,
-  AppKit,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, libusb1, AppKit }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ecpdap";
@@ -41,3 +33,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ expipiplus1 ];
   };
 }
+

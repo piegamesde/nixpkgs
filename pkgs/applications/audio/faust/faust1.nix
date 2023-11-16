@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  coreutils,
-  fetchurl,
-  makeWrapper,
-  pkg-config,
-}:
+{ lib, stdenv, coreutils, fetchurl, makeWrapper, pkg-config }:
 
 with lib.strings;
 
@@ -23,10 +16,7 @@ let
     downloadPage = "https://sourceforge.net/projects/faudiostream/files/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      magnetophon
-      pmahoney
-    ];
+    maintainers = with maintainers; [ magnetophon pmahoney ];
   };
 
   faust = stdenv.mkDerivation {
@@ -37,9 +27,7 @@ let
 
     nativeBuildInputs = [ makeWrapper ];
 
-    passthru = {
-      inherit wrap wrapWithBuildEnv;
-    };
+    passthru = { inherit wrap wrapWithBuildEnv; };
 
     preConfigure = ''
       makeFlags="$makeFlags prefix=$out"
@@ -78,7 +66,8 @@ let
     '';
 
     meta = meta // {
-      description = "A functional programming language for realtime audio signal processing";
+      description =
+        "A functional programming language for realtime audio signal processing";
       longDescription = ''
         FAUST (Functional Audio Stream) is a functional programming
         language specifically designed for real-time signal processing
@@ -96,19 +85,14 @@ let
         Install faust2* for specific faust2appl scripts.
       '';
     };
+
   };
 
   # Default values for faust2appl.
   faust2ApplBase =
-    {
-      baseName,
-      dir ? "tools/faust2appls",
-      scripts ? [ baseName ],
-      ...
-    }@args:
+    { baseName, dir ? "tools/faust2appls", scripts ? [ baseName ], ... }@args:
 
-    args
-    // {
+    args // {
       name = "${baseName}-${version}";
 
       inherit src;
@@ -137,7 +121,8 @@ let
       '';
 
       meta = meta // {
-        description = "The ${baseName} script, part of faust functional programming language for realtime audio signal processing";
+        description =
+          "The ${baseName} script, part of faust functional programming language for realtime audio signal processing";
       };
     };
 
@@ -157,67 +142,50 @@ let
   #
   # The build input 'faust' is automatically added to the
   # propagatedBuildInputs.
-  wrapWithBuildEnv =
-    {
-      baseName,
-      propagatedBuildInputs ? [ ],
-      ...
-    }@args:
+  wrapWithBuildEnv = { baseName, propagatedBuildInputs ? [ ], ... }@args:
 
-    stdenv.mkDerivation (
-      (faust2ApplBase args)
-      // {
+    stdenv.mkDerivation ((faust2ApplBase args) // {
 
-        nativeBuildInputs = [
-          pkg-config
-          makeWrapper
-        ];
+      nativeBuildInputs = [ pkg-config makeWrapper ];
 
-        propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
+      propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
 
-        postFixup = ''
+      postFixup = ''
 
-          # export parts of the build environment
-          for script in "$out"/bin/*; do
-            wrapProgram "$script" \
-              --set FAUSTLIB "${faust}/lib/faust" \
-              --set FAUSTINC "${faust}/include/faust" \
-              --prefix PATH : "$PATH" \
-              --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH" \
-              --set NIX_CFLAGS_COMPILE "$NIX_CFLAGS_COMPILE" \
-              --set NIX_LDFLAGS "$NIX_LDFLAGS"
-          done
-        '';
-      }
-    );
+        # export parts of the build environment
+        for script in "$out"/bin/*; do
+          wrapProgram "$script" \
+            --set FAUSTLIB "${faust}/lib/faust" \
+            --set FAUSTINC "${faust}/include/faust" \
+            --prefix PATH : "$PATH" \
+            --prefix PKG_CONFIG_PATH : "$PKG_CONFIG_PATH" \
+            --set NIX_CFLAGS_COMPILE "$NIX_CFLAGS_COMPILE" \
+            --set NIX_LDFLAGS "$NIX_LDFLAGS"
+        done
+      '';
+    });
 
   # Builder for 'faust2appl' scripts, such as faust2firefox that
   # simply need to be wrapped with some dependencies on PATH.
   #
   # The build input 'faust' is automatically added to the PATH.
-  wrap =
-    {
-      baseName,
-      runtimeInputs ? [ ],
-      ...
-    }@args:
+  wrap = { baseName, runtimeInputs ? [ ], ... }@args:
 
     let
 
-      runtimePath = concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
-    in
-    stdenv.mkDerivation (
-      (faust2ApplBase args)
-      // {
+      runtimePath =
+        concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
 
-        nativeBuildInputs = [ makeWrapper ];
+    in stdenv.mkDerivation ((faust2ApplBase args) // {
 
-        postFixup = ''
-          for script in "$out"/bin/*; do
-            wrapProgram "$script" --prefix PATH : "${runtimePath}"
-          done
-        '';
-      }
-    );
-in
-faust
+      nativeBuildInputs = [ makeWrapper ];
+
+      postFixup = ''
+        for script in "$out"/bin/*; do
+          wrapProgram "$script" --prefix PATH : "${runtimePath}"
+        done
+      '';
+
+    });
+
+in faust

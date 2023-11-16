@@ -1,34 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  adns,
-  curl,
-  gettext,
-  gmp,
-  gnutls,
-  libextractor,
-  libgcrypt,
-  libgnurl,
-  libidn,
-  libmicrohttpd,
-  libtool,
-  libunistring,
-  makeWrapper,
-  ncurses,
-  pkg-config,
-  libxml2,
-  sqlite,
-  zlib,
-  libpulseaudio,
-  libopus,
-  libogg,
-  jansson,
-  libsodium,
+{ lib, stdenv, fetchurl, adns, curl, gettext, gmp, gnutls, libextractor
+, libgcrypt, libgnurl, libidn, libmicrohttpd, libtool, libunistring, makeWrapper
+, ncurses, pkg-config, libxml2, sqlite, zlib, libpulseaudio, libopus, libogg
+, jansson, libsodium
 
-  postgresqlSupport ? true,
-  postgresql,
-}:
+, postgresqlSupport ? true, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "gnunet";
@@ -41,11 +16,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    libtool
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config libtool makeWrapper ];
   buildInputs = [
     adns
     curl
@@ -95,7 +66,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "GNU's decentralized anonymous and censorship-resistant P2P framework";
+    description =
+      "GNU's decentralized anonymous and censorship-resistant P2P framework";
 
     longDescription = ''
       GNUnet is a framework for secure peer-to-peer networking that
@@ -114,11 +86,9 @@ stdenv.mkDerivation rec {
 
     homepage = "https://gnunet.org/";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      pstn
-      vrthra
-    ];
+    maintainers = with maintainers; [ pstn vrthra ];
     platforms = platforms.gnu ++ platforms.linux;
-    changelog = "https://git.gnunet.org/gnunet.git/tree/ChangeLog?h=v${version}";
+    changelog =
+      "https://git.gnunet.org/gnunet.git/tree/ChangeLog?h=v${version}";
   };
 }

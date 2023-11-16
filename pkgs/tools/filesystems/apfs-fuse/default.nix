@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fuse,
-  fuse3,
-  bzip2,
-  zlib,
-  attr,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, fuse, fuse3, bzip2, zlib, attr, cmake }:
 
 stdenv.mkDerivation {
   pname = "apfs-fuse-unstable";
@@ -29,11 +19,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    (if stdenv.isDarwin then fuse else fuse3)
-    bzip2
-    zlib
-  ] ++ lib.optional stdenv.isLinux attr;
+  buildInputs = [ (if stdenv.isDarwin then fuse else fuse3) bzip2 zlib ]
+    ++ lib.optional stdenv.isLinux attr;
 
   cmakeFlags = lib.optional stdenv.isDarwin "-DUSE_FUSE3=OFF";
 
@@ -50,4 +37,5 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ ealasu ];
     platforms = platforms.unix;
   };
+
 }

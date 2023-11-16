@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { lib, ... }:
+import ./make-test-python.nix ({ lib, ... }:
 
   {
     name = "libreddit";
@@ -17,5 +16,4 @@ import ./make-test-python.nix (
       # Query a page that does not require Internet access
       machine.succeed("curl --fail http://localhost:80/settings")
     '';
-  }
-)
+  })

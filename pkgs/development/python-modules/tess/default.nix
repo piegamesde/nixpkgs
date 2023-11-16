@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cython,
-  numpy,
-  scipy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, numpy, scipy }:
 
 buildPythonPackage {
   pname = "tess";
@@ -20,13 +13,11 @@ buildPythonPackage {
 
   buildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ numpy scipy ];
 
   meta = with lib; {
-    description = "A module for calculating and analyzing Voronoi tessellations";
+    description =
+      "A module for calculating and analyzing Voronoi tessellations";
     homepage = "https://tess.readthedocs.org";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

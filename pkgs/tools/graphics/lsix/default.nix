@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  makeWrapper,
-  imagemagick,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, imagemagick }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "lsix";

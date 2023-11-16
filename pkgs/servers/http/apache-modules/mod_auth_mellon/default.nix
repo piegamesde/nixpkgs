@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  apacheHttpd,
-  autoconf,
-  automake,
-  autoreconfHook,
-  curl,
-  fetchFromGitHub,
-  glib,
-  lasso,
-  libtool,
-  libxml2,
-  libxslt,
-  openssl,
-  pkg-config,
-  xmlsec,
-}:
+{ lib, stdenv, apacheHttpd, autoconf, automake, autoreconfHook, curl
+, fetchFromGitHub, glib, lasso, libtool, libxml2, libxslt, openssl, pkg-config
+, xmlsec }:
 
 stdenv.mkDerivation rec {
 
@@ -29,28 +14,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LIzJP+OAcrgNIo9KU2kMfZ8kjHC5qUg96kJw3qhqbvc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    autoconf
-    automake
-  ];
-  buildInputs = [
-    apacheHttpd
-    curl
-    glib
-    lasso
-    libtool
-    libxml2
-    libxslt
-    openssl
-    xmlsec
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config autoconf automake ];
+  buildInputs =
+    [ apacheHttpd curl glib lasso libtool libxml2 libxslt openssl xmlsec ];
 
-  configureFlags = [
-    "--with-apxs2=${apacheHttpd.dev}/bin/apxs"
-    "--exec-prefix=$out"
-  ];
+  configureFlags =
+    [ "--with-apxs2=${apacheHttpd.dev}/bin/apxs" "--exec-prefix=$out" ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -66,4 +35,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ womfoo ];
   };
+
 }

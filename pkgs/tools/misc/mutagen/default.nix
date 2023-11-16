@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchzip,
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, fetchzip }:
 
 buildGoModule rec {
   pname = "mutagen";
@@ -22,7 +16,8 @@ buildGoModule rec {
   agents = fetchzip {
     name = "mutagen-agents-${version}";
     # The package architecture does not matter since all packages contain identical mutagen-agents.tar.gz.
-    url = "https://github.com/mutagen-io/mutagen/releases/download/v${version}/mutagen_linux_amd64_v${version}.tar.gz";
+    url =
+      "https://github.com/mutagen-io/mutagen/releases/download/v${version}/mutagen_linux_amd64_v${version}.tar.gz";
     stripRoot = false;
     postFetch = ''
       rm $out/mutagen # Keep only mutagen-agents.tar.gz.
@@ -32,15 +27,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [
-    "cmd/mutagen"
-    "cmd/mutagen-agent"
-  ];
+  subPackages = [ "cmd/mutagen" "cmd/mutagen-agent" ];
 
-  tags = [
-    "mutagencli"
-    "mutagenagent"
-  ];
+  tags = [ "mutagencli" "mutagenagent" ];
 
   postInstall = ''
     install -d $out/libexec
@@ -50,7 +39,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Make remote development work with your local tools";
     homepage = "https://mutagen.io/";
-    changelog = "https://github.com/mutagen-io/mutagen/releases/tag/v${version}";
+    changelog =
+      "https://github.com/mutagen-io/mutagen/releases/tag/v${version}";
     maintainers = [ maintainers.marsam ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;

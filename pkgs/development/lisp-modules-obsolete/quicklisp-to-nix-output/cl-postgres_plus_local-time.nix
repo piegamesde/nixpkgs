@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-postgres_plus_local-time";
   version = "local-time-20210124-git";
 
@@ -21,7 +20,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/local-time/2021-01-24/local-time-20210124-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/local-time/2021-01-24/local-time-20210124-git.tgz";
     sha256 = "0bz5z0rd8gfd22bpqkalaijxlrk806zc010cvgd4qjapbrxzjg3s";
   };
 

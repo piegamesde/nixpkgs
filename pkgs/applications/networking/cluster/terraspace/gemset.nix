@@ -1,11 +1,6 @@
 {
   activesupport = {
-    dependencies = [
-      "concurrent-ruby"
-      "i18n"
-      "minitest"
-      "tzinfo"
-    ];
+    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -36,12 +31,8 @@
     version = "1.689.0";
   };
   aws-sdk-core = {
-    dependencies = [
-      "aws-eventstream"
-      "aws-partitions"
-      "aws-sigv4"
-      "jmespath"
-    ];
+    dependencies =
+      [ "aws-eventstream" "aws-partitions" "aws-sigv4" "jmespath" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -52,10 +43,7 @@
     version = "3.168.4";
   };
   aws-sdk-kms = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -66,11 +54,7 @@
     version = "1.61.0";
   };
   aws-sdk-s3 = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sdk-kms"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sdk-kms" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -92,11 +76,7 @@
     version = "1.5.2";
   };
   cli-format = {
-    dependencies = [
-      "activesupport"
-      "text-table"
-      "zeitwerk"
-    ];
+    dependencies = [ "activesupport" "text-table" "zeitwerk" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -147,12 +127,7 @@
     version = "2.8.1";
   };
   dsl_evaluator = {
-    dependencies = [
-      "activesupport"
-      "memoist"
-      "rainbow"
-      "zeitwerk"
-    ];
+    dependencies = [ "activesupport" "memoist" "rainbow" "zeitwerk" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -256,10 +231,7 @@
     version = "2.8.0";
   };
   nokogiri = {
-    dependencies = [
-      "mini_portile2"
-      "racc"
-    ];
+    dependencies = [ "mini_portile2" "racc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -290,11 +262,7 @@
     version = "3.1.1";
   };
   render_me_pretty = {
-    dependencies = [
-      "activesupport"
-      "rainbow"
-      "tilt"
-    ];
+    dependencies = [ "activesupport" "rainbow" "tilt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -326,11 +294,7 @@
     version = "0.1.0";
   };
   rspec = {
-    dependencies = [
-      "rspec-core"
-      "rspec-expectations"
-      "rspec-mocks"
-    ];
+    dependencies = [ "rspec-core" "rspec-expectations" "rspec-mocks" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -352,10 +316,7 @@
     version = "3.12.0";
   };
   rspec-expectations = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -366,10 +327,7 @@
     version = "3.12.2";
   };
   rspec-mocks = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -390,13 +348,7 @@
     version = "3.12.0";
   };
   rspec-terraspace = {
-    dependencies = [
-      "activesupport"
-      "memoist"
-      "rainbow"
-      "rspec"
-      "zeitwerk"
-    ];
+    dependencies = [ "activesupport" "memoist" "rainbow" "rspec" "zeitwerk" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

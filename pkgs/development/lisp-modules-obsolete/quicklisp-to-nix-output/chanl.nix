@@ -1,24 +1,17 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "chanl";
   version = "20210411-git";
 
-  parasites = [
-    "chanl/examples"
-    "chanl/tests"
-  ];
+  parasites = [ "chanl/examples" "chanl/tests" ];
 
   description = "Communicating Sequential Process support for Common Lisp";
 
-  deps = [
-    args."alexandria"
-    args."bordeaux-threads"
-    args."fiveam"
-  ];
+  deps = [ args."alexandria" args."bordeaux-threads" args."fiveam" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/chanl/2021-04-11/chanl-20210411-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/chanl/2021-04-11/chanl-20210411-git.tgz";
     sha256 = "1c1yiw616q5hv6vzyg1y4kg68v94p37s5jrq387rwadfnnf46rgi";
   };
 

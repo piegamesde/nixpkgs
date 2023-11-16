@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  packaging,
-  pbr,
-  pytestCheckHook,
-  pythonOlder,
-  sentinels,
-}:
+{ lib, buildPythonPackage, fetchPypi, packaging, pbr, pytestCheckHook
+, pythonOlder, sentinels }:
 
 buildPythonPackage rec {
   pname = "mongomock";
@@ -23,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    packaging
-    sentinels
-  ];
+  propagatedBuildInputs = [ packaging sentinels ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

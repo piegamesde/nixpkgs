@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -21,16 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-8Qs5Jw0LMV2UucLnlFKJQ2PUhYaQx6uJdIV/4gaPH3w=";
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
-  disabledTests =
-    [
-      # checks date in license file and subsequently fails after new years
-      "test_daterange"
-    ];
+  disabledTests = [
+    # checks date in license file and subsequently fails after new years
+    "test_daterange"
+  ];
 
   pythonImportsCheck = [ "python_http_client" ];
 

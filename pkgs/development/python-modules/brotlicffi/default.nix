@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pythonOlder,
-  cffi,
-  brotli,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, cffi, brotli }:
 
 buildPythonPackage rec {
   pname = "brotlicffi";

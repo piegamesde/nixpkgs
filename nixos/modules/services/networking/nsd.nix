@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -20,32 +15,26 @@ let
     ipv6 = cfg.ipv6;
     ratelimit = cfg.ratelimit.enable;
     rootServer = cfg.rootServer;
-    zoneStats = length (collect (x: (x.zoneStats or null) != null) cfg.zones) > 0;
+    zoneStats = length (collect (x: (x.zoneStats or null) != null) cfg.zones)
+      > 0;
   };
 
   mkZoneFileName = name: if name == "." then "root" else name;
 
   # replaces include: directives for keys with fake keys for nsd-checkconf
-  injectFakeKeys =
-    keys:
-    concatStrings (
-      mapAttrsToList
-        (keyName: keyOptions: ''
-          fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
-            escapeShellArgs [
-              keyOptions.algorithm
-              keyName
-            ]
-          } | grep -oP "\s*secret \"\K.*(?=\";)")"
-          sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
-        '')
-        keys
-    );
+  injectFakeKeys = keys:
+    concatStrings (mapAttrsToList (keyName: keyOptions: ''
+      fakeKey="$(${pkgs.bind}/bin/tsig-keygen -a ${
+        escapeShellArgs [ keyOptions.algorithm keyName ]
+      } | grep -oP "\s*secret \"\K.*(?=\";)")"
+      sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
+    '') keys);
 
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
 
-    paths = [ configFile ] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
+    paths = [ configFile ]
+      ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
 
     postBuild = ''
       echo "checking zone files"
@@ -76,8 +65,7 @@ let
     '';
   };
 
-  writeZoneData =
-    name: text:
+  writeZoneData = name: text:
     pkgs.writeTextFile {
       name = "nsd-zone-${mkZoneFileName name}";
       inherit text;
@@ -151,31 +139,24 @@ let
 
   yesOrNo = b: if b then "yes" else "no";
   maybeString = prefix: x: if x == null then "" else ''${prefix} "${x}"'';
-  maybeToString = prefix: x: if x == null then "" else "${prefix} ${toString x}";
+  maybeToString = prefix: x:
+    if x == null then "" else "${prefix} ${toString x}";
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
 
-  keyConfigFile = concatStrings (
-    mapAttrsToList
-      (keyName: keyOptions: ''
-        key:
-          name:      "${keyName}"
-          algorithm: "${keyOptions.algorithm}"
-          include:   "${stateDir}/private/${keyName}"
-      '')
-      cfg.keys
-  );
+  keyConfigFile = concatStrings (mapAttrsToList (keyName: keyOptions: ''
+    key:
+      name:      "${keyName}"
+      algorithm: "${keyOptions.algorithm}"
+      include:   "${stateDir}/private/${keyName}"
+  '') cfg.keys);
 
-  copyKeys = concatStrings (
-    mapAttrsToList
-      (keyName: keyOptions: ''
-        secret=$(cat "${keyOptions.keyFile}")
-        dest="${stateDir}/private/${keyName}"
-        echo "  secret: \"$secret\"" > "$dest"
-        chown ${username}:${username} "$dest"
-        chmod 0400 "$dest"
-      '')
-      cfg.keys
-  );
+  copyKeys = concatStrings (mapAttrsToList (keyName: keyOptions: ''
+    secret=$(cat "${keyOptions.keyFile}")
+    dest="${stateDir}/private/${keyName}"
+    echo "  secret: \"$secret\"" > "$dest"
+    chown ${username}:${username} "$dest"
+    chmod 0400 "$dest"
+  '') cfg.keys);
 
   # options are ordered alphanumerically by the nixos option name
   zoneConfigFile = name: zone: ''
@@ -202,20 +183,19 @@ let
 
   zoneConfigs = zoneConfigs' { } "" { children = cfg.zones; };
 
-  zoneConfigs' =
-    parent: name: zone:
-    if
-      !(zone ? children) || zone.children == null || zone.children == { }
+  zoneConfigs' = parent: name: zone:
+    if !(zone ? children) || zone.children == null || zone.children == { }
     # leaf -> actual zone
     then
-      listToAttrs [ (nameValuePair name (parent // zone)) ]
+      listToAttrs [
+        (nameValuePair name (parent // zone))
+      ]
 
-    # fork -> pattern
+      # fork -> pattern
     else
-      zipAttrsWith (name: head) (
-        mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child)
-          zone.children
-      );
+      zipAttrsWith (name: head) (mapAttrsToList (name: child:
+        zoneConfigs' (parent // zone // { children = { }; }) name child)
+        zone.children);
 
   # options are ordered alphanumerically
   zoneOptions = types.submodule {
@@ -369,10 +349,7 @@ let
       notify = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "10.0.0.1@3721 my_key"
-          "::5 NOKEY"
-        ];
+        example = [ "10.0.0.1@3721 my_key" "::5 NOKEY" ];
         description = lib.mdDoc ''
           This primary server will notify all given secondary servers about
           zone changes.
@@ -410,10 +387,7 @@ let
       provideXFR = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "192.0.2.0/24 NOKEY"
-          "192.0.2.0/24 my_tsig_key_name"
-        ];
+        example = [ "192.0.2.0/24 NOKEY" "192.0.2.0/24 my_tsig_key_name" ];
         description = lib.mdDoc ''
           Allow these IPs and TSIG to transfer zones, addr TSIG|NOKEY|BLOCKED
           address range 192.0.2.0/24, 1.2.3.4&255.255.0.0, 3.0.2.20-3.0.2.40
@@ -429,22 +403,19 @@ let
       };
 
       rrlWhitelist = mkOption {
-        type =
-          with types;
-          listOf (
-            enum [
-              "nxdomain"
-              "error"
-              "referral"
-              "any"
-              "rrsig"
-              "wildcard"
-              "nodata"
-              "dnskey"
-              "positive"
-              "all"
-            ]
-          );
+        type = with types;
+          listOf (enum [
+            "nxdomain"
+            "error"
+            "referral"
+            "any"
+            "rrsig"
+            "wildcard"
+            "nodata"
+            "dnskey"
+            "positive"
+            "all"
+          ]);
         default = [ ];
         description = lib.mdDoc ''
           Whitelists the given rrl-types.
@@ -478,7 +449,8 @@ let
       };
       postPublish = mkOption {
         type = types.str;
-        description = lib.mdDoc "How long after deactivation to keep a key in the zone";
+        description =
+          lib.mdDoc "How long after deactivation to keep a key in the zone";
       };
       rollPeriod = mkOption {
         type = types.str;
@@ -487,7 +459,8 @@ let
     };
   };
 
-  dnssecZones = (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
+  dnssecZones =
+    (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
 
   dnssec = dnssecZones != { };
 
@@ -507,8 +480,7 @@ let
     ${dnssecTools}/bin/dnssec-signzone -S -K ${stateDir}/dnssec -o ${name} -O full -N date ${stateDir}/zones/${name}
     ${nsdPkg}/sbin/nsd-checkzone ${name} ${stateDir}/zones/${name}.signed && mv -v ${stateDir}/zones/${name}.signed ${stateDir}/zones/${name}
   '';
-  policyFile =
-    name: policy:
+  policyFile = name: policy:
     pkgs.writeText "${name}.policy" ''
       zone ${name} {
         algorithm ${policy.algorithm};
@@ -524,8 +496,7 @@ let
         coverage ${policy.coverage};
       };
     '';
-in
-{
+in {
   # options are ordered alphanumerically
   options.services.nsd = {
 
@@ -567,10 +538,7 @@ in
 
     interfaces = mkOption {
       type = types.listOf types.str;
-      default = [
-        "127.0.0.0"
-        "::1"
-      ];
+      default = [ "127.0.0.0" "::1" ];
       description = lib.mdDoc ''
         What addresses the server should listen to.
       '';
@@ -749,30 +717,29 @@ in
     };
 
     keys = mkOption {
-      type = types.attrsOf (
-        types.submodule {
-          options = {
+      type = types.attrsOf (types.submodule {
+        options = {
 
-            algorithm = mkOption {
-              type = types.str;
-              default = "hmac-sha256";
-              description = lib.mdDoc ''
-                Authentication algorithm for this key.
-              '';
-            };
-
-            keyFile = mkOption {
-              type = types.path;
-              description = lib.mdDoc ''
-                Path to the file which contains the actual base64 encoded
-                key. The key will be copied into "${stateDir}/private" before
-                NSD starts. The copied file is only accessibly by the NSD
-                user.
-              '';
-            };
+          algorithm = mkOption {
+            type = types.str;
+            default = "hmac-sha256";
+            description = lib.mdDoc ''
+              Authentication algorithm for this key.
+            '';
           };
-        }
-      );
+
+          keyFile = mkOption {
+            type = types.path;
+            description = lib.mdDoc ''
+              Path to the file which contains the actual base64 encoded
+              key. The key will be copied into "${stateDir}/private" before
+              NSD starts. The copied file is only accessibly by the NSD
+              user.
+            '';
+          };
+
+        };
+      });
       default = { };
       example = literalExpression ''
         { "tsig.example.org" = {
@@ -843,6 +810,7 @@ in
           queries to apply this limit instead of the default to them.
         '';
       };
+
     };
 
     remoteControl = {
@@ -869,10 +837,7 @@ in
 
       interfaces = mkOption {
         type = types.listOf types.str;
-        default = [
-          "127.0.0.1"
-          "::1"
-        ];
+        default = [ "127.0.0.1" "::1" ];
         description = lib.mdDoc ''
           Which interfaces NSD should bind to for remote control.
         '';
@@ -903,6 +868,7 @@ in
           but not by nsd-control. This file is generated by nsd-control-setup.
         '';
       };
+
     };
 
     zones = mkOption {
@@ -954,8 +920,7 @@ in
 
     assertions = singleton {
       assertion = zoneConfigs ? "." -> cfg.rootServer;
-      message =
-        "You have a root zone configured. If this is really what you "
+      message = "You have a root zone configured. If this is really what you "
         + "want, please enable 'services.nsd.rootServer'.";
     };
 
@@ -1038,6 +1003,7 @@ in
         /run/current-system/systemd/bin/systemctl kill -s SIGHUP nsd.service
       '';
     };
+
   };
 
   meta.maintainers = with lib.maintainers; [ hrdinka ];

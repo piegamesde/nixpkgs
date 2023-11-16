@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "nanoid";
@@ -22,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nanoid" ];
 
   meta = with lib; {
-    description = "A tiny, secure, URL-friendly, unique string ID generator for Python";
+    description =
+      "A tiny, secure, URL-friendly, unique string ID generator for Python";
     homepage = "https://github.com/puyuan/py-nanoid";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

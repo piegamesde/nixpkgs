@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  love,
-  makeWrapper,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, stdenv, fetchurl, love, makeWrapper, makeDesktopItem, copyDesktopItems }:
 
 let
   pname = "90secondportraits";
@@ -27,20 +19,18 @@ let
       categories = [ "Game" ];
     })
   ];
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   inherit pname desktopItems;
   version = "1.01b";
 
   src = fetchurl {
-    url = "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
+    url =
+      "https://github.com/SimonLarsen/90-Second-Portraits/releases/download/${version}/${pname}-${version}.love";
     sha256 = "0jj3k953r6vb02212gqcgqpb4ima87gnqgls43jmylxq2mcm33h5";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
 
   dontUnpack = true;
 
@@ -59,4 +49,5 @@ stdenv.mkDerivation rec {
     license = licenses.free;
     downloadPage = "http://tangramgames.dk/games/90secondportraits";
   };
+
 }

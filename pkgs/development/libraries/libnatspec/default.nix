@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  popt,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, popt, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "libnatspec";
@@ -24,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://natspec.sourceforge.net/";
-    description = "A library intended to smooth national specificities in using of programs";
+    description =
+      "A library intended to smooth national specificities in using of programs";
     platforms = platforms.unix;
     license = licenses.lgpl21;
   };

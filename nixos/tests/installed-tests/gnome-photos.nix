@@ -8,17 +8,13 @@ makeInstalledTest {
   testConfig = {
     programs.dconf.enable = true;
     services.gnome.at-spi2-core.enable = true; # needed for dogtail
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       [
         # gsettings tool with access to gsettings-desktop-schemas
         (stdenv.mkDerivation {
           name = "desktop-gsettings";
           dontUnpack = true;
-          nativeBuildInputs = [
-            glib
-            wrapGAppsHook
-          ];
+          nativeBuildInputs = [ glib wrapGAppsHook ];
           buildInputs = [ gsettings-desktop-schemas ];
           installPhase = ''
             runHook preInstall

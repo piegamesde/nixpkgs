@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "airtouch4pyapi";

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-  zlib,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchurl, openssl, zlib, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "ircd-hybrid";
@@ -16,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vQNzx4DjCMGm9piQFf8o4cIpme92S3toY2tihXPCUe8=";
   };
 
-  buildInputs = [
-    openssl
-    zlib
-    libxcrypt
-  ];
+  buildInputs = [ openssl zlib libxcrypt ];
 
   configureFlags = [
     "--with-nicklen=100"
@@ -28,7 +17,8 @@ stdenv.mkDerivation rec {
     "--enable-openssl=${openssl.dev}"
   ];
 
-  postInstall = "echo postinstall; mkdir -p \${out}/ ; rm -rf \${out}/logs ; ln -s /home/ircd \${out}/logs;";
+  postInstall =
+    "echo postinstall; mkdir -p \${out}/ ; rm -rf \${out}/logs ; ln -s /home/ircd \${out}/logs;";
 
   meta = {
     description = "An IPv6-capable IRC server";

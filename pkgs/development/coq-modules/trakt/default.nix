@@ -1,10 +1,4 @@
-{
-  lib,
-  mkCoqDerivation,
-  coq,
-  coq-elpi,
-  version ? null,
-}:
+{ lib, mkCoqDerivation, coq, coq-elpi, version ? null }:
 
 mkCoqDerivation {
   pname = "trakt";
@@ -14,21 +8,17 @@ mkCoqDerivation {
   release."1.0".sha256 = "sha256-Qhw5fWFYxUFO2kIWWz/og+4fuy9aYG27szfNk3IglhY=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
-    lib.switch [ coq.version ]
-      [
-        {
-          cases = [ (range "8.13" "8.17") ];
-          out = "1.0";
-        }
-      ]
-      null;
+  defaultVersion = with lib.versions;
+    lib.switch [ coq.version ] [{
+      cases = [ (range "8.13" "8.17") ];
+      out = "1.0";
+    }] null;
 
   propagatedBuildInputs = [ coq-elpi ];
 
   meta = with lib; {
-    description = "A generic goal preprocessing tool for proof automation tactics in Coq";
+    description =
+      "A generic goal preprocessing tool for proof automation tactics in Coq";
     maintainers = with maintainers; [ siraben ];
     license = licenses.cecill-b;
     platforms = platforms.unix;

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  git,
-  perl,
-  ncurses,
-  coreutils,
-  fetchFromGitHub,
-  makeWrapper,
-  ...
+{ lib, stdenv, git, perl, ncurses, coreutils, fetchFromGitHub, makeWrapper, ...
 }:
 
 stdenv.mkDerivation rec {
@@ -60,10 +51,6 @@ stdenv.mkDerivation rec {
       diff-so-fancy builds on the good-lookin' output of git contrib's
       diff-highlight to upgrade your diffs' appearances.
     '';
-    maintainers = with maintainers; [
-      fpletz
-      globin
-      ma27
-    ];
+    maintainers = with maintainers; [ fpletz globin ma27 ];
   };
 }

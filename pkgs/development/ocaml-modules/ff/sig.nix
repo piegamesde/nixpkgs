@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildDunePackage,
-  zarith,
-}:
+{ lib, fetchFromGitLab, buildDunePackage, zarith }:
 
 buildDunePackage rec {
   pname = "ff-sig";

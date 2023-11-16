@@ -1,53 +1,17 @@
-{
-  lib,
-  stdenv,
-  pkg-config,
-  glib,
-  libxml2,
-  expat,
-  ApplicationServices,
-  Foundation,
-  python3,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  gtk-doc,
-  docbook-xsl-nons,
-  gobject-introspection,
-  # Optional dependencies
-  libjpeg,
-  libexif,
-  librsvg,
-  poppler,
-  libgsf,
-  libtiff,
-  fftw,
-  lcms2,
-  libpng,
-  libimagequant,
-  imagemagick,
-  pango,
-  orc,
-  matio,
-  cfitsio,
-  libwebp,
-  openexr,
-  openjpeg,
-  libjxl,
-  openslide,
-  libheif,
-}:
+{ lib, stdenv, pkg-config, glib, libxml2, expat, ApplicationServices, Foundation
+, python3, fetchFromGitHub, meson, ninja, gtk-doc, docbook-xsl-nons
+, gobject-introspection
+# Optional dependencies
+, libjpeg, libexif, librsvg, poppler, libgsf, libtiff, fftw, lcms2, libpng
+, libimagequant, imagemagick, pango, orc, matio, cfitsio, libwebp, openexr
+, openjpeg, libjxl, openslide, libheif }:
 
 stdenv.mkDerivation rec {
   pname = "vips";
   version = "8.14.2";
 
-  outputs = [
-    "bin"
-    "out"
-    "man"
-    "dev"
-  ] ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ];
+  outputs = [ "bin" "out" "man" "dev" ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "devdoc" ];
 
   src = fetchFromGitHub {
     owner = "libvips";
@@ -61,47 +25,38 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    docbook-xsl-nons
-    gobject-introspection
-  ] ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja docbook-xsl-nons gobject-introspection ]
+    ++ lib.optionals (!stdenv.isDarwin) [ gtk-doc ];
 
-  buildInputs =
-    [
-      glib
-      libxml2
-      expat
-      (python3.withPackages (p: [ p.pycairo ]))
-      # Optional dependencies
-      libjpeg
-      libexif
-      librsvg
-      poppler
-      libgsf
-      libtiff
-      fftw
-      lcms2
-      libpng
-      libimagequant
-      imagemagick
-      pango
-      orc
-      matio
-      cfitsio
-      libwebp
-      openexr
-      openjpeg
-      libjxl
-      openslide
-      libheif
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      ApplicationServices
-      Foundation
-    ];
+  buildInputs = [
+    glib
+    libxml2
+    expat
+    (python3.withPackages (p: [ p.pycairo ]))
+    # Optional dependencies
+    libjpeg
+    libexif
+    librsvg
+    poppler
+    libgsf
+    libtiff
+    fftw
+    lcms2
+    libpng
+    libimagequant
+    imagemagick
+    pango
+    orc
+    matio
+    cfitsio
+    libwebp
+    openexr
+    openjpeg
+    libjxl
+    openslide
+    libheif
+  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices Foundation ];
 
   # Required by .pc file
   propagatedBuildInputs = [ glib ];

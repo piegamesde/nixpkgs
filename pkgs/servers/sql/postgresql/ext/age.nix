@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bison,
-  flex,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, bison, flex, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "age";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ postgresql ];
 
-  makeFlags = [
-    "BISON=${bison}/bin/bison"
-    "FLEX=${flex}/bin/flex"
-  ];
+  makeFlags = [ "BISON=${bison}/bin/bison" "FLEX=${flex}/bin/flex" ];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -38,24 +28,21 @@ stdenv.mkDerivation rec {
 
     dontConfigure = true;
 
-    buildPhase =
-      let
-        postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
-      in
-      ''
-        # The regression tests need to be run in the order specified in the Makefile.
-        echo -e "include Makefile\nfiles:\n\t@echo \$(REGRESS)" > Makefile.regress
-        REGRESS_TESTS=$(make -f Makefile.regress files)
+    buildPhase = let postgresqlAge = postgresql.withPackages (ps: [ ps.age ]);
+    in ''
+      # The regression tests need to be run in the order specified in the Makefile.
+      echo -e "include Makefile\nfiles:\n\t@echo \$(REGRESS)" > Makefile.regress
+      REGRESS_TESTS=$(make -f Makefile.regress files)
 
-        ${postgresql}/lib/pgxs/src/test/regress/pg_regress \
-          --inputdir=./ \
-          --bindir='${postgresqlAge}/bin' \
-          --encoding=UTF-8 \
-          --load-extension=age \
-          --inputdir=./regress --outputdir=./regress --temp-instance=./regress/instance \
-          --port=61958 --dbname=contrib_regression \
-          $REGRESS_TESTS
-      '';
+      ${postgresql}/lib/pgxs/src/test/regress/pg_regress \
+        --inputdir=./ \
+        --bindir='${postgresqlAge}/bin' \
+        --encoding=UTF-8 \
+        --load-extension=age \
+        --inputdir=./regress --outputdir=./regress --temp-instance=./regress/instance \
+        --port=61958 --dbname=contrib_regression \
+        $REGRESS_TESTS
+    '';
 
     installPhase = ''
       touch $out

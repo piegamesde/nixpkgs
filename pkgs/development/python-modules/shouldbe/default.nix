@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonAtLeast,
-  fetchPypi,
-  nose,
-  forbiddenfruit,
-}:
+{ lib, buildPythonPackage, pythonAtLeast, fetchPypi, nose, forbiddenfruit }:
 
 buildPythonPackage rec {
   version = "0.1.2";
@@ -26,4 +19,5 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/shouldbe/";
     license = licenses.mit;
   };
+
 }

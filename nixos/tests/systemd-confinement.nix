@@ -1,8 +1,7 @@
 import ./make-test-python.nix {
   name = "systemd-confinement";
 
-  nodes.machine =
-    { pkgs, lib, ... }:
+  nodes.machine = { pkgs, lib, ... }:
     let
       testServer = pkgs.writeScript "testserver.sh" ''
         #!${pkgs.runtimeShell}
@@ -19,14 +18,8 @@ import ./make-test-python.nix {
         exit "''${ret:-1}"
       '';
 
-      mkTestStep =
-        num:
-        {
-          testScript,
-          config ? { },
-          serviceName ? "test${toString num}",
-        }:
-        {
+      mkTestStep = num:
+        { testScript, config ? { }, serviceName ? "test${toString num}", }: {
           systemd.sockets.${serviceName} = {
             description = "Socket for Test Service ${toString num}";
             wantedBy = [ "sockets.target" ];
@@ -34,31 +27,21 @@ import ./make-test-python.nix {
             socketConfig.Accept = true;
           };
 
-          systemd.services."${serviceName}@" =
-            {
-              description = "Confined Test Service ${toString num}";
-              confinement = (config.confinement or { }) // {
-                enable = true;
-              };
-              serviceConfig = (config.serviceConfig or { }) // {
-                ExecStart = testServer;
-                StandardInput = "socket";
-              };
-            }
-            // removeAttrs config [
-              "confinement"
-              "serviceConfig"
-            ];
+          systemd.services."${serviceName}@" = {
+            description = "Confined Test Service ${toString num}";
+            confinement = (config.confinement or { }) // { enable = true; };
+            serviceConfig = (config.serviceConfig or { }) // {
+              ExecStart = testServer;
+              StandardInput = "socket";
+            };
+          } // removeAttrs config [ "confinement" "serviceConfig" ];
 
-          __testSteps = lib.mkOrder num (
-            ''
-              machine.succeed("echo ${toString num} > /teststep")
-            ''
-            + testScript
-          );
+          __testSteps = lib.mkOrder num (''
+            machine.succeed("echo ${toString num} > /teststep")
+          '' + testScript);
         };
-    in
-    {
+
+    in {
       imports = lib.imap1 mkTestStep [
         {
           config.confinement.mode = "chroot-only";
@@ -99,27 +82,21 @@ import ./make-test-python.nix {
                 machine.fail("chroot-exec touch /bin/test")
           '';
         }
-        (
-          let
-            symlink =
-              pkgs.runCommand "symlink"
-                {
-                  target = pkgs.writeText "symlink-target" ''
-                    got me
-                  '';
-                }
-                ''ln -s "$target" "$out"'';
-          in
-          {
-            config.confinement.packages = lib.singleton symlink;
-            testScript = ''
-              with subtest("check if symlinks are properly bind-mounted"):
-                  machine.fail("chroot-exec test -e /etc")
-                  text = machine.succeed('chroot-exec cat ${symlink}').strip()
-                  assert_eq(text, "got me")
+        (let
+          symlink = pkgs.runCommand "symlink" {
+            target = pkgs.writeText "symlink-target" ''
+              got me
             '';
-          }
-        )
+          } ''ln -s "$target" "$out"'';
+        in {
+          config.confinement.packages = lib.singleton symlink;
+          testScript = ''
+            with subtest("check if symlinks are properly bind-mounted"):
+                machine.fail("chroot-exec test -e /etc")
+                text = machine.succeed('chroot-exec cat ${symlink}').strip()
+                assert_eq(text, "got me")
+          '';
+        })
         {
           config.serviceConfig.User = "chroot-testuser";
           config.serviceConfig.Group = "chroot-testgroup";
@@ -191,21 +168,20 @@ import ./make-test-python.nix {
 
       options.__testSteps = lib.mkOption {
         type = lib.types.lines;
-        description = lib.mdDoc "All of the test steps combined as a single script.";
+        description =
+          lib.mdDoc "All of the test steps combined as a single script.";
       };
 
       config.environment.systemPackages = lib.singleton testClient;
-      config.systemd.packages = lib.singleton (
-        pkgs.writeTextFile {
-          name = "shipped-unitfile";
-          destination = "/etc/systemd/system/shipped-unitfile@.service";
-          text = ''
-            [Service]
-            SystemCallFilter=~kill
-            SystemCallErrorNumber=ELOOP
-          '';
-        }
-      );
+      config.systemd.packages = lib.singleton (pkgs.writeTextFile {
+        name = "shipped-unitfile";
+        destination = "/etc/systemd/system/shipped-unitfile@.service";
+        text = ''
+          [Service]
+          SystemCallFilter=~kill
+          SystemCallErrorNumber=ELOOP
+        '';
+      });
 
       config.users.groups.chroot-testgroup = { };
       config.users.users.chroot-testuser = {
@@ -215,13 +191,11 @@ import ./make-test-python.nix {
       };
     };
 
-  testScript =
-    { nodes, ... }:
+  testScript = { nodes, ... }:
     ''
       def assert_eq(a, b):
           assert a == b, f"{a} != {b}"
 
       machine.wait_for_unit("multi-user.target")
-    ''
-    + nodes.machine.config.__testSteps;
+    '' + nodes.machine.config.__testSteps;
 }

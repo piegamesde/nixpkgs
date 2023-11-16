@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  coreutils,
-  curl,
-  dmenu,
-  fzf,
-  gnused,
-  jq,
-  mpv,
-  ueberzugpp,
-  yt-dlp,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, curl, dmenu, fzf, gnused
+, jq, mpv, ueberzugpp, yt-dlp }:
 
 stdenv.mkDerivation rec {
   pname = "ytfzf";
@@ -29,12 +16,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  installFlags = [
-    "PREFIX="
-    "DESTDIR=${placeholder "out"}"
-    "doc"
-    "addons"
-  ];
+  installFlags = [ "PREFIX=" "DESTDIR=${placeholder "out"}" "doc" "addons" ];
 
   postInstall = ''
     wrapProgram "$out/bin/ytfzf" \
@@ -55,7 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A posix script to find and watch youtube videos from the terminal";
+    description =
+      "A posix script to find and watch youtube videos from the terminal";
     homepage = "https://github.com/pystardust/ytfzf";
     license = licenses.gpl3Only;
     platforms = platforms.all;

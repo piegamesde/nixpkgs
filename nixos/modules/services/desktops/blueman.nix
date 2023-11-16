@@ -1,22 +1,13 @@
 # blueman service
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.blueman;
-in
-{
+let cfg = config.services.blueman;
+in {
   ###### interface
   options = {
-    services.blueman = {
-      enable = mkEnableOption (lib.mdDoc "blueman");
-    };
+    services.blueman = { enable = mkEnableOption (lib.mdDoc "blueman"); };
   };
 
   ###### implementation

@@ -1,33 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  python3,
-  vala,
-  libxslt,
-  pkg-config,
-  glib,
-  bash-completion,
-  dbus,
-  gnome,
-  gtk-doc,
-  docbook-xsl-nons,
-  docbook_xml_dtd_42,
-}:
-let
-  isCross = (stdenv.hostPlatform != stdenv.buildPlatform);
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchurl, meson, ninja, python3, vala, libxslt, pkg-config, glib
+, bash-completion, dbus, gnome, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_42 }:
+let isCross = (stdenv.hostPlatform != stdenv.buildPlatform);
+in stdenv.mkDerivation rec {
   pname = "dconf";
   version = "0.40.0";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ] ++ lib.optional (!isCross) "devdoc";
+  outputs = [ "out" "lib" "dev" ] ++ lib.optional (!isCross) "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -47,16 +25,14 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_42
   ] ++ lib.optional (!isCross) gtk-doc;
 
-  buildInputs = [
-    glib
-    bash-completion
-    dbus
-  ] ++ lib.optional (!isCross) vala;
+  buildInputs = [ glib bash-completion dbus ] ++ lib.optional (!isCross) vala;
   # Vala cross compilation is broken. For now, build dconf without vapi when cross-compiling.
 
   mesonFlags = [
     "--sysconfdir=/etc"
-    "-Dgtk_doc=${lib.boolToString (!isCross)}" # gtk-doc does do some gobject introspection, which doesn't yet cross-compile.
+    "-Dgtk_doc=${
+      lib.boolToString (!isCross)
+    }" # gtk-doc does do some gobject introspection, which doesn't yet cross-compile.
   ] ++ lib.optional isCross "-Dvapi=false";
 
   nativeCheckInputs = [

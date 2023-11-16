@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "clucene-core";
@@ -32,9 +28,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://clucene.sourceforge.net";
     platforms = platforms.unix;
-    license = with licenses; [
-      asl20
-      lgpl2
-    ];
+    license = with licenses; [ asl20 lgpl2 ];
   };
 }

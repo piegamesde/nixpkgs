@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  aiohttp,
-  jsonrpc-async,
-  jsonrpc-websocket,
+{ lib, buildPythonPackage, fetchPypi, aiohttp, jsonrpc-async, jsonrpc-websocket
 }:
 
 buildPythonPackage rec {
@@ -17,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-2fFkbZZ3RXMolaaGpkvvVfSYtNNB1bTsoRCin3GnVKM=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    jsonrpc-async
-    jsonrpc-websocket
-  ];
+  propagatedBuildInputs = [ aiohttp jsonrpc-async jsonrpc-websocket ];
 
   # has no tests
   doCheck = false;

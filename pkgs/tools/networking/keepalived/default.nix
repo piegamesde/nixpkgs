@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nixosTests,
-  file,
-  libmnl,
-  libnftnl,
-  libnl,
-  net-snmp,
-  openssl,
-  pkg-config,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, nixosTests, file, libmnl, libnftnl, libnl
+, net-snmp, openssl, pkg-config, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "keepalived";
@@ -24,28 +12,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QkebGQCYE4ccUvcxKG3qQ4wqC+RzxGHim8kgHQbIr5Q=";
   };
 
-  buildInputs = [
-    file
-    libmnl
-    libnftnl
-    libnl
-    net-snmp
-    openssl
-  ];
+  buildInputs = [ file libmnl libnftnl libnl net-snmp openssl ];
 
   enableParallelBuilding = true;
 
   passthru.tests.keepalived = nixosTests.keepalived;
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  configureFlags = [
-    "--enable-sha1"
-    "--enable-snmp"
-  ];
+  configureFlags = [ "--enable-sha1" "--enable-snmp" ];
 
   meta = with lib; {
     homepage = "https://keepalived.org";

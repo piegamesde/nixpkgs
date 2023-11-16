@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  python3,
-}:
+{ stdenv, lib, python3 }:
 
 stdenv.mkDerivation {
   name = "replace-secret";
@@ -29,7 +25,8 @@ stdenv.mkDerivation {
     platforms = platforms.all;
     maintainers = with maintainers; [ talyz ];
     license = licenses.mit;
-    description = "Replace a string in one file with a secret from a second file";
+    description =
+      "Replace a string in one file with a secret from a second file";
     longDescription = ''
       Replace a string in one file with a secret from a second file.
 

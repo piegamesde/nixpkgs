@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  dbus-signature-pyparsing,
-  dbus-python,
-  pytestCheckHook,
-  hypothesis,
-  hs-dbus-signature,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, dbus-signature-pyparsing
+, dbus-python, pytestCheckHook, hypothesis, hs-dbus-signature }:
 
 buildPythonPackage rec {
   pname = "into-dbus-python";
@@ -20,16 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-Ld/DyhVaDiWUXgqmvSmEHqFW2dcoRNM0O4X5DXE3UtM=";
   };
 
-  propagatedBuildInputs = [
-    dbus-signature-pyparsing
-    dbus-python
-  ];
+  propagatedBuildInputs = [ dbus-signature-pyparsing dbus-python ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-    hs-dbus-signature
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis hs-dbus-signature ];
 
   pythonImportsCheck = [ "into_dbus_python" ];
 

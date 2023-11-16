@@ -1,29 +1,16 @@
-{
-  lib,
-  config,
-  options,
-  pkgs,
-  ...
-}:
+{ lib, config, options, pkgs, ... }:
 
 let
   inherit (lib)
-    literalExpression
-    mdDoc
-    mkEnableOption
-    mkOption
-    mkPackageOptionMD
-    types
-  ;
+    literalExpression mdDoc mkEnableOption mkOption mkPackageOptionMD types;
 
   cfg = config.services.go2rtc;
   opt = options.services.go2rtc;
 
   format = pkgs.formats.yaml { };
   configFile = format.generate "go2rtc.yaml" cfg.settings;
-in
 
-{
+in {
   meta.buildDocsInSandbox = false;
 
   options.services.go2rtc = with types; {
@@ -58,7 +45,8 @@ in
             bin = mkOption {
               type = path;
               default = "${lib.getBin pkgs.ffmpeg_6-headless}/bin/ffmpeg";
-              defaultText = literalExpression "\${lib.getBin pkgs.ffmpeg_6-headless}/bin/ffmpeg";
+              defaultText = literalExpression
+                "\${lib.getBin pkgs.ffmpeg_6-headless}/bin/ffmpeg";
               description = mdDoc ''
                 The ffmpeg package to use for transcoding.
               '';
@@ -98,11 +86,10 @@ in
       serviceConfig = {
         DynamicUser = true;
         User = "go2rtc";
-        SupplementaryGroups =
-          [
-            # for v4l2 devices
-            "video"
-          ];
+        SupplementaryGroups = [
+          # for v4l2 devices
+          "video"
+        ];
         StateDirectory = "go2rtc";
         ExecStart = "${cfg.package}/bin/go2rtc -config ${configFile}";
       };

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "itemadapter";
@@ -25,7 +20,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Common interface for data container classes";
     homepage = "https://github.com/scrapy/itemadapter";
-    changelog = "https://github.com/scrapy/itemadapter/raw/v${version}/Changelog.md";
+    changelog =
+      "https://github.com/scrapy/itemadapter/raw/v${version}/Changelog.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ marsam ];
   };

@@ -1,17 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  buildPackages,
-  coreutils,
-  pam,
-  groff,
-  sssd,
-  nixosTests,
-  sendmailPath ? "/run/wrappers/bin/sendmail",
-  withInsults ? false,
-  withSssd ? false,
-}:
+{ lib, stdenv, fetchurl, buildPackages, coreutils, pam, groff, sssd, nixosTests
+, sendmailPath ? "/run/wrappers/bin/sendmail", withInsults ? false
+, withSssd ? false }:
 
 stdenv.mkDerivation rec {
   pname = "sudo";
@@ -27,25 +16,17 @@ stdenv.mkDerivation rec {
     substituteInPlace src/Makefile.in --replace 04755 0755
   '';
 
-  configureFlags =
-    [
-      "--with-env-editor"
-      "--with-editor=/run/current-system/sw/bin/nano"
-      "--with-rundir=/run/sudo"
-      "--with-vardir=/var/db/sudo"
-      "--with-logpath=/var/log/sudo.log"
-      "--with-iologdir=/var/log/sudo-io"
-      "--with-sendmail=${sendmailPath}"
-      "--enable-tmpfiles.d=no"
-    ]
-    ++ lib.optionals withInsults [
-      "--with-insults"
-      "--with-all-insults"
-    ]
-    ++ lib.optionals withSssd [
-      "--with-sssd"
-      "--with-sssd-lib=${sssd}/lib"
-    ];
+  configureFlags = [
+    "--with-env-editor"
+    "--with-editor=/run/current-system/sw/bin/nano"
+    "--with-rundir=/run/sudo"
+    "--with-vardir=/var/db/sudo"
+    "--with-logpath=/var/log/sudo.log"
+    "--with-iologdir=/var/log/sudo-io"
+    "--with-sendmail=${sendmailPath}"
+    "--enable-tmpfiles.d=no"
+  ] ++ lib.optionals withInsults [ "--with-insults" "--with-all-insults" ]
+    ++ lib.optionals withSssd [ "--with-sssd" "--with-sssd-lib=${sssd}/lib" ];
 
   configureFlagsArray = [
     "--with-passprompt=[sudo] password for %p: " # intentional trailing space
@@ -72,9 +53,7 @@ stdenv.mkDerivation rec {
     rm $out/share/doc/sudo/ChangeLog
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) sudo;
-  };
+  passthru.tests = { inherit (nixosTests) sudo; };
 
   meta = {
     description = "A command to run commands as root";
@@ -90,10 +69,7 @@ stdenv.mkDerivation rec {
 
     license = "https://www.sudo.ws/sudo/license.html";
 
-    maintainers = with lib.maintainers; [
-      eelco
-      delroth
-    ];
+    maintainers = with lib.maintainers; [ eelco delroth ];
 
     platforms = lib.platforms.linux;
   };

@@ -1,28 +1,19 @@
-{
-  lib,
-  fetchFromGitHub,
-  nixosTests,
-  python3,
-  fetchPypi,
-}:
+{ lib, fetchFromGitHub, nixosTests, python3, fetchPypi }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-        old: rec {
-          version = "1.4.46";
-          src = fetchPypi {
-            pname = "SQLAlchemy";
-            inherit version;
-            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-          };
-        }
-      );
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
+        version = "1.4.46";
+        src = fetchPypi {
+          pname = "SQLAlchemy";
+          inherit version;
+          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+        };
+      });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "calibre-web";
   version = "0.6.20";
 
@@ -96,7 +87,8 @@ python.pkgs.buildPythonApplication rec {
   passthru.tests.calibre-web = nixosTests.calibre-web;
 
   meta = with lib; {
-    description = "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
+    description =
+      "Web app for browsing, reading and downloading eBooks stored in a Calibre database";
     homepage = "https://github.com/janeczku/calibre-web";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pborzenkov ];

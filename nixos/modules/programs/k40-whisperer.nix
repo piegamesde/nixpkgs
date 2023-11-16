@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.programs.k40-whisperer;
   pkg = cfg.package.override { udevGroup = cfg.group; };
-in
-{
+in {
   options.programs.k40-whisperer = {
     enable = mkEnableOption (lib.mdDoc "K40-Whisperer");
 

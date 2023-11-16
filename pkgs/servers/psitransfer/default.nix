@@ -4,13 +4,7 @@
 #   3. Build this package `nix-build -A psitransfer`
 #   4. Profit
 
-{
-  stdenv,
-  pkgs,
-  lib,
-  nodejs_18,
-  fetchzip,
-}:
+{ stdenv, pkgs, lib, nodejs_18, fetchzip }:
 
 let
   nodejs = nodejs_18;
@@ -29,7 +23,8 @@ let
 
     # override node2nix package src to pull pre-built release of same version
     src = fetchzip {
-      url = "https://github.com/psi-4ward/psitransfer/releases/download/v${version}/psitransfer-v${version}.tar.gz";
+      url =
+        "https://github.com/psi-4ward/psitransfer/releases/download/v${version}/psitransfer-v${version}.tar.gz";
       sha256 = "mfldWTVmfcIRa+1g8YDnQqem5YmrFRfCxJoitWcXvns=";
       stripRoot = false;
     };
@@ -41,5 +36,4 @@ let
       maintainers = with maintainers; [ hyshka ];
     };
   };
-in
-combined
+in combined

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  popt,
-  alsa-lib,
-  alsa-plugins,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, popt, alsa-lib
+, alsa-plugins, makeWrapper }:
 
 stdenv.mkDerivation {
   pname = "nano-tts";
@@ -23,16 +13,8 @@ stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    makeWrapper
-  ];
-  buildInputs = [
-    popt
-    alsa-lib
-  ];
+  nativeBuildInputs = [ autoconf automake libtool makeWrapper ];
+  buildInputs = [ popt alsa-lib ];
 
   patchPhase = ''
     substituteInPlace "src/main.cpp" --replace "/usr/share/pico/lang" "$out/share/lang"
@@ -47,7 +29,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Speech synthesizer commandline utility that improves pico2wave, included with SVOX PicoTTS";
+    description =
+      "Speech synthesizer commandline utility that improves pico2wave, included with SVOX PicoTTS";
     homepage = "https://github.com/gmn/nanotts";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.strikerlulu ];

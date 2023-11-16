@@ -1,8 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lib,
-}:
+{ buildPythonPackage, fetchPypi, lib }:
 
 buildPythonPackage rec {
   pname = "rfc7464";
@@ -16,7 +12,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/moshez/rfc7464";
-    description = "RFC 7464 is a proposed standard for streaming JSON documents.";
+    description =
+      "RFC 7464 is a proposed standard for streaming JSON documents.";
     license = [ licenses.mit ];
     maintainers = with maintainers; [ shlevy ];
   };

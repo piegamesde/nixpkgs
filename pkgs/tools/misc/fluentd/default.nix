@@ -1,10 +1,4 @@
-{
-  lib,
-  bundlerEnv,
-  ruby,
-  bundlerUpdateScript,
-  nixosTests,
-}:
+{ lib, bundlerEnv, ruby, bundlerUpdateScript, nixosTests }:
 
 bundlerEnv {
   inherit ruby;
@@ -19,10 +13,7 @@ bundlerEnv {
     description = "A data collector";
     homepage = "https://www.fluentd.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      offline
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ offline nicknovitski ];
     platforms = platforms.unix;
   };
 }

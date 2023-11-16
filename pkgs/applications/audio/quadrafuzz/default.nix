@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  boost,
-  cairo,
-  lv2,
-  pkg-config,
-}:
+{ stdenv, lib, fetchFromGitHub, boost, cairo, lv2, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "quadrafuzz";
@@ -26,11 +18,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    boost
-    cairo
-    lv2
-  ];
+  buildInputs = [ boost cairo lv2 ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

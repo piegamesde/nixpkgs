@@ -1,19 +1,8 @@
-{
-  xcbuildHook,
-  appleDerivation,
-  apple_sdk,
-  ncurses,
-  libutil,
-  lib,
-}:
+{ xcbuildHook, appleDerivation, apple_sdk, ncurses, libutil, lib }:
 
 appleDerivation {
   nativeBuildInputs = [ xcbuildHook ];
-  buildInputs = [
-    apple_sdk.frameworks.IOKit
-    ncurses
-    libutil
-  ];
+  buildInputs = [ apple_sdk.frameworks.IOKit ncurses libutil ];
   # Workaround build failure on -fno-common toolchains:
   #   duplicate symbol '_tsamp' in: main.o top.o
   env.NIX_CFLAGS_COMPILE = "-fcommon";

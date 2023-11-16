@@ -1,19 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "flow";
   version = "20200610-git";
 
   description = "A flowchart and generalised graph library.";
 
-  deps = [
-    args."closer-mop"
-    args."documentation-utils"
-    args."trivial-indent"
-  ];
+  deps = [ args."closer-mop" args."documentation-utils" args."trivial-indent" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/flow/2020-06-10/flow-20200610-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/flow/2020-06-10/flow-20200610-git.tgz";
     sha256 = "1z1krk1iiz7n1mvpnmqnrgfhicpppb45i0jgkqnrds749xjnx194";
   };
 

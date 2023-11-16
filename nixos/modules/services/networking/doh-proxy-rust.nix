@@ -1,17 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.doh-proxy-rust;
-in
-{
+
+in {
 
   options.services.doh-proxy-rust = {
 
@@ -26,18 +21,17 @@ in
         available options, see <https://github.com/jedisct1/doh-server#usage>.
       '';
     };
+
   };
 
   config = mkIf cfg.enable {
     systemd.services.doh-proxy-rust = {
       description = "doh-proxy-rust";
-      after = [
-        "network.target"
-        "nss-lookup.target"
-      ];
+      after = [ "network.target" "nss-lookup.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.doh-proxy-rust}/bin/doh-proxy ${escapeShellArgs cfg.flags}";
+        ExecStart =
+          "${pkgs.doh-proxy-rust}/bin/doh-proxy ${escapeShellArgs cfg.flags}";
         Restart = "always";
         RestartSec = 10;
         DynamicUser = true;
@@ -57,13 +51,11 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged @resources"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged @resources" ];
       };
     };
   };
 
   meta.maintainers = with maintainers; [ stephank ];
+
 }

@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  asynctest,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, asynctest, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyversasense";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    asynctest
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ asynctest pytest-asyncio pytestCheckHook ];
 
   pytestFlagsArray = [ "tests/test.py" ];
 

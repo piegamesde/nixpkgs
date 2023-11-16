@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pygtail,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pygtail }:
 
 buildPythonPackage rec {
   pname = "logster";
@@ -19,7 +14,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ pygtail ];
 
   meta = with lib; {
-    description = "Parses log files, generates metrics for Graphite and Ganglia";
+    description =
+      "Parses log files, generates metrics for Graphite and Ganglia";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/etsy/logster";
   };

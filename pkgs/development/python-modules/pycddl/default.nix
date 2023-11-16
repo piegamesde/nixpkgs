@@ -1,13 +1,5 @@
-{
-  lib,
-  pythonOlder,
-  fetchPypi,
-  buildPythonPackage,
-  rustPlatform,
-  pytestCheckHook,
-  psutil,
-  cbor2,
-}:
+{ lib, pythonOlder, fetchPypi, buildPythonPackage, rustPlatform, pytestCheckHook
+, psutil, cbor2 }:
 
 buildPythonPackage rec {
   pname = "pycddl";
@@ -21,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-w0CGbPeiXyS74HqZXyiXhvaAMUaIj5onwjl9gWKAjqY=";
   };
 
-  nativeBuildInputs = with rustPlatform; [
-    maturinBuildHook
-    cargoSetupHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ maturinBuildHook cargoSetupHook ];
 
   postPatch = ''
     # We don't place pytest-benchmark in the closure because we have no
@@ -44,17 +33,14 @@ buildPythonPackage rec {
     hash = "sha256-g96eeaqN9taPED4u+UKUcoitf5aTGFrW2/TOHoHEVHs=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    psutil
-    cbor2
-  ];
+  nativeCheckInputs = [ pytestCheckHook psutil cbor2 ];
   pythonImportsCheck = [ "pycddl" ];
 
   meta = with lib; {
     description = "Python bindings for the Rust cddl crate";
     homepage = "https://gitlab.com/tahoe-lafs/pycddl";
-    changelog = "https://gitlab.com/tahoe-lafs/pycddl/-/tree/v${version}#release-notes";
+    changelog =
+      "https://gitlab.com/tahoe-lafs/pycddl/-/tree/v${version}#release-notes";
     license = licenses.mit;
     maintainers = [ maintainers.exarkun ];
   };

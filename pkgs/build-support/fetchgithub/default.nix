@@ -1,36 +1,18 @@
-{
-  lib,
-  fetchgit,
-  fetchzip,
-}:
+{ lib, fetchgit, fetchzip }:
 
-lib.makeOverridable (
-  {
-    owner,
-    repo,
-    rev,
-    name ? "source",
-    fetchSubmodules ? false,
-    leaveDotGit ? null,
-    deepClone ? false,
-    private ? false,
-    forceFetchGit ? false,
-    sparseCheckout ? [ ],
-    githubBase ? "github.com",
-    varPrefix ? null,
-    meta ? { },
-    ... # For hash agility
+lib.makeOverridable ({ owner, repo, rev, name ? "source"
+  , fetchSubmodules ? false, leaveDotGit ? null, deepClone ? false
+  , private ? false, forceFetchGit ? false, sparseCheckout ? [ ]
+  , githubBase ? "github.com", varPrefix ? null, meta ? { }
+  , ... # For hash agility
   }@args:
 
   let
 
-    position =
-      (
-        if args.meta.description or null != null then
-          builtins.unsafeGetAttrPos "description" args.meta
-        else
-          builtins.unsafeGetAttrPos "rev" args
-      );
+    position = (if args.meta.description or null != null then
+      builtins.unsafeGetAttrPos "description" args.meta
+    else
+      builtins.unsafeGetAttrPos "rev" args);
     baseUrl = "https://${githubBase}/${owner}/${repo}";
     newMeta = meta // {
       homepage = meta.homepage or baseUrl;
@@ -48,9 +30,10 @@ lib.makeOverridable (
       "githubBase"
       "varPrefix"
     ];
-    varBase = "NIX${if varPrefix == null then "" else "_${varPrefix}"}_GITHUB_PRIVATE_";
-    useFetchGit =
-      fetchSubmodules || (leaveDotGit == true) || deepClone || forceFetchGit || (sparseCheckout != [ ]);
+    varBase =
+      "NIX${if varPrefix == null then "" else "_${varPrefix}"}_GITHUB_PRIVATE_";
+    useFetchGit = fetchSubmodules || (leaveDotGit == true) || deepClone
+      || forceFetchGit || (sparseCheckout != [ ]);
     # We prefer fetchzip in cases we don't need submodules as the hash
     # is more stable in that case.
     fetcher = if useFetchGit then fetchgit else fetchzip;
@@ -66,46 +49,25 @@ lib.makeOverridable (
                 password ''$${varBase}PASSWORD
         EOF
       '';
-      netrcImpureEnvVars = [
-        "${varBase}USERNAME"
-        "${varBase}PASSWORD"
-      ];
+      netrcImpureEnvVars = [ "${varBase}USERNAME" "${varBase}PASSWORD" ];
     };
 
     gitRepoUrl = "${baseUrl}.git";
 
-    fetcherArgs =
-      (
-        if useFetchGit then
-          {
-            inherit
-              rev
-              deepClone
-              fetchSubmodules
-              sparseCheckout
-            ;
-            url = gitRepoUrl;
-          }
-          // lib.optionalAttrs (leaveDotGit != null) { inherit leaveDotGit; }
-        else
-          {
-            url = "${baseUrl}/archive/${rev}.tar.gz";
+    fetcherArgs = (if useFetchGit then
+      {
+        inherit rev deepClone fetchSubmodules sparseCheckout;
+        url = gitRepoUrl;
+      } // lib.optionalAttrs (leaveDotGit != null) { inherit leaveDotGit; }
+    else {
+      url = "${baseUrl}/archive/${rev}.tar.gz";
 
-            passthru = {
-              inherit gitRepoUrl;
-            };
-          }
-      )
-      // privateAttrs
-      // passthruAttrs
-      // {
-        inherit name;
-      };
-  in
+      passthru = { inherit gitRepoUrl; };
+    }) // privateAttrs // passthruAttrs // {
+      inherit name;
+    };
 
-  fetcher fetcherArgs
-  // {
+  in fetcher fetcherArgs // {
     meta = newMeta;
     inherit rev owner repo;
-  }
-)
+  })

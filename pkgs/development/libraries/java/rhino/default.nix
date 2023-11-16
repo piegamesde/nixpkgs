@@ -1,20 +1,11 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  unzip,
-  ant,
-  javac,
-  jvm,
-}:
+{ fetchurl, lib, stdenv, unzip, ant, javac, jvm }:
 
 let
   xbeans = fetchurl {
     url = "http://archive.apache.org/dist/xmlbeans/binaries/xmlbeans-2.2.0.zip";
     sha256 = "1pb08d9j81d0wz5wj31idz198iwhqb7mch872n08jh1354rjlqwk";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "rhino";
   version = "1.7R2";
 
@@ -25,10 +16,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gcj-type-mismatch.patch ];
 
-  hardeningDisable = [
-    "fortify"
-    "format"
-  ];
+  hardeningDisable = [ "fortify" "format" ];
 
   preConfigure = ''
     find -name \*.jar -or -name \*.class -exec rm -v {} \;
@@ -39,11 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [
-    ant
-    javac
-    jvm
-  ];
+  buildInputs = [ ant javac jvm ];
 
   buildPhase = "ant jar";
   doCheck = false;

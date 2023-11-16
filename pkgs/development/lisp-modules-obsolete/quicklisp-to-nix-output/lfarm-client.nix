@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "lfarm-client";
   version = "lfarm-20150608-git";
 
-  description = "Client component of lfarm, a library for distributing work across machines.";
+  description =
+    "Client component of lfarm, a library for distributing work across machines.";
 
   deps = [
     args."alexandria"
@@ -19,7 +19,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/lfarm/2015-06-08/lfarm-20150608-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/lfarm/2015-06-08/lfarm-20150608-git.tgz";
     sha256 = "1rkjcfam4601yczs13pi2qgi5jql0c150dxja53hkcnqhkyqgl66";
   };
 

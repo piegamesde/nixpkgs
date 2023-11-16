@@ -1,44 +1,17 @@
 /* The reusable code, and package attributes, between OpenRA engine packages (engine.nix)
     and out-of-tree mod packages (mod.nix).
 */
-{
-  lib,
-  makeSetupHook,
-  curl,
-  unzip,
-  dos2unix,
-  pkg-config,
-  makeWrapper,
-  lua,
-  mono,
-  dotnetPackages,
-  python3,
-  libGL,
-  freetype,
-  openal,
-  SDL2,
-  zenity,
-}:
+{ lib, makeSetupHook, curl, unzip, dos2unix, pkg-config, makeWrapper, lua, mono
+, dotnetPackages, python3, libGL, freetype, openal, SDL2, zenity }:
 
 with lib;
 
 let
-  path = makeBinPath (
-    [
-      mono
-      python3
-    ]
-    ++ optional (zenity != null) zenity
-  );
-  rpath = makeLibraryPath [
-    lua
-    freetype
-    openal
-    SDL2
-  ];
+  path = makeBinPath ([ mono python3 ] ++ optional (zenity != null) zenity);
+  rpath = makeLibraryPath [ lua freetype openal SDL2 ];
   mkdirp = makeSetupHook { name = "openra-mkdirp-hook"; } ./mkdirp.sh;
-in
-{
+
+in {
   patchEngine = dir: version: ''
     sed -i \
       -e 's/^VERSION.*/VERSION = ${version}/g' \
@@ -62,8 +35,7 @@ in
   '';
 
   packageAttrs = {
-    buildInputs =
-      with dotnetPackages;
+    buildInputs = with dotnetPackages;
       [
         FuzzyLogicLibrary
         MaxMindDb
@@ -79,20 +51,11 @@ in
         SmartIrc4net
         StyleCopMSBuild
         StyleCopPlusMSBuild
-      ]
-      ++ [ libGL ];
+      ] ++ [ libGL ];
 
     # TODO: Test if this is correct.
-    nativeBuildInputs = [
-      curl
-      unzip
-      dos2unix
-      pkg-config
-      makeWrapper
-      mkdirp
-      mono
-      python3
-    ];
+    nativeBuildInputs =
+      [ curl unzip dos2unix pkg-config makeWrapper mkdirp mono python3 ];
 
     makeFlags = [ "prefix=$(out)" ];
 
@@ -101,11 +64,7 @@ in
     dontStrip = true;
 
     meta = {
-      maintainers = with maintainers; [
-        fusion809
-        msteen
-        rardiol
-      ];
+      maintainers = with maintainers; [ fusion809 msteen rardiol ];
       license = licenses.gpl3;
       platforms = platforms.linux;
     };

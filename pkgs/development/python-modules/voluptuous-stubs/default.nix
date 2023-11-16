@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mypy,
-}:
+{ lib, buildPythonPackage, fetchPypi, mypy }:
 
 buildPythonPackage rec {
   pname = "voluptuous-stubs";

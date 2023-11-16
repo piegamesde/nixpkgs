@@ -1,19 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  gstreamer,
-  gst-plugins-base,
-  gettext,
-  libav,
-  # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
-  hotdoc,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, pkg-config, python3, gstreamer
+, gst-plugins-base, gettext, libav
+# Checks meson.is_cross_build(), so even canExecute isn't enough.
+, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
 
 # Note that since gst-libav-1.6, libav is actually ffmpeg. See
 # https://gstreamer.freedesktop.org/releases/1.6/ for more info.
@@ -23,28 +11,17 @@ stdenv.mkDerivation rec {
   version = "1.22.3";
 
   src = fetchurl {
-    url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-LsXIBYCLQ3Gn4ysdoCAqHIprNrbOkFCAv1w0CX0SqSM=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    gettext
-    pkg-config
-    python3
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs = [ meson ninja gettext pkg-config python3 ]
+    ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [
-    gstreamer
-    gst-plugins-base
-    libav
-  ];
+  buildInputs = [ gstreamer gst-plugins-base libav ];
 
   mesonFlags = [ (lib.mesonEnable "doc" enableDocumentation) ];
 

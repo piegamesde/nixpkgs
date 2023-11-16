@@ -1,10 +1,4 @@
-{
-  callPackage,
-  openssl,
-  python3,
-  fetchpatch,
-  enableNpm ? true,
-}:
+{ callPackage, openssl, python3, fetchpatch, enableNpm ? true }:
 
 let
   buildNodejs = callPackage ./nodejs.nix {
@@ -13,8 +7,7 @@ let
   };
 
   npmPatches = callPackage ./npm-patches.nix { };
-in
-buildNodejs {
+in buildNodejs {
   inherit enableNpm;
   version = "16.20.0";
   sha256 = "sha256-4JkPmSI05ApR/hH5LDgWyTp34bCBFF0912LNECY0U0k=";

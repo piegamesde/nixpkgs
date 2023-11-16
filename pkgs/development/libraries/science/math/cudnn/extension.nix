@@ -18,13 +18,13 @@ let
   # Compute versioned attribute name to be used in this package set
   # Patch version changes should not break the build, so we only use major and minor
   # computeName :: String -> String
-  computeName = version: "cudnn_${replaceStrings [ "." ] [ "_" ] (versions.majorMinor version)}";
+  computeName = version:
+    "cudnn_${replaceStrings [ "." ] [ "_" ] (versions.majorMinor version)}";
 
   # Check whether a CUDNN release supports our CUDA version
   # Thankfully we're able to do lexicographic comparison on the version strings
   # isSupported :: Release -> Bool
-  isSupported =
-    release:
+  isSupported = release:
     versionAtLeast cudaVersion release.minCudaVersion
     && versionAtLeast release.maxCudaVersion cudaVersion;
 
@@ -32,7 +32,8 @@ let
   useCudatoolkitRunfile = versionOlder cudaVersion "11.3.999";
 
   # buildCuDnnPackage :: Release -> Derivation
-  buildCuDnnPackage = callPackage ./generic.nix { inherit useCudatoolkitRunfile; };
+  buildCuDnnPackage =
+    callPackage ./generic.nix { inherit useCudatoolkitRunfile; };
 
   # Reverse the list to have the latest release first
   # cudnnReleases :: List Release
@@ -51,19 +52,17 @@ let
 
   # Add all supported builds as attributes
   # allBuilds :: AttrSet String Derivation
-  allBuilds = builtins.listToAttrs (builtins.map toBuildAttrs supportedReleases);
+  allBuilds =
+    builtins.listToAttrs (builtins.map toBuildAttrs supportedReleases);
 
   defaultBuild = attrsets.optionalAttrs (supportedReleases != [ ]) {
-    cudnn =
-      let
-        # The latest release is the first element of the list and will be our default choice
-        # latestReleaseName :: String
-        latestReleaseName = computeName (builtins.head supportedReleases).version;
-      in
-      allBuilds.${latestReleaseName};
+    cudnn = let
+      # The latest release is the first element of the list and will be our default choice
+      # latestReleaseName :: String
+      latestReleaseName = computeName (builtins.head supportedReleases).version;
+    in allBuilds.${latestReleaseName};
   };
 
   # builds :: AttrSet String Derivation
   builds = allBuilds // defaultBuild;
-in
-builds
+in builds

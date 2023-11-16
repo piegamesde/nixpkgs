@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyopenssl,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyopenssl, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aioopenssl";

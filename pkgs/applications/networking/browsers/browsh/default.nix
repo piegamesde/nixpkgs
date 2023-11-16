@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchurl,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchurl, fetchFromGitHub }:
 
 let
   version = "1.8.0";
@@ -12,12 +7,12 @@ let
   # literally an asset that is indifferent regardless of the platform, this
   # might be just enough.
   webext = fetchurl {
-    url = "https://github.com/browsh-org/browsh/releases/download/v${version}/browsh-${version}.xpi";
+    url =
+      "https://github.com/browsh-org/browsh/releases/download/v${version}/browsh-${version}.xpi";
     sha256 = "sha256-12xWbf4ngYHWLKV9yyxyi0Ny/zHSj2o7Icats+Ef+pA=";
   };
-in
 
-buildGoModule rec {
+in buildGoModule rec {
   inherit version;
 
   pname = "browsh";
@@ -41,12 +36,10 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A fully-modern text-based browser, rendering to TTY and browsers";
+    description =
+      "A fully-modern text-based browser, rendering to TTY and browsers";
     homepage = "https://www.brow.sh/";
-    maintainers = with maintainers; [
-      kalbasit
-      siraben
-    ];
+    maintainers = with maintainers; [ kalbasit siraben ];
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

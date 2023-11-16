@@ -1,29 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib)
-    literalExpression
-    mkDefault
-    mdDoc
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-  ;
+    literalExpression mkDefault mdDoc mkEnableOption mkIf mkOption types;
 
   cfg = config.services.frigate;
 
   format = pkgs.formats.yaml { };
 
-  filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v: !lib.elem v [ null ])) cfg.settings;
+  filteredConfig =
+    lib.converge (lib.filterAttrsRecursive (_: v: !lib.elem v [ null ]))
+    cfg.settings;
 
-  cameraFormat =
-    with types;
+  cameraFormat = with types;
     submodule {
       freeformType = format.type;
       options = {
@@ -32,42 +21,33 @@ let
             description = mdDoc ''
               List of inputs for this camera.
             '';
-            type = listOf (
-              submodule {
-                freeformType = format.type;
-                options = {
-                  path = mkOption {
-                    type = str;
-                    example = "rtsp://192.0.2.1:554/rtsp";
-                    description = mdDoc ''
-                      Stream URL
-                    '';
-                  };
-                  roles = mkOption {
-                    type = listOf (
-                      enum [
-                        "detect"
-                        "record"
-                        "rtmp"
-                      ]
-                    );
-                    example = literalExpression ''
-                      [ "detect" "rtmp" ]
-                    '';
-                    description = mdDoc ''
-                      List of roles for this stream
-                    '';
-                  };
+            type = listOf (submodule {
+              freeformType = format.type;
+              options = {
+                path = mkOption {
+                  type = str;
+                  example = "rtsp://192.0.2.1:554/rtsp";
+                  description = mdDoc ''
+                    Stream URL
+                  '';
                 };
-              }
-            );
+                roles = mkOption {
+                  type = listOf (enum [ "detect" "record" "rtmp" ]);
+                  example = literalExpression ''
+                    [ "detect" "rtmp" ]
+                  '';
+                  description = mdDoc ''
+                    List of roles for this stream
+                  '';
+                };
+              };
+            });
           };
         };
       };
     };
-in
 
-{
+in {
   meta.buildDocsInSandbox = false;
 
   options.services.frigate = with types; {
@@ -142,33 +122,19 @@ in
   config = mkIf cfg.enable {
     services.nginx = {
       enable = true;
-      additionalModules = with pkgs.nginxModules; [
-        secure-token
-        rtmp
-        vod
-      ];
+      additionalModules = with pkgs.nginxModules; [ secure-token rtmp vod ];
       recommendedProxySettings = mkDefault true;
       recommendedGzipSettings = mkDefault true;
       upstreams = {
-        frigate-api.servers = {
-          "127.0.0.1:5001" = { };
-        };
-        frigate-mqtt-ws.servers = {
-          "127.0.0.1:5002" = { };
-        };
-        frigate-jsmpeg.servers = {
-          "127.0.0.1:8082" = { };
-        };
-        frigate-go2rtc.servers = {
-          "127.0.0.1:1984" = { };
-        };
+        frigate-api.servers = { "127.0.0.1:5001" = { }; };
+        frigate-mqtt-ws.servers = { "127.0.0.1:5002" = { }; };
+        frigate-jsmpeg.servers = { "127.0.0.1:8082" = { }; };
+        frigate-go2rtc.servers = { "127.0.0.1:1984" = { }; };
       };
       # Based on https://github.com/blakeblackshear/frigate/blob/v0.12.0/docker/rootfs/usr/local/nginx/conf/nginx.conf
       virtualHosts."${cfg.hostname}" = {
         locations = {
-          "/api/" = {
-            proxyPass = "http://frigate-api/";
-          };
+          "/api/" = { proxyPass = "http://frigate-api/"; };
           "~* /api/.*.(jpg|jpeg|png)$" = {
             proxyPass = "http://frigate-api";
             extraConfig = ''
@@ -212,9 +178,7 @@ in
             proxyPass = "http://frigate-go2rtc/";
             proxyWebsockets = true;
           };
-          "/cache/" = {
-            alias = "/var/cache/frigate/";
-          };
+          "/cache/" = { alias = "/var/cache/frigate/"; };
           "/clips/" = {
             root = "/var/lib/frigate";
             extraConfig = ''
@@ -334,18 +298,14 @@ in
     };
 
     systemd.services.frigate = {
-      after = [
-        "go2rtc.service"
-        "network.target"
-      ];
+      after = [ "go2rtc.service" "network.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = {
         CONFIG_FILE = format.generate "frigate.yml" filteredConfig;
         HOME = "/var/lib/frigate";
         PYTHONPATH = cfg.package.pythonPath;
       };
-      path =
-        with pkgs;
+      path = with pkgs;
         [
           # unfree:
           # config.boot.kernelPackages.nvidiaPackages.latest.bin
@@ -353,13 +313,10 @@ in
           libva-utils
           procps
           radeontop
-        ]
-        ++
-          lib.optionals (!stdenv.isAarch64)
-            [
-              # not available on aarch64-linux
-              intel-gpu-tools
-            ];
+        ] ++ lib.optionals (!stdenv.isAarch64) [
+          # not available on aarch64-linux
+          intel-gpu-tools
+        ];
       serviceConfig = {
         ExecStart = "${cfg.package.python.interpreter} -m frigate";
 
@@ -373,7 +330,8 @@ in
         PrivateTmp = true;
         CacheDirectory = "frigate";
 
-        BindPaths = [ "/migrations:${cfg.package}/share/frigate/migrations:ro" ];
+        BindPaths =
+          [ "/migrations:${cfg.package}/share/frigate/migrations:ro" ];
       };
     };
   };

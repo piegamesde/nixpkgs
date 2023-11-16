@@ -1,17 +1,6 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  alsa-utils,
-  gobject-introspection,
-  libappindicator-gtk3,
-  libnotify,
-  wlrctl,
-  gtk3,
-  xprintidle,
-  xprop,
-  wrapGAppsHook,
-}:
+{ lib, python3, fetchPypi, alsa-utils, gobject-introspection
+, libappindicator-gtk3, libnotify, wlrctl, gtk3, xprintidle, xprop
+, wrapGAppsHook }:
 
 with python3.pkgs;
 
@@ -24,25 +13,11 @@ buildPythonApplication rec {
     sha256 = "sha256-IjFDhkqtMitdcQORerRqwty3ZMP8jamPtb9oMHdre4I=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
 
-  buildInputs = [
-    gtk3
-    libappindicator-gtk3
-    libnotify
-  ];
+  buildInputs = [ gtk3 libappindicator-gtk3 libnotify ];
 
-  propagatedBuildInputs = [
-    babel
-    psutil
-    xlib
-    pygobject3
-    dbus-python
-    croniter
-  ];
+  propagatedBuildInputs = [ babel psutil xlib pygobject3 dbus-python croniter ];
 
   # Prevent double wrapping, let the Python wrapper use the args in preFixup.
   dontWrapGApps = true;
@@ -56,14 +31,7 @@ buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      --prefix PATH : ${
-        lib.makeBinPath [
-          alsa-utils
-          wlrctl
-          xprintidle
-          xprop
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ alsa-utils wlrctl xprintidle xprop ]}
     )
   '';
 
@@ -71,7 +39,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "http://slgobinath.github.io/SafeEyes";
-    description = "Protect your eyes from eye strain using this simple and beautiful, yet extensible break reminder. A Free and Open Source Linux alternative to EyeLeo";
+    description =
+      "Protect your eyes from eye strain using this simple and beautiful, yet extensible break reminder. A Free and Open Source Linux alternative to EyeLeo";
     license = licenses.gpl3;
     maintainers = with maintainers; [ srghma ];
     platforms = platforms.linux;

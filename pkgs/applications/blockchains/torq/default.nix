@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  buildNpmPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, buildNpmPackage, fetchFromGitHub }:
 
 let
   pname = "torq";
@@ -33,19 +28,15 @@ let
       cp -r build/* $out/
     '';
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   inherit pname version src;
 
   vendorHash = "sha256-bvisI589Gq9IdyJEqI+uzs3iDPOTUkq95P3n/KoFhF0=";
 
   subPackages = [ "cmd/torq" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/lncapital/torq/build.version=v${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/lncapital/torq/build.version=v${version}" ];
 
   postInstall = ''
     mkdir -p $out/web/build
@@ -56,9 +47,6 @@ buildGoModule rec {
     description = "Capital management tool for lightning network nodes";
     license = licenses.mit;
     homepage = "https://github.com/lncapital/torq";
-    maintainers = with maintainers; [
-      mmilata
-      prusnak
-    ];
+    maintainers = with maintainers; [ mmilata prusnak ];
   };
 }

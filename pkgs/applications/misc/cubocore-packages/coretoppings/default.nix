@@ -1,33 +1,7 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitLab,
-  ffmpeg,
-  cmake,
-  ninja,
-  qtbase,
-  qtx11extras,
-  qtconnectivity,
-  v4l-utils,
-  grim,
-  wf-recorder,
-  libdbusmenu,
-  playerctl,
-  xorg,
-  iio-sensor-proxy,
-  inotify-tools,
-  bluez,
-  networkmanager,
-  connman,
-  redshift,
-  gawk,
-  polkit,
-  libnotify,
-  systemd,
-  xdg-utils,
-  libcprime,
-  libcsys,
-}:
+{ mkDerivation, lib, fetchFromGitLab, ffmpeg, cmake, ninja, qtbase, qtx11extras
+, qtconnectivity, v4l-utils, grim, wf-recorder, libdbusmenu, playerctl, xorg
+, iio-sensor-proxy, inotify-tools, bluez, networkmanager, connman, redshift
+, gawk, polkit, libnotify, systemd, xdg-utils, libcprime, libcsys }:
 
 mkDerivation rec {
   pname = "coretoppings";
@@ -40,16 +14,12 @@ mkDerivation rec {
     sha256 = "sha256-3wLDTN3SrbQNs43nQmSBrSB0bD6YineBQ8eNPDws1G8=";
   };
 
-  patches =
-    [
-      # Fix file cannot create directory: /var/empty/share/polkit-1/actions
-      ./0001-fix-install-phase.patch
-    ];
-
-  nativeBuildInputs = [
-    cmake
-    ninja
+  patches = [
+    # Fix file cannot create directory: /var/empty/share/polkit-1/actions
+    ./0001-fix-install-phase.patch
   ];
+
+  nativeBuildInputs = [ cmake ninja ];
 
   buildInputs = [
     qtbase
@@ -80,7 +50,8 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Additional features,plugins etc for CuboCore Application Suite";
+    description =
+      "Additional features,plugins etc for CuboCore Application Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/coretoppings";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ dan4ik605743 ];

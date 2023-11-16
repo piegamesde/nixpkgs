@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonAtLeast,
-  pythonOlder,
-  idna,
-  multidict,
-  typing-extensions,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, pythonOlder, idna
+, multidict, typing-extensions, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "yarl";
@@ -27,10 +18,8 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [
-    idna
-    multidict
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [ idna multidict ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   preCheck = ''
     # don't import yarl from ./ so the C extension is available

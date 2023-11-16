@@ -1,11 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  pkg-config,
-  xorg,
-  cairo,
-}:
+{ stdenv, fetchFromGitHub, lib, pkg-config, xorg, cairo }:
 
 stdenv.mkDerivation rec {
   pname = "activate-linux";
@@ -22,13 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    xorg.libX11
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXinerama
-    cairo
-  ];
+  buildInputs =
+    [ xorg.libX11 xorg.libXext xorg.libXfixes xorg.libXinerama cairo ];
 
   meta = with lib; {
     description = ''The "Activate Windows" watermark ported to Linux'';

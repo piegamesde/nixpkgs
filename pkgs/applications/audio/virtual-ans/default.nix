@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  libX11,
-  libXi,
-  libGL,
-  alsa-lib,
-  SDL2,
-  autoPatchelfHook,
+{ lib, stdenv, fetchzip, libX11, libXi, libGL, alsa-lib, SDL2, autoPatchelfHook
 }:
 
 stdenv.mkDerivation rec {
@@ -21,14 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-    libX11
-    libXi
-    libGL
-    alsa-lib
-    SDL2
-  ];
+  buildInputs = [ stdenv.cc.cc.lib libX11 libXi libGL alsa-lib SDL2 ];
 
   installPhase = ''
     mkdir -p $out
@@ -43,22 +27,20 @@ stdenv.mkDerivation rec {
     ln -s $out/${startScript} $out/bin/virtual-ans
   '';
 
-  startScript =
-    if stdenv.isx86_32 then
-      "START_LINUX_X86"
-    else if stdenv.isx86_64 then
-      "START_LINUX_X86_64"
+  startScript = if stdenv.isx86_32 then
+    "START_LINUX_X86"
+  else if stdenv.isx86_64 then
+    "START_LINUX_X86_64"
     #else        if stdenv.isDarwin then "START_MACOS.app" # disabled because I cannot test on Darwin
-    else
-      abort "Unsupported platform: ${stdenv.hostPlatform.linuxArch}.";
+  else
+    abort "Unsupported platform: ${stdenv.hostPlatform.linuxArch}.";
 
-  linuxExecutable =
-    if stdenv.isx86_32 then
-      "pixilang_linux_x86"
-    else if stdenv.isx86_64 then
-      "pixilang_linux_x86_64"
-    else
-      "";
+  linuxExecutable = if stdenv.isx86_32 then
+    "pixilang_linux_x86"
+  else if stdenv.isx86_64 then
+    "pixilang_linux_x86_64"
+  else
+    "";
 
   meta = with lib; {
     description = "Photoelectronic microtonal/spectral musical instrument";
@@ -91,10 +73,8 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.free;
     # I cannot test the Darwin version, so I'll leave it disabled
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = with maintainers; [ jacg ];
   };
+
 }

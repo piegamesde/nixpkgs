@@ -1,24 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  substituteAll,
-  openvpn,
-  gettext,
-  libxml2,
-  pkg-config,
-  file,
-  networkmanager,
-  libsecret,
-  glib,
-  gtk3,
-  gtk4,
-  withGnome ? true,
-  gnome,
-  kmod,
-  libnma,
-  libnma-gtk4,
-}:
+{ stdenv, lib, fetchurl, substituteAll, openvpn, gettext, libxml2, pkg-config
+, file, networkmanager, libsecret, glib, gtk3, gtk4, withGnome ? true, gnome
+, kmod, libnma, libnma-gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-openvpn";
@@ -38,26 +20,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    gettext
-    pkg-config
-    file
-    libxml2
-  ];
+  nativeBuildInputs = [ gettext pkg-config file libxml2 ];
 
-  buildInputs =
-    [
-      openvpn
-      networkmanager
-      glib
-    ]
-    ++ lib.optionals withGnome [
-      gtk3
-      gtk4
-      libsecret
-      libnma
-      libnma-gtk4
-    ];
+  buildInputs = [ openvpn networkmanager glib ]
+    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"

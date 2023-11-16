@@ -41,13 +41,7 @@
     version = "1.1.0";
   };
   ruby-zoom = {
-    dependencies = [
-      "djinni"
-      "fagin"
-      "hilighter"
-      "json_config"
-      "scoobydoo"
-    ];
+    dependencies = [ "djinni" "fagin" "hilighter" "json_config" "scoobydoo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

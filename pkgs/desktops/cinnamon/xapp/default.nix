@@ -1,34 +1,12 @@
-{
-  fetchFromGitHub,
-  glib,
-  gobject-introspection,
-  gtk3,
-  libgnomekbd,
-  gdk-pixbuf,
-  cairo,
-  xorg,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  lib,
-  stdenv,
-  vala,
-  wrapGAppsHook,
-  inxi,
-  mate,
-  dbus,
-  libdbusmenu-gtk3,
-}:
+{ fetchFromGitHub, glib, gobject-introspection, gtk3, libgnomekbd, gdk-pixbuf
+, cairo, xorg, meson, ninja, pkg-config, python3, lib, stdenv, vala
+, wrapGAppsHook, inxi, mate, dbus, libdbusmenu-gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "xapp";
   version = "2.4.3";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "linuxmint";
@@ -37,24 +15,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-j04vy/uVWY08Xdxqfo2MMUAlqsUMJTsAt67+XjkdhFg=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
 
   buildInputs = [
     gobject-introspection
-    (python3.withPackages (
-      ps:
+    (python3.withPackages (ps:
       with ps; [
         pygobject3
         setproctitle # mate applet
-      ]
-    ))
+      ]))
     libgnomekbd
     gdk-pixbuf
     xorg.libxkbfile
@@ -65,13 +34,13 @@ stdenv.mkDerivation rec {
   ];
 
   # Requires in xapp.pc
-  propagatedBuildInputs = [
-    gtk3
-    cairo
-    glib
-  ];
+  propagatedBuildInputs = [ gtk3 cairo glib ];
 
-  mesonFlags = [ "-Dpy-overrides-dir=${placeholder "out"}/${python3.sitePackages}/gi/overrides" ];
+  mesonFlags = [
+    "-Dpy-overrides-dir=${
+      placeholder "out"
+    }/${python3.sitePackages}/gi/overrides"
+  ];
 
   postPatch = ''
     chmod +x schemas/meson_install_schemas.py # patchShebangs requires executable file

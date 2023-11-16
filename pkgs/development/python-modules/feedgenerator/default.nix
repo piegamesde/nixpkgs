@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  glibcLocales,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, glibcLocales, pytestCheckHook, pythonOlder
+, pytz, six }:
 
 buildPythonPackage rec {
   pname = "feedgenerator";
@@ -27,10 +19,7 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs = [
-    pytz
-    six
-  ];
+  propagatedBuildInputs = [ pytz six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  wrapGAppsHook4,
-  tailscale,
-  gtk4,
-  gobject-introspection,
-  libadwaita,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, wrapGAppsHook4, tailscale
+, gtk4, gobject-introspection, libadwaita }:
 
 buildGoModule rec {
   pname = "trayscale";
@@ -31,15 +22,8 @@ buildGoModule rec {
     "-X=deedles.dev/trayscale/internal/version.version=${version}"
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    gobject-introspection
-    wrapGAppsHook4
-  ];
-  buildInputs = [
-    gtk4
-    libadwaita
-  ];
+  nativeBuildInputs = [ pkg-config gobject-introspection wrapGAppsHook4 ];
+  buildInputs = [ gtk4 libadwaita ];
 
   # there are no actual tests, and it takes 20 minutes to rebuild
   doCheck = false;

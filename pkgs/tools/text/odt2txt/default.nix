@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, zlib, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "odt2txt";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
 
   configurePhase = ''export makeFlags="DESTDIR=$out"'';
 
-  buildInputs = [
-    zlib
-    libiconv
-  ];
+  buildInputs = [ zlib libiconv ];
 
   meta = {
     description = "Simple .odt to .txt converter";

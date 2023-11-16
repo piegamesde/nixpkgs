@@ -1,21 +1,5 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  checkseum,
-  optint,
-  cmdliner,
-  bigstringaf,
-  alcotest,
-  camlzip,
-  base64,
-  ctypes,
-  fmt,
-  crowbar,
-  rresult,
-  astring,
-  bos,
-}:
+{ lib, fetchurl, buildDunePackage, checkseum, optint, cmdliner, bigstringaf
+, alcotest, camlzip, base64, ctypes, fmt, crowbar, rresult, astring, bos }:
 
 buildDunePackage rec {
   pname = "decompress";
@@ -25,15 +9,13 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/decompress/releases/download/v${version}/decompress-${version}.tbz";
+    url =
+      "https://github.com/mirage/decompress/releases/download/v${version}/decompress-${version}.tbz";
     hash = "sha256-qMmmuhMlFNVq02JvvV55EkhEg2AQNQ7hYdQ7spv1di4=";
   };
 
   buildInputs = [ cmdliner ];
-  propagatedBuildInputs = [
-    optint
-    checkseum
-  ];
+  propagatedBuildInputs = [ optint checkseum ];
   checkInputs = [
     alcotest
     astring

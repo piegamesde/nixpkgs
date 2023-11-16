@@ -1,35 +1,7 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  dpkg,
-  makeWrapper,
-  alsa-lib,
-  cups,
-  curl,
-  dbus,
-  expat,
-  fontconfig,
-  freetype,
-  glib,
-  gst_all_1,
-  harfbuzz,
-  libcap,
-  libGL,
-  libGLU,
-  libpulseaudio,
-  libxkbcommon,
-  libxml2,
-  libxslt,
-  nspr,
-  nss,
-  openssl_1_1,
-  systemd,
-  wayland,
-  xorg,
-  zlib,
-  ...
-}:
+{ fetchurl, lib, stdenv, dpkg, makeWrapper, alsa-lib, cups, curl, dbus, expat
+, fontconfig, freetype, glib, gst_all_1, harfbuzz, libcap, libGL, libGLU
+, libpulseaudio, libxkbcommon, libxml2, libxslt, nspr, nss, openssl_1_1, systemd
+, wayland, xorg, zlib, ... }:
 
 stdenv.mkDerivation {
   pname = "viber";
@@ -37,7 +9,8 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     # Official link: https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
-    url = "https://web.archive.org/web/20211119123858/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
+    url =
+      "https://web.archive.org/web/20211119123858/https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb";
     sha256 = "sha256-hOz+EQc2OOlLTPa2kOefPJMUyWvSvrgqgPgBKjWE3p8=";
   };
 
@@ -133,4 +106,5 @@ stdenv.mkDerivation {
     platforms = [ "x86_64-linux" ];
     maintainers = with lib.maintainers; [ jagajaga ];
   };
+
 }

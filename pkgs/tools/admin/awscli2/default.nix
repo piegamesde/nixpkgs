@@ -1,27 +1,19 @@
-{
-  lib,
-  python3,
-  groff,
-  less,
-  fetchFromGitHub,
-  nix-update-script,
-  testers,
-  awscli2,
-}:
+{ lib, python3, groff, less, fetchFromGitHub, nix-update-script, testers
+, awscli2 }:
 
 let
   py = python3 // {
-    pkgs = python3.pkgs.overrideScope (
-      self: super: {
+    pkgs = python3.pkgs.overrideScope (self: super:
+      {
         # nothing right now
-      }
-    );
+      });
   };
-in
-with py.pkgs;
+
+in with py.pkgs;
 buildPythonApplication rec {
   pname = "awscli2";
-  version = "2.11.27"; # N.B: if you change this, check if overrides are still up-to-date
+  version =
+    "2.11.27"; # N.B: if you change this, check if overrides are still up-to-date
   format = "pyproject";
 
   src = fetchFromGitHub {
@@ -56,11 +48,7 @@ buildPythonApplication rec {
     urllib3
   ];
 
-  nativeCheckInputs = [
-    jsonschema
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ jsonschema mock pytestCheckHook ];
 
   postInstall = ''
     mkdir -p $out/${python3.sitePackages}/awscli/data
@@ -99,10 +87,7 @@ buildPythonApplication rec {
     python = py; # for aws_shell
     updateScript = nix-update-script {
       # Excludes 1.x versions from the Github tags list
-      extraArgs = [
-        "--version-regex"
-        "^(2.(.*))"
-      ];
+      extraArgs = [ "--version-regex" "^(2.(.*))" ];
     };
     tests.version = testers.testVersion {
       package = awscli2;
@@ -112,7 +97,8 @@ buildPythonApplication rec {
   };
 
   meta = with lib; {
-    homepage = "https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html";
+    homepage =
+      "https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html";
     changelog = "https://github.com/aws/aws-cli/blob/${version}/CHANGELOG.rst";
     description = "Unified tool to manage your AWS services";
     license = licenses.asl20;

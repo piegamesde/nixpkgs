@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  lxml,
-  pytestCheckHook,
-  text-unidecode,
-  xmlschema,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, lxml, pytestCheckHook
+, text-unidecode, xmlschema }:
 
 buildPythonPackage rec {
   pname = "sepaxml";
@@ -23,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-l5UMy0M3Ovzb6rcSAteGOnKdmBPHn4L9ZWY+YGOCn40=";
   };
 
-  propagatedBuildInputs = [
-    text-unidecode
-    xmlschema
-  ];
+  propagatedBuildInputs = [ text-unidecode xmlschema ];
 
-  nativeCheckInputs = [
-    lxml
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ lxml pytestCheckHook ];
 
   pythonImportsCheck = [ "sepaxml" ];
 

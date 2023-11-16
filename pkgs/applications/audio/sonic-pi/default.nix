@@ -1,42 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  wrapQtAppsHook,
-  makeDesktopItem,
-  copyDesktopItems,
-  cmake,
-  pkg-config,
-  catch2_3,
-  qtbase,
-  qtsvg,
-  qttools,
-  qwt,
-  qscintilla,
-  kissfftFloat,
-  crossguid,
-  reproc,
-  platform-folders,
-  ruby,
-  erlang,
-  elixir,
-  beamPackages,
-  alsa-lib,
-  rtmidi,
-  boost,
-  aubio,
-  jack2,
-  supercollider-with-sc3-plugins,
-  parallel,
+{ stdenv, lib, fetchFromGitHub, wrapQtAppsHook, makeDesktopItem
+, copyDesktopItems, cmake, pkg-config, catch2_3, qtbase, qtsvg, qttools, qwt
+, qscintilla, kissfftFloat, crossguid, reproc, platform-folders, ruby, erlang
+, elixir, beamPackages, alsa-lib, rtmidi, boost, aubio, jack2
+, supercollider-with-sc3-plugins, parallel
 
-  withTauWidget ? false,
-  qtwebengine,
+, withTauWidget ? false, qtwebengine
 
-  withImGui ? false,
-  gl3w,
-  SDL2,
-  fmt,
-}:
+, withImGui ? false, gl3w, SDL2, fmt }:
 
 stdenv.mkDerivation rec {
   pname = "sonic-pi";
@@ -70,36 +40,26 @@ stdenv.mkDerivation rec {
     beamPackages.hex
   ];
 
-  buildInputs =
-    [
-      qtbase
-      qtsvg
-      qttools
-      qwt
-      qscintilla
-      kissfftFloat
-      catch2_3
-      crossguid
-      reproc
-      platform-folders
-      ruby
-      alsa-lib
-      rtmidi
-      boost
-      aubio
-    ]
-    ++ lib.optionals withTauWidget [ qtwebengine ]
-    ++ lib.optionals withImGui [
-      gl3w
-      SDL2
-      fmt
-    ];
+  buildInputs = [
+    qtbase
+    qtsvg
+    qttools
+    qwt
+    qscintilla
+    kissfftFloat
+    catch2_3
+    crossguid
+    reproc
+    platform-folders
+    ruby
+    alsa-lib
+    rtmidi
+    boost
+    aubio
+  ] ++ lib.optionals withTauWidget [ qtwebengine ]
+    ++ lib.optionals withImGui [ gl3w SDL2 fmt ];
 
-  nativeCheckInputs = [
-    parallel
-    supercollider-with-sc3-plugins
-    jack2
-  ];
+  nativeCheckInputs = [ parallel supercollider-with-sc3-plugins jack2 ];
 
   cmakeFlags = [
     "-DUSE_SYSTEM_LIBS=ON"
@@ -190,11 +150,7 @@ stdenv.mkDerivation rec {
     # Wrap Qt GUI (distributed binary)
     wrapQtApp $out/bin/sonic-pi \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ruby
-          supercollider-with-sc3-plugins
-          jack2
-        ]
+        lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]
       }
 
     # If ImGui was built
@@ -203,11 +159,7 @@ stdenv.mkDerivation rec {
       makeWrapper $out/app/build/gui/imgui/sonic-pi-imgui $out/bin/sonic-pi-imgui \
         --inherit-argv0 \
         --prefix PATH : ${
-          lib.makeBinPath [
-            ruby
-            supercollider-with-sc3-plugins
-            jack2
-          ]
+          lib.makeBinPath [ ruby supercollider-with-sc3-plugins jack2 ]
         }
     fi
 
@@ -217,10 +169,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  stripDebugList = [
-    "app"
-    "bin"
-  ];
+  stripDebugList = [ "app" "bin" ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -229,11 +178,7 @@ stdenv.mkDerivation rec {
       icon = "sonic-pi";
       desktopName = "Sonic Pi";
       comment = meta.description;
-      categories = [
-        "Audio"
-        "AudioVideo"
-        "Education"
-      ];
+      categories = [ "Audio" "AudioVideo" "Education" ];
     })
   ];
 
@@ -241,7 +186,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://sonic-pi.net/";
-    description = "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
+    description =
+      "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
     license = licenses.mit;
     maintainers = with maintainers; [
       Phlogistique

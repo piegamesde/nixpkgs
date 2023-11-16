@@ -19,12 +19,7 @@
    - @K900, March 2023
 */
 
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -42,26 +37,27 @@ let
   # When cross-compiling, we can’t generate the cache, so we skip the
   # <cachedir> part. fontconfig still works but is a little slower in
   # looking things up.
-  makeCacheConf =
-    { }:
+  makeCacheConf = { }:
     let
-      makeCache =
-        fontconfig:
+      makeCache = fontconfig:
         pkgs.makeFontsCache {
           inherit fontconfig;
           fontDirectories = config.fonts.fonts;
         };
       cache = makeCache pkgs.fontconfig;
       cache32 = makeCache pkgs.pkgsi686Linux.fontconfig;
-    in
-    pkgs.writeText "fc-00-nixos-cache.conf" ''
+    in pkgs.writeText "fc-00-nixos-cache.conf" ''
       <?xml version='1.0'?>
       <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
       <fontconfig>
         <!-- Font directories -->
-        ${concatStringsSep "\n" (map (font: "<dir>${font}</dir>") config.fonts.fonts)}
         ${
-          optionalString (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) ''
+          concatStringsSep "\n"
+          (map (font: "<dir>${font}</dir>") config.fonts.fonts)
+        }
+        ${
+          optionalString
+          (pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform) ''
             <!-- Pre-generated font caches -->
             <cachedir>${cache}</cachedir>
             ${optionalString (pkgs.stdenv.isx86_64 && cfg.cache32Bit) ''
@@ -109,43 +105,36 @@ let
 
   # default fonts configuration file
   # priority 52
-  defaultFontsConf =
-    let
-      genDefault =
-        fonts: name:
-        optionalString (fonts != [ ]) ''
-          <alias binding="same">
-            <family>${name}</family>
-            <prefer>
-            ${
-              concatStringsSep "" (
-                map
-                  (font: ''
-                    <family>${font}</family>
-                  '')
-                  fonts
-              )
-            }
-            </prefer>
-          </alias>
-        '';
-    in
-    pkgs.writeText "fc-52-nixos-default-fonts.conf" ''
-      <?xml version='1.0'?>
-      <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
-      <fontconfig>
+  defaultFontsConf = let
+    genDefault = fonts: name:
+      optionalString (fonts != [ ]) ''
+        <alias binding="same">
+          <family>${name}</family>
+          <prefer>
+          ${
+            concatStringsSep "" (map (font: ''
+              <family>${font}</family>
+            '') fonts)
+          }
+          </prefer>
+        </alias>
+      '';
+  in pkgs.writeText "fc-52-nixos-default-fonts.conf" ''
+    <?xml version='1.0'?>
+    <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
+    <fontconfig>
 
-        <!-- Default fonts -->
-        ${genDefault cfg.defaultFonts.sansSerif "sans-serif"}
+      <!-- Default fonts -->
+      ${genDefault cfg.defaultFonts.sansSerif "sans-serif"}
 
-        ${genDefault cfg.defaultFonts.serif "serif"}
+      ${genDefault cfg.defaultFonts.serif "serif"}
 
-        ${genDefault cfg.defaultFonts.monospace "monospace"}
+      ${genDefault cfg.defaultFonts.monospace "monospace"}
 
-        ${genDefault cfg.defaultFonts.emoji "emoji"}
+      ${genDefault cfg.defaultFonts.emoji "emoji"}
 
-      </fontconfig>
-    '';
+    </fontconfig>
+  '';
 
   # bitmap font options
   # priority 53
@@ -247,140 +236,52 @@ let
     ignoreCollisions = true;
   };
 
-  fontconfigNote = "Consider manually configuring fonts.fontconfig according to personal preference.";
-in
-{
-  imports =
-    [
-      (mkRenamedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "ultimate"
-          "allowBitmaps"
-        ]
-        [
-          "fonts"
-          "fontconfig"
-          "allowBitmaps"
-        ]
-      )
-      (mkRenamedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "ultimate"
-          "allowType1"
-        ]
-        [
-          "fonts"
-          "fontconfig"
-          "allowType1"
-        ]
-      )
-      (mkRenamedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "ultimate"
-          "useEmbeddedBitmaps"
-        ]
-        [
-          "fonts"
-          "fontconfig"
-          "useEmbeddedBitmaps"
-        ]
-      )
-      (mkRenamedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "ultimate"
-          "forceAutohint"
-        ]
-        [
-          "fonts"
-          "fontconfig"
-          "forceAutohint"
-        ]
-      )
-      (mkRenamedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "ultimate"
-          "renderMonoTTFAsBitmap"
-        ]
-        [
-          "fonts"
-          "fontconfig"
-          "renderMonoTTFAsBitmap"
-        ]
-      )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "forceAutohint"
-        ]
-        ""
-      )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "renderMonoTTFAsBitmap"
-        ]
-        ""
-      )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "dpi"
-        ]
-        "Use display server-specific options"
-      )
-      (mkRemovedOptionModule
-        [
-          "hardware"
-          "video"
-          "hidpi"
-          "enable"
-        ]
-        fontconfigNote
-      )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "optimizeForVeryHighDPI"
-        ]
-        fontconfigNote
-      )
-    ]
-    ++ lib.forEach
-      [
-        "enable"
-        "substitutions"
-        "preset"
-      ]
-      (
-        opt:
-        lib.mkRemovedOptionModule
-          [
-            "fonts"
-            "fontconfig"
-            "ultimate"
-            "${opt}"
-          ]
-          ''
-            The fonts.fontconfig.ultimate module and configuration is obsolete.
-            The repository has since been archived and activity has ceased.
-            https://github.com/bohoomil/fontconfig-ultimate/issues/171.
-            No action should be needed for font configuration, as the fonts.fontconfig
-            module is already used by default.
-          ''
-      );
+  fontconfigNote =
+    "Consider manually configuring fonts.fontconfig according to personal preference.";
+in {
+  imports = [
+    (mkRenamedOptionModule [ "fonts" "fontconfig" "ultimate" "allowBitmaps" ] [
+      "fonts"
+      "fontconfig"
+      "allowBitmaps"
+    ])
+    (mkRenamedOptionModule [ "fonts" "fontconfig" "ultimate" "allowType1" ] [
+      "fonts"
+      "fontconfig"
+      "allowType1"
+    ])
+    (mkRenamedOptionModule [
+      "fonts"
+      "fontconfig"
+      "ultimate"
+      "useEmbeddedBitmaps"
+    ] [ "fonts" "fontconfig" "useEmbeddedBitmaps" ])
+    (mkRenamedOptionModule [ "fonts" "fontconfig" "ultimate" "forceAutohint" ] [
+      "fonts"
+      "fontconfig"
+      "forceAutohint"
+    ])
+    (mkRenamedOptionModule [
+      "fonts"
+      "fontconfig"
+      "ultimate"
+      "renderMonoTTFAsBitmap"
+    ] [ "fonts" "fontconfig" "renderMonoTTFAsBitmap" ])
+    (mkRemovedOptionModule [ "fonts" "fontconfig" "forceAutohint" ] "")
+    (mkRemovedOptionModule [ "fonts" "fontconfig" "renderMonoTTFAsBitmap" ] "")
+    (mkRemovedOptionModule [ "fonts" "fontconfig" "dpi" ]
+      "Use display server-specific options")
+    (mkRemovedOptionModule [ "hardware" "video" "hidpi" "enable" ]
+      fontconfigNote)
+    (mkRemovedOptionModule [ "fonts" "optimizeForVeryHighDPI" ] fontconfigNote)
+  ] ++ lib.forEach [ "enable" "substitutions" "preset" ] (opt:
+    lib.mkRemovedOptionModule [ "fonts" "fontconfig" "ultimate" "${opt}" ] ''
+      The fonts.fontconfig.ultimate module and configuration is obsolete.
+      The repository has since been archived and activity has ceased.
+      https://github.com/bohoomil/fontconfig-ultimate/issues/171.
+      No action should be needed for font configuration, as the fonts.fontconfig
+      module is already used by default.
+    '');
 
   options = {
 
@@ -494,12 +395,8 @@ in
           };
 
           style = mkOption {
-            type = types.enum [
-              "hintnone"
-              "hintslight"
-              "hintmedium"
-              "hintfull"
-            ];
+            type =
+              types.enum [ "hintnone" "hintslight" "hintmedium" "hintfull" ];
             default = "hintslight";
             description = lib.mdDoc ''
               Hintstyle is the amount of font reshaping done to line up
@@ -527,13 +424,7 @@ in
 
           rgba = mkOption {
             default = "rgb";
-            type = types.enum [
-              "rgb"
-              "bgr"
-              "vrgb"
-              "vbgr"
-              "none"
-            ];
+            type = types.enum [ "rgb" "bgr" "vrgb" "vbgr" "none" ];
             description = lib.mdDoc ''
               Subpixel order. The overwhelming majority of displays are
               `rgb` in their normal orientation. Select
@@ -549,18 +440,14 @@ in
 
           lcdfilter = mkOption {
             default = "default";
-            type = types.enum [
-              "none"
-              "default"
-              "light"
-              "legacy"
-            ];
+            type = types.enum [ "none" "default" "light" "legacy" ];
             description = lib.mdDoc ''
               FreeType LCD filter. At high resolution (> 200 DPI), LCD filtering
               has no visible effect; users of such displays may want to select
               `none`.
             '';
           };
+
         };
 
         cache32Bit = mkOption {
@@ -594,8 +481,11 @@ in
           default = false;
           description = lib.mdDoc "Use embedded bitmaps in fonts like Calibri.";
         };
+
       };
+
     };
+
   };
   config = mkMerge [
     (mkIf cfg.enable {
@@ -638,4 +528,5 @@ in
     })
     (mkIf cfg.enable { fonts.fontconfig.confPackages = [ confPkg ]; })
   ];
+
 }

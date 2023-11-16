@@ -1,30 +1,9 @@
-{
-  lib,
-  stdenv,
-  env,
-  fetchFromGitHub,
-  pkg-config,
-  qbs,
-  wrapQtAppsHook,
-  qtbase,
-  qtdeclarative,
-  qttools,
-  qtsvg,
-  zlib,
-  zstd,
-  libGL,
-}:
+{ lib, stdenv, env, fetchFromGitHub, pkg-config, qbs, wrapQtAppsHook, qtbase
+, qtdeclarative, qttools, qtsvg, zlib, zstd, libGL }:
 
-let
-  qtEnv = env "tiled-qt-env" [
-    qtbase
-    qtdeclarative
-    qtsvg
-    qttools
-  ];
-in
+let qtEnv = env "tiled-qt-env" [ qtbase qtdeclarative qtsvg qttools ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "tiled";
   version = "1.10.1";
 
@@ -35,22 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zrDka6yXJ++UuGFepn8glQ1r7ufBcjsnNZuH+jnkJw0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    qbs
-    wrapQtAppsHook
-  ];
-  buildInputs = [
-    qtEnv
-    zlib
-    zstd
-    libGL
-  ];
+  nativeBuildInputs = [ pkg-config qbs wrapQtAppsHook ];
+  buildInputs = [ qtEnv zlib zstd libGL ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   strictDeps = true;
 

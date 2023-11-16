@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wthrr";
@@ -23,12 +15,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.CoreFoundation
-      darwin.apple_sdk.frameworks.Security
-    ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.CoreFoundation
+    darwin.apple_sdk.frameworks.Security
+  ];
 
   checkFlags = [
     # requires internet access
@@ -39,7 +29,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Weather companion for the terminal";
     homepage = "https://github.com/tobealive/wthrr-the-weathercrab";
-    changelog = "https://github.com/tobealive/wthrr-the-weathercrab/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/tobealive/wthrr-the-weathercrab/releases/tag/${src.rev}";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

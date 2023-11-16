@@ -1,13 +1,6 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  gettext,
-  libSrc,
-}:
+{ lib, stdenv, cmake, gettext, libSrc }:
 let
-  mkLib =
-    name:
+  mkLib = name:
     stdenv.mkDerivation {
       pname = "kicad-${name}";
       version = builtins.substring 0 10 (libSrc name).rev;
@@ -24,8 +17,7 @@ let
         hydraPlatforms = if (name == "packages3d") then [ ] else platforms;
       };
     };
-in
-{
+in {
   symbols = mkLib "symbols";
   templates = mkLib "templates";
   footprints = mkLib "footprints";

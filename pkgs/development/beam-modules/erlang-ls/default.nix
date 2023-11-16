@@ -1,15 +1,5 @@
-{
-  fetchFromGitHub,
-  fetchgit,
-  fetchHex,
-  rebar3Relx,
-  buildRebar3,
-  rebar3-proper,
-  stdenv,
-  writeScript,
-  lib,
-  erlang,
-}:
+{ fetchFromGitHub, fetchgit, fetchHex, rebar3Relx, buildRebar3, rebar3-proper
+, stdenv, writeScript, lib, erlang }:
 let
   version = "0.47.1";
   owner = "erlang-ls";
@@ -17,20 +7,16 @@ let
   deps = import ./rebar-deps.nix {
     inherit fetchHex fetchFromGitHub fetchgit;
     builder = buildRebar3;
-    overrides =
-      (self: super: {
-        proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
-        redbug = super.redbug.overrideAttrs (
-          _: {
-            patchPhase = ''
-              substituteInPlace rebar.config --replace ", warnings_as_errors" ""
-            '';
-          }
-        );
+    overrides = (self: super: {
+      proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
+      redbug = super.redbug.overrideAttrs (_: {
+        patchPhase = ''
+          substituteInPlace rebar.config --replace ", warnings_as_errors" ""
+        '';
       });
+    });
   };
-in
-rebar3Relx {
+in rebar3Relx {
   pname = "erlang-ls";
   inherit version;
   src = fetchFromGitHub {

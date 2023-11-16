@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.virtualisation.hypervGuest;
-in
-{
+let cfg = config.virtualisation.hypervGuest;
+
+in {
   options = {
     virtualisation.hypervGuest = {
       enable = mkEnableOption (lib.mdDoc "Hyper-V Guest Support");
@@ -32,45 +26,34 @@ in
 
   config = mkIf cfg.enable {
     boot = {
-      initrd.kernelModules = [
-        "hv_balloon"
-        "hv_netvsc"
-        "hv_storvsc"
-        "hv_utils"
-        "hv_vmbus"
-      ];
+      initrd.kernelModules =
+        [ "hv_balloon" "hv_netvsc" "hv_storvsc" "hv_utils" "hv_vmbus" ];
 
       initrd.availableKernelModules = [ "hyperv_keyboard" ];
 
-      kernelParams = [
-        "video=hyperv_fb:${cfg.videoMode}"
-        "elevator=noop"
-      ];
+      kernelParams = [ "video=hyperv_fb:${cfg.videoMode}" "elevator=noop" ];
     };
 
-    environment.systemPackages = [ config.boot.kernelPackages.hyperv-daemons.bin ];
+    environment.systemPackages =
+      [ config.boot.kernelPackages.hyperv-daemons.bin ];
 
     # enable hotadding cpu/memory
-    services.udev.packages = lib.singleton (
-      pkgs.writeTextFile {
-        name = "hyperv-cpu-and-memory-hotadd-udev-rules";
-        destination = "/etc/udev/rules.d/99-hyperv-cpu-and-memory-hotadd.rules";
-        text = ''
-          # Memory hotadd
-          SUBSYSTEM=="memory", ACTION=="add", DEVPATH=="/devices/system/memory/memory[0-9]*", TEST=="state", ATTR{state}="online"
+    services.udev.packages = lib.singleton (pkgs.writeTextFile {
+      name = "hyperv-cpu-and-memory-hotadd-udev-rules";
+      destination = "/etc/udev/rules.d/99-hyperv-cpu-and-memory-hotadd.rules";
+      text = ''
+        # Memory hotadd
+        SUBSYSTEM=="memory", ACTION=="add", DEVPATH=="/devices/system/memory/memory[0-9]*", TEST=="state", ATTR{state}="online"
 
-          # CPU hotadd
-          SUBSYSTEM=="cpu", ACTION=="add", DEVPATH=="/devices/system/cpu/cpu[0-9]*", TEST=="online", ATTR{online}="1"
-        '';
-      }
-    );
+        # CPU hotadd
+        SUBSYSTEM=="cpu", ACTION=="add", DEVPATH=="/devices/system/cpu/cpu[0-9]*", TEST=="online", ATTR{online}="1"
+      '';
+    });
 
     systemd = {
       packages = [ config.boot.kernelPackages.hyperv-daemons.lib ];
 
-      targets.hyperv-daemons = {
-        wantedBy = [ "multi-user.target" ];
-      };
+      targets.hyperv-daemons = { wantedBy = [ "multi-user.target" ]; };
     };
   };
 }

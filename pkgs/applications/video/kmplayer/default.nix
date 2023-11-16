@@ -1,22 +1,6 @@
-{
-  mkDerivation,
-  lib,
-  fetchurl,
-  extra-cmake-modules,
-  makeWrapper,
-  libpthreadstubs,
-  libXdmcp,
-  qtsvg,
-  qtx11extras,
-  ki18n,
-  kdelibs4support,
-  kio,
-  kmediaplayer,
-  kwidgetsaddons,
-  phonon,
-  cairo,
-  mplayer,
-}:
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, makeWrapper, libpthreadstubs
+, libXdmcp, qtsvg, qtx11extras, ki18n, kdelibs4support, kio, kmediaplayer
+, kwidgetsaddons, phonon, cairo, mplayer }:
 
 mkDerivation rec {
   majorMinorVersion = "0.12";
@@ -25,7 +9,8 @@ mkDerivation rec {
   pname = "kmplayer";
 
   src = fetchurl {
-    url = "mirror://kde/stable/kmplayer/${majorMinorVersion}/kmplayer-${version}.tar.bz2";
+    url =
+      "mirror://kde/stable/kmplayer/${majorMinorVersion}/kmplayer-${version}.tar.bz2";
     sha256 = "0wzdxym4fc83wvqyhcwid65yv59a2wvp1lq303cn124mpnlwx62y";
   };
 
@@ -42,10 +27,7 @@ mkDerivation rec {
   # required for kf5auth to work correctly
   cmakeFlags = [ "-DCMAKE_POLICY_DEFAULT_CMP0012=NEW" ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    makeWrapper
-  ];
+  nativeBuildInputs = [ extra-cmake-modules makeWrapper ];
 
   buildInputs = [
     libpthreadstubs
@@ -67,15 +49,8 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "MPlayer front-end for KDE";
-    license = with licenses; [
-      gpl2Plus
-      lgpl2Plus
-      fdl12Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl2Plus fdl12Plus ];
     homepage = "https://kmplayer.kde.org/";
-    maintainers = with maintainers; [
-      sander
-      zraexy
-    ];
+    maintainers = with maintainers; [ sander zraexy ];
   };
 }

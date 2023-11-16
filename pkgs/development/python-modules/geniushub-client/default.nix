@@ -1,11 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "geniushub-client";
@@ -36,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to interact with Genius Hub systems";
     homepage = "https://github.com/manzanotti/geniushub-client";
-    changelog = "https://github.com/manzanotti/geniushub-client/releases/tag/v${version}";
+    changelog =
+      "https://github.com/manzanotti/geniushub-client/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

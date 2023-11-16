@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  anyio,
-  httpx,
-  pytest-asyncio,
-  pytest-vcr,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, anyio
+, httpx, pytest-asyncio, pytest-vcr }:
 
 buildPythonPackage rec {
   pname = "notion-client";
@@ -29,19 +20,15 @@ buildPythonPackage rec {
     sed -i '/addopts/d' ./setup.cfg
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    anyio
-    pytest-asyncio
-    pytest-vcr
-  ];
+  nativeCheckInputs = [ pytestCheckHook anyio pytest-asyncio pytest-vcr ];
 
   pythonImportsCheck = [ "notion_client" ];
 
   meta = with lib; {
     description = "Python client for the official Notion API";
     homepage = "https://github.com/ramnes/notion-sdk-py";
-    changelog = "https://github.com/ramnes/notion-sdk-py/releases/tag/${version}";
+    changelog =
+      "https://github.com/ramnes/notion-sdk-py/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

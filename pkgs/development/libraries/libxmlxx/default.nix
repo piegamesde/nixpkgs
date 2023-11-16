@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libxml2,
-  glibmm,
-  perl,
-  gnome,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libxml2, glibmm, perl, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libxml++";
@@ -20,20 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "1sb3akryklvh2v6m6dihdnbpf1lkx441v972q9hlz1sq6bfspm2a";
   };
 
-  outputs = [
-    "out"
-    "devdoc"
-  ];
+  outputs = [ "out" "devdoc" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    perl
-  ];
+  nativeBuildInputs = [ pkg-config perl ];
 
-  propagatedBuildInputs = [
-    libxml2
-    glibmm
-  ];
+  propagatedBuildInputs = [ libxml2 glibmm ];
 
   passthru = {
     updateScript = gnome.updateScript {

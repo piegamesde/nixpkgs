@@ -1,12 +1,5 @@
-{
-  pkgs,
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  pkg-config,
-  dune-configurator,
-  bigstring,
-}:
+{ pkgs, lib, fetchFromGitHub, buildDunePackage, pkg-config, dune-configurator
+, bigstring, }:
 
 buildDunePackage rec {
   pname = "hidapi";
@@ -24,10 +17,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    pkgs.hidapi
-    dune-configurator
-  ];
+  buildInputs = [ pkgs.hidapi dune-configurator ];
   propagatedBuildInputs = [ bigstring ];
 
   doCheck = true;

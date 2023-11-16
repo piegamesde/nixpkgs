@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "unrar";
@@ -32,10 +28,7 @@ stdenv.mkDerivation rec {
     mv libunrar.so bin
   '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   installPhase = ''
     install -Dt "$out/bin" bin/unrar

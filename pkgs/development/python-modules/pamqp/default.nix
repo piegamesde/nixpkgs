@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   version = "3.2.1";

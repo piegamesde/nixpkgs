@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "pyprof2calltree";
@@ -18,9 +14,11 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "Help visualize profiling data from cProfile with kcachegrind and qcachegrind";
+    description =
+      "Help visualize profiling data from cProfile with kcachegrind and qcachegrind";
     homepage = "https://github.com/pwaller/pyprof2calltree";
-    changelog = "https://github.com/pwaller/pyprof2calltree/releases/tag/v${version}";
+    changelog =
+      "https://github.com/pwaller/pyprof2calltree/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sfrijters ];
   };

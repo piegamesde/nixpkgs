@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libX11,
-  libXinerama,
-  libXft,
-  writeText,
-  patches ? [ ],
-  conf ? null,
-}:
+{ lib, stdenv, fetchurl, libX11, libXinerama, libXft, writeText, patches ? [ ]
+, conf ? null }:
 
 stdenv.mkDerivation rec {
   pname = "dwm";
@@ -19,11 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+pwNaaWESFB2z8GICf1wXlwggNr7E9XnKaNkbKdwOm4=";
   };
 
-  buildInputs = [
-    libX11
-    libXinerama
-    libXft
-  ];
+  buildInputs = [ libX11 libXinerama libXft ];
 
   prePatch = ''
     sed -i "s@/usr/local@$out@" config.mk
@@ -33,12 +20,12 @@ stdenv.mkDerivation rec {
   inherit patches;
 
   # Allow users to set the config.def.h file containing the configuration
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.def.h" conf;
-    in
-    lib.optionalString (conf != null) "cp ${configFile} config.def.h";
+  postPatch = let
+    configFile = if lib.isDerivation conf || builtins.isPath conf then
+      conf
+    else
+      writeText "config.def.h" conf;
+  in lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
@@ -55,10 +42,7 @@ stdenv.mkDerivation rec {
       tags.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [
-      viric
-      neonfuz
-    ];
+    maintainers = with maintainers; [ viric neonfuz ];
     platforms = platforms.all;
   };
 }

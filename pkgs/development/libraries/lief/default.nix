@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, python, cmake }:
 
-let
-  pyEnv = python.withPackages (ps: [ ps.setuptools ]);
-in
-stdenv.mkDerivation rec {
+let pyEnv = python.withPackages (ps: [ ps.setuptools ]);
+in stdenv.mkDerivation rec {
   pname = "lief";
   version = "0.12.3";
 
@@ -20,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wZgv4AFc7DrMCyxMLKQxO1mUTDAU4klK8aZAySqGJoY=";
   };
 
-  outputs = [
-    "out"
-    "py"
-  ];
+  outputs = [ "out" "py" ];
 
   nativeBuildInputs = [ cmake ];
 

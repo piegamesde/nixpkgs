@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "conceal";

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildNimPackage, fetchFromGitHub }:
 
 buildNimPackage rec {
   pname = "jsony";
@@ -17,10 +13,8 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "A loose, direct to object json parser with hooks";
       license = [ licenses.mit ];
       maintainers = [ maintainers.erdnaxe ];

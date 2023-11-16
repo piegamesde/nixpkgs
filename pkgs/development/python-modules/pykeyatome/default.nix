@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fake-useragent,
-  fetchFromGitHub,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-mock,
-  responses,
-  simplejson,
+{ lib, buildPythonPackage, fake-useragent, fetchFromGitHub, pytest-aiohttp
+, pytestCheckHook, pythonOlder, requests, requests-mock, responses, simplejson
 }:
 
 buildPythonPackage rec {
@@ -26,18 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-zRXUjekawf2/zTSlXqHVB02dDkb6HbU4NN6UBgl2rtg=";
   };
 
-  propagatedBuildInputs = [
-    fake-useragent
-    requests
-    simplejson
-  ];
+  propagatedBuildInputs = [ fake-useragent requests simplejson ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-    requests-mock
-    responses
-  ];
+  nativeCheckInputs =
+    [ pytest-aiohttp pytestCheckHook requests-mock responses ];
 
   disabledTests = [
     # Tests require network access

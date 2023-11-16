@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,16 +13,10 @@ let
     pkgs.unifont
     pkgs.noto-fonts-emoji
   ];
-in
-{
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "fonts"
-        "enableCoreFonts"
-      ]
-      "Use fonts.fonts = [ pkgs.corefonts ]; instead."
-    )
+    (mkRemovedOptionModule [ "fonts" "enableCoreFonts" ]
+      "Use fonts.fonts = [ pkgs.corefonts ]; instead.")
   ];
 
   options = {
@@ -51,9 +40,8 @@ in
         '';
       };
     };
+
   };
 
-  config = {
-    fonts.fonts = mkIf cfg.enableDefaultFonts defaultFonts;
-  };
+  config = { fonts.fonts = mkIf cfg.enableDefaultFonts defaultFonts; };
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubefirst";
@@ -26,7 +22,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "The Kubefirst CLI creates instant GitOps platforms that integrate some of the best tools in cloud native from scratch.";
+    description =
+      "The Kubefirst CLI creates instant GitOps platforms that integrate some of the best tools in cloud native from scratch.";
     homepage = "https://github.com/kubefirst/kubefirst/";
     license = licenses.mit;
     maintainers = with maintainers; [ qjoly ];

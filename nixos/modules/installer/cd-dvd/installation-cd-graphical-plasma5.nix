@@ -9,9 +9,7 @@
   isoImage.edition = "plasma5";
 
   services.xserver = {
-    desktopManager.plasma5 = {
-      enable = true;
-    };
+    desktopManager.plasma5 = { enable = true; };
 
     # Automatically login as nixos.
     displayManager = {
@@ -23,30 +21,32 @@
     };
   };
 
-  environment.systemPackages =
-    with pkgs;
+  environment.systemPackages = with pkgs;
     [
       # Graphical text editor
       kate
     ];
 
-  system.activationScripts.installerDesktop =
-    let
+  system.activationScripts.installerDesktop = let
 
-      # Comes from documentation.nix when xserver and nixos.enable are true.
-      manualDesktopFile = "/run/current-system/sw/share/applications/nixos-manual.desktop";
+    # Comes from documentation.nix when xserver and nixos.enable are true.
+    manualDesktopFile =
+      "/run/current-system/sw/share/applications/nixos-manual.desktop";
 
-      homeDir = "/home/nixos/";
-      desktopDir = homeDir + "Desktop/";
-    in
-    ''
-      mkdir -p ${desktopDir}
-      chown nixos ${homeDir} ${desktopDir}
+    homeDir = "/home/nixos/";
+    desktopDir = homeDir + "Desktop/";
 
-      ln -sfT ${manualDesktopFile} ${desktopDir + "nixos-manual.desktop"}
-      ln -sfT ${pkgs.gparted}/share/applications/gparted.desktop ${desktopDir + "gparted.desktop"}
-      ln -sfT ${pkgs.konsole}/share/applications/org.kde.konsole.desktop ${
-        desktopDir + "org.kde.konsole.desktop"
-      }
-    '';
+  in ''
+    mkdir -p ${desktopDir}
+    chown nixos ${homeDir} ${desktopDir}
+
+    ln -sfT ${manualDesktopFile} ${desktopDir + "nixos-manual.desktop"}
+    ln -sfT ${pkgs.gparted}/share/applications/gparted.desktop ${
+      desktopDir + "gparted.desktop"
+    }
+    ln -sfT ${pkgs.konsole}/share/applications/org.kde.konsole.desktop ${
+      desktopDir + "org.kde.konsole.desktop"
+    }
+  '';
+
 }

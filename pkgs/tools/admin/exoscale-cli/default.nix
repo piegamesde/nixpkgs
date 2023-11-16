@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "exoscale-cli";
@@ -20,12 +15,8 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.commit=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.version=${version}" "-X main.commit=${src.rev}" ];
 
   # we need to rename the resulting binary but can't use buildFlags with -o here
   # because these are passed to "go install" which does not recognize -o
@@ -47,7 +38,8 @@ buildGoModule rec {
   '';
 
   meta = {
-    description = "Command-line tool for everything at Exoscale: compute, storage, dns";
+    description =
+      "Command-line tool for everything at Exoscale: compute, storage, dns";
     homepage = "https://github.com/exoscale/cli";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ viraptor ];

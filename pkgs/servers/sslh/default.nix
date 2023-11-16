@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libcap,
-  libconfig,
-  perl,
-  tcp_wrappers,
-  pcre2,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, libcap, libconfig, perl, tcp_wrappers, pcre2
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "sslh";
@@ -23,35 +14,22 @@ stdenv.mkDerivation rec {
 
   postPatch = "patchShebangs *.sh";
 
-  buildInputs = [
-    libcap
-    libconfig
-    perl
-    tcp_wrappers
-    pcre2
-  ];
+  buildInputs = [ libcap libconfig perl tcp_wrappers pcre2 ];
 
-  makeFlags = [
-    "USELIBCAP=1"
-    "USELIBWRAP=1"
-  ];
+  makeFlags = [ "USELIBCAP=1" "USELIBWRAP=1" ];
 
   installFlags = [ "PREFIX=$(out)" ];
 
   hardeningDisable = [ "format" ];
 
-  passthru.tests = {
-    inherit (nixosTests) sslh;
-  };
+  passthru.tests = { inherit (nixosTests) sslh; };
 
   meta = with lib; {
-    description = "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
+    description =
+      "Applicative Protocol Multiplexer (e.g. share SSH and HTTPS on the same port)";
     license = licenses.gpl2Plus;
     homepage = "https://www.rutschle.net/tech/sslh/README.html";
-    maintainers = with maintainers; [
-      koral
-      fpletz
-    ];
+    maintainers = with maintainers; [ koral fpletz ];
     platforms = platforms.all;
   };
 }

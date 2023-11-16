@@ -1,26 +1,12 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  setuptools,
-  numpy,
-  hdf5,
-  cython,
-  pkgconfig,
-  mpi4py ? null,
-  openssh,
-  pytestCheckHook,
-  cached-property,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, setuptools, numpy, hdf5
+, cython, pkgconfig, mpi4py ? null, openssh, pytestCheckHook, cached-property }:
 
 assert hdf5.mpiSupport -> mpi4py != null && hdf5.mpi == mpi4py.mpi;
 
 let
   mpi = hdf5.mpi;
   mpiSupport = hdf5.mpiSupport;
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   version = "3.8.0";
   pname = "h5py";
   format = "pyproject";
@@ -45,33 +31,23 @@ buildPythonPackage rec {
   postConfigure = ''
     # Needed to run the tests reliably. See:
     # https://bitbucket.org/mpi4py/mpi4py/issues/87/multiple-test-errors-with-openmpi-30
-    ${lib.optionalString mpiSupport "export OMPI_MCA_rmaps_base_oversubscribe=yes"}
+    ${lib.optionalString mpiSupport
+    "export OMPI_MCA_rmaps_base_oversubscribe=yes"}
   '';
 
   preBuild = lib.optionalString mpiSupport "export CC=${mpi}/bin/mpicc";
 
-  nativeBuildInputs = [
-    cython
-    pkgconfig
-    setuptools
-  ];
+  nativeBuildInputs = [ cython pkgconfig setuptools ];
 
   buildInputs = [ hdf5 ] ++ lib.optional mpiSupport mpi;
 
-  propagatedBuildInputs =
-    [ numpy ]
-    ++ lib.optionals mpiSupport [
-      mpi4py
-      openssh
-    ]
+  propagatedBuildInputs = [ numpy ]
+    ++ lib.optionals mpiSupport [ mpi4py openssh ]
     ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
 
   # tests now require pytest-mpi, which isn't available and difficult to package
   doCheck = false;
-  nativeCheckInputs = [
-    pytestCheckHook
-    openssh
-  ];
+  nativeCheckInputs = [ pytestCheckHook openssh ];
 
   pythonImportsCheck = [ "h5py" ];
 

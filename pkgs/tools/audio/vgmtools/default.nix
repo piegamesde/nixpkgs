@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  unstableGitUpdater,
-  cmake,
-  zlib,
-}:
+{ stdenv, lib, fetchFromGitHub, unstableGitUpdater, cmake, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "vgmtools";
@@ -23,14 +16,10 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib ];
 
   # Some targets are not enabled by default
-  makeFlags = [
-    "all"
-    "opt_oki"
-    "optdac"
-    "optvgm32"
-  ];
+  makeFlags = [ "all" "opt_oki" "optdac" "optvgm32" ];
 
-  passthru.updateScript = unstableGitUpdater { url = "https://github.com/vgmrips/vgmtools.git"; };
+  passthru.updateScript =
+    unstableGitUpdater { url = "https://github.com/vgmrips/vgmtools.git"; };
 
   meta = with lib; {
     homepage = "https://github.com/vgmrips/vgmtools";

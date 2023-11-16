@@ -1,9 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  standard-library,
-}:
+{ lib, mkDerivation, fetchFromGitHub, standard-library }:
 
 mkDerivation rec {
   pname = "agdarsec";
@@ -18,10 +13,7 @@ mkDerivation rec {
 
   everythingFile = "./index.agda";
 
-  includePaths = [
-    "src"
-    "examples"
-  ];
+  includePaths = [ "src" "examples" ];
 
   buildInputs = [ standard-library ];
 

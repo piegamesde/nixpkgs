@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation {
   pname = "atkinson-hyperlegible";
@@ -24,7 +20,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Typeface designed to offer greater legibility and readability for low vision readers";
+    description =
+      "Typeface designed to offer greater legibility and readability for low vision readers";
     homepage = "https://brailleinstitute.org/freefont";
     license = licenses.ofl;
     platforms = platforms.all;

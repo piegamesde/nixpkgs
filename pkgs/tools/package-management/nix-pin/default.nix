@@ -1,15 +1,5 @@
-{
-  lib,
-  pkgs,
-  stdenv,
-  fetchFromGitHub,
-  mypy,
-  python3,
-  nix,
-  git,
-  makeWrapper,
-  runtimeShell,
-}:
+{ lib, pkgs, stdenv, fetchFromGitHub, mypy, python3, nix, git, makeWrapper
+, runtimeShell }:
 let
   self = stdenv.mkDerivation rec {
     pname = "nix-pin";
@@ -21,10 +11,7 @@ let
       sha256 = "1pccvc0iqapms7kidrh09g5fdx44x622r5l9k7bkmssp3v4c68vy";
     };
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [
-      python3
-      mypy
-    ];
+    buildInputs = [ python3 mypy ];
     checkPhase = ''
       mypy bin/*
     '';
@@ -32,44 +19,30 @@ let
       mkdir "$out"
       cp -r bin share "$out"
       wrapProgram $out/bin/nix-pin \
-        --prefix PATH : "${
-          lib.makeBinPath [
-            nix
-            git
-          ]
-        }"
+        --prefix PATH : "${lib.makeBinPath [ nix git ]}"
     '';
-    passthru =
-      let
-        defaults = import "${self}/share/nix/defaults.nix";
-      in
-      {
-        api =
-          {
-            pinConfig ? defaults.pinConfig,
-          }:
-          let
-            impl = import "${self}/share/nix/api.nix" { inherit pkgs pinConfig; };
-          in
-          {
-            inherit (impl) augmentedPkgs pins callPackage;
-          };
-        updateScript = ''
-          #!${runtimeShell}
-          set -e
-          echo
-          cd ${toString ./.}
-          ${pkgs.nix-update-source}/bin/nix-update-source \
-            --prompt version \
-            --replace-attr version \
-            --set owner timbertson \
-            --set repo nix-pin \
-            --set type fetchFromGitHub \
-            --set rev 'version-{version}' \
-            --substitute rev 'version-''${{version}}' \
-            --modify-nix default.nix
-        '';
-      };
+    passthru = let defaults = import "${self}/share/nix/defaults.nix";
+    in {
+      api = { pinConfig ? defaults.pinConfig }:
+        let
+          impl = import "${self}/share/nix/api.nix" { inherit pkgs pinConfig; };
+        in { inherit (impl) augmentedPkgs pins callPackage; };
+      updateScript = ''
+        #!${runtimeShell}
+        set -e
+        echo
+        cd ${toString ./.}
+        ${pkgs.nix-update-source}/bin/nix-update-source \
+          --prompt version \
+          --replace-attr version \
+          --set owner timbertson \
+          --set repo nix-pin \
+          --set type fetchFromGitHub \
+          --set rev 'version-{version}' \
+          --substitute rev 'version-''${{version}}' \
+          --modify-nix default.nix
+      '';
+    };
     meta = with lib; {
       homepage = "https://github.com/timbertson/nix-pin";
       description = "nixpkgs development utility";
@@ -78,5 +51,4 @@ let
       platforms = platforms.all;
     };
   };
-in
-self
+in self

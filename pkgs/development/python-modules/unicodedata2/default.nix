@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, isPy27 }:
 
 buildPythonPackage rec {
   pname = "unicodedata2";

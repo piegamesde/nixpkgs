@@ -1,29 +1,10 @@
-{
-  lib,
-  attrs,
-  buildPythonPackage,
-  fetchPypi,
-  hatch-fancy-pypi-readme,
-  hatch-vcs,
-  hatchling,
-  importlib-metadata,
-  importlib-resources,
-  pyrsistent,
-  pythonOlder,
-  twisted,
-  typing-extensions,
+{ lib, attrs, buildPythonPackage, fetchPypi, hatch-fancy-pypi-readme, hatch-vcs
+, hatchling, importlib-metadata, importlib-resources, pyrsistent, pythonOlder
+, twisted, typing-extensions
 
-  # optionals
-  fqdn,
-  idna,
-  isoduration,
-  jsonpointer,
-  rfc3339-validator,
-  rfc3986-validator,
-  rfc3987,
-  uri-template,
-  webcolors,
-}:
+# optionals
+, fqdn, idna, isoduration, jsonpointer, rfc3339-validator, rfc3986-validator
+, rfc3987, uri-template, webcolors }:
 
 buildPythonPackage rec {
   pname = "jsonschema";
@@ -41,22 +22,13 @@ buildPythonPackage rec {
     patchShebangs json/bin/jsonschema_suite
   '';
 
-  nativeBuildInputs = [
-    hatch-fancy-pypi-readme
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-fancy-pypi-readme hatch-vcs hatchling ];
 
-  propagatedBuildInputs =
-    [
-      attrs
-      pyrsistent
-    ]
+  propagatedBuildInputs = [ attrs pyrsistent ]
     ++ lib.optionals (pythonOlder "3.8") [
       importlib-metadata
       typing-extensions
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+    ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   passthru.optional-dependencies = {
     format = [

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  curl,
-}:
+{ lib, stdenv, fetchFromGitHub, curl }:
 
 stdenv.mkDerivation {
   pname = "metar";

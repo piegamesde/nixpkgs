@@ -1,24 +1,6 @@
-{
-  stdenv,
-  lib,
-  substituteAll,
-  fetchFromGitHub,
-  buildPythonPackage,
-  python,
-  pkg-config,
-  libX11,
-  SDL2,
-  SDL2_image,
-  SDL2_mixer,
-  SDL2_ttf,
-  libpng,
-  libjpeg,
-  portmidi,
-  freetype,
-  fontconfig,
-  AppKit,
-  pythonOlder,
-}:
+{ stdenv, lib, substituteAll, fetchFromGitHub, buildPythonPackage, python
+, pkg-config, libX11, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, libpng, libjpeg
+, portmidi, freetype, fontconfig, AppKit, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pygame";
@@ -39,30 +21,19 @@ buildPythonPackage rec {
     postFetch = "rm -rf $out/docs/reST";
   };
 
-  patches =
-    [
-      # Patch pygame's dependency resolution to let it find build inputs
-      (substituteAll {
-        src = ./fix-dependency-finding.patch;
-        buildinputs_include = builtins.toJSON (
-          builtins.concatMap
-            (dep: [
-              "${lib.getDev dep}/"
-              "${lib.getDev dep}/include"
-              "${lib.getDev dep}/include/SDL2"
-            ])
-            buildInputs
-        );
-        buildinputs_lib = builtins.toJSON (
-          builtins.concatMap
-            (dep: [
-              "${lib.getLib dep}/"
-              "${lib.getLib dep}/lib"
-            ])
-            buildInputs
-        );
-      })
-    ];
+  patches = [
+    # Patch pygame's dependency resolution to let it find build inputs
+    (substituteAll {
+      src = ./fix-dependency-finding.patch;
+      buildinputs_include = builtins.toJSON (builtins.concatMap (dep: [
+        "${lib.getDev dep}/"
+        "${lib.getDev dep}/include"
+        "${lib.getDev dep}/include/SDL2"
+      ]) buildInputs);
+      buildinputs_lib = builtins.toJSON (builtins.concatMap
+        (dep: [ "${lib.getLib dep}/" "${lib.getLib dep}/lib" ]) buildInputs);
+    })
+  ];
 
   postPatch = ''
     substituteInPlace src_py/sysfont.py \
@@ -70,10 +41,7 @@ buildPythonPackage rec {
       --replace /usr/X11/bin/fc-list ${fontconfig}/bin/fc-list
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    SDL2
-  ];
+  nativeBuildInputs = [ pkg-config SDL2 ];
 
   buildInputs = [
     SDL2

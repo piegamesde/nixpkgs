@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest,
-  mockito,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, mockito, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-mockito";

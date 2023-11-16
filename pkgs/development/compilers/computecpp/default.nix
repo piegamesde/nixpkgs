@@ -1,36 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  pkg-config,
-  autoPatchelfHook,
-  installShellFiles,
-  ocl-icd,
-  zlib,
-}:
+{ lib, stdenv, fetchzip, pkg-config, autoPatchelfHook, installShellFiles
+, ocl-icd, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "computecpp";
   version = "2.11.0";
 
   src = fetchzip {
-    url = "https://computecpp.codeplay.com/downloads/computecpp-ce/${version}/x86_64-linux-gnu.tar.gz";
+    url =
+      "https://computecpp.codeplay.com/downloads/computecpp-ce/${version}/x86_64-linux-gnu.tar.gz";
     hash = "sha256-xHOPuijx5TZeHzRHPXcll0WqoBzHBryIoe3BnOxBVVY=";
     stripRoot = true;
   };
 
   dontStrip = true;
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-    ocl-icd
-    zlib
-  ];
-  nativeBuildInputs = [
-    autoPatchelfHook
-    pkg-config
-    installShellFiles
-  ];
+  buildInputs = [ stdenv.cc.cc.lib ocl-icd zlib ];
+  nativeBuildInputs = [ autoPatchelfHook pkg-config installShellFiles ];
 
   installPhase = ''
     runHook preInstall
@@ -44,12 +29,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = {
-    isClang = true;
-  };
+  passthru = { isClang = true; };
 
   meta = with lib; {
-    description = "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
+    description =
+      "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
     homepage = "https://www.codeplay.com/products/computesuite/computecpp";
     license = licenses.unfree;
     maintainers = with maintainers; [ davidtwco ];

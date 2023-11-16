@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  greenlet,
-  pytest,
-  decorator,
-  twisted,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, greenlet, pytest, decorator, twisted
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-twisted";
@@ -21,15 +13,9 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    decorator
-    greenlet
-  ];
+  propagatedBuildInputs = [ decorator greenlet ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    twisted
-  ];
+  nativeCheckInputs = [ pytestCheckHook twisted ];
 
   pythonImportsCheck = [ "pytest_twisted" ];
 

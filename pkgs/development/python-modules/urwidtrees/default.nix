@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  glibcLocales,
-  urwid,
-  fetchpatch,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, glibcLocales, urwid, fetchpatch }:
 
 buildPythonPackage rec {
   pname = "urwidtrees";
@@ -22,7 +15,8 @@ buildPythonPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/pazz/urwidtrees/commit/ed39dbc4fc67b0e0249bf108116a88cd18543aa9.patch";
+      url =
+        "https://github.com/pazz/urwidtrees/commit/ed39dbc4fc67b0e0249bf108116a88cd18543aa9.patch";
       hash = "sha256-fA+30d2uVaoNCg4rtoWLNPvrZtq41Co4vcmM80hkURs=";
     })
   ];
@@ -35,4 +29,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/pazz/urwidtrees";
     license = licenses.gpl3;
   };
+
 }

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  expat,
-  icu,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, expat, icu }:
 
 stdenv.mkDerivation rec {
   pname = "liblcf";
@@ -19,14 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-69cYZ8hJ92gK39gueaEoUM0K7BDWIQ/0NvcQ/6e3Sg8=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  propagatedBuildInputs = [
-    expat
-    icu
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  propagatedBuildInputs = [ expat icu ];
   enableParallelBuilding = true;
 
   meta = with lib; {

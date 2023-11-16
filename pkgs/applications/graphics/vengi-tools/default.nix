@@ -1,32 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeText,
+{ lib, stdenv, fetchFromGitHub, writeText
 
-  cmake,
-  pkg-config,
-  ninja,
-  python3,
-  makeWrapper,
+, cmake, pkg-config, ninja, python3, makeWrapper
 
-  glm,
-  lua5_4,
-  SDL2,
-  SDL2_mixer,
-  enet,
-  libuv,
-  libuuid,
-  wayland-protocols,
-  Carbon,
-  CoreServices,
-  # optionals
-  opencl-headers,
-  OpenCL,
+, glm, lua5_4, SDL2, SDL2_mixer, enet, libuv, libuuid, wayland-protocols, Carbon
+, CoreServices
+# optionals
+, opencl-headers, OpenCL
 
-  callPackage,
-  nixosTests,
-}:
+, callPackage, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "vengi-tools";
@@ -39,34 +20,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ZkO2CLSuuJcFJFBO4XS8Qec0CxxAJdzOGfFa2zy+4uI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ninja
-    python3
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config ninja python3 makeWrapper ];
 
-  buildInputs =
-    [
-      glm
-      lua5_4
-      SDL2
-      SDL2_mixer
-      enet
-      libuv
-      libuuid
-      # Only needed for the game
-      #postgresql
-      #libpqxx
-      #mosquitto
-    ]
-    ++ lib.optional stdenv.isLinux wayland-protocols
-    ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      CoreServices
-      OpenCL
-    ]
+  buildInputs = [
+    glm
+    lua5_4
+    SDL2
+    SDL2_mixer
+    enet
+    libuv
+    libuuid
+    # Only needed for the game
+    #postgresql
+    #libpqxx
+    #mosquitto
+  ] ++ lib.optional stdenv.isLinux wayland-protocols
+    ++ lib.optionals stdenv.isDarwin [ Carbon CoreServices OpenCL ]
     ++ lib.optional (!stdenv.isDarwin) opencl-headers;
 
   cmakeFlags = [
@@ -100,7 +69,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor";
+    description =
+      "Tools from the vengi voxel engine, including a thumbnailer, a converter, and the VoxEdit voxel editor";
     longDescription = ''
       Tools from the vengi C++ voxel game engine. It includes a voxel editor
       with character animation support and loading/saving into a lot of voxel
@@ -110,10 +80,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://mgerhardy.github.io/vengi/";
     downloadPage = "https://github.com/mgerhardy/vengi/releases";
-    license = [
-      licenses.mit
-      licenses.cc-by-sa-30
-    ];
+    license = [ licenses.mit licenses.cc-by-sa-30 ];
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;
   };

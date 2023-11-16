@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  sphinx,
-  pdf2svg,
-  texLive,
-}:
+{ lib, buildPythonPackage, fetchPypi, sphinx, pdf2svg, texLive }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-tikz";
@@ -35,4 +28,5 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ costrouc ];
     license = licenses.bsd3;
   };
+
 }

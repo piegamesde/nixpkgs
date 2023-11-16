@@ -19,65 +19,41 @@
    formats commits for you.
 */
 
-{
-  lib,
-  stdenv,
-  texinfo,
-  writeText,
-  gcc,
-  pkgs,
-  buildPackages,
-}:
+{ lib, stdenv, texinfo, writeText, gcc, pkgs, buildPackages }:
 
 self:
 let
 
-  markBroken =
-    pkg:
+  markBroken = pkg:
     pkg.override {
-      elpaBuild =
-        args:
-        self.elpaBuild (
-          args
-          // {
-            meta = (args.meta or { }) // {
-              broken = true;
-            };
-          }
-        );
+      elpaBuild = args:
+        self.elpaBuild
+        (args // { meta = (args.meta or { }) // { broken = true; }; });
     };
 
   elpaBuild = import ../../../../build-support/emacs/elpa.nix {
-    inherit
-      lib
-      stdenv
-      texinfo
-      writeText
-      gcc
-    ;
+    inherit lib stdenv texinfo writeText gcc;
     inherit (self) emacs;
   };
 
   # Use custom elpa url fetcher with fallback/uncompress
   fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
 
-  generateElpa = lib.makeOverridable (
-    {
-      generated ? ./elpa-devel-generated.nix,
-    }:
-    let
+  generateElpa = lib.makeOverridable
+    ({ generated ? ./elpa-devel-generated.nix }:
+      let
 
-      imported = import generated {
-        callPackage = pkgs: args: self.callPackage pkgs (args // { inherit fetchurl; });
-      };
+        imported = import generated {
+          callPackage = pkgs: args:
+            self.callPackage pkgs (args // { inherit fetchurl; });
+        };
 
-      super = removeAttrs imported [ "dash" ];
+        super = removeAttrs imported [ "dash" ];
 
-      overrides = { };
+        overrides = { };
 
-      elpaDevelPackages = super // overrides;
-    in
-    elpaDevelPackages // { inherit elpaBuild; }
-  );
-in
-generateElpa { }
+        elpaDevelPackages = super // overrides;
+
+      in elpaDevelPackages // { inherit elpaBuild; });
+
+in generateElpa { }

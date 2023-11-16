@@ -1,10 +1,4 @@
-{
-  lib,
-  gccStdenv,
-  fetchFromGitLab,
-  cudatoolkit,
-  cudaSupport ? false,
-  pkg-config,
+{ lib, gccStdenv, fetchFromGitLab, cudatoolkit, cudaSupport ? false, pkg-config
 }:
 
 gccStdenv.mkDerivation rec {
@@ -18,7 +12,10 @@ gccStdenv.mkDerivation rec {
     sha256 = "+Rw9SfaQtO1AJO6UVVDMCo8DT0dYEbv7zX8SI+pHCRQ=";
   };
 
-  configureFlags = (if cudaSupport then [ "--with-cuda=${cudatoolkit}" ] else [ "--enable-cpu" ]);
+  configureFlags = (if cudaSupport then
+    [ "--with-cuda=${cudatoolkit}" ]
+  else
+    [ "--enable-cpu" ]);
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -36,7 +33,8 @@ gccStdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "TrueCrack is a brute-force password cracker for TrueCrypt volumes. It works on Linux and it is optimized for Nvidia Cuda technology.";
+    description =
+      "TrueCrack is a brute-force password cracker for TrueCrypt volumes. It works on Linux and it is optimized for Nvidia Cuda technology.";
     homepage = "https://gitlab.com/kalilinux/packages/truecrack";
     broken = cudaSupport;
     license = licenses.gpl3Plus;

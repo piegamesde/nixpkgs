@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  nose,
-}:
+{ lib, fetchPypi, buildPythonPackage, nose }:
 
 buildPythonPackage rec {
   pname = "pytimeparse";
@@ -17,7 +12,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ nose ];
 
   meta = with lib; {
-    description = "A small Python library to parse various kinds of time expressions";
+    description =
+      "A small Python library to parse various kinds of time expressions";
     homepage = "https://github.com/wroberts/pytimeparse";
     license = licenses.mit;
     maintainers = with maintainers; [ vrthra ];

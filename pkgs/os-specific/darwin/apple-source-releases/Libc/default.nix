@@ -1,19 +1,10 @@
-{
-  appleDerivation',
-  stdenvNoCC,
-  ed,
-  unifdef,
-  Libc_old,
-  Libc_10-9,
-}:
+{ appleDerivation', stdenvNoCC, ed, unifdef, Libc_old, Libc_10-9 }:
 
 appleDerivation' stdenvNoCC {
-  nativeBuildInputs = [
-    ed
-    unifdef
-  ];
+  nativeBuildInputs = [ ed unifdef ];
 
-  patches = [ ./0001-Define-TARGET_OS_EMBEDDED-in-std-lib-io-if-not-defin.patch ];
+  patches =
+    [ ./0001-Define-TARGET_OS_EMBEDDED-in-std-lib-io-if-not-defin.patch ];
 
   # TODO: asl.h actually comes from syslog project now
   installPhase = ''

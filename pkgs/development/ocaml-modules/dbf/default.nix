@@ -1,12 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ppx_cstruct,
-  rresult,
-  cstruct-unix,
-  core_kernel,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ppx_cstruct, rresult, cstruct-unix
+, core_kernel }:
 
 buildDunePackage rec {
   pname = "dbf";
@@ -24,11 +17,7 @@ buildDunePackage rec {
   };
 
   buildInputs = [ ppx_cstruct ];
-  propagatedBuildInputs = [
-    rresult
-    cstruct-unix
-    core_kernel
-  ];
+  propagatedBuildInputs = [ rresult cstruct-unix core_kernel ];
 
   meta = with lib; {
     description = "DBF format parsing";

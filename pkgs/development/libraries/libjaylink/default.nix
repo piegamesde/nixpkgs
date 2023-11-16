@@ -1,11 +1,4 @@
-{
-  fetchFromGitLab,
-  lib,
-  stdenv,
-  autoreconfHook,
-  pkg-config,
-  libusb1,
-}:
+{ fetchFromGitLab, lib, stdenv, autoreconfHook, pkg-config, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "libjaylink";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-odJDE1A0WZ9vBXPxaUdthjTgmbmbdHjbyY1PkaM4+vI=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ libusb1 ];
 
   postPatch = ''
@@ -35,7 +25,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.zapb.de/libjaylink/libjaylink";
-    description = "libjaylink is a shared library written in C to access SEGGER J-Link and compatible devices.";
+    description =
+      "libjaylink is a shared library written in C to access SEGGER J-Link and compatible devices.";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ felixsinger ];
     platforms = platforms.unix;

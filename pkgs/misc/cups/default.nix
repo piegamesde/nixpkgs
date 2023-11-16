@@ -1,116 +1,64 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  removeReferencesTo,
-  zlib,
-  libjpeg,
-  libpng,
-  libtiff,
-  pam,
-  dbus,
-  enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-  systemd,
-  acl,
-  gmp,
-  darwin,
-  libusb1 ? null,
-  gnutls ? null,
-  avahi ? null,
-  libpaper ? null,
-  coreutils,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, pkg-config, removeReferencesTo, zlib, libjpeg, libpng
+, libtiff, pam, dbus
+, enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd, systemd, acl
+, gmp, darwin, libusb1 ? null, gnutls ? null, avahi ? null, libpaper ? null
+, coreutils, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "cups";
   version = "2.4.3";
 
   src = fetchurl {
-    url = "https://github.com/OpenPrinting/cups/releases/download/v${version}/cups-${version}-source.tar.gz";
+    url =
+      "https://github.com/OpenPrinting/cups/releases/download/v${version}/cups-${version}-source.tar.gz";
     sha256 = "sha256-nd65jyDpyfSvEhwrEFPnQgt5vWdw8a3tKGYwPSdSb28=";
   };
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "lib" "dev" "man" ];
 
-  postPatch =
-    ''
-      substituteInPlace cups/testfile.c \
-        --replace 'cupsFileFind("cat", "/bin' 'cupsFileFind("cat", "${coreutils}/bin'
+  postPatch = ''
+    substituteInPlace cups/testfile.c \
+      --replace 'cupsFileFind("cat", "/bin' 'cupsFileFind("cat", "${coreutils}/bin'
 
-        # The cups.socket unit shouldn't be part of cups.service: stopping the
-        # service would stop the socket and break subsequent socket activations.
-        # See https://github.com/apple/cups/issues/6005
-        sed -i '/PartOf=cups.service/d' scheduler/cups.socket.in
-    ''
-    +
-      lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12")
-        ''
-          substituteInPlace backend/usb-darwin.c \
-            --replace "kIOMainPortDefault" "kIOMasterPortDefault"
-        '';
+      # The cups.socket unit shouldn't be part of cups.service: stopping the
+      # service would stop the socket and break subsequent socket activations.
+      # See https://github.com/apple/cups/issues/6005
+      sed -i '/PartOf=cups.service/d' scheduler/cups.socket.in
+  '' + lib.optionalString (stdenv.isDarwin
+    && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12") ''
+      substituteInPlace backend/usb-darwin.c \
+        --replace "kIOMainPortDefault" "kIOMasterPortDefault"
+    '';
 
-  nativeBuildInputs = [
-    pkg-config
-    removeReferencesTo
-  ];
+  nativeBuildInputs = [ pkg-config removeReferencesTo ];
 
-  buildInputs =
-    [
-      zlib
-      libjpeg
-      libpng
-      libtiff
-      libusb1
-      gnutls
-      libpaper
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      avahi
-      pam
-      dbus
-      acl
-    ]
-    ++ lib.optional enableSystemd systemd
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin; [
-        configd
-        apple_sdk.frameworks.ApplicationServices
-      ]
-    );
+  buildInputs = [ zlib libjpeg libpng libtiff libusb1 gnutls libpaper ]
+    ++ lib.optionals stdenv.isLinux [ avahi pam dbus acl ]
+    ++ lib.optional enableSystemd systemd ++ lib.optionals stdenv.isDarwin
+    (with darwin; [ configd apple_sdk.frameworks.ApplicationServices ]);
 
   propagatedBuildInputs = [ gmp ];
 
-  configurePlatforms = lib.optionals stdenv.isLinux [
-    "build"
-    "host"
-  ];
-  configureFlags =
-    [
-      "--localstatedir=/var"
-      "--sysconfdir=/etc"
-      "--enable-raw-printing"
-      "--enable-threads"
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      "--enable-dbus"
-      "--enable-pam"
-      "--with-dbusdir=${placeholder "out"}/share/dbus-1"
-    ]
-    ++ lib.optional (libusb1 != null) "--enable-libusb"
+  configurePlatforms = lib.optionals stdenv.isLinux [ "build" "host" ];
+  configureFlags = [
+    "--localstatedir=/var"
+    "--sysconfdir=/etc"
+    "--enable-raw-printing"
+    "--enable-threads"
+  ] ++ lib.optionals stdenv.isLinux [
+    "--enable-dbus"
+    "--enable-pam"
+    "--with-dbusdir=${placeholder "out"}/share/dbus-1"
+  ] ++ lib.optional (libusb1 != null) "--enable-libusb"
     ++ lib.optional (gnutls != null) "--enable-ssl"
     ++ lib.optional (avahi != null) "--enable-avahi"
     ++ lib.optional (libpaper != null) "--enable-libpaper";
 
   # AR has to be an absolute path
   preConfigure = ''
-    export AR="${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar"
+    export AR="${
+      lib.getBin stdenv.cc.bintools.bintools
+    }/bin/${stdenv.cc.targetPrefix}ar"
     configureFlagsArray+=(
       # Put just lib/* and locale into $lib; this didn't work directly.
       # lib/cups is moved back to $out in postInstall.
@@ -129,8 +77,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  installFlags = [
-    # Don't try to write in /var at build time.
+  installFlags = [ # Don't try to write in /var at build time.
     "CACHEDIR=$(TMPDIR)/dummy"
     "LAUNCHD_DIR=$(TMPDIR)/dummy"
     "LOGDIR=$(TMPDIR)/dummy"
@@ -149,37 +96,33 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postInstall =
-    ''
-      libexec=${if stdenv.isDarwin then "libexec/cups" else "lib/cups"}
-      moveToOutput $libexec "$out"
+  postInstall = ''
+    libexec=${if stdenv.isDarwin then "libexec/cups" else "lib/cups"}
+    moveToOutput $libexec "$out"
 
-      # $lib contains references to $out/share/cups.
-      # CUPS is working without them, so they are not vital.
-      find "$lib" -type f -exec grep -q "$out" {} \; \
-           -printf "removing references from %p\n" \
-           -exec remove-references-to -t "$out" {} +
+    # $lib contains references to $out/share/cups.
+    # CUPS is working without them, so they are not vital.
+    find "$lib" -type f -exec grep -q "$out" {} \; \
+         -printf "removing references from %p\n" \
+         -exec remove-references-to -t "$out" {} +
 
-      # Delete obsolete stuff that conflicts with cups-filters.
-      rm -rf $out/share/cups/banners $out/share/cups/data/testprint
+    # Delete obsolete stuff that conflicts with cups-filters.
+    rm -rf $out/share/cups/banners $out/share/cups/data/testprint
 
-      moveToOutput bin/cups-config "$dev"
-      sed -e "/^cups_serverbin=/s|$lib|$out|" \
-          -i "$dev/bin/cups-config"
+    moveToOutput bin/cups-config "$dev"
+    sed -e "/^cups_serverbin=/s|$lib|$out|" \
+        -i "$dev/bin/cups-config"
 
-      for f in "$out"/lib/systemd/system/*; do
-        substituteInPlace "$f" --replace "$lib/$libexec" "$out/$libexec"
-      done
-    ''
-    + lib.optionalString stdenv.isLinux ''
-      # Use xdg-open when on Linux
-      substituteInPlace "$out"/share/applications/cups.desktop \
-        --replace "Exec=htmlview" "Exec=xdg-open"
-    '';
+    for f in "$out"/lib/systemd/system/*; do
+      substituteInPlace "$f" --replace "$lib/$libexec" "$out/$libexec"
+    done
+  '' + lib.optionalString stdenv.isLinux ''
+    # Use xdg-open when on Linux
+    substituteInPlace "$out"/share/applications/cups.desktop \
+      --replace "Exec=htmlview" "Exec=xdg-open"
+  '';
 
-  passthru.tests = {
-    inherit (nixosTests) printing-service printing-socket;
-  };
+  passthru.tests = { inherit (nixosTests) printing-service printing-socket; };
 
   meta = with lib; {
     homepage = "https://openprinting.github.io/cups/";

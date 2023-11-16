@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gtkmm2,
-  lv2,
-  lvtk,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, gtkmm2, lv2, lvtk, pkg-config }:
 stdenv.mkDerivation {
   pname = "fmsynth-unstable";
   version = "2015-02-07";
@@ -18,11 +10,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gtkmm2
-    lv2
-    lvtk
-  ];
+  buildInputs = [ gtkmm2 lv2 lvtk ];
 
   buildPhase = ''
     cd lv2

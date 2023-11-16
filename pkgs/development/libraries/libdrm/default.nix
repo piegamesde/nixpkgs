@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  meson,
-  ninja,
-  docutils,
-  libpthreadstubs,
-  libpciaccess,
-  withValgrind ? valgrind-light.meta.available,
-  valgrind-light,
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, docutils, libpthreadstubs
+, libpciaccess, withValgrind ? valgrind-light.meta.available, valgrind-light }:
 
 stdenv.mkDerivation rec {
   pname = "libdrm";
@@ -21,31 +10,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VUz7/gVCvds5G04+Bb+7/D4oK5Vb1WIY0hwGFkgfZes=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "bin"
-  ];
+  outputs = [ "out" "dev" "bin" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    docutils
-  ];
-  buildInputs = [
-    libpthreadstubs
-    libpciaccess
-  ] ++ lib.optional withValgrind valgrind-light;
+  nativeBuildInputs = [ pkg-config meson ninja docutils ];
+  buildInputs = [ libpthreadstubs libpciaccess ]
+    ++ lib.optional withValgrind valgrind-light;
 
-  mesonFlags =
-    [
-      "-Dinstall-test-programs=true"
-      "-Dcairo-tests=disabled"
-      (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
-      (lib.mesonEnable "valgrind" withValgrind)
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
+  mesonFlags = [
+    "-Dinstall-test-programs=true"
+    "-Dcairo-tests=disabled"
+    (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
+    (lib.mesonEnable "valgrind" withValgrind)
+  ] ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
     ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ];
 
   meta = with lib; {

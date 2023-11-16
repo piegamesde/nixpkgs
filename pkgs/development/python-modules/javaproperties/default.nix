@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  six,
-  pytestCheckHook,
-  python-dateutil,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, six, pytestCheckHook
+, python-dateutil }:
 
 buildPythonPackage rec {
   version = "0.8.1";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    python-dateutil
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ python-dateutil pytestCheckHook ];
 
   disabledTests = [ "time" ];
 

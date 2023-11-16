@@ -1,14 +1,9 @@
-{
-  lib,
-  stdenv,
-  darwin,
-  fetchFromGitHub,
-  openssl,
-  sqlite,
-}:
+{ lib, stdenv, darwin, fetchFromGitHub, openssl, sqlite }:
 
-(if stdenv.isDarwin then darwin.apple_sdk_11_0.llvmPackages_14.stdenv else stdenv).mkDerivation
-  rec {
+(if stdenv.isDarwin then
+  darwin.apple_sdk_11_0.llvmPackages_14.stdenv
+else
+  stdenv).mkDerivation rec {
     pname = "signalbackup-tools";
     version = "20230612-1";
 
@@ -23,14 +18,13 @@
       patchShebangs BUILDSCRIPT_MULTIPROC.bash44
     '';
 
-    buildInputs = [
-      openssl
-      sqlite
-    ];
+    buildInputs = [ openssl sqlite ];
 
     buildPhase = ''
       runHook preBuild
-      ./BUILDSCRIPT_MULTIPROC.bash44${lib.optionalString stdenv.isDarwin " --config nixpkgs-darwin"}
+      ./BUILDSCRIPT_MULTIPROC.bash44${
+        lib.optionalString stdenv.isDarwin " --config nixpkgs-darwin"
+      }
       runHook postBuild
     '';
 

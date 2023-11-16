@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp rec {
   pname = "coltrane";

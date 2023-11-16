@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  attrs,
-  pbr,
-}:
+{ lib, buildPythonPackage, fetchPypi, attrs, pbr }:
 
 buildPythonPackage rec {
   pname = "sarif-om";

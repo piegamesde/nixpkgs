@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, perl }:
 
 stdenv.mkDerivation rec {
   pname = "foomatic-db-nonfree";
@@ -20,11 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-cRZH0CXg03FEqUJdxaNnPVXjf8+ct86PjhL59WQbw60=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    perl
-  ];
+  nativeBuildInputs = [ autoconf automake perl ];
 
   # sed-substitute indirection is more robust against
   # characters in paths that might need escaping
@@ -67,7 +56,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    changelog = "https://github.com/OpenPrinting/foomatic-db-nonfree/blob/${src.rev}/ChangeLog";
+    changelog =
+      "https://github.com/OpenPrinting/foomatic-db-nonfree/blob/${src.rev}/ChangeLog";
     description = "OpenPrinting printer support database (unfree content)";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";

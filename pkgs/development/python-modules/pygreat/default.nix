@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  isPy3k,
-  fetchFromGitHub,
-  future,
-  pyusb,
-}:
+{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, future, pyusb }:
 
 buildPythonPackage {
   pname = "pygreat";
@@ -18,10 +11,7 @@ buildPythonPackage {
     sha256 = "1h0z83k1k4z8j36z936h61l8j3cjr3wsxr86k91v5c5h93g9dkqh";
   };
 
-  propagatedBuildInputs = [
-    future
-    pyusb
-  ];
+  propagatedBuildInputs = [ future pyusb ];
 
   disabled = !isPy3k;
 
@@ -37,4 +27,5 @@ buildPythonPackage {
     homepage = "https://greatscottgadgets.com/greatfet/";
     license = with licenses; [ bsd3 ];
   };
+
 }

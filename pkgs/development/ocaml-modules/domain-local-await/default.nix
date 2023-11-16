@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-  mdx,
-}:
+{ lib, buildDunePackage, fetchurl, mdx }:
 
 buildDunePackage rec {
   pname = "domain-local-await";
@@ -13,7 +8,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/ocaml-multicore/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/ocaml-multicore/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "2DCJsI3nGPtbXnU8jRvzR1iNAkNuekVy4Lid1qnHXDo=";
   };
 
@@ -23,7 +19,8 @@ buildDunePackage rec {
 
   meta = {
     homepage = "https://github.com/ocaml-multicore/ocaml-${pname}";
-    changelog = "https://github.com/ocaml-multicore/ocaml-${pname}/raw/v${version}/CHANGES.md";
+    changelog =
+      "https://github.com/ocaml-multicore/ocaml-${pname}/raw/v${version}/CHANGES.md";
     description = "A scheduler independent blocking mechanism";
     license = with lib.licenses; [ bsd0 ];
     maintainers = with lib.maintainers; [ toastal ];

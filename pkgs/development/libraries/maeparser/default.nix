@@ -1,11 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  boost,
-  zlib,
-  cmake,
-}:
+{ fetchFromGitHub, lib, stdenv, boost, zlib, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "maeparser";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    boost
-    zlib
-  ];
+  buildInputs = [ boost zlib ];
 
   meta = with lib; {
     homepage = "https://github.com/schrodinger/maeparser";

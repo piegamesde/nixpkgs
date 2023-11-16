@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  perlPackages,
-  intltool,
-  autoreconfHook,
-  pkg-config,
-  glib,
-  libxml2,
-  sqlite,
-  zlib,
-  sg3_utils,
-  gdk-pixbuf,
-  taglib,
-  libimobiledevice,
-  monoSupport ? false,
-  mono,
-  gtk-sharp-2_0,
-}:
+{ stdenv, lib, fetchurl, perlPackages, intltool, autoreconfHook, pkg-config
+, glib, libxml2, sqlite, zlib, sg3_utils, gdk-pixbuf, taglib, libimobiledevice
+, monoSupport ? false, mono, gtk-sharp-2_0 }:
 
 stdenv.mkDerivation rec {
   pname = "libgpod";
@@ -28,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0pcmgv1ra0ymv73mlj4qxzgyir026z9jpl5s5bkg35afs1cpk2k3";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   postPatch = ''
     # support libplist 2.2
@@ -46,32 +26,13 @@ stdenv.mkDerivation rec {
 
   dontStrip = monoSupport;
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      intltool
-      pkg-config
-    ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    )
-    ++ lib.optional monoSupport mono;
+  nativeBuildInputs = [ autoreconfHook intltool pkg-config ]
+    ++ (with perlPackages; [ perl XMLParser ]) ++ lib.optional monoSupport mono;
 
-  buildInputs = [
-    libxml2
-    sg3_utils
-    sqlite
-    taglib
-  ] ++ lib.optional monoSupport gtk-sharp-2_0;
+  buildInputs = [ libxml2 sg3_utils sqlite taglib ]
+    ++ lib.optional monoSupport gtk-sharp-2_0;
 
-  propagatedBuildInputs = [
-    gdk-pixbuf
-    glib
-    libimobiledevice
-  ];
+  propagatedBuildInputs = [ gdk-pixbuf glib libimobiledevice ];
 
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/gtkpod/";

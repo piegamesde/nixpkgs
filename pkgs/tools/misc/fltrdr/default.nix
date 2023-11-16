@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  icu,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, icu, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "fltrdr";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    icu
-    openssl
-  ];
+  buildInputs = [ icu openssl ];
 
   meta = with lib; {
     homepage = "https://octobanana.com/software/fltrdr";

@@ -1,25 +1,6 @@
-{
-  lib,
-  aiohttp,
-  asgiref,
-  buildPythonPackage,
-  decorator,
-  fastapi,
-  fetchPypi,
-  gevent,
-  httptools,
-  httpx,
-  isPy3k,
-  pook,
-  pytest-mock,
-  pytestCheckHook,
-  python-magic,
-  pythonOlder,
-  redis,
-  requests,
-  sure,
-  urllib3,
-}:
+{ lib, aiohttp, asgiref, buildPythonPackage, decorator, fastapi, fetchPypi
+, gevent, httptools, httpx, isPy3k, pook, pytest-mock, pytestCheckHook
+, python-magic, pythonOlder, redis, requests, sure, urllib3 }:
 
 buildPythonPackage rec {
   pname = "mocket";
@@ -33,16 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-OIdLP3hHnPZ9MqrHt6G5t2SSO342+jTACgzxM6RjVYM=";
   };
 
-  propagatedBuildInputs = [
-    decorator
-    httptools
-    python-magic
-    urllib3
-  ];
+  propagatedBuildInputs = [ decorator httptools python-magic urllib3 ];
 
-  passthru.optional-dependencies = {
-    pook = [ pook ];
-  };
+  passthru.optional-dependencies = { pook = [ pook ]; };
 
   nativeCheckInputs = [
     aiohttp
@@ -60,11 +34,10 @@ buildPythonPackage rec {
   # Skip http tests
   SKIP_TRUE_HTTP = true;
 
-  disabledTestPaths =
-    [
-      # Requires a live Redis instance
-      "tests/main/test_redis.py"
-    ];
+  disabledTestPaths = [
+    # Requires a live Redis instance
+    "tests/main/test_redis.py"
+  ];
 
   disabledTests = [
     # tests that require network access (like DNS lookups)
@@ -84,9 +57,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mocket" ];
 
   meta = with lib; {
-    description = "A socket mock framework for all kinds of sockets including web-clients";
+    description =
+      "A socket mock framework for all kinds of sockets including web-clients";
     homepage = "https://github.com/mindflayer/python-mocket";
-    changelog = "https://github.com/mindflayer/python-mocket/releases/tag/${version}";
+    changelog =
+      "https://github.com/mindflayer/python-mocket/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ hexa ];
   };

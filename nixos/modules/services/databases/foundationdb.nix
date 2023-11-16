@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,15 +7,16 @@ let
   pkg = cfg.package;
 
   # used for initial cluster configuration
-  initialIpAddr = if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
+  initialIpAddr =
+    if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
 
-  fdbServers =
-    n:
-    concatStringsSep "\n" (
-      map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1))
-    );
+  fdbServers = n:
+    concatStringsSep "\n"
+    (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]")
+      (range 0 (n - 1)));
 
-  backupAgents = n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
+  backupAgents = n:
+    concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
 
   configFile = pkgs.writeText "foundationdb.conf" ''
     [general]
@@ -54,10 +50,14 @@ let
       tls_verify_peers     = ${cfg.tls.allowedPeers}
     ''}
 
-    ${optionalString (cfg.locality.machineId != null) "locality_machineid=${cfg.locality.machineId}"}
-    ${optionalString (cfg.locality.zoneId != null) "locality_zoneid=${cfg.locality.zoneId}"}
-    ${optionalString (cfg.locality.datacenterId != null) "locality_dcid=${cfg.locality.datacenterId}"}
-    ${optionalString (cfg.locality.dataHall != null) "locality_data_hall=${cfg.locality.dataHall}"}
+    ${optionalString (cfg.locality.machineId != null)
+    "locality_machineid=${cfg.locality.machineId}"}
+    ${optionalString (cfg.locality.zoneId != null)
+    "locality_zoneid=${cfg.locality.zoneId}"}
+    ${optionalString (cfg.locality.datacenterId != null)
+    "locality_dcid=${cfg.locality.datacenterId}"}
+    ${optionalString (cfg.locality.dataHall != null)
+    "locality_data_hall=${cfg.locality.dataHall}"}
 
     ${fdbServers cfg.serverProcesses}
 
@@ -65,8 +65,7 @@ let
     command = ${pkg}/libexec/backup_agent
     ${backupAgents cfg.backupProcesses}
   '';
-in
-{
+in {
   options.services.foundationdb = {
 
     enable = mkEnableOption (lib.mdDoc "FoundationDB Server");
@@ -82,17 +81,15 @@ in
     publicAddress = mkOption {
       type = types.str;
       default = "auto";
-      description =
-        lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID";
+      description = lib.mdDoc
+        "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenAddress = mkOption {
       type = types.str;
       default = "public";
-      description =
-        lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID";
+      description = lib.mdDoc
+        "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenPortStart = mkOption {
@@ -117,7 +114,8 @@ in
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/foundationdb";
-      description = lib.mdDoc "Data directory. All cluster data will be put under here.";
+      description =
+        lib.mdDoc "Data directory. All cluster data will be put under here.";
     };
 
     logDir = mkOption {
@@ -139,13 +137,7 @@ in
     };
 
     class = mkOption {
-      type = types.nullOr (
-        types.enum [
-          "storage"
-          "transaction"
-          "stateless"
-        ]
-      );
+      type = types.nullOr (types.enum [ "storage" "transaction" "stateless" ]);
       default = null;
       description = lib.mdDoc "Process class";
     };
@@ -153,7 +145,8 @@ in
     restartDelay = mkOption {
       type = types.int;
       default = 10;
-      description = lib.mdDoc "Number of seconds to wait before restarting servers.";
+      description =
+        lib.mdDoc "Number of seconds to wait before restarting servers.";
     };
 
     logSize = mkOption {
@@ -184,7 +177,8 @@ in
     backupProcesses = mkOption {
       type = types.int;
       default = 1;
-      description = lib.mdDoc "Number of backup_agent processes to run for snapshots.";
+      description =
+        lib.mdDoc "Number of backup_agent processes to run for snapshots.";
     };
 
     memory = mkOption {
@@ -231,37 +225,35 @@ in
         FoundationDB Transport Security Layer (TLS) settings.
       '';
 
-      type = types.nullOr (
-        types.submodule ({
-          options = {
-            certificate = mkOption {
-              type = types.str;
-              description = lib.mdDoc ''
-                Path to the TLS certificate file. This certificate will
-                be offered to, and may be verified by, clients.
-              '';
-            };
-
-            key = mkOption {
-              type = types.str;
-              description = lib.mdDoc "Private key file for the certificate.";
-            };
-
-            allowedPeers = mkOption {
-              type = types.str;
-              default = "Check.Valid=1,Check.Unexpired=1";
-              description = lib.mdDoc ''
-                "Peer verification string". This may be used to adjust which TLS
-                client certificates a server will accept, as a form of user
-                authorization; for example, it may only accept TLS clients who
-                offer a certificate abiding by some locality or organization name.
-
-                For more information, please see the FoundationDB documentation.
-              '';
-            };
+      type = types.nullOr (types.submodule ({
+        options = {
+          certificate = mkOption {
+            type = types.str;
+            description = lib.mdDoc ''
+              Path to the TLS certificate file. This certificate will
+              be offered to, and may be verified by, clients.
+            '';
           };
-        })
-      );
+
+          key = mkOption {
+            type = types.str;
+            description = lib.mdDoc "Private key file for the certificate.";
+          };
+
+          allowedPeers = mkOption {
+            type = types.str;
+            default = "Check.Valid=1,Check.Unexpired=1";
+            description = lib.mdDoc ''
+              "Peer verification string". This may be used to adjust which TLS
+              client certificates a server will accept, as a form of user
+              authorization; for example, it may only accept TLS clients who
+              offer a certificate abiding by some locality or organization name.
+
+              For more information, please see the FoundationDB documentation.
+            '';
+          };
+        };
+      }));
     };
 
     locality = mkOption {
@@ -342,29 +334,22 @@ in
     };
 
     traceFormat = mkOption {
-      type = types.enum [
-        "xml"
-        "json"
-      ];
+      type = types.enum [ "xml" "json" ];
       default = "xml";
       description = lib.mdDoc "Trace logging format.";
     };
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
-        message =
-          ''
-            Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
-            This option has no effect for version ''
-          + cfg.package.version
-          + ''
-            , and enabling it is an error.
-          '';
-      }
-    ];
+    assertions = [{
+      assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat
+        == "xml";
+      message = ''
+        Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).
+        This option has no effect for version '' + cfg.package.version + ''
+          , and enabling it is an error.
+        '';
+    }];
 
     environment.systemPackages = [ pkg ];
 
@@ -380,12 +365,10 @@ in
       foundationdb.gid = config.ids.gids.foundationdb;
     };
 
-    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [
-      {
-        from = cfg.listenPortStart;
-        to = (cfg.listenPortStart + cfg.serverProcesses) - 1;
-      }
-    ];
+    networking.firewall.allowedTCPPortRanges = mkIf cfg.openFirewall [{
+      from = cfg.listenPortStart;
+      to = (cfg.listenPortStart + cfg.serverProcesses) - 1;
+    }];
 
     systemd.tmpfiles.rules = [
       "d /etc/foundationdb 0755 ${cfg.user} ${cfg.group} - -"
@@ -399,58 +382,50 @@ in
 
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      unitConfig = {
-        RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}";
+      unitConfig = { RequiresMountsFor = "${cfg.dataDir} ${cfg.logDir}"; };
+
+      serviceConfig = let
+        rwpaths = [ cfg.dataDir cfg.logDir cfg.pidfile "/etc/foundationdb" ]
+          ++ cfg.extraReadWritePaths;
+      in {
+        Type = "simple";
+        Restart = "always";
+        RestartSec = 5;
+        User = cfg.user;
+        Group = cfg.group;
+        PIDFile = "${cfg.pidfile}";
+
+        PermissionsStartOnly = true; # setup needs root perms
+        TimeoutSec = 120; # give reasonable time to shut down
+
+        # Security options
+        NoNewPrivileges = true;
+        ProtectHome = true;
+        ProtectSystem = "strict";
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
       };
 
-      serviceConfig =
-        let
-          rwpaths = [
-            cfg.dataDir
-            cfg.logDir
-            cfg.pidfile
-            "/etc/foundationdb"
-          ] ++ cfg.extraReadWritePaths;
-        in
-        {
-          Type = "simple";
-          Restart = "always";
-          RestartSec = 5;
-          User = cfg.user;
-          Group = cfg.group;
-          PIDFile = "${cfg.pidfile}";
-
-          PermissionsStartOnly = true; # setup needs root perms
-          TimeoutSec = 120; # give reasonable time to shut down
-
-          # Security options
-          NoNewPrivileges = true;
-          ProtectHome = true;
-          ProtectSystem = "strict";
-          ProtectKernelTunables = true;
-          ProtectControlGroups = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
-        };
-
-      path = [
-        pkg
-        pkgs.coreutils
-      ];
+      path = [ pkg pkgs.coreutils ];
 
       preStart = ''
         if [ ! -f /etc/foundationdb/fdb.cluster ]; then
             cf=/etc/foundationdb/fdb.cluster
             desc=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
             rand=$(tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c8)
-            echo ''${desc}:''${rand}@${initialIpAddr}:${builtins.toString cfg.listenPortStart} > $cf
+            echo ''${desc}:''${rand}@${initialIpAddr}:${
+              builtins.toString cfg.listenPortStart
+            } > $cf
             chmod 0664 $cf
             touch "${cfg.dataDir}/.first_startup"
         fi
       '';
 
-      script = "exec fdbmonitor --lockfile ${cfg.pidfile} --conffile ${configFile}";
+      script =
+        "exec fdbmonitor --lockfile ${cfg.pidfile} --conffile ${configFile}";
 
       postStart = ''
         if [ -e "${cfg.dataDir}/.first_startup" ]; then

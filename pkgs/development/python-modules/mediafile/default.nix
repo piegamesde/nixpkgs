@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flit-core,
-  mutagen,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, mutagen, pytestCheckHook
+, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "mediafile";
@@ -25,17 +17,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    mutagen
-    six
-  ];
+  propagatedBuildInputs = [ mutagen six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "mediafile" ];
 
   meta = with lib; {
-    description = "Python interface to the metadata tags for many audio file formats";
+    description =
+      "Python interface to the metadata tags for many audio file formats";
     homepage = "https://github.com/beetbox/mediafile";
     license = licenses.mit;
     maintainers = with maintainers; [ lovesegfault ];

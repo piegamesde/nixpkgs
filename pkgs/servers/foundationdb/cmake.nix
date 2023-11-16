@@ -1,45 +1,22 @@
 # This builder is for FoundationDB CMake build system.
 
-{
-  lib,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  python3,
-  openjdk8,
-  mono,
-  pkg-config,
-  msgpack,
-  toml11,
+{ lib, fetchFromGitHub, cmake, ninja, python3, openjdk8, mono, pkg-config
+, msgpack, toml11
 
-  gccStdenv,
-  llvmPackages,
-  useClang ? false,
-  ...
-}:
+, gccStdenv, llvmPackages, useClang ? false, ... }:
 
 let
   stdenv = if useClang then llvmPackages.libcxxStdenv else gccStdenv;
 
   # Only even numbered versions compile on aarch64; odd numbered versions have avx enabled.
-  avxEnabled =
-    version:
+  avxEnabled = version:
     let
       isOdd = n: lib.trivial.mod n 2 != 0;
       patch = lib.toInt (lib.versions.patch version);
-    in
-    isOdd patch;
+    in isOdd patch;
 
-  makeFdb =
-    {
-      version,
-      hash,
-      rev ? "refs/tags/${version}",
-      officialRelease ? true,
-      patches ? [ ],
-      boost,
-      ssl,
-    }:
+  makeFdb = { version, hash, rev ? "refs/tags/${version}"
+    , officialRelease ? true, patches ? [ ], boost, ssl }:
     stdenv.mkDerivation {
       pname = "foundationdb";
       inherit version;
@@ -50,52 +27,39 @@ let
         inherit rev hash;
       };
 
-      buildInputs = [
-        ssl
-        boost
-        msgpack
-        toml11
-      ];
+      buildInputs = [ ssl boost msgpack toml11 ];
 
-      nativeBuildInputs = [
-        pkg-config
-        cmake
-        ninja
-        python3
-        openjdk8
-        mono
-      ] ++ lib.optionals useClang [ llvmPackages.lld ];
+      nativeBuildInputs = [ pkg-config cmake ninja python3 openjdk8 mono ]
+        ++ lib.optionals useClang [ llvmPackages.lld ];
 
       separateDebugInfo = true;
       dontFixCmake = true;
 
-      cmakeFlags =
-        [
-          (lib.optionalString officialRelease "-DFDB_RELEASE=TRUE")
+      cmakeFlags = [
+        (lib.optionalString officialRelease "-DFDB_RELEASE=TRUE")
 
-          # Disable CMake warnings for project developers.
-          "-Wno-dev"
+        # Disable CMake warnings for project developers.
+        "-Wno-dev"
 
-          # CMake Error at fdbserver/CMakeLists.txt:332 (find_library):
-          # >   Could not find lz4_STATIC_LIBRARIES using the following names: liblz4.a
-          "-DSSD_ROCKSDB_EXPERIMENTAL=FALSE"
+        # CMake Error at fdbserver/CMakeLists.txt:332 (find_library):
+        # >   Could not find lz4_STATIC_LIBRARIES using the following names: liblz4.a
+        "-DSSD_ROCKSDB_EXPERIMENTAL=FALSE"
 
-          # FoundationDB's CMake is hardcoded to pull in jemalloc as an external
-          # project at build time.
-          "-DUSE_JEMALLOC=FALSE"
+        # FoundationDB's CMake is hardcoded to pull in jemalloc as an external
+        # project at build time.
+        "-DUSE_JEMALLOC=FALSE"
 
-          # LTO brings up overall build time, but results in much smaller
-          # binaries for all users and the cache.
-          (lib.optionalString (!useClang) "-DUSE_LTO=ON")
+        # LTO brings up overall build time, but results in much smaller
+        # binaries for all users and the cache.
+        (lib.optionalString (!useClang) "-DUSE_LTO=ON")
 
-          # Gold helps alleviate the link time, especially when LTO is
-          # enabled. But even then, it still takes a majority of the time.
-          # Same with LLD when Clang is available.
-          (lib.optionalString useClang "-DUSE_LD=LLD")
-          (lib.optionalString (!useClang) "-DUSE_LD=GOLD")
-        ]
-        ++ lib.optionals (lib.versionOlder version "7.2.0") [
-          # FIXME: why can't openssl be found automatically?
+        # Gold helps alleviate the link time, especially when LTO is
+        # enabled. But even then, it still takes a majority of the time.
+        # Same with LLD when Clang is available.
+        (lib.optionalString useClang "-DUSE_LD=LLD")
+        (lib.optionalString (!useClang) "-DUSE_LD=GOLD")
+      ] ++ lib.optionals (lib.versionOlder version
+        "7.2.0") [ # FIXME: why can't openssl be found automatically?
           "-DOPENSSL_USE_STATIC_LIBS=FALSE"
           "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
           "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
@@ -145,23 +109,15 @@ let
         mv lib/fdb-java-*.jar $lib/share/java/fdb-java.jar
       '';
 
-      outputs = [
-        "out"
-        "dev"
-        "lib"
-        "pythonsrc"
-      ];
+      outputs = [ "out" "dev" "lib" "pythonsrc" ];
 
       meta = with lib; {
         description = "Open source, distributed, transactional key-value store";
         homepage = "https://www.foundationdb.org";
         license = licenses.asl20;
-        platforms = [ "x86_64-linux" ] ++ lib.optionals (!(avxEnabled version)) [ "aarch64-linux" ];
-        maintainers = with maintainers; [
-          thoughtpolice
-          lostnet
-        ];
+        platforms = [ "x86_64-linux" ]
+          ++ lib.optionals (!(avxEnabled version)) [ "aarch64-linux" ];
+        maintainers = with maintainers; [ thoughtpolice lostnet ];
       };
     };
-in
-makeFdb
+in makeFdb

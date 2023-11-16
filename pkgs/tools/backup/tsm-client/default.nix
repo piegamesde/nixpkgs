@@ -1,26 +1,12 @@
-{
-  lib,
-  callPackage,
-  nixosTests,
-  stdenv,
-  fetchurl,
-  autoPatchelfHook,
-  rpmextract,
-  libxcrypt-legacy,
-  zlib,
-  lvm2, # LVM image backup and restore functions (optional)
-  acl, # EXT2/EXT3/XFS ACL support (optional)
-  gnugrep,
-  procps,
-  jdk8, # Java GUI (needed for `enableGui`)
-  buildEnv,
-  makeWrapper,
-  enableGui ? false # enables Java GUI `dsmj`
-  ,
+{ lib, callPackage, nixosTests, stdenv, fetchurl, autoPatchelfHook, rpmextract
+, libxcrypt-legacy, zlib
+, lvm2 # LVM image backup and restore functions (optional)
+, acl # EXT2/EXT3/XFS ACL support (optional)
+, gnugrep, procps, jdk8 # Java GUI (needed for `enableGui`)
+, buildEnv, makeWrapper, enableGui ? false # enables Java GUI `dsmj`
   # path to `dsm.sys` configuration files
-  dsmSysCli ? "/etc/tsm-client/cli.dsm.sys",
-  dsmSysApi ? "/etc/tsm-client/api.dsm.sys",
-}:
+, dsmSysCli ? "/etc/tsm-client/cli.dsm.sys"
+, dsmSysApi ? "/etc/tsm-client/api.dsm.sys" }:
 
 # For an explanation of optional packages
 # (features provided by them, version limits), see
@@ -64,7 +50,8 @@ let
 
   meta = {
     homepage = "https://www.ibm.com/products/data-protection-and-recovery";
-    downloadPage = "https://www.ibm.com/support/pages/ibm-spectrum-protect-downloads-latest-fix-packs-and-interim-fixes";
+    downloadPage =
+      "https://www.ibm.com/support/pages/ibm-spectrum-protect-downloads-latest-fix-packs-and-interim-fixes";
     platforms = [ "x86_64-linux" ];
     mainProgram = "dsmc";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
@@ -91,15 +78,13 @@ let
     test-gui = nixosTests.tsm-client-gui;
   };
 
-  mkSrcUrl =
-    version:
+  mkSrcUrl = version:
     let
       major = lib.versions.major version;
       minor = lib.versions.minor version;
       patch = lib.versions.patch version;
       fixup = lib.lists.elemAt (lib.versions.splitVersion version) 3;
-    in
-    "https://public.dhe.ibm.com/storage/tivoli-storage-management/${
+    in "https://public.dhe.ibm.com/storage/tivoli-storage-management/${
       if fixup == "0" then "maintenance" else "patches"
     }/client/v${major}r${minor}/Linux/LinuxX86/BA/v${major}${minor}${patch}/${version}-TIV-TSMBAC-LinuxX86.tar";
 
@@ -108,19 +93,13 @@ let
     version = "8.1.17.2";
     src = fetchurl {
       url = mkSrcUrl version;
-      hash = "sha512-DZCXb3fZO2VYJJJUdjGt9TSdrYNhf8w7QMgEERzX8xb74jjA+UPNI2dbNCeja/vrgRYLYipWZPyjTQJmkxlM/g==";
+      hash =
+        "sha512-DZCXb3fZO2VYJJJUdjGt9TSdrYNhf8w7QMgEERzX8xb74jjA+UPNI2dbNCeja/vrgRYLYipWZPyjTQJmkxlM/g==";
     };
     inherit meta passthru;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      rpmextract
-    ];
-    buildInputs = [
-      libxcrypt-legacy
-      stdenv.cc.cc
-      zlib
-    ];
+    nativeBuildInputs = [ autoPatchelfHook rpmextract ];
+    buildInputs = [ libxcrypt-legacy stdenv.cc.cc zlib ];
     runtimeDependencies = [ (lib.attrsets.getLib lvm2) ];
     sourceRoot = ".";
 
@@ -163,22 +142,13 @@ let
     '';
   };
 
-  binPath = lib.makeBinPath (
-    [
-      acl
-      gnugrep
-      procps
-    ]
-    ++ lib.optional enableGui jdk8
-  );
-in
+  binPath =
+    lib.makeBinPath ([ acl gnugrep procps ] ++ lib.optional enableGui jdk8);
 
-buildEnv {
+in buildEnv {
   name = "tsm-client-${unwrapped.version}";
   meta = meta // lib.attrsets.optionalAttrs enableGui { mainProgram = "dsmj"; };
-  passthru = passthru // {
-    inherit unwrapped;
-  };
+  passthru = passthru // { inherit unwrapped; };
   paths = [ unwrapped ];
   nativeBuildInputs = [ makeWrapper ];
   pathsToLink = [

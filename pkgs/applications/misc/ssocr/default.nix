@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  imlib2,
-  libX11,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, imlib2, libX11, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "ssocr";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    imlib2
-    libX11
-  ];
+  buildInputs = [ imlib2 libX11 ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

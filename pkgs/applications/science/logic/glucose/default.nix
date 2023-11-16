@@ -1,22 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  zlib,
-  enableUnfree ? false,
-}:
+{ lib, stdenv, fetchurl, unzip, zlib, enableUnfree ? false }:
 
 stdenv.mkDerivation rec {
   pname = "glucose" + lib.optionalString enableUnfree "-syrup";
   version = "4.2.1";
 
   src = fetchurl {
-    url = "https://www.labri.fr/perso/lsimon/downloads/softwares/glucose-${version}.zip";
+    url =
+      "https://www.labri.fr/perso/lsimon/downloads/softwares/glucose-${version}.zip";
     hash = "sha256-J0J9EKC/4cCiZr/y4lz+Hm7OcmJmMIIWzQ+4c+KhqXg=";
   };
 
-  sourceRoot = "glucose-${version}/sources/${if enableUnfree then "parallel" else "simp"}";
+  sourceRoot =
+    "glucose-${version}/sources/${if enableUnfree then "parallel" else "simp"}";
 
   postPatch = ''
     substituteInPlace Main.cc \
@@ -44,7 +39,8 @@ stdenv.mkDerivation rec {
         if enableUnfree then "parallel" else "sequential"
       } version)";
     homepage = "https://www.labri.fr/perso/lsimon/research/glucose/";
-    license = if enableUnfree then licenses.unfreeRedistributable else licenses.mit;
+    license =
+      if enableUnfree then licenses.unfreeRedistributable else licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ gebner ];
   };

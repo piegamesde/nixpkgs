@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "ifconfig-parser";
@@ -21,7 +17,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Unsophisticated python package for parsing raw output of ifconfig.";
+    description =
+      "Unsophisticated python package for parsing raw output of ifconfig.";
     homepage = "https://github.com/KnightWhoSayNi/ifconfig-parser";
     license = licenses.mit;
     maintainers = with maintainers; [ atemu ];

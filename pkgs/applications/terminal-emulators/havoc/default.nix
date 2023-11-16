@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libxkbcommon,
-  pkg-config,
-  wayland-protocols,
-  wayland-scanner,
-  wayland,
-}:
+{ lib, stdenv, fetchFromGitHub, libxkbcommon, pkg-config, wayland-protocols
+, wayland-scanner, wayland }:
 
 stdenv.mkDerivation rec {
   pname = "havoc";
@@ -22,15 +14,9 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    wayland-protocols
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ wayland-protocols wayland-scanner ];
 
-  buildInputs = [
-    libxkbcommon
-    wayland
-  ];
+  buildInputs = [ libxkbcommon wayland ];
 
   dontConfigure = true;
 
@@ -46,10 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ii8/havoc";
     description = "A minimal terminal emulator for Wayland";
-    license = with licenses; [
-      mit
-      publicDomain
-    ];
+    license = with licenses; [ mit publicDomain ];
     platforms = with platforms; unix;
     maintainers = with maintainers; [ AndersonTorres ];
     # fatal error: 'sys/epoll.h' file not found

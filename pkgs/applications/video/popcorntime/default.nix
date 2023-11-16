@@ -1,44 +1,21 @@
-{
-  autoPatchelfHook,
-  fetchurl,
-  gcc-unwrapped,
-  gsettings-desktop-schemas,
-  gtk3,
-  lib,
-  makeDesktopItem,
-  makeWrapper,
-  nwjs,
-  stdenv,
-  unzip,
-  udev,
-  wrapGAppsHook,
-  copyDesktopItems,
-}:
+{ autoPatchelfHook, fetchurl, gcc-unwrapped, gsettings-desktop-schemas, gtk3
+, lib, makeDesktopItem, makeWrapper, nwjs, stdenv, unzip, udev, wrapGAppsHook
+, copyDesktopItems }:
 
 stdenv.mkDerivation rec {
   pname = "popcorntime";
   version = "0.4.9";
 
   src = fetchurl {
-    url = "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip";
+    url =
+      "https://github.com/popcorn-official/popcorn-desktop/releases/download/v${version}/Popcorn-Time-${version}-linux64.zip";
     sha256 = "sha256-cbKL5bgweZD/yfi/8KS0L7Raha8PTHqIm4qSPFidjUc=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    unzip
-    wrapGAppsHook
-    copyDesktopItems
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook makeWrapper unzip wrapGAppsHook copyDesktopItems ];
 
-  buildInputs = [
-    gcc-unwrapped
-    gsettings-desktop-schemas
-    gtk3
-    nwjs
-    udev
-  ];
+  buildInputs = [ gcc-unwrapped gsettings-desktop-schemas gtk3 nwjs udev ];
 
   sourceRoot = ".";
 
@@ -47,11 +24,7 @@ stdenv.mkDerivation rec {
 
   makeWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [
-        gcc-unwrapped.lib
-        gtk3
-        udev
-      ]
+      lib.makeLibraryPath [ gcc-unwrapped.lib gtk3 udev ]
     }"
     "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
   ];
@@ -64,10 +37,7 @@ stdenv.mkDerivation rec {
     genericName = meta.description;
     type = "Application";
     desktopName = "Popcorn-Time";
-    categories = [
-      "Video"
-      "AudioVideo"
-    ];
+    categories = [ "Video" "AudioVideo" ];
   };
 
   # Extract and copy executable in $out/bin
@@ -94,7 +64,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/popcorn-official/popcorn-desktop";
-    description = "An application that streams movies and TV shows from torrents";
+    description =
+      "An application that streams movies and TV shows from torrents";
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.gpl3;

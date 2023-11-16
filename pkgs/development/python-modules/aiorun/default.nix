@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pygments,
-  pytestCheckHook,
-  uvloop,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pygments
+, pytestCheckHook, uvloop }:
 
 buildPythonPackage rec {
   pname = "aiorun";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pygments ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    uvloop
-  ];
+  nativeCheckInputs = [ pytestCheckHook uvloop ];
 
   # allow for writable directory for darwin
   preBuild = ''

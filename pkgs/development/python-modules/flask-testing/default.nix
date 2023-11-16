@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  blinker,
-  pytestCheckHook,
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-  pythonOlder,
-}:
+{ lib, stdenv, blinker, pytestCheckHook, buildPythonPackage, fetchPypi, flask
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "flask-testing";
@@ -24,10 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flask ];
 
-  nativeCheckInputs = [
-    blinker
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ blinker pytestCheckHook ];
 
   # Some of the tests use localhost networking on darwin
   doCheck = !stdenv.isDarwin;
@@ -41,11 +30,10 @@ buildPythonPackage rec {
     "test_assert_template_rendered_signal_sent"
   ];
 
-  disabledTestPaths =
-    [
-      # twill is only used by Python 2 according setup.py
-      "tests/test_twill.py"
-    ];
+  disabledTestPaths = [
+    # twill is only used by Python 2 according setup.py
+    "tests/test_twill.py"
+  ];
 
   pythonImportsCheck = [ "flask_testing" ];
 

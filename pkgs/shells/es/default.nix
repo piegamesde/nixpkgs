@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  readline,
-  bison,
-}:
+{ lib, stdenv, fetchurl, readline, bison }:
 
 stdenv.mkDerivation rec {
 
@@ -12,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "0.9.2";
 
   src = fetchurl {
-    url = "https://github.com/wryun/es-shell/releases/download/v${version}/es-${version}.tar.gz";
+    url =
+      "https://github.com/wryun/es-shell/releases/download/v${version}/es-${version}.tar.gz";
     sha256 = "sha256-ySZIK0IITpA+uHHuHrDO/Ana5vGt64QI3Z6TMDXE9d0=";
   };
 
@@ -39,14 +34,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://wryun.github.io/es-shell/";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [
-      sjmackenzie
-      ttuegel
-    ];
+    maintainers = with maintainers; [ sjmackenzie ttuegel ];
     platforms = platforms.all;
   };
 
-  passthru = {
-    shellPath = "/bin/es";
-  };
+  passthru = { shellPath = "/bin/es"; };
 }

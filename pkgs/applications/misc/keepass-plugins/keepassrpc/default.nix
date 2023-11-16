@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildEnv,
-  fetchurl,
-  mono,
-}:
+{ lib, stdenv, buildEnv, fetchurl, mono }:
 
 let
   version = "1.14.0";
@@ -12,20 +6,19 @@ let
     pname = "keepassrpc";
     inherit version;
     src = fetchurl {
-      url = "https://github.com/kee-org/keepassrpc/releases/download/v${version}/KeePassRPC.plgx";
-      sha256 = "1c410cc93c0252e7cfdb02507b8172c13e18d12c97f08630b721d897dc9b8b24";
+      url =
+        "https://github.com/kee-org/keepassrpc/releases/download/v${version}/KeePassRPC.plgx";
+      sha256 =
+        "1c410cc93c0252e7cfdb02507b8172c13e18d12c97f08630b721d897dc9b8b24";
     };
 
     meta = with lib; {
-      description = "The KeePassRPC plugin that needs to be installed inside KeePass in order for Kee to be able to connect your browser to your passwords";
+      description =
+        "The KeePassRPC plugin that needs to be installed inside KeePass in order for Kee to be able to connect your browser to your passwords";
       homepage = "https://github.com/kee-org/keepassrpc";
       platforms = [ "x86_64-linux" ];
       license = licenses.gpl2;
-      maintainers = with maintainers; [
-        mjanczyk
-        svsdep
-        mgregoire
-      ];
+      maintainers = with maintainers; [ mjanczyk svsdep mgregoire ];
     };
 
     pluginFilename = "KeePassRPC.plgx";
@@ -41,12 +34,8 @@ let
       cp $pluginFilename $out/lib/dotnet/keepass/$pluginFilename
     '';
   };
-in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
+  # Mono is required to compile plugin at runtime, after loading.
+in buildEnv {
   name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
+  paths = [ mono drv ];
 }

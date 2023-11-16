@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  aiohttp,
-  buildPythonPackage,
-  eventlet,
-  fetchFromGitHub,
-  iana-etc,
-  libredirect,
-  mock,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  tornado,
-  websocket-client,
-}:
+{ lib, stdenv, aiohttp, buildPythonPackage, eventlet, fetchFromGitHub, iana-etc
+, libredirect, mock, pytestCheckHook, pythonOlder, requests, tornado
+, websocket-client }:
 
 buildPythonPackage rec {
   pname = "python-engineio";
@@ -29,15 +16,8 @@ buildPythonPackage rec {
     hash = "sha256-sE6AlT01Rou427i9w+xwUTMflKxUr0Heqt2l+Y2AMmU=";
   };
 
-  nativeCheckInputs = [
-    aiohttp
-    eventlet
-    mock
-    requests
-    tornado
-    websocket-client
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aiohttp eventlet mock requests tornado websocket-client pytestCheckHook ];
 
   doCheck = !stdenv.isDarwin;
 
@@ -63,7 +43,8 @@ buildPythonPackage rec {
       bidirectional event-based communication between clients and a server.
     '';
     homepage = "https://github.com/miguelgrinberg/python-engineio/";
-    changelog = "https://github.com/miguelgrinberg/python-engineio/blob/v${version}/CHANGES.md";
+    changelog =
+      "https://github.com/miguelgrinberg/python-engineio/blob/v${version}/CHANGES.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ mic92 ];
   };

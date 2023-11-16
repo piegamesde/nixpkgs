@@ -1,36 +1,7 @@
-{
-  cmake,
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  curl,
-  ffmpeg,
-  fmt,
-  gettext,
-  harfbuzz,
-  libaio,
-  libbacktrace,
-  libpcap,
-  libpulseaudio,
-  libsamplerate,
-  libXrandr,
-  libzip,
-  pkg-config,
-  qtbase,
-  qtsvg,
-  qttools,
-  qttranslations,
-  qtwayland,
-  rapidyaml,
-  SDL2,
-  soundtouch,
-  vulkan-headers,
-  vulkan-loader,
-  wayland,
-  wrapQtAppsHook,
-  xz,
-  zip,
-}:
+{ cmake, fetchFromGitHub, lib, stdenv, curl, ffmpeg, fmt, gettext, harfbuzz
+, libaio, libbacktrace, libpcap, libpulseaudio, libsamplerate, libXrandr, libzip
+, pkg-config, qtbase, qtsvg, qttools, qttranslations, qtwayland, rapidyaml, SDL2
+, soundtouch, vulkan-headers, vulkan-loader, wayland, wrapQtAppsHook, xz, zip }:
 
 let
   # The pre-zipped files in releases don't have a versioned link, we need to zip them ourselves
@@ -40,8 +11,7 @@ let
     rev = "8db5ae467a35cc00dc50a65061aa78dc5115e6d1";
     sha256 = "sha256-68kD7IAhBMASFmkGwvyQ7ppO/3B1csAKik+rU792JI4=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "pcsx2";
   version = "1.7.4554";
 
@@ -59,12 +29,7 @@ stdenv.mkDerivation rec {
     "-DDISABLE_BUILD_DATE=TRUE"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-    zip
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook zip ];
 
   buildInputs = [
     curl
@@ -123,14 +88,8 @@ stdenv.mkDerivation rec {
       PC, with many additional features and benefits.
     '';
     homepage = "https://pcsx2.net";
-    license = with licenses; [
-      gpl3
-      lgpl3
-    ];
-    maintainers = with maintainers; [
-      hrdinka
-      govanify
-    ];
+    license = with licenses; [ gpl3 lgpl3 ];
+    maintainers = with maintainers; [ hrdinka govanify ];
     mainProgram = "pcsx2-qt";
     platforms = platforms.x86_64;
   };

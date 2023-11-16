@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  which,
-  gfortran,
-  libGLU,
-  xorg,
-}:
+{ lib, stdenv, fetchurl, which, gfortran, libGLU, xorg }:
 
 stdenv.mkDerivation rec {
   version = "6.3";
@@ -18,12 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ which ];
-  buildInputs = [
-    gfortran
-    libGLU
-    xorg.libX11
-    xorg.libXmu
-  ];
+  buildInputs = [ gfortran libGLU xorg.libX11 xorg.libXmu ];
 
   patches = [ ./dont_register_file_types.patch ];
 

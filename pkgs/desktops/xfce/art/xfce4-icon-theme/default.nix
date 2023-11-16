@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  gtk3,
-  gnome-icon-theme,
-  tango-icon-theme,
-  hicolor-icon-theme,
-  httpTwoLevelsUpdater,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, gtk3, gnome-icon-theme
+, tango-icon-theme, hicolor-icon-theme, httpTwoLevelsUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "xfce4-icon-theme";
@@ -22,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1HhmktVrilY/ZqXyYPHxOt4R6Gx4y8slqfml/EfPZvo=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-    gtk3
-  ];
+  nativeBuildInputs = [ pkg-config intltool gtk3 ];
 
   buildInputs = [
     gnome-icon-theme
@@ -37,7 +23,8 @@ stdenv.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  passthru.updateScript = httpTwoLevelsUpdater { url = "https://archive.xfce.org/src/art/${pname}"; };
+  passthru.updateScript =
+    httpTwoLevelsUpdater { url = "https://archive.xfce.org/src/art/${pname}"; };
 
   meta = with lib; {
     homepage = "https://www.xfce.org/";

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  i3ipc,
-}:
+{ lib, buildPythonPackage, fetchPypi, i3ipc }:
 
 buildPythonPackage rec {
   pname = "i3-balance-workspace";

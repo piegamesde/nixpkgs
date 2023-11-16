@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.redis;
-in
-{
+let cfg = config.services.prometheus.exporters.redis;
+in {
   port = 9121;
   serviceOpts = {
     serviceConfig = {

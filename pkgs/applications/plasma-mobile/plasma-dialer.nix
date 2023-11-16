@@ -1,43 +1,17 @@
-{
-  lib,
-  mkDerivation,
+{ lib, mkDerivation
 
-  cmake,
-  extra-cmake-modules,
+, cmake, extra-cmake-modules
 
-  callaudiod,
-  kcontacts,
-  kcoreaddons,
-  kdbusaddons,
-  ki18n,
-  kio,
-  kirigami-addons,
-  kirigami2,
-  knotifications,
-  kpeople,
-  libphonenumber,
-  libselinux,
-  libsepol,
-  modemmanager-qt,
-  pcre,
-  plasma-wayland-protocols,
-  protobuf,
-  pulseaudio-qt,
-  qtfeedback,
-  qtmpris,
-  qtquickcontrols2,
-  util-linux,
-  wayland,
-  wayland-protocols,
+, callaudiod, kcontacts, kcoreaddons, kdbusaddons, ki18n, kio, kirigami-addons
+, kirigami2, knotifications, kpeople, libphonenumber, libselinux, libsepol
+, modemmanager-qt, pcre, plasma-wayland-protocols, protobuf, pulseaudio-qt
+, qtfeedback, qtmpris, qtquickcontrols2, util-linux, wayland, wayland-protocols
 }:
 
 mkDerivation rec {
   pname = "plasma-dialer";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     callaudiod

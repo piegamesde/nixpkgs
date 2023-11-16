@@ -1,46 +1,34 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 let
   py = python3.override {
     packageOverrides = final: prev: {
-      rich = prev.rich.overridePythonAttrs (
-        old: rec {
-          version = "12.4.0";
-          src = fetchFromGitHub {
-            owner = "Textualize";
-            repo = "rich";
-            rev = "refs/tags/v12.4.0";
-            hash = "sha256-ryJTusUNpvNF2031ICJWK8ScxHIh+LrXYg7nd0ph4aQ=";
-          };
-          propagatedBuildInputs = with py.pkgs; [
-            commonmark
-            pygments
-          ];
-          doCheck = false;
-        }
-      );
+      rich = prev.rich.overridePythonAttrs (old: rec {
+        version = "12.4.0";
+        src = fetchFromGitHub {
+          owner = "Textualize";
+          repo = "rich";
+          rev = "refs/tags/v12.4.0";
+          hash = "sha256-ryJTusUNpvNF2031ICJWK8ScxHIh+LrXYg7nd0ph4aQ=";
+        };
+        propagatedBuildInputs = with py.pkgs; [ commonmark pygments ];
+        doCheck = false;
+      });
 
-      textual = prev.textual.overridePythonAttrs (
-        old: rec {
-          version = "0.1.18";
-          src = fetchFromGitHub {
-            owner = "Textualize";
-            repo = "textual";
-            rev = "refs/tags/v0.1.18";
-            hash = "sha256-XVmbt8r5HL8r64ISdJozmM+9HuyvqbpdejWICzFnfiw=";
-          };
-          doCheck = false;
-        }
-      );
+      textual = prev.textual.overridePythonAttrs (old: rec {
+        version = "0.1.18";
+        src = fetchFromGitHub {
+          owner = "Textualize";
+          repo = "textual";
+          rev = "refs/tags/v0.1.18";
+          hash = "sha256-XVmbt8r5HL8r64ISdJozmM+9HuyvqbpdejWICzFnfiw=";
+        };
+        doCheck = false;
+      });
     };
   };
-in
 
-python3.pkgs.buildPythonApplication rec {
+in python3.pkgs.buildPythonApplication rec {
   pname = "rich-cli";
   version = "1.8.0";
   format = "pyproject";
@@ -73,7 +61,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Command Line Interface to Rich";
     homepage = "https://github.com/Textualize/rich-cli";
-    changelog = "https://github.com/Textualize/rich-cli/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Textualize/rich-cli/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ joelkoen ];
   };

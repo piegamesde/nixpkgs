@@ -1,22 +1,15 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.geary;
-in
-{
-  meta = {
-    maintainers = teams.gnome.members;
-  };
+let cfg = config.programs.geary;
+
+in {
+  meta = { maintainers = teams.gnome.members; };
 
   options = {
-    programs.geary.enable = mkEnableOption (lib.mdDoc "Geary, a Mail client for GNOME 3");
+    programs.geary.enable =
+      mkEnableOption (lib.mdDoc "Geary, a Mail client for GNOME 3");
   };
 
   config = mkIf cfg.enable {
@@ -26,3 +19,4 @@ in
     services.gnome.gnome-online-accounts.enable = true;
   };
 }
+

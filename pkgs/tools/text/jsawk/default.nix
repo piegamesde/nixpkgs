@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  spidermonkey_102,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, spidermonkey_102 }:
 
 stdenv.mkDerivation {
   pname = "jsawk";

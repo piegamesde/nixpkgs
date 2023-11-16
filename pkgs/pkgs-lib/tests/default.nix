@@ -6,55 +6,37 @@
 #     nix-build -A java-properties
 # See `structured` below.
 
-{
-  pkgs ? import ../../.. { },
-}:
+{ pkgs ? import ../../.. { } }:
 let
   inherit (pkgs.lib)
-    mapAttrs
-    mapAttrsToList
-    isDerivation
-    mergeAttrs
-    foldl'
-    attrValues
-    recurseIntoAttrs
-  ;
+    mapAttrs mapAttrsToList isDerivation mergeAttrs foldl' attrValues
+    recurseIntoAttrs;
 
   structured = {
     formats = import ./formats.nix { inherit pkgs; };
     java-properties = recurseIntoAttrs {
-      jdk8 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk8; };
-      jdk11 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk11_headless; };
-      jdk17 = pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk17_headless; };
+      jdk8 =
+        pkgs.callPackage ../formats/java-properties/test { jdk = pkgs.jdk8; };
+      jdk11 = pkgs.callPackage ../formats/java-properties/test {
+        jdk = pkgs.jdk11_headless;
+      };
+      jdk17 = pkgs.callPackage ../formats/java-properties/test {
+        jdk = pkgs.jdk17_headless;
+      };
     };
   };
 
-  flatten =
-    prefix: as:
-    foldl' mergeAttrs { } (
-      attrValues (
-        mapAttrs
-          (
-            k: v:
-            if isDerivation v then
-              { "${prefix}${k}" = v; }
-            else if v ? recurseForDerivations then
-              flatten "${prefix}${k}-" (removeAttrs v [ "recurseForDerivations" ])
-            else
-              builtins.trace v throw "expected derivation or recurseIntoAttrs"
-          )
-          as
-      )
-    );
-in
+  flatten = prefix: as:
+    foldl' mergeAttrs { } (attrValues (mapAttrs (k: v:
+      if isDerivation v then {
+        "${prefix}${k}" = v;
+      } else if v ? recurseForDerivations then
+        flatten "${prefix}${k}-" (removeAttrs v [ "recurseForDerivations" ])
+      else
+        builtins.trace v throw "expected derivation or recurseIntoAttrs") as));
 
-# It has to be a link farm for inclusion in the hydra unstable jobset.
-pkgs.linkFarm "pkgs-lib-formats-tests" (
-  mapAttrsToList
-    (k: v: {
-      name = k;
-      path = v;
-    })
-    (flatten "" structured)
-)
-// structured
+  # It has to be a link farm for inclusion in the hydra unstable jobset.
+in pkgs.linkFarm "pkgs-lib-formats-tests" (mapAttrsToList (k: v: {
+  name = k;
+  path = v;
+}) (flatten "" structured)) // structured

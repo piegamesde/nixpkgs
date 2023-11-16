@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  gtk3,
-  dbus-glib,
-  libXScrnSaver,
-  libnotify,
-  libxml2,
-  pam,
-  systemd,
-  mate,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, dbus-glib, libXScrnSaver
+, libnotify, libxml2, pam, systemd, mate, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-screensaver";
@@ -57,10 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Screen saver and locker for the MATE desktop";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [
-      gpl2Plus
-      lgpl2Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl2Plus ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

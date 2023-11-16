@@ -1,24 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jre,
-  writeScript,
-  common-updater-scripts,
-  coreutils,
-  git,
-  gnused,
-  nix,
-  nixfmt,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jre, writeScript, common-updater-scripts
+, coreutils, git, gnused, nix, nixfmt }:
 
 stdenv.mkDerivation rec {
   pname = "coursier";
   version = "2.1.4";
 
   src = fetchurl {
-    url = "https://github.com/coursier/coursier/releases/download/v${version}/coursier";
+    url =
+      "https://github.com/coursier/coursier/releases/download/v${version}/coursier";
     sha256 = "i/z/IuSxvLDBJ9QZGuIo3b3IZFy/J55mEbZftWyFnz8=";
   };
 
@@ -33,15 +22,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = writeScript "update.sh" ''
     #!${stdenv.shell}
     set -o errexit
-    PATH=${
-      lib.makeBinPath [
-        common-updater-scripts
-        coreutils
-        git
-        gnused
-        nix
-      ]
-    }
+    PATH=${lib.makeBinPath [ common-updater-scripts coreutils git gnused nix ]}
     oldVersion="$(nix-instantiate --eval -E "with import ./. {}; lib.getVersion ${pname}" | tr -d '"')"
     latestTag="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --refs --sort='version:refname' --tags https://github.com/coursier/coursier.git 'v*.*.*' | tail --lines=1 | cut --delimiter='/' --fields=3 | sed 's|^v||g')"
     if [ "$oldVersion" != "$latestTag" ]; then
@@ -55,11 +36,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://get-coursier.io/";
-    description = "Scala library to fetch dependencies from Maven / Ivy repositories";
+    description =
+      "Scala library to fetch dependencies from Maven / Ivy repositories";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      adelbertc
-      nequissimus
-    ];
+    maintainers = with maintainers; [ adelbertc nequissimus ];
   };
 }

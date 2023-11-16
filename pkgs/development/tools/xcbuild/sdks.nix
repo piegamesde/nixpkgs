@@ -1,13 +1,5 @@
-{
-  runCommand,
-  lib,
-  toolchainName,
-  sdkName,
-  writeText,
-  xcodePlatform,
-  sdkVer,
-  productBuildVer,
-}:
+{ runCommand, lib, toolchainName, sdkName, writeText, xcodePlatform, sdkVer
+, productBuildVer }:
 
 let
   inherit (lib.generators) toPlist toJSON;
@@ -21,18 +13,21 @@ let
     isBaseSDK = "YES";
   };
 
-  SystemVersion =
-    lib.optionalAttrs (productBuildVer != null) { ProductBuildVersion = productBuildVer; }
-    // {
-      ProductName = "Mac OS X";
-      ProductVersion = sdkVer;
-    };
-in
+  SystemVersion = lib.optionalAttrs (productBuildVer != null) {
+    ProductBuildVersion = productBuildVer;
+  } // {
+    ProductName = "Mac OS X";
+    ProductVersion = sdkVer;
+  };
 
-runCommand "SDKs" { } ''
+in runCommand "SDKs" { } ''
   sdk=$out/${sdkName}.sdk
-  install -D ${writeText "SDKSettings.plist" (toPlist { } SDKSettings)} $sdk/SDKSettings.plist
-  install -D ${writeText "SDKSettings.json" (toJSON { } SDKSettings)} $sdk/SDKSettings.json
+  install -D ${
+    writeText "SDKSettings.plist" (toPlist { } SDKSettings)
+  } $sdk/SDKSettings.plist
+  install -D ${
+    writeText "SDKSettings.json" (toJSON { } SDKSettings)
+  } $sdk/SDKSettings.json
   install -D ${
     writeText "SystemVersion.plist" (toPlist { } SystemVersion)
   } $sdk/System/Library/CoreServices/SystemVersion.plist

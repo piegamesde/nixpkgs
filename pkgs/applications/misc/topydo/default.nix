@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  fetchpatch,
-  glibcLocales,
-}:
+{ lib, python3, fetchFromGitHub, fetchpatch, glibcLocales }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "topydo";
@@ -17,15 +11,15 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "1lpfdai0pf90ffrzgmmkadbd86rb7250i3mglpkc82aj6prjm6yb";
   };
 
-  patches =
-    [
-      # fixes a failing test
-      (fetchpatch {
-        name = "update-a-test-reference-ics-file.patch";
-        url = "https://github.com/topydo/topydo/commit/9373bb4702b512b10f0357df3576c129901e3ac6.patch";
-        hash = "sha256-JpyQfryWSoJDdyzbrESWY+RmRbDw1myvTlsFK7+39iw=";
-      })
-    ];
+  patches = [
+    # fixes a failing test
+    (fetchpatch {
+      name = "update-a-test-reference-ics-file.patch";
+      url =
+        "https://github.com/topydo/topydo/commit/9373bb4702b512b10f0357df3576c129901e3ac6.patch";
+      hash = "sha256-JpyQfryWSoJDdyzbrESWY+RmRbDw1myvTlsFK7+39iw=";
+    })
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     arrow
@@ -36,10 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     watchdog
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    freezegun
-    unittestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ freezegun unittestCheckHook ];
 
   # Skip test that has been reported multiple times upstream without result:
   # bram85/topydo#271, bram85/topydo#274.

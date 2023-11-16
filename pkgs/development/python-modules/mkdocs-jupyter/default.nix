@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hatchling,
-  ipykernel,
-  jupytext,
-  mkdocs,
-  mkdocs-material,
-  nbconvert,
-  pygments,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, hatchling, ipykernel, jupytext, mkdocs
+, mkdocs-material, nbconvert, pygments, pytestCheckHook, pythonOlder
+, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "mkdocs-jupyter";
@@ -35,19 +23,10 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "nbconvert" ];
 
-  nativeBuildInputs = [
-    hatchling
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ hatchling pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    ipykernel
-    jupytext
-    mkdocs
-    mkdocs-material
-    nbconvert
-    pygments
-  ];
+  propagatedBuildInputs =
+    [ ipykernel jupytext mkdocs mkdocs-material nbconvert pygments ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -56,7 +35,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Use Jupyter Notebook in mkdocs";
     homepage = "https://github.com/danielfrg/mkdocs-jupyter";
-    changelog = "https://github.com/danielfrg/mkdocs-jupyter/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/danielfrg/mkdocs-jupyter/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ net-mist ];
   };

@@ -1,16 +1,5 @@
-{
-  lib,
-  aioredis,
-  asgiref,
-  buildPythonPackage,
-  channels,
-  cryptography,
-  fetchFromGitHub,
-  hiredis,
-  msgpack,
-  pythonOlder,
-  redis,
-}:
+{ lib, aioredis, asgiref, buildPythonPackage, channels, cryptography
+, fetchFromGitHub, hiredis, msgpack, pythonOlder, redis }:
 
 buildPythonPackage rec {
   pname = "channels-redis";
@@ -26,21 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-Eid9aWlLNnqr3WAnsLe+Pz9gsugCsdDKi0+nFNF02CI=";
   };
 
-  buildInputs = [
-    hiredis
-    redis
-  ];
+  buildInputs = [ hiredis redis ];
 
-  propagatedBuildInputs = [
-    aioredis
-    asgiref
-    channels
-    msgpack
-  ];
+  propagatedBuildInputs = [ aioredis asgiref channels msgpack ];
 
-  passthru.optional-dependencies = {
-    cryptography = [ cryptography ];
-  };
+  passthru.optional-dependencies = { cryptography = [ cryptography ]; };
 
   # Fails with : ConnectionRefusedError: [Errno 111] Connect call failed ('127.0.0.1', 6379)
   # (even with a local Redis instance running)
@@ -51,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Redis-backed ASGI channel layer implementation";
     homepage = "https://github.com/django/channels_redis/";
-    changelog = "https://github.com/django/channels_redis/blob/${version}/CHANGELOG.txt";
+    changelog =
+      "https://github.com/django/channels_redis/blob/${version}/CHANGELOG.txt";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

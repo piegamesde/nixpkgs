@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pymysql,
-  pythonOlder,
-  setuptools-scm,
-  setuptools-scm-git-archive,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pymysql, pythonOlder, setuptools-scm
+, setuptools-scm-git-archive }:
 
 buildPythonPackage rec {
   pname = "aiomysql";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-rYEos2RuE2xI59httYlN21smBH4/fU4uT48FWwrI6Qg=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-    setuptools-scm-git-archive
-  ];
+  nativeBuildInputs = [ setuptools-scm setuptools-scm-git-archive ];
 
   propagatedBuildInputs = [ pymysql ];
 

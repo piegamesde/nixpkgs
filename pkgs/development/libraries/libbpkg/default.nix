@@ -1,21 +1,10 @@
-{
-  lib,
-  stdenv,
-  build2,
-  fetchurl,
-  libbutl,
-  enableShared ? !stdenv.hostPlatform.isStatic,
-  enableStatic ? !enableShared,
-}:
+{ lib, stdenv, build2, fetchurl, libbutl
+, enableShared ? !stdenv.hostPlatform.isStatic, enableStatic ? !enableShared }:
 
 stdenv.mkDerivation rec {
   pname = "libbpkg";
   version = "0.15.0";
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "doc" ];
 
   src = fetchurl {
     url = "https://pkg.cppget.org/1/alpha/build2/libbpkg-${version}.tar.gz";
@@ -25,7 +14,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ build2 ];
   buildInputs = [ libbutl ];
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags =
+    [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
 
   strictDeps = true;
 

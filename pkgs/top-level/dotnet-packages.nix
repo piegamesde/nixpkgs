@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  pkgs,
-  buildDotnetPackage,
-  buildDotnetModule,
-  fetchurl,
-  fetchFromGitHub,
-  fetchNuGet,
-  glib,
-  mono,
-  overrides ? { },
-}:
+{ stdenv, lib, pkgs, buildDotnetPackage, buildDotnetModule, fetchurl
+, fetchFromGitHub, fetchNuGet, glib, mono, overrides ? { } }:
 
 let
   self = dotnetPackages // overrides;
@@ -87,10 +76,7 @@ let
       pname = "SharpFont";
       version = "4.0.1";
       sha256 = "1yd3cm4ww0hw2k3aymf792hp6skyg8qn491m2a3fhkzvsl8z7vs8";
-      outputFiles = [
-        "lib/*"
-        "config/*"
-      ];
+      outputFiles = [ "lib/*" "config/*" ];
     };
 
     SmartIrc4net = fetchNuGet {
@@ -200,7 +186,8 @@ let
       buildInputs = [ pkgs.gtk-sharp-2_0 ];
 
       meta = {
-        description = "A generic framework for creating extensible applications";
+        description =
+          "A generic framework for creating extensible applications";
         homepage = "https://www.mono-project.com/Mono.Addins";
         longDescription = ''
           A generic framework for creating extensible applications,
@@ -244,6 +231,6 @@ let
       sha256 = "11rzna03i145qj08hwrynya548fwk8xzxmg65swyaf19jd7gzg82";
       outputFiles = [ "*" ];
     };
+
   };
-in
-self
+in self

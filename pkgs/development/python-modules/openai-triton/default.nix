@@ -1,26 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  python,
-  fetchpatch,
-  fetchFromGitHub,
-  addOpenGLRunpath,
-  cmake,
-  cudaPackages,
-  llvmPackages,
-  pybind11,
-  gtest,
-  zlib,
-  ncurses,
-  libxml2,
-  lit,
-  filelock,
-  torchWithRocm,
-  pytest,
-  pytestCheckHook,
-  pythonRelaxDepsHook,
-  pkgsTargetTarget,
-}:
+{ lib, buildPythonPackage, python, fetchpatch, fetchFromGitHub, addOpenGLRunpath
+, cmake, cudaPackages, llvmPackages, pybind11, gtest, zlib, ncurses, libxml2
+, lit, filelock, torchWithRocm, pytest, pytestCheckHook, pythonRelaxDepsHook
+, pkgsTargetTarget }:
 
 let
   pname = "triton";
@@ -41,18 +22,13 @@ let
   # Cf. https://nixos.org/manual/nixpkgs/unstable/#sec-cross-infra
   ptxas = "${pkgsTargetTarget.cudaPackages.cuda_nvcc}/bin/ptxas";
 
-  llvm =
-    (llvmPackages.llvm.override {
-      llvmTargetsToBuild = [
-        "NATIVE"
-        "NVPTX"
-      ];
-      # Upstream CI sets these too:
-      # targetProjects = [ "mlir" ];
-      extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
-    });
-in
-buildPythonPackage {
+  llvm = (llvmPackages.llvm.override {
+    llvmTargetsToBuild = [ "NATIVE" "NVPTX" ];
+    # Upstream CI sets these too:
+    # targetProjects = [ "mlir" ];
+    extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
+  });
+in buildPythonPackage {
   inherit pname version;
 
   format = "setuptools";
@@ -67,11 +43,13 @@ buildPythonPackage {
   patches = [
     # Prerequisite for llvm15 patch
     (fetchpatch {
-      url = "https://github.com/openai/triton/commit/2aba985daaa70234823ea8f1161da938477d3e02.patch";
+      url =
+        "https://github.com/openai/triton/commit/2aba985daaa70234823ea8f1161da938477d3e02.patch";
       hash = "sha256-LGv0+Ut2WYPC4Ksi4803Hwmhi3FyQOF9zElJc/JCobk=";
     })
     (fetchpatch {
-      url = "https://github.com/openai/triton/commit/e3941f9d09cdd31529ba4a41018cfc0096aafea6.patch";
+      url =
+        "https://github.com/openai/triton/commit/e3941f9d09cdd31529ba4a41018cfc0096aafea6.patch";
       hash = "sha256-A+Gor6qzFlGQhVVhiaaYOzqqx8yO2MdssnQS6TIfUWg=";
     })
 
@@ -91,13 +69,12 @@ buildPythonPackage {
     # })
   ];
 
-  postPatch =
-    ''
-      substituteInPlace python/setup.py \
-        --replace \
-          '= get_thirdparty_packages(triton_cache_path)' \
-          '= os.environ["cmakeFlags"].split()'
-    ''
+  postPatch = ''
+    substituteInPlace python/setup.py \
+      --replace \
+        '= get_thirdparty_packages(triton_cache_path)' \
+        '= os.environ["cmakeFlags"].split()'
+  ''
     # Wiring triton=2.0.0 with llcmPackages_rocm.llvm=5.4.3
     # Revisit when updating either triton or llvm
     + ''
@@ -126,28 +103,24 @@ buildPythonPackage {
         --replace "add_subdirectory(FileCheck)" ""
 
       rm cmake/FindLLVM.cmake
-    ''
-    + (
-      let
-        # Bash was getting weird without linting,
-        # but basically upstream contains [cc, ..., "-lcuda", ...]
-        # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-        old = [ "-lcuda" ];
-        new = [
-          "-lcuda"
-          "-L${addOpenGLRunpath.driverLink}"
-          "-L${cuda_cudart}/lib/stubs/"
-        ];
+    '' + (let
+      # Bash was getting weird without linting,
+      # but basically upstream contains [cc, ..., "-lcuda", ...]
+      # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
+      old = [ "-lcuda" ];
+      new = [
+        "-lcuda"
+        "-L${addOpenGLRunpath.driverLink}"
+        "-L${cuda_cudart}/lib/stubs/"
+      ];
 
-        quote = x: ''"${x}"'';
-        oldStr = lib.concatMapStringsSep ", " quote old;
-        newStr = lib.concatMapStringsSep ", " quote new;
-      in
-      ''
-        substituteInPlace python/triton/compiler.py \
-          --replace '${oldStr}' '${newStr}'
-      ''
-    )
+      quote = x: ''"${x}"'';
+      oldStr = lib.concatMapStringsSep ", " quote old;
+      newStr = lib.concatMapStringsSep ", " quote new;
+    in ''
+      substituteInPlace python/triton/compiler.py \
+        --replace '${oldStr}' '${newStr}'
+    '')
     # Triton seems to be looking up cuda.h
     + ''
       sed -i 's|cu_include_dir = os.path.join.*$|cu_include_dir = "${cuda_cudart}/include"|' python/triton/compiler.py
@@ -169,13 +142,7 @@ buildPythonPackage {
     llvmPackages.mlir
   ];
 
-  buildInputs = [
-    gtest
-    libxml2.dev
-    ncurses
-    pybind11
-    zlib
-  ];
+  buildInputs = [ gtest libxml2.dev ncurses pybind11 zlib ];
 
   propagatedBuildInputs = [ filelock ];
 
@@ -205,15 +172,14 @@ buildPythonPackage {
   dontUseCmakeConfigure = true;
   cmakeFlags = [ "-DMLIR_DIR=${llvmPackages.mlir}/lib/cmake/mlir" ];
 
-  postFixup =
-    let
-      ptxasDestination = "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas";
-    in
+  postFixup = let
+    ptxasDestination =
+      "$out/${python.sitePackages}/triton/third_party/cuda/bin/ptxas";
     # Setuptools (?) strips runpath and +x flags. Let's just restore the symlink
-    ''
-      rm -f ${ptxasDestination}
-      ln -s ${ptxas} ${ptxasDestination}
-    '';
+  in ''
+    rm -f ${ptxasDestination}
+    ln -s ${ptxas} ${ptxasDestination}
+  '';
 
   checkInputs = [
     cmake # ctest
@@ -227,17 +193,14 @@ buildPythonPackage {
     + ''
       cd test/unit
     '';
-  pythonImportsCheck =
-    [
-      # Circular dependency on torch
-      # "triton"
-      # "triton.language"
-    ];
+  pythonImportsCheck = [
+    # Circular dependency on torch
+    # "triton"
+    # "triton.language"
+  ];
 
   # Ultimately, torch is our test suite:
-  passthru.tests = {
-    inherit torchWithRocm;
-  };
+  passthru.tests = { inherit torchWithRocm; };
 
   pythonRemoveDeps = [
     # Circular dependency, cf. https://github.com/openai/triton/issues/1374

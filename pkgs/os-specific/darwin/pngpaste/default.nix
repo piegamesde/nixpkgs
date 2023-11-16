@@ -1,16 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  AppKit,
-  Cocoa,
-}:
+{ lib, stdenv, fetchFromGitHub, AppKit, Cocoa }:
 
 let
   pname = "pngpaste";
   version = "0.2.3";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
   src = fetchFromGitHub {
     owner = "jcsalterego";
@@ -19,10 +12,7 @@ stdenv.mkDerivation {
     sha256 = "uvajxSelk1Wfd5is5kmT2fzDShlufBgC0PDCeabEOSE=";
   };
 
-  buildInputs = [
-    AppKit
-    Cocoa
-  ];
+  buildInputs = [ AppKit Cocoa ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -39,7 +29,8 @@ stdenv.mkDerivation {
       falling back to PNG.
     '';
     homepage = "https://github.com/jcsalterego/pngpaste";
-    changelog = "https://github.com/jcsalterego/pngpaste/raw/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/jcsalterego/pngpaste/raw/${version}/CHANGELOG.md";
     platforms = platforms.darwin;
     license = licenses.bsd2;
     maintainers = with maintainers; [ samw ];

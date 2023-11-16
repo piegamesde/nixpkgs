@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  glibcLocales,
-}:
+{ lib, python3, fetchPypi, glibcLocales }:
 
 with python3.pkgs;
 
@@ -32,10 +27,7 @@ buildPythonApplication rec {
     sqlparse
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    glibcLocales
-  ];
+  nativeCheckInputs = [ pytestCheckHook glibcLocales ];
 
   preCheck = ''
     export HOME=.
@@ -44,13 +36,12 @@ buildPythonApplication rec {
 
   disabledTestPaths = [ "mycli/packages/paramiko_stub/__init__.py" ];
 
-  disabledTests =
-    [
-      # Note: test_auto_escaped_col_names is currently failing due to a bug upstream.
-      # TODO: re-enable this test once there is a fix upstream. See
-      # https://github.com/dbcli/mycli/issues/1103 for details.
-      "test_auto_escaped_col_names"
-    ];
+  disabledTests = [
+    # Note: test_auto_escaped_col_names is currently failing due to a bug upstream.
+    # TODO: re-enable this test once there is a fix upstream. See
+    # https://github.com/dbcli/mycli/issues/1103 for details.
+    "test_auto_escaped_col_names"
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

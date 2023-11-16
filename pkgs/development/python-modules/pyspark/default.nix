@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  pandas,
-  py4j,
-  pyarrow,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, numpy, pandas, py4j, pyarrow, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -34,11 +26,7 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     ml = [ numpy ];
     mllib = [ numpy ];
-    sql = [
-      numpy
-      pandas
-      pyarrow
-    ];
+    sql = [ numpy pandas pyarrow ];
   };
 
   # Tests assume running spark instance
@@ -49,10 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for Apache Spark";
     homepage = "https://github.com/apache/spark/tree/master/python";
-    sourceProvenance = with sourceTypes; [
-      fromSource
-      binaryBytecode
-    ];
+    sourceProvenance = with sourceTypes; [ fromSource binaryBytecode ];
     license = licenses.asl20;
     maintainers = with maintainers; [ shlevy ];
   };

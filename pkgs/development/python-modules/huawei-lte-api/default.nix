@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pycryptodomex,
-  pytestCheckHook,
-  requests,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pycryptodomex
+, pytestCheckHook, requests, xmltodict }:
 
 buildPythonPackage rec {
   pname = "huawei-lte-api";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-pOBYMSORgT8WOnhCdazuKucjPoOywnrWa+qCYR5qSls=";
   };
 
-  propagatedBuildInputs = [
-    pycryptodomex
-    requests
-    xmltodict
-  ];
+  propagatedBuildInputs = [ pycryptodomex requests xmltodict ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -40,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "API For huawei LAN/WAN LTE Modems";
     homepage = "https://github.com/Salamek/huawei-lte-api";
-    changelog = "https://github.com/Salamek/huawei-lte-api/releases/tag/${version}";
+    changelog =
+      "https://github.com/Salamek/huawei-lte-api/releases/tag/${version}";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ dotlambda ];
   };

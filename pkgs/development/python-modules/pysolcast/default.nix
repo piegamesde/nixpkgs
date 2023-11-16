@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isodate,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  requests,
-  responses,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isodate, pytestCheckHook
+, pythonOlder, pyyaml, requests, responses, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pysolcast";
@@ -29,16 +19,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    isodate
-    pyyaml
-    requests
-  ];
+  propagatedBuildInputs = [ isodate pyyaml requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

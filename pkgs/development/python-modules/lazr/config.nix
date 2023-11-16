@@ -1,8 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lazr_delegates,
-}:
+{ buildPythonPackage, fetchPypi, lazr_delegates }:
 
 buildPythonPackage rec {
   pname = "lazr.config";

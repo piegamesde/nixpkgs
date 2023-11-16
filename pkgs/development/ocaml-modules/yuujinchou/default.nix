@@ -1,32 +1,17 @@
-{
-  lib,
-  ocaml,
-  fetchFromGitHub,
-  buildDunePackage,
-  algaeff,
-  bwd,
-  qcheck-alcotest,
+{ lib, ocaml, fetchFromGitHub, buildDunePackage, algaeff, bwd, qcheck-alcotest
 }:
 
 let
-  params =
-    if lib.versionAtLeast ocaml.version "5.0" then
-      {
-        version = "4.0.0";
-        hash = "sha256-yNLN5bBe4aft9Rl5VHmlOYTlnCdR2NgDWsc3uJHaZy4=";
-        propagatedBuildInputs = [
-          algaeff
-          bwd
-        ];
-      }
-    else
-      {
-        version = "2.0.0";
-        hash = "sha256:1nhz44cyipy922anzml856532m73nn0g7iwkg79yzhq6yb87109w";
-      };
-in
+  params = if lib.versionAtLeast ocaml.version "5.0" then {
+    version = "4.0.0";
+    hash = "sha256-yNLN5bBe4aft9Rl5VHmlOYTlnCdR2NgDWsc3uJHaZy4=";
+    propagatedBuildInputs = [ algaeff bwd ];
+  } else {
+    version = "2.0.0";
+    hash = "sha256:1nhz44cyipy922anzml856532m73nn0g7iwkg79yzhq6yb87109w";
+  };
 
-buildDunePackage rec {
+in buildDunePackage rec {
   pname = "yuujinchou";
   inherit (params) version;
 
@@ -52,3 +37,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.vbgl ];
   };
 }
+

@@ -1,19 +1,5 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  texinfo,
-  perlPackages,
-  groff,
-  libxml2,
-  libxslt,
-  gnused,
-  libiconv,
-  opensp,
-  docbook_xml_dtd_43,
-  bash,
-  makeWrapper,
-}:
+{ fetchurl, lib, stdenv, texinfo, perlPackages, groff, libxml2, libxslt, gnused
+, libiconv, opensp, docbook_xml_dtd_43, bash, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "docbook2X";
@@ -28,28 +14,9 @@ stdenv.mkDerivation rec {
   # writes its output to stdout instead of creating a file.
   patches = [ ./db2x_texixml-to-stdout.patch ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    perlPackages.perl
-    texinfo
-    libxslt
-  ];
-  buildInputs =
-    [
-      groff
-      libxml2
-      opensp
-      libiconv
-      bash
-    ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLSAX
-        XMLParser
-        XMLNamespaceSupport
-      ]
-    );
+  nativeBuildInputs = [ makeWrapper perlPackages.perl texinfo libxslt ];
+  buildInputs = [ groff libxml2 opensp libiconv bash ]
+    ++ (with perlPackages; [ perl XMLSAX XMLParser XMLNamespaceSupport ]);
 
   postConfigure = ''
     # Broken substitution is used for `perl/config.pl', which leaves literal
@@ -70,11 +37,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/$i \
         --prefix PERL5LIB : ${
           with perlPackages;
-          makeFullPerlPath [
-            XMLSAX
-            XMLParser
-            XMLNamespaceSupport
-          ]
+          makeFullPerlPath [ XMLSAX XMLParser XMLNamespaceSupport ]
         } \
         --prefix XML_CATALOG_FILES "\ " \
         "$out/share/docbook2X/dtd/catalog.xml\ $out/share/docbook2X/xslt/catalog.xml\ ${docbook_xml_dtd_43}/xml/dtd/docbook/catalog.xml"

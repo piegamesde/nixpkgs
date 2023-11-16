@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_testing,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_testing }:
 
 buildPythonPackage rec {
   pname = "zope.deprecation";
@@ -22,4 +17,5 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ domenkozar ];
   };
+
 }

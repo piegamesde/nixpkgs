@@ -1,30 +1,7 @@
-{
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  cmake,
-  glib-networking,
-  gst_all_1,
-  gtkmm3,
-  libayatana-appindicator,
-  libcanberra,
-  libepoxy,
-  libpsl,
-  libdatrie,
-  libdeflate,
-  libselinux,
-  libsepol,
-  libsysprof-capture,
-  libthai,
-  libxkbcommon,
-  sqlite,
-  pcre,
-  pcre2,
-  pkg-config,
-  webkitgtk,
-  wrapGAppsHook,
-  xorg,
-}:
+{ fetchFromGitHub, lib, stdenv, cmake, glib-networking, gst_all_1, gtkmm3
+, libayatana-appindicator, libcanberra, libepoxy, libpsl, libdatrie, libdeflate
+, libselinux, libsepol, libsysprof-capture, libthai, libxkbcommon, sqlite, pcre
+, pcre2, pkg-config, webkitgtk, wrapGAppsHook, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "whatsapp-for-linux";
@@ -37,11 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YmiEzemoGLwCUVfnuTmruSkI0oBg7yNuodWmXTMGh8g=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
 
   buildInputs = [
     glib-networking

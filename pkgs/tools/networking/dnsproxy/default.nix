@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "dnsproxy";
@@ -17,12 +13,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X"
-    "main.VersionString=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X" "main.VersionString=${version}" ];
 
   doCheck = false;
 

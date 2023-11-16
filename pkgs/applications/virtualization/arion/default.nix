@@ -1,11 +1,4 @@
-{
-  pkgs,
-  lib,
-  haskellPackages,
-  haskell,
-  runCommand,
-  buildPackages,
-}:
+{ pkgs, lib, haskellPackages, haskell, runCommand, buildPackages }:
 
 let
 
@@ -17,13 +10,12 @@ let
        - have functions to use Arion from inside Nix: arion.eval and arion.build
        - make it self-contained by including docker-compose
   */
-  arion = (justStaticExecutables (overrideCabal cabalOverrides arion-compose)).overrideAttrs (
-    o: {
+  arion = (justStaticExecutables
+    (overrideCabal cabalOverrides arion-compose)).overrideAttrs (o: {
       # Patch away the arion-compose name. Unlike the Haskell library, the program
       # is called arion (arion was already taken on hackage).
       pname = "arion";
-    }
-  );
+    });
 
   inherit (haskell.lib.compose) justStaticExecutables overrideCabal;
 
@@ -31,9 +23,7 @@ let
 
   cabalOverrides = o: {
     buildTools = (o.buildTools or [ ]) ++ [ buildPackages.makeWrapper ];
-    passthru = (o.passthru or { }) // {
-      inherit eval build;
-    };
+    passthru = (o.passthru or { }) // { inherit eval build; };
     src = arion-compose.src;
 
     # PYTHONPATH
@@ -58,9 +48,8 @@ let
   };
 
   # Unpacked sources for evaluation by `eval`
-  srcUnpacked =
-    runCommand "arion-src" { }
-      "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}";
+  srcUnpacked = runCommand "arion-src" { }
+    "mkdir $out; tar -C $out --strip-components=1 -xf ${arion-compose.src}";
 
   /* Function for evaluating a composition
 
@@ -68,8 +57,9 @@ let
 
      Returns the module system's `config` and `options` variables.
   */
-  eval =
-    args@{ ... }: import (srcUnpacked + "/src/nix/eval-composition.nix") ({ inherit pkgs; } // args);
+  eval = args@{ ... }:
+    import (srcUnpacked + "/src/nix/eval-composition.nix")
+    ({ inherit pkgs; } // args);
 
   /* Function to derivation of the docker compose yaml file
       NOTE: The output will change: https://github.com/hercules-ci/arion/issues/82
@@ -77,11 +67,8 @@ let
      This function is particularly useful on CI, although the references
      to image tarballs may not always be desirable.
   */
-  build =
-    args@{ ... }:
-    let
-      composition = eval args;
-    in
-    composition.config.out.dockerComposeYaml;
-in
-arion
+  build = args@{ ... }:
+    let composition = eval args;
+    in composition.config.out.dockerComposeYaml;
+
+in arion

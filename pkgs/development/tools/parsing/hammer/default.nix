@@ -1,11 +1,4 @@
-{
-  fetchFromGitLab,
-  glib,
-  lib,
-  pkg-config,
-  scons,
-  stdenv,
-}:
+{ fetchFromGitLab, glib, lib, pkg-config, scons, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "hammer";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xMZhUnycGeHkNZfHQ2d9mETti8HwGHZNskFqh9f0810=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    scons
-  ];
+  nativeBuildInputs = [ pkg-config scons ];
   buildInputs = [ glib ];
 
   meta = with lib; {

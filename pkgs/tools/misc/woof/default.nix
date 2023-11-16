@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, python3 }:
 
 stdenv.mkDerivation {
   pname = "woof";
@@ -26,7 +21,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "http://www.home.unix-ag.org/simon/woof.html";
-    description = "Web Offer One File - Command-line utility to easily exchange files over a local network";
+    description =
+      "Web Offer One File - Command-line utility to easily exchange files over a local network";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
     maintainers = with maintainers; [ matthiasbeyer ];

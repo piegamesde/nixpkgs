@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { lib, ... }:
+import ./make-test-python.nix ({ lib, ... }:
 
   {
     name = "portunus";
@@ -16,5 +15,4 @@ import ./make-test-python.nix (
       machine.wait_for_unit("portunus.service")
       machine.succeed("curl --fail -vvv http://localhost:8080/")
     '';
-  }
-)
+  })

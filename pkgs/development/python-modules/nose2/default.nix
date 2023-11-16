@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  six,
-  pythonOlder,
-  coverage,
-}:
+{ lib, buildPythonPackage, fetchPypi, python, six, pythonOlder, coverage }:
 
 buildPythonPackage rec {
   pname = "nose2";
@@ -20,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-lW55ub1VjuCLYgDAWtLHZGW344YMDAU3aGCJKFwyARM=";
   };
 
-  propagatedBuildInputs = [
-    coverage
-    six
-  ];
+  propagatedBuildInputs = [ coverage six ];
 
   checkPhase = ''
     ${python.interpreter} -m unittest

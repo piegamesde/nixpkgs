@@ -1,12 +1,5 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python-dateutil,
-  pythonOlder,
-  requests,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, python-dateutil
+, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "socid-extractor";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-tDKwYgW1vEyPzuouPGK9tdTf3vNr+UaosHtQe23srG0=";
   };
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 python-dateutil requests ];
 
   postPatch = ''
     # https://github.com/soxoj/socid-extractor/pull/125

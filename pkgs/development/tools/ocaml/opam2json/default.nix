@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  opam-installer,
-  ocamlPackages,
-}:
+{ lib, stdenv, fetchFromGitHub, opam-installer, ocamlPackages }:
 stdenv.mkDerivation rec {
   pname = "opam2json";
   version = "0.4";
@@ -16,16 +10,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5pXfbUfpVABtKbii6aaI2EdAZTjHJ2QntEf0QD2O5AM=";
   };
 
-  buildInputs = with ocamlPackages; [
-    yojson
-    opam-file-format
-    cmdliner
-  ];
-  nativeBuildInputs = with ocamlPackages; [
-    ocaml
-    findlib
-    opam-installer
-  ];
+  buildInputs = with ocamlPackages; [ yojson opam-file-format cmdliner ];
+  nativeBuildInputs = with ocamlPackages; [ ocaml findlib opam-installer ];
 
   preInstall = ''export PREFIX="$out"'';
 

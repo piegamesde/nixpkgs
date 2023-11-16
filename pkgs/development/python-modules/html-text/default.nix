@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  six,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, lxml, six, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "html-text";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ lxml ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    six
-  ];
+  nativeCheckInputs = [ pytestCheckHook six ];
 
   pythonImportsCheck = [ "html_text" ];
 

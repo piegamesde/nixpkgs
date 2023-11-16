@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytautulli";
@@ -34,10 +26,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    aresponses
-    pytest-asyncio
-  ];
+  checkInputs = [ aresponses pytest-asyncio ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

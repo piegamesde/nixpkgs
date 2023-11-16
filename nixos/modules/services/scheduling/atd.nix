@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,9 +7,8 @@ let
   cfg = config.services.atd;
 
   inherit (pkgs) at;
-in
 
-{
+in {
 
   ###### interface
 
@@ -38,6 +32,7 @@ in
         setuid/setgid `atd`.
       '';
     };
+
   };
 
   ###### implementation
@@ -46,24 +41,16 @@ in
 
     # Not wrapping "batch" because it's a shell script (kernel drops perms
     # anyway) and it's patched to invoke the "at" setuid wrapper.
-    security.wrappers = builtins.listToAttrs (
-      map
-        (program: {
-          name = "${program}";
-          value = {
-            source = "${at}/bin/${program}";
-            owner = "atd";
-            group = "atd";
-            setuid = true;
-            setgid = true;
-          };
-        })
-        [
-          "at"
-          "atq"
-          "atrm"
-        ]
-    );
+    security.wrappers = builtins.listToAttrs (map (program: {
+      name = "${program}";
+      value = {
+        source = "${at}/bin/${program}";
+        owner = "atd";
+        group = "atd";
+        setuid = true;
+        setgid = true;
+      };
+    }) [ "at" "atq" "atrm" ]);
 
     environment.systemPackages = [ at ];
 

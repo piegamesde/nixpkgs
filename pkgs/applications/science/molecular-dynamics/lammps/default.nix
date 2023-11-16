@@ -1,42 +1,31 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libpng,
-  gzip,
-  fftw,
-  blas,
-  lapack,
-  withMPI ? false,
-  mpi,
-  cmake,
-  # Available list of packages can be found near here:
-  # https://github.com/lammps/lammps/blob/develop/cmake/CMakeLists.txt#L222
-  packages ? {
-    ASPHERE = true;
-    BODY = true;
-    CLASS2 = true;
-    COLLOID = true;
-    COMPRESS = true;
-    CORESHELL = true;
-    DIPOLE = true;
-    GRANULAR = true;
-    KSPACE = true;
-    MANYBODY = true;
-    MC = true;
-    MISC = true;
-    MOLECULE = true;
-    OPT = true;
-    PERI = true;
-    QEQ = true;
-    REPLICA = true;
-    RIGID = true;
-    SHOCK = true;
-    ML-SNAP = true;
-    SRD = true;
-    REAXFF = true;
-  },
-}:
+{ lib, stdenv, fetchFromGitHub, libpng, gzip, fftw, blas, lapack
+, withMPI ? false, mpi, cmake
+# Available list of packages can be found near here:
+# https://github.com/lammps/lammps/blob/develop/cmake/CMakeLists.txt#L222
+, packages ? {
+  ASPHERE = true;
+  BODY = true;
+  CLASS2 = true;
+  COLLOID = true;
+  COMPRESS = true;
+  CORESHELL = true;
+  DIPOLE = true;
+  GRANULAR = true;
+  KSPACE = true;
+  MANYBODY = true;
+  MC = true;
+  MISC = true;
+  MOLECULE = true;
+  OPT = true;
+  PERI = true;
+  QEQ = true;
+  REPLICA = true;
+  RIGID = true;
+  SHOCK = true;
+  ML-SNAP = true;
+  SRD = true;
+  REAXFF = true;
+} }:
 
 stdenv.mkDerivation rec {
   # LAMMPS has weird versioning converted to ISO 8601 format
@@ -58,17 +47,11 @@ stdenv.mkDerivation rec {
     inherit mpi;
     inherit packages;
   };
-  cmakeFlags =
-    [ ]
-    ++ (builtins.map (p: "-DPKG_${p}=ON") (builtins.attrNames (lib.filterAttrs (n: v: v) packages)));
+  cmakeFlags = [ ] ++ (builtins.map (p: "-DPKG_${p}=ON")
+    (builtins.attrNames (lib.filterAttrs (n: v: v) packages)));
 
-  buildInputs = [
-    fftw
-    libpng
-    blas
-    lapack
-    gzip
-  ] ++ lib.optionals withMPI [ mpi ];
+  buildInputs = [ fftw libpng blas lapack gzip ]
+    ++ lib.optionals withMPI [ mpi ];
 
   # For backwards compatibility
   postInstall = ''
@@ -91,9 +74,6 @@ stdenv.mkDerivation rec {
     # segfaults. In anycase both blas and lapack should have the same #bits
     # support.
     broken = (blas.isILP64 && lapack.isILP64);
-    maintainers = [
-      maintainers.costrouc
-      maintainers.doronbehar
-    ];
+    maintainers = [ maintainers.costrouc maintainers.doronbehar ];
   };
 }

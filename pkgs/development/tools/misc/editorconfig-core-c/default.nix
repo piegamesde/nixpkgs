@@ -1,21 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchpatch,
-  fetchFromGitHub,
-  cmake,
-  pcre2,
-  doxygen,
-}:
+{ lib, stdenv, fetchpatch, fetchFromGitHub, cmake, pcre2, doxygen }:
 
 stdenv.mkDerivation rec {
   pname = "editorconfig-core-c";
   version = "0.12.5";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "editorconfig";
@@ -25,20 +14,17 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Fox broken paths in pkg-config.
-      # https://github.com/editorconfig/editorconfig-core-c/pull/81
-      (fetchpatch {
-        url = "https://github.com/editorconfig/editorconfig-core-c/commit/e0ead79d3bb4179fe9bccd3e5598ed47cc0863a3.patch";
-        sha256 = "t/DiPVyyYoMwFpNG6sD+rLWHheFCbMaILXyey6inGdc=";
-      })
-    ];
-
-  nativeBuildInputs = [
-    cmake
-    doxygen
+  patches = [
+    # Fox broken paths in pkg-config.
+    # https://github.com/editorconfig/editorconfig-core-c/pull/81
+    (fetchpatch {
+      url =
+        "https://github.com/editorconfig/editorconfig-core-c/commit/e0ead79d3bb4179fe9bccd3e5598ed47cc0863a3.patch";
+      sha256 = "t/DiPVyyYoMwFpNG6sD+rLWHheFCbMaILXyey6inGdc=";
+    })
   ];
+
+  nativeBuildInputs = [ cmake doxygen ];
 
   buildInputs = [ pcre2 ];
 
@@ -58,10 +44,7 @@ stdenv.mkDerivation rec {
       editors, see the EditorConfig website.
     '';
     downloadPage = "https://github.com/editorconfig/editorconfig-core-c";
-    license = with licenses; [
-      bsd2
-      bsd3
-    ];
+    license = with licenses; [ bsd2 bsd3 ];
     maintainers = with maintainers; [ dochang ];
     platforms = platforms.unix;
     mainProgram = "editorconfig";

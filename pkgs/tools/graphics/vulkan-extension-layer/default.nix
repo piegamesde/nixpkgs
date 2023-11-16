@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  writeText,
-  vulkan-headers,
-  jq,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, writeText, vulkan-headers, jq }:
 
 stdenv.mkDerivation rec {
   pname = "vulkan-extension-layer";
@@ -19,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-CuwYpB8HX8pnR+ElkQfckpKDLKyZIzqm4F9kluM1cKo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    jq
-  ];
+  nativeBuildInputs = [ cmake jq ];
 
   buildInputs = [ vulkan-headers ];
 
@@ -44,7 +33,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Layers providing Vulkan features when native support is unavailable";
+    description =
+      "Layers providing Vulkan features when native support is unavailable";
     homepage = "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/";
     platforms = platforms.linux;
     license = licenses.asl20;

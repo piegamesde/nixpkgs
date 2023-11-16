@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  openssl,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, openssl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "aerospike-server";
@@ -21,15 +12,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-  ];
-  buildInputs = [
-    openssl
-    zlib
-  ];
+  nativeBuildInputs = [ autoconf automake libtool ];
+  buildInputs = [ openssl zlib ];
 
   preBuild = ''
     patchShebangs build/gen_version

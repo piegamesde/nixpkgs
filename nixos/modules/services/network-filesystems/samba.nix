@@ -1,49 +1,34 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
-  smbToString = x: if builtins.typeOf x == "bool" then boolToString x else toString x;
+  smbToString = x:
+    if builtins.typeOf x == "bool" then boolToString x else toString x;
 
   cfg = config.services.samba;
 
   samba = cfg.package;
 
-  shareConfig =
-    name:
-    let
-      share = getAttr name cfg.shares;
-    in
-    "[${name}]\n "
-    + (smbToString (
-      map
-        (key: ''
-          ${key} = ${smbToString (getAttr key share)}
-        '')
-        (attrNames share)
-    ));
+  shareConfig = name:
+    let share = getAttr name cfg.shares;
+    in "[${name}]\n " + (smbToString (map (key: ''
+      ${key} = ${smbToString (getAttr key share)}
+    '') (attrNames share)));
 
-  configFile = pkgs.writeText "smb.conf" (
-    if cfg.configText != null then
-      cfg.configText
-    else
-      ''
-        [global]
-        security = ${cfg.securityType}
-        passwd program = /run/wrappers/bin/passwd %u
-        invalid users = ${smbToString cfg.invalidUsers}
+  configFile = pkgs.writeText "smb.conf" (if cfg.configText != null then
+    cfg.configText
+  else ''
+    [global]
+    security = ${cfg.securityType}
+    passwd program = /run/wrappers/bin/passwd %u
+    invalid users = ${smbToString cfg.invalidUsers}
 
-        ${cfg.extraConfig}
+    ${cfg.extraConfig}
 
-        ${smbToString (map shareConfig (attrNames cfg.shares))}
-      ''
-  );
+    ${smbToString (map shareConfig (attrNames cfg.shares))}
+  '');
 
   # This may include nss_ldap, needed for samba if it has to use ldap.
   nssModulesPath = config.system.nssModules.path;
@@ -51,7 +36,9 @@ let
   daemonService = appName: args: {
     description = "Samba Service Daemon ${appName}";
 
-    after = [ (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service") ];
+    after = [
+      (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service")
+    ];
     requiredBy = [ "samba.target" ];
     partOf = [ "samba.target" ];
 
@@ -61,7 +48,8 @@ let
     };
 
     serviceConfig = {
-      ExecStart = "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
+      ExecStart =
+        "${samba}/sbin/${appName} --foreground --no-process-group ${args}";
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       LimitNOFILE = 16384;
       PIDFile = "/run/${appName}.pid";
@@ -72,26 +60,12 @@ let
 
     restartTriggers = [ configFile ];
   };
-in
 
-{
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "samba"
-        "defaultShare"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "samba"
-        "syncPasswordsByPam"
-      ]
-      "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10"
-    )
+    (mkRemovedOptionModule [ "services" "samba" "defaultShare" ] "")
+    (mkRemovedOptionModule [ "services" "samba" "syncPasswordsByPam" ]
+      "This option has been removed by upstream, see https://bugzilla.samba.org/show_bug.cgi?id=10669#c10")
   ];
 
   ###### interface
@@ -218,23 +192,26 @@ in
           }
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkMerge [
     {
-      assertions = [
-        {
-          assertion = cfg.nsswins -> cfg.enableWinbindd;
-          message = "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
-        }
-      ];
+      assertions = [{
+        assertion = cfg.nsswins -> cfg.enableWinbindd;
+        message =
+          "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
+      }];
       # Always provide a smb.conf to shut up programs like smbclient and smbspool.
-      environment.etc."samba/smb.conf".source = mkOptionDefault (
-        if cfg.enable then configFile else pkgs.writeText "smb-dummy.conf" "# Samba is disabled."
-      );
+      environment.etc."samba/smb.conf".source = mkOptionDefault
+        (if cfg.enable then
+          configFile
+        else
+          pkgs.writeText "smb-dummy.conf" "# Samba is disabled.");
     }
 
     (mkIf cfg.enable {
@@ -254,7 +231,8 @@ in
         services = {
           samba-smbd = daemonService "smbd" "";
           samba-nmbd = mkIf cfg.enableNmbd (daemonService "nmbd" "");
-          samba-winbindd = mkIf cfg.enableWinbindd (daemonService "winbindd" "");
+          samba-winbindd =
+            mkIf cfg.enableWinbindd (daemonService "winbindd" "");
         };
         tmpfiles.rules = [
           "d /var/lock/samba - - - - -"
@@ -267,14 +245,9 @@ in
       security.pam.services.samba = { };
       environment.systemPackages = [ cfg.package ];
 
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-        139
-        445
-      ];
-      networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [
-        137
-        138
-      ];
+      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 139 445 ];
+      networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 137 138 ];
     })
   ];
+
 }

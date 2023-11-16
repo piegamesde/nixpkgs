@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cffi,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, cffi, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "argon2-cffi-bindings";

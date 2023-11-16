@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,11 +7,8 @@ with lib;
   ###### interface
 
   options = {
-    boot.modprobeConfig.enable =
-      mkEnableOption (
-        lib.mdDoc
-          "modprobe config. This is useful for systems like containers which do not require a kernel"
-      )
+    boot.modprobeConfig.enable = mkEnableOption (lib.mdDoc
+      "modprobe config. This is useful for systems like containers which do not require a kernel")
       // {
         default = true;
       };
@@ -24,10 +16,7 @@ with lib;
     boot.blacklistedKernelModules = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "cirrusfb"
-        "i2c_piix4"
-      ];
+      example = [ "cirrusfb" "i2c_piix4" ];
       description = lib.mdDoc ''
         List of names of kernel modules that should not be loaded
         automatically by the hardware probing code.
@@ -47,25 +36,26 @@ with lib;
       '';
       type = types.lines;
     };
+
   };
 
   ###### implementation
 
   config = mkIf config.boot.modprobeConfig.enable {
 
-    environment.etc."modprobe.d/ubuntu.conf".source = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
+    environment.etc."modprobe.d/ubuntu.conf".source =
+      "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
 
     environment.etc."modprobe.d/nixos.conf".text = ''
-      ${flip concatMapStrings config.boot.blacklistedKernelModules (
-        name: ''
-          blacklist ${name}
-        ''
-      )}
+      ${flip concatMapStrings config.boot.blacklistedKernelModules (name: ''
+        blacklist ${name}
+      '')}
       ${config.boot.extraModprobeConfig}
     '';
     environment.etc."modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
-    environment.etc."modprobe.d/systemd.conf".source = "${config.systemd.package}/lib/modprobe.d/systemd.conf";
+    environment.etc."modprobe.d/systemd.conf".source =
+      "${config.systemd.package}/lib/modprobe.d/systemd.conf";
 
     environment.systemPackages = [ pkgs.kmod ];
 
@@ -76,5 +66,7 @@ with lib;
       # module.
       echo ${pkgs.kmod}/bin/modprobe > /proc/sys/kernel/modprobe
     '';
+
   };
+
 }

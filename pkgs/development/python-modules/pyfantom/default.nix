@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchgit,
-}:
+{ lib, buildPythonPackage, fetchgit }:
 
 buildPythonPackage {
   pname = "pyfantom";
@@ -21,4 +17,5 @@ buildPythonPackage {
     description = "Wrapper for the LEGO Mindstorms Fantom Driver";
     license = licenses.gpl2;
   };
+
 }

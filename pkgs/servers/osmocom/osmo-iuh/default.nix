@@ -1,22 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  lksctp-tools,
-  libosmo-netif,
-  libosmo-sccp,
-  libasn1c,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore
+, lksctp-tools, libosmo-netif, libosmo-sccp, libasn1c, python3 }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-iuh";
   version = "1.4.0";
 
@@ -36,19 +23,10 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config python3 ];
 
-  buildInputs = [
-    libosmocore
-    lksctp-tools
-    libosmo-netif
-    libosmo-sccp
-    libasn1c
-  ];
+  buildInputs =
+    [ libosmocore lksctp-tools libosmo-netif libosmo-sccp libasn1c ];
 
   enableParallelBuilding = true;
 

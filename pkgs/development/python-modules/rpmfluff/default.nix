@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchurl,
-  glibcLocales,
-}:
+{ lib, buildPythonPackage, fetchurl, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "rpmfluff";
@@ -23,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.gpl2;
     maintainers = with maintainers; [ disassembler ];
   };
+
 }

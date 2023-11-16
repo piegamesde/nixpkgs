@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libuuid,
-  json_c,
-  doxygen,
-  perl,
-  python3,
+{ lib, stdenv, fetchFromGitHub, cmake, libuuid, json_c, doxygen, perl, python3
 }:
 
 stdenv.mkDerivation rec {
@@ -33,17 +24,8 @@ stdenv.mkDerivation rec {
     "-Wno-array-bounds"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    perl
-    python3.pkgs.sphinx
-  ];
-  buildInputs = [
-    libuuid
-    json_c
-    python3
-  ];
+  nativeBuildInputs = [ cmake doxygen perl python3.pkgs.sphinx ];
+  buildInputs = [ libuuid json_c python3 ];
 
   # Set the Epoch to 1980; otherwise the Python wheel/zip code
   # gets very angry

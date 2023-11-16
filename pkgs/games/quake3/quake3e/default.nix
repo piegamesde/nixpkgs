@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  curl,
-  libGL,
-  libX11,
-  libXxf86dga,
-  alsa-lib,
-  libXrandr,
-  libXxf86vm,
-  libXext,
-  SDL2,
-  glibc,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, curl, libGL, libX11, libXxf86dga
+, alsa-lib, libXrandr, libXxf86vm, libXext, SDL2, glibc }:
 
 stdenv.mkDerivation rec {
   pname = "Quake3e";

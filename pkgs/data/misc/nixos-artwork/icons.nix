@@ -1,8 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  imagemagick,
-}:
+{ stdenv, fetchFromGitHub, imagemagick }:
 
 stdenv.mkDerivation {
   pname = "nixos-icons";
@@ -17,8 +13,5 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ imagemagick ];
 
-  makeFlags = [
-    "DESTDIR=${placeholder "out"}"
-    "prefix="
-  ];
+  makeFlags = [ "DESTDIR=${placeholder "out"}" "prefix=" ];
 }

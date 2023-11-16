@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  autoconf,
-  automake,
-  libtool,
-  fftw,
-  fftwSinglePrec,
-  alsa-lib,
-  libsndfile,
-  libpulseaudio,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoconf, automake, libtool, fftw
+, fftwSinglePrec, alsa-lib, libsndfile, libpulseaudio }:
 
 stdenv.mkDerivation rec {
   version = "0.24-1";
@@ -24,19 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1b5xy36fjcp7vkp115dpx4mlmqg2fc7xvxdy648fb8im953bw7ql";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-    automake
-    libtool
-  ];
-  buildInputs = [
-    fftw
-    fftwSinglePrec
-    alsa-lib
-    libsndfile
-    libpulseaudio
-  ];
+  nativeBuildInputs = [ pkg-config autoconf automake libtool ];
+  buildInputs = [ fftw fftwSinglePrec alsa-lib libsndfile libpulseaudio ];
 
   preConfigure = ''
     aclocal \
@@ -60,3 +37,4 @@ stdenv.mkDerivation rec {
     maintainers = with lib.maintainers; [ relrod ];
   };
 }
+

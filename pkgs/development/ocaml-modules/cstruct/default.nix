@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  fmt,
-  alcotest,
-  crowbar,
-}:
+{ lib, fetchurl, buildDunePackage, fmt, alcotest, crowbar }:
 
 buildDunePackage rec {
   pname = "cstruct";
@@ -15,17 +8,15 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-cstruct/releases/download/v${version}/cstruct-${version}.tbz";
+    url =
+      "https://github.com/mirage/ocaml-cstruct/releases/download/v${version}/cstruct-${version}.tbz";
     hash = "sha256-mngHM5JYDoNJFI+jq0sbLpidydMNB0AbBMlrfGDwPmI=";
   };
 
   buildInputs = [ fmt ];
 
   doCheck = true;
-  checkInputs = [
-    alcotest
-    crowbar
-  ];
+  checkInputs = [ alcotest crowbar ];
 
   meta = {
     description = "Access C-like structures directly from OCaml";

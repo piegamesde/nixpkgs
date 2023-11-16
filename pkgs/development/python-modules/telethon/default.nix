@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  openssl,
-  rsa,
-  pyaes,
-  pythonOlder,
-  setuptools,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, openssl, rsa, pyaes, pythonOlder
+, setuptools, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "telethon";
@@ -31,15 +21,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    rsa
-    pyaes
-  ];
+  propagatedBuildInputs = [ rsa pyaes ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pytestFlagsArray = [ "tests/telethon" ];
 

@@ -1,19 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchpatch,
-  fetchPypi,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchpatch, fetchPypi, pythonOlder
 
-  # native
-  flit-core,
+# native
+, flit-core
 
-  # propagates
-  typing-extensions,
+# propagates
+, typing-extensions
 
-  # tests
-  unittestCheckHook,
-}:
+# tests
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aioitertools";
@@ -29,14 +23,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 
   pythonImportsCheck = [ "aioitertools" ];
 
   meta = with lib; {
-    description = "Implementation of itertools, builtins, and more for AsyncIO and mixed-type iterables";
+    description =
+      "Implementation of itertools, builtins, and more for AsyncIO and mixed-type iterables";
     homepage = "https://aioitertools.omnilib.dev/";
     license = licenses.mit;
     maintainers = with maintainers; [ teh ];

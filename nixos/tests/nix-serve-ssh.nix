@@ -1,13 +1,11 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
     ssh-config = builtins.toFile "ssh.conf" ''
       UserKnownHostsFile=/dev/null
       StrictHostKeyChecking=no
     '';
-  in
-  {
+  in {
     name = "nix-ssh-serve";
     meta.maintainers = [ lib.maintainers.shlevy ];
     nodes = {
@@ -43,5 +41,4 @@ import ./make-test-python.nix (
       )
       client.succeed("diff /root/other-store$(cat mach-id-path) /etc/machine-id")
     '';
-  }
-)
+  })

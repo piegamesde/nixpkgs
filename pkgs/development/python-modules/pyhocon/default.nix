@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  pyparsing,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pyparsing, pytestCheckHook
+, python-dateutil, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyhocon";
@@ -23,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-H460j/DjY1lltapva3l87oyOJVjzUE9Q/oKti3SsUyU=";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-    python-dateutil
-  ];
+  propagatedBuildInputs = [ pyparsing python-dateutil ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -40,12 +26,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyhocon" ];
 
-  disabledTestPaths =
-    [
-      # pyparsing.exceptions.ParseException: Expected end of text, found '='
-      # https://github.com/chimpler/pyhocon/issues/273
-      "tests/test_tool.py"
-    ];
+  disabledTestPaths = [
+    # pyparsing.exceptions.ParseException: Expected end of text, found '='
+    # https://github.com/chimpler/pyhocon/issues/273
+    "tests/test_tool.py"
+  ];
 
   disabledTests = [
     # AssertionError: assert ConfigTree([(...

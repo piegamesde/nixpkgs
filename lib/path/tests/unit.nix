@@ -109,18 +109,11 @@ let
 
     # Test examples from the lib.path.subpath.join documentation
     testSubpathJoinExample1 = {
-      expr = subpath.join [
-        "foo"
-        "bar/baz"
-      ];
+      expr = subpath.join [ "foo" "bar/baz" ];
       expected = "./foo/bar/baz";
     };
     testSubpathJoinExample2 = {
-      expr = subpath.join [
-        "./foo"
-        "."
-        "bar//./baz/"
-      ];
+      expr = subpath.join [ "./foo" "." "bar//./baz/" ];
       expected = "./foo/bar/baz";
     };
     testSubpathJoinExample3 = {
@@ -195,8 +188,7 @@ let
       expected = false;
     };
   };
-in
-if cases == [ ] then
+in if cases == [ ] then
   "Unit tests successful"
 else
   throw "Path unit tests failed: ${lib.generators.toPretty { } cases}"

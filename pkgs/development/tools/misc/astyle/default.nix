@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  cmake,
-}:
+{ stdenv, lib, fetchurl, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "astyle";
@@ -23,7 +18,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "Source code indenter, formatter, and beautifier for C, C++, C# and Java";
+    description =
+      "Source code indenter, formatter, and beautifier for C, C++, C# and Java";
     homepage = "https://astyle.sourceforge.net/";
     license = licenses.lgpl3;
     platforms = platforms.unix;

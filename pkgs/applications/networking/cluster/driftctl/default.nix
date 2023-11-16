@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "driftctl";
@@ -56,10 +51,6 @@ buildGoModule rec {
       and fills in the missing piece in your DevSecOps toolbox.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      kaction
-      jk
-      qjoly
-    ];
+    maintainers = with maintainers; [ kaction jk qjoly ];
   };
 }

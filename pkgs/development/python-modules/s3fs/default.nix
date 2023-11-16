@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  aiobotocore,
-  aiohttp,
-  buildPythonPackage,
-  docutils,
-  fetchPypi,
-  fsspec,
-  pythonOlder,
-}:
+{ lib, stdenv, aiobotocore, aiohttp, buildPythonPackage, docutils, fetchPypi
+, fsspec, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "s3fs";
@@ -28,11 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ docutils ];
 
-  propagatedBuildInputs = [
-    aiobotocore
-    aiohttp
-    fsspec
-  ];
+  propagatedBuildInputs = [ aiobotocore aiohttp fsspec ];
 
   # Depends on `moto` which has a long dependency chain with exact
   # version requirements that can't be made to work with current
@@ -45,7 +32,8 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     description = "A Pythonic file interface for S3";
     homepage = "https://github.com/fsspec/s3fs";
-    changelog = "https://github.com/fsspec/s3fs/raw/${version}/docs/source/changelog.rst";
+    changelog =
+      "https://github.com/fsspec/s3fs/raw/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ teh ];
   };

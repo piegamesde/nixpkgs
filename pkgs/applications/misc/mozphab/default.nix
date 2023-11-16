@@ -1,13 +1,7 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
+{ lib, fetchFromGitHub, python3
 
-  # tests
-  git,
-  mercurial,
-  patch,
-}:
+# tests
+, git, mercurial, patch }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "mozphab";
@@ -26,10 +20,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "glean-sdk>=50.0.1,==50.*" "glean-sdk"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools setuptools-scm ];
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -43,21 +34,13 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs =
-    [
-      git
-      mercurial
-      patch
-    ]
-    ++ (
-      with python3.pkgs; [
-        callee
-        immutabledict
-        hg-evolve
-        mock
-        pytestCheckHook
-      ]
-    );
+  nativeCheckInputs = [ git mercurial patch ] ++ (with python3.pkgs; [
+    callee
+    immutabledict
+    hg-evolve
+    mock
+    pytestCheckHook
+  ]);
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -76,13 +59,15 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   meta = with lib; {
-    description = "Phabricator CLI from Mozilla to support submission of a series of commits";
+    description =
+      "Phabricator CLI from Mozilla to support submission of a series of commits";
     longDescription = ''
       moz-phab is a custom command-line tool, which communicates to
       Phabricator’s API, providing several conveniences, including support for
       submitting series of commits.
     '';
-    homepage = "https://moz-conduit.readthedocs.io/en/latest/phabricator-user.html";
+    homepage =
+      "https://moz-conduit.readthedocs.io/en/latest/phabricator-user.html";
     license = licenses.mpl20;
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;

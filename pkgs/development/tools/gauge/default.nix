@@ -1,17 +1,10 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "gauge";
   version = "1.4.3";
 
-  excludedPackages = [
-    "build"
-    "man"
-  ];
+  excludedPackages = [ "build" "man" ];
 
   src = fetchFromGitHub {
     owner = "getgauge";

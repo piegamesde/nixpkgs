@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  libffi,
-  pkg-config,
-  ncurses,
-  integers,
-  bigarray-compat,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, findlib, libffi, pkg-config, ncurses
+, integers, bigarray-compat }:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "ctypes is not available for OCaml ${ocaml.version}"
@@ -26,17 +16,9 @@ else
       hash = "sha256-LzUrR8K88CjY/R5yUK3y6KG85hUMjbzuebHGqI8KhhM=";
     };
 
-    nativeBuildInputs = [
-      pkg-config
-      ocaml
-      findlib
-    ];
+    nativeBuildInputs = [ pkg-config ocaml findlib ];
     buildInputs = [ ncurses ];
-    propagatedBuildInputs = [
-      integers
-      libffi
-      bigarray-compat
-    ];
+    propagatedBuildInputs = [ integers libffi bigarray-compat ];
 
     strictDeps = true;
 

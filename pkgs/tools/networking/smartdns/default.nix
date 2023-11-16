@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  openssl,
-  testers,
-  smartdns,
-}:
+{ lib, stdenv, fetchFromGitHub, openssl, testers, smartdns }:
 
 stdenv.mkDerivation rec {
   pname = "smartdns";
@@ -30,12 +23,11 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "SYSCONFDIR=${placeholder "out"}/etc" ];
 
-  passthru.tests = {
-    version = testers.testVersion { package = smartdns; };
-  };
+  passthru.tests = { version = testers.testVersion { package = smartdns; }; };
 
   meta = with lib; {
-    description = "A local DNS server to obtain the fastest website IP for the best Internet experience";
+    description =
+      "A local DNS server to obtain the fastest website IP for the best Internet experience";
     longDescription = ''
       SmartDNS is a local DNS server. SmartDNS accepts DNS query requests from local clients, obtains DNS query results from multiple upstream DNS servers, and returns the fastest access results to clients.
       Avoiding DNS pollution and improving network access speed, supports high-performance ad filtering.

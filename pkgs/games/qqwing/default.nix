@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-  autoconf,
-  automake,
-  libtool,
-}:
+{ lib, stdenv, fetchFromGitHub, perl, autoconf, automake, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "qqwing";
@@ -29,19 +21,10 @@ stdenv.mkDerivation rec {
       --replace "sudo " ""
   '';
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-  ];
-  buildInputs = [
-    perl
-    libtool
-  ];
+  nativeBuildInputs = [ autoconf automake ];
+  buildInputs = [ perl libtool ];
 
-  makeFlags = [
-    "prefix=$(out)"
-    "tgz"
-  ];
+  makeFlags = [ "prefix=$(out)" "tgz" ];
 
   meta = with lib; {
     homepage = "https://qqwing.com";

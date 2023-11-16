@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  lxml,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, lxml, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jxmlease";

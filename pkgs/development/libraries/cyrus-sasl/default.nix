@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  openssl,
-  openldap,
-  libkrb5,
-  db,
-  gettext,
-  pam,
-  libxcrypt,
-  fixDarwinDylibNames,
-  autoreconfHook,
-  enableLdap ? false,
-  buildPackages,
-  pruneLibtoolFiles,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, openssl, openldap, libkrb5, db, gettext
+, pam, libxcrypt, fixDarwinDylibNames, autoreconfHook, enableLdap ? false
+, buildPackages, pruneLibtoolFiles, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "cyrus-sasl";
@@ -36,31 +20,19 @@ stdenv.mkDerivation rec {
     ./cyrus-sasl-ac-try-run-fix.patch
     # make compatible with openssl3. can probably be dropped with any release after 2.1.28
     (fetchpatch {
-      url = "https://github.com/cyrusimap/cyrus-sasl/compare/cb549ef71c5bb646fe583697ebdcaba93267a237...c2bd3afbca57f176d8c650670ce371444bb7fcc0.patch";
+      url =
+        "https://github.com/cyrusimap/cyrus-sasl/compare/cb549ef71c5bb646fe583697ebdcaba93267a237...c2bd3afbca57f176d8c650670ce371444bb7fcc0.patch";
       hash = "sha256-bYeIkvle1Ms7Lnoob4eLd4RbPFHtPkKRZvfHNCBJY/s=";
     })
   ];
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-    "devdoc"
-  ];
+  outputs = [ "bin" "dev" "out" "man" "devdoc" ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    autoreconfHook
-    pruneLibtoolFiles
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-  buildInputs = [
-    openssl
-    db
-    gettext
-    libkrb5
-    libxcrypt
-  ] ++ lib.optional enableLdap openldap ++ lib.optional stdenv.isLinux pam;
+  nativeBuildInputs = [ autoreconfHook pruneLibtoolFiles ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  buildInputs = [ openssl db gettext libkrb5 libxcrypt ]
+    ++ lib.optional enableLdap openldap ++ lib.optional stdenv.isLinux pam;
 
   configureFlags = [
     "--with-openssl=${openssl.dev}"
@@ -70,17 +42,15 @@ stdenv.mkDerivation rec {
     "--enable-shared"
   ] ++ lib.optional enableLdap "--with-ldap=${openldap.dev}";
 
-  installFlags = lib.optionals stdenv.isDarwin [
-    "framedir=$(out)/Library/Frameworks/SASL2.framework"
-  ];
+  installFlags = lib.optionals stdenv.isDarwin
+    [ "framedir=$(out)/Library/Frameworks/SASL2.framework" ];
 
-  passthru.tests = {
-    inherit (nixosTests) parsedmarc postfix;
-  };
+  passthru.tests = { inherit (nixosTests) parsedmarc postfix; };
 
   meta = with lib; {
     homepage = "https://www.cyrusimap.org/sasl";
-    description = "Library for adding authentication support to connection-based protocols";
+    description =
+      "Library for adding authentication support to connection-based protocols";
     platforms = platforms.unix;
     license = licenses.bsdOriginal;
   };

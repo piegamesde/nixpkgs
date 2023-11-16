@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  kernel,
-  linuxHeaders,
-  pahole,
-}:
+{ lib, stdenv, fetchFromGitHub, kernel, linuxHeaders, pahole }:
 
 stdenv.mkDerivation rec {
   pname = "tuxedo-keyboard-${kernel.version}";
@@ -18,12 +11,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-pSGshUyim06Sqkp5QFzhUjeIz/N3aORvVt6DEyzQLaU=";
   };
 
-  buildInputs = [
-    pahole
-    linuxHeaders
-  ];
+  buildInputs = [ pahole linuxHeaders ];
 
-  makeFlags = [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags =
+    [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   installPhase = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}"
@@ -34,7 +25,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Keyboard and hardware I/O driver for TUXEDO Computers laptops";
+    description =
+      "Keyboard and hardware I/O driver for TUXEDO Computers laptops";
     longDescription = ''
       This driver provides support for Fn keys, brightness/color/mode for most TUXEDO
       keyboards (except white backlight-only models).

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gperf,
-  openssl,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gperf, openssl, zlib }:
 
 stdenv.mkDerivation {
   pname = "telegram-bot-api";
@@ -20,14 +12,8 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    gperf
-  ];
-  buildInputs = [
-    openssl
-    zlib
-  ];
+  nativeBuildInputs = [ cmake gperf ];
+  buildInputs = [ openssl zlib ];
 
   meta = with lib; {
     description = "Telegram Bot API server";

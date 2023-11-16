@@ -1,23 +1,11 @@
-{
-  stdenv,
-  lib,
-  pname,
-  idris2,
-  zsh,
-}:
+{ stdenv, lib, pname, idris2, zsh }:
 
 let
-  testCompileAndRun =
-    {
-      testName,
-      code,
-      want,
-      packages ? [ ],
-    }:
+  testCompileAndRun = { testName, code, want, packages ? [ ] }:
     let
-      packageString = builtins.concatStringsSep " " (map (p: "--package " + p) packages);
-    in
-    stdenv.mkDerivation {
+      packageString =
+        builtins.concatStringsSep " " (map (p: "--package " + p) packages);
+    in stdenv.mkDerivation {
       name = "${pname}-${testName}";
       meta.timeout = 60;
 
@@ -48,8 +36,7 @@ let
         touch $out
       '';
     };
-in
-{
+in {
   # Simple hello world compiles, runs and outputs as expected
   hello-world = testCompileAndRun {
     testName = "hello-world";

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bids-validator";
@@ -25,7 +20,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Validator for the Brain Imaging Data Structure";
     homepage = "https://github.com/bids-standard/bids-validator";
-    changelog = "https://github.com/bids-standard/bids-validator/releases/tag/v${version}";
+    changelog =
+      "https://github.com/bids-standard/bids-validator/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];
   };

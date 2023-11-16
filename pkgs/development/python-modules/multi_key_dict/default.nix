@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "multi_key_dict";
@@ -18,4 +14,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/formiaczek/multi_key_dict";
     license = licenses.mit;
   };
+
 }

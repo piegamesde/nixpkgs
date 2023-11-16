@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  pkgs,
-  fzf,
-  gawk,
-  fetchFromGitHub,
-  makeWrapper,
-}:
+{ stdenv, lib, pkgs, fzf, gawk, fetchFromGitHub, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "sway-launcher-desktop";
@@ -23,22 +15,14 @@ stdenv.mkDerivation rec {
     patchShebangs ${pname}.sh
   '';
 
-  buildInputs = [
-    fzf
-    gawk
-  ];
+  buildInputs = [ fzf gawk ];
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     install -d $out/bin
     install ${pname}.sh $out/bin/${pname}
     wrapProgram $out/bin/${pname} \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          gawk
-          fzf
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ gawk fzf ]}
   '';
 
   meta = with lib; {
@@ -49,7 +33,8 @@ stdenv.mkDerivation rec {
       in any way and can be used with just about any WM.
     '';
     homepage = "https://github.com/Biont/sway-launcher-desktop";
-    changelog = "https://github.com/Biont/sway-launcher-desktop/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Biont/sway-launcher-desktop/releases/tag/v${version}";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = [ maintainers.thehedgeh0g ];

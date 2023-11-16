@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  azure-common,
-  azure-mgmt-core,
-  msrest,
-  msrestazure,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, azure-common, azure-mgmt-core
+, msrest, msrestazure }:
 
 buildPythonPackage rec {
   version = "1.0.0";
@@ -20,23 +12,16 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-core
-    msrest
-    msrestazure
-  ];
+  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.common"
-    "azure.mgmt.deploymentmanager"
-  ];
+  pythonImportsCheck = [ "azure.common" "azure.mgmt.deploymentmanager" ];
 
   meta = with lib; {
-    description = "Microsoft Azure Deployment Manager Client Library for Python";
+    description =
+      "Microsoft Azure Deployment Manager Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

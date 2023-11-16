@@ -1,28 +1,19 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  fetchFromGitHub,
-  ffmpeg,
-}:
+{ lib, python3, fetchPypi, fetchFromGitHub, ffmpeg }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      ytmusicapi = super.ytmusicapi.overridePythonAttrs (
-        old: rec {
-          version = "0.25.1";
-          src = fetchPypi {
-            inherit (old) pname;
-            inherit version;
-            hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
-          };
-        }
-      );
+      ytmusicapi = super.ytmusicapi.overridePythonAttrs (old: rec {
+        version = "0.25.1";
+        src = fetchPypi {
+          inherit (old) pname;
+          inherit version;
+          hash = "sha256-uc/fgDetSYaCRzff0SzfbRhs3TaKrfE2h6roWkkj8yQ=";
+        };
+      });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "spotdl";
   version = "4.1.10";
 
@@ -35,15 +26,11 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-SmyUoMOlBJZTJH19NwTKbz/vo7Oh4tGHCQrW5DVZQWQ=";
   };
 
-  nativeBuildInputs = with python.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python.pkgs; [ poetry-core pythonRelaxDepsHook ];
 
   pythonRelaxDeps = true;
 
-  propagatedBuildInputs =
-    with python.pkgs;
+  propagatedBuildInputs = with python.pkgs;
     [
       spotipy
       ytmusicapi
@@ -63,8 +50,7 @@ python.pkgs.buildPythonApplication rec {
       syncedlyrics
       typing-extensions
       setuptools # for pkg_resources
-    ]
-    ++ python-slugify.optional-dependencies.unidecode;
+    ] ++ python-slugify.optional-dependencies.unidecode;
 
   nativeCheckInputs = with python.pkgs; [
     pytestCheckHook
@@ -105,17 +91,14 @@ python.pkgs.buildPythonApplication rec {
     "test_song_from_url"
   ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [ ffmpeg ])
-  ];
+  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ]) ];
 
   meta = with lib; {
-    description = "Download your Spotify playlists and songs along with album art and metadata";
+    description =
+      "Download your Spotify playlists and songs along with album art and metadata";
     homepage = "https://github.com/spotDL/spotify-downloader";
-    changelog = "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";
+    changelog =
+      "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

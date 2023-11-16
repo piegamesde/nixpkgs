@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "pw-volume";
@@ -20,12 +16,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Basic interface to PipeWire volume controls";
     homepage = "https://github.com/smasher164/pw-volume";
-    changelog = "https://github.com/smasher164/pw-volume/releases/tag/v${version}";
+    changelog =
+      "https://github.com/smasher164/pw-volume/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      astro
-      figsoda
-    ];
+    maintainers = with maintainers; [ astro figsoda ];
     platforms = platforms.linux;
   };
 }

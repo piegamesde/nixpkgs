@@ -1,20 +1,14 @@
 # NixOS module for atftpd TFTP server
 
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.atftpd;
-in
 
-{
+in {
 
   options = {
 
@@ -49,7 +43,9 @@ in
           Document root directory for the atftpd.
         '';
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -63,5 +59,7 @@ in
           lib.concatStringsSep " " cfg.extraOptions
         } ${cfg.root}";
     };
+
   };
+
 }

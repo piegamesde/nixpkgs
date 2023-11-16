@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  asyncio-mqtt,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, asyncio-mqtt, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "python-openzwave-mqtt";

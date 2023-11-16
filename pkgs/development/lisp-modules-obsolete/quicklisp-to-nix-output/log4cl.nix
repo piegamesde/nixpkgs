@@ -1,24 +1,17 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "log4cl";
   version = "20211209-git";
 
-  parasites = [
-    "log4cl/syslog"
-    "log4cl/test"
-  ];
+  parasites = [ "log4cl/syslog" "log4cl/test" ];
 
   description = "System lacks description";
 
-  deps = [
-    args."alexandria"
-    args."bordeaux-threads"
-    args."stefil"
-  ];
+  deps = [ args."alexandria" args."bordeaux-threads" args."stefil" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/log4cl/2021-12-09/log4cl-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/log4cl/2021-12-09/log4cl-20211209-git.tgz";
     sha256 = "17jwxhc2ysh3m3cp7wvh8cy359v7w6kz9vk9f07japzi3krv9iq9";
   };
 

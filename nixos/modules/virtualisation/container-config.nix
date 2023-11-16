@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -42,5 +37,7 @@ with lib;
 
     # Use the host's nix-daemon.
     environment.variables.NIX_REMOTE = "daemon";
+
   };
+
 }

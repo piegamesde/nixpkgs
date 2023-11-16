@@ -1,17 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  nix-update-script,
-  pam,
-  xmlsec,
-}:
+{ lib, stdenv, fetchurl, nix-update-script, pam, xmlsec }:
 
 let
   # TODO: Switch to OpenPAM once https://gitlab.com/oath-toolkit/oath-toolkit/-/issues/26 is addressed upstream
   securityDependency = if stdenv.isDarwin then xmlsec else pam;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "oath-toolkit";
   version = "2.6.7";
 
@@ -27,7 +20,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "Components for building one-time password authentication systems";
+    description =
+      "Components for building one-time password authentication systems";
     homepage = "https://www.nongnu.org/oath-toolkit/";
     maintainers = with maintainers; [ schnusch ];
     platforms = with platforms; linux ++ darwin;

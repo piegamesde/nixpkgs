@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  lv2,
-}:
+{ lib, stdenv, fetchFromGitHub, lv2 }:
 
 stdenv.mkDerivation {
   pname = "mod-distortion";

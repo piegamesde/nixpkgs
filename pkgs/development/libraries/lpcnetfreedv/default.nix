@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  cmake,
-  codec2,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, cmake, codec2 }:
 
 let
   dataVersion = "191005_v1.0";
@@ -13,8 +6,7 @@ let
     url = "http://rowetel.com/downloads/deep/lpcnet_${dataVersion}.tgz";
     sha256 = "sha256-UJRAkkdR/dh/+qVoPuPd3ZN69cgzuRBMzOZdUWFJJsg=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "lpcnetfreedv";
   version = "unstable-2022-08-22";
 

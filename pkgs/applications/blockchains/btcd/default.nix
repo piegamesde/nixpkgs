@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "btcd";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-3w8rb0sfAIFCXqPXOKb4QwoLd7WsbFv3phu/rJCEjeY=";
 
-  subPackages = [
-    "."
-    "cmd/*"
-  ];
+  subPackages = [ "." "cmd/*" ];
 
   preCheck = ''
     DIR="github.com/btcsuite/btcd/"
@@ -30,7 +23,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "An alternative full node bitcoin implementation written in Go (golang)";
+    description =
+      "An alternative full node bitcoin implementation written in Go (golang)";
     homepage = "https://github.com/btcsuite/btcd";
     license = licenses.isc;
     maintainers = with maintainers; [ _0xB10C ];

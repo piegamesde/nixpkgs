@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  cffi,
-}:
+{ lib, stdenv, cffi }:
 
 if cffi == null then
   null

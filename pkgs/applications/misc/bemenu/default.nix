@@ -1,25 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  cairo,
-  libxkbcommon,
-  pango,
-  fribidi,
-  harfbuzz,
-  pcre,
-  pkg-config,
-  scdoc,
-  ncursesSupport ? true,
-  ncurses,
-  waylandSupport ? true,
-  wayland,
-  wayland-protocols,
-  wayland-scanner,
-  x11Support ? true,
-  xorg,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, cairo, libxkbcommon, pango, fribidi
+, harfbuzz, pcre, pkg-config, scdoc, ncursesSupport ? true, ncurses
+, waylandSupport ? true, wayland, wayland-protocols, wayland-scanner
+, x11Support ? true, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "bemenu";
@@ -33,25 +15,13 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-    scdoc
-  ] ++ lib.optionals waylandSupport [ wayland-scanner ];
+  nativeBuildInputs = [ pkg-config scdoc ]
+    ++ lib.optionals waylandSupport [ wayland-scanner ];
 
-  buildInputs =
-    with lib;
-    [
-      cairo
-      fribidi
-      harfbuzz
-      libxkbcommon
-      pango
-    ]
+  buildInputs = with lib;
+    [ cairo fribidi harfbuzz libxkbcommon pango ]
     ++ optional ncursesSupport ncurses
-    ++ optionals waylandSupport [
-      wayland
-      wayland-protocols
-    ]
+    ++ optionals waylandSupport [ wayland wayland-protocols ]
     ++ optionals x11Support [
       xorg.libX11
       xorg.libXinerama
@@ -63,11 +33,8 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  buildFlags =
-    [ "clients" ]
-    ++ lib.optional ncursesSupport "curses"
-    ++ lib.optional waylandSupport "wayland"
-    ++ lib.optional x11Support "x11";
+  buildFlags = [ "clients" ] ++ lib.optional ncursesSupport "curses"
+    ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11";
 
   meta = with lib; {
     homepage = "https://github.com/Cloudef/bemenu";

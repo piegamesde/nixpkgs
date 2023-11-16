@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,19 +6,11 @@ let
   cfg = config.services.pdns-recursor;
 
   oneOrMore = type: with types; either type (listOf type);
-  valueType =
-    with types;
-    oneOf [
-      int
-      str
-      bool
-      path
-    ];
+  valueType = with types; oneOf [ int str bool path ];
   configType = with types; attrsOf (nullOr (oneOrMore valueType));
 
   toBool = val: if val then "yes" else "no";
-  serialize =
-    val:
+  serialize = val:
     with types;
     if str.check val then
       val
@@ -38,22 +25,19 @@ let
     else
       "";
 
-  configDir = pkgs.writeTextDir "recursor.conf" (
-    concatStringsSep "\n" (flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}"))
-  );
+  configDir = pkgs.writeTextDir "recursor.conf" (concatStringsSep "\n"
+    (flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}")));
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
-in
-{
+
+in {
   options.services.pdns-recursor = {
-    enable = mkEnableOption (lib.mdDoc "PowerDNS Recursor, a recursive DNS server");
+    enable =
+      mkEnableOption (lib.mdDoc "PowerDNS Recursor, a recursive DNS server");
 
     dns.address = mkOption {
       type = oneOrMore types.str;
-      default = [
-        "::"
-        "0.0.0.0"
-      ];
+      default = [ "::" "0.0.0.0" ];
       description = lib.mdDoc ''
         IP addresses Recursor DNS server will bind to.
       '';
@@ -80,10 +64,7 @@ in
         "fc00::/7"
         "fe80::/10"
       ];
-      example = [
-        "0.0.0.0/0"
-        "::/0"
-      ];
+      example = [ "0.0.0.0/0" "::/0" ];
       description = lib.mdDoc ''
         IP address ranges of clients allowed to make DNS queries.
       '';
@@ -107,14 +88,8 @@ in
 
     api.allowFrom = mkOption {
       type = types.listOf types.str;
-      default = [
-        "127.0.0.1"
-        "::1"
-      ];
-      example = [
-        "0.0.0.0/0"
-        "::/0"
-      ];
+      default = [ "127.0.0.1" "::1" ];
+      example = [ "0.0.0.0/0" "::/0" ];
       description = lib.mdDoc ''
         IP address ranges of clients allowed to make API requests.
       '';
@@ -138,9 +113,7 @@ in
 
     forwardZonesRecurse = mkOption {
       type = types.attrs;
-      example = {
-        eth = "[::1]:5353";
-      };
+      example = { eth = "[::1]:5353"; };
       default = { };
       description = lib.mdDoc ''
         DNS zones to be forwarded to other recursive servers.
@@ -213,8 +186,10 @@ in
       webserver-port = cfg.api.port;
       webserver-allow-from = cfg.api.allowFrom;
 
-      forward-zones = mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZones;
-      forward-zones-recurse = mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZonesRecurse;
+      forward-zones =
+        mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZones;
+      forward-zones-recurse =
+        mapAttrsToList (zone: uri: "${zone}.=${uri}") cfg.forwardZonesRecurse;
       export-etc-hosts = cfg.exportHosts;
       dnssec = cfg.dnssecValidation;
       serve-rfc1918 = cfg.serveRFC1918;
@@ -246,18 +221,14 @@ in
     };
 
     users.groups.pdns-recursor = { };
+
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "pdns-recursor"
-        "extraConfig"
-      ]
-      "To change extra Recursor settings use services.pdns-recursor.settings instead."
-    )
+    (mkRemovedOptionModule [ "services" "pdns-recursor" "extraConfig" ]
+      "To change extra Recursor settings use services.pdns-recursor.settings instead.")
   ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+
 }

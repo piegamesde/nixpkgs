@@ -1,20 +1,7 @@
-{
-  lib,
-  vscode-utils,
-  fetchurl,
-  writeScript,
-  runtimeShell,
-  jq,
-  clang-tools,
-  gdbUseFixed ? true,
-  gdb, # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
-  autoPatchelfHook,
-  makeWrapper,
-  stdenv,
-  lttng-ust,
-  libkrb5,
-  zlib,
-}:
+{ lib, vscode-utils, fetchurl, writeScript, runtimeShell, jq, clang-tools
+, gdbUseFixed ? true
+, gdb # The gdb default setting will be fixed to specified. Use version from `PATH` otherwise.
+, autoPatchelfHook, makeWrapper, stdenv, lttng-ust, libkrb5, zlib }:
 
 /* Note that this version of the extension still has some nix specific issues
    which could not be fixed merely by patching (inside a C# dll).
@@ -38,10 +25,8 @@
    Once the symbolic link temporary solution taken, everything shoud run smootly.
 */
 
-let
-  gdbDefaultsTo = if gdbUseFixed then "${gdb}/bin/gdb" else "gdb";
-in
-vscode-utils.buildVscodeMarketplaceExtension rec {
+let gdbDefaultsTo = if gdbUseFixed then "${gdb}/bin/gdb" else "gdb";
+in vscode-utils.buildVscodeMarketplaceExtension rec {
   mktplcRef = {
     name = "cpptools";
     publisher = "ms-vscode";
@@ -50,18 +35,9 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     arch = "linux-x64";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
 
-  buildInputs = [
-    jq
-    lttng-ust
-    libkrb5
-    zlib
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = [ jq lttng-ust libkrb5 zlib stdenv.cc.cc.lib ];
 
   postPatch = ''
     mv ./package.json ./package_orig.json
@@ -69,7 +45,9 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     # 1. Add activation events so that the extension is functional. This listing is empty when unpacking the extension but is filled at runtime.
     # 2. Patch `package.json` so that nix's *gdb* is used as default value for `miDebuggerPath`.
     cat ./package_orig.json | \
-      jq --slurpfile actEvts ${./package-activation-events.json} '(.activationEvents) = $actEvts[0]' | \
+      jq --slurpfile actEvts ${
+        ./package-activation-events.json
+      } '(.activationEvents) = $actEvts[0]' | \
       jq '(.contributes.debuggers[].configurationAttributes | .attach , .launch | .properties.miDebuggerPath | select(. != null) | select(.default == "/usr/bin/gdb") | .default) = "${gdbDefaultsTo}"' > \
       ./package.json
 
@@ -93,13 +71,12 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
   '';
 
   meta = {
-    description = "The C/C++ extension adds language support for C/C++ to Visual Studio Code, including features such as IntelliSense and debugging.";
-    homepage = "https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools";
+    description =
+      "The C/C++ extension adds language support for C/C++ to Visual Studio Code, including features such as IntelliSense and debugging.";
+    homepage =
+      "https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools";
     license = lib.licenses.unfree;
-    maintainers = [
-      lib.maintainers.jraygauthier
-      lib.maintainers.stargate01
-    ];
+    maintainers = [ lib.maintainers.jraygauthier lib.maintainers.stargate01 ];
     platforms = [ "x86_64-linux" ];
   };
 }

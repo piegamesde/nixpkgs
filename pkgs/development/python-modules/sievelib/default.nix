@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  pytestCheckHook,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pytestCheckHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "sievelib";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "sievelib" ];
 

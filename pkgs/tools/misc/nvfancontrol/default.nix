@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  libXNVCtrl,
-  libX11,
-  libXext,
-}:
+{ lib, rustPlatform, fetchFromGitHub, libXNVCtrl, libX11, libXext }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nvfancontrol";
@@ -20,11 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-fEzdghGQSSeyeyiHjw1ggQ38gsETJFl9bq/tizGxIis=";
 
-  nativeBuildInputs = [
-    libXNVCtrl
-    libX11
-    libXext
-  ];
+  nativeBuildInputs = [ libXNVCtrl libX11 libXext ];
 
   # Needed for static linking
   preConfigure = ''
@@ -34,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "NVidia dynamic fan control for Linux";
     homepage = "https://github.com/foucault/nvfancontrol";
-    changelog = "https://github.com/foucault/nvfancontrol/releases/tag/${version}";
+    changelog =
+      "https://github.com/foucault/nvfancontrol/releases/tag/${version}";
     license = with licenses; [ gpl3Only ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ devins2518 ];

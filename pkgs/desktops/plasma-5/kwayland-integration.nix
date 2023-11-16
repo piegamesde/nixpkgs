@@ -1,22 +1,9 @@
-{
-  mkDerivation,
-  extra-cmake-modules,
-  kguiaddons,
-  kidletime,
-  kwayland,
-  kwindowsystem,
-  qtbase,
-  wayland-protocols,
-  wayland-scanner,
-  wayland,
-}:
+{ mkDerivation, extra-cmake-modules, kguiaddons, kidletime, kwayland
+, kwindowsystem, qtbase, wayland-protocols, wayland-scanner, wayland }:
 
 mkDerivation {
   pname = "kwayland-integration";
-  nativeBuildInputs = [
-    extra-cmake-modules
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ extra-cmake-modules wayland-scanner ];
   buildInputs = [
     kguiaddons
     kidletime
@@ -28,7 +15,8 @@ mkDerivation {
   ];
 
   meta = {
-    description = "Integration plugins for various KDE frameworks for the Wayland windowing system";
+    description =
+      "Integration plugins for various KDE frameworks for the Wayland windowing system";
     homepage = "https://invent.kde.org/plasma/kwayland-integration";
   };
 }

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fpyutils,
-  pyfakefs,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fpyutils, pyfakefs, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "md-toc";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ fpyutils ];
 
-  nativeCheckInputs = [
-    pyfakefs
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pyfakefs pytestCheckHook ];
 
   pytestFlagsArray = [ "md_toc/tests/*.py" ];
 

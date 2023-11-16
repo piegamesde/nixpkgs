@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  curl,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, curl, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "stdman";
@@ -18,7 +13,8 @@ stdenv.mkDerivation rec {
 
   outputDevdoc = "out";
 
-  preConfigure = "\n    patchShebangs ./configure\n    patchShebangs ./do_install\n  ";
+  preConfigure =
+    "\n    patchShebangs ./configure\n    patchShebangs ./do_install\n  ";
 
   buildInputs = [ curl ];
 

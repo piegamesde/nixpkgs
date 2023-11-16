@@ -1,18 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "mtm";
   version = "1.2.1";
 
-  outputs = [
-    "out"
-    "terminfo"
-  ];
+  outputs = [ "out" "terminfo" ];
 
   src = fetchFromGitHub {
     owner = "deadpixi";
@@ -39,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Perhaps the smallest useful terminal multiplexer in the world";
+    description =
+      "Perhaps the smallest useful terminal multiplexer in the world";
     homepage = "https://github.com/deadpixi/mtm";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

@@ -311,11 +311,10 @@ rec {
   # packagesFromDirectory : { directory : Directory, ... } -> HaskellPackageOverrideSet
   packagesFromDirectory = compose.packagesFromDirectory;
 
-  addOptparseApplicativeCompletionScripts =
-    exeName: pkg:
+  addOptparseApplicativeCompletionScripts = exeName: pkg:
     lib.warn
-      "addOptparseApplicativeCompletionScripts is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions. Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
-      (compose.__generateOptparseApplicativeCompletion exeName pkg);
+    "addOptparseApplicativeCompletionScripts is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions. Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
+    (compose.__generateOptparseApplicativeCompletion exeName pkg);
 
   /* Modify a Haskell package to add shell completion scripts for the
      given executable produced by it. These completion scripts will be
@@ -328,7 +327,8 @@ rec {
        command: name of an executable
            pkg: Haskell package that builds the executables
   */
-  generateOptparseApplicativeCompletion = compose.generateOptparseApplicativeCompletion;
+  generateOptparseApplicativeCompletion =
+    compose.generateOptparseApplicativeCompletion;
 
   /* Modify a Haskell package to add shell completion scripts for the
      given executables produced by it. These completion scripts will be
@@ -341,7 +341,8 @@ rec {
       commands: name of an executable
            pkg: Haskell package that builds the executables
   */
-  generateOptparseApplicativeCompletions = compose.generateOptparseApplicativeCompletions;
+  generateOptparseApplicativeCompletions =
+    compose.generateOptparseApplicativeCompletions;
 
   # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being

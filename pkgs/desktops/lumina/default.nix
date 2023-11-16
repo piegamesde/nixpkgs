@@ -1,8 +1,7 @@
 { pkgs, libsForQt5 }:
 
 let
-  packages =
-    self:
+  packages = self:
     with self; {
 
       lumina = callPackage ./lumina { };
@@ -17,11 +16,8 @@ let
         pkgs.xscreensaver
       ];
 
-      corePackages = [
-        lumina
-        lumina-calculator
-        lumina-pdf
-      ];
+      corePackages = [ lumina lumina-calculator lumina-pdf ];
+
     };
-in
-pkgs.lib.makeScope libsForQt5.newScope packages
+
+in pkgs.lib.makeScope libsForQt5.newScope packages

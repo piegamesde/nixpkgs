@@ -1,36 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  makeWrapper,
-  writeText,
-  graphviz,
-  doxygen,
-  ocamlPackages,
-  ltl2ba,
-  coq,
-  why3,
-  gdk-pixbuf,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, makeWrapper, writeText, graphviz, doxygen
+, ocamlPackages, ltl2ba, coq, why3, gdk-pixbuf, wrapGAppsHook }:
 
 let
-  why3_1_5 = why3.overrideAttrs (
-    o: rec {
-      version = "1.5.1";
-      src = fetchurl {
-        url = "https://why3.gitlabpages.inria.fr/releases/${o.pname}-${version}.tar.gz";
-        hash = "sha256-vNR7WeiSvg+763GcovoZBFDfncekJMeqNegP4fVw06I=";
-      };
-    }
-  );
-in
-let
-  why3 = why3_1_5;
-in
+  why3_1_5 = why3.overrideAttrs (o: rec {
+    version = "1.5.1";
+    src = fetchurl {
+      url =
+        "https://why3.gitlabpages.inria.fr/releases/${o.pname}-${version}.tar.gz";
+      hash = "sha256-vNR7WeiSvg+763GcovoZBFDfncekJMeqNegP4fVw06I=";
+    };
+  });
+in let why3 = why3_1_5;
 
-let
+in let
   mkocamlpath = p: "${p}/lib/ocaml/${ocamlPackages.ocaml.version}/site-lib";
   runtimeDeps = with ocamlPackages; [
     apron.dev
@@ -58,9 +40,8 @@ let
     zarith
   ];
   ocamlpath = lib.concatMapStringsSep ":" mkocamlpath runtimeDeps;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "frama-c";
   version = "26.1";
   slang = "Iron";
@@ -73,7 +54,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fixes-yojson-2_1-support.patch";
-      url = "https://git.frama-c.com/pub/frama-c/-/commit/647eace02ed8dac46e75452898c3470f82576818.patch";
+      url =
+        "https://git.frama-c.com/pub/frama-c/-/commit/647eace02ed8dac46e75452898c3470f82576818.patch";
       hash = "sha256-XfLi4kW1Y2MCLjHHQZAD8DvXvfZuDH3OKd9hlTV0XCw=";
     })
   ];
@@ -82,15 +64,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [ wrapGAppsHook ]
-    ++ (
-      with ocamlPackages; [
-        ocaml
-        findlib
-        dune_3
-      ]
-    );
+  nativeBuildInputs = [ wrapGAppsHook ]
+    ++ (with ocamlPackages; [ ocaml findlib dune_3 ]);
 
   buildInputs = with ocamlPackages; [
     dune-site
@@ -149,13 +124,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "An extensible and collaborative platform dedicated to source-code analysis of C software";
+    description =
+      "An extensible and collaborative platform dedicated to source-code analysis of C software";
     homepage = "http://frama-c.com/";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [
-      thoughtpolice
-      amiddelk
-    ];
+    maintainers = with lib.maintainers; [ thoughtpolice amiddelk ];
     platforms = lib.platforms.unix;
   };
 }

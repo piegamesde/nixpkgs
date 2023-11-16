@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pidgin,
-  json-glib,
-  signald,
-}:
+{ lib, stdenv, fetchFromGitHub, pidgin, json-glib, signald }:
 
 stdenv.mkDerivation rec {
   pname = "purple-signald";
@@ -19,11 +12,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [
-    pidgin
-    json-glib
-    signald
-  ];
+  buildInputs = [ pidgin json-glib signald ];
 
   PKG_CONFIG_PURPLE_PLUGINDIR = "${placeholder "out"}/lib/purple-2";
   PKG_CONFIG_PURPLE_DATADIR = "${placeholder "out"}/share";

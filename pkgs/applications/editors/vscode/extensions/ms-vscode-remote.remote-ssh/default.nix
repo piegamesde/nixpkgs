@@ -1,8 +1,4 @@
-{
-  lib,
-  vscode-utils,
-  useLocalExtensions ? false,
-}:
+{ lib, vscode-utils, useLocalExtensions ? false }:
 # Note that useLocalExtensions requires that vscode-server is not running
 # on host. If it is, you'll need to remove $HOME/.vscode-server,
 # and redo the install by running "Connect to host" on client
@@ -74,8 +70,7 @@ let
     #
     # Start the server
   '';
-in
-buildVscodeMarketplaceExtension {
+in buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "remote-ssh";
     publisher = "ms-vscode-remote";
@@ -89,11 +84,9 @@ buildVscodeMarketplaceExtension {
   '';
 
   meta = {
-    description = "Use any remote machine with a SSH server as your development environment.";
+    description =
+      "Use any remote machine with a SSH server as your development environment.";
     license = lib.licenses.unfree;
-    maintainers = [
-      lib.maintainers.SuperSandro2000
-      lib.maintainers.tbenst
-    ];
+    maintainers = [ lib.maintainers.SuperSandro2000 lib.maintainers.tbenst ];
   };
 }

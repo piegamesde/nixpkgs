@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "lisp-unit2";
   version = "20180131-git";
 
@@ -20,7 +19,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/lisp-unit2/2018-01-31/lisp-unit2-20180131-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/lisp-unit2/2018-01-31/lisp-unit2-20180131-git.tgz";
     sha256 = "04kwrg605mqzf3ghshgbygvvryk5kipl6gyc5kdaxafjxvhxaak7";
   };
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  Carbon,
-}:
+{ lib, stdenv, fetchFromGitHub, Carbon }:
 
 stdenv.mkDerivation rec {
   pname = "skhd";
@@ -30,11 +25,7 @@ stdenv.mkDerivation rec {
     description = "Simple hotkey daemon for macOS";
     homepage = "https://github.com/koekeishiya/skhd";
     platforms = platforms.darwin;
-    maintainers = with maintainers; [
-      cmacrae
-      lnl7
-      periklis
-    ];
+    maintainers = with maintainers; [ cmacrae lnl7 periklis ];
     license = licenses.mit;
   };
 }

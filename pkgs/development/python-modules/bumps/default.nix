@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "bumps";

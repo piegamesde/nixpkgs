@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  nmap,
-  jq,
-  cifs-utils,
-  sshfs,
-  fetchFromGitHub,
-  makeWrapper,
-}:
+{ lib, stdenv, nmap, jq, cifs-utils, sshfs, fetchFromGitHub, makeWrapper }:
 
 stdenv.mkDerivation rec {
 
@@ -29,12 +20,7 @@ stdenv.mkDerivation rec {
     install -D ${src}/config.json $out/share/config.json
 
     wrapProgram $out/bin/rmount --prefix PATH : ${
-      lib.makeBinPath [
-        nmap
-        jq
-        cifs-utils
-        sshfs
-      ]
+      lib.makeBinPath [ nmap jq cifs-utils sshfs ]
     }
   '';
 

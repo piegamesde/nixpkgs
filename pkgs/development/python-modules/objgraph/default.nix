@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  graphviz,
-  graphvizPkgs,
-  isPyPy,
-  pytestCheckHook,
-  pythonOlder,
-  substituteAll,
-}:
+{ lib, buildPythonPackage, fetchPypi, graphviz, graphvizPkgs, isPyPy
+, pytestCheckHook, pythonOlder, substituteAll }:
 
 buildPythonPackage rec {
   pname = "objgraph";
@@ -40,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Draws Python object reference graphs with graphviz";
     homepage = "https://mg.pov.lt/objgraph/";
-    changelog = "https://github.com/mgedmin/objgraph/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/mgedmin/objgraph/blob/${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

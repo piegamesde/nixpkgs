@@ -1,19 +1,5 @@
-{
-  stdenv,
-  fetchgit,
-  fontconfig,
-  libjpeg,
-  libcap,
-  freetype,
-  fribidi,
-  pkg-config,
-  gettext,
-  systemd,
-  perl,
-  lib,
-  enableSystemd ? true,
-  enableBidi ? true,
-}:
+{ stdenv, fetchgit, fontconfig, libjpeg, libcap, freetype, fribidi, pkg-config
+, gettext, systemd, perl, lib, enableSystemd ? true, enableBidi ? true }:
 stdenv.mkDerivation rec {
 
   pname = "vdr";
@@ -27,28 +13,19 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  postPatch = "substituteInPlace Makefile --replace libsystemd-daemon libsystemd";
+  postPatch =
+    "substituteInPlace Makefile --replace libsystemd-daemon libsystemd";
 
-  buildInputs = [
-    fontconfig
-    libjpeg
-    libcap
-    freetype
-    perl
-  ] ++ lib.optional enableSystemd systemd ++ lib.optional enableBidi fribidi;
+  buildInputs = [ fontconfig libjpeg libcap freetype perl ]
+    ++ lib.optional enableSystemd systemd ++ lib.optional enableBidi fribidi;
 
-  buildFlags = [
-    "vdr"
-    "i18n"
-  ] ++ lib.optional enableSystemd "SDNOTIFY=1" ++ lib.optional enableBidi "BIDI=1";
+  buildFlags = [ "vdr" "i18n" ] ++ lib.optional enableSystemd "SDNOTIFY=1"
+    ++ lib.optional enableBidi "BIDI=1";
 
   nativeBuildInputs = [ perl ];
 
   # plugins uses the same build environment as vdr
-  propagatedNativeBuildInputs = [
-    pkg-config
-    gettext
-  ];
+  propagatedNativeBuildInputs = [ pkg-config gettext ];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -69,11 +46,7 @@ stdenv.mkDerivation rec {
     cp *.conf $out/share/vdr/conf
   '';
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
   meta = with lib; {
     homepage = "http://www.tvdr.de/";

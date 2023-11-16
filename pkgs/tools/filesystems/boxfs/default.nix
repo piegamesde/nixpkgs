@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  curl,
-  fuse,
-  libxml2,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, curl, fuse, libxml2, pkg-config }:
 
 let
   srcs = {
@@ -29,8 +21,7 @@ let
       owner = "vincenthz";
     };
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "boxfs";
   version = "2-20150109";
 
@@ -43,17 +34,11 @@ stdenv.mkDerivation {
   '';
   patches = [ ./work-around-API-borkage.patch ];
 
-  buildInputs = [
-    curl
-    fuse
-    libxml2
-  ];
+  buildInputs = [ curl fuse libxml2 ];
   nativeBuildInputs = [ pkg-config ];
 
-  buildFlags = [
-    "static"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ] ++ lib.optional stdenv.isDarwin "CFLAGS=-D_BSD_SOURCE";
+  buildFlags = [ "static" "CC=${stdenv.cc.targetPrefix}cc" ]
+    ++ lib.optional stdenv.isDarwin "CFLAGS=-D_BSD_SOURCE";
 
   installPhase = ''
     mkdir -p $out/bin

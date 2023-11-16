@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.diod;
@@ -24,8 +19,7 @@ let
     userdb = ${diodBool cfg.userdb}
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.diod = {
       enable = mkOption {

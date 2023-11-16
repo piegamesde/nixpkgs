@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "secp256k1";
@@ -19,10 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  configureFlags = [
-    "--enable-benchmark=no"
-    "--enable-module-recovery"
-  ];
+  configureFlags = [ "--enable-benchmark=no" "--enable-module-recovery" ];
 
   doCheck = true;
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  eggDerivation,
-  fetchFromGitHub,
-  chickenEggs,
-}:
+{ lib, eggDerivation, fetchFromGitHub, chickenEggs }:
 
 # Note: This mostly reimplements the default.nix already contained in
 # the tarball. Is there a nicer way than duplicating code?
@@ -19,10 +14,7 @@ eggDerivation rec {
     sha256 = "sha256-5ov2SWVyTUQ6NHnZNPRywd9e7oIxHlVWv4uWbsNaj/s=";
   };
 
-  buildInputs = with chickenEggs; [
-    matchable
-    http-client
-  ];
+  buildInputs = with chickenEggs; [ matchable http-client ];
 
   meta = {
     description = "Generate nix-expression from CHICKEN scheme eggs";

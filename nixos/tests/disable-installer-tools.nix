@@ -1,20 +1,13 @@
-import ./make-test-python.nix (
-  {
-    pkgs,
-    latestKernel ? false,
-    ...
-  }:
+import ./make-test-python.nix ({ pkgs, latestKernel ? false, ... }:
 
   {
     name = "disable-installer-tools";
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        system.disableInstallerTools = true;
-        boot.enableContainers = false;
-        environment.defaultPackages = [ ];
-      };
+    nodes.machine = { pkgs, lib, ... }: {
+      system.disableInstallerTools = true;
+      boot.enableContainers = false;
+      environment.defaultPackages = [ ];
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")
@@ -31,5 +24,4 @@ import ./make-test-python.nix (
       with subtest("perl should not be included"):
           machine.fail("which perl")
     '';
-  }
-)
+  })

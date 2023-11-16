@@ -1,19 +1,9 @@
-{
-  pkgs ? import ../../../.. {
-    config = { };
-    overlays = [ ];
-  },
-}:
-let
-  inherit (pkgs)
-    figlet
-    zlib
-    hello
-    writeText
-    runCommand
-  ;
-in
-{
+{ pkgs ? import ../../../.. {
+  config = { };
+  overlays = [ ];
+} }:
+let inherit (pkgs) figlet zlib hello writeText runCommand;
+in {
   hello = hello;
   figlet = figlet;
   zlib = zlib;

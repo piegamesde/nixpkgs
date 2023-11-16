@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  withPcre2 ? stdenv.isLinux,
-  pcre2,
-  testers,
-  rare-regex,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, withPcre2 ? stdenv.isLinux, pcre2
+, testers, rare-regex }:
 
 buildGoModule rec {
   pname = "rare";
@@ -24,18 +16,12 @@ buildGoModule rec {
 
   buildInputs = lib.optionals withPcre2 [ pcre2 ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-    "-X=main.buildSha=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X=main.version=${version}" "-X=main.buildSha=${src.rev}" ];
 
   tags = lib.optionals withPcre2 [ "pcre2" ];
 
-  passthru.tests = {
-    version = testers.testVersion { package = rare-regex; };
-  };
+  passthru.tests = { version = testers.testVersion { package = rare-regex; }; };
 
   meta = with lib; {
     description = "A fast text scanner/regex extractor and realtime summarizer";

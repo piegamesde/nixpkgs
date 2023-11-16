@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, django, six }:
 
 buildPythonPackage rec {
   pname = "django-environ";
@@ -17,14 +11,13 @@ buildPythonPackage rec {
 
   # The testsuite fails to modify the base environment
   doCheck = false;
-  propagatedBuildInputs = [
-    django
-    six
-  ];
+  propagatedBuildInputs = [ django six ];
 
   meta = with lib; {
-    description = "Utilize environment variables to configure your Django application";
+    description =
+      "Utilize environment variables to configure your Django application";
     homepage = "https://github.com/joke2k/django-environ/";
     license = licenses.mit;
   };
+
 }

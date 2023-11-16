@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "kubescape";
@@ -71,7 +66,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool for testing if Kubernetes is deployed securely";
     homepage = "https://github.com/kubescape/kubescape";
-    changelog = "https://github.com/kubescape/kubescape/releases/tag/v${version}";
+    changelog =
+      "https://github.com/kubescape/kubescape/releases/tag/v${version}";
     longDescription = ''
       Kubescape is the first open-source tool for testing if Kubernetes is
       deployed securely according to multiple frameworks: regulatory, customized
@@ -84,9 +80,6 @@ buildGoModule rec {
       Jenkins, CircleCI and Github workflows.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      fab
-      jk
-    ];
+    maintainers = with maintainers; [ fab jk ];
   };
 }

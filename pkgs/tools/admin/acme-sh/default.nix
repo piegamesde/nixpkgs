@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  coreutils,
-  curl,
-  dnsutils,
-  gnugrep,
-  gnused,
-  iproute2,
-  makeWrapper,
-  openssl,
-  socat,
-  unixtools,
-}:
+{ lib, stdenv, fetchFromGitHub, coreutils, curl, dnsutils, gnugrep, gnused
+, iproute2, makeWrapper, openssl, socat, unixtools }:
 
 stdenv.mkDerivation rec {
   pname = "acme.sh";
@@ -27,33 +14,32 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  installPhase =
-    let
-      binPath = lib.makeBinPath [
-        coreutils
-        curl
-        dnsutils
-        gnugrep
-        gnused
-        openssl
-        socat
-        (if stdenv.isLinux then iproute2 else unixtools.netstat)
-      ];
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    binPath = lib.makeBinPath [
+      coreutils
+      curl
+      dnsutils
+      gnugrep
+      gnused
+      openssl
+      socat
+      (if stdenv.isLinux then iproute2 else unixtools.netstat)
+    ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out $out/bin $out/libexec
-      cp -R $src/* $_
-      makeWrapper $out/libexec/acme.sh $out/bin/acme.sh \
-        --prefix PATH : "${binPath}"
+    mkdir -p $out $out/bin $out/libexec
+    cp -R $src/* $_
+    makeWrapper $out/libexec/acme.sh $out/bin/acme.sh \
+      --prefix PATH : "${binPath}"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   meta = with lib; {
     homepage = "https://acme.sh/";
-    changelog = "https://github.com/acmesh-official/acme.sh/releases/tag/${version}";
+    changelog =
+      "https://github.com/acmesh-official/acme.sh/releases/tag/${version}";
     description = "A pure Unix shell script implementing ACME client protocol";
     longDescription = ''
       An ACME Shell script: acme.sh

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-  tk,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, fetchFromGitHub, python3, tk, makeDesktopItem, copyDesktopItems }:
 
 with python3.pkgs;
 
@@ -29,10 +22,7 @@ buildPythonApplication rec {
       icon = "thonny";
       desktopName = "Thonny";
       comment = "Python IDE for beginners";
-      categories = [
-        "Development"
-        "IDE"
-      ];
+      categories = [ "Development" "IDE" ];
     })
   ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "striprtf";
@@ -20,7 +15,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "striprtf" ];
 
   meta = with lib; {
-    changelog = "https://github.com/joshy/striprtf/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/joshy/striprtf/blob/v${version}/CHANGELOG.md";
     homepage = "https://github.com/joshy/striprtf";
     description = "A simple library to convert rtf to text";
     maintainers = with maintainers; [ aanderse ];

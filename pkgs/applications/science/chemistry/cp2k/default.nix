@@ -1,35 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  gfortran,
-  blas,
-  lapack,
-  fftw,
-  libint,
-  libvori,
-  libxc,
-  mpi,
-  gsl,
-  scalapack,
-  openssh,
-  makeWrapper,
-  libxsmm,
-  spglib,
-  which,
-  pkg-config,
-  plumed,
-  zlib,
-  enableElpa ? false,
-  elpa,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, gfortran, blas, lapack, fftw, libint
+, libvori, libxc, mpi, gsl, scalapack, openssh, makeWrapper, libxsmm, spglib
+, which, pkg-config, plumed, zlib, enableElpa ? false, elpa }:
 
 let
   cp2kVersion = "psmp";
   arch = "Linux-x86-64-gfortran";
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "cp2k";
   version = "2023.1";
 
@@ -41,13 +18,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    python3
-    which
-    openssh
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ python3 which openssh makeWrapper pkg-config ];
   buildInputs = [
     gfortran
     fftw
@@ -67,10 +38,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ mpi ];
   propagatedUserEnvPkgs = [ mpi ];
 
-  makeFlags = [
-    "ARCH=${arch}"
-    "VERSION=${cp2kVersion}"
-  ];
+  makeFlags = [ "ARCH=${arch}" "VERSION=${cp2kVersion}" ];
 
   doCheck = true;
 
@@ -92,7 +60,9 @@ stdenv.mkDerivation rec {
     AR         = ar -r
     DFLAGS     = -D__FFTW3 -D__LIBXC -D__LIBINT -D__parallel -D__SCALAPACK \
                  -D__MPI_VERSION=3 -D__F2008 -D__LIBXSMM -D__SPGLIB \
-                 -D__MAX_CONTR=4 -D__LIBVORI ${lib.optionalString enableElpa "-D__ELPA"} \
+                 -D__MAX_CONTR=4 -D__LIBVORI ${
+                   lib.optionalString enableElpa "-D__ELPA"
+                 } \
                  -D__PLUMED2
     CFLAGS    = -fopenmp
     FCFLAGS    = \$(DFLAGS) -O2 -ffree-form -ffree-line-length-none \
@@ -101,16 +71,20 @@ stdenv.mkDerivation rec {
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
                  -I${libint}/include ${
-                   lib.optionalString enableElpa "$(pkg-config --variable=fcflags elpa)"
+                   lib.optionalString enableElpa
+                   "$(pkg-config --variable=fcflags elpa)"
                  }
     LIBS       = -lfftw3 -lfftw3_threads \
                  -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
                  -lgomp -lpthread -lm \
-                 -fopenmp ${lib.optionalString enableElpa "$(pkg-config --libs elpa)"} \
+                 -fopenmp ${
+                   lib.optionalString enableElpa "$(pkg-config --libs elpa)"
+                 } \
                  -lz -ldl -lstdc++ ${
-                   lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"
+                   lib.optionalString (mpi.pname == "openmpi")
+                   "$(mpicxx --showme:link)"
                  } \
                  -lplumed
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)
@@ -145,9 +119,7 @@ stdenv.mkDerivation rec {
     cp -r data/* $out/share/cp2k
   '';
 
-  passthru = {
-    inherit mpi;
-  };
+  passthru = { inherit mpi; };
 
   meta = with lib; {
     description = "Quantum chemistry and solid state physics program";

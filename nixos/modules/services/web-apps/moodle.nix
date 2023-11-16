@@ -1,27 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
+  inherit (lib) mkDefault mkEnableOption mkForce mkIf mkMerge mkOption types;
   inherit (lib)
-    mkDefault
-    mkEnableOption
-    mkForce
-    mkIf
-    mkMerge
-    mkOption
-    types
-  ;
-  inherit (lib)
-    concatStringsSep
-    literalExpression
-    mapAttrsToList
-    optional
-    optionalString
-  ;
+    concatStringsSep literalExpression mapAttrsToList optional optionalString;
 
   cfg = config.services.moodle;
   fpm = config.services.phpfpm.pools.moodle;
@@ -41,25 +23,28 @@ let
       {
         mysql = "mariadb";
         pgsql = "pgsql";
-      }
-      .${cfg.database.type}
+      }.${cfg.database.type}
     }';
     $CFG->dblibrary = 'native';
     $CFG->dbhost    = '${cfg.database.host}';
     $CFG->dbname    = '${cfg.database.name}';
     $CFG->dbuser    = '${cfg.database.user}';
     ${optionalString (cfg.database.passwordFile != null)
-      "$CFG->dbpass = file_get_contents('${cfg.database.passwordFile}');"}
+    "$CFG->dbpass = file_get_contents('${cfg.database.passwordFile}');"}
     $CFG->prefix    = 'mdl_';
     $CFG->dboptions = array (
       'dbpersist' => 0,
       'dbport' => '${toString cfg.database.port}',
-      ${optionalString (cfg.database.socket != null) "'dbsocket' => '${cfg.database.socket}',"}
+      ${
+        optionalString (cfg.database.socket != null)
+        "'dbsocket' => '${cfg.database.socket}',"
+      }
       'dbcollation' => 'utf8mb4_unicode_ci',
     );
 
     $CFG->wwwroot   = '${
-      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL then
+      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL
+      || cfg.virtualHost.onlySSL then
         "https"
       else
         "http"
@@ -88,8 +73,7 @@ let
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
   phpExt = pkgs.php81.buildEnv {
-    extensions =
-      { all, ... }:
+    extensions = { all, ... }:
       with all; [
         iconv
         mbstring
@@ -122,8 +106,7 @@ let
       ];
     extraConfig = "max_input_vars = 5000";
   };
-in
-{
+in {
   # interface
   options.services.moodle = {
     enable = mkEnableOption (lib.mdDoc "Moodle web application");
@@ -146,10 +129,7 @@ in
 
     database = {
       type = mkOption {
-        type = types.enum [
-          "mysql"
-          "pgsql"
-        ];
+        type = types.enum [ "mysql" "pgsql" ];
         default = "mysql";
         description = lib.mdDoc "Database engine to use.";
       };
@@ -163,12 +143,10 @@ in
       port = mkOption {
         type = types.port;
         description = lib.mdDoc "Database host port.";
-        default =
-          {
-            mysql = 3306;
-            pgsql = 5432;
-          }
-          .${cfg.database.type};
+        default = {
+          mysql = 3306;
+          pgsql = 5432;
+        }.${cfg.database.type};
         defaultText = literalExpression "3306";
       };
 
@@ -196,26 +174,28 @@ in
 
       socket = mkOption {
         type = types.nullOr types.path;
-        default =
-          if mysqlLocal then
-            "/run/mysqld/mysqld.sock"
-          else if pgsqlLocal then
-            "/run/postgresql"
-          else
-            null;
+        default = if mysqlLocal then
+          "/run/mysqld/mysqld.sock"
+        else if pgsqlLocal then
+          "/run/postgresql"
+        else
+          null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
-        description = lib.mdDoc "Path to the unix socket file to use for authentication.";
+        description =
+          lib.mdDoc "Path to the unix socket file to use for authentication.";
       };
 
       createLocally = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Create the database and database user locally.";
+        description =
+          lib.mdDoc "Create the database and database user locally.";
       };
     };
 
     virtualHost = mkOption {
-      type = types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
+      type =
+        types.submodule (import ../web-servers/apache-httpd/vhost-options.nix);
       example = literalExpression ''
         {
           hostName = "moodle.example.org";
@@ -231,15 +211,7 @@ in
     };
 
     poolConfig = mkOption {
-      type =
-        with types;
-        attrsOf (
-          oneOf [
-            str
-            int
-            bool
-          ]
-        );
+      type = with types; attrsOf (oneOf [ str int bool ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -274,11 +246,14 @@ in
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.user == user;
-        message = "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true";
+        message =
+          "services.moodle.database.user must be set to ${user} if services.moodle.database.createLocally is set true";
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message = "a password cannot be specified if services.moodle.database.createLocally is set to true";
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile
+          == null;
+        message =
+          "a password cannot be specified if services.moodle.database.createLocally is set to true";
       }
     ];
 
@@ -286,27 +261,24 @@ in
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
-        {
-          name = cfg.database.user;
-          ensurePermissions = {
-            "${cfg.database.name}.*" = "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
-          };
-        }
-      ];
+      ensureUsers = [{
+        name = cfg.database.user;
+        ensurePermissions = {
+          "${cfg.database.name}.*" =
+            "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
+        };
+      }];
     };
 
     services.postgresql = mkIf pgsqlLocal {
       enable = true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
-        {
-          name = cfg.database.user;
-          ensurePermissions = {
-            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-          };
-        }
-      ];
+      ensureUsers = [{
+        name = cfg.database.user;
+        ensurePermissions = {
+          "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+        };
+      }];
     };
 
     services.phpfpm.pools.moodle = {
@@ -352,7 +324,8 @@ in
     systemd.services.moodle-init = {
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-moodle.service" ];
-      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      after = optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
         ${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/check_database_schema.php && rc=$? || rc=$?
@@ -381,20 +354,18 @@ in
       serviceConfig = {
         User = user;
         Group = group;
-        ExecStart = "${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/cron.php";
+        ExecStart =
+          "${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/cron.php";
       };
     };
 
     systemd.timers.moodle-cron = {
       description = "Moodle cron timer";
       wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "minutely";
-      };
+      timerConfig = { OnCalendar = "minutely"; };
     };
 
-    systemd.services.httpd.after =
-      optional mysqlLocal "mysql.service"
+    systemd.services.httpd.after = optional mysqlLocal "mysql.service"
       ++ optional pgsqlLocal "postgresql.service";
 
     users.users.${user} = {

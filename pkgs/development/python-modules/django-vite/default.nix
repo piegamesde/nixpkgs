@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  django,
-  pythonOlder,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, django, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "django-vite";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Integration of ViteJS in a Django project";
     homepage = "https://github.com/MrBin99/django-vite";
-    changelog = "https://github.com/MrBin99/django-vite/releases/tag/${version}";
+    changelog =
+      "https://github.com/MrBin99/django-vite/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ sephi ];
   };

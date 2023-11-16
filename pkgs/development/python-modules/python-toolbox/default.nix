@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  docutils,
-  fetchFromGitHub,
-  isPy27,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, docutils, fetchFromGitHub, isPy27, pytestCheckHook }:
 
 buildPythonPackage rec {
   version = "1.0.10";
@@ -19,17 +12,13 @@ buildPythonPackage rec {
     sha256 = "1hpls1hwisdjx1g15cq052bdn9fvh43r120llws8bvgvj9ivnaha";
   };
 
-  nativeCheckInputs = [
-    docutils
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ docutils pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # file imports 'dummy_threading', which was deprecated since py37
-      # and removed in py39
-      "test_python_toolbox/test_cute_profile/test_cute_profile.py"
-    ];
+  disabledTestPaths = [
+    # file imports 'dummy_threading', which was deprecated since py37
+    # and removed in py39
+    "test_python_toolbox/test_cute_profile/test_cute_profile.py"
+  ];
 
   meta = with lib; {
     description = "Tools for testing PySnooper";

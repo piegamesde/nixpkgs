@@ -1,56 +1,20 @@
-{
-  lib,
-  stdenv,
-  autoPatchelfHook,
-  makeDesktopItem,
-  copyDesktopItems,
-  wrapGAppsHook,
-  fetchurl,
-  alsa-lib,
-  at-spi2-atk,
-  at-spi2-core,
-  atk,
-  cairo,
-  cups,
-  gtk3,
-  nss,
-  glib,
-  dbus,
-  nspr,
-  gdk-pixbuf,
-  libdrm,
-  mesa,
-  libX11,
-  libXScrnSaver,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
-  libXrandr,
-  libXrender,
-  libXtst,
-  libxcb,
-  pango,
-  gcc-unwrapped,
-  udev,
-}:
+{ lib, stdenv, autoPatchelfHook, makeDesktopItem, copyDesktopItems
+, wrapGAppsHook, fetchurl, alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups
+, gtk3, nss, glib, dbus, nspr, gdk-pixbuf, libdrm, mesa, libX11, libXScrnSaver
+, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi, libXrandr
+, libXrender, libXtst, libxcb, pango, gcc-unwrapped, udev }:
 
 stdenv.mkDerivation rec {
   pname = "snapmaker-luban";
   version = "4.8.0";
 
   src = fetchurl {
-    url = "https://github.com/Snapmaker/Luban/releases/download/v${version}/snapmaker-luban-${version}-linux-x64.tar.gz";
+    url =
+      "https://github.com/Snapmaker/Luban/releases/download/v${version}/snapmaker-luban-${version}-linux-x64.tar.gz";
     sha256 = "sha256-uY8MlLIZrbds5/QdYZFTLSSis0BwRU19XfLiBX+2VCY=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    wrapGAppsHook
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook copyDesktopItems ];
 
   buildInputs = [
     alsa-lib
@@ -133,15 +97,13 @@ stdenv.mkDerivation rec {
       icon = "snapmaker-luban";
       desktopName = "Snapmaker Luban";
       genericName = meta.description;
-      categories = [
-        "Office"
-        "Printing"
-      ];
+      categories = [ "Office" "Printing" ];
     })
   ];
 
   meta = with lib; {
-    description = "Snapmaker Luban is an easy-to-use 3-in-1 software tailor-made for Snapmaker machines";
+    description =
+      "Snapmaker Luban is an easy-to-use 3-in-1 software tailor-made for Snapmaker machines";
     homepage = "https://github.com/Snapmaker/Luban";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3;

@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "collectors";
   version = "20161204-git";
 
@@ -19,7 +18,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/collectors/2016-12-04/collectors-20161204-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/collectors/2016-12-04/collectors-20161204-git.tgz";
     sha256 = "0cf2y2yxraqs9v54gbj8hhp7s522gz8qfwwc5hvlhl2s7540b2zf";
   };
 

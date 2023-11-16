@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  substituteAll,
-  pkg-config,
-  neon,
-  libusb-compat-0_1,
-  openssl,
-  udev,
-  avahi,
-  freeipmi,
-  libtool,
-  makeWrapper,
-  autoreconfHook,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchurl, substituteAll, pkg-config, neon, libusb-compat-0_1
+, openssl, udev, avahi, freeipmi, libtool, makeWrapper, autoreconfHook
+, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "nut";
@@ -30,7 +16,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       # Fix build with openssl >= 1.1.0
-      url = "https://github.com/networkupstools/nut/commit/612c05efb3c3b243da603a3a050993281888b6e3.patch";
+      url =
+        "https://github.com/networkupstools/nut/commit/612c05efb3c3b243da603a3a050993281888b6e3.patch";
       sha256 = "0jdbii1z5sqyv24286j5px65j7b3gp8zk3ahbph83pig6g46m3hs";
     })
     (substituteAll {
@@ -42,21 +29,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [
-    neon
-    libusb-compat-0_1
-    openssl
-    udev
-    avahi
-    freeipmi
-  ];
+  buildInputs = [ neon libusb-compat-0_1 openssl udev avahi freeipmi ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libtool
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook libtool pkg-config makeWrapper ];
 
   configureFlags = [
     "--with-all"
@@ -83,11 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://networkupstools.org/";
     platforms = platforms.linux;
     maintainers = [ maintainers.pierron ];
-    license = with licenses; [
-      gpl1Plus
-      gpl2Plus
-      gpl3Plus
-    ];
+    license = with licenses; [ gpl1Plus gpl2Plus gpl3Plus ];
     priority = 10;
   };
 }

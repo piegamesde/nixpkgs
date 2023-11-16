@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ndms2-client";

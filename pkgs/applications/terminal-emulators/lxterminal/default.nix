@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  automake,
-  autoconf,
-  intltool,
-  pkg-config,
-  gtk3,
-  vte,
-  wrapGAppsHook,
-  libxslt,
-  docbook_xml_dtd_412,
-  docbook_xsl,
-  libxml2,
-  findXMLCatalogs,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, automake, autoconf, intltool, pkg-config, gtk3
+, vte, wrapGAppsHook, libxslt, docbook_xml_dtd_412, docbook_xsl, libxml2
+, findXMLCatalogs, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "lxterminal";
@@ -28,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5J21Xvx43Ie01IxB2usyixDl+WZEeFHn2HXZsRS5imo=";
   };
 
-  configureFlags = [
-    "--enable-man"
-    "--enable-gtk3"
-  ];
+  configureFlags = [ "--enable-man" "--enable-gtk3" ];
 
   nativeBuildInputs = [
     automake
@@ -46,10 +28,7 @@ stdenv.mkDerivation rec {
     findXMLCatalogs
   ];
 
-  buildInputs = [
-    gtk3
-    vte
-  ];
+  buildInputs = [ gtk3 vte ];
 
   patches = [ ./respect-xml-catalog-files-var.patch ];
 

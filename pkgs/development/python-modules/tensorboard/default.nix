@@ -1,23 +1,7 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  pythonAtLeast,
-  pythonRelaxDepsHook,
-  numpy,
-  wheel,
-  werkzeug,
-  protobuf,
-  grpcio,
-  markdown,
-  absl-py,
-  google-auth-oauthlib,
-  setuptools,
-  tensorboard-data-server,
-  tensorboard-plugin-wit,
-  tensorboard-plugin-profile,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, pythonAtLeast
+, pythonRelaxDepsHook, numpy, wheel, werkzeug, protobuf, grpcio, markdown
+, absl-py, google-auth-oauthlib, setuptools, tensorboard-data-server
+, tensorboard-plugin-wit, tensorboard-plugin-profile }:
 
 # tensorflow/tensorboard is built from a downloaded wheel, because
 # https://github.com/tensorflow/tensorboard/issues/719 blocks
@@ -38,10 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "google-auth-oauthlib"
-    "protobuf"
-  ];
+  pythonRelaxDeps = [ "google-auth-oauthlib" "protobuf" ];
 
   propagatedBuildInputs = [
     absl-py

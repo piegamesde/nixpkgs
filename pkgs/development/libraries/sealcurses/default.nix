@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitea,
-  cmake,
-  pkg-config,
-  ncurses,
-  the-foundation,
-}:
+{ lib, stdenv, fetchFromGitea, cmake, pkg-config, ncurses, the-foundation }:
 
 stdenv.mkDerivation rec {
   pname = "sealcurses";
@@ -20,15 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-N+Tvg2oIcfa68FC7rKuLxGgEKz1oBEEb8NGCiBuZ8y4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    ncurses
-    the-foundation
-  ];
+  buildInputs = [ ncurses the-foundation ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 

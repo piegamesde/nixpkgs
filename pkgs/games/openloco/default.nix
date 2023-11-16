@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL2,
-  cmake,
-  libpng,
-  libzip,
-  openal,
-  pkg-config,
-  span-lite,
-  yaml-cpp,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, cmake, libpng, libzip, openal, pkg-config
+, span-lite, yaml-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "openloco";
@@ -33,21 +22,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DOPENLOCO_BUILD_TESTS=NO" ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    SDL2
-    libpng
-    libzip
-    openal
-    yaml-cpp
-    span-lite
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ SDL2 libpng libzip openal yaml-cpp span-lite ];
 
   meta = {
-    description = "An open source re-implementation of Chris Sawyer's Locomotion";
+    description =
+      "An open source re-implementation of Chris Sawyer's Locomotion";
     homepage = "https://github.com/OpenLoco/OpenLoco";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;

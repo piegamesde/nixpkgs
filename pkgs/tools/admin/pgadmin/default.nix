@@ -1,17 +1,6 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  zlib,
-  nixosTests,
-  postgresqlTestHook,
-  postgresql,
-  yarn,
-  fixup_yarn_lock,
-  nodejs,
-  server-mode ? true,
-}:
+{ lib, python3, fetchFromGitHub, fetchYarnDeps, zlib, nixosTests
+, postgresqlTestHook, postgresql, yarn, fixup_yarn_lock, nodejs
+, server-mode ? true }:
 
 let
   pname = "pgadmin";
@@ -33,9 +22,8 @@ let
     yarnLock = ./yarn.lock;
     hash = yarnSha256;
   };
-in
 
-pythonPackages.buildPythonApplication rec {
+in pythonPackages.buildPythonApplication rec {
   inherit pname version src;
 
   # from Dockerfile
@@ -138,10 +126,7 @@ pythonPackages.buildPythonApplication rec {
     fixup_yarn_lock
     nodejs
   ];
-  buildInputs = [
-    zlib
-    pythonPackages.wheel
-  ];
+  buildInputs = [ zlib pythonPackages.wheel ];
 
   propagatedBuildInputs = with pythonPackages; [
     flask
@@ -195,9 +180,7 @@ pythonPackages.buildPythonApplication rec {
     keyring
   ];
 
-  passthru.tests = {
-    inherit (nixosTests) pgadmin4;
-  };
+  passthru.tests = { inherit (nixosTests) pgadmin4; };
 
   nativeCheckInputs = [
     postgresqlTestHook
@@ -242,18 +225,15 @@ pythonPackages.buildPythonApplication rec {
     longDescription = ''
       pgAdmin 4 is designed to meet the needs of both novice and experienced Postgres users alike,
       providing a powerful graphical interface that simplifies the creation, maintenance and use of database objects.
-      ${if server-mode then
-        ''
-          This version is build with SERVER_MODE set to True (the default). It will require access to `/var/lib/pgadmin`
-          and `/var/log/pgadmin`. This is the default version for the NixOS module `services.pgadmin`.
-          This should NOT be used in combination with the `pgadmin4-desktopmode` package as they will interfere.
-        ''
-      else
-        ''
-          This version is build with SERVER_MODE set to False. It will require access to `~/.pgadmin/`. This version is suitable
-          for single-user deployment or where access to `/var/lib/pgadmin` cannot be granted or the NixOS module cannot be used.
-          This should NOT be used in combination with the NixOS module `pgadmin` as they will interfere.
-        ''}
+      ${if server-mode then ''
+        This version is build with SERVER_MODE set to True (the default). It will require access to `/var/lib/pgadmin`
+        and `/var/log/pgadmin`. This is the default version for the NixOS module `services.pgadmin`.
+        This should NOT be used in combination with the `pgadmin4-desktopmode` package as they will interfere.
+      '' else ''
+        This version is build with SERVER_MODE set to False. It will require access to `~/.pgadmin/`. This version is suitable
+        for single-user deployment or where access to `/var/lib/pgadmin` cannot be granted or the NixOS module cannot be used.
+        This should NOT be used in combination with the NixOS module `pgadmin` as they will interfere.
+      ''}
     '';
     homepage = "https://www.pgadmin.org/";
     license = licenses.mit;

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  defusedxml,
-  fetchFromGitHub,
-  lxml,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  xmldiff,
-}:
+{ lib, buildPythonPackage, defusedxml, fetchFromGitHub, lxml, poetry-core
+, pytestCheckHook, pythonOlder, xmldiff }:
 
 buildPythonPackage rec {
   pname = "py-serializable";
@@ -28,18 +19,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ defusedxml ];
 
-  nativeCheckInputs = [
-    lxml
-    pytestCheckHook
-    xmldiff
-  ];
+  nativeCheckInputs = [ lxml pytestCheckHook xmldiff ];
 
   pythonImportsCheck = [ "serializable" ];
 
   meta = with lib; {
-    description = "Pythonic library to aid with serialisation and deserialisation to/from JSON and XML";
+    description =
+      "Pythonic library to aid with serialisation and deserialisation to/from JSON and XML";
     homepage = "https://github.com/madpah/serializable";
-    changelog = "https://github.com/madpah/serializable/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/madpah/serializable/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

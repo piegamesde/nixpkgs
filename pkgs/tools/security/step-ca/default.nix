@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  coreutils,
-  pcsclite,
-  PCSC,
-  pkg-config,
-  hsmSupport ? true,
-  nixosTests,
-}:
+{ stdenv, lib, fetchFromGitHub, buildGoModule, coreutils, pcsclite, PCSC
+, pkg-config, hsmSupport ? true, nixosTests }:
 
 buildGoModule rec {
   pname = "step-ca";
@@ -28,8 +18,7 @@ buildGoModule rec {
 
   nativeBuildInputs = lib.optionals hsmSupport [ pkg-config ];
 
-  buildInputs =
-    lib.optionals (hsmSupport && stdenv.isLinux) [ pcsclite ]
+  buildInputs = lib.optionals (hsmSupport && stdenv.isLinux) [ pcsclite ]
     ++ lib.optionals (hsmSupport && stdenv.isDarwin) [ PCSC ];
 
   postPatch = ''
@@ -54,14 +43,12 @@ buildGoModule rec {
   passthru.tests.step-ca = nixosTests.step-ca;
 
   meta = with lib; {
-    description = "A private certificate authority (X.509 & SSH) & ACME server for secure automated certificate management, so you can use TLS everywhere & SSO for SSH";
+    description =
+      "A private certificate authority (X.509 & SSH) & ACME server for secure automated certificate management, so you can use TLS everywhere & SSO for SSH";
     homepage = "https://smallstep.com/certificates/";
-    changelog = "https://github.com/smallstep/certificates/releases/tag/v${version}";
+    changelog =
+      "https://github.com/smallstep/certificates/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      cmcdragonkai
-      mohe2015
-      techknowlogick
-    ];
+    maintainers = with maintainers; [ cmcdragonkai mohe2015 techknowlogick ];
   };
 }

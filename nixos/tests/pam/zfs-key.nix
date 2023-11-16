@@ -1,41 +1,35 @@
-import ../make-test-python.nix (
-  { ... }:
+import ../make-test-python.nix ({ ... }:
 
   let
     userPassword = "password";
     mismatchPass = "mismatch";
-  in
-  {
+  in {
     name = "pam-zfs-key";
 
-    nodes.machine =
-      { ... }:
-      {
-        boot.supportedFilesystems = [ "zfs" ];
+    nodes.machine = { ... }: {
+      boot.supportedFilesystems = [ "zfs" ];
 
-        networking.hostId = "12345678";
+      networking.hostId = "12345678";
 
-        security.pam.zfs.enable = true;
+      security.pam.zfs.enable = true;
 
-        users.users = {
-          alice = {
-            isNormalUser = true;
-            password = userPassword;
-          };
-          bob = {
-            isNormalUser = true;
-            password = userPassword;
-          };
+      users.users = {
+        alice = {
+          isNormalUser = true;
+          password = userPassword;
+        };
+        bob = {
+          isNormalUser = true;
+          password = userPassword;
         };
       };
+    };
 
-    testScript =
-      { nodes, ... }:
+    testScript = { nodes, ... }:
       let
         homes = nodes.machine.security.pam.zfs.homes;
         pool = builtins.head (builtins.split "/" homes);
-      in
-      ''
+      in ''
         machine.wait_for_unit("multi-user.target")
         machine.wait_until_succeeds("pgrep -f 'agetty.*tty1'")
 
@@ -82,5 +76,4 @@ import ../make-test-python.nix (
           machine.wait_until_succeeds("pgrep -u bob bash")
           machine.fail("mount | grep ${homes}/bob")
       '';
-  }
-)
+  })

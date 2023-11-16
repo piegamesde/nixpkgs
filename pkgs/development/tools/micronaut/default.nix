@@ -1,25 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  jdk,
-  makeWrapper,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchzip, jdk, makeWrapper, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "micronaut";
   version = "3.9.3";
 
   src = fetchzip {
-    url = "https://github.com/micronaut-projects/micronaut-starter/releases/download/v${version}/micronaut-cli-${version}.zip";
+    url =
+      "https://github.com/micronaut-projects/micronaut-starter/releases/download/v${version}/micronaut-cli-${version}.zip";
     sha256 = "sha256-ImpgmMlEZSBXCqbd8g269uE6uBicLzjQjRvcAXn9QYI=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Modern, JVM-based, full-stack framework for building microservice applications";
+    description =
+      "Modern, JVM-based, full-stack framework for building microservice applications";
     longDescription = ''
       Micronaut is a modern, JVM-based, full stack microservices framework
       designed for building modular, easily testable microservice applications.

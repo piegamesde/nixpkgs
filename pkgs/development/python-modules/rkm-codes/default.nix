@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flitBuildHook,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flitBuildHook, setuptools }:
 
 buildPythonPackage rec {
   pname = "rkm-codes";

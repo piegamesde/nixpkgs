@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  python3Packages,
-  fetchPypi,
-}:
+{ stdenv, lib, python3Packages, fetchPypi }:
 
 python3Packages.buildPythonApplication rec {
   pname = "piston-cli";

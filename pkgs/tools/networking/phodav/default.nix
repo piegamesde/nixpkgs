@@ -1,40 +1,19 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  libsoup_3,
-  libxml2,
-  meson,
-  ninja,
-  gnome,
-}:
+{ stdenv, lib, fetchurl, pkg-config, libsoup_3, libxml2, meson, ninja, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "phodav";
   version = "3.0";
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-  ];
+  outputs = [ "out" "dev" "lib" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/phodav/${version}/phodav-${version}.tar.xz";
     sha256 = "OS7C0G1QMA3P8e8mmiqYUwTim841IAAvyiny7cHRONE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja ];
 
-  buildInputs = [
-    libsoup_3
-    libxml2
-  ];
+  buildInputs = [ libsoup_3 libxml2 ];
 
   mesonFlags = [
     "-Davahi=disabled"
@@ -45,9 +24,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-lintl";
 
-  passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   # We need to do this in pre-configure before the data/ folder disappears.
   preConfigure = ''

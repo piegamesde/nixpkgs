@@ -1,17 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  qtdeclarative,
-  ki18n,
-  kmime,
-  kpkpass,
-  poppler,
-  kcontacts,
-  kcalendarcore,
-  shared-mime-info,
-  zxing-cpp,
-}:
+{ mkDerivation, lib, extra-cmake-modules, qtdeclarative, ki18n, kmime, kpkpass
+, poppler, kcontacts, kcalendarcore, shared-mime-info, zxing-cpp }:
 
 mkDerivation {
   pname = "kitinerary";
@@ -34,8 +22,5 @@ mkDerivation {
     zxing-cpp
   ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 }

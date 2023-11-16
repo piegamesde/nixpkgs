@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pgo-client";
@@ -22,7 +18,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "A CLI client for Crunchy PostgreSQL Kubernetes Operator";
     homepage = "https://github.com/CrunchyData/postgres-operator";
-    changelog = "https://github.com/CrunchyData/postgres-operator/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CrunchyData/postgres-operator/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = [ maintainers.bryanasdev000 ];
     mainProgram = "pgo";

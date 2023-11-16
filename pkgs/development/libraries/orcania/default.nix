@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  check,
-  subunit,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, check, subunit }:
 stdenv.mkDerivation rec {
   pname = "orcania";
   version = "2.3.2";
@@ -19,17 +12,15 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  nativeCheckInputs = [
-    check
-    subunit
-  ];
+  nativeCheckInputs = [ check subunit ];
 
   cmakeFlags = [ "-DBUILD_ORCANIA_TESTING=on" ];
 
   doCheck = true;
 
   meta = with lib; {
-    description = "Potluck with different functions for different purposes that can be shared among C programs";
+    description =
+      "Potluck with different functions for different purposes that can be shared among C programs";
     homepage = "https://github.com/babelouest/orcania";
     license = licenses.lgpl21;
     maintainers = with maintainers; [ johnazoidberg ];

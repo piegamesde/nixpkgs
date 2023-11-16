@@ -1,34 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, nixosTests }:
 
 let
-  generic =
-    {
-      version,
-      sha256,
-      eol ? false,
-      extraVulnerabilities ? [ ],
-    }:
-    let
-      major = lib.versions.major version;
-    in
-    stdenv.mkDerivation rec {
+  generic = { version, sha256, eol ? false, extraVulnerabilities ? [ ] }:
+    let major = lib.versions.major version;
+    in stdenv.mkDerivation rec {
       pname = "nextcloud";
       inherit version;
 
       src = fetchurl {
-        url = "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2";
+        url =
+          "https://download.nextcloud.com/server/releases/${pname}-${version}.tar.bz2";
         inherit sha256;
       };
 
       # This patch is only necessary for NC version <26.
-      patches = lib.optional (lib.versionOlder major "26") (
-        ./patches + "/v${major}/0001-Setup-remove-custom-dbuser-creation-behavior.patch"
-      );
+      patches = lib.optional (lib.versionOlder major "26") (./patches
+        + "/v${major}/0001-Setup-remove-custom-dbuser-creation-behavior.patch");
 
       passthru.tests = nixosTests.nextcloud;
 
@@ -40,22 +27,20 @@ let
       '';
 
       meta = with lib; {
-        changelog = "https://nextcloud.com/changelog/#${lib.replaceStrings [ "." ] [ "-" ] version}";
-        description = "Sharing solution for files, calendars, contacts and more";
+        changelog = "https://nextcloud.com/changelog/#${
+            lib.replaceStrings [ "." ] [ "-" ] version
+          }";
+        description =
+          "Sharing solution for files, calendars, contacts and more";
         homepage = "https://nextcloud.com";
-        maintainers = with maintainers; [
-          schneefux
-          bachp
-          globin
-          ma27
-        ];
+        maintainers = with maintainers; [ schneefux bachp globin ma27 ];
         license = licenses.agpl3Plus;
         platforms = with platforms; unix;
-        knownVulnerabilities = extraVulnerabilities ++ (optional eol "Nextcloud version ${version} is EOL");
+        knownVulnerabilities = extraVulnerabilities
+          ++ (optional eol "Nextcloud version ${version} is EOL");
       };
     };
-in
-{
+in {
   nextcloud24 = throw ''
     Nextcloud v24 has been removed from `nixpkgs` as the support for is dropped
     by upstream in 2023-04. Please upgrade to at least Nextcloud v25 by declaring

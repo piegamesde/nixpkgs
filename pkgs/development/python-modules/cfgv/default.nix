@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, six }:
 
 buildPythonPackage rec {
   pname = "cfgv";
@@ -22,7 +16,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Validate configuration and produce human readable error messages";
+    description =
+      "Validate configuration and produce human readable error messages";
     homepage = "https://github.com/asottile/cfgv";
     license = licenses.mit;
   };

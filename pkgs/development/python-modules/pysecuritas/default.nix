@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  requests,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests, xmltodict }:
 
 buildPythonPackage rec {
   pname = "pysecuritas";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     sha256 = "W3DLZCXUH9y5NPipFEu6URmKN+oVXMgeDF1rfKtxRng=";
   };
 
-  propagatedBuildInputs = [
-    xmltodict
-    requests
-  ];
+  propagatedBuildInputs = [ xmltodict requests ];
 
   # Project doesn't ship tests with PyPI releases
   # https://github.com/Cebeerre/pysecuritas/issues/13

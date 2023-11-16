@@ -1,12 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchgit,
-  cmake,
-  extra-cmake-modules,
-  kio,
-  fuse3,
-}:
+{ lib, mkDerivation, fetchgit, cmake, extra-cmake-modules, kio, fuse3 }:
 
 mkDerivation rec {
   pname = "kio-fuse";
@@ -18,15 +10,9 @@ mkDerivation rec {
     rev = "v${version}";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
-  buildInputs = [
-    kio
-    fuse3
-  ];
+  buildInputs = [ kio fuse3 ];
 
   meta = with lib; {
     description = "FUSE Interface for KIO";

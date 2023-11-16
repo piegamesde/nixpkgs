@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -18,8 +12,8 @@ let
       "tmp": "${cfg.downloadDir}"
     }
   '';
-in
-{
+
+in {
 
   ###### interface
 
@@ -39,7 +33,8 @@ in
     downloadDir = mkOption {
       description = lib.mdDoc "Peerflix temporary download directory.";
       default = "${cfg.stateDir}/torrents";
-      defaultText = literalExpression ''"''${config.${opt.stateDir}}/torrents"'';
+      defaultText =
+        literalExpression ''"''${config.${opt.stateDir}}/torrents"'';
       type = types.path;
     };
   };

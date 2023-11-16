@@ -1,34 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  aflplusplus,
-  python3,
-  zlib,
-  pkg-config,
-  glib,
-  perl,
-  texinfo,
-  libuuid,
-  flex,
-  bison,
-  pixman,
-  meson,
-  fetchFromGitHub,
-  ninja,
-}:
+{ lib, stdenv, fetchurl, aflplusplus, python3, zlib, pkg-config, glib, perl
+, texinfo, libuuid, flex, bison, pixman, meson, fetchFromGitHub, ninja }:
 
 let
   qemuName = "qemu-5.2.50";
-  cpuTarget =
-    if stdenv.targetPlatform.system == "x86_64-linux" then
-      "x86_64-linux-user"
-    else if stdenv.targetPlatform.system == "i686-linux" then
-      "i386-linux-user"
-    else
-      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
-in
-stdenv.mkDerivation {
+  cpuTarget = if stdenv.targetPlatform.system == "x86_64-linux" then
+    "x86_64-linux-user"
+  else if stdenv.targetPlatform.system == "i686-linux" then
+    "i386-linux-user"
+  else
+    throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
+in stdenv.mkDerivation {
   name = "aflplusplus-${qemuName}";
 
   src = fetchFromGitHub {
@@ -39,27 +20,15 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    python3
-    perl
-    pkg-config
-    flex
-    bison
-    meson
-    texinfo
-    ninja
-  ];
+  nativeBuildInputs =
+    [ python3 perl pkg-config flex bison meson texinfo ninja ];
 
-  buildInputs = [
-    zlib
-    glib
-    pixman
-    libuuid
-  ];
+  buildInputs = [ zlib glib pixman libuuid ];
 
   enableParallelBuilding = true;
 
-  dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
+  dontUseMesonConfigure =
+    true; # meson's configurePhase isn't compatible with qemu build
   preBuild = "cd build";
   preConfigure = ''
     # this script isn't marked as executable b/c it's indirectly used by meson. Needed to patch its shebang

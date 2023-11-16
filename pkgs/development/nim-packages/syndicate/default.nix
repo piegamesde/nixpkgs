@@ -1,10 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromGitea,
-  nimSHA2,
-  preserves,
-}:
+{ lib, buildNimPackage, fetchFromGitea, nimSHA2, preserves }:
 
 buildNimPackage rec {
   pname = "syndicate";
@@ -16,10 +10,7 @@ buildNimPackage rec {
     rev = version;
     hash = "sha256-yTPbEsBcpEPXfmhykbWzWdnJ2ExEJxdii1L+mqx8VGQ=";
   };
-  propagatedBuildInputs = [
-    nimSHA2
-    preserves
-  ];
+  propagatedBuildInputs = [ nimSHA2 preserves ];
   doCheck = true;
   meta = src.meta // {
     description = "Nim implementation of the Syndicated Actor model";

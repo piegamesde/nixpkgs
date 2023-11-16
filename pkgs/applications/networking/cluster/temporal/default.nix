@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  testers,
-  temporal,
-}:
+{ lib, fetchFromGitHub, buildGoModule, testers, temporal }:
 
 buildGoModule rec {
   pname = "temporal";
@@ -23,10 +17,7 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   # There too many integration tests.
   doCheck = false;
@@ -48,9 +39,11 @@ buildGoModule rec {
   passthru.tests.version = testers.testVersion { package = temporal; };
 
   meta = with lib; {
-    description = "A microservice orchestration platform which enables developers to build scalable applications without sacrificing productivity or reliability";
+    description =
+      "A microservice orchestration platform which enables developers to build scalable applications without sacrificing productivity or reliability";
     homepage = "https://temporal.io";
-    changelog = "https://github.com/temporalio/temporal/releases/tag/v${version}";
+    changelog =
+      "https://github.com/temporalio/temporal/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ titanous ];
     mainProgram = "temporal-server";

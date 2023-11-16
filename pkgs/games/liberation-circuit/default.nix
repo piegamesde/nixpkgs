@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchurl,
-  pkg-config,
-  makeWrapper,
-  allegro5,
-  libGL,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchurl, pkg-config, makeWrapper, allegro5
+, libGL }:
 
 stdenv.mkDerivation rec {
   pname = "liberation-circuit";
@@ -20,14 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "zIwjh4CBSmKz7pF7GM5af+VslWho5jHOLsulbW4C8TY=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
-  buildInputs = [
-    allegro5
-    libGL
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
+  buildInputs = [ allegro5 libGL ];
 
   installPhase = ''
     runHook preInstall

@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  nix-update-script,
-}:
+{ lib, rustPlatform, fetchFromGitHub, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-cross";
@@ -20,14 +15,13 @@ rustPlatform.buildRustPackage rec {
 
   checkFlags = [ "--skip=docker::shared::tests::directories::test_host" ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Zero setup cross compilation and cross testing";
     homepage = "https://github.com/cross-rs/cross";
-    changelog = "https://github.com/cross-rs/cross/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/cross-rs/cross/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

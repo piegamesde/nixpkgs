@@ -1,23 +1,12 @@
-{
-  lib,
-  fetchurl,
-  intltool,
-  libtorrent-rasterbar,
-  python3Packages,
-  gtk3,
-  glib,
-  gobject-introspection,
-  librsvg,
-  wrapGAppsHook,
-}:
+{ lib, fetchurl, intltool, libtorrent-rasterbar, python3Packages, gtk3, glib
+, gobject-introspection, librsvg, wrapGAppsHook }:
 
 let
   inherit (lib) optionals;
 
   pypkgs = python3Packages;
 
-  generic =
-    { pname, withGUI }:
+  generic = { pname, withGUI }:
     pypkgs.buildPythonPackage rec {
       inherit pname;
       version = "2.1.1";
@@ -29,8 +18,7 @@ let
         hash = "sha256-do3TGYAuQkN6s3lOvnW0lxQuCO1bD7JQO61izvRC3/c=";
       };
 
-      propagatedBuildInputs =
-        with pypkgs;
+      propagatedBuildInputs = with pypkgs;
         [
           twisted
           mako
@@ -49,22 +37,10 @@ let
           dbus-python
           pycairo
           librsvg
-        ]
-        ++ optionals withGUI [
-          gtk3
-          gobject-introspection
-          pygobject3
-        ];
+        ] ++ optionals withGUI [ gtk3 gobject-introspection pygobject3 ];
 
-      nativeBuildInputs =
-        [
-          intltool
-          glib
-        ]
-        ++ optionals withGUI [
-          gobject-introspection
-          wrapGAppsHook
-        ];
+      nativeBuildInputs = [ intltool glib ]
+        ++ optionals withGUI [ gobject-introspection wrapGAppsHook ];
 
       nativeCheckInputs = with pypkgs; [
         pytestCheckHook
@@ -77,24 +53,17 @@ let
 
       doCheck = false; # tests are not working at all
 
-      postInstall =
-        ''
-          install -Dm444 -t $out/lib/systemd/system packaging/systemd/*.service
-        ''
-        + (
-          if withGUI then
-            ''
-              mkdir -p $out/share
-              cp -R deluge/ui/data/{icons,pixmaps} $out/share/
-              install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop
-            ''
-          else
-            ''
-              rm -r $out/bin/deluge-gtk
-              rm -r $out/lib/${python3Packages.python.libPrefix}/site-packages/deluge/ui/gtk3
-              rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
-            ''
-        );
+      postInstall = ''
+        install -Dm444 -t $out/lib/systemd/system packaging/systemd/*.service
+      '' + (if withGUI then ''
+        mkdir -p $out/share
+        cp -R deluge/ui/data/{icons,pixmaps} $out/share/
+        install -Dm444 -t $out/share/applications deluge/ui/data/share/applications/deluge.desktop
+      '' else ''
+        rm -r $out/bin/deluge-gtk
+        rm -r $out/lib/${python3Packages.python.libPrefix}/site-packages/deluge/ui/gtk3
+        rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
+      '');
 
       postFixup = ''
         for f in $out/lib/systemd/system/*; do
@@ -106,15 +75,12 @@ let
         description = "Torrent client";
         homepage = "https://deluge-torrent.org";
         license = licenses.gpl3Plus;
-        maintainers = with maintainers; [
-          domenkozar
-          ebzzry
-        ];
+        maintainers = with maintainers; [ domenkozar ebzzry ];
         platforms = platforms.all;
       };
     };
-in
-rec {
+
+in rec {
   deluge-gtk = generic {
     pname = "deluge-gtk";
     withGUI = true;

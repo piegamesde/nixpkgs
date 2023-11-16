@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-  openssl,
-  zlib,
-  readline,
-  flex,
-  curl,
-  json_c,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql, openssl, zlib, readline, flex, curl
+, json_c }:
 
 stdenv.mkDerivation rec {
   pname = "repmgr";
@@ -24,14 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ flex ];
 
-  buildInputs = [
-    postgresql
-    openssl
-    zlib
-    readline
-    curl
-    json_c
-  ];
+  buildInputs = [ postgresql openssl zlib readline curl json_c ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib,share/postgresql/extension}
@@ -50,3 +33,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ zimbatm ];
   };
 }
+

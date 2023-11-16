@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-  wrapQtAppsHook,
-}:
+{ lib, fetchFromGitHub, python3, wrapQtAppsHook }:
 
 # As of 2.1, puddletag has started pinning versions of all dependencies that it
 # was built against which is an issue as the chances of us having the exact same
@@ -33,20 +28,14 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  pythonRemoveDeps = [
-    "chromaprint"
-    "pyqt5-qt5"
-  ];
+  pythonRemoveDeps = [ "chromaprint" "pyqt5-qt5" ];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace share/pixmaps share/icons
   '';
 
-  nativeBuildInputs = [
-    python3.pkgs.pythonRelaxDepsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ python3.pkgs.pythonRelaxDepsHook wrapQtAppsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     configobj
@@ -73,10 +62,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "An audio tag editor similar to the Windows program, Mp3tag";
     homepage = "https://docs.puddletag.net";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      peterhoeg
-      dschrempf
-    ];
+    maintainers = with maintainers; [ peterhoeg dschrempf ];
     platforms = platforms.linux;
   };
 }

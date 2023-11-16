@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "filetype";
@@ -31,11 +25,10 @@ buildPythonPackage rec {
     "test_guess_zstd"
   ];
 
-  disabledTestPaths =
-    [
-      # We don't care about benchmarks
-      "tests/test_benchmark.py"
-    ];
+  disabledTestPaths = [
+    # We don't care about benchmarks
+    "tests/test_benchmark.py"
+  ];
 
   meta = with lib; {
     description = "Infer file type and MIME type of any file/buffer";

@@ -1,37 +1,19 @@
-{
-  stdenv,
-  lib,
-  writeScript,
-  qt5,
-  fetchurl,
-  autoPatchelfHook,
-  dpkg,
-  glibc,
-  cpio,
-  xar,
-  undmg,
-  gtk3,
-  pango,
-  libxcb,
-}:
+{ stdenv, lib, writeScript, qt5, fetchurl, autoPatchelfHook, dpkg, glibc, cpio
+, xar, undmg, gtk3, pango, libxcb }:
 let
   pname = "synology-drive-client";
-  baseUrl = "https://global.download.synology.com/download/Utility/SynologyDriveClient";
+  baseUrl =
+    "https://global.download.synology.com/download/Utility/SynologyDriveClient";
   version = "3.2.1-13272";
   buildNumber = with lib; last (splitString "-" version);
   meta = with lib; {
-    description = "Desktop application to synchronize files and folders between the computer and the Synology Drive server.";
+    description =
+      "Desktop application to synchronize files and folders between the computer and the Synology Drive server.";
     homepage = "https://www.synology.com/en-global/dsm/feature/drive";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      jcouyang
-      MoritzBoehme
-    ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    maintainers = with maintainers; [ jcouyang MoritzBoehme ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
   passthru.updateScript = writeScript "update-synology-drive-client" ''
     #!/usr/bin/env nix-shell
@@ -46,29 +28,17 @@ let
   '';
 
   linux = qt5.mkDerivation {
-    inherit
-      pname
-      version
-      meta
-      passthru
-    ;
+    inherit pname version meta passthru;
 
     src = fetchurl {
-      url = "${baseUrl}/${version}/Ubuntu/Installer/x86_64/synology-drive-client-${buildNumber}.x86_64.deb";
+      url =
+        "${baseUrl}/${version}/Ubuntu/Installer/x86_64/synology-drive-client-${buildNumber}.x86_64.deb";
       sha256 = "sha256-olORBipyAv3jYQ7Gv8i4dHoCAdMcTcJR72/UYCPAVt0=";
     };
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      dpkg
-    ];
+    nativeBuildInputs = [ autoPatchelfHook dpkg ];
 
-    buildInputs = [
-      glibc
-      gtk3
-      pango
-      libxcb
-    ];
+    buildInputs = [ glibc gtk3 pango libxcb ];
 
     unpackPhase = ''
       mkdir -p $out
@@ -89,23 +59,15 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      meta
-      passthru
-    ;
+    inherit pname version meta passthru;
 
     src = fetchurl {
-      url = "${baseUrl}/${version}/Mac/Installer/synology-drive-client-${buildNumber}.dmg";
+      url =
+        "${baseUrl}/${version}/Mac/Installer/synology-drive-client-${buildNumber}.dmg";
       sha256 = "sha256-oNo/2Fim63xiWiVuY99Q18dHOPHydQJr7C9tib8LLOE=";
     };
 
-    nativeBuildInputs = [
-      cpio
-      xar
-      undmg
-    ];
+    nativeBuildInputs = [ cpio xar undmg ];
 
     postUnpack = ''
       xar -xf 'Install Synology Drive Client.pkg'
@@ -120,5 +82,4 @@ let
       cp -R 'Synology Drive Client.app' $out/Applications/
     '';
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

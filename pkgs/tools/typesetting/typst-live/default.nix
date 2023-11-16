@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  darwin,
-  makeWrapper,
-  typst,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, darwin, makeWrapper, typst }:
 
 rustPlatform.buildRustPackage {
   pname = "typst-live";
@@ -23,7 +15,8 @@ rustPlatform.buildRustPackage {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
   postInstall = ''
     wrapProgram $out/bin/typst-live \

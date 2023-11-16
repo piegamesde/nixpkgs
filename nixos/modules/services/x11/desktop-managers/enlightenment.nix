@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -18,30 +13,18 @@ let
     pkgs.gst_all_1.gst-plugins-bad
     pkgs.gst_all_1.gst-libav
   ];
-in
 
-{
-  meta = {
-    maintainers = teams.enlightenment.members;
-  };
+in {
+  meta = { maintainers = teams.enlightenment.members; };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "e19"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "enlightenment"
-        "enable"
-      ]
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "e19"
+      "enable"
+    ] [ "services" "xserver" "desktopManager" "enlightenment" "enable" ])
   ];
 
   options = {
@@ -51,6 +34,7 @@ in
       default = false;
       description = lib.mdDoc "Enable the Enlightenment desktop environment.";
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -73,7 +57,8 @@ in
       "/share/locale"
     ];
 
-    services.xserver.displayManager.sessionPackages = [ pkgs.enlightenment.enlightenment ];
+    services.xserver.displayManager.sessionPackages =
+      [ pkgs.enlightenment.enlightenment ];
 
     services.xserver.displayManager.sessionCommands = ''
       if test "$XDG_CURRENT_DESKTOP" = "Enlightenment"; then
@@ -93,28 +78,28 @@ in
         setuid = true;
         owner = "root";
         group = "root";
-        source = "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_ckpasswd";
+        source =
+          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_ckpasswd";
       };
       enlightenment_sys = {
         setuid = true;
         owner = "root";
         group = "root";
-        source = "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_sys";
+        source =
+          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_sys";
       };
       enlightenment_system = {
         setuid = true;
         owner = "root";
         group = "root";
-        source = "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_system";
+        source =
+          "${pkgs.enlightenment.enlightenment}/lib/enlightenment/utils/enlightenment_system";
       };
     };
 
     environment.etc."X11/xkb".source = xcfg.xkbDir;
 
-    fonts.fonts = [
-      pkgs.dejavu_fonts
-      pkgs.ubuntu_font_family
-    ];
+    fonts.fonts = [ pkgs.dejavu_fonts pkgs.ubuntu_font_family ];
 
     services.udisks2.enable = true;
     services.upower.enable = config.powerManagement.enable;
@@ -139,5 +124,7 @@ in
         StandardOutput = "null";
       };
     };
+
   };
+
 }

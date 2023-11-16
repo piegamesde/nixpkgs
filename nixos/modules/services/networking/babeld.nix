@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,38 +6,29 @@ let
 
   cfg = config.services.babeld;
 
-  conditionalBoolToString = value: if (isBool value) then (boolToString value) else (toString value);
+  conditionalBoolToString = value:
+    if (isBool value) then (boolToString value) else (toString value);
 
-  paramsString =
-    params:
-    concatMapStringsSep " " (name: "${name} ${conditionalBoolToString (getAttr name params)}") (
-      attrNames params
-    );
+  paramsString = params:
+    concatMapStringsSep " "
+    (name: "${name} ${conditionalBoolToString (getAttr name params)}")
+    (attrNames params);
 
-  interfaceConfig =
-    name:
-    let
-      interface = getAttr name cfg.interfaces;
-    in
-    ''
+  interfaceConfig = name:
+    let interface = getAttr name cfg.interfaces;
+    in ''
       interface ${name} ${paramsString interface}
     '';
 
-  configFile =
-    with cfg;
-    pkgs.writeText "babeld.conf" (
-      ''
-        skip-kernel-setup true
-      ''
-      + (optionalString (cfg.interfaceDefaults != null) ''
-        default ${paramsString cfg.interfaceDefaults}
-      '')
-      + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
-      + extraConfig
-    );
-in
+  configFile = with cfg;
+    pkgs.writeText "babeld.conf" (''
+      skip-kernel-setup true
+    '' + (optionalString (cfg.interfaceDefaults != null) ''
+      default ${paramsString cfg.interfaceDefaults}
+    '') + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
+      + extraConfig);
 
-{
+in {
 
   meta.maintainers = with maintainers; [ hexa ];
 
@@ -92,39 +78,34 @@ in
         '';
       };
     };
+
   };
 
   ###### implementation
 
   config = mkIf config.services.babeld.enable {
 
-    boot.kernel.sysctl =
-      {
-        "net.ipv6.conf.all.forwarding" = 1;
-        "net.ipv6.conf.all.accept_redirects" = 0;
-        "net.ipv4.conf.all.forwarding" = 1;
-        "net.ipv4.conf.all.rp_filter" = 0;
-      }
-      // lib.mapAttrs'
-        (ifname: _: lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0))
-        config.services.babeld.interfaces;
+    boot.kernel.sysctl = {
+      "net.ipv6.conf.all.forwarding" = 1;
+      "net.ipv6.conf.all.accept_redirects" = 0;
+      "net.ipv4.conf.all.forwarding" = 1;
+      "net.ipv4.conf.all.rp_filter" = 0;
+    } // lib.mapAttrs' (ifname: _:
+      lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0))
+      config.services.babeld.interfaces;
 
     systemd.services.babeld = {
       description = "Babel routing daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
+        ExecStart =
+          "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
         AmbientCapabilities = [ "CAP_NET_ADMIN" ];
         CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
         DevicePolicy = "closed";
         DynamicUser = true;
-        IPAddressAllow = [
-          "fe80::/64"
-          "ff00::/8"
-          "::1/128"
-          "127.0.0.0/8"
-        ];
+        IPAddressAllow = [ "fe80::/64" "ff00::/8" "::1/128" "127.0.0.0/8" ];
         IPAddressDeny = "any";
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -135,11 +116,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [
-          "AF_NETLINK"
-          "AF_INET6"
-          "AF_INET"
-        ];
+        RestrictAddressFamilies = [ "AF_NETLINK" "AF_INET6" "AF_INET" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -153,10 +130,7 @@ in
         PrivateUsers = false; # kernel_route(ADD): Operation not permitted
         ProcSubset = "pid";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged @resources"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged @resources" ];
         UMask = "0177";
         RuntimeDirectory = "babeld";
         StateDirectory = "babeld";

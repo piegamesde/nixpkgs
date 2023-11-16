@@ -1,28 +1,16 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
 
   cfg = config.programs._1password-gui;
-in
-{
+
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "programs"
-        "_1password-gui"
-        "gid"
-      ]
-      ''
-        A preallocated GID will be used instead.
-      ''
-    )
+    (mkRemovedOptionModule [ "programs" "_1password-gui" "gid" ] ''
+      A preallocated GID will be used instead.
+    '')
   ];
 
   options = {
@@ -38,34 +26,36 @@ in
         '';
       };
 
-      package = mkPackageOptionMD pkgs "1Password GUI" { default = [ "_1password-gui" ]; };
+      package = mkPackageOptionMD pkgs "1Password GUI" {
+        default = [ "_1password-gui" ];
+      };
     };
   };
 
-  config =
-    let
-      package = cfg.package.override { polkitPolicyOwners = cfg.polkitPolicyOwners; };
-    in
-    mkIf cfg.enable {
-      environment.systemPackages = [ package ];
-      users.groups.onepassword.gid = config.ids.gids.onepassword;
+  config = let
+    package =
+      cfg.package.override { polkitPolicyOwners = cfg.polkitPolicyOwners; };
+  in mkIf cfg.enable {
+    environment.systemPackages = [ package ];
+    users.groups.onepassword.gid = config.ids.gids.onepassword;
 
-      security.wrappers = {
-        "1Password-BrowserSupport" = {
-          source = "${package}/share/1password/1Password-BrowserSupport";
-          owner = "root";
-          group = "onepassword";
-          setuid = false;
-          setgid = true;
-        };
+    security.wrappers = {
+      "1Password-BrowserSupport" = {
+        source = "${package}/share/1password/1Password-BrowserSupport";
+        owner = "root";
+        group = "onepassword";
+        setuid = false;
+        setgid = true;
+      };
 
-        "1Password-KeyringHelper" = {
-          source = "${package}/share/1password/1Password-KeyringHelper";
-          owner = "root";
-          group = "onepassword";
-          setuid = true;
-          setgid = true;
-        };
+      "1Password-KeyringHelper" = {
+        source = "${package}/share/1password/1Password-KeyringHelper";
+        owner = "root";
+        group = "onepassword";
+        setuid = true;
+        setgid = true;
       };
     };
+
+  };
 }

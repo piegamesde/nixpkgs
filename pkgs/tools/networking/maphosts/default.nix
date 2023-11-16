@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  bundlerEnv,
-  ruby,
-  bundlerUpdateScript,
-}:
+{ stdenv, lib, bundlerEnv, ruby, bundlerUpdateScript }:
 
 let
   env = bundlerEnv {
@@ -12,8 +6,7 @@ let
     inherit ruby;
     gemdir = ./.;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "maphosts";
   version = env.gems.maphosts.version;
 
@@ -27,13 +20,11 @@ stdenv.mkDerivation {
   passthru.updateScript = bundlerUpdateScript "maphosts";
 
   meta = with lib; {
-    description = "Small command line application for keeping your project hostnames in sync with /etc/hosts";
+    description =
+      "Small command line application for keeping your project hostnames in sync with /etc/hosts";
     homepage = "https://github.com/mpscholten/maphosts";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      mpscholten
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ mpscholten nicknovitski ];
     platforms = platforms.all;
   };
 }

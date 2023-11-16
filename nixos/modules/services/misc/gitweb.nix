@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.gitweb;
-in
-{
+let cfg = config.services.gitweb;
+
+in {
 
   options.services.gitweb = {
 
@@ -56,7 +50,9 @@ in
       readOnly = true;
       internal = true;
     };
+
   };
 
   meta.maintainers = with maintainers; [ ];
+
 }

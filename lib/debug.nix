@@ -15,28 +15,11 @@
 { lib }:
 let
   inherit (lib)
-    isInt
-    attrNames
-    isList
-    isAttrs
-    substring
-    addErrorContext
-    attrValues
-    concatLists
-    concatStringsSep
-    const
-    elem
-    generators
-    head
-    id
-    isDerivation
-    isFunction
-    mapAttrs
-    trace
-  ;
-in
+    isInt attrNames isList isAttrs substring addErrorContext attrValues
+    concatLists concatStringsSep const elem generators head id isDerivation
+    isFunction mapAttrs trace;
 
-rec {
+in rec {
 
   # -- TRACING --
 
@@ -116,11 +99,9 @@ rec {
 
      Type: traceSeqN :: Int -> a -> b -> b
   */
-  traceSeqN =
-    depth: x: y:
+  traceSeqN = depth: x: y:
     let
-      snip =
-        v:
+      snip = v:
         if isList v then
           noQuotes "[…]" v
         else if isAttrs v then
@@ -131,8 +112,7 @@ rec {
         __pretty = const str;
         val = v;
       };
-      modify =
-        n: fn: v:
+      modify = n: fn: v:
         if (n == 0) then
           fn v
         else if isList v then
@@ -141,8 +121,8 @@ rec {
           mapAttrs (const (modify (n - 1) fn)) v
         else
           v;
-    in
-    trace (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y;
+    in trace
+    (generators.toPretty { allowPrettyValues = true; } (modify depth snip x)) y;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
      provided function to the value to be traced after `deepSeq`ing
@@ -182,18 +162,13 @@ rec {
           trace: { fn = "id"; from = { a.b = {…}; }; to = { a.b = {…}; }; }
           => { a.b.c = 3; }
   */
-  traceFnSeqN =
-    depth: name: f: v:
-    let
-      res = f v;
-    in
-    lib.traceSeqN (depth + 1)
-      {
-        fn = name;
-        from = v;
-        to = res;
-      }
-      res;
+  traceFnSeqN = depth: name: f: v:
+    let res = f v;
+    in lib.traceSeqN (depth + 1) {
+      fn = name;
+      from = v;
+      to = res;
+    } res;
 
   # -- TESTING --
 
@@ -258,33 +233,18 @@ rec {
   runTests =
     # Tests to run
     tests:
-    concatLists (
-      attrValues (
-        mapAttrs
-          (
-            name: test:
-            let
-              testsToRun = if tests ? tests then tests.tests else [ ];
-            in
-            if
-              (substring 0 4 name == "test" || elem name testsToRun)
-              && ((testsToRun == [ ]) || elem name tests.tests)
-              && (test.expr != test.expected)
+    concatLists (attrValues (mapAttrs (name: test:
+      let testsToRun = if tests ? tests then tests.tests else [ ];
+      in if (substring 0 4 name == "test" || elem name testsToRun)
+      && ((testsToRun == [ ]) || elem name tests.tests)
+      && (test.expr != test.expected)
 
-            then
-              [
-                {
-                  inherit name;
-                  expected = test.expected;
-                  result = test.expr;
-                }
-              ]
-            else
-              [ ]
-          )
-          tests
-      )
-    );
+      then [{
+        inherit name;
+        expected = test.expected;
+        result = test.expr;
+      }] else
+        [ ]) tests));
 
   /* Create a test assuming that list elements are `true`.
 

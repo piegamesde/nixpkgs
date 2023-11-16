@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  metakernel,
-  pytestCheckHook,
-  yasi,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, metakernel, pytestCheckHook, yasi }:
 
 buildPythonPackage rec {
   pname = "calysto-scheme";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-gTBXdjm6Ry6DpjO9tP+acYxM+DQDh4dZQF+pyXrUCiI=";
   };
 
-  propagatedBuildInputs = [
-    yasi
-    metakernel
-  ];
+  propagatedBuildInputs = [ yasi metakernel ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -31,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A Scheme kernel for Jupyter that can use Python libraries";
     homepage = "https://github.com/Calysto/calysto_scheme";
-    changelog = "https://github.com/Calysto/calysto_scheme/blob/${src.rev}/ChangeLog.md";
+    changelog =
+      "https://github.com/Calysto/calysto_scheme/blob/${src.rev}/ChangeLog.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ kranzes ];
   };

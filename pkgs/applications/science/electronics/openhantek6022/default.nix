@@ -1,15 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  cmake,
-  qtbase,
-  qttools,
-  fftw,
-  libusb1,
-  libglvnd,
-}:
+{ mkDerivation, lib, fetchFromGitHub, makeWrapper, cmake, qtbase, qttools, fftw
+, libusb1, libglvnd }:
 
 mkDerivation rec {
   pname = "openhantek6022";
@@ -22,17 +12,8 @@ mkDerivation rec {
     sha256 = "sha256-0k9Q60+T28m1hPYf5viSdpt0s4d828lfjVo3GjLDm7c=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
-  buildInputs = [
-    fftw
-    libusb1
-    libglvnd
-    qtbase
-    qttools
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
+  buildInputs = [ fftw libusb1 libglvnd qtbase qttools ];
 
   postPatch = ''
     # Fix up install paths & checks
@@ -42,7 +23,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Free software for Hantek and compatible (Voltcraft/Darkwire/Protek/Acetech) USB digital signal oscilloscopes";
+    description =
+      "Free software for Hantek and compatible (Voltcraft/Darkwire/Protek/Acetech) USB digital signal oscilloscopes";
     homepage = "https://github.com/OpenHantek/OpenHantek6022";
     license = licenses.gpl3;
     maintainers = with maintainers; [ baracoder ];

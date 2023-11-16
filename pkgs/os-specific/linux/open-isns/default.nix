@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  openssl,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, openssl, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "open-isns";
@@ -17,23 +12,13 @@ stdenv.mkDerivation rec {
   };
 
   propagatedBuildInputs = [ openssl ];
-  outputs = [
-    "out"
-    "lib"
-  ];
+  outputs = [ "out" "lib" ];
   outputInclude = "lib";
 
   configureFlags = [ "--enable-shared" ];
 
-  installFlags = [
-    "etcdir=$(out)/etc"
-    "vardir=$(out)/var/lib/isns"
-  ];
-  installTargets = [
-    "install"
-    "install_hdrs"
-    "install_lib"
-  ];
+  installFlags = [ "etcdir=$(out)/etc" "vardir=$(out)/var/lib/isns" ];
+  installTargets = [ "install" "install_hdrs" "install_lib" ];
 
   meta = with lib; {
     description = "iSNS server and client for Linux";

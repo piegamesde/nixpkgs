@@ -3,8 +3,7 @@ with lib;
 let
   cfg = config.hardware.cpu.amd.sev;
   defaultGroup = "sev";
-in
-with lib; {
+in with lib; {
   options.hardware.cpu.amd.sev = {
     enable = mkEnableOption (lib.mdDoc "access to the AMD SEV device");
     user = mkOption {
@@ -31,7 +30,8 @@ with lib; {
         message = "Given user does not exist";
       }
       {
-        assertion = (cfg.group == defaultGroup) || (hasAttr cfg.group config.users.groups);
+        assertion = (cfg.group == defaultGroup)
+          || (hasAttr cfg.group config.users.groups);
         message = "Given group does not exist";
       }
     ];
@@ -40,7 +40,8 @@ with lib; {
       options kvm_amd sev=1
     '';
 
-    users.groups = optionalAttrs (cfg.group == defaultGroup) { "${cfg.group}" = { }; };
+    users.groups =
+      optionalAttrs (cfg.group == defaultGroup) { "${cfg.group}" = { }; };
 
     services.udev.extraRules = with cfg; ''
       KERNEL=="sev", OWNER="${user}", GROUP="${group}", MODE="${mode}"

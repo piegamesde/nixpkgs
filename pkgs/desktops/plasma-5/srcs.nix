@@ -286,7 +286,8 @@
   plasma-browser-integration = {
     version = "5.27.5";
     src = fetchurl {
-      url = "${mirror}/stable/plasma/5.27.5/plasma-browser-integration-5.27.5.tar.xz";
+      url =
+        "${mirror}/stable/plasma/5.27.5/plasma-browser-integration-5.27.5.tar.xz";
       sha256 = "09frs7yxaiqi10j9f7vnr05nk53mvx0jshjk9wlz1cibcwflb45l";
       name = "plasma-browser-integration-5.27.5.tar.xz";
     };
@@ -358,7 +359,8 @@
   plasma-remotecontrollers = {
     version = "5.27.5";
     src = fetchurl {
-      url = "${mirror}/stable/plasma/5.27.5/plasma-remotecontrollers-5.27.5.tar.xz";
+      url =
+        "${mirror}/stable/plasma/5.27.5/plasma-remotecontrollers-5.27.5.tar.xz";
       sha256 = "04d0rp4jpavn999lbvfni007l98i1zglwv7byrkb494zs40gqylc";
       name = "plasma-remotecontrollers-5.27.5.tar.xz";
     };
@@ -414,7 +416,8 @@
   plasma-workspace-wallpapers = {
     version = "5.27.5";
     src = fetchurl {
-      url = "${mirror}/stable/plasma/5.27.5/plasma-workspace-wallpapers-5.27.5.tar.xz";
+      url =
+        "${mirror}/stable/plasma/5.27.5/plasma-workspace-wallpapers-5.27.5.tar.xz";
       sha256 = "0h6871pwn000jzilhh4w5wa3s017cgkphhj4sxxpqds7q7f5x013";
       name = "plasma-workspace-wallpapers-5.27.5.tar.xz";
     };
@@ -470,7 +473,8 @@
   xdg-desktop-portal-kde = {
     version = "5.27.5";
     src = fetchurl {
-      url = "${mirror}/stable/plasma/5.27.5/xdg-desktop-portal-kde-5.27.5.tar.xz";
+      url =
+        "${mirror}/stable/plasma/5.27.5/xdg-desktop-portal-kde-5.27.5.tar.xz";
       sha256 = "1aqsiwfhca7nimdflwnq86fai4lhjqpi4pi4xyp8pcgrrwj3zykw";
       name = "xdg-desktop-portal-kde-5.27.5.tar.xz";
     };

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  guile,
-}:
+{ lib, stdenv, fetchFromGitHub, guile }:
 
 stdenv.mkDerivation rec {
   pname = "fetch-scm";

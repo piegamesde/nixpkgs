@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  jinja2,
-  mistune,
-  pygments,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, jinja2, mistune, pygments, setuptools }:
 
 buildPythonPackage rec {
   pname = "mrkd";
@@ -17,17 +9,13 @@ buildPythonPackage rec {
     sha256 = "456f8c1be99da268554b29c6b5383532e58119def5a65d85270bc6a0ecc26aaf";
   };
 
-  propagatedBuildInputs = [
-    jinja2
-    mistune
-    pygments
-    setuptools
-  ];
+  propagatedBuildInputs = [ jinja2 mistune pygments setuptools ];
 
   pythonImportsCheck = [ "mrkd" ];
 
   meta = with lib; {
-    description = "Write man pages using Markdown, and convert them to Roff or HTML";
+    description =
+      "Write man pages using Markdown, and convert them to Roff or HTML";
     homepage = "https://github.com/refi64/mrkd";
     license = licenses.bsd2;
     # https://github.com/refi64/mrkd/pull/6

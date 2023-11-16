@@ -1,24 +1,11 @@
-{
-  mkDerivation,
-  fetchurl,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  wrapGAppsHook,
-  kconfig,
-  kinit,
-  kjsembed,
-  taglib,
-  exiv2,
-  podofo,
-  kcrash,
-}:
+{ mkDerivation, fetchurl, lib, extra-cmake-modules, kdoctools, wrapGAppsHook
+, kconfig, kinit, kjsembed, taglib, exiv2, podofo, kcrash }:
 
 let
   pname = "krename";
   version = "5.0.2";
-in
-mkDerivation rec {
+
+in mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
@@ -26,24 +13,11 @@ mkDerivation rec {
     sha256 = "sha256-sjxgp93Z9ttN1/VaxV/MqKVY+miq+PpcuJ4er2kvI+0=";
   };
 
-  buildInputs = [
-    taglib
-    exiv2
-    podofo
-  ];
+  buildInputs = [ taglib exiv2 podofo ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
 
-  propagatedBuildInputs = [
-    kconfig
-    kcrash
-    kinit
-    kjsembed
-  ];
+  propagatedBuildInputs = [ kconfig kcrash kinit kjsembed ];
 
   NIX_LDFLAGS = "-ltag";
 

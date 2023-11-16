@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  environs,
-  fetchFromGitHub,
-  grpcio,
-  grpcio-testing,
-  mmh3,
-  pandas,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  scikit-learn,
-  setuptools-scm,
-  ujson,
-}:
+{ lib, buildPythonPackage, environs, fetchFromGitHub, grpcio, grpcio-testing
+, mmh3, pandas, pytestCheckHook, python, pythonOlder, pythonRelaxDepsHook
+, scikit-learn, setuptools-scm, ujson }:
 
 buildPythonPackage rec {
   pname = "pymilvus";
@@ -34,24 +20,11 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "grpcio" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
 
-  propagatedBuildInputs = [
-    environs
-    grpcio
-    mmh3
-    pandas
-    ujson
-  ];
+  propagatedBuildInputs = [ environs grpcio mmh3 pandas ujson ];
 
-  nativeCheckInputs = [
-    grpcio-testing
-    pytestCheckHook
-    scikit-learn
-  ];
+  nativeCheckInputs = [ grpcio-testing pytestCheckHook scikit-learn ];
 
   pythonImportsCheck = [ "pymilvus" ];
 
@@ -60,7 +33,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python SDK for Milvus";
     homepage = "https://github.com/milvus-io/pymilvus";
-    changelog = "https://github.com/milvus-io/pymilvus/releases/tag/v${version}";
+    changelog =
+      "https://github.com/milvus-io/pymilvus/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  rustPlatform,
-}:
+{ lib, stdenv, fetchFromSourcehut, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wayout";
@@ -19,10 +14,12 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-QlxXbfeWJdCythYRRLSpJbTzKkwrL4kmAfyL3tRt194=";
 
   meta = with lib; {
-    description = "Simple output management tool for wlroots based compositors implementing";
+    description =
+      "Simple output management tool for wlroots based compositors implementing";
     homepage = "https://git.sr.ht/~shinyzenith/wayout";
     license = licenses.bsd2;
     maintainers = with maintainers; [ onny ];
     platforms = platforms.linux;
   };
+
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-  coreutils,
-}:
+{ lib, stdenv, fetchurl, openssl, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "spiped";

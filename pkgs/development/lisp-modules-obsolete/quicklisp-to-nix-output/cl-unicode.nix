@@ -1,24 +1,17 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-unicode";
   version = "20210228-git";
 
-  parasites = [
-    "cl-unicode/base"
-    "cl-unicode/build"
-    "cl-unicode/test"
-  ];
+  parasites = [ "cl-unicode/base" "cl-unicode/build" "cl-unicode/test" ];
 
   description = "Portable Unicode Library";
 
-  deps = [
-    args."cl-ppcre"
-    args."flexi-streams"
-  ];
+  deps = [ args."cl-ppcre" args."flexi-streams" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-unicode/2021-02-28/cl-unicode-20210228-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-unicode/2021-02-28/cl-unicode-20210228-git.tgz";
     sha256 = "0phy5wppb7m78dixrf2vjq8vas4drfd4qg38al6q8ymkl0yfy5js";
   };
 

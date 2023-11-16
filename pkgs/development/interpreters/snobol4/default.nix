@@ -1,19 +1,5 @@
-{
-  lib,
-  fetchurl,
-  stdenv,
-  bzip2,
-  gdbm,
-  gnum4,
-  gzip,
-  libffi,
-  openssl,
-  readline,
-  sqlite,
-  tcl,
-  xz,
-  zlib,
-}:
+{ lib, fetchurl, stdenv, bzip2, gdbm, gnum4, gzip, libffi, openssl, readline
+, sqlite, tcl, xz, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "snobol4";
@@ -28,32 +14,25 @@ stdenv.mkDerivation rec {
     hash = "sha256-kSRNZ9TinSqtzlZVvUOC/6tExiSn6krWQRQn86vxdTU=";
   };
 
-  outputs = [
-    "out"
-    "man"
-    "doc"
-  ];
+  outputs = [ "out" "man" "doc" ];
 
   # gzip used by Makefile to compress man pages
-  nativeBuildInputs = [
-    gnum4
-    gzip
-  ];
+  nativeBuildInputs = [ gnum4 gzip ];
   # enable all features (undocumented, based on manual review of configure script)
-  buildInputs =
-    [
-      bzip2
-      libffi
-      openssl
-      readline
-      sqlite
-      tcl
-      xz
-      zlib
-    ]
-    # ndbm compat library
+  buildInputs = [
+    bzip2
+    libffi
+    openssl
+    readline
+    sqlite
+    tcl
+    xz
+    zlib
+  ]
+  # ndbm compat library
     ++ lib.optional stdenv.isLinux gdbm;
-  configureFlags = lib.optional (tcl != null) "--with-tcl=${tcl}/lib/tclConfig.sh";
+  configureFlags =
+    lib.optional (tcl != null) "--with-tcl=${tcl}/lib/tclConfig.sh";
 
   # INSTALL says "parallel make will fail"
   enableParallelBuilding = false;

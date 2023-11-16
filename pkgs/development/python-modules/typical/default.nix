@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fastjsonschema,
-  fetchFromGitHub,
-  future-typing,
-  inflection,
-  mypy,
-  orjson,
-  pandas,
-  pendulum,
-  poetry-core,
-  pydantic,
-  pytestCheckHook,
-  pythonOlder,
-  sqlalchemy,
-  ujson,
-}:
+{ lib, buildPythonPackage, fastjsonschema, fetchFromGitHub, future-typing
+, inflection, mypy, orjson, pandas, pendulum, poetry-core, pydantic
+, pytestCheckHook, pythonOlder, sqlalchemy, ujson }:
 
 buildPythonPackage rec {
   pname = "typical";
@@ -33,22 +18,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    fastjsonschema
-    future-typing
-    inflection
-    orjson
-    pendulum
-    ujson
-  ];
+  propagatedBuildInputs =
+    [ fastjsonschema future-typing inflection orjson pendulum ujson ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mypy
-    pydantic
-    sqlalchemy
-    pandas
-  ];
+  nativeCheckInputs = [ pytestCheckHook mypy pydantic sqlalchemy pandas ];
 
   disabledTests = [
     # ConstraintValueError: Given value <{'key...
@@ -67,9 +40,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "typic" ];
 
   meta = with lib; {
-    description = "Python library for runtime analysis, inference and validation of Python types";
+    description =
+      "Python library for runtime analysis, inference and validation of Python types";
     homepage = "https://python-typical.org/";
-    changelog = "https://github.com/seandstewart/typical/releases/tag/v${version}";
+    changelog =
+      "https://github.com/seandstewart/typical/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kfollesdal ];
   };

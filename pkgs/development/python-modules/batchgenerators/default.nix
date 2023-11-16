@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pytestCheckHook,
-  future,
-  numpy,
-  pillow,
-  fetchpatch,
-  scipy,
-  scikit-learn,
-  scikit-image,
-  threadpoolctl,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook, future
+, numpy, pillow, fetchpatch, scipy, scikit-learn, scikit-image, threadpoolctl }:
 
 buildPythonPackage rec {
   pname = "batchgenerators";
@@ -28,15 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-47jAeHMJPBk7GpUvXtQuJchgiSy6M50anftsuXWk2ag=";
   };
 
-  propagatedBuildInputs = [
-    future
-    numpy
-    pillow
-    scipy
-    scikit-learn
-    scikit-image
-    threadpoolctl
-  ];
+  propagatedBuildInputs =
+    [ future numpy pillow scipy scikit-learn scikit-image threadpoolctl ];
 
   # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
   postPatch = ''

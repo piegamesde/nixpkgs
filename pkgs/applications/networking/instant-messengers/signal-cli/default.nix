@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  makeWrapper,
-  openjdk17_headless,
-  libmatthew_java,
-  dbus,
-  dbus_java,
-}:
+{ stdenv, lib, fetchurl, makeWrapper, openjdk17_headless, libmatthew_java, dbus
+, dbus_java }:
 
 stdenv.mkDerivation rec {
   pname = "signal-cli";
@@ -15,39 +7,29 @@ stdenv.mkDerivation rec {
 
   # Building from source would be preferred, but is much more involved.
   src = fetchurl {
-    url = "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}-Linux.tar.gz";
+    url =
+      "https://github.com/AsamK/signal-cli/releases/download/v${version}/signal-cli-${version}-Linux.tar.gz";
     hash = "sha256-IKKWJBe6A3TVWIRTDyWbfRYMwgRNhSqSJK0ZRZNCVkA=";
   };
 
-  buildInputs = lib.optionals stdenv.isLinux [
-    libmatthew_java
-    dbus
-    dbus_java
-  ];
+  buildInputs = lib.optionals stdenv.isLinux [ libmatthew_java dbus dbus_java ];
   nativeBuildInputs = [ makeWrapper ];
 
-  installPhase =
-    ''
-      mkdir -p $out/bin
-      cp -r lib $out/lib
-      cp bin/signal-cli $out/bin/signal-cli
-    ''
-    + (
-      if stdenv.isLinux then
-        ''
-          makeWrapper ${openjdk17_headless}/bin/java $out/bin/signal-cli \
-            --set JAVA_HOME "${openjdk17_headless}" \
-            --add-flags "-classpath '$out/lib/*:${libmatthew_java}/lib/jni'" \
-            --add-flags "-Djava.library.path=${libmatthew_java}/lib/jni:${dbus_java}/share/java/dbus:$out/lib" \
-            --add-flags "org.asamk.signal.Main"
-        ''
-      else
-        ''
-          wrapProgram $out/bin/signal-cli \
-            --prefix PATH : ${lib.makeBinPath [ openjdk17_headless ]} \
-            --set JAVA_HOME ${openjdk17_headless}
-        ''
-    );
+  installPhase = ''
+    mkdir -p $out/bin
+    cp -r lib $out/lib
+    cp bin/signal-cli $out/bin/signal-cli
+  '' + (if stdenv.isLinux then ''
+    makeWrapper ${openjdk17_headless}/bin/java $out/bin/signal-cli \
+      --set JAVA_HOME "${openjdk17_headless}" \
+      --add-flags "-classpath '$out/lib/*:${libmatthew_java}/lib/jni'" \
+      --add-flags "-Djava.library.path=${libmatthew_java}/lib/jni:${dbus_java}/share/java/dbus:$out/lib" \
+      --add-flags "org.asamk.signal.Main"
+  '' else ''
+    wrapProgram $out/bin/signal-cli \
+      --prefix PATH : ${lib.makeBinPath [ openjdk17_headless ]} \
+      --set JAVA_HOME ${openjdk17_headless}
+  '');
 
   # Execution in the macOS (10.13) sandbox fails with
   # dyld: Library not loaded: /System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa
@@ -66,7 +48,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/AsamK/signal-cli";
-    description = "Command-line and dbus interface for communicating with the Signal messaging service";
+    description =
+      "Command-line and dbus interface for communicating with the Signal messaging service";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ivan ];
     platforms = platforms.all;

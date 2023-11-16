@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  okteto,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, okteto }:
 
 buildGoModule rec {
   pname = "okteto";
@@ -34,11 +27,7 @@ buildGoModule rec {
     "-X github.com/okteto/okteto/pkg/config.VersionString=${version}"
   ];
 
-  tags = [
-    "osusergo"
-    "netgo"
-    "static_build"
-  ];
+  tags = [ "osusergo" "netgo" "static_build" ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -57,7 +46,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Develop your applications directly in your Kubernetes Cluster";
+    description =
+      "Develop your applications directly in your Kubernetes Cluster";
     homepage = "https://okteto.com/";
     license = licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

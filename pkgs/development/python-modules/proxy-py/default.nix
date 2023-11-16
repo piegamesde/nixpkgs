@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  bash,
-  buildPythonPackage,
-  fetchFromGitHub,
-  gnumake,
-  httpx,
-  openssl,
-  paramiko,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  typing-extensions,
-}:
+{ lib, stdenv, bash, buildPythonPackage, fetchFromGitHub, gnumake, httpx
+, openssl, paramiko, pytest-asyncio, pytest-mock, pytestCheckHook, pythonOlder
+, setuptools-scm, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "proxy-py";
@@ -41,19 +27,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    paramiko
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ paramiko typing-extensions ];
 
-  nativeCheckInputs = [
-    httpx
-    openssl
-    gnumake
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ httpx openssl gnumake pytest-asyncio pytest-mock pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -71,7 +48,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python proxy framework";
     homepage = "https://github.com/abhinavsingh/proxy.py";
-    changelog = "https://github.com/abhinavsingh/proxy.py/releases/tag/v${version}";
+    changelog =
+      "https://github.com/abhinavsingh/proxy.py/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;

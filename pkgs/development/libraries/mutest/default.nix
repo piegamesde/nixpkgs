@@ -1,19 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja }:
 
 stdenv.mkDerivation {
   pname = "mutest";
   version = "unstable-2019-08-26";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -22,10 +13,7 @@ stdenv.mkDerivation {
     sha256 = "0gdqwq6fvk06wld4rhnw5752hahrvhd69zrci045x25rwx90x26q";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
   doCheck = true;
 

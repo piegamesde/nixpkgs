@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "nbd";
   version = "20200925-git";
 
@@ -16,7 +15,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/nbd/2020-09-25/nbd-20200925-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/nbd/2020-09-25/nbd-20200925-git.tgz";
     sha256 = "1npq9a8l3mn67n22ywqm8wh6kr9xv9djla2yj2m535gkysrlvnky";
   };
 

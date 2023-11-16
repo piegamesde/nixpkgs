@@ -1,14 +1,5 @@
-{
-  fetchFromGitHub,
-  lib,
-  stdenvNoCC,
-  gnome,
-  gnome-icon-theme,
-  hicolor-icon-theme,
-  gtk3,
-  humanity-icon-theme,
-  ubuntu-themes,
-}:
+{ fetchFromGitHub, lib, stdenvNoCC, gnome, gnome-icon-theme, hicolor-icon-theme
+, gtk3, humanity-icon-theme, ubuntu-themes }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mint-x-icons";
@@ -48,7 +39,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/mint-x-icons";
-    description = "Mint/metal theme based on mintified versions of Clearlooks Revamp, Elementary and Faenza";
+    description =
+      "Mint/metal theme based on mintified versions of Clearlooks Revamp, Elementary and Faenza";
     license = licenses.gpl3Plus; # from debian/copyright
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;

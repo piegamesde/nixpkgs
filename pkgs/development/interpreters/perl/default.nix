@@ -3,56 +3,42 @@
 let
   # Common passthru for all perl interpreters.
   # copied from lua
-  passthruFun =
-    {
-      overrides,
-      perlOnBuildForBuild,
-      perlOnBuildForHost,
-      perlOnBuildForTarget,
-      perlOnHostForHost,
-      perlOnTargetForTarget,
-      perlAttr ? null,
-      self, # is perlOnHostForTarget
+  passthruFun = { overrides, perlOnBuildForBuild, perlOnBuildForHost
+    , perlOnBuildForTarget, perlOnHostForHost, perlOnTargetForTarget
+    , perlAttr ? null, self # is perlOnHostForTarget
     }:
     let
-      perlPackages =
-        callPackage
-          # Function that when called
-          # - imports perl-packages.nix
-          # - adds spliced package sets to the package set
-          (
-            {
-              stdenv,
-              pkgs,
-              perl,
-              callPackage,
-              makeScopeWithSplicing,
-            }:
-            let
-              perlPackagesFun = callPackage ../../../top-level/perl-packages.nix {
-                # allow 'perlPackages.override { pkgs = pkgs // { imagemagick = imagemagickBig; }; }' like in python3Packages
-                # most perl packages aren't called with callPackage so it's not possible to override their arguments individually
-                # the conditional is because the // above won't be applied to __splicedPackages and hopefully no one is doing that when cross-compiling
-                pkgs = if stdenv.buildPlatform != stdenv.hostPlatform then pkgs.__splicedPackages else pkgs;
-                inherit stdenv;
-                perl = self;
-              };
+      perlPackages = callPackage
+        # Function that when called
+        # - imports perl-packages.nix
+        # - adds spliced package sets to the package set
+        ({ stdenv, pkgs, perl, callPackage, makeScopeWithSplicing }:
+          let
+            perlPackagesFun = callPackage ../../../top-level/perl-packages.nix {
+              # allow 'perlPackages.override { pkgs = pkgs // { imagemagick = imagemagickBig; }; }' like in python3Packages
+              # most perl packages aren't called with callPackage so it's not possible to override their arguments individually
+              # the conditional is because the // above won't be applied to __splicedPackages and hopefully no one is doing that when cross-compiling
+              pkgs = if stdenv.buildPlatform != stdenv.hostPlatform then
+                pkgs.__splicedPackages
+              else
+                pkgs;
+              inherit stdenv;
+              perl = self;
+            };
 
-              otherSplices = {
-                selfBuildBuild = perlOnBuildForBuild.pkgs;
-                selfBuildHost = perlOnBuildForHost.pkgs;
-                selfBuildTarget = perlOnBuildForTarget.pkgs;
-                selfHostHost = perlOnHostForHost.pkgs;
-                selfTargetTarget = perlOnTargetForTarget.pkgs or { };
-              };
-              keep = self: { };
-              extra = spliced0: { };
-            in
-            makeScopeWithSplicing otherSplices keep extra perlPackagesFun
-          )
-          { perl = self; };
-    in
-    rec {
+            otherSplices = {
+              selfBuildBuild = perlOnBuildForBuild.pkgs;
+              selfBuildHost = perlOnBuildForHost.pkgs;
+              selfBuildTarget = perlOnBuildForTarget.pkgs;
+              selfHostHost = perlOnHostForHost.pkgs;
+              selfTargetTarget = perlOnTargetForTarget.pkgs or { };
+            };
+            keep = self: { };
+            extra = spliced0: { };
+          in makeScopeWithSplicing otherSplices keep extra perlPackagesFun) {
+            perl = self;
+          };
+    in rec {
       buildEnv = callPackage ./wrapper.nix {
         perl = self;
         inherit (pkgs) requiredPerlModules;
@@ -66,8 +52,8 @@ let
         self = perlOnBuild;
       };
     };
-in
-rec {
+
+in rec {
   # Maint version
   perl534 = callPackage ./intepreter.nix {
     self = perl534;

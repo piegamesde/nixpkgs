@@ -1,28 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoconf,
-  bison,
-  boost,
-  flex,
-  texinfo,
-  zlib,
-  gputils ? null,
-  excludePorts ? [ ],
-}:
+{ lib, stdenv, fetchurl, autoconf, bison, boost, flex, texinfo, zlib
+, gputils ? null, excludePorts ? [ ] }:
 
 let
   # choices: mcs51 z80 z180 r2k r3ka gbz80 tlcs90 ds390 ds400 pic14 pic16 hc08 s08 stm8
-  excludedPorts =
-    excludePorts
-    ++ (lib.optionals (gputils == null) [
-      "pic14"
-      "pic16"
-    ]);
-in
+  excludedPorts = excludePorts
+    ++ (lib.optionals (gputils == null) [ "pic14" "pic16" ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sdcc";
   version = "4.2.0";
 
@@ -33,18 +17,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [
-    boost
-    gputils
-    texinfo
-    zlib
-  ];
+  buildInputs = [ boost gputils texinfo zlib ];
 
-  nativeBuildInputs = [
-    autoconf
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ autoconf bison flex ];
 
   configureFlags = map (f: "--disable-${f}-port") excludedPorts;
 
@@ -65,11 +40,9 @@ stdenv.mkDerivation rec {
       PIC18 targets. It can be retargeted for other microprocessors.
     '';
     homepage = "https://sdcc.sourceforge.net/";
-    license = with licenses; if (gputils == null) then gpl2Plus else unfreeRedistributable;
-    maintainers = with maintainers; [
-      bjornfor
-      yorickvp
-    ];
+    license = with licenses;
+      if (gputils == null) then gpl2Plus else unfreeRedistributable;
+    maintainers = with maintainers; [ bjornfor yorickvp ];
     platforms = platforms.all;
   };
 }

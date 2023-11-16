@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "duden";
@@ -32,7 +28,8 @@ python3.pkgs.buildPythonPackage rec {
   meta = with lib; {
     description = "CLI for http://duden.de dictionary written in Python";
     homepage = "https://github.com/radomirbosak/duden";
-    changelog = "https://github.com/radomirbosak/duden/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/radomirbosak/duden/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

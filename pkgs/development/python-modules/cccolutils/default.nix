@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  git,
-  gitpython,
-  krb5,
-  mock,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, git, gitpython, krb5, mock
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cccolutils";
@@ -25,11 +16,7 @@ buildPythonPackage rec {
 
   buildInputs = [ krb5 ];
 
-  propagatedBuildInputs = [
-    git
-    gitpython
-    mock
-  ];
+  propagatedBuildInputs = [ git gitpython mock ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

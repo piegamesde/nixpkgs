@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  requests,
-  pytestCheckHook,
-  responses,
+{ lib, buildPythonPackage, fetchFromGitHub, requests, pytestCheckHook, responses
 }:
 
 buildPythonPackage rec {
@@ -20,10 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   pythonImportsCheck = [ "upcloud_api" ];
 

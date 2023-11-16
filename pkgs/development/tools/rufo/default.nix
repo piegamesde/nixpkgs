@@ -1,8 +1,4 @@
-{
-  bundlerApp,
-  bundlerUpdateScript,
-  lib,
-}:
+{ bundlerApp, bundlerUpdateScript, lib }:
 
 bundlerApp {
   pname = "rufo";

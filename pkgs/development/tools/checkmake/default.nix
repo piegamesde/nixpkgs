@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  pandoc,
-  go,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, pandoc, go }:
 
 buildGoModule rec {
   pname = "checkmake";
@@ -20,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [
-    installShellFiles
-    pandoc
-  ];
+  nativeBuildInputs = [ installShellFiles pandoc ];
 
   ldflags = [
     "-s"

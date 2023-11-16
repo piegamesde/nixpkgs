@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  ncurses,
-}:
+{ lib, fetchFromGitHub, python3Packages, ncurses }:
 
 python3Packages.buildPythonApplication rec {
   pname = "termtekst";
@@ -16,10 +11,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1gm7j5d49a60wm7px82b76f610i8pl8ccz4r6qsz90z4mp3lyw9b";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    ncurses
-    requests
-  ];
+  propagatedBuildInputs = with python3Packages; [ ncurses requests ];
 
   patchPhase = ''
     substituteInPlace setup.py \

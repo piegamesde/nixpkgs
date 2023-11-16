@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  pytest-asyncio,
-  pytest-trio,
-  pytestCheckHook,
-  pythonOlder,
-  twisted,
-  typing-extensions,
-  vcversioner,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pytest-asyncio, pytest-trio
+, pytestCheckHook, pythonOlder, twisted, typing-extensions, vcversioner }:
 
 buildPythonPackage rec {
   pname = "pyee";
@@ -28,13 +17,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytest-trio
-    pytestCheckHook
-    twisted
-  ];
+  nativeCheckInputs =
+    [ mock pytest-asyncio pytest-trio pytestCheckHook twisted ];
 
   pythonImportsCheck = [ "pyee" ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  baron,
-  pytestCheckHook,
-}:
+{ lib, fetchPypi, buildPythonPackage, baron, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "redbaron";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/gristlabs/asttokens";
-    description = "Abstraction on top of baron, a FST for python to make writing refactoring code a realistic task";
+    description =
+      "Abstraction on top of baron, a FST for python to make writing refactoring code a realistic task";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ marius851000 ];
   };

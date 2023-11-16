@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  filelock,
-  idna,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-file,
-  responses,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, filelock, idna, pytest-mock
+, pytestCheckHook, pythonOlder, requests, requests-file, responses
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "tldextract";
@@ -27,18 +16,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    filelock
-    idna
-    requests
-    requests-file
-  ];
+  propagatedBuildInputs = [ filelock idna requests requests-file ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook responses ];
 
   postPatch = ''
     substituteInPlace pytest.ini \
@@ -48,7 +28,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "tldextract" ];
 
   meta = with lib; {
-    description = "Python module to accurately separate the TLD from the domain of an URL";
+    description =
+      "Python module to accurately separate the TLD from the domain of an URL";
     longDescription = ''
       tldextract accurately separates the gTLD or ccTLD (generic or country code top-level domain)
       from the registered domain and subdomains of a URL.

@@ -1,38 +1,19 @@
-{
-  config,
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libtool,
-  zip,
-  libffi,
-  libsigsegv,
-  readline,
-  gmp,
-  gnutls,
-  gtk2,
-  cairo,
-  SDL,
-  sqlite,
-  emacsSupport ? config.emacsSupport or false,
-  emacs ? null,
-}:
+{ config, lib, stdenv, fetchurl, pkg-config, libtool, zip, libffi, libsigsegv
+, readline, gmp, gnutls, gtk2, cairo, SDL, sqlite
+, emacsSupport ? config.emacsSupport or false, emacs ? null }:
 
 assert emacsSupport -> (emacs != null);
 
-let
-  # The gnu-smalltalk project has a dependency to the libsigsegv library.
+let # The gnu-smalltalk project has a dependency to the libsigsegv library.
   # The project ships with sources for this library, but deprecated this option.
   # Using the vanilla libsigsegv library results in error: "cannot relocate [...]"
   # Adding --enable-static=libsigsegv to the gnu-smalltalk configuration flags
   # does not help, the error still occurs. The only solution is to build a
   # shared version of libsigsegv.
-  libsigsegv-shared = lib.overrideDerivation libsigsegv (
-    oldAttrs: { configureFlags = [ "--enable-shared" ]; }
-  );
-in
-stdenv.mkDerivation rec {
+  libsigsegv-shared = lib.overrideDerivation libsigsegv
+    (oldAttrs: { configureFlags = [ "--enable-shared" ]; });
+
+in stdenv.mkDerivation rec {
 
   version = "3.2.5";
   pname = "gnu-smalltalk";
@@ -63,7 +44,8 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  installFlags = lib.optional emacsSupport "lispdir=$(out)/share/emacs/site-lisp";
+  installFlags =
+    lib.optional emacsSupport "lispdir=$(out)/share/emacs/site-lisp";
 
   # For some reason the tests fail if executated with nix-build, but pass if
   # executed within nix-shell --pure.
@@ -78,10 +60,7 @@ stdenv.mkDerivation rec {
       language, well-versed to scripting tasks.
     '';
     homepage = "http://smalltalk.gnu.org/";
-    license = with licenses; [
-      gpl2
-      lgpl2
-    ];
+    license = with licenses; [ gpl2 lgpl2 ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ skeidel ];
   };

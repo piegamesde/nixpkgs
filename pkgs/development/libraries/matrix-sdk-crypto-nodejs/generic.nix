@@ -1,22 +1,7 @@
-{
-  version,
-  hash,
-  outputHashes,
-  cargoLock,
-  patches,
-}:
+{ version, hash, outputHashes, cargoLock, patches }:
 
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cargo,
-  rustPlatform,
-  rustc,
-  napi-rs-cli,
-  nodejs,
-  libiconv,
-}:
+{ lib, stdenv, fetchFromGitHub, cargo, rustPlatform, rustc, napi-rs-cli, nodejs
+, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "matrix-sdk-crypto-nodejs";
@@ -34,13 +19,8 @@ stdenv.mkDerivation rec {
     inherit outputHashes;
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    cargo
-    rustc
-    napi-rs-cli
-    nodejs
-  ];
+  nativeBuildInputs =
+    [ rustPlatform.cargoSetupHook cargo rustc napi-rs-cli nodejs ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
@@ -64,8 +44,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A no-network-IO implementation of a state machine that handles E2EE for Matrix clients";
-    homepage = "https://github.com/matrix-org/matrix-rust-sdk/tree/${src.rev}/bindings/matrix-sdk-crypto-nodejs";
+    description =
+      "A no-network-IO implementation of a state machine that handles E2EE for Matrix clients";
+    homepage =
+      "https://github.com/matrix-org/matrix-rust-sdk/tree/${src.rev}/bindings/matrix-sdk-crypto-nodejs";
     license = licenses.asl20;
     maintainers = with maintainers; [ winter ];
     inherit (nodejs.meta) platforms;

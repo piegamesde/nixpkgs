@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 buildGoModule rec {
   pname = "emoji-picker";
   version = "0.2.0";

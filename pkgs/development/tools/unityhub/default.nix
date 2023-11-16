@@ -1,34 +1,23 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dpkg,
-  makeWrapper,
-  buildFHSEnv,
-  extraPkgs ? pkgs: [ ],
-  extraLibs ? pkgs: [ ],
-}:
+{ lib, stdenv, fetchurl, dpkg, makeWrapper, buildFHSEnv, extraPkgs ? pkgs: [ ]
+, extraLibs ? pkgs: [ ] }:
 
 stdenv.mkDerivation rec {
   pname = "unityhub";
   version = "3.4.2";
 
   src = fetchurl {
-    url = "https://hub-dist.unity3d.com/artifactory/hub-debian-prod-local/pool/main/u/unity/unityhub_amd64/unityhub-amd64-${version}.deb";
+    url =
+      "https://hub-dist.unity3d.com/artifactory/hub-debian-prod-local/pool/main/u/unity/unityhub_amd64/unityhub-amd64-${version}.deb";
     sha256 = "sha256-I1qtrD94IpMut0a6JUHErHaksoZ+z8/dDG8U68Y5zJE=";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper ];
 
   fhsEnv = buildFHSEnv {
     name = "${pname}-fhs-env";
     runScript = "";
 
-    targetPkgs =
-      pkgs:
+    targetPkgs = pkgs:
       with pkgs;
       [
         xorg.libXrandr
@@ -41,11 +30,9 @@ stdenv.mkDerivation rec {
         fontconfig
         freetype
         lsb-release
-      ]
-      ++ extraPkgs pkgs;
+      ] ++ extraPkgs pkgs;
 
-    multiPkgs =
-      pkgs:
+    multiPkgs = pkgs:
       with pkgs;
       [
         # Unity Hub ldd dependencies
@@ -98,8 +85,7 @@ stdenv.mkDerivation rec {
         zlib
         clang
         git # for git-based packages in unity package manager
-      ]
-      ++ extraLibs pkgs;
+      ] ++ extraLibs pkgs;
   };
 
   unpackCmd = "dpkg -x $curSrc src";
@@ -133,13 +119,11 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "Official Unity3D app to download and manage Unity Projects and installations";
+    description =
+      "Official Unity3D app to download and manage Unity Projects and installations";
     homepage = "https://unity3d.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      tesq0
-      huantian
-    ];
+    maintainers = with maintainers; [ tesq0 huantian ];
     platforms = [ "x86_64-linux" ];
   };
 }

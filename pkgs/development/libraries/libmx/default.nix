@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libtool,
-  pkg-config,
-  automake,
-  autoconf,
-  intltool,
-  glib,
-  gobject-introspection,
-  gtk2,
-  gtk-doc,
-  clutter,
-  clutter-gtk,
-}:
+{ lib, stdenv, fetchFromGitHub, libtool, pkg-config, automake, autoconf
+, intltool, glib, gobject-introspection, gtk2, gtk-doc, clutter, clutter-gtk }:
 
 stdenv.mkDerivation rec {
   pname = "libmx";
@@ -45,21 +31,9 @@ stdenv.mkDerivation rec {
 
   configureScript = "sh autogen.sh";
 
-  nativeBuildInputs = [
-    pkg-config
-    automake
-    autoconf
-    intltool
-  ];
-  buildInputs = [
-    libtool
-    gobject-introspection
-    glib
-    gtk2
-    gtk-doc
-    clutter
-    clutter-gtk
-  ];
+  nativeBuildInputs = [ pkg-config automake autoconf intltool ];
+  buildInputs =
+    [ libtool gobject-introspection glib gtk2 gtk-doc clutter clutter-gtk ];
 
   # patch to resolve GL errors
   # source : https://github.com/clutter-project/mx/pull/62

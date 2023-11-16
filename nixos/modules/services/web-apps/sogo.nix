@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 with lib;
 let
   cfg = config.services.sogo;
@@ -13,26 +8,23 @@ let
     chown sogo:sogo /etc/sogo/sogo.conf
     chmod 640 /etc/sogo/sogo.conf
 
-    ${if (cfg.configReplaces != { }) then
-      ''
-        # Insert secrets
-        ${concatStringsSep "\n" (
-          mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'') cfg.configReplaces
-        )}
+    ${if (cfg.configReplaces != { }) then ''
+      # Insert secrets
+      ${concatStringsSep "\n"
+      (mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'')
+        cfg.configReplaces)}
 
-        ${pkgs.perl}/bin/perl -p ${
-          concatStringsSep " " (
-            mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces
-          )
-        } /etc/sogo/sogo.conf.raw > /etc/sogo/sogo.conf
-      ''
-    else
-      ''
-        cp /etc/sogo/sogo.conf.raw /etc/sogo/sogo.conf
-      ''}
+      ${pkgs.perl}/bin/perl -p ${
+        concatStringsSep " "
+        (mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '')
+          cfg.configReplaces)
+      } /etc/sogo/sogo.conf.raw > /etc/sogo/sogo.conf
+    '' else ''
+      cp /etc/sogo/sogo.conf.raw /etc/sogo/sogo.conf
+    ''}
   '';
-in
-{
+
+in {
   options.services.sogo = with types; {
     enable = mkEnableOption (lib.mdDoc "SOGo groupware");
 
@@ -55,7 +47,8 @@ in
     };
 
     ealarmsCredFile = mkOption {
-      description = lib.mdDoc "Optional path to a credentials file for email alarms";
+      description =
+        lib.mdDoc "Optional path to a credentials file for email alarms";
       type = nullOr str;
       default = null;
     };
@@ -70,9 +63,7 @@ in
       '';
       type = attrsOf str;
       default = { };
-      example = {
-        LDAP_BINDPW = "/var/lib/secrets/sogo/ldappw";
-      };
+      example = { LDAP_BINDPW = "/var/lib/secrets/sogo/ldappw"; };
     };
 
     extraConfig = mkOption {
@@ -119,7 +110,8 @@ in
       serviceConfig = {
         Type = "forking";
         ExecStartPre = "+" + preStart + "/bin/sogo-prestart";
-        ExecStart = "${pkgs.sogo}/bin/sogod -WOLogFile - -WOPidFile /run/sogo/sogo.pid";
+        ExecStart =
+          "${pkgs.sogo}/bin/sogod -WOLogFile - -WOPidFile /run/sogo/sogo.pid";
 
         ProtectSystem = "strict";
         ProtectHome = true;
@@ -142,7 +134,8 @@ in
         PrivateMounts = true;
         PrivateUsers = true;
         MemoryDenyWriteExecute = true;
-        SystemCallFilter = "@basic-io @file-system @network-io @system-service @timer";
+        SystemCallFilter =
+          "@basic-io @file-system @network-io @system-service @timer";
         SystemCallArchitectures = "native";
         RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
       };
@@ -206,7 +199,8 @@ in
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.sogo}/bin/sogo-ealarms-notify${
-            optionalString (cfg.ealarmsCredFile != null) " -p ${cfg.ealarmsCredFile}"
+            optionalString (cfg.ealarmsCredFile != null)
+            " -p ${cfg.ealarmsCredFile}"
           }";
 
         ProtectSystem = "strict";
@@ -282,13 +276,15 @@ in
         allow all;
       '';
 
-      locations."~ ^/SOGo/so/ControlPanel/Products/([^/]*)/Resources/(.*)$".extraConfig = ''
-        alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
-      '';
+      locations."~ ^/SOGo/so/ControlPanel/Products/([^/]*)/Resources/(.*)$".extraConfig =
+        ''
+          alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
+        '';
 
-      locations."~ ^/SOGo/so/ControlPanel/Products/[^/]*UI/Resources/.*\\.(jpg|png|gif|css|js)$".extraConfig = ''
-        alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
-      '';
+      locations."~ ^/SOGo/so/ControlPanel/Products/[^/]*UI/Resources/.*\\.(jpg|png|gif|css|js)$".extraConfig =
+        ''
+          alias ${pkgs.sogo}/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
+        '';
     };
 
     # User and group

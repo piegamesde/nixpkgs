@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  libX11,
-  libXtst,
-  xorgproto,
-  libXi,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, libX11, libXtst, xorgproto, libXi }:
 
 stdenv.mkDerivation rec {
   pname = "xcape";
@@ -22,17 +13,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libX11
-    libXtst
-    xorgproto
-    libXi
-  ];
+  buildInputs = [ libX11 libXtst xorgproto libXi ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "MANDIR=/share/man/man1"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "MANDIR=/share/man/man1" ];
 
   postInstall = "install -Dm444 --target-directory $out/share/doc README.md";
 

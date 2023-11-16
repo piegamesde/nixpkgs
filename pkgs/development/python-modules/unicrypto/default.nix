@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pycryptodome,
-  pycryptodomex,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pycryptodome, pycryptodomex
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "unicrypto";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-mZEnYVM5r4utiGwM7bp2SwaDjYsH8AR/Qm5UdPNke0w=";
   };
 
-  propagatedBuildInputs = [
-    pycryptodome
-    pycryptodomex
-  ];
+  propagatedBuildInputs = [ pycryptodome pycryptodomex ];
 
   # Module has no tests
   doCheck = false;

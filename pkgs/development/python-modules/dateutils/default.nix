@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python-dateutil,
-  pytz,
-}:
+{ lib, buildPythonPackage, fetchPypi, python-dateutil, pytz }:
 
 buildPythonPackage rec {
   pname = "dateutils";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-A92QvLIVQb1OtLATY35PG1+USIHEbMbktnpgWeNw4/E=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    pytz
-  ];
+  propagatedBuildInputs = [ python-dateutil pytz ];
 
   pythonImportsCheck = [ "dateutils" ];
 

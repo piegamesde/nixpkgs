@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "schedule";
@@ -32,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python job scheduling for humans";
     homepage = "https://github.com/dbader/schedule";
-    changelog = "https://github.com/dbader/schedule/blob/${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/dbader/schedule/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

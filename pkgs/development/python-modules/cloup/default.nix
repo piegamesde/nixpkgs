@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  click,
-  setuptools-scm,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, click, setuptools-scm
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cloup";
@@ -30,7 +23,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/janLuke/cloup";
-    description = "Click extended with option groups, constraints, aliases, help themes";
+    description =
+      "Click extended with option groups, constraints, aliases, help themes";
     changelog = "https://github.com/janluke/cloup/releases/tag/v${version}";
     longDescription = ''
       Enriches Click with option groups, constraints, command aliases, help sections for subcommands, themes for --help and other stuff.

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  ocaml,
-  makeWrapper,
-  fetchsvn,
-  ghostscript,
-  imagemagick,
-  perl,
-  poppler_utils,
-  tesseract,
-  unpaper,
-}:
+{ lib, stdenv, ocaml, makeWrapper, fetchsvn, ghostscript, imagemagick, perl
+, poppler_utils, tesseract, unpaper }:
 
 stdenv.mkDerivation {
   version = "0.1.7";
@@ -24,11 +13,7 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-    ocaml
-    perl
-  ];
+  nativeBuildInputs = [ makeWrapper ocaml perl ];
   installPhase = ''
     mkdir -p $out/bin
     cp -p pdfsandwich $out/bin

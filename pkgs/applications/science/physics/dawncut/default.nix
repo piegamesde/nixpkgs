@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "dawncut";
@@ -34,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A tool to generate a 3D scene data clipped with an arbitrary plane";
+    description =
+      "A tool to generate a 3D scene data clipped with an arbitrary plane";
     license = licenses.unfree;
     homepage = "https://geant4.kek.jp/~tanaka/DAWN/About_DAWNCUT.html";
     platforms = platforms.unix;

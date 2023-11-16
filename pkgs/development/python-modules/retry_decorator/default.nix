@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "retry-decorator";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Decorator for retrying when exceptions occur";
     homepage = "https://github.com/pnpnpn/retry-decorator";
-    changelog = "https://github.com/pnpnpn/retry-decorator/releases/tag/v${version}";
+    changelog =
+      "https://github.com/pnpnpn/retry-decorator/releases/tag/v${version}";
     license = with licenses; [ asl20 ];
   };
 }

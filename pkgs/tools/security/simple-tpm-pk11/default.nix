@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  trousers,
-  openssl,
-  opencryptoki,
-  autoreconfHook,
-  libtool,
-}:
+{ lib, stdenv, fetchFromGitHub, trousers, openssl, opencryptoki, autoreconfHook
+, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "simple-tpm-pk11";
@@ -20,15 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "0vpbaklr4r1a2am0pqcm6m41ph22mkcrq33y8ab5h8qkhkvhd6a6";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libtool
-  ];
-  buildInputs = [
-    trousers
-    openssl
-    opencryptoki
-  ];
+  nativeBuildInputs = [ autoreconfHook libtool ];
+  buildInputs = [ trousers openssl opencryptoki ];
 
   enableParallelBuilding = true;
 

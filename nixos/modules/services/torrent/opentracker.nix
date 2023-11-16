@@ -1,15 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.opentracker;
-in
-{
+let cfg = config.services.opentracker;
+in {
   options.services.opentracker = {
     enable = mkEnableOption (lib.mdDoc "opentracker");
 
@@ -48,3 +41,4 @@ in
     };
   };
 }
+

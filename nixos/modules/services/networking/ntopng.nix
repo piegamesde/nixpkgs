@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -14,43 +8,33 @@ let
   opt = options.services.ntopng;
 
   createRedis = cfg.redis.createInstance != null;
-  redisService =
-    if cfg.redis.createInstance == "" then
-      "redis.service"
-    else
-      "redis-${cfg.redis.createInstance}.service";
+  redisService = if cfg.redis.createInstance == "" then
+    "redis.service"
+  else
+    "redis-${cfg.redis.createInstance}.service";
 
-  configFile =
-    if cfg.configText != "" then
-      pkgs.writeText "ntopng.conf" ''
-        ${cfg.configText}
-      ''
-    else
-      pkgs.writeText "ntopng.conf" ''
-        ${concatStringsSep " " (map (e: "--interface=" + e) cfg.interfaces)}
-        --http-port=${toString cfg.httpPort}
-        --redis=${cfg.redis.address}
-        --data-dir=/var/lib/ntopng
-        --user=ntopng
-        ${cfg.extraConfig}
-      '';
-in
+  configFile = if cfg.configText != "" then
+    pkgs.writeText "ntopng.conf" ''
+      ${cfg.configText}
+    ''
+  else
+    pkgs.writeText "ntopng.conf" ''
+      ${concatStringsSep " " (map (e: "--interface=" + e) cfg.interfaces)}
+      --http-port=${toString cfg.httpPort}
+      --redis=${cfg.redis.address}
+      --data-dir=/var/lib/ntopng
+      --user=ntopng
+      ${cfg.extraConfig}
+    '';
 
-{
+in {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "ntopng"
-        "http-port"
-      ]
-      [
-        "services"
-        "ntopng"
-        "httpPort"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "ntopng" "http-port" ] [
+      "services"
+      "ntopng"
+      "httpPort"
+    ])
   ];
 
   options = {
@@ -78,10 +62,7 @@ in
 
       interfaces = mkOption {
         default = [ "any" ];
-        example = [
-          "eth0"
-          "wlan0"
-        ];
+        example = [ "eth0" "wlan0" ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of interfaces to monitor. Use "any" to monitor all interfaces.
@@ -106,7 +87,9 @@ in
 
       redis.createInstance = mkOption {
         type = types.nullOr types.str;
-        default = optionalString (versionAtLeast config.system.stateVersion "22.05") "ntopng";
+        default =
+          optionalString (versionAtLeast config.system.stateVersion "22.05")
+          "ntopng";
         description = lib.mdDoc ''
           Local Redis instance name. Set to `null` to disable
           local Redis instance. Defaults to `""` for
@@ -137,15 +120,16 @@ in
           manual {option}`configText` option is used.
         '';
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
 
     # ntopng uses redis for data storage
-    services.ntopng.redis.address =
-      mkIf createRedis
-        config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
+    services.ntopng.redis.address = mkIf createRedis
+      config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
 
     services.redis.servers = mkIf createRedis {
       ${cfg.redis.createInstance} = {
@@ -175,4 +159,5 @@ in
 
     users.extraGroups.ntopng = { };
   };
+
 }

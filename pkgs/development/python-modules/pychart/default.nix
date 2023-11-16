@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27 }:
 
 buildPythonPackage rec {
   pname = "pychart";
@@ -17,7 +12,8 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "Library for creating high quality encapsulated Postscript, PDF, PNG, or SVG charts";
+    description =
+      "Library for creating high quality encapsulated Postscript, PDF, PNG, or SVG charts";
     homepage = "https://pypi.python.org/pypi/PyChart";
     license = licenses.gpl2;
   };

@@ -1,23 +1,6 @@
-{
-  stdenv,
-  buildEnv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  writeScriptBin,
-  perl,
-  XMLLibXML,
-  XMLLibXSLT,
-  zlib,
-  ruby,
-  enableStoneSense ? false,
-  allegro5,
-  libGLU,
-  libGL,
-  SDL,
-  dfVersion,
-}:
+{ stdenv, buildEnv, lib, fetchFromGitHub, fetchpatch, cmake, writeScriptBin
+, perl, XMLLibXML, XMLLibXSLT, zlib, ruby, enableStoneSense ? false, allegro5
+, libGLU, libGL, SDL, dfVersion }:
 
 with lib;
 
@@ -59,28 +42,27 @@ let
       xmlRev = "f5019a5c6f19ef05a28bd974c3e8668b78e6e2a4";
       prerelease = false;
     };
+
   };
 
-  release =
-    if lib.isAttrs dfVersion then
-      dfVersion
-    else if hasAttr dfVersion dfhack-releases then
-      getAttr dfVersion dfhack-releases
-    else
-      throw "[DFHack] Unsupported Dwarf Fortress version: ${dfVersion}";
+  release = if lib.isAttrs dfVersion then
+    dfVersion
+  else if hasAttr dfVersion dfhack-releases then
+    getAttr dfVersion dfhack-releases
+  else
+    throw "[DFHack] Unsupported Dwarf Fortress version: ${dfVersion}";
 
   version = release.dfHackRelease;
 
   # revision of library/xml submodule
   xmlRev = release.xmlRev;
 
-  arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "64"
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      "32"
-    else
-      throw "Unsupported architecture";
+  arch = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "64"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "32"
+  else
+    throw "Unsupported architecture";
 
   fakegit = writeScriptBin "git" ''
     #! ${stdenv.shell}
@@ -102,8 +84,7 @@ let
       exit 1
     fi
   '';
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "dfhack";
   inherit version;
 
@@ -116,26 +97,23 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches =
-    lib.optional (lib.versionOlder version "0.44.12-r3") (
-      fetchpatch {
-        name = "fix-stonesense.patch";
-        url = "https://github.com/DFHack/stonesense/commit/f5be6fe5fb192f01ae4551ed9217e97fd7f6a0ae.patch";
-        extraPrefix = "plugins/stonesense/";
-        stripLen = 1;
-        hash = "sha256-wje6Mkct29eyMOcJnbdefwBOLJko/s4JcJe52ojuW+8=";
-      }
-    )
-    ++ lib.optional (lib.versionOlder version "0.47.04-r1") (
-      fetchpatch {
-        name = "fix-protobuf.patch";
-        url = "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch";
-        hash = "sha256-p+mKhmYbnhWKNiGPMjbYO505Gcg634n0nudqH0NX3KY=";
-      }
-    );
+  patches = lib.optional (lib.versionOlder version "0.44.12-r3") (fetchpatch {
+    name = "fix-stonesense.patch";
+    url =
+      "https://github.com/DFHack/stonesense/commit/f5be6fe5fb192f01ae4551ed9217e97fd7f6a0ae.patch";
+    extraPrefix = "plugins/stonesense/";
+    stripLen = 1;
+    hash = "sha256-wje6Mkct29eyMOcJnbdefwBOLJko/s4JcJe52ojuW+8=";
+  }) ++ lib.optional (lib.versionOlder version "0.47.04-r1") (fetchpatch {
+    name = "fix-protobuf.patch";
+    url =
+      "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch";
+    hash = "sha256-p+mKhmYbnhWKNiGPMjbYO505Gcg634n0nudqH0NX3KY=";
+  });
 
   # gcc 11 fix
-  CXXFLAGS = lib.optionalString (lib.versionOlder version "0.47.05-r3") "-fpermissive";
+  CXXFLAGS =
+    lib.optionalString (lib.versionOlder version "0.47.05-r3") "-fpermissive";
 
   # As of
   # https://github.com/DFHack/dfhack/commit/56e43a0dde023c5a4595a22b29d800153b31e3c4,
@@ -149,24 +127,10 @@ stdenv.mkDerivation {
     sed -i 's@cached_path = path_string.*@cached_path = getenv("DF_DIR");@' library/Process-linux.cpp
   '';
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    XMLLibXML
-    XMLLibXSLT
-    fakegit
-  ];
+  nativeBuildInputs = [ cmake perl XMLLibXML XMLLibXSLT fakegit ];
   # We don't use system libraries because dfhack needs old C++ ABI.
-  buildInputs =
-    [
-      zlib
-      SDL
-    ]
-    ++ lib.optionals enableStoneSense [
-      allegro5
-      libGLU
-      libGL
-    ];
+  buildInputs = [ zlib SDL ]
+    ++ lib.optionals enableStoneSense [ allegro5 libGLU libGL ];
 
   preConfigure = ''
     # Trick build system into believing we have .git
@@ -174,11 +138,7 @@ stdenv.mkDerivation {
     touch .git/index .git/modules/library/xml/index
   '';
 
-  cmakeFlags =
-    [
-      "-DDFHACK_BUILD_ARCH=${arch}"
-      "-DDOWNLOAD_RUBY=OFF"
-    ]
+  cmakeFlags = [ "-DDFHACK_BUILD_ARCH=${arch}" "-DDOWNLOAD_RUBY=OFF" ]
     ++ lib.optionals enableStoneSense [
       "-DBUILD_STONESENSE=ON"
       "-DSTONESENSE_INTERNAL_SO=OFF"
@@ -190,18 +150,14 @@ stdenv.mkDerivation {
     ln -s ${ruby}/lib/libruby-*.so $out/hack/libruby.so
   '';
 
-  passthru = {
-    inherit dfVersion;
-  };
+  passthru = { inherit dfVersion; };
 
   meta = with lib; {
-    description = "Memory hacking library for Dwarf Fortress and a set of tools that use it";
+    description =
+      "Memory hacking library for Dwarf Fortress and a set of tools that use it";
     homepage = "https://github.com/DFHack/dfhack/";
     license = licenses.zlib;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = with maintainers; [
       robbinch
       a1russell

@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  async_generator,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpx,
-  pytest,
-  pytestCheckHook,
-  sanic,
-  websockets,
-}:
+{ lib, aiohttp, async_generator, buildPythonPackage, fetchFromGitHub, httpx
+, pytest, pytestCheckHook, sanic, websockets }:
 
 buildPythonPackage rec {
   pname = "pytest-sanic";
@@ -24,18 +14,9 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async_generator
-    httpx
-    pytest
-    websockets
-  ];
+  propagatedBuildInputs = [ aiohttp async_generator httpx pytest websockets ];
 
-  nativeCheckInputs = [
-    sanic
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ sanic pytestCheckHook ];
 
   pythonImportsCheck = [ "pytest_sanic" ];
 

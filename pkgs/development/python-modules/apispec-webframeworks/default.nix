@@ -1,15 +1,5 @@
-{
-  lib,
-  apispec,
-  bottle,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flask,
-  mock,
-  pytestCheckHook,
-  pythonOlder,
-  tornado,
-}:
+{ lib, apispec, bottle, buildPythonPackage, fetchFromGitHub, flask, mock
+, pytestCheckHook, pythonOlder, tornado }:
 
 buildPythonPackage rec {
   pname = "apispec-webframeworks";
@@ -27,20 +17,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ apispec ] ++ apispec.optional-dependencies.yaml;
 
-  nativeCheckInputs = [
-    bottle
-    flask
-    mock
-    pytestCheckHook
-    tornado
-  ];
+  nativeCheckInputs = [ bottle flask mock pytestCheckHook tornado ];
 
   pythonImportsCheck = [ "apispec_webframeworks" ];
 
   meta = with lib; {
     description = "Web framework plugins for apispec";
     homepage = "https://github.com/marshmallow-code/apispec-webframeworks";
-    changelog = "https://github.com/marshmallow-code/apispec-webframeworks/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/marshmallow-code/apispec-webframeworks/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

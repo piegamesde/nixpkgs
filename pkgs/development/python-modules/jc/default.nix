@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  ruamel-yaml,
-  xmltodict,
-  pygments,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, ruamel-yaml, xmltodict, pygments
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "jc";
@@ -21,11 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-nj7HyYjo5jDnA+H5/er/GPgC/bUR0UYBqu5zOSDA4p0=";
   };
 
-  propagatedBuildInputs = [
-    ruamel-yaml
-    xmltodict
-    pygments
-  ];
+  propagatedBuildInputs = [ ruamel-yaml xmltodict pygments ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -35,10 +23,12 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "This tool serializes the output of popular command line tools and filetypes to structured JSON output";
+    description =
+      "This tool serializes the output of popular command line tools and filetypes to structured JSON output";
     homepage = "https://github.com/kellyjonbrazil/jc";
     license = licenses.mit;
     maintainers = with maintainers; [ atemu ];
-    changelog = "https://github.com/kellyjonbrazil/jc/blob/v${version}/CHANGELOG";
+    changelog =
+      "https://github.com/kellyjonbrazil/jc/blob/v${version}/CHANGELOG";
   };
 }

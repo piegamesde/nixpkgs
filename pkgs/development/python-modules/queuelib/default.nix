@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest }:
 
 buildPythonPackage rec {
   pname = "queuelib";
@@ -22,4 +17,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };
+
 }

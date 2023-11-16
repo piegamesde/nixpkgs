@@ -1,19 +1,10 @@
-{
-  stdenv,
-  lib,
-  makeWrapper,
-  perl,
-  perlPackages,
-}:
+{ stdenv, lib, makeWrapper, perl, perlPackages }:
 
 stdenv.mkDerivation {
   name = "nixpkgs-lint-1";
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    perl
-    perlPackages.XMLSimple
-  ];
+  buildInputs = [ perl perlPackages.XMLSimple ];
 
   dontUnpack = true;
   buildPhase = "true";
@@ -26,7 +17,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     maintainers = [ maintainers.eelco ];
-    description = "A utility for Nixpkgs contributors to check Nixpkgs for common errors";
+    description =
+      "A utility for Nixpkgs contributors to check Nixpkgs for common errors";
     platforms = platforms.unix;
   };
 }

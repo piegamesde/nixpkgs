@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  glib,
-  gtk3,
-  wrapGAppsHook,
-}:
+{ lib, fetchFromGitHub, rustPlatform, glib, gtk3, wrapGAppsHook }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-query-tree-viewer";
@@ -20,10 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    gtk3
-  ];
+  buildInputs = [ glib gtk3 ];
 
   cargoSha256 = "sha256-NSLBIvgo5EdCvZq52d+UbAa7K4uOST++2zbhO9DW38E=";
 

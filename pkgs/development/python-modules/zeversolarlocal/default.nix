@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  httpx,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, httpx, pytest-asyncio
+, pytest-mock, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "zeversolarlocal";
@@ -26,22 +17,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace "--cov zeversolarlocal --cov-report xml:cov.xml --cov-report term-missing -vv" ""
   '';
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_httpx_timeout"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_httpx_timeout"
+  ];
 
   pythonImportsCheck = [ "zeversolarlocal" ];
 

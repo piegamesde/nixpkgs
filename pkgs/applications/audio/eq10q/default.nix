@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  cmake,
-  fftw,
-  gtkmm2,
-  libxcb,
-  lv2,
-  pkg-config,
-  xorg,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, cmake, fftw, gtkmm2, libxcb, lv2
+, pkg-config, xorg }:
 stdenv.mkDerivation rec {
   pname = "eq10q";
   version = "2.2";
@@ -19,10 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "16mhcav8gwkp29k9ki4dlkajlcgh1i2wvldabxb046d37dq4qzrk";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
     fftw
     gtkmm2
@@ -36,7 +22,8 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       # glibc 2.27 compatibility
-      url = "https://sources.debian.org/data/main/e/eq10q/2.2~repack0-2.1/debian/patches/05-pow10.patch";
+      url =
+        "https://sources.debian.org/data/main/e/eq10q/2.2~repack0-2.1/debian/patches/05-pow10.patch";
       sha256 = "07b0wf6k4xqgigv4h095bzfaw8r218wa36r9w1817jcys13r6c5r";
     })
   ];

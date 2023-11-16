@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.modemmanager;
-in
-{
+let cfg = config.services.prometheus.exporters.modemmanager;
+in {
   port = 9539;
   extraOpts = {
     refreshRate = mkOption {
@@ -33,11 +26,10 @@ in
           -rate ${cfg.refreshRate} \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
-      RestrictAddressFamilies =
-        [
-          # Need AF_UNIX to collect data
-          "AF_UNIX"
-        ];
+      RestrictAddressFamilies = [
+        # Need AF_UNIX to collect data
+        "AF_UNIX"
+      ];
     };
   };
 }

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  SDL2,
-  SDL2_image,
-  SDL2_mixer,
-  zlib,
-  makeWrapper,
-  copyDesktopItems,
-  makeDesktopItem,
-}:
+{ lib, stdenv, fetchzip, SDL2, SDL2_image, SDL2_mixer, zlib, makeWrapper
+, copyDesktopItems, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   pname = "sauerbraten";
@@ -22,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "0llknzj23vx6f3y452by9c7wlhzclyq4bqi22qd52m3l916z2mn5";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
 
-  buildInputs = [
-    SDL2
-    SDL2_mixer
-    SDL2_image
-    zlib
-  ];
+  buildInputs = [ SDL2 SDL2_mixer SDL2_image zlib ];
 
   sourceRoot = "source/src";
 
@@ -45,11 +27,7 @@ stdenv.mkDerivation rec {
       icon = "sauerbraten";
       desktopName = "Sauerbraten";
       comment = "FPS that uses an improved version of the Cube engine";
-      categories = [
-        "Application"
-        "Game"
-        "ActionGame"
-      ];
+      categories = [ "Application" "Game" "ActionGame" ];
     })
   ];
 
@@ -72,17 +50,16 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A free multiplayer & singleplayer first person shooter, the successor of the Cube FPS";
-    maintainers = with maintainers; [
-      raskin
-      ajs124
-    ];
+    description =
+      "A free multiplayer & singleplayer first person shooter, the successor of the Cube FPS";
+    maintainers = with maintainers; [ raskin ajs124 ];
     mainProgram = "sauerbraten_client";
     hydraPlatforms =
       # raskin: tested amd64-linux;
       # not setting platforms because it is 0.5+ GiB of game data
       [ ];
-    license = "freeware"; # as an aggregate - data files have different licenses code is under zlib license
+    license =
+      "freeware"; # as an aggregate - data files have different licenses code is under zlib license
     platforms = platforms.linux;
   };
 }

@@ -1,14 +1,5 @@
-{
-  bash,
-  btrfs-progs,
-  coreutils,
-  fetchFromGitHub,
-  gnugrep,
-  lib,
-  makeWrapper,
-  stdenvNoCC,
-  util-linuxMinimal,
-}:
+{ bash, btrfs-progs, coreutils, fetchFromGitHub, gnugrep, lib, makeWrapper
+, stdenvNoCC, util-linuxMinimal }:
 stdenvNoCC.mkDerivation rec {
   pname = "btrfs-snap";
   version = "1.7.3";
@@ -35,7 +26,8 @@ stdenvNoCC.mkDerivation rec {
     }
   '';
   meta = with lib; {
-    description = "btrfs-snap creates and maintains the history of snapshots of btrfs filesystems.";
+    description =
+      "btrfs-snap creates and maintains the history of snapshots of btrfs filesystems.";
     homepage = "https://github.com/jf647/btrfs-snap";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ lionello ];

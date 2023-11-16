@@ -1,25 +1,9 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  # install requirements
-  pycryptodome,
-  yarl,
-  flatdict,
-  python-jose,
-  aenum,
-  aiohttp,
-  pydash,
-  xmltodict,
-  pyyaml,
-  # test requirements
-  pytestCheckHook,
-  pytest-recording,
-  pytest-asyncio,
-  pytest-mock,
-  pyfakefs,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi
+# install requirements
+, pycryptodome, yarl, flatdict, python-jose, aenum, aiohttp, pydash, xmltodict
+, pyyaml
+# test requirements
+, pytestCheckHook, pytest-recording, pytest-asyncio, pytest-mock, pyfakefs }:
 
 buildPythonPackage rec {
   pname = "okta";
@@ -42,13 +26,8 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  checkInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-mock
-    pytest-recording
-    pyfakefs
-  ];
+  checkInputs =
+    [ pytestCheckHook pytest-asyncio pytest-mock pytest-recording pyfakefs ];
 
   pytestFlagsArray = [ "tests/" ];
 

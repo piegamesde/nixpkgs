@@ -1,34 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  python3Packages,
-  perl,
-  zip,
-  gitMinimal,
-  ffmpeg,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, python3Packages, perl, zip
+, gitMinimal, ffmpeg }:
 
 let
 
   inherit (python3Packages)
-    python
-    pytest
-    nose
-    cryptography
-    pyyaml
-    requests
-    mock
-    requests-mock
-    python-dateutil
-    setuptools
-  ;
+    python pytest nose cryptography pyyaml requests mock requests-mock
+    python-dateutil setuptools;
 
   version = "4.22";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "svtplay-dl";
   inherit version;
 
@@ -39,28 +20,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-xY6XhQb9Nn0W09EZuLUgPiCR4uGb8ibnORCZOVLFXwA=";
   };
 
-  pythonPaths = [
-    cryptography
-    pyyaml
-    requests
-  ];
-  buildInputs = [
-    python
-    perl
-    python-dateutil
-    setuptools
-  ] ++ pythonPaths;
-  nativeBuildInputs = [
-    gitMinimal
-    zip
-    makeWrapper
-  ];
-  nativeCheckInputs = [
-    nose
-    pytest
-    mock
-    requests-mock
-  ];
+  pythonPaths = [ cryptography pyyaml requests ];
+  buildInputs = [ python perl python-dateutil setuptools ] ++ pythonPaths;
+  nativeBuildInputs = [ gitMinimal zip makeWrapper ];
+  nativeCheckInputs = [ nose pytest mock requests-mock ];
 
   postPatch = ''
     substituteInPlace scripts/run-tests.sh \
@@ -70,11 +33,8 @@ stdenv.mkDerivation rec {
       lib/svtplay_dl/tests/test_postprocess.py
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "SYSCONFDIR=$(out)/etc"
-    "PYTHON=${python.interpreter}"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "SYSCONFDIR=$(out)/etc" "PYTHON=${python.interpreter}" ];
 
   postInstall = ''
     wrapProgram "$out/bin/svtplay-dl" \
@@ -96,7 +56,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/spaam/svtplay-dl";
-    description = "Command-line tool to download videos from svtplay.se and other sites";
+    description =
+      "Command-line tool to download videos from svtplay.se and other sites";
     license = licenses.mit;
     platforms = lib.platforms.unix;
   };

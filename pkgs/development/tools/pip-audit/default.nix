@@ -1,14 +1,10 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 let
   py = python3.override {
     packageOverrides = self: super: {
 
-      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (
-        oldAttrs: rec {
+      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs
+        (oldAttrs: rec {
           version = "2.7.1";
           src = fetchFromGitHub {
             owner = "CycloneDX";
@@ -16,12 +12,10 @@ let
             rev = "v${version}";
             hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
           };
-        }
-      );
+        });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "pip-audit";
@@ -48,10 +42,7 @@ buildPythonApplication rec {
     toml
   ] ++ cachecontrol.optional-dependencies.filecache;
 
-  nativeCheckInputs = [
-    pretend
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pretend pytestCheckHook ];
 
   pythonImportsCheck = [ "pip_audit" ];
 
@@ -75,7 +66,8 @@ buildPythonApplication rec {
   ];
 
   meta = with lib; {
-    description = "Tool for scanning Python environments for known vulnerabilities";
+    description =
+      "Tool for scanning Python environments for known vulnerabilities";
     homepage = "https://github.com/trailofbits/pip-audit";
     changelog = "https://github.com/pypa/pip-audit/releases/tag/v${version}";
     license = with licenses; [ asl20 ];

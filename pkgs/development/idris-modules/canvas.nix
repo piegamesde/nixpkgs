@@ -1,8 +1,4 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, lib }:
 build-idris-package {
   pname = "canvas";
   version = "2017-11-09";

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  itk,
-  Cocoa,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, itk, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "elastix";

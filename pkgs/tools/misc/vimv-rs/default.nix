@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  stdenv,
-  Foundation,
-}:
+{ lib, rustPlatform, fetchCrate, stdenv, Foundation }:
 
 rustPlatform.buildRustPackage rec {
   pname = "vimv-rs";

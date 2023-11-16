@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  libpng,
-  gd,
-  geoip,
-  db,
-}:
+{ lib, stdenv, fetchurl, zlib, libpng, gd, geoip, db }:
 
 stdenv.mkDerivation rec {
   pname = "webalizer";
@@ -27,19 +18,9 @@ stdenv.mkDerivation rec {
       --replace "--static" ""
   '';
 
-  buildInputs = [
-    zlib
-    libpng
-    gd
-    geoip
-    db
-  ];
+  buildInputs = [ zlib libpng gd geoip db ];
 
-  configureFlags = [
-    "--enable-dns"
-    "--enable-geoip"
-    "--enable-shared"
-  ];
+  configureFlags = [ "--enable-dns" "--enable-geoip" "--enable-shared" ];
 
   meta = with lib; {
     description = "Web server log file analysis program";

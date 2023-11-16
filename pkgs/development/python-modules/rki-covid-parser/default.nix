@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub
+, pytest-aiohttp, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rki-covid-parser";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses pytest-aiohttp pytestCheckHook ];
 
   disabledTestPaths = [
     # Tests require netowrk access
@@ -40,7 +28,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "rki_covid_parser" ];
 
   meta = with lib; {
-    description = "Python module for working with data from the Robert-Koch Institut";
+    description =
+      "Python module for working with data from the Robert-Koch Institut";
     homepage = "https://github.com/thebino/rki-covid-parser";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];

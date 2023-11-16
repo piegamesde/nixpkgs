@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  buildFHSEnv,
-  installShellFiles,
-  go-task,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, buildFHSEnv, installShellFiles
+, go-task }:
 
 let
 
@@ -29,23 +22,23 @@ let
 
     vendorSha256 = "sha256-+5Cj6wdX25fK+Y9czTwRRqCdY+0iarvii9nD3QMDh+c=";
 
-    postPatch =
-      let
-        skipTests = [
-          # tries to "go install"
-          "TestDummyMonitor"
-          # try to Get "https://downloads.arduino.cc/libraries/library_index.tar.bz2"
-          "TestDownloadAndChecksums"
-          "TestParseArgs"
-          "TestParseReferenceCores"
-          "TestPlatformSearch"
-          "TestPlatformSearchSorting"
-        ];
-      in
-      ''
-        substituteInPlace Taskfile.yml \
-          --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${lib.concatStringsSep "|" skipTests})'"
-      '';
+    postPatch = let
+      skipTests = [
+        # tries to "go install"
+        "TestDummyMonitor"
+        # try to Get "https://downloads.arduino.cc/libraries/library_index.tar.bz2"
+        "TestDownloadAndChecksums"
+        "TestParseArgs"
+        "TestParseReferenceCores"
+        "TestPlatformSearch"
+        "TestPlatformSearchSorting"
+      ];
+    in ''
+      substituteInPlace Taskfile.yml \
+        --replace "go test" "go test -p $NIX_BUILD_CORES -skip '(${
+          lib.concatStringsSep "|" skipTests
+        })'"
+    '';
 
     doCheck = stdenv.isLinux;
 
@@ -74,16 +67,18 @@ let
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "Arduino from the command line";
-      changelog = "https://github.com/arduino/arduino-cli/releases/tag/${version}";
+      changelog =
+        "https://github.com/arduino/arduino-cli/releases/tag/${version}";
       license = licenses.gpl3Only;
       maintainers = with maintainers; [ ryantm ];
     };
+
   };
-in
-if stdenv.isLinux then
-  # buildFHSEnv is needed because the arduino-cli downloads compiler
-  # toolchains from the internet that have their interpreters pointed at
-  # /lib64/ld-linux-x86-64.so.2
+
+in if stdenv.isLinux then
+# buildFHSEnv is needed because the arduino-cli downloads compiler
+# toolchains from the internet that have their interpreters pointed at
+# /lib64/ld-linux-x86-64.so.2
   buildFHSEnv {
     inherit (pkg) name meta;
 

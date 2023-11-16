@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fastnumbers,
-  fetchFromGitHub,
-  hypothesis,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  typing-extensions,
-}:
+{ lib, stdenv, buildPythonPackage, fastnumbers, fetchFromGitHub, hypothesis
+, numpy, pytestCheckHook, pythonOlder, setuptools, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "fastnumbers";
@@ -34,18 +23,15 @@ buildPythonPackage rec {
   # See https://github.com/SethMMorton/fastnumbers/issues/28
   doCheck = !stdenv.hostPlatform.isAarch;
 
-  nativeCheckInputs = [
-    hypothesis
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis numpy pytestCheckHook ];
 
   pythonImportsCheck = [ "fastnumbers" ];
 
   meta = with lib; {
     description = "Python module for number conversion";
     homepage = "https://github.com/SethMMorton/fastnumbers";
-    changelog = "https://github.com/SethMMorton/fastnumbers/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/SethMMorton/fastnumbers/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

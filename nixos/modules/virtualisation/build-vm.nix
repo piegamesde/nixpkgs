@@ -1,9 +1,4 @@
-{
-  config,
-  extendModules,
-  lib,
-  ...
-}:
+{ config, extendModules, lib, ... }:
 let
 
   inherit (lib) mkOption;
@@ -12,19 +7,15 @@ let
 
   vmVariantWithBootLoader = vmVariant.extendModules {
     modules = [
-      (
-        { config, ... }:
-        {
-          _file = "nixos/default.nix##vmWithBootLoader";
-          virtualisation.useBootLoader = true;
-          virtualisation.useEFIBoot =
-            config.boot.loader.systemd-boot.enable || config.boot.loader.efi.canTouchEfiVariables;
-        }
-      )
+      ({ config, ... }: {
+        _file = "nixos/default.nix##vmWithBootLoader";
+        virtualisation.useBootLoader = true;
+        virtualisation.useEFIBoot = config.boot.loader.systemd-boot.enable
+          || config.boot.loader.efi.canTouchEfiVariables;
+      })
     ];
   };
-in
-{
+in {
   options = {
 
     virtualisation.vmVariant = mkOption {
@@ -44,14 +35,17 @@ in
       default = { };
       visible = "shallow";
     };
+
   };
 
   config = {
 
     system.build = {
       vm = lib.mkDefault config.virtualisation.vmVariant.system.build.vm;
-      vmWithBootLoader = lib.mkDefault config.virtualisation.vmVariantWithBootLoader.system.build.vm;
+      vmWithBootLoader = lib.mkDefault
+        config.virtualisation.vmVariantWithBootLoader.system.build.vm;
     };
+
   };
 
   # uses extendModules

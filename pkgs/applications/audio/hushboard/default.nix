@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  gobject-introspection,
-  gtk3,
-  libappindicator,
-  libpulseaudio,
-  librsvg,
-  pycairo,
-  pygobject3,
-  six,
-  wrapGAppsHook,
-  xlib,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, gobject-introspection, gtk3
+, libappindicator, libpulseaudio, librsvg, pycairo, pygobject3, six
+, wrapGAppsHook, xlib }:
 
 buildPythonApplication {
   pname = "hushboard";
@@ -27,19 +15,9 @@ buildPythonApplication {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [
-    gobject-introspection
-    gtk3
-    libappindicator
-    libpulseaudio
-  ];
+  buildInputs = [ gobject-introspection gtk3 libappindicator libpulseaudio ];
 
-  propagatedBuildInputs = [
-    pycairo
-    pygobject3
-    six
-    xlib
-  ];
+  propagatedBuildInputs = [ pycairo pygobject3 six xlib ];
 
   postPatch = ''
     substituteInPlace hushboard/_pulsectl.py \

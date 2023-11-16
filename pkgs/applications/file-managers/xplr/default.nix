@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  libiconv,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "xplr";
@@ -21,11 +15,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-1uAnIuxDDv3Z/fMs2Cu/aFWrnugGcEKlNjhILqDpOMI=";
 
-  checkFlags =
-    [
-      # failure: path::tests::test_relative_to_parent
-      "--skip=path::tests::test_relative_to_parent"
-    ];
+  checkFlags = [
+    # failure: path::tests::test_relative_to_parent
+    "--skip=path::tests::test_relative_to_parent"
+  ];
 
   meta = with lib; {
     description = "A hackable, minimal, fast TUI file explorer";

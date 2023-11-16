@@ -1,35 +1,28 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
-  let
-    port = 81;
-  in
-  {
+import ./make-test-python.nix ({ pkgs, ... }:
+  let port = 81;
+  in {
     name = "keter";
     meta = with pkgs.lib.maintainers; { maintainers = [ jappie ]; };
 
-    nodes.machine =
-      { config, pkgs, ... }:
-      {
-        services.keter = {
-          enable = true;
+    nodes.machine = { config, pkgs, ... }: {
+      services.keter = {
+        enable = true;
 
-          globalKeterConfig = {
-            listeners = [
-              {
-                host = "*4";
-                inherit port;
-              }
-            ];
-          };
-          bundle = {
-            appName = "test-bundle";
-            domain = "localhost";
-            executable = pkgs.writeShellScript "run" ''
-              ${pkgs.python3}/bin/python -m http.server $PORT
-            '';
-          };
+        globalKeterConfig = {
+          listeners = [{
+            host = "*4";
+            inherit port;
+          }];
+        };
+        bundle = {
+          appName = "test-bundle";
+          domain = "localhost";
+          executable = pkgs.writeShellScript "run" ''
+            ${pkgs.python3}/bin/python -m http.server $PORT
+          '';
         };
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("keter.service")
@@ -40,5 +33,4 @@ import ./make-test-python.nix (
 
       machine.succeed("curl --fail http://localhost:${toString port}/")
     '';
-  }
-)
+  })

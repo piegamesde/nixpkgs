@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pillow,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pillow }:
 
 buildPythonPackage rec {
   pname = "colorthief";

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  alsa-lib,
-  freetype,
-  xorg,
-  curl,
-  libGL,
-  libjack2,
-  gnome,
-  pkg-config,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, alsa-lib, freetype, xorg, curl, libGL, libjack2
+, gnome, pkg-config, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "helio-workstation";
@@ -40,10 +28,7 @@ stdenv.mkDerivation rec {
     gnome.zenity
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   preBuild = ''
     cd Projects/LinuxMakefile
@@ -63,7 +48,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "One music sequencer for all major platforms, both desktop and mobile";
+    description =
+      "One music sequencer for all major platforms, both desktop and mobile";
     homepage = "https://helio.fm/";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.suhr ];

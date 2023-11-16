@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mistletoe";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Fast and extensible Markdown parser";
     homepage = "https://github.com/miyuchina/mistletoe";
-    changelog = "https://github.com/miyuchina/mistletoe/releases/tag/v${version}";
+    changelog =
+      "https://github.com/miyuchina/mistletoe/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ eadwu ];
   };

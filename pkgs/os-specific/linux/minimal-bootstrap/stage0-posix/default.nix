@@ -1,7 +1,6 @@
 { lib, newScope }:
 
-lib.makeScope newScope (
-  self:
+lib.makeScope newScope (self:
   with self; {
     inherit (import ./bootstrap-sources.nix) version hex0-seed src;
 
@@ -14,16 +13,9 @@ lib.makeScope newScope (
 
     stage0-posix-x86 = callPackage ./stage0-posix-x86.nix { };
 
-    inherit (self.stage0-posix-x86)
-      blood-elf-0
-      hex2
-      kaem-unwrapped
-      M1
-      M2
-    ;
+    inherit (self.stage0-posix-x86) blood-elf-0 hex2 kaem-unwrapped M1 M2;
 
     mescc-tools = callPackage ./mescc-tools { };
 
     mescc-tools-extra = callPackage ./mescc-tools-extra { };
-  }
-)
+  })

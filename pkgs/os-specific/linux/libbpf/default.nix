@@ -1,12 +1,4 @@
-{
-  fetchFromGitHub,
-  elfutils,
-  pkg-config,
-  stdenv,
-  zlib,
-  lib,
-  nixosTests,
-}:
+{ fetchFromGitHub, elfutils, pkg-config, stdenv, zlib, lib, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "libbpf";
@@ -20,20 +12,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    elfutils
-    zlib
-  ];
+  buildInputs = [ elfutils zlib ];
 
   enableParallelBuilding = true;
-  makeFlags = [
-    "PREFIX=$(out)"
-    "-C src"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "-C src" ];
 
-  passthru.tests = {
-    bpf = nixosTests.bpf;
-  };
+  passthru.tests = { bpf = nixosTests.bpf; };
 
   postInstall = ''
     # install linux's libbpf-compatible linux/btf.h

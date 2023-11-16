@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "static-web-server";
@@ -19,7 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-PXkKs0Q4IviihzWHob4BTvHLcql+cLLtZvNVt8IgvK0=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   checkFlags = [
     # TODO: investigate why these tests fail
@@ -31,7 +26,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "An asynchronus web server for static files-serving";
     homepage = "https://static-web-server.net/";
-    changelog = "https://github.com/static-web-server/static-web-server/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/static-web-server/static-web-server/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       mit # or
       asl20

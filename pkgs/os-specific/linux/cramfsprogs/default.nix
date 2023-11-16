@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "cramfsprogs";
@@ -27,7 +22,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ zlib ];
 
   meta = with lib; {
-    description = "Tools to create, check, and extract content of CramFs images";
+    description =
+      "Tools to create, check, and extract content of CramFs images";
     homepage = "https://packages.debian.org/jessie/cramfsprogs";
     license = licenses.gpl2;
     maintainers = with maintainers; [ pamplemousse ];

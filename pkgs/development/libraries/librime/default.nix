@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  glog,
-  leveldb,
-  marisa,
-  opencc,
-  yaml-cpp,
-  gtest,
-  capnproto,
-  pkg-config,
-  plugins ? [ ],
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, glog, leveldb, marisa, opencc
+, yaml-cpp, gtest, capnproto, pkg-config, plugins ? [ ] }:
 
 let
   copySinglePlugin = plug: "cp -r ${plug} plugins/${plug.name}";
@@ -21,8 +7,7 @@ let
     ${lib.concatMapStringsSep "\n" copySinglePlugin plugins}
     chmod +w -R plugins/*
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "librime";
   version = "1.8.5";
 
@@ -33,21 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FkkZIxSuqlFFOjABBpnE5ax2Vdo9tzP0prM7ATDIIdk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    boost
-    glog
-    leveldb
-    marisa
-    opencc
-    yaml-cpp
-    gtest
-    capnproto
-  ] ++ plugins; # for propagated build inputs
+  buildInputs = [ boost glog leveldb marisa opencc yaml-cpp gtest capnproto ]
+    ++ plugins; # for propagated build inputs
 
   preConfigure = copyPlugins;
 

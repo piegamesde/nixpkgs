@@ -1,14 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  pkg-config,
-  oniguruma,
-  stdenv,
-  darwin,
-  git,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config, oniguruma
+, stdenv, darwin, git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "delta";
@@ -23,38 +14,28 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-SNKbgEyelJCHKCaBRfCGc3RECGABtZzMC2rCbhzqZtU=";
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-  ];
+  nativeBuildInputs = [ installShellFiles pkg-config ];
 
-  buildInputs = [
-    oniguruma
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Foundation ];
+  buildInputs = [ oniguruma ] ++ lib.optionals stdenv.isDarwin
+    [ darwin.apple_sdk_11_0.frameworks.Foundation ];
 
   nativeCheckInputs = [ git ];
 
-  env = {
-    RUSTONIG_SYSTEM_LIBONIG = true;
-  };
+  env = { RUSTONIG_SYSTEM_LIBONIG = true; };
 
   postInstall = ''
     installShellCompletion --cmd delta \
       etc/completion/completion.{bash,fish,zsh}
   '';
 
-  checkFlags = lib.optionals stdenv.isDarwin [ "--skip=test_diff_same_non_empty_file" ];
+  checkFlags =
+    lib.optionals stdenv.isDarwin [ "--skip=test_diff_same_non_empty_file" ];
 
   meta = with lib; {
     homepage = "https://github.com/dandavison/delta";
     description = "A syntax-highlighting pager for git";
     changelog = "https://github.com/dandavison/delta/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      marsam
-      zowoq
-      SuperSandro2000
-      figsoda
-    ];
+    maintainers = with maintainers; [ marsam zowoq SuperSandro2000 figsoda ];
   };
 }

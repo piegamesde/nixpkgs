@@ -144,14 +144,7 @@
     version = "0.99.8";
   };
   pleaserun = {
-    dependencies = [
-      "cabin"
-      "clamp"
-      "dotenv"
-      "insist"
-      "mustache"
-      "stud"
-    ];
+    dependencies = [ "cabin" "clamp" "dotenv" "insist" "mustache" "stud" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -172,11 +165,7 @@
     version = "2.2.0.1";
   };
   ronn = {
-    dependencies = [
-      "hpricot"
-      "mustache"
-      "rdiscount"
-    ];
+    dependencies = [ "hpricot" "mustache" "rdiscount" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -187,10 +176,7 @@
     version = "0.7.3";
   };
   ruby-xz = {
-    dependencies = [
-      "ffi"
-      "io-like"
-    ];
+    dependencies = [ "ffi" "io-like" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

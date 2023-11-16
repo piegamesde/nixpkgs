@@ -1,18 +1,8 @@
-{
-  mkDerivation,
-  lib,
-  fetchurl,
-  qtbase,
-  qtsvg,
-  qttools,
-  qmake,
-}:
+{ mkDerivation, lib, fetchurl, qtbase, qtsvg, qttools, qmake }:
 
-let
-  inherit (lib) getDev;
-in
+let inherit (lib) getDev;
 
-mkDerivation rec {
+in mkDerivation rec {
   pname = "qt5ct";
   version = "1.5";
 
@@ -21,15 +11,9 @@ mkDerivation rec {
     sha256 = "sha256-1j0M4W4CQnIH2GUx9wpxxbnIUARN1bLcsihVMfQW5JA=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-  ];
+  nativeBuildInputs = [ qmake qttools ];
 
-  buildInputs = [
-    qtbase
-    qtsvg
-  ];
+  buildInputs = [ qtbase qtsvg ];
 
   qmakeFlags = [
     "LRELEASE_EXECUTABLE=${getDev qttools}/bin/lrelease"

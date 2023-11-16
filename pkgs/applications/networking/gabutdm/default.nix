@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  pkg-config,
-  cmake,
-  ninja,
-  vala,
-  wrapGAppsHook4,
-  desktop-file-utils,
-  sqlite,
-  libcanberra,
-  libsoup_3,
-  libgee,
-  json-glib,
-  qrencode,
-  curl,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, pkg-config, cmake, ninja, vala
+, wrapGAppsHook4, desktop-file-utils, sqlite, libcanberra, libsoup_3, libgee
+, json-glib, qrencode, curl }:
 
 stdenv.mkDerivation rec {
   pname = "gabutdm";
@@ -29,25 +13,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-ai5LsoK21XwXqL4LRuKsOR1/JV6LnP+1ZJ9fMHpj178=";
   };
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    cmake
-    ninja
-    vala
-    wrapGAppsHook4
-    desktop-file-utils
-  ];
+  nativeBuildInputs =
+    [ meson pkg-config cmake ninja vala wrapGAppsHook4 desktop-file-utils ];
 
-  buildInputs = [
-    sqlite
-    libcanberra
-    libsoup_3
-    libgee
-    json-glib
-    qrencode
-    curl
-  ];
+  buildInputs = [ sqlite libcanberra libsoup_3 libgee json-glib qrencode curl ];
 
   postPatch = ''
     substituteInPlace meson/post_install.py \

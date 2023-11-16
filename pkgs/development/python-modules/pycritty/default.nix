@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pycritty";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pycritty" ];
 
   meta = with lib; {
-    description = "A CLI tool for changing your alacritty configuration on the fly";
+    description =
+      "A CLI tool for changing your alacritty configuration on the fly";
     homepage = "https://github.com/antoniosarosi/pycritty";
     license = licenses.mit;
     maintainers = with maintainers; [ jperras ];

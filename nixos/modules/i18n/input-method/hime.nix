@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib; {
   config = mkIf (config.i18n.inputMethod.enabled == "hime") {

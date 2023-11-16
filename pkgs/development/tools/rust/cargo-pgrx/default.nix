@@ -1,18 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchCrate,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  Security,
-}:
+{ lib, stdenv, fetchCrate, rustPlatform, pkg-config, openssl, Security }:
 
 let
   pname = "cargo-pgrx";
   version = "0.9.5";
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   inherit version pname;
 
   src = fetchCrate {

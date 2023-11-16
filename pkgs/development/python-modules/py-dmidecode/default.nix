@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  dmidecode,
-}:
+{ lib, buildPythonPackage, fetchPypi, dmidecode }:
 
 buildPythonPackage rec {
   pname = "py-dmidecode";

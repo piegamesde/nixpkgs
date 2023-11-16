@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "corerad";
@@ -30,9 +25,7 @@ buildGoModule rec {
     )
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) corerad;
-  };
+  passthru.tests = { inherit (nixosTests) corerad; };
 
   meta = with lib; {
     homepage = "https://github.com/mdlayher/corerad";

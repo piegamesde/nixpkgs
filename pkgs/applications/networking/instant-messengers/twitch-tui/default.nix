@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "twitch-tui";
@@ -28,7 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Twitch chat in the terminal";
     homepage = "https://github.com/Xithrius/twitch-tui";
-    changelog = "https://github.com/Xithrius/twitch-tui/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Xithrius/twitch-tui/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = [ maintainers.taha ];
   };

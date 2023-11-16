@@ -1,33 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  dconf,
-  gtksourceview3,
-  at-spi2-core,
-  gtksourceviewmm,
-  boost,
-  libepoxy,
-  cmake,
-  aspell,
-  llvmPackages,
-  libgit2,
-  pkg-config,
-  pcre,
-  libXdmcp,
-  libxkbcommon,
-  libpthreadstubs,
-  wrapGAppsHook,
-  aspellDicts,
-  gtkmm3,
-  coreutils,
-  glibc,
-  dbus,
-  openssl,
-  libxml2,
-  gnumake,
-  ctags,
-}:
+{ lib, stdenv, fetchgit, dconf, gtksourceview3, at-spi2-core, gtksourceviewmm
+, boost, libepoxy, cmake, aspell, llvmPackages, libgit2, pkg-config, pcre
+, libXdmcp, libxkbcommon, libpthreadstubs, wrapGAppsHook, aspellDicts, gtkmm3
+, coreutils, glibc, dbus, openssl, libxml2, gnumake, ctags }:
 
 stdenv.mkDerivation rec {
   pname = "juicipp";
@@ -35,7 +9,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/cppit/jucipp";
-    description = "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version";
+    description =
+      "A lightweight, platform independent C++-IDE with support for C++11, C++14, and experimental C++17 features depending on libclang version";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ xnwdd ];
@@ -51,11 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "0xp6ijnrggskjrvscp204bmdpz48l5a8nxr9abp17wni6akb5wiq";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook cmake ];
   buildInputs = [
     dbus
     openssl
@@ -77,32 +48,23 @@ stdenv.mkDerivation rec {
     dconf
   ];
 
-  lintIncludes =
-    let
-      p = ''arguments.emplace_back("-I'';
-      e = ''");'';
-      v = lib.getVersion llvmPackages.clang;
-    in
-    p
-    + llvmPackages.libcxx.dev
-    + "/include/c++/v1"
-    + e
-    + p
-    + llvmPackages.clang-unwrapped.lib
-    + "/lib/clang/"
-    + v
-    + "/include/"
-    + e
-    + p
-    + glibc.dev
-    + "/include"
-    + e;
+  lintIncludes = let
+    p = ''arguments.emplace_back("-I'';
+    e = ''");'';
+    v = lib.getVersion llvmPackages.clang;
+  in p + llvmPackages.libcxx.dev + "/include/c++/v1" + e + p
+  + llvmPackages.clang-unwrapped.lib + "/lib/clang/" + v + "/include/" + e + p
+  + glibc.dev + "/include" + e;
 
   preConfigure = ''
     sed -i 's|liblldb LIBLLDB_LIBRARIES|liblldb LIBNOTHING|g' CMakeLists.txt
     sed -i 's|> arguments;|> arguments; ${lintIncludes}|g' src/source_clang.cc
   '';
-  cmakeFlags = [ "-DLIBLLDB_LIBRARIES=${lib.makeLibraryPath [ llvmPackages.lldb ]}/liblldb.so" ];
+  cmakeFlags = [
+    "-DLIBLLDB_LIBRARIES=${
+      lib.makeLibraryPath [ llvmPackages.lldb ]
+    }/liblldb.so"
+  ];
   postInstall = ''
     mv $out/bin/juci $out/bin/.juci
     makeWrapper "$out/bin/.juci" "$out/bin/juci" \
@@ -120,4 +82,5 @@ stdenv.mkDerivation rec {
       --set NO_AT_BRIDGE 1 \
       --set ASPELL_CONF "dict-dir ${aspellDicts.en}/lib/aspell"
   '';
+
 }

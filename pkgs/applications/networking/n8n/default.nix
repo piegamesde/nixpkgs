@@ -1,23 +1,14 @@
-{
-  pkgs,
-  stdenv,
-  lib,
-  nixosTests,
-}:
+{ pkgs, stdenv, lib, nixosTests }:
 
 let
   nodePackages = import ./node-composition.nix {
     inherit pkgs;
     inherit (stdenv.hostPlatform) system;
   };
-in
-nodePackages.n8n.override {
+in nodePackages.n8n.override {
   nativeBuildInputs = [ pkgs.nodePackages.node-pre-gyp ];
 
-  buildInputs = [
-    pkgs.postgresql
-    pkgs.libmongocrypt
-  ];
+  buildInputs = [ pkgs.postgresql pkgs.libmongocrypt ];
 
   # Oracle's official package on npm is binary only (WHY?!) and doesn't provide binaries for aarch64.
   # This can supposedly be fixed by building a custom copy of the module from source, but that's way
@@ -39,11 +30,9 @@ nodePackages.n8n.override {
   };
 
   meta = with lib; {
-    description = "Free and source-available fair-code licensed workflow automation tool. Easily automate tasks across different services.";
-    maintainers = with maintainers; [
-      freezeboy
-      k900
-    ];
+    description =
+      "Free and source-available fair-code licensed workflow automation tool. Easily automate tasks across different services.";
+    maintainers = with maintainers; [ freezeboy k900 ];
     license = {
       fullName = "Sustainable Use License";
       url = "https://github.com/n8n-io/n8n/blob/master/LICENSE.md";

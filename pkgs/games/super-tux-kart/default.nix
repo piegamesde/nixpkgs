@@ -1,32 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchsvn,
-  cmake,
-  pkg-config,
-  makeWrapper,
-  SDL2,
-  glew,
-  openal,
-  OpenAL,
-  libvorbis,
-  libogg,
-  curl,
-  freetype,
-  libjpeg,
-  libpng,
-  harfbuzz,
-  mcpp,
-  wiiuse,
-  angelscript,
-  libopenglrecorder,
-  sqlite,
-  Cocoa,
-  IOKit,
-  libsamplerate,
-  shaderc,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchsvn, cmake, pkg-config, makeWrapper, SDL2
+, glew, openal, OpenAL, libvorbis, libogg, curl, freetype, libjpeg, libpng
+, harfbuzz, mcpp, wiiuse, angelscript, libopenglrecorder, sqlite, Cocoa, IOKit
+, libsamplerate, shaderc }:
 let
   assets = fetchsvn {
     url = "https://svn.code.sf.net/p/supertuxkart/code/stk-assets";
@@ -65,8 +40,7 @@ let
     # Not packaged to this date (needed on Darwin)
     "mojoal"
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
 
   pname = "supertuxkart";
   version = "1.4";
@@ -90,31 +64,26 @@ stdenv.mkDerivation rec {
       --replace 'NOT (APPLE OR HAIKU)) AND USE_SYSTEM_WIIUSE' 'NOT (HAIKU)) AND USE_SYSTEM_WIIUSE'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
 
-  buildInputs =
-    [
-      shaderc
-      SDL2
-      glew
-      libvorbis
-      libogg
-      freetype
-      curl
-      libjpeg
-      libpng
-      harfbuzz
-      mcpp
-      wiiuse
-      angelscript
-      sqlite
-    ]
-    ++ lib.optional (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) libopenglrecorder
-    ++ lib.optional stdenv.hostPlatform.isLinux openal
+  buildInputs = [
+    shaderc
+    SDL2
+    glew
+    libvorbis
+    libogg
+    freetype
+    curl
+    libjpeg
+    libpng
+    harfbuzz
+    mcpp
+    wiiuse
+    angelscript
+    sqlite
+  ] ++ lib.optional
+    (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux)
+    libopenglrecorder ++ lib.optional stdenv.hostPlatform.isLinux openal
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       OpenAL
       IOKit
@@ -124,7 +93,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DBUILD_RECORDER=${
-      if (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) then "ON" else "OFF"
+      if (stdenv.hostPlatform.isWindows || stdenv.hostPlatform.isLinux) then
+        "ON"
+      else
+        "OFF"
     }"
     "-DUSE_SYSTEM_ANGELSCRIPT=ON"
     "-DCHECK_ASSETS=OFF"
@@ -155,11 +127,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://supertuxkart.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      pyrolagus
-      peterhoeg
-    ];
+    maintainers = with maintainers; [ pyrolagus peterhoeg ];
     platforms = with platforms; unix;
-    changelog = "https://github.com/supertuxkart/stk-code/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/supertuxkart/stk-code/blob/${version}/CHANGELOG.md";
   };
 }

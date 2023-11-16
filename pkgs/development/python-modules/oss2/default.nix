@@ -1,19 +1,6 @@
-{
-  lib,
-  aliyun-python-sdk-core,
-  aliyun-python-sdk-kms,
-  aliyun-python-sdk-sts,
-  buildPythonPackage,
-  crcmod,
-  fetchFromGitHub,
-  mock,
-  pycryptodome,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  requests,
-  six,
-}:
+{ lib, aliyun-python-sdk-core, aliyun-python-sdk-kms, aliyun-python-sdk-sts
+, buildPythonPackage, crcmod, fetchFromGitHub, mock, pycryptodome
+, pytestCheckHook, pythonOlder, pythonRelaxDepsHook, requests, six }:
 
 buildPythonPackage rec {
   pname = "oss2";
@@ -40,11 +27,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    aliyun-python-sdk-sts
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aliyun-python-sdk-sts mock pytestCheckHook ];
 
   pythonRelaxDeps = true;
 
@@ -103,7 +86,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Alibaba Cloud OSS SDK for Python";
     homepage = "https://github.com/aliyun/aliyun-oss-python-sdk";
-    changelog = "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
+    changelog =
+      "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

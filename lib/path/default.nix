@@ -2,23 +2,9 @@
 { lib }:
 let
 
-  inherit (builtins)
-    isString
-    isPath
-    split
-    match
-  ;
+  inherit (builtins) isString isPath split match;
 
-  inherit (lib.lists)
-    length
-    head
-    last
-    genList
-    elemAt
-    all
-    concatMap
-    foldl'
-  ;
+  inherit (lib.lists) length head last genList elemAt all concatMap foldl';
 
   inherit (lib.strings) concatStringsSep substring;
 
@@ -27,24 +13,26 @@ let
   inherit (lib.path.subpath) isValid;
 
   # Return the reason why a subpath is invalid, or `null` if it's valid
-  subpathInvalidReason =
-    value:
+  subpathInvalidReason = value:
     if !isString value then
-      "The given value is of type ${builtins.typeOf value}, but a string was expected"
+      "The given value is of type ${
+        builtins.typeOf value
+      }, but a string was expected"
     else if value == "" then
       "The given string is empty"
     else if substring 0 1 value == "/" then
-      ''The given string "${value}" starts with a `/`, representing an absolute path''
-    # We don't support ".." components, see ./path.md#parent-directory
+      ''
+        The given string "${value}" starts with a `/`, representing an absolute path''
+      # We don't support ".." components, see ./path.md#parent-directory
     else if match "(.*/)?\\.\\.(/.*)?" value != null then
-      ''The given string "${value}" contains a `..` component, which is not allowed in subpaths''
+      ''
+        The given string "${value}" contains a `..` component, which is not allowed in subpaths''
     else
       null;
 
   # Split and normalise a relative path string into its components.
   # Error for ".." components and doesn't include "." components
-  splitRelPath =
-    path:
+  splitRelPath = path:
     let
       # Split the string into its parts using regex for efficiency. This regex
       # matches patterns like "/", "/./", "/././", with arbitrarily many "/"s
@@ -73,37 +61,31 @@ let
       # We can now know the length of the result by removing the number of
       # skipped parts from the total number
       componentCount = partCount - skipEnd - skipStart;
-    in
-    # Special case of a single "." path component. Such a case leaves a
-    # componentCount of -1 due to the skipStart/skipEnd not verifying that
-    # they don't refer to the same character
-    if path == "." then
+
+      # Special case of a single "." path component. Such a case leaves a
+      # componentCount of -1 due to the skipStart/skipEnd not verifying that
+      # they don't refer to the same character
+    in if path == "." then
       [ ]
 
-    # Generate the result list directly. This is more efficient than a
-    # combination of `filter`, `init` and `tail`, because here we don't
-    # allocate any intermediate lists
+      # Generate the result list directly. This is more efficient than a
+      # combination of `filter`, `init` and `tail`, because here we don't
+      # allocate any intermediate lists
     else
-      genList
-        (
-          index:
-          # To get to the element we need to add the number of parts we skip and
-          # multiply by two due to the interleaved layout of `parts`
-          elemAt parts ((skipStart + index) * 2)
-        )
-        componentCount;
+      genList (index:
+        # To get to the element we need to add the number of parts we skip and
+        # multiply by two due to the interleaved layout of `parts`
+        elemAt parts ((skipStart + index) * 2)) componentCount;
 
   # Join relative path components together
-  joinRelPath =
-    components:
+  joinRelPath = components:
     # Always return relative paths with `./` as a prefix (./path.md#leading-dots-for-relative-paths)
-    "./"
-    +
-      # An empty string is not a valid relative path, so we need to return a `.` when we have no components
-      (if components == [ ] then "." else concatStringsSep "/" components);
-in
-# No rec! Add dependencies on this file at the top.
-{
+    "./" +
+    # An empty string is not a valid relative path, so we need to return a `.` when we have no components
+    (if components == [ ] then "." else concatStringsSep "/" components);
+
+  # No rec! Add dependencies on this file at the top.
+in {
 
   /* Append a subpath string to a path.
 
@@ -146,7 +128,9 @@ in
     # The subpath string to append
     subpath:
     assert assertMsg (isPath path)
-        "lib.path.append: The first argument is of type ${builtins.typeOf path}, but a path was expected";
+      "lib.path.append: The first argument is of type ${
+        builtins.typeOf path
+      }, but a path was expected";
     assert assertMsg (isValid subpath) ''
       lib.path.append: Second argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';
@@ -192,7 +176,8 @@ in
   */
   subpath.isValid =
     # The value to check
-    value: subpathInvalidReason value == null;
+    value:
+    subpathInvalidReason value == null;
 
   /* Join subpath strings together using `/`, returning a normalised subpath string.
 
@@ -257,21 +242,18 @@ in
     if all isValid subpaths then
       joinRelPath (concatMap splitRelPath subpaths)
     else
-      # Otherwise we take our time to gather more info for a better error message
-      # Strictly go through each path, throwing on the first invalid one
-      # Tracks the list index in the fold accumulator
-      foldl'
-        (
-          i: path:
-          if isValid path then
-            i + 1
-          else
-            throw ''
-              lib.path.subpath.join: Element at index ${toString i} is not a valid subpath string:
-                  ${subpathInvalidReason path}''
-        )
-        0
-        subpaths;
+    # Otherwise we take our time to gather more info for a better error message
+    # Strictly go through each path, throwing on the first invalid one
+    # Tracks the list index in the fold accumulator
+      foldl' (i: path:
+        if isValid path then
+          i + 1
+        else
+          throw ''
+            lib.path.subpath.join: Element at index ${
+              toString i
+            } is not a valid subpath string:
+                ${subpathInvalidReason path}'') 0 subpaths;
 
   /* Normalise a subpath. Throw an error if the subpath isn't valid, see
      `lib.path.subpath.isValid`
@@ -353,4 +335,5 @@ in
       lib.path.subpath.normalise: Argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';
     joinRelPath (splitRelPath subpath);
+
 }

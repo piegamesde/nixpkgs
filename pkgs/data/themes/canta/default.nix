@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gdk-pixbuf,
-  librsvg,
-  gtk-engine-murrine,
-  gtk3,
-  gnome,
-  gnome-icon-theme,
-  numix-icon-theme-circle,
-  hicolor-icon-theme,
-}:
+{ lib, stdenv, fetchFromGitHub, gdk-pixbuf, librsvg, gtk-engine-murrine, gtk3
+, gnome, gnome-icon-theme, numix-icon-theme-circle, hicolor-icon-theme }:
 
 stdenv.mkDerivation rec {
   pname = "canta-theme";
@@ -25,10 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  buildInputs = [
-    gdk-pixbuf
-    librsvg
-  ];
+  buildInputs = [ gdk-pixbuf librsvg ];
 
   propagatedBuildInputs = [
     gnome.adwaita-icon-theme

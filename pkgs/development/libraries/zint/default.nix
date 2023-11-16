@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  wrapQtAppsHook,
-  cmake,
-  qtbase,
-  qtsvg,
-  qttools,
-  testers,
-  zint,
-}:
+{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, qtbase, qtsvg, qttools
+, testers, zint }:
 
 stdenv.mkDerivation rec {
   pname = "zint";
@@ -22,21 +12,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-Ay6smir6zUpadmw1WpU+F7e9t7Gk3JNVtf2VVu92bDk=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    qttools
-  ];
+  buildInputs = [ qtbase qtsvg qttools ];
 
   cmakeFlags = [ "-DZINT_QT6:BOOL=ON" ];
 

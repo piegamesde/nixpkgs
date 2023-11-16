@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +7,7 @@ let
   cfg4 = config.services.dhcpd4;
   cfg6 = config.services.dhcpd6;
 
-  writeConfig =
-    postfix: cfg:
+  writeConfig = postfix: cfg:
     pkgs.writeText "dhcpd.conf" ''
       default-lease-time 600;
       max-lease-time 7200;
@@ -23,20 +17,22 @@ let
 
       ${cfg.extraConfig}
 
-      ${lib.concatMapStrings
-        (machine: ''
-          host ${machine.hostName} {
-            hardware ethernet ${machine.ethernetAddress};
-            fixed-address${optionalString (postfix == "6") postfix} ${machine.ipAddress};
-          }
-        '')
-        cfg.machines}
+      ${lib.concatMapStrings (machine: ''
+        host ${machine.hostName} {
+          hardware ethernet ${machine.ethernetAddress};
+          fixed-address${
+            optionalString (postfix == "6") postfix
+          } ${machine.ipAddress};
+        }
+      '') cfg.machines}
     '';
 
-  dhcpdService =
-    postfix: cfg:
+  dhcpdService = postfix: cfg:
     let
-      configFile = if cfg.configFile != null then cfg.configFile else writeConfig postfix cfg;
+      configFile = if cfg.configFile != null then
+        cfg.configFile
+      else
+        writeConfig postfix cfg;
       leaseFile = "/var/lib/dhcpd${postfix}/dhcpd.leases";
       args = [
         "@${pkgs.dhcp}/sbin/dhcpd"
@@ -49,8 +45,7 @@ let
         "-lf"
         leaseFile
       ] ++ cfg.extraFlags ++ cfg.interfaces;
-    in
-    optionalAttrs cfg.enable {
+    in optionalAttrs cfg.enable {
       "dhcpd${postfix}" = {
         description = "DHCPv${postfix} server";
         wantedBy = [ "multi-user.target" ];
@@ -75,37 +70,36 @@ let
       };
     };
 
-  machineOpts =
-    { ... }:
-    {
+  machineOpts = { ... }: {
 
-      options = {
+    options = {
 
-        hostName = mkOption {
-          type = types.str;
-          example = "foo";
-          description = lib.mdDoc ''
-            Hostname which is assigned statically to the machine.
-          '';
-        };
-
-        ethernetAddress = mkOption {
-          type = types.str;
-          example = "00:16:76:9a:32:1d";
-          description = lib.mdDoc ''
-            MAC address of the machine.
-          '';
-        };
-
-        ipAddress = mkOption {
-          type = types.str;
-          example = "192.168.1.10";
-          description = lib.mdDoc ''
-            IP address of the machine.
-          '';
-        };
+      hostName = mkOption {
+        type = types.str;
+        example = "foo";
+        description = lib.mdDoc ''
+          Hostname which is assigned statically to the machine.
+        '';
       };
+
+      ethernetAddress = mkOption {
+        type = types.str;
+        example = "00:16:76:9a:32:1d";
+        description = lib.mdDoc ''
+          MAC address of the machine.
+        '';
+      };
+
+      ipAddress = mkOption {
+        type = types.str;
+        example = "192.168.1.10";
+        description = lib.mdDoc ''
+          IP address of the machine.
+        '';
+      };
+
     };
+  };
 
   dhcpConfig = postfix: {
 
@@ -193,43 +187,19 @@ let
         IP address after changing subnets until their old lease has expired.
       '';
     };
-  };
-in
 
-{
+  };
+
+in {
 
   imports =
-    [
-      (mkRenamedOptionModule
-        [
-          "services"
-          "dhcpd"
-        ]
-        [
-          "services"
-          "dhcpd4"
-        ]
-      )
-    ]
-    ++ flip map
-      [
-        "4"
-        "6"
-      ]
-      (
-        postfix:
-        mkRemovedOptionModule
-          [
-            "services"
-            "dhcpd${postfix}"
-            "stateDir"
-          ]
-          ''
-            The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
-            This means the directory is named after the service (dhcpd${postfix}), created under
-            /var/lib/private/ and symlinked to /var/lib/.
-          ''
-      );
+    [ (mkRenamedOptionModule [ "services" "dhcpd" ] [ "services" "dhcpd4" ]) ]
+    ++ flip map [ "4" "6" ] (postfix:
+      mkRemovedOptionModule [ "services" "dhcpd${postfix}" "stateDir" ] ''
+        The DHCP server state directory is now managed with the systemd's DynamicUser mechanism.
+        This means the directory is named after the service (dhcpd${postfix}), created under
+        /var/lib/private/ and symlinked to /var/lib/.
+      '');
 
   ###### interface
 
@@ -237,6 +207,7 @@ in
 
     services.dhcpd4 = dhcpConfig "4";
     services.dhcpd6 = dhcpConfig "6";
+
   };
 
   ###### implementation
@@ -245,12 +216,11 @@ in
 
     systemd.services = dhcpdService "4" cfg4 // dhcpdService "6" cfg6;
 
-    warnings = [
-      ''
-        The dhcpd4 and dhcpd6 modules will be removed from NixOS 23.11, because ISC DHCP reached its end of life.
-        See https://www.isc.org/blogs/isc-dhcp-eol/ for details.
-        Please switch to a different implementation like kea, systemd-networkd or dnsmasq.
-      ''
-    ];
+    warnings = [''
+      The dhcpd4 and dhcpd6 modules will be removed from NixOS 23.11, because ISC DHCP reached its end of life.
+      See https://www.isc.org/blogs/isc-dhcp-eol/ for details.
+      Please switch to a different implementation like kea, systemd-networkd or dnsmasq.
+    ''];
   };
+
 }

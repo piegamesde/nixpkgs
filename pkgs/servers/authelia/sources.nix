@@ -1,5 +1,4 @@
-{ fetchFromGitHub }:
-rec {
+{ fetchFromGitHub }: rec {
   pname = "authelia";
   version = "4.37.5";
 

@@ -1,24 +1,7 @@
-{
-  lib,
-  asdf-standard,
-  asdf-transform-schemas,
-  astropy,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  importlib-resources,
-  jmespath,
-  jsonschema,
-  lz4,
-  numpy,
-  packaging,
-  pytest-astropy,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  semantic-version,
-  setuptools-scm,
-}:
+{ lib, asdf-standard, asdf-transform-schemas, astropy, buildPythonPackage
+, fetchFromGitHub, fetchpatch, importlib-resources, jmespath, jsonschema, lz4
+, numpy, packaging, pytest-astropy, pytestCheckHook, pythonOlder, pyyaml
+, semantic-version, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "asdf";
@@ -36,16 +19,16 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  patches =
-    [
-      # Fix default validation, https://github.com/asdf-format/asdf/pull/1203
-      (fetchpatch {
-        name = "default-validation.patch";
-        url = "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
-        hash = "sha256-h/dYhXRCf5oIIC+u6+8C91mJnmEzuNmlEzqc0UEhLy0=";
-        excludes = [ "CHANGES.rst" ];
-      })
-    ];
+  patches = [
+    # Fix default validation, https://github.com/asdf-format/asdf/pull/1203
+    (fetchpatch {
+      name = "default-validation.patch";
+      url =
+        "https://github.com/asdf-format/asdf/commit/6f79f620b4632e20178d9bd53528702605d3e976.patch";
+      hash = "sha256-h/dYhXRCf5oIIC+u6+8C91mJnmEzuNmlEzqc0UEhLy0=";
+      excludes = [ "CHANGES.rst" ];
+    })
+  ];
 
   postPatch = ''
     # https://github.com/asdf-format/asdf/pull/1203
@@ -66,12 +49,7 @@ buildPythonPackage rec {
     semantic-version
   ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [
-    astropy
-    lz4
-    pytest-astropy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ astropy lz4 pytest-astropy pytestCheckHook ];
 
   preCheck = ''
     export PY_IGNORE_IMPORTMISMATCH=1

@@ -1,21 +1,8 @@
-{
-  lib,
-  buildGoModule,
-  buildGo120Module,
-  fetchFromGitHub,
-  nixosTests,
-  installShellFiles,
-}:
+{ lib, buildGoModule, buildGo120Module, fetchFromGitHub, nixosTests
+, installShellFiles }:
 
 let
-  generic =
-    {
-      buildGoModule,
-      version,
-      sha256,
-      vendorSha256,
-      ...
-    }@attrs:
+  generic = { buildGoModule, version, sha256, vendorSha256, ... }@attrs:
     let
       attrs' = builtins.removeAttrs attrs [
         "buildGoModule"
@@ -23,50 +10,46 @@ let
         "sha256"
         "vendorSha256"
       ];
-    in
-    buildGoModule (
-      rec {
-        pname = "nomad";
-        inherit version vendorSha256;
+    in buildGoModule (rec {
+      pname = "nomad";
+      inherit version vendorSha256;
 
-        subPackages = [ "." ];
+      subPackages = [ "." ];
 
-        src = fetchFromGitHub {
-          owner = "hashicorp";
-          repo = pname;
-          rev = "v${version}";
-          inherit sha256;
-        };
+      src = fetchFromGitHub {
+        owner = "hashicorp";
+        repo = pname;
+        rev = "v${version}";
+        inherit sha256;
+      };
 
-        nativeBuildInputs = [ installShellFiles ];
+      nativeBuildInputs = [ installShellFiles ];
 
-        # ui:
-        #  Nomad release commits include the compiled version of the UI, but the file
-        #  is only included if we build with the ui tag.
-        tags = [ "ui" ];
+      # ui:
+      #  Nomad release commits include the compiled version of the UI, but the file
+      #  is only included if we build with the ui tag.
+      tags = [ "ui" ];
 
-        postInstall = ''
-          echo "complete -C $out/bin/nomad nomad" > nomad.bash
-          installShellCompletion nomad.bash
-        '';
+      postInstall = ''
+        echo "complete -C $out/bin/nomad nomad" > nomad.bash
+        installShellCompletion nomad.bash
+      '';
 
-        meta = with lib; {
-          homepage = "https://www.nomadproject.io/";
-          description = "A Distributed, Highly Available, Datacenter-Aware Scheduler";
-          license = licenses.mpl20;
-          maintainers = with maintainers; [
-            rushmorem
-            pradeepchhetri
-            endocrimes
-            maxeaubrey
-            techknowlogick
-          ];
-        };
-      }
-      // attrs'
-    );
-in
-rec {
+      meta = with lib; {
+        homepage = "https://www.nomadproject.io/";
+        description =
+          "A Distributed, Highly Available, Datacenter-Aware Scheduler";
+        license = licenses.mpl20;
+        maintainers = with maintainers; [
+          rushmorem
+          pradeepchhetri
+          endocrimes
+          maxeaubrey
+          techknowlogick
+        ];
+      };
+    } // attrs');
+in rec {
   # Nomad never updates major go versions within a release series and is unsupported
   # on Go versions that it did not ship with. Due to historic bugs when compiled
   # with different versions we pin Go for all versions.

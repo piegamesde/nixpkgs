@@ -1,24 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.woodpecker-server;
-in
-{
-  meta.maintainers = with lib.maintainers; [
-    janik
-    ambroisie
-  ];
+let cfg = config.services.woodpecker-server;
+in {
+  meta.maintainers = with lib.maintainers; [ janik ambroisie ];
 
   options = {
     services.woodpecker-server = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc
+        "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests");
       package = lib.mkPackageOptionMD pkgs "woodpecker-server" { };
       environment = lib.mkOption {
         default = { };
@@ -32,9 +21,8 @@ in
             WOODPECKER_GITEA_URL = "https://git.example.com";
           }
         '';
-        description =
-          lib.mdDoc
-            "woodpecker-server config environment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)";
+        description = lib.mdDoc
+          "woodpecker-server config environment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)";
       };
       environmentFile = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
@@ -67,7 +55,8 @@ in
           StateDirectoryMode = "0700";
           UMask = "0007";
           ConfigurationDirectory = "woodpecker-server";
-          EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+          EnvironmentFile =
+            lib.optional (cfg.environmentFile != null) cfg.environmentFile;
           ExecStart = "${cfg.package}/bin/woodpecker-server";
           Restart = "on-failure";
           RestartSec = 15;
@@ -94,10 +83,12 @@ in
           PrivateMounts = true;
           # System Call Filtering
           SystemCallArchitectures = "native";
-          SystemCallFilter = "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
+          SystemCallFilter =
+            "~@clock @privileged @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @reboot @setuid @swap";
         };
         inherit (cfg) environment;
       };
     };
   };
 }
+

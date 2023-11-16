@@ -1,9 +1,5 @@
 { lib, ... }:
-{
-  ip4,
-  ip6,
-  extraConfig,
-}:
+{ ip4, ip6, extraConfig }:
 lib.mkMerge [
   {
     boot.kernel.sysctl = {
@@ -14,18 +10,14 @@ lib.mkMerge [
 
     networking.useDHCP = false;
     networking.interfaces.eth1 = {
-      ipv4.addresses = [
-        {
-          address = ip4;
-          prefixLength = 24;
-        }
-      ];
-      ipv6.addresses = [
-        {
-          address = ip6;
-          prefixLength = 64;
-        }
-      ];
+      ipv4.addresses = [{
+        address = ip4;
+        prefixLength = 24;
+      }];
+      ipv6.addresses = [{
+        address = ip6;
+        prefixLength = 64;
+      }];
     };
   }
   extraConfig

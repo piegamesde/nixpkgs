@@ -1,11 +1,6 @@
 # This module defines global configuration for Haka.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -23,7 +18,8 @@ let
       else
         "${haka}/share/haka/sample/${cfg.configFile}"
     }
-    ${optionalString (builtins.lessThan 0 cfg.threads) "thread = ${cfg.threads}"}
+    ${optionalString (builtins.lessThan 0 cfg.threads)
+    "thread = ${cfg.threads}"}
 
     [packet]
     ${optionalString cfg.pcap ''module = "packet/pcap"''}
@@ -51,9 +47,8 @@ let
     # alert/file module option
     #file = "/dev/null"
   '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -116,14 +111,16 @@ in
         default = "/tmp/input.pcap";
         example = "/path/to/file.pcap";
         type = types.path;
-        description = lib.mdDoc "Path to file where incoming packets are dumped";
+        description =
+          lib.mdDoc "Path to file where incoming packets are dumped";
       };
 
       dump.output = mkOption {
         default = "/tmp/output.pcap";
         example = "/path/to/file.pcap";
         type = types.path;
-        description = lib.mdDoc "Path to file where outgoing packets are dumped";
+        description =
+          lib.mdDoc "Path to file where outgoing packets are dumped";
       };
     };
   };

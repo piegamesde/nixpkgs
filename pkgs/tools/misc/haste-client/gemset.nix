@@ -199,10 +199,7 @@
     version = "0.17.3";
   };
   haste = {
-    dependencies = [
-      "faraday"
-      "json"
-    ];
+    dependencies = [ "faraday" "json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

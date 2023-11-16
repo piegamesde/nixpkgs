@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "libroxml";
@@ -14,7 +10,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "This library is minimum, easy-to-use, C implementation for xml file parsing";
+    description =
+      "This library is minimum, easy-to-use, C implementation for xml file parsing";
     homepage = "https://www.libroxml.net/";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ mpickering ];

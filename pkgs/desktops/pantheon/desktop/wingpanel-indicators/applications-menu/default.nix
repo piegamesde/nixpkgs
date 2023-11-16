@@ -1,29 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  substituteAll,
-  meson,
-  ninja,
-  python3,
-  pkg-config,
-  vala,
-  granite,
-  libgee,
-  gettext,
-  gtk3,
-  gnome-menus,
-  json-glib,
-  elementary-dock,
-  bamf,
-  switchboard-with-plugs,
-  libsoup,
-  wingpanel,
-  zeitgeist,
-  bc,
-  libhandy,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, substituteAll, meson, ninja
+, python3, pkg-config, vala, granite, libgee, gettext, gtk3, gnome-menus
+, json-glib, elementary-dock, bamf, switchboard-with-plugs, libsoup, wingpanel
+, zeitgeist, bc, libhandy }:
 
 stdenv.mkDerivation rec {
   pname = "wingpanel-applications-menu";
@@ -43,30 +21,21 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    gettext
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-  ];
+  nativeBuildInputs = [ gettext meson ninja pkg-config python3 vala ];
 
-  buildInputs =
-    [
-      bamf
-      elementary-dock
-      granite
-      gtk3
-      json-glib
-      libgee
-      libhandy
-      libsoup
-      switchboard-with-plugs
-      wingpanel
-      zeitgeist
-    ]
-    ++
+  buildInputs = [
+    bamf
+    elementary-dock
+    granite
+    gtk3
+    json-glib
+    libgee
+    libhandy
+    libsoup
+    switchboard-with-plugs
+    wingpanel
+    zeitgeist
+  ] ++
     # applications-menu has a plugin to search switchboard plugins
     # see https://github.com/NixOS/nixpkgs/issues/100209
     # wingpanel's wrapper will need to pick up the fact that
@@ -83,9 +52,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Lightweight and stylish app launcher for Pantheon";

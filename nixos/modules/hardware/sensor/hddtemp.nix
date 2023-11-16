@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkIf mkOption types;
 
@@ -14,10 +9,13 @@ let
 
     file=/var/lib/hddtemp/hddtemp.db
 
-    drives=(${toString (map (e: "$(realpath ${lib.escapeShellArg e}) ") cfg.drives)})
+    drives=(${
+      toString (map (e: "$(realpath ${lib.escapeShellArg e}) ") cfg.drives)
+    })
 
     cp ${pkgs.hddtemp}/share/hddtemp/hddtemp.db $file
-    ${lib.concatMapStringsSep "\n" (e: "echo ${lib.escapeShellArg e} >> $file") cfg.dbEntries}
+    ${lib.concatMapStringsSep "\n" (e: "echo ${lib.escapeShellArg e} >> $file")
+    cfg.dbEntries}
 
     exec ${pkgs.hddtemp}/bin/hddtemp ${lib.escapeShellArgs cfg.extraArgs} \
       --daemon \
@@ -25,8 +23,8 @@ let
       --file=$file \
       ''${drives[@]}
   '';
-in
-{
+
+in {
   meta.maintainers = with lib.maintainers; [ peterhoeg ];
 
   ###### interface
@@ -42,18 +40,14 @@ in
       };
 
       drives = mkOption {
-        description =
-          lib.mdDoc
-            "List of drives to monitor. If you pass /dev/disk/by-path/* entries the symlinks will be resolved as hddtemp doesn't like names with colons.";
+        description = lib.mdDoc
+          "List of drives to monitor. If you pass /dev/disk/by-path/* entries the symlinks will be resolved as hddtemp doesn't like names with colons.";
         type = types.listOf types.str;
       };
 
       unit = mkOption {
         description = lib.mdDoc "Celsius or Fahrenheit";
-        type = types.enum [
-          "C"
-          "F"
-        ];
+        type = types.enum [ "C" "F" ];
         default = "C";
       };
 

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  googleapis-common-protos,
-  grpcio,
-  protobuf,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, googleapis-common-protos, grpcio, protobuf
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "grpcio-status";
@@ -25,11 +18,7 @@ buildPythonPackage rec {
       --replace 'protobuf>=4.21.6' 'protobuf'
   '';
 
-  propagatedBuildInputs = [
-    googleapis-common-protos
-    grpcio
-    protobuf
-  ];
+  propagatedBuildInputs = [ googleapis-common-protos grpcio protobuf ];
 
   # Projec thas no tests
   doCheck = false;
@@ -38,7 +27,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "GRPC Python status proto mapping";
-    homepage = "https://github.com/grpc/grpc/tree/master/src/python/grpcio_status";
+    homepage =
+      "https://github.com/grpc/grpc/tree/master/src/python/grpcio_status";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

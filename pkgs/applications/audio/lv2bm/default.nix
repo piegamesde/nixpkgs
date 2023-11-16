@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glib,
-  libsndfile,
-  lilv,
-  lv2,
-  pkg-config,
-  serd,
-  sord,
-  sratom,
-}:
+{ lib, stdenv, fetchFromGitHub, glib, libsndfile, lilv, lv2, pkg-config, serd
+, sord, sratom }:
 
 stdenv.mkDerivation rec {
   pname = "lv2bm";
@@ -24,15 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    glib
-    libsndfile
-    lilv
-    lv2
-    serd
-    sord
-    sratom
-  ];
+  buildInputs = [ glib libsndfile lilv lv2 serd sord sratom ];
 
   installPhase = ''
     make install PREFIX=$out

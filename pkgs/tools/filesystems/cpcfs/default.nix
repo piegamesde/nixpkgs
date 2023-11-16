@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  ncurses,
-  readline,
-  ronn,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, ncurses, readline, ronn }:
 
 stdenv.mkDerivation rec {
 
@@ -22,12 +14,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/src";
 
-  nativeBuildInputs = [
-    makeWrapper
-    ncurses
-    readline
-    ronn
-  ];
+  nativeBuildInputs = [ makeWrapper ncurses readline ronn ];
 
   postPatch = ''
     substituteInPlace Makefile \

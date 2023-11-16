@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config }:
 stdenv.mkDerivation rec {
   pname = "libuinputplus";
   version = "2021-04-02";
@@ -20,10 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0sind2ghhy4h9kfkr5hsmhcq0di4ifwqyv4gac96rgj5mwvs33lp";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   meta = with lib; {
     inherit (src.meta) homepage;

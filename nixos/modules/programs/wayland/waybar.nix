@@ -1,16 +1,9 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.waybar;
-in
-{
+let cfg = config.programs.waybar;
+in {
   options.programs.waybar = {
     enable = mkEnableOption (lib.mdDoc "waybar");
     package = mkPackageOptionMD pkgs "waybar" { };

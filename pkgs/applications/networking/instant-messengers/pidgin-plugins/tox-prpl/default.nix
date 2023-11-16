@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libtoxcore,
-  pidgin,
-  autoreconfHook,
-  libsodium,
-}:
+{ lib, stdenv, fetchFromGitHub, libtoxcore, pidgin, autoreconfHook, libsodium }:
 
 stdenv.mkDerivation rec {
   pname = "tox-prpl";
@@ -23,11 +15,7 @@ stdenv.mkDerivation rec {
 
   postInstall = "mv $out/lib/purple-2 $out/lib/pidgin";
 
-  buildInputs = [
-    libtoxcore
-    pidgin
-    libsodium
-  ];
+  buildInputs = [ libtoxcore pidgin libsodium ];
   nativeBuildInputs = [ autoreconfHook ];
 
   meta = with lib; {

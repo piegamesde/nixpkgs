@@ -1,15 +1,5 @@
-{
-  lib,
-  attrs,
-  boltons,
-  buildPythonPackage,
-  face,
-  fetchPypi,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, attrs, boltons, buildPythonPackage, face, fetchPypi, pytestCheckHook
+, pythonAtLeast, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "glom";
@@ -28,31 +18,22 @@ buildPythonPackage rec {
       --replace "face==20.1.1" "face"
   '';
 
-  propagatedBuildInputs = [
-    boltons
-    attrs
-    face
-  ];
+  propagatedBuildInputs = [ boltons attrs face ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ];
 
   preCheck = ''
     # test_cli.py checks the output of running "glom"
     export PATH=$out/bin:$PATH
   '';
 
-  disabledTests =
-    [
-      # Test is outdated (was made for PyYAML 3.x)
-      "test_main_yaml_target"
-    ]
-    ++ lib.optionals (pythonAtLeast "3.11") [
-      "test_regular_error_stack"
-      "test_long_target_repr"
-    ];
+  disabledTests = [
+    # Test is outdated (was made for PyYAML 3.x)
+    "test_main_yaml_target"
+  ] ++ lib.optionals (pythonAtLeast "3.11") [
+    "test_regular_error_stack"
+    "test_long_target_repr"
+  ];
 
   pythonImportsCheck = [ "glom" ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  pythonPackages,
-  mopidy,
-}:
+{ lib, fetchFromGitHub, pythonPackages, mopidy }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-spotify";
@@ -16,10 +11,7 @@ pythonPackages.buildPythonApplication rec {
     hash = "sha256-4e9Aj0AOFR4/FK54gr1ZyPt0nYZDMrMetV4FPtBxapU=";
   };
 
-  propagatedBuildInputs = [
-    mopidy
-    pythonPackages.responses
-  ];
+  propagatedBuildInputs = [ mopidy pythonPackages.responses ];
 
   nativeBuildInputs = [ pythonPackages.pytestCheckHook ];
 

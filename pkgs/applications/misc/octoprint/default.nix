@@ -1,16 +1,7 @@
-{
-  pkgs,
-  stdenv,
-  callPackage,
-  lib,
-  fetchFromGitHub,
-  python3,
-  substituteAll,
-  nix-update-script,
-  nixosTests,
-  # To include additional plugins, pass them here as an overlay.
-  packageOverrides ? self: super: { },
-}:
+{ pkgs, stdenv, callPackage, lib, fetchFromGitHub, python3, substituteAll
+, nix-update-script, nixosTests
+# To include additional plugins, pass them here as an overlay.
+, packageOverrides ? self: super: { } }:
 let
 
   py = python3.override {
@@ -82,8 +73,7 @@ let
             hash = "sha256-gTWQSqgksZMxdaZ7V3hmnqXlZ+OMI86RX0lC8z1AEzI=";
           };
 
-          propagatedBuildInputs =
-            with self;
+          propagatedBuildInputs = with self;
             [
               argon2-cffi
               blinker
@@ -135,14 +125,9 @@ let
               zipstream-ng
               class-doc
               pydantic
-            ]
-            ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
+            ] ++ lib.optionals stdenv.isDarwin [ py.pkgs.appdirs ];
 
-          nativeCheckInputs = with self; [
-            ddt
-            mock
-            pytestCheckHook
-          ];
+          nativeCheckInputs = with self; [ ddt mock pytestCheckHook ];
 
           patches = [
             # substitute pip and let it find out, that it can't write anywhere
@@ -158,33 +143,33 @@ let
             })
           ];
 
-          postPatch =
-            let
-              ignoreVersionConstraints = [
-                "cachelib"
-                "colorlog"
-                "emoji"
-                "immutabledict"
-                "PyYAML"
-                "sarge"
-                "sentry-sdk"
-                "watchdog"
-                "wrapt"
-                "zeroconf"
-                "Flask-Login"
-                "werkzeug"
-                "flask"
-                "Flask-Limiter"
-                "blinker"
-              ];
-            in
-            ''
-              sed -r -i \
-                ${
-                  lib.concatStringsSep "\n" (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints)
-                }
-                setup.py
-            '';
+          postPatch = let
+            ignoreVersionConstraints = [
+              "cachelib"
+              "colorlog"
+              "emoji"
+              "immutabledict"
+              "PyYAML"
+              "sarge"
+              "sentry-sdk"
+              "watchdog"
+              "wrapt"
+              "zeroconf"
+              "Flask-Login"
+              "werkzeug"
+              "flask"
+              "Flask-Limiter"
+              "blinker"
+            ];
+          in ''
+            sed -r -i \
+              ${
+                lib.concatStringsSep "\n"
+                (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'')
+                  ignoreVersionConstraints)
+              }
+              setup.py
+          '';
 
           dontUseSetuptoolsCheck = true;
 
@@ -195,7 +180,8 @@ let
 
           disabledTests = [
             "test_check_setup" # Why should it be able to call pip?
-          ] ++ lib.optionals stdenv.isDarwin [ "test_set_external_modification" ];
+          ] ++ lib.optionals stdenv.isDarwin
+            [ "test_set_external_modification" ];
 
           passthru = {
             inherit (self) python;
@@ -223,6 +209,4 @@ let
       packageOverrides
     ]);
   };
-in
-with py.pkgs;
-toPythonApplication octoprint
+in with py.pkgs; toPythonApplication octoprint

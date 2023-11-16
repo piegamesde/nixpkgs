@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  d2to1,
-}:
+{ lib, buildPythonPackage, fetchPypi, d2to1 }:
 
 buildPythonPackage rec {
   pname = "colour";
@@ -17,7 +12,8 @@ buildPythonPackage rec {
   buildInputs = [ d2to1 ];
 
   meta = with lib; {
-    description = "Converts and manipulates common color representation (RGB, HSV, web, ...)";
+    description =
+      "Converts and manipulates common color representation (RGB, HSV, web, ...)";
     homepage = "https://github.com/vaab/colour";
     license = licenses.bsd2;
   };

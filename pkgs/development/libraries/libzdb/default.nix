@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  sqlite,
-}:
+{ lib, stdenv, fetchurl, sqlite }:
 
 stdenv.mkDerivation rec {
   version = "3.2.3";
@@ -18,7 +13,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://www.tildeslash.com/libzdb/";
-    description = "A small, easy to use Open Source Database Connection Pool Library";
+    description =
+      "A small, easy to use Open Source Database Connection Pool Library";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
     maintainers = [ ];

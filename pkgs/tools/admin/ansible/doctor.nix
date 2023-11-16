@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ansible-doctor";
@@ -23,10 +19,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     anyconfig
@@ -53,7 +46,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Annotation based documentation for your Ansible roles";
     homepage = "https://github.com/thegeeklab/ansible-doctor";
-    changelog = "https://github.com/thegeeklab/ansible-doctor/releases/tag/v${version}";
+    changelog =
+      "https://github.com/thegeeklab/ansible-doctor/releases/tag/v${version}";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ tboerger ];
   };

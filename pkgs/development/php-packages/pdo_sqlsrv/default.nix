@@ -1,11 +1,4 @@
-{
-  stdenv,
-  buildPecl,
-  lib,
-  libiconv,
-  unixODBC,
-  php,
-}:
+{ stdenv, buildPecl, lib, libiconv, unixODBC, php }:
 
 buildPecl {
   pname = "pdo_sqlsrv";

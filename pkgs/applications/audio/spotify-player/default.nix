@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  cmake,
-  alsa-lib,
-  dbus,
-  fontconfig,
-  libsixel,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, cmake, alsa-lib, dbus
+, fontconfig, libsixel }:
 
 rustPlatform.buildRustPackage rec {
   pname = "spotify-player";
@@ -24,18 +14,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-WgQ+v9dJyriqq7+WpXpPhjdwm2Sr0jozA1oW2inSPik=";
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
-  buildInputs = [
-    openssl
-    alsa-lib
-    dbus
-    fontconfig
-    libsixel
-  ];
+  buildInputs = [ openssl alsa-lib dbus fontconfig libsixel ];
 
   buildNoDefaultFeatures = true;
 
@@ -53,7 +34,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A command driven spotify player";
     homepage = "https://github.com/aome510/spotify-player";
-    changelog = "https://github.com/aome510/spotify-player/releases/tag/v${version}";
+    changelog =
+      "https://github.com/aome510/spotify-player/releases/tag/v${version}";
     mainProgram = "spotify_player";
     license = licenses.mit;
     maintainers = with maintainers; [ dit7ya ];

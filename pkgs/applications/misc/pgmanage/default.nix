@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-  openssl,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql, openssl, nixosTests }:
 stdenv.mkDerivation rec {
   pname = "pgmanage";
   # The last release 11.0.1 from 2018 fails the NixOS test
@@ -28,10 +21,7 @@ stdenv.mkDerivation rec {
     ./configure --prefix $out
   '';
 
-  buildInputs = [
-    postgresql
-    openssl
-  ];
+  buildInputs = [ postgresql openssl ];
 
   passthru.tests.sign-in = nixosTests.pgmanage;
 

@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.sundtek;
-in
-{
+let cfg = config.services.sundtek;
+
+in {
   options.services.sundtek = {
     enable = mkEnableOption (lib.mdDoc "Sundtek driver");
   };

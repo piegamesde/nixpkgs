@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  flit-core,
-  polib,
-  click,
-}:
+{ lib, fetchPypi, buildPythonPackage, flit-core, polib, click }:
 
 buildPythonPackage rec {
   pname = "lingua";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    click
-    polib
-  ];
+  propagatedBuildInputs = [ click polib ];
 
   pythonImportsCheck = [ "lingua" ];
 

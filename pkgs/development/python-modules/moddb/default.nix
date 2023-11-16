@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonRelaxDepsHook,
-  beautifulsoup4,
-  pyrate-limiter,
-  requests,
-  toolz,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonRelaxDepsHook, beautifulsoup4
+, pyrate-limiter, requests, toolz }:
 
 buildPythonPackage rec {
   pname = "moddb";
@@ -23,12 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    pyrate-limiter
-    requests
-    toolz
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 pyrate-limiter requests toolz ];
 
   pythonRelaxDeps = true;
 
@@ -37,7 +24,8 @@ buildPythonPackage rec {
   doCheck = false; # Tests try to access the internet.
 
   meta = with lib; {
-    description = "A Python scrapper to access ModDB mods, games and more as objects";
+    description =
+      "A Python scrapper to access ModDB mods, games and more as objects";
     homepage = "https://github.com/ClementJ18/moddb";
     license = licenses.mit;
     maintainers = with maintainers; [ kranzes ];

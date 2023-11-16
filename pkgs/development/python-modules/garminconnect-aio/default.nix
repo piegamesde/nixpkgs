@@ -1,11 +1,4 @@
-{
-  lib,
-  aiohttp,
-  brotlipy,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  yarl,
+{ lib, aiohttp, brotlipy, buildPythonPackage, fetchFromGitHub, pythonOlder, yarl
 }:
 
 buildPythonPackage rec {
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-GWY2kTG2D+wOJqM/22pNV5rLvWjAd4jxVGlHBou/T2g=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    brotlipy
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp brotlipy yarl ];
 
   # Project has no tests
   doCheck = false;

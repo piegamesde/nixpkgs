@@ -45,7 +45,8 @@ with lib;
     systemd.services.systemd-timesyncd = {
       wantedBy = [ "sysinit.target" ];
       aliases = [ "dbus-org.freedesktop.timesync1.service" ];
-      restartTriggers = [ config.environment.etc."systemd/timesyncd.conf".source ];
+      restartTriggers =
+        [ config.environment.etc."systemd/timesyncd.conf".source ];
     };
 
     environment.etc."systemd/timesyncd.conf".text = ''
@@ -82,4 +83,5 @@ with lib;
         fi
       '';
   };
+
 }

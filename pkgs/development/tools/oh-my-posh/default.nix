@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "oh-my-posh";
@@ -22,17 +17,9 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
 
-  tags = [
-    "netgo"
-    "osusergo"
-    "static_build"
-  ];
+  tags = [ "netgo" "osusergo" "static_build" ];
 
   postPatch = ''
     # these tests requires internet access
@@ -52,11 +39,9 @@ buildGoModule rec {
   meta = with lib; {
     description = "A prompt theme engine for any shell";
     homepage = "https://ohmyposh.dev";
-    changelog = "https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v${version}";
+    changelog =
+      "https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      lucperkins
-      urandom
-    ];
+    maintainers = with maintainers; [ lucperkins urandom ];
   };
 }

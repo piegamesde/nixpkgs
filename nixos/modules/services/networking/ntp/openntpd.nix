@@ -1,10 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  options,
-  ...
-}:
+{ pkgs, lib, config, options, ... }:
 
 with lib;
 
@@ -19,8 +13,8 @@ let
   '';
 
   pidFile = "/run/openntpd.pid";
-in
-{
+
+in {
   ###### interface
 
   options.services.openntpd = {
@@ -77,16 +71,9 @@ in
     systemd.services.openntpd = {
       description = "OpenNTP Server";
       wantedBy = [ "multi-user.target" ];
-      wants = [
-        "network-online.target"
-        "time-sync.target"
-      ];
+      wants = [ "network-online.target" "time-sync.target" ];
       before = [ "time-sync.target" ];
-      after = [
-        "dnsmasq.service"
-        "bind.service"
-        "network-online.target"
-      ];
+      after = [ "dnsmasq.service" "bind.service" "network-online.target" ];
       serviceConfig = {
         ExecStart = "${package}/sbin/ntpd -p ${pidFile} ${cfg.extraOptions}";
         Type = "forking";

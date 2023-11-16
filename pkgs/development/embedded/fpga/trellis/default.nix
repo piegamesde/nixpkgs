@@ -1,18 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  boost,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, boost, cmake }:
 
 let
   rev = "488f4e71073062de314c55a037ede7cf03a3324c";
   # git describe --tags
   realVersion = "1.2.1-14-g${builtins.substring 0 7 rev}";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "trellis";
   version = "unstable-2022-09-14";
 
@@ -36,10 +28,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "trellis";
 
   buildInputs = [ boost ];
-  nativeBuildInputs = [
-    cmake
-    python3
-  ];
+  nativeBuildInputs = [ cmake python3 ];
   cmakeFlags = [
     "-DCURRENT_GIT_VERSION=${realVersion}"
     # TODO: should this be in stdenv instead?
@@ -74,12 +63,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/YosysHQ/prjtrellis";
     license = licenses.isc;
-    maintainers = with maintainers; [
-      q3k
-      thoughtpolice
-      emily
-      rowanG077
-    ];
+    maintainers = with maintainers; [ q3k thoughtpolice emily rowanG077 ];
     platforms = platforms.all;
   };
 }

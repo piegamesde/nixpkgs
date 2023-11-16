@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  stdenv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tarmac";
@@ -19,9 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-O6qrAzGiAxiE56kpuvH/jDKHRXxHZ2SlDL5nwOOd4EU=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [ pkg-config ];
 

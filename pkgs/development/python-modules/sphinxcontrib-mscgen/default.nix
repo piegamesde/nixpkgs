@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  sphinx,
-  mscgen,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, sphinx, mscgen }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-mscgen";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-AXfSWRq3CepT/jNOgHxiYT7vkdKZejPu/LeUqxZ8T5A=";
   };
 
-  propagatedBuildInputs = [
-    mscgen
-    sphinx
-  ];
+  propagatedBuildInputs = [ mscgen sphinx ];
 
   # There are no unit tests
   doCheck = false;

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  smlnj,
-  rsync,
-}:
+{ lib, stdenv, fetchurl, pkg-config, smlnj, rsync }:
 
 stdenv.mkDerivation rec {
   pname = "twelf";
@@ -17,10 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    smlnj
-    rsync
-  ];
+  buildInputs = [ smlnj rsync ];
 
   buildPhase = ''
     export SMLNJ_HOME=${smlnj}

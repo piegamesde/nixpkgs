@@ -1,15 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  setuptools-scm,
-  pyserial,
-  pyusb,
-  pyvisa,
-  typing-extensions,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, pyserial, pyusb
+, pyvisa, typing-extensions, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyvisa-py";
@@ -27,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    pyserial
-    pyusb
-    pyvisa
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ pyserial pyusb pyvisa typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -41,7 +26,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Module that implements the Virtual Instrument Software Architecture";
+    description =
+      "Module that implements the Virtual Instrument Software Architecture";
     homepage = "https://github.com/pyvisa/pyvisa-py";
     changelog = "https://github.com/pyvisa/pyvisa-py/blob/${version}/CHANGES";
     license = licenses.mit;

@@ -1,15 +1,8 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
-let
-  cfg = config.programs.mdevctl;
-in
-{
+let cfg = config.programs.mdevctl;
+in {
   options.programs.mdevctl = {
     enable = mkEnableOption (lib.mdDoc "Mediated Device Management");
   };
@@ -19,5 +12,6 @@ in
 
     environment.etc."mdevctl.d/scripts.d/notifiers/.keep".text = "";
     environment.etc."mdevctl.d/scripts.d/callouts/.keep".text = "";
+
   };
 }

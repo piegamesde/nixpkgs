@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six }:
 
 buildPythonPackage rec {
   pname = "cmsis-svd";

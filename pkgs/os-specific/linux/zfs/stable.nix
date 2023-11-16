@@ -1,17 +1,12 @@
-{
-  callPackage,
-  kernel ? null,
-  stdenv,
-  linuxKernel,
-  ...
-}@args:
+{ callPackage, kernel ? null, stdenv, linuxKernel, ... }@args:
 
-let
-  stdenv' = if kernel == null then stdenv else kernel.stdenv;
-in
-callPackage ./generic.nix args {
+let stdenv' = if kernel == null then stdenv else kernel.stdenv;
+in callPackage ./generic.nix args {
   # check the release notes for compatible kernels
-  kernelCompatible = if stdenv'.isx86_64 then kernel.kernelOlder "6.4" else kernel.kernelOlder "6.2";
+  kernelCompatible = if stdenv'.isx86_64 then
+    kernel.kernelOlder "6.4"
+  else
+    kernel.kernelOlder "6.2";
   latestCompatibleLinuxPackages = linuxKernel.packages.linux_6_3;
 
   # this package should point to the latest release.

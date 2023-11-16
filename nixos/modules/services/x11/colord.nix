@@ -1,23 +1,19 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.colord;
-in
-{
+
+in {
 
   options = {
 
     services.colord = {
       enable = mkEnableOption (lib.mdDoc "colord, the color management daemon");
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -39,5 +35,7 @@ in
     };
 
     users.groups.colord = { };
+
   };
+
 }

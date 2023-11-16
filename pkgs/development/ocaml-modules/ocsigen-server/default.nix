@@ -1,40 +1,11 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  which,
-  ocaml,
-  lwt_react,
-  ssl,
-  lwt_ssl,
-  findlib,
-  bigstringaf,
-  lwt,
-  cstruct,
-  mirage-crypto,
-  zarith,
-  mirage-crypto-ec,
-  ptime,
-  mirage-crypto-rng,
-  mtime,
-  ca-certs,
-  cohttp,
-  cohttp-lwt-unix,
-  hmap,
-  lwt_log,
-  ocaml_pcre,
-  cryptokit,
-  xml-light,
-  ipaddr,
-  camlzip,
-  makeWrapper,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, which, ocaml, lwt_react, ssl, lwt_ssl
+, findlib, bigstringaf, lwt, cstruct, mirage-crypto, zarith, mirage-crypto-ec
+, ptime, mirage-crypto-rng, mtime, ca-certs, cohttp, cohttp-lwt-unix, hmap
+, lwt_log, ocaml_pcre, cryptokit, xml-light, ipaddr, camlzip, makeWrapper }:
 
-let
-  mkpath = p: "${p}/lib/ocaml/${ocaml.version}/site-lib/stublibs";
-in
+let mkpath = p: "${p}/lib/ocaml/${ocaml.version}/site-lib/stublibs";
 
-let
+in let
   caml_ld_library_path = lib.concatMapStringsSep ":" mkpath [
     bigstringaf
     lwt
@@ -50,9 +21,8 @@ let
     cryptokit
     ocaml_pcre
   ];
-in
 
-buildDunePackage rec {
+in buildDunePackage rec {
   version = "5.0.1";
   pname = "ocsigenserver";
 
@@ -66,15 +36,8 @@ buildDunePackage rec {
     sha256 = "sha256:1vzza33hd41740dqrx4854rqpyd8wv7kwpsvvmlpck841i9lh8h5";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    which
-  ];
-  buildInputs = [
-    lwt_react
-    camlzip
-    findlib
-  ];
+  nativeBuildInputs = [ makeWrapper which ];
+  buildInputs = [ lwt_react camlzip findlib ];
 
   propagatedBuildInputs = [
     cohttp
@@ -90,11 +53,7 @@ buildDunePackage rec {
 
   patches = [ ./cohttp-5.patch ];
 
-  configureFlags = [
-    "--root $(out)"
-    "--prefix /"
-    "--temproot ''"
-  ];
+  configureFlags = [ "--root $(out)" "--prefix /" "--temproot ''" ];
 
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
@@ -126,4 +85,5 @@ buildDunePackage rec {
     inherit (ocaml.meta) platforms;
     maintainers = [ lib.maintainers.gal_bolle ];
   };
+
 }

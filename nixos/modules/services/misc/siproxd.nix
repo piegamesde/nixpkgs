@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -23,18 +18,19 @@ let
     rtp_dscp        = ${toString cfg.rtpDscp}
     sip_dscp        = ${toString cfg.sipDscp}
     ${optionalString (cfg.hostsAllowReg != [ ])
-      "hosts_allow_reg = ${concatStringsSep "," cfg.hostsAllowReg}"}
+    "hosts_allow_reg = ${concatStringsSep "," cfg.hostsAllowReg}"}
     ${optionalString (cfg.hostsAllowSip != [ ])
-      "hosts_allow_sip = ${concatStringsSep "," cfg.hostsAllowSip}"}
+    "hosts_allow_sip = ${concatStringsSep "," cfg.hostsAllowSip}"}
     ${optionalString (cfg.hostsDenySip != [ ])
-      "hosts_deny_sip  = ${concatStringsSep "," cfg.hostsDenySip}"}
-    ${optionalString (cfg.passwordFile != "") "proxy_auth_pwfile = ${cfg.passwordFile}"}
+    "hosts_deny_sip  = ${concatStringsSep "," cfg.hostsDenySip}"}
+    ${optionalString (cfg.passwordFile != "")
+    "proxy_auth_pwfile = ${cfg.passwordFile}"}
     ${cfg.extraConfig}
   '';
 
   confFile = builtins.toFile "siproxd.conf" conf;
-in
-{
+
+in {
   ##### interface
 
   options = {
@@ -65,10 +61,7 @@ in
       hostsAllowReg = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "192.168.1.0/24"
-          "192.168.2.0/24"
-        ];
+        example = [ "192.168.1.0/24" "192.168.2.0/24" ];
         description = lib.mdDoc ''
           Access control list for incoming SIP registrations.
         '';
@@ -77,10 +70,7 @@ in
       hostsAllowSip = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "123.45.0.0/16"
-          "123.46.0.0/16"
-        ];
+        example = [ "123.45.0.0/16" "123.46.0.0/16" ];
         description = lib.mdDoc ''
           Access control list for incoming SIP traffic.
         '';
@@ -89,10 +79,7 @@ in
       hostsDenySip = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "10.0.0.0/8"
-          "11.0.0.0/8"
-        ];
+        example = [ "10.0.0.0/8" "11.0.0.0/8" ];
         description = lib.mdDoc ''
           Access control list for denying incoming
           SIP registrations and traffic.
@@ -168,16 +155,16 @@ in
           Extra configuration to add to siproxd configuration.
         '';
       };
+
     };
+
   };
 
   ##### implementation
 
   config = mkIf cfg.enable {
 
-    users.users.siproxyd = {
-      uid = config.ids.uids.siproxd;
-    };
+    users.users.siproxyd = { uid = config.ids.uids.siproxd; };
 
     systemd.services.siproxd = {
       description = "SIP proxy/masquerading daemon";
@@ -187,5 +174,7 @@ in
         ExecStart = "${pkgs.siproxd}/sbin/siproxd -c ${confFile}";
       };
     };
+
   };
+
 }

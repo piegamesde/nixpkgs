@@ -1,14 +1,5 @@
-{
-  pkgs,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  azure-common,
-  azure-mgmt-nspkg,
-  requests,
-  msrestazure,
-  isPy3k,
-}:
+{ pkgs, buildPythonPackage, fetchPypi, python, azure-common, azure-mgmt-nspkg
+, requests, msrestazure, isPy3k }:
 
 buildPythonPackage rec {
   version = "0.20.0";
@@ -20,21 +11,15 @@ buildPythonPackage rec {
     sha256 = "c63812c13d9f36615c07f874bc602b733bb516f1ed62ab73189b8f71c6bfbfe6";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-nspkg
-    requests
-    msrestazure
-  ];
+  propagatedBuildInputs =
+    [ azure-common azure-mgmt-nspkg requests msrestazure ];
 
-  postInstall =
-    if isPy3k then
-      ""
-    else
-      ''
-        echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/mgmt/__init__.py
-        echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/__init__.py
-      '';
+  postInstall = if isPy3k then
+    ""
+  else ''
+    echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/mgmt/__init__.py
+    echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/__init__.py
+  '';
 
   doCheck = false;
 
@@ -42,9 +27,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Resource Management common code";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      olcai
-      maxwilson
-    ];
+    maintainers = with maintainers; [ olcai maxwilson ];
   };
 }

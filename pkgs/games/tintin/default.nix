@@ -1,13 +1,5 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  zlib,
-  pcre,
-  memorymappingHook,
-  memstreamHook,
-  gnutls,
-}:
+{ stdenv, fetchFromGitHub, lib, zlib, pcre, memorymappingHook, memstreamHook
+, gnutls }:
 
 stdenv.mkDerivation rec {
   pname = "tintin";
@@ -20,12 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-emCxA5+YB4S7QXxRqkDKN1xeWttR857VfGzFQ1cGbYg=";
   };
 
-  buildInputs =
-    [
-      zlib
-      pcre
-      gnutls
-    ]
+  buildInputs = [ zlib pcre gnutls ]
     ++ lib.optionals (stdenv.system == "x86_64-darwin") [
       memorymappingHook
       memstreamHook

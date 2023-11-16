@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchPypi,
-}:
+{ lib, buildPythonApplication, fetchPypi }:
 
 buildPythonApplication rec {
   pname = "pwncat";

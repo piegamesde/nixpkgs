@@ -1,31 +1,12 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  isPyPy,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, pythonOlder, isPyPy, fetchFromGitHub
 
-  # build
-  cython,
-  setuptools,
+# build
+, cython, setuptools
 
-  # tests
-  aiofiles,
-  cbor2,
-  httpx,
-  msgpack,
-  mujson,
-  orjson,
-  pytest-asyncio,
-  pytestCheckHook,
-  pyyaml,
-  rapidjson,
-  requests,
-  testtools,
-  ujson,
-  uvicorn,
-  websockets,
-}:
+# tests
+, aiofiles, cbor2, httpx, msgpack, mujson, orjson, pytest-asyncio
+, pytestCheckHook, pyyaml, rapidjson, requests, testtools, ujson, uvicorn
+, websockets }:
 
 buildPythonPackage rec {
   pname = "falcon";
@@ -76,11 +57,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests" ];
 
-  disabledTestPaths =
-    [
-      # needs a running server
-      "tests/asgi/test_asgi_servers.py"
-    ];
+  disabledTestPaths = [
+    # needs a running server
+    "tests/asgi/test_asgi_servers.py"
+  ];
 
   meta = with lib; {
     description = "An unladen web framework for building APIs and app backends";
@@ -88,4 +68,5 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ desiderius ];
   };
+
 }

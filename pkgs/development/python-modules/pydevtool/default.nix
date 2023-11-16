@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  setuptools,
-  buildPythonPackage,
-  doit,
-}:
+{ lib, fetchPypi, setuptools, buildPythonPackage, doit }:
 
 buildPythonPackage rec {
   pname = "pydevtool";
@@ -28,4 +22,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];
   };
+
 }

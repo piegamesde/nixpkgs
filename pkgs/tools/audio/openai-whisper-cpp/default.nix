@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL2,
-  makeWrapper,
-  wget,
-  Accelerate,
-  CoreGraphics,
-  CoreVideo,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, makeWrapper, wget, Accelerate
+, CoreGraphics, CoreVideo }:
 
 stdenv.mkDerivation rec {
   pname = "whisper-cpp";
@@ -29,18 +20,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs =
-    [ SDL2 ]
-    ++ lib.optionals stdenv.isDarwin [
-      Accelerate
-      CoreGraphics
-      CoreVideo
-    ];
+  buildInputs = [ SDL2 ]
+    ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
 
-  makeFlags = [
-    "main"
-    "stream"
-  ];
+  makeFlags = [ "main" "stream" ];
 
   installPhase = ''
     runHook preInstall
@@ -66,9 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ggerganov/whisper.cpp";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      dit7ya
-      hughobrien
-    ];
+    maintainers = with maintainers; [ dit7ya hughobrien ];
   };
 }

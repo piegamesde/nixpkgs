@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  tor,
-  firejail,
-  iptables,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, tor, firejail, iptables, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "orjail";

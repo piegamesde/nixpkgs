@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "pyinstrument";

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  glibcLocales,
-  kmod,
-  coreutils,
-  perl,
-  dmidecode,
-  hwdata,
-  sqlite,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, glibcLocales, kmod, coreutils
+, perl, dmidecode, hwdata, sqlite, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "rasdaemon";
@@ -32,13 +20,7 @@ stdenv.mkDerivation rec {
     hwdata
     kmod
     sqlite
-    (perl.withPackages (
-      ps:
-      with ps; [
-        DBI
-        DBDSQLite
-      ]
-    ))
+    (perl.withPackages (ps: with ps; [ DBI DBDSQLite ]))
   ] ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ];
 
   configureFlags = [
@@ -84,28 +66,21 @@ stdenv.mkDerivation rec {
       --replace '"$(DESTDIR)/etc/ras/dimm_labels.d"' '"$(prefix)/etc/ras/dimm_labels.d"'
   '';
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-    "inject"
-  ];
+  outputs = [ "out" "dev" "man" "inject" ];
 
   postInstall = ''
     install -Dm 0755 contrib/edac-fake-inject $inject/bin/edac-fake-inject
     install -Dm 0755 contrib/edac-tests $inject/bin/edac-tests
   '';
 
-  postFixup =
-    ''
-      # Fix dmidecode and modprobe paths
-      substituteInPlace $out/bin/ras-mc-ctl \
-        --replace 'find_prog ("modprobe")  or exit (1)' '"${kmod}/bin/modprobe"'
-    ''
-    + lib.optionalString (!stdenv.isAarch64) ''
-      substituteInPlace $out/bin/ras-mc-ctl \
-        --replace 'find_prog ("dmidecode")' '"${dmidecode}/bin/dmidecode"'
-    '';
+  postFixup = ''
+    # Fix dmidecode and modprobe paths
+    substituteInPlace $out/bin/ras-mc-ctl \
+      --replace 'find_prog ("modprobe")  or exit (1)' '"${kmod}/bin/modprobe"'
+  '' + lib.optionalString (!stdenv.isAarch64) ''
+    substituteInPlace $out/bin/ras-mc-ctl \
+      --replace 'find_prog ("dmidecode")' '"${dmidecode}/bin/dmidecode"'
+  '';
 
   passthru.tests = nixosTests.rasdaemon;
 
@@ -123,7 +98,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mchehab/rasdaemon";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    changelog = "https://github.com/mchehab/rasdaemon/blob/v${version}/ChangeLog";
+    changelog =
+      "https://github.com/mchehab/rasdaemon/blob/v${version}/ChangeLog";
     maintainers = with maintainers; [ evils ];
   };
 }

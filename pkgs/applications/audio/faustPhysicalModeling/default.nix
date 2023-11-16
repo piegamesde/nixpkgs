@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  faust2jaqt,
-  faust2lv2,
-}:
+{ stdenv, lib, fetchFromGitHub, faust2jaqt, faust2lv2 }:
 stdenv.mkDerivation rec {
   pname = "faustPhysicalModeling";
   version = "2.59.6";
@@ -16,10 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Z/hAq6JlhlWBzWlodwQW/k9AkozVeMXmbVhkicNZ5os=";
   };
 
-  buildInputs = [
-    faust2jaqt
-    faust2lv2
-  ];
+  buildInputs = [ faust2jaqt faust2lv2 ];
 
   dontWrapQtApps = true;
 
@@ -41,8 +32,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The physical models included with faust compiled as jack standalone and lv2 instruments";
-    homepage = "https://github.com/grame-cncm/faust/tree/master-dev/examples/physicalModeling";
+    description =
+      "The physical models included with faust compiled as jack standalone and lv2 instruments";
+    homepage =
+      "https://github.com/grame-cncm/faust/tree/master-dev/examples/physicalModeling";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ magnetophon ];

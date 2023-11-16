@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  perlPackages,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, perlPackages, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "tes3cmd";
@@ -24,7 +19,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A command line tool for examining and modifying plugins for the Elder Scrolls game Morrowind by Bethesda Softworks";
+    description =
+      "A command line tool for examining and modifying plugins for the Elder Scrolls game Morrowind by Bethesda Softworks";
     homepage = "https://github.com/john-moonsugar/tes3cmd";
     license = licenses.mit;
     maintainers = [ maintainers.marius851000 ];

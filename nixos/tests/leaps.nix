@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "leaps";
@@ -26,5 +25,4 @@ import ./make-test-python.nix (
           "${pkgs.curl}/bin/curl -f http://server:6666/leaps/"
       )
     '';
-  }
-)
+  })

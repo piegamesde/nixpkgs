@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  perl,
-  zlib,
-  bzip2,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, perl, zlib, bzip2 }:
 
 stdenv.mkDerivation rec {
   pname = "routino";
@@ -20,11 +12,13 @@ stdenv.mkDerivation rec {
   patchFlags = [ "-p0" ];
   patches = lib.optionals stdenv.isDarwin [
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/macports/macports-ports/18fd229516a46e7272003acbe555735b2a902db7/gis/routino/files/patch-Makefile_conf.diff";
+      url =
+        "https://raw.githubusercontent.com/macports/macports-ports/18fd229516a46e7272003acbe555735b2a902db7/gis/routino/files/patch-Makefile_conf.diff";
       sha256 = "1b7hpa4sizansnwwxq1c031nxwdwh71pg08jl9z9apiab8pjsn53";
     })
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/macports/macports-ports/18fd229516a46e7272003acbe555735b2a902db7/gis/routino/files/patch-src_Makefile_dylib_extension.diff";
+      url =
+        "https://raw.githubusercontent.com/macports/macports-ports/18fd229516a46e7272003acbe555735b2a902db7/gis/routino/files/patch-src_Makefile_dylib_extension.diff";
       sha256 = "1kigxcfr7977baxdsfvrw6q453cpqlzqakhj7av2agxkcvwyilpv";
     })
   ];
@@ -36,15 +30,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ perl ];
 
-  buildInputs = [
-    zlib
-    bzip2
-  ];
+  buildInputs = [ zlib bzip2 ];
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   CLANG = lib.optionalString stdenv.cc.isClang "1";
 

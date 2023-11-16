@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  can,
-  canmatrix,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, can, canmatrix
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "canopen";
@@ -23,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    can
-    canmatrix
-  ];
+  propagatedBuildInputs = [ can canmatrix ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

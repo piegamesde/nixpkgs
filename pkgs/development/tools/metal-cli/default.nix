@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "metal-cli";
@@ -18,11 +13,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-4hjrKlpd+gr/yLRuSq8XrOVl76uYVIMfYjTAgqkbOSw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/equinix/metal-cli/cmd.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/equinix/metal-cli/cmd.Version=${version}" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -46,10 +38,7 @@ buildGoModule rec {
     homepage = "https://github.com/equinix/metal-cli/";
     changelog = "https://github.com/equinix/metal-cli/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      Br1ght0ne
-      nshalman
-    ];
+    maintainers = with maintainers; [ Br1ght0ne nshalman ];
     mainProgram = "metal";
   };
 }

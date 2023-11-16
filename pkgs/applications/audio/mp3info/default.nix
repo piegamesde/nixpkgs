@@ -1,26 +1,17 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  ncurses,
-  pkg-config,
-  gtk2,
-}:
+{ fetchurl, lib, stdenv, ncurses, pkg-config, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "mp3info";
   version = "0.8.5a";
 
   src = fetchurl {
-    url = "ftp://ftp.ibiblio.org/pub/linux/apps/sound/mp3-utils/${pname}/${pname}-${version}.tgz";
+    url =
+      "ftp://ftp.ibiblio.org/pub/linux/apps/sound/mp3-utils/${pname}/${pname}-${version}.tgz";
     sha256 = "042f1czcs9n2sbqvg4rsvfwlqib2gk976mfa2kxlfjghx5laqf04";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    ncurses
-    gtk2
-  ];
+  buildInputs = [ ncurses gtk2 ];
 
   hardeningDisable = [ "format" ];
 

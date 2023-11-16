@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cffi,
-  libheif,
-}:
+{ lib, buildPythonPackage, fetchPypi, cffi, libheif }:
 
 buildPythonPackage rec {
   pname = "pyheif";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-hqXFF0N51xRrXtGmiJL69yaKE1+39QOaARv7em6QMgA=";
   };
 
-  propagatedBuildInputs = [
-    cffi
-    libheif
-  ];
+  propagatedBuildInputs = [ cffi libheif ];
 
   meta = with lib; {
     homepage = "https://github.com/carsales/pyheif";

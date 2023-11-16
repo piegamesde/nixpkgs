@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, setuptools
 }:
 
 buildPythonPackage rec {
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "MessagePack serializer implementation";
     homepage = "https://github.com/msgpack/msgpack-python";
-    changelog = "https://github.com/msgpack/msgpack-python/blob/master/ChangeLog.rst";
+    changelog =
+      "https://github.com/msgpack/msgpack-python/blob/master/ChangeLog.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

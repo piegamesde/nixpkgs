@@ -1,26 +1,8 @@
-{
-  lib,
-  stdenv,
-  buildEnv,
-  makeFontsConf,
-  gnused,
-  writeScript,
-  xorg,
-  bashInteractive,
-  xterm,
-  xcbuild,
-  makeWrapper,
-  quartz-wm,
-  fontconfig,
-  xlsfonts,
-  xfontsel,
-  ttf_bitstream_vera,
-  freefont_ttf,
-  liberation_ttf,
-  shell ? "${bashInteractive}/bin/bash",
-  unfreeFonts ? false,
-  extraFontDirs ? [ ],
-}:
+{ lib, stdenv, buildEnv, makeFontsConf, gnused, writeScript, xorg
+, bashInteractive, xterm, xcbuild, makeWrapper, quartz-wm, fontconfig, xlsfonts
+, xfontsel, ttf_bitstream_vera, freefont_ttf, liberation_ttf
+, shell ? "${bashInteractive}/bin/bash", unfreeFonts ? false
+, extraFontDirs ? [ ] }:
 
 # ------------
 # Installation
@@ -77,25 +59,19 @@ let
     sudo launchctl load -w /Library/LaunchAgents/$agentName
     sudo launchctl load -w /Library/LaunchDaemons/$daemonName
   '';
-  fontDirs =
-    [
-      ttf_bitstream_vera
-      freefont_ttf
-      liberation_ttf
-      xorg.fontmiscmisc
-      xorg.fontcursormisc
-    ]
-    ++ lib.optionals unfreeFonts [
-      xorg.fontbhlucidatypewriter100dpi
-      xorg.fontbhlucidatypewriter75dpi
-      xorg.fontbh100dpi
-    ]
-    ++ extraFontDirs;
+  fontDirs = [
+    ttf_bitstream_vera
+    freefont_ttf
+    liberation_ttf
+    xorg.fontmiscmisc
+    xorg.fontcursormisc
+  ] ++ lib.optionals unfreeFonts [
+    xorg.fontbhlucidatypewriter100dpi
+    xorg.fontbhlucidatypewriter75dpi
+    xorg.fontbh100dpi
+  ] ++ extraFontDirs;
   fontsConf = makeFontsConf {
-    fontDirectories = fontDirs ++ [
-      "/Library/Fonts"
-      "~/Library/Fonts"
-    ];
+    fontDirectories = fontDirs ++ [ "/Library/Fonts" "~/Library/Fonts" ];
   };
   fonts = import ./system-fonts.nix { inherit stdenv xorg fontDirs; };
   # any X related programs expected to be available via $PATH
@@ -155,8 +131,7 @@ let
     xwininfo
     xwud
   ];
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "xquartz";
   version = lib.getVersion xorg.xorgserver;
 
@@ -234,9 +209,7 @@ stdenv.mkDerivation {
       --subst-var-by "FONTCONFIG_FILE" "$fontsConfPath"
   '';
 
-  passthru = {
-    inherit pkgs;
-  };
+  passthru = { inherit pkgs; };
 
   meta = with lib; {
     platforms = platforms.darwin;

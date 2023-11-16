@@ -1,21 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  rustPlatform,
-  cargo,
-  pkg-config,
-  meson,
-  rustc,
-  wrapGAppsHook4,
-  desktop-file-utils,
-  blueprint-compiler,
-  ninja,
-  gtk4,
-  libadwaita,
-  gst_all_1,
-  ffmpeg-full,
-}:
+{ stdenv, lib, fetchFromGitLab, rustPlatform, cargo, pkg-config, meson, rustc
+, wrapGAppsHook4, desktop-file-utils, blueprint-compiler, ninja, gtk4
+, libadwaita, gst_all_1, ffmpeg-full }:
 
 stdenv.mkDerivation rec {
   pname = "video-trimmer";

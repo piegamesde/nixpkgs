@@ -1,19 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromRepoOrCz,
-  copyPkgconfigItems,
-  makePkgconfigItem,
-  perl,
-  texinfo,
-  which,
-}:
+{ lib, stdenv, fetchFromRepoOrCz, copyPkgconfigItems, makePkgconfigItem, perl
+, texinfo, which }:
 
 let
   # avoid "malformed 32-bit x.y.z" error on mac when using clang
-  isCleanVer = version: builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null;
-in
-stdenv.mkDerivation rec {
+  isCleanVer = version:
+    builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null;
+in stdenv.mkDerivation rec {
   pname = "tcc";
   version = "unstable-2022-07-15";
 
@@ -23,23 +15,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-jY0P2GErmo//YBaz6u4/jj/voOE3C2JaIDRmo0orXN8=";
   };
 
-  nativeBuildInputs = [
-    copyPkgconfigItems
-    perl
-    texinfo
-    which
-  ];
+  nativeBuildInputs = [ copyPkgconfigItems perl texinfo which ];
 
   pkgconfigItems = [
     (makePkgconfigItem rec {
       name = "libtcc";
       inherit version;
       cflags = [ "-I${variables.includedir}" ];
-      libs = [
-        "-L${variables.libdir}"
-        "-Wl,--rpath ${variables.libdir}"
-        "-ltcc"
-      ];
+      libs =
+        [ "-L${variables.libdir}" "-Wl,--rpath ${variables.libdir}" "-ltcc" ];
       variables = rec {
         prefix = "${placeholder "out"}";
         includedir = "${prefix}/include";
@@ -71,11 +55,7 @@ stdenv.mkDerivation rec {
     configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
   '';
 
-  outputs = [
-    "out"
-    "info"
-    "man"
-  ];
+  outputs = [ "out" "info" "man" ];
 
   # Test segfault for static build
   doCheck = !stdenv.hostPlatform.isStatic;
@@ -111,10 +91,7 @@ stdenv.mkDerivation rec {
       With libtcc, you can use TCC as a backend for dynamic code generation.
     '';
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [
-      joachifm
-      AndersonTorres
-    ];
+    maintainers = with maintainers; [ joachifm AndersonTorres ];
     platforms = platforms.unix;
     # https://www.mail-archive.com/tinycc-devel@nongnu.org/msg10199.html
     broken = stdenv.isDarwin && stdenv.isAarch64;

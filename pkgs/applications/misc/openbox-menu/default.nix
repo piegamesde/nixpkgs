@@ -1,28 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  glib,
-  gtk2,
-  menu-cache,
-}:
+{ lib, stdenv, fetchurl, pkg-config, glib, gtk2, menu-cache }:
 
 stdenv.mkDerivation rec {
   pname = "openbox-menu";
   version = "0.8.0";
 
   src = fetchurl {
-    url = "https://bitbucket.org/fabriceT/openbox-menu/downloads/${pname}-${version}.tar.bz2";
+    url =
+      "https://bitbucket.org/fabriceT/openbox-menu/downloads/${pname}-${version}.tar.bz2";
     sha256 = "1hi4b6mq97y6ajq4hhsikbkk23aha7ikaahm92djw48mgj2f1w8l";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    glib
-    gtk2
-    menu-cache
-  ];
+  buildInputs = [ glib gtk2 menu-cache ];
 
   # Enables SVG support by uncommenting the Makefile
   patches = [ ./000-enable-svg.patch ];

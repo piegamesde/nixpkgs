@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "elasticsearch-curator";
@@ -16,18 +12,10 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-FPp2BpfYsmNwwevYQ6EH3N1q0TjyeEsBeDM9EUbLl+Q=";
   };
 
-  pythonRelaxDeps = [
-    "click"
-    "ecs-logging"
-    "elasticsearch8"
-    "es_client"
-    "pyyaml"
-  ];
+  pythonRelaxDeps =
+    [ "click" "ecs-logging" "elasticsearch8" "es_client" "pyyaml" ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    hatchling
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ hatchling pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     certifi
@@ -40,11 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     voluptuous
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    mock
-    requests
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ mock requests pytestCheckHook ];
 
   disabledTestPaths = [
     # Test requires running elasticsearch

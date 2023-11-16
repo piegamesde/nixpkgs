@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  future,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, future }:
 
 buildPythonPackage rec {
   pname = "autograd";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-2AvSJRVNHbE8tOrM96GMNYvnIJJkG2hxf5b88dFqzQs=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    future
-  ];
+  propagatedBuildInputs = [ numpy future ];
 
   # Currently, the PyPI tarball doesn't contain the tests. When that has been
   # fixed, enable testing. See: https://github.com/HIPS/autograd/issues/404

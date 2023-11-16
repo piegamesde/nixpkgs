@@ -1,29 +1,7 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  wrapGAppsHook,
-  atk,
-  gdk-pixbuf,
-  gobject-introspection,
-  gtk3,
-  gst-plugins-good,
-  libhandy,
-  librsvg,
-  networkmanager,
-  pango,
-  gst-python,
-  kiss-headers,
-  logbook,
-  pillow,
-  poetry-core,
-  pygobject3,
-  python,
-  python-zbar,
-  requests,
-  single-version,
-  pytestCheckHook,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook, atk, gdk-pixbuf
+, gobject-introspection, gtk3, gst-plugins-good, libhandy, librsvg
+, networkmanager, pango, gst-python, kiss-headers, logbook, pillow, poetry-core
+, pygobject3, python, python-zbar, requests, single-version, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "cobang";
@@ -39,10 +17,7 @@ buildPythonApplication rec {
 
   patches = [ ./0001-Poetry-core-and-pillow-9.patch ];
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
   propagatedBuildInputs = [
     gst-python

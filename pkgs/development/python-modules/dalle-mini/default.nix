@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  einops,
-  emoji,
-  flax,
-  ftfy,
-  jax,
-  jaxlib,
-  pillow,
-  transformers,
-  unidecode,
-  wandb,
-}:
+{ lib, buildPythonPackage, fetchPypi, einops, emoji, flax, ftfy, jax, jaxlib
+, pillow, transformers, unidecode, wandb }:
 
 buildPythonPackage rec {
   pname = "dalle-mini";
@@ -27,17 +14,8 @@ buildPythonPackage rec {
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [
-    einops
-    emoji
-    flax
-    ftfy
-    jax
-    pillow
-    transformers
-    unidecode
-    wandb
-  ];
+  propagatedBuildInputs =
+    [ einops emoji flax ftfy jax pillow transformers unidecode wandb ];
 
   doCheck = false; # no upstream tests
 

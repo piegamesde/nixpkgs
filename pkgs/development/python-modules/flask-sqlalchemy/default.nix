@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-  mock,
-  pdm-pep517,
-  pytestCheckHook,
-  pythonOlder,
-  sqlalchemy,
-}:
+{ lib, buildPythonPackage, fetchPypi, flask, mock, pdm-pep517, pytestCheckHook
+, pythonOlder, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "flask-sqlalchemy";
@@ -25,15 +16,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = [
-    flask
-    sqlalchemy
-  ];
+  propagatedBuildInputs = [ flask sqlalchemy ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   disabledTests = [
     # flaky
@@ -47,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "SQLAlchemy extension for Flask";
     homepage = "http://flask-sqlalchemy.pocoo.org/";
-    changelog = "https://github.com/pallets-eco/flask-sqlalchemy/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/pallets-eco/flask-sqlalchemy/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ gerschtli ];
   };

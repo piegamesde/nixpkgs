@@ -1,9 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  autogen,
-}:
+{ fetchurl, lib, stdenv, autogen }:
 
 stdenv.mkDerivation rec {
   pname = "complexity";

@@ -1,20 +1,16 @@
-{
-  lib,
-  fetchurl,
-  appimageTools,
-}:
+{ lib, fetchurl, appimageTools }:
 
 let
   pname = "framesh";
   version = "0.6.6";
   src = fetchurl {
-    url = "https://github.com/floating/frame/releases/download/v${version}/Frame-${version}.AppImage";
+    url =
+      "https://github.com/floating/frame/releases/download/v${version}/Frame-${version}.AppImage";
     sha256 = "sha256-5LLnITQP9m2lMdnB/rrK/M+p3AA3rYZ9GOrDdCFA/r4=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
@@ -27,7 +23,8 @@ appimageTools.wrapType2 {
   '';
 
   meta = {
-    description = "Native web3 interface that lets you sign data, securely manage accounts and transparently interact with dapps via web3 protocols like Ethereum and IPFS";
+    description =
+      "Native web3 interface that lets you sign data, securely manage accounts and transparently interact with dapps via web3 protocols like Ethereum and IPFS";
     homepage = "https://frame.sh/";
     downloadPage = "https://github.com/floating/frame/releases";
     license = lib.licenses.gpl3Only;

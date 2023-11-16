@@ -1,9 +1,4 @@
-{
-  buildPythonApplication,
-  fetchPypi,
-  lib,
-  pycryptodome,
-}:
+{ buildPythonApplication, fetchPypi, lib, pycryptodome }:
 
 buildPythonApplication rec {
   pname = "dcnnt";

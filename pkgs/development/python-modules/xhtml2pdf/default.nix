@@ -1,17 +1,5 @@
-{
-  lib,
-  arabic-reshaper,
-  buildPythonPackage,
-  fetchFromGitHub,
-  html5lib,
-  pillow,
-  pyhanko,
-  pypdf,
-  pytestCheckHook,
-  python-bidi,
-  pythonOlder,
-  reportlab,
-  svglib,
+{ lib, arabic-reshaper, buildPythonPackage, fetchFromGitHub, html5lib, pillow
+, pyhanko, pypdf, pytestCheckHook, python-bidi, pythonOlder, reportlab, svglib
 }:
 
 buildPythonPackage rec {
@@ -46,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A PDF generator using HTML and CSS";
     homepage = "https://github.com/xhtml2pdf/xhtml2pdf";
-    changelog = "https://github.com/xhtml2pdf/xhtml2pdf/releases/tag/v${version}";
+    changelog =
+      "https://github.com/xhtml2pdf/xhtml2pdf/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

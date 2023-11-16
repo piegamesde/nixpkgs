@@ -1,8 +1,5 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 # These tests will:
 #  * Set up a vaultwarden server
@@ -16,30 +13,23 @@
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 let
-  backends = [
-    "sqlite"
-    "mysql"
-    "postgresql"
-  ];
+  backends = [ "sqlite" "mysql" "postgresql" ];
 
   dbPassword = "please_dont_hack";
 
   userEmail = "meow@example.com";
-  userPassword = "also_super_secret_ZJWpBKZi668QGt"; # Must be complex to avoid interstitial warning on the signup page
+  userPassword =
+    "also_super_secret_ZJWpBKZi668QGt"; # Must be complex to avoid interstitial warning on the signup page
 
   storedPassword = "seeeecret";
 
-  makeVaultwardenTest =
-    backend:
+  makeVaultwardenTest = backend:
     makeTest {
       name = "vaultwarden-${backend}";
-      meta = {
-        maintainers = with pkgs.lib.maintainers; [ jjjollyjim ];
-      };
+      meta = { maintainers = with pkgs.lib.maintainers; [ jjjollyjim ]; };
 
       nodes = {
-        server =
-          { pkgs, ... }:
+        server = { pkgs, ... }:
           let
             backendConfig = {
               mysql = {
@@ -54,7 +44,8 @@ let
                   package = pkgs.mariadb;
                 };
 
-                services.vaultwarden.config.databaseUrl = "mysql://bitwardenuser:${dbPassword}@localhost/bitwarden";
+                services.vaultwarden.config.databaseUrl =
+                  "mysql://bitwardenuser:${dbPassword}@localhost/bitwarden";
 
                 systemd.services.vaultwarden.after = [ "mysql.service" ];
               };
@@ -69,15 +60,15 @@ let
                   '';
                 };
 
-                services.vaultwarden.config.databaseUrl = "postgresql://bitwardenuser:${dbPassword}@localhost/bitwarden";
+                services.vaultwarden.config.databaseUrl =
+                  "postgresql://bitwardenuser:${dbPassword}@localhost/bitwarden";
 
                 systemd.services.vaultwarden.after = [ "postgresql.service" ];
               };
 
               sqlite = { };
             };
-          in
-          mkMerge [
+          in mkMerge [
             backendConfig.${backend}
             {
               services.vaultwarden = {
@@ -91,82 +82,76 @@ let
 
               networking.firewall.allowedTCPPorts = [ 80 ];
 
-              environment.systemPackages =
-                let
-                  testRunner =
-                    pkgs.writers.writePython3Bin "test-runner"
-                      {
-                        libraries = [ pkgs.python3Packages.selenium ];
-                        flakeIgnore = [ "E501" ];
-                      }
-                      ''
+              environment.systemPackages = let
+                testRunner = pkgs.writers.writePython3Bin "test-runner" {
+                  libraries = [ pkgs.python3Packages.selenium ];
+                  flakeIgnore = [ "E501" ];
+                } ''
 
-                        from selenium.webdriver.common.by import By
-                        from selenium.webdriver import Firefox
-                        from selenium.webdriver.firefox.options import Options
-                        from selenium.webdriver.support.ui import WebDriverWait
-                        from selenium.webdriver.support import expected_conditions as EC
+                  from selenium.webdriver.common.by import By
+                  from selenium.webdriver import Firefox
+                  from selenium.webdriver.firefox.options import Options
+                  from selenium.webdriver.support.ui import WebDriverWait
+                  from selenium.webdriver.support import expected_conditions as EC
 
-                        options = Options()
-                        options.add_argument('--headless')
-                        driver = Firefox(options=options)
+                  options = Options()
+                  options.add_argument('--headless')
+                  driver = Firefox(options=options)
 
-                        driver.implicitly_wait(20)
-                        driver.get('http://localhost/#/register')
+                  driver.implicitly_wait(20)
+                  driver.get('http://localhost/#/register')
 
-                        wait = WebDriverWait(driver, 10)
+                  wait = WebDriverWait(driver, 10)
 
-                        wait.until(EC.title_contains("Create account"))
+                  wait.until(EC.title_contains("Create account"))
 
-                        driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_email').send_keys(
-                            '${userEmail}'
-                        )
-                        driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_name').send_keys(
-                            'A Cat'
-                        )
-                        driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_master-password').send_keys(
-                            '${userPassword}'
-                        )
-                        driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_confirm-master-password').send_keys(
-                            '${userPassword}'
-                        )
-                        if driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').is_selected():
-                            driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').click()
+                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_email').send_keys(
+                      '${userEmail}'
+                  )
+                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_name').send_keys(
+                      'A Cat'
+                  )
+                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_master-password').send_keys(
+                      '${userPassword}'
+                  )
+                  driver.find_element(By.CSS_SELECTOR, 'input#register-form_input_confirm-master-password').send_keys(
+                      '${userPassword}'
+                  )
+                  if driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').is_selected():
+                      driver.find_element(By.CSS_SELECTOR, 'input#checkForBreaches').click()
 
-                        driver.find_element(By.XPATH, "//button[contains(., 'Create account')]").click()
+                  driver.find_element(By.XPATH, "//button[contains(., 'Create account')]").click()
 
-                        wait.until_not(EC.title_contains("Create account"))
+                  wait.until_not(EC.title_contains("Create account"))
 
-                        driver.find_element(By.XPATH, "//button[contains(., 'Continue')]").click()
+                  driver.find_element(By.XPATH, "//button[contains(., 'Continue')]").click()
 
-                        driver.find_element(By.CSS_SELECTOR, 'input#login_input_master-password').send_keys(
-                            '${userPassword}'
-                        )
-                        driver.find_element(By.XPATH, "//button[contains(., 'Log in')]").click()
+                  driver.find_element(By.CSS_SELECTOR, 'input#login_input_master-password').send_keys(
+                      '${userPassword}'
+                  )
+                  driver.find_element(By.XPATH, "//button[contains(., 'Log in')]").click()
 
-                        wait.until(EC.title_contains("Vaults"))
+                  wait.until(EC.title_contains("Vaults"))
 
-                        driver.find_element(By.XPATH, "//button[contains(., 'New item')]").click()
+                  driver.find_element(By.XPATH, "//button[contains(., 'New item')]").click()
 
-                        driver.find_element(By.CSS_SELECTOR, 'input#name').send_keys(
-                            'secrets'
-                        )
-                        driver.find_element(By.CSS_SELECTOR, 'input#loginPassword').send_keys(
-                            '${storedPassword}'
-                        )
+                  driver.find_element(By.CSS_SELECTOR, 'input#name').send_keys(
+                      'secrets'
+                  )
+                  driver.find_element(By.CSS_SELECTOR, 'input#loginPassword').send_keys(
+                      '${storedPassword}'
+                  )
 
-                        driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
-                      '';
-                in
-                [
-                  pkgs.firefox-unwrapped
-                  pkgs.geckodriver
-                  testRunner
-                ];
+                  driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
+                '';
+              in [ pkgs.firefox-unwrapped pkgs.geckodriver testRunner ];
+
             }
           ];
 
-        client = { pkgs, ... }: { environment.systemPackages = [ pkgs.bitwarden-cli ]; };
+        client = { pkgs, ... }: {
+          environment.systemPackages = [ pkgs.bitwarden-cli ];
+        };
       };
 
       testScript = ''
@@ -200,12 +185,7 @@ let
             assert password.strip() == "${storedPassword}"
       '';
     };
-in
-builtins.listToAttrs (
-  map
-    (backend: {
-      name = backend;
-      value = makeVaultwardenTest backend;
-    })
-    backends
-)
+in builtins.listToAttrs (map (backend: {
+  name = backend;
+  value = makeVaultwardenTest backend;
+}) backends)

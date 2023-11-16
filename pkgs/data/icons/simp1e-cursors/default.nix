@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitLab,
-  python3,
-  librsvg,
-  xcursorgen,
-}:
+{ lib, stdenvNoCC, fetchFromGitLab, python3, librsvg, xcursorgen }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "simp1e-cursors";
@@ -19,11 +12,8 @@ stdenvNoCC.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    (python3.withPackages (ps: with ps; [ pillow ]))
-    librsvg
-    xcursorgen
-  ];
+  nativeBuildInputs =
+    [ (python3.withPackages (ps: with ps; [ pillow ])) librsvg xcursorgen ];
 
   buildPhase = ''
     runHook preBuild

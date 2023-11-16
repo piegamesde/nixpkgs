@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  mono,
-}:
+{ lib, stdenv, fetchFromGitHub, mono }:
 stdenv.mkDerivation rec {
   pname = "syntex";
   version = "0.0pre20160915";

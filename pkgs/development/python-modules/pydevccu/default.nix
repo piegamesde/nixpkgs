@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pydevccu";
@@ -27,7 +22,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "HomeMatic CCU XML-RPC Server with fake devices";
     homepage = "https://github.com/danielperna84/pydevccu";
-    changelog = "https://github.com/danielperna84/pydevccu/releases/tag/${version}";
+    changelog =
+      "https://github.com/danielperna84/pydevccu/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

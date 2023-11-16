@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  autoconf,
-  automake,
-  perl,
-  rdma-core,
+{ stdenv, lib, fetchFromGitHub, fetchpatch, autoconf, automake, perl, rdma-core
 }:
 
 stdenv.mkDerivation rec {
@@ -23,17 +15,13 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "version-bump.patch";
-      url = "https://github.com/linux-rdma/qperf/commit/34ec57ddb7e5ae1adfcfc8093065dff90b69a275.patch";
+      url =
+        "https://github.com/linux-rdma/qperf/commit/34ec57ddb7e5ae1adfcfc8093065dff90b69a275.patch";
       hash = "sha256-+7ckhUUB+7BG6qRKv0wgyIxkyvll2xjf3Wk1hpRsDo0=";
     })
   ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    perl
-    rdma-core
-  ];
+  nativeBuildInputs = [ autoconf automake perl rdma-core ];
   buildInputs = [ rdma-core ];
 
   postUnpack = ''

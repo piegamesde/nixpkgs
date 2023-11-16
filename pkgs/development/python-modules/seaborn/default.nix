@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  matplotlib,
-  pytest-xdist,
-  pytestCheckHook,
-  numpy,
-  pandas,
-  pythonOlder,
-  scipy,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, flit-core, matplotlib
+, pytest-xdist, pytestCheckHook, numpy, pandas, pythonOlder, scipy }:
 
 buildPythonPackage rec {
   pname = "seaborn";
@@ -27,32 +15,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    pandas
-    scipy
+  propagatedBuildInputs = [ matplotlib numpy pandas scipy ];
+
+  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
+
+  disabledTests = [
+    # incompatible with matplotlib 3.7
+    # https://github.com/mwaskom/seaborn/issues/3288
+    "test_subplot_kws"
+
+    # requires internet connection
+    "test_load_dataset_string_error"
+  ] ++ lib.optionals (!stdenv.hostPlatform.isx86) [
+    # overly strict float tolerances
+    "TestDendrogram"
   ];
-
-  nativeCheckInputs = [
-    pytest-xdist
-    pytestCheckHook
-  ];
-
-  disabledTests =
-    [
-      # incompatible with matplotlib 3.7
-      # https://github.com/mwaskom/seaborn/issues/3288
-      "test_subplot_kws"
-
-      # requires internet connection
-      "test_load_dataset_string_error"
-    ]
-    ++ lib.optionals (!stdenv.hostPlatform.isx86)
-      [
-        # overly strict float tolerances
-        "TestDendrogram"
-      ];
 
   # All platforms should use Agg. Let's set it explicitly to avoid probing GUI
   # backends (leads to crashes on macOS).

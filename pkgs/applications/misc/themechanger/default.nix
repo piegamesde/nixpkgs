@@ -1,18 +1,6 @@
-{
-  lib,
-  gobject-introspection,
-  meson,
-  ninja,
-  pkg-config,
-  wrapGAppsHook,
-  desktop-file-utils,
-  glib,
-  gtk3,
-  python3,
-  gsettings-desktop-schemas,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, gobject-introspection, meson, ninja, pkg-config, wrapGAppsHook
+, desktop-file-utils, glib, gtk3, python3, gsettings-desktop-schemas
+, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "themechanger";
@@ -36,12 +24,7 @@ python3Packages.buildPythonApplication rec {
     gtk3
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    python3
-    gsettings-desktop-schemas
-  ];
+  buildInputs = [ glib gtk3 python3 gsettings-desktop-schemas ];
 
   propagatedBuildInputs = with python3Packages; [ pygobject3 ];
 

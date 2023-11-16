@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  SDL,
-  makeDesktopItem,
-  copyDesktopItems,
-  imagemagick,
-}:
+{ lib, stdenv, fetchurl, cmake, SDL, makeDesktopItem, copyDesktopItems
+, imagemagick }:
 
 let
 
@@ -15,8 +7,8 @@ let
     url = "https://baller.tuxfamily.org/king.png";
     sha256 = "1xq2h87s648wjpjl72ds3xnnk2jp8ghbkhjzh2g4hpkq2zdz90hy";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "ballerburg";
   version = "1.2.0";
 
@@ -25,11 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BiX0shPBGA8sshee8rxs41x+mdsrJzBqhpDDic6sYwA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    copyDesktopItems
-    imagemagick
-  ];
+  nativeBuildInputs = [ cmake copyDesktopItems imagemagick ];
 
   buildInputs = [ SDL ];
 

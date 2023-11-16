@@ -22,58 +22,40 @@
    4. Commit the changes and open a pull request.
 */
 
-{
-  lib,
-  libsForQt5,
-  fetchurl,
-}:
+{ lib, libsForQt5, fetchurl, }:
 
 let
   mirror = "mirror://kde";
   srcs = import ./srcs.nix { inherit fetchurl mirror; };
 
-  mkDerivation =
-    args:
+  mkDerivation = args:
     let
       inherit (args) pname;
       inherit (srcs.${pname}) src version;
-      mkDerivation = libsForQt5.callPackage ({ mkDerivation }: mkDerivation) { };
-    in
-    mkDerivation (
-      args
-      // {
-        inherit pname version src;
+      mkDerivation =
+        libsForQt5.callPackage ({ mkDerivation }: mkDerivation) { };
+    in mkDerivation (args // {
+      inherit pname version src;
 
-        outputs = args.outputs or [ "out" ];
+      outputs = args.outputs or [ "out" ];
 
-        meta =
-          let
-            meta = args.meta or { };
-          in
-          meta
-          // {
-            homepage = meta.homepage or "http://www.kde.org";
-            platforms = meta.platforms or lib.platforms.linux;
-          };
-      }
-    );
+      meta = let meta = args.meta or { };
+      in meta // {
+        homepage = meta.homepage or "http://www.kde.org";
+        platforms = meta.platforms or lib.platforms.linux;
+      };
+    });
 
-  packages =
-    self:
+  packages = self:
     with self;
     let
       callPackage = self.newScope {
         inherit mkDerivation;
 
         # Team of maintainers assigned to the KDE PIM suite
-        kdepimTeam = with lib.maintainers; [
-          ttuegel
-          vandenoever
-          nyanloutre
-        ];
+        kdepimTeam = with lib.maintainers; [ ttuegel vandenoever nyanloutre ];
       };
-    in
-    {
+    in {
       akonadi = callPackage ./akonadi { };
       akonadi-calendar = callPackage ./akonadi-calendar.nix { };
       akonadi-calendar-tools = callPackage ./akonadi-calendar-tools.nix { };
@@ -271,5 +253,5 @@ let
       telly-skout = callPackage ./telly-skout.nix { };
       tokodon = callPackage ./tokodon.nix { };
     };
-in
-lib.makeScope libsForQt5.newScope packages
+
+in lib.makeScope libsForQt5.newScope packages

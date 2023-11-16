@@ -1,19 +1,6 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  python-crontab,
-  celery,
-  cron-descriptor,
-  django-timezone-field,
-  tzdata,
-  ephem,
-  pytest-timeout,
-  pytest-django,
-  case,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchPypi, buildPythonPackage, python-crontab, celery, cron-descriptor
+, django-timezone-field, tzdata, ephem, pytest-timeout, pytest-django, case
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "django-celery-beat";
@@ -27,27 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-zQpH9ZWEAvUawMcVvJQq4z17ULTkjLqRvD8nEr5QXfE=";
   };
 
-  propagatedBuildInputs = [
-    cron-descriptor
-    python-crontab
-    celery
-    django-timezone-field
-    tzdata
-  ];
+  propagatedBuildInputs =
+    [ cron-descriptor python-crontab celery django-timezone-field tzdata ];
 
-  nativeCheckInputs = [
-    ephem
-    pytest-timeout
-    pytest-django
-    case
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ ephem pytest-timeout pytest-django case pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Connection error
-      "t/unit/test_schedulers.py"
-    ];
+  disabledTestPaths = [
+    # Connection error
+    "t/unit/test_schedulers.py"
+  ];
 
   pythonImportsCheck = [ "django_celery_beat" ];
 

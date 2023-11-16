@@ -1,17 +1,12 @@
-{
-  lib,
-  buildKodiAddon,
-  fetchzip,
-  addonUpdateScript,
-  requests,
-}:
+{ lib, buildKodiAddon, fetchzip, addonUpdateScript, requests }:
 buildKodiAddon rec {
   pname = "requests-cache";
   namespace = "script.module.requests-cache";
   version = "0.5.2+matrix.2";
 
   src = fetchzip {
-    url = "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
+    url =
+      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
     sha256 = "sha256-6M/v/ghS2TnSZhG8bREjxfEfcfLOmvA6hgsa7JUk9Dk=";
   };
 
@@ -19,7 +14,8 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.requests-cache"; };
+    updateScript =
+      addonUpdateScript { attrPath = "kodi.packages.requests-cache"; };
   };
 
   meta = with lib; {

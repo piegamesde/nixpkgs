@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchpatch,
-  fetchurl,
-  SDL,
-  autoreconfHook,
-  pango,
-  pkg-config,
-}:
+{ lib, stdenv, fetchpatch, fetchurl, SDL, autoreconfHook, pango, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "SDL_Pango";
@@ -20,7 +11,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://sources.debian.org/data/main/s/sdlpango/0.1.2-6/debian/patches/api_additions.patch";
+      url =
+        "https://sources.debian.org/data/main/s/sdlpango/0.1.2-6/debian/patches/api_additions.patch";
       sha256 = "00p5ry5gd3ixm257p9i2c4jg0qj8ipk8nf56l7c9fma8id3zxyld";
     })
     ./fixes.patch
@@ -29,14 +21,8 @@ stdenv.mkDerivation rec {
   preConfigure = "autoreconf -i -f";
   configureFlags = lib.optional stdenv.isDarwin "--disable-sdltest";
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
-  buildInputs = [
-    SDL
-    pango
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  buildInputs = [ SDL pango ];
 
   meta = with lib; {
     description = "Connects the Pango rendering engine to SDL";

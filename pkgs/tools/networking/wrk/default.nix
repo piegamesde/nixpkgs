@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  luajit,
-  openssl,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, luajit, openssl, perl }:
 
 stdenv.mkDerivation rec {
   pname = "wrk";
@@ -18,17 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nCfA444p7krXOB3qRtDKWxWj9tsrDZsGf03ThtE1dXM=";
   };
 
-  buildInputs = [
-    luajit
-    openssl
-    perl
-  ];
+  buildInputs = [ luajit openssl perl ];
 
-  makeFlags = [
-    "WITH_LUAJIT=${luajit}"
-    "WITH_OPENSSL=${openssl.dev}"
-    "VER=${version}"
-  ];
+  makeFlags =
+    [ "WITH_LUAJIT=${luajit}" "WITH_OPENSSL=${openssl.dev}" "VER=${version}" ];
 
   preBuild = ''
     for f in src/*.h; do
@@ -37,7 +23,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
+  env.NIX_CFLAGS_COMPILE =
+    "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 
   installPhase = ''
     mkdir -p $out/bin

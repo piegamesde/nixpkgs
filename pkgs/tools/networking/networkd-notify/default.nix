@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildPythonApplication,
-  dbus-python,
-  pygobject3,
-  systemd,
-  wirelesstools,
-}:
+{ lib, fetchFromGitLab, buildPythonApplication, dbus-python, pygobject3, systemd
+, wirelesstools }:
 
 buildPythonApplication rec {
   pname = "networkd-notify";
@@ -21,10 +14,7 @@ buildPythonApplication rec {
     sha256 = "sha256-fanP1EWERT2Jy4OnMo8OMdR9flginYUgMw+XgmDve3o=";
   };
 
-  propagatedBuildInputs = [
-    dbus-python
-    pygobject3
-  ];
+  propagatedBuildInputs = [ dbus-python pygobject3 ];
 
   patchPhase = ''
     sed -i \

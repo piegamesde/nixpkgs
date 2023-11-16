@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gfortran,
-  opencl-headers,
-  clblas,
-  ocl-icd,
-  mkl,
-  intel-ocl,
-}:
+{ lib, stdenv, fetchurl, gfortran, opencl-headers, clblas, ocl-icd, mkl
+, intel-ocl }:
 
 let
   incfile = builtins.toFile "make.inc.custom" ''
@@ -39,24 +30,17 @@ let
     INC       = -I$(clBLAS)/include
                #-I$(AMDAPP)/include
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "clmagma";
   version = "1.3.0";
   src = fetchurl {
-    url = "https://icl.cs.utk.edu/projectsfiles/magma/cl/clmagma-${version}.tar.gz";
+    url =
+      "https://icl.cs.utk.edu/projectsfiles/magma/cl/clmagma-${version}.tar.gz";
     sha256 = "1n27ny0xhwirw2ydn46pfcwy53gzia9zbam4irx44fd4d7f9ydv7";
     name = "clmagma-${version}.tar.gz";
   };
 
-  buildInputs = [
-    gfortran
-    clblas
-    opencl-headers
-    ocl-icd
-    mkl
-    intel-ocl
-  ];
+  buildInputs = [ gfortran clblas opencl-headers ocl-icd mkl intel-ocl ];
 
   enableParallelBuilding = true;
 
@@ -75,7 +59,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Matrix Algebra on GPU and Multicore Architectures, OpenCL port";
+    description =
+      "Matrix Algebra on GPU and Multicore Architectures, OpenCL port";
     license = licenses.bsd3;
     homepage = "https://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.linux;

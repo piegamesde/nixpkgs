@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  IOKit,
-  nvidiaSupport ? false,
-  makeWrapper,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, IOKit, nvidiaSupport ? false
+, makeWrapper }:
 
 assert nvidiaSupport -> stdenv.isLinux;
 
@@ -34,7 +27,8 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ] ++ lib.optional nvidiaSupport makeWrapper;
+  nativeBuildInputs = [ rustPlatform.bindgenHook ]
+    ++ lib.optional nvidiaSupport makeWrapper;
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 
   buildFeatures = lib.optional nvidiaSupport "nvidia";

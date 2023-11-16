@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -16,18 +10,9 @@ let
     medium = 2;
     large = 3;
   };
-  valFlag =
-    name: val:
+  valFlag = name: val:
     optionalString (val != null)
-      ''
-        -${name} "${
-          escape
-            [
-              "\\"
-              ''"''
-            ]
-            (toString val)
-        }"'';
+    ''-${name} "${escape [ "\\" ''"'' ] (toString val)}"'';
   boolFlag = name: val: optionalString val "-${name}";
   flags = [
     (valFlag "port" cfg.port)
@@ -35,7 +20,8 @@ let
     (valFlag "password" cfg.password)
     (valFlag "motd" cfg.messageOfTheDay)
     (valFlag "world" cfg.worldPath)
-    (valFlag "autocreate" (builtins.getAttr cfg.autoCreatedWorldSize worldSizeMap))
+    (valFlag "autocreate"
+      (builtins.getAttr cfg.autoCreatedWorldSize worldSizeMap))
     (valFlag "banlist" cfg.banListPath)
     (boolFlag "secure" cfg.secure)
     (boolFlag "noupnp" cfg.noUPnP)
@@ -47,11 +33,12 @@ let
       exit 0
     fi
 
-    ${getBin pkgs.tmux}/bin/tmux -S ${cfg.dataDir}/terraria.sock send-keys Enter exit Enter
+    ${
+      getBin pkgs.tmux
+    }/bin/tmux -S ${cfg.dataDir}/terraria.sock send-keys Enter exit Enter
     ${getBin pkgs.coreutils}/bin/tail --pid="$1" -f /dev/null
   '';
-in
-{
+in {
   options = {
     services.terraria = {
       enable = mkOption {
@@ -106,11 +93,7 @@ in
       };
 
       autoCreatedWorldSize = mkOption {
-        type = types.enum [
-          "small"
-          "medium"
-          "large"
-        ];
+        type = types.enum [ "small" "medium" "large" ];
         default = "medium";
         description = lib.mdDoc ''
           Specifies the size of the auto-created world if `worldPath` does not
@@ -129,7 +112,8 @@ in
       secure = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Adds additional cheat protection to the server.";
+        description =
+          lib.mdDoc "Adds additional cheat protection to the server.";
       };
 
       noUPnP = mkOption {
@@ -148,7 +132,8 @@ in
         type = types.str;
         default = "/var/lib/terraria";
         example = "/srv/terraria";
-        description = lib.mdDoc "Path to variable state data directory for terraria.";
+        description =
+          lib.mdDoc "Path to variable state data directory for terraria.";
       };
     };
   };
@@ -162,9 +147,7 @@ in
       uid = config.ids.uids.terraria;
     };
 
-    users.groups.terraria = {
-      gid = config.ids.gids.terraria;
-    };
+    users.groups.terraria = { gid = config.ids.gids.terraria; };
 
     systemd.services.terraria = {
       description = "Terraria Server Service";
@@ -193,5 +176,6 @@ in
       allowedTCPPorts = [ cfg.port ];
       allowedUDPPorts = [ cfg.port ];
     };
+
   };
 }

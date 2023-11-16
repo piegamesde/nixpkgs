@@ -1,9 +1,4 @@
-{
-  lib,
-  buildKodiAddon,
-  fetchFromGitHub,
-  steam,
-}:
+{ lib, buildKodiAddon, fetchFromGitHub, steam }:
 buildKodiAddon {
   pname = "steam-launcher";
   namespace = "script.steam.launcher";

@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  cryptography,
-  nibabel,
-  numpy,
-  pydicom,
-  simpleitk,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, cryptography, nibabel, numpy, pydicom, simpleitk }:
 
 buildPythonPackage rec {
   pname = "pymedio";
@@ -27,20 +17,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    cryptography
-    nibabel
-    pydicom
-    simpleitk
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook cryptography nibabel pydicom simpleitk ];
 
   pythonImportsCheck = [ "pymedio" ];
 
   meta = with lib; {
     description = "Read medical image files into Numpy arrays";
     homepage = "https://github.com/jcreinhold/pymedio";
-    changelog = "https://github.com/jcreinhold/pymedio/blob/v${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/jcreinhold/pymedio/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

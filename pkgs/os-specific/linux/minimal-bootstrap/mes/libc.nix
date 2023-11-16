@@ -1,10 +1,4 @@
-{
-  lib,
-  kaem,
-  ln-boot,
-  mes,
-  mes-libc,
-}:
+{ lib, kaem, ln-boot, mes, mes-libc }:
 let
   pname = "mes-libc";
   inherit (mes.compiler) version;
@@ -20,44 +14,44 @@ let
   # the operation in two
   firstLibc = lib.take 100 libc_gnu_SOURCES;
   lastLibc = lib.drop 100 libc_gnu_SOURCES;
-in
-kaem.runCommand "${pname}-${version}"
-  {
-    inherit pname version;
+in kaem.runCommand "${pname}-${version}" {
+  inherit pname version;
 
-    nativeBuildInputs = [ ln-boot ];
+  nativeBuildInputs = [ ln-boot ];
 
-    passthru.CFLAGS = "-DHAVE_CONFIG_H=1 -I${mes-libc}/include -I${mes-libc}/include/linux/x86";
+  passthru.CFLAGS =
+    "-DHAVE_CONFIG_H=1 -I${mes-libc}/include -I${mes-libc}/include/linux/x86";
 
-    meta = with lib; {
-      description = "The Mes C Library";
-      homepage = "https://www.gnu.org/software/mes";
-      license = licenses.gpl3Plus;
-      maintainers = teams.minimal-bootstrap.members;
-      platforms = [ "i686-linux" ];
-    };
+  meta = with lib; {
+    description = "The Mes C Library";
+    homepage = "https://www.gnu.org/software/mes";
+    license = licenses.gpl3Plus;
+    maintainers = teams.minimal-bootstrap.members;
+    platforms = [ "i686-linux" ];
+  };
+} ''
+  cd ${mes.srcPrefix}
+
+  # mescc compiled libc.a
+  mkdir -p ''${out}/lib/x86-mes
+
+  # libc.c
+  catm ''${TMPDIR}/first.c ${lib.concatStringsSep " " firstLibc}
+  catm ''${out}/lib/libc.c ''${TMPDIR}/first.c ${
+    lib.concatStringsSep " " lastLibc
   }
-  ''
-    cd ${mes.srcPrefix}
 
-    # mescc compiled libc.a
-    mkdir -p ''${out}/lib/x86-mes
+  # crt{1,n,i}.c
+  cp lib/linux/x86-mes-gcc/crt1.c ''${out}/lib
+  cp lib/linux/x86-mes-gcc/crtn.c ''${out}/lib
+  cp lib/linux/x86-mes-gcc/crti.c ''${out}/lib
 
-    # libc.c
-    catm ''${TMPDIR}/first.c ${lib.concatStringsSep " " firstLibc}
-    catm ''${out}/lib/libc.c ''${TMPDIR}/first.c ${lib.concatStringsSep " " lastLibc}
+  # libtcc1.c
+  catm ''${out}/lib/libtcc1.c ${lib.concatStringsSep " " libtcc1_SOURCES}
 
-    # crt{1,n,i}.c
-    cp lib/linux/x86-mes-gcc/crt1.c ''${out}/lib
-    cp lib/linux/x86-mes-gcc/crtn.c ''${out}/lib
-    cp lib/linux/x86-mes-gcc/crti.c ''${out}/lib
+  # getopt.c
+  cp lib/posix/getopt.c ''${out}/lib/libgetopt.c
 
-    # libtcc1.c
-    catm ''${out}/lib/libtcc1.c ${lib.concatStringsSep " " libtcc1_SOURCES}
-
-    # getopt.c
-    cp lib/posix/getopt.c ''${out}/lib/libgetopt.c
-
-    # Install headers
-    ln -s ${mes.srcPrefix}/include ''${out}/include
-  ''
+  # Install headers
+  ln -s ${mes.srcPrefix}/include ''${out}/include
+''

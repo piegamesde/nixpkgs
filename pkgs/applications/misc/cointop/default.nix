@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cointop";
@@ -17,13 +13,11 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "The fastest and most interactive terminal based UI application for tracking cryptocurrencies";
+    description =
+      "The fastest and most interactive terminal based UI application for tracking cryptocurrencies";
     longDescription = ''
       cointop is a fast and lightweight interactive terminal based UI
       application for tracking and monitoring cryptocurrency coin stats in

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPyPy,
-  paramiko,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, paramiko }:
 
 buildPythonPackage rec {
   pname = "pysftp";
@@ -28,4 +22,5 @@ buildPythonPackage rec {
       Book, in the docs, to see what pysftp can do for you.
     '';
   };
+
 }

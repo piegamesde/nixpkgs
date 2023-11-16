@@ -1,17 +1,7 @@
-{
-  stdenv,
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  Foundation,
-  dbusSupport ? stdenv.isLinux,
-  dbus,
-  # rustls will be used for TLS if useOpenSSL=false
-  useOpenSSL ? stdenv.isLinux,
-  openssl,
-  notificationSupport ? stdenv.isLinux,
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, Foundation
+, dbusSupport ? stdenv.isLinux, dbus
+# rustls will be used for TLS if useOpenSSL=false
+, useOpenSSL ? stdenv.isLinux, openssl, notificationSupport ? stdenv.isLinux }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tiny";
@@ -27,8 +17,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "05q3f1wp48mwkz8n0102rwb6jzrgpx3dlbxzf3zcw8r1mblgzim1";
 
   nativeBuildInputs = lib.optional stdenv.isLinux pkg-config;
-  buildInputs =
-    lib.optionals dbusSupport [ dbus ]
+  buildInputs = lib.optionals dbusSupport [ dbus ]
     ++ lib.optionals useOpenSSL [ openssl ]
     ++ lib.optional stdenv.isDarwin Foundation;
 
@@ -39,9 +28,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/osa1/tiny";
     changelog = "https://github.com/osa1/tiny/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      Br1ght0ne
-      vyp
-    ];
+    maintainers = with maintainers; [ Br1ght0ne vyp ];
   };
 }

@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  colorama,
-  fetchPypi,
-  jinja2,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  setuptools,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, colorama, fetchPypi, jinja2, pytestCheckHook
+, pythonOlder, pyyaml, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "mergedb";
@@ -25,12 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    pyyaml
-    colorama
-    jinja2
-    setuptools
-  ];
+  propagatedBuildInputs = [ pyyaml colorama jinja2 setuptools ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -43,3 +28,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ graysonhead ];
   };
 }
+

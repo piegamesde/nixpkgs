@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  pkg-config,
-  dbus,
-  dbus-glib,
-  gtk3,
-  gdk-pixbuf,
-  librsvg,
-  fortune,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, pkg-config, dbus, dbus-glib, gtk3
+, gdk-pixbuf, librsvg, fortune }:
 
 stdenv.mkDerivation rec {
   pname = "xcowsay";
@@ -28,10 +17,7 @@ stdenv.mkDerivation rec {
     gdk-pixbuf # loading cow images
     librsvg # dreaming SVG images
   ];
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
   configureFlags = [ "--enable-dbus" ];
 

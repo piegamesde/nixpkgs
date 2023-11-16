@@ -1,14 +1,9 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  kernel,
-}:
+{ stdenv, lib, fetchFromGitHub, kernel }:
 
 let
-  modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtw88";
-in
-stdenv.mkDerivation {
+  modDestDir =
+    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtw88";
+in stdenv.mkDerivation {
   pname = "rtw88";
   version = "unstable-2022-11-05";
 
@@ -20,7 +15,8 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  makeFlags = kernel.makeFlags ++ [ "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags = kernel.makeFlags
+    ++ [ "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   enableParallelBuilding = true;
 
@@ -37,14 +33,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "The newest Realtek rtlwifi codes";
     homepage = "https://github.com/lwfinger/rtw88";
-    license = with licenses; [
-      bsd3
-      gpl2Only
-    ];
-    maintainers = with maintainers; [
-      tvorog
-      atila
-    ];
+    license = with licenses; [ bsd3 gpl2Only ];
+    maintainers = with maintainers; [ tvorog atila ];
     platforms = platforms.linux;
     broken = kernel.kernelOlder "4.20";
     priority = -1;

@@ -1,17 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
+{ lib, buildPythonPackage, pythonOlder, fetchPypi
 
-  # build time
-  setuptools-scm,
+# build time
+, setuptools-scm
 
-  # tests
-  pytestCheckHook,
-  appdirs,
-  packaging,
-}:
+# tests
+, pytestCheckHook, appdirs, packaging }:
 
 buildPythonPackage rec {
   pname = "path";
@@ -29,12 +22,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # creates a file, checks when it was last accessed/modified
-      # AssertionError: assert 1650036414.0 == 1650036414.960688
-      "test_utime"
-    ];
+  disabledTests = [
+    # creates a file, checks when it was last accessed/modified
+    # AssertionError: assert 1650036414.0 == 1650036414.960688
+    "test_utime"
+  ];
 
   pythonImportsCheck = [ "path" ];
 

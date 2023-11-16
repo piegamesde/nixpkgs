@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.u9fs;
-in
-{
+let cfg = config.services.u9fs;
+in {
 
   options = {
 
@@ -47,7 +40,9 @@ in
           see {command}`man 4 u9fs`
         '';
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -73,5 +68,7 @@ in
         };
       };
     };
+
   };
+
 }

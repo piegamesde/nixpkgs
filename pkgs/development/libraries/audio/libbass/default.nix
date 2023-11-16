@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  unzip,
-  fetchurl,
-}:
+{ lib, stdenv, unzip, fetchurl }:
 
 # Upstream changes files in-place, to update:
 # 1. Check latest version at http://www.un4seen.com/
@@ -35,8 +30,7 @@ let
     };
   };
 
-  dropBass =
-    name: bass:
+  dropBass = name: bass:
     stdenv.mkDerivation {
       pname = "lib${name}";
       inherit (bass) version;
@@ -52,19 +46,16 @@ let
 
       lpropagatedBuildInputs = [ unzip ];
       dontBuild = true;
-      installPhase =
-        let
-          so =
-            if bass.so ? ${stdenv.hostPlatform.system} then
-              bass.so.${stdenv.hostPlatform.system}
-            else
-              throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet).";
-        in
-        ''
-          mkdir -p $out/{lib,include}
-          install -m644 -t $out/lib/ ${so}
-          install -m644 -t $out/include/ ${bass.h}
-        '';
+      installPhase = let
+        so = if bass.so ? ${stdenv.hostPlatform.system} then
+          bass.so.${stdenv.hostPlatform.system}
+        else
+          throw "${name} not packaged for ${stdenv.hostPlatform.system} (yet).";
+      in ''
+        mkdir -p $out/{lib,include}
+        install -m644 -t $out/lib/ ${so}
+        install -m644 -t $out/include/ ${bass.h}
+      '';
 
       meta = with lib; {
         description = "Shareware audio library";
@@ -75,5 +66,5 @@ let
         broken = true;
       };
     };
-in
-lib.mapAttrs dropBass allBass
+
+in lib.mapAttrs dropBass allBass

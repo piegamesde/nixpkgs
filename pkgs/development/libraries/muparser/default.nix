@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  setfile,
-}:
+{ lib, stdenv, fetchurl, unzip, setfile }:
 
 stdenv.mkDerivation rec {
   pname = "muparser";
@@ -21,7 +15,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://muparser.sourceforge.net";
-    description = "An extensible high performance math expression parser library written in C++";
+    description =
+      "An extensible high performance math expression parser library written in C++";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

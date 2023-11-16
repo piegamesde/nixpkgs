@@ -1,11 +1,6 @@
 {
   activesupport = {
-    dependencies = [
-      "i18n"
-      "minitest"
-      "thread_safe"
-      "tzinfo"
-    ];
+    dependencies = [ "i18n" "minitest" "thread_safe" "tzinfo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -16,10 +11,7 @@
     version = "4.2.11.3";
   };
   algoliasearch = {
-    dependencies = [
-      "httpclient"
-      "json"
-    ];
+    dependencies = [ "httpclient" "json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -156,10 +148,7 @@
     version = "1.1.0";
   };
   cocoapods-trunk = {
-    dependencies = [
-      "nap"
-      "netrc"
-    ];
+    dependencies = [ "nap" "netrc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -468,13 +457,7 @@
     version = "0.3.0";
   };
   xcodeproj = {
-    dependencies = [
-      "CFPropertyList"
-      "atomos"
-      "claide"
-      "colored2"
-      "nanaimo"
-    ];
+    dependencies = [ "CFPropertyList" "atomos" "claide" "colored2" "nanaimo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

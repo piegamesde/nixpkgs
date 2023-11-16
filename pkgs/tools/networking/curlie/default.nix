@@ -1,10 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  curlie,
-  testers,
-}:
+{ buildGoModule, fetchFromGitHub, lib, curlie, testers }:
 
 buildGoModule rec {
   pname = "curlie";
@@ -21,11 +15,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-VsPdMUfS4UVem6uJgFISfFHQEKtIumDQktHQFPC1muc=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   passthru.tests.version = testers.testVersion {
     package = curlie;
@@ -33,7 +23,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Frontend to curl that adds the ease of use of httpie, without compromising on features and performance";
+    description =
+      "Frontend to curl that adds the ease of use of httpie, without compromising on features and performance";
     homepage = "https://curlie.io/";
     maintainers = with maintainers; [ ma27 ];
     license = licenses.mit;

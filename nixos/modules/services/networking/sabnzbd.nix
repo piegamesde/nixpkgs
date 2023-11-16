@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,9 +6,8 @@ let
 
   cfg = config.services.sabnzbd;
   inherit (pkgs) sabnzbd;
-in
 
-{
+in {
 
   ###### interface
 
@@ -25,7 +19,8 @@ in
         type = types.package;
         default = pkgs.sabnzbd;
         defaultText = lib.literalExpression "pkgs.sabnzbd";
-        description = lib.mdDoc "The sabnzbd executable package run by the service.";
+        description =
+          lib.mdDoc "The sabnzbd executable package run by the service.";
       };
 
       configFile = mkOption {
@@ -60,9 +55,7 @@ in
       createHome = true;
     };
 
-    users.groups.sabnzbd = {
-      gid = config.ids.gids.sabnzbd;
-    };
+    users.groups.sabnzbd = { gid = config.ids.gids.sabnzbd; };
 
     systemd.services.sabnzbd = {
       description = "sabnzbd server";
@@ -73,7 +66,8 @@ in
         GuessMainPID = "no";
         User = "${cfg.user}";
         Group = "${cfg.group}";
-        ExecStart = "${lib.getBin cfg.package}/bin/sabnzbd -d -f ${cfg.configFile}";
+        ExecStart =
+          "${lib.getBin cfg.package}/bin/sabnzbd -d -f ${cfg.configFile}";
       };
     };
   };

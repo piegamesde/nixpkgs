@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "maxcube-api";
@@ -30,10 +24,7 @@ buildPythonPackage rec {
     "testSendRadioMsgReusesConnection"
   ];
 
-  pythonImportsCheck = [
-    "maxcube"
-    "maxcube.cube"
-  ];
+  pythonImportsCheck = [ "maxcube" "maxcube.cube" ];
 
   meta = with lib; {
     description = "eQ-3/ELV MAX! Cube Python API";

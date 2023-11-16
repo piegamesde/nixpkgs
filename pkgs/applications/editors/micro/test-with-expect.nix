@@ -1,10 +1,4 @@
-{
-  micro,
-  expect,
-  runCommand,
-  writeScript,
-  runtimeShell,
-}:
+{ micro, expect, runCommand, writeScript, runtimeShell }:
 
 let
   expect-script = writeScript "expect-script" ''
@@ -24,21 +18,13 @@ let
 
     expect eof
   '';
-in
-runCommand "micro-test-expect"
-  {
-    nativeBuildInputs = [
-      micro
-      expect
-    ];
-    passthru = {
-      inherit expect-script;
-    };
-  }
-  ''
-    # Micro really wants a writable $HOME for its config directory.
-    export HOME=$(pwd)
-    expect -f ${expect-script}
-    grep "Hello world!" file.txt
-    touch $out
-  ''
+in runCommand "micro-test-expect" {
+  nativeBuildInputs = [ micro expect ];
+  passthru = { inherit expect-script; };
+} ''
+  # Micro really wants a writable $HOME for its config directory.
+  export HOME=$(pwd)
+  expect -f ${expect-script}
+  grep "Hello world!" file.txt
+  touch $out
+''

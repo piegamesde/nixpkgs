@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "xkeyboard";
   version = "clx-20120811-git";
 
@@ -11,7 +10,8 @@ rec {
   deps = [ args."clx" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/clx-xkeyboard/2012-08-11/clx-xkeyboard-20120811-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/clx-xkeyboard/2012-08-11/clx-xkeyboard-20120811-git.tgz";
     sha256 = "11q70drx3xn7rvk528qlnzpnxd6hg6801kc54ys3jz1l7074458n";
   };
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "TT2020";
@@ -25,7 +21,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An advanced, open source, hyperrealistic, multilingual typewriter font for a new decade";
+    description =
+      "An advanced, open source, hyperrealistic, multilingual typewriter font for a new decade";
     homepage = "https://ctrlcctrlv.github.io/TT2020";
     license = licenses.ofl;
     maintainers = with maintainers; [ sikmir ];

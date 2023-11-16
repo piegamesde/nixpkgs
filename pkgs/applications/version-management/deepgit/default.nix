@@ -1,15 +1,5 @@
-{
-  copyDesktopItems,
-  fetchurl,
-  glib,
-  gnome,
-  gtk3,
-  jre,
-  lib,
-  makeDesktopItem,
-  stdenv,
-  wrapGAppsHook,
-}:
+{ copyDesktopItems, fetchurl, glib, gnome, gtk3, jre, lib, makeDesktopItem
+, stdenv, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "deepgit";
@@ -22,25 +12,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-bA/EySZjuSDYaZplwHcpeP1VakcnG5K1hYTk7cSVbz0=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook ];
 
-  buildInputs = [
-    gnome.adwaita-icon-theme
-    gtk3
-    jre
-  ];
+  buildInputs = [ gnome.adwaita-icon-theme gtk3 jre ];
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          glib
-          gtk3
-        ]
-      }
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ glib gtk3 ]}
       --set DEEPGIT_JAVA_HOME ${jre}
     )
     patchShebangs bin/deepgit.sh
@@ -52,18 +30,12 @@ stdenv.mkDerivation rec {
       desktopName = "DeepGit";
       keywords = [ "git" ];
       comment = "Git-Client";
-      categories = [
-        "Development"
-        "RevisionControl"
-      ];
+      categories = [ "Development" "RevisionControl" ];
       terminal = false;
       startupNotify = true;
       startupWMClass = desktopName;
       exec = pname;
-      mimeTypes = [
-        "x-scheme-handler/${pname}"
-        "x-scheme-handler/sourcetree"
-      ];
+      mimeTypes = [ "x-scheme-handler/${pname}" "x-scheme-handler/sourcetree" ];
       icon = pname;
     })
   ];

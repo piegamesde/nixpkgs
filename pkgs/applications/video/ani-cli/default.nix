@@ -1,15 +1,5 @@
-{
-  fetchFromGitHub,
-  makeWrapper,
-  stdenvNoCC,
-  lib,
-  gnugrep,
-  gnused,
-  wget,
-  fzf,
-  mpv,
-  aria2,
-}:
+{ fetchFromGitHub, makeWrapper, stdenvNoCC, lib, gnugrep, gnused, wget, fzf, mpv
+, aria2 }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ani-cli";
@@ -30,16 +20,7 @@ stdenvNoCC.mkDerivation rec {
     install -Dm755 ani-cli $out/bin/ani-cli
 
     wrapProgram $out/bin/ani-cli \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          gnugrep
-          gnused
-          wget
-          fzf
-          mpv
-          aria2
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ gnugrep gnused wget fzf mpv aria2 ]}
 
     runHook postInstall
   '';

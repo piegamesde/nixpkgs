@@ -1,41 +1,22 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  ncurses,
-  python3,
-  perl,
-  textual-window-manager,
-  gettext,
-  vim,
-  bc,
-  screen,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, ncurses, python3, perl
+, textual-window-manager, gettext, vim, bc, screen }:
 
-let
-  pythonEnv = python3.withPackages (ps: with ps; [ snack ]);
-in
-stdenv.mkDerivation rec {
+let pythonEnv = python3.withPackages (ps: with ps; [ snack ]);
+in stdenv.mkDerivation rec {
   version = "5.133";
   pname = "byobu";
 
   src = fetchurl {
-    url = "https://launchpad.net/byobu/trunk/${version}/+download/byobu_${version}.orig.tar.gz";
+    url =
+      "https://launchpad.net/byobu/trunk/${version}/+download/byobu_${version}.orig.tar.gz";
     sha256 = "0qvmmdnvwqbgbhn5c8asmrmjhclcl029py2d2zvmd7h5ij7s93jd";
   };
 
   doCheck = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    perl
-    gettext
-  ];
-  propagatedBuildInputs = [
-    textual-window-manager
-    screen
-  ];
+  buildInputs = [ perl gettext ];
+  propagatedBuildInputs = [ textual-window-manager screen ];
 
   postPatch = ''
     substituteInPlace usr/bin/byobu-export.in \
@@ -65,14 +46,7 @@ stdenv.mkDerivation rec {
       file=".$(basename $i)"
       mv $i $out/bin/$file
       makeWrapper "$out/bin/$file" "$out/bin/$(basename $i)" --argv0 $(basename $i) \
-        --set BYOBU_PATH ${
-          lib.escapeShellArg (
-            lib.makeBinPath [
-              vim
-              bc
-            ]
-          )
-        } \
+        --set BYOBU_PATH ${lib.escapeShellArg (lib.makeBinPath [ vim bc ])} \
         --set BYOBU_PYTHON "${pythonEnv}/bin/python"
     done
   '';
@@ -94,9 +68,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
 
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      qknight
-      berbiche
-    ];
+    maintainers = with maintainers; [ qknight berbiche ];
   };
 }

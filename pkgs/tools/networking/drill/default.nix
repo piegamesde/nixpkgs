@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  Security,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "drill";
@@ -26,8 +18,7 @@ rustPlatform.buildRustPackage rec {
   OPENSSL_LIB_DIR = "${lib.getLib openssl}/lib";
   OPENSSL_DIR = "${lib.getDev openssl}";
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {

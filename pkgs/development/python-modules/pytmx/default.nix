@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pygame,
-  pyglet,
-  pysdl2,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pygame, pyglet, pysdl2
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytmx";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
     sha256 = "05v8zv06fymvgv332g48kcing4k4ncy2iwgpy1qmxrpin1avyynx";
   };
 
-  propagatedBuildInputs = [
-    pygame
-    pyglet
-    pysdl2
-  ];
+  propagatedBuildInputs = [ pygame pyglet pysdl2 ];
 
   pythonImportsCheck = [
     "pytmx.pytmx"
@@ -38,11 +26,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # AssertionError on the property name
-      "test_contains_reserved_property_name"
-    ];
+  disabledTests = [
+    # AssertionError on the property name
+    "test_contains_reserved_property_name"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/bitcraft/PyTMX";

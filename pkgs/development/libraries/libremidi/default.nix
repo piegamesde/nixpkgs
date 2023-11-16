@@ -1,14 +1,5 @@
-{
-  alsa-lib,
-  cmake,
-  CoreAudio,
-  CoreFoundation,
-  CoreMIDI,
-  CoreServices,
-  fetchFromGitHub,
-  lib,
-  stdenv,
-}:
+{ alsa-lib, cmake, CoreAudio, CoreFoundation, CoreMIDI, CoreServices
+, fetchFromGitHub, lib, stdenv }:
 
 stdenv.mkDerivation {
   pname = "libremidi";
@@ -23,8 +14,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    lib.optional stdenv.isLinux alsa-lib
+  buildInputs = lib.optional stdenv.isLinux alsa-lib
     ++ lib.optionals stdenv.isDarwin [
       CoreAudio
       CoreFoundation

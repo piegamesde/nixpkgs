@@ -1,74 +1,50 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  xorg,
-  freetype,
-  fontconfig,
-  openssl,
-  glib,
-  nss,
-  nspr,
-  expat,
-  alsa-lib,
-  dbus,
-  zlib,
-  libxml2,
-  libxslt,
-  makeWrapper,
-  xkeyboard_config,
-  systemd,
-  libGL,
-  xcbutilkeysyms,
-  xdg-utils,
-  libtool,
-}:
+{ lib, stdenv, fetchurl, xorg, freetype, fontconfig, openssl, glib, nss, nspr
+, expat, alsa-lib, dbus, zlib, libxml2, libxslt, makeWrapper, xkeyboard_config
+, systemd, libGL, xcbutilkeysyms, xdg-utils, libtool }:
 
 let
   version = "4.30.5.1682";
 
-  rpath =
-    lib.makeLibraryPath [
-      xdg-utils
-      xorg.libXext
-      xorg.libSM
-      xorg.libICE
-      xorg.libX11
-      xorg.libXrandr
-      xorg.libXdamage
-      xorg.libXrender
-      xorg.libXfixes
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libxcb
-      xorg.libXi
-      xorg.libXScrnSaver
-      xorg.libXtst
-      freetype
-      fontconfig
-      openssl
-      glib
-      nss
-      nspr
-      dbus
-      alsa-lib
-      zlib
-      libtool
-      libxml2
-      libxslt
-      expat
-      xcbutilkeysyms
-      systemd
-      libGL
-    ]
-    + ":${stdenv.cc.cc.lib}/lib64";
-in
-stdenv.mkDerivation {
+  rpath = lib.makeLibraryPath [
+    xdg-utils
+    xorg.libXext
+    xorg.libSM
+    xorg.libICE
+    xorg.libX11
+    xorg.libXrandr
+    xorg.libXdamage
+    xorg.libXrender
+    xorg.libXfixes
+    xorg.libXcomposite
+    xorg.libXcursor
+    xorg.libxcb
+    xorg.libXi
+    xorg.libXScrnSaver
+    xorg.libXtst
+    freetype
+    fontconfig
+    openssl
+    glib
+    nss
+    nspr
+    dbus
+    alsa-lib
+    zlib
+    libtool
+    libxml2
+    libxslt
+    expat
+    xcbutilkeysyms
+    systemd
+    libGL
+  ] + ":${stdenv.cc.cc.lib}/lib64";
+in stdenv.mkDerivation {
   pname = "hipchat";
   inherit version;
 
   src = fetchurl {
-    url = "https://atlassian.artifactoryonline.com/artifactory/hipchat-apt-client/pool/HipChat4-${version}-Linux.deb";
+    url =
+      "https://atlassian.artifactoryonline.com/artifactory/hipchat-apt-client/pool/HipChat4-${version}-Linux.deb";
     sha256 = "03pz8wskafn848yvciq29kwdvqcgjrk6sjnm8nk9acl89xf0sn96";
   };
 

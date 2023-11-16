@@ -1,98 +1,41 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  wrapGAppsHook,
-  autoreconfHook,
-  bison,
-  flex,
-  curl,
-  gtk3,
-  pkg-config,
-  python3,
-  shared-mime-info,
-  glib-networking,
-  gsettings-desktop-schemas,
+{ stdenv, lib, fetchurl, wrapGAppsHook, autoreconfHook, bison, flex, curl, gtk3
+, pkg-config, python3, shared-mime-info, glib-networking
+, gsettings-desktop-schemas
 
-  # Package compatibility: old parameters whose name were not directly derived
-  enablePgp ? true,
-  enablePluginNotificationDialogs ? true,
-  enablePluginNotificationSounds ? true,
-  enablePluginPdf ? true,
-  enablePluginRavatar ? true,
-  enableSpellcheck ? true,
+# Package compatibility: old parameters whose name were not directly derived
+, enablePgp ? true, enablePluginNotificationDialogs ? true
+, enablePluginNotificationSounds ? true, enablePluginPdf ? true
+, enablePluginRavatar ? true, enableSpellcheck ? true
 
   # Arguments to include external libraries
-  enableLibSM ? true,
-  xorg,
-  enableGnuTLS ? true,
-  gnutls,
-  enableEnchant ? enableSpellcheck,
-  enchant,
-  enableDbus ? true,
-  dbus,
-  dbus-glib,
-  enableLdap ? true,
-  openldap,
-  enableNetworkManager ? true,
-  networkmanager,
-  enableLibetpan ? true,
-  libetpan,
-  enableValgrind ? !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
-  valgrind,
-  enableSvg ? true,
-  librsvg,
+, enableLibSM ? true, xorg, enableGnuTLS ? true, gnutls
+, enableEnchant ? enableSpellcheck, enchant, enableDbus ? true, dbus, dbus-glib
+, enableLdap ? true, openldap, enableNetworkManager ? true, networkmanager
+, enableLibetpan ? true, libetpan, enableValgrind ? !stdenv.isDarwin
+  && lib.meta.availableOn stdenv.hostPlatform valgrind, valgrind
+, enableSvg ? true, librsvg
 
-  # Configure claws-mail's plugins
-  enablePluginAcpiNotifier ? true,
-  enablePluginAddressKeeper ? true,
-  enablePluginArchive ? true,
-  libarchive,
-  enablePluginAttRemover ? true,
-  enablePluginAttachWarner ? true,
-  enablePluginBogofilter ? true,
-  enablePluginBsfilter ? true,
-  enablePluginClamd ? true,
-  enablePluginDillo ? true,
-  enablePluginFancy ? true,
-  libsoup,
-  webkitgtk,
-  enablePluginFetchInfo ? true,
-  enablePluginKeywordWarner ? true,
-  enablePluginLibravatar ? enablePluginRavatar,
-  enablePluginLitehtmlViewer ? true,
-  gumbo,
-  enablePluginMailmbox ? true,
-  enablePluginManageSieve ? true,
-  enablePluginNewMail ? true,
-  enablePluginNotification ? (enablePluginNotificationDialogs || enablePluginNotificationSounds),
-  libcanberra-gtk3,
-  libnotify,
-  enablePluginPdfViewer ? enablePluginPdf,
-  poppler,
-  enablePluginPerl ? true,
-  perl,
-  enablePluginPython ? true,
-  enablePluginPgp ? enablePgp,
-  gnupg,
-  gpgme,
-  enablePluginRssyl ? true,
-  libxml2,
-  enablePluginSmime ? true,
-  enablePluginSpamassassin ? true,
-  enablePluginSpamReport ? true,
-  enablePluginTnefParse ? true,
-  libytnef,
-  enablePluginVcalendar ? true,
-  libical,
-}:
+# Configure claws-mail's plugins
+, enablePluginAcpiNotifier ? true, enablePluginAddressKeeper ? true
+, enablePluginArchive ? true, libarchive, enablePluginAttRemover ? true
+, enablePluginAttachWarner ? true, enablePluginBogofilter ? true
+, enablePluginBsfilter ? true, enablePluginClamd ? true
+, enablePluginDillo ? true, enablePluginFancy ? true, libsoup, webkitgtk
+, enablePluginFetchInfo ? true, enablePluginKeywordWarner ? true
+, enablePluginLibravatar ? enablePluginRavatar
+, enablePluginLitehtmlViewer ? true, gumbo, enablePluginMailmbox ? true
+, enablePluginManageSieve ? true, enablePluginNewMail ? true
+, enablePluginNotification ?
+  (enablePluginNotificationDialogs || enablePluginNotificationSounds)
+, libcanberra-gtk3, libnotify, enablePluginPdfViewer ? enablePluginPdf, poppler
+, enablePluginPerl ? true, perl, enablePluginPython ? true
+, enablePluginPgp ? enablePgp, gnupg, gpgme, enablePluginRssyl ? true, libxml2
+, enablePluginSmime ? true, enablePluginSpamassassin ? true
+, enablePluginSpamReport ? true, enablePluginTnefParse ? true, libytnef
+, enablePluginVcalendar ? true, libical }:
 
 let
-  pythonPkgs = with python3.pkgs; [
-    python3
-    wrapPython
-    pygobject3
-  ];
+  pythonPkgs = with python3.pkgs; [ python3 wrapPython pygobject3 ];
 
   features = [
     {
@@ -131,10 +74,7 @@ let
     {
       flags = [ "dbus" ];
       enabled = enableDbus;
-      deps = [
-        dbus
-        dbus-glib
-      ];
+      deps = [ dbus dbus-glib ];
     }
     {
       flags = [ "dillo-plugin" ];
@@ -148,10 +88,7 @@ let
     {
       flags = [ "fancy-plugin" ];
       enabled = enablePluginFancy;
-      deps = [
-        libsoup
-        webkitgtk
-      ];
+      deps = [ libsoup webkitgtk ];
     }
     {
       flags = [ "fetchinfo-plugin" ];
@@ -223,16 +160,9 @@ let
       deps = [ perl ];
     }
     {
-      flags = [
-        "pgpcore-plugin"
-        "pgpinline-plugin"
-        "pgpmime-plugin"
-      ];
+      flags = [ "pgpcore-plugin" "pgpinline-plugin" "pgpmime-plugin" ];
       enabled = enablePluginPgp;
-      deps = [
-        gnupg
-        gpgme
-      ];
+      deps = [ gnupg gpgme ];
     }
     {
       flags = [ "python-plugin" ];
@@ -276,20 +206,17 @@ let
       deps = [ libical ];
     }
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "claws-mail";
   version = "4.1.1";
 
   src = fetchurl {
-    url = "https://claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz";
+    url =
+      "https://claws-mail.org/download.php?file=releases/claws-mail-${version}.tar.xz";
     hash = "sha256-sYnnAMGJb14N6wt21L+oIOt6wZNe4Qqpr7raPPU6A0Q=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   patches = [ ./mime.patch ];
 
@@ -307,33 +234,22 @@ stdenv.mkDerivation rec {
         --subst-var-by MIMEROOTDIR ${shared-mime-info}/share
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    bison
-    flex
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config bison flex wrapGAppsHook ];
   propagatedBuildInputs = pythonPkgs;
 
-  buildInputs = [
-    curl
-    gsettings-desktop-schemas
-    glib-networking
-    gtk3
-  ] ++ lib.concatMap (f: lib.optionals f.enabled f.deps) (lib.filter (f: f ? deps) features);
+  buildInputs = [ curl gsettings-desktop-schemas glib-networking gtk3 ]
+    ++ lib.concatMap (f: lib.optionals f.enabled f.deps)
+    (lib.filter (f: f ? deps) features);
 
-  configureFlags =
-    [
-      "--disable-manual" # Missing docbook-tools, e.g., docbook2html
-      "--disable-compface" # Missing compface library
-      "--disable-jpilot" # Missing jpilot library
+  configureFlags = [
+    "--disable-manual" # Missing docbook-tools, e.g., docbook2html
+    "--disable-compface" # Missing compface library
+    "--disable-jpilot" # Missing jpilot library
 
-      "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
-    ]
-    ++ (map (feature: map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
-      features
-    );
+    "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
+  ] ++ (map (feature:
+    map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
+    features);
 
   enableParallelBuilding = true;
 

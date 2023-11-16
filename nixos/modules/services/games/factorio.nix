@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -42,13 +37,12 @@ let
     autosave_only_on_server = true;
     non_blocking_saving = cfg.nonBlockingSaving;
   } // cfg.extraSettings;
-  serverSettingsFile = pkgs.writeText "server-settings.json" (
-    builtins.toJSON (filterAttrsRecursive (n: v: v != null) serverSettings)
-  );
-  serverAdminsFile = pkgs.writeText "server-adminlist.json" (builtins.toJSON cfg.admins);
+  serverSettingsFile = pkgs.writeText "server-settings.json"
+    (builtins.toJSON (filterAttrsRecursive (n: v: v != null) serverSettings));
+  serverAdminsFile =
+    pkgs.writeText "server-adminlist.json" (builtins.toJSON cfg.admins);
   modDir = pkgs.factorio-utils.mkModDirDrv cfg.mods cfg.mods-dat;
-in
-{
+in {
   options = {
     services.factorio = {
       enable = mkEnableOption (lib.mdDoc name);
@@ -169,9 +163,7 @@ in
       extraSettings = mkOption {
         type = types.attrs;
         default = { };
-        example = {
-          admins = [ "username" ];
-        };
+        example = { admins = [ "username" ]; };
         description = lib.mdDoc ''
           Extra game configuration that will go into server-settings.json
         '';
@@ -280,11 +272,13 @@ in
           "--config=${cfg.configFile}"
           "--port=${toString cfg.port}"
           "--bind=${cfg.bind}"
-          (optionalString (!cfg.loadLatestSave) "--start-server=${mkSavePath cfg.saveName}")
+          (optionalString (!cfg.loadLatestSave)
+            "--start-server=${mkSavePath cfg.saveName}")
           "--server-settings=${serverSettingsFile}"
           (optionalString cfg.loadLatestSave "--start-server-load-latest")
           (optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
-          (optionalString (cfg.admins != [ ]) "--server-adminlist=${serverAdminsFile}")
+          (optionalString (cfg.admins != [ ])
+            "--server-adminlist=${serverAdminsFile}")
         ];
 
         # Sandboxing
@@ -296,18 +290,15 @@ in
         ProtectControlGroups = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-          "AF_NETLINK"
-        ];
+        RestrictAddressFamilies =
+          [ "AF_UNIX" "AF_INET" "AF_INET6" "AF_NETLINK" ];
         RestrictRealtime = true;
         RestrictNamespaces = true;
         MemoryDenyWriteExecute = true;
       };
     };
 
-    networking.firewall.allowedUDPPorts = if cfg.openFirewall then [ cfg.port ] else [ ];
+    networking.firewall.allowedUDPPorts =
+      if cfg.openFirewall then [ cfg.port ] else [ ];
   };
 }

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  pkg-config,
-  pango,
-  cython,
-  AppKit,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, python, pkg-config, pango
+, cython, AppKit, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "manimpango";
@@ -48,7 +37,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Binding for Pango";
     homepage = "https://github.com/ManimCommunity/ManimPango";
-    changelog = "https://github.com/ManimCommunity/ManimPango/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ManimCommunity/ManimPango/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ emilytrau ];
   };

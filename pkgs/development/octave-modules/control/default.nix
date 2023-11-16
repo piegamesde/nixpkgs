@@ -1,12 +1,5 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchFromGitHub,
-  gfortran,
-  lapack,
-  blas,
-  autoreconfHook,
-}:
+{ buildOctavePackage, lib, fetchFromGitHub, gfortran, lapack, blas
+, autoreconfHook }:
 
 buildOctavePackage rec {
   pname = "control";
@@ -31,20 +24,15 @@ buildOctavePackage rec {
     popd
   '';
 
-  nativeBuildInputs = [
-    gfortran
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ gfortran autoreconfHook ];
 
-  buildInputs = [
-    lapack
-    blas
-  ];
+  buildInputs = [ lapack blas ];
 
   meta = with lib; {
     homepage = "https://gnu-octave.github.io/packages/control/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description = "Computer-Aided Control System Design (CACSD) Tools for GNU Octave, based on the proven SLICOT Library";
+    description =
+      "Computer-Aided Control System Design (CACSD) Tools for GNU Octave, based on the proven SLICOT Library";
   };
 }

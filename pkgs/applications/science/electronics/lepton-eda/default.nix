@@ -1,21 +1,5 @@
-{
-  stdenv,
-  lib,
-  pkg-config,
-  makeWrapper,
-  texinfo,
-  fetchurl,
-  autoreconfHook,
-  guile,
-  flex,
-  gtk2,
-  glib,
-  gtkextra,
-  gettext,
-  gawk,
-  shared-mime-info,
-  groff,
-  libstroke,
+{ stdenv, lib, pkg-config, makeWrapper, texinfo, fetchurl, autoreconfHook, guile
+, flex, gtk2, glib, gtkextra, gettext, gawk, shared-mime-info, groff, libstroke
 }:
 
 stdenv.mkDerivation rec {
@@ -23,18 +7,14 @@ stdenv.mkDerivation rec {
   version = "1.9.17-20211219";
 
   src = fetchurl {
-    url = "https://github.com/lepton-eda/lepton-eda/releases/download/${version}/lepton-eda-${
+    url =
+      "https://github.com/lepton-eda/lepton-eda/releases/download/${version}/lepton-eda-${
         builtins.head (lib.splitString "-" version)
       }.tar.gz";
     sha256 = "sha256-lOneKeJUcw6jOX/3iv9BDWOJ3xip/vGhzxHHNAbtsS8=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    texinfo
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper texinfo autoreconfHook ];
 
   propagatedBuildInputs = [
     guile

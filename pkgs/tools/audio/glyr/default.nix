@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  curl,
-  glib,
-  sqlite,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, curl, glib, sqlite, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "1.0.10";
@@ -20,15 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "1miwbqzkhg0v3zysrwh60pj9sv6ci4lzq2vq2hhc6pc6hdyh8xyr";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    sqlite
-    glib
-    curl
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ sqlite glib curl ];
 
   meta = with lib; {
     description = "A music related metadata searchengine";
@@ -39,3 +23,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
+

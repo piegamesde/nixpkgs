@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  apacheHttpd,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, apacheHttpd }:
 
 stdenv.mkDerivation rec {
   pname = "mod_fastcgi";

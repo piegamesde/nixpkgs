@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  sfml,
-  libX11,
-  glew,
-  python3,
-  fetchpatch,
-  applyPatches,
-  glm,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, sfml, libX11, glew, python3, fetchpatch
+, applyPatches, glm }:
 
 let
 
@@ -37,7 +26,8 @@ let
       patches = [
         # Various CMake fixes for `json11`. Can be removed on the next release.
         (fetchpatch {
-          url = "https://github.com/daid/SeriousProton/commit/adbba45fd9ae5e020e43e5d7f9326f1355391209.patch";
+          url =
+            "https://github.com/daid/SeriousProton/commit/adbba45fd9ae5e020e43e5d7f9326f1355391209.patch";
           sha256 = "sha256-gMTpIGPGCREmZ/ZxvEc7RVsVUxWXbu2BPUCE3A62sCI=";
         })
 
@@ -51,23 +41,19 @@ let
     };
 
     nativeBuildInputs = [ cmake ];
-    buildInputs = [
-      sfml
-      libX11
-      glm
-    ];
+    buildInputs = [ sfml libX11 glm ];
 
     meta = with lib; {
-      description = "C++ game engine coded on top of SFML used for EmptyEpsilon";
+      description =
+        "C++ game engine coded on top of SFML used for EmptyEpsilon";
       homepage = "https://github.com/daid/SeriousProton";
       license = licenses.mit;
       maintainers = with maintainers; [ fpletz ];
       platforms = platforms.linux;
     };
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "empty-epsilon";
   version = version.emptyepsilon;
 
@@ -81,24 +67,19 @@ stdenv.mkDerivation {
   patches = [
     # Various CMake fixes that can be removed when upgrading to the next release.
     (fetchpatch {
-      url = "https://github.com/daid/EmptyEpsilon/commit/ee0cd42bfe5fd20b8339e8e02eb7f69766168d57.patch";
+      url =
+        "https://github.com/daid/EmptyEpsilon/commit/ee0cd42bfe5fd20b8339e8e02eb7f69766168d57.patch";
       sha256 = "sha256-8dXtl/izfzqbwHtjuugjH34vYP+d4AobqZhxL2GXTzw=";
     })
     (fetchpatch {
-      url = "https://github.com/daid/EmptyEpsilon/commit/69d93e6acdae3259755924f9d35e7e5ae949d377.patch";
+      url =
+        "https://github.com/daid/EmptyEpsilon/commit/69d93e6acdae3259755924f9d35e7e5ae949d377.patch";
       sha256 = "sha256-30AGo4mi73GrW9GNS3vF3mTOS7J5/41LvjOzNjeFhOg=";
     })
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    serious-proton
-    sfml
-    glew
-    libX11
-    python3
-    glm
-  ];
+  buildInputs = [ serious-proton sfml glew libX11 python3 glm ];
 
   cmakeFlags = [
     "-DSERIOUS_PROTON_DIR=${serious-proton.src}"
@@ -112,11 +93,7 @@ stdenv.mkDerivation {
     description = "Open source bridge simulator based on Artemis";
     homepage = "https://daid.github.io/EmptyEpsilon/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      fpletz
-      lheckemann
-      ma27
-    ];
+    maintainers = with maintainers; [ fpletz lheckemann ma27 ];
     platforms = platforms.linux;
   };
 }

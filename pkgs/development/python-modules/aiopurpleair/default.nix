@@ -1,16 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pydantic,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pydantic, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiopurpleair";
@@ -33,30 +22,23 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples directory as the files are prefixed with test_.
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples directory as the files are prefixed with test_.
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "aiopurpleair" ];
 
   meta = with lib; {
     description = "Python library for interacting with the PurpleAir API";
     homepage = "https://github.com/bachya/aiopurpleair";
-    changelog = "https://github.com/bachya/aiopurpleair/releases/tag/${version}";
+    changelog =
+      "https://github.com/bachya/aiopurpleair/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

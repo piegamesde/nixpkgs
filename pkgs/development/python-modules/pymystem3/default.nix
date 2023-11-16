@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  isPy3k,
-  requests,
-  flake8,
-  mock,
-  pytest,
-  mystem,
-}:
+{ lib, fetchPypi, buildPythonPackage, isPy3k, requests, flake8, mock, pytest
+, mystem }:
 
 buildPythonPackage rec {
   pname = "pymystem3";
@@ -20,11 +11,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ requests ];
-  nativeCheckInputs = [
-    flake8
-    mock
-    pytest
-  ];
+  nativeCheckInputs = [ flake8 mock pytest ];
   doCheck = isPy3k; # fails on linting
 
   postPatch = ''
@@ -32,7 +19,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Python wrapper for the Yandex MyStem 3.1 morpholocial analyzer of the Russian language";
+    description =
+      "Python wrapper for the Yandex MyStem 3.1 morpholocial analyzer of the Russian language";
     homepage = "https://github.com/nlpub/pymystem3";
     license = licenses.mit;
     maintainers = with maintainers; [ abbradar ];

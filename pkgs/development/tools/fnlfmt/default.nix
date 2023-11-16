@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  luaPackages,
-  lua,
-}:
+{ lib, stdenv, fetchFromSourcehut, luaPackages, lua }:
 
 stdenv.mkDerivation rec {
   pname = "fnlfmt";

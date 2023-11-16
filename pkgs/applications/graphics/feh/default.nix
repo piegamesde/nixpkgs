@@ -1,18 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  xorg,
-  imlib2,
-  libjpeg,
-  libpng,
-  curl,
-  libexif,
-  jpegexiforient,
-  perl,
-  enableAutoreload ? !stdenv.hostPlatform.isDarwin,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, xorg, imlib2, libjpeg, libpng, curl
+, libexif, jpegexiforient, perl
+, enableAutoreload ? !stdenv.hostPlatform.isDarwin }:
 
 stdenv.mkDerivation rec {
   pname = "feh";
@@ -31,11 +19,7 @@ stdenv.mkDerivation rec {
       --replace "Does not look like an image \(magic bytes missing\)" "Unknown error \(15\)"
   '';
 
-  outputs = [
-    "out"
-    "man"
-    "doc"
-  ];
+  outputs = [ "out" "man" "doc" ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -50,18 +34,14 @@ stdenv.mkDerivation rec {
     libexif
   ];
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "exif=1"
-  ] ++ lib.optional stdenv.isDarwin "verscmp=0" ++ lib.optional enableAutoreload "inotify=1";
+  makeFlags = [ "PREFIX=${placeholder "out"}" "exif=1" ]
+    ++ lib.optional stdenv.isDarwin "verscmp=0"
+    ++ lib.optional enableAutoreload "inotify=1";
 
   installTargets = [ "install" ];
   postInstall = ''
     wrapProgram "$out/bin/feh" --prefix PATH : "${
-      lib.makeBinPath [
-        libjpeg
-        jpegexiforient
-      ]
+      lib.makeBinPath [ libjpeg jpegexiforient ]
     }" \
                                --add-flags '--theme=feh'
   '';
@@ -75,12 +55,7 @@ stdenv.mkDerivation rec {
     # released under a variant of the MIT license
     # https://spdx.org/licenses/MIT-feh.html
     license = licenses.mit-feh;
-    maintainers = with maintainers; [
-      viric
-      willibutz
-      globin
-      ma27
-    ];
+    maintainers = with maintainers; [ viric willibutz globin ma27 ];
     platforms = platforms.unix;
   };
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  six,
-  nose,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six, nose }:
 
 buildPythonPackage rec {
   pname = "prison";

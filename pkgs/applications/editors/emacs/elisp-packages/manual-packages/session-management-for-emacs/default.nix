@@ -1,9 +1,4 @@
-{
-  stdenv,
-  fetchurl,
-  emacs,
-  lib,
-}:
+{ stdenv, fetchurl, emacs, lib }:
 
 stdenv.mkDerivation rec {
   pname = "session-management-for-emacs";

@@ -1,14 +1,7 @@
 # restart using 'killall -TERM fcron; fcron -b
 # use convert-fcrontab to update fcrontab files
 
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-  busybox,
-  vim,
-}:
+{ lib, stdenv, fetchurl, perl, busybox, vim }:
 
 stdenv.mkDerivation rec {
   pname = "fcron";
@@ -34,7 +27,9 @@ stdenv.mkDerivation rec {
     "--disable-checks"
   ];
 
-  installTargets = [ "install-staged" ]; # install does also try to change permissions of /etc/* files
+  installTargets = [
+    "install-staged"
+  ]; # install does also try to change permissions of /etc/* files
 
   # fcron tries to install pid into system directory on install
   installFlags = [
@@ -60,7 +55,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A command scheduler with extended capabilities over cron and anacron";
+    description =
+      "A command scheduler with extended capabilities over cron and anacron";
     homepage = "http://fcron.free.fr";
     license = licenses.gpl2;
     platforms = lib.platforms.all;

@@ -1,15 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  runCommand,
-  makeWrapper,
-  stress-ng,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, runCommand, makeWrapper, stress-ng }:
 
-lib.fix (
-  self:
+lib.fix (self:
   stdenv.mkDerivation rec {
     pname = "graphene-hardened-malloc";
     version = "11";
@@ -95,10 +86,6 @@ lib.fix (
       '';
       license = licenses.mit;
       maintainers = with maintainers; [ ris ];
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      platforms = [ "x86_64-linux" "aarch64-linux" ];
     };
-  }
-)
+  })

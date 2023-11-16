@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  instead,
-  qmake4Hook,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, instead, qmake4Hook, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "instead-launcher";

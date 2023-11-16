@@ -1,12 +1,5 @@
-{
-  lib,
-  qtbase,
-  qttools,
-  qmake,
-  wrapQtAppsHook,
-  openmodelica,
-  mkOpenModelicaDerivation,
-}:
+{ lib, qtbase, qttools, qmake, wrapQtAppsHook, openmodelica
+, mkOpenModelicaDerivation }:
 
 mkOpenModelicaDerivation rec {
   pname = "omplot";
@@ -14,12 +7,7 @@ mkOpenModelicaDerivation rec {
   omdeps = [ openmodelica.omcompiler ];
   omautoconf = true;
 
-  nativeBuildInputs = [
-    qtbase
-    qttools
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qtbase qttools qmake wrapQtAppsHook ];
 
   postPatch = ''
     sed -i OMPlot/Makefile.in -e 's|bindir = @includedir@|includedir = @includedir@|'
@@ -36,10 +24,7 @@ mkOpenModelicaDerivation rec {
     description = "Plotting tool for OpenModelica-generated results files";
     homepage = "https://openmodelica.org";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      balodja
-      smironov
-    ];
+    maintainers = with maintainers; [ balodja smironov ];
     platforms = platforms.linux;
   };
 }

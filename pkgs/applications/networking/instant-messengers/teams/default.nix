@@ -1,26 +1,7 @@
-{
-  lib,
-  stdenv,
-  runtimeShell,
-  fetchurl,
-  autoPatchelfHook,
-  wrapGAppsHook,
-  dpkg,
-  atomEnv,
-  libuuid,
-  libappindicator-gtk3,
-  pulseaudio,
-  at-spi2-atk,
-  coreutils,
-  gawk,
-  xdg-utils,
-  systemd,
-  nodePackages,
-  xar,
-  cpio,
-  makeWrapper,
-  enableRectOverlay ? false,
-}:
+{ lib, stdenv, runtimeShell, fetchurl, autoPatchelfHook, wrapGAppsHook, dpkg
+, atomEnv, libuuid, libappindicator-gtk3, pulseaudio, at-spi2-atk, coreutils
+, gawk, xdg-utils, systemd, nodePackages, xar, cpio, makeWrapper
+, enableRectOverlay ? false }:
 
 let
   pname = "teams";
@@ -38,15 +19,8 @@ let
     downloadPage = "https://teams.microsoft.com/downloads";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      liff
-      tricktron
-    ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
+    maintainers = with maintainers; [ liff tricktron ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -62,25 +36,15 @@ let
       hash = hashes.linux;
     };
 
-    nativeBuildInputs = [
-      dpkg
-      autoPatchelfHook
-      wrapGAppsHook
-      nodePackages.asar
-    ];
+    nativeBuildInputs =
+      [ dpkg autoPatchelfHook wrapGAppsHook nodePackages.asar ];
 
     unpackCmd = "dpkg -x $curSrc .";
 
-    buildInputs = atomEnv.packages ++ [
-      libuuid
-      at-spi2-atk
-    ];
+    buildInputs = atomEnv.packages ++ [ libuuid at-spi2-atk ];
 
-    runtimeDependencies = [
-      (lib.getLib systemd)
-      pulseaudio
-      libappindicator-gtk3
-    ];
+    runtimeDependencies =
+      [ (lib.getLib systemd) pulseaudio libappindicator-gtk3 ];
 
     preFixup = ''
       gappsWrapperArgs+=(
@@ -158,15 +122,12 @@ let
     version = versions.darwin;
 
     src = fetchurl {
-      url = "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg";
+      url =
+        "https://statics.teams.cdn.office.net/production-osx/${versions.darwin}/Teams_osx.pkg";
       hash = hashes.darwin;
     };
 
-    nativeBuildInputs = [
-      xar
-      cpio
-      makeWrapper
-    ];
+    nativeBuildInputs = [ xar cpio makeWrapper ];
 
     unpackPhase = ''
       xar -xf $src
@@ -186,5 +147,4 @@ let
       runHook postInstall
     '';
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

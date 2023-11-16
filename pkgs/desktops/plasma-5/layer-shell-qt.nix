@@ -1,15 +1,5 @@
-{
-  mkDerivation,
-  extra-cmake-modules,
-  kguiaddons,
-  kidletime,
-  kwayland,
-  kwindowsystem,
-  qtbase,
-  wayland-scanner,
-  wayland,
-  wayland-protocols,
-}:
+{ mkDerivation, extra-cmake-modules, kguiaddons, kidletime, kwayland
+, kwindowsystem, qtbase, wayland-scanner, wayland, wayland-protocols }:
 
 mkDerivation {
   pname = "layer-shell-qt";

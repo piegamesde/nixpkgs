@@ -1,10 +1,4 @@
-{
-  rustPlatform,
-  fetchFromGitHub,
-  rust,
-  lib,
-  stdenv,
-}:
+{ rustPlatform, fetchFromGitHub, rust, lib, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustc-demangle";
@@ -22,10 +16,7 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
   };
 
-  cargoBuildFlags = [
-    "-p"
-    "rustc-demangle-capi"
-  ];
+  cargoBuildFlags = [ "-p" "rustc-demangle-capi" ];
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
@@ -33,17 +24,16 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     mkdir -p $out/lib
-    cp target/${rust.toRustTargetSpec stdenv.hostPlatform}/release/librustc_demangle.so $out/lib
+    cp target/${
+      rust.toRustTargetSpec stdenv.hostPlatform
+    }/release/librustc_demangle.so $out/lib
     cp -R crates/capi/include $out
   '';
 
   meta = with lib; {
     description = "Rust symbol demangling";
     homepage = "https://github.com/alexcrichton/rustc-demangle";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    license = with licenses; [ asl20 mit ];
     # upstream supports other platforms, but maintainer can only test on linux
     platforms = platforms.linux;
     maintainers = with maintainers; [ _1000teslas ];

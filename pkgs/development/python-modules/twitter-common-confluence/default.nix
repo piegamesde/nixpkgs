@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  twitter-common-log,
-}:
+{ lib, buildPythonPackage, fetchPypi, twitter-common-log }:
 
 buildPythonPackage rec {
   pname = "twitter.common.confluence";
@@ -22,4 +17,5 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ copumpkin ];
   };
+
 }

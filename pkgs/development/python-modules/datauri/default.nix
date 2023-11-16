@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "datauri";
@@ -20,11 +15,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # UnicodeDecodeError: 'utf-8' codec can't decode
-      "tests/test_file_ebcdic.txt"
-    ];
+  disabledTestPaths = [
+    # UnicodeDecodeError: 'utf-8' codec can't decode
+    "tests/test_file_ebcdic.txt"
+  ];
 
   meta = with lib; {
     description = "Data URI manipulation made easy.";

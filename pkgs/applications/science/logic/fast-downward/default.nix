@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  python3,
-  osi,
-  cplex,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, python3, osi, cplex }:
 
 stdenv.mkDerivation rec {
   pname = "fast-downward";
@@ -19,16 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GwZ5BGzLRMgWNBaA7M2D2p9OxvdyWqm+sTwxGpcI/qY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    python3.pkgs.wrapPython
-  ];
-  buildInputs = [
-    python3
-    osi
-  ];
+  nativeBuildInputs = [ cmake python3.pkgs.wrapPython ];
+  buildInputs = [ python3 osi ];
 
-  cmakeFlags = lib.optionals osi.withCplex [ "-DDOWNWARD_CPLEX_ROOT=${cplex}/cplex" ];
+  cmakeFlags =
+    lib.optionals osi.withCplex [ "-DDOWNWARD_CPLEX_ROOT=${cplex}/cplex" ];
 
   configurePhase = ''
     python build.py release

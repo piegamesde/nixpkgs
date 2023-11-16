@@ -1,30 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  copyDesktopItems,
-  pkg-config,
-  qtbase,
-  qtsvg,
-  qtmultimedia,
-  qmake,
-  gst_all_1,
-  libpulseaudio,
-  makeDesktopItem,
-  viper4linux,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, copyDesktopItems, pkg-config, qtbase, qtsvg
+, qtmultimedia, qmake, gst_all_1, libpulseaudio, makeDesktopItem, viper4linux
+, wrapQtAppsHook }:
 let
-  gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
-    with gst_all_1; [
+  gstPluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"
+    (with gst_all_1; [
       gstreamer
       gst-plugins-viperfx
       gst-plugins-base
       gst-plugins-good
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+in stdenv.mkDerivation rec {
   pname = "viper4linux-gui";
   version = "unstable-2022-04-23";
 
@@ -43,20 +28,12 @@ stdenv.mkDerivation rec {
       desktopName = "viper4linux";
       genericName = "Equalizer";
       comment = meta.description;
-      categories = [
-        "AudioVideo"
-        "Audio"
-      ];
+      categories = [ "AudioVideo" "Audio" ];
       startupNotify = false;
     })
   ];
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook copyDesktopItems ];
 
   buildInputs = [
     qtbase
@@ -72,12 +49,7 @@ stdenv.mkDerivation rec {
   qmakeFlags = [ "V4L_Frontend.pro" ];
 
   qtWrapperArgs = [
-    "--prefix PATH : ${
-      lib.makeBinPath [
-        viper4linux
-        gst_all_1.gstreamer
-      ]
-    }"
+    "--prefix PATH : ${lib.makeBinPath [ viper4linux gst_all_1.gstreamer ]}"
     "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${gstPluginPath}"
   ];
 

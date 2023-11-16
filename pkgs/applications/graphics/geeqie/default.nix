@@ -1,36 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  meson,
-  ninja,
-  xxd,
-  gettext,
-  intltool,
-  gtk3,
-  lcms2,
-  exiv2,
-  libchamplain,
-  clutter-gtk,
-  ffmpegthumbnailer,
-  fbida,
-  libarchive,
-  djvulibre,
-  libheif,
-  openjpeg,
-  libjxl,
-  libraw,
-  lua5_3,
-  poppler,
-  gspell,
-  libtiff,
-  libwebp,
-  wrapGAppsHook,
-  fetchpatch,
-  doxygen,
-  nix-update-script,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, xxd, gettext, intltool
+, gtk3, lcms2, exiv2, libchamplain, clutter-gtk, ffmpegthumbnailer, fbida
+, libarchive, djvulibre, libheif, openjpeg, libjxl, libraw, lua5_3, poppler
+, gspell, libtiff, libwebp, wrapGAppsHook, fetchpatch, doxygen
+, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "geeqie";
@@ -50,16 +22,8 @@ stdenv.mkDerivation rec {
     substituteInPlace meson.build --replace 'libtiff' 'tiff'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    intltool
-    wrapGAppsHook
-    doxygen
-    meson
-    ninja
-    xxd
-  ];
+  nativeBuildInputs =
+    [ pkg-config gettext intltool wrapGAppsHook doxygen meson ninja xxd ];
 
   buildInputs = [
     gtk3
@@ -86,19 +50,12 @@ stdenv.mkDerivation rec {
     # Allow geeqie to find exiv2 and exiftran, necessary to
     # losslessly rotate JPEG images.
     sed -i $out/lib/geeqie/geeqie-rotate \
-        -e '1 a export PATH=${
-          lib.makeBinPath [
-            exiv2
-            fbida
-          ]
-        }:$PATH'
+        -e '1 a export PATH=${lib.makeBinPath [ exiv2 fbida ]}:$PATH'
   '';
 
   enableParallelBuilding = true;
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Lightweight GTK based image viewer";
@@ -117,11 +74,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.geeqie.org/";
 
-    maintainers = with maintainers; [
-      jfrankenau
-      pSub
-      markus1189
-    ];
+    maintainers = with maintainers; [ jfrankenau pSub markus1189 ];
     platforms = platforms.gnu ++ platforms.linux;
   };
 }

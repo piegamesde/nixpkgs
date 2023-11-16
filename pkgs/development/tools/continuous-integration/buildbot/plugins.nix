@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  callPackage,
-  mock,
-  cairosvg,
-  klein,
-  jinja2,
-  buildbot-pkg,
-}:
-{
+{ lib, buildPythonPackage, fetchPypi, callPackage, mock, cairosvg, klein, jinja2
+, buildbot-pkg }: {
   # this is exposed for potential plugins to use and for nix-update
   inherit buildbot-pkg;
   www = buildPythonPackage rec {
@@ -26,10 +16,7 @@
       sed -i "s/'buildbot'//" setup.py
     '';
 
-    buildInputs = [
-      buildbot-pkg
-      mock
-    ];
+    buildInputs = [ buildbot-pkg mock ];
 
     # No tests
     doCheck = false;
@@ -37,10 +24,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot UI";
-      maintainers = with maintainers; [
-        ryansydnor
-        lopsided98
-      ];
+      maintainers = with maintainers; [ ryansydnor lopsided98 ];
       license = licenses.gpl2;
     };
   };
@@ -62,10 +46,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Console View Plugin";
-      maintainers = with maintainers; [
-        ryansydnor
-        lopsided98
-      ];
+      maintainers = with maintainers; [ ryansydnor lopsided98 ];
       license = licenses.gpl2;
     };
   };
@@ -87,10 +68,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Waterfall View Plugin";
-      maintainers = with maintainers; [
-        ryansydnor
-        lopsided98
-      ];
+      maintainers = with maintainers; [ ryansydnor lopsided98 ];
       license = licenses.gpl2;
     };
   };
@@ -149,11 +127,7 @@
     };
 
     buildInputs = [ buildbot-pkg ];
-    propagatedBuildInputs = [
-      cairosvg
-      klein
-      jinja2
-    ];
+    propagatedBuildInputs = [ cairosvg klein jinja2 ];
 
     # No tests
     doCheck = false;
@@ -165,4 +139,5 @@
       license = licenses.gpl2;
     };
   };
+
 }

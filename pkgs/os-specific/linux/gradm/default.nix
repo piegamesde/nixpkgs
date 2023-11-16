@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bison,
-  flex,
-  pam,
-}:
+{ lib, stdenv, fetchurl, bison, flex, pam }:
 
 stdenv.mkDerivation rec {
   pname = "gradm";
@@ -16,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "02ni34hpggv00140p9gvh0lqi173zdddd2qhfi96hyr1axd5pl50";
   };
 
-  nativeBuildInputs = [
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ bison flex ];
   buildInputs = [ pam ];
 
   enableParallelBuilding = true;
@@ -53,9 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://grsecurity.net";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      thoughtpolice
-      joachifm
-    ];
+    maintainers = with maintainers; [ thoughtpolice joachifm ];
   };
 }

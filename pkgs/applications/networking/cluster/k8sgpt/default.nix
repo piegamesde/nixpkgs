@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "k8sgpt";
@@ -32,9 +28,6 @@ buildGoModule rec {
     homepage = "https://k8sgpt.ai";
     changelog = "https://github.com/k8sgpt-ai/k8sgpt/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      developer-guy
-      kranurag7
-    ];
+    maintainers = with maintainers; [ developer-guy kranurag7 ];
   };
 }

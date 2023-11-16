@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  cargo,
-  sphinx,
-  Security,
-  libiconv,
-  prefix ? "uutils-",
-  buildMulticallBinary ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, cargo, sphinx, Security, libiconv
+, prefix ? "uutils-", buildMulticallBinary ? true }:
 
 stdenv.mkDerivation rec {
   pname = "uutils-coreutils";
@@ -28,24 +18,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-cBocRWIpG2BQZDPJq4cNNYrFg/MBR3o58fXGHanTn30=";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    sphinx
-  ];
+  nativeBuildInputs = [ rustPlatform.cargoSetupHook sphinx ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-    libiconv
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security libiconv ];
 
-  makeFlags =
-    [
-      "CARGO=${cargo}/bin/cargo"
-      "PREFIX=${placeholder "out"}"
-      "PROFILE=release"
-      "INSTALLDIR_MAN=${placeholder "out"}/share/man/man1"
-    ]
-    ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
+  makeFlags = [
+    "CARGO=${cargo}/bin/cargo"
+    "PREFIX=${placeholder "out"}"
+    "PROFILE=release"
+    "INSTALLDIR_MAN=${placeholder "out"}/share/man/man1"
+  ] ++ lib.optionals (prefix != null) [ "PROG_PREFIX=${prefix}" ]
     ++ lib.optionals buildMulticallBinary [ "MULTICALL=y" ];
 
   # too many impure/platform-dependent tests
@@ -58,10 +40,7 @@ stdenv.mkDerivation rec {
       CLI utils in Rust. This repo is to aggregate the GNU coreutils rewrites.
     '';
     homepage = "https://github.com/uutils/coreutils";
-    maintainers = with maintainers; [
-      siraben
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ siraben SuperSandro2000 ];
     license = licenses.mit;
     platforms = platforms.unix;
   };

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  home-assistant-bluetooth,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  sensor-state-data,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, home-assistant-bluetooth
+, poetry-core, pytestCheckHook, pythonOlder, sensor-state-data }:
 
 buildPythonPackage rec {
   pname = "bluetooth-sensor-state-data";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    home-assistant-bluetooth
-    sensor-state-data
-  ];
+  propagatedBuildInputs = [ home-assistant-bluetooth sensor-state-data ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -40,8 +29,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bluetooth_sensor_state_data" ];
 
   meta = with lib; {
-    description = "Models for storing and converting Bluetooth Sensor State Data";
-    homepage = "https://github.com/bluetooth-devices/bluetooth-sensor-state-data";
+    description =
+      "Models for storing and converting Bluetooth Sensor State Data";
+    homepage =
+      "https://github.com/bluetooth-devices/bluetooth-sensor-state-data";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

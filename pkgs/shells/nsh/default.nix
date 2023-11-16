@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nsh";
@@ -30,7 +26,5 @@ rustPlatform.buildRustPackage rec {
     maintainers = [ maintainers.marsam ];
   };
 
-  passthru = {
-    shellPath = "/bin/nsh";
-  };
+  passthru = { shellPath = "/bin/nsh"; };
 }

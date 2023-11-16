@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPythonPackage,
-  rustPlatform,
-  cargo,
-  pkg-config,
-  rustc,
-  rustfmt,
-  setuptools-rust,
-  openssl,
-  Security,
-  msgpack,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, rustPlatform, cargo
+, pkg-config, rustc, rustfmt, setuptools-rust, openssl, Security, msgpack }:
 
 buildPythonPackage rec {
   pname = "etebase";

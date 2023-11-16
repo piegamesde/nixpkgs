@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pls";
@@ -18,11 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pyyaml
-    requests
-    rich
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pyyaml requests rich ];
 
   nativeCheckInputs = with python3.pkgs; [
     freezegun
@@ -35,10 +27,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'rich = "^12.5.1"' 'rich = "*"' \
   '';
 
-  pytestFlagsArray = [
-    "tests/"
-    "--ignore=tests/e2e"
-  ];
+  pytestFlagsArray = [ "tests/" "--ignore=tests/e2e" ];
 
   pythonImportsCheck = [ "pls" ];
 

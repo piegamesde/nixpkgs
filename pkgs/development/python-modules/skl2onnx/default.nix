@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  scipy,
-  protobuf,
-  onnx,
-  scikit-learn,
-  onnxconverter-common,
-  onnxruntime,
-  pandas,
-  unittestCheckHook,
-  pythonRelaxDepsHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, scipy, protobuf, onnx, scikit-learn
+, onnxconverter-common, onnxruntime, pandas, unittestCheckHook
+, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "skl2onnx";
@@ -23,29 +11,16 @@ buildPythonPackage rec {
     hash = "sha256-VLEKfGLOKu5PlHvTqW1+2t75HV2mjeezPkzu0/0H1dw=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    protobuf
-    onnx
-    scikit-learn
-    onnxconverter-common
-  ];
+  propagatedBuildInputs =
+    [ numpy scipy protobuf onnx scikit-learn onnxconverter-common ];
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [ "scikit-learn" ];
 
-  nativeCheckInputs = [
-    onnxruntime
-    pandas
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ onnxruntime pandas unittestCheckHook ];
 
-  unittestFlagsArray = [
-    "-s"
-    "tests"
-  ];
+  unittestFlagsArray = [ "-s" "tests" ];
 
   # Core dump
   doCheck = false;

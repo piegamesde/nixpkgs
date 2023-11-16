@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  cmake,
-  pkgconfig,
-  python,
-  mpi ? null,
-}:
+{ lib, stdenv, fetchgit, cmake, pkgconfig, python, mpi ? null }:
 
 let
   components = {
@@ -18,8 +10,7 @@ let
   };
   onOffBool = b: if b then "ON" else "OFF";
   withMPI = (mpi != null);
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "2.3.4";
   pname = "hoomd-blue";
 
@@ -29,16 +20,12 @@ stdenv.mkDerivation rec {
     sha256 = "0in49f1dvah33nl5n2qqbssfynb31pw1ds07j8ziryk9w252j1al";
   };
 
-  passthru = {
-    inherit components mpi;
-  };
+  passthru = { inherit components mpi; };
 
-  nativeBuildInputs = [
-    cmake
-    pkgconfig
-  ];
+  nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = lib.optionals withMPI [ mpi ];
-  propagatedBuildInputs = [ python.pkgs.numpy ] ++ lib.optionals withMPI [ python.pkgs.mpi4py ];
+  propagatedBuildInputs = [ python.pkgs.numpy ]
+    ++ lib.optionals withMPI [ python.pkgs.mpi4py ];
 
   dontAddPrefix = true;
   cmakeFlags = [
@@ -66,4 +53,5 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     maintainers = [ maintainers.costrouc ];
   };
+
 }

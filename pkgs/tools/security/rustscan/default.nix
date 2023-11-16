@@ -1,13 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  nmap,
-  stdenv,
-  Security,
-  perl,
-  python3,
-}:
+{ lib, rustPlatform, fetchCrate, nmap, stdenv, Security, perl, python3 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustscan";
@@ -28,10 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  nativeCheckInputs = [
-    perl
-    python3
-  ];
+  nativeCheckInputs = [ perl python3 ];
 
   # these tests require network access
   checkFlags = [

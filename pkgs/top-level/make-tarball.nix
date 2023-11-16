@@ -3,14 +3,9 @@
    evaluate correctly.
 */
 
-{
-  nixpkgs,
-  officialRelease,
-  supportedSystems,
-  pkgs ? import nixpkgs.outPath { },
-  nix ? pkgs.nix,
-  lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; },
-}:
+{ nixpkgs, officialRelease, supportedSystems, pkgs ? import nixpkgs.outPath { }
+, nix ? pkgs.nix
+, lib-tests ? import ../../lib/tests/release.nix { inherit pkgs; } }:
 
 pkgs.releaseTools.sourceTarball {
   name = "nixpkgs-tarball";
@@ -20,17 +15,13 @@ pkgs.releaseTools.sourceTarball {
   version = pkgs.lib.fileContents ../../.version;
   versionSuffix = "pre${
       if nixpkgs ? lastModified then
-        builtins.substring 0 8 (nixpkgs.lastModifiedDate or nixpkgs.lastModified)
+        builtins.substring 0 8
+        (nixpkgs.lastModifiedDate or nixpkgs.lastModified)
       else
         toString (nixpkgs.revCount or 0)
     }.${nixpkgs.shortRev or "dirty"}";
 
-  buildInputs = with pkgs; [
-    nix.out
-    jq
-    lib-tests
-    brotli
-  ];
+  buildInputs = with pkgs; [ nix.out jq lib-tests brotli ];
 
   configurePhase = ''
     eval "$preConfigure"
@@ -41,15 +32,11 @@ pkgs.releaseTools.sourceTarball {
     echo "git-revision is $(cat .git-revision)"
   '';
 
-  requiredSystemFeatures = [ "big-parallel" ]; # 1 thread but ~36G RAM (!) see #227945
+  requiredSystemFeatures =
+    [ "big-parallel" ]; # 1 thread but ~36G RAM (!) see #227945
 
   nixpkgs-basic-release-checks = import ./nixpkgs-basic-release-checks.nix {
-    inherit
-      nix
-      pkgs
-      nixpkgs
-      supportedSystems
-    ;
+    inherit nix pkgs nixpkgs supportedSystems;
   };
 
   dontBuild = false;
@@ -99,7 +86,5 @@ pkgs.releaseTools.sourceTarball {
     (cd .. && tar cfa $out/tarballs/$releaseName.tar.xz $releaseName) || false
   '';
 
-  meta = {
-    maintainers = [ ];
-  };
+  meta = { maintainers = [ ]; };
 }

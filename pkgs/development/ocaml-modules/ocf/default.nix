@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitLab,
-  yojson,
-}:
+{ lib, buildDunePackage, fetchFromGitLab, yojson }:
 
 buildDunePackage rec {
   pname = "ocf";
@@ -21,7 +16,8 @@ buildDunePackage rec {
   propagatedBuildInputs = [ yojson ];
 
   meta = with lib; {
-    description = "OCaml library to read and write configuration options in JSON syntax";
+    description =
+      "OCaml library to read and write configuration options in JSON syntax";
     homepage = "https://zoggy.frama.io/ocf/";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ regnat ];

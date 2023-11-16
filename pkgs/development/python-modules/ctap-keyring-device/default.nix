@@ -1,31 +1,20 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonRelaxDepsHook,
-  setuptools-scm,
-  # install requirements
-  fido2,
-  keyring,
-  cryptography,
-  # test requirements
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonRelaxDepsHook, setuptools-scm
+# install requirements
+, fido2, keyring, cryptography
+# test requirements
+, pytestCheckHook }:
 
 let
-  fido2_0 = fido2.overridePythonAttrs (
-    oldAttrs: rec {
-      version = "0.9.3";
-      format = "setuptools";
-      src = fetchPypi {
-        inherit (oldAttrs) pname;
-        inherit version;
-        hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
-      };
-    }
-  );
-in
-buildPythonPackage rec {
+  fido2_0 = fido2.overridePythonAttrs (oldAttrs: rec {
+    version = "0.9.3";
+    format = "setuptools";
+    src = fetchPypi {
+      inherit (oldAttrs) pname;
+      inherit version;
+      hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
+    };
+  });
+in buildPythonPackage rec {
   pname = "ctap-keyring-device";
   version = "1.0.6";
 
@@ -40,22 +29,14 @@ buildPythonPackage rec {
       --replace "--flake8 --black --cov" ""
   '';
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools-scm
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
+
+  pythonRemoveDeps = [
+    # This is a darwin requirement missing pyobjc
+    "pyobjc-framework-LocalAuthentication"
   ];
 
-  pythonRemoveDeps =
-    [
-      # This is a darwin requirement missing pyobjc
-      "pyobjc-framework-LocalAuthentication"
-    ];
-
-  propagatedBuildInputs = [
-    keyring
-    fido2_0
-    cryptography
-  ];
+  propagatedBuildInputs = [ keyring fido2_0 cryptography ];
 
   pythonImportsCheck = [ "ctap_keyring_device" ];
 
@@ -68,7 +49,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "CTAP (client-to-authenticator-protocol) device backed by python's keyring library";
+    description =
+      "CTAP (client-to-authenticator-protocol) device backed by python's keyring library";
     homepage = "https://github.com/dany74q/ctap-keyring-device";
     license = licenses.mit;
     maintainers = with maintainers; [ jbgosselin ];

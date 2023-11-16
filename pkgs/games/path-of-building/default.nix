@@ -1,22 +1,9 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  runCommand,
-  unzip,
-  meson,
-  ninja,
-  pkg-config,
-  qtbase,
-  qttools,
-  wrapQtAppsHook,
-  luajit,
-}:
+{ stdenv, lib, fetchFromGitHub, runCommand, unzip, meson, ninja, pkg-config
+, qtbase, qttools, wrapQtAppsHook, luajit }:
 let
   dataVersion = "2.30.1";
   frontendVersion = "unstable-2023-04-09";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "path-of-building";
   version = "${dataVersion}-${frontendVersion}";
 
@@ -27,47 +14,34 @@ stdenv.mkDerivation {
     hash = "sha256-zhw2PZ6ZNMgZ2hG+a6AcYBkeg7kbBHNc2eSt4if17Wk=";
   };
 
-  data =
-    runCommand "path-of-building-data"
-      {
-        src = fetchFromGitHub {
-          owner = "PathOfBuildingCommunity";
-          repo = "PathOfBuilding";
-          rev = "v${dataVersion}";
-          hash = "sha256-2itcALgl8eDkZylb/hmePDMILM4RxW2u5LYLbg+NNJ4=";
-        };
+  data = runCommand "path-of-building-data" {
+    src = fetchFromGitHub {
+      owner = "PathOfBuildingCommunity";
+      repo = "PathOfBuilding";
+      rev = "v${dataVersion}";
+      hash = "sha256-2itcALgl8eDkZylb/hmePDMILM4RxW2u5LYLbg+NNJ4=";
+    };
 
-        nativeBuildInputs = [ unzip ];
-      }
-      ''
-        # I have absolutely no idea how this file is generated
-        # and I don't think I want to know. The Flatpak also does this.
-        unzip -j -d $out $src/runtime-win32.zip lua/sha1.lua
+    nativeBuildInputs = [ unzip ];
+  } ''
+    # I have absolutely no idea how this file is generated
+    # and I don't think I want to know. The Flatpak also does this.
+    unzip -j -d $out $src/runtime-win32.zip lua/sha1.lua
 
-        # Install the actual data
-        cp -r $src/src $src/runtime/lua/*.lua $src/manifest.xml $out
+    # Install the actual data
+    cp -r $src/src $src/runtime/lua/*.lua $src/manifest.xml $out
 
-        # Pretend this is an official build so we don't get the ugly "dev mode" warning
-        substituteInPlace $out/manifest.xml --replace '<Version' '<Version platform="nixos"'
-        touch $out/installed.cfg
+    # Pretend this is an official build so we don't get the ugly "dev mode" warning
+    substituteInPlace $out/manifest.xml --replace '<Version' '<Version platform="nixos"'
+    touch $out/installed.cfg
 
-        # Completely stub out the update check
-        chmod +w $out/src/UpdateCheck.lua
-        echo 'return "none"' > $out/src/UpdateCheck.lua
-      '';
+    # Completely stub out the update check
+    chmod +w $out/src/UpdateCheck.lua
+    echo 'return "none"' > $out/src/UpdateCheck.lua
+  '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
-  buildInputs = [
-    qtbase
-    luajit
-    luajit.pkgs.lua-curl
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config qttools wrapQtAppsHook ];
+  buildInputs = [ qtbase luajit luajit.pkgs.lua-curl ];
   dontWrapQtApps = true;
 
   installPhase = ''

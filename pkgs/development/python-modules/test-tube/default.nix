@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy27,
-  pytestCheckHook,
-  future,
-  imageio,
-  numpy,
-  pandas,
-  torch,
-  tensorboard,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy27, pytestCheckHook, future
+, imageio, numpy, pandas, torch, tensorboard }:
 
 buildPythonPackage rec {
   pname = "test-tube";
@@ -27,18 +16,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    future
-    imageio
-    numpy
-    pandas
-    torch
-    tensorboard
-  ];
+  propagatedBuildInputs = [ future imageio numpy pandas torch tensorboard ];
 
   meta = with lib; {
     homepage = "https://github.com/williamFalcon/test-tube";
-    description = "Framework-agnostic library to track and parallelize hyperparameter search in machine learning experiments";
+    description =
+      "Framework-agnostic library to track and parallelize hyperparameter search in machine learning experiments";
     license = licenses.mit;
     maintainers = [ maintainers.tbenst ];
   };

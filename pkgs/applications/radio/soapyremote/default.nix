@@ -1,16 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  soapysdr,
-  avahi,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, soapysdr, avahi }:
 
-let
-  version = "0.5.2";
-in
-stdenv.mkDerivation {
+let version = "0.5.2";
+
+in stdenv.mkDerivation {
   pname = "soapyremote";
   inherit version;
 
@@ -22,14 +14,12 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    soapysdr
-    avahi
-  ];
+  buildInputs = [ soapysdr avahi ];
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.isDarwin [ "-include sys/select.h" ]);
+  env.NIX_CFLAGS_COMPILE =
+    toString (lib.optionals stdenv.isDarwin [ "-include sys/select.h" ]);
 
   meta = with lib; {
     homepage = "https://github.com/pothosware/SoapyRemote";

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  python,
-  graphviz,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, python, graphviz }:
 
 buildPythonPackage rec {
   pname = "gprof2dot";
@@ -34,7 +28,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/jrfonseca/gprof2dot";
-    description = "Python script to convert the output from many profilers into a dot graph";
+    description =
+      "Python script to convert the output from many profilers into a dot graph";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ pmiddend ];
   };

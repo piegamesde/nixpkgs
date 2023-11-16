@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libbsd,
-  libressl,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, libbsd, libressl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "acme-client";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libbsd
-    libressl
-  ];
+  buildInputs = [ libbsd libressl ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -33,3 +23,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ pmahoney ];
   };
 }
+

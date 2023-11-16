@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.navidrome;
   settingsFormat = pkgs.formats.json { };
-in
-{
+in {
   options = {
     services.navidrome = {
 
@@ -26,13 +20,12 @@ in
           Address = "127.0.0.1";
           Port = 4533;
         };
-        example = {
-          MusicFolder = "/mnt/music";
-        };
+        example = { MusicFolder = "/mnt/music"; };
         description = lib.mdDoc ''
           Configuration for Navidrome, see <https://www.navidrome.org/docs/usage/configuration-options/> for supported values.
         '';
       };
+
     };
   };
 
@@ -43,7 +36,9 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = ''
-          ${cfg.package}/bin/navidrome --configfile ${settingsFormat.generate "navidrome.json" cfg.settings}
+          ${cfg.package}/bin/navidrome --configfile ${
+            settingsFormat.generate "navidrome.json" cfg.settings
+          }
         '';
         DynamicUser = true;
         StateDirectory = "navidrome";
@@ -60,11 +55,7 @@ in
           "/etc"
         ] ++ lib.optional (cfg.settings ? MusicFolder) cfg.settings.MusicFolder;
         CapabilityBoundingSet = "";
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         PrivateDevices = true;
         PrivateUsers = true;
@@ -75,10 +66,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
         RestrictRealtime = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

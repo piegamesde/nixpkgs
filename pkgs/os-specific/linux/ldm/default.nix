@@ -1,18 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  udev,
-  util-linux,
-  mountPath ? "/media/",
-}:
+{ lib, stdenv, fetchgit, udev, util-linux, mountPath ? "/media/" }:
 
 assert mountPath != "";
 
-let
-  version = "0.5";
-in
-stdenv.mkDerivation rec {
+let version = "0.5";
+in stdenv.mkDerivation rec {
   pname = "ldm";
   inherit version;
 
@@ -24,10 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lxfypnbamfx6p9ar5k9wra20gvwn665l4pp2j4vsx4yi5q7rw2n";
   };
 
-  buildInputs = [
-    udev
-    util-linux
-  ];
+  buildInputs = [ udev util-linux ];
 
   postPatch = ''
     substituteInPlace ldm.c \
@@ -43,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A lightweight device mounter, with libudev as only dependency";
+    description =
+      "A lightweight device mounter, with libudev as only dependency";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };

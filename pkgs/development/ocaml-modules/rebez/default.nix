@@ -1,9 +1,4 @@
-{
-  buildDunePackage,
-  fetchFromGitHub,
-  lib,
-  reason,
-}:
+{ buildDunePackage, fetchFromGitHub, lib, reason }:
 
 buildDunePackage rec {
   pname = "rebez";

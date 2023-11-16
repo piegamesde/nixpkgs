@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  argp-standalone,
-  curl,
-  meson,
-  ninja,
-  pkg-config,
-  zstd,
-}:
+{ lib, stdenv, fetchFromGitHub, argp-standalone, curl, meson, ninja, pkg-config
+, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "zchunk";
@@ -21,26 +12,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-mZc8DC26c4hZzHsozhBmuvaIjL3ifQ7GYYGDEsBBPKc=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    curl
-    zstd
-  ] ++ lib.optional stdenv.isDarwin argp-standalone;
+  buildInputs = [ curl zstd ] ++ lib.optional stdenv.isDarwin argp-standalone;
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
+  outputs = [ "out" "lib" "dev" ];
 
   meta = with lib; {
     homepage = "https://github.com/zchunk/zchunk";
-    description = "File format designed for highly efficient deltas while maintaining good compression";
+    description =
+      "File format designed for highly efficient deltas while maintaining good compression";
     longDescription = ''
       zchunk is a compressed file format that splits the file into independent
       chunks. This allows you to only download changed chunks when downloading a

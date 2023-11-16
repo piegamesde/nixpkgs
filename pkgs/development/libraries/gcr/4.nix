@@ -1,40 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  meson,
-  ninja,
-  gettext,
-  gnupg,
-  p11-kit,
-  glib,
-  libgcrypt,
-  libtasn1,
-  gtk4,
-  pango,
-  libsecret,
-  openssh,
-  systemd,
-  gobject-introspection,
-  wrapGAppsHook4,
-  vala,
-  gi-docgen,
-  gnome,
-  python3,
-  shared-mime-info,
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, gettext, gnupg, p11-kit, glib
+, libgcrypt, libtasn1, gtk4, pango, libsecret, openssh, systemd
+, gobject-introspection, wrapGAppsHook4, vala, gi-docgen, gnome, python3
+, shared-mime-info }:
 
 stdenv.mkDerivation rec {
   pname = "gcr";
   version = "4.1.0";
 
-  outputs = [
-    "out"
-    "bin"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "bin" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -56,34 +29,23 @@ stdenv.mkDerivation rec {
     shared-mime-info
   ];
 
-  buildInputs = [
-    gnupg
-    libgcrypt
-    libtasn1
-    pango
-    libsecret
-    openssh
-    systemd
-    gtk4
-  ];
+  buildInputs =
+    [ gnupg libgcrypt libtasn1 pango libsecret openssh systemd gtk4 ];
 
-  propagatedBuildInputs = [
-    glib
-    p11-kit
-  ];
+  propagatedBuildInputs = [ glib p11-kit ];
 
   nativeCheckInputs = [ python3 ];
 
-  mesonFlags =
-    [
-      # We are still using ssh-agent from gnome-keyring.
-      # https://github.com/NixOS/nixpkgs/issues/140824
-      "-Dssh_agent=false"
-    ];
+  mesonFlags = [
+    # We are still using ssh-agent from gnome-keyring.
+    # https://github.com/NixOS/nixpkgs/issues/140824
+    "-Dssh_agent=false"
+  ];
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
+  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR =
+    "${placeholder "out"}/lib/systemd/user";
 
   postPatch = ''
     patchShebangs gcr/fixtures/

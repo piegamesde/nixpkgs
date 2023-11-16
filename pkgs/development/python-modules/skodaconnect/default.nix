@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  beautifulsoup4,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  lxml,
-  pyjwt,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, aiohttp, beautifulsoup4, buildPythonPackage, cryptography
+, fetchFromGitHub, lxml, pyjwt, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "skodaconnect";
@@ -29,13 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    beautifulsoup4
-    cryptography
-    lxml
-    pyjwt
-  ];
+  propagatedBuildInputs = [ aiohttp beautifulsoup4 cryptography lxml pyjwt ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -52,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module to communicate with Skoda Connect";
     homepage = "https://github.com/lendy007/skodaconnect";
-    changelog = "https://github.com/lendy007/skodaconnect/releases/tag/${version}";
+    changelog =
+      "https://github.com/lendy007/skodaconnect/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

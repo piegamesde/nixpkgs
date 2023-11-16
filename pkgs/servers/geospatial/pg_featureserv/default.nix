@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "pg_featureserv";
@@ -24,10 +20,12 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "Lightweight RESTful Geospatial Feature Server for PostGIS in Go";
+    description =
+      "Lightweight RESTful Geospatial Feature Server for PostGIS in Go";
     homepage = "https://github.com/CrunchyData/pg_featureserv";
     license = licenses.asl20;
     maintainers = with maintainers; [ sikmir ];
-    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken =
+      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

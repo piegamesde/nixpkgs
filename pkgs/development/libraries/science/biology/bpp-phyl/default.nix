@@ -1,10 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  bpp-core,
-  bpp-seq,
-}:
+{ stdenv, fetchFromGitHub, cmake, bpp-core, bpp-seq }:
 
 stdenv.mkDerivation rec {
   pname = "bpp-phyl";
@@ -19,10 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    bpp-core
-    bpp-seq
-  ];
+  buildInputs = [ bpp-core bpp-seq ];
 
   postFixup = ''
     substituteInPlace $out/lib/cmake/${pname}/${pname}-targets.cmake  \

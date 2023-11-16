@@ -1,46 +1,17 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  exiv2,
-  lcms2,
-  cfitsio,
-  baloo,
-  kactivities,
-  kio,
-  kipi-plugins,
-  kitemmodels,
-  kparts,
-  libkdcraw,
-  libkipi,
-  phonon,
-  qtimageformats,
-  qtsvg,
-  qtx11extras,
-  kinit,
-  kpurpose,
-  kcolorpicker,
-  kimageannotator,
-  wayland,
-  wayland-protocols,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, exiv2, lcms2, cfitsio
+, baloo, kactivities, kio, kipi-plugins, kitemmodels, kparts, libkdcraw, libkipi
+, phonon, qtimageformats, qtsvg, qtx11extras, kinit, kpurpose, kcolorpicker
+, kimageannotator, wayland, wayland-protocols }:
 
 mkDerivation {
   pname = "gwenview";
   meta = {
     homepage = "https://apps.kde.org/gwenview/";
     description = "KDE image viewer";
-    license = with lib.licenses; [
-      gpl2Plus
-      fdl12Plus
-    ];
+    license = with lib.licenses; [ gpl2Plus fdl12Plus ];
     maintainers = [ lib.maintainers.ttuegel ];
   };
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     baloo
     kactivities
@@ -62,9 +33,5 @@ mkDerivation {
     wayland
     wayland-protocols
   ];
-  propagatedUserEnvPkgs = [
-    kipi-plugins
-    libkipi
-    (lib.getBin kinit)
-  ];
+  propagatedUserEnvPkgs = [ kipi-plugins libkipi (lib.getBin kinit) ];
 }

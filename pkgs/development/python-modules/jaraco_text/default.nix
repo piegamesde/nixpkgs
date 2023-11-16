@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  autocommand,
-  importlib-resources,
-  jaraco_functools,
-  jaraco-context,
-  inflect,
-  pathlib2,
-  pytestCheckHook,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, autocommand
+, importlib-resources, jaraco_functools, jaraco-context, inflect, pathlib2
+, pytestCheckHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "jaraco.text";
@@ -29,14 +18,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    autocommand
-    jaraco-context
-    jaraco_functools
-    inflect
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    [ autocommand jaraco-context jaraco_functools inflect ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.optionals (pythonOlder "3.10") [ pathlib2 ];
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.optionals (pythonOlder "3.10") [ pathlib2 ];
 
   pythonImportsCheck = [ "jaraco.text" ];
 

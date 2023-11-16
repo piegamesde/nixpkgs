@@ -1,14 +1,9 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-}:
+{ lib, python3Packages, fetchPypi }:
 
 let
   pname = "base16-shell-preview";
   version = "1.0.0";
-in
-python3Packages.buildPythonApplication {
+in python3Packages.buildPythonApplication {
   inherit pname version;
 
   src = fetchPypi {

@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-html-diff";
   version = "20130128-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."cl-difflib" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-html-diff/2013-01-28/cl-html-diff-20130128-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-html-diff/2013-01-28/cl-html-diff-20130128-git.tgz";
     sha256 = "0dbqfgfl2qmlk91fncjj804md2crvj0bsvkdxfrsybrhn6dmikci";
   };
 

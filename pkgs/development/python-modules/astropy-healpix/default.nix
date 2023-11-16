@@ -1,16 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  astropy,
-  astropy-extension-helpers,
-  setuptools-scm,
-  pytestCheckHook,
-  pytest-doctestplus,
-  hypothesis,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, numpy, astropy
+, astropy-extension-helpers, setuptools-scm, pytestCheckHook, pytest-doctestplus
+, hypothesis }:
 
 buildPythonPackage rec {
   pname = "astropy-healpix";
@@ -22,23 +12,14 @@ buildPythonPackage rec {
     hash = "sha256-iMOE60MimXpY3ok46RrJ/5D2orbLKuI+IWnHQFrdOtg=";
   };
 
-  nativeBuildInputs = [
-    astropy-extension-helpers
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ astropy-extension-helpers setuptools-scm ];
 
-  propagatedBuildInputs = [
-    numpy
-    astropy
-  ];
+  propagatedBuildInputs = [ numpy astropy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-doctestplus
-    hypothesis
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-doctestplus hypothesis ];
 
-  disabledTests = lib.optional (!stdenv.hostPlatform.isDarwin) "test_interpolate_bilinear_skycoord";
+  disabledTests = lib.optional (!stdenv.hostPlatform.isDarwin)
+    "test_interpolate_bilinear_skycoord";
 
   # tests must be run in the build directory
   preCheck = ''

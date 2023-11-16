@@ -1,24 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  cyclonedds,
-  libmysqlclient,
-  mariadb,
-  mbedtls,
-  sqlite,
-  zeromq,
-  flex,
-  bison,
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, pkg-config, cyclonedds
+, libmysqlclient, mariadb, mbedtls, sqlite, zeromq, flex, bison
 
-  # for tests
-  python3,
-  mosquitto,
-  netcat-gnu,
-}:
+# for tests
+, python3, mosquitto, netcat-gnu }:
 
 let
 
@@ -35,100 +19,77 @@ let
       hash = "sha256-3DS9DuzHN7BevfgiekUmKKH9ej9wKTrt6Fuh427NC4I=";
     };
 
-    nativeBuildInputs = [
-      cmake
-      ninja
-      flex
-      bison
-    ];
+    nativeBuildInputs = [ cmake ninja flex bison ];
   };
-in
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "nanomq";
-    version = "0.18.2";
 
-    src = fetchFromGitHub {
-      owner = "emqx";
-      repo = "nanomq";
-      rev = finalAttrs.version;
-      hash = "sha256-XGJBBuRSL3InXUMGxOttdbt0zmI1APFlc4IvwC2up8g=";
-      fetchSubmodules = true;
-    };
+in stdenv.mkDerivation (finalAttrs: {
+  pname = "nanomq";
+  version = "0.18.2";
 
-    postPatch = ''
-      substituteInPlace CMakeLists.txt \
-        --replace "DESTINATION /etc" "DESTINATION $out/etc"
-    '';
+  src = fetchFromGitHub {
+    owner = "emqx";
+    repo = "nanomq";
+    rev = finalAttrs.version;
+    hash = "sha256-XGJBBuRSL3InXUMGxOttdbt0zmI1APFlc4IvwC2up8g=";
+    fetchSubmodules = true;
+  };
 
-    nativeBuildInputs = [
-      cmake
-      ninja
-      pkg-config
-      idl-serial
-    ];
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace "DESTINATION /etc" "DESTINATION $out/etc"
+  '';
 
-    buildInputs = [
-      cyclonedds
-      libmysqlclient
-      mariadb
-      mbedtls
-      sqlite
-      zeromq
-    ];
+  nativeBuildInputs = [ cmake ninja pkg-config idl-serial ];
 
-    cmakeFlags = [
-      "-DBUILD_BENCH=ON"
-      "-DBUILD_DDS_PROXY=ON"
-      "-DBUILD_NANOMQ_CLI=ON"
-      "-DBUILD_ZMQ_GATEWAY=ON"
-      "-DENABLE_RULE_ENGINE=ON"
-      "-DNNG_ENABLE_SQLITE=ON"
-      "-DNNG_ENABLE_TLS=ON"
-    ];
+  buildInputs = [ cyclonedds libmysqlclient mariadb mbedtls sqlite zeromq ];
 
-    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-return-type";
+  cmakeFlags = [
+    "-DBUILD_BENCH=ON"
+    "-DBUILD_DDS_PROXY=ON"
+    "-DBUILD_NANOMQ_CLI=ON"
+    "-DBUILD_ZMQ_GATEWAY=ON"
+    "-DENABLE_RULE_ENGINE=ON"
+    "-DNNG_ENABLE_SQLITE=ON"
+    "-DNNG_ENABLE_TLS=ON"
+  ];
 
-    # disabled by default - not 100% reliable and making nanomq depend on
-    # mosquitto would annoy people
-    doInstallCheck = false;
-    nativeInstallCheckInputs = [
-      mosquitto
-      netcat-gnu
-      (python3.withPackages (
-        ps:
-        with ps; [
-          jinja2
-          requests
-          paho-mqtt
-        ]
-      ))
-    ];
-    installCheckPhase = ''
-      runHook preInstallCheck
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang "-Wno-return-type";
 
-      (
-        cd ..
+  # disabled by default - not 100% reliable and making nanomq depend on
+  # mosquitto would annoy people
+  doInstallCheck = false;
+  nativeInstallCheckInputs = [
+    mosquitto
+    netcat-gnu
+    (python3.withPackages (ps: with ps; [ jinja2 requests paho-mqtt ]))
+  ];
+  installCheckPhase = ''
+    runHook preInstallCheck
 
-        # effectively distable this test because it is slow
-        echo > .github/scripts/fuzzy_test.txt
+    (
+      cd ..
 
-        PATH="$PATH:$out/bin" python .github/scripts/test.py
-      )
+      # effectively distable this test because it is slow
+      echo > .github/scripts/fuzzy_test.txt
 
-      runHook postInstallCheck
-    '';
+      PATH="$PATH:$out/bin" python .github/scripts/test.py
+    )
 
-    passthru.tests = {
-      withInstallChecks = finalAttrs.finalPackage.overrideAttrs (_: { doInstallCheck = true; });
-    };
+    runHook postInstallCheck
+  '';
 
-    meta = with lib; {
-      description = "An ultra-lightweight and blazing-fast MQTT broker for IoT edge";
-      homepage = "https://nanomq.io/";
-      license = licenses.mit;
-      maintainers = with maintainers; [ sikmir ];
-      platforms = platforms.unix;
-    };
-  }
-)
+  passthru.tests = {
+    withInstallChecks =
+      finalAttrs.finalPackage.overrideAttrs (_: { doInstallCheck = true; });
+  };
+
+  meta = with lib; {
+    description =
+      "An ultra-lightweight and blazing-fast MQTT broker for IoT edge";
+    homepage = "https://nanomq.io/";
+    license = licenses.mit;
+    maintainers = with maintainers; [ sikmir ];
+    platforms = platforms.unix;
+  };
+})

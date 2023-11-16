@@ -1,31 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.syncplay;
 
-  cmdArgs =
-    [
-      "--port"
-      cfg.port
-    ]
-    ++ optionals (cfg.salt != null) [
-      "--salt"
-      cfg.salt
-    ]
-    ++ optionals (cfg.certDir != null) [
-      "--tls"
-      cfg.certDir
-    ]
-    ++ cfg.extraArgs;
-in
-{
+  cmdArgs = [ "--port" cfg.port ]
+    ++ optionals (cfg.salt != null) [ "--salt" cfg.salt ]
+    ++ optionals (cfg.certDir != null) [ "--tls" cfg.certDir ] ++ cfg.extraArgs;
+
+in {
   options = {
     services.syncplay = {
       enable = mkOption {
@@ -111,12 +95,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.salt == null || cfg.saltFile == null;
-        message = "services.syncplay.salt and services.syncplay.saltFile are mutually exclusive.";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.salt == null || cfg.saltFile == null;
+      message =
+        "services.syncplay.salt and services.syncplay.saltFile are mutually exclusive.";
+    }];
     systemd.services.syncplay = {
       description = "Syncplay Service";
       wantedBy = [ "multi-user.target" ];
@@ -137,7 +120,9 @@ in
         ${lib.optionalString (cfg.saltFile != null) ''
           export SYNCPLAY_SALT=$(cat "''${CREDENTIALS_DIRECTORY}/salt")
         ''}
-        exec ${pkgs.syncplay-nogui}/bin/syncplay-server ${escapeShellArgs cmdArgs}
+        exec ${pkgs.syncplay-nogui}/bin/syncplay-server ${
+          escapeShellArgs cmdArgs
+        }
       '';
     };
   };

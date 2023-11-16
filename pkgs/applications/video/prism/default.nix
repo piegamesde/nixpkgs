@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "prism";

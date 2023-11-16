@@ -1,33 +1,10 @@
-{
-  lib,
-  backoff,
-  buildPythonPackage,
-  fetchFromGitHub,
-  geojson,
-  google-api-core,
-  imagesize,
-  nbconvert,
-  nbformat,
-  ndjson,
-  numpy,
-  opencv,
-  # , opencv-python
-  packaging,
-  pillow,
-  pydantic,
-  # , pygeotile
-  pyproj,
-  pytest-cases,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  rasterio,
-  requests,
-  shapely,
-  tqdm,
-  typeguard,
-  typing-extensions,
-}:
+{ lib, backoff, buildPythonPackage, fetchFromGitHub, geojson, google-api-core
+, imagesize, nbconvert, nbformat, ndjson, numpy, opencv
+# , opencv-python
+, packaging, pillow, pydantic
+# , pygeotile
+, pyproj, pytest-cases, pytestCheckHook, pythonOlder, pythonRelaxDepsHook
+, rasterio, requests, shapely, tqdm, typeguard, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "labelbox";
@@ -52,14 +29,8 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "backoff" ];
 
-  propagatedBuildInputs = [
-    backoff
-    google-api-core
-    ndjson
-    pydantic
-    requests
-    tqdm
-  ];
+  propagatedBuildInputs =
+    [ backoff google-api-core ndjson pydantic requests tqdm ];
 
   passthru.optional-dependencies = {
     data = [
@@ -77,12 +48,8 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    nbconvert
-    nbformat
-    pytest-cases
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.data;
+  nativeCheckInputs = [ nbconvert nbformat pytest-cases pytestCheckHook ]
+    ++ passthru.optional-dependencies.data;
 
   disabledTestPaths = [
     # Requires network access
@@ -91,18 +58,18 @@ buildPythonPackage rec {
     "tests/data"
   ];
 
-  pytestFlagsArray =
-    [
-      # see tox.ini
-      "-k 'not notebooks'"
-    ];
+  pytestFlagsArray = [
+    # see tox.ini
+    "-k 'not notebooks'"
+  ];
 
   pythonImportsCheck = [ "labelbox" ];
 
   meta = with lib; {
     description = "Platform API for LabelBox";
     homepage = "https://github.com/Labelbox/labelbox-python";
-    changelog = "https://github.com/Labelbox/labelbox-python/blob/v.${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Labelbox/labelbox-python/blob/v.${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ rakesh4g ];
   };

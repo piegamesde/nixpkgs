@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gettext,
-  autoreconfHook,
-  libiconv,
-}:
+{ lib, stdenv, fetchFromGitHub, gettext, autoreconfHook, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "wavpack";
@@ -26,12 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fWAGE87JTNTnYoxrkMf3I8C53kZrQiiBy3Zyg0cw8Og=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-    "man"
-  ];
+  outputs = [ "out" "dev" "doc" "man" ];
 
   meta = with lib; {
     description = "Hybrid audio compression format";

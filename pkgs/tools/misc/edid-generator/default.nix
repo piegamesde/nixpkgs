@@ -1,15 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  dos2unix,
-  edid-decode,
-  hexdump,
-  zsh,
-  modelines ? [ ] # Modeline "1280x800"   83.50  1280 1352 1480 1680  800 803 809 831 -hsync +vsync
-  ,
-  clean ? false # should it skip all, but explicitly listed modelines?
-  ,
+{ lib, stdenv, fetchFromGitHub, dos2unix, edid-decode, hexdump, zsh, modelines ?
+  [ ] # Modeline "1280x800"   83.50  1280 1352 1480 1680  800 803 809 831 -hsync +vsync
+, clean ? false # should it skip all, but explicitly listed modelines?
 }:
 
 # Usage:
@@ -33,12 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "0j6wqzx5frca8b5i6812vvr5iwk7440fka70bmqn00k0vfhsc2x3";
   };
 
-  nativeBuildInputs = [
-    dos2unix
-    edid-decode
-    hexdump
-    zsh
-  ];
+  nativeBuildInputs = [ dos2unix edid-decode hexdump zsh ];
 
   postPatch = ''
     patchShebangs modeline2edid
@@ -57,14 +43,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Hackerswork to generate an EDID blob from given Xorg Modelines";
+    description =
+      "Hackerswork to generate an EDID blob from given Xorg Modelines";
     homepage = "https://github.com/akatrevorjay/edid-generator";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      flokli
-      nazarewk
-    ];
+    maintainers = with lib.maintainers; [ flokli nazarewk ];
     platforms = lib.platforms.all;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/edid-generator.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/edid-generator.x86_64-darwin
   };
 }

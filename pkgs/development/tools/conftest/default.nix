@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "conftest";
@@ -46,7 +41,8 @@ buildGoModule rec {
     description = "Write tests against structured configuration data";
     downloadPage = "https://github.com/open-policy-agent/conftest";
     homepage = "https://www.conftest.dev";
-    changelog = "https://github.com/open-policy-agent/conftest/releases/tag/v${version}";
+    changelog =
+      "https://github.com/open-policy-agent/conftest/releases/tag/v${version}";
     license = licenses.asl20;
     longDescription = ''
       Conftest helps you write tests against structured configuration data.
@@ -58,9 +54,6 @@ buildGoModule rec {
       assertions. You can read more about Rego in 'How do I write policies' in
       the Open Policy Agent documentation.
     '';
-    maintainers = with maintainers; [
-      jk
-      yurrriq
-    ];
+    maintainers = with maintainers; [ jk yurrriq ];
   };
 }

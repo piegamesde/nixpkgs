@@ -1,8 +1,5 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -56,28 +53,20 @@ let
       ${pkgs.cdrkit}/bin/genisoimage -volid cidata -joliet -rock -o $out/metadata.iso $out/iso
     '';
   };
-in
-makeTest {
+
+in makeTest {
   name = "cloud-init";
-  meta.maintainers = with pkgs.lib.maintainers; [
-    lewo
-    illustris
-  ];
-  nodes.machine =
-    { ... }:
-    {
-      virtualisation.qemu.options = [
-        "-cdrom"
-        "${metadataDrive}/metadata.iso"
-      ];
-      services.cloud-init = {
-        enable = true;
-        network.enable = true;
-      };
-      services.openssh.enable = true;
-      networking.hostName = "";
-      networking.useDHCP = false;
+  meta.maintainers = with pkgs.lib.maintainers; [ lewo illustris ];
+  nodes.machine = { ... }: {
+    virtualisation.qemu.options = [ "-cdrom" "${metadataDrive}/metadata.iso" ];
+    services.cloud-init = {
+      enable = true;
+      network.enable = true;
     };
+    services.openssh.enable = true;
+    networking.hostName = "";
+    networking.useDHCP = false;
+  };
   testScript = ''
     # To wait until cloud-init terminates its run
     unnamed.wait_for_unit("cloud-final.service")

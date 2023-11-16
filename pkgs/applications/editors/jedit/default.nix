@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ant,
-  jdk,
-  commonsBsf,
-  commonsLogging,
-  bsh,
-}:
+{ lib, stdenv, fetchurl, ant, jdk, commonsBsf, commonsLogging, bsh }:
 
 let
   version = "5.2.0";
@@ -16,12 +7,12 @@ let
     sha256 = "16xhmwks4l65m5x150nd23y5lyppha9sa5fj65rzhxw66gbli82d";
   };
   jsr305 = fetchurl {
-    url = "mirror://maven/com/google/code/findbugs/jsr305/2.0.0/jsr305-2.0.0.jar";
+    url =
+      "mirror://maven/com/google/code/findbugs/jsr305/2.0.0/jsr305-2.0.0.jar";
     sha256 = "0s74pv8qjc42c7q8nbc0c3b1hgx0bmk3b8vbk1z80p4bbgx56zqy";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "jedit";
   inherit version;
   src = fetchurl {
@@ -29,12 +20,7 @@ stdenv.mkDerivation {
     sha256 = "03wmbh90rl5lsc35d7jwcp9j5qyyzq1nccxf4fal8bmnx8n4si0x";
   };
 
-  buildInputs = [
-    ant
-    jdk
-    commonsBsf
-    commonsLogging
-  ];
+  buildInputs = [ ant jdk commonsBsf commonsLogging ];
 
   # This patch removes from the build process:
   #  - the automatic download of dependencies (see configurePhase);

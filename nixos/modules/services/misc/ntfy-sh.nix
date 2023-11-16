@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,11 +6,11 @@ let
   cfg = config.services.ntfy-sh;
 
   settingsFormat = pkgs.formats.yaml { };
-in
 
-{
+in {
   options.services.ntfy-sh = {
-    enable = mkEnableOption (mdDoc "[ntfy-sh](https://ntfy.sh), a push notification service");
+    enable = mkEnableOption
+      (mdDoc "[ntfy-sh](https://ntfy.sh), a push notification service");
 
     package = mkOption {
       type = types.package;
@@ -54,10 +49,8 @@ in
   };
 
   config =
-    let
-      configuration = settingsFormat.generate "server.yml" cfg.settings;
-    in
-    mkIf cfg.enable {
+    let configuration = settingsFormat.generate "server.yml" cfg.settings;
+    in mkIf cfg.enable {
       # to configure access control via the cli
       environment = {
         etc."ntfy/server.yml".source = configuration;

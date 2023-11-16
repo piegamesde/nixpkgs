@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  setuptools,
-  numpy,
-  pandas,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, setuptools, numpy, pandas }:
 
 buildPythonPackage rec {
   pname = "ancp-bids";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  checkInputs = [
-    numpy
-    pandas
-    pytestCheckHook
-  ];
+  checkInputs = [ numpy pandas pytestCheckHook ];
   pythonImportsCheck = [ "ancpbids" ];
 
   pytestFlagsArray = [ "tests/auto" ];

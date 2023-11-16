@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_schema,
-  zope_interface,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_schema, zope_interface }:
 
 buildPythonPackage rec {
   pname = "zope.filerepresentation";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-yza3iGspJ2+C8WhfPykfQjXmac2HhdFHQtRl0Trvaqs=";
   };
 
-  propagatedBuildInputs = [
-    zope_interface
-    zope_schema
-  ];
+  propagatedBuildInputs = [ zope_interface zope_schema ];
 
   checkPhase = ''
     cd src/zope/filerepresentation && python -m unittest
@@ -30,4 +21,5 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
+
 }

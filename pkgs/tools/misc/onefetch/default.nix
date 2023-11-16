@@ -1,17 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  cmake,
-  installShellFiles,
-  pkg-config,
-  zstd,
-  stdenv,
-  CoreFoundation,
-  libresolv,
-  Security,
-  git,
-}:
+{ lib, rustPlatform, fetchFromGitHub, cmake, installShellFiles, pkg-config, zstd
+, stdenv, CoreFoundation, libresolv, Security, git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "onefetch";
@@ -26,25 +14,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-XFX3J/vgjboEu+xZWTkfo5jmZJkap1u3j9G9ewrzVqc=";
 
-  cargoPatches =
-    [
-      # enable pkg-config feature of zstd
-      ./zstd-pkg-config.patch
-    ];
-
-  nativeBuildInputs = [
-    cmake
-    installShellFiles
-    pkg-config
+  cargoPatches = [
+    # enable pkg-config feature of zstd
+    ./zstd-pkg-config.patch
   ];
 
-  buildInputs =
-    [ zstd ]
-    ++ lib.optionals stdenv.isDarwin [
-      CoreFoundation
-      libresolv
-      Security
-    ];
+  nativeBuildInputs = [ cmake installShellFiles pkg-config ];
+
+  buildInputs = [ zstd ]
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation libresolv Security ];
 
   nativeCheckInputs = [ git ];
 
@@ -66,7 +44,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Git repository summary on your terminal";
     homepage = "https://github.com/o2sh/onefetch";
-    changelog = "https://github.com/o2sh/onefetch/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/o2sh/onefetch/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [
       Br1ght0ne

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-cov,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  responses,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-cov, pytestCheckHook
+, pythonOlder, requests, responses }:
 
 buildPythonPackage rec {
   pname = "googlemaps";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytest-cov
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytest-cov pytestCheckHook responses ];
 
   disabledTests = [
     # touches network
@@ -42,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client library for Google Maps API Web Services";
     homepage = "https://github.com/googlemaps/google-maps-services-python";
-    changelog = "https://github.com/googlemaps/google-maps-services-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/googlemaps/google-maps-services-python/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ Scriptkiddi ];
   };

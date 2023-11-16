@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hypothesis,
-  pythonOlder,
-  pytestCheckHook,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, hypothesis, pythonOlder, pytestCheckHook
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "chardet";
@@ -27,11 +20,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # flaky; https://github.com/chardet/chardet/issues/256
-      "test_detect_all_and_detect_one_should_agree"
-    ];
+  disabledTests = [
+    # flaky; https://github.com/chardet/chardet/issues/256
+    "test_detect_all_and_detect_one_should_agree"
+  ];
 
   pythonImportsCheck = [ "chardet" ];
 

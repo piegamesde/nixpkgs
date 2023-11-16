@@ -1,18 +1,5 @@
-{
-  lib,
-  brotlipy,
-  buildPythonPackage,
-  decorator,
-  fetchpatch,
-  fetchPypi,
-  flask,
-  flask-limiter,
-  itsdangerous,
-  markupsafe,
-  raven,
-  six,
-  pytestCheckHook,
-  werkzeug,
+{ lib, brotlipy, buildPythonPackage, decorator, fetchpatch, fetchPypi, flask
+, flask-limiter, itsdangerous, markupsafe, raven, six, pytestCheckHook, werkzeug
 }:
 
 buildPythonPackage rec {
@@ -29,7 +16,8 @@ buildPythonPackage rec {
     (fetchpatch {
       # Replaces BaseResponse class with Response class for Werkezug 2.1.0 compatibility
       # https://github.com/postmanlabs/httpbin/pull/674
-      url = "https://github.com/postmanlabs/httpbin/commit/5cc81ce87a3c447a127e4a1a707faf9f3b1c9b6b.patch";
+      url =
+        "https://github.com/postmanlabs/httpbin/commit/5cc81ce87a3c447a127e4a1a707faf9f3b1c9b6b.patch";
       hash = "sha256-SbEWjiqayMFYrbgAPZtSsXqSyCDUz3z127XgcKOcrkE=";
     })
   ];

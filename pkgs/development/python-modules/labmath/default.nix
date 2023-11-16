@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "labmath";
@@ -21,7 +16,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pypi.org/project/labmath";
-    description = "Module for basic math in the general vicinity of computational number theory";
+    description =
+      "Module for basic math in the general vicinity of computational number theory";
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];
   };

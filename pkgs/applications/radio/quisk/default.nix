@@ -1,11 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  fftw,
-  alsa-lib,
-  pulseaudio,
-}:
+{ lib, python3, fetchPypi, fftw, alsa-lib, pulseaudio }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "quisk";
@@ -16,16 +9,9 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-eF/3++wRG0JulVTT+GvtqleBPkzLSZeu+RfHDI1xfOY=";
   };
 
-  buildInputs = [
-    fftw
-    alsa-lib
-    pulseaudio
-  ];
+  buildInputs = [ fftw alsa-lib pulseaudio ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pyusb
-    wxPython_4_2
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pyusb wxPython_4_2 ];
 
   doCheck = false;
 

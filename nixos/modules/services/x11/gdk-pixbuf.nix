@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.xserver.gdk-pixbuf;
@@ -11,14 +6,14 @@ let
   loadersCache = pkgs.gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
     extraLoaders = lib.unique (cfg.modulePackages);
   };
-in
 
-{
+in {
   options = {
     services.xserver.gdk-pixbuf.modulePackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = [ ];
-      description = lib.mdDoc "Packages providing GDK-Pixbuf modules, for cache generation.";
+      description = lib.mdDoc
+        "Packages providing GDK-Pixbuf modules, for cache generation.";
     };
   };
 

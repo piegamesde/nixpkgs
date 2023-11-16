@@ -1,32 +1,15 @@
-{
-  lib,
-  stdenv,
-  pythonAtLeast,
-  pythonOlder,
-  fetchPypi,
-  python,
-  buildPythonPackage,
-  setuptools,
-  numpy,
-  llvmlite,
-  libcxx,
-  importlib-metadata,
-  substituteAll,
-  runCommand,
-  fetchpatch,
+{ lib, stdenv, pythonAtLeast, pythonOlder, fetchPypi, python, buildPythonPackage
+, setuptools, numpy, llvmlite, libcxx, importlib-metadata, substituteAll
+, runCommand, fetchpatch
 
-  # CUDA-only dependencies:
-  addOpenGLRunpath ? null,
-  cudaPackages ? { },
+# CUDA-only dependencies:
+, addOpenGLRunpath ? null, cudaPackages ? { }
 
   # CUDA flags:
-  cudaSupport ? false,
-}:
+, cudaSupport ? false }:
 
-let
-  inherit (cudaPackages) cudatoolkit;
-in
-buildPythonPackage rec {
+let inherit (cudaPackages) cudatoolkit;
+in buildPythonPackage rec {
   version = "0.56.4";
   pname = "numba";
   format = "setuptools";
@@ -44,41 +27,34 @@ buildPythonPackage rec {
       --replace "elif numpy_version > (1, 23):" "elif numpy_version > (1, 24):"
   '';
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
-  nativeBuildInputs = [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [ numpy ]
+    ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
-  propagatedBuildInputs =
-    [
-      numpy
-      llvmlite
-      setuptools
-    ]
+  propagatedBuildInputs = [ numpy llvmlite setuptools ]
     ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
-    ++ lib.optionals cudaSupport [
-      cudatoolkit
-      cudatoolkit.lib
-    ];
+    ++ lib.optionals cudaSupport [ cudatoolkit cudatoolkit.lib ];
 
-  patches =
-    [
-      # fix failure in test_cache_invalidate (numba.tests.test_caching.TestCache)
-      # remove when upgrading past version 0.56
-      (fetchpatch {
-        name = "fix-test-cache-invalidate-readonly.patch";
-        url = "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
-        hash = "sha256-IhIqRLmP8gazx+KWIyCxZrNLMT4jZT8CWD3KcH4KjOo=";
-      })
-      # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
-      ./numpy-1.24.patch
-    ]
-    ++ lib.optionals cudaSupport [
-      (substituteAll {
-        src = ./cuda_path.patch;
-        cuda_toolkit_path = cudatoolkit;
-        cuda_toolkit_lib_path = cudatoolkit.lib;
-      })
-    ];
+  patches = [
+    # fix failure in test_cache_invalidate (numba.tests.test_caching.TestCache)
+    # remove when upgrading past version 0.56
+    (fetchpatch {
+      name = "fix-test-cache-invalidate-readonly.patch";
+      url =
+        "https://github.com/numba/numba/commit/993e8c424055a7677b2755b184fc9e07549713b9.patch";
+      hash = "sha256-IhIqRLmP8gazx+KWIyCxZrNLMT4jZT8CWD3KcH4KjOo=";
+    })
+    # Backport numpy 1.24 support from https://github.com/numba/numba/pull/8691
+    ./numpy-1.24.patch
+  ] ++ lib.optionals cudaSupport [
+    (substituteAll {
+      src = ./cuda_path.patch;
+      cuda_toolkit_path = cudatoolkit;
+      cuda_toolkit_lib_path = cudatoolkit.lib;
+    })
+  ];
 
   postFixup = lib.optionalString cudaSupport ''
     find $out -type f \( -name '*.so' -or -name '*.so.*' \) | while read lib; do
@@ -112,14 +88,7 @@ buildPythonPackage rec {
     fullSuite = runCommand "${pname}-test" { } ''
       pushd $(mktemp -d)
       # pip and python in $PATH is needed for the test suite to pass fully
-      PATH=${
-        python.withPackages (
-          p: [
-            p.numba
-            p.pip
-          ]
-        )
-      }/bin:$PATH
+      PATH=${python.withPackages (p: [ p.numba p.pip ])}/bin:$PATH
       HOME=$PWD python -m numba.runtests -m $NIX_BUILD_CORES
       popd
       touch $out # stop Nix from complaining no output was generated and failing the build

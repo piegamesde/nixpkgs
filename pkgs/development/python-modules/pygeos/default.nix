@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  geos,
-  pytestCheckHook,
-  cython,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, python, geos, pytestCheckHook, cython
+, numpy }:
 
 buildPythonPackage rec {
   pname = "pygeos";
@@ -40,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Wraps GEOS geometry functions in numpy ufuncs";
     homepage = "https://github.com/pygeos/pygeos";
-    changelog = "https://github.com/pygeos/pygeos/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/pygeos/pygeos/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nialov ];
   };

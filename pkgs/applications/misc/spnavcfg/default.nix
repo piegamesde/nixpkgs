@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  gtk2,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "spnavcfg";
@@ -37,7 +31,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://spacenav.sourceforge.net/";
-    description = "Interactive configuration GUI for space navigator input devices";
+    description =
+      "Interactive configuration GUI for space navigator input devices";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = with maintainers; [ gebner ];

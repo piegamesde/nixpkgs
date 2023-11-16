@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  flit-core,
-  requests,
-  tomli,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, flit-core, requests
+, tomli }:
 
 buildPythonPackage rec {
   pname = "wn";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    requests
-    tomli
-  ];
+  propagatedBuildInputs = [ requests tomli ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

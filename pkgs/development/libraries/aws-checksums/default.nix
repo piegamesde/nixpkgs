@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  aws-c-common,
-  nix,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, aws-c-common, nix }:
 
 stdenv.mkDerivation rec {
   pname = "aws-checksums";
@@ -24,18 +17,13 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
 
-  passthru.tests = {
-    inherit nix;
-  };
+  passthru.tests = { inherit nix; };
 
   meta = with lib; {
     description = "HW accelerated CRC32c and CRC32";
     homepage = "https://github.com/awslabs/aws-checksums";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      orivej
-      eelco
-    ];
+    maintainers = with maintainers; [ orivej eelco ];
   };
 }

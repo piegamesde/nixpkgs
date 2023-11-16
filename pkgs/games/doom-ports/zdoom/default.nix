@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  p7zip,
-  cmake,
-  SDL2,
-  openal,
-  fluidsynth,
-  soundfont-fluid,
-  bzip2,
-  zlib,
-  libjpeg,
-  game-music-emu,
-  libsndfile,
-  mpg123,
-}:
+{ lib, stdenv, fetchurl, p7zip, cmake, SDL2, openal, fluidsynth, soundfont-fluid
+, bzip2, zlib, libjpeg, game-music-emu, libsndfile, mpg123 }:
 
 stdenv.mkDerivation rec {
   pname = "zdoom";
@@ -22,14 +7,12 @@ stdenv.mkDerivation rec {
   version = "${majorVersion}.1";
 
   src = fetchurl {
-    url = "https://zdoom.org/files/zdoom/${majorVersion}/zdoom-${version}-src.7z";
+    url =
+      "https://zdoom.org/files/zdoom/${majorVersion}/zdoom-${version}-src.7z";
     sha256 = "0453fqrh9l00xwphfxni5qkf9y134n3s1mr1dvi5cbkxcva7j8bq";
   };
 
-  nativeBuildInputs = [
-    p7zip
-    cmake
-  ];
+  nativeBuildInputs = [ p7zip cmake ];
   buildInputs = [
     SDL2
     openal
@@ -50,10 +33,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  NIX_CFLAGS_LINK = [
-    "-lopenal"
-    "-lfluidsynth"
-  ];
+  NIX_CFLAGS_LINK = [ "-lopenal" "-lfluidsynth" ];
 
   preConfigure = ''
     sed -i \
@@ -80,3 +60,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ lassulus ];
   };
 }
+

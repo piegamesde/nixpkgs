@@ -1,13 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  menhir,
-  menhirLib,
-  ppx_deriving_yojson,
-  visitors,
-  yojson,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, menhir, menhirLib, ppx_deriving_yojson
+, visitors, yojson }:
 
 buildDunePackage rec {
   pname = "morbig";
@@ -24,12 +16,7 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ menhir ];
 
-  propagatedBuildInputs = [
-    menhirLib
-    ppx_deriving_yojson
-    visitors
-    yojson
-  ];
+  propagatedBuildInputs = [ menhirLib ppx_deriving_yojson visitors yojson ];
 
   meta = with lib; {
     homepage = "https://github.com/colis-anr/${pname}";

@@ -1,34 +1,29 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  # By default, jemalloc puts a je_ prefix onto all its symbols on OSX, which
-  # then stops downstream builds (mariadb in particular) from detecting it. This
-  # option should remove the prefix and give us a working jemalloc.
-  # Causes segfaults with some software (ex. rustc), but defaults to true for backward
-  # compatibility.
-  stripPrefix ? stdenv.hostPlatform.isDarwin,
-  disableInitExecTls ? false,
-}:
+{ lib, stdenv, fetchurl, fetchpatch
+# By default, jemalloc puts a je_ prefix onto all its symbols on OSX, which
+# then stops downstream builds (mariadb in particular) from detecting it. This
+# option should remove the prefix and give us a working jemalloc.
+# Causes segfaults with some software (ex. rustc), but defaults to true for backward
+# compatibility.
+, stripPrefix ? stdenv.hostPlatform.isDarwin, disableInitExecTls ? false }:
 
 stdenv.mkDerivation rec {
   pname = "jemalloc";
   version = "5.3.0";
 
   src = fetchurl {
-    url = "https://github.com/jemalloc/jemalloc/releases/download/${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://github.com/jemalloc/jemalloc/releases/download/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-LbgtHnEZ3z5xt2QCGbbf6EeJvAU3mDw7esT3GJrs/qo=";
   };
 
-  patches =
-    [
-      # fix tests under --with-jemalloc-prefix=, see https://github.com/jemalloc/jemalloc/pull/2340
-      (fetchpatch {
-        url = "https://github.com/jemalloc/jemalloc/commit/d00ecee6a8dfa90afcb1bbc0858985c17bef6559.patch";
-        hash = "sha256-N5i4IxGJ4SSAgFiq5oGRnrNeegdk2flw9Sh2mP0yl4c=";
-      })
-    ];
+  patches = [
+    # fix tests under --with-jemalloc-prefix=, see https://github.com/jemalloc/jemalloc/pull/2340
+    (fetchpatch {
+      url =
+        "https://github.com/jemalloc/jemalloc/commit/d00ecee6a8dfa90afcb1bbc0858985c17bef6559.patch";
+      hash = "sha256-N5i4IxGJ4SSAgFiq5oGRnrNeegdk2flw9Sh2mP0yl4c=";
+    })
+  ];
 
   configureFlags =
     # see the comment on stripPrefix
@@ -48,7 +43,8 @@ stdenv.mkDerivation rec {
     # Using a value of 48 should work on both emulated and native x86_64-darwin.
     ++ lib.optional (stdenv.isDarwin && stdenv.isx86_64) "--with-lg-vaddr=48";
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-error=array-bounds";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-Wno-error=array-bounds";
 
   doCheck = true;
 

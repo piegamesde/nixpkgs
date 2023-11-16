@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, stdenv, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "stig";
@@ -29,10 +24,7 @@ python3Packages.buildPythonApplication rec {
     setproctitle
   ];
 
-  nativeCheckInputs = with python3Packages; [
-    asynctest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ asynctest pytestCheckHook ];
 
   dontUseSetuptoolsCheck = true;
 
@@ -40,19 +32,17 @@ python3Packages.buildPythonApplication rec {
     export LC_ALL=C
   '';
 
-  pytestFlagsArray =
-    [
-      "tests"
-      # TestScrollBarWithScrollable.test_wrapping_bug fails
-      "--deselect=tests/tui_test/scroll_test.py::TestScrollBarWithScrollable::test_wrapping_bug"
-      # https://github.com/rndusr/stig/issues/214
-      "--deselect=tests/completion_test/classes_test.py::TestCandidates::test_candidates_are_sorted_case_insensitively"
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      "--deselect=tests/client_test/ttypes_test.py::TestTimestamp::test_string__month_day_hour_minute_second"
-      "--deselect=tests/client_test/aiotransmission_test/api_torrent_test.py"
-      "--deselect=tests/client_test/aiotransmission_test/rpc_test.py"
-    ];
+  pytestFlagsArray = [
+    "tests"
+    # TestScrollBarWithScrollable.test_wrapping_bug fails
+    "--deselect=tests/tui_test/scroll_test.py::TestScrollBarWithScrollable::test_wrapping_bug"
+    # https://github.com/rndusr/stig/issues/214
+    "--deselect=tests/completion_test/classes_test.py::TestCandidates::test_candidates_are_sorted_case_insensitively"
+  ] ++ lib.optionals stdenv.isDarwin [
+    "--deselect=tests/client_test/ttypes_test.py::TestTimestamp::test_string__month_day_hour_minute_second"
+    "--deselect=tests/client_test/aiotransmission_test/api_torrent_test.py"
+    "--deselect=tests/client_test/aiotransmission_test/rpc_test.py"
+  ];
 
   meta = with lib; {
     description = "TUI and CLI for the BitTorrent client Transmission";

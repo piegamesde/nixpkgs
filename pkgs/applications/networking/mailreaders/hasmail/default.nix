@@ -1,12 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  pango,
-  cairo,
-  gtk2,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, pango, cairo, gtk2 }:
 
 buildGoModule rec {
   pname = "hasmail-unstable";
@@ -25,11 +17,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    pango
-    cairo
-    gtk2
-  ];
+  buildInputs = [ pango cairo gtk2 ];
 
   meta = with lib; {
     description = "Simple tray icon for detecting new email on IMAP servers";

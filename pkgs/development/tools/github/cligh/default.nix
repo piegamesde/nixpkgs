@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonApplication,
-  pyxdg,
-  pygithub,
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, pyxdg, pygithub }:
 
 buildPythonApplication rec {
   pname = "cligh";
@@ -19,10 +13,7 @@ buildPythonApplication rec {
     sha256 = "0d1fd78rzl2n75xpmy1gnxh1shvcs4qm0j4qqszqvfriwkg2flxn";
   };
 
-  propagatedBuildInputs = [
-    pyxdg
-    pygithub
-  ];
+  propagatedBuildInputs = [ pyxdg pygithub ];
 
   meta = with lib; {
     homepage = "http://the-brannons.com/software/cligh.html";

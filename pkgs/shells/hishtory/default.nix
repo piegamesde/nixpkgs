@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "hishtory";
@@ -35,3 +31,4 @@ buildGoModule rec {
     maintainers = with maintainers; [ Enzime ];
   };
 }
+

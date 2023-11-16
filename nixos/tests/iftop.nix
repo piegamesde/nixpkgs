@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   {
     name = "iftop";
@@ -29,5 +28,4 @@ import ./make-test-python.nix (
           withoutIftop.succeed("iftop -t -s 1 -n -i eth1")
           withoutIftop.fail("su -l alice -c 'iftop -t -s 1 -n -i eth1'")
     '';
-  }
-)
+  })

@@ -1,15 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.services.nghttpx;
 
   # renderHost :: Either ServerOptions Path -> String
-  renderHost =
-    server:
+  renderHost = server:
     if builtins.isString server then
       "unix://${server}"
     else
@@ -19,15 +13,12 @@ let
   # the key _module.
   #
   # filterParams :: ParamsSubmodule -> ParamsSubmodule
-  filterParams =
-    p:
-    lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v)) (
-      lib.optionalAttrs (null != p) p
-    );
+  filterParams = p:
+    lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v))
+    (lib.optionalAttrs (null != p) p);
 
   # renderBackend :: BackendSubmodule -> String
-  renderBackend =
-    backend:
+  renderBackend = backend:
     let
       host = renderHost backend.server;
       patterns = lib.concatStringsSep ":" backend.patterns;
@@ -36,40 +27,26 @@ let
       # complicated because nghttpx backend patterns can be entirely
       # omitted and the params may be given as a mixed collection of
       # 'key=val' pairs or atoms (e.g: 'proto=h2;tls')
-      params =
-        lib.mapAttrsToList
-          (
-            n: v:
-            if builtins.isBool v then
-              n
-            else if builtins.isString v then
-              "${n}=${v}"
-            else
-              "${n}=${builtins.toString v}"
-          )
-          (filterParams backend.params);
+      params = lib.mapAttrsToList (n: v:
+        if builtins.isBool v then
+          n
+        else if builtins.isString v then
+          "${n}=${v}"
+        else
+          "${n}=${builtins.toString v}") (filterParams backend.params);
 
       # NB: params are delimited by a ";" which is the same delimiter
       # to separate the host;[pattern];[params] sections of a backend
-      sections = builtins.filter (e: "" != e) (
-        [
-          host
-          patterns
-        ]
-        ++ params
-      );
+      sections = builtins.filter (e: "" != e) ([ host patterns ] ++ params);
       formattedSections = lib.concatStringsSep ";" sections;
-    in
-    "backend=${formattedSections}";
+    in "backend=${formattedSections}";
 
   # renderFrontend :: FrontendSubmodule -> String
-  renderFrontend =
-    frontend:
+  renderFrontend = frontend:
     let
       host = renderHost frontend.server;
-      params0 = lib.mapAttrsToList (n: v: if builtins.isBool v then n else v) (
-        filterParams frontend.params
-      );
+      params0 = lib.mapAttrsToList (n: v: if builtins.isBool v then n else v)
+        (filterParams frontend.params);
 
       # NB: nghttpx doesn't accept "tls", you must omit "no-tls" for
       # the default behavior of turning on TLS.
@@ -77,8 +54,7 @@ let
 
       sections = [ host ] ++ params1;
       formattedSections = lib.concatStringsSep ";" sections;
-    in
-    "frontend=${formattedSections}";
+    in "frontend=${formattedSections}";
 
   configurationFile = pkgs.writeText "nghttpx.conf" ''
     ${lib.optionalString (null != cfg.tls) ("private-key-file=" + cfg.tls.key)}
@@ -100,8 +76,7 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   imports = [ ./nghttpx-options.nix ];
 
   config = lib.mkIf cfg.enable {

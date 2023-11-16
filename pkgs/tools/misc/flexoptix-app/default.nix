@@ -1,26 +1,23 @@
-{
-  lib,
-  appimageTools,
-  fetchurl,
-  nodePackages,
-}:
+{ lib, appimageTools, fetchurl, nodePackages }:
 let
   pname = "flexoptix-app";
   version = "5.13.4";
 
   src = fetchurl {
     name = "${pname}-${version}.AppImage";
-    url = "https://flexbox.reconfigure.me/download/electron/linux/x64/FLEXOPTIX%20App.${version}.AppImage";
+    url =
+      "https://flexbox.reconfigure.me/download/electron/linux/x64/FLEXOPTIX%20App.${version}.AppImage";
     hash = "sha256-W+9KmKZ1bPfQfv1DXCJrIswriw4ivBVZPW81tfvRBc0=";
   };
 
   udevRules = fetchurl {
-    url = "https://www.flexoptix.net/static/frontend/Flexoptix/default/en_US/files/99-tprogrammer.rules";
+    url =
+      "https://www.flexoptix.net/static/frontend/Flexoptix/default/en_US/files/99-tprogrammer.rules";
     hash = "sha256-OZe5dV50xq99olImbo7JQxPjRd7hGyBIVwFvtR9cIVc=";
   };
 
-  appimageContents = (appimageTools.extract { inherit pname version src; }).overrideAttrs (
-    oA: {
+  appimageContents =
+    (appimageTools.extract { inherit pname version src; }).overrideAttrs (oA: {
       buildCommand = ''
         ${oA.buildCommand}
 
@@ -29,15 +26,15 @@ let
         sed -i 's/async isUpdateAvailable.*/async isUpdateAvailable(updateInfo) { return false;/g' app/node_modules/electron-updater/out/AppUpdater.js
         ${nodePackages.asar}/bin/asar pack app $out/resources/app.asar
       '';
-    }
-  );
-in
-appimageTools.wrapAppImage {
+    });
+
+in appimageTools.wrapAppImage {
   inherit pname version;
   src = appimageContents;
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs = { pkgs, ... }@args: [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
+  extraPkgs = { pkgs, ... }@args:
+    [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
   extraInstallCommands = ''
     # Add desktop convencience stuff
@@ -55,7 +52,8 @@ appimageTools.wrapAppImage {
   meta = {
     description = "Configure FLEXOPTIX Universal Transceivers in seconds";
     homepage = "https://www.flexoptix.net";
-    changelog = "https://www.flexoptix.net/en/flexoptix-app/?os=linux#flexapp__modal__changelog";
+    changelog =
+      "https://www.flexoptix.net/en/flexoptix-app/?os=linux#flexapp__modal__changelog";
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [ das_j ];
     platforms = [ "x86_64-linux" ];

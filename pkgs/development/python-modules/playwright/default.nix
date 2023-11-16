@@ -1,20 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  git,
-  greenlet,
-  fetchFromGitHub,
-  pyee,
-  python,
-  pythonOlder,
-  setuptools-scm,
-  playwright-driver,
-}:
+{ lib, buildPythonPackage, git, greenlet, fetchFromGitHub, pyee, python
+, pythonOlder, setuptools-scm, playwright-driver }:
 
-let
-  driver = playwright-driver;
-in
-buildPythonPackage rec {
+let driver = playwright-driver;
+in buildPythonPackage rec {
   pname = "playwright";
   # run ./pkgs/development/python-modules/playwright/update.sh to update
   version = "1.34.0";
@@ -28,15 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-GIxMVuSSJsRDsHDOPnJsDsTcghGYtIFpRS5u7HJd+zY=";
   };
 
-  patches =
-    [
-      # This patches two things:
-      # - The driver location, which is now a static package in the Nix store.
-      # - The setup script, which would try to download the driver package from
-      #   a CDN and patch wheels so that they include it. We don't want this
-      #   we have our own driver build.
-      ./driver-location.patch
-    ];
+  patches = [
+    # This patches two things:
+    # - The driver location, which is now a static package in the Nix store.
+    # - The setup script, which would try to download the driver package from
+    #   a CDN and patch wheels so that they include it. We don't want this
+    #   we have our own driver build.
+    ./driver-location.patch
+  ];
 
   postPatch = ''
     # if setuptools_scm is not listing files via git almost all python files are excluded
@@ -63,15 +50,9 @@ buildPythonPackage rec {
       --replace "@driver@" "${driver}/bin/playwright"
   '';
 
-  nativeBuildInputs = [
-    git
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ git setuptools-scm ];
 
-  propagatedBuildInputs = [
-    greenlet
-    pyee
-  ];
+  propagatedBuildInputs = [ greenlet pyee ];
 
   postInstall = ''
     ln -s ${driver} $out/${python.sitePackages}/playwright/driver
@@ -93,19 +74,12 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "Python version of the Playwright testing and automation library";
+    description =
+      "Python version of the Playwright testing and automation library";
     homepage = "https://github.com/microsoft/playwright-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      techknowlogick
-      yrd
-      SuperSandro2000
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
+    maintainers = with maintainers; [ techknowlogick yrd SuperSandro2000 ];
+    platforms =
+      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
   };
 }

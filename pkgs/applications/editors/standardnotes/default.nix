@@ -1,13 +1,5 @@
-{
-  callPackage,
-  lib,
-  stdenv,
-  appimageTools,
-  autoPatchelfHook,
-  desktop-file-utils,
-  fetchurl,
-  libsecret,
-}:
+{ callPackage, lib, stdenv, appimageTools, autoPatchelfHook, desktop-file-utils
+, fetchurl, libsecret }:
 
 let
   srcjson = builtins.fromJSON (builtins.readFile ./src.json);
@@ -16,16 +8,14 @@ let
   name = "${pname}-${version}";
   throwSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
-  src = fetchurl (srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem);
+  src =
+    fetchurl (srcjson.appimage.${stdenv.hostPlatform.system} or throwSystem);
 
   appimageContents = appimageTools.extract { inherit name src; };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    desktop-file-utils
-  ];
-in
-appimageTools.wrapType2 rec {
+  nativeBuildInputs = [ autoPatchelfHook desktop-file-utils ];
+
+in appimageTools.wrapType2 rec {
   inherit name src;
 
   extraPkgs = pkgs: with pkgs; [ libsecret ];
@@ -52,11 +42,7 @@ appimageTools.wrapType2 rec {
     '';
     homepage = "https://standardnotes.org";
     license = licenses.agpl3;
-    maintainers = with maintainers; [
-      mgregoire
-      chuangzhu
-      squalus
-    ];
+    maintainers = with maintainers; [ mgregoire chuangzhu squalus ];
     sourceProvenance = [ sourceTypes.binaryNativeCode ];
     platforms = builtins.attrNames srcjson.appimage;
   };

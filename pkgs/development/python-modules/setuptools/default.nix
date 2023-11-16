@@ -1,13 +1,5 @@
-{
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  bootstrapped-pip,
-  lib,
-  pipInstallHook,
-  setuptoolsBuildHook,
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, python, bootstrapped-pip, lib
+, pipInstallHook, setuptoolsBuildHook }:
 
 let
   pname = "setuptools";
@@ -25,10 +17,7 @@ let
       name = "${pname}-${version}-source";
     };
 
-    patches = [
-      ./tag-date.patch
-      ./setuptools-distutils-C++.patch
-    ];
+    patches = [ ./tag-date.patch ./setuptools-distutils-C++.patch ];
 
     buildPhase = ''
       ${python.pythonForBuild.interpreter} setup.py egg_info
@@ -45,8 +34,7 @@ let
       mv dist/${name} $out
     '';
   };
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
   # Instead, we override it to remove setuptools to avoid a circular dependency.

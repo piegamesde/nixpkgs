@@ -1,11 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  lazarus,
-  qmake,
-  qtbase,
-  qtx11extras,
-}:
+{ mkDerivation, lib, lazarus, qmake, qtbase, qtx11extras }:
 
 mkDerivation {
   pname = "libqt5pas";
@@ -20,10 +13,7 @@ mkDerivation {
 
   nativeBuildInputs = [ qmake ];
 
-  buildInputs = [
-    qtbase
-    qtx11extras
-  ];
+  buildInputs = [ qtbase qtx11extras ];
 
   meta = with lib; {
     description = "Free Pascal Qt5 binding library";

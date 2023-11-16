@@ -1,20 +1,5 @@
-{
-  fetchFromGitHub,
-  gtest,
-  lib,
-  python3,
-  readline,
-  stdenv,
-  yosys,
-  zlib,
-  yosys-symbiflow,
-  uhdm,
-  capnproto,
-  surelog,
-  antlr4,
-  flatbuffers,
-  pkg-config,
-}:
+{ fetchFromGitHub, gtest, lib, python3, readline, stdenv, yosys, zlib
+, yosys-symbiflow, uhdm, capnproto, surelog, antlr4, flatbuffers, pkg-config }:
 let
 
   version = "1.20230425";
@@ -43,34 +28,21 @@ let
     "systemverilog"
   ];
 
-  static_gtest = gtest.overrideAttrs (
-    old: {
-      dontDisableStatic = true;
-      disableHardening = [ "pie" ];
-      cmakeFlags = old.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
-    }
-  );
-in
-lib.genAttrs plugins (
-  plugin:
+  static_gtest = gtest.overrideAttrs (old: {
+    dontDisableStatic = true;
+    disableHardening = [ "pie" ];
+    cmakeFlags = old.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
+  });
+
+in lib.genAttrs plugins (plugin:
   stdenv.mkDerivation (rec {
     pname = "yosys-symbiflow-${plugin}-plugin";
     inherit src version plugin;
     enableParallelBuilding = true;
 
-    nativeBuildInputs = [
-      python3
-      pkg-config
-    ];
-    buildInputs = [
-      yosys
-      readline
-      zlib
-      uhdm
-      surelog
-      capnproto
-      antlr4.runtime.cpp
-    ];
+    nativeBuildInputs = [ python3 pkg-config ];
+    buildInputs =
+      [ yosys readline zlib uhdm surelog capnproto antlr4.runtime.cpp ];
 
     # xdc has an incorrect path to a test which has yet to be patched
     doCheck = plugin != "xdc";
@@ -98,13 +70,10 @@ lib.genAttrs plugins (
 
     checkTarget = "test";
     checkFlags = [
-      (
-        "NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
+      ("NIX_YOSYS_PLUGIN_DIRS=\${NIX_BUILD_TOP}/source/${plugin}-plugin/build"
         # sdc and xdc plugins use design introspection for their tests
         + (lib.optionalString (plugin == "sdc" || plugin == "xdc")
-          ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/"
-        )
-      )
+          ":${yosys-symbiflow.design_introspection}/share/yosys/plugins/"))
     ];
 
     installFlags = buildFlags;
@@ -113,10 +82,6 @@ lib.genAttrs plugins (
       description = "Symbiflow ${plugin} plugin for Yosys";
       license = licenses.isc;
       platforms = platforms.all;
-      maintainers = with maintainers; [
-        ollieB
-        thoughtpolice
-      ];
+      maintainers = with maintainers; [ ollieB thoughtpolice ];
     };
-  })
-)
+  }))

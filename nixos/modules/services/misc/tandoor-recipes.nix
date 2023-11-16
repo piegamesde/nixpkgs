@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 let
@@ -11,26 +6,23 @@ let
   pkg = cfg.package;
 
   # SECRET_KEY through an env file
-  env =
-    {
-      GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
-      DEBUG = "0";
-      DEBUG_TOOLBAR = "0";
-      MEDIA_ROOT = "/var/lib/tandoor-recipes";
-    }
-    // optionalAttrs (config.time.timeZone != null) { TIMEZONE = config.time.timeZone; }
-    // (lib.mapAttrs (_: toString) cfg.extraConfig);
+  env = {
+    GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
+    DEBUG = "0";
+    DEBUG_TOOLBAR = "0";
+    MEDIA_ROOT = "/var/lib/tandoor-recipes";
+  } // optionalAttrs (config.time.timeZone != null) {
+    TIMEZONE = config.time.timeZone;
+  } // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
-  manage =
-    let
-      setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
-    in
-    pkgs.writeShellScript "manage" ''
-      ${setupEnv}
-      exec ${pkg}/bin/tandoor-recipes "$@"
-    '';
-in
-{
+  manage = let
+    setupEnv = lib.concatStringsSep "\n"
+      (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
+  in pkgs.writeShellScript "manage" ''
+    ${setupEnv}
+    exec ${pkg}/bin/tandoor-recipes "$@"
+  '';
+in {
   meta.maintainers = with maintainers; [ ambroisie ];
 
   options.services.tandoor-recipes = {
@@ -70,9 +62,7 @@ in
         See [the example dot-env file](https://raw.githubusercontent.com/vabene1111/recipes/master/.env.template)
         for available options.
       '';
-      example = {
-        ENABLE_SIGNUP = "1";
-      };
+      example = { ENABLE_SIGNUP = "1"; };
     };
 
     package = mkOption {
@@ -87,64 +77,58 @@ in
     systemd.services.tandoor-recipes = {
       description = "Tandoor Recipes server";
 
-      serviceConfig =
-        {
-          ExecStart = ''
-            ${pkg.python.pkgs.gunicorn}/bin/gunicorn recipes.wsgi
-          '';
-          Restart = "on-failure";
+      serviceConfig = {
+        ExecStart = ''
+          ${pkg.python.pkgs.gunicorn}/bin/gunicorn recipes.wsgi
+        '';
+        Restart = "on-failure";
 
-          User = "tandoor_recipes";
-          DynamicUser = true;
-          StateDirectory = "tandoor-recipes";
-          WorkingDirectory = "/var/lib/tandoor-recipes";
-          RuntimeDirectory = "tandoor-recipes";
+        User = "tandoor_recipes";
+        DynamicUser = true;
+        StateDirectory = "tandoor-recipes";
+        WorkingDirectory = "/var/lib/tandoor-recipes";
+        RuntimeDirectory = "tandoor-recipes";
 
-          BindReadOnlyPaths = [
-            "${
-              config.environment.etc."ssl/certs/ca-certificates.crt".source
-            }:/etc/ssl/certs/ca-certificates.crt"
-            builtins.storeDir
-            "-/etc/resolv.conf"
-            "-/etc/nsswitch.conf"
-            "-/etc/hosts"
-            "-/etc/localtime"
-            "-/run/postgresql"
-          ];
-          CapabilityBoundingSet = "";
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          PrivateDevices = true;
-          PrivateUsers = true;
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          RestrictAddressFamilies = [
-            "AF_UNIX"
-            "AF_INET"
-            "AF_INET6"
-          ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          SystemCallArchitectures = "native";
-          # gunicorn needs setuid
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-            "@resources"
-            "@setuid"
-            "@keyring"
-          ];
-          UMask = "0066";
-        }
-        // lib.optionalAttrs (cfg.port < 1024) {
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        };
+        BindReadOnlyPaths = [
+          "${
+            config.environment.etc."ssl/certs/ca-certificates.crt".source
+          }:/etc/ssl/certs/ca-certificates.crt"
+          builtins.storeDir
+          "-/etc/resolv.conf"
+          "-/etc/nsswitch.conf"
+          "-/etc/hosts"
+          "-/etc/localtime"
+          "-/run/postgresql"
+        ];
+        CapabilityBoundingSet = "";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        PrivateDevices = true;
+        PrivateUsers = true;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        SystemCallArchitectures = "native";
+        # gunicorn needs setuid
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "@resources"
+          "@setuid"
+          "@keyring"
+        ];
+        UMask = "0066";
+      } // lib.optionalAttrs (cfg.port < 1024) {
+        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+      };
 
       wantedBy = [ "multi-user.target" ];
 

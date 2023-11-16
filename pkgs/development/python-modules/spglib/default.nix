@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  pytest,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, pytest, pyyaml }:
 
 buildPythonPackage rec {
   pname = "spglib";
@@ -18,10 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytest
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytest pyyaml ];
 
   # pytestCheckHook doesn't work
   # ImportError: cannot import name '_spglib' from partially initialized module 'spglib'
@@ -32,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "spglib" ];
 
   meta = with lib; {
-    description = "Python bindings for C library for finding and handling crystal symmetries";
+    description =
+      "Python bindings for C library for finding and handling crystal symmetries";
     homepage = "https://spglib.github.io/spglib/";
     changelog = "https://github.com/spglib/spglib/raw/v${version}/ChangeLog";
     license = licenses.bsd3;

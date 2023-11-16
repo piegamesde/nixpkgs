@@ -1,14 +1,5 @@
-{
-  lib,
-  argcomplete,
-  jinja2,
-  meraki,
-  rich,
-  fetchPypi,
-  buildPythonApplication,
-  pytestCheckHook,
-  requests-mock,
-}:
+{ lib, argcomplete, jinja2, meraki, rich, fetchPypi, buildPythonApplication
+, pytestCheckHook, requests-mock }:
 
 buildPythonApplication rec {
   pname = "meraki-cli";
@@ -29,12 +20,7 @@ buildPythonApplication rec {
     "TestUpgrade"
   ];
 
-  propagatedBuildInputs = [
-    argcomplete
-    jinja2
-    meraki
-    rich
-  ];
+  propagatedBuildInputs = [ argcomplete jinja2 meraki rich ];
 
   nativeBuildInputs = [ pytestCheckHook ];
 
@@ -44,7 +30,8 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/PackeTsar/meraki-cli";
-    description = "A simple CLI tool to automate and control your Cisco Meraki Dashboard";
+    description =
+      "A simple CLI tool to automate and control your Cisco Meraki Dashboard";
     license = licenses.mit;
     maintainers = with maintainers; [ dylanmtaylor ];
     platforms = platforms.unix;

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "bazel-buildtools";
@@ -35,16 +31,11 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "Tools for working with Google's bazel buildtool. Includes buildifier, buildozer, and unused_deps";
+    description =
+      "Tools for working with Google's bazel buildtool. Includes buildifier, buildozer, and unused_deps";
     homepage = "https://github.com/bazelbuild/buildtools";
     license = licenses.asl20;
-    maintainers =
-      with maintainers;
-      [
-        elasticdog
-        uri-canva
-        marsam
-      ]
-      ++ lib.teams.bazel.members;
+    maintainers = with maintainers;
+      [ elasticdog uri-canva marsam ] ++ lib.teams.bazel.members;
   };
 }

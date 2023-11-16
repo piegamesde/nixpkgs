@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  multiStdenv,
-  fetchFromGitHub,
-  requireFile,
-  unzip,
-  wine,
-  cmake,
-  makeWrapper,
-  wrapQtAppsHook,
-  file,
-  libX11,
-  qt5,
-}:
+{ lib, stdenv, multiStdenv, fetchFromGitHub, requireFile, unzip, wine, cmake
+, makeWrapper, wrapQtAppsHook, file, libX11, qt5 }:
 
 let
   version = "1.3.3";
@@ -41,32 +28,20 @@ let
     wineBuild = "wineWow";
   };
 
-  wine-xembed = wine-wow64.overrideDerivation (
-    oldAttrs: {
-      patchFlags = [ "-p2" ];
-      patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
-    }
-  );
-in
+  wine-xembed = wine-wow64.overrideDerivation (oldAttrs: {
+    patchFlags = [ "-p2" ];
+    patches = [ "${airwave-src}/fix-xembed-wine-windows.patch" ];
+  });
 
-multiStdenv.mkDerivation {
+in multiStdenv.mkDerivation {
   pname = "airwave";
   inherit version;
 
   src = airwave-src;
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake makeWrapper wrapQtAppsHook ];
 
-  buildInputs = [
-    file
-    libX11
-    qt5.qtbase
-    wine-xembed
-  ];
+  buildInputs = [ file libX11 qt5.qtbase wine-xembed ];
 
   postPatch = ''
     # Binaries not used directly should land in libexec/.

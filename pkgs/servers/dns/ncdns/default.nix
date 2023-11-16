@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-  libcap,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests, libcap }:
 
 let
 
@@ -27,9 +21,8 @@ let
       cp -r --no-preserve=mode "${ncdns}" "$out/ncdns"
     '';
   };
-in
 
-buildGoModule {
+in buildGoModule {
   pname = "ncdns";
   version = "unstable-2022-10-07";
 

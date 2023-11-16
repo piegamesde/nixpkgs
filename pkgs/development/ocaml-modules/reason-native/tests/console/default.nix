@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  reason,
-  console,
-}:
+{ lib, buildDunePackage, reason, console }:
 
 buildDunePackage rec {
   pname = "console-test";
@@ -13,10 +8,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  buildInputs = [
-    reason
-    console
-  ];
+  buildInputs = [ reason console ];
 
   doInstallCheck = true;
   postInstallCheck = ''

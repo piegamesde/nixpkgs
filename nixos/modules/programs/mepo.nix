@@ -1,14 +1,7 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 with lib;
-let
-  cfg = config.programs.mepo;
-in
-{
+let cfg = config.programs.mepo;
+in {
   options.programs.mepo = {
     enable = mkEnableOption (mdDoc "Mepo");
 
@@ -31,8 +24,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       [ mepo ]
       ++ lib.optional cfg.locationBackends.geoclue geoclue2-with-demo-agent
       ++ lib.optional cfg.locationBackends.gpsd gpsd;

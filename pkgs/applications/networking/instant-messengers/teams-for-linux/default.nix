@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  makeDesktopItem,
-  copyDesktopItems,
-  yarn,
-  nodejs,
-  fetchYarnDeps,
-  fixup_yarn_lock,
-  electron,
-  libpulseaudio,
-  pipewire,
-  alsa-utils,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, copyDesktopItems
+, yarn, nodejs, fetchYarnDeps, fixup_yarn_lock, electron, libpulseaudio
+, pipewire, alsa-utils, which }:
 
 stdenv.mkDerivation rec {
   pname = "teams-for-linux";
@@ -32,19 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Zk3TAoGAPeki/ogfNl/XqeBBn6N/kbNcktRHEyqPOAA=";
   };
 
-  patches =
-    [
-      # Can be removed once Electron upstream resolves https://github.com/electron/electron/issues/36660
-      ./screensharing-wayland-hack-fix.patch
-    ];
-
-  nativeBuildInputs = [
-    yarn
-    fixup_yarn_lock
-    nodejs
-    copyDesktopItems
-    makeWrapper
+  patches = [
+    # Can be removed once Electron upstream resolves https://github.com/electron/electron/issues/36660
+    ./screensharing-wayland-hack-fix.patch
   ];
+
+  nativeBuildInputs =
+    [ yarn fixup_yarn_lock nodejs copyDesktopItems makeWrapper ];
 
   configurePhase = ''
     runHook preConfigure
@@ -90,17 +70,9 @@ stdenv.mkDerivation rec {
     makeWrapper '${electron}/bin/electron' "$out/bin/teams-for-linux" \
       ${
         lib.optionalString stdenv.isLinux ''
-          --prefix PATH : ${
-            lib.makeBinPath [
-              alsa-utils
-              which
-            ]
-          } \
+          --prefix PATH : ${lib.makeBinPath [ alsa-utils which ]} \
           --prefix LD_LIBRARY_PATH : ${
-            lib.makeLibraryPath [
-              libpulseaudio
-              pipewire
-            ]
+            lib.makeLibraryPath [ libpulseaudio pipewire ]
           } \
         ''
       } \
@@ -117,11 +89,7 @@ stdenv.mkDerivation rec {
       icon = pname;
       desktopName = "Microsoft Teams for Linux";
       comment = meta.description;
-      categories = [
-        "Network"
-        "InstantMessaging"
-        "Chat"
-      ];
+      categories = [ "Network" "InstantMessaging" "Chat" ];
     })
   ];
 
@@ -131,10 +99,7 @@ stdenv.mkDerivation rec {
     description = "Unofficial Microsoft Teams client for Linux";
     homepage = "https://github.com/IsmaelMartinez/teams-for-linux";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      muscaln
-      lilyinstarlight
-    ];
+    maintainers = with maintainers; [ muscaln lilyinstarlight ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

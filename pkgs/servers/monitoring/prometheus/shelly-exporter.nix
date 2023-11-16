@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "shelly_exporter";
@@ -18,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-BCrge2xLT4b4wpYA+zcsH64a/nfV8+HeZF7L49p2gEw=";
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) shelly;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) shelly; };
 
   meta = with lib; {
     description = "Shelly humidity sensor exporter for prometheus";

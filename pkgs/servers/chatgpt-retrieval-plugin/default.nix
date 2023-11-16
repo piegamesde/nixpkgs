@@ -1,11 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  python3,
-  nix-update-script,
-  dasel,
-}:
+{ lib, python3Packages, fetchFromGitHub, python3, nix-update-script, dasel }:
 
 python3Packages.buildPythonApplication {
   pname = "chatgpt-retrieval-plugin";
@@ -57,13 +50,12 @@ python3Packages.buildPythonApplication {
     docx2txt
   ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/openai/chatgpt-retrieval-plugin";
-    description = "Tool to search and find personal or work documents by asking questions in everyday language";
+    description =
+      "Tool to search and find personal or work documents by asking questions in everyday language";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

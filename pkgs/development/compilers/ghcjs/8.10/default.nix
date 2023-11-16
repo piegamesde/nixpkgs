@@ -1,27 +1,7 @@
-{
-  stdenv,
-  pkgsHostHost,
-  callPackage,
-  fetchgit,
-  fetchpatch,
-  ghcjsSrcJson ? null,
-  ghcjsSrc ? fetchgit (lib.importJSON ghcjsSrcJson),
-  bootPkgs,
-  stage0,
-  haskellLib,
-  cabal-install,
-  nodejs,
-  makeWrapper,
-  xorg,
-  gmp,
-  pkg-config,
-  gcc,
-  lib,
-  ghcjsDepOverrides ? (_: _: { }),
-  haskell,
-  linkFarm,
-  buildPackages,
-}:
+{ stdenv, pkgsHostHost, callPackage, fetchgit, fetchpatch, ghcjsSrcJson ? null
+, ghcjsSrc ? fetchgit (lib.importJSON ghcjsSrcJson), bootPkgs, stage0
+, haskellLib, cabal-install, nodejs, makeWrapper, xorg, gmp, pkg-config, gcc
+, lib, ghcjsDepOverrides ? (_: _: { }), haskell, linkFarm, buildPackages }:
 
 let
   passthru = {
@@ -31,20 +11,18 @@ let
       inherit (bootGhcjs) version;
       happy = bootPkgs.happy_1_19_12;
     };
-    bootPkgs = bootPkgs.extend (
-      lib.foldr lib.composeExtensions (_: _: { }) [
-        (
-          self: _:
-          import stage0 {
-            inherit (passthru) configuredSrc;
-            inherit (self) callPackage;
-          }
-        )
+    bootPkgs = bootPkgs.extend (lib.foldr lib.composeExtensions (_: _: { }) [
+      (self: _:
+        import stage0 {
+          inherit (passthru) configuredSrc;
+          inherit (self) callPackage;
+        })
 
-        (callPackage ./common-overrides.nix { inherit haskellLib fetchpatch buildPackages; })
-        ghcjsDepOverrides
-      ]
-    );
+      (callPackage ./common-overrides.nix {
+        inherit haskellLib fetchpatch buildPackages;
+      })
+      ghcjsDepOverrides
+    ]);
 
     targetPrefix = "";
     inherit bootGhcjs;
@@ -71,24 +49,22 @@ let
       path = buildPackages.emscripten + "/bin";
     }
   ];
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   name = bootGhcjs.name;
   src = passthru.configuredSrc;
-  nativeBuildInputs =
-    [
-      bootGhcjs
-      passthru.bootPkgs.ghc
-      cabal-install
-      nodejs
-      makeWrapper
-      xorg.lndir
-      gmp
-      pkg-config
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      gcc # https://github.com/ghcjs/ghcjs/issues/663
-    ];
+  nativeBuildInputs = [
+    bootGhcjs
+    passthru.bootPkgs.ghc
+    cabal-install
+    nodejs
+    makeWrapper
+    xorg.lndir
+    gmp
+    pkg-config
+  ] ++ lib.optionals stdenv.isDarwin [
+    gcc # https://github.com/ghcjs/ghcjs/issues/663
+  ];
   dontConfigure = true;
   dontInstall = true;
 

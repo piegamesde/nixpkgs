@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glibcLocales,
-  installShellFiles,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, glibcLocales, installShellFiles, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "khal";
@@ -20,18 +13,8 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs =
-    [
-      glibcLocales
-      installShellFiles
-    ]
-    ++ (
-      with python3.pkgs; [
-        setuptools-scm
-        sphinx
-        sphinxcontrib_newsfeed
-      ]
-    );
+  nativeBuildInputs = [ glibcLocales installShellFiles ]
+    ++ (with python3.pkgs; [ setuptools-scm sphinx sphinxcontrib_newsfeed ]);
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites
@@ -68,13 +51,7 @@ python3.pkgs.buildPythonApplication rec {
 
     # man page
     PATH="${
-      python3.withPackages (
-        ps:
-        with ps; [
-          sphinx
-          sphinxcontrib_newsfeed
-        ]
-      )
+      python3.withPackages (ps: with ps; [ sphinx sphinxcontrib_newsfeed ])
     }/bin:$PATH" \
     make -C doc man
     installManPage doc/build/man/khal.1

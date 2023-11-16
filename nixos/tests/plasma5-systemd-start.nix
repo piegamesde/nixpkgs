@@ -1,12 +1,10 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "plasma5-systemd-start";
     meta = with pkgs.lib.maintainers; { maintainers = [ oxalica ]; };
 
-    nodes.machine =
-      { ... }:
+    nodes.machine = { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -23,12 +21,9 @@ import ./make-test-python.nix (
         };
       };
 
-    testScript =
-      { nodes, ... }:
-      let
-        user = nodes.machine.config.users.users.alice;
-      in
-      ''
+    testScript = { nodes, ... }:
+      let user = nodes.machine.config.users.users.alice;
+      in ''
         with subtest("Wait for login"):
             start_all()
             machine.wait_for_file("${user.home}/.Xauthority")
@@ -42,5 +37,4 @@ import ./make-test-python.nix (
         assert status == 0, 'Service not found'
         assert 'ActiveState=active' in result.split('\n'), 'Systemd service not active'
       '';
-  }
-)
+  })

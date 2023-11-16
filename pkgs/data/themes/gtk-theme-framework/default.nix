@@ -1,9 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  theme,
-  lib,
-}:
+{ stdenv, fetchFromGitHub, theme, lib }:
 
 stdenv.mkDerivation rec {
   pname = "gtk-theme-framework";

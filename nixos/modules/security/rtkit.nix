@@ -1,12 +1,7 @@
 # A module for ‘rtkit’, a DBus system service that hands out realtime
 # scheduling priority to processes that ask for it.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -24,6 +19,7 @@ with lib;
         acquire realtime priority.
       '';
     };
+
   };
 
   config = mkIf config.security.rtkit.enable {
@@ -43,5 +39,7 @@ with lib;
       description = "RealtimeKit daemon";
     };
     users.groups.rtkit = { };
+
   };
+
 }

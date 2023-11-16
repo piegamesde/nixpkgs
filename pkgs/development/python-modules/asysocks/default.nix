@@ -1,10 +1,4 @@
-{
-  lib,
-  asn1crypto,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, asn1crypto, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "asysocks";

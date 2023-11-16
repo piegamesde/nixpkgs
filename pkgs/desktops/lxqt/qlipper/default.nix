@@ -1,12 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  qtbase,
-  qttools,
-  gitUpdater,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qttools, gitUpdater }:
 
 mkDerivation rec {
   pname = "qlipper";
@@ -21,10 +13,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    qtbase
-    qttools
-  ];
+  buildInputs = [ qtbase qttools ];
 
   passthru.updateScript = gitUpdater { };
 

@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-  versioningit,
-  numpy,
-  matplotlib,
-  schema,
-  hypothesis,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, versioningit
+, numpy, matplotlib, schema, hypothesis, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "broadbean";
@@ -24,27 +13,18 @@ buildPythonPackage rec {
     sha256 = "sha256-e+LAcmWxT+SkaWtToPgg+x3QRu5fCSm+w4dLCcyZrw8=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    versioningit
-  ];
+  nativeBuildInputs = [ setuptools versioningit ];
 
-  propagatedBuildInputs = [
-    numpy
-    matplotlib
-    schema
-  ];
+  propagatedBuildInputs = [ numpy matplotlib schema ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
 
   pythonImportsCheck = [ "broadbean" ];
 
   meta = {
     homepage = "https://qcodes.github.io/broadbean";
-    description = "A library for making pulses that can be leveraged with QCoDeS";
+    description =
+      "A library for making pulses that can be leveraged with QCoDeS";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ evilmav ];
   };

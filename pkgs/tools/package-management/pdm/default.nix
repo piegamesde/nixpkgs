@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  fetchPypi,
-}:
+{ lib, python3, fetchFromGitHub, fetchPypi }:
 let
   python = python3.override {
     # override resolvelib due to
@@ -12,23 +7,20 @@ let
     # 3. Ansible being unable to upgrade to a later version of resolvelib
     # see here for more details: https://github.com/NixOS/nixpkgs/pull/155380/files#r786255738
     packageOverrides = self: super: {
-      resolvelib = super.resolvelib.overridePythonAttrs (
-        attrs: rec {
-          version = "1.0.1";
-          src = fetchFromGitHub {
-            owner = "sarugaku";
-            repo = "resolvelib";
-            rev = "/refs/tags/${version}";
-            hash = "sha256-oxyPn3aFPOyx/2aP7Eg2ThtPbyzrFT1JzWqy6GqNbzM=";
-          };
-        }
-      );
+      resolvelib = super.resolvelib.overridePythonAttrs (attrs: rec {
+        version = "1.0.1";
+        src = fetchFromGitHub {
+          owner = "sarugaku";
+          repo = "resolvelib";
+          rev = "/refs/tags/${version}";
+          hash = "sha256-oxyPn3aFPOyx/2aP7Eg2ThtPbyzrFT1JzWqy6GqNbzM=";
+        };
+      });
     };
     self = python;
   };
-in
 
-with python.pkgs;
+in with python.pkgs;
 buildPythonApplication rec {
   pname = "pdm";
   version = "2.7.0";
@@ -42,26 +34,24 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs =
-    [
-      blinker
-      cacheyou
-      certifi
-      findpython
-      installer
-      packaging
-      platformdirs
-      pyproject-hooks
-      python-dotenv
-      requests-toolbelt
-      resolvelib
-      rich
-      shellingham
-      tomlkit
-      unearth
-      virtualenv
-    ]
-    ++ cachecontrol.optional-dependencies.filecache
+  propagatedBuildInputs = [
+    blinker
+    cacheyou
+    certifi
+    findpython
+    installer
+    packaging
+    platformdirs
+    pyproject-hooks
+    python-dotenv
+    requests-toolbelt
+    resolvelib
+    rich
+    shellingham
+    tomlkit
+    unearth
+    virtualenv
+  ] ++ cachecontrol.optional-dependencies.filecache
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 

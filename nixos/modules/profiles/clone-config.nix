@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  modules,
-  ...
-}:
+{ config, lib, pkgs, modules, ... }:
 
 with lib;
 
@@ -14,12 +8,7 @@ let
   nixosPath = toString ../..;
 
   # Check if the path is from the NixOS repository
-  isNixOSFile =
-    path:
-    let
-      s = toString path;
-    in
-    removePrefix nixosPath s != s;
+  isNixOSFile = path: let s = toString path; in removePrefix nixosPath s != s;
 
   # Copy modules given as extra configuration files.  Unfortunately, we
   # cannot serialized attribute set given in the list of modules (that's why
@@ -30,25 +19,21 @@ let
 
   # Partition module files because between NixOS and non-NixOS files.  NixOS
   # files may change if the repository is updated.
-  partitionedModuleFiles =
-    let
-      p = partition isNixOSFile moduleFiles;
-    in
-    {
-      nixos = p.right;
-      others = p.wrong;
-    };
+  partitionedModuleFiles = let p = partition isNixOSFile moduleFiles;
+  in {
+    nixos = p.right;
+    others = p.wrong;
+  };
 
   # Path transformed to be valid on the installation device.  Thus the
   # device configuration could be rebuild.
-  relocatedModuleFiles =
-    let
-      relocateNixOS = path: "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
-    in
-    {
-      nixos = map relocateNixOS partitionedModuleFiles.nixos;
-      others = [ ]; # TODO: copy the modules to the install-device repository.
-    };
+  relocatedModuleFiles = let
+    relocateNixOS = path:
+      "<nixpkgs/nixos" + removePrefix nixosPath (toString path) + ">";
+  in {
+    nixos = map relocateNixOS partitionedModuleFiles.nixos;
+    others = [ ]; # TODO: copy the modules to the install-device repository.
+  };
 
   # A dummy /etc/nixos/configuration.nix in the booted CD that
   # rebuilds the CD's configuration (and allows the configuration to
@@ -65,9 +50,8 @@ let
       ${config.installer.cloneConfigExtra}
     }
   '';
-in
 
-{
+in {
 
   options = {
 
@@ -98,7 +82,8 @@ in
 
   config = {
 
-    installer.cloneConfigIncludes = relocatedModuleFiles.nixos ++ relocatedModuleFiles.others;
+    installer.cloneConfigIncludes = relocatedModuleFiles.nixos
+      ++ relocatedModuleFiles.others;
 
     boot.postBootCommands = ''
       # Provide a mount point for nixos-install.
@@ -113,5 +98,7 @@ in
         fi
       ''}
     '';
+
   };
+
 }

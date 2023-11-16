@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -12,8 +7,7 @@ let
 
   format = pkgs.formats.toml { };
   plikdCfg = format.generate "plikd.cfg" cfg.settings;
-in
-{
+in {
   options = {
     services.plikd = {
       enable = mkEnableOption (lib.mdDoc "the plikd server");
@@ -40,9 +34,7 @@ in
       ListenPort = 8080;
       ListenAddress = "localhost";
       DataBackend = "file";
-      DataBackendConfig = {
-        Directory = "/var/lib/plikd";
-      };
+      DataBackendConfig = { Directory = "/var/lib/plikd"; };
       MetadataBackendConfig = {
         Driver = "sqlite3";
         ConnectionString = "/var/lib/plikd/plik.db";
@@ -80,6 +72,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.ListenPort ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.ListenPort ]; };
   };
 }

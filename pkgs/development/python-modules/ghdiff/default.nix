@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_testrunner,
-  six,
-  chardet,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_testrunner, six, chardet }:
 
 buildPythonPackage rec {
   pname = "ghdiff";
@@ -17,10 +10,7 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ zope_testrunner ];
-  propagatedBuildInputs = [
-    six
-    chardet
-  ];
+  propagatedBuildInputs = [ six chardet ];
 
   meta = with lib; {
     homepage = "https://github.com/kilink/ghdiff";

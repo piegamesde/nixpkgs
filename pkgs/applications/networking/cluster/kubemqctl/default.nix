@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubemqctl";
@@ -14,11 +10,7 @@ buildGoModule rec {
     sha256 = "0daqvd1y6b87xvnpdl2k0sa91zdmp48r0pgp6dvnb2l44ml8a4z0";
   };
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
 
   doCheck = false; # TODO tests are failing
 
@@ -26,9 +18,11 @@ buildGoModule rec {
 
   meta = {
     homepage = "https://github.com/kubemq-io/kubemqctl";
-    description = "Kubemqctl is a command line interface (CLI) for Kubemq Kubernetes Message Broker.";
+    description =
+      "Kubemqctl is a command line interface (CLI) for Kubemq Kubernetes Message Broker.";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ brianmcgee ];
-    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken =
+      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

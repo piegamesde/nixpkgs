@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  poetry-core,
-  jsonpatch,
-  jsonschema,
-  six,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, jsonpatch
+, jsonschema, six, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "warlock";
@@ -30,18 +21,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    jsonpatch
-    jsonschema
-  ];
+  propagatedBuildInputs = [ jsonpatch jsonschema ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # https://github.com/bcwaldon/warlock/issues/64
-      "test_recursive_models"
-    ];
+  disabledTests = [
+    # https://github.com/bcwaldon/warlock/issues/64
+    "test_recursive_models"
+  ];
 
   pythonImportsCheck = [ "warlock" ];
 

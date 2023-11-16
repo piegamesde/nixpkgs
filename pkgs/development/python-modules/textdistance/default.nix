@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "textdistance";
@@ -19,7 +15,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "textdistance" ];
 
   meta = with lib; {
-    description = "Python library for comparing distance between two or more sequences";
+    description =
+      "Python library for comparing distance between two or more sequences";
     homepage = "https://github.com/life4/textdistance";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

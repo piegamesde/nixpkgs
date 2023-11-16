@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "searxng";
@@ -23,8 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     export SEARX_DEBUG="true";
   '';
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       babel
       certifi
@@ -43,8 +38,7 @@ python3.pkgs.buildPythonApplication rec {
       httpx
       httpx-socks
       markdown-it-py
-    ]
-    ++ httpx.optional-dependencies.http2
+    ] ++ httpx.optional-dependencies.http2
     ++ httpx-socks.optional-dependencies.asyncio;
 
   # tests try to connect to network
@@ -58,7 +52,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/searxng/searxng";
-    description = "A fork of Searx, a privacy-respecting, hackable metasearch engine";
+    description =
+      "A fork of Searx, a privacy-respecting, hackable metasearch engine";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

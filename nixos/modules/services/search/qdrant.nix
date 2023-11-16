@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -12,14 +7,12 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "config.yaml" cfg.settings;
-in
-{
+in {
 
   options = {
     services.qdrant = {
-      enable = mkEnableOption (
-        lib.mdDoc "Vector Search Engine for the next generation of AI applications"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "Vector Search Engine for the next generation of AI applications");
 
       settings = mkOption {
         description = lib.mdDoc ''
@@ -34,9 +27,7 @@ in
             storage_path = "/var/lib/qdrant/storage";
             snapshots_path = "/var/lib/qdrant/snapshots";
           };
-          hsnw_index = {
-            on_disk = true;
-          };
+          hsnw_index = { on_disk = true; };
           service = {
             host = "127.0.0.1";
             http_port = 6333;
@@ -103,7 +94,8 @@ in
     };
 
     systemd.services.qdrant = {
-      description = "Vector Search Engine for the next generation of AI applications";
+      description =
+        "Vector Search Engine for the next generation of AI applications";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
@@ -130,10 +122,7 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
       };
     };
   };

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  openssl,
-  pkg-config,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, openssl, pkg-config, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "reddsaver";
@@ -36,4 +28,5 @@ rustPlatform.buildRustPackage rec {
     ];
     maintainers = [ maintainers.manojkarthick ];
   };
+
 }

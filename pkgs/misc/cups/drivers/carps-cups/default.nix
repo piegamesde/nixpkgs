@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cups,
-}:
+{ stdenv, lib, fetchFromGitHub, cups }:
 
 stdenv.mkDerivation {
   pname = "carps-cups";
@@ -40,3 +35,4 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ ewok ];
   };
 }
+

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  pyproj,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  pytz,
-  pyyaml,
-  requests,
-  python,
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, lxml, pyproj
+, pytestCheckHook, python-dateutil, pythonOlder, pytz, pyyaml, requests, python
 }:
 
 buildPythonPackage rec {
@@ -33,14 +21,7 @@ buildPythonPackage rec {
       --replace " --doctest-modules --doctest-glob 'tests/**/*.txt' --cov-report term-missing --cov owslib" ""
   '';
 
-  propagatedBuildInputs = [
-    lxml
-    pyproj
-    python-dateutil
-    pytz
-    pyyaml
-    requests
-  ];
+  propagatedBuildInputs = [ lxml pyproj python-dateutil pytz pyyaml requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -51,25 +32,25 @@ buildPythonPackage rec {
     export PY_IGNORE_IMPORTMISMATCH=1
   '';
 
-  disabledTests =
-    [
-      # Tests require network access
-      "test_ows_interfaces_wcs"
-      "test_wfs_110_remotemd"
-      "test_wfs_200_remotemd"
-      "test_wms_130_remotemd"
-      "test_wmts_example_informatievlaanderen"
-      "test_opensearch_creodias"
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      "test_ogcapi_records_pygeoapi"
-      "test_wms_getfeatureinfo_130"
-    ];
+  disabledTests = [
+    # Tests require network access
+    "test_ows_interfaces_wcs"
+    "test_wfs_110_remotemd"
+    "test_wfs_200_remotemd"
+    "test_wms_130_remotemd"
+    "test_wmts_example_informatievlaanderen"
+    "test_opensearch_creodias"
+  ] ++ lib.optionals stdenv.isDarwin [
+    "test_ogcapi_records_pygeoapi"
+    "test_wms_getfeatureinfo_130"
+  ];
 
   meta = with lib; {
-    description = "Client for Open Geospatial Consortium web service interface standards";
+    description =
+      "Client for Open Geospatial Consortium web service interface standards";
     homepage = "https://www.osgeo.org/projects/owslib/";
-    changelog = "https://github.com/geopython/OWSLib/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/geopython/OWSLib/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = teams.geospatial.members;
   };

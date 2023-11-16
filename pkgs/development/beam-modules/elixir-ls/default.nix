@@ -1,11 +1,4 @@
-{
-  lib,
-  elixir,
-  fetchFromGitHub,
-  fetchMixDeps,
-  mixRelease,
-  nix-update-script,
-}:
+{ lib, elixir, fetchFromGitHub, fetchMixDeps, mixRelease, nix-update-script }:
 # Based on the work of Hauleth
 # None of this would have happened without him
 
@@ -19,14 +12,8 @@ let
     hash = "sha256-O977DZLWPyLafIaOTPZKI4MOtK9E9TDProf2xyk05aI";
     fetchSubmodules = true;
   };
-in
-mixRelease {
-  inherit
-    pname
-    version
-    src
-    elixir
-  ;
+in mixRelease {
+  inherit pname version src elixir;
 
   stripDebug = true;
 

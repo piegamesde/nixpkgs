@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  runtimeShell,
-}:
+{ lib, stdenv, runtimeShell }:
 
 stdenv.mkDerivation {
   pname = "example-unfree-package";

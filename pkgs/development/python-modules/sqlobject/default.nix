@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  formencode,
-  pastedeploy,
-  paste,
-  pydispatcher,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, formencode, pastedeploy
+, paste, pydispatcher, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sqlobject";
@@ -23,25 +14,20 @@ buildPythonPackage rec {
     hash = "sha256-/PPqJ/ha8GRQpY/uQOLIF0v90p9tZKrHTCMkusiIuEQ=";
   };
 
-  propagatedBuildInputs = [
-    formencode
-    paste
-    pastedeploy
-    pydispatcher
-  ];
+  propagatedBuildInputs = [ formencode paste pastedeploy pydispatcher ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # https://github.com/sqlobject/sqlobject/issues/179
-      "test_fail"
-    ];
+  disabledTests = [
+    # https://github.com/sqlobject/sqlobject/issues/179
+    "test_fail"
+  ];
 
   pythonImportsCheck = [ "sqlobject" ];
 
   meta = with lib; {
-    description = "Object Relational Manager for providing an object interface to your database";
+    description =
+      "Object Relational Manager for providing an object interface to your database";
     homepage = "http://www.sqlobject.org/";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ ];

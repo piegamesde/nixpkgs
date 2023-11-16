@@ -1,15 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 with lib;
 let
   cfg = config.services.karma;
   yaml = pkgs.formats.yaml { };
-in
-{
+in {
   options.services.karma = {
     enable = mkEnableOption (mdDoc "the Karma dashboard service");
 
@@ -25,7 +19,8 @@ in
     configFile = mkOption {
       type = types.path;
       default = yaml.generate "karma.yaml" cfg.settings;
-      defaultText = "A configuration file generated from the provided nix attributes settings option.";
+      defaultText =
+        "A configuration file generated from the provided nix attributes settings option.";
       description = mdDoc ''
         A YAML config file which can be used to configure karma instead of the nix-generated file.
       '';
@@ -85,11 +80,7 @@ in
           };
         };
       };
-      default = {
-        listen = {
-          address = "127.0.0.1";
-        };
-      };
+      default = { listen = { address = "127.0.0.1"; }; };
       description = mdDoc ''
         Karma dashboard configuration as nix attributes.
 
@@ -103,12 +94,10 @@ in
         };
         alertmanager = {
           interval = "15s";
-          servers = [
-            {
-              name = "prod";
-              uri = "http://alertmanager.example.com";
-            }
-          ];
+          servers = [{
+            name = "prod";
+            uri = "http://alertmanager.example.com";
+          }];
         };
       };
     };
@@ -128,6 +117,7 @@ in
           }";
       };
     };
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.listen.port ];
+    networking.firewall.allowedTCPPorts =
+      mkIf cfg.openFirewall [ cfg.settings.listen.port ];
   };
 }

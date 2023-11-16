@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  tqdm,
-}:
+{ lib, fetchPypi, buildPythonPackage, tqdm }:
 
 buildPythonPackage rec {
   pname = "proglog";

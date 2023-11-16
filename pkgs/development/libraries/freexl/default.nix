@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  validatePkgConfig,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, validatePkgConfig, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "freexl";
@@ -24,14 +18,11 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "A library to extract valid data from within an Excel (.xls) spreadsheet";
+    description =
+      "A library to extract valid data from within an Excel (.xls) spreadsheet";
     homepage = "https://www.gaia-gis.it/fossil/freexl";
     # They allow any of these
-    license = with licenses; [
-      gpl2Plus
-      lgpl21Plus
-      mpl11
-    ];
+    license = with licenses; [ gpl2Plus lgpl21Plus mpl11 ];
     platforms = platforms.unix;
     maintainers = with maintainers; [ sikmir ];
   };

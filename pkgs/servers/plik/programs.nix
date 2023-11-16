@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchurl,
-  makeWrapper,
-  runCommand,
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchurl, makeWrapper, runCommand }:
 
 let
   version = "1.3.6";
@@ -30,18 +23,12 @@ let
     substituteInPlace server/common/version.go \
       --replace '"0.0.0"' '"${version}"'
   '';
-in
-{
+
+in {
 
   plik = buildGoModule {
     pname = "plik";
-    inherit
-      version
-      meta
-      src
-      vendorSha256
-      postPatch
-    ;
+    inherit version meta src vendorSha256 postPatch;
 
     subPackages = [ "client" ];
     postInstall = ''
@@ -51,12 +38,7 @@ in
 
   plikd-unwrapped = buildGoModule {
     pname = "plikd-unwrapped";
-    inherit
-      version
-      src
-      vendorSha256
-      postPatch
-    ;
+    inherit version src vendorSha256 postPatch;
 
     subPackages = [ "server" ];
     postFixup = ''

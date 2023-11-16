@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "vendir";
@@ -20,7 +16,8 @@ buildGoModule rec {
   subPackages = [ "cmd/vendir" ];
 
   meta = with lib; {
-    description = "CLI tool to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively";
+    description =
+      "CLI tool to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively";
     homepage = "https://carvel.dev/vendir/";
     license = licenses.asl20;
     maintainers = with maintainers; [ russell ];

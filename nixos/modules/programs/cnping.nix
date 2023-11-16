@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.cnping;
-in
-{
+let cfg = config.programs.cnping;
+in {
   options = {
     programs.cnping = {
-      enable = mkEnableOption (lib.mdDoc "Whether to install a setcap wrapper for cnping");
+      enable = mkEnableOption
+        (lib.mdDoc "Whether to install a setcap wrapper for cnping");
     };
   };
 

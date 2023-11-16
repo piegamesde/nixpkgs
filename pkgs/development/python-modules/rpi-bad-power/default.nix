@@ -1,16 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook }:
 
 let
   pname = "rpi-bad-power";
   version = "0.1.0";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 

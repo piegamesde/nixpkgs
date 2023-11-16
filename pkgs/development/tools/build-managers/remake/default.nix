@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  readline,
-  guileSupport ? false,
-  guile,
-}:
+{ lib, stdenv, fetchurl, pkg-config, readline, guileSupport ? false, guile }:
 
 stdenv.mkDerivation rec {
   pname = "remake";
@@ -15,7 +7,8 @@ stdenv.mkDerivation rec {
   version = "${remakeVersion}+dbg-${dbgVersion}";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/bashdb/remake/${version}/remake-${remakeVersion}+dbg-${dbgVersion}.tar.gz";
+    url =
+      "mirror://sourceforge/project/bashdb/remake/${version}/remake-${remakeVersion}+dbg-${dbgVersion}.tar.gz";
     sha256 = "11vvch8bi0yhjfz7gn92b3xmmm0cgi3qfiyhbnnj89frkhbwd87n";
   };
 
@@ -31,9 +24,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     description = "GNU Make with comprehensible tracing and a debugger";
     platforms = with lib.platforms; linux ++ darwin;
-    maintainers = with lib.maintainers; [
-      bjornfor
-      shamilton
-    ];
+    maintainers = with lib.maintainers; [ bjornfor shamilton ];
   };
 }

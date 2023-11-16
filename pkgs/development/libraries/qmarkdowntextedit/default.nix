@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qmake,
-}:
+{ lib, stdenv, fetchFromGitHub, qmake }:
 
 stdenv.mkDerivation rec {
   pname = "qmarkdowntextedit";
@@ -27,7 +22,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "C++ Qt QPlainTextEdit widget with markdown highlighting and some other goodies";
+    description =
+      "C++ Qt QPlainTextEdit widget with markdown highlighting and some other goodies";
     homepage = "https://github.com/pbek/qmarkdowntextedit";
     license = licenses.mit;
     platforms = platforms.linux;

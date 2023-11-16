@@ -1,13 +1,6 @@
-{
-  config,
-  lib,
-  name,
-  ...
-}:
-let
-  inherit (lib) mkOption types;
-in
-{
+{ config, lib, name, ... }:
+let inherit (lib) mkOption types;
+in {
   options = {
 
     proxyPass = mkOption {
@@ -54,5 +47,6 @@ in
         a greater priority.
       '';
     };
+
   };
 }

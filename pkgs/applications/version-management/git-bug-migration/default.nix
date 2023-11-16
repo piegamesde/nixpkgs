@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  git,
-}:
+{ lib, buildGoModule, fetchFromGitHub, git }:
 buildGoModule rec {
   pname = "git-bug-migration";
   version = "0.3.4";
@@ -19,10 +14,8 @@ buildGoModule rec {
 
   nativeCheckInputs = [ git ];
 
-  ldflags = [
-    "-X main.GitExactTag=${version}"
-    "-X main.GitLastTag=${version}"
-  ];
+  ldflags =
+    [ "-X main.GitExactTag=${version}" "-X main.GitLastTag=${version}" ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -31,7 +24,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Tool for upgrading repositories using git-bug to new versions";
+    description =
+      "Tool for upgrading repositories using git-bug to new versions";
     homepage = "https://github.com/MichaelMure/git-bug-migration";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ DeeUnderscore ];

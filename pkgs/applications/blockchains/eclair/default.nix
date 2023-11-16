@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  jq,
-  openjdk11,
-}:
+{ lib, stdenv, fetchzip, jq, openjdk11 }:
 
 stdenv.mkDerivation rec {
   pname = "eclair";
@@ -12,14 +6,12 @@ stdenv.mkDerivation rec {
   revision = "0077471";
 
   src = fetchzip {
-    url = "https://github.com/ACINQ/eclair/releases/download/v${version}/eclair-node-${version}-${revision}-bin.zip";
+    url =
+      "https://github.com/ACINQ/eclair/releases/download/v${version}/eclair-node-${version}-${revision}-bin.zip";
     hash = "sha256-jkXdt1aQRVgItfFPuyh45uXjUFgJtKng/17Po5i7ang=";
   };
 
-  propagatedBuildInputs = [
-    jq
-    openjdk11
-  ];
+  propagatedBuildInputs = [ jq openjdk11 ];
 
   installPhase = ''
     runHook preInstall

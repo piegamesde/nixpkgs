@@ -1,35 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  substituteAll,
-  openssl,
-  gsound,
-  meson,
-  ninja,
-  pkg-config,
-  gobject-introspection,
-  wrapGAppsHook,
-  glib,
-  glib-networking,
-  gtk3,
-  openssh,
-  gnome,
-  evolution-data-server-gtk4,
-  gjs,
-  nixosTests,
-  desktop-file-utils,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, substituteAll, openssl, gsound
+, meson, ninja, pkg-config, gobject-introspection, wrapGAppsHook, glib
+, glib-networking, gtk3, openssh, gnome, evolution-data-server-gtk4, gjs
+, nixosTests, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-gsconnect";
   version = "55";
 
-  outputs = [
-    "out"
-    "installedTests"
-  ];
+  outputs = [ "out" "installedTests" ];
 
   src = fetchFromGitHub {
     owner = "GSConnect";
@@ -115,14 +93,13 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    tests = {
-      installedTests = nixosTests.installed-tests.gsconnect;
-    };
+    tests = { installedTests = nixosTests.installed-tests.gsconnect; };
   };
 
   meta = with lib; {
     description = "KDE Connect implementation for Gnome Shell";
-    homepage = "https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki";
+    homepage =
+      "https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.linux;

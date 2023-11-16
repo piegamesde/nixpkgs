@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  fetchpatch,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, fetchpatch, pytestCheckHook
+, pythonAtLeast, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "xdis";
@@ -31,10 +22,7 @@ buildPythonPackage rec {
       --replace "3.10.4" "3.10.5 3.10.6 3.10.7 3.10.8 3.10.10 3.10.11 3.10.12 3.10.13 3.10.14"
   '';
 
-  propagatedBuildInputs = [
-    click
-    six
-  ];
+  propagatedBuildInputs = [ click six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -55,7 +43,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Python cross-version byte-code disassembler and marshal routines";
+    description =
+      "Python cross-version byte-code disassembler and marshal routines";
     homepage = "https://github.com/rocky/python-xdis";
     changelog = "https://github.com/rocky/python-xdis/releases/tag/${version}";
     license = licenses.gpl2Plus;

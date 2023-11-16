@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  rustfmt,
-}:
+{ lib, rustPlatform, fetchFromGitHub, rustfmt }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cairo";
@@ -20,11 +15,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ rustfmt ];
 
-  checkFlags =
-    [
-      # Requires a mythical rustfmt 2.0 or a nightly compiler
-      "--skip=golden_test::sourcegen_ast"
-    ];
+  checkFlags = [
+    # Requires a mythical rustfmt 2.0 or a nightly compiler
+    "--skip=golden_test::sourcegen_ast"
+  ];
 
   postInstall = ''
     # The core library is needed for compilation.
@@ -32,7 +26,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Turing-complete language for creating provable programs for general computation";
+    description =
+      "Turing-complete language for creating provable programs for general computation";
     homepage = "https://github.com/starkware-libs/cairo";
     license = licenses.asl20;
     maintainers = with maintainers; [ raitobezarius ];

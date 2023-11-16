@@ -1,30 +1,23 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.gerrit;
 
   # NixOS option type for git-like configs
-  gitIniType =
-    with types;
+  gitIniType = with types;
     let
       primitiveType = either str (either bool int);
       multipleType = either primitiveType (listOf primitiveType);
       sectionType = lazyAttrsOf multipleType;
       supersectionType = lazyAttrsOf (either multipleType sectionType);
-    in
-    lazyAttrsOf supersectionType;
+    in lazyAttrsOf supersectionType;
 
-  gerritConfig = pkgs.writeText "gerrit.conf" (lib.generators.toGitINI cfg.settings);
+  gerritConfig =
+    pkgs.writeText "gerrit.conf" (lib.generators.toGitINI cfg.settings);
 
-  replicationConfig = pkgs.writeText "replication.conf" (
-    lib.generators.toGitINI cfg.replicationSettings
-  );
+  replicationConfig = pkgs.writeText "replication.conf"
+    (lib.generators.toGitINI cfg.replicationSettings);
 
   # Wrap the gerrit java with all the java options so it can be called
   # like a normal CLI app
@@ -40,23 +33,23 @@ let
       "$@"
   '';
 
-  gerrit-plugins = pkgs.runCommand "gerrit-plugins" { buildInputs = [ gerrit-cli ]; } ''
-    shopt -s nullglob
-    mkdir $out
+  gerrit-plugins =
+    pkgs.runCommand "gerrit-plugins" { buildInputs = [ gerrit-cli ]; } ''
+      shopt -s nullglob
+      mkdir $out
 
-    for name in ${toString cfg.builtinPlugins}; do
-      echo "Installing builtin plugin $name.jar"
-      gerrit cat plugins/$name.jar > $out/$name.jar
-    done
+      for name in ${toString cfg.builtinPlugins}; do
+        echo "Installing builtin plugin $name.jar"
+        gerrit cat plugins/$name.jar > $out/$name.jar
+      done
 
-    for file in ${toString cfg.plugins}; do
-      name=$(echo "$file" | cut -d - -f 2-)
-      echo "Installing plugin $name"
-      ln -sf "$file" $out/$name
-    done
-  '';
-in
-{
+      for file in ${toString cfg.plugins}; do
+        name=$(echo "$file" | cut -d - -f 2-)
+        echo "Installing plugin $name"
+        ln -sf "$file" $out/$name
+      done
+    '';
+in {
   options = {
     services.gerrit = {
       enable = mkEnableOption (lib.mdDoc "Gerrit service");
@@ -152,12 +145,12 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = cfg.replicationSettings != { } -> elem "replication" cfg.builtinPlugins;
-        message = "Gerrit replicationSettings require enabling the replication plugin";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.replicationSettings != { }
+        -> elem "replication" cfg.builtinPlugins;
+      message =
+        "Gerrit replicationSettings require enabling the replication plugin";
+    }];
 
     services.gerrit.settings = {
       cache.directory = "/var/cache/gerrit";
@@ -183,18 +176,9 @@ in
 
       wantedBy = [ "multi-user.target" ];
       requires = [ "gerrit.socket" ];
-      after = [
-        "gerrit.socket"
-        "network.target"
-      ];
+      after = [ "gerrit.socket" "network.target" ];
 
-      path = [
-        gerrit-cli
-        pkgs.bash
-        pkgs.coreutils
-        pkgs.git
-        pkgs.openssh
-      ];
+      path = [ gerrit-cli pkgs.bash pkgs.coreutils pkgs.git pkgs.openssh ];
 
       environment = {
         GERRIT_HOME = "%S/gerrit";
@@ -238,10 +222,7 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [
-    edef
-    zimbatm
-  ];
+  meta.maintainers = with lib.maintainers; [ edef zimbatm ];
   # uses attributes of the linked package
   meta.buildDocsInSandbox = false;
 }

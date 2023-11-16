@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  eigen,
-  libxml2,
-  mpi,
-  python3,
-  mklSupport ? true,
-  mkl,
-  substituteAll,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, eigen, libxml2, mpi, python3
+, mklSupport ? true, mkl, substituteAll }:
 
 stdenv.mkDerivation rec {
   pname = "FEBio";
@@ -31,7 +19,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags = lib.optional mklSupport "-DUSE_MKL=On" ++ lib.optional mklSupport "-DMKLROOT=${mkl}";
+  cmakeFlags = lib.optional mklSupport "-DUSE_MKL=On"
+    ++ lib.optional mklSupport "-DMKLROOT=${mkl}";
 
   env.CXXFLAGS = lib.optionalString stdenv.isLinux "-include cstring";
 
@@ -55,14 +44,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    boost
-    eigen
-    libxml2
-    mpi
-    python3
-    python3.pkgs.numpy
-  ] ++ lib.optional mklSupport mkl;
+  buildInputs = [ boost eigen libxml2 mpi python3 python3.pkgs.numpy ]
+    ++ lib.optional mklSupport mkl;
 
   meta = {
     description = "FEBio Suite Solver";

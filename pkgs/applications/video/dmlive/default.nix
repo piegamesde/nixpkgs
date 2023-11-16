@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  makeWrapper,
-  openssl,
-  Security,
-  mpv,
-  ffmpeg,
-  nodejs,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, makeWrapper, openssl
+, Security, mpv, ffmpeg, nodejs }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dmlive";
@@ -27,24 +16,18 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
     wrapProgram "$out/bin/dmlive" --prefix PATH : "${
-      lib.makeBinPath [
-        mpv
-        ffmpeg
-        nodejs
-      ]
+      lib.makeBinPath [ mpv ffmpeg nodejs ]
     }"
   '';
 
   meta = with lib; {
-    description = "A tool to play and record videos or live streams with danmaku";
+    description =
+      "A tool to play and record videos or live streams with danmaku";
     homepage = "https://github.com/THMonster/dmlive";
     license = licenses.mit;
     maintainers = with maintainers; [ nickcao ];

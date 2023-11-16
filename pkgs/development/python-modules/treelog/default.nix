@@ -1,10 +1,4 @@
-{
-  lib,
-  python,
-  buildPythonPackage,
-  fetchPypi,
-  typing-extensions,
-}:
+{ lib, python, buildPythonPackage, fetchPypi, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "treelog";
@@ -24,7 +18,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Logging framework that organizes messages in a tree structure";
+    description =
+      "Logging framework that organizes messages in a tree structure";
     homepage = "https://github.com/evalf/treelog";
     license = licenses.mit;
     maintainers = [ maintainers.Scriptkiddi ];

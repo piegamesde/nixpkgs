@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  numpy,
-  scipy,
-  matplotlib,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, numpy, scipy, matplotlib
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "kneed";
@@ -28,21 +20,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ numpy scipy ];
 
-  checkInputs = [
-    pytestCheckHook
-    matplotlib
-  ];
+  checkInputs = [ pytestCheckHook matplotlib ];
 
-  disabledTestPaths =
-    [
-      # Fails when matplotlib is installed
-      "tests/test_no_matplotlib.py"
-    ];
+  disabledTestPaths = [
+    # Fails when matplotlib is installed
+    "tests/test_no_matplotlib.py"
+  ];
 
   meta = with lib; {
     description = "Knee point detection in Python";

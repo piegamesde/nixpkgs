@@ -1,39 +1,23 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-  gobject-introspection,
-  gtk3,
-  pango,
-  wrapGAppsHook,
-  xvfb-run,
-  chromecastSupport ? false,
-  serverSupport ? false,
-  keyringSupport ? true,
-  notifySupport ? true,
-  libnotify,
-  networkSupport ? true,
-  networkmanager,
-}:
+{ lib, fetchFromGitHub, python3, gobject-introspection, gtk3, pango
+, wrapGAppsHook, xvfb-run, chromecastSupport ? false, serverSupport ? false
+, keyringSupport ? true, notifySupport ? true, libnotify, networkSupport ? true
+, networkmanager }:
 
 let
   python = python3.override {
     packageOverrides = self: super: {
-      semver = super.semver.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "2.13.0";
-          src = fetchFromGitHub {
-            owner = "python-semver";
-            repo = "python-semver";
-            rev = "refs/tags/${version}";
-            hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
-          };
-        }
-      );
+      semver = super.semver.overridePythonAttrs (oldAttrs: rec {
+        version = "2.13.0";
+        src = fetchFromGitHub {
+          owner = "python-semver";
+          repo = "python-semver";
+          rev = "refs/tags/${version}";
+          hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
+        };
+      });
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "sublime-music";
   version = "0.12.0";
   format = "flit";
@@ -45,23 +29,17 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-FPzeFqDOcaiariz7qJwz6P3Wd+ZDxNP57uj+ptMtEyM=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
   postPatch = ''
     sed -i "/--cov/d" setup.cfg
     sed -i "/--no-cov-on-fail/d" setup.cfg
   '';
 
-  buildInputs = [
-    gtk3
-    pango
-  ] ++ lib.optional notifySupport libnotify ++ lib.optional networkSupport networkmanager;
+  buildInputs = [ gtk3 pango ] ++ lib.optional notifySupport libnotify
+    ++ lib.optional networkSupport networkmanager;
 
-  propagatedBuildInputs =
-    with python.pkgs;
+  propagatedBuildInputs = with python.pkgs;
     [
       bleach
       bottle
@@ -76,8 +54,7 @@ python.pkgs.buildPythonApplication rec {
       requests
       semver
       thefuzz
-    ]
-    ++ lib.optional keyringSupport keyring;
+    ] ++ lib.optional keyringSupport keyring;
 
   nativeCheckInputs = with python.pkgs; [ pytest ];
 
@@ -100,11 +77,9 @@ python.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "GTK3 Subsonic/Airsonic client";
     homepage = "https://sublimemusic.app/";
-    changelog = "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/sublime-music/sublime-music/blob/v${version}/CHANGELOG.rst";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      albakham
-      sumnerevans
-    ];
+    maintainers = with maintainers; [ albakham sumnerevans ];
   };
 }

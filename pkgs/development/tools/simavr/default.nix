@@ -1,32 +1,15 @@
-{
-  lib,
-  stdenv,
-  makeSetupHook,
-  fetchFromGitHub,
-  libelf,
-  which,
-  pkg-config,
-  freeglut,
-  avrgcc,
-  avrlibc,
-  libGLU,
-  libGL,
-  GLUT,
-}:
+{ lib, stdenv, makeSetupHook, fetchFromGitHub, libelf, which, pkg-config
+, freeglut, avrgcc, avrlibc, libGLU, libGL, GLUT }:
 
 let
-  setupHookDarwin =
-    makeSetupHook
-      {
-        name = "darwin-avr-gcc-hook";
-        substitutions = {
-          darwinSuffixSalt = stdenv.cc.suffixSalt;
-          avrSuffixSalt = avrgcc.suffixSalt;
-        };
-      }
-      ./setup-hook-darwin.sh;
-in
-stdenv.mkDerivation rec {
+  setupHookDarwin = makeSetupHook {
+    name = "darwin-avr-gcc-hook";
+    substitutions = {
+      darwinSuffixSalt = stdenv.cc.suffixSalt;
+      avrSuffixSalt = avrgcc.suffixSalt;
+    };
+  } ./setup-hook-darwin.sh;
+in stdenv.mkDerivation rec {
   pname = "simavr";
   version = "1.7";
 
@@ -45,17 +28,10 @@ stdenv.mkDerivation rec {
     "AVR=avr-"
   ];
 
-  nativeBuildInputs = [
-    which
-    pkg-config
-    avrgcc
-  ] ++ lib.optional stdenv.isDarwin setupHookDarwin;
-  buildInputs = [
-    libelf
-    freeglut
-    libGLU
-    libGL
-  ] ++ lib.optional stdenv.isDarwin GLUT;
+  nativeBuildInputs = [ which pkg-config avrgcc ]
+    ++ lib.optional stdenv.isDarwin setupHookDarwin;
+  buildInputs = [ libelf freeglut libGLU libGL ]
+    ++ lib.optional stdenv.isDarwin GLUT;
 
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" && mkdir "$(pwd)" '';
@@ -70,4 +46,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     maintainers = with maintainers; [ goodrone ];
   };
+
 }

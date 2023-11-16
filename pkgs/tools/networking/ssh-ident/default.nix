@@ -1,10 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  python3,
-  openssh,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, python3, openssh }:
 
 stdenvNoCC.mkDerivation {
   pname = "ssh-ident";

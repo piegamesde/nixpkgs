@@ -1,16 +1,8 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  fetchFromGitHub,
-  bison,
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, bison }:
 
-let
-  version = "1.1.1";
-in
+let version = "1.1.1";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "tcpkali";
   inherit version;
   src = fetchFromGitHub {

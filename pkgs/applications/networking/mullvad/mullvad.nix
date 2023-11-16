@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  writeText,
-  rustPlatform,
-  fetchFromGitHub,
-  fetchpatch,
-  pkg-config,
-  protobuf,
-  makeWrapper,
-  git,
-  dbus,
-  libnftnl,
-  libmnl,
-  libwg,
-  enableOpenvpn ? true,
-  openvpn-mullvad,
-  shadowsocks-rust,
-  installShellFiles,
-}:
+{ lib, stdenv, writeText, rustPlatform, fetchFromGitHub, fetchpatch, pkg-config
+, protobuf, makeWrapper, git, dbus, libnftnl, libmnl, libwg
+, enableOpenvpn ? true, openvpn-mullvad, shadowsocks-rust, installShellFiles }:
 rustPlatform.buildRustPackage rec {
   pname = "mullvad";
   version = "2023.3";
@@ -32,23 +15,14 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "udp-over-tcp-0.3.0" = "sha256-5PeaM7/zhux1UdlaKpnQ2yIdmFy1n2weV/ux9lSRha4=";
+      "udp-over-tcp-0.3.0" =
+        "sha256-5PeaM7/zhux1UdlaKpnQ2yIdmFy1n2weV/ux9lSRha4=";
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    protobuf
-    makeWrapper
-    git
-    installShellFiles
-  ];
+  nativeBuildInputs = [ pkg-config protobuf makeWrapper git installShellFiles ];
 
-  buildInputs = [
-    dbus.dev
-    libnftnl
-    libmnl
-  ];
+  buildInputs = [ dbus.dev libnftnl libmnl ];
 
   # talpid-core wants libwg.a in build/lib/{triple}
   preBuild = ''
@@ -75,25 +49,23 @@ rustPlatform.buildRustPackage rec {
       for bin in relay_list translations-converter tunnel-obfuscation; do
         mv "$out/bin/$bin" "$out/bin/mullvad-$bin"
       done
+    '' +
+    # Files necessary for OpenVPN tunnels to work.
+    lib.optionalString enableOpenvpn ''
+      mkdir -p $out/share/mullvad
+      cp dist-assets/ca.crt $out/share/mullvad
+      ln -s ${openvpn-mullvad}/bin/openvpn $out/share/mullvad
+      ln -s ${shadowsocks-rust}/bin/sslocal $out/share/mullvad
+      ln -s $out/lib/libtalpid_openvpn_plugin.so $out/share/mullvad
+    '' +
+    # Set the directory where Mullvad will look for its resources by default to
+    # `$out/share`, so that we can avoid putting the files in `$out/bin` --
+    # Mullvad defaults to looking inside the directory its binary is located in
+    # for its resources.
     ''
-    +
-      # Files necessary for OpenVPN tunnels to work.
-      lib.optionalString enableOpenvpn ''
-        mkdir -p $out/share/mullvad
-        cp dist-assets/ca.crt $out/share/mullvad
-        ln -s ${openvpn-mullvad}/bin/openvpn $out/share/mullvad
-        ln -s ${shadowsocks-rust}/bin/sslocal $out/share/mullvad
-        ln -s $out/lib/libtalpid_openvpn_plugin.so $out/share/mullvad
-      ''
-    +
-      # Set the directory where Mullvad will look for its resources by default to
-      # `$out/share`, so that we can avoid putting the files in `$out/bin` --
-      # Mullvad defaults to looking inside the directory its binary is located in
-      # for its resources.
-      ''
-        wrapProgram $out/bin/mullvad-daemon \
-          --set-default MULLVAD_RESOURCE_DIR "$out/share/mullvad"
-      '';
+      wrapProgram $out/bin/mullvad-daemon \
+        --set-default MULLVAD_RESOURCE_DIR "$out/share/mullvad"
+    '';
 
   passthru = {
     inherit libwg;

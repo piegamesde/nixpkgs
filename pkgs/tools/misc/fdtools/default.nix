@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  skawarePackages,
-}:
+{ stdenv, lib, fetchurl, skawarePackages }:
 
 let
   pname = "fdtools";
@@ -11,29 +6,23 @@ let
   version = "2020.05.04";
   sha256 = "0lnafcp4yipi0dl8gh33zjs8wlpz0mim8mwmiz9s49id0b0fmlla";
   skalibs = skawarePackages.skalibs_2_10;
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://code.dogmap.org/${pname}/releases/${pname}-${version}.tar.bz2";
+    url =
+      "https://code.dogmap.org/${pname}/releases/${pname}-${version}.tar.bz2";
     inherit sha256;
   };
 
   patches = [ ./new-skalibs.patch ];
-  outputs = [
-    "bin"
-    "lib"
-    "dev"
-    "doc"
-    "out"
-  ];
+  outputs = [ "bin" "lib" "dev" "doc" "out" ];
 
-  buildInputs =
-    [
-      # temporary, until fdtools catches up to skalibs
-      skalibs
-    ];
+  buildInputs = [
+    # temporary, until fdtools catches up to skalibs
+    skalibs
+  ];
 
   configurePhase = ''
     cd ${pname}-${version}
@@ -77,11 +66,7 @@ stdenv.mkDerivation {
           "compile/**/*"
           "package/{build,check,compile,elsewhere,install,install_commands,own,run,sharing,upgrade,upgrade_version,url_src,url_src_latest,versions}"
         ];
-        docFiles = [
-          "package/INSTALL"
-          "package/LICENSE"
-          "package/README"
-        ];
+        docFiles = [ "package/INSTALL" "package/LICENSE" "package/README" ];
       }
     } $docdir
 

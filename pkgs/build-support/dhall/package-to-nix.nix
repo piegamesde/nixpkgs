@@ -30,5 +30,5 @@ let
 
     nativeBuildInputs = [ dhall-nix ];
   };
-in
-import drv
+
+in import drv

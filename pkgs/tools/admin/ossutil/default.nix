@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchpatch,
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
 
 buildGoModule rec {
   version = "1.7.16";
@@ -22,9 +17,11 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A user friendly command line tool to access Alibaba Cloud OSS";
+    description =
+      "A user friendly command line tool to access Alibaba Cloud OSS";
     homepage = "https://github.com/aliyun/ossutil";
-    changelog = "https://github.com/aliyun/ossutil/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/aliyun/ossutil/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

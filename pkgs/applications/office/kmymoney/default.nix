@@ -1,55 +1,32 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  doxygen,
-  extra-cmake-modules,
-  graphviz,
-  kdoctools,
-  wrapQtAppsHook,
-  autoPatchelfHook,
+{ stdenv, lib, fetchurl, doxygen, extra-cmake-modules, graphviz, kdoctools
+, wrapQtAppsHook, autoPatchelfHook
 
-  akonadi,
-  alkimia,
-  aqbanking,
-  gmp,
-  gwenhywfar,
-  kactivities,
-  karchive,
-  kcmutils,
-  kcontacts,
-  qtwebengine,
-  kdiagram,
-  kholidays,
-  kidentitymanagement,
-  kitemmodels,
-  libical,
-  libofx,
-  qgpgme,
+, akonadi, alkimia, aqbanking, gmp, gwenhywfar, kactivities, karchive, kcmutils
+, kcontacts, qtwebengine, kdiagram, kholidays, kidentitymanagement, kitemmodels
+, libical, libofx, qgpgme
 
-  sqlcipher,
+, sqlcipher
 
-  # Needed for running tests:
-  xvfb-run,
+# Needed for running tests:
+, xvfb-run
 
-  python3,
-}:
+, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "kmymoney";
   version = "5.1.3";
 
   src = fetchurl {
-    url = "mirror://kde/stable/kmymoney/${version}/src/${pname}-${version}.tar.xz";
+    url =
+      "mirror://kde/stable/kmymoney/${version}/src/${pname}-${version}.tar.xz";
     sha256 = "sha256-OTi4B4tzkboy4Su0I5di+uE0aDoMLsGnUQXDAso+Xj8=";
   };
 
-  cmakeFlags =
-    [
-      # Remove this when upgrading to a KMyMoney release that includes
-      # https://invent.kde.org/office/kmymoney/-/merge_requests/118
-      "-DENABLE_WEBENGINE=ON"
-    ];
+  cmakeFlags = [
+    # Remove this when upgrading to a KMyMoney release that includes
+    # https://invent.kde.org/office/kmymoney/-/merge_requests/118
+    "-DENABLE_WEBENGINE=ON"
+  ];
 
   # Hidden dependency that wasn't included in CMakeLists.txt:
   env.NIX_CFLAGS_COMPILE = "-I${kitemmodels.dev}/include/KF5";
@@ -119,9 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://kmymoney.org/";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [
-      aidalgol
-      das-g
-    ];
+    maintainers = with lib.maintainers; [ aidalgol das-g ];
   };
 }

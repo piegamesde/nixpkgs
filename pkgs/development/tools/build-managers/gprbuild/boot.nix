@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gnat,
-  which,
-  xmlada, # for src
+{ stdenv, lib, fetchFromGitHub, gnat, which, xmlada # for src
 }:
 
 let
@@ -17,9 +11,8 @@ let
     rev = "v${version}";
     sha256 = "1rhskq4r2plf3ia67k08misygnpr9knzw3kp3kyv5778lra8y6s2";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "gprbuild-boot";
   inherit version;
 
@@ -31,10 +24,7 @@ stdenv.mkDerivation {
     sha256 = "1ciaq4nh98vd7r5i11v353c1ms9s5yph0yxk4fkryc6bvkm4666x";
   };
 
-  nativeBuildInputs = [
-    gnat
-    which
-  ];
+  nativeBuildInputs = [ gnat which ];
 
   postPatch = ''
     # The Makefile uses gprbuild to build gprbuild which
@@ -54,15 +44,13 @@ stdenv.mkDerivation {
   # introducing a wrapper for it in the future remains TODO.
   # For the moment this doesn't matter since we have no situation
   # were gprbuild is used to build something used at build time.
-  setupHooks =
-    [ ./gpr-project-path-hook.sh ]
-    ++ lib.optionals stdenv.targetPlatform.isDarwin
-      [
-        # This setupHook replaces the paths of shared libraries starting
-        # with @rpath with the absolute paths on Darwin, so that the
-        # binaries can be run without additional setup.
-        ./gpr-project-darwin-rpath-hook.sh
-      ];
+  setupHooks = [ ./gpr-project-path-hook.sh ]
+    ++ lib.optionals stdenv.targetPlatform.isDarwin [
+      # This setupHook replaces the paths of shared libraries starting
+      # with @rpath with the absolute paths on Darwin, so that the
+      # binaries can be run without additional setup.
+      ./gpr-project-darwin-rpath-hook.sh
+    ];
 
   installPhase = ''
     runHook preInstall

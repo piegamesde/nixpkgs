@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  aiohttp,
-  pytest,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, aiohttp
+, pytest, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-mockservers";
@@ -32,10 +23,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pytest-asyncio
-  ];
+  propagatedBuildInputs = [ aiohttp pytest-asyncio ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lunatic";
@@ -23,18 +15,19 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  checkFlags =
-    [
-      # requires simd support which is not always available on hydra
-      "--skip=state::tests::import_filter_signature_matches"
-    ];
+  checkFlags = [
+    # requires simd support which is not always available on hydra
+    "--skip=state::tests::import_filter_signature_matches"
+  ];
 
   meta = with lib; {
     description = "An Erlang inspired runtime for WebAssembly";
     homepage = "https://lunatic.solutions";
-    changelog = "https://github.com/lunatic-solutions/lunatic/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/lunatic-solutions/lunatic/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       mit # or
       asl20

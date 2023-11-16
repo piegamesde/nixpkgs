@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "q-text-as-data";
@@ -15,10 +11,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "18cwyfjgxxavclyd08bmb943c8bvzp1gnqp4klkq5xlgqwivr4sv";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    setuptools
-    six
-  ];
+  propagatedBuildInputs = with python3Packages; [ setuptools six ];
 
   doCheck = false;
 

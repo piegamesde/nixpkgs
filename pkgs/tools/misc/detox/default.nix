@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  flex,
-}:
+{ lib, stdenv, fetchurl, flex }:
 
 stdenv.mkDerivation rec {
   pname = "detox";

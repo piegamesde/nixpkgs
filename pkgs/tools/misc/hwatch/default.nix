@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  testers,
-  hwatch,
-  installShellFiles,
-}:
+{ lib, fetchFromGitHub, rustPlatform, testers, hwatch, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hwatch";

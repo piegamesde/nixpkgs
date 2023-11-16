@@ -1,17 +1,5 @@
-{
-  lib,
-  aiohttp,
-  bidict,
-  buildPythonPackage,
-  fetchFromGitHub,
-  humanize,
-  lxml,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  slixmpp,
-  websockets,
-}:
+{ lib, aiohttp, bidict, buildPythonPackage, fetchFromGitHub, humanize, lxml
+, pytestCheckHook, pythonOlder, requests, slixmpp, websockets }:
 
 buildPythonPackage rec {
   pname = "gekitchen";
@@ -27,15 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-eKGundh7j9LqFd71bx86rNBVu2iAcgLN25JfFa39+VA=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    bidict
-    humanize
-    lxml
-    requests
-    slixmpp
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aiohttp bidict humanize lxml requests slixmpp websockets ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

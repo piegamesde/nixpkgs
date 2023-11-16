@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, python3 }:
 
 with python3.pkgs;
 
@@ -33,10 +28,7 @@ buildPythonApplication rec {
     tqdm
   ];
 
-  nativeCheckInputs = [
-    behave
-    nose
-  ];
+  nativeCheckInputs = [ behave nose ];
 
   # Workaround: pythonRelaxDepsHook doesn't work for this.
   postPatch = ''

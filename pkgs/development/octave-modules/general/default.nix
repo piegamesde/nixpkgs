@@ -1,10 +1,4 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl,
-  pkg-config,
-  nettle,
-}:
+{ buildOctavePackage, lib, fetchurl, pkg-config, nettle }:
 
 buildOctavePackage rec {
   pname = "general";

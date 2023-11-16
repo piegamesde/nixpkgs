@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  bash,
-  coreutils,
-  diffstat,
-  diffutils,
-  findutils,
-  gawk,
-  gnugrep,
-  gnused,
-  patch,
-  perl,
-  unixtools,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, bash, coreutils, diffstat, diffutils
+, findutils, gawk, gnugrep, gnused, patch, perl, unixtools }:
 
 stdenv.mkDerivation rec {
 
@@ -62,4 +47,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ smancill ];
     platforms = platforms.all;
   };
+
 }

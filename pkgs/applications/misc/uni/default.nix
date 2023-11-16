@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "uni";
@@ -17,15 +13,12 @@ buildGoModule rec {
 
   vendorSha256 = "6HNFCUSJA6oduCx/SCUQQeCHGS7ohaWRunixdwMurBw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   meta = with lib; {
     homepage = "https://github.com/arp242/uni";
-    description = "Query the Unicode database from the commandline, with good support for emojis";
+    description =
+      "Query the Unicode database from the commandline, with good support for emojis";
     license = licenses.mit;
     maintainers = with maintainers; [ chvp ];
   };

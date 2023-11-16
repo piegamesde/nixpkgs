@@ -1,54 +1,33 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.virtualisation.cri-o;
 
   crioPackage = pkgs.cri-o.override {
-    extraPackages =
-      cfg.extraPackages
-      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
+    extraPackages = cfg.extraPackages
+      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
+      config.boot.zfs.package;
   };
 
   format = pkgs.formats.toml { };
 
   cfgFile = format.generate "00-default.conf" cfg.settings;
-in
-{
-  meta = {
-    maintainers = teams.podman.members;
-  };
+in {
+  meta = { maintainers = teams.podman.members; };
 
   options.virtualisation.cri-o = {
-    enable = mkEnableOption (lib.mdDoc "Container Runtime Interface for OCI (CRI-O)");
+    enable =
+      mkEnableOption (lib.mdDoc "Container Runtime Interface for OCI (CRI-O)");
 
     storageDriver = mkOption {
-      type = types.enum [
-        "aufs"
-        "btrfs"
-        "devmapper"
-        "overlay"
-        "vfs"
-        "zfs"
-      ];
+      type = types.enum [ "aufs" "btrfs" "devmapper" "overlay" "vfs" "zfs" ];
       default = "overlay";
       description = lib.mdDoc "Storage driver to be used";
     };
 
     logLevel = mkOption {
-      type = types.enum [
-        "trace"
-        "debug"
-        "info"
-        "warn"
-        "error"
-        "fatal"
-      ];
+      type = types.enum [ "trace" "debug" "info" "warn" "error" "fatal" ];
       default = "info";
       description = lib.mdDoc "Log level to be used";
     };
@@ -56,7 +35,8 @@ in
     pauseImage = mkOption {
       type = types.nullOr types.str;
       default = null;
-      description = lib.mdDoc "Override the default pause image for pod sandboxes";
+      description =
+        lib.mdDoc "Override the default pause image for pod sandboxes";
       example = "k8s.gcr.io/pause:3.2";
     };
 
@@ -114,10 +94,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      cfg.package
-      pkgs.cri-tools
-    ];
+    environment.systemPackages = [ cfg.package pkgs.cri-tools ];
 
     environment.etc."crictl.yaml".source = "${cfg.package}/etc/crictl.yaml";
 
@@ -141,15 +118,17 @@ in
         pinns_path = "${cfg.package}/bin/pinns";
         hooks_dir =
           optional (config.virtualisation.containers.ociSeccompBpfHook.enable)
-            config.boot.kernelPackages.oci-seccomp-bpf-hook;
+          config.boot.kernelPackages.oci-seccomp-bpf-hook;
 
         default_runtime = mkIf (cfg.runtime != null) cfg.runtime;
         runtimes = mkIf (cfg.runtime != null) { "${cfg.runtime}" = { }; };
       };
     };
 
-    environment.etc."cni/net.d/10-crio-bridge.conflist".source = "${cfg.package}/etc/cni/net.d/10-crio-bridge.conflist";
-    environment.etc."cni/net.d/99-loopback.conflist".source = "${cfg.package}/etc/cni/net.d/99-loopback.conflist";
+    environment.etc."cni/net.d/10-crio-bridge.conflist".source =
+      "${cfg.package}/etc/cni/net.d/10-crio-bridge.conflist";
+    environment.etc."cni/net.d/99-loopback.conflist".source =
+      "${cfg.package}/etc/cni/net.d/99-loopback.conflist";
     environment.etc."crio/crio.conf.d/00-default.conf".source = cfgFile;
 
     # Enable common /etc/containers configuration

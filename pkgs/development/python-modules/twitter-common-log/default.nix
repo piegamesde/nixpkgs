@@ -1,10 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  twitter-common-options,
-  twitter-common-dirutil,
-}:
+{ lib, buildPythonPackage, fetchPypi, twitter-common-options
+, twitter-common-dirutil }:
 
 buildPythonPackage rec {
   pname = "twitter.common.log";
@@ -15,10 +10,7 @@ buildPythonPackage rec {
     sha256 = "7160a864eed30044705e05b816077dd193aec0c66f50ef1c077b7f8490e0d06a";
   };
 
-  propagatedBuildInputs = [
-    twitter-common-options
-    twitter-common-dirutil
-  ];
+  propagatedBuildInputs = [ twitter-common-options twitter-common-dirutil ];
 
   meta = with lib; {
     description = "Twitter's common logging library";
@@ -26,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ copumpkin ];
   };
+
 }

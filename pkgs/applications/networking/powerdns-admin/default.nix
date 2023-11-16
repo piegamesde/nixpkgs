@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  mkYarnPackage,
-  nixosTests,
-  writeText,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, mkYarnPackage, nixosTests, writeText, python3 }:
 
 let
   version = "0.4.1";
@@ -71,9 +63,7 @@ let
     yarnNix = ./yarndeps.nix;
     # Copied from package.json, see also
     # https://github.com/NixOS/nixpkgs/pull/214952
-    packageResolutions = {
-      "@fortawesome/fontawesome-free" = "6.3.0";
-    };
+    packageResolutions = { "@fortawesome/fontawesome-free" = "6.3.0"; };
 
     nativeBuildInputs = pythonDeps;
     patchPhase = ''
@@ -109,8 +99,7 @@ let
     assets.register('js_main', 'generated/main.js')
     assets.register('css_main', 'generated/main.css')
   '';
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "powerdns-admin";
 
   inherit src version;
@@ -170,9 +159,6 @@ stdenv.mkDerivation {
     description = "A PowerDNS web interface with advanced features";
     homepage = "https://github.com/PowerDNS-Admin/PowerDNS-Admin";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      Flakebi
-      zhaofengli
-    ];
+    maintainers = with maintainers; [ Flakebi zhaofengli ];
   };
 }

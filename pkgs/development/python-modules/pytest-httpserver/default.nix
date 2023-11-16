@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  toml,
-  werkzeug,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
+, pythonOlder, requests, toml, werkzeug }:
 
 buildPythonPackage rec {
   pname = "pytest-httpserver";
@@ -28,11 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ werkzeug ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests
-    toml
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests toml ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -45,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "HTTP server for pytest to test HTTP clients";
     homepage = "https://www.github.com/csernazs/pytest-httpserver";
-    changelog = "https://github.com/csernazs/pytest-httpserver/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/csernazs/pytest-httpserver/blob/${version}/CHANGES.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

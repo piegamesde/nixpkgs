@@ -1,49 +1,35 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
-builtins.mapAttrs
-  (
-    pname:
-    {
-      doCheck ? true,
-      mainProgram ? pname,
-      subPackages,
-    }:
-    buildGoModule rec {
-      inherit pname;
-      version = "3.26.0";
+builtins.mapAttrs (pname:
+  { doCheck ? true, mainProgram ? pname, subPackages }:
+  buildGoModule rec {
+    inherit pname;
+    version = "3.26.0";
 
-      src = fetchFromGitHub {
-        owner = "projectcalico";
-        repo = "calico";
-        rev = "v${version}";
-        hash = "sha256-1wAFdzIReyL+mfuPKQdPrTjLmiGWoFCxtnT2ftBUlU0=";
-      };
+    src = fetchFromGitHub {
+      owner = "projectcalico";
+      repo = "calico";
+      rev = "v${version}";
+      hash = "sha256-1wAFdzIReyL+mfuPKQdPrTjLmiGWoFCxtnT2ftBUlU0=";
+    };
 
-      vendorHash = "sha256-epmXf78DMHnyrAkf0V4wpFsfGvd8Hm+yXB9ODJDljys=";
+    vendorHash = "sha256-epmXf78DMHnyrAkf0V4wpFsfGvd8Hm+yXB9ODJDljys=";
 
-      inherit doCheck subPackages;
+    inherit doCheck subPackages;
 
-      ldflags = [
-        "-s"
-        "-w"
-      ];
+    ldflags = [ "-s" "-w" ];
 
-      meta = with lib; {
-        homepage = "https://projectcalico.docs.tigera.io";
-        changelog = "https://github.com/projectcalico/calico/releases/tag/v${version}";
-        description = "Cloud native networking and network security";
-        license = licenses.asl20;
-        maintainers = with maintainers; [ urandom ];
-        platforms = platforms.linux;
-        inherit mainProgram;
-      };
-    }
-  )
-  {
+    meta = with lib; {
+      homepage = "https://projectcalico.docs.tigera.io";
+      changelog =
+        "https://github.com/projectcalico/calico/releases/tag/v${version}";
+      description = "Cloud native networking and network security";
+      license = licenses.asl20;
+      maintainers = with maintainers; [ urandom ];
+      platforms = platforms.linux;
+      inherit mainProgram;
+    };
+  }) {
     calico-apiserver = {
       mainProgram = "apiserver";
       subPackages = [ "apiserver/cmd/..." ];
@@ -66,18 +52,11 @@ builtins.mapAttrs
     };
     calico-pod2daemon = {
       mainProgram = "flexvol";
-      subPackages = [
-        "pod2daemon/csidriver"
-        "pod2daemon/flexvol"
-        "pod2daemon/nodeagent"
-      ];
+      subPackages =
+        [ "pod2daemon/csidriver" "pod2daemon/flexvol" "pod2daemon/nodeagent" ];
     };
-    calico-typha = {
-      subPackages = [ "typha/cmd/..." ];
-    };
-    calicoctl = {
-      subPackages = [ "calicoctl/calicoctl" ];
-    };
+    calico-typha = { subPackages = [ "typha/cmd/..." ]; };
+    calicoctl = { subPackages = [ "calicoctl/calicoctl" ]; };
     confd-calico = {
       mainProgram = "confd";
       subPackages = [ "confd" ];

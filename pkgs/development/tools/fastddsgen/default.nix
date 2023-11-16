@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  runtimeShell,
-  writeText,
-  fetchFromGitHub,
-  gradle_7,
-  openjdk17,
-  git,
-  perl,
-  cmake,
-}:
+{ lib, stdenv, runtimeShell, writeText, fetchFromGitHub, gradle_7, openjdk17
+, git, perl, cmake }:
 let
   pname = "fastddsgen";
   version = "2.4.0";
@@ -28,11 +18,7 @@ let
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit src version;
-    nativeBuildInputs = [
-      gradle
-      openjdk17
-      perl
-    ];
+    nativeBuildInputs = [ gradle openjdk17 perl ];
 
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d);
@@ -52,14 +38,10 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-ZGWTK665wIX/Biz4JDrbaU4EZNqT7Q8o6DSpziUd/SM=";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname src version;
 
-  nativeBuildInputs = [
-    gradle
-    openjdk17
-  ];
+  nativeBuildInputs = [ gradle openjdk17 ];
 
   # use our offline deps
   postPatch = ''

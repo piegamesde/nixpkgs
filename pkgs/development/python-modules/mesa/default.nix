@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  cookiecutter,
-  networkx,
-  pandas,
-  tornado,
-  tqdm,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, cookiecutter, networkx, pandas
+, tornado, tqdm, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mesa";
@@ -25,21 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-SJiAuQSnatBnsZpwF3KyBTd1oiNjCpJEepq7t0QjoAQ=";
   };
 
-  propagatedBuildInputs = [
-    cookiecutter
-    networkx
-    pandas
-    tornado
-    tqdm
-  ];
+  propagatedBuildInputs = [ cookiecutter networkx pandas tornado tqdm ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_examples"
-    "test_run"
-    "test_scaffold_creates_project_dir"
-  ];
+  disabledTests =
+    [ "test_examples" "test_run" "test_scaffold_creates_project_dir" ];
 
   meta = with lib; {
     homepage = "https://github.com/projectmesa/mesa";

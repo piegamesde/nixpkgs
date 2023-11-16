@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenvNoCC,
-}:
+{ lib, fetchFromGitHub, installShellFiles, stdenvNoCC }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "zi";

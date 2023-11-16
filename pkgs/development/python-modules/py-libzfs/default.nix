@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cython,
-  zfs,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cython, zfs }:
 
 buildPythonPackage rec {
   pname = "py-libzfs";
@@ -42,3 +35,4 @@ buildPythonPackage rec {
     platforms = platforms.linux;
   };
 }
+

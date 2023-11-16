@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cython,
-  msgpack,
-  numpy,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, msgpack, numpy, python }:
 
 buildPythonPackage rec {
   pname = "msgpack-numpy";
@@ -19,10 +11,7 @@ buildPythonPackage rec {
 
   buildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    msgpack
-    numpy
-  ];
+  propagatedBuildInputs = [ msgpack numpy ];
 
   checkPhase = ''
     ${python.interpreter} msgpack_numpy.py

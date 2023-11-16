@@ -1,27 +1,13 @@
-{
-  lib,
-  fetchurl,
-  cups,
-  libssh,
-  libXpm,
-  nx-libs,
-  openldap,
-  openssh,
-  qt5,
-  qtbase,
-  qtsvg,
-  qtx11extras,
-  qttools,
-  phonon,
-  pkg-config,
-}:
+{ lib, fetchurl, cups, libssh, libXpm, nx-libs, openldap, openssh, qt5, qtbase
+, qtsvg, qtx11extras, qttools, phonon, pkg-config }:
 
 qt5.mkDerivation rec {
   pname = "x2goclient";
   version = "4.1.2.2";
 
   src = fetchurl {
-    url = "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz";
     sha256 = "yZUyZ8QPpnEZrZanO6yx8mYZbaIFnwzc0bjVGZQh0So=";
   };
 
@@ -39,10 +25,7 @@ qt5.mkDerivation rec {
     phonon
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    qt5.wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config qt5.wrapQtAppsHook ];
 
   postPatch = ''
     substituteInPlace src/onmainwindow.cpp --replace "/usr/sbin/sshd" "${openssh}/bin/sshd"
@@ -53,17 +36,10 @@ qt5.mkDerivation rec {
       --replace "-o root -g root" ""
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "ETCDIR=$(out)/etc"
-    "build_client"
-    "build_man"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "ETCDIR=$(out)/etc" "build_client" "build_man" ];
 
-  installTargets = [
-    "install_client"
-    "install_man"
-  ];
+  installTargets = [ "install_client" "install_man" ];
 
   qtWrapperArgs = [
     "--suffix PATH : ${nx-libs}/bin:${openssh}/libexec"

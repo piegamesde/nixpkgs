@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  cargo,
-  meson,
-  ninja,
-  pkg-config,
-  rustc,
-  wrapGAppsHook4,
-  appstream-glib,
-  desktop-file-utils,
-  glib,
-  gtk4,
-  libadwaita,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, cargo, meson, ninja, pkg-config
+, rustc, wrapGAppsHook4, appstream-glib, desktop-file-utils, glib, gtk4
+, libadwaita }:
 
 stdenv.mkDerivation rec {
   pname = "paleta";
@@ -45,11 +31,7 @@ stdenv.mkDerivation rec {
     rustc
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-  ];
+  buildInputs = [ glib gtk4 libadwaita ];
 
   meta = with lib; {
     description = "Extract the dominant colors from any image";

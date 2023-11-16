@@ -1,16 +1,5 @@
-{
-  buildGoModule,
-  coreutils,
-  fetchFromGitHub,
-  git,
-  installShellFiles,
-  kubectl,
-  kubernetes-helm,
-  lib,
-  makeWrapper,
-  yamale,
-  yamllint,
-}:
+{ buildGoModule, coreutils, fetchFromGitHub, git, installShellFiles, kubectl
+, kubernetes-helm, lib, makeWrapper, yamale, yamllint }:
 
 buildGoModule rec {
   pname = "chart-testing";
@@ -38,10 +27,7 @@ buildGoModule rec {
     "-X github.com/helm/chart-testing/v3/ct/cmd.BuildDate=19700101-00:00:00"
   ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
 
   postInstall = ''
     install -Dm644 -t $out/etc/ct etc/chart_schema.yaml
@@ -53,14 +39,7 @@ buildGoModule rec {
       --fish <($out/bin/ct completion fish) \
 
     wrapProgram $out/bin/ct --prefix PATH : ${
-      lib.makeBinPath [
-        coreutils
-        git
-        kubectl
-        kubernetes-helm
-        yamale
-        yamllint
-      ]
+      lib.makeBinPath [ coreutils git kubectl kubernetes-helm yamale yamllint ]
     }
   '';
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  rofi,
-  gobject-introspection,
-}:
+{ lib, python3, fetchFromGitHub, rofi, gobject-introspection }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "plasma-hud";
@@ -41,7 +35,8 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.gpl2Only;
     homepage = "https://github.com/Zren/plasma-hud";
     platforms = platforms.unix;
-    description = "Run menubar commands, much like the Unity 7 Heads-Up Display (HUD)";
+    description =
+      "Run menubar commands, much like the Unity 7 Heads-Up Display (HUD)";
     maintainers = with maintainers; [ pasqui23 ];
   };
 }

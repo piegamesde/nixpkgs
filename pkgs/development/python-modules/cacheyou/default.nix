@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cherrypy,
-  fetchPypi,
-  filelock,
-  msgpack,
-  pdm-backend,
-  pytestCheckHook,
-  pythonOlder,
-  redis,
-  requests,
-}:
+{ lib, buildPythonPackage, cherrypy, fetchPypi, filelock, msgpack, pdm-backend
+, pytestCheckHook, pythonOlder, redis, requests }:
 
 buildPythonPackage rec {
   pname = "cacheyou";
@@ -28,25 +17,21 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs = [
-    msgpack
-    requests
-  ];
+  propagatedBuildInputs = [ msgpack requests ];
 
   passthru.optional-dependencies = {
     filecache = [ filelock ];
     redis = [ redis ];
   };
 
-  nativeCheckInputs = [
-    cherrypy
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.filecache;
+  nativeCheckInputs = [ cherrypy pytestCheckHook ]
+    ++ passthru.optional-dependencies.filecache;
 
   pythonImportsCheck = [ "cacheyou" ];
 
   meta = {
-    description = "The httplib2 caching algorithms packaged up for use with requests";
+    description =
+      "The httplib2 caching algorithms packaged up for use with requests";
     homepage = "https://github.com/frostming/cacheyou";
     changelog = "https://github.com/frostming/cacheyou/releases/tag/${version}";
     license = lib.licenses.asl20;

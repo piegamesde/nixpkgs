@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  yarl,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-asyncio, pytestCheckHook, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "autarco";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     # Upstream doesn't set a version for the pyproject.toml

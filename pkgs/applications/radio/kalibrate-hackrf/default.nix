@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  fftw,
-  hackrf,
-  libusb1,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, fftw, hackrf
+, libusb1 }:
 
 stdenv.mkDerivation {
   pname = "kalibrate-hackrf";
@@ -22,23 +14,17 @@ stdenv.mkDerivation {
     sha256 = "1jvn1qx7csgycxpx1k804sm9gk5a0c65z9gh8ybp9awq3pziv0nx";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    fftw
-    hackrf
-    libusb1
-  ];
+  buildInputs = [ fftw hackrf libusb1 ];
 
   postInstall = ''
     mv $out/bin/kal $out/bin/kal-hackrf
   '';
 
   meta = with lib; {
-    description = "Calculate local oscillator frequency offset in hackrf devices";
+    description =
+      "Calculate local oscillator frequency offset in hackrf devices";
     longDescription = ''
       Kalibrate, or kal, can scan for GSM base stations in a given frequency
       band and can use those GSM base stations to calculate the local

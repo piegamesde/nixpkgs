@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pygments,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, pygments, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pygments_better_html";

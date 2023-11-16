@@ -1,13 +1,5 @@
-{
-  lib,
-  bluepy,
-  buildPythonPackage,
-  csrmesh,
-  fetchPypi,
-  pycryptodome,
-  pythonOlder,
-  requests,
-}:
+{ lib, bluepy, buildPythonPackage, csrmesh, fetchPypi, pycryptodome, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "avion";
@@ -27,12 +19,7 @@ buildPythonPackage rec {
       --replace "bluepy>==1.1.4" "bluepy>=1.1.4"
   '';
 
-  propagatedBuildInputs = [
-    bluepy
-    csrmesh
-    pycryptodome
-    requests
-  ];
+  propagatedBuildInputs = [ bluepy csrmesh pycryptodome requests ];
 
   # Module has no test
   doCheck = false;

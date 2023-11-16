@@ -1,13 +1,6 @@
-{
-  qtModule,
-  qtbase,
-  qtserialport,
-}:
+{ qtModule, qtbase, qtserialport }:
 
 qtModule {
   pname = "qtserialbus";
-  qtInputs = [
-    qtbase
-    qtserialport
-  ];
+  qtInputs = [ qtbase qtserialport ];
 }

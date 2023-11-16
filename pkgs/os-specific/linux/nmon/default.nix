@@ -1,9 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  ncurses,
-}:
+{ fetchurl, lib, stdenv, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "nmon";
@@ -16,7 +11,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
   dontUnpack = true;
-  buildPhase = "${stdenv.cc.targetPrefix}cc -o nmon ${src} -g -O2 -D JFS -D GETUSER -Wall -D LARGEMEM -lncurses -lm -g -D ${
+  buildPhase =
+    "${stdenv.cc.targetPrefix}cc -o nmon ${src} -g -O2 -D JFS -D GETUSER -Wall -D LARGEMEM -lncurses -lm -g -D ${
       with stdenv.targetPlatform;
       if isx86 then
         "X86"

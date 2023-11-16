@@ -1,26 +1,6 @@
-{
-  lib,
-  appdirs,
-  babelfish,
-  beautifulsoup4,
-  buildPythonPackage,
-  chardet,
-  click,
-  dogpile-cache,
-  enzyme,
-  fetchFromGitHub,
-  guessit,
-  pysrt,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  rarfile,
-  requests,
-  six,
-  stevedore,
-  sympy,
-  vcrpy,
-}:
+{ lib, appdirs, babelfish, beautifulsoup4, buildPythonPackage, chardet, click
+, dogpile-cache, enzyme, fetchFromGitHub, guessit, pysrt, pytestCheckHook
+, pythonOlder, pytz, rarfile, requests, six, stevedore, sympy, vcrpy }:
 
 buildPythonPackage rec {
   pname = "subliminal";
@@ -58,11 +38,7 @@ buildPythonPackage rec {
     stevedore
   ];
 
-  nativeCheckInputs = [
-    sympy
-    vcrpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ sympy vcrpy pytestCheckHook ];
 
   pythonImportsCheck = [ "subliminal" ];
 
@@ -79,16 +55,16 @@ buildPythonPackage rec {
     "test_save_subtitles"
   ];
 
-  disabledTestPaths =
-    [
-      # AttributeError: module 'rarfile' has no attribute 'custom_check'
-      "tests/test_legendastv.py"
-    ];
+  disabledTestPaths = [
+    # AttributeError: module 'rarfile' has no attribute 'custom_check'
+    "tests/test_legendastv.py"
+  ];
 
   meta = with lib; {
     description = "Python library to search and download subtitles";
     homepage = "https://github.com/Diaoul/subliminal";
-    changelog = "https://github.com/Diaoul/subliminal/blob/${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/Diaoul/subliminal/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

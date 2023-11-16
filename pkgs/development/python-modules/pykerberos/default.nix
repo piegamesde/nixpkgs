@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  krb5,
-}:
+{ lib, fetchPypi, buildPythonPackage, krb5 }:
 
 buildPythonPackage rec {
   pname = "pykerberos";

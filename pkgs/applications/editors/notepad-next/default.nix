@@ -1,12 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  qmake,
-  qttools,
-  qtx11extras,
-  stdenv,
-}:
+{ mkDerivation, lib, fetchFromGitHub, qmake, qttools, qtx11extras, stdenv }:
 
 mkDerivation rec {
   pname = "notepad-next";
@@ -21,16 +13,10 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-  ];
+  nativeBuildInputs = [ qmake qttools ];
   buildInputs = [ qtx11extras ];
 
-  qmakeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "src/NotepadNext.pro"
-  ];
+  qmakeFlags = [ "PREFIX=${placeholder "out"}" "src/NotepadNext.pro" ];
 
   postPatch = ''
     substituteInPlace src/i18n.pri \

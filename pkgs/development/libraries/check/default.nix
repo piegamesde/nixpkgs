@@ -1,16 +1,12 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  CoreServices,
-}:
+{ fetchurl, lib, stdenv, CoreServices }:
 
 stdenv.mkDerivation rec {
   pname = "check";
   version = "0.15.2";
 
   src = fetchurl {
-    url = "https://github.com/libcheck/check/releases/download/${version}/check-${version}.tar.gz";
+    url =
+      "https://github.com/libcheck/check/releases/download/${version}/check-${version}.tar.gz";
     sha256 = "02m25y9m46pb6n46s51av62kpd936lkfv3b13kfpckgvmh5lxpm8";
   };
 

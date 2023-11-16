@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  natsort,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, natsort, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "seedir";
@@ -30,9 +24,11 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "tests/tests.py" ];
 
   meta = with lib; {
-    description = "Module for for creating, editing, and reading folder tree diagrams";
+    description =
+      "Module for for creating, editing, and reading folder tree diagrams";
     homepage = "https://github.com/earnestt1234/seedir";
-    changelog = "https://github.com/earnestt1234/seedir/releases/tag/v${version}";
+    changelog =
+      "https://github.com/earnestt1234/seedir/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

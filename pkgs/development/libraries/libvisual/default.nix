@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  SDL,
-  autoreconfHook,
-  glib,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, SDL, autoreconfHook, glib, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "libvisual";
@@ -18,17 +9,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-qhKHdBf3bTZC2fTHIzAjgNgzF1Y51jpVZB0Bkopd230=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   patches = [
     # pull upstream fix for SDL1 cross-compilation.
     #   https://github.com/Libvisual/libvisual/pull/238
     (fetchpatch {
       name = "sdl-cross-prereq.patch";
-      url = "https://github.com/Libvisual/libvisual/commit/7902d24aa1a552619a5738339b3823e90dd3b865.patch";
+      url =
+        "https://github.com/Libvisual/libvisual/commit/7902d24aa1a552619a5738339b3823e90dd3b865.patch";
       hash = "sha256-84u8klHDAw/q4d+9L4ROAr7XsbXItHrhaEKkTEMSPcc=";
       # remove extra libvisual prefix
       stripLen = 1;
@@ -37,7 +26,8 @@ stdenv.mkDerivation rec {
     })
     (fetchpatch {
       name = "sdl-cross-pc.patch";
-      url = "https://github.com/Libvisual/libvisual/commit/f79a2e8d21ad1d7fe26e2aa83cea4c9f48f9e392.patch";
+      url =
+        "https://github.com/Libvisual/libvisual/commit/f79a2e8d21ad1d7fe26e2aa83cea4c9f48f9e392.patch";
       hash = "sha256-8c7SdLxXC8K9BAwj7DzozsZAcbs5l1xuBqky9LJ1MfM=";
       # remove extra libvisual prefix
       stripLen = 1;
@@ -45,21 +35,13 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    SDL
-    glib
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ SDL glib ];
 
-  configureFlags =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-      [
-        # Remove once "sdl-cross-prereq.patch" patch above is removed.
-        "--disable-lv-tool"
-      ];
+  configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    # Remove once "sdl-cross-prereq.patch" patch above is removed.
+    "--disable-lv-tool"
+  ];
 
   meta = {
     description = "An abstraction library for audio visualisations";

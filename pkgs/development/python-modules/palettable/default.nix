@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "palettable";
@@ -18,16 +13,14 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "palettable"
-    "palettable.matplotlib"
-    "palettable.tableau"
-  ];
+  pythonImportsCheck =
+    [ "palettable" "palettable.matplotlib" "palettable.tableau" ];
 
   meta = with lib; {
     description = "A library of color palettes";
     homepage = "https://jiffyclub.github.io/palettable/";
-    changelog = "https://github.com/jiffyclub/palettable/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/jiffyclub/palettable/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];
   };

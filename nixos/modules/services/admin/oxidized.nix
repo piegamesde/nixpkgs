@@ -1,18 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.oxidized;
-in
-{
+let cfg = config.services.oxidized;
+in {
   options.services.oxidized = {
-    enable = mkEnableOption (lib.mdDoc "the oxidized configuration backup service");
+    enable =
+      mkEnableOption (lib.mdDoc "the oxidized configuration backup service");
 
     user = mkOption {
       type = types.str;

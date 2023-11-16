@@ -1,29 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  kernel,
-  alsa-lib,
-}:
+{ lib, stdenv, fetchurl, kernel, alsa-lib }:
 
 with lib;
 
 let
   bits = if stdenv.is64bit then "64" else "32";
 
-  libpath = makeLibraryPath [
-    stdenv.cc.cc
-    stdenv.cc.libc
-    alsa-lib
-  ];
-in
-stdenv.mkDerivation rec {
+  libpath = makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc alsa-lib ];
+
+in stdenv.mkDerivation rec {
   pname = "mwprocapture";
   subVersion = "4328";
   version = "1.3.0.${subVersion}-${kernel.version}";
 
   src = fetchurl {
-    url = "https://www.magewell.com/files/drivers/ProCaptureForLinux_${subVersion}.tar.gz";
+    url =
+      "https://www.magewell.com/files/drivers/ProCaptureForLinux_${subVersion}.tar.gz";
     sha256 = "197l86ad52ijmmq5an6891gd1chhkxqiagamcchirrky4c50qs36";
   };
 
@@ -34,12 +25,10 @@ stdenv.mkDerivation rec {
     export INSTALL_MOD_PATH="$out"
   '';
 
-  hardeningDisable = [
-    "pic"
-    "format"
-  ];
+  hardeningDisable = [ "pic" "format" ];
 
-  makeFlags = [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags =
+    [ "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-fallthrough";
 

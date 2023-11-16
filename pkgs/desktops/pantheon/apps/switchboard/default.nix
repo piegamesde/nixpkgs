@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  pkg-config,
-  meson,
-  python3,
-  ninja,
-  vala,
-  gtk3,
-  libgee,
-  libhandy,
-  granite,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, python3
+, ninja, vala, gtk3, libgee, libhandy, granite, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "switchboard";
@@ -26,21 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2c+anQ17lrdFy+cbjoYY94EFxYUcS+4mZrwbrLohfUg=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
 
-  buildInputs = [
-    granite
-    gtk3
-    libgee
-    libhandy
-  ];
+  buildInputs = [ granite gtk3 libgee libhandy ];
 
   patches = [ ./plugs-path-env.patch ];
 
@@ -49,9 +23,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Extensible System Settings app for Pantheon";

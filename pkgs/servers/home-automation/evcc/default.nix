@@ -1,20 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchNpmDeps,
-  fetchpatch,
-  cacert,
-  go,
-  git,
-  enumer,
-  mockgen,
-  nodejs,
-  npmHooks,
-  nix-update-script,
-  nixosTests,
-  stdenv,
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchNpmDeps, fetchpatch, cacert, go, git
+, enumer, mockgen, nodejs, npmHooks, nix-update-script, nixosTests, stdenv }:
 
 buildGoModule rec {
   pname = "evcc";
@@ -30,7 +15,8 @@ buildGoModule rec {
   patches = [
     (fetchpatch {
       # fix ISO15118 vehicle setup
-      url = "https://github.com/evcc-io/evcc/commit/cc22337b422e4ee541a2c75740c039f2d029bd9b.patch";
+      url =
+        "https://github.com/evcc-io/evcc/commit/cc22337b422e4ee541a2c75740c039f2d029bd9b.patch";
       hash = "sha256-Q+5Klpdv1cWVg716lbKl1JLwkr4LiLPRUoZHemFUQZc=";
     })
   ];
@@ -42,29 +28,17 @@ buildGoModule rec {
     hash = "sha256-QRjOmanO+phyqgZb/cAyU0dFKI6T6o84MuObANZoYNE=";
   };
 
-  nativeBuildInputs = [
-    nodejs
-    npmHooks.npmConfigHook
-  ];
+  nativeBuildInputs = [ nodejs npmHooks.npmConfigHook ];
 
   overrideModAttrs = _: {
-    nativeBuildInputs = [
-      enumer
-      go
-      git
-      cacert
-      mockgen
-    ];
+    nativeBuildInputs = [ enumer go git cacert mockgen ];
 
     preBuild = ''
       make assets
     '';
   };
 
-  tags = [
-    "release"
-    "test"
-  ];
+  tags = [ "release" "test" ];
 
   ldflags = [
     "-X github.com/evcc-io/evcc/server.Version=${version}"
@@ -77,7 +51,8 @@ buildGoModule rec {
     make ui
   '';
 
-  doCheck = !stdenv.isDarwin; # tries to bind to local network, doesn't work in darwin sandbox
+  doCheck =
+    !stdenv.isDarwin; # tries to bind to local network, doesn't work in darwin sandbox
 
   preCheck = ''
     # requires network access
@@ -86,9 +61,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    tests = {
-      inherit (nixosTests) evcc;
-    };
+    tests = { inherit (nixosTests) evcc; };
     updateScript = nix-update-script { };
   };
 

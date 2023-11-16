@@ -1,11 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  img2pdf,
-  zathura,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, makeWrapper, img2pdf, zathura }:
 
 stdenvNoCC.mkDerivation {
   pname = "manga-cli";
@@ -26,19 +19,15 @@ stdenvNoCC.mkDerivation {
     install -Dm755 manga-cli $out/bin/manga-cli
 
     wrapProgram $out/bin/manga-cli \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          img2pdf
-          zathura
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ img2pdf zathura ]}
 
     runHook postInstall
   '';
 
   meta = with lib; {
     homepage = "https://github.com/7USTIN/manga-cli";
-    description = "Bash script for reading mangas via the terminal by scraping manganato";
+    description =
+      "Bash script for reading mangas via the terminal by scraping manganato";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ baitinq ];
   };

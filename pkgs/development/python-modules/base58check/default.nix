@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "base58check";

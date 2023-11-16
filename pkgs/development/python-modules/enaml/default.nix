@@ -1,19 +1,5 @@
-{
-  lib,
-  atom,
-  buildPythonPackage,
-  bytecode,
-  cppy,
-  fetchFromGitHub,
-  kiwisolver,
-  pegen,
-  ply,
-  qtpy,
-  setuptools,
-  setuptools-scm,
-  pythonOlder,
-  sip,
-}:
+{ lib, atom, buildPythonPackage, bytecode, cppy, fetchFromGitHub, kiwisolver
+, pegen, ply, qtpy, setuptools, setuptools-scm, pythonOlder, sip }:
 
 buildPythonPackage rec {
   pname = "enaml";
@@ -31,21 +17,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    atom
-    bytecode
-    cppy
-    kiwisolver
-    pegen
-    ply
-    qtpy
-    sip
-  ];
+  propagatedBuildInputs = [ atom bytecode cppy kiwisolver pegen ply qtpy sip ];
 
   # qt bindings cannot be found during tests
   doCheck = false;

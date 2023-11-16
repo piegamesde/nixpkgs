@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  carapace,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, carapace }:
 
 buildGoModule rec {
   pname = "carapace";
@@ -19,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-3ukm9bIGYdYfHGQOy6KYah2GuLWGWW/JJ1uA7R3i1PE=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   subPackages = [ "./cmd/carapace" ];
 

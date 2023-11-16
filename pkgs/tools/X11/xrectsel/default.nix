@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  libX11,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "xrectsel";

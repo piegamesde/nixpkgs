@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  pkgs,
-  fetchFromGitHub,
-  runCommand,
-  buildNpmPackage,
-  nodejs_18,
-  tone,
-  ffmpeg-full,
-  util-linux,
-  libwebp,
-}:
+{ lib, stdenv, pkgs, fetchFromGitHub, runCommand, buildNpmPackage, nodejs_18
+, tone, ffmpeg-full, util-linux, libwebp }:
 
 let
   nodejs = nodejs_18;
@@ -39,17 +28,10 @@ let
     npmDepsHash = "sha256-gCeLDYuC8uK8lEWTPCxr9NlOS6ADP+1oukYR7/xZ0aA=";
   };
 
-  wrapper = import ./wrapper.nix {
-    inherit
-      stdenv
-      ffmpeg-full
-      tone
-      pname
-      nodejs
-    ;
-  };
-in
-buildNpmPackage {
+  wrapper =
+    import ./wrapper.nix { inherit stdenv ffmpeg-full tone pname nodejs; };
+
+in buildNpmPackage {
   inherit pname version src;
 
   buildInputs = [ util-linux ];

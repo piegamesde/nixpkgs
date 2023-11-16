@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.litestream;
   settingsFormat = pkgs.formats.yaml { };
-in
-{
+in {
   options.services.litestream = {
     enable = mkEnableOption (lib.mdDoc "litestream");
 
@@ -28,12 +22,10 @@ in
       '';
       type = settingsFormat.type;
       example = {
-        dbs = [
-          {
-            path = "/var/lib/db1";
-            replicas = [ { url = "s3://mybkt.litestream.io/db1"; } ];
-          }
-        ];
+        dbs = [{
+          path = "/var/lib/db1";
+          replicas = [{ url = "s3://mybkt.litestream.io/db1"; }];
+        }];
       };
     };
 
@@ -80,7 +72,8 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "networking.target" ];
       serviceConfig = {
-        EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile =
+          mkIf (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${cfg.package}/bin/litestream replicate";
         Restart = "always";
         User = "litestream";

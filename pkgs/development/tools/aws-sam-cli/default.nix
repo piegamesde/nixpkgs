@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  enableTelemetry ? false,
-}:
+{ lib, python3, fetchPypi, enableTelemetry ? false }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "aws-sam-cli";
@@ -33,14 +28,12 @@ python3.pkgs.buildPythonApplication rec {
     regex
   ];
 
-  postFixup =
-    if enableTelemetry then
-      "echo aws-sam-cli TELEMETRY IS ENABLED"
-    else
-      ''
-        # Disable telemetry: https://github.com/awslabs/aws-sam-cli/issues/1272
-        wrapProgram $out/bin/sam --set  SAM_CLI_TELEMETRY 0
-      '';
+  postFixup = if enableTelemetry then
+    "echo aws-sam-cli TELEMETRY IS ENABLED"
+  else ''
+    # Disable telemetry: https://github.com/awslabs/aws-sam-cli/issues/1272
+    wrapProgram $out/bin/sam --set  SAM_CLI_TELEMETRY 0
+  '';
 
   patches = [
     # Click 8.1 removed `get_terminal_size`, recommending
@@ -79,7 +72,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/awslabs/aws-sam-cli";
-    description = "CLI tool for local development and testing of Serverless applications";
+    description =
+      "CLI tool for local development and testing of Serverless applications";
     license = licenses.asl20;
     maintainers = with maintainers; [ lo1tuma ];
   };

@@ -1,15 +1,5 @@
-{
-  atomEnv,
-  autoPatchelfHook,
-  dpkg,
-  fetchurl,
-  makeDesktopItem,
-  makeWrapper,
-  lib,
-  stdenv,
-  udev,
-  wrapGAppsHook,
-}:
+{ atomEnv, autoPatchelfHook, dpkg, fetchurl, makeDesktopItem, makeWrapper, lib
+, stdenv, udev, wrapGAppsHook }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -20,11 +10,9 @@ let
 
   version = "2.9.0";
 
-  sha256 =
-    {
-      x86_64-linux = "sha256-uwd9fYqZepJ/BBttprqkJhswqMepGsHDTd5Md9gjI68=";
-    }
-    .${system} or throwSystem;
+  sha256 = {
+    x86_64-linux = "sha256-uwd9fYqZepJ/BBttprqkJhswqMepGsHDTd5Md9gjI68=";
+  }.${system} or throwSystem;
 
   meta = with lib; {
     description = "The simplest way to keep notes";
@@ -60,12 +48,7 @@ let
     dontPatchELF = true;
     dontWrapGApps = true;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      dpkg
-      makeWrapper
-      wrapGAppsHook
-    ];
+    nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper wrapGAppsHook ];
 
     buildInputs = atomEnv.packages;
 
@@ -89,5 +72,5 @@ let
         "''${gappsWrapperArgs[@]}"
     '';
   };
-in
-linux
+
+in linux

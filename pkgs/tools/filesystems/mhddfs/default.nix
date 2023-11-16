@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fuse,
-  pkg-config,
-  attr,
-  uthash,
-}:
+{ lib, stdenv, fetchurl, fuse, pkg-config, attr, uthash }:
 
 stdenv.mkDerivation rec {
   pname = "mhddfs";
@@ -18,11 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    fuse
-    attr
-    uthash
-  ];
+  buildInputs = [ fuse attr uthash ];
 
   patches = [ ./fix-format-security-error.patch ];
 

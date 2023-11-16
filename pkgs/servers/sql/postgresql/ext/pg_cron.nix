@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "pg_cron";
@@ -29,7 +24,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Run Cron jobs through PostgreSQL";
     homepage = "https://github.com/citusdata/pg_cron";
-    changelog = "https://github.com/citusdata/pg_cron/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/citusdata/pg_cron/raw/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ thoughtpolice ];
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;

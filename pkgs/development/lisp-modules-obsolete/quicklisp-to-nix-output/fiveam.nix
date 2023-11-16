@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "fiveam";
   version = "20211209-git";
 
@@ -15,7 +14,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/fiveam/2021-12-09/fiveam-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/fiveam/2021-12-09/fiveam-20211209-git.tgz";
     sha256 = "0kyyr2dlgpzkn2cw9i4fwyip1d1la4cbv8l4b8jz31f5c1p76ab7";
   };
 

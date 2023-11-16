@@ -1,19 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchPypi,
-  buildPythonPackage,
-  typing-extensions,
-}:
+{ lib, stdenv, fetchurl, fetchPypi, buildPythonPackage, typing-extensions }:
 let
   version = "16.0.19";
   devkit = fetchurl {
-    url = "https://github.com/frida/frida/releases/download/${version}/frida-core-devkit-${version}-linux-x86_64.tar.xz";
+    url =
+      "https://github.com/frida/frida/releases/download/${version}/frida-core-devkit-${version}-linux-x86_64.tar.xz";
     hash = "sha256-yNXNqv8eCbpdQKFShpAh6rUCEuItrOSNNLOjESimPdk=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "frida-python";
   inherit version;
 
@@ -35,12 +28,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "frida" ];
 
-  passthru = {
-    inherit devkit;
-  };
+  passthru = { inherit devkit; };
 
   meta = {
-    description = "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers (Python bindings)";
+    description =
+      "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers (Python bindings)";
     homepage = "https://www.frida.re";
     license = lib.licenses.wxWindows;
     maintainers = with lib.maintainers; [ s1341 ];

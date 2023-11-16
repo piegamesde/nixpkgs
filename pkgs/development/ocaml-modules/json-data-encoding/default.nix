@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildDunePackage,
-  uri,
-  crowbar,
-  alcotest,
-}:
+{ lib, fetchFromGitLab, buildDunePackage, uri, crowbar, alcotest }:
 
 buildDunePackage rec {
   pname = "json-data-encoding";
@@ -21,10 +14,7 @@ buildDunePackage rec {
 
   propagatedBuildInputs = [ uri ];
 
-  checkInputs = [
-    crowbar
-    alcotest
-  ];
+  checkInputs = [ crowbar alcotest ];
 
   doCheck = true;
 

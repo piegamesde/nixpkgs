@@ -1,31 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  opaline,
-  calendar,
-  eliom,
-  js_of_ocaml-ppx_deriving_json,
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, opaline, calendar, eliom
+, js_of_ocaml-ppx_deriving_json }:
 
 stdenv.mkDerivation rec {
   pname = "ocsigen-toolkit";
   name = "ocaml${ocaml.version}-${pname}-${version}";
   version = "3.2.0";
 
-  propagatedBuildInputs = [
-    calendar
-    js_of_ocaml-ppx_deriving_json
-    eliom
-  ];
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    opaline
-    eliom
-  ];
+  propagatedBuildInputs = [ calendar js_of_ocaml-ppx_deriving_json eliom ];
+  nativeBuildInputs = [ ocaml findlib opaline eliom ];
 
   # Remove widgets not compatible with jsoo 4.1.0
   # https://github.com/ocsigen/ocsigen-toolkit/issues/221
@@ -58,4 +40,5 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.gal_bolle ];
     inherit (ocaml.meta) platforms;
   };
+
 }

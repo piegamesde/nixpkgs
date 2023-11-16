@@ -1,22 +1,5 @@
-{
-  lib,
-  stdenv,
-  llvm_meta,
-  fetch,
-  fetchpatch,
-  cmake,
-  zlib,
-  ncurses,
-  swig,
-  which,
-  libedit,
-  libxml2,
-  libllvm,
-  libclang,
-  python3,
-  version,
-  darwin,
-}:
+{ lib, stdenv, llvm_meta, fetch, fetchpatch, cmake, zlib, ncurses, swig, which
+, libedit, libxml2, libllvm, libclang, python3, version, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "lldb";
@@ -27,7 +10,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix PythonString::GetString for >=python-3.7
     (fetchpatch {
-      url = "https://github.com/llvm/llvm-project/commit/5457b426f5e15a29c0acc8af1a476132f8be2a36.patch";
+      url =
+        "https://github.com/llvm/llvm-project/commit/5457b426f5e15a29c0acc8af1a476132f8be2a36.patch";
       sha256 = "1zbx4m0m8kbg0wq6740jcw151vb2pb1p25p401wiq8diqqagkjps";
       stripLen = 1;
     })
@@ -44,27 +28,11 @@ stdenv.mkDerivation rec {
       cmake/modules/LLDBStandalone.cmake
   '';
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
+  outputs = [ "out" "lib" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    which
-    swig
-  ];
+  nativeBuildInputs = [ cmake python3 which swig ];
 
-  buildInputs =
-    [
-      ncurses
-      zlib
-      libedit
-      libxml2
-      libllvm
-    ]
+  buildInputs = [ ncurses zlib libedit libxml2 libllvm ]
     ++ lib.optionals stdenv.isDarwin [
       darwin.libobjc
       darwin.apple_sdk.libs.xpc
@@ -77,15 +45,13 @@ stdenv.mkDerivation rec {
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];
 
-  cmakeFlags =
-    [
-      "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
-      "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
-    ]
-    ++ lib.optionals doCheck [
-      "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-      "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-    ];
+  cmakeFlags = [
+    "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
+    "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
+  ] ++ lib.optionals doCheck [
+    "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+    "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
+  ];
 
   doCheck = false;
 

@@ -1,38 +1,24 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  hidapi,
-  jimtcl,
-  libjaylink,
-  libusb1,
-  libgpiod,
+{ stdenv, lib, fetchurl, pkg-config, hidapi, jimtcl, libjaylink, libusb1
+, libgpiod
 
-  enableFtdi ? true,
-  libftdi1,
+, enableFtdi ? true, libftdi1
 
-  # Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
-  extraHardwareSupport ? [ ],
-}:
+# Allow selection the hardware targets (SBCs, JTAG Programmers, JTAG Adapters)
+, extraHardwareSupport ? [ ] }:
 
 stdenv.mkDerivation rec {
   pname = "openocd";
   version = "0.12.0";
   src = fetchurl {
-    url = "mirror://sourceforge/project/${pname}/${pname}/${version}/${pname}-${version}.tar.bz2";
+    url =
+      "mirror://sourceforge/project/${pname}/${pname}/${version}/${pname}-${version}.tar.bz2";
     sha256 = "sha256-ryVHiL6Yhh8r2RA/5uYKd07Jaow3R0Tu+Rl/YEMHWvo=";
   };
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    hidapi
-    jimtcl
-    libftdi1
-    libjaylink
-    libusb1
-  ] ++ lib.optional stdenv.isLinux libgpiod;
+  buildInputs = [ hidapi jimtcl libftdi1 libjaylink libusb1 ]
+    ++ lib.optional stdenv.isLinux libgpiod;
 
   configureFlags = [
     "--disable-werror"
@@ -48,12 +34,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU [
-      "-Wno-error=cpp"
-      "-Wno-error=strict-prototypes" # fixes build failure with hidapi 0.10.0
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
+    "-Wno-error=cpp"
+    "-Wno-error=strict-prototypes" # fixes build failure with hidapi 0.10.0
+  ]);
 
   postInstall = lib.optionalString stdenv.isLinux ''
     mkdir -p "$out/etc/udev/rules.d"
@@ -66,7 +50,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Free and Open On-Chip Debugging, In-System Programming and Boundary-Scan Testing";
+    description =
+      "Free and Open On-Chip Debugging, In-System Programming and Boundary-Scan Testing";
     longDescription = ''
       OpenOCD provides on-chip programming and debugging support with a layered
       architecture of JTAG interface and TAP support, debug target support
@@ -78,10 +63,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://openocd.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      bjornfor
-      prusnak
-    ];
+    maintainers = with maintainers; [ bjornfor prusnak ];
     platforms = platforms.unix;
   };
 }

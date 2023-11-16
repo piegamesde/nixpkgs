@@ -1,17 +1,5 @@
-{
-  version,
-  sha256,
-  installFiles,
-}:
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qtbase,
-  qmake,
-  cmake,
-  zip,
-}:
+{ version, sha256, installFiles }:
+{ lib, mkDerivation, fetchFromGitHub, qtbase, qmake, cmake, zip }:
 
 mkDerivation rec {
   passthru = {
@@ -30,11 +18,7 @@ mkDerivation rec {
   };
 
   buildInputs = [ qtbase ];
-  nativeBuildInputs = [
-    qmake
-    cmake
-    zip
-  ];
+  nativeBuildInputs = [ qmake cmake zip ];
 
   dontConfigure = true;
   buildPhase = ''

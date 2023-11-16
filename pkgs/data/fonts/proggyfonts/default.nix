@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  mkfontscale,
-}:
+{ lib, stdenv, fetchurl, mkfontscale }:
 
 stdenv.mkDerivation rec {
   pname = "proggyfonts";
   version = "0.1";
 
   src = fetchurl {
-    url = "https://web.archive.org/web/20150801042353/http://kaictl.net/software/proggyfonts-${version}.tar.gz";
+    url =
+      "https://web.archive.org/web/20150801042353/http://kaictl.net/software/proggyfonts-${version}.tar.gz";
     hash = "sha256-SsLzZdR5icVJNbr5rcCPbagPPtWghbqs2Jxmrtufsa4=";
   };
 
@@ -41,7 +37,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.upperbounds.net";
-    description = "A set of fixed-width screen fonts that are designed for code listings";
+    description =
+      "A set of fixed-width screen fonts that are designed for code listings";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ maintainers.myrl ];

@@ -1,18 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchurl, fetchFromGitHub }:
 
 rec {
-  makeLanguages =
-    {
-      tessdataRev,
-      tessdata ? null,
-      all ? null,
-      languages ? { },
-    }:
+  makeLanguages = { tessdataRev, tessdata ? null, all ? null, languages ? { } }:
     let
       tessdataSrc = fetchFromGitHub {
         owner = "tesseract-ocr";
@@ -21,14 +10,13 @@ rec {
         hash = tessdata;
       };
 
-      languageFile =
-        lang: hash:
+      languageFile = lang: hash:
         fetchurl {
-          url = "https://github.com/tesseract-ocr/tessdata/raw/${tessdataRev}/${lang}.traineddata";
+          url =
+            "https://github.com/tesseract-ocr/tessdata/raw/${tessdataRev}/${lang}.traineddata";
           inherit hash;
         };
-    in
-    {
+    in {
       # Use a simple fixed-output derivation for all languages to increase nix eval performance
       all = stdenv.mkDerivation {
         name = "all";
@@ -41,8 +29,7 @@ rec {
         outputHashAlgo = "sha256";
         outputHash = all;
       };
-    }
-    // (lib.mapAttrs languageFile languages);
+    } // (lib.mapAttrs languageFile languages);
 
   v3 = makeLanguages {
     tessdataRev = "3cf1e2df1fe1d1da29295c9ef0983796c7958b7d";
@@ -158,6 +145,7 @@ rec {
       uzb_cyrl = "sha256-pSBiXV3h8Aia+DbABLLPvT/lpQhEAeTpaFjUl9FQsc0=";
       vie = "sha256-zvXmN0fIbiG8u9MLtoOhsQT5gpO3SyqJF0hw1btEQck=";
       yid = "sha256-zZm4mvPApL0hpD3UPxN+/96j3V0ZrVk+ALvUih5orck=";
+
     };
   };
 

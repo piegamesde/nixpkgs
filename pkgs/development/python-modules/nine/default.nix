@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "nine";
@@ -18,4 +14,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/nandoflorestan/nine";
     license = licenses.free;
   };
+
 }

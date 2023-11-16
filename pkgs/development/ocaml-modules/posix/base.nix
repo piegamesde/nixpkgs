@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ctypes,
-  integers,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ctypes, integers }:
 
 buildDunePackage rec {
   pname = "posix-base";
@@ -20,10 +14,7 @@ buildDunePackage rec {
   duneVersion = "3";
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [
-    ctypes
-    integers
-  ];
+  propagatedBuildInputs = [ ctypes integers ];
 
   meta = {
     homepage = "https://www.liquidsoap.info/ocaml-posix/";

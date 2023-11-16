@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libX11,
-  libXt,
-}:
+{ lib, stdenv, fetchurl, libX11, libXt }:
 
 stdenv.mkDerivation rec {
   version = "0.13.42";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jy4czk39sh365b0mjpj4d5wmymj98x163vmwzyx3j183jqrhm2z";
   };
 
-  buildInputs = [
-    libX11
-    libXt
-  ];
+  buildInputs = [ libX11 libXt ];
 
   configureFlags = [ "--prefix=$(out)" ];
 

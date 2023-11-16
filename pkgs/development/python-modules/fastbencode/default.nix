@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  pythonOlder,
-  cython,
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pythonOlder, cython }:
 
 buildPythonPackage rec {
   pname = "fastbencode";

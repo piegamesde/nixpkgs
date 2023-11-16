@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  ujson,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, ujson }:
 
 buildPythonPackage rec {
   pname = "python-lsp-jsonrpc";

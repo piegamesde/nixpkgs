@@ -1,12 +1,4 @@
-{
-  gevent,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hostname,
-  pytest,
-  lib,
-  stdenv,
-}:
+{ gevent, buildPythonPackage, fetchFromGitHub, hostname, pytest, lib, stdenv }:
 
 buildPythonPackage rec {
   pname = "ruffus";
@@ -21,10 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ gevent ];
 
-  nativeCheckInputs = [
-    hostname
-    pytest
-  ];
+  nativeCheckInputs = [ hostname pytest ];
 
   # tests very flaky & hang often on darwin
   doCheck = !stdenv.isDarwin;
@@ -46,3 +35,4 @@ buildPythonPackage rec {
     maintainers = [ maintainers.kiwi ];
   };
 }
+

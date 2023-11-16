@@ -1,18 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  glib,
-  gtk2,
-  pkg-config,
-  popt,
-}:
+{ lib, stdenv, fetchurl, glib, gtk2, pkg-config, popt }:
 
-let
-  version = "0.9.2";
-in
+let version = "0.9.2";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gmrun";
   inherit version;
 
@@ -22,11 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    glib
-    gtk2
-    popt
-  ];
+  buildInputs = [ glib gtk2 popt ];
 
   doCheck = true;
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dpkg,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, dpkg, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "jitsi-meet-prosody";
@@ -25,9 +19,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    single-node-smoke-test = nixosTests.jitsi-meet;
-  };
+  passthru.tests = { single-node-smoke-test = nixosTests.jitsi-meet; };
 
   passthru.updateScript = ./update.sh;
 

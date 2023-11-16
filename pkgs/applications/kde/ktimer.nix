@@ -1,11 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  ki18n,
-  kio,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, kio }:
 
 mkDerivation {
   pname = "ktimer";
@@ -17,9 +10,5 @@ mkDerivation {
     platforms = platforms.linux;
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [
-    kdoctools
-    ki18n
-    kio
-  ];
+  buildInputs = [ kdoctools ki18n kio ];
 }

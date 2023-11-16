@@ -1,55 +1,28 @@
-{
-  stdenv,
-  lib,
-  itstool,
-  fetchurl,
-  gdk-pixbuf,
-  telepathy-glib,
-  gjs,
-  meson,
-  ninja,
-  gettext,
-  telepathy-idle,
-  libxml2,
-  desktop-file-utils,
-  pkg-config,
-  gtk4,
-  libadwaita,
-  gtk3,
-  glib,
-  libsecret,
-  libsoup_3,
-  webkitgtk_4_1,
-  gobject-introspection,
-  appstream-glib,
-  gnome,
-  wrapGAppsHook4,
-  telepathy-logger,
-  gspell,
-  gsettings-desktop-schemas,
-}:
+{ stdenv, lib, itstool, fetchurl, gdk-pixbuf, telepathy-glib, gjs, meson, ninja
+, gettext, telepathy-idle, libxml2, desktop-file-utils, pkg-config, gtk4
+, libadwaita, gtk3, glib, libsecret, libsoup_3, webkitgtk_4_1
+, gobject-introspection, appstream-glib, gnome, wrapGAppsHook4, telepathy-logger
+, gspell, gsettings-desktop-schemas }:
 
 stdenv.mkDerivation rec {
   pname = "polari";
   version = "43.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "F6GS3uYfWOPNRHJQC+cBGUa5n75SvFrBJPqurC8zQUc=";
   };
 
-  patches =
-    [
-      # Upstream runs the thumbnailer by passing it to gjs.
-      # If we wrap it in a shell script, gjs can no longer run it.
-      # Let’s change the code to run the script directly by making it executable and having gjs in shebang.
-      ./make-thumbnailer-wrappable.patch
-    ];
-
-  propagatedUserEnvPkgs = [
-    telepathy-idle
-    telepathy-logger
+  patches = [
+    # Upstream runs the thumbnailer by passing it to gjs.
+    # If we wrap it in a shell script, gjs can no longer run it.
+    # Let’s change the code to run the script directly by making it executable and having gjs in shebang.
+    ./make-thumbnailer-wrappable.patch
   ];
+
+  propagatedUserEnvPkgs = [ telepathy-idle telepathy-logger ];
 
   nativeBuildInputs = [
     meson
@@ -93,7 +66,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Polari";
-    description = "IRC chat client designed to integrate with the GNOME desktop";
+    description =
+      "IRC chat client designed to integrate with the GNOME desktop";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

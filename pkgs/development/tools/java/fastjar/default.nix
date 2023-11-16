@@ -1,16 +1,12 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  zlib,
-}:
+{ fetchurl, lib, stdenv, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "fastjar";
   version = "0.98";
 
   src = fetchurl {
-    url = "https://download.savannah.gnu.org/releases/fastjar/fastjar-${version}.tar.gz";
+    url =
+      "https://download.savannah.gnu.org/releases/fastjar/fastjar-${version}.tar.gz";
     sha256 = "0iginbz2m15hcsa3x4y7v3mhk54gr1r7m3ghx0pg4n46vv2snmpi";
   };
 

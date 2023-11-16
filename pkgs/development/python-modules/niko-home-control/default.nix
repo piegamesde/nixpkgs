@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nclib,
-  netaddr,
-  netifaces,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nclib, netaddr, netifaces
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "niko-home-control";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     sha256 = "sha256-n/uQAX2LgxeGTRF56+G5vm5wbeTQQQODV4EKaPgKw1k=";
   };
 
-  propagatedBuildInputs = [
-    nclib
-    netaddr
-    netifaces
-  ];
+  propagatedBuildInputs = [ nclib netaddr netifaces ];
 
   # Project has no tests
   doCheck = false;

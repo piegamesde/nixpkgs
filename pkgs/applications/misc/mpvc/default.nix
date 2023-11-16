@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  socat,
-  fetchFromGitHub,
-  makeWrapper,
-}:
+{ lib, stdenv, socat, fetchFromGitHub, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "mpvc";

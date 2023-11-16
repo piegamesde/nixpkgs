@@ -1,12 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-  installShellFiles,
-  bash,
-  openssh,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, installShellFiles, bash
+, openssh }:
 
 buildGoModule rec {
   pname = "k3sup";
@@ -19,10 +12,7 @@ buildGoModule rec {
     sha256 = "sha256-lnr2zMp6gpOM1DtUFIniDd38zR1qnXCmcftlt7dL6P4=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   vendorHash = "sha256-97m8xz46lvTtZoxO2+pjWmZyZnB2atPuVzYgS9DV+gI=";
 

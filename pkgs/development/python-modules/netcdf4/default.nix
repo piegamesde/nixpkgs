@@ -1,19 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPyPy,
-  python,
-  setuptools,
-  numpy,
-  zlib,
-  netcdf,
-  hdf5,
-  curl,
-  libjpeg,
-  cython,
-  cftime,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, python, setuptools, numpy, zlib
+, netcdf, hdf5, curl, libjpeg, cython, cftime }:
 
 buildPythonPackage rec {
   pname = "netCDF4";
@@ -27,20 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-A4KwL/aiiEGfb/7IXexA9FH0G4dVVHFUxXXd2fD0rlM=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    cython
-  ];
+  nativeBuildInputs = [ setuptools cython ];
 
-  propagatedBuildInputs = [
-    cftime
-    numpy
-    zlib
-    netcdf
-    hdf5
-    curl
-    libjpeg
-  ];
+  propagatedBuildInputs = [ cftime numpy zlib netcdf hdf5 curl libjpeg ];
 
   checkPhase = ''
     pushd test/
@@ -59,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Interface to netCDF library (versions 3 and 4)";
     homepage = "https://github.com/Unidata/netcdf4-python";
-    changelog = "https://github.com/Unidata/netcdf4-python/raw/v${version}/Changelog";
+    changelog =
+      "https://github.com/Unidata/netcdf4-python/raw/v${version}/Changelog";
     maintainers = with maintainers; [ ];
     license = licenses.mit;
   };

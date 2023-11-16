@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  mdx,
-  ounit2,
-  qcheck-core,
-}:
+{ lib, fetchurl, buildDunePackage, mdx, ounit2, qcheck-core }:
 
 buildDunePackage rec {
   pname = "iter";
@@ -14,16 +7,14 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
   src = fetchurl {
-    url = "https://github.com/c-cube/iter/releases/download/v${version}/iter-${version}.tbz";
+    url =
+      "https://github.com/c-cube/iter/releases/download/v${version}/iter-${version}.tbz";
     hash = "sha256-vtcSnPMxpBwDve1zsR6cEnUsyu3JELPt2Kwu4OEEtzA=";
   };
 
   doCheck = true;
   nativeCheckInputs = [ mdx.bin ];
-  checkInputs = [
-    ounit2
-    qcheck-core
-  ];
+  checkInputs = [ ounit2 qcheck-core ];
 
   meta = {
     homepage = "https://github.com/c-cube/sequence";

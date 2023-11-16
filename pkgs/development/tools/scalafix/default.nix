@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  jre,
-  coursier,
-  makeWrapper,
-  installShellFiles,
-  setJavaClassPath,
+{ lib, stdenv, jre, coursier, makeWrapper, installShellFiles, setJavaClassPath
 }:
 
 let
@@ -22,16 +15,11 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-lDeg90L484MggtQ2a9OyHv4UcfLPjzG3OJZCaWW2AC8=";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = baseName;
   inherit version;
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-    setJavaClassPath
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles setJavaClassPath ];
   buildInputs = [ deps ];
 
   dontUnpack = true;

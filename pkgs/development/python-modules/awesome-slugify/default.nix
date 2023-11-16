@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  unidecode,
-  regex,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, unidecode, regex, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "awesome-slugify";
@@ -25,10 +18,7 @@ buildPythonPackage rec {
     ./slugify_filename_test.patch # fixes broken test by new unidecode
   ];
 
-  propagatedBuildInputs = [
-    unidecode
-    regex
-  ];
+  propagatedBuildInputs = [ unidecode regex ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  python,
-  lxml,
-  pythonOlder,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, python, lxml, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gpxpy";

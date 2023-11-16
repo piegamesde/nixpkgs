@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-}:
+{ lib, stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation rec {
   version = "6.0.1";
   pname = "coan";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/coan2/v${version}/${pname}-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/coan2/v${version}/${pname}-${version}.tar.gz";
     sha256 = "1d041j0nd1hc0562lbj269dydjm4rbzagdgzdnmwdxr98544yw44";
   };
 

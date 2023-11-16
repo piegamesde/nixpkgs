@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zig,
-  testers,
-  findup,
-}:
+{ lib, stdenv, fetchFromGitHub, zig, testers, findup }:
 
 stdenv.mkDerivation rec {
   pname = "findup";

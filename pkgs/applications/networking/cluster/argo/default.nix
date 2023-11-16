@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  buildGoPackage,
-  fetchFromGitHub,
-  installShellFiles,
-  pkgsBuildBuild,
-}:
+{ lib, stdenv, buildGoModule, buildGoPackage, fetchFromGitHub, installShellFiles
+, pkgsBuildBuild }:
 
 let
   # Argo can package a static server in the CLI using the `staticfiles` go module.
@@ -31,13 +24,9 @@ let
       cp ${./staticfiles.go.mod} go.mod
     '';
 
-    ldflags = [
-      "-s"
-      "-w"
-    ];
+    ldflags = [ "-s" "-w" ];
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "argo";
   version = "3.4.7";
 
@@ -88,7 +77,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Container native workflow engine for Kubernetes";
     homepage = "https://github.com/argoproj/argo";
-    changelog = "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ groodt ];
     platforms = platforms.unix;

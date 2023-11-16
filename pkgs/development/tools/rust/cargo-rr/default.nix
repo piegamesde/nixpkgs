@@ -1,12 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  gitUpdater,
-  common-updater-scripts,
-  makeWrapper,
-  rr,
-}:
+{ lib, rustPlatform, fetchFromGitHub, gitUpdater, common-updater-scripts
+, makeWrapper, rr }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-rr";
@@ -21,9 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-PdKqWMxTtBJbNqITs3IjNcpijXy6MHitEY4jDp4jZro=";
 
-  passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
-  };
+  passthru = { updateScript = gitUpdater { rev-prefix = "v"; }; };
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -32,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = ''Cargo subcommand "rr": a light wrapper around rr, the time-travelling debugger'';
+    description = ''
+      Cargo subcommand "rr": a light wrapper around rr, the time-travelling debugger'';
     homepage = "https://github.com/danielzfranklin/cargo-rr";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ otavio ];

@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  gfortran,
-  mctc-lib,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, gfortran, mctc-lib }:
 
 stdenv.mkDerivation rec {
   pname = "mstore";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-dN2BulLS/ENRFVdJIrZRxgBV8S4d5+7BjTCGnhBbf4I=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gfortran
-  ];
+  nativeBuildInputs = [ cmake gfortran ];
 
   buildInputs = [ mctc-lib ];
 

@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  poetry-core,
-  gobject-introspection,
-  gtk3,
-  pycairo,
-  pygobject3,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, poetry-core
+, gobject-introspection, gtk3, pycairo, pygobject3, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "gaphas";
@@ -25,16 +15,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  buildInputs = [
-    gobject-introspection
-    gtk3
-  ];
+  buildInputs = [ gobject-introspection gtk3 ];
 
-  propagatedBuildInputs = [
-    pycairo
-    pygobject3
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ pycairo pygobject3 typing-extensions ];
 
   pythonImportsCheck = [ "gaphas" ];
 

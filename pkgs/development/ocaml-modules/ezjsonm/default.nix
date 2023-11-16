@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  jsonm,
-  hex,
-  sexplib0,
-}:
+{ lib, fetchurl, buildDunePackage, jsonm, hex, sexplib0 }:
 
 buildDunePackage rec {
   pname = "ezjsonm";
@@ -14,15 +7,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ezjsonm/releases/download/v${version}/ezjsonm-${version}.tbz";
+    url =
+      "https://github.com/mirage/ezjsonm/releases/download/v${version}/ezjsonm-${version}.tbz";
     hash = "sha256-CGM+Dw52eoroGTXKfnTxaTuFp5xFAtVo7t/1Fw8M13s=";
   };
 
-  propagatedBuildInputs = [
-    jsonm
-    hex
-    sexplib0
-  ];
+  propagatedBuildInputs = [ jsonm hex sexplib0 ];
 
   meta = {
     description = "An easy interface on top of the Jsonm library";

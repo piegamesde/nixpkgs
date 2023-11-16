@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -19,8 +14,7 @@ let
     pid_file_path = "${PIDFile}"
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.toxBootstrapd = {
       enable = mkOption {
@@ -53,6 +47,7 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf config.services.toxBootstrapd.enable {
@@ -70,5 +65,6 @@ in
         StateDirectory = "tox-bootstrapd";
       };
     };
+
   };
 }

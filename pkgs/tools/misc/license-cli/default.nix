@@ -1,17 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchFromSourcehut,
-  rustPlatform,
-  installShellFiles,
-  scdoc,
-  makeWrapper,
+{ stdenv, lib, fetchFromSourcehut, rustPlatform, installShellFiles, scdoc
+, makeWrapper
 
-  # Script dependencies.
-  fzf,
-  wl-clipboard,
-  xclip,
-}:
+# Script dependencies.
+, fzf, wl-clipboard, xclip }:
 
 rustPlatform.buildRustPackage rec {
   pname = "license-cli";
@@ -26,10 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-me4xPP6fO1D+vvR9XZg2EHieY7OU2HHQ4P0nkk/IKpE=";
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
 
   preInstall = ''
     ${scdoc}/bin/scdoc < doc/license.scd > license.1
@@ -48,12 +36,7 @@ rustPlatform.buildRustPackage rec {
     install -Dm0755 ./scripts/copy-header -t $out/bin
     wrapProgram $out/bin/copy-header \
       --prefix PATH : "$out/bin" \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          wl-clipboard
-          xclip
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ wl-clipboard xclip ]}
   '';
 
   meta = with lib; {

@@ -1,17 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonAtLeast,
-  flit-core,
-  pytestCheckHook,
+{ lib, buildPythonPackage, fetchPypi, pythonAtLeast, flit-core, pytestCheckHook
 }:
 
 let
   pname = "socksio";
   version = "1.0.0";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 

@@ -1,16 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchsvn,
-  # jdk8 is needed for building, but the game runs on newer jres as well
-  jdk8,
-  jre,
-  ant,
-  makeWrapper,
-  makeDesktopItem,
-  copyDesktopItems,
-  nixosTests,
-}:
+{ lib, stdenv, fetchsvn
+# jdk8 is needed for building, but the game runs on newer jres as well
+, jdk8, jre, ant, makeWrapper, makeDesktopItem, copyDesktopItems, nixosTests }:
 
 let
   desktopItem = makeDesktopItem {
@@ -25,8 +15,8 @@ let
     exec = "domination-map-editor";
     icon = "domination";
   };
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "domination";
   version = "1.2.7";
 
@@ -40,12 +30,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-xvlPC7M6DaF3g2O3vQDmcdp7914qOaiikY02RTgAVkM=";
   };
 
-  nativeBuildInputs = [
-    jdk8
-    ant
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ jdk8 ant makeWrapper copyDesktopItems ];
 
   buildPhase = ''
     runHook preBuild
@@ -54,10 +39,7 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
-  desktopItems = [
-    desktopItem
-    editorDesktopItem
-  ];
+  desktopItems = [ desktopItem editorDesktopItem ];
 
   installPhase = ''
     runHook preInstall
@@ -85,9 +67,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    domination-starts = nixosTests.domination;
-  };
+  passthru.tests = { domination-starts = nixosTests.domination; };
 
   meta = with lib; {
     homepage = "https://domination.sourceforge.net/";

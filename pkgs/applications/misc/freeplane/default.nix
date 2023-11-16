@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchpatch,
-  fetchFromGitHub,
-  makeWrapper,
-  writeText,
-  runtimeShell,
-  jdk11,
-  perl,
-  gradle_6,
-  which,
-}:
+{ stdenv, lib, fetchpatch, fetchFromGitHub, makeWrapper, writeText, runtimeShell
+, jdk11, perl, gradle_6, which }:
 
 let
   pname = "freeplane";
@@ -34,11 +23,7 @@ let
     name = "${pname}-deps";
     inherit src;
 
-    nativeBuildInputs = [
-      jdk
-      perl
-      gradle
-    ];
+    nativeBuildInputs = [ jdk perl gradle ];
 
     buildPhase = ''
       GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk} --no-daemon jar
@@ -87,10 +72,7 @@ let
     name = "${pname}-emoji";
     inherit src;
 
-    nativeBuildInputs = [
-      jdk
-      gradle
-    ];
+    nativeBuildInputs = [ jdk gradle ];
 
     buildPhase = ''
       GRADLE_USER_HOME=$PWD gradle -Dorg.gradle.java.home=${jdk} --no-daemon --offline --init-script ${gradleInit} :freeplane:downloadEmoji
@@ -106,15 +88,11 @@ let
     outputHashMode = "recursive";
     outputHash = emoji_outputHash;
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    makeWrapper
-    jdk
-    gradle
-  ];
+  nativeBuildInputs = [ makeWrapper jdk gradle ];
 
   buildPhase = ''
     mkdir -p -- ./freeplane/build/emoji/{txt,resources/images}
@@ -131,12 +109,7 @@ stdenv.mkDerivation rec {
     makeWrapper $out/share/${pname}/${pname}.sh $out/bin/${pname} \
       --set FREEPLANE_BASE_DIR $out/share/${pname} \
       --set JAVA_HOME ${jdk} \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          jdk
-          which
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ jdk which ]}
     runHook postInstall
   '';
 

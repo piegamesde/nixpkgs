@@ -1,15 +1,5 @@
-{
-  buildPythonPackage,
-  cryptography,
-  django,
-  django-appconf,
-  fetchFromGitHub,
-  fetchpatch,
-  lib,
-  python,
-  pythonOlder,
-  setuptools,
-}:
+{ buildPythonPackage, cryptography, django, django-appconf, fetchFromGitHub
+, fetchpatch, lib, python, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "django-cryptography";
@@ -26,17 +16,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    cryptography
-    django
-    django-appconf
-  ];
+  propagatedBuildInputs = [ cryptography django django-appconf ];
 
-  patches =
-    [
-      # See: https://github.com/georgemarshall/django-cryptography/pull/88
-      ./fix-setup-cfg.patch
-    ];
+  patches = [
+    # See: https://github.com/georgemarshall/django-cryptography/pull/88
+    ./fix-setup-cfg.patch
+  ];
 
   pythonImportsCheck = [ "django_cryptography" ];
 

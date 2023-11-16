@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  pytest,
-  jinja2,
-  matplotlib,
-  nose,
-  pillow,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytest, jinja2, matplotlib
+, nose, pillow, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-mpl";
@@ -26,12 +16,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [
-    jinja2
-    matplotlib
-    nose
-    pillow
-  ];
+  propagatedBuildInputs = [ jinja2 matplotlib nose pillow ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -41,11 +26,10 @@ buildPythonPackage rec {
     "test_hash_missing"
   ];
 
-  disabledTestPaths =
-    [
-      # Following are broken since at least a1548780dbc79d76360580691dc1bb4af4e837f6
-      "tests/subtests/test_subtest.py"
-    ];
+  disabledTestPaths = [
+    # Following are broken since at least a1548780dbc79d76360580691dc1bb4af4e837f6
+    "tests/subtests/test_subtest.py"
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -55,7 +39,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Pytest plugin to help with testing figures output from Matplotlib";
+    description =
+      "Pytest plugin to help with testing figures output from Matplotlib";
     homepage = "https://github.com/matplotlib/pytest-mpl";
     license = licenses.bsd3;
     maintainers = [ maintainers.costrouc ];

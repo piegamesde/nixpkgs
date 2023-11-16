@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeText,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, writeText, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "limesurvey";
@@ -33,9 +27,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    smoke-test = nixosTests.limesurvey;
-  };
+  passthru.tests = { smoke-test = nixosTests.limesurvey; };
 
   meta = with lib; {
     description = "Open source survey application";

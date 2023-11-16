@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "clairvoyance";
@@ -20,10 +16,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ aiohttp ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    aiounittest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ aiounittest pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -32,11 +25,10 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "clairvoyance" ];
 
-  disabledTests =
-    [
-      # KeyError
-      "test_probe_typename"
-    ];
+  disabledTests = [
+    # KeyError
+    "test_probe_typename"
+  ];
 
   meta = with lib; {
     description = "Tool to obtain GraphQL API schemas";

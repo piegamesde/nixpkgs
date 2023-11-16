@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ocamlPackages,
-}:
+{ lib, stdenv, fetchurl, ocamlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "hevea";
@@ -16,10 +11,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = with ocamlPackages; [
-    ocaml
-    ocamlbuild
-  ];
+  nativeBuildInputs = with ocamlPackages; [ ocaml ocamlbuild ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

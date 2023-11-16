@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  kernel,
-  bc,
-}:
+{ lib, stdenv, fetchFromGitHub, kernel, bc }:
 
 stdenv.mkDerivation rec {
   pname = "rtl88x2bu";
@@ -40,9 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/morrownr/88x2bu-20210702";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      otavio
-      ralith
-    ];
+    maintainers = with maintainers; [ otavio ralith ];
   };
 }

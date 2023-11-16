@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  python,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, python }:
 
 buildPythonPackage rec {
   pname = "sseclient-py";

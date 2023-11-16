@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,49 +13,46 @@ let
   logdir = "/var/log/asterisk";
 
   # Add filecontents from files of useTheseDefaultConfFiles to confFiles, do not override
-  defaultConfFiles = subtractLists (attrNames cfg.confFiles) cfg.useTheseDefaultConfFiles;
-  allConfFiles =
-    {
-      # Default asterisk.conf file
-      "asterisk.conf".text = ''
-        [directories]
-        astetcdir => /etc/asterisk
-        astmoddir => ${cfg.package}/lib/asterisk/modules
-        astvarlibdir => /var/lib/asterisk
-        astdbdir => /var/lib/asterisk
-        astkeydir => /var/lib/asterisk
-        astdatadir => /var/lib/asterisk
-        astagidir => /var/lib/asterisk/agi-bin
-        astspooldir => /var/spool/asterisk
-        astrundir => /run/asterisk
-        astlogdir => /var/log/asterisk
-        astsbindir => ${cfg.package}/sbin
-        ${cfg.extraConfig}
-      '';
+  defaultConfFiles =
+    subtractLists (attrNames cfg.confFiles) cfg.useTheseDefaultConfFiles;
+  allConfFiles = {
+    # Default asterisk.conf file
+    "asterisk.conf".text = ''
+      [directories]
+      astetcdir => /etc/asterisk
+      astmoddir => ${cfg.package}/lib/asterisk/modules
+      astvarlibdir => /var/lib/asterisk
+      astdbdir => /var/lib/asterisk
+      astkeydir => /var/lib/asterisk
+      astdatadir => /var/lib/asterisk
+      astagidir => /var/lib/asterisk/agi-bin
+      astspooldir => /var/spool/asterisk
+      astrundir => /run/asterisk
+      astlogdir => /var/log/asterisk
+      astsbindir => ${cfg.package}/sbin
+      ${cfg.extraConfig}
+    '';
 
-      # Loading all modules by default is considered sensible by the authors of
-      # "Asterisk: The Definitive Guide". Secure sites will likely want to
-      # specify their own "modules.conf" in the confFiles option.
-      "modules.conf".text = ''
-        [modules]
-        autoload=yes
-      '';
+    # Loading all modules by default is considered sensible by the authors of
+    # "Asterisk: The Definitive Guide". Secure sites will likely want to
+    # specify their own "modules.conf" in the confFiles option.
+    "modules.conf".text = ''
+      [modules]
+      autoload=yes
+    '';
 
-      # Use syslog for logging so logs can be viewed with journalctl
-      "logger.conf".text = ''
-        [general]
+    # Use syslog for logging so logs can be viewed with journalctl
+    "logger.conf".text = ''
+      [general]
 
-        [logfiles]
-        syslog.local0 => notice,warning,error
-      '';
-    }
-    // mapAttrs (name: text: { inherit text; }) cfg.confFiles
-    // listToAttrs (
-      map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; }) defaultConfFiles
-    );
-in
+      [logfiles]
+      syslog.local0 => notice,warning,error
+    '';
+  } // mapAttrs (name: text: { inherit text; }) cfg.confFiles // listToAttrs
+    (map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
+      defaultConfFiles);
 
-{
+in {
   options = {
     services.asterisk = {
       enable = mkOption {
@@ -180,10 +172,7 @@ in
           "unistim.conf"
         ];
         type = types.listOf types.str;
-        example = [
-          "sip.conf"
-          "dundi.conf"
-        ];
+        example = [ "sip.conf" "dundi.conf" ];
         description = lib.mdDoc ''
           Sets these config files to the default content. The default value for
                     this option contains all necesscary files to avoid errors at startup.
@@ -194,11 +183,7 @@ in
       extraArguments = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [
-          "-vvvddd"
-          "-e"
-          "1024"
-        ];
+        example = [ "-vvvddd" "-e" "1024" ];
         description = lib.mdDoc ''
           Additional command line arguments to pass to Asterisk.
         '';
@@ -215,7 +200,9 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
-    environment.etc = mapAttrs' (name: value: nameValuePair "asterisk/${name}" value) allConfFiles;
+    environment.etc =
+      mapAttrs' (name: value: nameValuePair "asterisk/${name}" value)
+      allConfFiles;
 
     users.users.asterisk = {
       name = asteriskUser;
@@ -254,12 +241,10 @@ in
       '';
 
       serviceConfig = {
-        ExecStart =
-          let
-            # FIXME: This doesn't account for arguments with spaces
-            argString = concatStringsSep " " cfg.extraArguments;
-          in
-          "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F";
+        ExecStart = let
+          # FIXME: This doesn't account for arguments with spaces
+          argString = concatStringsSep " " cfg.extraArguments;
+        in "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F";
         ExecReload = ''
           ${cfg.package}/bin/asterisk -x "core reload"
         '';

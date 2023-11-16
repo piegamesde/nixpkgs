@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  requests,
-  pytestCheckHook,
-  responses,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, requests
+, pytestCheckHook, responses }:
 
 buildPythonPackage rec {
   pname = "herepy";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   pythonImportsCheck = [ "herepy" ];
 

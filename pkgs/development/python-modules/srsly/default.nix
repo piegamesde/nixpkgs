@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  cython,
-  catalogue,
-  mock,
-  numpy,
-  psutil,
-  pytest,
-  ruamel-yaml,
-  setuptools,
-  tornado,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, cython, catalogue, mock
+, numpy, psutil, pytest, ruamel-yaml, setuptools, tornado }:
 
 buildPythonPackage rec {
   pname = "srsly";
@@ -26,21 +13,11 @@ buildPythonPackage rec {
     hash = "sha256-R7QfMjq6TJwzEav2DkQ8A6nv6cafZdxALRc8Mvd0Sm8=";
   };
 
-  nativeBuildInputs = [
-    cython
-    setuptools
-  ];
+  nativeBuildInputs = [ cython setuptools ];
 
   propagatedBuildInputs = [ catalogue ];
 
-  nativeCheckInputs = [
-    mock
-    numpy
-    psutil
-    pytest
-    ruamel-yaml
-    tornado
-  ];
+  nativeCheckInputs = [ mock numpy psutil pytest ruamel-yaml tornado ];
 
   pythonImportsCheck = [ "srsly" ];
 

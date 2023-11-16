@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pandoc,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, pandoc, pytestCheckHook, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "publicsuffixlist";

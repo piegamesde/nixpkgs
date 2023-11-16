@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  msrest,
-  msrestazure,
-  azure-common,
-  azure-mgmt-core,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, msrest, msrestazure, azure-common
+, azure-mgmt-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-eventgrid";
@@ -22,12 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-jJ+gvJmOTz2YXQ9BDrFgXCybplgwvOYZ5Gv7FHLhxQA=";
   };
 
-  propagatedBuildInputs = [
-    msrest
-    msrestazure
-    azure-mgmt-core
-    azure-common
-  ];
+  propagatedBuildInputs = [ msrest msrestazure azure-mgmt-core azure-common ];
 
   # has no tests
   doCheck = false;
@@ -35,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "azure.mgmt.eventgrid" ];
 
   meta = with lib; {
-    description = "This is the Microsoft Azure EventGrid Management Client Library";
+    description =
+      "This is the Microsoft Azure EventGrid Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ maxwilson ];

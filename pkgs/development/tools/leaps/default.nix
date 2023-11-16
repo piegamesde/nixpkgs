@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  leaps,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, leaps }:
 
 buildGoModule rec {
   pname = "leaps";
@@ -20,11 +14,7 @@ buildGoModule rec {
   proxyVendor = true; # darwin/linux hash mismatch
   vendorSha256 = "sha256-0dwUOoV2bxPB+B6CKxJPImPIDlBMPcm0AwEMrVUkALc=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   passthru.tests.version = testers.testVersion { package = leaps; };
 

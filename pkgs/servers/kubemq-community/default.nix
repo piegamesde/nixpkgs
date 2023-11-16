@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubemq-community";
@@ -16,11 +12,7 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.version=${version}" ];
 
   doCheck = false; # grpc tests are flaky
 
@@ -28,7 +20,8 @@ buildGoModule rec {
 
   meta = {
     homepage = "https://github.com/kubemq-io/kubemq-community";
-    description = "KubeMQ Community is the open-source version of KubeMQ, the Kubernetes native message broker.";
+    description =
+      "KubeMQ Community is the open-source version of KubeMQ, the Kubernetes native message broker.";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ brianmcgee ];
   };

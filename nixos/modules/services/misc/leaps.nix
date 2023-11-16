@@ -1,32 +1,26 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
   cfg = config.services.leaps;
   stateDir = "/var/lib/leaps/";
-in
-{
+in {
   options = {
     services.leaps = {
       enable = mkEnableOption (lib.mdDoc "leaps");
       port = mkOption {
         type = types.port;
         default = 8080;
-        description = lib.mdDoc "A port where leaps listens for incoming http requests";
+        description =
+          lib.mdDoc "A port where leaps listens for incoming http requests";
       };
       address = mkOption {
         default = "";
         type = types.str;
         example = "127.0.0.1";
-        description =
-          lib.mdDoc
-            "Hostname or IP-address to listen to. By default it will listen on all interfaces.";
+        description = lib.mdDoc
+          "Hostname or IP-address to listen to. By default it will listen on all interfaces.";
       };
       path = mkOption {
         default = "/";
@@ -46,9 +40,7 @@ in
         createHome = true;
       };
 
-      groups.leaps = {
-        gid = config.ids.gids.leaps;
-      };
+      groups.leaps = { gid = config.ids.gids.leaps; };
     };
 
     systemd.services.leaps = {
@@ -62,9 +54,9 @@ in
         Restart = "on-failure";
         WorkingDirectory = stateDir;
         PrivateTmp = true;
-        ExecStart = "${pkgs.leaps}/bin/leaps -path ${toString cfg.path} -address ${cfg.address}:${
-            toString cfg.port
-          }";
+        ExecStart = "${pkgs.leaps}/bin/leaps -path ${
+            toString cfg.path
+          } -address ${cfg.address}:${toString cfg.port}";
       };
     };
   };

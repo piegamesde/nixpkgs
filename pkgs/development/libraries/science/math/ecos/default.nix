@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "ecos";
@@ -32,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A lightweight conic solver for second-order cone programming";
+    description =
+      "A lightweight conic solver for second-order cone programming";
     homepage = "https://www.embotech.com/ECOS";
     downloadPage = "https://github.com/embotech/ecos/releases";
     license = licenses.gpl3;

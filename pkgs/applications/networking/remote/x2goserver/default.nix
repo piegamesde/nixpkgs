@@ -1,48 +1,21 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  perlPackages,
-  makeWrapper,
-  perl,
-  which,
-  nx-libs,
-  util-linux,
-  coreutils,
-  glibc,
-  gawk,
-  gnused,
-  gnugrep,
-  findutils,
-  xorg,
-  nettools,
-  iproute2,
-  bc,
-  procps,
-  psmisc,
-  lsof,
-  pwgen,
-  openssh,
-  sshfs,
-  bash,
-}:
+{ stdenv, lib, fetchurl, perlPackages, makeWrapper, perl, which, nx-libs
+, util-linux, coreutils, glibc, gawk, gnused, gnugrep, findutils, xorg, nettools
+, iproute2, bc, procps, psmisc, lsof, pwgen, openssh, sshfs, bash }:
 
 let
   pname = "x2goserver";
   version = "4.1.0.3";
 
   src = fetchurl {
-    url = "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "https://code.x2go.org/releases/source/${pname}/${pname}-${version}.tar.gz";
     sha256 = "Z3aqo1T1pE40nws8F21JiMiKYYwu30bJijeuicBp3NA=";
   };
 
   x2go-perl = perlPackages.buildPerlPackage rec {
     pname = "X2Go";
     inherit version src;
-    makeFlags = [
-      "-f"
-      "Makefile.perl"
-    ];
+    makeFlags = [ "-f" "Makefile.perl" ];
     patchPhase = ''
       substituteInPlace X2Go/Config.pm --replace '/etc/x2go' '/var/lib/x2go/conf'
       substituteInPlace X2Go/Server/DB.pm \
@@ -52,8 +25,7 @@ let
     '';
   };
 
-  perlEnv = perl.withPackages (
-    p:
+  perlEnv = perl.withPackages (p:
     with p; [
       x2go-perl
       DBI
@@ -64,8 +36,7 @@ let
       ConfigSimple
       Switch
       FileWhich
-    ]
-  );
+    ]);
 
   binaryDeps = [
     perlEnv
@@ -96,14 +67,10 @@ let
     xorg.xkbcomp
     xorg.setxkbmap
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  buildInputs = [
-    perlEnv
-    bash
-  ];
+  buildInputs = [ perlEnv bash ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -126,10 +93,7 @@ stdenv.mkDerivation rec {
       --replace "[ -f /etc/redhat-release ]" "[ -d /etc/nix ] || [ -f /etc/redhat-release ]"
   '';
 
-  makeFlags = [
-    "PREFIX=/"
-    "NXLIBDIR=${nx-libs}/lib/nx"
-  ];
+  makeFlags = [ "PREFIX=/" "NXLIBDIR=${nx-libs}/lib/nx" ];
 
   installFlags = [ "DESTDIR=$(out)" ];
 
@@ -155,9 +119,6 @@ stdenv.mkDerivation rec {
     homepage = "http://x2go.org/";
     platforms = lib.platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-      averelld
-      mkg20001
-    ];
+    maintainers = with maintainers; [ averelld mkg20001 ];
   };
 }

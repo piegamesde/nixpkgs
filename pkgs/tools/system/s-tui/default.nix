@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  python3Packages,
-  fetchPypi,
-  nix-update-script,
-  s-tui,
-  testers,
-}:
+{ lib, stdenv, python3Packages, fetchPypi, nix-update-script, s-tui, testers }:
 
 python3Packages.buildPythonPackage rec {
   pname = "s-tui";
@@ -17,10 +9,7 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-soVrmzlVy0zrqvOclR7SfPphp4xAEHv+xdr0NN19ye0=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    urwid
-    psutil
-  ];
+  propagatedBuildInputs = with python3Packages; [ urwid psutil ];
 
   passthru = {
     updateScript = nix-update-script { };

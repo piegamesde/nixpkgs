@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  gperf,
-  guile,
-  guile-lib,
-  libffi,
-  pkg-config,
+{ lib, stdenv, fetchurl, fetchpatch, gperf, guile, guile-lib, libffi, pkg-config
 }:
 
 stdenv.mkDerivation rec {
@@ -15,17 +6,13 @@ stdenv.mkDerivation rec {
   version = "0.6.3";
 
   src = fetchurl {
-    url = "http://download.savannah.nongnu.org/releases/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "http://download.savannah.nongnu.org/releases/${pname}/${pname}-${version}.tar.gz";
     hash = "sha256-OMK0ROrbuMDKt42QpE7D6/9CvUEMW4SpEBjO5+tk0rs=";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gperf
-    guile
-    guile-lib
-    libffi
-  ];
+  buildInputs = [ gperf guile guile-lib libffi ];
 
   GUILE_SITE = "${guile-lib}/share/guile/site";
 

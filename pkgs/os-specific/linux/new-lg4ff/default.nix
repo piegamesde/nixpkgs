@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  kernel,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, kernel, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "new-lg4ff";

@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.dmrconfig;
-in
-{
+let cfg = config.programs.dmrconfig;
+
+in {
   meta.maintainers = with maintainers; [ ];
 
   ###### interface

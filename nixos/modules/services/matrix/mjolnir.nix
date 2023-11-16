@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -13,11 +8,12 @@ let
     inherit (cfg) dataPath managementRoom protectedRooms;
 
     accessToken = "@ACCESS_TOKEN@"; # will be replaced in "generateConfig"
-    homeserverUrl =
-      if cfg.pantalaimon.enable then
-        "http://${cfg.pantalaimon.options.listenAddress}:${toString cfg.pantalaimon.options.listenPort}"
-      else
-        cfg.homeserverUrl;
+    homeserverUrl = if cfg.pantalaimon.enable then
+      "http://${cfg.pantalaimon.options.listenAddress}:${
+        toString cfg.pantalaimon.options.listenPort
+      }"
+    else
+      cfg.homeserverUrl;
 
     rawHomeserverUrl = cfg.homeserverUrl;
 
@@ -25,20 +21,14 @@ let
       inherit (cfg.pantalaimon) username;
 
       use = cfg.pantalaimon.enable;
-      password = "@PANTALAIMON_PASSWORD@"; # will be replaced in "generateConfig"
+      password =
+        "@PANTALAIMON_PASSWORD@"; # will be replaced in "generateConfig"
     };
   };
 
-  moduleConfigFile = pkgs.writeText "module-config.yaml" (
-    generators.toYAML { } (
-      filterAttrs (_: v: v != null) (
-        fold recursiveUpdate { } [
-          yamlConfig
-          cfg.settings
-        ]
-      )
-    )
-  );
+  moduleConfigFile = pkgs.writeText "module-config.yaml" (generators.toYAML { }
+    (filterAttrs (_: v: v != null)
+      (fold recursiveUpdate { } [ yamlConfig cfg.settings ])));
 
   # these config files will be merged one after the other to build the final config
   configFiles = [
@@ -48,36 +38,31 @@ let
 
   # this will generate the default.yaml file with all configFiles as inputs and
   # replace all secret strings using replace-secret
-  generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
-    let
-      yqEvalStr =
-        concatImapStringsSep " * " (pos: _: "select(fileIndex == ${toString (pos - 1)})")
-          configFiles;
-      yqEvalArgs = concatStringsSep " " configFiles;
-    in
-    ''
-      set -euo pipefail
+  generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (let
+    yqEvalStr = concatImapStringsSep " * "
+      (pos: _: "select(fileIndex == ${toString (pos - 1)})") configFiles;
+    yqEvalArgs = concatStringsSep " " configFiles;
+  in ''
+    set -euo pipefail
 
-      umask 077
+    umask 077
 
-      # mjolnir will try to load a config from "./config/default.yaml" in the working directory
-      # -> let's place the generated config there
-      mkdir -p ${cfg.dataPath}/config
+    # mjolnir will try to load a config from "./config/default.yaml" in the working directory
+    # -> let's place the generated config there
+    mkdir -p ${cfg.dataPath}/config
 
-      # merge all config files into one, overriding settings of the previous one with the next config
-      # e.g. "eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' filea.yaml fileb.yaml" will merge filea.yaml with fileb.yaml
-      ${pkgs.yq-go}/bin/yq eval-all -P '${yqEvalStr}' ${yqEvalArgs} > ${cfg.dataPath}/config/default.yaml
+    # merge all config files into one, overriding settings of the previous one with the next config
+    # e.g. "eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' filea.yaml fileb.yaml" will merge filea.yaml with fileb.yaml
+    ${pkgs.yq-go}/bin/yq eval-all -P '${yqEvalStr}' ${yqEvalArgs} > ${cfg.dataPath}/config/default.yaml
 
-      ${optionalString (cfg.accessTokenFile != null) ''
-        ${pkgs.replace-secret}/bin/replace-secret '@ACCESS_TOKEN@' '${cfg.accessTokenFile}' ${cfg.dataPath}/config/default.yaml
-      ''}
-      ${optionalString (cfg.pantalaimon.passwordFile != null) ''
-        ${pkgs.replace-secret}/bin/replace-secret '@PANTALAIMON_PASSWORD@' '${cfg.pantalaimon.passwordFile}' ${cfg.dataPath}/config/default.yaml
-      ''}
-    ''
-  );
-in
-{
+    ${optionalString (cfg.accessTokenFile != null) ''
+      ${pkgs.replace-secret}/bin/replace-secret '@ACCESS_TOKEN@' '${cfg.accessTokenFile}' ${cfg.dataPath}/config/default.yaml
+    ''}
+    ${optionalString (cfg.pantalaimon.passwordFile != null) ''
+      ${pkgs.replace-secret}/bin/replace-secret '@PANTALAIMON_PASSWORD@' '${cfg.pantalaimon.passwordFile}' ${cfg.dataPath}/config/default.yaml
+    ''}
+  '');
+in {
   options.services.mjolnir = {
     enable = mkEnableOption (lib.mdDoc "Mjolnir, a moderation tool for Matrix");
 
@@ -109,12 +94,10 @@ in
       default = { };
       type = types.submodule {
         options = {
-          enable = mkEnableOption (
-            lib.mdDoc ''
-              If true, accessToken is ignored and the username/password below will be
-              used instead. The access token of the bot will be stored in the dataPath.
-            ''
-          );
+          enable = mkEnableOption (lib.mdDoc ''
+            If true, accessToken is ignored and the username/password below will be
+            used instead. The access token of the bot will be stored in the dataPath.
+          '');
 
           username = mkOption {
             type = types.str;
@@ -191,7 +174,8 @@ in
   config = mkIf config.services.mjolnir.enable {
     assertions = [
       {
-        assertion = !(cfg.pantalaimon.enable && cfg.pantalaimon.passwordFile == null);
+        assertion =
+          !(cfg.pantalaimon.enable && cfg.pantalaimon.passwordFile == null);
         message = "Specify pantalaimon.passwordFile";
       }
       {
@@ -205,20 +189,20 @@ in
     ];
 
     services.pantalaimon-headless.instances."mjolnir" =
-      mkIf cfg.pantalaimon.enable { homeserver = cfg.homeserverUrl; } // cfg.pantalaimon.options;
+      mkIf cfg.pantalaimon.enable { homeserver = cfg.homeserverUrl; }
+      // cfg.pantalaimon.options;
 
     systemd.services.mjolnir = {
       description = "mjolnir - a moderation tool for Matrix";
-      wants = [
-        "network-online.target"
-      ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
-      after = [
-        "network-online.target"
-      ] ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
+      wants = [ "network-online.target" ]
+        ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
+      after = [ "network-online.target" ]
+        ++ optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.mjolnir}/bin/mjolnir --mjolnir-config ./config/default.yaml";
+        ExecStart =
+          "${pkgs.mjolnir}/bin/mjolnir --mjolnir-config ./config/default.yaml";
         ExecStartPre = [ generateConfig ];
         WorkingDirectory = cfg.dataPath;
         StateDirectory = "mjolnir";

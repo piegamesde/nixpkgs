@@ -1,17 +1,12 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  pkg-config,
-  gtk2,
-}:
+{ fetchurl, lib, stdenv, pkg-config, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "gtkimageview";
   version = "1.6.4";
 
   src = fetchurl {
-    url = "https://sources.archlinux.org/other/packages/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "https://sources.archlinux.org/other/packages/${pname}/${pname}-${version}.tar.gz";
     sha256 = "1wj63af9j9p5i067lpwi9lxvwalamakrmklvl983kvi7s4w1ss2c";
   };
 

@@ -1,17 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.corerad;
   settingsFormat = pkgs.formats.toml { };
-in
-{
+
+in {
   meta.maintainers = with maintainers; [ mdlayher ];
 
   options.services.corerad = {
@@ -49,7 +44,8 @@ in
 
     configFile = mkOption {
       type = types.path;
-      example = literalExpression ''"''${pkgs.corerad}/etc/corerad/corerad.toml"'';
+      example =
+        literalExpression ''"''${pkgs.corerad}/etc/corerad/corerad.toml"'';
       description = lib.mdDoc "Path to CoreRAD TOML configuration file.";
     };
 
@@ -63,7 +59,8 @@ in
 
   config = mkIf cfg.enable {
     # Prefer the config file over settings if both are set.
-    services.corerad.configFile = mkDefault (settingsFormat.generate "corerad.toml" cfg.settings);
+    services.corerad.configFile =
+      mkDefault (settingsFormat.generate "corerad.toml" cfg.settings);
 
     systemd.services.corerad = {
       description = "CoreRAD IPv6 NDP RA daemon";

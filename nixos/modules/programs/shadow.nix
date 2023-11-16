@@ -1,12 +1,6 @@
 # Configuration for the pwdutils suite of tools: passwd, useradd, etc.
 
-{
-  config,
-  lib,
-  utils,
-  pkgs,
-  ...
-}:
+{ config, lib, utils, pkgs, ... }:
 
 with lib;
 
@@ -55,9 +49,8 @@ let
     group = "root";
     inherit source;
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -74,6 +67,7 @@ in
       example = literalExpression "pkgs.zsh";
       type = types.either types.path types.shellPackage;
     };
+
   };
 
   ###### implementation
@@ -83,28 +77,24 @@ in
     environment.systemPackages =
       lib.optional config.users.mutableUsers pkgs.shadow
       ++ lib.optional (types.shellPackage.check config.users.defaultUserShell)
-        config.users.defaultUserShell;
+      config.users.defaultUserShell;
 
-    environment.etc = {
-      # /etc/login.defs: global configuration for pwdutils.  You
-      # cannot login without it!
-      "login.defs".source = pkgs.writeText "login.defs" loginDefs;
+    environment.etc =
+      { # /etc/login.defs: global configuration for pwdutils.  You
+        # cannot login without it!
+        "login.defs".source = pkgs.writeText "login.defs" loginDefs;
 
-      # /etc/default/useradd: configuration for useradd.
-      "default/useradd".source = pkgs.writeText "useradd" ''
-        GROUP=100
-        HOME=/home
-        SHELL=${utils.toShellPath config.users.defaultUserShell}
-      '';
-    };
+        # /etc/default/useradd: configuration for useradd.
+        "default/useradd".source = pkgs.writeText "useradd" ''
+          GROUP=100
+          HOME=/home
+          SHELL=${utils.toShellPath config.users.defaultUserShell}
+        '';
+      };
 
     security.pam.services = {
-      chsh = {
-        rootOK = true;
-      };
-      chfn = {
-        rootOK = true;
-      };
+      chsh = { rootOK = true; };
+      chfn = { rootOK = true; };
       su = {
         rootOK = true;
         forwardXAuth = true;
@@ -114,49 +104,31 @@ in
       # Note: useradd, groupadd etc. aren't setuid root, so it
       # doesn't really matter what the PAM config says as long as it
       # lets root in.
-      useradd = {
-        rootOK = true;
-      };
-      usermod = {
-        rootOK = true;
-      };
-      userdel = {
-        rootOK = true;
-      };
-      groupadd = {
-        rootOK = true;
-      };
-      groupmod = {
-        rootOK = true;
-      };
-      groupmems = {
-        rootOK = true;
-      };
-      groupdel = {
-        rootOK = true;
-      };
+      useradd = { rootOK = true; };
+      usermod = { rootOK = true; };
+      userdel = { rootOK = true; };
+      groupadd = { rootOK = true; };
+      groupmod = { rootOK = true; };
+      groupmems = { rootOK = true; };
+      groupdel = { rootOK = true; };
       login = {
         startSession = true;
         allowNullPassword = true;
         showMotd = true;
         updateWtmp = true;
       };
-      chpasswd = {
-        rootOK = true;
-      };
+      chpasswd = { rootOK = true; };
     };
 
-    security.wrappers =
-      {
-        su = mkSetuidRoot "${pkgs.shadow.su}/bin/su";
-        sg = mkSetuidRoot "${pkgs.shadow.out}/bin/sg";
-        newgrp = mkSetuidRoot "${pkgs.shadow.out}/bin/newgrp";
-        newuidmap = mkSetuidRoot "${pkgs.shadow.out}/bin/newuidmap";
-        newgidmap = mkSetuidRoot "${pkgs.shadow.out}/bin/newgidmap";
-      }
-      // lib.optionalAttrs config.users.mutableUsers {
-        chsh = mkSetuidRoot "${pkgs.shadow.out}/bin/chsh";
-        passwd = mkSetuidRoot "${pkgs.shadow.out}/bin/passwd";
-      };
+    security.wrappers = {
+      su = mkSetuidRoot "${pkgs.shadow.su}/bin/su";
+      sg = mkSetuidRoot "${pkgs.shadow.out}/bin/sg";
+      newgrp = mkSetuidRoot "${pkgs.shadow.out}/bin/newgrp";
+      newuidmap = mkSetuidRoot "${pkgs.shadow.out}/bin/newuidmap";
+      newgidmap = mkSetuidRoot "${pkgs.shadow.out}/bin/newgidmap";
+    } // lib.optionalAttrs config.users.mutableUsers {
+      chsh = mkSetuidRoot "${pkgs.shadow.out}/bin/chsh";
+      passwd = mkSetuidRoot "${pkgs.shadow.out}/bin/passwd";
+    };
   };
 }

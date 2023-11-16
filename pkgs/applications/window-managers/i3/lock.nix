@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  libxcb,
-  xcbutilkeysyms,
-  xcbutilimage,
-  xcbutilxrm,
-  pam,
-  libX11,
-  libev,
-  cairo,
-  libxkbcommon,
-  libxkbfile,
+{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, libxcb, xcbutilkeysyms
+, xcbutilimage, xcbutilxrm, pam, libX11, libev, cairo, libxkbcommon, libxkbfile
 }:
 
 stdenv.mkDerivation rec {
@@ -28,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cC908c47fkU6msLqZSxpEbKxO1/PatH81QeuCzBSZGw=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [
     libxcb
     xcbutilkeysyms
@@ -54,11 +35,9 @@ stdenv.mkDerivation rec {
       for every keystroke. After entering your password, the screen is unlocked again.
     '';
     homepage = "https://i3wm.org/i3lock/";
-    maintainers = with maintainers; [
-      malyn
-      domenkozar
-    ];
+    maintainers = with maintainers; [ malyn domenkozar ];
     license = licenses.bsd3;
     platforms = platforms.all;
   };
+
 }

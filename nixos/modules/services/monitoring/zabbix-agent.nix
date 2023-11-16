@@ -1,27 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.zabbixAgent;
 
+  inherit (lib) mkDefault mkEnableOption mkIf mkMerge mkOption;
   inherit (lib)
-    mkDefault
-    mkEnableOption
-    mkIf
-    mkMerge
-    mkOption
-  ;
-  inherit (lib)
-    attrValues
-    concatMapStringsSep
-    literalExpression
-    optionalString
-    types
-  ;
+    attrValues concatMapStringsSep literalExpression optionalString types;
   inherit (lib.generators) toKeyValue;
 
   user = "zabbix-agent";
@@ -32,21 +16,13 @@ let
     paths = attrValues cfg.modules;
   };
 
-  configFile = pkgs.writeText "zabbix_agent.conf" (
-    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
-  );
-in
+  configFile = pkgs.writeText "zabbix_agent.conf"
+    (toKeyValue { listsAsDuplicateKeys = true; } cfg.settings);
 
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixAgent"
-        "extraConfig"
-      ]
-      "Use services.zabbixAgent.settings instead."
-    )
+    (lib.mkRemovedOptionModule [ "services" "zabbixAgent" "extraConfig" ]
+      "Use services.zabbixAgent.settings instead.")
   ];
 
   # interface
@@ -128,15 +104,7 @@ in
       };
 
       settings = mkOption {
-        type =
-          with types;
-          attrsOf (
-            oneOf [
-              int
-              str
-              (listOf str)
-            ]
-          );
+        type = with types; attrsOf (oneOf [ int str (listOf str) ]);
         default = { };
         description = lib.mdDoc ''
           Zabbix Agent configuration. Refer to
@@ -148,7 +116,9 @@ in
           DebugLevel = 4;
         };
       };
+
     };
+
   };
 
   # implementation
@@ -171,7 +141,8 @@ in
       (mkIf (cfg.listen.ip != "0.0.0.0") { ListenIP = cfg.listen.ip; })
     ];
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
 
     users.users.${user} = {
       description = "Zabbix Agent daemon user";
@@ -189,16 +160,11 @@ in
       # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
       # > User parameters are commands executed by Zabbix agent.
       # > /bin/sh is used as a command line interpreter under UNIX operating systems.
-      path =
-        with pkgs;
-        [
-          bash
-          "/run/wrappers"
-        ]
-        ++ cfg.extraPackages;
+      path = with pkgs; [ bash "/run/wrappers" ] ++ cfg.extraPackages;
 
       serviceConfig = {
-        ExecStart = "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}";
+        ExecStart =
+          "@${cfg.package}/sbin/zabbix_agentd zabbix_agentd -f --config ${configFile}";
         Restart = "always";
         RestartSec = 2;
 
@@ -207,5 +173,7 @@ in
         PrivateTmp = true;
       };
     };
+
   };
+
 }

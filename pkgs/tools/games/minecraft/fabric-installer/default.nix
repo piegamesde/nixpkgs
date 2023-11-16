@@ -1,26 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jre,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jre }:
 
 stdenv.mkDerivation rec {
   pname = "fabric-installer";
   version = "0.11.2";
 
   src = fetchurl {
-    url = "https://maven.fabricmc.net/net/fabricmc/fabric-installer/${version}/fabric-installer-${version}.jar";
+    url =
+      "https://maven.fabricmc.net/net/fabricmc/fabric-installer/${version}/fabric-installer-${version}.jar";
     sha256 = "sha256-xq1b7xuxK1pyJ74+5UDCyQav30rIEUt44KygsUYAXCc=";
   };
 
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    jre
-    makeWrapper
-  ];
+  nativeBuildInputs = [ jre makeWrapper ];
 
   installPhase = ''
     mkdir -p $out/{bin,lib/fabric}

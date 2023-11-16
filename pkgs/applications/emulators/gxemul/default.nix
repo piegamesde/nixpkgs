@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libX11,
-}:
+{ lib, stdenv, fetchurl, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "gxemul";
@@ -16,11 +11,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 ];
 
-  patches =
-    [
-      # Fix compilation; remove when next release arrives
-      ./0001-fix-attributes.patch
-    ];
+  patches = [
+    # Fix compilation; remove when next release arrives
+    ./0001-fix-attributes.patch
+  ];
 
   dontAddPrefix = true;
 

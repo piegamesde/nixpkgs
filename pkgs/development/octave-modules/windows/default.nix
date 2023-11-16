@@ -1,8 +1,4 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl,
-}:
+{ buildOctavePackage, lib, fetchurl }:
 
 buildOctavePackage rec {
   pname = "windows";
@@ -17,6 +13,7 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/windows/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description = "Provides COM interface and additional functionality on Windows";
+    description =
+      "Provides COM interface and additional functionality on Windows";
   };
 }

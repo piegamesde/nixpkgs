@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "css-html-js-minify";
@@ -21,11 +17,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "StandAlone Async cross-platform Minifier for the Web";
     homepage = "https://github.com/juancarlospaco/css-html-js-minify";
-    license = with licenses; [
-      gpl3Plus
-      lgpl3Plus
-      mit
-    ];
+    license = with licenses; [ gpl3Plus lgpl3Plus mit ];
     maintainers = with maintainers; [ FlorianFranzen ];
   };
 }

@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  cython,
-  alsa-lib,
-  CoreAudio,
-  CoreMIDI,
-  CoreServices,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, cython, alsa-lib, CoreAudio
+, CoreMIDI, CoreServices }:
 
 buildPythonPackage rec {
   pname = "rtmidi-python";
@@ -24,13 +15,8 @@ buildPythonPackage rec {
   '';
 
   nativeBuildInputs = [ cython ];
-  buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [
-      CoreAudio
-      CoreMIDI
-      CoreServices
-    ];
+  buildInputs = lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ lib.optionals stdenv.isDarwin [ CoreAudio CoreMIDI CoreServices ];
 
   setupPyBuildFlags = [ "--from-cython" ];
 

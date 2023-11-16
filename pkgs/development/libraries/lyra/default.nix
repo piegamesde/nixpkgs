@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  meson,
-  ninja,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, meson, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "lyra";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tS2SPLiKaL8C35AmOXyJPstFUfynkE/A53rurqiySbI=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
   postPatch = "sed -i s#/usr#$out#g meson.build";
 
@@ -32,7 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/bfgroup/Lyra";
-    description = "A simple to use, composable, command line parser for C++ 11 and beyond";
+    description =
+      "A simple to use, composable, command line parser for C++ 11 and beyond";
     platforms = platforms.unix;
     license = licenses.boost;
     maintainers = with maintainers; [ davidtwco ];

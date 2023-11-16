@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL2,
-  SDL2_mixer,
-  cmake,
-  libpng,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, SDL2_mixer, cmake, libpng }:
 
 stdenv.mkDerivation rec {
   pname = "julius";
@@ -20,11 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    SDL2
-    SDL2_mixer
-    libpng
-  ];
+  buildInputs = [ SDL2 SDL2_mixer libpng ];
 
   meta = with lib; {
     homepage = "https://github.com/bvschaik/julius";

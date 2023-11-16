@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  torch,
-  torchvision,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, torch
+, torchvision }:
 
 buildPythonPackage rec {
   pname = "torchinfo";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-O+I7BNQ5moV/ZcbbuP/IFoi0LO0WsGHBbSfgPmFu1Ec=";
   };
 
-  propagatedBuildInputs = [
-    torch
-    torchvision
-  ];
+  propagatedBuildInputs = [ torch torchvision ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -36,11 +26,10 @@ buildPythonPackage rec {
     "test_google"
   ];
 
-  disabledTestPaths =
-    [
-      # Wants "compressai", which we don't package (2023-03-23)
-      "tests/torchinfo_xl_test.py"
-    ];
+  disabledTestPaths = [
+    # Wants "compressai", which we don't package (2023-03-23)
+    "tests/torchinfo_xl_test.py"
+  ];
 
   pythonImportsCheck = [ "torchinfo" ];
 

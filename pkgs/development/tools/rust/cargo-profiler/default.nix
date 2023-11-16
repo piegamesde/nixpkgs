@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-}:
+{ fetchFromGitHub, lib, rustPlatform }:
 
 let
   # Constants
@@ -16,8 +12,7 @@ let
   cargoSha256 = "sha256-qt3S6ZcLEP9ZQoP5+kSQdmBlxdMgGUqLszdU7JkFNVI=";
 
   inherit (rustPlatform) buildRustPackage;
-in
-buildRustPackage rec {
+in buildRustPackage rec {
   inherit pname version;
 
   src = fetchFromGitHub {

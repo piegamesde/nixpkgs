@@ -1,9 +1,6 @@
 {
   ast = {
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -13,10 +10,7 @@
     version = "2.4.2";
   };
   parallel = {
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -27,10 +21,7 @@
   };
   parser = {
     dependencies = [ "ast" ];
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -40,10 +31,7 @@
     version = "3.1.1.0";
   };
   rainbow = {
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -53,10 +41,7 @@
     version = "3.1.1";
   };
   regexp_parser = {
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -66,10 +51,7 @@
     version = "2.2.1";
   };
   rexml = {
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -89,10 +71,7 @@
       "ruby-progressbar"
       "unicode-display_width"
     ];
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -103,10 +82,7 @@
   };
   rubocop-ast = {
     dependencies = [ "parser" ];
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -116,10 +92,7 @@
     version = "1.16.0";
   };
   rubocop-discourse = {
-    dependencies = [
-      "rubocop"
-      "rubocop-rspec"
-    ];
+    dependencies = [ "rubocop" "rubocop-rspec" ];
     groups = [ "development" ];
     platforms = [ ];
     source = {
@@ -131,10 +104,7 @@
   };
   rubocop-rspec = {
     dependencies = [ "rubocop" ];
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -144,10 +114,7 @@
     version = "2.9.0";
   };
   ruby-progressbar = {
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
@@ -157,10 +124,7 @@
     version = "1.11.0";
   };
   unicode-display_width = {
-    groups = [
-      "default"
-      "development"
-    ];
+    groups = [ "default" "development" ];
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];

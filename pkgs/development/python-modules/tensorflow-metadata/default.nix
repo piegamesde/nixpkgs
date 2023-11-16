@@ -1,11 +1,5 @@
-{
-  absl-py,
-  buildPythonPackage,
-  fetchFromGitHub,
-  googleapis-common-protos,
-  protobuf,
-  lib,
-}:
+{ absl-py, buildPythonPackage, fetchFromGitHub, googleapis-common-protos
+, protobuf, lib }:
 
 buildPythonPackage rec {
   pname = "tensorflow-metadata";
@@ -33,11 +27,7 @@ buildPythonPackage rec {
     done
   '';
 
-  propagatedBuildInputs = [
-    absl-py
-    googleapis-common-protos
-    protobuf
-  ];
+  propagatedBuildInputs = [ absl-py googleapis-common-protos protobuf ];
 
   # has no tests
   doCheck = false;
@@ -45,7 +35,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "tensorflow_metadata" ];
 
   meta = with lib; {
-    description = "Standard representations for metadata that are useful when training machine learning models with TensorFlow";
+    description =
+      "Standard representations for metadata that are useful when training machine learning models with TensorFlow";
     homepage = "https://github.com/tensorflow/metadata";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

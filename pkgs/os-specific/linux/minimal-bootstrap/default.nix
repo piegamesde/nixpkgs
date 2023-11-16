@@ -1,34 +1,13 @@
-{
-  lib,
-  config,
-  buildPlatform,
-  hostPlatform,
-  fetchurl,
-  checkMeta,
-}:
+{ lib, config, buildPlatform, hostPlatform, fetchurl, checkMeta }:
 
 lib.makeScope
-  # Prevent using top-level attrs to protect against introducing dependency on
-  # non-bootstrap packages by mistake. Any top-level inputs must be explicitly
-  # declared here.
-  (
-    extra:
-    lib.callPackageWith (
-      {
-        inherit
-          lib
-          config
-          buildPlatform
-          hostPlatform
-          fetchurl
-          checkMeta
-        ;
-      }
-      // extra
-    )
-  )
-  (
-    self:
+# Prevent using top-level attrs to protect against introducing dependency on
+# non-bootstrap packages by mistake. Any top-level inputs must be explicitly
+# declared here.
+(extra:
+  lib.callPackageWith ({
+    inherit lib config buildPlatform hostPlatform fetchurl checkMeta;
+  } // extra)) (self:
     with self; {
 
       bash_2_05 = callPackage ./bash/2.nix { tinycc = tinycc-mes; };
@@ -74,7 +53,8 @@ lib.makeScope
         tinycc = tinycc-mes;
       };
 
-      heirloom-devtools = callPackage ./heirloom-devtools { tinycc = tinycc-mes; };
+      heirloom-devtools =
+        callPackage ./heirloom-devtools { tinycc = tinycc-mes; };
 
       ln-boot = callPackage ./ln-boot { };
 
@@ -83,17 +63,14 @@ lib.makeScope
 
       stage0-posix = callPackage ./stage0-posix { };
 
-      inherit (self.stage0-posix)
-        kaem
-        m2libc
-        mescc-tools
-        mescc-tools-extra
-      ;
+      inherit (self.stage0-posix) kaem m2libc mescc-tools mescc-tools-extra;
 
-      tinycc-bootstrappable = lib.recurseIntoAttrs (callPackage ./tinycc/bootstrappable.nix { });
+      tinycc-bootstrappable =
+        lib.recurseIntoAttrs (callPackage ./tinycc/bootstrappable.nix { });
       tinycc-mes = lib.recurseIntoAttrs (callPackage ./tinycc/mes.nix { });
 
-      inherit (callPackage ./utils.nix { }) derivationWithMeta writeTextFile writeText;
+      inherit (callPackage ./utils.nix { })
+        derivationWithMeta writeTextFile writeText;
 
       test = kaem.runCommand "minimal-bootstrap-test" { } ''
         echo ${bash_2_05.tests.get-version}
@@ -108,5 +85,4 @@ lib.makeScope
         echo ${tinycc-mes.compiler.tests.chain}
         mkdir ''${out}
       '';
-    }
-  )
+    })

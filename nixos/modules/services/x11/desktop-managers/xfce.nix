@@ -1,133 +1,72 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.desktopManager.xfce;
-in
-{
-  meta = {
-    maintainers = teams.xfce.members;
-  };
+let cfg = config.services.xserver.desktopManager.xfce;
+
+in {
+  meta = { maintainers = teams.xfce.members; };
 
   imports = [
     # added 2019-08-18
     # needed to preserve some semblance of UI familarity
     # with original XFCE module
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce4-14"
-        "extraSessionCommands"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sessionCommands"
-      ]
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce4-14"
+      "extraSessionCommands"
+    ] [ "services" "xserver" "displayManager" "sessionCommands" ])
 
     # added 2019-11-04
     # xfce4-14 module removed and promoted to xfce.
     # Needed for configs that used xfce4-14 module to migrate to this one.
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce4-14"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce"
-        "enable"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce4-14"
-        "noDesktop"
-      ]
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce"
-        "noDesktop"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce4-14"
-        "enableXfwm"
-      ]
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce"
-        "enableXfwm"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce"
-        "extraSessionCommands"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sessionCommands"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce"
-        "screenLock"
-      ]
-      ""
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce4-14"
+      "enable"
+    ] [ "services" "xserver" "desktopManager" "xfce" "enable" ])
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce4-14"
+      "noDesktop"
+    ] [ "services" "xserver" "desktopManager" "xfce" "noDesktop" ])
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce4-14"
+      "enableXfwm"
+    ] [ "services" "xserver" "desktopManager" "xfce" "enableXfwm" ])
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce"
+      "extraSessionCommands"
+    ] [ "services" "xserver" "displayManager" "sessionCommands" ])
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce"
+      "screenLock"
+    ] "")
 
     # added 2022-06-26
     # thunar has its own module
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce"
-        "thunarPlugins"
-      ]
-      [
-        "programs"
-        "thunar"
-        "plugins"
-      ]
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce"
+      "thunarPlugins"
+    ] [ "programs" "thunar" "plugins" ])
   ];
 
   options = {
@@ -141,7 +80,8 @@ in
       noDesktop = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Don't install XFCE desktop components (xfdesktop and panel).";
+        description = lib.mdDoc
+          "Don't install XFCE desktop components (xfdesktop and panel).";
       };
 
       enableXfwm = mkOption {
@@ -159,8 +99,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages =
-      with pkgs.xfce // pkgs;
+    environment.systemPackages = with pkgs.xfce // pkgs;
       [
         glib # for gsettings
         gtk3.out # gtk-update-icon-cache
@@ -194,8 +133,7 @@ in
         xfce4-settings
         xfce4-taskmanager
         xfce4-terminal
-      ]
-      # TODO: NetworkManager doesn't belong here
+      ] # TODO: NetworkManager doesn't belong here
       ++ optional config.networking.networkmanager.enable networkmanagerapplet
       ++ optional config.powerManagement.enable xfce4-power-manager
       ++ optionals config.hardware.pulseaudio.enable [
@@ -205,15 +143,8 @@ in
         # but can only be used with xfce4-panel, so for no-desktop usage we still include
         # xfce4-volumed-pulse
         (if cfg.noDesktop then xfce4-volumed-pulse else xfce4-pulseaudio-plugin)
-      ]
-      ++ optionals cfg.enableXfwm [
-        xfwm4
-        xfwm4-themes
-      ]
-      ++ optionals (!cfg.noDesktop) [
-        xfce4-panel
-        xfdesktop
-      ]
+      ] ++ optionals cfg.enableXfwm [ xfwm4 xfwm4-themes ]
+      ++ optionals (!cfg.noDesktop) [ xfce4-panel xfdesktop ]
       ++ optional cfg.enableScreensaver xfce4-screensaver;
 
     programs.xfconf.enable = true;
@@ -226,17 +157,15 @@ in
       "/share/gtksourceview-4.0"
     ];
 
-    services.xserver.desktopManager.session = [
-      {
-        name = "xfce";
-        desktopNames = [ "XFCE" ];
-        bgSupport = true;
-        start = ''
-          ${pkgs.runtimeShell} ${pkgs.xfce.xfce4-session.xinitrc} &
-          waitPID=$!
-        '';
-      }
-    ];
+    services.xserver.desktopManager.session = [{
+      name = "xfce";
+      desktopNames = [ "XFCE" ];
+      bgSupport = true;
+      start = ''
+        ${pkgs.runtimeShell} ${pkgs.xfce.xfce4-session.xinitrc} &
+        waitPID=$!
+      '';
+    }];
 
     services.xserver.updateDbusEnvironment = true;
     services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
@@ -249,8 +178,10 @@ in
     services.gnome.glib-networking.enable = true;
     services.gvfs.enable = true;
     services.tumbler.enable = true;
-    services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
-    services.xserver.libinput.enable = mkDefault true; # used in xfce4-settings-manager
+    services.system-config-printer.enable =
+      (mkIf config.services.printing.enable (mkDefault true));
+    services.xserver.libinput.enable =
+      mkDefault true; # used in xfce4-settings-manager
 
     # Enable default programs
     programs.dconf.enable = true;

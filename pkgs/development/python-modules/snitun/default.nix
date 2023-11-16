@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  async-timeout,
-  attrs,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
+{ lib, stdenv, async-timeout, attrs, buildPythonPackage, cryptography
+, fetchFromGitHub, pytest-aiohttp, pytestCheckHook, pythonAtLeast, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -26,31 +16,21 @@ buildPythonPackage rec {
     hash = "sha256-sZMmou9uHThl7AIMnuBxABnWTF1CCFsDj1I7FYxgJ3Y=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    attrs
-    cryptography
-  ];
+  propagatedBuildInputs = [ async-timeout attrs cryptography ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
-  disabledTests =
-    lib.optionals stdenv.isDarwin [
-      "test_multiplexer_data_channel_abort_full" # https://github.com/NabuCasa/snitun/issues/61
-      # port binding conflicts
-      "test_snitun_single_runner_timeout"
-      "test_snitun_single_runner_throttling"
-      # ConnectionResetError: [Errno 54] Connection reset by peer
-      "test_peer_listener_timeout"
-    ]
-    ++ lib.optionals (pythonAtLeast "3.11")
-      [
-        # TypeError: Passing coroutines is forbidden, use tasks explicitly.
-        "test_snitun_runner_updown"
-      ];
+  disabledTests = lib.optionals stdenv.isDarwin [
+    "test_multiplexer_data_channel_abort_full" # https://github.com/NabuCasa/snitun/issues/61
+    # port binding conflicts
+    "test_snitun_single_runner_timeout"
+    "test_snitun_single_runner_throttling"
+    # ConnectionResetError: [Errno 54] Connection reset by peer
+    "test_peer_listener_timeout"
+  ] ++ lib.optionals (pythonAtLeast "3.11") [
+    # TypeError: Passing coroutines is forbidden, use tasks explicitly.
+    "test_snitun_runner_updown"
+  ];
 
   pythonImportsCheck = [ "snitun" ];
 

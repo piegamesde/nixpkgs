@@ -1,28 +1,12 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  installShellFiles,
-  callPackage,
-  nixosTests,
-}:
+{ lib, fetchFromGitHub, buildGoModule, installShellFiles, callPackage
+, nixosTests }:
 
 let
   inherit (import ./sources.nix { inherit fetchFromGitHub; })
-    pname
-    version
-    src
-    vendorHash
-  ;
+    pname version src vendorHash;
   web = callPackage ./web.nix { };
-in
-buildGoModule rec {
-  inherit
-    pname
-    version
-    src
-    vendorHash
-  ;
+in buildGoModule rec {
+  inherit pname version src vendorHash;
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -32,18 +16,18 @@ buildGoModule rec {
 
   subPackages = [ "cmd/authelia" ];
 
-  ldflags =
-    let
-      p = "github.com/authelia/authelia/v${lib.versions.major version}/internal/utils";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${p}.BuildTag=v${version}"
-      "-X '${p}.BuildState=tagged clean'"
-      "-X ${p}.BuildBranch=v${version}"
-      "-X ${p}.BuildExtra=nixpkgs"
-    ];
+  ldflags = let
+    p = "github.com/authelia/authelia/v${
+        lib.versions.major version
+      }/internal/utils";
+  in [
+    "-s"
+    "-w"
+    "-X ${p}.BuildTag=v${version}"
+    "-X '${p}.BuildState=tagged clean'"
+    "-X ${p}.BuildBranch=v${version}"
+    "-X ${p}.BuildExtra=nixpkgs"
+  ];
 
   # several tests with networking and several that want chromium
   doCheck = false;
@@ -73,9 +57,7 @@ buildGoModule rec {
     # if overriding replace the postPatch to put your web UI output in internal/server/public_html
     inherit web;
     updateScript = ./update.sh;
-    tests = {
-      inherit (nixosTests) authelia;
-    };
+    tests = { inherit (nixosTests) authelia; };
   };
 
   meta = with lib; {
@@ -91,10 +73,6 @@ buildGoModule rec {
       authentication.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      jk
-      raitobezarius
-      dit7ya
-    ];
+    maintainers = with maintainers; [ jk raitobezarius dit7ya ];
   };
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hayagriva";
@@ -18,13 +14,11 @@ rustPlatform.buildRustPackage rec {
   buildFeatures = [ "cli" ];
 
   meta = with lib; {
-    description = "Work with references: Literature database management, storage, and citation formatting";
+    description =
+      "Work with references: Literature database management, storage, and citation formatting";
     homepage = "https://github.com/typst/hayagriva";
     changelog = "https://github.com/typst/hayagriva/releases/tag/v${version}";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

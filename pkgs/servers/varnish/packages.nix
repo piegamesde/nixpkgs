@@ -1,12 +1,5 @@
-{
-  callPackages,
-  callPackage,
-  varnish60,
-  varnish72,
-  varnish73,
-  fetchFromGitHub,
-}:
-{
+{ callPackages, callPackage, varnish60, varnish72, varnish73, fetchFromGitHub
+}: {
   varnish60Packages = rec {
     varnish = varnish60;
     modules = (callPackages ./modules.nix { inherit varnish; }).modules15;

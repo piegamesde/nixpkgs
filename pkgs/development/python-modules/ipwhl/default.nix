@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromSourcehut,
-  kubo,
-  packaging,
-  tomli,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromSourcehut, kubo, packaging
+, tomli }:
 
 buildPythonPackage rec {
   pname = "ipwhl";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ kubo ];
-  propagatedBuildInputs = [
-    packaging
-    tomli
-  ];
+  propagatedBuildInputs = [ packaging tomli ];
   doCheck = false; # there's no test
   pythonImportsCheck = [ "ipwhl" ];
 

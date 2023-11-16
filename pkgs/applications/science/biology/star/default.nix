@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "star";
@@ -24,10 +19,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ zlib ];
 
-  buildFlags = [
-    "STAR"
-    "STARlong"
-  ];
+  buildFlags = [ "STAR" "STARlong" ];
 
   enableParallelBuilding = true;
 

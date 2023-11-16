@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 let
@@ -19,12 +14,10 @@ let
     # Remove socket files
     rm -f $out/S.*
   '';
-in
-{
+in {
   options.services.zeyple = {
-    enable = mkEnableOption (
-      lib.mdDoc "Zeyple, an utility program to automatically encrypt outgoing emails with GPG"
-    );
+    enable = mkEnableOption (lib.mdDoc
+      "Zeyple, an utility program to automatically encrypt outgoing emails with GPG");
 
     user = mkOption {
       type = types.str;
@@ -66,7 +59,8 @@ in
 
     keys = mkOption {
       type = with types; listOf path;
-      description = lib.mdDoc "List of public key files that will be imported by gpg.";
+      description =
+        lib.mdDoc "List of public key files that will be imported by gpg.";
     };
 
     rotateLogs = mkOption {
@@ -77,7 +71,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "zeyple") { "${cfg.group}" = { }; };
+    users.groups =
+      optionalAttrs (cfg.group == "zeyple") { "${cfg.group}" = { }; };
     users.users = optionalAttrs (cfg.user == "zeyple") {
       "${cfg.user}" = {
         isSystemUser = true;
@@ -99,7 +94,8 @@ in
       };
     };
 
-    environment.etc."zeyple.conf".source = ini.generate "zeyple.conf" cfg.settings;
+    environment.etc."zeyple.conf".source =
+      ini.generate "zeyple.conf" cfg.settings;
 
     systemd.tmpfiles.rules = [
       "f '${cfg.settings.zeyple.log_file}' 0600 ${cfg.user} ${cfg.group} - -"
@@ -119,7 +115,9 @@ in
       zeyple    unix  -       n       n       -       -       pipe
         user=${cfg.user} argv=${pkgs.zeyple}/bin/zeyple ''${recipient}
 
-      localhost:${toString cfg.settings.relay.port} inet  n       -       n       -       10      smtpd
+      localhost:${
+        toString cfg.settings.relay.port
+      } inet  n       -       n       -       10      smtpd
         -o content_filter=
         -o receive_override_options=no_unknown_recipient_checks,no_header_body_checks,no_milters
         -o smtpd_helo_restrictions=

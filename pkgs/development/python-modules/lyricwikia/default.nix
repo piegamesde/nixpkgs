@@ -1,14 +1,5 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  responses,
-  six,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pythonOlder, requests, responses, six }:
 
 buildPythonPackage rec {
   pname = "lyricwikia";
@@ -29,29 +20,22 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    requests
-    six
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 requests six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   pythonImportsCheck = [ "lyricwikia" ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_integration"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_integration"
+  ];
 
   meta = with lib; {
     description = "LyricWikia API for song lyrics";
     homepage = "https://github.com/enricobacis/lyricwikia";
-    changelog = "https://github.com/enricobacis/lyricwikia/releases/tag/${version}";
+    changelog =
+      "https://github.com/enricobacis/lyricwikia/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kmein ];
   };

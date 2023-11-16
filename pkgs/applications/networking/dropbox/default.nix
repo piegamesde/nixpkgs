@@ -1,56 +1,38 @@
-{
-  stdenv,
-  lib,
-  buildFHSEnv,
-  writeScript,
-  makeDesktopItem,
-}:
+{ stdenv, lib, buildFHSEnv, writeScript, makeDesktopItem }:
 
-let
-  platforms = [
-    "i686-linux"
-    "x86_64-linux"
-  ];
-in
+let platforms = [ "i686-linux" "x86_64-linux" ];
 
-assert lib.elem stdenv.hostPlatform.system platforms;
+in assert lib.elem stdenv.hostPlatform.system platforms;
 
 # Dropbox client to bootstrap installation.
 # The client is self-updating, so the actual version may be newer.
 let
   version = "111.3.447";
 
-  arch =
-    {
-      x86_64-linux = "x86_64";
-      i686-linux = "x86";
-    }
-    .${stdenv.hostPlatform.system};
+  arch = {
+    x86_64-linux = "x86_64";
+    i686-linux = "x86";
+  }.${stdenv.hostPlatform.system};
 
-  installer = "https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.${arch}-${version}.tar.gz";
-in
+  installer =
+    "https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.${arch}-${version}.tar.gz";
 
-let
+in let
   desktopItem = makeDesktopItem {
     name = "dropbox";
     exec = "dropbox";
     comment = "Sync your files across computers and to the web";
     desktopName = "Dropbox";
     genericName = "File Synchronizer";
-    categories = [
-      "Network"
-      "FileTransfer"
-    ];
+    categories = [ "Network" "FileTransfer" ];
     startupNotify = false;
     icon = "dropbox";
   };
-in
 
-buildFHSEnv {
+in buildFHSEnv {
   name = "dropbox";
 
-  targetPkgs =
-    pkgs:
+  targetPkgs = pkgs:
     with pkgs;
     with xorg; [
       libICE
@@ -123,9 +105,6 @@ buildFHSEnv {
     homepage = "http://www.dropbox.com/";
     license = licenses.unfree;
     maintainers = with maintainers; [ ttuegel ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

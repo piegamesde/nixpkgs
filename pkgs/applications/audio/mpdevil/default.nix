@@ -1,17 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  meson,
-  ninja,
-  python3Packages,
-  gdk-pixbuf,
-  glib,
-  gobject-introspection,
-  gtk3,
-  libnotify,
-  wrapGAppsHook,
-}:
+{ lib, fetchFromGitHub, pkg-config, meson, ninja, python3Packages, gdk-pixbuf
+, glib, gobject-introspection, gtk3, libnotify, wrapGAppsHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "mpdevil";
@@ -36,11 +24,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gdk-pixbuf
-    glib
-    libnotify
-  ];
+  buildInputs = [ gdk-pixbuf glib libnotify ];
 
   propagatedBuildInputs = with python3Packages; [
     beautifulsoup4

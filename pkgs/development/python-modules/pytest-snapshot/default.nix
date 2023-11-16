@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  packaging,
-  pytest,
-  setuptools-scm,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, packaging, pytest, setuptools-scm
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytest-snapshot";

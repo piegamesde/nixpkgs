@@ -1,15 +1,5 @@
-{
-  lib,
-  perlPackages,
-  nix,
-  dmidecode,
-  pciutils,
-  usbutils,
-  iproute2,
-  nettools,
-  fetchFromGitHub,
-  makeWrapper,
-}:
+{ lib, perlPackages, nix, dmidecode, pciutils, usbutils, iproute2, nettools
+, fetchFromGitHub, makeWrapper }:
 
 perlPackages.buildPerlPackage rec {
   pname = "FusionInventory-Agent";
@@ -34,30 +24,27 @@ perlPackages.buildPerlPackage rec {
 
   buildTools = [ ];
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs =
-    (
-      with perlPackages; [
-        CGI
-        DataStructureUtil
-        FileCopyRecursive
-        HTTPProxy
-        HTTPServerSimple
-        HTTPServerSimpleAuthen
-        IOCapture
-        IOSocketSSL
-        IPCRun
-        JSON
-        LWPProtocolHttps
-        ModuleInstall
-        NetSNMP
-        TestCompile
-        TestDeep
-        TestException
-        TestMockModule
-        TestMockObject
-        TestNoWarnings
-      ]
-    );
+  buildInputs = (with perlPackages; [
+    CGI
+    DataStructureUtil
+    FileCopyRecursive
+    HTTPProxy
+    HTTPServerSimple
+    HTTPServerSimpleAuthen
+    IOCapture
+    IOSocketSSL
+    IPCRun
+    JSON
+    LWPProtocolHttps
+    ModuleInstall
+    NetSNMP
+    TestCompile
+    TestDeep
+    TestException
+    TestMockModule
+    TestMockObject
+    TestNoWarnings
+  ]);
   propagatedBuildInputs = with perlPackages; [
     FileWhich
     LWP
@@ -81,14 +68,7 @@ perlPackages.buildPerlPackage rec {
       if [ -x "$cur" ]; then
         sed -e "s|./lib|$out/lib|" -i "$cur"
         wrapProgram "$cur" --prefix PATH : ${
-          lib.makeBinPath [
-            nix
-            dmidecode
-            pciutils
-            usbutils
-            nettools
-            iproute2
-          ]
+          lib.makeBinPath [ nix dmidecode pciutils usbutils nettools iproute2 ]
         }
       fi
     done
@@ -98,7 +78,8 @@ perlPackages.buildPerlPackage rec {
 
   meta = with lib; {
     homepage = "http://www.fusioninventory.org";
-    description = "FusionInventory unified Agent for UNIX, Linux, Windows and MacOSX";
+    description =
+      "FusionInventory unified Agent for UNIX, Linux, Windows and MacOSX";
     license = lib.licenses.gpl2;
     maintainers = [ maintainers.phile314 ];
   };

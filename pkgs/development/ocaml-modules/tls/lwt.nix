@@ -1,12 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  tls,
-  lwt,
-  mirage-crypto-rng-lwt,
-  cmdliner,
-  x509,
-}:
+{ lib, buildDunePackage, tls, lwt, mirage-crypto-rng-lwt, cmdliner, x509 }:
 
 buildDunePackage rec {
   pname = "tls-lwt";
@@ -18,10 +10,5 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  propagatedBuildInputs = [
-    lwt
-    mirage-crypto-rng-lwt
-    tls
-    x509
-  ];
+  propagatedBuildInputs = [ lwt mirage-crypto-rng-lwt tls x509 ];
 }

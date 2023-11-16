@@ -1,23 +1,18 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchzip,
-  libX11,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchzip, libX11 }:
 
 let
 
   vst-sdk = stdenv.mkDerivation rec {
     name = "vstsdk3610_11_06_2018_build_37";
     src = fetchzip {
-      url = "https://web.archive.org/web/20181016150224if_/https://download.steinberg.net/sdk_downloads/${name}.zip";
+      url =
+        "https://web.archive.org/web/20181016150224if_/https://download.steinberg.net/sdk_downloads/${name}.zip";
       sha256 = "0da16iwac590wphz2sm5afrfj42jrsnkr1bxcy93lj7a369ildkj";
     };
     installPhase = "cp -r . $out";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "oxefmsynth";
   version = "1.3.5";
 

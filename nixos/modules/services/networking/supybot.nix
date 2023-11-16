@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,9 +6,9 @@ let
   cfg = config.services.supybot;
   isStateDirHome = hasPrefix "/home/" cfg.stateDir;
   isStateDirVar = cfg.stateDir == "/var/lib/supybot";
-  pyEnv = pkgs.python3.withPackages (p: [ p.limnoria ] ++ (cfg.extraPackages p));
-in
-{
+  pyEnv =
+    pkgs.python3.withPackages (p: [ p.limnoria ] ++ (cfg.extraPackages p));
+in {
   options = {
 
     services.supybot = {
@@ -21,15 +16,19 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Enable Supybot, an IRC bot (also known as Limnoria).";
+        description =
+          lib.mdDoc "Enable Supybot, an IRC bot (also known as Limnoria).";
       };
 
       stateDir = mkOption {
         type = types.path;
-        default =
-          if versionAtLeast config.system.stateVersion "20.09" then "/var/lib/supybot" else "/home/supybot";
+        default = if versionAtLeast config.system.stateVersion "20.09" then
+          "/var/lib/supybot"
+        else
+          "/home/supybot";
         defaultText = literalExpression "/var/lib/supybot";
-        description = lib.mdDoc "The root directory, logs and plugins are stored here";
+        description =
+          lib.mdDoc "The root directory, logs and plugins are stored here";
       };
 
       configFile = mkOption {
@@ -78,7 +77,9 @@ in
         '';
         example = literalExpression "p: [ p.lxml p.requests ]";
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -93,9 +94,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.supybot = {
-      gid = config.ids.gids.supybot;
-    };
+    users.groups.supybot = { gid = config.ids.gids.supybot; };
 
     systemd.services.supybot = {
       description = "Supybot, an IRC bot";
@@ -109,59 +108,51 @@ in
 
       startLimitIntervalSec = 5 * 60; # 5 min
       startLimitBurst = 1;
-      serviceConfig =
-        {
-          ExecStart = "${pyEnv}/bin/supybot ${cfg.stateDir}/supybot.cfg";
-          PIDFile = "/run/supybot.pid";
-          User = "supybot";
-          Group = "supybot";
-          UMask = "0007";
-          Restart = "on-abort";
+      serviceConfig = {
+        ExecStart = "${pyEnv}/bin/supybot ${cfg.stateDir}/supybot.cfg";
+        PIDFile = "/run/supybot.pid";
+        User = "supybot";
+        Group = "supybot";
+        UMask = "0007";
+        Restart = "on-abort";
 
-          NoNewPrivileges = true;
-          PrivateDevices = true;
-          PrivateMounts = true;
-          PrivateTmp = true;
-          ProtectControlGroups = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-          ];
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          RemoveIPC = true;
-          ProtectHostname = true;
-          CapabilityBoundingSet = "";
-          ProtectSystem = "full";
-        }
-        // optionalAttrs isStateDirVar {
-          StateDirectory = "supybot";
-          ProtectSystem = "strict";
-        }
-        // optionalAttrs (!isStateDirHome) { ProtectHome = true; };
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        ProtectControlGroups = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        RemoveIPC = true;
+        ProtectHostname = true;
+        CapabilityBoundingSet = "";
+        ProtectSystem = "full";
+      } // optionalAttrs isStateDirVar {
+        StateDirectory = "supybot";
+        ProtectSystem = "strict";
+      } // optionalAttrs (!isStateDirHome) { ProtectHome = true; };
     };
 
-    systemd.tmpfiles.rules =
-      [
-        "d '${cfg.stateDir}'              0700 supybot supybot - -"
-        "d '${cfg.stateDir}/backup'       0750 supybot supybot - -"
-        "d '${cfg.stateDir}/conf'         0750 supybot supybot - -"
-        "d '${cfg.stateDir}/data'         0750 supybot supybot - -"
-        "d '${cfg.stateDir}/plugins'      0750 supybot supybot - -"
-        "d '${cfg.stateDir}/logs'         0750 supybot supybot - -"
-        "d '${cfg.stateDir}/logs/plugins' 0750 supybot supybot - -"
-        "d '${cfg.stateDir}/tmp'          0750 supybot supybot - -"
-        "d '${cfg.stateDir}/web'          0750 supybot supybot - -"
-        "L '${cfg.stateDir}/supybot.cfg'  -    -       -       - ${cfg.configFile}"
-      ]
-      ++ (flip mapAttrsToList cfg.plugins (
-        name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"
-      ));
+    systemd.tmpfiles.rules = [
+      "d '${cfg.stateDir}'              0700 supybot supybot - -"
+      "d '${cfg.stateDir}/backup'       0750 supybot supybot - -"
+      "d '${cfg.stateDir}/conf'         0750 supybot supybot - -"
+      "d '${cfg.stateDir}/data'         0750 supybot supybot - -"
+      "d '${cfg.stateDir}/plugins'      0750 supybot supybot - -"
+      "d '${cfg.stateDir}/logs'         0750 supybot supybot - -"
+      "d '${cfg.stateDir}/logs/plugins' 0750 supybot supybot - -"
+      "d '${cfg.stateDir}/tmp'          0750 supybot supybot - -"
+      "d '${cfg.stateDir}/web'          0750 supybot supybot - -"
+      "L '${cfg.stateDir}/supybot.cfg'  -    -       -       - ${cfg.configFile}"
+    ] ++ (flip mapAttrsToList cfg.plugins
+      (name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"));
+
   };
 }

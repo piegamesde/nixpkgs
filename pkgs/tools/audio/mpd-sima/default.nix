@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitLab,
-  python-musicpd,
-  requests,
-}:
+{ lib, buildPythonApplication, fetchFromGitLab, python-musicpd, requests }:
 
 buildPythonApplication rec {
   pname = "mpd-sima";
@@ -19,10 +13,7 @@ buildPythonApplication rec {
 
   format = "setuptools";
 
-  propagatedBuildInputs = [
-    requests
-    python-musicpd
-  ];
+  propagatedBuildInputs = [ requests python-musicpd ];
 
   doCheck = true;
 

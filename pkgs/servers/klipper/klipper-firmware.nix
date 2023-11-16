@@ -1,20 +1,6 @@
-{
-  stdenv,
-  lib,
-  pkg-config,
-  pkgsCross,
-  bintools-unwrapped,
-  libffi,
-  libusb1,
-  wxGTK32,
-  python3,
-  gcc-arm-embedded,
-  klipper,
-  avrdude,
-  stm32flash,
-  mcu ? "mcu",
-  firmwareConfig ? ./simulator.cfg,
-}:
+{ stdenv, lib, pkg-config, pkgsCross, bintools-unwrapped, libffi, libusb1
+, wxGTK32, python3, gcc-arm-embedded, klipper, avrdude, stm32flash, mcu ? "mcu"
+, firmwareConfig ? ./simulator.cfg }:
 stdenv.mkDerivation rec {
   name = "klipper-firmware-${mcu}-${version}";
   version = klipper.version;
@@ -39,11 +25,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  makeFlags = [
-    "V=1"
-    "KCONFIG_CONFIG=${firmwareConfig}"
-    "WXVERSION=3.2"
-  ];
+  makeFlags = [ "V=1" "KCONFIG_CONFIG=${firmwareConfig}" "WXVERSION=3.2" ];
 
   installPhase = ''
     mkdir -p $out

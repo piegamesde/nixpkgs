@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  pythonAtLeast,
-  fetchFromGitHub,
-  substituteAll,
-  gdb,
-  django,
-  flask,
-  gevent,
-  psutil,
-  pytest-timeout,
-  pytest-xdist,
-  pytestCheckHook,
-  requests,
-  llvmPackages,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, pythonAtLeast, fetchFromGitHub
+, substituteAll, gdb, django, flask, gevent, psutil, pytest-timeout
+, pytest-xdist, pytestCheckHook, requests, llvmPackages }:
 
 buildPythonPackage rec {
   pname = "debugpy";
@@ -34,41 +18,35 @@ buildPythonPackage rec {
     hash = "sha256-porQTFvcLaIkvhWPM4vWR0ohlcFRkRwSLpQJNg25Tj4=";
   };
 
-  patches =
-    [
-      # Use nixpkgs version instead of versioneer
-      (substituteAll {
-        src = ./hardcode-version.patch;
-        inherit version;
-      })
+  patches = [
+    # Use nixpkgs version instead of versioneer
+    (substituteAll {
+      src = ./hardcode-version.patch;
+      inherit version;
+    })
 
-      # Fix importing debugpy in:
-      # - test_nodebug[module-launch(externalTerminal)]
-      # - test_nodebug[module-launch(integratedTerminal)]
-      #
-      # NOTE: The import failures seen in these tests without the patch
-      # will be seen if a user "installs" debugpy by adding it to PYTHONPATH.
-      # To avoid this issue, debugpy should be installed using python.withPackages:
-      # python.withPackages (ps: with ps; [ debugpy ])
-      ./fix-test-pythonpath.patch
-    ]
-    ++ lib.optionals stdenv.isLinux
-      [
-        # Hard code GDB path (used to attach to process)
-        (substituteAll {
-          src = ./hardcode-gdb.patch;
-          inherit gdb;
-        })
-      ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # Hard code LLDB path (used to attach to process)
-          (substituteAll {
-            src = ./hardcode-lldb.patch;
-            inherit (llvmPackages) lldb;
-          })
-        ];
+    # Fix importing debugpy in:
+    # - test_nodebug[module-launch(externalTerminal)]
+    # - test_nodebug[module-launch(integratedTerminal)]
+    #
+    # NOTE: The import failures seen in these tests without the patch
+    # will be seen if a user "installs" debugpy by adding it to PYTHONPATH.
+    # To avoid this issue, debugpy should be installed using python.withPackages:
+    # python.withPackages (ps: with ps; [ debugpy ])
+    ./fix-test-pythonpath.patch
+  ] ++ lib.optionals stdenv.isLinux [
+    # Hard code GDB path (used to attach to process)
+    (substituteAll {
+      src = ./hardcode-gdb.patch;
+      inherit gdb;
+    })
+  ] ++ lib.optionals stdenv.isDarwin [
+    # Hard code LLDB path (used to attach to process)
+    (substituteAll {
+      src = ./hardcode-lldb.patch;
+      inherit (llvmPackages) lldb;
+    })
+  ];
 
   # Remove pre-compiled "attach" libraries and recompile for host platform
   # Compile flags taken from linux_and_mac/compile_linux.sh & linux_and_mac/compile_mac.sh
@@ -82,11 +60,14 @@ buildPythonPackage rec {
             "x86_64-linux" = "-shared -o attach_linux_amd64.so";
             "i686-linux" = "-shared -o attach_linux_x86.so";
             "aarch64-linux" = "-shared -o attach_linux_arm64.so";
-            "x86_64-darwin" = "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_x86_64.dylib";
-            "i686-darwin" = "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_x86.dylib";
-            "aarch64-darwin" = "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_arm64.dylib";
-          }
-          .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")
+            "x86_64-darwin" =
+              "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_x86_64.dylib";
+            "i686-darwin" =
+              "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_x86.dylib";
+            "aarch64-darwin" =
+              "-std=c++11 -lc -D_REENTRANT -dynamiclib -o attach_arm64.dylib";
+          }.${stdenv.hostPlatform.system} or (throw
+            "Unsupported system: ${stdenv.hostPlatform.system}")
         }
       )'';
 
@@ -101,18 +82,16 @@ buildPythonPackage rec {
     requests
   ];
 
-  preCheck =
-    ''
-      # Scale default timeouts by a factor of 4 to avoid flaky builds
-      # https://github.com/microsoft/debugpy/pull/1286 if merged would
-      # allow us to disable the timeouts altogether
-      export DEBUGPY_PROCESS_SPAWN_TIMEOUT=60
-      export DEBUGPY_PROCESS_EXIT_TIMEOUT=20
-    ''
-    + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
-      # https://github.com/python/cpython/issues/74570#issuecomment-1093748531
-      export no_proxy='*';
-    '';
+  preCheck = ''
+    # Scale default timeouts by a factor of 4 to avoid flaky builds
+    # https://github.com/microsoft/debugpy/pull/1286 if merged would
+    # allow us to disable the timeouts altogether
+    export DEBUGPY_PROCESS_SPAWN_TIMEOUT=60
+    export DEBUGPY_PROCESS_EXIT_TIMEOUT=20
+  '' + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
+    # https://github.com/python/cpython/issues/74570#issuecomment-1093748531
+    export no_proxy='*';
+  '';
 
   postCheck = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
     unset no_proxy
@@ -124,11 +103,10 @@ buildPythonPackage rec {
   # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;
 
-  disabledTests =
-    [
-      # https://github.com/microsoft/debugpy/issues/1241
-      "test_flask_breakpoint_multiproc"
-    ];
+  disabledTests = [
+    # https://github.com/microsoft/debugpy/issues/1241
+    "test_flask_breakpoint_multiproc"
+  ];
 
   pythonImportsCheck = [ "debugpy" ];
 

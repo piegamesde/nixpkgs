@@ -1,19 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "lack-util";
   version = "lack-20211209-git";
 
   description = "System lacks description";
 
-  deps = [
-    args."alexandria"
-    args."bordeaux-threads"
-    args."ironclad"
-  ];
+  deps = [ args."alexandria" args."bordeaux-threads" args."ironclad" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/lack/2021-12-09/lack-20211209-git.tgz";
     sha256 = "0vd36hjcf98s9slkm6rmgsa7r10wvzl9s4xhfmcwh7qv7jxdgkhg";
   };
 

@@ -1,15 +1,5 @@
-{
-  lib,
-  aiolifx,
-  async-timeout,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  typer,
-}:
+{ lib, aiolifx, async-timeout, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-asyncio, pytestCheckHook, pythonOlder, typer }:
 
 buildPythonPackage rec {
   pname = "aiolifx-themes";
@@ -41,18 +31,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiolifx ];
 
-  nativeCheckInputs = [
-    async-timeout
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ async-timeout pytestCheckHook pytest-asyncio ];
 
   pythonImportsCheck = [ "aiolifx_themes" ];
 
   meta = with lib; {
     description = "Color themes for LIFX lights running on aiolifx";
     homepage = "https://github.com/Djelibeybi/aiolifx-themes";
-    changelog = "https://github.com/Djelibeybi/aiolifx-themes/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Djelibeybi/aiolifx-themes/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ lukegb ];
   };

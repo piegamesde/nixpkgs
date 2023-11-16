@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchsvn,
-  imake,
-  bison,
-  flex,
-  xorg,
-}:
+{ lib, stdenv, fetchsvn, imake, bison, flex, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "xspim";
@@ -18,11 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "1kazfgrbmi4xq7nrkmnqw1280rhdyc1hmr82flrsa3g1b1rlmj1s";
   };
 
-  nativeBuildInputs = [
-    imake
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ imake bison flex ];
   buildInputs = [
     xorg.libICE
     xorg.libSM

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,11 +7,11 @@ let
   cfg = config.services.haste-server;
 
   format = pkgs.formats.json { };
-in
-{
+in {
   options.services.haste-server = {
     enable = mkEnableOption (lib.mdDoc "haste-server");
-    openFirewall = mkEnableOption (lib.mdDoc "firewall passthrough for haste-server");
+    openFirewall =
+      mkEnableOption (lib.mdDoc "firewall passthrough for haste-server");
 
     settings = mkOption {
       description = lib.mdDoc ''
@@ -28,7 +23,8 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts =
+      mkIf (cfg.openFirewall) [ cfg.settings.port ];
 
     services.haste-server = {
       settings = {
@@ -41,13 +37,11 @@ in
         staticMaxAge = mkDefault 86400;
         recompressStaticAssets = mkDefault false;
 
-        logging = mkDefault [
-          {
-            level = "verbose";
-            type = "Console";
-            colorize = true;
-          }
-        ];
+        logging = mkDefault [{
+          level = "verbose";
+          type = "Console";
+          colorize = true;
+        }];
 
         keyGenerator = mkDefault { type = "phonetic"; };
 
@@ -62,9 +56,7 @@ in
 
         storage = mkDefault { type = "file"; };
 
-        documents = {
-          about = mkDefault "${pkg}/share/haste-server/about.md";
-        };
+        documents = { about = mkDefault "${pkg}/share/haste-server/about.md"; };
       };
     };
 
@@ -78,13 +70,12 @@ in
         DynamicUser = true;
         StateDirectory = "haste-server";
         WorkingDirectory = "/var/lib/haste-server";
-        ExecStart = "${pkg}/bin/haste-server ${format.generate "config.json" cfg.settings}";
+        ExecStart = "${pkg}/bin/haste-server ${
+            format.generate "config.json" cfg.settings
+          }";
       };
 
-      path = with pkgs; [
-        pkg
-        coreutils
-      ];
+      path = with pkgs; [ pkg coreutils ];
     };
   };
 }

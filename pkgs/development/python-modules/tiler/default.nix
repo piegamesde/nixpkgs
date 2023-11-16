@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  numpy,
-  tqdm,
-  pytestCheckHook,
+{ lib, buildPythonPackage, fetchPypi, setuptools, numpy, tqdm, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -20,17 +13,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    numpy
-    tqdm
-  ];
+  propagatedBuildInputs = [ numpy tqdm ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "tiler" ];
 
   meta = with lib; {
-    description = "N-dimensional NumPy array tiling and merging with overlapping, padding and tapering";
+    description =
+      "N-dimensional NumPy array tiling and merging with overlapping, padding and tapering";
     homepage = "https://the-lay.github.io/tiler/";
     license = licenses.mit;
     maintainers = with maintainers; [ atila ];

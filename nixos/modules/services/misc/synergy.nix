@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,9 +6,8 @@ let
 
   cfgC = config.services.synergy.client;
   cfgS = config.services.synergy.server;
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -23,9 +17,8 @@ in
       # !!! All these option descriptions needs to be cleaned up.
 
       client = {
-        enable = mkEnableOption (
-          lib.mdDoc "the Synergy client (receive keyboard and mouse events from a Synergy server)"
-        );
+        enable = mkEnableOption (lib.mdDoc
+          "the Synergy client (receive keyboard and mouse events from a Synergy server)");
 
         screenName = mkOption {
           default = "";
@@ -46,12 +39,14 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Synergy client should be started automatically.";
+          description = lib.mdDoc
+            "Whether the Synergy client should be started automatically.";
         };
       };
 
       server = {
-        enable = mkEnableOption (lib.mdDoc "the Synergy server (send keyboard and mouse events)");
+        enable = mkEnableOption
+          (lib.mdDoc "the Synergy server (send keyboard and mouse events)");
 
         configFile = mkOption {
           type = types.path;
@@ -74,7 +69,8 @@ in
         autoStart = mkOption {
           default = true;
           type = types.bool;
-          description = lib.mdDoc "Whether the Synergy server should be started automatically.";
+          description = lib.mdDoc
+            "Whether the Synergy server should be started automatically.";
         };
         tls = {
           enable = mkOption {
@@ -93,11 +89,13 @@ in
             type = types.nullOr types.str;
             default = null;
             example = "~/.synergy/SSL/Synergy.pem";
-            description = lib.mdDoc "The TLS certificate to use for encryption.";
+            description =
+              lib.mdDoc "The TLS certificate to use for encryption.";
           };
         };
       };
     };
+
   };
 
   ###### implementation
@@ -105,10 +103,7 @@ in
   config = mkMerge [
     (mkIf cfgC.enable {
       systemd.user.services.synergy-client = {
-        after = [
-          "network.target"
-          "graphical-session.target"
-        ];
+        after = [ "network.target" "graphical-session.target" ];
         description = "Synergy client";
         wantedBy = optional cfgC.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
@@ -120,22 +115,24 @@ in
     })
     (mkIf cfgS.enable {
       systemd.user.services.synergy-server = {
-        after = [
-          "network.target"
-          "graphical-session.target"
-        ];
+        after = [ "network.target" "graphical-session.target" ];
         description = "Synergy server";
         wantedBy = optional cfgS.autoStart "graphical-session.target";
         path = [ pkgs.synergy ];
-        serviceConfig.ExecStart = "${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f${
+        serviceConfig.ExecStart =
+          "${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f${
             optionalString (cfgS.address != "") " -a ${cfgS.address}"
           }${optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"}${
             optionalString cfgS.tls.enable " --enable-crypto"
-          }${optionalString (cfgS.tls.cert != null) (" --tls-cert ${cfgS.tls.cert}")}";
+          }${
+            optionalString (cfgS.tls.cert != null)
+            (" --tls-cert ${cfgS.tls.cert}")
+          }";
         serviceConfig.Restart = "on-failure";
       };
     })
   ];
+
 }
 
 /* SYNERGY SERVER example configuration file

@@ -1,43 +1,22 @@
-{
-  lua,
-  hello,
-  wrapLua,
-  lib,
-  fetchFromGitHub,
-  fetchFromGitLab,
-  pkgs,
-}:
+{ lua, hello, wrapLua, lib, fetchFromGitHub, fetchFromGitLab, pkgs }:
 let
 
-  runTest =
-    lua:
+  runTest = lua:
     { name, command }:
-    pkgs.runCommandLocal "test-${lua.name}"
-      ({
-        nativeBuildInputs = [ lua ];
-        meta.platforms = lua.meta.platforms;
-      })
-      (
-        ''
-          source ${./assert.sh}
-        ''
-        + command
-        + "touch $out"
-      );
+    pkgs.runCommandLocal "test-${lua.name}" ({
+      nativeBuildInputs = [ lua ];
+      meta.platforms = lua.meta.platforms;
+    }) (''
+      source ${./assert.sh}
+    '' + command + "touch $out");
 
-  wrappedHello = hello.overrideAttrs (
-    oa: {
-      propagatedBuildInputs = [
-        wrapLua
-        lua.pkgs.cjson
-      ];
-      postFixup = ''
-        wrapLuaPrograms
-      '';
-    }
-  );
-in
-pkgs.recurseIntoAttrs ({
+  wrappedHello = hello.overrideAttrs (oa: {
+    propagatedBuildInputs = [ wrapLua lua.pkgs.cjson ];
+    postFixup = ''
+      wrapLuaPrograms
+    '';
+  });
+in pkgs.recurseIntoAttrs ({
 
   checkAliases = runTest lua {
     name = "check-aliases";
@@ -53,4 +32,6 @@ pkgs.recurseIntoAttrs ({
     grep -- 'LUA_PATH=' ${wrappedHello}/bin/hello
     touch $out
   '');
+
 })
+

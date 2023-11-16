@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "glsl-spec";
   version = "release-quicklisp-f04476f7-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/glsl-spec/2019-10-07/glsl-spec-release-quicklisp-f04476f7-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/glsl-spec/2019-10-07/glsl-spec-release-quicklisp-f04476f7-git.tgz";
     sha256 = "0vdxx5asra0r58qpk35ncmyh418szzzvby8bpkrb052g00nzqgj7";
   };
 

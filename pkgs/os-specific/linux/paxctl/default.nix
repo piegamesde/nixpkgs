@@ -1,9 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  elf-header,
-}:
+{ fetchurl, lib, stdenv, elf-header }:
 
 stdenv.mkDerivation rec {
   pname = "paxctl";
@@ -22,10 +17,7 @@ stdenv.mkDerivation rec {
       -e '/CC:=gcc/d'
   '';
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "MANDIR=share/man/man1"
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "MANDIR=share/man/man1" ];
 
   setupHook = ./setup-hook.sh;
 

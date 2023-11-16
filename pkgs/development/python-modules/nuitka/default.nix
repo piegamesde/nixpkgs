@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  vmprof,
-  pyqt4,
-  isPyPy,
-  pkgs,
-  scons,
-  chrpath,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, vmprof, pyqt4, isPyPy, pkgs
+, scons, chrpath }:
 
 buildPythonPackage rec {
   pname = "nuitka";
@@ -23,22 +13,17 @@ buildPythonPackage rec {
     hash = "sha256-8eWOcxATVS866nlN39b2VU1CuXAfcn0yQsDweHS2yDU=";
   };
 
-  nativeCheckInputs = [
-    vmprof
-    pyqt4
-  ];
+  nativeCheckInputs = [ vmprof pyqt4 ];
   nativeBuildInputs = [ scons ];
   propagatedBuildInputs = [ chrpath ];
 
-  postPatch =
-    ''
-      patchShebangs tests/run-tests
-    ''
-    + lib.optionalString stdenv.isLinux ''
-      substituteInPlace nuitka/plugins/standard/ImplicitImports.py --replace 'locateDLL("uuid")' '"${
-        lib.getLib pkgs.util-linux
-      }/lib/libuuid.so"'
-    '';
+  postPatch = ''
+    patchShebangs tests/run-tests
+  '' + lib.optionalString stdenv.isLinux ''
+    substituteInPlace nuitka/plugins/standard/ImplicitImports.py --replace 'locateDLL("uuid")' '"${
+      lib.getLib pkgs.util-linux
+    }/lib/libuuid.so"'
+  '';
 
   # We do not want any wrappers here.
   postFixup = "";
@@ -54,8 +39,10 @@ buildPythonPackage rec {
   disabled = isPyPy;
 
   meta = with lib; {
-    description = "Python compiler with full language support and CPython compatibility";
+    description =
+      "Python compiler with full language support and CPython compatibility";
     license = licenses.asl20;
     homepage = "https://nuitka.net/";
   };
+
 }

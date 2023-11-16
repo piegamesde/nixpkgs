@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gradle_6,
-  perl,
-  jre,
-  makeWrapper,
-  makeDesktopItem,
-  mplayer,
-}:
+{ lib, stdenv, fetchFromGitHub, gradle_6, perl, jre, makeWrapper
+, makeDesktopItem, mplayer }:
 
 let
   version = "6.6.7-build-529";
@@ -27,21 +18,14 @@ let
     exec = "frostwire";
     icon = "frostwire";
     comment = "Search and explore all kinds of files on the Bittorrent network";
-    categories = [
-      "Network"
-      "FileTransfer"
-      "P2P"
-    ];
+    categories = [ "Network" "FileTransfer" "P2P" ];
   };
 
   # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "frostwire-desktop-deps";
     inherit version src;
-    buildInputs = [
-      gradle_6
-      perl
-    ];
+    buildInputs = [ gradle_6 perl ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       ( cd desktop
@@ -58,8 +42,8 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-r6YSrbSJbM3063JrX4tCVKFrJxTaLN4Trc+33jzpwcE=";
   };
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "frostwire-desktop";
   inherit version src;
 
@@ -93,9 +77,10 @@ stdenv.mkDerivation {
       {
         x86_64-darwin = "desktop/lib/native/*.dylib";
         x86_64-linux = "desktop/lib/native/lib{jlibtorrent,SystemUtilities}.so";
-        i686-linux = "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
-      }
-      .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}")
+        i686-linux =
+          "desktop/lib/native/lib{jlibtorrent,SystemUtilities}X86.so";
+      }.${stdenv.hostPlatform.system} or (throw
+        "unsupported system ${stdenv.hostPlatform.system}")
     } $out/lib
 
     cp -dpR ${desktopItem}/share $out
@@ -113,11 +98,7 @@ stdenv.mkDerivation {
     ];
     license = licenses.gpl2;
     maintainers = with maintainers; [ gavin ];
-    platforms = [
-      "x86_64-darwin"
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-darwin" "x86_64-linux" "i686-linux" ];
     broken = true; # at 2022-09-30, errors with changing hash.
   };
 }

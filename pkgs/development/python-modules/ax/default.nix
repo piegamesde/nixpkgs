@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  botorch,
-  ipywidgets,
-  jinja2,
-  pandas,
-  plotly,
-  setuptools-scm,
-  typeguard,
-  hypothesis,
-  mercurial,
-  pyfakefs,
-  pytestCheckHook,
-  yappi,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, botorch, ipywidgets, jinja2, pandas
+, plotly, setuptools-scm, typeguard, hypothesis, mercurial, pyfakefs
+, pytestCheckHook, yappi }:
 
 buildPythonPackage rec {
   pname = "ax";
@@ -28,25 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-1KLLjeUktXvIDOlTQzMmpbL/On8PTxZQ44Qi4BT3nPk=";
   };
 
-  propagatedBuildInputs = [
-    botorch
-    ipywidgets
-    jinja2
-    pandas
-    plotly
-    setuptools-scm
-    typeguard
-  ];
+  propagatedBuildInputs =
+    [ botorch ipywidgets jinja2 pandas plotly setuptools-scm typeguard ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  checkInputs = [
-    hypothesis
-    mercurial
-    pyfakefs
-    pytestCheckHook
-    yappi
-  ];
+  checkInputs = [ hypothesis mercurial pyfakefs pytestCheckHook yappi ];
   pytestFlagsArray = [
     "--ignore=ax/benchmark"
     "--ignore=ax/runners/tests/test_torchx.py"
@@ -63,7 +36,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ax" ];
 
   meta = with lib; {
-    description = "Ax is an accessible, general-purpose platform for understanding, managing, deploying, and automating adaptive experiments";
+    description =
+      "Ax is an accessible, general-purpose platform for understanding, managing, deploying, and automating adaptive experiments";
     homepage = "https://ax.dev/";
     license = licenses.mit;
     maintainers = with maintainers; [ veprbl ];

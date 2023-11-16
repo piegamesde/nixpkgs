@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  path,
-  pathlib2,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, path, pathlib2, pythonOlder }:
 
 buildPythonPackage rec {
   version = "0.7.5";
@@ -26,4 +19,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/vivainio/pickleshare";
     license = licenses.mit;
   };
+
 }

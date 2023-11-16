@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  openssl,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, zlib, openssl, libiconv }:
 
 stdenv.mkDerivation rec {
   version = "3.49.2";
@@ -16,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "09a0gm67nml86qby1k1gh7rdxamnrnzwr6l9r5iiq94favjs0xrl";
   };
 
-  buildInputs = [
-    libiconv
-    openssl
-    zlib
-  ];
+  buildInputs = [ libiconv openssl zlib ];
 
   enableParallelBuilding = true;
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildNpmPackage,
-}:
+{ lib, stdenv, fetchFromGitHub, buildNpmPackage }:
 
 buildNpmPackage rec {
   pname = "swagger-cli";

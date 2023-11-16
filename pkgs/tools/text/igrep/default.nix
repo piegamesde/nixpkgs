@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  Security,
-  testers,
-  igrep,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, Security, testers, igrep }:
 
 rustPlatform.buildRustPackage rec {
   pname = "igrep";
@@ -33,7 +25,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Interactive Grep";
     homepage = "https://github.com/konradsz/igrep";
-    changelog = "https://github.com/konradsz/igrep/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/konradsz/igrep/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ _0x4A6F ];
     mainProgram = "ig";

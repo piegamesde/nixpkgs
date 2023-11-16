@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  boost,
-  numpy,
-  pytestCheckHook,
-  pytest-benchmark,
-  setuptools-scm,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, boost, numpy, pytestCheckHook
+, pytest-benchmark, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "boost-histogram";
@@ -29,10 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-benchmark
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-benchmark ];
 
   meta = with lib; {
     description = "Python bindings for the C++14 Boost::Histogram library";

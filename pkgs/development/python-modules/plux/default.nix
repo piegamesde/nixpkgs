@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  stevedore,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, stevedore, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "plux";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "plugin.core" ];
 
   meta = with lib; {
-    description = "Dynamic code loading framework for building pluggable Python distributions";
+    description =
+      "Dynamic code loading framework for building pluggable Python distributions";
     homepage = "https://github.com/localstack/plux";
     license = licenses.asl20;
     maintainers = with maintainers; [ jonringer ];

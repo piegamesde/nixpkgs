@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jdk,
-  jre,
-  makeWrapper,
-  runCommand,
-  python3Packages,
-  writeText,
-}:
+{ lib, stdenv, fetchurl, jdk, jre, makeWrapper, runCommand, python3Packages
+, writeText }:
 
 let
   elasticmq-server = stdenv.mkDerivation rec {
@@ -16,7 +7,8 @@ let
     version = "1.4.1";
 
     src = fetchurl {
-      url = "https://s3-eu-west-1.amazonaws.com/softwaremill-public/${pname}-${version}.jar";
+      url =
+        "https://s3-eu-west-1.amazonaws.com/softwaremill-public/${pname}-${version}.jar";
       sha256 = "sha256-F1G9shYvntFiSgLdXPkSTpN/MP86ewhHRIchbXues+s=";
     };
 
@@ -37,23 +29,16 @@ let
 
     meta = with lib; {
       homepage = "https://github.com/softwaremill/elasticmq";
-      description = "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
+      description =
+        "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
       license = licenses.asl20;
       platforms = platforms.unix;
       maintainers = with maintainers; [ peterromfeldhk ];
     };
   };
-in
-elasticmq-server.overrideAttrs (
-  _: {
-    passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
-      inherit
-        elasticmq-server
-        runCommand
-        python3Packages
-        writeText
-      ;
-    };
-  }
-)
+in elasticmq-server.overrideAttrs (_: {
+  passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
+    inherit elasticmq-server runCommand python3Packages writeText;
+  };
+})

@@ -1,9 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "pyintesishome";

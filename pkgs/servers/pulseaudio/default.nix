@@ -1,80 +1,41 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  pkg-config,
-  libsndfile,
-  libtool,
-  makeWrapper,
-  perlPackages,
-  xorg,
-  libcap,
-  alsa-lib,
-  glib,
-  dconf,
-  avahi,
-  libjack2,
-  libasyncns,
-  lirc,
-  dbus,
-  sbc,
-  bluez5,
-  udev,
-  openssl,
-  fftwFloat,
-  soxr,
-  speexdsp,
-  systemd,
-  webrtc-audio-processing,
-  gst_all_1,
-  check,
-  libintl,
-  meson,
-  ninja,
-  m4,
-  wrapGAppsHook,
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libsndfile, libtool
+, makeWrapper, perlPackages, xorg, libcap, alsa-lib, glib, dconf, avahi
+, libjack2, libasyncns, lirc, dbus, sbc, bluez5, udev, openssl, fftwFloat, soxr
+, speexdsp, systemd, webrtc-audio-processing, gst_all_1, check, libintl, meson
+, ninja, m4, wrapGAppsHook
 
-  x11Support ? false,
+, x11Support ? false
 
-  useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
+, useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
 
-  ,
-  # Whether to support the JACK sound system as a backend.
-  jackaudioSupport ? false
+, # Whether to support the JACK sound system as a backend.
+jackaudioSupport ? false
 
-  ,
-  # Whether to build the OSS wrapper ("padsp").
-  ossWrapper ? true,
+, # Whether to build the OSS wrapper ("padsp").
+ossWrapper ? true
 
-  airtunesSupport ? false,
+, airtunesSupport ? false
 
-  bluetoothSupport ? stdenv.isLinux,
-  advancedBluetoothCodecs ? false,
+, bluetoothSupport ? stdenv.isLinux, advancedBluetoothCodecs ? false
 
-  remoteControlSupport ? false,
+, remoteControlSupport ? false
 
-  zeroconfSupport ? false,
+, zeroconfSupport ? false
 
-  alsaSupport ? stdenv.isLinux,
-  udevSupport ? stdenv.isLinux
+, alsaSupport ? stdenv.isLinux, udevSupport ? stdenv.isLinux
 
-  ,
-  # Whether to build only the library.
-  libOnly ? false,
+, # Whether to build only the library.
+libOnly ? false
 
-  AudioUnit,
-  Cocoa,
-  CoreServices,
-  CoreAudio,
-}:
+, AudioUnit, Cocoa, CoreServices, CoreAudio }:
 
 stdenv.mkDerivation rec {
   pname = "${lib.optionalString libOnly "lib"}pulseaudio";
   version = "16.1";
 
   src = fetchurl {
-    url = "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz";
+    url =
+      "http://freedesktop.org/software/pulseaudio/releases/pulseaudio-${version}.tar.xz";
     sha256 = "sha256-ju8yzpHUeXn5X9mpNec4zX63RjQw2rxyhjJRdR5QSuQ=";
   };
 
@@ -93,127 +54,100 @@ stdenv.mkDerivation rec {
     ./0007-Fix-link-args-on-darwin.patch
   ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      meson
-      ninja
-      makeWrapper
-      perlPackages.perl
-      perlPackages.XMLParser
-      m4
-    ]
-    ++ lib.optionals stdenv.isLinux [ glib ]
-    # gstreamer plugin discovery requires wrapping
+  nativeBuildInputs = [
+    pkg-config
+    meson
+    ninja
+    makeWrapper
+    perlPackages.perl
+    perlPackages.XMLParser
+    m4
+  ] ++ lib.optionals stdenv.isLinux [
+    glib
+  ]
+  # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook;
 
   propagatedBuildInputs = lib.optionals stdenv.isLinux [ libcap ];
 
-  buildInputs =
-    [
-      libtool
-      libsndfile
-      soxr
-      speexdsp
-      fftwFloat
-      check
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      glib
-      dbus
-    ]
+  buildInputs = [ libtool libsndfile soxr speexdsp fftwFloat check ]
+    ++ lib.optionals stdenv.isLinux [ glib dbus ]
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
       Cocoa
       CoreServices
       CoreAudio
       libintl
-    ]
-    ++ lib.optionals (!libOnly) (
-      [
-        libasyncns
-        webrtc-audio-processing
-      ]
-      ++ lib.optional jackaudioSupport libjack2
-      ++ lib.optionals x11Support [
+    ] ++ lib.optionals (!libOnly) ([ libasyncns webrtc-audio-processing ]
+      ++ lib.optional jackaudioSupport libjack2 ++ lib.optionals x11Support [
         xorg.libICE
         xorg.libSM
         xorg.libX11
         xorg.libXi
         xorg.libXtst
-      ]
-      ++ lib.optional useSystemd systemd
-      ++ lib.optionals stdenv.isLinux [
-        alsa-lib
-        udev
-      ]
+      ] ++ lib.optional useSystemd systemd
+      ++ lib.optionals stdenv.isLinux [ alsa-lib udev ]
       ++ lib.optional airtunesSupport openssl
       ++ lib.optionals bluetoothSupport [
         bluez5
         sbc
       ]
       # aptX and LDAC codecs are in gst-plugins-bad so far, rtpldacpay is in -good
-      ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs) (
-        builtins.attrValues {
-          inherit (gst_all_1)
-            gst-plugins-bad
-            gst-plugins-good
-            gst-plugins-base
-            gstreamer
-          ;
-        }
-      )
-      ++ lib.optional remoteControlSupport lirc
-      ++ lib.optional zeroconfSupport avahi
-    );
+      ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs)
+      (builtins.attrValues {
+        inherit (gst_all_1)
+          gst-plugins-bad gst-plugins-good gst-plugins-base gstreamer;
+      }) ++ lib.optional remoteControlSupport lirc
+      ++ lib.optional zeroconfSupport avahi);
 
-  mesonFlags =
-    [
-      "-Dalsa=${if !libOnly && alsaSupport then "enabled" else "disabled"}"
-      "-Dasyncns=${if !libOnly then "enabled" else "disabled"}"
-      "-Davahi=${if zeroconfSupport then "enabled" else "disabled"}"
-      "-Dbluez5=${if !libOnly && bluetoothSupport then "enabled" else "disabled"}"
-      # advanced bluetooth audio codecs are provided by gstreamer
-      "-Dbluez5-gstreamer=${
-        if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then "enabled" else "disabled"
-      }"
-      "-Ddatabase=simple"
-      "-Ddoxygen=false"
-      "-Delogind=disabled"
-      # gsettings does not support cross-compilation
-      "-Dgsettings=${
-        if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
-      }"
-      "-Dgstreamer=disabled"
-      "-Dgtk=disabled"
-      "-Djack=${if jackaudioSupport && !libOnly then "enabled" else "disabled"}"
-      "-Dlirc=${if remoteControlSupport then "enabled" else "disabled"}"
-      "-Dopenssl=${if airtunesSupport then "enabled" else "disabled"}"
-      "-Dorc=disabled"
-      "-Dsystemd=${if useSystemd && !libOnly then "enabled" else "disabled"}"
-      "-Dtcpwrap=disabled"
-      "-Dudev=${if !libOnly && udevSupport then "enabled" else "disabled"}"
-      "-Dvalgrind=disabled"
-      "-Dwebrtc-aec=${if !libOnly then "enabled" else "disabled"}"
-      "-Dx11=${if x11Support then "enabled" else "disabled"}"
+  mesonFlags = [
+    "-Dalsa=${if !libOnly && alsaSupport then "enabled" else "disabled"}"
+    "-Dasyncns=${if !libOnly then "enabled" else "disabled"}"
+    "-Davahi=${if zeroconfSupport then "enabled" else "disabled"}"
+    "-Dbluez5=${if !libOnly && bluetoothSupport then "enabled" else "disabled"}"
+    # advanced bluetooth audio codecs are provided by gstreamer
+    "-Dbluez5-gstreamer=${
+      if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then
+        "enabled"
+      else
+        "disabled"
+    }"
+    "-Ddatabase=simple"
+    "-Ddoxygen=false"
+    "-Delogind=disabled"
+    # gsettings does not support cross-compilation
+    "-Dgsettings=${
+      if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then
+        "enabled"
+      else
+        "disabled"
+    }"
+    "-Dgstreamer=disabled"
+    "-Dgtk=disabled"
+    "-Djack=${if jackaudioSupport && !libOnly then "enabled" else "disabled"}"
+    "-Dlirc=${if remoteControlSupport then "enabled" else "disabled"}"
+    "-Dopenssl=${if airtunesSupport then "enabled" else "disabled"}"
+    "-Dorc=disabled"
+    "-Dsystemd=${if useSystemd && !libOnly then "enabled" else "disabled"}"
+    "-Dtcpwrap=disabled"
+    "-Dudev=${if !libOnly && udevSupport then "enabled" else "disabled"}"
+    "-Dvalgrind=disabled"
+    "-Dwebrtc-aec=${if !libOnly then "enabled" else "disabled"}"
+    "-Dx11=${if x11Support then "enabled" else "disabled"}"
 
-      "-Dlocalstatedir=/var"
-      "-Dsysconfdir=/etc"
-      "-Dsysconfdir_install=${placeholder "out"}/etc"
-      "-Dudevrulesdir=${placeholder "out"}/lib/udev/rules.d"
+    "-Dlocalstatedir=/var"
+    "-Dsysconfdir=/etc"
+    "-Dsysconfdir_install=${placeholder "out"}/etc"
+    "-Dudevrulesdir=${placeholder "out"}/lib/udev/rules.d"
 
-      # pulseaudio complains if its binary is moved after installation;
-      # this is needed so that wrapGApp can operate *without*
-      # renaming the unwrapped binaries (see below)
-      "--bindir=${placeholder "out"}/.bin-unwrapped"
-    ]
-    ++ lib.optional (stdenv.isLinux && useSystemd)
-      "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
+    # pulseaudio complains if its binary is moved after installation;
+    # this is needed so that wrapGApp can operate *without*
+    # renaming the unwrapped binaries (see below)
+    "--bindir=${placeholder "out"}/.bin-unwrapped"
+  ] ++ lib.optional (stdenv.isLinux && useSystemd)
+    "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
     ++ lib.optionals stdenv.isDarwin [
       "-Ddbus=disabled"
       "-Dglib=disabled"
@@ -226,19 +160,17 @@ stdenv.mkDerivation rec {
     export HOME=$(mktemp -d)
   '';
 
-  postInstall =
-    lib.optionalString libOnly ''
-      find $out/share -maxdepth 1 -mindepth 1 ! -name "vala" -prune -exec rm -r {} \;
-      find $out/share/vala -maxdepth 1 -mindepth 1 ! -name "vapi" -prune -exec rm -r {} \;
-      rm -r $out/{.bin-unwrapped,etc,lib/pulse-*}
-    ''
-    + ''
-      moveToOutput lib/cmake "$dev"
-      rm -f $out/.bin-unwrapped/qpaeq # this is packaged by the "qpaeq" package now, because of missing deps
-    '';
+  postInstall = lib.optionalString libOnly ''
+    find $out/share -maxdepth 1 -mindepth 1 ! -name "vala" -prune -exec rm -r {} \;
+    find $out/share/vala -maxdepth 1 -mindepth 1 ! -name "vapi" -prune -exec rm -r {} \;
+    rm -r $out/{.bin-unwrapped,etc,lib/pulse-*}
+  '' + ''
+    moveToOutput lib/cmake "$dev"
+    rm -f $out/.bin-unwrapped/qpaeq # this is packaged by the "qpaeq" package now, because of missing deps
+  '';
 
-  preFixup =
-    lib.optionalString (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)) ''
+  preFixup = lib.optionalString
+    (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)) ''
       wrapProgram $out/libexec/pulse/gsettings-helper \
        --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
        --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"

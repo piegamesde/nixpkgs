@@ -1,12 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeBinaryWrapper,
-  xdg-utils,
-  installShellFiles,
-  git,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeBinaryWrapper, xdg-utils
+, installShellFiles, git }:
 
 buildGoModule rec {
   pname = "lab";
@@ -25,16 +18,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeBinaryWrapper installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   postInstall = ''
     # create shell completions before wrapProgram so that lab detects the right path for itself
@@ -44,22 +30,14 @@ buildGoModule rec {
       --zsh <($out/bin/lab completion zsh)
     # make xdg-open overrideable at runtime
     wrapProgram $out/bin/lab \
-      --suffix PATH ":" "${
-        lib.makeBinPath [
-          git
-          xdg-utils
-        ]
-      }"
+      --suffix PATH ":" "${lib.makeBinPath [ git xdg-utils ]}"
   '';
 
   meta = with lib; {
-    description = "Lab wraps Git or Hub, making it simple to clone, fork, and interact with repositories on GitLab";
+    description =
+      "Lab wraps Git or Hub, making it simple to clone, fork, and interact with repositories on GitLab";
     homepage = "https://zaquestion.github.io/lab";
     license = licenses.cc0;
-    maintainers = with maintainers; [
-      marsam
-      dtzWill
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ marsam dtzWill SuperSandro2000 ];
   };
 }

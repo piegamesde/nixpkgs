@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "smimesign";
@@ -17,17 +13,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-wLqYUICL+gdvRCLNrA0ZNcFI4oV3Oik762q7xF115Lw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.versionString=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.versionString=v${version}" ];
 
   # Fails in sandbox
   doCheck = false;
 
   meta = with lib; {
-    description = "An S/MIME signing utility for macOS and Windows that is compatible with Git";
+    description =
+      "An S/MIME signing utility for macOS and Windows that is compatible with Git";
     homepage = "https://github.com/github/smimesign";
     license = licenses.mit;
     platforms = platforms.darwin ++ platforms.windows;

@@ -1,21 +1,16 @@
-{
-  pkgs ? import ../../../../../.. { },
-}:
+{ pkgs ? import ../../../../../.. { } }:
 
 with pkgs;
 
 let
   inherit (vimPlugins) nvim-treesitter;
 
-  neovim = pkgs.neovim.override { configure.packages.all.start = [ nvim-treesitter ]; };
-in
+  neovim = pkgs.neovim.override {
+    configure.packages.all.start = [ nvim-treesitter ];
+  };
 
-mkShell {
-  packages = [
-    neovim
-    nurl
-    python3
-  ];
+in mkShell {
+  packages = [ neovim nurl python3 ];
 
   NVIM_TREESITTER = nvim-treesitter;
 }

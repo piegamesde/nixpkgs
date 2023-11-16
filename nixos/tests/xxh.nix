@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
@@ -28,32 +27,25 @@ import ./make-test-python.nix (
 
     zsh-portable-binary = pkgs.fetchurl {
       # kept in sync with https://github.com/xxh/xxh-shell-zsh/tree/master/build.sh#L27
-      url = "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz";
+      url =
+        "https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz";
       sha256 = "sha256-i8flMd2Isc0uLoeYQNDnOGb/kK3oTFVqQgIx7aOAIIo=";
     };
-  in
-  {
+  in {
     name = "xxh";
     meta = with lib.maintainers; { maintainers = [ lom ]; };
 
     nodes = {
-      server =
-        { ... }:
-        {
-          services.openssh.enable = true;
-          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-        };
+      server = { ... }: {
+        services.openssh.enable = true;
+        users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+      };
 
-      client =
-        { ... }:
-        {
-          programs.zsh.enable = true;
-          users.users.root.shell = pkgs.zsh;
-          environment.systemPackages = with pkgs; [
-            xxh
-            git
-          ];
-        };
+      client = { ... }: {
+        programs.zsh.enable = true;
+        users.users.root.shell = pkgs.zsh;
+        environment.systemPackages = with pkgs; [ xxh git ];
+      };
     };
 
     testScript = ''
@@ -70,5 +62,4 @@ import ./make-test-python.nix (
 
       client.succeed("xxh server -i /root/.ssh/id_ecdsa +hc \'echo $0\' +i +s zsh +I xxh-shell-zsh+path+${xxh-shell-zsh} | grep -Fq '/root/.xxh/.xxh/shells/xxh-shell-zsh/build/zsh-bin/bin/zsh'")
     '';
-  }
-)
+  })

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "s-tar";
@@ -15,17 +11,15 @@ stdenv.mkDerivation rec {
   preConfigure = "rm configure";
   preBuild = "sed 's_/bin/__g' -i RULES/*";
   makeFlags = [ "GMAKE_NOWARN=true" ];
-  installFlags = [
-    "DESTDIR=$(out)"
-    "INS_BASE=/"
-  ];
+  installFlags = [ "DESTDIR=$(out)" "INS_BASE=/" ];
   postInstall = ''
     find $out/bin -type l -delete
     rm -r $out/etc $out/include $out/sbin
   '';
 
   meta = {
-    description = "A very fast tar like tape archiver with improved functionality";
+    description =
+      "A very fast tar like tape archiver with improved functionality";
     longDescription = ''
       Star archives and extracts multiple files to and from a single file called a tarfile.
       A tarfile is usually a magnetic tape, but it can be any file.

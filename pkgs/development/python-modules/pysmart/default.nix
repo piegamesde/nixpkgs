@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  chardet,
-  humanfriendly,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  smartmontools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, chardet, humanfriendly
+, pytestCheckHook, pythonOlder, setuptools-scm, smartmontools }:
 
 buildPythonPackage rec {
   pname = "pysmart";
@@ -31,10 +22,7 @@ buildPythonPackage rec {
       --replace "which('smartctl')" '"${smartmontools}/bin/smartctl"'
   '';
 
-  propagatedBuildInputs = [
-    chardet
-    humanfriendly
-  ];
+  propagatedBuildInputs = [ chardet humanfriendly ];
 
   nativeBuildInputs = [ setuptools-scm ];
 
@@ -45,7 +33,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Wrapper for smartctl (smartmontools)";
     homepage = "https://github.com/truenas/py-SMART";
-    changelog = "https://github.com/truenas/py-SMART/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/truenas/py-SMART/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ nyanloutre ];
   };

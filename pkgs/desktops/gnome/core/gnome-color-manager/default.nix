@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  gettext,
-  itstool,
-  desktop-file-utils,
-  gnome,
-  glib,
-  gtk3,
-  libexif,
-  libtiff,
-  colord,
-  colord-gtk,
-  libcanberra-gtk3,
-  lcms2,
-  vte,
-  exiv2,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gettext, itstool
+, desktop-file-utils, gnome, glib, gtk3, libexif, libtiff, colord, colord-gtk
+, libcanberra-gtk3, lcms2, vte, exiv2 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-color-manager";
@@ -32,14 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "1vpxa2zjz3lkq9ldjg0fl65db9s6b4kcs8nyaqfz3jygma7ifg3w";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    itstool
-    desktop-file-utils
-  ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config gettext itstool desktop-file-utils ];
 
   buildInputs = [
     glib
@@ -62,7 +37,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A set of graphical utilities for color management to be used in the GNOME desktop";
+    description =
+      "A set of graphical utilities for color management to be used in the GNOME desktop";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.linux;

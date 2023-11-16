@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildNpmPackage,
-  python3,
-  nodejs,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, buildNpmPackage, python3, nodejs, nixosTests }:
 
 buildNpmPackage rec {
   pname = "uptime-kuma";
@@ -21,12 +13,11 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-yPUVLtqfowSuvrzp4Edcsussaxao5Ti1/sLsd9lmiSM=";
 
-  patches =
-    [
-      # Fixes the permissions of the database being not set correctly
-      # See https://github.com/louislam/uptime-kuma/pull/2119
-      ./fix-database-permissions.patch
-    ];
+  patches = [
+    # Fixes the permissions of the database being not set correctly
+    # See https://github.com/louislam/uptime-kuma/pull/2119
+    ./fix-database-permissions.patch
+  ];
 
   nativeBuildInputs = [ python3 ];
 
@@ -47,7 +38,8 @@ buildNpmPackage rec {
   meta = with lib; {
     description = "A fancy self-hosted monitoring tool";
     homepage = "https://github.com/louislam/uptime-kuma";
-    changelog = "https://github.com/louislam/uptime-kuma/releases/tag/${version}";
+    changelog =
+      "https://github.com/louislam/uptime-kuma/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ julienmalka ];
     # FileNotFoundError: [Errno 2] No such file or directory: 'xcrun'

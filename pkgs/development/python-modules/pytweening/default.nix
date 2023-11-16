@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 buildPythonPackage rec {
   pname = "pytweening";
   version = "1.0.7";

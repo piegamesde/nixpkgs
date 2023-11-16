@@ -1,32 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gtk2-x11,
-  pkg-config,
-  python3,
-  gfortran,
-  lesstif,
-  cfitsio,
-  getopt,
-  perl,
-  groff,
-  which,
-  darwin,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, gtk2-x11, pkg-config, python3, gfortran, lesstif
+, cfitsio, getopt, perl, groff, which, darwin, ncurses }:
 
-let
-  python3Env = python3.withPackages (
-    ps:
-    with ps; [
-      numpy
-      setuptools
-    ]
-  );
-in
+let python3Env = python3.withPackages (ps: with ps; [ numpy setuptools ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   srcVersion = "feb23a";
   version = "20230201_a";
   pname = "gildas";
@@ -41,34 +18,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-A6jtcC8QMtJ7YcNaPiOjwNPDGPAjmRA3jZLEt5iBONE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    groff
-    perl
-    getopt
-    gfortran
-    which
-  ];
+  nativeBuildInputs = [ pkg-config groff perl getopt gfortran which ];
 
-  buildInputs = [
-    gtk2-x11
-    lesstif
-    cfitsio
-    python3Env
-    ncurses
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
+  buildInputs = [ gtk2-x11 lesstif cfitsio python3Env ncurses ]
+    ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
 
-  patches = [
-    ./wrapper.patch
-    ./clang.patch
-    ./aarch64.patch
-  ];
+  patches = [ ./wrapper.patch ./clang.patch ./aarch64.patch ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
-  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (
-    with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"
-  );
+  NIX_LDFLAGS = lib.optionalString stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks;
+      "-F${CoreFoundation}/Library/Frameworks");
 
   configurePhase = ''
     substituteInPlace admin/wrapper.sh --replace '%%OUT%%' $out
@@ -103,11 +66,9 @@ stdenv.mkDerivation rec {
       plotting, widgets).'';
     homepage = "http://www.iram.fr/IRAMFR/GILDAS/gildas.html";
     license = lib.licenses.free;
-    maintainers = [
-      lib.maintainers.bzizou
-      lib.maintainers.smaret
-    ];
+    maintainers = [ lib.maintainers.bzizou lib.maintainers.smaret ];
     platforms = lib.platforms.all;
     broken = stdenv.isDarwin && stdenv.isAarch64;
   };
+
 }

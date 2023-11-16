@@ -1,15 +1,11 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "iolib_dot_conf";
   version = "iolib-v0.8.4";
 
   description = "Compile-time configuration for IOLib.";
 
-  deps = [
-    args."alexandria"
-    args."iolib_dot_asdf"
-  ];
+  deps = [ args."alexandria" args."iolib_dot_asdf" ];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/iolib/2021-06-30/iolib-v0.8.4.tgz";

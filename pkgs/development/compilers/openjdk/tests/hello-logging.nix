@@ -1,8 +1,4 @@
-{
-  jdk,
-  jre,
-  pkgs,
-}:
+{ jdk, jre, pkgs }:
 
 # 'Hello world' Java application derivation for use in tests
 let
@@ -18,8 +14,7 @@ let
       }
     }
   '';
-in
-pkgs.stdenv.mkDerivation {
+in pkgs.stdenv.mkDerivation {
   pname = "hello";
   version = "1.0.0";
 

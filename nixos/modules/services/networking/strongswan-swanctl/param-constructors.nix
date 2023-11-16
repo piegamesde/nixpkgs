@@ -55,19 +55,15 @@ rec {
     render = single toString;
   };
 
-  documentDefault =
-    description: strongswanDefault:
+  documentDefault = description: strongswanDefault:
     if strongswanDefault == null then
       mdDoc description
     else
-      mdDoc (
-        description
-        + ''
+      mdDoc (description + ''
 
 
-          StrongSwan default: ````${builtins.toJSON strongswanDefault}````
-        ''
-      );
+        StrongSwan default: ````${builtins.toJSON strongswanDefault}````
+      '');
 
   single = f: name: value: { ${name} = f value; };
 
@@ -115,7 +111,8 @@ rec {
     render = single (value: concatStringsSep sep value);
   };
 
-  mkAttrsOfParams = params: mkAttrsOf params (types.submodule { options = paramsToOptions params; });
+  mkAttrsOfParams = params:
+    mkAttrsOf params (types.submodule { options = paramsToOptions params; });
 
   mkAttrsOfParam = param: mkAttrsOf param param.option.type;
 
@@ -126,11 +123,13 @@ rec {
       default = { };
       description = mdDoc description;
     };
-    render = single (attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
+    render = single
+      (attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
   };
 
-  mkPrefixedAttrsOfParams =
-    params: mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; });
+  mkPrefixedAttrsOfParams = params:
+    mkPrefixedAttrsOf params
+    (types.submodule { options = paramsToOptions params; });
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 
@@ -141,26 +140,28 @@ rec {
       default = { };
       description = mdDoc description;
     };
-    render =
-      prefix: attrs:
+    render = prefix: attrs:
       let
-        prefixedAttrs = mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
-      in
-      paramsToRenderedStrings prefixedAttrs (mapAttrs (_n: _v: p) prefixedAttrs);
+        prefixedAttrs =
+          mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
+      in paramsToRenderedStrings prefixedAttrs
+      (mapAttrs (_n: _v: p) prefixedAttrs);
   };
 
   mkPostfixedAttrsOfParams = params: description: {
     _type = "param";
     option = mkOption {
-      type = types.attrsOf (types.submodule { options = paramsToOptions params; });
+      type =
+        types.attrsOf (types.submodule { options = paramsToOptions params; });
       default = { };
       description = lib.mdDoc description;
     };
-    render =
-      postfix: attrs:
+    render = postfix: attrs:
       let
-        postfixedAttrs = mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
-      in
-      paramsToRenderedStrings postfixedAttrs (mapAttrs (_n: _v: params) postfixedAttrs);
+        postfixedAttrs =
+          mapAttrs' (name: nameValuePair "${name}-${postfix}") attrs;
+      in paramsToRenderedStrings postfixedAttrs
+      (mapAttrs (_n: _v: params) postfixedAttrs);
   };
+
 }

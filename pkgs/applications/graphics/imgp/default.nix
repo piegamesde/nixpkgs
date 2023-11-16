@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonApplication,
-  pillow,
-  imgp,
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, pillow, imgp }:
 
 buildPythonApplication rec {
   pname = "imgp";
@@ -19,10 +13,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ pillow ];
 
-  installFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  installFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   postInstall = ''
     install -Dm555 auto-completion/bash/imgp-completion.bash $out/share/bash-completion/completions/imgp.bash

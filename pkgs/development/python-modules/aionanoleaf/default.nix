@@ -1,10 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aionanoleaf";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper for the Nanoleaf API";
     homepage = "https://github.com/milanmeu/aionanoleaf";
-    changelog = "https://github.com/milanmeu/aionanoleaf/releases/tag/v${version}";
+    changelog =
+      "https://github.com/milanmeu/aionanoleaf/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ fab ];
   };

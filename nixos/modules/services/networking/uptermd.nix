@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.uptermd;
-in
-{
+let cfg = config.services.uptermd;
+in {
   options = {
     services.uptermd = {
       enable = mkEnableOption (lib.mdDoc "uptermd");
@@ -61,7 +54,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
     systemd.services.uptermd = {
       description = "Upterm Daemon";
@@ -82,15 +76,17 @@ in
       serviceConfig = {
         StateDirectory = "uptermd";
         WorkingDirectory = "/var/lib/uptermd";
-        ExecStart = "${pkgs.upterm}/bin/uptermd --ssh-addr ${cfg.listenAddress}:${
+        ExecStart =
+          "${pkgs.upterm}/bin/uptermd --ssh-addr ${cfg.listenAddress}:${
             toString cfg.port
-          } --private-key ${if cfg.hostKey == null then "ssh_host_ed25519_key" else cfg.hostKey} ${
-            concatStringsSep " " cfg.extraFlags
-          }";
+          } --private-key ${
+            if cfg.hostKey == null then "ssh_host_ed25519_key" else cfg.hostKey
+          } ${concatStringsSep " " cfg.extraFlags}";
 
         # Hardening
         AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet =
+          mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         PrivateUsers = cfg.port >= 1024;
         DynamicUser = true;
         LockPersonality = true;
@@ -105,11 +101,7 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         # AF_UNIX is for ssh-keygen, which relies on nscd to resolve the uid to a user
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";

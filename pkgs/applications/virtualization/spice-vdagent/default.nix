@@ -1,25 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  alsa-lib,
-  spice-protocol,
-  glib,
-  libpciaccess,
-  libxcb,
-  libXrandr,
-  libXinerama,
-  libXfixes,
-  dbus,
-  libdrm,
-  systemd,
+{ lib, stdenv, fetchurl, pkg-config, alsa-lib, spice-protocol, glib
+, libpciaccess, libxcb, libXrandr, libXinerama, libXfixes, dbus, libdrm, systemd
 }:
 stdenv.mkDerivation rec {
   pname = "spice-vdagent";
   version = "0.21.0";
   src = fetchurl {
-    url = "https://www.spice-space.org/download/releases/${pname}-${version}.tar.bz2";
+    url =
+      "https://www.spice-space.org/download/releases/${pname}-${version}.tar.bz2";
     sha256 = "0n8jlc1pv6mkry161y656b1nk9hhhminjq6nymzmmyjl7k95ymzx";
   };
 

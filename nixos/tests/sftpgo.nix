@@ -18,11 +18,11 @@ let
   inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
   # Returns an attributeset of users who are not system users.
-  normalUsers = config: filterAttrs (name: user: user.isNormalUser) config.users.users;
+  normalUsers = config:
+    filterAttrs (name: user: user.isNormalUser) config.users.users;
 
   # Returns true if a user is a member of the given group
-  isMemberOf =
-    config:
+  isMemberOf = config:
     # str
     groupName:
     # users.users attrset
@@ -58,13 +58,12 @@ let
       };
 
       # Defines the ACL on the virtual filesystem
-      permissions =
-        recursiveUpdate
-          {
-            "/" = [ "list" ]; # read-only top level directory
-            "/private" = [ "*" ]; # private subdirectory, not shared with others
-          }
-          (optionalAttrs (isMemberOf config "shared" user) { "/shared" = [ "*" ]; });
+      permissions = recursiveUpdate {
+        "/" = [ "list" ]; # read-only top level directory
+        "/private" = [ "*" ]; # private subdirectory, not shared with others
+      } (optionalAttrs (isMemberOf config "shared" user) {
+        "/shared" = [ "*" ];
+      });
 
       filters = {
         allowed_ip = [ ];
@@ -86,31 +85,27 @@ let
 
   # Generates a json file containing a static configuration
   # of users and folders to import to SFTPGo.
-  loadDataJson =
-    config:
-    pkgs.writeText "users-and-folders.json" (
-      builtins.toJSON {
-        users = mapAttrsToList (name: user: generateUserAttrSet config user) (normalUsers config);
+  loadDataJson = config:
+    pkgs.writeText "users-and-folders.json" (builtins.toJSON {
+      users = mapAttrsToList (name: user: generateUserAttrSet config user)
+        (normalUsers config);
 
-        folders = [
-          {
-            name = sharedFolderName;
-            description = "shared folder";
+      folders = [{
+        name = sharedFolderName;
+        description = "shared folder";
 
-            # 0: local filesystem
-            # 1: AWS S3 compatible
-            # 2: Google Cloud Storage
-            filesystem.provider = 0;
+        # 0: local filesystem
+        # 1: AWS S3 compatible
+        # 2: Google Cloud Storage
+        filesystem.provider = 0;
 
-            # Mapped path on the local filesystem
-            mapped_path = "${config.services.sftpgo.dataDir}/${sharedFolderName}";
+        # Mapped path on the local filesystem
+        mapped_path = "${config.services.sftpgo.dataDir}/${sharedFolderName}";
 
-            # All users in the matching group gain access
-            users = config.users.groups.${sharedFolderName}.members;
-          }
-        ];
-      }
-    );
+        # All users in the matching group gain access
+        users = config.users.groups.${sharedFolderName}.members;
+      }];
+    });
 
   # Generated Host Key for connecting to SFTPGo's sftp subsystem.
   snakeOilHostKey = pkgs.writeText "sftpgo_ed25519_host_key" ''
@@ -142,223 +137,185 @@ let
 
   # Define the for exposing HTTP
   httpPort = 8080;
-in
-{
+in {
   name = "sftpgo";
 
   meta.maintainers = with maintainers; [ yayayayaka ];
 
   nodes = {
-    server =
-      { nodes, ... }:
-      {
-        networking.firewall.allowedTCPPorts = [
-          sftpPort
-          httpPort
-        ];
+    server = { nodes, ... }: {
+      networking.firewall.allowedTCPPorts = [ sftpPort httpPort ];
 
-        # nodes.server.configure postgresql database
-        services.postgresql = {
-          enable = true;
-          ensureDatabases = [ "sftpgo" ];
-          ensureUsers = [
-            {
-              name = "sftpgo";
-              ensurePermissions."DATABASE sftpgo" = "ALL PRIVILEGES";
-            }
-          ];
-        };
+      # nodes.server.configure postgresql database
+      services.postgresql = {
+        enable = true;
+        ensureDatabases = [ "sftpgo" ];
+        ensureUsers = [{
+          name = "sftpgo";
+          ensurePermissions."DATABASE sftpgo" = "ALL PRIVILEGES";
+        }];
+      };
 
-        services.sftpgo = {
-          enable = true;
+      services.sftpgo = {
+        enable = true;
 
-          loadDataFile = (loadDataJson nodes.server);
+        loadDataFile = (loadDataJson nodes.server);
 
-          settings = {
-            data_provider = {
-              driver = "postgresql";
-              name = "sftpgo";
-              username = "sftpgo";
-              host = "/run/postgresql";
-              port = 5432;
+        settings = {
+          data_provider = {
+            driver = "postgresql";
+            name = "sftpgo";
+            username = "sftpgo";
+            host = "/run/postgresql";
+            port = 5432;
 
-              # Enables the possibility to create an initial admin user on first startup.
-              create_default_admin = true;
-            };
-
-            httpd.bindings = [
-              {
-                address = ""; # listen on all interfaces
-                port = httpPort;
-                enable_https = false;
-
-                enable_web_client = true;
-                enable_web_admin = true;
-              }
-            ];
-
-            # Enable sftpd
-            sftpd = {
-              bindings = [
-                {
-                  address = ""; # listen on all interfaces
-                  port = sftpPort;
-                }
-              ];
-              host_keys = [ snakeOilHostKey ];
-              password_authentication = false;
-              keyboard_interactive_authentication = false;
-            };
-          };
-        };
-
-        systemd.services.sftpgo = {
-          after = [ "postgresql.service" ];
-          environment = {
-            # Update existing users
-            SFTPGO_LOADDATA_MODE = "0";
-            SFTPGO_DEFAULT_ADMIN_USERNAME = adminUsername;
-
-            # This will end up in cleartext in the systemd service.
-            # Don't use this approach in production!
-            SFTPGO_DEFAULT_ADMIN_PASSWORD = adminPassword;
-          };
-        };
-
-        # Sets up the folder hierarchy on the local filesystem
-        systemd.tmpfiles.rules =
-          let
-            sftpgoUser = nodes.server.services.sftpgo.user;
-            sftpgoGroup = nodes.server.services.sftpgo.group;
-            statePath = nodes.server.services.sftpgo.dataDir;
-          in
-          [
-            # Create state directory
-            "d ${statePath} 0750 ${sftpgoUser} ${sftpgoGroup} -"
-            "d ${statePath}/users 0750 ${sftpgoUser} ${sftpgoGroup} -"
-
-            # Created shared folder directories
-            "d ${statePath}/${sharedFolderName} 2770 ${sftpgoUser} ${sharedFolderName}   -"
-          ]
-          ++
-            mapAttrsToList
-              (name: user:
-                # Create private user directories
-                ''
-                  d ${statePath}/users/${user.name} 0700 ${sftpgoUser} ${sftpgoGroup} -
-                  d ${statePath}/users/${user.name}/private 0700 ${sftpgoUser} ${sftpgoGroup} -
-                '')
-              (normalUsers nodes.server);
-
-        users.users =
-          let
-            commonAttrs = {
-              isNormalUser = true;
-              openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-            };
-          in
-          {
-            # SFTPGo admin user
-            admin = commonAttrs // {
-              password = adminPassword;
-            };
-
-            # Alice and bob share folders with each other
-            alice = commonAttrs // {
-              password = alicePassword;
-              extraGroups = [ sharedFolderName ];
-            };
-
-            bob = commonAttrs // {
-              password = bobPassword;
-              extraGroups = [ sharedFolderName ];
-            };
-
-            # Eve has no shared folders
-            eve = commonAttrs // {
-              password = evePassword;
-            };
+            # Enables the possibility to create an initial admin user on first startup.
+            create_default_admin = true;
           };
 
-        users.groups.${sharedFolderName} = { };
+          httpd.bindings = [{
+            address = ""; # listen on all interfaces
+            port = httpPort;
+            enable_https = false;
 
-        specialisation = {
-          # A specialisation for asserting that SFTPGo can bind to privileged ports.
-          privilegedPorts.configuration =
-            { ... }:
-            {
-              networking.firewall.allowedTCPPorts = [
-                22
-                80
-              ];
-              services.sftpgo = {
-                settings = {
-                  sftpd.bindings = mkForce [
-                    {
-                      address = "";
-                      port = 22;
-                    }
-                  ];
+            enable_web_client = true;
+            enable_web_admin = true;
+          }];
 
-                  httpd.bindings = mkForce [
-                    {
-                      address = "";
-                      port = 80;
-                    }
-                  ];
-                };
-              };
-            };
+          # Enable sftpd
+          sftpd = {
+            bindings = [{
+              address = ""; # listen on all interfaces
+              port = sftpPort;
+            }];
+            host_keys = [ snakeOilHostKey ];
+            password_authentication = false;
+            keyboard_interactive_authentication = false;
+          };
         };
       };
 
-    client =
-      { nodes, ... }:
-      {
-        # Add the SFTPGo host key to the global known_hosts file
-        programs.ssh.knownHosts =
-          let
-            commonAttrs = {
-              publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE61C7pTXfnLG2u9So+ijNTKaSOg009UrquqNL3fpEu1";
-            };
-          in
-          {
-            "server" = commonAttrs;
-            "[server]:2022" = commonAttrs;
-          };
+      systemd.services.sftpgo = {
+        after = [ "postgresql.service" ];
+        environment = {
+          # Update existing users
+          SFTPGO_LOADDATA_MODE = "0";
+          SFTPGO_DEFAULT_ADMIN_USERNAME = adminUsername;
+
+          # This will end up in cleartext in the systemd service.
+          # Don't use this approach in production!
+          SFTPGO_DEFAULT_ADMIN_PASSWORD = adminPassword;
+        };
       };
+
+      # Sets up the folder hierarchy on the local filesystem
+      systemd.tmpfiles.rules = let
+        sftpgoUser = nodes.server.services.sftpgo.user;
+        sftpgoGroup = nodes.server.services.sftpgo.group;
+        statePath = nodes.server.services.sftpgo.dataDir;
+      in [
+        # Create state directory
+        "d ${statePath} 0750 ${sftpgoUser} ${sftpgoGroup} -"
+        "d ${statePath}/users 0750 ${sftpgoUser} ${sftpgoGroup} -"
+
+        # Created shared folder directories
+        "d ${statePath}/${sharedFolderName} 2770 ${sftpgoUser} ${sharedFolderName}   -"
+      ] ++ mapAttrsToList (name: user:
+        # Create private user directories
+        ''
+          d ${statePath}/users/${user.name} 0700 ${sftpgoUser} ${sftpgoGroup} -
+          d ${statePath}/users/${user.name}/private 0700 ${sftpgoUser} ${sftpgoGroup} -
+        '') (normalUsers nodes.server);
+
+      users.users = let
+        commonAttrs = {
+          isNormalUser = true;
+          openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+        };
+      in {
+        # SFTPGo admin user
+        admin = commonAttrs // { password = adminPassword; };
+
+        # Alice and bob share folders with each other
+        alice = commonAttrs // {
+          password = alicePassword;
+          extraGroups = [ sharedFolderName ];
+        };
+
+        bob = commonAttrs // {
+          password = bobPassword;
+          extraGroups = [ sharedFolderName ];
+        };
+
+        # Eve has no shared folders
+        eve = commonAttrs // { password = evePassword; };
+      };
+
+      users.groups.${sharedFolderName} = { };
+
+      specialisation = {
+        # A specialisation for asserting that SFTPGo can bind to privileged ports.
+        privilegedPorts.configuration = { ... }: {
+          networking.firewall.allowedTCPPorts = [ 22 80 ];
+          services.sftpgo = {
+            settings = {
+              sftpd.bindings = mkForce [{
+                address = "";
+                port = 22;
+              }];
+
+              httpd.bindings = mkForce [{
+                address = "";
+                port = 80;
+              }];
+            };
+          };
+        };
+      };
+    };
+
+    client = { nodes, ... }: {
+      # Add the SFTPGo host key to the global known_hosts file
+      programs.ssh.knownHosts = let
+        commonAttrs = {
+          publicKey =
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE61C7pTXfnLG2u9So+ijNTKaSOg009UrquqNL3fpEu1";
+        };
+      in {
+        "server" = commonAttrs;
+        "[server]:2022" = commonAttrs;
+      };
+    };
   };
 
-  testScript =
-    { nodes, ... }:
+  testScript = { nodes, ... }:
     let
       # A function to generate test cases for wheter
       # a specified username is expected to access the shared folder.
-      accessSharedFoldersSubtest =
-        {
-          # The username to run as
-          username,
-          # Whether the tests are expected to succeed or not
-          shouldSucceed ? true,
-        }:
-        ''
+      accessSharedFoldersSubtest = { # The username to run as
+        username
+        # Whether the tests are expected to succeed or not
+        , shouldSucceed ? true }: ''
           with subtest("Test whether ${username} can access shared folders"):
-              client.${if shouldSucceed then "succeed" else "fail"}("sftp -P ${toString sftpPort} -b ${
+              client.${if shouldSucceed then "succeed" else "fail"}("sftp -P ${
+                toString sftpPort
+              } -b ${
                 pkgs.writeText "${username}-ls-${sharedFolderName}" ''
                   ls ${sharedFolderName}
                 ''
               } ${username}@server")
         '';
       statePath = nodes.server.services.sftpgo.dataDir;
-    in
-    ''
+    in ''
       start_all()
 
       client.wait_for_unit("default.target")
       server.wait_for_unit("sftpgo.service")
 
       with subtest("web client"):
-          client.wait_until_succeeds("curl -sSf http://server:${toString httpPort}/web/client/login")
+          client.wait_until_succeeds("curl -sSf http://server:${
+            toString httpPort
+          }/web/client/login")
 
           # Ensure sftpgo found the static folder
           client.wait_until_succeeds("curl -o /dev/null -sSf http://server:${
@@ -377,7 +334,9 @@ in
           server.succeed("test -s ${statePath}/users/alice/private/${testFile.name}")
 
           # The configured ACL should prevent uploading files to the root directory
-          client.fail("scp -P ${toString sftpPort} ${toString testFile} alice@server:/")
+          client.fail("scp -P ${toString sftpPort} ${
+            toString testFile
+          } alice@server:/")
 
       with subtest("Attempting an interactive SSH sessions must fail"):
           client.fail("ssh -p ${toString sftpPort} alice@server")
@@ -411,7 +370,9 @@ in
           client.succeed("test -s ${sharedFile.name}")
 
           # Eve should not get the file from shared folder
-          client.fail("scp -P ${toString sftpPort} eve@server:/shared/${sharedFile.name}")
+          client.fail("scp -P ${
+            toString sftpPort
+          } eve@server:/shared/${sharedFile.name}")
 
       server.succeed("/run/current-system/specialisation/privilegedPorts/bin/switch-to-configuration test")
 

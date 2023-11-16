@@ -1,23 +1,6 @@
-{
-  mkXfceDerivation,
-  lib,
-  docbook_xsl,
-  exo,
-  gdk-pixbuf,
-  gtk3,
-  libgudev,
-  libnotify,
-  libX11,
-  libxfce4ui,
-  libxfce4util,
-  libxslt,
-  pcre,
-  xfconf,
-  gobject-introspection,
-  makeWrapper,
-  symlinkJoin,
-  thunarPlugins ? [ ],
-}:
+{ mkXfceDerivation, lib, docbook_xsl, exo, gdk-pixbuf, gtk3, libgudev, libnotify
+, libX11, libxfce4ui, libxfce4util, libxslt, pcre, xfconf, gobject-introspection
+, makeWrapper, symlinkJoin, thunarPlugins ? [ ] }:
 
 let
   unwrapped = mkXfceDerivation {
@@ -27,11 +10,7 @@ let
 
     sha256 = "sha256-7SWpIBGm/YhnQSWYi5BgYjx8WCiEqxZRTagz/cY0p3E=";
 
-    nativeBuildInputs = [
-      docbook_xsl
-      gobject-introspection
-      libxslt
-    ];
+    nativeBuildInputs = [ docbook_xsl gobject-introspection libxslt ];
 
     buildInputs = [
       exo
@@ -63,16 +42,11 @@ let
       maintainers = with maintainers; [ ] ++ teams.xfce.members;
     };
   };
-in
-if thunarPlugins == [ ] then
+
+in if thunarPlugins == [ ] then
   unwrapped
 else
   import ./wrapper.nix {
-    inherit
-      makeWrapper
-      symlinkJoin
-      thunarPlugins
-      lib
-    ;
+    inherit makeWrapper symlinkJoin thunarPlugins lib;
     thunar = unwrapped;
   }

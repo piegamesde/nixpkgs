@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  rpmextract,
-  patchelf,
-  makeWrapper,
-  openssl,
-  libxcrypt-legacy,
-}:
+{ lib, stdenv, fetchurl, rpmextract, patchelf, makeWrapper, openssl
+, libxcrypt-legacy }:
 
 stdenv.mkDerivation rec {
   pname = "snowsql";
@@ -20,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-V0TZebmhc463DczQuTDy0nZQX+io61z/m32/n/EKFJY=";
   };
 
-  nativeBuildInputs = [
-    rpmextract
-    makeWrapper
-  ];
+  nativeBuildInputs = [ rpmextract makeWrapper ];
 
-  libPath = lib.makeLibraryPath [
-    openssl
-    libxcrypt-legacy
-  ];
+  libPath = lib.makeLibraryPath [ openssl libxcrypt-legacy ];
 
   buildCommand = ''
     mkdir -p $out/bin/
@@ -43,7 +29,9 @@ stdenv.mkDerivation rec {
         lib64/snowflake/snowsql/snowsql
 
     makeWrapper $out/lib64/snowflake/snowsql/snowsql $out/bin/snowsql \
-      --set LD_LIBRARY_PATH "${libPath}":"${placeholder "out"}"/lib64/snowflake/snowsql \
+      --set LD_LIBRARY_PATH "${libPath}":"${
+        placeholder "out"
+      }"/lib64/snowflake/snowsql \
   '';
 
   meta = with lib; {

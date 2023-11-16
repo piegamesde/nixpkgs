@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  rsync,
-  ocamlPackages,
-}:
+{ lib, stdenv, fetchurl, rsync, ocamlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "abella";
@@ -17,15 +11,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [ rsync ]
-    ++ (
-      with ocamlPackages; [
-        ocaml
-        ocamlbuild
-        findlib
-      ]
-    );
+  nativeBuildInputs = [ rsync ]
+    ++ (with ocamlPackages; [ ocaml ocamlbuild findlib ]);
 
   installPhase = ''
     mkdir -p $out/bin
@@ -48,10 +35,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://abella-prover.org/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [
-      bcdarwin
-      ciil
-    ];
+    maintainers = with lib.maintainers; [ bcdarwin ciil ];
     platforms = lib.platforms.unix;
   };
 }

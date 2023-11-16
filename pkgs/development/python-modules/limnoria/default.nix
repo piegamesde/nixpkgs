@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  chardet,
-  cryptography,
-  feedparser,
-  fetchPypi,
-  mock,
-  pysocks,
-  pytestCheckHook,
-  python-dateutil,
-  python-gnupg,
-  pythonOlder,
-  pytz,
-}:
+{ lib, buildPythonPackage, chardet, cryptography, feedparser, fetchPypi, mock
+, pysocks, pytestCheckHook, python-dateutil, python-gnupg, pythonOlder, pytz }:
 
 buildPythonPackage rec {
   pname = "limnoria";
@@ -50,11 +37,10 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck =
-    [
-      # Uses the same names as Supybot
-      "supybot"
-    ];
+  pythonImportsCheck = [
+    # Uses the same names as Supybot
+    "supybot"
+  ];
 
   meta = with lib; {
     description = "A modified version of Supybot, an IRC bot";

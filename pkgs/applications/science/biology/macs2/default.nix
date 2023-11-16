@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "macs2";
@@ -21,26 +17,21 @@ python3.pkgs.buildPythonPackage rec {
       --replace "subprocess.call([sys.executable, \"-m\", 'pip', 'install', f'numpy{numpy_requires}'],cwd=cwd)" "0"
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    cython
-    setuptools
-  ];
+  nativeBuildInputs = with python3.pkgs; [ cython setuptools ];
 
   propagatedBuildInputs = with python3.pkgs; [ numpy ];
 
   nativeCheckInputs = [ python3.pkgs.unittestCheckHook ];
 
-  unittestFlagsArray = [
-    "-s"
-    "test"
-  ];
+  unittestFlagsArray = [ "-s" "test" ];
 
   pythonImportsCheck = [ "MACS2" ];
 
   meta = with lib; {
     description = "Model-based Analysis for ChIP-Seq";
     homepage = "https://github.com/macs3-project/MACS/";
-    changelog = "https://github.com/macs3-project/MACS/releases/tag/v${version}";
+    changelog =
+      "https://github.com/macs3-project/MACS/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ gschwartz ];
   };

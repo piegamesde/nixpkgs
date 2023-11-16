@@ -1,31 +1,19 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  makeWrapper,
-  perl,
-  perlPackages,
-}:
+{ fetchurl, lib, stdenv, makeWrapper, perl, perlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "amtterm";
   version = "1.6-1";
 
-  buildInputs = with perlPackages; [
-    perl
-    SOAPLite
-  ];
+  buildInputs = with perlPackages; [ perl SOAPLite ];
   nativeBuildInputs = [ makeWrapper ];
 
   src = fetchurl {
-    url = "https://www.kraxel.org/cgit/amtterm/snapshot/${pname}-${version}.tar.gz";
+    url =
+      "https://www.kraxel.org/cgit/amtterm/snapshot/${pname}-${version}.tar.gz";
     sha256 = "1jxcsqkag2bxmrnr4m6g88sln1j2d9liqlna57fj8kkc85316vlc";
   };
 
-  makeFlags = [
-    "prefix=$(out)"
-    "STRIP="
-  ];
+  makeFlags = [ "prefix=$(out)" "STRIP=" ];
 
   postInstall = "wrapProgram $out/bin/amttool --prefix PERL5LIB : $PERL5LIB";
 

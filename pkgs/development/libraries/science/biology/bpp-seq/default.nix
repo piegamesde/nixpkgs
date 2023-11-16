@@ -1,9 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  bpp-core,
-}:
+{ stdenv, fetchFromGitHub, cmake, bpp-core }:
 
 stdenv.mkDerivation rec {
   pname = "bpp-seq";

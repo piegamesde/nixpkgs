@@ -1,42 +1,18 @@
-{
-  lib,
-  mkDerivation,
+{ lib, mkDerivation
 
-  cmake,
-  extra-cmake-modules,
-  wrapGAppsHook,
+, cmake, extra-cmake-modules, wrapGAppsHook
 
-  gst_all_1,
-  kconfig,
-  kcoreaddons,
-  ki18n,
-  kirigami-addons,
-  kirigami2,
-  networkmanager-qt,
-  qtkeychain,
-  qtmultimedia,
-  qtquickcontrols2,
-  syndication,
-  taglib,
-  threadweaver,
-}:
+, gst_all_1, kconfig, kcoreaddons, ki18n, kirigami-addons, kirigami2
+, networkmanager-qt, qtkeychain, qtmultimedia, qtquickcontrols2, syndication
+, taglib, threadweaver }:
 
 let
   inherit (gst_all_1)
-    gstreamer
-    gst-plugins-base
-    gst-plugins-good
-    gst-plugins-bad
-  ;
-in
-mkDerivation rec {
+    gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad;
+in mkDerivation rec {
   pname = "kasts";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules wrapGAppsHook ];
 
   buildInputs = [
     gst-plugins-bad

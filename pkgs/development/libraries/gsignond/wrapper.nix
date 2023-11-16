@@ -1,9 +1,4 @@
-{
-  makeWrapper,
-  symlinkJoin,
-  gsignond,
-  plugins,
-}:
+{ makeWrapper, symlinkJoin, gsignond, plugins }:
 
 symlinkJoin {
   name = "gsignond-with-plugins-${gsignond.version}";

@@ -1,23 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  boost,
-  ganv,
-  glibmm,
-  gtkmm2,
-  libjack2,
-  lilv,
-  lv2,
-  pkg-config,
-  python3,
-  raul,
-  serd,
-  sord,
-  sratom,
-  wafHook,
-  suil,
-}:
+{ lib, stdenv, fetchgit, boost, ganv, glibmm, gtkmm2, libjack2, lilv, lv2
+, pkg-config, python3, raul, serd, sord, sratom, wafHook, suil }:
 
 stdenv.mkDerivation rec {
   pname = "ingen";
@@ -31,12 +13,7 @@ stdenv.mkDerivation rec {
     deepClone = true;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wafHook
-    python3
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ pkg-config wafHook python3 python3.pkgs.wrapPython ];
   buildInputs = [
     boost
     ganv
@@ -55,17 +32,15 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  pythonPath = [
-    python3
-    python3.pkgs.rdflib
-  ];
+  pythonPath = [ python3 python3.pkgs.rdflib ];
 
   postInstall = ''
     wrapPythonProgramsIn "$out/bin" "$out $pythonPath"
   '';
 
   meta = with lib; {
-    description = "A modular audio processing system using JACK and LV2 or LADSPA plugins";
+    description =
+      "A modular audio processing system using JACK and LV2 or LADSPA plugins";
     homepage = "http://drobilla.net/software/ingen";
     license = licenses.agpl3Plus;
     maintainers = [ maintainers.goibhniu ];

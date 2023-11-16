@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  fuse,
-  perl,
-}:
+{ lib, stdenv, fetchurl, pkg-config, fuse, perl }:
 
 stdenv.mkDerivation rec {
   pname = "cromfs";
@@ -27,10 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    fuse
-    perl
-  ];
+  buildInputs = [ fuse perl ];
 
   meta = with lib; {
     description = "FUSE Compressed ROM filesystem with lzma";

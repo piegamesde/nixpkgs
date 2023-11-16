@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  installShellFiles,
-  testers,
-  sigi,
-}:
+{ lib, rustPlatform, fetchCrate, installShellFiles, testers, sigi }:
 
 rustPlatform.buildRustPackage rec {
   pname = "sigi";

@@ -1,15 +1,5 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  python3,
-  fetchpatch,
-  cmake,
-  lingeling,
-  btor2tools,
-  gtest,
-  gmp,
-}:
+{ stdenv, fetchFromGitHub, lib, python3, fetchpatch, cmake, lingeling
+, btor2tools, gtest, gmp }:
 
 stdenv.mkDerivation rec {
   pname = "boolector";
@@ -22,48 +12,39 @@ stdenv.mkDerivation rec {
     sha256 = "1smcy6yp8wvnw2brgnv5bf40v87k4v4fbdbrhi7987vja632k50z";
   };
 
-  patches =
-    [
-      # present in master - remove after 3.2.2
-      (fetchpatch {
-        name = "fix-parser-getc-char-casts.patch";
-        url = "https://github.com/Boolector/boolector/commit/cc3a70918538c1e71ea5e7273fa1ac098da37c1b.patch";
-        sha256 = "0pjvagcy74vxa2q75zbshcz8j7rvhl98549xfcf5y8yyxf5h8hyq";
-      })
-    ];
+  patches = [
+    # present in master - remove after 3.2.2
+    (fetchpatch {
+      name = "fix-parser-getc-char-casts.patch";
+      url =
+        "https://github.com/Boolector/boolector/commit/cc3a70918538c1e71ea5e7273fa1ac098da37c1b.patch";
+      sha256 = "0pjvagcy74vxa2q75zbshcz8j7rvhl98549xfcf5y8yyxf5h8hyq";
+    })
+  ];
 
   postPatch = ''
     sed s@REPLACEME@file://${gtest.src}@ ${./cmake-gtest.patch} | patch -p1
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    lingeling
-    btor2tools
-    gmp
-  ];
+  buildInputs = [ lingeling btor2tools gmp ];
 
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-    "-DUSE_LINGELING=YES"
-  ] ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
+  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" "-DUSE_LINGELING=YES" ]
+    ++ (lib.optional (gmp != null) "-DUSE_GMP=YES");
 
   nativeCheckInputs = [ python3 ];
   doCheck = true;
-  preCheck =
-    let
-      var = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    in
+  preCheck = let
+    var = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     # tests modelgen and modelgensmt2 spawn boolector in another processes and
     # macOS strips DYLD_LIBRARY_PATH, hardcode it for testing
-    lib.optionalString stdenv.isDarwin ''
-      cp -r bin bin.back
-      install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
-    ''
-    + ''
-      export ${var}=$(readlink -f lib)
-      patchShebangs ..
-    '';
+  in lib.optionalString stdenv.isDarwin ''
+    cp -r bin bin.back
+    install_name_tool -change libboolector.dylib $(pwd)/lib/libboolector.dylib bin/boolector
+  '' + ''
+    export ${var}=$(readlink -f lib)
+    patchShebangs ..
+  '';
 
   postCheck = lib.optionalString stdenv.isDarwin ''
     rm -rf bin

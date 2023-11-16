@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  zlib,
-  dune-configurator,
-  zarith,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, zlib, dune-configurator, zarith }:
 
 buildDunePackage rec {
   pname = "cryptokit";
@@ -28,10 +21,7 @@ buildDunePackage rec {
   '';
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [
-    zarith
-    zlib
-  ];
+  propagatedBuildInputs = [ zarith zlib ];
 
   doCheck = true;
 

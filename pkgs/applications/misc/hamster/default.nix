@@ -1,18 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  intltool,
-  glib,
-  itstool,
-  gtk3,
-  wrapGAppsHook,
-  gobject-introspection,
-  pango,
-  gdk-pixbuf,
-  atk,
-  wafHook,
-}:
+{ lib, fetchFromGitHub, python3Packages, intltool, glib, itstool, gtk3
+, wrapGAppsHook, gobject-introspection, pango, gdk-pixbuf, atk, wafHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "hamster";
@@ -37,12 +24,7 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    pango
-    gdk-pixbuf
-    atk
-    gtk3
-  ];
+  buildInputs = [ pango gdk-pixbuf atk gtk3 ];
 
   propagatedBuildInputs = with python3Packages; [
     pygobject3

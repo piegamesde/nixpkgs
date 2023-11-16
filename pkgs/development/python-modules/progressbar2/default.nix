@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  freezegun,
-  pytestCheckHook,
-  python-utils,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, freezegun, pytestCheckHook, python-utils
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "progressbar2";
@@ -26,10 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ python-utils ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytestCheckHook ];
 
   pythonImportsCheck = [ "progressbar" ];
 
@@ -37,9 +27,6 @@ buildPythonPackage rec {
     description = "Text progressbar library";
     homepage = "https://progressbar-2.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      ashgillman
-      turion
-    ];
+    maintainers = with maintainers; [ ashgillman turion ];
   };
 }

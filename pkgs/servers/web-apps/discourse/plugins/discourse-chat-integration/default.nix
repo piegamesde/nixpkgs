@@ -1,8 +1,4 @@
-{
-  lib,
-  mkDiscoursePlugin,
-  fetchFromGitHub,
-}:
+{ lib, mkDiscoursePlugin, fetchFromGitHub }:
 
 mkDiscoursePlugin {
   name = "discourse-chat-integration";
@@ -16,6 +12,7 @@ mkDiscoursePlugin {
     homepage = "https://github.com/discourse/discourse-chat-integration";
     maintainers = with maintainers; [ dpausp ];
     license = licenses.mit;
-    description = "This plugin integrates Discourse with a number of external chatroom systems";
+    description =
+      "This plugin integrates Discourse with a number of external chatroom systems";
   };
 }

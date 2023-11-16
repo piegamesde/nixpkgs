@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.stargazer;
@@ -20,34 +15,27 @@ let
     organization = ${cfg.certOrg}
     gen-certs = ${lib.boolToString cfg.genCerts}
     regen-certs = ${lib.boolToString cfg.regenCerts}
-    ${lib.optionalString (cfg.certLifetime != "") "cert-lifetime = ${cfg.certLifetime}"}
+    ${lib.optionalString (cfg.certLifetime != "")
+    "cert-lifetime = ${cfg.certLifetime}"}
 
   '';
   genINI = lib.generators.toINI { };
-  configFile = pkgs.writeText "config.ini" (
-    lib.strings.concatStrings (
-      [ globalSection ]
-      ++ (lib.lists.forEach cfg.routes (
-        section:
-        let
-          name = section.route;
-          params = builtins.removeAttrs section [ "route" ];
-        in
-        genINI { "${name}" = params; } + "\n"
-      ))
-    )
-  );
-in
-{
+  configFile = pkgs.writeText "config.ini" (lib.strings.concatStrings
+    ([ globalSection ] ++ (lib.lists.forEach cfg.routes (section:
+      let
+        name = section.route;
+        params = builtins.removeAttrs section [ "route" ];
+      in genINI { "${name}" = params; } + "\n"))));
+in {
   options.services.stargazer = {
     enable = lib.mkEnableOption (lib.mdDoc "Stargazer Gemini server");
 
     listen = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
-      defaultText =
-        lib.literalExpression
-          ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
+      default = [ "0.0.0.0" ]
+        ++ lib.optional config.networking.enableIPv6 "[::0]";
+      defaultText = lib.literalExpression
+        ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
       example = lib.literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
       description = lib.mdDoc ''
         Address and port to listen on.
@@ -69,7 +57,8 @@ in
     ipLogPartial = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = lib.mdDoc "Log partial client IP addresses in the connection log.";
+      description =
+        lib.mdDoc "Log partial client IP addresses in the connection log.";
     };
 
     requestTimeout = lib.mkOption {
@@ -138,29 +127,16 @@ in
     };
 
     routes = lib.mkOption {
-      type = lib.types.listOf (
-        lib.types.submodule {
-          freeformType =
-            with lib.types;
-            attrsOf (
-              nullOr (
-                oneOf [
-                  bool
-                  int
-                  float
-                  str
-                ]
-              )
-              // {
-                description = "INI atom (null, bool, int, float or string)";
-              }
-            );
-          options.route = lib.mkOption {
-            type = lib.types.str;
-            description = lib.mdDoc "Route section name";
-          };
-        }
-      );
+      type = lib.types.listOf (lib.types.submodule {
+        freeformType = with lib.types;
+          attrsOf (nullOr (oneOf [ bool int float str ]) // {
+            description = "INI atom (null, bool, int, float or string)";
+          });
+        options.route = lib.mkOption {
+          type = lib.types.str;
+          description = lib.mdDoc "Route section name";
+        };
+      });
       default = [ ];
       description = lib.mdDoc ''
         Routes that Stargazer should server.
@@ -220,11 +196,10 @@ in
 
     # Create default cert store
     system.activationScripts.makeStargazerCertDir =
-      lib.optionalAttrs (cfg.store == /var/lib/gemini/certs)
-        ''
-          mkdir -p /var/lib/gemini/certs
-          chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
-        '';
+      lib.optionalAttrs (cfg.store == /var/lib/gemini/certs) ''
+        mkdir -p /var/lib/gemini/certs
+        chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
+      '';
 
     users.users = lib.optionalAttrs (cfg.user == "stargazer") {
       stargazer = {
@@ -233,7 +208,8 @@ in
       };
     };
 
-    users.groups = lib.optionalAttrs (cfg.group == "stargazer") { stargazer = { }; };
+    users.groups =
+      lib.optionalAttrs (cfg.group == "stargazer") { stargazer = { }; };
   };
 
   meta.maintainers = with lib.maintainers; [ gaykitty ];

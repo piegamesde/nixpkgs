@@ -1,10 +1,4 @@
-{
-  lib,
-  rel,
-  buildKodiBinaryAddon,
-  fetchFromGitHub,
-  tinyxml,
-}:
+{ lib, rel, buildKodiBinaryAddon, fetchFromGitHub, tinyxml }:
 
 buildKodiBinaryAddon rec {
   pname = "libretro";

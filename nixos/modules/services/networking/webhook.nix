@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,40 +8,37 @@ let
 
   hookFormat = pkgs.formats.json { };
 
-  hookType = types.submodule (
-    { name, ... }:
-    {
-      freeformType = hookFormat.type;
-      options = {
-        id = mkOption {
-          type = types.str;
-          default = name;
-          description = mdDoc ''
-            The ID of your hook. This value is used to create the HTTP endpoint (`protocol://yourserver:port/prefix/''${id}`).
-          '';
-        };
-        execute-command = mkOption {
-          type = types.str;
-          description = mdDoc "The command that should be executed when the hook is triggered.";
-        };
+  hookType = types.submodule ({ name, ... }: {
+    freeformType = hookFormat.type;
+    options = {
+      id = mkOption {
+        type = types.str;
+        default = name;
+        description = mdDoc ''
+          The ID of your hook. This value is used to create the HTTP endpoint (`protocol://yourserver:port/prefix/''${id}`).
+        '';
       };
-    }
-  );
+      execute-command = mkOption {
+        type = types.str;
+        description = mdDoc
+          "The command that should be executed when the hook is triggered.";
+      };
+    };
+  });
 
-  hookFiles =
-    mapAttrsToList (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
-    ++ mapAttrsToList (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
-      cfg.hooksTemplated;
-in
-{
+  hookFiles = mapAttrsToList
+    (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
+    ++ mapAttrsToList
+    (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
+    cfg.hooksTemplated;
+
+in {
   options = {
     services.webhook = {
-      enable = mkEnableOption (
-        mdDoc ''
-          [Webhook](https://github.com/adnanh/webhook), a server written in Go that allows you to create HTTP endpoints (hooks),
-          which execute configured commands for any person or service that knows the URL
-        ''
-      );
+      enable = mkEnableOption (mdDoc ''
+        [Webhook](https://github.com/adnanh/webhook), a server written in Go that allows you to create HTTP endpoints (hooks),
+        which execute configured commands for any person or service that knows the URL
+      '');
 
       package = mkPackageOptionMD pkgs "webhook" { };
       user = mkOption {
@@ -174,22 +166,22 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions =
-      let
-        overlappingHooks = builtins.intersectAttrs cfg.hooks cfg.hooksTemplated;
-      in
-      [
-        {
-          assertion = hookFiles != [ ];
-          message = "At least one hook needs to be configured for webhook to run.";
-        }
-        {
-          assertion = overlappingHooks == { };
-          message = "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
-              concatStringsSep ", " (builtins.attrNames overlappingHooks)
-            }";
-        }
-      ];
+    assertions = let
+      overlappingHooks = builtins.intersectAttrs cfg.hooks cfg.hooksTemplated;
+    in [
+      {
+        assertion = hookFiles != [ ];
+        message =
+          "At least one hook needs to be configured for webhook to run.";
+      }
+      {
+        assertion = overlappingHooks == { };
+        message =
+          "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
+            concatStringsSep ", " (builtins.attrNames overlappingHooks)
+          }";
+      }
+    ];
 
     users.users = mkIf (cfg.user == defaultUser) {
       ${defaultUser} = {
@@ -199,7 +191,9 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.user == defaultUser && cfg.group == defaultUser) { ${defaultUser} = { }; };
+    users.groups = mkIf (cfg.user == defaultUser && cfg.group == defaultUser) {
+      ${defaultUser} = { };
+    };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
 
@@ -208,30 +202,20 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       environment = config.networking.proxy.envVars // cfg.environment;
-      script =
-        let
-          args =
-            [
-              "-ip"
-              cfg.ip
-              "-port"
-              (toString cfg.port)
-              "-urlprefix"
-              cfg.urlPrefix
-            ]
-            ++ concatMap
-              (hook: [
-                "-hooks"
-                hook
-              ])
-              hookFiles
-            ++ optional cfg.enableTemplates "-template"
-            ++ optional cfg.verbose "-verbose"
-            ++ cfg.extraArgs;
-        in
-        ''
-          ${cfg.package}/bin/webhook ${escapeShellArgs args}
-        '';
+      script = let
+        args = [
+          "-ip"
+          cfg.ip
+          "-port"
+          (toString cfg.port)
+          "-urlprefix"
+          cfg.urlPrefix
+        ] ++ concatMap (hook: [ "-hooks" hook ]) hookFiles
+          ++ optional cfg.enableTemplates "-template"
+          ++ optional cfg.verbose "-verbose" ++ cfg.extraArgs;
+      in ''
+        ${cfg.package}/bin/webhook ${escapeShellArgs args}
+      '';
       serviceConfig = {
         Restart = "on-failure";
         User = cfg.user;

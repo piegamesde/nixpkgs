@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  pytest,
-  testrail-api,
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pytest, testrail-api
 }:
 
 buildPythonPackage rec {
@@ -34,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pytest plugin for interaction with TestRail";
     homepage = "https://github.com/tolstislon/pytest-pytestrail";
-    changelog = "https://github.com/tolstislon/pytest-pytestrail/releases/tag/${version}";
+    changelog =
+      "https://github.com/tolstislon/pytest-pytestrail/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ aanderse ];
   };

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy3k,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "baseline";

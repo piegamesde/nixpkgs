@@ -1,64 +1,33 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  pkg-config,
-  glib,
-  freetype,
-  fontconfig,
-  libintl,
-  meson,
-  ninja,
-  gobject-introspection,
-  buildPackages,
-  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
-  icu,
-  graphite2,
-  harfbuzz, # The icu variant uses and propagates the non-icu one.
-  ApplicationServices,
-  CoreText,
-  withCoreText ? false,
-  withIcu ? false # recommended by upstream as default, but most don't needed and it's big
-  ,
-  withGraphite2 ? true # it is small and major distros do include it
-  ,
-  python3,
-  gtk-doc,
-  docbook-xsl-nons,
-  docbook_xml_dtd_43,
-  # for passthru.tests
-  gimp,
-  gtk3,
-  gtk4,
-  mapnik,
-  qt5,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, glib, freetype, fontconfig
+, libintl, meson, ninja, gobject-introspection, buildPackages
+, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages, icu
+, graphite2, harfbuzz # The icu variant uses and propagates the non-icu one.
+, ApplicationServices, CoreText, withCoreText ? false, withIcu ?
+  false # recommended by upstream as default, but most don't needed and it's big
+, withGraphite2 ? true # it is small and major distros do include it
+, python3, gtk-doc, docbook-xsl-nons, docbook_xml_dtd_43
+# for passthru.tests
+, gimp, gtk3, gtk4, mapnik, qt5 }:
 
 stdenv.mkDerivation rec {
   pname = "harfbuzz${lib.optionalString withIcu "-icu"}";
   version = "7.3.0";
 
   src = fetchurl {
-    url = "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz";
+    url =
+      "https://github.com/harfbuzz/harfbuzz/releases/download/${version}/harfbuzz-${version}.tar.xz";
     hash = "sha256-IHcHiXSaybqEbfM5g9vaItuDbHDZ9dBQy5qlNHCUqPs=";
   };
 
-  postPatch =
-    ''
-      patchShebangs src/*.py test
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # ApplicationServices.framework headers have cast-align warnings.
-      substituteInPlace src/hb.hh \
-        --replace '#pragma GCC diagnostic error   "-Wcast-align"' ""
-    '';
+  postPatch = ''
+    patchShebangs src/*.py test
+  '' + lib.optionalString stdenv.isDarwin ''
+    # ApplicationServices.framework headers have cast-align warnings.
+    substituteInPlace src/hb.hh \
+      --replace '#pragma GCC diagnostic error   "-Wcast-align"' ""
+  '';
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
   outputBin = "dev";
 
   mesonFlags = [
@@ -89,22 +58,11 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
   ] ++ lib.optional withIntrospection gobject-introspection;
 
-  buildInputs =
-    [
-      glib
-      freetype
-    ]
-    ++ lib.optionals withCoreText [
-      ApplicationServices
-      CoreText
-    ];
+  buildInputs = [ glib freetype ]
+    ++ lib.optionals withCoreText [ ApplicationServices CoreText ];
 
-  propagatedBuildInputs =
-    lib.optional withGraphite2 graphite2
-    ++ lib.optionals withIcu [
-      icu
-      harfbuzz
-    ];
+  propagatedBuildInputs = lib.optional withGraphite2 graphite2
+    ++ lib.optionals withIcu [ icu harfbuzz ];
 
   doCheck = true;
 
@@ -119,12 +77,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    inherit
-      gimp
-      gtk3
-      gtk4
-      mapnik
-    ;
+    inherit gimp gtk3 gtk4 mapnik;
     inherit (qt5) qtbase;
   };
 

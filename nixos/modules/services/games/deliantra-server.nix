@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.deliantra-server;
   serverPort = 13327;
-in
-{
+in {
   options.services.deliantra-server = {
     enable = mkOption {
       type = types.bool;
@@ -94,9 +88,7 @@ in
           ''';
         }
       '';
-      default = {
-        motd = "";
-      };
+      default = { motd = ""; };
     };
   };
 
@@ -115,30 +107,22 @@ in
     # For most files this consists of reading
     # ${deliantra}/etc/deliantra-server/${name} and appending the user setting
     # to it.
-    environment.etc =
-      lib.attrsets.mapAttrs'
-        (
-          name: value:
-          lib.attrsets.nameValuePair "deliantra-server/${name}" {
-            mode = "0644";
-            text =
-              # Deliantra doesn't come with a motd file, but respects it if present
-              # in /etc.
-              (optionalString (name != "motd") (fileContents "${cfg.package}/etc/deliantra-server/${name}"))
-              + ''
+    environment.etc = lib.attrsets.mapAttrs' (name: value:
+      lib.attrsets.nameValuePair "deliantra-server/${name}" {
+        mode = "0644";
+        text =
+          # Deliantra doesn't come with a motd file, but respects it if present
+          # in /etc.
+          (optionalString (name != "motd")
+            (fileContents "${cfg.package}/etc/deliantra-server/${name}")) + ''
 
-                ${value}'';
-          }
-        )
-        (
-          {
-            motd = "";
-            settings = "";
-            config = "";
-            dm_file = "";
-          }
-          // cfg.configFiles
-        );
+              ${value}'';
+      }) ({
+        motd = "";
+        settings = "";
+        config = "";
+        dm_file = "";
+      } // cfg.configFiles);
 
     systemd.services.deliantra-server = {
       description = "Deliantra Server Daemon";
@@ -159,7 +143,9 @@ in
           Group = "deliantra";
           WorkingDirectory = cfg.stateDir;
         }
-        (mkIf (cfg.stateDir == "/var/lib/deliantra") { StateDirectory = "deliantra"; })
+        (mkIf (cfg.stateDir == "/var/lib/deliantra") {
+          StateDirectory = "deliantra";
+        })
       ];
 
       # The deliantra server needs access to a bunch of files at runtime that
@@ -178,6 +164,7 @@ in
       '';
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ serverPort ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ serverPort ]; };
   };
 }

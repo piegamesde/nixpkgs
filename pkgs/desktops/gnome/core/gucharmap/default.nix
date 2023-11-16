@@ -1,33 +1,8 @@
-{
-  stdenv,
-  lib,
-  intltool,
-  fetchFromGitLab,
-  meson,
-  mesonEmulatorHook,
-  ninja,
-  pkg-config,
-  python3,
-  gtk3,
-  pcre2,
-  glib,
-  desktop-file-utils,
-  gtk-doc,
-  wrapGAppsHook,
-  itstool,
-  libxml2,
-  yelp-tools,
-  docbook_xsl,
-  docbook_xml_dtd_412,
-  gsettings-desktop-schemas,
-  unzip,
-  unicode-character-database,
-  unihan-database,
-  runCommand,
-  symlinkJoin,
-  gobject-introspection,
-  gitUpdater,
-}:
+{ stdenv, lib, intltool, fetchFromGitLab, meson, mesonEmulatorHook, ninja
+, pkg-config, python3, gtk3, pcre2, glib, desktop-file-utils, gtk-doc
+, wrapGAppsHook, itstool, libxml2, yelp-tools, docbook_xsl, docbook_xml_dtd_412
+, gsettings-desktop-schemas, unzip, unicode-character-database, unihan-database
+, runCommand, symlinkJoin, gobject-introspection, gitUpdater }:
 
 let
   # TODO: make upstream patch allowing to use the uncompressed file,
@@ -39,22 +14,13 @@ let
   '';
   ucd = symlinkJoin {
     name = "ucd+unihan";
-    paths = [
-      unihanZip
-      unicode-character-database
-    ];
+    paths = [ unihanZip unicode-character-database ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gucharmap";
   version = "15.0.4";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "lib" "dev" "devdoc" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
@@ -81,19 +47,12 @@ stdenv.mkDerivation rec {
     libxml2
     desktop-file-utils
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    gtk3
-    glib
-    gsettings-desktop-schemas
-    pcre2
-  ];
+  buildInputs = [ gtk3 glib gsettings-desktop-schemas pcre2 ];
 
-  mesonFlags = [
-    "-Ducd_path=${ucd}/share/unicode"
-    "-Dvapi=false"
-  ];
+  mesonFlags = [ "-Ducd_path=${ucd}/share/unicode" "-Dvapi=false" ];
 
   doCheck = true;
 
@@ -103,12 +62,11 @@ stdenv.mkDerivation rec {
       gucharmap/gen-guch-unicode-tables.pl
   '';
 
-  passthru = {
-    updateScript = gitUpdater { };
-  };
+  passthru = { updateScript = gitUpdater { }; };
 
   meta = with lib; {
-    description = "GNOME Character Map, based on the Unicode Character Database";
+    description =
+      "GNOME Character Map, based on the Unicode Character Database";
     homepage = "https://wiki.gnome.org/Apps/Gucharmap";
     license = licenses.gpl3;
     maintainers = teams.gnome.members;

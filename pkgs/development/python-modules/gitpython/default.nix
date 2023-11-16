@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  ddt,
-  fetchFromGitHub,
-  gitdb,
-  pkgs,
-  pythonOlder,
-  substituteAll,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, ddt, fetchFromGitHub, gitdb, pkgs, pythonOlder
+, substituteAll, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "gitpython";
@@ -24,11 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-lpx/vptFhz4WOkybJpqq1teMGgX6RQo/f2OTNEm5XJU=";
   };
 
-  propagatedBuildInputs = [
-    ddt
-    gitdb
-    pkgs.gitMinimal
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [ ddt gitdb pkgs.gitMinimal ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   postPatch = ''
     substituteInPlace git/cmd.py \
@@ -43,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Git Library";
     homepage = "https://github.com/gitpython-developers/GitPython";
-    changelog = "https://github.com/gitpython-developers/GitPython/blob/${version}/doc/source/changes.rst";
+    changelog =
+      "https://github.com/gitpython-developers/GitPython/blob/${version}/doc/source/changes.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];
   };

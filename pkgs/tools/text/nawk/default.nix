@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bison,
-  buildPackages,
-}:
+{ lib, stdenv, fetchFromGitHub, bison, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "nawk";

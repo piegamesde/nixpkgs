@@ -1,47 +1,12 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-  makeWrapper,
-  fetchpatch,
-  curly,
-  fmt,
-  bos,
-  cmdliner,
-  re,
-  rresult,
-  logs,
-  fpath,
-  odoc,
-  opam-format,
-  opam-core,
-  opam-state,
-  yojson,
-  astring,
-  opam,
-  git,
-  findlib,
-  mercurial,
-  bzip2,
-  gnutar,
-  coreutils,
-  alcotest,
-}:
+{ lib, buildDunePackage, fetchurl, makeWrapper, fetchpatch, curly, fmt, bos
+, cmdliner, re, rresult, logs, fpath, odoc, opam-format, opam-core, opam-state
+, yojson, astring, opam, git, findlib, mercurial, bzip2, gnutar, coreutils
+, alcotest }:
 
 # don't include dune as runtime dep, so user can
 # choose between dune and dune_2
-let
-  runtimeInputs = [
-    opam
-    findlib
-    git
-    mercurial
-    bzip2
-    gnutar
-    coreutils
-  ];
-in
-buildDunePackage rec {
+let runtimeInputs = [ opam findlib git mercurial bzip2 gnutar coreutils ];
+in buildDunePackage rec {
   pname = "dune-release";
   version = "1.6.2";
   duneVersion = "3";
@@ -49,7 +14,8 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.06";
 
   src = fetchurl {
-    url = "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/ocamllabs/${pname}/releases/download/${version}/${pname}-${version}.tbz";
     sha256 = "sha256-oJ5SL7qNM5izoEpr+nTjbT+YmmNIoy7QgSNse3wNIA4=";
   };
 

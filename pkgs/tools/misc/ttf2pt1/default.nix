@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-  freetype,
-}:
+{ lib, stdenv, fetchurl, perl, freetype }:
 
 stdenv.mkDerivation rec {
   pname = "ttf2pt1";

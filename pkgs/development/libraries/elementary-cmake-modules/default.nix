@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config }:
 
 stdenv.mkDerivation {
   pname = "elementary-cmake-modules";
@@ -22,10 +16,7 @@ stdenv.mkDerivation {
       --replace ' ''${CMAKE_ROOT}/Modules' " $out/lib/cmake"
   '';
 
-  propagatedBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  propagatedBuildInputs = [ cmake pkg-config ];
 
   setupHook = ./setup-hook.sh;
 

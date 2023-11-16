@@ -1,17 +1,6 @@
-{
-  lib,
-  stdenv,
-  aiohttp,
-  async-timeout,
-  buildPythonPackage,
-  defusedxml,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  python-didl-lite,
-  pythonOlder,
-  voluptuous,
-}:
+{ lib, stdenv, aiohttp, async-timeout, buildPythonPackage, defusedxml
+, fetchFromGitHub, pytest-asyncio, pytestCheckHook, python-didl-lite
+, pythonOlder, voluptuous }:
 
 buildPythonPackage rec {
   pname = "async-upnp-client";
@@ -27,18 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-6bTXKlogciD1iTFbo3Pss3fYnXsg4bc2GvryBvC3CDg=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    defusedxml
-    python-didl-lite
-    voluptuous
-  ];
+  propagatedBuildInputs =
+    [ aiohttp async-timeout defusedxml python-didl-lite voluptuous ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
 
   disabledTests = [
     # socket.gaierror: [Errno -2] Name or service not known
@@ -60,18 +41,18 @@ buildPythonPackage rec {
     "test_unsubscribe"
   ] ++ lib.optionals stdenv.isDarwin [ "test_deferred_callback_url" ];
 
-  disabledTestPaths =
-    [
-      # Tries to bind to multicast socket and fails to find proper interface
-      "tests/test_ssdp_listener.py"
-    ];
+  disabledTestPaths = [
+    # Tries to bind to multicast socket and fails to find proper interface
+    "tests/test_ssdp_listener.py"
+  ];
 
   pythonImportsCheck = [ "async_upnp_client" ];
 
   meta = with lib; {
     description = "Asyncio UPnP Client library for Python";
     homepage = "https://github.com/StevenLooman/async_upnp_client";
-    changelog = "https://github.com/StevenLooman/async_upnp_client/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/StevenLooman/async_upnp_client/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];
   };

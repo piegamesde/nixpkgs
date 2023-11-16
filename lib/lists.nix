@@ -5,21 +5,10 @@ let
   inherit (lib.strings) toInt;
   inherit (lib.trivial) compare min;
   inherit (lib.attrsets) mapAttrs;
-in
-rec {
+in rec {
 
   inherit (builtins)
-    head
-    tail
-    length
-    isList
-    elemAt
-    concatLists
-    filter
-    elem
-    genList
-    map
-  ;
+    head tail length isList elemAt concatLists filter elem genList map;
 
   /* Create a list consisting of a single element.  `singleton x` is
       sometimes more convenient with respect to indentation than `[x]`
@@ -61,13 +50,11 @@ rec {
        strange [ 1 2 3 4 ]
        => "2345a"
   */
-  foldr =
-    op: nul: list:
+  foldr = op: nul: list:
     let
       len = length list;
       fold' = n: if n == len then nul else op (elemAt list n) (fold' (n + 1));
-    in
-    fold' 0;
+    in fold' 0;
 
   # `fold` is an alias of `foldr` for historic reasons
   # FIXME(Profpatsch): deprecate?
@@ -87,12 +74,10 @@ rec {
        lstrange [ 1 2 3 4 ]
        => "a2345"
   */
-  foldl =
-    op: nul: list:
+  foldl = op: nul: list:
     let
       foldl' = n: if n == -1 then nul else op (foldl' (n - 1)) (elemAt list n);
-    in
-    foldl' (length list - 1);
+    in foldl' (length list - 1);
 
   /* Strict version of `foldl`.
 
@@ -155,7 +140,8 @@ rec {
   */
   remove =
     # Element to remove from the list
-    e: filter (x: x != e);
+    e:
+    filter (x: x != e);
 
   /* Find the sole element in the list matching the specified
      predicate, returns `default` if no such element exists, or
@@ -183,13 +169,7 @@ rec {
     let
       found = filter pred list;
       len = length found;
-    in
-    if len == 0 then
-      default
-    else if len != 1 then
-      multiple
-    else
-      head found;
+    in if len == 0 then default else if len != 1 then multiple else head found;
 
   /* Find the first element in the list matching the specified
      predicate or return `default` if no such element exists.
@@ -223,26 +203,19 @@ rec {
       # - if index >= 0 then pred (elemAt list index) and all elements before (elemAt list index) didn't satisfy pred
       #
       # We start with index -1 and the 0'th element of the list, which satisfies the invariant
-      resultIndex =
-        foldl'
-          (
-            index: el:
-            if index < 0 then
-              # No match yet before the current index, we need to check the element
-              if pred el then
-                # We have a match! Turn it into the actual index to prevent future iterations from modifying it
-                -index - 1
-              else
-                # Still no match, update the index to the next element (we're counting down, so minus one)
-                index - 1
-            else
-              # There's already a match, propagate the index without evaluating anything
-              index
-          )
-          (-1)
-          list;
-    in
-    if resultIndex < 0 then default else elemAt list resultIndex;
+      resultIndex = foldl' (index: el:
+        if index < 0 then
+        # No match yet before the current index, we need to check the element
+          if pred el then
+          # We have a match! Turn it into the actual index to prevent future iterations from modifying it
+            -index - 1
+          else
+          # Still no match, update the index to the next element (we're counting down, so minus one)
+            index - 1
+        else
+        # There's already a match, propagate the index without evaluating anything
+          index) (-1) list;
+    in if resultIndex < 0 then default else elemAt list resultIndex;
 
   /* Return true if function `pred` returns true for at least one
      element of `list`.
@@ -281,7 +254,8 @@ rec {
   */
   count =
     # Predicate
-    pred: foldl' (c: x: if pred x then c + 1 else c) 0;
+    pred:
+    foldl' (c: x: if pred x then c + 1 else c) 0;
 
   /* Return a singleton list or an empty list, depending on a boolean
      value.  Useful when building lists with optional elements
@@ -364,28 +338,18 @@ rec {
        partition (x: x > 2) [ 5 1 2 3 4 ]
        => { right = [ 5 3 4 ]; wrong = [ 1 2 ]; }
   */
-  partition =
-    builtins.partition or (
-      pred:
-      foldr
-        (
-          h: t:
-          if pred h then
-            {
-              right = [ h ] ++ t.right;
-              wrong = t.wrong;
-            }
-          else
-            {
-              right = t.right;
-              wrong = [ h ] ++ t.wrong;
-            }
-        )
-        {
-          right = [ ];
-          wrong = [ ];
-        }
-    );
+  partition = builtins.partition or (pred:
+    foldr (h: t:
+      if pred h then {
+        right = [ h ] ++ t.right;
+        wrong = t.wrong;
+      } else {
+        right = t.right;
+        wrong = [ h ] ++ t.wrong;
+      }) {
+        right = [ ];
+        wrong = [ ];
+      });
 
   /* Splits the elements of a list into many lists, using the return value of a predicate.
      Predicate should return a string which becomes keys of attrset `groupBy` returns.
@@ -409,23 +373,13 @@ rec {
        groupBy' builtins.add 0 (x: boolToString (x > 2)) [ 5 1 2 3 4 ]
        => { true = 12; false = 3; }
   */
-  groupBy' =
-    op: nul: pred: lst:
+  groupBy' = op: nul: pred: lst:
     mapAttrs (name: foldl op nul) (groupBy pred lst);
 
-  groupBy =
-    builtins.groupBy or (
-      pred:
-      foldl'
-        (
-          r: e:
-          let
-            key = pred e;
-          in
-          r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
-        )
-        { }
-    );
+  groupBy = builtins.groupBy or (pred:
+    foldl'
+    (r: e: let key = pred e; in r // { ${key} = (r.${key} or [ ]) ++ [ e ]; })
+    { });
 
   /* Merges two lists of the same size together. If the sizes aren't the same
      the merging stops at the shortest. How both lists are merged is defined
@@ -444,7 +398,8 @@ rec {
     fst:
     # Second list
     snd:
-    genList (n: f (elemAt fst n) (elemAt snd n)) (min (length fst) (length snd));
+    genList (n: f (elemAt fst n) (elemAt snd n))
+    (min (length fst) (length snd));
 
   /* Merges two lists of the same size together. If the sizes aren't the same
      the merging stops at the shortest.
@@ -466,12 +421,7 @@ rec {
        reverseList [ "b" "o" "j" ]
        => [ "j" "o" "b" ]
   */
-  reverseList =
-    xs:
-    let
-      l = length xs;
-    in
-    genList (n: elemAt xs (l - n - 1)) l;
+  reverseList = xs: let l = length xs; in genList (n: elemAt xs (l - n - 1)) l;
 
   /* Depth-First Search (DFS) for lists `list != []`.
 
@@ -491,32 +441,23 @@ rec {
                 visited = [ "/" "/home/user" ]; # elements leading to the cycle (in reverse order)
                 rest    = [ "/home" "other" ];  # everything else
   */
-  listDfs =
-    stopOnCycles: before: list:
+  listDfs = stopOnCycles: before: list:
     let
-      dfs' =
-        us: visited: rest:
+      dfs' = us: visited: rest:
         let
           c = filter (x: before x us) visited;
           b = partition (x: before x us) rest;
-        in
-        if stopOnCycles && (length c > 0) then
-          {
-            cycle = us;
-            loops = c;
-            inherit visited rest;
-          }
-        else if length b.right == 0 then
-          # nothing is before us
-          {
-            minimal = us;
-            inherit visited rest;
-          }
-        else
-          # grab the first one before us and continue
+        in if stopOnCycles && (length c > 0) then {
+          cycle = us;
+          loops = c;
+          inherit visited rest;
+        } else if length b.right == 0 then # nothing is before us
+        {
+          minimal = us;
+          inherit visited rest;
+        } else # grab the first one before us and continue
           dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong);
-    in
-    dfs' (head list) [ ] (tail list);
+    in dfs' (head list) [ ] (tail list);
 
   /* Sort a list based on a partial ordering using DFS. This
      implementation is O(N^2), if your ordering is linear, use `sort`
@@ -539,28 +480,26 @@ rec {
 
          toposort (a: b: a < b) [ 3 2 1 ] == { result = [ 1 2 3 ]; }
   */
-  toposort =
-    before: list:
+  toposort = before: list:
     let
       dfsthis = listDfs true before list;
       toporest = toposort before (dfsthis.visited ++ dfsthis.rest);
-    in
-    if length list < 2 then
-      # finish
-      { result = list; }
-    else if dfsthis ? cycle then
-      # there's a cycle, starting from the current vertex, return it
-      {
-        cycle = reverseList ([ dfsthis.cycle ] ++ dfsthis.visited);
-        inherit (dfsthis) loops;
-      }
-    else if toporest ? cycle then
-      # there's a cycle somewhere else in the graph, return it
+    in if length list < 2 then # finish
+    {
+      result = list;
+    } else if dfsthis
+    ? cycle then # there's a cycle, starting from the current vertex, return it
+    {
+      cycle = reverseList ([ dfsthis.cycle ] ++ dfsthis.visited);
+      inherit (dfsthis) loops;
+    } else if toporest
+    ? cycle then # there's a cycle somewhere else in the graph, return it
       toporest
-    # Slow, but short. Can be made a bit faster with an explicit stack.
-    else
-      # there are no cycles
-      { result = [ dfsthis.minimal ] ++ toporest.result; };
+      # Slow, but short. Can be made a bit faster with an explicit stack.
+    else # there are no cycles
+    {
+      result = [ dfsthis.minimal ] ++ toporest.result;
+    };
 
   /* Sort a list based on a comparator function which compares two
      elements and returns true if the first argument is strictly below
@@ -571,38 +510,36 @@ rec {
        sort (a: b: a < b) [ 5 3 7 ]
        => [ 3 5 7 ]
   */
-  sort =
-    builtins.sort or (
-      strictLess: list:
-      let
-        len = length list;
-        first = head list;
-        pivot' =
-          n:
-          acc@{ left, right }:
-          let
-            el = elemAt list n;
-            next = pivot' (n + 1);
-          in
-          if n == len then
-            acc
-          else if strictLess first el then
-            next {
-              inherit left;
-              right = [ el ] ++ right;
-            }
-          else
-            next {
-              left = [ el ] ++ left;
-              inherit right;
-            };
-        pivot = pivot' 1 {
-          left = [ ];
-          right = [ ];
-        };
-      in
-      if len < 2 then list else (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
-    );
+  sort = builtins.sort or (strictLess: list:
+    let
+      len = length list;
+      first = head list;
+      pivot' = n:
+        acc@{ left, right }:
+        let
+          el = elemAt list n;
+          next = pivot' (n + 1);
+        in if n == len then
+          acc
+        else if strictLess first el then
+          next {
+            inherit left;
+            right = [ el ] ++ right;
+          }
+        else
+          next {
+            left = [ el ] ++ left;
+            inherit right;
+          };
+      pivot = pivot' 1 {
+        left = [ ];
+        right = [ ];
+      };
+    in if len < 2 then
+      list
+    else
+      (sort strictLess pivot.left) ++ [ first ]
+      ++ (sort strictLess pivot.right));
 
   /* Compare two lists element-by-element.
 
@@ -616,17 +553,14 @@ rec {
        compareLists compare [ "a" "b" ] [ "a" "c" ]
        => -1
   */
-  compareLists =
-    cmp: a: b:
+  compareLists = cmp: a: b:
     if a == [ ] then
       if b == [ ] then 0 else -1
     else if b == [ ] then
       1
     else
-      let
-        rel = cmp (head a) (head b);
-      in
-      if rel == 0 then compareLists cmp (tail a) (tail b) else rel;
+      let rel = cmp (head a) (head b);
+      in if rel == 0 then compareLists cmp (tail a) (tail b) else rel;
 
   /* Sort list using "Natural sorting".
      Numeric portions of strings are sorted in numeric order.
@@ -639,20 +573,15 @@ rec {
        naturalSort ["v0.2" "v0.15" "v0.0.9"]
        => [ "v0.0.9" "v0.2" "v0.15" ]
   */
-  naturalSort =
-    lst:
+  naturalSort = lst:
     let
-      vectorise = s: map (x: if isList x then toInt (head x) else x) (builtins.split "(0|[1-9][0-9]*)" s);
-      prepared =
-        map
-          (x: [
-            (vectorise x)
-            x
-          ])
-          lst; # remember vectorised version for O(n) regex splits
+      vectorise = s:
+        map (x: if isList x then toInt (head x) else x)
+        (builtins.split "(0|[1-9][0-9]*)" s);
+      prepared = map (x: [ (vectorise x) x ])
+        lst; # remember vectorised version for O(n) regex splits
       less = a: b: (compareLists compare (head a) (head b)) < 0;
-    in
-    map (x: elemAt x 1) (sort less prepared);
+    in map (x: elemAt x 1) (sort less prepared);
 
   /* Return the first (at most) N elements of a list.
 
@@ -666,7 +595,8 @@ rec {
   */
   take =
     # Number of elements to take
-    count: sublist 0 count;
+    count:
+    sublist 0 count;
 
   /* Remove the first (at most) N elements of a list.
 
@@ -703,17 +633,13 @@ rec {
     count:
     # Input list
     list:
-    let
-      len = length list;
-    in
-    genList (n: elemAt list (n + start)) (
-      if start >= len then
-        0
-      else if start + count > len then
-        len - start
-      else
-        count
-    );
+    let len = length list;
+    in genList (n: elemAt list (n + start)) (if start >= len then
+      0
+    else if start + count > len then
+      len - start
+    else
+      count);
 
   /* Return the last element of a list.
 
@@ -725,8 +651,7 @@ rec {
        last [ 1 2 3 ]
        => 3
   */
-  last =
-    list:
+  last = list:
     assert lib.assertMsg (list != [ ]) "lists.last: list must not be empty!";
     elemAt list (length list - 1);
 
@@ -740,8 +665,7 @@ rec {
        init [ 1 2 3 ]
        => [ 1 2 ]
   */
-  init =
-    list:
+  init = list:
     assert lib.assertMsg (list != [ ]) "lists.init: list must not be empty!";
     take (length list - 1) list;
 
@@ -751,9 +675,9 @@ rec {
        crossLists (x:y: "${toString x}${toString y}") [[1 2] [3 4]]
        => [ "13" "14" "23" "24" ]
   */
-  crossLists = builtins.trace "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead" (
-    f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]
-  );
+  crossLists = builtins.trace
+    "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
+    (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]);
 
   /* Remove duplicate elements from the list. O(n^2) complexity.
 
@@ -785,4 +709,5 @@ rec {
      It should be slightly more efficient than (intersectLists a b == [])
   */
   mutuallyExclusive = a: b: length a == 0 || !(any (x: elem x a) b);
+
 }

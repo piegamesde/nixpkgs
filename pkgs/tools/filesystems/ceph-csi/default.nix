@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  go,
-  ceph,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, go, ceph, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "ceph-csi";
@@ -31,12 +25,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://ceph.com/";
-    description = "Container Storage Interface (CSI) driver for Ceph RBD and CephFS";
+    description =
+      "Container Storage Interface (CSI) driver for Ceph RBD and CephFS";
     license = [ licenses.asl20 ];
     maintainers = with maintainers; [ johanot ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 }

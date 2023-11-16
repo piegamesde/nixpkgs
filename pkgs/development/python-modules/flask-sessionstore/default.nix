@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  flask,
-  nose,
-}:
+{ lib, fetchPypi, buildPythonPackage, flask, nose }:
 
 buildPythonPackage rec {
   pname = "flask-sessionstore";

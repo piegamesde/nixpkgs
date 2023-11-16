@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  faker,
-  fetchPypi,
-  flask,
-  flask-sqlalchemy,
-  mongoengine,
-  pytestCheckHook,
-  sqlalchemy,
-}:
+{ lib, buildPythonPackage, django, faker, fetchPypi, flask, flask-sqlalchemy
+, mongoengine, pytestCheckHook, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "factory-boy";
@@ -24,23 +14,16 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ faker ];
 
-  nativeCheckInputs = [
-    django
-    flask
-    flask-sqlalchemy
-    mongoengine
-    pytestCheckHook
-    sqlalchemy
-  ];
+  nativeCheckInputs =
+    [ django flask flask-sqlalchemy mongoengine pytestCheckHook sqlalchemy ];
 
   # Checks for MongoDB requires an a running DB
   disabledTests = [ "MongoEngineTestCase" ];
 
-  disabledTestPaths =
-    [
-      # incompatible with latest flask-sqlalchemy
-      "examples/flask_alchemy/test_demoapp.py"
-    ];
+  disabledTestPaths = [
+    # incompatible with latest flask-sqlalchemy
+    "examples/flask_alchemy/test_demoapp.py"
+  ];
 
   pythonImportsCheck = [ "factory" ];
 

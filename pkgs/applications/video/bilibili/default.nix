@@ -1,16 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  electron,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, electron, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "bilibili";
   version = "1.10.1-4";
   src = fetchurl {
-    url = "https://github.com/msojocs/bilibili-linux/releases/download/v${version}/io.github.msojocs.bilibili_${version}_amd64.deb";
+    url =
+      "https://github.com/msojocs/bilibili-linux/releases/download/v${version}/io.github.msojocs.bilibili_${version}_amd64.deb";
     hash = "sha256-/jvgCEqd0kSAs3U7eJQ7fFyHdGcyV/7nMnNgQpDVgm0=";
   };
 

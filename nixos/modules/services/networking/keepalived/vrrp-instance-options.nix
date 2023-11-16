@@ -11,10 +11,7 @@ with lib; {
     };
 
     state = mkOption {
-      type = types.enum [
-        "MASTER"
-        "BACKUP"
-      ];
+      type = types.enum [ "MASTER" "BACKUP" ];
       default = "BACKUP";
       description = lib.mdDoc ''
         Initial state. As soon as the other machine(s) come up, an election will
@@ -100,7 +97,8 @@ with lib; {
     };
 
     virtualIps = mkOption {
-      type = types.listOf (types.submodule (import ./virtual-ip-options.nix { inherit lib; }));
+      type = types.listOf
+        (types.submodule (import ./virtual-ip-options.nix { inherit lib; }));
       default = [ ];
       # TODO: example
       description = lib.mdDoc "Declarative vhost config";
@@ -109,21 +107,17 @@ with lib; {
     trackScripts = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "chk_cmd1"
-        "chk_cmd2"
-      ];
-      description = lib.mdDoc "List of script names to invoke for health tracking.";
+      example = [ "chk_cmd1" "chk_cmd2" ];
+      description =
+        lib.mdDoc "List of script names to invoke for health tracking.";
     };
 
     trackInterfaces = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "eth0"
-        "eth1"
-      ];
-      description = lib.mdDoc "List of network interfaces to monitor for health tracking.";
+      example = [ "eth0" "eth1" ];
+      description =
+        lib.mdDoc "List of network interfaces to monitor for health tracking.";
     };
 
     extraConfig = mkOption {
@@ -133,5 +127,7 @@ with lib; {
         Extra lines to be added verbatim to the vrrp_instance section.
       '';
     };
+
   };
+
 }

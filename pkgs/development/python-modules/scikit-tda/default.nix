@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  scipy,
-  scikit-learn,
-  matplotlib,
-  numba,
-  umap-learn,
-  cython,
-  ripser,
-  persim,
-  pillow,
-  kmapper,
-  tadasets,
-  pytest,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, scikit-learn
+, matplotlib, numba, umap-learn, cython, ripser, persim, pillow, kmapper
+, tadasets, pytest, isPy27 }:
 
 buildPythonPackage rec {
   pname = "scikit-tda";

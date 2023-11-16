@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "merkletools";
@@ -31,9 +25,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "merkletools" ];
 
   meta = with lib; {
-    description = "Python tools for creating Merkle trees, generating Merkle proofs, and verification of Merkle proofs";
+    description =
+      "Python tools for creating Merkle trees, generating Merkle proofs, and verification of Merkle proofs";
     homepage = "https://github.com/Tierion/pymerkletools";
-    changelog = "https://github.com/Tierion/pymerkletools/releases/tag/${version}";
+    changelog =
+      "https://github.com/Tierion/pymerkletools/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ Madouura ];
   };

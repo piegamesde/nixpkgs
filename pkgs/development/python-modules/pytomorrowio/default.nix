@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  aiohttp,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, pytest-aiohttp
+, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytomorrowio";
@@ -22,11 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "pytomorrowio" ];
 

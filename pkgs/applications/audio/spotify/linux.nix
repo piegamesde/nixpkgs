@@ -1,47 +1,11 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  squashfsTools,
-  xorg,
-  alsa-lib,
-  makeShellWrapper,
-  wrapGAppsHook,
-  openssl,
-  freetype,
-  glib,
-  pango,
-  cairo,
-  atk,
-  gdk-pixbuf,
-  gtk3,
-  cups,
-  nspr,
-  nss_latest,
-  libpng,
-  libnotify,
-  libgcrypt,
-  systemd,
-  fontconfig,
-  dbus,
-  expat,
-  ffmpeg_4,
-  curlWithGnuTls,
-  zlib,
-  gnome,
-  at-spi2-atk,
-  at-spi2-core,
-  libpulseaudio,
-  libdrm,
-  mesa,
-  libxkbcommon,
-  pname,
-  meta,
-  harfbuzz,
-  # High-DPI support: Spotify's --force-device-scale-factor argument
-  # not added if `null`, otherwise, should be a number.
-  deviceScaleFactor ? null,
-}:
+{ fetchurl, lib, stdenv, squashfsTools, xorg, alsa-lib, makeShellWrapper
+, wrapGAppsHook, openssl, freetype, glib, pango, cairo, atk, gdk-pixbuf, gtk3
+, cups, nspr, nss_latest, libpng, libnotify, libgcrypt, systemd, fontconfig
+, dbus, expat, ffmpeg_4, curlWithGnuTls, zlib, gnome, at-spi2-atk, at-spi2-core
+, libpulseaudio, libdrm, mesa, libxkbcommon, pname, meta, harfbuzz
+# High-DPI support: Spotify's --force-device-scale-factor argument
+# not added if `null`, otherwise, should be a number.
+, deviceScaleFactor ? null }:
 
 let
   # TO UPDATE: just execute the ./update.sh script (won't do anything if there is no update)
@@ -103,9 +67,8 @@ let
     xorg.libXtst
     zlib
   ];
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   # fetch from snapcraft instead of the debian repository most repos fetch from.
@@ -117,15 +80,13 @@ stdenv.mkDerivation {
   # spotify ourselves:
   # https://community.spotify.com/t5/Desktop-Linux/Redistribute-Spotify-on-Linux-Distributions/td-p/1695334
   src = fetchurl {
-    url = "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
-    sha512 = "5e8f4a1901c26e9bb5986e048226d8a15f5bc4c2acf16b20a404f228ef142e4d21c6a88a4a54c8d9e654ba5b15cb1fea1cdc50c21fbe8e3c374e241a44adf12d";
+    url =
+      "https://api.snapcraft.io/api/v1/snaps/download/pOBIoZ2LrCB3rDohMxoYGnbN14EHOgD7_${rev}.snap";
+    sha512 =
+      "5e8f4a1901c26e9bb5986e048226d8a15f5bc4c2acf16b20a404f228ef142e4d21c6a88a4a54c8d9e654ba5b15cb1fea1cdc50c21fbe8e3c374e241a44adf12d";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    makeShellWrapper
-    squashfsTools
-  ];
+  nativeBuildInputs = [ wrapGAppsHook makeShellWrapper squashfsTools ];
 
   dontStrip = true;
   dontPatchELF = true;
@@ -186,7 +147,9 @@ stdenv.mkDerivation {
       ''${gappsWrapperArgs[@]} \
       ${
         lib.optionalString (deviceScaleFactor != null) ''
-          --add-flags "--force-device-scale-factor=${toString deviceScaleFactor}" \
+          --add-flags "--force-device-scale-factor=${
+            toString deviceScaleFactor
+          }" \
         ''
       } \
       --prefix LD_LIBRARY_PATH : "$librarypath" \

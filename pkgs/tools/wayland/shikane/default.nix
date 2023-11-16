@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitLab,
-  installShellFiles,
-  pandoc,
-}:
+{ lib, rustPlatform, fetchFromGitLab, installShellFiles, pandoc }:
 
 rustPlatform.buildRustPackage rec {
   pname = "shikane";
@@ -19,10 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-4wisXVaZa2GBFKywl48beQgg4c+lawL3L/837ZU1Y94=";
 
-  nativeBuildInputs = [
-    installShellFiles
-    pandoc
-  ];
+  nativeBuildInputs = [ installShellFiles pandoc ];
 
   postBuild = ''
     bash ./scripts/build-docs.sh man
@@ -36,14 +27,12 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A dynamic output configuration tool that automatically detects and configures connected outputs based on a set of profiles";
+    description =
+      "A dynamic output configuration tool that automatically detects and configures connected outputs based on a set of profiles";
     homepage = "https://gitlab.com/w0lff/shikane";
     changelog = "https://gitlab.com/w0lff/shikane/-/tags/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      michaelpachec0
-      natsukium
-    ];
+    maintainers = with maintainers; [ michaelpachec0 natsukium ];
     platforms = platforms.linux;
   };
 }

@@ -31,10 +31,7 @@
     version = "0.99.8";
   };
   nokogiri = {
-    dependencies = [
-      "mini_portile2"
-      "racc"
-    ];
+    dependencies = [ "mini_portile2" "racc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -65,11 +62,7 @@
     version = "3.2.5";
   };
   ronn-ng = {
-    dependencies = [
-      "kramdown"
-      "mustache"
-      "nokogiri"
-    ];
+    dependencies = [ "kramdown" "mustache" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

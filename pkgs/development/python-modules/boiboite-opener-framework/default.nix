@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  packaging,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  scapy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, packaging, pytestCheckHook
+, pythonOlder, pythonRelaxDepsHook, scapy }:
 
 buildPythonPackage rec {
   pname = "boiboite-opener-framework";
@@ -28,10 +20,7 @@ buildPythonPackage rec {
       --replace "scapy==2.5.0rc1" "scapy"
   '';
 
-  propagatedBuildInputs = [
-    packaging
-    scapy
-  ];
+  propagatedBuildInputs = [ packaging scapy ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -67,9 +56,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Testing framework for industrial protocols implementations and devices";
+    description =
+      "Testing framework for industrial protocols implementations and devices";
     homepage = "https://github.com/Orange-Cyberdefense/bof";
-    changelog = "https://github.com/Orange-Cyberdefense/bof/releases/tag/${version}";
+    changelog =
+      "https://github.com/Orange-Cyberdefense/bof/releases/tag/${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

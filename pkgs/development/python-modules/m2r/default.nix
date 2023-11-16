@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchpatch,
-  fetchPypi,
-  docutils,
-  mistune,
-  pygments,
-}:
+{ lib, buildPythonPackage, fetchpatch, fetchPypi, docutils, mistune, pygments }:
 
 buildPythonPackage rec {
   pname = "m2r";
@@ -20,7 +12,8 @@ buildPythonPackage rec {
   patches = [
     # fix tests in python 3.10
     (fetchpatch {
-      url = "https://github.com/miyakogi/m2r/commit/58ee9cabdadf5e3deb13037f3052238f0f2bffcd.patch";
+      url =
+        "https://github.com/miyakogi/m2r/commit/58ee9cabdadf5e3deb13037f3052238f0f2bffcd.patch";
       hash = "sha256-CN3PWmnk7xsn1wngRHuEWmDTP3HtVNxkFv0xzD2Zjlo=";
     })
     ./docutils-0.19-compat.patch
@@ -31,10 +24,7 @@ buildPythonPackage rec {
       --replace "optional" "positional"
   '';
 
-  propagatedBuildInputs = [
-    mistune
-    docutils
-  ];
+  propagatedBuildInputs = [ mistune docutils ];
 
   nativeCheckInputs = [ pygments ];
 
@@ -42,10 +32,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/miyakogi/m2r";
     description = "Markdown to reStructuredText converter";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      AndersonTorres
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ AndersonTorres SuperSandro2000 ];
     # https://github.com/miyakogi/m2r/issues/66
     broken = versionAtLeast mistune.version "2";
   };

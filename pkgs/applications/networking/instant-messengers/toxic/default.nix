@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libsodium,
-  ncurses,
-  curl,
-  libtoxcore,
-  openal,
-  libvpx,
-  freealut,
-  libconfig,
-  pkg-config,
-  libopus,
-  qrencode,
-  gdk-pixbuf,
-  libnotify,
-}:
+{ lib, stdenv, fetchFromGitHub, libsodium, ncurses, curl, libtoxcore, openal
+, libvpx, freealut, libconfig, pkg-config, libopus, qrencode, gdk-pixbuf
+, libnotify }:
 
 stdenv.mkDerivation rec {
   pname = "toxic";
@@ -31,15 +16,7 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
   installFlags = [ "PREFIX=$(out)" ];
 
-  buildInputs =
-    [
-      libtoxcore
-      libsodium
-      ncurses
-      curl
-      gdk-pixbuf
-      libnotify
-    ]
+  buildInputs = [ libtoxcore libsodium ncurses curl gdk-pixbuf libnotify ]
     ++ lib.optionals (!stdenv.isAarch32) [
       openal
       libopus
@@ -47,15 +24,10 @@ stdenv.mkDerivation rec {
       freealut
       qrencode
     ];
-  nativeBuildInputs = [
-    pkg-config
-    libconfig
-  ];
+  nativeBuildInputs = [ pkg-config libconfig ];
 
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "Reference CLI for Tox";
       license = licenses.gpl3Plus;
       maintainers = with maintainers; [ ehmry ];

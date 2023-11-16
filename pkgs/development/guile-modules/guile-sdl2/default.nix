@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  SDL2,
-  SDL2_image,
-  SDL2_mixer,
-  SDL2_ttf,
-  guile,
-  libtool,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, guile, libtool
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "guile-sdl2";
@@ -20,17 +10,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-V/XrpFrqOxS5mAphtIt2e3ewflK+HdLFEqOmix98p+w=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    libtool
-  ];
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_ttf
-    guile
-  ];
+  nativeBuildInputs = [ pkg-config libtool ];
+  buildInputs = [ SDL2 SDL2_image SDL2_mixer SDL2_ttf guile ];
 
   configureFlags = [
     "--with-libsdl2-image-prefix=${SDL2_image}"
@@ -45,10 +26,7 @@ stdenv.mkDerivation rec {
     homepage = "https://dthompson.us/projects/guile-sdl2.html";
     description = "Bindings to SDL2 for GNU Guile";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [
-      seppeljordan
-      vyp
-    ];
+    maintainers = with maintainers; [ seppeljordan vyp ];
     platforms = platforms.all;
   };
 }

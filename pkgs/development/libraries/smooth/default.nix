@@ -1,13 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
+{ lib, stdenv, fetchFromGitHub, pkg-config
 
-  gtk3,
-  curl,
-  libxml2,
-}:
+, gtk3, curl, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "smooth";
@@ -24,11 +17,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=$(out)" ];
 
-  buildInputs = [
-    gtk3
-    curl
-    libxml2
-  ];
+  buildInputs = [ gtk3 curl libxml2 ];
 
   meta = with lib; {
     description = "The smooth Class Library";

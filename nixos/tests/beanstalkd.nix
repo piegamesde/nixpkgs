@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     pythonEnv = pkgs.python3.withPackages (p: [ p.beanstalkc ]);
@@ -23,8 +22,8 @@ import ./make-test-python.nix (
       print(job.body.decode('utf-8'))
       job.delete()
     '';
-  in
-  {
+
+  in {
     name = "beanstalkd";
     meta.maintainers = [ lib.maintainers.aanderse ];
 
@@ -43,5 +42,4 @@ import ./make-test-python.nix (
           "${consume}"
       )
     '';
-  }
-)
+  })

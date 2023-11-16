@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "wormhole-william";
@@ -27,7 +23,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/psanford/wormhole-william";
     description = "End-to-end encrypted file transfers";
-    changelog = "https://github.com/psanford/wormhole-william/releases/tag/v${version}";
+    changelog =
+      "https://github.com/psanford/wormhole-william/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ psanford ];
   };

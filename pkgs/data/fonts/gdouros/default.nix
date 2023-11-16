@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 let
   fonts = {
@@ -46,7 +42,8 @@ let
       version = "13.00";
       file = "Symbola.zip";
       hash = "sha256-TsHWmzkEyMa8JOZDyjvk7PDhm239oH/FNllizNFf398=";
-      description = "Basic Latin, Greek, Cyrillic and many Symbol blocks of Unicode";
+      description =
+        "Basic Latin, Greek, Cyrillic and many Symbol blocks of Unicode";
     };
     textfonts = {
       version = "13.00";
@@ -62,14 +59,8 @@ let
     };
   };
 
-  mkpkg =
-    pname:
-    {
-      version,
-      file,
-      hash,
-      description,
-    }:
+  mkpkg = pname:
+    { version, file, hash, description }:
     stdenvNoCC.mkDerivation rec {
       inherit pname version;
 
@@ -99,5 +90,4 @@ let
         homepage = "https://dn-works.com/ufas/";
       };
     };
-in
-lib.mapAttrs mkpkg fonts
+in lib.mapAttrs mkpkg fonts

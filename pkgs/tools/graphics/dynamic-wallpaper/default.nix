@@ -1,19 +1,6 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  blueprint-compiler,
-  wrapGAppsHook4,
-  appstream-glib,
-  desktop-file-utils,
-  glib,
-  gtk4,
-  libadwaita,
-  librsvg,
-}:
+{ lib, python3, fetchFromGitHub, meson, ninja, pkg-config, blueprint-compiler
+, wrapGAppsHook4, appstream-glib, desktop-file-utils, glib, gtk4, libadwaita
+, librsvg }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dynamic-wallpaper";
@@ -37,12 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-    librsvg
-  ];
+  buildInputs = [ glib gtk4 libadwaita librsvg ];
 
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 

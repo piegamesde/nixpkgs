@@ -1,13 +1,6 @@
-{
-  mkDiscoursePlugin,
-  newScope,
-  fetchFromGitHub,
-  ...
-}@args:
-let
-  callPackage = newScope args;
-in
-{
+{ mkDiscoursePlugin, newScope, fetchFromGitHub, ... }@args:
+let callPackage = newScope args;
+in {
   discourse-assign = callPackage ./discourse-assign { };
   discourse-bbcode-color = callPackage ./discourse-bbcode-color { };
   discourse-calendar = callPackage ./discourse-calendar { };

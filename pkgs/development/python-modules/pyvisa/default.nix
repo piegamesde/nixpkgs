@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  setuptools-scm,
-  setuptools,
-  typing-extensions,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, setuptools-scm, setuptools
+, typing-extensions, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyvisa";
@@ -24,10 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    typing-extensions
-    setuptools
-  ];
+  propagatedBuildInputs = [ typing-extensions setuptools ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -39,7 +28,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Python package for support of the Virtual Instrument Software Architecture (VISA)";
+    description =
+      "Python package for support of the Virtual Instrument Software Architecture (VISA)";
     homepage = "https://github.com/pyvisa/pyvisa";
     license = licenses.mit;
     maintainers = with maintainers; [ mvnetbiz ];

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  fetchurl,
-  djvulibre,
-  ghostscript,
-  which,
-}:
+{ lib, stdenv, makeWrapper, fetchurl, djvulibre, ghostscript, which }:
 
 stdenv.mkDerivation rec {
   version = "0.9.2";
@@ -23,11 +15,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp -p djvu2pdf $out/bin
     wrapProgram $out/bin/djvu2pdf --prefix PATH : ${
-      lib.makeBinPath [
-        ghostscript
-        djvulibre
-        which
-      ]
+      lib.makeBinPath [ ghostscript djvulibre which ]
     }
 
     mkdir -p $out/man/man1

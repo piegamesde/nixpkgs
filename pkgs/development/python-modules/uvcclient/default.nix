@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  mock,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, mock }:
 
 buildPythonPackage rec {
   pname = "uvcclient";
@@ -17,10 +11,7 @@ buildPythonPackage rec {
     sha256 = "0k8aswrk1n08w6pi6dg0zdzsmk23cafihkrss9ywg3i85w7q43x2";
   };
 
-  nativeCheckInputs = [
-    nose
-    mock
-  ];
+  nativeCheckInputs = [ nose mock ];
 
   checkPhase = ''
     nosetests

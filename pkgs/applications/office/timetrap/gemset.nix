@@ -30,11 +30,7 @@
     version = "1.4.2";
   };
   timetrap = {
-    dependencies = [
-      "chronic"
-      "sequel"
-      "sqlite3"
-    ];
+    dependencies = [ "chronic" "sequel" "sqlite3" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

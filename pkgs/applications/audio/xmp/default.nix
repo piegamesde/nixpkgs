@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  alsa-lib,
-  libxmp,
-  AudioUnit,
-  CoreAudio,
-}:
+{ lib, stdenv, fetchurl, pkg-config, alsa-lib, libxmp, AudioUnit, CoreAudio }:
 
 stdenv.mkDerivation rec {
   pname = "xmp";
@@ -19,13 +10,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ libxmp ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [
-      AudioUnit
-      CoreAudio
-    ];
+  buildInputs = [ libxmp ] ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ lib.optionals stdenv.isDarwin [ AudioUnit CoreAudio ];
 
   meta = with lib; {
     description = "Extended module player";

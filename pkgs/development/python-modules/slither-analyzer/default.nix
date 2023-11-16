@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  crytic-compile,
-  fetchFromGitHub,
-  makeWrapper,
-  packaging,
-  prettytable,
-  pythonOlder,
-  setuptools,
-  solc,
-  withSolc ? false,
-}:
+{ lib, stdenv, buildPythonPackage, crytic-compile, fetchFromGitHub, makeWrapper
+, packaging, prettytable, pythonOlder, setuptools, solc, withSolc ? false }:
 
 buildPythonPackage rec {
   pname = "slither-analyzer";
@@ -29,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  propagatedBuildInputs = [
-    crytic-compile
-    packaging
-    prettytable
-    setuptools
-  ];
+  propagatedBuildInputs = [ crytic-compile packaging prettytable setuptools ];
 
   postFixup = lib.optionalString withSolc ''
     wrapProgram $out/bin/slither \
@@ -54,9 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/trailofbits/slither";
     changelog = "https://github.com/crytic/slither/releases/tag/${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      arturcygan
-      fab
-    ];
+    maintainers = with maintainers; [ arturcygan fab ];
   };
 }

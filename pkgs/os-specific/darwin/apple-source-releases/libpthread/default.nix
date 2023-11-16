@@ -1,16 +1,7 @@
-{
-  lib,
-  appleDerivation',
-  stdenvNoCC,
-  libdispatch,
-  xnu,
-}:
+{ lib, appleDerivation', stdenvNoCC, libdispatch, xnu }:
 
 appleDerivation' stdenvNoCC {
-  propagatedBuildInputs = [
-    libdispatch
-    xnu
-  ];
+  propagatedBuildInputs = [ libdispatch xnu ];
 
   installPhase = ''
     mkdir -p $out/include/pthread/
@@ -58,7 +49,5 @@ appleDerivation' stdenvNoCC {
     sys/qos_private.h
   '';
 
-  meta = {
-    platforms = lib.platforms.darwin;
-  };
+  meta = { platforms = lib.platforms.darwin; };
 }

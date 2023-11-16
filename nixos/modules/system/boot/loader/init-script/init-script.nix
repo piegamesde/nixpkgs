@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,15 +9,10 @@ let
     isExecutable = true;
     inherit (pkgs) bash;
     inherit (config.system.nixos) distroName;
-    path = [
-      pkgs.coreutils
-      pkgs.gnused
-      pkgs.gnugrep
-    ];
+    path = [ pkgs.coreutils pkgs.gnused pkgs.gnugrep ];
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -45,6 +35,7 @@ in
         '';
       };
     };
+
   };
 
   ###### implementation
@@ -52,5 +43,7 @@ in
   config = mkIf config.boot.loader.initScript.enable {
 
     system.build.installBootLoader = initScriptBuilder;
+
   };
+
 }

@@ -51,10 +51,7 @@
     version = "5.4.0";
   };
   listen = {
-    dependencies = [
-      "rb-fsevent"
-      "rb-inotify"
-    ];
+    dependencies = [ "rb-fsevent" "rb-inotify" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -75,10 +72,7 @@
     version = "2.8.1";
   };
   nokogiri = {
-    dependencies = [
-      "mini_portile2"
-      "racc"
-    ];
+    dependencies = [ "mini_portile2" "racc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -131,11 +125,7 @@
     version = "0.10.1";
   };
   shopify-cli = {
-    dependencies = [
-      "bugsnag"
-      "listen"
-      "theme-check"
-    ];
+    dependencies = [ "bugsnag" "listen" "theme-check" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -146,11 +136,7 @@
     version = "2.34.0";
   };
   theme-check = {
-    dependencies = [
-      "liquid"
-      "nokogiri"
-      "parser"
-    ];
+    dependencies = [ "liquid" "nokogiri" "parser" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

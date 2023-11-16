@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  six,
-  pytest-datadir,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, six, pytest-datadir
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "jproperties";
@@ -26,10 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    pytest-datadir
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-datadir pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -38,11 +28,10 @@ buildPythonPackage rec {
       --replace "--cov=jproperties --cov-report=term --cov-report=html --cov-branch" ""
   '';
 
-  disabledTestPaths =
-    [
-      # TypeError: 'PosixPath' object...
-      "tests/test_simple_utf8.py"
-    ];
+  disabledTestPaths = [
+    # TypeError: 'PosixPath' object...
+    "tests/test_simple_utf8.py"
+  ];
 
   pythonImportsCheck = [ "jproperties" ];
 

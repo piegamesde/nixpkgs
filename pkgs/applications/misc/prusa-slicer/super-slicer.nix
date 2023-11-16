@@ -1,14 +1,9 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  makeDesktopItem,
-  prusa-slicer,
-}:
+{ lib, fetchFromGitHub, fetchpatch, makeDesktopItem, prusa-slicer }:
 let
   appname = "SuperSlicer";
   pname = "super-slicer";
-  description = "PrusaSlicer fork with more features and faster development cycle";
+  description =
+    "PrusaSlicer fork with more features and faster development cycle";
 
   versions = {
     stable = {
@@ -22,12 +17,14 @@ let
       patches = [
         # Fix detection of TBB, see https://github.com/prusa3d/PrusaSlicer/issues/6355
         (fetchpatch {
-          url = "https://github.com/prusa3d/PrusaSlicer/commit/76f4d6fa98bda633694b30a6e16d58665a634680.patch";
+          url =
+            "https://github.com/prusa3d/PrusaSlicer/commit/76f4d6fa98bda633694b30a6e16d58665a634680.patch";
           sha256 = "1r806ycp704ckwzgrw1940hh1l6fpz0k1ww3p37jdk6mygv53nv6";
         })
         # Fix compile error with boost 1.79. See https://github.com/supermerill/SuperSlicer/issues/2823
         (fetchpatch {
-          url = "https://raw.githubusercontent.com/gentoo/gentoo/81e3ca3b7c131e8345aede89e3bbcd700e1ad567/media-gfx/superslicer/files/superslicer-2.4.58.3-boost-1.79-port-v2.patch";
+          url =
+            "https://raw.githubusercontent.com/gentoo/gentoo/81e3ca3b7c131e8345aede89e3bbcd700e1ad567/media-gfx/superslicer/files/superslicer-2.4.58.3-boost-1.79-port-v2.patch";
           # Excludes Linux-only patches
           excludes = [
             "src/slic3r/GUI/FreeCADDialog.cpp"
@@ -40,12 +37,7 @@ let
     };
   };
 
-  override =
-    {
-      version,
-      sha256,
-      patches,
-    }:
+  override = { version, sha256, patches }:
     super: {
       inherit version pname patches;
 
@@ -58,12 +50,10 @@ let
       };
 
       # wxScintilla is not used on macOS
-      prePatch =
-        super.prePatch
-        + ''
-          substituteInPlace src/CMakeLists.txt \
-            --replace "scintilla" ""
-        '';
+      prePatch = super.prePatch + ''
+        substituteInPlace src/CMakeLists.txt \
+          --replace "scintilla" ""
+      '';
 
       # We don't need PS overrides anymore, and gcode-viewer is embedded in the binary.
       postInstall = null;
@@ -88,17 +78,13 @@ let
         inherit description;
         homepage = "https://github.com/supermerill/SuperSlicer";
         license = licenses.agpl3;
-        maintainers = with maintainers; [
-          cab404
-          moredread
-        ];
+        maintainers = with maintainers; [ cab404 moredread ];
         mainProgram = "superslicer";
       };
 
       passthru = allVersions;
+
     };
-  allVersions =
-    builtins.mapAttrs (_name: version: (prusa-slicer.overrideAttrs (override version)))
-      versions;
-in
-allVersions.stable
+  allVersions = builtins.mapAttrs
+    (_name: version: (prusa-slicer.overrideAttrs (override version))) versions;
+in allVersions.stable

@@ -1,27 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-  python3,
+{ lib, stdenv, fetchFromGitHub, perl, python3
 
-  # Enable BLAS interface with 64-bit integer width.
-  blas64 ? false,
+# Enable BLAS interface with 64-bit integer width.
+, blas64 ? false
 
   # Target architecture. "amd64" compiles kernels for all Zen
   # generations. To build kernels for specific Zen generations,
   # use "zen", "zen2", or "zen3".
-  withArchitecture ? "amd64",
+, withArchitecture ? "amd64"
 
   # Enable OpenMP-based threading.
-  withOpenMP ? true,
-}:
+, withOpenMP ? true }:
 
 let
   threadingSuffix = lib.optionalString withOpenMP "-mt";
   blasIntSize = if blas64 then "64" else "32";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "amd-blis";
   version = "3.0";
 
@@ -34,10 +27,7 @@ stdenv.mkDerivation rec {
 
   inherit blas64;
 
-  nativeBuildInputs = [
-    perl
-    python3
-  ];
+  nativeBuildInputs = [ perl python3 ];
 
   # Tests currently fail with non-Zen CPUs due to a floating point
   # exception in one of the generic kernels. Try to re-enable the
@@ -46,10 +36,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--enable-cblas"
-    "--blas-int-size=${blasIntSize}"
-  ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ] ++ [ withArchitecture ];
+  configureFlags = [ "--enable-cblas" "--blas-int-size=${blasIntSize}" ]
+    ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
+    ++ [ withArchitecture ];
 
   postPatch = ''
     patchShebangs configure build/flatten-headers.py

@@ -1,30 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchPypi,
-  buildPythonPackage,
-  fetchFromGitHub,
-  simplejson,
-  redis,
-  setproctitle,
-  nose,
-  pkgs,
-}:
+{ lib, stdenv, fetchPypi, buildPythonPackage, fetchFromGitHub, simplejson, redis
+, setproctitle, nose, pkgs }:
 
 buildPythonPackage rec {
   pname = "pyres";
   version = "1.5";
 
-  propagatedBuildInputs = [
-    simplejson
-    setproctitle
-    redis
-    pkgs.ps
-  ];
-  nativeCheckInputs = [
-    nose
-    pkgs.redis
-  ];
+  propagatedBuildInputs = [ simplejson setproctitle redis pkgs.ps ];
+  nativeCheckInputs = [ nose pkgs.redis ];
 
   # PyPI tarball doesn't contain tests so let's use GitHub
   src = fetchFromGitHub {

@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "steampipe";
@@ -31,10 +25,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     INSTALL_DIR=$(mktemp -d)
@@ -49,6 +40,7 @@ buildGoModule rec {
     description = "select * from cloud;";
     license = licenses.agpl3;
     maintainers = with maintainers; [ hardselius ];
-    changelog = "https://github.com/turbot/steampipe/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/turbot/steampipe/blob/v${version}/CHANGELOG.md";
   };
 }

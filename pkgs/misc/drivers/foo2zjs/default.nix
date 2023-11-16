@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  foomatic-filters,
-  bc,
-  ghostscript,
-  systemd,
-  vim,
-  time,
+{ lib, stdenv, fetchurl, foomatic-filters, bc, ghostscript, systemd, vim, time
 }:
 
 stdenv.mkDerivation rec {
@@ -19,13 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "14x3wizvncdy0xgvmcx541qanwb7bg76abygqy17bxycn1zh5r1x";
   };
 
-  buildInputs = [
-    foomatic-filters
-    bc
-    ghostscript
-    systemd
-    vim
-  ];
+  buildInputs = [ foomatic-filters bc ghostscript systemd vim ];
 
   patches = [
     ./no-hardcode-fw.diff
@@ -68,7 +53,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeCheckInputs = [ time ];
-  doCheck = false; # fails to find its own binary. Also says "Tests will pass only if you are using ghostscript-8.71-16.fc14".
+  doCheck =
+    false; # fails to find its own binary. Also says "Tests will pass only if you are using ghostscript-8.71-16.fc14".
 
   preInstall = ''
     mkdir -pv $out/{etc/udev/rules.d,lib/udev/rules.d,etc/hotplug/usb}

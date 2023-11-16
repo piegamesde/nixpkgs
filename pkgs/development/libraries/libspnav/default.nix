@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  libX11,
-  fixDarwinDylibNames,
-}:
+{ stdenv, lib, fetchFromGitHub, libX11, fixDarwinDylibNames }:
 
 stdenv.mkDerivation rec {
   version = "0.2.3";
@@ -20,18 +14,15 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = [ libX11 ];
 
-  patches =
-    [
-      # Changes the socket path from /run/spnav.sock to $XDG_RUNTIME_DIR/spnav.sock
-      # to allow for a user service
-      ./configure-socket-path.patch
-    ];
+  patches = [
+    # Changes the socket path from /run/spnav.sock to $XDG_RUNTIME_DIR/spnav.sock
+    # to allow for a user service
+    ./configure-socket-path.patch
+  ];
 
   configureFlags = [ "--disable-debug" ];
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "AR=${stdenv.cc.targetPrefix}ar"
-  ];
+  makeFlags =
+    [ "CC=${stdenv.cc.targetPrefix}cc" "AR=${stdenv.cc.targetPrefix}ar" ];
 
   preInstall = ''
     mkdir -p $out/{lib,include}
@@ -40,7 +31,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://spacenav.sourceforge.net/";
     description = "Device driver and SDK for 3Dconnexion 3D input devices";
-    longDescription = "A free, compatible alternative, to the proprietary 3Dconnexion device driver and SDK, for their 3D input devices (called 'space navigator', 'space pilot', 'space traveller', etc)";
+    longDescription =
+      "A free, compatible alternative, to the proprietary 3Dconnexion device driver and SDK, for their 3D input devices (called 'space navigator', 'space pilot', 'space traveller', etc)";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = with maintainers; [ sohalt ];

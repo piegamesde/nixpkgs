@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     # Settings for both servers and agents
@@ -9,53 +8,29 @@ import ./make-test-python.nix (
 
     defaultExtraConfig = {
       inherit retry_interval;
-      performance = {
-        inherit raft_multiplier;
-      };
+      performance = { inherit raft_multiplier; };
     };
 
-    allConsensusServerHosts = [
-      "192.168.1.1"
-      "192.168.1.2"
-      "192.168.1.3"
-    ];
+    allConsensusServerHosts = [ "192.168.1.1" "192.168.1.2" "192.168.1.3" ];
 
-    allConsensusClientHosts = [
-      "192.168.2.1"
-      "192.168.2.2"
-    ];
+    allConsensusClientHosts = [ "192.168.2.1" "192.168.2.2" ];
 
     firewallSettings = {
       # See https://www.consul.io/docs/install/ports.html
-      allowedTCPPorts = [
-        8301
-        8302
-        8600
-        8500
-        8300
-      ];
-      allowedUDPPorts = [
-        8301
-        8302
-        8600
-      ];
+      allowedTCPPorts = [ 8301 8302 8600 8500 8300 ];
+      allowedUDPPorts = [ 8301 8302 8600 ];
     };
 
-    client =
-      index:
+    client = index:
       { pkgs, ... }:
-      let
-        ip = builtins.elemAt allConsensusClientHosts index;
-      in
-      {
+      let ip = builtins.elemAt allConsensusClientHosts index;
+      in {
         environment.systemPackages = [ pkgs.consul ];
 
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          {
-            address = ip;
-            prefixLength = 16;
-          }
-        ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          address = ip;
+          prefixLength = 16;
+        }];
         networking.firewall = firewallSettings;
 
         services.consul = {
@@ -69,25 +44,22 @@ import ./make-test-python.nix (
         };
       };
 
-    server =
-      index:
+    server = index:
       { pkgs, ... }:
       let
         numConsensusServers = builtins.length allConsensusServerHosts;
         thisConsensusServerHost = builtins.elemAt allConsensusServerHosts index;
-        ip = thisConsensusServerHost; # since we already use IPs to identify servers
-      in
-      {
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          {
-            address = ip;
-            prefixLength = 16;
-          }
-        ];
+        ip =
+          thisConsensusServerHost; # since we already use IPs to identify servers
+      in {
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [{
+          address = ip;
+          prefixLength = 16;
+        }];
         networking.firewall = firewallSettings;
 
-        services.consul =
-          assert builtins.elem thisConsensusServerHost allConsensusServerHosts; {
+        services.consul = assert builtins.elem thisConsensusServerHost
+          allConsensusServerHosts; {
             enable = true;
             inherit webUi;
             extraConfig = defaultExtraConfig // {
@@ -104,13 +76,13 @@ import ./make-test-python.nix (
                 if numConsensusServers == 1 then
                   allConsensusServerHosts
                 else
-                  builtins.filter (h: h != thisConsensusServerHost) allConsensusServerHosts;
+                  builtins.filter (h: h != thisConsensusServerHost)
+                  allConsensusServerHosts;
               bind_addr = ip;
             };
           };
       };
-  in
-  {
+  in {
     name = "consul";
 
     nodes = {
@@ -258,5 +230,4 @@ import ./make-test-python.nix (
       print("rolling_restart_test(proper_rolling_procedure=False)")
       rolling_restart_test(proper_rolling_procedure=False)
     '';
-  }
-)
+  })

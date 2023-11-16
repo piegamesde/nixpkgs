@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  curl,
-  leatherman,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, curl, leatherman }:
 
 stdenv.mkDerivation rec {
   pname = "cpp-hocon";
@@ -27,11 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-    curl
-    leatherman
-  ];
+  buildInputs = [ boost curl leatherman ];
 
   meta = with lib; {
     inherit (src.meta) homepage;
@@ -40,4 +28,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.womfoo ];
     platforms = platforms.unix;
   };
+
 }

@@ -1,10 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
-import ./versions.nix (
-  { version, sha256 }:
+{ lib, buildGoModule, fetchFromGitHub }:
+import ./versions.nix ({ version, sha256 }:
   buildGoModule {
     pname = "honeyvent";
     inherit version;
@@ -24,5 +19,5 @@ import ./versions.nix (
       license = licenses.asl20;
       maintainers = [ maintainers.iand675 ];
     };
-  }
-)
+  })
+

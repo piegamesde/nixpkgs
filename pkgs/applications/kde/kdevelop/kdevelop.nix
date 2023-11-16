@@ -1,69 +1,20 @@
-{
-  mkDerivation,
-  lib,
-  cmake,
-  gettext,
-  pkg-config,
-  extra-cmake-modules,
-  qtquickcontrols,
-  qttools,
-  kde-cli-tools,
-  qtbase,
-  kconfig,
-  kdeclarative,
-  kdoctools,
-  kiconthemes,
-  ki18n,
-  kitemmodels,
-  kitemviews,
-  kjobwidgets,
-  kcmutils,
-  kio,
-  knewstuff,
-  knotifyconfig,
-  kparts,
-  ktexteditor,
-  threadweaver,
-  kxmlgui,
-  kwindowsystem,
-  grantlee,
-  kcrash,
-  karchive,
-  kguiaddons,
-  plasma-framework,
-  krunner,
-  kdevelop-pg-qt,
-  shared-mime-info,
-  libkomparediff2,
-  libksysguard,
-  konsole,
-  llvmPackages_13,
-  makeWrapper,
-  kpurpose,
-  boost,
-  qtwebengine,
-  cppcheck,
+{ mkDerivation, lib, cmake, gettext, pkg-config, extra-cmake-modules
+, qtquickcontrols, qttools, kde-cli-tools, qtbase, kconfig, kdeclarative
+, kdoctools, kiconthemes, ki18n, kitemmodels, kitemviews, kjobwidgets, kcmutils
+, kio, knewstuff, knotifyconfig, kparts, ktexteditor, threadweaver, kxmlgui
+, kwindowsystem, grantlee, kcrash, karchive, kguiaddons, plasma-framework
+, krunner, kdevelop-pg-qt, shared-mime-info, libkomparediff2, libksysguard
+, konsole, llvmPackages_13, makeWrapper, kpurpose, boost, qtwebengine, cppcheck
 }:
 
-let
-  llvmPackages = llvmPackages_13;
-in
-mkDerivation rec {
+let llvmPackages = llvmPackages_13;
+in mkDerivation rec {
   pname = "kdevelop";
 
-  nativeBuildInputs = [
-    cmake
-    gettext
-    pkg-config
-    extra-cmake-modules
-    makeWrapper
-  ];
+  nativeBuildInputs =
+    [ cmake gettext pkg-config extra-cmake-modules makeWrapper ];
 
-  buildInputs = [
-    kdevelop-pg-qt
-    llvmPackages.llvm
-    llvmPackages.libclang
-  ];
+  buildInputs = [ kdevelop-pg-qt llvmPackages.llvm llvmPackages.libclang ];
 
   propagatedBuildInputs = [
     qtquickcontrols
@@ -113,12 +64,7 @@ mkDerivation rec {
   postInstall = ''
     # The kdevelop! script (shell environment) needs qdbus and kioclient5 in PATH.
     wrapProgram "$out/bin/kdevelop!" \
-      --prefix PATH ":" "${
-        lib.makeBinPath [
-          qttools
-          kde-cli-tools
-        ]
-      }"
+      --prefix PATH ":" "${lib.makeBinPath [ qttools kde-cli-tools ]}"
 
     wrapQtApp "$out/bin/kdevelop"
 
@@ -140,9 +86,6 @@ mkDerivation rec {
       libraries and is under development since 1998.
     '';
     homepage = "https://www.kdevelop.org";
-    license = with licenses; [
-      gpl2Plus
-      lgpl2Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl2Plus ];
   };
 }

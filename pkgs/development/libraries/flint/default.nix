@@ -1,19 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gmp,
-  mpir,
-  mpfr,
-  ntl,
-  openblas ? null,
-  blas,
-  lapack,
-  withBlas ? true,
-}:
+{ lib, stdenv, fetchurl, gmp, mpir, mpfr, ntl, openblas ? null, blas, lapack
+, withBlas ? true }:
 
-assert withBlas
-  -> openblas != null && blas.implementation == "openblas" && lapack.implementation == "openblas";
+assert withBlas -> openblas != null && blas.implementation == "openblas"
+  && lapack.implementation == "openblas";
 
 stdenv.mkDerivation rec {
   pname = "flint";
@@ -24,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L8CQ1RAzyTII5sENQGOXpTyYOuU0O5WOsl9ypXpM52o=";
   };
 
-  buildInputs = [
-    gmp
-    mpir
-    mpfr
-    ntl
-  ] ++ lib.optionals withBlas [ openblas ];
+  buildInputs = [ gmp mpir mpfr ntl ] ++ lib.optionals withBlas [ openblas ];
 
   propagatedBuildInputs = [
     mpfr # flint.h includes mpfr.h

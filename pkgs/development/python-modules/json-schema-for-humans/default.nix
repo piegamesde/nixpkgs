@@ -1,21 +1,6 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  click,
-  dataclasses-json,
-  fetchFromGitHub,
-  htmlmin,
-  jinja2,
-  markdown2,
-  poetry-core,
-  pygments,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  pyyaml,
-  requests,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, click, dataclasses-json
+, fetchFromGitHub, htmlmin, jinja2, markdown2, poetry-core, pygments
+, pytestCheckHook, pythonOlder, pytz, pyyaml, requests }:
 
 buildPythonPackage rec {
   pname = "json-schema-for-humans";
@@ -50,10 +35,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ beautifulsoup4 pytestCheckHook ];
 
   disabledTests = [
     # Tests require network access
@@ -67,7 +49,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Quickly generate HTML documentation from a JSON schema";
     homepage = "https://github.com/coveooss/json-schema-for-humans";
-    changelog = "https://github.com/coveooss/json-schema-for-humans/releases/tag/v${version}";
+    changelog =
+      "https://github.com/coveooss/json-schema-for-humans/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ astro ];
   };

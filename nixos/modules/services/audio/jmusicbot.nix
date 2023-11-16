@@ -1,20 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.jmusicbot;
-in
-{
+let cfg = config.services.jmusicbot;
+in {
   options = {
     services.jmusicbot = {
-      enable = mkEnableOption (
-        lib.mdDoc "jmusicbot, a Discord music bot that's easy to set up and run yourself"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "jmusicbot, a Discord music bot that's easy to set up and run yourself");
 
       package = mkOption {
         type = types.package;
@@ -48,7 +40,9 @@ in
           RestartSec = 20;
           DynamicUser = true;
         }
-        (mkIf (cfg.stateDir == "/var/lib/jmusicbot") { StateDirectory = "jmusicbot"; })
+        (mkIf (cfg.stateDir == "/var/lib/jmusicbot") {
+          StateDirectory = "jmusicbot";
+        })
       ];
     };
   };

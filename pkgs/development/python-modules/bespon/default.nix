@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "0.6.0";
@@ -24,4 +20,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ synthetica ];
   };
+
 }

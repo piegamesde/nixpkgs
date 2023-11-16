@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ansible-later";
@@ -33,10 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     "yamllint"
   ];
 
-  nativeBuildInputs = with python3.pkgs; [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = with python3.pkgs; [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs = with python3.pkgs; [
     ansible
@@ -55,10 +48,7 @@ python3.pkgs.buildPythonApplication rec {
     yamllint
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytest-mock pytestCheckHook ];
 
   postInstall = ''
     rm $out/lib/python*/site-packages/LICENSE
@@ -69,7 +59,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Best practice scanner for Ansible roles and playbooks";
     homepage = "https://github.com/thegeeklab/ansible-later";
-    changelog = "https://github.com/thegeeklab/ansible-later/releases/tag/v${version}";
+    changelog =
+      "https://github.com/thegeeklab/ansible-later/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ tboerger ];
   };

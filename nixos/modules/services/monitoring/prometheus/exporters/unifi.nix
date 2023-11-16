@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.unifi;
-in
-{
+let cfg = config.services.prometheus.exporters.unifi;
+in {
   port = 9130;
   extraOpts = {
     unifiAddress = mkOption {

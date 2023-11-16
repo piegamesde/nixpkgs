@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gtk3,
-  plasma5Packages,
-  hicolor-icon-theme,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, plasma5Packages, hicolor-icon-theme }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "oranchelo-icon-theme";
@@ -20,17 +13,11 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    plasma5Packages.breeze-icons
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ plasma5Packages.breeze-icons hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   postInstall = ''
     # space in icon name causes gtk-update-icon-cache to fail

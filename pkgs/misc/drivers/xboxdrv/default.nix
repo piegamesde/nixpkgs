@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  scons,
-  libX11,
-  pkg-config,
-  libusb1,
-  boost,
-  glib,
-  dbus-glib,
-}:
+{ lib, stdenv, fetchFromGitHub, scons, libX11, pkg-config, libusb1, boost, glib
+, dbus-glib }:
 
 stdenv.mkDerivation rec {
   pname = "xboxdrv";
@@ -23,17 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   makeFlags = [ "PREFIX=$(out)" ];
-  nativeBuildInputs = [
-    pkg-config
-    scons
-  ];
-  buildInputs = [
-    libX11
-    libusb1
-    boost
-    glib
-    dbus-glib
-  ];
+  nativeBuildInputs = [ pkg-config scons ];
+  buildInputs = [ libX11 libusb1 boost glib dbus-glib ];
   enableParallelBuilding = true;
   dontUseSconsInstall = true;
 
@@ -46,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://xboxdrv.gitlab.io/";
-    description = "Xbox/Xbox360 (and more) gamepad driver for Linux that works in userspace";
+    description =
+      "Xbox/Xbox360 (and more) gamepad driver for Linux that works in userspace";
     license = licenses.gpl3Plus;
     maintainers = [ ];
     platforms = platforms.linux;

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  python,
-  pythonAtLeast,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, python, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "asynctest";
@@ -33,7 +26,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Enhance the standard unittest package with features for testing asyncio libraries";
+    description =
+      "Enhance the standard unittest package with features for testing asyncio libraries";
     homepage = "https://github.com/Martiusweb/asynctest";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];

@@ -1,25 +1,9 @@
-{
-  lib,
-  buildDotnetModule,
-  fetchFromGitHub,
-  dotnetCorePackages,
-  SDL2,
-  libsecret,
-  glib,
-  gnutls,
-  aria2,
-  steam-run,
-  gst_all_1,
-  copyDesktopItems,
-  makeDesktopItem,
-  makeWrapper,
-  useSteamRun ? true,
-}:
+{ lib, buildDotnetModule, fetchFromGitHub, dotnetCorePackages, SDL2, libsecret
+, glib, gnutls, aria2, steam-run, gst_all_1, copyDesktopItems, makeDesktopItem
+, makeWrapper, useSteamRun ? true }:
 
-let
-  rev = "1.0.3";
-in
-buildDotnetModule rec {
+let rev = "1.0.3";
+in buildDotnetModule rec {
   pname = "XIVLauncher";
   version = rev;
 
@@ -31,10 +15,7 @@ buildDotnetModule rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
 
   buildInputs = with gst_all_1; [
     gstreamer
@@ -46,12 +27,10 @@ buildDotnetModule rec {
   ];
 
   projectFile = "src/XIVLauncher.Core/XIVLauncher.Core.csproj";
-  nugetDeps = ./deps.nix; # File generated with `nix-build -A xivlauncher.passthru.fetch-deps`
+  nugetDeps =
+    ./deps.nix; # File generated with `nix-build -A xivlauncher.passthru.fetch-deps`
 
-  dotnetFlags = [
-    "-p:BuildHash=${rev}"
-    "-p:PublishSingleFile=false"
-  ];
+  dotnetFlags = [ "-p:BuildHash=${rev}" "-p:PublishSingleFile=false" ];
 
   postPatch = ''
     substituteInPlace lib/FFXIVQuickLauncher/src/XIVLauncher.Common/Game/Patch/Acquisition/Aria/AriaHttpPatchAcquisition.cs \
@@ -63,26 +42,19 @@ buildDotnetModule rec {
     cp src/XIVLauncher.Core/Resources/logo.png $out/share/pixmaps/xivlauncher.png
   '';
 
-  postFixup =
-    lib.optionalString useSteamRun ''
-      substituteInPlace $out/bin/XIVLauncher.Core \
-        --replace 'exec' 'exec ${steam-run}/bin/steam-run'
-    ''
-    + ''
-      wrapProgram $out/bin/XIVLauncher.Core --prefix GST_PLUGIN_SYSTEM_PATH_1_0 ":" "$GST_PLUGIN_SYSTEM_PATH_1_0"
-      # the reference to aria2 gets mangled as UTF-16LE and isn't detectable by nix: https://github.com/NixOS/nixpkgs/issues/220065
-      mkdir -p $out/nix-support
-      echo ${aria2} >> $out/nix-support/depends
-    '';
+  postFixup = lib.optionalString useSteamRun ''
+    substituteInPlace $out/bin/XIVLauncher.Core \
+      --replace 'exec' 'exec ${steam-run}/bin/steam-run'
+  '' + ''
+    wrapProgram $out/bin/XIVLauncher.Core --prefix GST_PLUGIN_SYSTEM_PATH_1_0 ":" "$GST_PLUGIN_SYSTEM_PATH_1_0"
+    # the reference to aria2 gets mangled as UTF-16LE and isn't detectable by nix: https://github.com/NixOS/nixpkgs/issues/220065
+    mkdir -p $out/nix-support
+    echo ${aria2} >> $out/nix-support/depends
+  '';
 
   executables = [ "XIVLauncher.Core" ];
 
-  runtimeDeps = [
-    SDL2
-    libsecret
-    glib
-    gnutls
-  ];
+  runtimeDeps = [ SDL2 libsecret glib gnutls ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -100,10 +72,7 @@ buildDotnetModule rec {
     description = "Custom launcher for FFXIV";
     homepage = "https://github.com/goatcorp/FFXIVQuickLauncher";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      sersorrel
-      witchof0x20
-    ];
+    maintainers = with maintainers; [ sersorrel witchof0x20 ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "XIVLauncher.Core";
   };

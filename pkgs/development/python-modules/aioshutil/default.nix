@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook
+, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "aioshutil";
@@ -26,10 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

@@ -1,21 +1,17 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.novacomd;
-in
-{
+
+in {
 
   options = {
     services.novacomd = {
-      enable = mkEnableOption (lib.mdDoc "Novacom service for connecting to WebOS devices");
+      enable = mkEnableOption
+        (lib.mdDoc "Novacom service for connecting to WebOS devices");
     };
   };
 
@@ -26,9 +22,7 @@ in
       description = "Novacom WebOS daemon";
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = {
-        ExecStart = "${pkgs.webos.novacomd}/sbin/novacomd";
-      };
+      serviceConfig = { ExecStart = "${pkgs.webos.novacomd}/sbin/novacomd"; };
     };
   };
 

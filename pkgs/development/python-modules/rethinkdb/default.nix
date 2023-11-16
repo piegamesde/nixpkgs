@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, six, setuptools }:
 
 buildPythonPackage rec {
   pname = "rethinkdb";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-dV8I9xdTWlXAUSj2vmwoJI+pr/JningWqrh+H59YFcE=";
   };
 
-  propagatedBuildInputs = [
-    six
-    setuptools
-  ];
+  propagatedBuildInputs = [ six setuptools ];
 
   doCheck = false;
   pythonImportsCheck = [ "rethinkdb" ];
@@ -28,4 +19,5 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/rethinkdb";
     license = licenses.asl20;
   };
+
 }

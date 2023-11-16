@@ -1,23 +1,13 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchurl,
-  zlib,
-  bzip2,
-  perl,
-  cpio,
-  gawk,
-  coreutils,
-  ApplicationServices,
-}:
+{ lib, stdenv, buildPackages, fetchurl, zlib, bzip2, perl, cpio, gawk, coreutils
+, ApplicationServices }:
 
 stdenv.mkDerivation rec {
   pname = "blast";
   version = "2.14.0";
 
   src = fetchurl {
-    url = "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz";
+    url =
+      "https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/${version}/ncbi-blast-${version}+-src.tar.gz";
     sha256 = "sha256-v0d/Gww7gvC3pwlL8AOpqD4347BxbB33mQYMT+qxdQA=";
   };
 
@@ -92,14 +82,8 @@ stdenv.mkDerivation rec {
 
   # perl is necessary in buildInputs so that installed perl scripts get patched
   # correctly
-  buildInputs = [
-    coreutils
-    perl
-    gawk
-    zlib
-    bzip2
-    cpio
-  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+  buildInputs = [ coreutils perl gawk zlib bzip2 cpio ]
+    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
   hardeningDisable = [ "format" ];
 
   postInstall = ''

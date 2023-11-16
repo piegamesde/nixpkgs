@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,7 +6,8 @@ let
   cfg = config.services.bosun;
 
   configFile = pkgs.writeText "bosun.conf" ''
-    ${optionalString (cfg.opentsdbHost != null) "tsdbHost = ${cfg.opentsdbHost}"}
+    ${optionalString (cfg.opentsdbHost != null)
+    "tsdbHost = ${cfg.opentsdbHost}"}
     ${optionalString (cfg.influxHost != null) "influxHost = ${cfg.influxHost}"}
     httpListen = ${cfg.listenAddress}
     stateFile = ${cfg.stateFile}
@@ -20,8 +16,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
 
   options = {
 
@@ -116,7 +112,9 @@ in
           http://bosun.org/configuration.html
         '';
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -156,5 +154,7 @@ in
     };
 
     users.groups.bosun.gid = config.ids.gids.bosun;
+
   };
+
 }

@@ -24,12 +24,7 @@ let
        An attribute set containing `config.system.build.toplevel` among other
        attributes. See `lib.evalModules` in the Nixpkgs library.
   */
-  evalModules =
-    {
-      prefix ? [ ],
-      modules ? [ ],
-      specialArgs ? { },
-    }:
+  evalModules = { prefix ? [ ], modules ? [ ], specialArgs ? { }, }:
     # NOTE: Regular NixOS currently does use this function! Don't break it!
     #       Ideally we don't diverge, unless we learn that we should.
     #       In other words, only the public interface of nixos.evalModules
@@ -41,7 +36,5 @@ let
         modulesPath = builtins.toString ../modules;
       } // specialArgs;
     };
-in
-{
-  inherit evalModules;
-}
+
+in { inherit evalModules; }

@@ -1,17 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, openssl, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) CoreServices;
-in
-rustPlatform.buildRustPackage rec {
+let inherit (darwin.apple_sdk.frameworks) CoreServices;
+in rustPlatform.buildRustPackage rec {
   pname = "rojo";
   version = "7.2.1";
 

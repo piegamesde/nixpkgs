@@ -1,9 +1,4 @@
-{
-  pkgs,
-  build-asdf-system,
-  fixup ? pkgs.lib.id,
-  ...
-}:
+{ pkgs, build-asdf-system, fixup ? pkgs.lib.id, ... }:
 
 with pkgs;
 with lib;
@@ -50,10 +45,7 @@ let
     cl-glu = pkg: { nativeLibs = [ libGLU ]; };
     cl-glut = pkg: { nativeLibs = [ freeglut ]; };
     cl-gobject-introspection = pkg: {
-      nativeLibs = [
-        glib
-        gobject-introspection
-      ];
+      nativeLibs = [ glib gobject-introspection ];
     };
     cl-gtk2-gdk = pkg: { nativeLibs = [ gtk2-x11 ]; };
     cl-gtk2-glib = pkg: { nativeLibs = [ glib ]; };
@@ -71,18 +63,11 @@ let
     cl-libyaml = pkg: { nativeLibs = [ pkgs.libyaml ]; };
     cl-mysql = pkg: { nativeLibs = [ mariadb.client ]; };
     cl-ode = pkg: {
-      nativeLibs =
-        let
-          ode' = ode.overrideAttrs (
-            o: {
-              configureFlags = [
-                "--enable-shared"
-                "--enable-double-precision"
-              ];
-            }
-          );
-        in
-        [ ode' ];
+      nativeLibs = let
+        ode' = ode.overrideAttrs (o: {
+          configureFlags = [ "--enable-shared" "--enable-double-precision" ];
+        });
+      in [ ode' ];
     };
     cl-opengl = pkg: { nativeLibs = [ libGL ]; };
     cl-pango = pkg: { nativeLibs = [ pango ]; };
@@ -99,6 +84,7 @@ let
     "cl-sat.glucose" = pkg: {
       propagatedBuildInputs = [ pkgs.glucose ];
       patches = [ ./patches/cl-sat.glucose-binary-from-PATH-if-present.patch ];
+
     };
     "cl-sat.minisat" = pkg: { propagatedBuildInputs = [ pkgs.minisat ]; };
     cl-webkit2 = pkg: { nativeLibs = [ webkitgtk ]; };
@@ -116,11 +102,7 @@ let
     iolib = pkg: {
       nativeBuildInputs = [ libfixposix ];
       nativeLibs = [ libfixposix ];
-      systems = [
-        "iolib"
-        "iolib/os"
-        "iolib/pathnames"
-      ];
+      systems = [ "iolib" "iolib/os" "iolib/pathnames" ];
     };
     lev = pkg: { nativeLibs = [ libev ]; };
     lispbuilder-sdl-cffi = pkg: { nativeLibs = [ SDL ]; };
@@ -157,24 +139,22 @@ let
     };
   };
 
-  qlpkgs =
-    if builtins.pathExists ./imported.nix then
-      import ./imported.nix {
-        inherit (pkgs) runCommand fetchzip;
-        pkgs = builtQlpkgs;
-      }
-    else
-      { };
+  qlpkgs = if builtins.pathExists ./imported.nix then
+    import ./imported.nix {
+      inherit (pkgs) runCommand fetchzip;
+      pkgs = builtQlpkgs;
+    }
+  else
+    { };
 
   builtQlpkgs = mapAttrs (n: v: build v) qlpkgs;
 
-  build =
-    pkg:
+  build = pkg:
     let
       builtPkg = build-asdf-system pkg;
-      withExtras = pkg // (optionalAttrs (hasAttr pkg.pname extras) (extras.${pkg.pname} builtPkg));
+      withExtras = pkg // (optionalAttrs (hasAttr pkg.pname extras)
+        (extras.${pkg.pname} builtPkg));
       fixedUp = fixup withExtras;
-    in
-    build-asdf-system fixedUp;
-in
-builtQlpkgs
+    in build-asdf-system fixedUp;
+
+in builtQlpkgs

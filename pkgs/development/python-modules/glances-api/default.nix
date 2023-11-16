@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpx,
-  poetry-core,
-  pytest-asyncio,
-  pytest-httpx,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, httpx, poetry-core, pytest-asyncio
+, pytest-httpx, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "glances-api";
@@ -28,18 +19,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-httpx
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-httpx pytestCheckHook ];
 
   pythonImportsCheck = [ "glances_api" ];
 
   meta = with lib; {
     description = "Python API for interacting with Glances";
     homepage = "https://github.com/home-assistant-ecosystem/python-glances-api";
-    changelog = "https://github.com/home-assistant-ecosystem/python-glances-api/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-ecosystem/python-glances-api/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  pulumi,
-  python3,
-}:
+{ lib, buildGoModule, pulumi, python3 }:
 buildGoModule rec {
   inherit (pulumi) version src sdkVendorHash;
 

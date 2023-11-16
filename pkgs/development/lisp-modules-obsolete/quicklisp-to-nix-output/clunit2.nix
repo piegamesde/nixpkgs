@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "clunit2";
   version = "20211020-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/clunit2/2021-10-20/clunit2-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/clunit2/2021-10-20/clunit2-20211020-git.tgz";
     sha256 = "0qly5gk1fn0bd0kx6spdhmnsf58gdg19py46w10p5vvs41vvriy3";
   };
 

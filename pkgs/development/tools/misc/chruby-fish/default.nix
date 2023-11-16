@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  chruby,
-}:
+{ stdenv, lib, fetchFromGitHub, chruby }:
 
 stdenv.mkDerivation rec {
   pname = "chruby-fish";
@@ -24,7 +19,8 @@ stdenv.mkDerivation rec {
   installFlags = [ "PREFIX=$(out)" ];
 
   meta = {
-    description = "Thin wrapper around chruby to make it work with the Fish shell";
+    description =
+      "Thin wrapper around chruby to make it work with the Fish shell";
     homepage = "https://github.com/JeanMertz/chruby-fish";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

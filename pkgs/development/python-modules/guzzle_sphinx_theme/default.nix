@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  sphinx,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, sphinx, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "guzzle_sphinx_theme";

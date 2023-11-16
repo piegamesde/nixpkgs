@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.slock;
-in
-{
+let cfg = config.programs.slock;
+
+in {
   options = {
     programs.slock = {
       enable = mkOption {

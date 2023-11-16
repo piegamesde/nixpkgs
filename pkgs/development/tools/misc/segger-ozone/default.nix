@@ -1,19 +1,5 @@
-{
-  stdenv,
-  fetchurl,
-  fontconfig,
-  freetype,
-  lib,
-  libICE,
-  libSM,
-  udev,
-  libX11,
-  libXcursor,
-  libXext,
-  libXfixes,
-  libXrandr,
-  libXrender,
-}:
+{ stdenv, fetchurl, fontconfig, freetype, lib, libICE, libSM, udev, libX11
+, libXcursor, libXext, libXfixes, libXrandr, libXrender }:
 
 stdenv.mkDerivation rec {
   pname = "segger-ozone";
@@ -26,21 +12,19 @@ stdenv.mkDerivation rec {
     sha256 = "BfmKBAKyTA0V31zkwFLrbT0Xob221KfHa6v0VxKFsSI=";
   };
 
-  rpath =
-    lib.makeLibraryPath [
-      fontconfig
-      freetype
-      libICE
-      libSM
-      udev
-      libX11
-      libXcursor
-      libXext
-      libXfixes
-      libXrandr
-      libXrender
-    ]
-    + ":${stdenv.cc.cc.lib}/lib64";
+  rpath = lib.makeLibraryPath [
+    fontconfig
+    freetype
+    libICE
+    libSM
+    udev
+    libX11
+    libXcursor
+    libXext
+    libXfixes
+    libXrandr
+    libXrender
+  ] + ":${stdenv.cc.cc.lib}/lib64";
 
   installPhase = ''
     mkdir -p $out/bin
@@ -80,7 +64,8 @@ stdenv.mkDerivation rec {
       GCC, Clang, ARM, IAR. Output of other compilers may be supported but is
       not guaranteed to be.
     '';
-    homepage = "https://www.segger.com/products/development-tools/ozone-j-link-debugger";
+    homepage =
+      "https://www.segger.com/products/development-tools/ozone-j-link-debugger";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = [ maintainers.bmilanov ];

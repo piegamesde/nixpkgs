@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  nodejs,
-  closurecompiler,
-  jre,
-  binaryen,
-  llvmPackages,
-  symlinkJoin,
-  makeWrapper,
-  substituteAll,
-  fetchpatch,
-  buildNpmPackage,
-  emscripten,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, nodejs, closurecompiler, jre, binaryen
+, llvmPackages, symlinkJoin, makeWrapper, substituteAll, fetchpatch
+, buildNpmPackage, emscripten }:
 
 stdenv.mkDerivation rec {
   pname = "emscripten";
@@ -22,12 +8,7 @@ stdenv.mkDerivation rec {
 
   llvmEnv = symlinkJoin {
     name = "emscripten-llvm-${version}";
-    paths = with llvmPackages; [
-      clang-unwrapped
-      clang-unwrapped.lib
-      lld
-      llvm
-    ];
+    paths = with llvmPackages; [ clang-unwrapped clang-unwrapped.lib lld llvm ];
   };
 
   nodeModules = buildNpmPackage {
@@ -52,10 +33,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    nodejs
-    python3
-  ];
+  buildInputs = [ nodejs python3 ];
 
   patches = [
     (substituteAll {
@@ -64,12 +42,14 @@ stdenv.mkDerivation rec {
     })
     # https://github.com/emscripten-core/emscripten/pull/18219
     (fetchpatch {
-      url = "https://github.com/emscripten-core/emscripten/commit/afbc14950f021513c59cbeaced8807ef8253530a.patch";
+      url =
+        "https://github.com/emscripten-core/emscripten/commit/afbc14950f021513c59cbeaced8807ef8253530a.patch";
       sha256 = "sha256-+gJNTQJng9rWcGN3GAcMBB0YopKPnRp/r8CN9RSTClU=";
     })
     # https://github.com/emscripten-core/emscripten/pull/18220
     (fetchpatch {
-      url = "https://github.com/emscripten-core/emscripten/commit/852982318f9fb692ba1dd1173f62e1eb21ae61ca.patch";
+      url =
+        "https://github.com/emscripten-core/emscripten/commit/852982318f9fb692ba1dd1173f62e1eb21ae61ca.patch";
       sha256 = "sha256-hmIOtpRx3PD3sDAahUcreSydydqcdSqArYvyLGgUgd8=";
     })
   ];
@@ -161,11 +141,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/emscripten-core/emscripten";
     description = "An LLVM-to-JavaScript Compiler";
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      qknight
-      matthewbauer
-      raitobezarius
-    ];
+    maintainers = with maintainers; [ qknight matthewbauer raitobezarius ];
     license = licenses.ncsa;
   };
 }

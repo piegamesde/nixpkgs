@@ -1,26 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  pytestCheckHook,
-  cookiecutter,
-  datasets,
-  dill,
-  fsspec,
-  huggingface-hub,
-  importlib-metadata,
-  multiprocess,
-  numpy,
-  packaging,
-  pandas,
-  pyarrow,
-  requests,
-  responses,
-  tqdm,
-  xxhash,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pythonRelaxDepsHook
+, pytestCheckHook, cookiecutter, datasets, dill, fsspec, huggingface-hub
+, importlib-metadata, multiprocess, numpy, packaging, pandas, pyarrow, requests
+, responses, tqdm, xxhash }:
 
 buildPythonPackage rec {
   pname = "evaluate";
@@ -64,7 +45,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://huggingface.co/docs/evaluate/index";
     description = "Easily evaluate machine learning models and datasets";
-    changelog = "https://github.com/huggingface/evaluate/releases/tag/v${version}";
+    changelog =
+      "https://github.com/huggingface/evaluate/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ bcdarwin ];
     mainProgram = "evaluate-cli";

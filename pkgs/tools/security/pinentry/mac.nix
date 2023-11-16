@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  libassuan,
-  libgpg-error,
-  libiconv,
-  texinfo,
-  common-updater-scripts,
-  writers,
-  Cocoa,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libassuan, libgpg-error
+, libiconv, texinfo, common-updater-scripts, writers, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "pinentry-mac";
@@ -38,21 +27,10 @@ stdenv.mkDerivation rec {
     (allow process-exec (literal "/usr/libexec/PlistBuddy"))
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    texinfo
-  ];
-  buildInputs = [
-    libassuan
-    libgpg-error
-    libiconv
-    Cocoa
-  ];
+  nativeBuildInputs = [ autoreconfHook texinfo ];
+  buildInputs = [ libassuan libgpg-error libiconv Cocoa ];
 
-  configureFlags = [
-    "--enable-maintainer-mode"
-    "--disable-ncurses"
-  ];
+  configureFlags = [ "--enable-maintainer-mode" "--disable-ncurses" ];
 
   installPhase = ''
     mkdir -p $out/Applications

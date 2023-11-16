@@ -1,10 +1,4 @@
-{
-  lib,
-  aliyun-python-sdk-core,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, aliyun-python-sdk-core, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aliyun-python-sdk-iot";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "IoT module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
-    changelog = "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-iot/ChangeLog.txt";
+    changelog =
+      "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-iot/ChangeLog.txt";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

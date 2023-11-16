@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +7,7 @@ let
 
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "config.yaml" cfg.config;
-in
-{
+in {
   options.services.go-neb = {
     enable = mkEnableOption (lib.mdDoc "Extensible matrix bot written in Go");
 
@@ -38,7 +32,8 @@ in
 
     baseUrl = mkOption {
       type = types.str;
-      description = lib.mdDoc "Public-facing endpoint that can receive webhooks.";
+      description =
+        lib.mdDoc "Public-facing endpoint that can receive webhooks.";
     };
 
     config = mkOption {
@@ -52,40 +47,36 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services.go-neb =
-      let
-        finalConfigFile = if cfg.secretFile == null then configFile else "/var/run/go-neb/config.yaml";
-      in
-      {
-        description = "Extensible matrix bot written in Go";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        environment = {
-          BASE_URL = cfg.baseUrl;
-          BIND_ADDRESS = cfg.bindAddress;
-          CONFIG_FILE = finalConfigFile;
-        };
-
-        serviceConfig = {
-          ExecStartPre = lib.optional (cfg.secretFile != null) (
-            "+"
-            + pkgs.writeShellScript "pre-start" ''
-              umask 077
-              export $(xargs < ${cfg.secretFile})
-              ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > ${finalConfigFile}
-              chown go-neb ${finalConfigFile}
-            ''
-          );
-          RuntimeDirectory = "go-neb";
-          ExecStart = "${pkgs.go-neb}/bin/go-neb";
-          User = "go-neb";
-          DynamicUser = true;
-        };
+    systemd.services.go-neb = let
+      finalConfigFile = if cfg.secretFile == null then
+        configFile
+      else
+        "/var/run/go-neb/config.yaml";
+    in {
+      description = "Extensible matrix bot written in Go";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      environment = {
+        BASE_URL = cfg.baseUrl;
+        BIND_ADDRESS = cfg.bindAddress;
+        CONFIG_FILE = finalConfigFile;
       };
+
+      serviceConfig = {
+        ExecStartPre = lib.optional (cfg.secretFile != null) ("+"
+          + pkgs.writeShellScript "pre-start" ''
+            umask 077
+            export $(xargs < ${cfg.secretFile})
+            ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > ${finalConfigFile}
+            chown go-neb ${finalConfigFile}
+          '');
+        RuntimeDirectory = "go-neb";
+        ExecStart = "${pkgs.go-neb}/bin/go-neb";
+        User = "go-neb";
+        DynamicUser = true;
+      };
+    };
   };
 
-  meta.maintainers = with maintainers; [
-    hexa
-    maralorn
-  ];
+  meta.maintainers = with maintainers; [ hexa maralorn ];
 }

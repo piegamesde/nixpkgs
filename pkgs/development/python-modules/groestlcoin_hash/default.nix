@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "groestlcoin_hash";
@@ -17,7 +13,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "groestlcoin_hash" ];
 
   meta = with lib; {
-    description = "Bindings for groestl key derivation function library used in Groestlcoin";
+    description =
+      "Bindings for groestl key derivation function library used in Groestlcoin";
     homepage = "https://pypi.org/project/groestlcoin_hash/";
     maintainers = with maintainers; [ gruve-p ];
     license = licenses.mit;

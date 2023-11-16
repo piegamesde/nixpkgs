@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.chisel-server;
-in
-{
+let cfg = config.services.chisel-server;
+
+in {
   options = {
     services.chisel-server = {
       enable = mkEnableOption (mdDoc "Chisel Tunnel Server");
@@ -61,17 +55,15 @@ in
       wantedBy = [ "network-online.target" ];
 
       serviceConfig = {
-        ExecStart =
-          "${pkgs.chisel}/bin/chisel server "
-          + concatStringsSep " " (
-            optional (cfg.host != null) "--host ${cfg.host}"
-            ++ optional (cfg.port != null) "--port ${builtins.toString cfg.port}"
+        ExecStart = "${pkgs.chisel}/bin/chisel server " + concatStringsSep " "
+          (optional (cfg.host != null) "--host ${cfg.host}"
+            ++ optional (cfg.port != null)
+            "--port ${builtins.toString cfg.port}"
             ++ optional (cfg.authfile != null) "--authfile ${cfg.authfile}"
             ++ optional (cfg.keepalive != null) "--keepalive ${cfg.keepalive}"
             ++ optional (cfg.backend != null) "--backend ${cfg.backend}"
             ++ optional cfg.socks5 "--socks5"
-            ++ optional cfg.reverse "--reverse"
-          );
+            ++ optional cfg.reverse "--reverse");
 
         # Security Hardening
         # Refer to systemd.exec(5) for option descriptions.
@@ -92,15 +84,12 @@ in
         ProtectProc = "invisible";
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = "~@clock @cpu-emulation @debug @mount @obsolete @reboot @swap @privileged @resources";
+        SystemCallFilter =
+          "~@clock @cpu-emulation @debug @mount @obsolete @reboot @swap @privileged @resources";
         UMask = "0077";
       };
     };

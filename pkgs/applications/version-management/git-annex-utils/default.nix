@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  autoconf,
-  automake,
-  libtool,
-  gmp,
-}:
+{ lib, stdenv, fetchgit, autoconf, automake, libtool, gmp }:
 
 stdenv.mkDerivation rec {
   pname = "git-annex-utils";
@@ -16,14 +8,8 @@ stdenv.mkDerivation rec {
     rev = "531bb33";
     sha256 = "1sv7s2ykc840cjwbfn7ayy743643x9i1lvk4cd55w9l052xvzj65";
   };
-  nativeBuildInputs = [
-    autoconf
-    automake
-  ];
-  buildInputs = [
-    libtool
-    gmp
-  ];
+  nativeBuildInputs = [ autoconf automake ];
+  buildInputs = [ libtool gmp ];
   preConfigure = "./autogen.sh";
 
   meta = {

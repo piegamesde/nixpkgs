@@ -1,35 +1,11 @@
-{
-  lib,
-  mkDerivation,
-  dbus,
-  dbus_cplusplus,
-  desktop-file-utils,
-  fetchurl,
-  glibmm,
-  kernel,
-  libavc1394,
-  libconfig,
-  libiec61883,
-  libraw1394,
-  libxmlxx3,
-  pkg-config,
-  python3,
-  scons,
-  which,
-  wrapQtAppsHook,
-}:
+{ lib, mkDerivation, dbus, dbus_cplusplus, desktop-file-utils, fetchurl, glibmm
+, kernel, libavc1394, libconfig, libiec61883, libraw1394, libxmlxx3, pkg-config
+, python3, scons, which, wrapQtAppsHook }:
 
 let
   inherit (python3.pkgs) pyqt5 dbus-python;
-  python = python3.withPackages (
-    pkgs:
-    with pkgs; [
-      pyqt5
-      dbus-python
-    ]
-  );
-in
-mkDerivation rec {
+  python = python3.withPackages (pkgs: with pkgs; [ pyqt5 dbus-python ]);
+in mkDerivation rec {
   pname = "ffado";
   version = "2.4.7";
 
@@ -43,27 +19,15 @@ mkDerivation rec {
       --replace /lib/modules/ "/run/booted-system/kernel-modules/lib/modules/"
   '';
 
-  patches =
-    [
-      # fix installing metainfo file
-      ./fix-build.patch
-    ];
-
-  outputs = [
-    "out"
-    "bin"
-    "dev"
+  patches = [
+    # fix installing metainfo file
+    ./fix-build.patch
   ];
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    scons
-    pkg-config
-    which
-    python
-    pyqt5
-    wrapQtAppsHook
-  ];
+  outputs = [ "out" "bin" "dev" ];
+
+  nativeBuildInputs =
+    [ desktop-file-utils scons pkg-config which python pyqt5 wrapQtAppsHook ];
 
   prefixKey = "PREFIX=";
   sconsFlags = [
@@ -103,7 +67,9 @@ mkDerivation rec {
     install -DT -m 444 support/xdg/hi64-apps-ffado.png "$bin/share/icons/hicolor/64x64/apps/ffado-mixer.png"
 
     # prevent build tools from leaking into closure
-    echo 'See `nix-store --query --tree ${placeholder "out"}`.' > $out/lib/libffado/static_info.txt
+    echo 'See `nix-store --query --tree ${
+      placeholder "out"
+    }`.' > $out/lib/libffado/static_info.txt
   '';
 
   preFixup = ''
@@ -114,10 +80,7 @@ mkDerivation rec {
     homepage = "http://www.ffado.org";
     description = "FireWire audio drivers";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      goibhniu
-      michojel
-    ];
+    maintainers = with maintainers; [ goibhniu michojel ];
     platforms = platforms.linux;
   };
 }

@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  undmg,
-  ...
-}:
+{ stdenv, lib, fetchurl, undmg, ... }:
 
 stdenv.mkDerivation rec {
   version = "3.0.1";
@@ -38,4 +32,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ eliandoran ];
     platforms = [ "x86_64-darwin" ];
   };
+
 }

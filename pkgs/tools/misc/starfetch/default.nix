@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "starfetch";
@@ -15,13 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I2M/FlLRkGtD2+GcK1l5+vFsb5tCb4T3UJTPxRx68Ww=";
   };
 
-  postPatch =
-    ''
-      substituteInPlace src/starfetch.cpp --replace /usr/local/ $out/
-    ''
-    + lib.optionalString stdenv.cc.isClang ''
-      substituteInPlace makefile --replace g++ clang++
-    '';
+  postPatch = ''
+    substituteInPlace src/starfetch.cpp --replace /usr/local/ $out/
+  '' + lib.optionalString stdenv.cc.isClang ''
+    substituteInPlace makefile --replace g++ clang++
+  '';
 
   installPhase = ''
     runHook preInstall

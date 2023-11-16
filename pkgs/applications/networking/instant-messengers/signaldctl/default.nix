@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitLab,
-  gitUpdater,
-}:
+{ lib, buildGoModule, fetchFromGitLab, gitUpdater }:
 
 buildGoModule rec {
   pname = "signaldctl";

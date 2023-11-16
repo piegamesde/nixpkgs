@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "spaceship-prompt";
@@ -36,13 +32,10 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Zsh prompt for Astronauts";
     homepage = "https://github.com/denysdovhan/spaceship-prompt/";
-    changelog = "https://github.com/spaceship-prompt/spaceship-prompt/releases/tag/v${version}";
+    changelog =
+      "https://github.com/spaceship-prompt/spaceship-prompt/releases/tag/v${version}";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      nyanloutre
-      fortuneteller2k
-      kyleondy
-    ];
+    maintainers = with maintainers; [ nyanloutre fortuneteller2k kyleondy ];
   };
 }

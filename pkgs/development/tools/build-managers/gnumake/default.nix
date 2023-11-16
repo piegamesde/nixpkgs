@@ -1,20 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  guileSupport ? false,
-  guile,
-  # avoid guile depend on bootstrap to prevent dependency cycles
-  inBootstrap ? false,
-  pkg-config,
-  gnumake,
-}:
+{ lib, stdenv, fetchurl, guileSupport ? false, guile
+# avoid guile depend on bootstrap to prevent dependency cycles
+, inBootstrap ? false, pkg-config, gnumake }:
 
-let
-  guileEnabled = guileSupport && !inBootstrap;
-in
+let guileEnabled = guileSupport && !inBootstrap;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gnumake";
   version = "4.4.1";
 
@@ -36,8 +26,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = lib.optionals guileEnabled [ pkg-config ];
   buildInputs = lib.optionals guileEnabled [ guile ];
 
-  configureFlags =
-    lib.optional guileEnabled "--with-guile"
+  configureFlags = lib.optional guileEnabled "--with-guile"
 
     # Make uses this test to decide whether it should keep track of
     # subseconds. Apple made this possible with APFS and macOS 10.13.
@@ -48,11 +37,7 @@ stdenv.mkDerivation rec {
     # See https://github.com/NixOS/nixpkgs/issues/51221 for discussion.
     ++ lib.optional stdenv.isDarwin "ac_cv_struct_st_mtim_nsec=no";
 
-  outputs = [
-    "out"
-    "man"
-    "info"
-  ];
+  outputs = [ "out" "man" "info" ];
   separateDebugInfo = true;
 
   passthru.tests = {
@@ -61,7 +46,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A tool to control the generation of non-source files from sources";
+    description =
+      "A tool to control the generation of non-source files from sources";
     longDescription = ''
       Make is a tool which controls the generation of executables and
       other non-source files of a program from the program's source files.

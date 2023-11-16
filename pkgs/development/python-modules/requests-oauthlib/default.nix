@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  oauthlib,
-  pytestCheckHook,
-  requests,
-  requests-mock,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, oauthlib, pytestCheckHook, requests
+, requests-mock }:
 
 buildPythonPackage rec {
   pname = "requests-oauthlib";
@@ -18,16 +10,9 @@ buildPythonPackage rec {
     hash = "sha256-db6sSkeIHuuU1epdatMe+IhWr/4jMrmq+1LGRSzPDXo=";
   };
 
-  propagatedBuildInputs = [
-    oauthlib
-    requests
-  ];
+  propagatedBuildInputs = [ oauthlib requests ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook requests-mock ];
 
   # Exclude tests which require network access
   disabledTests = [

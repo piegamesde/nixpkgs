@@ -1,16 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  libjpeg,
-  numba,
-  opencv4,
-  pandas,
-  pkg-config,
-  pytorch-pfn-extras,
-  terminaltables,
-  tqdm,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, libjpeg, numba, opencv4, pandas
+, pkg-config, pytorch-pfn-extras, terminaltables, tqdm }:
 
 buildPythonPackage rec {
   pname = "ffcv";
@@ -38,14 +27,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libjpeg ];
-  propagatedBuildInputs = [
-    opencv4
-    numba
-    pandas
-    pytorch-pfn-extras
-    terminaltables
-    tqdm
-  ];
+  propagatedBuildInputs =
+    [ opencv4 numba pandas pytorch-pfn-extras terminaltables tqdm ];
 
   # `ffcv._libffcv*.so` cannot be loaded in the nix build environment for some
   # reason. See https://github.com/NixOS/nixpkgs/pull/160441#issuecomment-1045204722.

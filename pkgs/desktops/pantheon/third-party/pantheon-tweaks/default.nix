@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  vala,
-  gtk3,
-  libgee,
-  pantheon,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, python3, vala, gtk3, libgee, pantheon }:
 
 stdenv.mkDerivation rec {
   pname = "pantheon-tweaks";
@@ -26,36 +14,21 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-paths.patch ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala ];
 
-  buildInputs =
-    [
-      gtk3
-      libgee
-    ]
-    ++ (
-      with pantheon; [
-        elementary-files # settings schemas
-        elementary-terminal # settings schemas
-        granite
-        switchboard
-      ]
-    );
+  buildInputs = [ gtk3 libgee ] ++ (with pantheon; [
+    elementary-files # settings schemas
+    elementary-terminal # settings schemas
+    granite
+    switchboard
+  ]);
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Unofficial system settings panel for Pantheon";

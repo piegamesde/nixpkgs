@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cmake,
-  extra-cmake-modules,
-  gettext,
-  fcitx5,
-  librime,
-  rime-data,
-  symlinkJoin,
-  rimeDataPkgs ? [ rime-data ],
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, extra-cmake-modules, gettext
+, fcitx5, librime, rime-data, symlinkJoin, rimeDataPkgs ? [ rime-data ] }:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-rime";
@@ -26,17 +14,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DRIME_DATA_DIR=${placeholder "out"}/share/rime-data" ];
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    pkg-config
-    gettext
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config gettext ];
 
-  buildInputs = [
-    fcitx5
-    librime
-  ];
+  buildInputs = [ fcitx5 librime ];
 
   rimeDataDrv = symlinkJoin {
     name = "fcitx5-rime-data";

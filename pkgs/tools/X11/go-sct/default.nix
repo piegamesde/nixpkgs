@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  xorg,
-  wayland,
-}:
+{ lib, buildGoModule, fetchFromGitHub, xorg, wayland }:
 
 buildGoModule rec {
   pname = "go-sct";
@@ -24,19 +18,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Rx5/oORink2QtRcD+JqbyFroWYhuYmuYDzZ391R4Jsw=";
 
-  buildInputs = [
-    xorg.libX11
-    xorg.libXrandr
-    wayland.dev
-  ];
+  buildInputs = [ xorg.libX11 xorg.libXrandr wayland.dev ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Color temperature setting library and CLI that operates in a similar way to f.lux and Redshift";
+    description =
+      "Color temperature setting library and CLI that operates in a similar way to f.lux and Redshift";
     homepage = "https://github.com/d4l3k/go-sct";
     license = licenses.mit;
     maintainers = with maintainers; [ cstrahan ];

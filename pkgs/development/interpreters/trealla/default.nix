@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  readline,
-  openssl,
-  libffi,
-  valgrind,
-  withThread ? true,
-  withSSL ? true,
-  xxd,
-}:
+{ lib, stdenv, fetchFromGitHub, readline, openssl, libffi, valgrind
+, withThread ? true, withSSL ? true, xxd }:
 
 stdenv.mkDerivation rec {
   pname = "trealla";
@@ -37,12 +27,9 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ xxd ];
-  buildInputs = [
-    readline
-    openssl
-    libffi
-  ];
-  checkInputs = lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [ valgrind ];
+  buildInputs = [ readline openssl libffi ];
+  checkInputs =
+    lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [ valgrind ];
   enableParallelBuilding = true;
 
   installPhase = ''

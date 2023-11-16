@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  autoconf,
-  automake,
-  libtool,
-  faad2,
-  mp4v2,
+{ lib, stdenv, fetchFromGitHub, cmake, autoconf, automake, libtool, faad2, mp4v2
 }:
 
 stdenv.mkDerivation rec {
@@ -27,12 +18,7 @@ stdenv.mkDerivation rec {
     chmod -R +w 3rdparty
   '';
 
-  nativeBuildInputs = [
-    cmake
-    autoconf
-    automake
-    libtool
-  ];
+  nativeBuildInputs = [ cmake autoconf automake libtool ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=narrowing";
 

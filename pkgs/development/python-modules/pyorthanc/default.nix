@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  poetry-core,
-  httpx,
-  pydicom,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, poetry-core, httpx, pydicom }:
 
 buildPythonPackage rec {
   pname = "pyorthanc";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    httpx
-    pydicom
-  ];
+  propagatedBuildInputs = [ httpx pydicom ];
 
   doCheck = false; # requires orthanc server (not in Nixpkgs)
 

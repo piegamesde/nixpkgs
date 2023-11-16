@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  testpath,
-  tomli,
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, pytestCheckHook, pythonOlder
+, setuptools, testpath, tomli }:
 
 buildPythonPackage rec {
   pname = "pyproject-hooks";
@@ -27,11 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    setuptools
-    testpath
-  ];
+  nativeCheckInputs = [ pytestCheckHook setuptools testpath ];
 
   disabledTests = [
     # fail to import setuptools
@@ -42,9 +29,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyproject_hooks" ];
 
   meta = with lib; {
-    description = "Low-level library for calling build-backends in `pyproject.toml`-based project ";
+    description =
+      "Low-level library for calling build-backends in `pyproject.toml`-based project ";
     homepage = "https://github.com/pypa/pyproject-hooks";
-    changelog = "https://github.com/pypa/pyproject-hooks/blob/v${version}/docs/changelog.rst";
+    changelog =
+      "https://github.com/pypa/pyproject-hooks/blob/v${version}/docs/changelog.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  paxctl,
-}:
+{ lib, stdenv, fetchurl, paxctl }:
 
 stdenv.mkDerivation rec {
   pname = "paxtest";
@@ -28,9 +23,6 @@ stdenv.mkDerivation rec {
     description = "Test various memory protection measures";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      copumpkin
-      joachifm
-    ];
+    maintainers = with maintainers; [ copumpkin joachifm ];
   };
 }

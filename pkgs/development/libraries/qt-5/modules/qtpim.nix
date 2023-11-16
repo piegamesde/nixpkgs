@@ -1,26 +1,13 @@
-{
-  qtModule,
-  lib,
-  qtbase,
-  qtdeclarative,
-}:
+{ qtModule, lib, qtbase, qtdeclarative }:
 
 qtModule {
   pname = "qtpim";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  qtInputs = [
-    qtbase
-    qtdeclarative
-  ];
+  qtInputs = [ qtbase qtdeclarative ];
 
   qmakeFlags = [ "CONFIG+=git_build" ];
 
-  meta = {
-    maintainers = with lib.maintainers; [ OPNA2608 ];
-  };
+  meta = { maintainers = with lib.maintainers; [ OPNA2608 ]; };
 }

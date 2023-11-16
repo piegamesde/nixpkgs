@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.fritzbox;
-in
-{
+let cfg = config.services.prometheus.exporters.fritzbox;
+in {
   port = 9133;
   extraOpts = {
     gatewayAddress = mkOption {

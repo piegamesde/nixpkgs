@@ -1,35 +1,14 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchurl,
-  python,
-  pythonAtLeast,
-  pythonOlder,
-  addOpenGLRunpath,
-  cudaPackages,
-  future,
-  numpy,
-  autoPatchelfHook,
-  patchelf,
-  pyyaml,
-  requests,
-  setuptools,
-  typing-extensions,
-  sympy,
-  jinja2,
-  networkx,
-  filelock,
-  openai-triton,
-}:
+{ lib, stdenv, buildPythonPackage, fetchurl, python, pythonAtLeast, pythonOlder
+, addOpenGLRunpath, cudaPackages, future, numpy, autoPatchelfHook, patchelf
+, pyyaml, requests, setuptools, typing-extensions, sympy, jinja2, networkx
+, filelock, openai-triton }:
 
 let
   pyVerNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
   srcs = import ./binary-hashes.nix version;
   unsupported = throw "Unsupported system";
   version = "2.0.1";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit version;
 
   pname = "torch";
@@ -47,24 +26,20 @@ buildPythonPackage {
     cudaPackages.autoAddOpenGLRunpathHook
   ];
 
-  buildInputs = lib.optionals stdenv.isLinux (
-    with cudaPackages;
+  buildInputs = lib.optionals stdenv.isLinux (with cudaPackages;
     [
       # $out/${sitePackages}/nvfuser/_C*.so wants libnvToolsExt.so.1 but torch/lib only ships
       # libnvToolsExt-$hash.so.1
       cuda_nvtx
-    ]
-  );
+    ]);
 
-  autoPatchelfIgnoreMissingDeps =
-    lib.optionals stdenv.isLinux
-      [
-        # This is the hardware-dependent userspace driver that comes from
-        # nvidia_x11 package. It must be deployed at runtime in
-        # /run/opengl-driver/lib or pointed at by LD_LIBRARY_PATH variable, rather
-        # than pinned in runpath
-        "libcuda.so.1"
-      ];
+  autoPatchelfIgnoreMissingDeps = lib.optionals stdenv.isLinux [
+    # This is the hardware-dependent userspace driver that comes from
+    # nvidia_x11 package. It must be deployed at runtime in
+    # /run/opengl-driver/lib or pointed at by LD_LIBRARY_PATH variable, rather
+    # than pinned in runpath
+    "libcuda.so.1"
+  ];
 
   propagatedBuildInputs = [
     future
@@ -106,7 +81,8 @@ buildPythonPackage {
   pythonImportsCheck = [ "torch" ];
 
   meta = with lib; {
-    description = "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
+    description =
+      "PyTorch: Tensors and Dynamic neural networks in Python with strong GPU acceleration";
     homepage = "https://pytorch.org/";
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";
     # Includes CUDA and Intel MKL, but redistributions of the binary are not limited.
@@ -114,18 +90,10 @@ buildPythonPackage {
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     # torch's license is BSD3.
     # torch-bin includes CUDA and MKL binaries, therefore unfreeRedistributable is set.
-    license = with licenses; [
-      bsd3
-      issl
-      unfreeRedistributable
-    ];
+    license = with licenses; [ bsd3 issl unfreeRedistributable ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [
-      "aarch64-darwin"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "x86_64-linux"
-    ];
+    platforms =
+      [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
     hydraPlatforms = [ ]; # output size 3.2G on 1.11.0
     maintainers = with maintainers; [ junjihashimoto ];
   };

@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.psd;
-in
-{
+let cfg = config.services.psd;
+in {
   options.services.psd = with types; {
     enable = mkOption {
       type = bool;
@@ -50,14 +43,14 @@ in
               util-linux
               profile-sync-daemon
             ];
-            unitConfig = {
-              RequiresMountsFor = [ "/home/" ];
-            };
+            unitConfig = { RequiresMountsFor = [ "/home/" ]; };
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = "yes";
-              ExecStart = "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon sync";
-              ExecStop = "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon unsync";
+              ExecStart =
+                "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon sync";
+              ExecStop =
+                "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon unsync";
             };
           };
 
@@ -78,21 +71,17 @@ in
             ];
             serviceConfig = {
               Type = "oneshot";
-              ExecStart = "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon resync";
+              ExecStart =
+                "${pkgs.profile-sync-daemon}/bin/profile-sync-daemon resync";
             };
           };
         };
 
         timers.psd-resync = {
           description = "Timer for profile sync daemon - ${cfg.resyncTimer}";
-          partOf = [
-            "psd-resync.service"
-            "psd.service"
-          ];
+          partOf = [ "psd-resync.service" "psd.service" ];
 
-          timerConfig = {
-            OnUnitActiveSec = "${cfg.resyncTimer}";
-          };
+          timerConfig = { OnUnitActiveSec = "${cfg.resyncTimer}"; };
         };
       };
     };

@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  libyaml,
-}:
+{ stdenv, lib, fetchFromGitHub, libyaml }:
 
 stdenv.mkDerivation rec {
   pname = "libcyaml";
@@ -18,10 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libyaml ];
 
-  makeFlags = [
-    "VARIANT=release"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "VARIANT=release" "PREFIX=$(out)" ];
 
   meta = with lib; {
     homepage = "https://github.com/tlsa/libcyaml";

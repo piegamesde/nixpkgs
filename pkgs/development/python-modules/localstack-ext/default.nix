@@ -1,19 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  dill,
-  dnslib,
-  dnspython,
-  plux,
-  pyaes,
-  python-jose,
-  requests,
-  tabulate,
+{ lib, buildPythonPackage, fetchPypi, dill, dnslib, dnspython, plux, pyaes
+, python-jose, requests, tabulate
 
-  # Sensitive downstream dependencies
-  localstack,
-}:
+# Sensitive downstream dependencies
+, localstack }:
 
 buildPythonPackage rec {
   pname = "localstack-ext";
@@ -38,25 +27,15 @@ buildPythonPackage rec {
       --replace "requests>=2.20.0,<2.26" "requests~=2.20"
   '';
 
-  propagatedBuildInputs = [
-    dill
-    dnslib
-    dnspython
-    plux
-    pyaes
-    python-jose
-    requests
-    tabulate
-  ];
+  propagatedBuildInputs =
+    [ dill dnslib dnspython plux pyaes python-jose requests tabulate ];
 
   pythonImportsCheck = [ "localstack_ext" ];
 
   # No tests in repo
   doCheck = false;
 
-  passthru.tests = {
-    inherit localstack;
-  };
+  passthru.tests = { inherit localstack; };
 
   meta = with lib; {
     description = "Extensions for LocalStack";

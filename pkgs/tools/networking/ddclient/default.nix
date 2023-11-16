@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  perlPackages,
-  autoreconfHook,
-  iproute2,
-  perl,
-}:
+{ lib, fetchFromGitHub, perlPackages, autoreconfHook, iproute2, perl }:
 
 perlPackages.buildPerlPackage rec {
   pname = "ddclient";
@@ -26,11 +19,7 @@ perlPackages.buildPerlPackage rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = with perlPackages; [
-    IOSocketINET6
-    IOSocketSSL
-    JSONPP
-  ];
+  buildInputs = with perlPackages; [ IOSocketINET6 IOSocketSSL JSONPP ];
 
   installPhase = ''
     runHook preInstall

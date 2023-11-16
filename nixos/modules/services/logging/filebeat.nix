@@ -1,26 +1,12 @@
-{
-  config,
-  lib,
-  utils,
-  pkgs,
-  ...
-}:
+{ config, lib, utils, pkgs, ... }:
 
 let
-  inherit (lib)
-    attrValues
-    literalExpression
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-  ;
+  inherit (lib) attrValues literalExpression mkEnableOption mkIf mkOption types;
 
   cfg = config.services.filebeat;
 
   json = pkgs.formats.json { };
-in
-{
+in {
   options = {
 
     services.filebeat = {
@@ -54,27 +40,22 @@ in
           See <https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html>.
         '';
         default = { };
-        type = types.attrsOf (
-          types.submodule (
-            { name, ... }:
-            {
-              freeformType = json.type;
-              options = {
-                type = mkOption {
-                  type = types.str;
-                  default = name;
-                  description = lib.mdDoc ''
-                    The input type.
+        type = types.attrsOf (types.submodule ({ name, ... }: {
+          freeformType = json.type;
+          options = {
+            type = mkOption {
+              type = types.str;
+              default = name;
+              description = lib.mdDoc ''
+                The input type.
 
-                    Look for the value after `type:` on
-                    the individual input pages linked from
-                    <https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html>.
-                  '';
-                };
-              };
-            }
-          )
-        );
+                Look for the value after `type:` on
+                the individual input pages linked from
+                <https://www.elastic.co/guide/en/beats/filebeat/current/configuration-filebeat-options.html>.
+              '';
+            };
+          };
+        }));
         example = literalExpression ''
           {
             journald.id = "everything";  # Only for filebeat7
@@ -109,27 +90,22 @@ in
           See <https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html>.
         '';
         default = { };
-        type = types.attrsOf (
-          types.submodule (
-            { name, ... }:
-            {
-              freeformType = json.type;
-              options = {
-                module = mkOption {
-                  type = types.str;
-                  default = name;
-                  description = lib.mdDoc ''
-                    The name of the module.
+        type = types.attrsOf (types.submodule ({ name, ... }: {
+          freeformType = json.type;
+          options = {
+            module = mkOption {
+              type = types.str;
+              default = name;
+              description = lib.mdDoc ''
+                The name of the module.
 
-                    Look for the value after `module:` on
-                    the individual input pages linked from
-                    <https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html>.
-                  '';
-                };
-              };
-            }
-          )
-        );
+                Look for the value after `module:` on
+                the individual input pages linked from
+                <https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-modules.html>.
+              '';
+            };
+          };
+        }));
         example = literalExpression ''
           {
             nginx = {
@@ -251,7 +227,8 @@ in
 
           umask u=rwx,g=,o=
 
-          ${utils.genJqSecretsReplacementSnippet cfg.settings "/var/lib/filebeat/filebeat.yml"}
+          ${utils.genJqSecretsReplacementSnippet cfg.settings
+          "/var/lib/filebeat/filebeat.yml"}
         '';
         ExecStart = ''
           ${cfg.package}/bin/filebeat -e \

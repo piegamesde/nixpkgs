@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  bzip2,
-  jansson,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, bzip2, jansson, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "bedops";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VJBoi1+tHA4oOVOsClUfimB+mOV5ZSQsDcDq3vAZwBA=";
   };
 
-  buildInputs = [
-    zlib
-    bzip2
-    jansson
-  ];
+  buildInputs = [ zlib bzip2 jansson ];
   nativeBuildInputs = [ makeWrapper ];
 
   preConfigure = ''
@@ -66,7 +54,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Suite of tools for addressing questions arising in genomics studies";
+    description =
+      "Suite of tools for addressing questions arising in genomics studies";
     homepage = "https://github.com/bedops/bedops";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ jbedo ];

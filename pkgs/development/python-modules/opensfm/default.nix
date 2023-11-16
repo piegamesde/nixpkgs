@@ -1,45 +1,13 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  opencv4,
-  ceres-solver,
-  suitesparse,
-  metis,
-  eigen,
-  pkg-config,
-  pybind11,
-  numpy,
-  pyyaml,
-  lapack,
-  gtest,
-  gflags,
-  glog,
-  pytestCheckHook,
-  networkx,
-  pillow,
-  exifread,
-  gpxpy,
-  pyproj,
-  python-dateutil,
-  joblib,
-  repoze_lru,
-  xmltodict,
-  cloudpickle,
-  scipy,
-  sphinx,
-  matplotlib,
-  fpdf,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fetchpatch, cmake, opencv4
+, ceres-solver, suitesparse, metis, eigen, pkg-config, pybind11, numpy, pyyaml
+, lapack, gtest, gflags, glog, pytestCheckHook, networkx, pillow, exifread
+, gpxpy, pyproj, python-dateutil, joblib, repoze_lru, xmltodict, cloudpickle
+, scipy, sphinx, matplotlib, fpdf, }:
 
 let
   ceresSplit = (builtins.length ceres-solver.outputs) > 1;
   ceres' = if ceresSplit then ceres-solver.dev else ceres-solver;
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "OpenSfM";
   version = "unstable-2022-03-10";
 
@@ -66,22 +34,9 @@ buildPythonPackage rec {
     echo 'feature_type: HAHOG' >> data/lund/config.yaml
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    sphinx
-  ];
-  buildInputs = [
-    ceres'
-    suitesparse
-    metis
-    eigen
-    lapack
-    gflags
-    gtest
-    glog
-    pybind11
-  ];
+  nativeBuildInputs = [ cmake pkg-config sphinx ];
+  buildInputs =
+    [ ceres' suitesparse metis eigen lapack gflags gtest glog pybind11 ];
   propagatedBuildInputs = [
     numpy
     scipy
@@ -103,10 +58,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   dontUseCmakeBuildDir = true;
-  cmakeFlags = [
-    "-Bcmake_build"
-    "-Sopensfm/src"
-  ];
+  cmakeFlags = [ "-Bcmake_build" "-Sopensfm/src" ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     "test_reconstruction_incremental"
@@ -119,7 +71,8 @@ buildPythonPackage rec {
     broken = stdenv.isDarwin;
     maintainers = [ lib.maintainers.SomeoneSerge ];
     license = lib.licenses.bsd2;
-    changelog = "https://github.com/mapillary/OpenSfM/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mapillary/OpenSfM/blob/${src.rev}/CHANGELOG.md";
     description = "Open source Structure-from-Motion pipeline from Mapillary";
     homepage = "https://opensfm.org/";
   };

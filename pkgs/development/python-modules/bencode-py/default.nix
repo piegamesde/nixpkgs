@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  pbr,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pbr, pytestCheckHook, }:
 buildPythonPackage rec {
   pname = "beconde-py";
   version = "4.0.0";

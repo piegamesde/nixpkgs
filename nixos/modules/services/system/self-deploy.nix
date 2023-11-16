@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.self-deploy;
@@ -14,21 +9,20 @@ let
 
   gitWithRepo = "git -C ${repositoryDirectory}";
 
-  renderNixArgs =
-    args:
+  renderNixArgs = args:
     let
-      toArg =
-        key: value:
+      toArg = key: value:
         if builtins.isString value then
           " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
         else
-          " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}";
-    in
-    lib.concatStrings (lib.mapAttrsToList toArg args);
+          " --arg ${lib.escapeShellArg key} ${
+             lib.escapeShellArg (toString value)
+           }";
+    in lib.concatStrings (lib.mapAttrsToList toArg args);
 
   isPathType = x: lib.types.path.check x;
-in
-{
+
+in {
   options.services.self-deploy = {
     enable = lib.mkEnableOption (lib.mdDoc "self-deploy");
 
@@ -65,12 +59,7 @@ in
     };
 
     switchCommand = lib.mkOption {
-      type = lib.types.enum [
-        "boot"
-        "switch"
-        "dry-activate"
-        "test"
-      ];
+      type = lib.types.enum [ "boot" "switch" "dry-activate" "test" ];
 
       default = "switch";
 
@@ -80,12 +69,7 @@ in
     };
 
     repository = lib.mkOption {
-      type =
-        with lib.types;
-        oneOf [
-          path
-          str
-        ];
+      type = with lib.types; oneOf [ path str ];
 
       description = lib.mdDoc ''
         The repository to fetch from. Must be properly formatted for git.
@@ -147,24 +131,18 @@ in
 
       serviceConfig.Type = "oneshot";
 
-      requires = lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
+      requires =
+        lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
 
       after = requires;
 
-      environment.GIT_SSH_COMMAND =
-        lib.mkIf (cfg.sshKeyFile != null)
-          "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}";
+      environment.GIT_SSH_COMMAND = lib.mkIf (cfg.sshKeyFile != null)
+        "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}";
 
       restartIfChanged = false;
 
-      path =
-        with pkgs;
-        [
-          git
-          gnutar
-          gzip
-          nix
-        ]
+      path = with pkgs;
+        [ git gnutar gzip nix ]
         ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
 
       script = ''
@@ -173,7 +151,9 @@ in
           git init ${repositoryDirectory}
         fi
 
-        ${gitWithRepo} fetch ${lib.escapeShellArg cfg.repository} ${lib.escapeShellArg cfg.branch}
+        ${gitWithRepo} fetch ${lib.escapeShellArg cfg.repository} ${
+          lib.escapeShellArg cfg.branch
+        }
 
         ${gitWithRepo} checkout FETCH_HEAD
 
@@ -185,7 +165,7 @@ in
         } ${lib.escapeShellArg "${repositoryDirectory}${cfg.nixFile}"}
 
         ${lib.optionalString (cfg.switchCommand != "test")
-          "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
+        "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
 
         ${outPath}/bin/switch-to-configuration ${cfg.switchCommand}
 

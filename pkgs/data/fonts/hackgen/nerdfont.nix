@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "hackgen-nf-font";
   version = "2.9.0";
 
   src = fetchzip {
-    url = "https://github.com/yuru7/HackGen/releases/download/v${version}/HackGen_NF_v${version}.zip";
+    url =
+      "https://github.com/yuru7/HackGen/releases/download/v${version}/HackGen_NF_v${version}.zip";
     hash = "sha256-Lh4WQJjeP4JuR8jSXpRNSrjRsNPmNXSx5AItNYMJL2A=";
   };
 

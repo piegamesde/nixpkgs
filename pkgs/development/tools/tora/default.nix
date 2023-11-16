@@ -1,21 +1,6 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  makeWrapper,
-  boost,
-  doxygen,
-  openssl,
-  libmysqlclient,
-  postgresql,
-  graphviz,
-  loki,
-  qscintilla,
-  qtbase,
-  qttools,
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, extra-cmake-modules, makeWrapper
+, boost, doxygen, openssl, libmysqlclient, postgresql, graphviz, loki
+, qscintilla, qtbase, qttools }:
 
 mkDerivation {
   pname = "tora";
@@ -28,12 +13,7 @@ mkDerivation {
     sha256 = "0fr9b542i8r6shgnz33lc3cz333fnxgmac033yxfrdjfglzk0j2k";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    makeWrapper
-    qttools
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules makeWrapper qttools ];
 
   buildInputs = [
     boost
@@ -49,7 +29,9 @@ mkDerivation {
 
   preConfigure = ''
     substituteInPlace src/widgets/toglobalsetting.cpp \
-      --replace 'defaultGvHome = "/usr/bin"' 'defaultGvHome = "${lib.getBin graphviz}/bin"'
+      --replace 'defaultGvHome = "/usr/bin"' 'defaultGvHome = "${
+        lib.getBin graphviz
+      }/bin"'
     substituteInPlace extlibs/libermodel/dotgraph.cpp \
       --replace /usr/bin/dot ${lib.getBin graphviz}/bin/dot
   '';
@@ -68,7 +50,8 @@ mkDerivation {
   ];
 
   # these libraries are only searched for at runtime so we need to force-link them
-  NIX_LDFLAGS = "-lgvc -lmysqlclient -lecpg -lssl -L${libmysqlclient}/lib/mariadb";
+  NIX_LDFLAGS =
+    "-lgvc -lmysqlclient -lecpg -lssl -L${libmysqlclient}/lib/mariadb";
 
   qtWrapperArgs = [ "--prefix PATH : ${lib.getBin graphviz}/bin" ];
 

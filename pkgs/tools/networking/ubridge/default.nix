@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libpcap,
-}:
+{ lib, stdenv, fetchFromGitHub, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "ubridge";

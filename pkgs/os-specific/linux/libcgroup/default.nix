@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pam,
-  bison,
-  flex,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, pam, bison, flex, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "libcgroup";
@@ -20,11 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-x2yBqpr3LedtWmpZ4K1ipZxIualNJuDtC4FVGzzcQn8=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex ];
   buildInputs = [ pam ];
 
   postPatch = ''

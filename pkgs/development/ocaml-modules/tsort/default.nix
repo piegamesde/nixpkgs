@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  containers,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, containers }:
 
 buildDunePackage rec {
   pname = "tsort";

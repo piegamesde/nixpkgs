@@ -1,48 +1,16 @@
-{
-  abseil-cpp,
-  avro-cpp,
-  callPackage,
-  ccache,
-  cmake,
-  crc32c,
-  croaring,
-  ctre,
-  curl,
-  dpdk,
-  git,
-  lib,
-  llvmPackages_14,
-  llvm_14,
-  ninja,
-  p11-kit,
-  pkg-config,
-  procps,
-  protobuf3_21,
-  python3,
-  snappy,
-  src,
-  unzip,
-  version,
-  writeShellScriptBin,
-  xxHash,
-  zip,
-  zstd,
-}:
+{ abseil-cpp, avro-cpp, callPackage, ccache, cmake, crc32c, croaring, ctre, curl
+, dpdk, git, lib, llvmPackages_14, llvm_14, ninja, p11-kit, pkg-config, procps
+, protobuf3_21, python3, snappy, src, unzip, version, writeShellScriptBin
+, xxHash, zip, zstd }:
 let
   pname = "redpanda";
   pythonPackages = p: with p; [ jinja2 ];
   seastar = callPackage ./seastar.nix { };
   base64 = callPackage ./base64.nix { };
   hdr-histogram = callPackage ./hdr-histogram.nix { };
-  kafka-codegen-venv = python3.withPackages (
-    ps: [
-      ps.jinja2
-      ps.jsonschema
-    ]
-  );
+  kafka-codegen-venv = python3.withPackages (ps: [ ps.jinja2 ps.jsonschema ]);
   rapidjson = callPackage ./rapidjson.nix { };
-in
-llvmPackages_14.stdenv.mkDerivation rec {
+in llvmPackages_14.stdenv.mkDerivation rec {
   inherit pname version src;
 
   preConfigure = ''
@@ -69,7 +37,8 @@ llvmPackages_14.stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     (python3.withPackages pythonPackages)
-    (writeShellScriptBin "kafka-codegen-venv" "exec -a $0 ${kafka-codegen-venv}/bin/python3 $@")
+    (writeShellScriptBin "kafka-codegen-venv"
+      "exec -a $0 ${kafka-codegen-venv}/bin/python3 $@")
     ccache
     cmake
     curl
@@ -118,10 +87,7 @@ llvmPackages_14.stdenv.mkDerivation rec {
       ZooKeeper-free, Jepsen-tested and source available.
     '';
     homepage = "https://redpanda.com/";
-    maintainers = with maintainers; [
-      avakhrenev
-      happysalada
-    ];
+    maintainers = with maintainers; [ avakhrenev happysalada ];
     platforms = platforms.linux;
   };
 }

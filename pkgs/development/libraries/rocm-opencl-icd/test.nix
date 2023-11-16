@@ -1,18 +1,9 @@
-{
-  lib,
-  makeImpureTest,
-  clinfo,
-  rocm-opencl-icd,
-  rocm-smi,
-}:
+{ lib, makeImpureTest, clinfo, rocm-opencl-icd, rocm-smi }:
 makeImpureTest {
   name = "rocm-opencl";
   testedPackage = "rocm-opencl-icd";
 
-  nativeBuildInputs = [
-    clinfo
-    rocm-smi
-  ];
+  nativeBuildInputs = [ clinfo rocm-smi ];
 
   OCL_ICD_VENDORS = "${rocm-opencl-icd}/etc/OpenCL/vendors/";
 

@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.grafana_reporter;
-in
-{
+let cfg = config.services.grafana_reporter;
+
+in {
   options.services.grafana_reporter = {
     enable = mkEnableOption (lib.mdDoc "grafana_reporter");
 
@@ -18,10 +12,7 @@ in
       protocol = mkOption {
         description = lib.mdDoc "Grafana protocol.";
         default = "http";
-        type = types.enum [
-          "http"
-          "https"
-        ];
+        type = types.enum [ "http" "https" ];
       };
       addr = mkOption {
         description = lib.mdDoc "Grafana address.";
@@ -33,6 +24,7 @@ in
         default = 3000;
         type = types.port;
       };
+
     };
     addr = mkOption {
       description = lib.mdDoc "Listening address.";
@@ -47,7 +39,8 @@ in
     };
 
     templateDir = mkOption {
-      description = lib.mdDoc "Optional template directory to use custom tex templates";
+      description =
+        lib.mdDoc "Optional template directory to use custom tex templates";
       default = pkgs.grafana_reporter;
       defaultText = literalExpression "pkgs.grafana_reporter";
       type = types.either types.str types.path;
@@ -59,18 +52,16 @@ in
       description = "Grafana Reporter Service Daemon";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      serviceConfig =
-        let
-          args = lib.concatStringsSep " " [
-            "-proto ${cfg.grafana.protocol}://"
-            "-ip ${cfg.grafana.addr}:${toString cfg.grafana.port}"
-            "-port :${toString cfg.port}"
-            "-templates ${cfg.templateDir}"
-          ];
-        in
-        {
-          ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
-        };
+      serviceConfig = let
+        args = lib.concatStringsSep " " [
+          "-proto ${cfg.grafana.protocol}://"
+          "-ip ${cfg.grafana.addr}:${toString cfg.grafana.port}"
+          "-port :${toString cfg.port}"
+          "-templates ${cfg.templateDir}"
+        ];
+      in {
+        ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
+      };
     };
   };
 }

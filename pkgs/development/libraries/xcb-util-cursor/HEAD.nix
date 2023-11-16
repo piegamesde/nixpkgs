@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  xorg,
-  gnum4,
-  libxcb,
-  gperf,
-}:
+{ lib, stdenv, fetchgit, autoconf, automake, libtool, pkg-config, xorg, gnum4
+, libxcb, gperf }:
 
 stdenv.mkDerivation {
   pname = "xcb-util-cursor-0.1.1-3-unstable";
@@ -30,16 +19,9 @@ stdenv.mkDerivation {
     platforms = platforms.linux ++ platforms.darwin;
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake pkg-config ];
   buildInputs = [
     gnum4
     gperf

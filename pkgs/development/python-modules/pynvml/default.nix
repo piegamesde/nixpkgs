@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  substituteAll,
-  pythonOlder,
-  cudatoolkit,
-  addOpenGLRunpath,
-}:
+{ lib, buildPythonPackage, fetchPypi, substituteAll, pythonOlder, cudatoolkit
+, addOpenGLRunpath }:
 
 buildPythonPackage rec {
   pname = "pynvml";
@@ -28,10 +21,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ cudatoolkit ];
 
   doCheck = false; # no tests in PyPi dist
-  pythonImportsCheck = [
-    "pynvml"
-    "pynvml.smi"
-  ];
+  pythonImportsCheck = [ "pynvml" "pynvml.smi" ];
 
   meta = with lib; {
     description = "Python bindings for the NVIDIA Management Library";

@@ -1,14 +1,5 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  ffmpeg,
-  xdotool,
-  slop,
-  libnotify,
-  procps,
-  makeWrapper,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, ffmpeg, xdotool, slop, libnotify, procps
+, makeWrapper }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "giph";
@@ -32,13 +23,7 @@ stdenvNoCC.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/giph \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ffmpeg
-          xdotool
-          libnotify
-          slop
-          procps
-        ]
+        lib.makeBinPath [ ffmpeg xdotool libnotify slop procps ]
       }
   '';
 

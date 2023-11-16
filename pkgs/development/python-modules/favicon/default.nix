@@ -1,13 +1,5 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-mock,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchPypi, pytestCheckHook
+, pythonOlder, requests, requests-mock }:
 
 buildPythonPackage rec {
   pname = "favicon";
@@ -25,22 +17,17 @@ buildPythonPackage rec {
     sed -i "/pytest-runner/d" setup.py
   '';
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    requests
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   pythonImportsCheck = [ "favicon" ];
 
   meta = with lib; {
     description = "Find a website's favicon";
     homepage = "https://github.com/scottwernervt/favicon";
-    changelog = "https://github.com/scottwernervt/favicon/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/scottwernervt/favicon/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ elohmeier ];
   };

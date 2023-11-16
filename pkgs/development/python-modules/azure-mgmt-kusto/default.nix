@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  azure-common,
-  azure-mgmt-core,
-  msrest,
-  msrestazure,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, azure-common, azure-mgmt-core
+, msrest, msrestazure }:
 
 buildPythonPackage rec {
   version = "3.1.0";
@@ -20,20 +12,12 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-core
-    msrest
-    msrestazure
-  ];
+  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.common"
-    "azure.mgmt.kusto"
-  ];
+  pythonImportsCheck = [ "azure.common" "azure.mgmt.kusto" ];
 
   meta = with lib; {
     description = "Microsoft Azure Kusto Management Client Library for Python";

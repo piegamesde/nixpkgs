@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "tfsec";
@@ -25,20 +21,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-NQUDeNAWSWcIoSZjdbaFQTB3nMFGbLZLUDNFHMk6Enw=";
 
-  subPackages = [
-    "cmd/tfsec"
-    "cmd/tfsec-docs"
-    "cmd/tfsec-checkgen"
-  ];
+  subPackages = [ "cmd/tfsec" "cmd/tfsec-docs" "cmd/tfsec-checkgen" ];
 
   meta = with lib; {
     description = "Static analysis powered security scanner for terraform code";
     homepage = "https://github.com/aquasecurity/tfsec";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      fab
-      marsam
-      peterromfeldhk
-    ];
+    maintainers = with maintainers; [ fab marsam peterromfeldhk ];
   };
 }

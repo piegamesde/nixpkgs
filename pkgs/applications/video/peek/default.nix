@@ -1,30 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  nix-update-script,
-  meson,
-  ninja,
-  gettext,
-  desktop-file-utils,
-  appstream-glib,
-  pkg-config,
-  txt2man,
-  vala,
-  wrapGAppsHook,
-  gsettings-desktop-schemas,
-  gtk3,
-  glib,
-  cairo,
-  keybinder3,
-  ffmpeg-full,
-  python3,
-  libxml2,
-  gst_all_1,
-  which,
-  gifski,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, nix-update-script, meson, ninja
+, gettext, desktop-file-utils, appstream-glib, pkg-config, txt2man, vala
+, wrapGAppsHook, gsettings-desktop-schemas, gtk3, glib, cairo, keybinder3
+, ffmpeg-full, python3, libxml2, gst_all_1, which, gifski }:
 
 stdenv.mkDerivation rec {
   pname = "peek";
@@ -37,15 +14,15 @@ stdenv.mkDerivation rec {
     sha256 = "1xwlfizga6hvjqq127py8vabaphsny928ar7mwqj9cyqfl6fx41x";
   };
 
-  patches =
-    [
-      # Fix compatibility with GNOME Shell ≥ 40.
-      # https://github.com/phw/peek/pull/910
-      (fetchpatch {
-        url = "https://github.com/phw/peek/commit/008d15316ab5428363c512b263ca8138cb8f52ba.patch";
-        sha256 = "xxJ+r5uRk93MEzWTFla88ewZsnUl3+YKTenzDygtKP0=";
-      })
-    ];
+  patches = [
+    # Fix compatibility with GNOME Shell ≥ 40.
+    # https://github.com/phw/peek/pull/910
+    (fetchpatch {
+      url =
+        "https://github.com/phw/peek/commit/008d15316ab5428363c512b263ca8138cb8f52ba.patch";
+      sha256 = "xxJ+r5uRk93MEzWTFla88ewZsnUl3+YKTenzDygtKP0=";
+    })
+  ];
 
   nativeBuildInputs = [
     appstream-glib
@@ -78,21 +55,16 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix PATH : ${
-      lib.makeBinPath [
-        which
-        ffmpeg-full
-        gifski
-      ]
+      lib.makeBinPath [ which ffmpeg-full gifski ]
     })
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/phw/peek";
-    description = "Simple animated GIF screen recorder with an easy to use interface";
+    description =
+      "Simple animated GIF screen recorder with an easy to use interface";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ puffnfresh ];
     platforms = platforms.linux;

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitLab,
-  makeDesktopItem,
-  installShellFiles,
-  dejavu_fonts,
-  SDL2,
-  SDL2_ttf,
-  SDL2_image,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitLab, makeDesktopItem, installShellFiles
+, dejavu_fonts, SDL2, SDL2_ttf, SDL2_image }:
 let
   pname = "freenukum";
   description = "Clone of the original Duke Nukum 1 Jump'n Run game";
@@ -20,15 +10,11 @@ let
     exec = pname;
     icon = pname;
     comment = description;
-    categories = [
-      "Game"
-      "ArcadeGame"
-      "ActionGame"
-    ];
+    categories = [ "Game" "ArcadeGame" "ActionGame" ];
     genericName = pname;
   };
-in
-rustPlatform.buildRustPackage rec {
+
+in rustPlatform.buildRustPackage rec {
   inherit pname;
   version = "0.4.0";
 
@@ -44,11 +30,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [
-    SDL2
-    SDL2_ttf
-    SDL2_image
-  ];
+  buildInputs = [ SDL2 SDL2_ttf SDL2_image ];
 
   postPatch = ''
     substituteInPlace src/graphics.rs \
@@ -69,7 +51,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Clone of the original Duke Nukum 1 Jump'n Run game";
     homepage = "https://salsa.debian.org/silwol/freenukum";
-    changelog = "https://salsa.debian.org/silwol/freenukum/-/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://salsa.debian.org/silwol/freenukum/-/blob/v${version}/CHANGELOG.md";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ _0x4A6F ];
     broken = stdenv.isDarwin;

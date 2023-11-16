@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  brotli,
-  libsodium,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, brotli, libsodium, installShellFiles }:
 
 buildGoModule rec {
   pname = "wal-g";
@@ -22,17 +15,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [
-    brotli
-    libsodium
-  ];
+  buildInputs = [ brotli libsodium ];
 
   subPackages = [ "main/pg" ];
 
-  tags = [
-    "brotli"
-    "libsodium"
-  ];
+  tags = [ "brotli" "libsodium" ];
 
   ldflags = [
     "-s"

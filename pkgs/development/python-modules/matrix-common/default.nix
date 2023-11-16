@@ -1,12 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  attrs,
-  unittestCheckHook,
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, setuptools, attrs
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "matrix-common";

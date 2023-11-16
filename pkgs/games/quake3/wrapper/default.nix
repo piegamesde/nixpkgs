@@ -1,29 +1,15 @@
-{
-  stdenv,
-  buildEnv,
-  lib,
-  libGL,
-  ioquake3,
-  makeWrapper,
-}:
+{ stdenv, buildEnv, lib, libGL, ioquake3, makeWrapper }:
 
-{
-  paks,
-  name ? (lib.head paks).name,
-  description ? "",
-}:
+{ paks, name ? (lib.head paks).name, description ? "" }:
 
 let
-  libPath = lib.makeLibraryPath [
-    libGL
-    stdenv.cc.cc
-  ];
+  libPath = lib.makeLibraryPath [ libGL stdenv.cc.cc ];
   env = buildEnv {
     name = "quake3-env";
     paths = [ ioquake3 ] ++ paks;
   };
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   name = "${name}-${ioquake3.name}";
 
   nativeBuildInputs = [ makeWrapper ];
@@ -42,7 +28,5 @@ stdenv.mkDerivation {
       --add-flags "+set fs_basepath ${env}"
   '';
 
-  meta = {
-    inherit description;
-  };
+  meta = { inherit description; };
 }

@@ -1,10 +1,8 @@
 { lib, pkgs }:
 
 self:
-let
-  inherit (self) callPackage;
-in
-{
+let inherit (self) callPackage;
+in {
   acm = callPackage ./manual-packages/acm { };
 
   acm-terminal = callPackage ./manual-packages/acm-terminal { };
@@ -35,7 +33,8 @@ in
 
   git-undo = callPackage ./manual-packages/git-undo { };
 
-  haskell-unicode-input-method = callPackage ./manual-packages/haskell-unicode-input-method { };
+  haskell-unicode-input-method =
+    callPackage ./manual-packages/haskell-unicode-input-method { };
 
   helm-words = callPackage ./manual-packages/helm-words { };
 
@@ -52,16 +51,11 @@ in
   llvm-mode = callPackage ./manual-packages/llvm-mode { };
 
   lsp-bridge = callPackage ./manual-packages/lsp-bridge {
-    inherit (pkgs)
-      python3
-      git
-      go
-      gopls
-      pyright
-    ;
+    inherit (pkgs) python3 git go gopls pyright;
   };
 
-  matrix-client = callPackage ./manual-packages/matrix-client { _map = self.map; };
+  matrix-client =
+    callPackage ./manual-packages/matrix-client { _map = self.map; };
 
   ott-mode = callPackage ./manual-packages/ott-mode { };
 
@@ -77,7 +71,8 @@ in
 
   sv-kalender = callPackage ./manual-packages/sv-kalender { };
 
-  tree-sitter-langs = callPackage ./manual-packages/tree-sitter-langs { final = self; };
+  tree-sitter-langs =
+    callPackage ./manual-packages/tree-sitter-langs { final = self; };
 
   treesit-grammars = callPackage ./manual-packages/treesit-grammars { };
 
@@ -95,11 +90,13 @@ in
 
   # From old emacsPackages (pre emacsPackagesNg)
   cedille = callPackage ./manual-packages/cedille { inherit (pkgs) cedille; };
-  color-theme-solarized = callPackage ./manual-packages/color-theme-solarized { };
+  color-theme-solarized =
+    callPackage ./manual-packages/color-theme-solarized { };
   hsc3-mode = callPackage ./manual-packages/hsc3 { };
   prolog-mode = callPackage ./manual-packages/prolog { };
   rect-mark = callPackage ./manual-packages/rect-mark { };
-  session-management-for-emacs = callPackage ./manual-packages/session-management-for-emacs { };
+  session-management-for-emacs =
+    callPackage ./manual-packages/session-management-for-emacs { };
   sunrise-commander = callPackage ./manual-packages/sunrise-commander { };
 
   # camelCase aliases for some of the kebab-case expressions above

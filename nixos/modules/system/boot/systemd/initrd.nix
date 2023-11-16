@@ -1,27 +1,12 @@
-{
-  lib,
-  options,
-  config,
-  utils,
-  pkgs,
-  ...
-}:
+{ lib, options, config, utils, pkgs, ... }:
 
 with lib;
 
 let
   inherit (utils) systemdUtils escapeSystemdPath;
   inherit (systemdUtils.lib)
-    generateUnits
-    pathToUnit
-    serviceToUnit
-    sliceToUnit
-    socketToUnit
-    targetToUnit
-    timerToUnit
-    mountToUnit
-    automountToUnit
-  ;
+    generateUnits pathToUnit serviceToUnit sliceToUnit socketToUnit targetToUnit
+    timerToUnit mountToUnit automountToUnit;
 
   cfg = config.boot.initrd.systemd;
 
@@ -84,9 +69,8 @@ let
 
   enabledUpstreamUnits = filter (n: !elem n cfg.suppressedUnits) upstreamUnits;
   enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedUnits) cfg.units;
-  jobScripts = concatLists (
-    mapAttrsToList (_: unit: unit.jobScripts or [ ]) (filterAttrs (_: v: v.enable) cfg.services)
-  );
+  jobScripts = concatLists (mapAttrsToList (_: unit: unit.jobScripts or [ ])
+    (filterAttrs (_: v: v.enable) cfg.services));
 
   stage1Units = generateUnits {
     type = "initrd";
@@ -101,11 +85,13 @@ let
   needMakefs = lib.any (fs: fs.autoFormat) fileSystems;
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
-  modulesTree = config.system.modulesTree.override { name = kernel-name + "-modules"; };
+  modulesTree =
+    config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
-    rootModules = config.boot.initrd.availableKernelModules ++ config.boot.initrd.kernelModules;
+    rootModules = config.boot.initrd.availableKernelModules
+      ++ config.boot.initrd.kernelModules;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -114,13 +100,9 @@ let
   initrdBinEnv = pkgs.buildEnv {
     name = "initrd-bin-env";
     paths = map getBin cfg.initrdBin;
-    pathsToLink = [
-      "/bin"
-      "/sbin"
-    ];
-    postBuild = concatStringsSep "\n" (
-      mapAttrsToList (n: v: "ln -sf '${v}' $out/bin/'${n}'") cfg.extraBin
-    );
+    pathsToLink = [ "/bin" "/sbin" ];
+    postBuild = concatStringsSep "\n"
+      (mapAttrsToList (n: v: "ln -sf '${v}' $out/bin/'${n}'") cfg.extraBin);
   };
 
   initialRamdisk = pkgs.makeInitrdNG {
@@ -128,22 +110,17 @@ let
     inherit (config.boot.initrd) compressor compressorArgs prepend;
     inherit (cfg) strip;
 
-    contents =
-      map
-        (path: {
-          object = path;
-          symlink = "";
-        })
-        (subtractLists cfg.suppressedStorePaths cfg.storePaths)
-      ++ mapAttrsToList
-        (_: v: {
-          object = v.source;
-          symlink = v.target;
-        })
-        (filterAttrs (_: v: v.enable) cfg.contents);
+    contents = map (path: {
+      object = path;
+      symlink = "";
+    }) (subtractLists cfg.suppressedStorePaths cfg.storePaths) ++ mapAttrsToList
+      (_: v: {
+        object = v.source;
+        symlink = v.target;
+      }) (filterAttrs (_: v: v.enable) cfg.contents);
   };
-in
-{
+
+in {
   options.boot.initrd.systemd = {
     enable = mkEnableOption (lib.mdDoc "systemd in initrd") // {
       description = lib.mdDoc ''
@@ -172,21 +149,9 @@ in
     };
 
     managerEnvironment = mkOption {
-      type =
-        with types;
-        attrsOf (
-          nullOr (
-            oneOf [
-              str
-              path
-              package
-            ]
-          )
-        );
+      type = with types; attrsOf (nullOr (oneOf [ str path package ]));
       default = { };
-      example = {
-        SYSTEMD_LOG_LEVEL = "debug";
-      };
+      example = { SYSTEMD_LOG_LEVEL = "debug"; };
       description = lib.mdDoc ''
         Environment variables of PID 1. These variables are
         *not* passed to started units.
@@ -194,7 +159,8 @@ in
     };
 
     contents = mkOption {
-      description = lib.mdDoc "Set of files that have to be linked into the initrd";
+      description =
+        lib.mdDoc "Set of files that have to be linked into the initrd";
       example = literalExpression ''
         {
           "/etc/hostname".text = "mymachine";
@@ -208,14 +174,7 @@ in
       description = lib.mdDoc ''
         Store paths to copy into the initrd as well.
       '';
-      type =
-        with types;
-        listOf (
-          oneOf [
-            singleLineStr
-            package
-          ]
-        );
+      type = with types; listOf (oneOf [ singleLineStr package ]);
       default = [ ];
     };
 
@@ -255,12 +214,7 @@ in
     };
 
     emergencyAccess = mkOption {
-      type =
-        with types;
-        oneOf [
-          bool
-          (nullOr (passwdEntry str))
-        ];
+      type = with types; oneOf [ bool (nullOr (passwdEntry str)) ];
       description = lib.mdDoc ''
         Set to true for unauthenticated emergency access, and false for
         no emergency access.
@@ -282,10 +236,7 @@ in
     additionalUpstreamUnits = mkOption {
       default = [ ];
       type = types.listOf types.str;
-      example = [
-        "debug-shell.service"
-        "systemd-quotacheck.service"
-      ];
+      example = [ "debug-shell.service" "systemd-quotacheck.service" ];
       description = lib.mdDoc ''
         Additional units shipped with systemd that shall be enabled.
       '';
@@ -384,24 +335,19 @@ in
   };
 
   config = mkIf (config.boot.initrd.enable && cfg.enable) {
-    system.build = {
-      inherit initialRamdisk;
-    };
+    system.build = { inherit initialRamdisk; };
 
     boot.initrd.availableKernelModules = [
       # systemd needs this for some features
       "autofs4"
       # systemd-cryptenroll
       "tpm-tis"
-    ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
+    ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux")
+      "tpm-crb";
 
     boot.initrd.systemd = {
-      initrdBin = [
-        pkgs.bash
-        pkgs.coreutils
-        cfg.package.kmod
-        cfg.package
-      ] ++ config.system.fsPackages;
+      initrdBin = [ pkgs.bash pkgs.coreutils cfg.package.kmod cfg.package ]
+        ++ config.system.fsPackages;
       extraBin = {
         less = "${pkgs.less}/bin/less";
         mount = "${cfg.package.util-linux}/bin/mount";
@@ -411,124 +357,114 @@ in
 
       managerEnvironment.PATH = "/bin:/sbin";
 
-      contents =
-        {
-          "/tmp/.keep".text = "systemd requires the /tmp mount point in the initrd cpio archive";
-          "/init".source = "${cfg.package}/lib/systemd/systemd";
-          "/etc/systemd/system".source = stage1Units;
+      contents = {
+        "/tmp/.keep".text =
+          "systemd requires the /tmp mount point in the initrd cpio archive";
+        "/init".source = "${cfg.package}/lib/systemd/systemd";
+        "/etc/systemd/system".source = stage1Units;
 
-          "/etc/systemd/system.conf".text = ''
-            [Manager]
-            DefaultEnvironment=PATH=/bin:/sbin
-            ${cfg.extraConfig}
-            ManagerEnvironment=${
-              lib.concatStringsSep " " (
-                lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment
-              )
-            }
-          '';
+        "/etc/systemd/system.conf".text = ''
+          [Manager]
+          DefaultEnvironment=PATH=/bin:/sbin
+          ${cfg.extraConfig}
+          ManagerEnvironment=${
+            lib.concatStringsSep " "
+            (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}")
+              cfg.managerEnvironment)
+          }
+        '';
 
-          "/lib/modules".source = "${modulesClosure}/lib/modules";
-          "/lib/firmware".source = "${modulesClosure}/lib/firmware";
+        "/lib/modules".source = "${modulesClosure}/lib/modules";
+        "/lib/firmware".source = "${modulesClosure}/lib/firmware";
 
-          "/etc/modules-load.d/nixos.conf".text = concatStringsSep "\n" config.boot.initrd.kernelModules;
+        "/etc/modules-load.d/nixos.conf".text =
+          concatStringsSep "\n" config.boot.initrd.kernelModules;
 
-          # We can use either ! or * to lock the root account in the
-          # console, but some software like OpenSSH won't even allow you
-          # to log in with an SSH key if you use ! so we use * instead
-          "/etc/shadow".text = "root:${
-              if isBool cfg.emergencyAccess then
-                optionalString (!cfg.emergencyAccess) "*"
-              else
-                cfg.emergencyAccess
-            }:::::::";
+        # We can use either ! or * to lock the root account in the
+        # console, but some software like OpenSSH won't even allow you
+        # to log in with an SSH key if you use ! so we use * instead
+        "/etc/shadow".text = "root:${
+            if isBool cfg.emergencyAccess then
+              optionalString (!cfg.emergencyAccess) "*"
+            else
+              cfg.emergencyAccess
+          }:::::::";
 
-          "/bin".source = "${initrdBinEnv}/bin";
-          "/sbin".source = "${initrdBinEnv}/sbin";
+        "/bin".source = "${initrdBinEnv}/bin";
+        "/sbin".source = "${initrdBinEnv}/sbin";
 
-          "/etc/sysctl.d/nixos.conf".text = "kernel.modprobe = /sbin/modprobe";
-          "/etc/modprobe.d/systemd.conf".source = "${cfg.package}/lib/modprobe.d/systemd.conf";
-          "/etc/modprobe.d/ubuntu.conf".source = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { } ''
+        "/etc/sysctl.d/nixos.conf".text = "kernel.modprobe = /sbin/modprobe";
+        "/etc/modprobe.d/systemd.conf".source =
+          "${cfg.package}/lib/modprobe.d/systemd.conf";
+        "/etc/modprobe.d/ubuntu.conf".source =
+          pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { } ''
             ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
           '';
-          "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
+        "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
-          "/etc/os-release".source = config.boot.initrd.osRelease;
-          "/etc/initrd-release".source = config.boot.initrd.osRelease;
-        }
-        // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
-          "/etc/modprobe.d/nixos.conf".source = config.environment.etc."modprobe.d/nixos.conf".source;
-        };
+        "/etc/os-release".source = config.boot.initrd.osRelease;
+        "/etc/initrd-release".source = config.boot.initrd.osRelease;
 
-      storePaths =
-        [
-          # systemd tooling
-          "${cfg.package}/lib/systemd/systemd-fsck"
-          "${cfg.package}/lib/systemd/systemd-hibernate-resume"
-          "${cfg.package}/lib/systemd/systemd-journald"
-          (lib.mkIf needMakefs "${cfg.package}/lib/systemd/systemd-makefs")
-          "${cfg.package}/lib/systemd/systemd-modules-load"
-          "${cfg.package}/lib/systemd/systemd-remount-fs"
-          "${cfg.package}/lib/systemd/systemd-shutdown"
-          "${cfg.package}/lib/systemd/systemd-sulogin-shell"
-          "${cfg.package}/lib/systemd/systemd-sysctl"
+      } // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
+        "/etc/modprobe.d/nixos.conf".source =
+          config.environment.etc."modprobe.d/nixos.conf".source;
+      };
 
-          # generators
-          "${cfg.package}/lib/systemd/system-generators/systemd-debug-generator"
-          "${cfg.package}/lib/systemd/system-generators/systemd-fstab-generator"
-          "${cfg.package}/lib/systemd/system-generators/systemd-gpt-auto-generator"
-          "${cfg.package}/lib/systemd/system-generators/systemd-hibernate-resume-generator"
-          "${cfg.package}/lib/systemd/system-generators/systemd-run-generator"
+      storePaths = [
+        # systemd tooling
+        "${cfg.package}/lib/systemd/systemd-fsck"
+        "${cfg.package}/lib/systemd/systemd-hibernate-resume"
+        "${cfg.package}/lib/systemd/systemd-journald"
+        (lib.mkIf needMakefs "${cfg.package}/lib/systemd/systemd-makefs")
+        "${cfg.package}/lib/systemd/systemd-modules-load"
+        "${cfg.package}/lib/systemd/systemd-remount-fs"
+        "${cfg.package}/lib/systemd/systemd-shutdown"
+        "${cfg.package}/lib/systemd/systemd-sulogin-shell"
+        "${cfg.package}/lib/systemd/systemd-sysctl"
 
-          # utilities needed by systemd
-          "${cfg.package.util-linux}/bin/mount"
-          "${cfg.package.util-linux}/bin/umount"
-          "${cfg.package.util-linux}/bin/sulogin"
+        # generators
+        "${cfg.package}/lib/systemd/system-generators/systemd-debug-generator"
+        "${cfg.package}/lib/systemd/system-generators/systemd-fstab-generator"
+        "${cfg.package}/lib/systemd/system-generators/systemd-gpt-auto-generator"
+        "${cfg.package}/lib/systemd/system-generators/systemd-hibernate-resume-generator"
+        "${cfg.package}/lib/systemd/system-generators/systemd-run-generator"
 
-          # so NSS can look up usernames
-          "${pkgs.glibc}/lib/libnss_files.so.2"
-        ]
-        ++ optionals cfg.package.withCryptsetup [
-          # tpm2 support
-          "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-tpm2.so"
-          pkgs.tpm2-tss
+        # utilities needed by systemd
+        "${cfg.package.util-linux}/bin/mount"
+        "${cfg.package.util-linux}/bin/umount"
+        "${cfg.package.util-linux}/bin/sulogin"
 
-          # fido2 support
-          "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-fido2.so"
-          "${pkgs.libfido2}/lib/libfido2.so.1"
-        ]
-        ++ jobScripts;
+        # so NSS can look up usernames
+        "${pkgs.glibc}/lib/libnss_files.so.2"
+      ] ++ optionals cfg.package.withCryptsetup [
+        # tpm2 support
+        "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-tpm2.so"
+        pkgs.tpm2-tss
+
+        # fido2 support
+        "${cfg.package}/lib/cryptsetup/libcryptsetup-token-systemd-fido2.so"
+        "${pkgs.libfido2}/lib/libfido2.so.1"
+      ] ++ jobScripts;
 
       targets.initrd.aliases = [ "default.target" ];
       units =
         mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-        // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v)) cfg.services
-        // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v)) cfg.slices
-        // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v)) cfg.sockets
-        // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
-        // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v)) cfg.timers
-        // listToAttrs (
-          map
-            (
-              v:
-              let
-                n = escapeSystemdPath v.where;
-              in
-              nameValuePair "${n}.mount" (mountToUnit n v)
-            )
-            cfg.mounts
-        )
-        // listToAttrs (
-          map
-            (
-              v:
-              let
-                n = escapeSystemdPath v.where;
-              in
-              nameValuePair "${n}.automount" (automountToUnit n v)
-            )
-            cfg.automounts
-        );
+        // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
+        cfg.services
+        // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v))
+        cfg.slices
+        // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v))
+        cfg.sockets
+        // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v))
+        cfg.targets
+        // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v))
+        cfg.timers // listToAttrs (map (v:
+          let n = escapeSystemdPath v.where;
+          in nameValuePair "${n}.mount" (mountToUnit n v)) cfg.mounts)
+        // listToAttrs (map (v:
+          let n = escapeSystemdPath v.where;
+          in nameValuePair "${n}.automount" (automountToUnit n v))
+          cfg.automounts);
 
       # make sure all the /dev nodes are set up
       services.systemd-tmpfiles-setup-dev.wantedBy = [ "sysinit.target" ];
@@ -589,20 +525,15 @@ in
       # and using its compiled-in value
       services.initrd-switch-root.serviceConfig = {
         EnvironmentFile = "-/etc/switch-root.conf";
-        ExecStart = [
-          ""
-          ''systemctl --no-block switch-root /sysroot "''${NEW_INIT}"''
-        ];
+        ExecStart =
+          [ "" ''systemctl --no-block switch-root /sysroot "''${NEW_INIT}"'' ];
       };
 
       services.panic-on-fail = {
         wantedBy = [ "emergency.target" ];
         unitConfig = {
           DefaultDependencies = false;
-          ConditionKernelCommandLine = [
-            "|boot.panic_on_fail"
-            "|stage1panic"
-          ];
+          ConditionKernelCommandLine = [ "|boot.panic_on_fail" "|stage1panic" ];
         };
         script = ''
           echo c > /proc/sysrq-trigger
@@ -611,8 +542,7 @@ in
       };
     };
 
-    boot.kernelParams = lib.mkIf (config.boot.resumeDevice != "") [
-      "resume=${config.boot.resumeDevice}"
-    ];
+    boot.kernelParams = lib.mkIf (config.boot.resumeDevice != "")
+      [ "resume=${config.boot.resumeDevice}" ];
   };
 }

@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libpthreadstubs,
-  qtbase,
-  qtwebsockets,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libpthreadstubs, qtbase, qtwebsockets
+, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "qcoro";
@@ -20,24 +12,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kf2W/WAZCpLkq1UIy7iZri4vNaqjGjotB/Xsb+byZV4=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    cmake
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook cmake ];
 
-  buildInputs = [
-    qtbase
-    qtwebsockets
-    libpthreadstubs
-  ];
+  buildInputs = [ qtbase qtwebsockets libpthreadstubs ];
 
   meta = with lib; {
-    description = "Library for using C++20 coroutines in connection with certain asynchronous Qt actions";
+    description =
+      "Library for using C++20 coroutines in connection with certain asynchronous Qt actions";
     homepage = "https://github.com/danvratil/qcoro";
     license = licenses.mit;
     maintainers = with maintainers; [ smitop ];

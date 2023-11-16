@@ -1,30 +1,7 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  frozendict,
-  termcolor,
-  matplotlib,
-  gym,
-  pandas,
-  scipy,
-  absl-py,
-  dm-env,
-  plotnine,
-  scikit-image,
-  dm-tree,
-  patsy,
-  tensorflow-probability,
-  dm-haiku,
-  statsmodels,
-  mizani,
-  trfl,
-  optax,
-  pytestCheckHook,
-  dm-sonnet,
-  rlax,
-  distrax,
-}:
+{ lib, fetchPypi, buildPythonPackage, frozendict, termcolor, matplotlib, gym
+, pandas, scipy, absl-py, dm-env, plotnine, scikit-image, dm-tree, patsy
+, tensorflow-probability, dm-haiku, statsmodels, mizani, trfl, optax
+, pytestCheckHook, dm-sonnet, rlax, distrax }:
 
 let
   bsuite = buildPythonPackage rec {
@@ -102,5 +79,4 @@ let
       maintainers = with maintainers; [ onny ];
     };
   };
-in
-bsuite
+in bsuite

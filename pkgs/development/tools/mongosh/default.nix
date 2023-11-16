@@ -1,15 +1,7 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchurl,
-  testers,
-  mongosh,
-}:
+{ lib, buildNpmPackage, fetchurl, testers, mongosh }:
 
-let
-  source = lib.importJSON ./source.json;
-in
-buildNpmPackage {
+let source = lib.importJSON ./source.json;
+in buildNpmPackage {
   pname = "mongosh";
   inherit (source) version;
 

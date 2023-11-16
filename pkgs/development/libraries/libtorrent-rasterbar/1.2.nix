@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  automake,
-  autoconf,
-  zlib,
-  boost,
-  openssl,
-  libtool,
-  python,
-  libiconv,
-  ncurses,
-  SystemConfiguration,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, automake, autoconf, zlib, boost
+, openssl, libtool, python, libiconv, ncurses, SystemConfiguration }:
 
 let
   version = "1.2.11";
@@ -24,8 +10,8 @@ let
     enablePython = true;
     inherit python;
   };
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "libtorrent-rasterbar";
   inherit version;
 
@@ -38,21 +24,10 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    automake
-    autoconf
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ automake autoconf libtool pkg-config ];
 
-  buildInputs = [
-    boostPython
-    openssl
-    zlib
-    python
-    libiconv
-    ncurses
-  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = [ boostPython openssl zlib python libiconv ncurses ]
+    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   preConfigure = "./autotool.sh";
 
@@ -61,11 +36,7 @@ stdenv.mkDerivation {
     moveToOutput "lib/${python.libPrefix}" "$python"
   '';
 
-  outputs = [
-    "out"
-    "dev"
-    "python"
-  ];
+  outputs = [ "out" "dev" "python" ];
 
   configureFlags = [
     "--enable-python-binding"
@@ -76,7 +47,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://libtorrent.org/";
-    description = "A C++ BitTorrent implementation focusing on efficiency and scalability";
+    description =
+      "A C++ BitTorrent implementation focusing on efficiency and scalability";
     license = licenses.bsd3;
     maintainers = [ ];
     broken = stdenv.isDarwin;

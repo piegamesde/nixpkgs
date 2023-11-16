@@ -1,39 +1,23 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ocaml,
-  zlib,
-  which,
-  eprover,
-  makeWrapper,
-  coq,
-}:
+{ lib, stdenv, fetchurl, ocaml, zlib, which, eprover, makeWrapper, coq }:
 stdenv.mkDerivation rec {
   pname = "satallax";
   version = "2.7";
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-    ocaml
-    which
-    eprover
-    coq
-  ];
+  nativeBuildInputs = [ makeWrapper ocaml which eprover coq ];
   buildInputs = [ zlib ];
 
   src = fetchurl {
-    url = "https://www.ps.uni-saarland.de/~cebrown/satallax/downloads/${pname}-${version}.tar.gz";
+    url =
+      "https://www.ps.uni-saarland.de/~cebrown/satallax/downloads/${pname}-${version}.tar.gz";
     sha256 = "1kvxn8mc35igk4vigi5cp7w3wpxk2z3bgwllfm4n3h2jfs0vkpib";
   };
 
-  patches =
-    [
-      # GCC9 doesn't allow default value in friend declaration.
-      ./fix-declaration-gcc9.patch
-    ];
+  patches = [
+    # GCC9 doesn't allow default value in friend declaration.
+    ./fix-declaration-gcc9.patch
+  ];
 
   prePatch = ''
     patch -p1 -i ${../avy/minisat-fenv.patch} -d minisat
@@ -66,17 +50,15 @@ stdenv.mkDerivation rec {
   '';
 
   # error: invalid suffix on literal; C++11 requires a space between literal and identifier
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-reserved-user-defined-literal";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-Wno-reserved-user-defined-literal";
 
   installPhase = ''
     mkdir -p "$out/share/doc/satallax" "$out/bin" "$out/lib" "$out/lib/satallax"
     cp bin/satallax.opt "$out/bin/satallax"
     wrapProgram "$out/bin/satallax" \
       --suffix PATH : "${
-        lib.makeBinPath [
-          coq
-          eprover
-        ]
+        lib.makeBinPath [ coq eprover ]
       }:$out/libexec/satallax" \
       --add-flags "-M" --add-flags "$out/lib/satallax/modes"
 
@@ -105,7 +87,8 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.unix;
-    downloadPage = "http://www.ps.uni-saarland.de/~cebrown/satallax/downloads.php";
+    downloadPage =
+      "http://www.ps.uni-saarland.de/~cebrown/satallax/downloads.php";
     homepage = "http://www.ps.uni-saarland.de/~cebrown/satallax/index.php";
   };
 }

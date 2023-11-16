@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-svg";
   version = "20180228-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-svg/2018-02-28/cl-svg-20180228-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-svg/2018-02-28/cl-svg-20180228-git.tgz";
     sha256 = "1ir299yg7210y1hwqs0di3gznj8ahsw16kf1n4yhfq78jswkrx48";
   };
 

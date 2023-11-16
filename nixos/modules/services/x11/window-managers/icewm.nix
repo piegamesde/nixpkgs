@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.icewm;
-in
-{
+let cfg = config.services.xserver.windowManager.icewm;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.icewm.enable = mkEnableOption (lib.mdDoc "icewm");
+    services.xserver.windowManager.icewm.enable =
+      mkEnableOption (lib.mdDoc "icewm");
   };
 
   ###### implementation

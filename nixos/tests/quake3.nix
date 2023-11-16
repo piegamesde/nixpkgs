@@ -1,29 +1,23 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
 
     # Build Quake with coverage instrumentation.
     overrides = pkgs: {
-      quake3game = pkgs.quake3game.override (
-        args: { stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv; }
-      );
+      quake3game = pkgs.quake3game.override (args: {
+        stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv;
+      });
     };
 
     # Only allow the demo data to be used (only if it's unfreeRedistributable).
-    unfreePredicate =
-      pkg:
+    unfreePredicate = pkg:
       let
-        allowPackageNames = [
-          "quake3-demodata"
-          "quake3-pointrelease"
-        ];
+        allowPackageNames = [ "quake3-demodata" "quake3-pointrelease" ];
         allowLicenses = [ lib.licenses.unfreeRedistributable ];
-      in
-      lib.elem pkg.pname allowPackageNames && lib.elem (pkg.meta.license or null) allowLicenses;
+      in lib.elem pkg.pname allowPackageNames
+      && lib.elem (pkg.meta.license or null) allowLicenses;
 
-    client =
-      { pkgs, ... }:
+    client = { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];
@@ -32,29 +26,21 @@ import ./make-test-python.nix (
         nixpkgs.config.packageOverrides = overrides;
         nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       };
-  in
 
-  rec {
+  in rec {
     name = "quake3";
-    meta = with lib.maintainers; {
-      maintainers = [
-        domenkozar
-        eelco
-      ];
-    };
+    meta = with lib.maintainers; { maintainers = [ domenkozar eelco ]; };
 
     # TODO: lcov doesn't work atm
     #makeCoverageReport = true;
 
     nodes = {
-      server =
-        { pkgs, ... }:
+      server = { pkgs, ... }:
 
         {
           systemd.services.quake3-server = {
             wantedBy = [ "multi-user.target" ];
-            script =
-              "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
+            script = "${pkgs.quake3demo}/bin/quake3-server +set g_gametype 0 "
               + "+map q3dm7 +addbot grunt +addbot daemia 2> /tmp/log";
           };
           nixpkgs.config.packageOverrides = overrides;
@@ -99,5 +85,5 @@ import ./make-test-python.nix (
       client2.shutdown()
       server.stop_job("quake3-server")
     '';
-  }
-)
+
+  })

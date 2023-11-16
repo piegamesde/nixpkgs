@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "opentelemetry-collector";
@@ -28,15 +24,14 @@ buildGoModule rec {
     sed -i -E 's/Version:(\s*)".*"/Version:\1"${version}"/' main.go
   '';
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://github.com/open-telemetry/opentelemetry-collector";
-    changelog = "https://github.com/open-telemetry/opentelemetry-collector/blob/v${version}/CHANGELOG.md";
-    description = "A vendor-agnostic implementation on how to receive, process and export telemetry data";
+    changelog =
+      "https://github.com/open-telemetry/opentelemetry-collector/blob/v${version}/CHANGELOG.md";
+    description =
+      "A vendor-agnostic implementation on how to receive, process and export telemetry data";
     longDescription = ''
       The OpenTelemetry Collector offers a vendor-agnostic implementation on how
       to receive, process and export telemetry data. In addition, it removes the
@@ -45,9 +40,6 @@ buildGoModule rec {
       sending to multiple open-source or commercial back-ends.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      uri-canva
-      jk
-    ];
+    maintainers = with maintainers; [ uri-canva jk ];
   };
 }

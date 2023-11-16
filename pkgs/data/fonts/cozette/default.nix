@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "cozette";
   version = "1.19.2";
 
   src = fetchzip {
-    url = "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts.zip";
+    url =
+      "https://github.com/slavfox/Cozette/releases/download/v.${version}/CozetteFonts.zip";
     hash = "sha256-+TnKUgrAafR5irS9XeXWfb1a2PfUKOXf8CAmqJbf6y4=";
   };
 
@@ -29,9 +26,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/slavfox/cozette";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      brettlyons
-      marsam
-    ];
+    maintainers = with maintainers; [ brettlyons marsam ];
   };
 }

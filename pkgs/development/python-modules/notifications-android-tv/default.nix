@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpx,
-  poetry-core,
-  pytest-asyncio,
-  pytest-httpx,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, httpx, poetry-core, pytest-asyncio
+, pytest-httpx, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "notifications-android-tv";
@@ -31,15 +22,13 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    pytest-asyncio
-    pytest-httpx
-  ];
+  checkInputs = [ pytest-asyncio pytest-httpx ];
 
   meta = with lib; {
     description = "Python API for sending notifications to Android/Fire TVs";
     homepage = "https://github.com/engrbm87/notifications_android_tv";
-    changelog = "https://github.com/engrbm87/notifications_android_tv/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/engrbm87/notifications_android_tv/blob/${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dominikh ];
   };

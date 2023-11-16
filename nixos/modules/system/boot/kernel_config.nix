@@ -2,8 +2,7 @@
 
 with lib;
 let
-  mergeFalseByDefault =
-    locs: defs:
+  mergeFalseByDefault = locs: defs:
     if defs == [ ] then
       abort "This case should never happen."
     else if any (x: x == false) (getValues defs) then
@@ -14,12 +13,7 @@ let
   kernelItem = types.submodule {
     options = {
       tristate = mkOption {
-        type = types.enum [
-          "y"
-          "m"
-          "n"
-          null
-        ];
+        type = types.enum [ "y" "m" "n" null ];
         default = null;
         internal = true;
         visible = true;
@@ -29,9 +23,7 @@ let
       };
 
       freeform = mkOption {
-        type = types.nullOr types.str // {
-          merge = mergeEqualOption;
-        };
+        type = types.nullOr types.str // { merge = mergeEqualOption; };
         default = null;
         example = ''MMC_BLOCK_MINORS.freeform = "32";'';
         description = lib.mdDoc ''
@@ -40,9 +32,7 @@ let
       };
 
       optional = mkOption {
-        type = types.bool // {
-          merge = mergeFalseByDefault;
-        };
+        type = types.bool // { merge = mergeFalseByDefault; };
         default = false;
         description = lib.mdDoc ''
           Whether option should generate a failure when unused.
@@ -52,26 +42,11 @@ let
     };
   };
 
-  mkValue =
-    with lib;
+  mkValue = with lib;
     val:
-    let
-      isNumber =
-        c:
-        elem c [
-          "0"
-          "1"
-          "2"
-          "3"
-          "4"
-          "5"
-          "6"
-          "7"
-          "8"
-          "9"
-        ];
-    in
-    if (val == "") then
+    let isNumber = c: elem c [ "0" "1" "2" "3" "4" "5" "6" "7" "8" "9" ];
+
+    in if (val == "") then
       ''""''
     else if val == "y" || val == "m" || val == "n" then
       val
@@ -93,30 +68,23 @@ let
   # returns a string, expr should be an attribute set
   # Use mkValuePreprocess to preprocess option values, aka mark 'modules' as 'yes' or vice-versa
   # use the identity if you don't want to override the configured values
-  generateNixKConf =
-    exprs:
+  generateNixKConf = exprs:
     let
-      mkConfigLine =
-        key: item:
+      mkConfigLine = key: item:
         let
           val = if item.freeform != null then item.freeform else item.tristate;
-        in
-        if val == null then
+        in if val == null then
           ""
-        else if (item.optional) then
-          ''
-            ${key}? ${mkValue val}
-          ''
-        else
-          ''
-            ${key} ${mkValue val}
-          '';
+        else if (item.optional) then ''
+          ${key}? ${mkValue val}
+        '' else ''
+          ${key} ${mkValue val}
+        '';
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
-    in
-    mkConf exprs;
-in
-{
+    in mkConf exprs;
+
+in {
 
   options = {
 
@@ -148,7 +116,5 @@ in
     };
   };
 
-  config = {
-    intermediateNixConfig = generateNixKConf config.settings;
-  };
+  config = { intermediateNixConfig = generateNixKConf config.settings; };
 }

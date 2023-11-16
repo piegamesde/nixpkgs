@@ -1,30 +1,7 @@
-{
-  stdenv,
-  lib,
-  alsa-lib,
-  autoPatchelfHook,
-  buildFHSEnv,
-  copyDesktopItems,
-  dbus,
-  dpkg,
-  expat,
-  fontconfig,
-  glib,
-  libdrm,
-  libglvnd,
-  libpulseaudio,
-  libudev0-shim,
-  libxkbcommon,
-  libxml2,
-  libxslt,
-  lndir,
-  makeDesktopItem,
-  makeWrapper,
-  nspr,
-  nss,
-  requireFile,
-  xorg,
-}:
+{ stdenv, lib, alsa-lib, autoPatchelfHook, buildFHSEnv, copyDesktopItems, dbus
+, dpkg, expat, fontconfig, glib, libdrm, libglvnd, libpulseaudio, libudev0-shim
+, libxkbcommon, libxml2, libxslt, lndir, makeDesktopItem, makeWrapper, nspr, nss
+, requireFile, xorg }:
 
 let
   version = "8.2.0";
@@ -35,53 +12,52 @@ let
 
     dontUnpack = true;
     src = requireFile {
-      name = "CiscoPacketTracer_${builtins.replaceStrings [ "." ] [ "" ] version}_Ubuntu_64bit.deb";
-      sha256 = "1b19885d59f6130ee55414fb02e211a1773460689db38bfd1ac7f0d45117ed16";
+      name = "CiscoPacketTracer_${
+          builtins.replaceStrings [ "." ] [ "" ] version
+        }_Ubuntu_64bit.deb";
+      sha256 =
+        "1b19885d59f6130ee55414fb02e211a1773460689db38bfd1ac7f0d45117ed16";
       url = "https://www.netacad.com";
     };
 
-    nativeBuildInputs =
-      [
-        alsa-lib
-        autoPatchelfHook
-        dbus
-        dpkg
-        expat
-        fontconfig
-        glib
-        libdrm
-        libglvnd
-        libpulseaudio
-        libudev0-shim
-        libxkbcommon
-        libxml2
-        libxslt
-        makeWrapper
-        nspr
-        nss
-      ]
-      ++ (
-        with xorg; [
-          libICE
-          libSM
-          libX11
-          libxcb
-          libXcomposite
-          libXcursor
-          libXdamage
-          libXext
-          libXfixes
-          libXi
-          libXrandr
-          libXrender
-          libXScrnSaver
-          libXtst
-          xcbutilimage
-          xcbutilkeysyms
-          xcbutilrenderutil
-          xcbutilwm
-        ]
-      );
+    nativeBuildInputs = [
+      alsa-lib
+      autoPatchelfHook
+      dbus
+      dpkg
+      expat
+      fontconfig
+      glib
+      libdrm
+      libglvnd
+      libpulseaudio
+      libudev0-shim
+      libxkbcommon
+      libxml2
+      libxslt
+      makeWrapper
+      nspr
+      nss
+    ] ++ (with xorg; [
+      libICE
+      libSM
+      libX11
+      libxcb
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXrandr
+      libXrender
+      libXScrnSaver
+      libXtst
+      xcbutilimage
+      xcbutilkeysyms
+      xcbutilrenderutil
+      xcbutilwm
+    ]);
 
     installPhase = ''
       dpkg-deb -x $src $out
@@ -99,11 +75,7 @@ let
     desktopName = "Cisco Packet Tracer 8";
     icon = "${ptFiles}/opt/pt/art/app.png";
     exec = "packettracer8 %f";
-    mimeTypes = [
-      "application/x-pkt"
-      "application/x-pka"
-      "application/x-pkz"
-    ];
+    mimeTypes = [ "application/x-pkt" "application/x-pka" "application/x-pkz" ];
   };
 
   fhs = buildFHSEnv {
@@ -116,8 +88,7 @@ let
       cp "${desktopItem}"/share/applications/* "$out/share/applications/"
     '';
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "ciscoPacketTracer8";
   inherit version;
 

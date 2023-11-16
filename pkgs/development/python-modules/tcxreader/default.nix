@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tcxreader";
@@ -31,3 +25,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ firefly-cpp ];
   };
 }
+

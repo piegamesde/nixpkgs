@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  python3,
-  fetchPypi,
-  git,
-}:
+{ stdenv, lib, python3, fetchPypi, git }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gigalixir";
@@ -32,21 +26,13 @@ python3.pkgs.buildPythonApplication rec {
     stripe
   ];
 
-  nativeCheckInputs =
-    [ git ]
-    ++ (
-      with python3.pkgs; [
-        httpretty
-        pytestCheckHook
-        sure
-      ]
-    );
+  nativeCheckInputs = [ git ]
+    ++ (with python3.pkgs; [ httpretty pytestCheckHook sure ]);
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_rollback_without_version"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_rollback_without_version"
+  ];
 
   pythonImportsCheck = [ "gigalixir" ];
 

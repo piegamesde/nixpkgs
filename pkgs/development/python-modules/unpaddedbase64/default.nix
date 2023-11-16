@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core }:
 
 buildPythonPackage rec {
   pname = "unpaddedbase64";
@@ -24,4 +19,5 @@ buildPythonPackage rec {
     description = "Unpadded Base64";
     license = licenses.asl20;
   };
+
 }

@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "mockgen";
@@ -24,7 +20,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "GoMock is a mocking framework for the Go programming language";
+    description =
+      "GoMock is a mocking framework for the Go programming language";
     homepage = "https://github.com/golang/mock";
     license = licenses.asl20;
     maintainers = with maintainers; [ bouk ];

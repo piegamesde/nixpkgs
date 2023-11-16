@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  dj-database-url,
-  django,
-  django-rq,
-  fetchFromGitHub,
-  flit-core,
-  freezegun,
-  google-cloud-translate,
-  polib,
-  python,
-  pythonOlder,
-  typing-extensions,
-  wagtail,
-}:
+{ lib, buildPythonPackage, dj-database-url, django, django-rq, fetchFromGitHub
+, flit-core, freezegun, google-cloud-translate, polib, python, pythonOlder
+, typing-extensions, wagtail }:
 
 buildPythonPackage rec {
   pname = "wagtail-localize";
@@ -31,23 +18,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    django
-    wagtail
-    polib
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ django wagtail polib typing-extensions ];
 
-  nativeCheckInputs = [
-    dj-database-url
-    django-rq
-    freezegun
-    google-cloud-translate
-  ];
+  nativeCheckInputs =
+    [ dj-database-url django-rq freezegun google-cloud-translate ];
 
-  passthru.optional-dependencies = {
-    google = [ google-cloud-translate ];
-  };
+  passthru.optional-dependencies = { google = [ google-cloud-translate ]; };
 
   checkPhase = ''
     # test_translate_html fails with later Beautifulsoup releases
@@ -58,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Translation plugin for Wagtail CMS";
     homepage = "https://github.com/wagtail/wagtail-localize";
-    changelog = "https://github.com/wagtail/wagtail-localize/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/wagtail/wagtail-localize/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ sephi ];
   };

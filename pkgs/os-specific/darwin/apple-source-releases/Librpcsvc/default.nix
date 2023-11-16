@@ -1,8 +1,4 @@
-{
-  lib,
-  appleDerivation,
-  developer_cmds,
-}:
+{ lib, appleDerivation, developer_cmds }:
 
 appleDerivation {
   buildInputs = [ developer_cmds ];

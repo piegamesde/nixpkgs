@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ant,
-  jdk,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchFromGitHub, ant, jdk, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "jdepend";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1lxf3j9vflky7a2py3i59q7cwd1zvjv2b88l3za39vc90s04dz6k";
   };
 
-  nativeBuildInputs = [
-    ant
-    jdk
-  ];
+  nativeBuildInputs = [ ant jdk ];
   buildPhase = "ant jar";
 
   installPhase = ''
@@ -36,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Traverses Java class file directories and generates design quality metrics for each Java package";
+    description =
+      "Traverses Java class file directories and generates design quality metrics for each Java package";
     homepage = "http://www.clarkware.com/software/JDepend.html";
     license = licenses.bsd3;
     platforms = platforms.linux;

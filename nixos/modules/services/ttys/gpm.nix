@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.gpm;
-in
 
-{
+in {
 
   ###### interface
 
@@ -34,7 +28,9 @@ in
         default = "ps/2";
         description = lib.mdDoc "Mouse protocol to use.";
       };
+
     };
+
   };
 
   ###### implementation
@@ -48,9 +44,12 @@ in
       requires = [ "dev-input-mice.device" ];
       after = [ "dev-input-mice.device" ];
 
-      serviceConfig.ExecStart = "@${pkgs.gpm}/sbin/gpm gpm -m /dev/input/mice -t ${cfg.protocol}";
+      serviceConfig.ExecStart =
+        "@${pkgs.gpm}/sbin/gpm gpm -m /dev/input/mice -t ${cfg.protocol}";
       serviceConfig.Type = "forking";
       serviceConfig.PIDFile = "/run/gpm.pid";
     };
+
   };
+
 }

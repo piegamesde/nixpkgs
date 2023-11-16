@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fuse,
-}:
+{ lib, stdenv, fetchFromGitHub, fuse }:
 
 stdenv.mkDerivation rec {
   pname = "littlefs-fuse";

@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  colorful,
-  docopt,
-  fetchFromGitHub,
-  freezegun,
-  humanize,
-  lark,
-  lxml,
-  parse-type,
-  pysingleton,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  tag-expressions,
-}:
+{ lib, buildPythonPackage, click, colorful, docopt, fetchFromGitHub, freezegun
+, humanize, lark, lxml, parse-type, pysingleton, pytest-mock, pytestCheckHook
+, pythonOlder, pyyaml, tag-expressions }:
 
 buildPythonPackage rec {
   pname = "radish-bdd";
@@ -44,12 +28,7 @@ buildPythonPackage rec {
     tag-expressions
   ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-mock
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ freezegun pytest-mock pytestCheckHook pyyaml ];
 
   pythonImportsCheck = [ "radish" ];
 

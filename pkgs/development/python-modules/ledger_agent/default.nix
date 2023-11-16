@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ledgerblue,
-  setuptools,
-  libagent,
-  wheel,
-}:
+{ lib, buildPythonPackage, fetchPypi, ledgerblue, setuptools, libagent, wheel }:
 
 buildPythonPackage rec {
   pname = "ledger_agent";
@@ -17,12 +9,7 @@ buildPythonPackage rec {
     sha256 = "03zj602m2rln9yvr08dswy56vzkbldp8b074ixwzz525dafblr92";
   };
 
-  propagatedBuildInputs = [
-    ledgerblue
-    libagent
-    setuptools
-    wheel
-  ];
+  propagatedBuildInputs = [ ledgerblue libagent setuptools wheel ];
 
   # no tests
   doCheck = false;
@@ -31,10 +18,6 @@ buildPythonPackage rec {
     description = "Using Ledger as hardware-based SSH/PGP agent";
     homepage = "https://github.com/romanz/trezor-agent";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      hkjn
-      np
-      mmahut
-    ];
+    maintainers = with maintainers; [ hkjn np mmahut ];
   };
 }

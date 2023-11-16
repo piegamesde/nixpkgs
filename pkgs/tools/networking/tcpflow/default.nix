@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  automake,
-  autoconf,
-  openssl,
-  zlib,
-  libpcap,
-  boost,
-  useCairo ? false,
-  cairo,
-}:
+{ stdenv, lib, fetchFromGitHub, automake, autoconf, openssl, zlib, libpcap
+, boost, useCairo ? false, cairo }:
 
 stdenv.mkDerivation rec {
   pname = "tcpflow";
@@ -24,16 +13,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    automake
-    autoconf
-  ];
-  buildInputs = [
-    openssl
-    zlib
-    libpcap
-    boost
-  ] ++ lib.optional useCairo cairo;
+  nativeBuildInputs = [ automake autoconf ];
+  buildInputs = [ openssl zlib libpcap boost ] ++ lib.optional useCairo cairo;
 
   prePatch = ''
     substituteInPlace bootstrap.sh \
@@ -56,10 +37,7 @@ stdenv.mkDerivation rec {
     '';
     inherit (src.meta) homepage;
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      raskin
-      obadz
-    ];
+    maintainers = with maintainers; [ raskin obadz ];
     platforms = platforms.unix;
   };
 }

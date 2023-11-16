@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libiconv,
-  libogg,
-  ffmpeg,
-  glibcLocales,
-  perl,
-  perlPackages,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libiconv, libogg, ffmpeg
+, glibcLocales, perl, perlPackages }:
 
 stdenv.mkDerivation rec {
   pname = "opustags";
@@ -25,18 +14,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libogg ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  nativeBuildInputs = [ cmake pkg-config ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    ffmpeg
-    glibcLocales
-    perl
-  ] ++ (with perlPackages; [ ListMoreUtils ]);
+  nativeCheckInputs = [ ffmpeg glibcLocales perl ]
+    ++ (with perlPackages; [ ListMoreUtils ]);
 
   checkPhase = ''
     export LANG="en_US.UTF-8"
@@ -49,10 +33,7 @@ stdenv.mkDerivation rec {
     description = "Ogg Opus tags editor";
     platforms = platforms.all;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [
-      kmein
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ kmein SuperSandro2000 ];
     license = licenses.bsd3;
   };
 }

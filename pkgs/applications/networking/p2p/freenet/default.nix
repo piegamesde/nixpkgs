@@ -1,25 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
-  jdk,
-  jre,
-  gradle,
-  bash,
-  coreutils,
-  substituteAll,
-  nixosTests,
-  perl,
-  fetchpatch,
-  writeText,
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, jdk, jre, gradle, bash, coreutils
+, substituteAll, nixosTests, perl, fetchpatch, writeText }:
 
 let
   version = "01497";
 
   freenet_ext = fetchurl {
-    url = "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar";
+    url =
+      "https://github.com/freenet/fred/releases/download/build01495/freenet-ext.jar";
     sha256 = "sha256-MvKz1r7t9UE36i+aPr72dmbXafCWawjNF/19tZuk158=";
   };
 
@@ -28,16 +15,15 @@ let
     sha256 = "08awwr8n80b4cdzzb3y8hf2fzkr1f2ly4nlq779d6pvi5jymqdvv";
   };
 
-  patches =
-    [
-      # gradle 7 support
-      (fetchpatch {
-        url = "https://github.com/freenet/fred/pull/827.patch";
-        sha256 = "sha256-T1zymxRTADVhhwp2TyB+BC/J4gZsT/CUuMrT4COlpTY=";
-      })
-    ];
-in
-stdenv.mkDerivation rec {
+  patches = [
+    # gradle 7 support
+    (fetchpatch {
+      url = "https://github.com/freenet/fred/pull/827.patch";
+      sha256 = "sha256-T1zymxRTADVhhwp2TyB+BC/J4gZsT/CUuMrT4COlpTY=";
+    })
+  ];
+
+in stdenv.mkDerivation rec {
   pname = "freenet";
   inherit version patches;
 
@@ -52,19 +38,11 @@ stdenv.mkDerivation rec {
     rm gradle/verification-{keyring.keys,metadata.xml}
   '';
 
-  nativeBuildInputs = [
-    gradle
-    jdk
-  ];
+  nativeBuildInputs = [ gradle jdk ];
 
   wrapper = substituteAll {
     src = ./freenetWrapper;
-    inherit
-      bash
-      coreutils
-      jre
-      seednodes
-    ;
+    inherit bash coreutils jre seednodes;
   };
 
   # https://github.com/freenet/fred/blob/next/build-offline.sh
@@ -73,10 +51,7 @@ stdenv.mkDerivation rec {
     pname = "${pname}-deps";
     inherit src version patches;
 
-    nativeBuildInputs = [
-      gradle
-      perl
-    ];
+    nativeBuildInputs = [ gradle perl ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon build
@@ -137,9 +112,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) freenet;
-  };
+  passthru.tests = { inherit (nixosTests) freenet; };
 
   meta = {
     description = "Decentralised and censorship-resistant network";

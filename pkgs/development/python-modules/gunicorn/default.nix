@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pythonOlder,
-  eventlet,
-  gevent,
-  pytestCheckHook,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pythonOlder, eventlet
+, gevent, pytestCheckHook, setuptools }:
 
 buildPythonPackage rec {
   pname = "gunicorn";
@@ -25,7 +16,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # fix eventlet 0.30.3+ compability
-      url = "https://github.com/benoitc/gunicorn/commit/6a8ebb4844b2f28596ffe7421eb9f7d08c8dc4d8.patch";
+      url =
+        "https://github.com/benoitc/gunicorn/commit/6a8ebb4844b2f28596ffe7421eb9f7d08c8dc4d8.patch";
       hash = "sha256-+iApgohzPZ/cHTGBNb7XkqLaHOVVPF26BnPUsvISoZw=";
     })
   ];
@@ -37,17 +29,14 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    eventlet
-    gevent
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ eventlet gevent pytestCheckHook ];
 
   pythonImportsCheck = [ "gunicorn" ];
 
   meta = with lib; {
     homepage = "https://github.com/benoitc/gunicorn";
-    description = "gunicorn 'Green Unicorn' is a WSGI HTTP Server for UNIX, fast clients and sleepy applications";
+    description =
+      "gunicorn 'Green Unicorn' is a WSGI HTTP Server for UNIX, fast clients and sleepy applications";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

@@ -1,22 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  flask,
-  limits,
-  ordered-set,
-  rich,
-  typing-extensions,
+, flask, limits, ordered-set, rich, typing-extensions
 
-  asgiref,
-  hiro,
-  pymemcache,
-  pytest-mock,
-  pytestCheckHook,
-  redis,
-  pymongo,
-}:
+, asgiref, hiro, pymemcache, pytest-mock, pytestCheckHook, redis, pymongo }:
 
 buildPythonPackage rec {
   pname = "flask-limiter";
@@ -40,23 +26,10 @@ buildPythonPackage rec {
     sed -i "/import flask_restful/d" tests/test_views.py
   '';
 
-  propagatedBuildInputs = [
-    flask
-    limits
-    ordered-set
-    rich
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ flask limits ordered-set rich typing-extensions ];
 
-  nativeCheckInputs = [
-    asgiref
-    pytest-mock
-    pytestCheckHook
-    hiro
-    redis
-    pymemcache
-    pymongo
-  ];
+  nativeCheckInputs =
+    [ asgiref pytest-mock pytestCheckHook hiro redis pymemcache pymongo ];
 
   disabledTests = [
     # flask-restful is unmaintained and breaks regularly
@@ -78,11 +51,10 @@ buildPythonPackage rec {
     "test_fallback_to_memory"
   ];
 
-  disabledTestPaths =
-    [
-      # requires running redis/memcached/mongodb
-      "tests/test_storage.py"
-    ];
+  disabledTestPaths = [
+    # requires running redis/memcached/mongodb
+    "tests/test_storage.py"
+  ];
 
   pythonImportsCheck = [ "flask_limiter" ];
 

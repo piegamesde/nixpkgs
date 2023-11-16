@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  docbook2x,
-  pkg-config,
-  gtk3,
-  dconf,
-  gobject-introspection,
-  ibus,
-  python3,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, docbook2x, pkg-config, gtk3
+, dconf, gobject-introspection, ibus, python3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "ibus-table";
@@ -46,23 +34,12 @@ stdenv.mkDerivation rec {
     dconf
     gtk3
     ibus
-    (python3.withPackages (
-      pypkgs:
-      with pypkgs; [
-        dbus-python
-        pygobject3
-        (toPythonModule ibus)
-      ]
-    ))
+    (python3.withPackages
+      (pypkgs: with pypkgs; [ dbus-python pygobject3 (toPythonModule ibus) ]))
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    docbook2x
-    pkg-config
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook docbook2x pkg-config gobject-introspection wrapGAppsHook ];
 
   postUnpack = ''
     substituteInPlace $sourceRoot/engine/Makefile.am \

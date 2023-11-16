@@ -1,17 +1,9 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  unzip,
-  lib,
-  php80,
-}:
+{ stdenv, fetchFromGitHub, makeWrapper, unzip, lib, php80 }:
 
 let
   pname = "n98-magerun";
   version = "2.3.0";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {

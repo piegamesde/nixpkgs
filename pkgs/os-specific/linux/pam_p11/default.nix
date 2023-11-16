@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libp11,
-  pam,
-  libintl,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libp11, pam, libintl
+, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "pam_p11";
@@ -21,25 +12,18 @@ stdenv.mkDerivation rec {
     sha256 = "1caidy18rq5zk82d51x8vwidmkhwmanf3qm25x1yrdlbhxv6m7lk";
   };
 
-  patches =
-    [
-      # fix with openssl 3.x
-      (fetchpatch {
-        url = "https://github.com/OpenSC/pam_p11/pull/22.patch";
-        excludes = [ ".github/build.sh" ];
-        hash = "sha256-bm/agnBgvrr8L8yoGK4gzBqOGgsNWf9NIgcNJG7proE=";
-      })
-    ];
-
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
+  patches = [
+    # fix with openssl 3.x
+    (fetchpatch {
+      url = "https://github.com/OpenSC/pam_p11/pull/22.patch";
+      excludes = [ ".github/build.sh" ];
+      hash = "sha256-bm/agnBgvrr8L8yoGK4gzBqOGgsNWf9NIgcNJG7proE=";
+    })
   ];
-  buildInputs = [
-    pam
-    libp11.passthru.openssl
-    libp11
-  ] ++ lib.optionals stdenv.isDarwin [ libintl ];
+
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ pam libp11.passthru.openssl libp11 ]
+    ++ lib.optionals stdenv.isDarwin [ libintl ];
 
   meta = with lib; {
     homepage = "https://github.com/OpenSC/pam_p11";

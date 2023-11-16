@@ -1,20 +1,11 @@
-{
-  autoreconfHook,
-  cups,
-  libjpeg,
-  rpmextract,
-  fetchurl,
-  lib,
-  stdenv,
-}:
+{ autoreconfHook, cups, libjpeg, rpmextract, fetchurl, lib, stdenv }:
 
 let
   srcdirs = {
     filter = "epson-inkjet-printer-filter-1.0.0";
     driver = "epson-inkjet-printer-workforce-635-nx625-series-1.0.1";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "epson-inkjet-printer-workforce-635-nx625-series";
   version = "1.0.1";
 
@@ -28,14 +19,8 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = srcdirs.filter;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    rpmextract
-  ];
-  buildInputs = [
-    cups
-    libjpeg
-  ];
+  nativeBuildInputs = [ autoreconfHook rpmextract ];
+  buildInputs = [ cups libjpeg ];
 
   unpackPhase = ''
     rpmextract "$src"
@@ -48,31 +33,29 @@ stdenv.mkDerivation rec {
     chmod u+x configure
   '';
 
-  installPhase =
-    let
-      filterdir = "$out/cups/lib/filter";
-      docdir = "$out/share/doc";
-      ppddir = "$out/share/cups/model/${pname}";
-      libdir =
-        if stdenv.system == "x86_64-linux" then
-          "lib64"
-        else if stdenv.system == "i686_linux" then
-          "lib"
-        else
-          throw "other platforms than i686_linux and x86_64-linux are not yet supported";
-    in
-    ''
-      mkdir -p "$out" "${docdir}" "${filterdir}" "${ppddir}"
-      cp src/epson_inkjet_printer_filter "${filterdir}"
+  installPhase = let
+    filterdir = "$out/cups/lib/filter";
+    docdir = "$out/share/doc";
+    ppddir = "$out/share/cups/model/${pname}";
+    libdir = if stdenv.system == "x86_64-linux" then
+      "lib64"
+    else if stdenv.system == "i686_linux" then
+      "lib"
+    else
+      throw
+      "other platforms than i686_linux and x86_64-linux are not yet supported";
+  in ''
+    mkdir -p "$out" "${docdir}" "${filterdir}" "${ppddir}"
+    cp src/epson_inkjet_printer_filter "${filterdir}"
 
-      cd ../${srcdirs.driver}
-      for ppd in ppds/*; do
-          substituteInPlace "$ppd" --replace '/opt/${pname}' "$out"
-          gzip -c "$ppd" > "${ppddir}/''${ppd#*/}"
-      done
-      cp COPYING.EPSON README "${docdir}"
-      cp -r resource watermark ${libdir} "$out"
-    '';
+    cd ../${srcdirs.driver}
+    for ppd in ppds/*; do
+        substituteInPlace "$ppd" --replace '/opt/${pname}' "$out"
+        gzip -c "$ppd" > "${ppddir}/''${ppd#*/}"
+    done
+    cp COPYING.EPSON README "${docdir}"
+    cp -r resource watermark ${libdir} "$out"
+  '';
 
   meta = {
     description = "Proprietary CUPS drivers for Epson inkjet printers";
@@ -110,15 +93,10 @@ stdenv.mkDerivation rec {
           drivers = [ pkgs.${pname} ];
         };
     '';
-    downloadPage = "https://download.ebz.epson.net/dsc/du/02/DriverDownloadInfo.do?LG2=EN&CN2=&DSCMI=16857&DSCCHK=4334d3487503d7f916ccf5d58071b05b7687294f";
-    license = with lib.licenses; [
-      lgpl21
-      epson
-    ];
+    downloadPage =
+      "https://download.ebz.epson.net/dsc/du/02/DriverDownloadInfo.do?LG2=EN&CN2=&DSCMI=16857&DSCCHK=4334d3487503d7f916ccf5d58071b05b7687294f";
+    license = with lib.licenses; [ lgpl21 epson ];
     maintainers = [ lib.maintainers.jorsn ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

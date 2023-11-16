@@ -1,31 +1,11 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  glib,
-  gobject-introspection,
-  flex,
-  bison,
-  vala,
-  gettext,
-  gnome,
-  gtk-doc,
-  docbook_xsl,
-  docbook_xml_dtd_43,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, pkg-config, glib, gobject-introspection
+, flex, bison, vala, gettext, gnome, gtk-doc, docbook_xsl, docbook_xml_dtd_43 }:
 
 stdenv.mkDerivation rec {
   pname = "template-glib";
   version = "3.36.1";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -63,7 +43,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library for template expansion which supports calling into GObject Introspection from templates";
+    description =
+      "A library for template expansion which supports calling into GObject Introspection from templates";
     homepage = "https://gitlab.gnome.org/GNOME/template-glib";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

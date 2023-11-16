@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-}:
+{ fetchFromGitHub, lib, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nomino";

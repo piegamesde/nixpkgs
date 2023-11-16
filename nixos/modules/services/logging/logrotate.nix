@@ -1,102 +1,69 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.logrotate;
 
-  generateLine =
-    n: v:
-    if
-      builtins.elem n [
-        "files"
-        "priority"
-        "enable"
-        "global"
-      ]
-      || v == null
-    then
+  generateLine = n: v:
+    if builtins.elem n [ "files" "priority" "enable" "global" ] || v
+    == null then
       null
-    else if builtins.elem n [ "frequency" ] then
-      ''
-        ${v}
-      ''
-    else if
-      builtins.elem n [
-        "firstaction"
-        "lastaction"
-        "prerotate"
-        "postrotate"
-        "preremove"
-      ]
-    then
-      ''
-        ${n}
-            ${v}
-          endscript
-      ''
-    else if isInt v then
-      ''
-        ${n} ${toString v}
-      ''
-    else if v == true then
-      ''
-        ${n}
-      ''
-    else if v == false then
-      ''
-        no${n}
-      ''
-    else
-      ''
-        ${n} ${v}
-      '';
-  generateSection =
-    indent: settings:
-    concatStringsSep (fixedWidthString indent " " "") (
-      filter (x: x != null) (mapAttrsToList generateLine settings)
-    );
+    else if builtins.elem n [ "frequency" ] then ''
+      ${v}
+    '' else if builtins.elem n [
+      "firstaction"
+      "lastaction"
+      "prerotate"
+      "postrotate"
+      "preremove"
+    ] then ''
+      ${n}
+          ${v}
+        endscript
+    '' else if isInt v then ''
+      ${n} ${toString v}
+    '' else if v == true then ''
+      ${n}
+    '' else if v == false then ''
+      no${n}
+    '' else ''
+      ${n} ${v}
+    '';
+  generateSection = indent: settings:
+    concatStringsSep (fixedWidthString indent " " "")
+    (filter (x: x != null) (mapAttrsToList generateLine settings));
 
   # generateSection includes a final newline hence weird closing brace
-  mkConf =
-    settings:
+  mkConf = settings:
     if settings.global or false then
       generateSection 0 settings
-    else
-      ''
-        ${concatMapStringsSep "\n" (files: ''"${files}"'') (toList settings.files)} {
-          ${generateSection 2 settings}}
-      '';
+    else ''
+      ${
+        concatMapStringsSep "\n" (files: ''"${files}"'') (toList settings.files)
+      } {
+        ${generateSection 2 settings}}
+    '';
 
-  settings = sortProperties (
-    attrValues (
-      filterAttrs (_: settings: settings.enable) (
-        foldAttrs recursiveUpdate { } [
-          {
-            header = {
-              enable = true;
-              missingok = true;
-              notifempty = true;
-              frequency = "weekly";
-              rotate = 4;
-            };
-          }
-          cfg.settings
-          {
-            header = {
-              global = true;
-              priority = 100;
-            };
-          }
-        ]
-      )
-    )
-  );
+  settings = sortProperties (attrValues
+    (filterAttrs (_: settings: settings.enable) (foldAttrs recursiveUpdate { } [
+      {
+        header = {
+          enable = true;
+          missingok = true;
+          notifempty = true;
+          frequency = "weekly";
+          rotate = 4;
+        };
+      }
+      cfg.settings
+      {
+        header = {
+          global = true;
+          priority = 100;
+        };
+      }
+    ])));
   configFile = pkgs.writeTextFile {
     name = "logrotate.conf";
     text = concatStringsSep "\n" (map mkConf settings);
@@ -136,36 +103,17 @@ let
     '';
   };
 
-  mailOption =
-    optionalString (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
-      "--mail=${pkgs.mailutils}/bin/mail";
-in
-{
+  mailOption = optionalString
+    (foldr (n: a: a || (n.mail or false) != false) false
+      (attrValues cfg.settings)) "--mail=${pkgs.mailutils}/bin/mail";
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logrotate"
-        "config"
-      ]
-      "Modify services.logrotate.settings.header instead"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logrotate"
-        "extraConfig"
-      ]
-      "Modify services.logrotate.settings.header instead"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logrotate"
-        "paths"
-      ]
-      "Add attributes to services.logrotate.settings instead"
-    )
+    (mkRemovedOptionModule [ "services" "logrotate" "config" ]
+      "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [ "services" "logrotate" "extraConfig" ]
+      "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [ "services" "logrotate" "paths" ]
+      "Add attributes to services.logrotate.settings instead")
   ];
 
   options = {
@@ -202,70 +150,57 @@ in
             };
           };
         '';
-        type = types.attrsOf (
-          types.submodule (
-            { name, ... }:
-            {
-              freeformType =
-                with types;
-                attrsOf (
-                  nullOr (
-                    oneOf [
-                      int
-                      bool
-                      str
-                    ]
-                  )
-                );
+        type = types.attrsOf (types.submodule ({ name, ... }: {
+          freeformType = with types; attrsOf (nullOr (oneOf [ int bool str ]));
 
-              options = {
-                enable = mkEnableOption (lib.mdDoc "setting individual kill switch") // {
-                  default = true;
-                };
-
-                global = mkOption {
-                  type = types.bool;
-                  default = false;
-                  description = lib.mdDoc ''
-                    Whether this setting is a global option or not: set to have these
-                    settings apply to all files settings with a higher priority.
-                  '';
-                };
-                files = mkOption {
-                  type = with types; either str (listOf str);
-                  default = name;
-                  defaultText = ''
-                    The attrset name if not specified
-                  '';
-                  description = lib.mdDoc ''
-                    Single or list of files for which rules are defined.
-                    The files are quoted with double-quotes in logrotate configuration,
-                    so globs and spaces are supported.
-                    Note this setting is ignored if globals is true.
-                  '';
-                };
-
-                frequency = mkOption {
-                  type = types.nullOr types.str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    How often to rotate the logs. Defaults to previously set global setting,
-                    which itself defaults to weekly.
-                  '';
-                };
-
-                priority = mkOption {
-                  type = types.int;
-                  default = 1000;
-                  description = lib.mdDoc ''
-                    Order of this logrotate block in relation to the others. The semantics are
-                    the same as with `lib.mkOrder`. Smaller values are inserted first.
-                  '';
-                };
+          options = {
+            enable = mkEnableOption (lib.mdDoc "setting individual kill switch")
+              // {
+                default = true;
               };
-            }
-          )
-        );
+
+            global = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc ''
+                Whether this setting is a global option or not: set to have these
+                settings apply to all files settings with a higher priority.
+              '';
+            };
+            files = mkOption {
+              type = with types; either str (listOf str);
+              default = name;
+              defaultText = ''
+                The attrset name if not specified
+              '';
+              description = lib.mdDoc ''
+                Single or list of files for which rules are defined.
+                The files are quoted with double-quotes in logrotate configuration,
+                so globs and spaces are supported.
+                Note this setting is ignored if globals is true.
+              '';
+            };
+
+            frequency = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = lib.mdDoc ''
+                How often to rotate the logs. Defaults to previously set global setting,
+                which itself defaults to weekly.
+              '';
+            };
+
+            priority = mkOption {
+              type = types.int;
+              default = 1000;
+              description = lib.mdDoc ''
+                Order of this logrotate block in relation to the others. The semantics are
+                the same as with `lib.mkOrder`. Smaller values are inserted first.
+              '';
+            };
+          };
+
+        }));
       };
 
       configFile = mkOption {
@@ -320,7 +255,8 @@ in
       serviceConfig = {
         Restart = "no";
         User = "root";
-        ExecStart = "${pkgs.logrotate}/sbin/logrotate ${mailOption} ${cfg.configFile}";
+        ExecStart =
+          "${pkgs.logrotate}/sbin/logrotate ${mailOption} ${cfg.configFile}";
       };
     };
     systemd.services.logrotate-checkconf = {
@@ -329,7 +265,8 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "${pkgs.logrotate}/sbin/logrotate --debug ${cfg.configFile}";
+        ExecStart =
+          "${pkgs.logrotate}/sbin/logrotate --debug ${cfg.configFile}";
       };
     };
   };

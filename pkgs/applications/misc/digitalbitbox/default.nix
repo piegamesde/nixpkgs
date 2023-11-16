@@ -1,29 +1,10 @@
-{
-  mkDerivation,
-  lib,
-  autoreconfHook,
-  curl,
-  fetchFromGitHub,
-  git,
-  libevent,
-  libtool,
-  qrencode,
-  udev,
-  libusb1,
-  makeWrapper,
-  pkg-config,
-  qtbase,
-  qttools,
-  qtwebsockets,
-  qtmultimedia,
-  udevRule51 ? ''
-    ,   SUBSYSTEM=="usb", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="dbb%n", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2402"
-    , '',
-  udevRule52 ? ''
+{ mkDerivation, lib, autoreconfHook, curl, fetchFromGitHub, git, libevent
+, libtool, qrencode, udev, libusb1, makeWrapper, pkg-config, qtbase, qttools
+, qtwebsockets, qtmultimedia, udevRule51 ? ''
+  ,   SUBSYSTEM=="usb", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="dbb%n", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2402"
+  , '', udevRule52 ? ''
     ,   KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2402", TAG+="uaccess", TAG+="udev-acl", SYMLINK+="dbbf%n"
-    , '',
-  writeText,
-}:
+    , '', writeText }:
 
 # Enabling the digitalbitbox program
 #
@@ -46,9 +27,9 @@
 
 # See https://digitalbitbox.com/start_linux for more information.
 let
-  copyUdevRuleToOutput = name: rule: "cp ${writeText name rule} $out/etc/udev/rules.d/${name}";
-in
-mkDerivation rec {
+  copyUdevRuleToOutput = name: rule:
+    "cp ${writeText name rule} $out/etc/udev/rules.d/${name}";
+in mkDerivation rec {
   pname = "digitalbitbox";
   version = "3.0.0";
 
@@ -112,7 +93,8 @@ mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "A QT based application for the Digital Bitbox hardware wallet";
+    description =
+      "A QT based application for the Digital Bitbox hardware wallet";
     longDescription = ''
       Digital Bitbox provides dbb-app, a GUI tool, and dbb-cli, a CLI tool, to manage Digital Bitbox devices.
 

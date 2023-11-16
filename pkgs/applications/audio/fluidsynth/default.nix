@@ -1,21 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  buildPackages,
-  pkg-config,
-  cmake,
-  alsa-lib,
-  glib,
-  libjack2,
-  libsndfile,
-  libpulseaudio,
-  AppKit,
-  AudioUnit,
-  CoreAudio,
-  CoreMIDI,
-  CoreServices,
-}:
+{ stdenv, lib, fetchFromGitHub, buildPackages, pkg-config, cmake, alsa-lib, glib
+, libjack2, libsndfile, libpulseaudio, AppKit, AudioUnit, CoreAudio, CoreMIDI
+, CoreServices }:
 
 stdenv.mkDerivation rec {
   pname = "fluidsynth";
@@ -28,28 +13,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BSJu3jB7b5G2ThXBUHUNnBGl55EXe3nIzdBdgfOWDSM=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
-  nativeBuildInputs = [
-    buildPackages.stdenv.cc
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ buildPackages.stdenv.cc pkg-config cmake ];
 
-  buildInputs =
-    [
-      glib
-      libsndfile
-      libjack2
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      alsa-lib
-      libpulseaudio
-    ]
+  buildInputs = [ glib libsndfile libjack2 ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib libpulseaudio ]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       AudioUnit
@@ -65,13 +34,11 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Real-time software synthesizer based on the SoundFont 2 specifications";
+    description =
+      "Real-time software synthesizer based on the SoundFont 2 specifications";
     homepage = "https://www.fluidsynth.org";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [
-      goibhniu
-      lovek323
-    ];
+    maintainers = with maintainers; [ goibhniu lovek323 ];
     platforms = platforms.unix;
   };
 }

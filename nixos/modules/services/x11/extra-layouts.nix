@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -79,13 +74,15 @@ let
           It must contain a `xkb_types "name" { ... }` block.
         '';
       };
+
     };
   };
 
-  xkb_patched = pkgs.xorg.xkeyboardconfig_custom { layouts = config.services.xserver.extraLayouts; };
-in
+  xkb_patched = pkgs.xorg.xkeyboardconfig_custom {
+    layouts = config.services.xserver.extraLayouts;
+  };
 
-{
+in {
 
   ###### interface
 
@@ -110,6 +107,7 @@ in
         <https://wiki.archlinux.org/index.php/X_KeyBoard_extension#Basic_examples>
       '';
     };
+
   };
 
   ###### implementation
@@ -124,9 +122,10 @@ in
 
     services.xserver = {
       xkbDir = "${xkb_patched}/etc/X11/xkb";
-      exportConfiguration =
-        config.services.xserver.displayManager.startx.enable
+      exportConfiguration = config.services.xserver.displayManager.startx.enable
         || config.services.xserver.displayManager.sx.enable;
     };
+
   };
+
 }

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  docopt,
-  fetchFromGitHub,
-  requests,
-  requests-oauthlib,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, docopt, fetchFromGitHub, requests, requests-oauthlib
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tellduslive";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     sha256 = "0aqhj6fq2z2qb4jyk23ygjicf5nlj8lkya7blkyqb7jra5k1gyg0";
   };
 
-  propagatedBuildInputs = [
-    docopt
-    requests
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ docopt requests requests-oauthlib ];
 
   # Project has no tests
   doCheck = false;

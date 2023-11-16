@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  zlib,
-  python2,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, zlib, python2 }:
 
 stdenv.mkDerivation rec {
   pname = "strelka";
@@ -19,15 +12,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    zlib
-    python2
-  ];
+  buildInputs = [ zlib python2 ];
 
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-Wno-error=maybe-uninitialized"
-    "-Wno-error=pessimizing-move"
-  ];
+  env.NIX_CFLAGS_COMPILE =
+    toString [ "-Wno-error=maybe-uninitialized" "-Wno-error=pessimizing-move" ];
 
   preConfigure = ''
     sed -i 's|/usr/bin/env python|${python2}/bin/python|' src/python/lib/makeRunScript.py
@@ -49,4 +37,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ jbedo ];
     platforms = [ "x86_64-linux" ];
   };
+
 }

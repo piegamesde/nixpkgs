@@ -1,62 +1,15 @@
-{
-  atk,
-  cacert,
-  dbus,
-  cinnamon-control-center,
-  cinnamon-desktop,
-  cinnamon-menus,
-  cinnamon-session,
-  cinnamon-translations,
-  cjs,
-  evolution-data-server,
-  fetchFromGitHub,
-  gdk-pixbuf,
-  gettext,
-  libgnomekbd,
-  glib,
-  gobject-introspection,
-  gsound,
-  gtk3,
-  intltool,
-  json-glib,
-  callPackage,
-  libsoup,
-  libstartup_notification,
-  libXtst,
-  libXdamage,
-  mesa,
-  muffin,
-  networkmanager,
-  pkg-config,
-  polkit,
-  lib,
-  stdenv,
-  wrapGAppsHook,
-  libxml2,
-  gtk-doc,
-  gnome,
-  python3,
-  keybinder3,
-  cairo,
-  xapp,
-  upower,
-  nemo,
-  libnotify,
-  accountsservice,
-  gnome-online-accounts,
-  glib-networking,
-  pciutils,
-  timezonemap,
-  libnma,
-  meson,
-  ninja,
-  gst_all_1,
-  perl,
-}:
+{ atk, cacert, dbus, cinnamon-control-center, cinnamon-desktop, cinnamon-menus
+, cinnamon-session, cinnamon-translations, cjs, evolution-data-server
+, fetchFromGitHub, gdk-pixbuf, gettext, libgnomekbd, glib, gobject-introspection
+, gsound, gtk3, intltool, json-glib, callPackage, libsoup
+, libstartup_notification, libXtst, libXdamage, mesa, muffin, networkmanager
+, pkg-config, polkit, lib, stdenv, wrapGAppsHook, libxml2, gtk-doc, gnome
+, python3, keybinder3, cairo, xapp, upower, nemo, libnotify, accountsservice
+, gnome-online-accounts, glib-networking, pciutils, timezonemap, libnma, meson
+, ninja, gst_all_1, perl }:
 
 let
-  pythonEnv = python3.withPackages (
-    pp:
+  pythonEnv = python3.withPackages (pp:
     with pp; [
       dbus-python
       setproctitle
@@ -71,10 +24,8 @@ let
       pexpect
       distro
       requests
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+in stdenv.mkDerivation rec {
   pname = "cinnamon-common";
   version = "5.6.8";
 
@@ -85,10 +36,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-qL8GaEH/0d4yEwwdaR55fTp0RitbyptoxKOBO3nmbic=";
   };
 
-  patches = [
-    ./use-sane-install-dir.patch
-    ./libdir.patch
-  ];
+  patches = [ ./use-sane-install-dir.patch ./libdir.patch ];
 
   buildInputs = [
     atk
@@ -195,12 +143,7 @@ stdenv.mkDerivation rec {
     wrapGApp $out/share/cinnamon/cinnamon-settings-users/cinnamon-settings-users.py
   '';
 
-  passthru = {
-    providedSessions = [
-      "cinnamon"
-      "cinnamon2d"
-    ];
-  };
+  passthru = { providedSessions = [ "cinnamon" "cinnamon2d" ]; };
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cinnamon";

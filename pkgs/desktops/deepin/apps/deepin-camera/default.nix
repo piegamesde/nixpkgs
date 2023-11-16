@@ -1,25 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  qttools,
-  wrapQtAppsHook,
-  dtkwidget,
-  qt5integration,
-  qt5platform-plugins,
-  image-editor,
-  qtbase,
-  qtmultimedia,
-  ffmpeg,
-  ffmpegthumbnailer,
-  libusb1,
-  portaudio,
-  libv4l,
-  gst_all_1,
-  systemd,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qttools, wrapQtAppsHook
+, dtkwidget, qt5integration, qt5platform-plugins, image-editor, qtbase
+, qtmultimedia, ffmpeg, ffmpegthumbnailer, libusb1, portaudio, libv4l, gst_all_1
+, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-camera";
@@ -38,41 +20,34 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace src/CMakeLists.txt \
       --replace "/usr/share/libimagevisualresult" "${image-editor}/share/libimagevisualresult" \
-      --replace "/usr/include/libusb-1.0" "${lib.getDev libusb1}/include/libusb-1.0"
+      --replace "/usr/include/libusb-1.0" "${
+        lib.getDev libusb1
+      }/include/libusb-1.0"
     substituteInPlace src/com.deepin.Camera.service \
       --replace "/usr/bin/qdbus" "${lib.getBin qttools}/bin/qdbus" \
       --replace "/usr/share" "$out/share"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
 
-  buildInputs =
-    [
-      dtkwidget
-      qt5integration
-      qt5platform-plugins
-      image-editor
-      qtbase
-      qtmultimedia
-      ffmpeg
-      ffmpegthumbnailer
-      libusb1
-      portaudio
-      libv4l
-    ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-      ]
-    );
+  buildInputs = [
+    dtkwidget
+    qt5integration
+    qt5platform-plugins
+    image-editor
+    qtbase
+    qtmultimedia
+    ffmpeg
+    ffmpegthumbnailer
+    libusb1
+    portaudio
+    libv4l
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+  ]);
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 

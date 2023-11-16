@@ -1,35 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  libglvnd,
-  libnotify,
-  jre,
-  zip,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, libglvnd, libnotify, jre, zip }:
 
 stdenv.mkDerivation rec {
   version = "13.9.1";
   pname = "mediathekview";
   src = fetchurl {
-    url = "https://download.mediathekview.de/stabil/MediathekView-${version}-linux.tar.gz";
+    url =
+      "https://download.mediathekview.de/stabil/MediathekView-${version}-linux.tar.gz";
     sha256 = "4BYKkYhl1YjiAZyfNRdV5KQL+dVkL058uhTG892mXUM=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    zip
-  ];
+  nativeBuildInputs = [ makeWrapper zip ];
 
   installPhase =
-    let
-      libraryPath = lib.strings.makeLibraryPath [
-        libglvnd
-        libnotify
-      ];
-    in
-    ''
+    let libraryPath = lib.strings.makeLibraryPath [ libglvnd libnotify ];
+    in ''
       runHook preInstall
 
       mkdir -p $out/{bin,lib}
@@ -52,7 +36,8 @@ stdenv.mkDerivation rec {
     '';
 
   meta = with lib; {
-    description = "Offers access to the Mediathek of different tv stations (ARD, ZDF, Arte, etc.)";
+    description =
+      "Offers access to the Mediathek of different tv stations (ARD, ZDF, Arte, etc.)";
     homepage = "https://mediathekview.de/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.gpl3Plus;

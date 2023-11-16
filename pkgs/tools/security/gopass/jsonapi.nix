@@ -1,11 +1,4 @@
-{
-  lib,
-  makeWrapper,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  gopass,
-}:
+{ lib, makeWrapper, buildGoModule, fetchFromGitHub, installShellFiles, gopass }:
 
 buildGoModule rec {
   pname = "gopass-jsonapi";
@@ -22,17 +15,10 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.commit=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.version=${version}" "-X main.commit=${src.rev}" ];
 
   postFixup = ''
     wrapProgram $out/bin/gopass-jsonapi \

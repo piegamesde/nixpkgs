@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,7 +6,8 @@ let
 
   cfg = config.services.confluence;
 
-  pkg = cfg.package.override (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
+  pkg = cfg.package.override
+    (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
@@ -28,12 +24,13 @@ let
 
     session.isauthenticated                 session.isauthenticated
     session.tokenkey                        session.tokenkey
-    session.validationinterval              ${toString cfg.sso.validationInterval}
+    session.validationinterval              ${
+      toString cfg.sso.validationInterval
+    }
     session.lastvalidation                  session.lastvalidation
   '';
-in
 
-{
+in {
   options = {
     services.confluence = {
       enable = mkEnableOption (lib.mdDoc "Atlassian Confluence service");
@@ -115,19 +112,22 @@ in
         applicationName = mkOption {
           type = types.str;
           example = "jira";
-          description = lib.mdDoc "Exact name of this Confluence instance in Crowd";
+          description =
+            lib.mdDoc "Exact name of this Confluence instance in Crowd";
         };
 
         applicationPassword = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = lib.mdDoc "Application password of this Confluence instance in Crowd";
+          description = lib.mdDoc
+            "Application password of this Confluence instance in Crowd";
         };
 
         applicationPasswordFile = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description = lib.mdDoc "Path to the application password for Crowd of Confluence.";
+          description = lib.mdDoc
+            "Path to the application password for Crowd of Confluence.";
         };
 
         validationInterval = mkOption {
@@ -155,7 +155,8 @@ in
         type = types.package;
         default = pkgs.oraclejre8;
         defaultText = literalExpression "pkgs.oraclejre8";
-        description = lib.mdDoc "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
+        description = lib.mdDoc
+          "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -166,13 +167,12 @@ in
       group = cfg.group;
     };
 
-    assertions = [
-      {
-        assertion =
-          cfg.sso.enable -> ((cfg.sso.applicationPassword == null) != (cfg.sso.applicationPasswordFile));
-        message = "Please set either applicationPassword or applicationPasswordFile";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.sso.enable -> ((cfg.sso.applicationPassword == null)
+        != (cfg.sso.applicationPasswordFile));
+      message =
+        "Please set either applicationPassword or applicationPasswordFile";
+    }];
 
     warnings = mkIf (cfg.sso.enable && cfg.sso.applicationPassword != null) [
       "Using `services.confluence.sso.applicationPassword` is deprecated! Use `applicationPasswordFile` instead!"
@@ -198,42 +198,39 @@ in
       requires = [ "postgresql.service" ];
       after = [ "postgresql.service" ];
 
-      path = [
-        cfg.jrePackage
-        pkgs.bash
-      ];
+      path = [ cfg.jrePackage pkgs.bash ];
 
       environment = {
         CONF_USER = cfg.user;
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
-        JAVA_OPTS = mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
+        JAVA_OPTS =
+          mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
-      preStart =
-        ''
-          mkdir -p ${cfg.home}/{logs,work,temp,deploy}
+      preStart = ''
+        mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-          sed -e 's,port="8090",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
-        ''
-        + (lib.optionalString cfg.proxy.enable ''
-          -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${
-            toString cfg.proxy.port
-          }" scheme="${cfg.proxy.scheme}",' \
-        '')
-        + ''
-            ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
+        sed -e 's,port="8090",port="${
+          toString cfg.listenPort
+        }" address="${cfg.listenAddress}",' \
+      '' + (lib.optionalString cfg.proxy.enable ''
+        -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${
+          toString cfg.proxy.port
+        }" scheme="${cfg.proxy.scheme}",' \
+      '') + ''
+          ${pkg}/conf/server.xml.dist > ${cfg.home}/server.xml
 
-          ${optionalString cfg.sso.enable ''
-            install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
-            ${optionalString (cfg.sso.applicationPasswordFile != null) ''
-              ${pkgs.replace-secret}/bin/replace-secret \
-                '@NIXOS_CONFLUENCE_CROWD_SSO_PWD@' \
-                ${cfg.sso.applicationPasswordFile} \
-                ${cfg.home}/crowd.properties
-            ''}
+        ${optionalString cfg.sso.enable ''
+          install -m660 ${crowdProperties} ${cfg.home}/crowd.properties
+          ${optionalString (cfg.sso.applicationPasswordFile != null) ''
+            ${pkgs.replace-secret}/bin/replace-secret \
+              '@NIXOS_CONFLUENCE_CROWD_SSO_PWD@' \
+              ${cfg.sso.applicationPasswordFile} \
+              ${cfg.home}/crowd.properties
           ''}
-        '';
+        ''}
+      '';
 
       serviceConfig = {
         User = cfg.user;

@@ -1,12 +1,6 @@
 # NixOS module for Buildbot Worker.
 
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -48,8 +42,8 @@ let
                numcpus=numcpus, allow_shutdown=allow_shutdown)
     s.setServiceParent(application)
   '';
-in
-{
+
+in {
   options = {
     services.buildbot-worker = {
 
@@ -62,7 +56,8 @@ in
       user = mkOption {
         default = "bbworker";
         type = types.str;
-        description = lib.mdDoc "User the buildbot Worker should execute under.";
+        description =
+          lib.mdDoc "User the buildbot Worker should execute under.";
       };
 
       group = mkOption {
@@ -74,7 +69,8 @@ in
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc "List of extra groups that the Buildbot Worker user should be a part of.";
+        description = lib.mdDoc
+          "List of extra groups that the Buildbot Worker user should be a part of.";
       };
 
       home = mkOption {
@@ -104,7 +100,8 @@ in
 
       workerPassFile = mkOption {
         type = types.path;
-        description = lib.mdDoc "File used to store the Buildbot Worker password";
+        description =
+          lib.mdDoc "File used to store the Buildbot Worker password";
       };
 
       hostMessage = mkOption {
@@ -122,7 +119,8 @@ in
       masterUrl = mkOption {
         default = "localhost:9989";
         type = types.str;
-        description = lib.mdDoc "Specifies the Buildbot Worker connection string.";
+        description =
+          lib.mdDoc "Specifies the Buildbot Worker connection string.";
       };
 
       keepalive = mkOption {
@@ -146,15 +144,15 @@ in
         default = with pkgs; [ git ];
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
-        description = lib.mdDoc "Packages to add to PATH for the buildbot process.";
+        description =
+          lib.mdDoc "Packages to add to PATH for the buildbot process.";
       };
     };
   };
 
   config = mkIf cfg.enable {
-    services.buildbot-worker.workerPassFile = mkDefault (
-      pkgs.writeText "buildbot-worker-password" cfg.workerPass
-    );
+    services.buildbot-worker.workerPassFile =
+      mkDefault (pkgs.writeText "buildbot-worker-password" cfg.workerPass);
 
     users.groups = optionalAttrs (cfg.group == "bbworker") { bbworker = { }; };
 
@@ -172,21 +170,23 @@ in
 
     systemd.services.buildbot-worker = {
       description = "Buildbot Worker.";
-      after = [
-        "network.target"
-        "buildbot-master.service"
-      ];
+      after = [ "network.target" "buildbot-master.service" ];
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages;
-      environment.PYTHONPATH = "${python.withPackages (p: [ package ])}/${python.sitePackages}";
+      environment.PYTHONPATH =
+        "${python.withPackages (p: [ package ])}/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}/info"
         ${optionalString (cfg.hostMessage != null) ''
-          ln -sf "${pkgs.writeText "buildbot-worker-host" cfg.hostMessage}" "${cfg.buildbotDir}/info/host"
+          ln -sf "${
+            pkgs.writeText "buildbot-worker-host" cfg.hostMessage
+          }" "${cfg.buildbotDir}/info/host"
         ''}
         ${optionalString (cfg.adminMessage != null) ''
-          ln -sf "${pkgs.writeText "buildbot-worker-admin" cfg.adminMessage}" "${cfg.buildbotDir}/info/admin"
+          ln -sf "${
+            pkgs.writeText "buildbot-worker-admin" cfg.adminMessage
+          }" "${cfg.buildbotDir}/info/admin"
         ''}
       '';
 
@@ -197,10 +197,13 @@ in
         WorkingDirectory = cfg.home;
 
         # NOTE: call twistd directly with stdout logging for systemd
-        ExecStart = "${python.pkgs.twisted}/bin/twistd --nodaemon --pidfile= --logfile - --python ${tacFile}";
+        ExecStart =
+          "${python.pkgs.twisted}/bin/twistd --nodaemon --pidfile= --logfile - --python ${tacFile}";
       };
+
     };
   };
 
   meta.maintainers = with lib.maintainers; [ ];
+
 }

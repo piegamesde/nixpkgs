@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  menhir,
-  menhirLib,
-  uutf,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, menhir, menhirLib, uutf }:
 
 buildDunePackage rec {
   pname = "otoml";
@@ -22,14 +15,12 @@ buildDunePackage rec {
 
   nativeBuildInputs = [ menhir ];
 
-  propagatedBuildInputs = [
-    menhirLib
-    uutf
-  ];
+  propagatedBuildInputs = [ menhirLib uutf ];
 
   meta = {
     description = "A TOML parsing and manipulation library for OCaml";
-    changelog = "https://github.com/dmbaturin/otoml/raw/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/dmbaturin/otoml/raw/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.vbgl ];
     inherit (src.meta) homepage;

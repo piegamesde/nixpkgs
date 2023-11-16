@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glib,
-  gnome,
-}:
+{ lib, stdenv, fetchFromGitHub, glib, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-pidgin-im-integration";
@@ -36,10 +30,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/muffinmad/pidgin-im-gnome-shell-extension";
-    description = "Make Pidgin IM conversations appear in the Gnome Shell message tray";
+    description =
+      "Make Pidgin IM conversations appear in the Gnome Shell message tray";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];
-    broken = versionAtLeast gnome.gnome-shell.version "3.32"; # Doesn't support 3.34
+    broken =
+      versionAtLeast gnome.gnome-shell.version "3.32"; # Doesn't support 3.34
   };
 }

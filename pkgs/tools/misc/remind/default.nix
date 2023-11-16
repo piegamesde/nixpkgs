@@ -1,29 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  tk,
-  tcllib,
-  tcl,
-  tkremind ? true,
-}:
+{ lib, stdenv, fetchurl, tk, tcllib, tcl, tkremind ? true }:
 
 let
   inherit (lib) optional optionals optionalString;
-  tclLibraries = optionals tkremind [
-    tcllib
-    tk
-  ];
+  tclLibraries = optionals tkremind [ tcllib tk ];
   tkremindPatch = optionalString tkremind ''
     substituteInPlace scripts/tkremind --replace "exec wish" "exec ${tk}/bin/wish"
   '';
-in
-tcl.mkTclDerivation rec {
+in tcl.mkTclDerivation rec {
   pname = "remind";
   version = "04.02.05";
 
   src = fetchurl {
-    url = "https://dianne.skoll.ca/projects/remind/download/remind-${version}.tar.gz";
+    url =
+      "https://dianne.skoll.ca/projects/remind/download/remind-${version}.tar.gz";
     sha256 = "sha256-nOEFhVwZvgUod+j/5ifllFgTS7I8+hOAeMSDlRH4+Ag=";
   };
 
@@ -42,10 +31,7 @@ tcl.mkTclDerivation rec {
     homepage = "https://dianne.skoll.ca/projects/remind/";
     description = "Sophisticated calendar and alarm program for the console";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [
-      raskin
-      kovirobi
-    ];
+    maintainers = with maintainers; [ raskin kovirobi ];
     platforms = platforms.unix;
   };
 }

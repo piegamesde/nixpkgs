@@ -3,9 +3,5 @@
 qtModule {
   pname = "qtsvg";
   qtInputs = [ qtbase ];
-  outputs = [
-    "out"
-    "dev"
-    "bin"
-  ];
+  outputs = [ "out" "dev" "bin" ];
 }

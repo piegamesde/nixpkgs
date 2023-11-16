@@ -1,16 +1,5 @@
-{
-  lib,
-  asn1crypto,
-  buildPythonPackage,
-  certvalidator,
-  fetchFromGitHub,
-  mscerts,
-  oscrypto,
-  pyasn1,
-  pyasn1-modules,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, asn1crypto, buildPythonPackage, certvalidator, fetchFromGitHub, mscerts
+, oscrypto, pyasn1, pyasn1-modules, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "signify";
@@ -26,25 +15,18 @@ buildPythonPackage rec {
     hash = "sha256-+UhZF+QYuv8pq/sTu7GDPUrlPNNixFgVZL+L0ulj/ko=";
   };
 
-  propagatedBuildInputs = [
-    asn1crypto
-    certvalidator
-    mscerts
-    oscrypto
-    pyasn1
-    pyasn1-modules
-  ];
+  propagatedBuildInputs =
+    [ asn1crypto certvalidator mscerts oscrypto pyasn1 pyasn1-modules ];
 
   pythonImportsCheck = [ "signify" ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # chain doesn't validate because end-entitys certificate expired
-      # https://github.com/ralphje/signify/issues/27
-      "test_revoked_certificate"
-    ];
+  disabledTests = [
+    # chain doesn't validate because end-entitys certificate expired
+    # https://github.com/ralphje/signify/issues/27
+    "test_revoked_certificate"
+  ];
 
   meta = with lib; {
     description = "library that verifies PE Authenticode-signed binaries";

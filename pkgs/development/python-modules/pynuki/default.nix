@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pynacl,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pynacl, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "pynuki";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    pynacl
-    requests
-  ];
+  propagatedBuildInputs = [ pynacl requests ];
 
   # Project has no tests
   doCheck = false;

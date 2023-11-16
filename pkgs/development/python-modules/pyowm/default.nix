@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  geojson,
-  pysocks,
-  pythonOlder,
-  requests,
-  pytestCheckHook,
-  pythonRelaxDepsHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, geojson, pysocks, pythonOlder
+, requests, pytestCheckHook, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "pyowm";
@@ -28,11 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    geojson
-    pysocks
-    requests
-  ];
+  propagatedBuildInputs = [ geojson pysocks requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchurl,
-  python310Packages,
-}:
+{ lib, buildPythonPackage, fetchurl, python310Packages }:
 
 python310Packages.buildPythonPackage rec {
   pname = "pixel2svg";
@@ -14,10 +9,7 @@ python310Packages.buildPythonPackage rec {
     sha256 = "sha256-aqcTTmZKcdRdVd8GGz5cuaQ4gjPapVJNtiiZu22TZgQ=";
   };
 
-  propagatedBuildInputs = with python310Packages; [
-    pillow
-    svgwrite
-  ];
+  propagatedBuildInputs = with python310Packages; [ pillow svgwrite ];
 
   meta = with lib; {
     homepage = "https://florian-berger.de/en/software/pixel2svg/";

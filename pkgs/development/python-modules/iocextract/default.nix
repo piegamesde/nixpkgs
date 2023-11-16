@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  regex,
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, regex
 }:
 
 buildPythonPackage rec {
@@ -32,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to extract Indicator of Compromises (IOC)";
     homepage = "https://github.com/InQuest/python-iocextract";
-    changelog = "https://github.com/InQuest/python-iocextract/releases/tag/v${version}";
+    changelog =
+      "https://github.com/InQuest/python-iocextract/releases/tag/v${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fab ];
   };

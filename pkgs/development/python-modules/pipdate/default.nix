@@ -1,16 +1,5 @@
-{
-  lib,
-  appdirs,
-  buildPythonPackage,
-  fetchPypi,
-  importlib-metadata,
-  packaging,
-  pythonOlder,
-  requests,
-  rich,
-  setuptools,
-  wheel,
-}:
+{ lib, appdirs, buildPythonPackage, fetchPypi, importlib-metadata, packaging
+, pythonOlder, requests, rich, setuptools, wheel }:
 
 buildPythonPackage rec {
   pname = "pipdate";
@@ -25,13 +14,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ wheel ];
 
-  propagatedBuildInputs = [
-    appdirs
-    packaging
-    requests
-    rich
-    setuptools
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ appdirs packaging requests rich setuptools ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # Tests require network access and pythonImportsCheck requires configuration file
   doCheck = false;

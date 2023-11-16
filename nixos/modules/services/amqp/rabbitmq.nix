@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,8 +11,8 @@ let
   config_file = pkgs.writeText "rabbitmq.conf" config_file_content;
 
   advanced_config_file = pkgs.writeText "advanced.config" cfg.config;
-in
-{
+
+in {
   ###### interface
   options = {
     services.rabbitmq = {
@@ -136,7 +131,8 @@ in
       pluginDirs = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description = lib.mdDoc "The list of directories containing external plugins";
+        description =
+          lib.mdDoc "The list of directories containing external plugins";
       };
 
       managementPlugin = {
@@ -170,29 +166,22 @@ in
 
     users.groups.rabbitmq.gid = config.ids.gids.rabbitmq;
 
-    services.rabbitmq.configItems =
-      {
-        "listeners.tcp.1" = mkDefault "${cfg.listenAddress}:${toString cfg.port}";
-      }
-      // optionalAttrs cfg.managementPlugin.enable {
-        "management.tcp.port" = toString cfg.managementPlugin.port;
-        "management.tcp.ip" = cfg.listenAddress;
-      };
+    services.rabbitmq.configItems = {
+      "listeners.tcp.1" = mkDefault "${cfg.listenAddress}:${toString cfg.port}";
+    } // optionalAttrs cfg.managementPlugin.enable {
+      "management.tcp.port" = toString cfg.managementPlugin.port;
+      "management.tcp.ip" = cfg.listenAddress;
+    };
 
-    services.rabbitmq.plugins = optional cfg.managementPlugin.enable "rabbitmq_management";
+    services.rabbitmq.plugins =
+      optional cfg.managementPlugin.enable "rabbitmq_management";
 
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";
 
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "epmd.socket"
-      ];
-      wants = [
-        "network.target"
-        "epmd.socket"
-      ];
+      after = [ "network.target" "epmd.socket" ];
+      wants = [ "network.target" "epmd.socket" ];
 
       path = [
         cfg.package
@@ -208,7 +197,9 @@ in
         RABBITMQ_ENABLED_PLUGINS_FILE = pkgs.writeText "enabled_plugins" ''
           [ ${concatStringsSep "," cfg.plugins} ].
         '';
-      } // optionalAttrs (cfg.config != "") { RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file; };
+      } // optionalAttrs (cfg.config != "") {
+        RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file;
+      };
 
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/rabbitmq-server";
@@ -233,5 +224,7 @@ in
         ''}
       '';
     };
+
   };
+
 }

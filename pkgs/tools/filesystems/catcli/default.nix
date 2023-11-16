@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonApplication,
-  docopt,
-  anytree,
-}:
+{ lib, fetchFromGitHub, buildPythonApplication, docopt, anytree }:
 
 buildPythonApplication rec {
 
@@ -18,10 +12,7 @@ buildPythonApplication rec {
     sha256 = "sha256-hVunxgc/aUapQYe6k3hKdkC+2Jw0x1HjI/kl/fJdWUo=";
   };
 
-  propagatedBuildInputs = [
-    docopt
-    anytree
-  ];
+  propagatedBuildInputs = [ docopt anytree ];
 
   postPatch = "patchShebangs . ";
 

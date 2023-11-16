@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  setuptools,
-  websockets,
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools, websockets
 }:
 
 buildPythonPackage rec {
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-6/REvY5QxsAPV41Pvg8vrJPYbDrGUrpOPn0vzIcCu0k=";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-    websockets
-  ];
+  propagatedBuildInputs = [ setuptools websockets ];
 
   # no tests implemented
   doCheck = false;

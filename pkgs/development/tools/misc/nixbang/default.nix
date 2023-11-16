@@ -1,8 +1,4 @@
-{
-  lib,
-  pythonPackages,
-  fetchFromGitHub,
-}:
+{ lib, pythonPackages, fetchFromGitHub }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "nixbang";

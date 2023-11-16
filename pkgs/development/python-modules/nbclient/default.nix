@@ -1,21 +1,6 @@
-{
-  async_generator,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  ipykernel,
-  ipywidgets,
-  jupyter-client,
-  lib,
-  nbconvert,
-  nbformat,
-  nest-asyncio,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  testpath,
-  traitlets,
-  xmltodict,
+{ async_generator, buildPythonPackage, fetchFromGitHub, hatchling, ipykernel
+, ipywidgets, jupyter-client, lib, nbconvert, nbformat, nest-asyncio
+, pytest-asyncio, pytestCheckHook, pythonOlder, testpath, traitlets, xmltodict
 }:
 
 let
@@ -35,13 +20,8 @@ let
 
     nativeBuildInputs = [ hatchling ];
 
-    propagatedBuildInputs = [
-      async_generator
-      traitlets
-      nbformat
-      nest-asyncio
-      jupyter-client
-    ];
+    propagatedBuildInputs =
+      [ async_generator traitlets nbformat nest-asyncio jupyter-client ];
 
     # circular dependencies if enabled by default
     doCheck = false;
@@ -71,5 +51,4 @@ let
       maintainers = [ ];
     };
   };
-in
-nbclient
+in nbclient

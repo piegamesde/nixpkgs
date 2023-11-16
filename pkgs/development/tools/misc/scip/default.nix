@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  scip,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, scip }:
 
 buildGoModule rec {
   pname = "scip";
@@ -19,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-T0NYucDVBnTxROVYXlccOvHX74Cs6czXL/fy14I8MZc=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.Reproducible=true"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.Reproducible=true" ];
 
   postInstall = ''
     mv $out/bin/{cmd,scip}
@@ -39,7 +29,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "SCIP Code Intelligence Protocol CLI";
     homepage = "https://github.com/sourcegraph/scip";
-    changelog = "https://github.com/sourcegraph/scip/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/sourcegraph/scip/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ figsoda ];
   };

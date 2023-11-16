@@ -20,12 +20,7 @@
     version = "1.4.6";
   };
   pgsync = {
-    dependencies = [
-      "parallel"
-      "pg"
-      "slop"
-      "tty-spinner"
-    ];
+    dependencies = [ "parallel" "pg" "slop" "tty-spinner" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

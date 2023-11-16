@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,7 +13,10 @@ let
     storage = {
       cache.blobdescriptor = blobCache;
       delete.enabled = cfg.enableDelete;
-    } // (if cfg.storagePath != null then { filesystem.rootdirectory = cfg.storagePath; } else { });
+    } // (if cfg.storagePath != null then {
+      filesystem.rootdirectory = cfg.storagePath;
+    } else
+      { });
     http = {
       addr = "${cfg.listenAddress}:${builtins.toString cfg.port}";
       headers.X-Content-Type-Options = [ "nosniff" ];
@@ -44,11 +42,10 @@ let
     };
   };
 
-  configFile = pkgs.writeText "docker-registry-config.yml" (
-    builtins.toJSON (recursiveUpdate registryConfig cfg.extraConfig)
-  );
-in
-{
+  configFile = pkgs.writeText "docker-registry-config.yml"
+    (builtins.toJSON (recursiveUpdate registryConfig cfg.extraConfig));
+
+in {
   options.services.dockerRegistry = {
     enable = mkEnableOption (lib.mdDoc "Docker Registry");
 
@@ -154,17 +151,11 @@ in
       startAt = optional cfg.enableGarbageCollect cfg.garbageCollectDates;
     };
 
-    users.users.docker-registry =
-      (
-        if cfg.storagePath != null then
-          {
-            createHome = true;
-            home = cfg.storagePath;
-          }
-        else
-          { }
-      )
-      // {
+    users.users.docker-registry = (if cfg.storagePath != null then {
+      createHome = true;
+      home = cfg.storagePath;
+    } else
+      { }) // {
         group = "docker-registry";
         isSystemUser = true;
       };

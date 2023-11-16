@@ -1,28 +1,8 @@
-{
-  stdenv,
-  lib,
-  callPackage,
-}:
+{ stdenv, lib, callPackage }:
 let
-  common =
-    arch:
-    callPackage (
-      {
-        bison,
-        callPackage,
-        curl,
-        fetchgit,
-        flex,
-        getopt,
-        git,
-        gnat11,
-        gcc,
-        lib,
-        perl,
-        stdenvNoCC,
-        zlib,
-        withAda ? true,
-      }:
+  common = arch:
+    callPackage ({ bison, callPackage, curl, fetchgit, flex, getopt, git, gnat11
+      , gcc, lib, perl, stdenvNoCC, zlib, withAda ? true }:
 
       stdenvNoCC.mkDerivation rec {
         pname = "coreboot-toolchain-${arch}";
@@ -43,17 +23,8 @@ let
           allowedRequisites = [ ];
         };
 
-        nativeBuildInputs = [
-          bison
-          curl
-          git
-          perl
-        ];
-        buildInputs = [
-          flex
-          zlib
-          (if withAda then gnat11 else gcc)
-        ];
+        nativeBuildInputs = [ bison curl git perl ];
+        buildInputs = [ flex zlib (if withAda then gnat11 else gcc) ];
 
         enableParallelBuilding = true;
         dontConfigure = true;
@@ -64,9 +35,9 @@ let
 
           mkdir -p util/crossgcc/tarballs
 
-          ${lib.concatMapStringsSep "\n" (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}") (
-            callPackage ./stable.nix { }
-          )}
+          ${lib.concatMapStringsSep "\n"
+          (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}")
+          (callPackage ./stable.nix { })}
 
           patchShebangs util/genbuild_h/genbuild_h.sh
         '';
@@ -79,28 +50,18 @@ let
         meta = with lib; {
           homepage = "https://www.coreboot.org";
           description = "coreboot toolchain for ${arch} targets";
-          license = with licenses; [
-            bsd2
-            bsd3
-            gpl2
-            lgpl2Plus
-            gpl3Plus
-          ];
+          license = with licenses; [ bsd2 bsd3 gpl2 lgpl2Plus gpl3Plus ];
           maintainers = with maintainers; [ felixsinger ];
           platforms = platforms.linux;
         };
-      }
-    );
-in
+      });
 
-lib.listToAttrs (
-  map (arch: lib.nameValuePair arch (common arch { })) [
-    "i386"
-    "x64"
-    "arm"
-    "aarch64"
-    "riscv"
-    "ppc64"
-    "nds32le"
-  ]
-)
+in lib.listToAttrs (map (arch: lib.nameValuePair arch (common arch { })) [
+  "i386"
+  "x64"
+  "arm"
+  "aarch64"
+  "riscv"
+  "ppc64"
+  "nds32le"
+])

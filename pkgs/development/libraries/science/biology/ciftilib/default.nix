@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  libxmlxx,
-  pkg-config,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, libxmlxx, pkg-config, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "ciftilib";
@@ -20,15 +11,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-xc2dpMse4SozYEV/w3rXCrh1LKpTThq5nHB2y5uAD0A=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    boost
-    libxmlxx
-    zlib
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ boost libxmlxx zlib ];
 
   cmakeFlags = [ "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;'big|datatype-md5'" ];
 

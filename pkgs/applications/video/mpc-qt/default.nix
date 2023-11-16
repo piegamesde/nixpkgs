@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  mkDerivation,
-  fetchFromGitHub,
-  pkg-config,
-  qmake,
-  qtx11extras,
-  qttools,
-  mpv,
-}:
+{ lib, stdenv, mkDerivation, fetchFromGitHub, pkg-config, qmake, qtx11extras
+, qttools, mpv }:
 
 mkDerivation rec {
   pname = "mpc-qt";
@@ -21,16 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-b8efsdWWpwoaiX+oQhHK15KxD6JpvPhESTxCR2kS7Mk=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    qttools
-  ];
+  nativeBuildInputs = [ pkg-config qmake qttools ];
 
-  buildInputs = [
-    mpv
-    qtx11extras
-  ];
+  buildInputs = [ mpv qtx11extras ];
 
   qmakeFlags = [ "QMAKE_LUPDATE=${qttools.dev}/bin/lupdate" ];
 

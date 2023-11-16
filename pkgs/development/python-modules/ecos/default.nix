@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  numpy,
-  pythonOlder,
-  scipy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, numpy, pythonOlder, scipy }:
 
 buildPythonPackage rec {
   pname = "ecos";
@@ -23,10 +15,7 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ numpy scipy ];
 
   nativeCheckInputs = [ nose ];
 

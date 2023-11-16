@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  ocaml,
-  fetchFromGitLab,
-  extlib,
-  ounit2,
-}:
+{ lib, buildDunePackage, ocaml, fetchFromGitLab, extlib, ounit2 }:
 
 buildDunePackage rec {
   pname = "cudf";

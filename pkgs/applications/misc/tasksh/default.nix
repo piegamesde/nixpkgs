@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  readline,
-}:
+{ lib, stdenv, fetchurl, cmake, readline }:
 
 stdenv.mkDerivation rec {
   pname = "tasksh";

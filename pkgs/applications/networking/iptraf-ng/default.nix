@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses }:
 
 stdenv.mkDerivation rec {
   version = "1.2.1";
@@ -18,11 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "prefix=/usr"
-    "sbindir=/bin"
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "prefix=/usr" "sbindir=/bin" ];
 
   hardeningDisable = [ "format" ];
 

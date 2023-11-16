@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  numpy,
-  scipy,
-}:
+{ lib, fetchPypi, buildPythonPackage, numpy, scipy }:
 
 buildPythonPackage rec {
   pname = "pylpsd";
@@ -18,13 +12,11 @@ buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "pylpsd" ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ numpy scipy ];
 
   meta = with lib; {
-    description = "Python implementation of the LPSD algorithm for computing power spectral density with logarithmically spaced points.";
+    description =
+      "Python implementation of the LPSD algorithm for computing power spectral density with logarithmically spaced points.";
     homepage = "https://github.com/bleykauf/py-lpsd";
     license = licenses.mit;
     maintainers = with maintainers; [ doronbehar ];

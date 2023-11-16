@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pick";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pick" ];
 
   meta = with lib; {
-    description = "Module to create curses-based interactive selection list in the terminal";
+    description =
+      "Module to create curses-based interactive selection list in the terminal";
     homepage = "https://github.com/wong2/pick";
     changelog = "https://github.com/wong2/pick/releases/tag/v${version}";
     license = with licenses; [ mit ];

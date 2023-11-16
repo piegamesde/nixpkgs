@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perlPackages,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, perlPackages, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "realTimeConfigQuickScan";
@@ -45,14 +39,19 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/realTimeConfigQuickScan \
       --set PERL5LIB "$out/share/$pname"
     wrapProgram $out/bin/QuickScan \
-      --set PERL5LIB "$out/share/$pname:${with perlPackages; makePerlPath [ Tk ]}"
+      --set PERL5LIB "$out/share/$pname:${
+        with perlPackages;
+        makePerlPath [ Tk ]
+      }"
   '';
 
   meta = with lib; {
-    description = "Linux configuration checker for systems to be used for real-time audio";
+    description =
+      "Linux configuration checker for systems to be used for real-time audio";
     homepage = "https://github.com/raboof/realtimeconfigquickscan";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ magnetophon ];
     platforms = platforms.linux;
   };
 }
+

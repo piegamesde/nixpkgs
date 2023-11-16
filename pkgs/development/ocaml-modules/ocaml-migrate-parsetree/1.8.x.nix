@@ -1,14 +1,8 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  ocaml,
-  result,
-  ppx_derivers,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, ocaml, result, ppx_derivers }:
 
 if lib.versionOlder "4.13" ocaml.version then
-  throw "ocaml-migrate-parsetree-1.8 is not available for OCaml ${ocaml.version}"
+  throw
+  "ocaml-migrate-parsetree-1.8 is not available for OCaml ${ocaml.version}"
 else
 
   buildDunePackage rec {
@@ -24,10 +18,7 @@ else
       sha256 = "16x8sxc4ygxrr1868qpzfqyrvjf3hfxvjzmxmf6ibgglq7ixa2nq";
     };
 
-    propagatedBuildInputs = [
-      ppx_derivers
-      result
-    ];
+    propagatedBuildInputs = [ ppx_derivers result ];
 
     meta = {
       description = "Convert OCaml parsetrees between different major versions";

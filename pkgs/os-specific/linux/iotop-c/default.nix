@@ -1,10 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  ncurses,
-  pkg-config,
-}:
+{ stdenv, fetchFromGitHub, lib, ncurses, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "iotop-c";
@@ -19,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ncurses ];
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "TARGET=iotop-c"
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "TARGET=iotop-c" ];
 
   postInstall = ''
     mv $out/usr/share/man/man8/{iotop,iotop-c}.8
@@ -31,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "iotop identifies processes that use high amount of input/output requests on your machine";
+    description =
+      "iotop identifies processes that use high amount of input/output requests on your machine";
     homepage = "https://github.com/Tomas-M/iotop";
     maintainers = [ maintainers.arezvov ];
     license = licenses.gpl2Plus;

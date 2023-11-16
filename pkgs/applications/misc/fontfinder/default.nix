@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cargo,
-  pkg-config,
-  rustPlatform,
-  rustc,
-  wrapGAppsHook,
-  gdk-pixbuf,
-  gtk3,
-  libsoup_3,
-  webkitgtk_4_1,
-}:
+{ lib, stdenv, fetchFromGitHub, cargo, pkg-config, rustPlatform, rustc
+, wrapGAppsHook, gdk-pixbuf, gtk3, libsoup_3, webkitgtk_4_1 }:
 
 stdenv.mkDerivation rec {
   pname = "fontfinder";
@@ -30,25 +18,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-PXO8E41KHPNOR527gs2vM3J9JMG0PWi8Eg/13UCkr3U=";
   };
 
-  nativeBuildInputs = [
-    cargo
-    pkg-config
-    rustPlatform.cargoSetupHook
-    rustc
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ cargo pkg-config rustPlatform.cargoSetupHook rustc wrapGAppsHook ];
 
-  buildInputs = [
-    gdk-pixbuf
-    gtk3
-    libsoup_3
-    webkitgtk_4_1
-  ];
+  buildInputs = [ gdk-pixbuf gtk3 libsoup_3 webkitgtk_4_1 ];
 
   makeFlags = [ "prefix=$(out)" ];
 
   meta = with lib; {
-    description = "GTK application for browsing and installing fonts from Google's font archive";
+    description =
+      "GTK application for browsing and installing fonts from Google's font archive";
     homepage = "https://github.com/mmstick/fontfinder";
     changelog = "https://github.com/mmstick/fontfinder/releases/tag/${src.rev}";
     license = licenses.mit;

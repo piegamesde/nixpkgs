@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-}:
+{ lib, stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "edwin";
   version = "0.54";
 
   src = fetchurl {
-    url = "https://github.com/MuseScoreFonts/Edwin/archive/refs/tags/v${version}.tar.gz";
+    url =
+      "https://github.com/MuseScoreFonts/Edwin/archive/refs/tags/v${version}.tar.gz";
     hash = "sha256-F6BzwnrsaELegdo6Bdju1OG+RI9zKnn4tIASR3q6zYk=";
   };
 

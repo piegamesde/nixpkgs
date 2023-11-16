@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  diskcache,
-  eventlet,
-  fetchFromGitHub,
-  more-itertools,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, diskcache, eventlet, fetchFromGitHub, more-itertools
+, pytestCheckHook, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "fasteners";
@@ -26,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    diskcache
-    eventlet
-    more-itertools
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ diskcache eventlet more-itertools pytestCheckHook ];
 
   pythonImportsCheck = [ "fasteners" ];
 

@@ -1,8 +1,4 @@
-{
-  buildGoPackage,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoPackage, fetchFromGitHub, lib }:
 
 buildGoPackage rec {
   pname = "aws-env";
@@ -21,7 +17,8 @@ buildGoPackage rec {
   goDeps = ./deps.nix;
 
   meta = with lib; {
-    description = "Secure way to handle environment variables in Docker and envfile with AWS Parameter Store";
+    description =
+      "Secure way to handle environment variables in Docker and envfile with AWS Parameter Store";
     homepage = "https://github.com/Droplr/aws-env";
     license = licenses.mit;
     maintainers = with maintainers; [ srhb ];

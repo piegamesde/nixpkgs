@@ -1,14 +1,5 @@
-{
-  lib,
-  mkYarnPackage,
-  libsass,
-  nodejs,
-  python3,
-  pkg-config,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  nixosTests,
-}:
+{ lib, mkYarnPackage, libsass, nodejs, python3, pkg-config, fetchFromGitHub
+, fetchYarnDeps, nixosTests }:
 
 let
   pinData = lib.importJSON ./pin.json;
@@ -16,10 +7,7 @@ let
   pkgConfig = {
     node-sass = {
       nativeBuildInputs = [ pkg-config ];
-      buildInputs = [
-        libsass
-        python3
-      ];
+      buildInputs = [ libsass python3 ];
       postInstall = ''
         LIBSASS_EXT=auto yarn --offline run build
         rm build/config.gypi
@@ -37,15 +25,9 @@ let
     fetchSubmodules = true;
     sha256 = pinData.uiSha256;
   };
-in
-mkYarnPackage {
+in mkYarnPackage {
 
-  inherit
-    src
-    pkgConfig
-    name
-    version
-  ;
+  inherit src pkgConfig name version;
 
   extraBuildInputs = [ libsass ];
 
@@ -83,10 +65,7 @@ mkYarnPackage {
     description = "Building a federated alternative to reddit in rust";
     homepage = "https://join-lemmy.org/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [
-      happysalada
-      billewanick
-    ];
+    maintainers = with maintainers; [ happysalada billewanick ];
     platforms = platforms.linux;
   };
 }

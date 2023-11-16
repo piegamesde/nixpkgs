@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gnat12,
-  gnatcoll-core,
-  gprbuild,
-  python3,
-  ocaml,
-  ocamlPackages,
-  makeWrapper,
-}:
+{ stdenv, lib, fetchFromGitHub, gnat12, gnatcoll-core, gprbuild, python3, ocaml
+, ocamlPackages, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "spark2014";
@@ -24,13 +14,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    gnat12
-    gprbuild
-    python3
-    ocaml
-    makeWrapper
-  ];
+  nativeBuildInputs = [ gnat12 gprbuild python3 ocaml makeWrapper ];
 
   buildInputs = [
     gnatcoll-core
@@ -59,10 +43,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "a software development technology specifically designed for engineering high-reliability applications";
+    description =
+      "a software development technology specifically designed for engineering high-reliability applications";
     homepage = "https://github.com/AdaCore/spark2014";
     maintainers = [ maintainers.jiegec ];
     license = licenses.gpl3;
     platforms = platforms.all;
   };
 }
+

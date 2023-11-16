@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  beamPackages,
-  fetchFromGitHub,
-  glibcLocales,
-  cacert,
-  mkYarnModules,
-  fetchYarnDeps,
-  nodejs,
-  nixosTests,
-}:
+{ lib, stdenv, beamPackages, fetchFromGitHub, glibcLocales, cacert
+, mkYarnModules, fetchYarnDeps, nodejs, nixosTests }:
 
 let
   pname = "plausible";
@@ -44,21 +34,13 @@ let
       echo 'module.exports = {}' > $out/node_modules/flatpickr/dist/postcss.config.js
     '';
   };
-in
-beamPackages.mixRelease {
-  inherit
-    pname
-    version
-    src
-    mixFodDeps
-  ;
+in beamPackages.mixRelease {
+  inherit pname version src mixFodDeps;
 
   nativeBuildInputs = [ nodejs ];
 
   passthru = {
-    tests = {
-      inherit (nixosTests) plausible;
-    };
+    tests = { inherit (nixosTests) plausible; };
     updateScript = ./update.sh;
   };
 
@@ -77,7 +59,8 @@ beamPackages.mixRelease {
   meta = with lib; {
     license = licenses.agpl3Plus;
     homepage = "https://plausible.io/";
-    description = " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.";
+    description =
+      " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.";
     maintainers = with maintainers; [ ];
     platforms = platforms.unix;
   };

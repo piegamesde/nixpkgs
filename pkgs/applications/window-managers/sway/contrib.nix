@@ -1,20 +1,9 @@
-{
-  lib,
-  stdenv,
+{ lib, stdenv
 
-  coreutils,
-  makeWrapper,
-  sway-unwrapped,
-  installShellFiles,
-  wl-clipboard,
-  libnotify,
-  slurp,
-  grim,
-  jq,
-  bash,
+, coreutils, makeWrapper, sway-unwrapped, installShellFiles, wl-clipboard
+, libnotify, slurp, grim, jq, bash
 
-  python3Packages,
-}:
+, python3Packages }:
 
 {
 
@@ -27,16 +16,10 @@
     dontBuild = true;
     dontConfigure = true;
 
-    outputs = [
-      "out"
-      "man"
-    ];
+    outputs = [ "out" "man" ];
 
     strictDeps = true;
-    nativeBuildInputs = [
-      makeWrapper
-      installShellFiles
-    ];
+    nativeBuildInputs = [ makeWrapper installShellFiles ];
     buildInputs = [ bash ];
     installPhase = ''
       installManPage contrib/grimshot.1
@@ -71,7 +54,8 @@
       homepage = "https://github.com/swaywm/sway/tree/master/contrib";
       license = licenses.mit;
       platforms = platforms.all;
-      maintainers = sway-unwrapped.meta.maintainers ++ (with maintainers; [ evils ]);
+      maintainers = sway-unwrapped.meta.maintainers
+        ++ (with maintainers; [ evils ]);
     };
   };
 
@@ -95,7 +79,9 @@
 
     meta = sway-unwrapped.meta // {
       description = "It makes inactive sway windows transparent";
-      homepage = "https://github.com/swaywm/sway/tree/${sway-unwrapped.version}/contrib";
+      homepage =
+        "https://github.com/swaywm/sway/tree/${sway-unwrapped.version}/contrib";
     };
   };
+
 }

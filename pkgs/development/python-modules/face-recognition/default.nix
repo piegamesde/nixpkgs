@@ -1,18 +1,10 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lib,
+{ buildPythonPackage, fetchPypi, lib
 
-  # propagates
-  click,
-  dlib,
-  face-recognition-models,
-  numpy,
-  pillow,
+# propagates
+, click, dlib, face-recognition-models, numpy, pillow
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "face-recognition";
@@ -25,13 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-Xl790WhqpWavDTzBMTsTHksZdleo/9A2aebT+tknBew=";
   };
 
-  propagatedBuildInputs = [
-    click
-    dlib
-    face-recognition-models
-    numpy
-    pillow
-  ];
+  propagatedBuildInputs = [ click dlib face-recognition-models numpy pillow ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -39,6 +25,7 @@ buildPythonPackage rec {
     license = licenses.mit;
     homepage = "https://github.com/ageitgey/face_recognition";
     maintainers = with maintainers; [ ];
-    description = "The world's simplest facial recognition api for Python and the command line";
+    description =
+      "The world's simplest facial recognition api for Python and the command line";
   };
 }

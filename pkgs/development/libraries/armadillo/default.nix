@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  blas,
-  lapack,
-  superlu,
-  hdf5,
-}:
+{ lib, stdenv, fetchurl, cmake, blas, lapack, superlu, hdf5 }:
 
 stdenv.mkDerivation rec {
   pname = "armadillo";
@@ -19,12 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    blas
-    lapack
-    superlu
-    hdf5
-  ];
+  buildInputs = [ blas lapack superlu hdf5 ];
 
   cmakeFlags = [
     "-DLAPACK_LIBRARY=${lapack}/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}"
@@ -38,9 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://arma.sourceforge.net";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      juliendehos
-      knedlsepp
-    ];
+    maintainers = with maintainers; [ juliendehos knedlsepp ];
   };
 }

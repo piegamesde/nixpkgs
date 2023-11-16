@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  xorg,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, xorg, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "hhpc";

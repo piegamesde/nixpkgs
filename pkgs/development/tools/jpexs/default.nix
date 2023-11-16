@@ -1,18 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  makeWrapper,
-  makeDesktopItem,
-  jdk8,
-}:
+{ lib, stdenv, fetchzip, makeWrapper, makeDesktopItem, jdk8 }:
 
 stdenv.mkDerivation rec {
   pname = "jpexs";
   version = "18.4.1";
 
   src = fetchzip {
-    url = "https://github.com/jindrapetrik/jpexs-decompiler/releases/download/version${version}/ffdec_${version}.zip";
+    url =
+      "https://github.com/jindrapetrik/jpexs-decompiler/releases/download/version${version}/ffdec_${version}.zip";
     sha256 = "sha256-aaEL3xJZkFw78zo3IyauWJM9kOo0rJTUSKmWsv9xQZ8=";
     stripRoot = false;
   };
@@ -43,10 +37,7 @@ stdenv.mkDerivation rec {
     desktopName = "JPEXS Free Flash Decompiler";
     genericName = "Flash Decompiler";
     comment = meta.description;
-    categories = [
-      "Development"
-      "Java"
-    ];
+    categories = [ "Development" "Java" ];
     startupWMClass = "com-jpexs-decompiler-flash-gui-Main";
   };
 

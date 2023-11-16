@@ -1,15 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  pythonOlder,
-  buildPythonPackage,
-  python,
-  hatchling,
-  django,
-  jinja2,
-  sqlparse,
-  html5lib,
-}:
+{ lib, fetchFromGitHub, pythonOlder, buildPythonPackage, python, hatchling
+, django, jinja2, sqlparse, html5lib }:
 
 buildPythonPackage rec {
   pname = "django-debug-toolbar";
@@ -27,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    django
-    jinja2
-    sqlparse
-  ];
+  propagatedBuildInputs = [ django jinja2 sqlparse ];
 
   DB_BACKEND = "sqlite3";
   DB_NAME = ":memory:";
@@ -49,9 +35,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "debug_toolbar" ];
 
   meta = with lib; {
-    description = "Configurable set of panels that display debug information about the current request/response";
+    description =
+      "Configurable set of panels that display debug information about the current request/response";
     homepage = "https://github.com/jazzband/django-debug-toolbar";
-    changelog = "https://django-debug-toolbar.readthedocs.io/en/latest/changes.html";
+    changelog =
+      "https://django-debug-toolbar.readthedocs.io/en/latest/changes.html";
     license = licenses.bsd3;
     maintainers = with maintainers; [ yuu ];
   };

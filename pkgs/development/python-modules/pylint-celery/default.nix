@@ -1,12 +1,7 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy3k,
-  lib,
+{ buildPythonPackage, fetchFromGitHub, isPy3k, lib
 
-  # pythonPackages
-  pylint-plugin-utils,
-}:
+# pythonPackages
+, pylint-plugin-utils }:
 
 buildPythonPackage rec {
   pname = "pylint-celery";

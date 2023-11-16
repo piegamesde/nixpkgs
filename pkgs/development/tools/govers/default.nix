@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
   pname = "govers";
@@ -20,4 +16,5 @@ buildGoPackage rec {
   dontRenameImports = true;
 
   doCheck = false; # fails, silently
+
 }

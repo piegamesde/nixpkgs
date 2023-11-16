@@ -1,12 +1,5 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  gnome,
-  gnome-icon-theme,
-  hicolor-icon-theme,
-  gtk3,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, gnome, gnome-icon-theme, hicolor-icon-theme
+, gtk3 }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mint-l-icons";
@@ -19,11 +12,8 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-C6BnBIOKeewsaQPPXWWo70eQpO1pJS0+xVQghPj/TTE=";
   };
 
-  propagatedBuildInputs = [
-    gnome.adwaita-icon-theme
-    gnome-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs =
+    [ gnome.adwaita-icon-theme gnome-icon-theme hicolor-icon-theme ];
 
   nativeBuildInputs = [ gtk3 ];
 

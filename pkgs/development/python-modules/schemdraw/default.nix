@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pyparsing,
-  matplotlib,
-  latex2mathml,
-  ziafont,
-  ziamath,
-  pytestCheckHook,
-  nbval,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pyparsing, matplotlib
+, latex2mathml, ziafont, ziamath, pytestCheckHook, nbval }:
 
 buildPythonPackage rec {
   pname = "schemdraw";
@@ -30,21 +19,11 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     matplotlib = [ matplotlib ];
-    svgmath = [
-      latex2mathml
-      ziafont
-      ziamath
-    ];
+    svgmath = [ latex2mathml ziafont ziamath ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    nbval
-    matplotlib
-    latex2mathml
-    ziafont
-    ziamath
-  ];
+  nativeCheckInputs =
+    [ pytestCheckHook nbval matplotlib latex2mathml ziafont ziamath ];
 
   # Strip out references to unfree fonts from the test suite
   postPatch = ''
@@ -56,7 +35,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "schemdraw" ];
 
   meta = with lib; {
-    description = "A package for producing high-quality electrical circuit schematic diagrams";
+    description =
+      "A package for producing high-quality electrical circuit schematic diagrams";
     homepage = "https://schemdraw.readthedocs.io/en/latest/";
     changelog = "https://schemdraw.readthedocs.io/en/latest/changes.html";
     license = licenses.mit;

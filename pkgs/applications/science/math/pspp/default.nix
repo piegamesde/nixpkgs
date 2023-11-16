@@ -1,26 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libxml2,
-  readline,
-  zlib,
-  perl,
-  cairo,
-  gtk3,
-  gsl,
-  pkg-config,
-  gtksourceview,
-  pango,
-  gettext,
-  dconf,
-  makeWrapper,
-  gsettings-desktop-schemas,
-  hicolor-icon-theme,
-  texinfo,
-  ssw,
-  python3,
-}:
+{ lib, stdenv, fetchurl, libxml2, readline, zlib, perl, cairo, gtk3, gsl
+, pkg-config, gtksourceview, pango, gettext, dconf, makeWrapper
+, gsettings-desktop-schemas, hicolor-icon-theme, texinfo, ssw, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "pspp";
@@ -31,12 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lqrash677b09zxdlxp89z6k02y4i23mbqg83956dwl69wc53dan";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    texinfo
-    python3
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config texinfo python3 makeWrapper ];
   buildInputs = [
     libxml2
     readline
@@ -67,7 +42,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.gnu.org/software/pspp/";
-    description = "A free replacement for SPSS, a program for statistical analysis of sampled data";
+    description =
+      "A free replacement for SPSS, a program for statistical analysis of sampled data";
     license = lib.licenses.gpl3Plus;
 
     longDescription = ''

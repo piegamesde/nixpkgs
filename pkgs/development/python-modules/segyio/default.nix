@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  python,
-  scikit-build,
-  pytest,
-  numpy,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, python, scikit-build, pytest
+, numpy }:
 
 stdenv.mkDerivation rec {
   pname = "segyio";
@@ -31,20 +22,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-4izeMRgg5nJ9pRfSEMDlKSYYNWkhbKEzIz7czea6Vrc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python
-    scikit-build
-  ];
+  nativeBuildInputs = [ cmake ninja python scikit-build ];
 
   doCheck = true;
   # I'm not modifying the checkPhase nor adding a pytestCheckHook because the pytest is called
   # within the cmake test phase
-  nativeCheckInputs = [
-    pytest
-    numpy
-  ];
+  nativeCheckInputs = [ pytest numpy ];
 
   meta = with lib; {
     description = "Fast Python library for SEGY files";

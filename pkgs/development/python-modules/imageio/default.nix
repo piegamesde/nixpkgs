@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  substituteAll,
-  imageio-ffmpeg,
-  numpy,
-  pillow,
-  psutil,
-  pytestCheckHook,
-  tifffile,
-  fsspec,
-  libGL,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, substituteAll
+, imageio-ffmpeg, numpy, pillow, psutil, pytestCheckHook, tifffile, fsspec
+, libGL }:
 
 buildPythonPackage rec {
   pname = "imageio";
@@ -30,22 +17,14 @@ buildPythonPackage rec {
   patches = lib.optionals (!stdenv.isDarwin) [
     (substituteAll {
       src = ./libgl-path.patch;
-      libgl = "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libgl =
+        "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
-  propagatedBuildInputs = [
-    imageio-ffmpeg
-    numpy
-    pillow
-  ];
+  propagatedBuildInputs = [ imageio-ffmpeg numpy pillow ];
 
-  nativeCheckInputs = [
-    fsspec
-    psutil
-    pytestCheckHook
-    tifffile
-  ];
+  nativeCheckInputs = [ fsspec psutil pytestCheckHook tifffile ];
 
   pytestFlagsArray = [ "-m 'not needs_internet'" ];
 
@@ -63,9 +42,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
+    description =
+      "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
     homepage = "https://imageio.readthedocs.io";
-    changelog = "https://github.com/imageio/imageio/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/imageio/imageio/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = with maintainers; [ Luflosi ];
   };

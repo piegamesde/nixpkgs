@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  gmp,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, gmp }:
 
 stdenv.mkDerivation {
   pname = "open-wbo";
@@ -17,10 +11,7 @@ stdenv.mkDerivation {
     sha256 = "1742i15qfsbf49c4r837wz35c1p7yafvz7ar6vmgcj6cmfwr8jb4";
   };
 
-  buildInputs = [
-    zlib
-    gmp
-  ];
+  buildInputs = [ zlib gmp ];
 
   makeFlags = [ "r" ];
   installPhase = ''

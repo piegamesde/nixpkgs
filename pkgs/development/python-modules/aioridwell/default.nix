@@ -1,20 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  freezegun,
-  poetry-core,
-  pyjwt,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  titlecase,
-  types-pytz,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, freezegun
+, poetry-core, pyjwt, pytest-aiohttp, pytest-asyncio, pytestCheckHook
+, pythonOlder, pytz, titlecase, types-pytz }:
 
 buildPythonPackage rec {
   pname = "aioridwell";
@@ -32,12 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pyjwt
-    pytz
-    titlecase
-  ];
+  propagatedBuildInputs = [ aiohttp pyjwt pytz titlecase ];
 
   nativeCheckInputs = [
     aresponses
@@ -48,17 +29,15 @@ buildPythonPackage rec {
     types-pytz
   ];
 
-  disabledTests =
-    [
-      # AssertionError: assert datetime.date(...
-      "test_get_next_pickup_event"
-    ];
+  disabledTests = [
+    # AssertionError: assert datetime.date(...
+    "test_get_next_pickup_event"
+  ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples directory as the files are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples directory as the files are prefixed with test_
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "aioridwell" ];
 

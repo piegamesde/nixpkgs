@@ -1,11 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  wrapQtAppsHook,
-  borgbackup,
-  qt5,
-}:
+{ lib, python3Packages, fetchFromGitHub, wrapQtAppsHook, borgbackup, qt5 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "vorta";
@@ -20,8 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       peewee
       pyqt5
@@ -32,8 +24,7 @@ python3Packages.buildPythonApplication rec {
       appdirs
       setuptools
       platformdirs
-    ]
-    ++ lib.optionals stdenv.isLinux [ qt5.qtwayland ];
+    ] ++ lib.optionals stdenv.isLinux [ qt5.qtwayland ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

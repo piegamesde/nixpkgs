@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-  visitor,
-  dominate,
-}:
+{ lib, buildPythonPackage, fetchPypi, flask, visitor, dominate }:
 
 buildPythonPackage rec {
   pname = "Flask-Bootstrap";
@@ -16,11 +9,7 @@ buildPythonPackage rec {
     sha256 = "1j1s2bplaifsnmr8vfxa3czca4rz78xyhrg4chx39xl306afs26b";
   };
 
-  propagatedBuildInputs = [
-    flask
-    visitor
-    dominate
-  ];
+  propagatedBuildInputs = [ flask visitor dominate ];
 
   meta = with lib; {
     homepage = "https://github.com/mbr/flask-bootstrap";

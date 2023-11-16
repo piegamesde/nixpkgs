@@ -1,10 +1,4 @@
-{
-  lib,
-  mkTmuxPlugin,
-  fetchFromGitHub,
-  thumbs,
-  substituteAll,
-}:
+{ lib, mkTmuxPlugin, fetchFromGitHub, thumbs, substituteAll }:
 
 mkTmuxPlugin rec {
   pluginName = "tmux-thumbs";
@@ -27,7 +21,8 @@ mkTmuxPlugin rec {
 
   meta = with lib; {
     homepage = "https://github.com/fcsonline/tmux-thumbs";
-    description = "A lightning fast version of tmux-fingers written in Rust for copy pasting with vimium/vimperator like hints.";
+    description =
+      "A lightning fast version of tmux-fingers written in Rust for copy pasting with vimium/vimperator like hints.";
     license = licenses.mit;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ghostbuster91 ];

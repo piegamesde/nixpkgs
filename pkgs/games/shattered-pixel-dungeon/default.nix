@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  fetchFromGitHub,
-  nixosTests,
-  gradle,
-  perl,
-  jre,
-  libpulseaudio,
-}:
+{ lib, stdenv, makeWrapper, fetchFromGitHub, nixosTests, gradle, perl, jre
+, libpulseaudio }:
 
 let
   pname = "shattered-pixel-dungeon";
@@ -34,16 +25,8 @@ let
   # fake build to pre-download deps into fixed-output derivation
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
-    inherit
-      version
-      src
-      patches
-      postPatch
-    ;
-    nativeBuildInputs = [
-      gradle
-      perl
-    ];
+    inherit version src patches postPatch;
+    nativeBuildInputs = [ gradle perl ];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       # https://github.com/gradle/gradle/issues/4426
@@ -59,21 +42,11 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-ojwvs6j3R31723lfRlKdeyR5+txnetyK3foJTLqy28Q=";
   };
-in
-stdenv.mkDerivation rec {
-  inherit
-    pname
-    version
-    src
-    patches
-    postPatch
-  ;
 
-  nativeBuildInputs = [
-    gradle
-    perl
-    makeWrapper
-  ];
+in stdenv.mkDerivation rec {
+  inherit pname version src patches postPatch;
+
+  nativeBuildInputs = [ gradle perl makeWrapper ];
 
   buildPhase = ''
     export GRADLE_USER_HOME=$(mktemp -d)
@@ -98,8 +71,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://shatteredpixel.com/";
-    downloadPage = "https://github.com/00-Evan/shattered-pixel-dungeon/releases";
-    description = "Traditional roguelike game with pixel-art graphics and simple interface";
+    downloadPage =
+      "https://github.com/00-Evan/shattered-pixel-dungeon/releases";
+    description =
+      "Traditional roguelike game with pixel-art graphics and simple interface";
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryBytecode # deps

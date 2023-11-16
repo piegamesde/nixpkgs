@@ -1,27 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  packaging,
-  pluggy,
-  py,
-  six,
-  virtualenv,
-  setuptools-scm,
-  toml,
-  tomli,
-  filelock,
-  hatchling,
-  hatch-vcs,
-  platformdirs,
-  pyproject-api,
-  colorama,
-  chardet,
-  cachetools,
-  testers,
-  tox,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, packaging, pluggy, py
+, six, virtualenv, setuptools-scm, toml, tomli, filelock, hatchling, hatch-vcs
+, platformdirs, pyproject-api, colorama, chardet, cachetools, testers, tox }:
 
 buildPythonPackage rec {
   pname = "tox";
@@ -42,10 +21,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    hatchling
-    hatch-vcs
-  ];
+  nativeBuildInputs = [ hatchling hatch-vcs ];
 
   propagatedBuildInputs = [
     cachetools
@@ -64,9 +40,7 @@ buildPythonPackage rec {
 
   doCheck = false; # infinite recursion via devpi-client
 
-  passthru.tests = {
-    version = testers.testVersion { package = tox; };
-  };
+  passthru.tests = { version = testers.testVersion { package = tox; }; };
 
   meta = with lib; {
     changelog = "https://github.com/tox-dev/tox/releases/tag/${version}";

@@ -8,14 +8,12 @@ let
   inherit (lib.types) nonEmptyStr nullOr;
 
   options.services.tsmBackup = {
-    enable = mkEnableOption (
-      lib.mdDoc ''
-        automatic backups with the
-        IBM Spectrum Protect (Tivoli Storage Manager, TSM) client.
-        This also enables
-        {option}`programs.tsmClient.enable`
-      ''
-    );
+    enable = mkEnableOption (lib.mdDoc ''
+      automatic backups with the
+      IBM Spectrum Protect (Tivoli Storage Manager, TSM) client.
+      This also enables
+      {option}`programs.tsmClient.enable`
+    '');
     command = mkOption {
       type = nonEmptyStr;
       default = "backup";
@@ -70,16 +68,16 @@ let
       message = "TSM service requires automatic password generation";
     }
   ];
-in
 
-{
+in {
 
   inherit options;
 
   config = mkIf cfg.enable {
     inherit assertions;
     programs.tsmClient.enable = true;
-    programs.tsmClient.servers.${cfg.servername}.passwdDir = mkDefault "/var/lib/tsm-backup/password";
+    programs.tsmClient.servers.${cfg.servername}.passwdDir =
+      mkDefault "/var/lib/tsm-backup/password";
     systemd.services.tsm-backup = {
       description = "IBM Spectrum Protect (Tivoli Storage Manager) Backup";
       # DSM_LOG needs a trailing slash to have it treated as a directory.
@@ -93,7 +91,8 @@ in
         SuccessExitStatus = "4 8";
         # The `-se` option must come after the command.
         # The `-optfile` option suppresses a `dsm.opt`-not-found warning.
-        ExecStart = "${cfgPrg.wrappedPackage}/bin/dsmc ${cfg.command} -se='${cfg.servername}' -optfile=/dev/null";
+        ExecStart =
+          "${cfgPrg.wrappedPackage}/bin/dsmc ${cfg.command} -se='${cfg.servername}' -optfile=/dev/null";
         LogsDirectory = "tsm-backup";
         StateDirectory = "tsm-backup";
         StateDirectoryMode = "0750";
@@ -120,4 +119,5 @@ in
   };
 
   meta.maintainers = [ lib.maintainers.yarny ];
+
 }

@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  unittestCheckHook,
-  pythonOlder,
-  isPy3k,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, unittestCheckHook, pythonOlder
+, isPy3k }:
 
 buildPythonPackage rec {
   pname = "pyserial";
@@ -30,10 +23,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlagsArray = [
-    "-s"
-    "test"
-  ];
+  unittestFlagsArray = [ "-s" "test" ];
 
   pythonImportsCheck = [ "serial" ];
 

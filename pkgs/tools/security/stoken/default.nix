@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  libxml2,
-  nettle,
-  withGTK3 ? true,
-  gtk3,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, libxml2
+, nettle, withGTK3 ? true, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "stoken";
@@ -31,16 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-    automake
-    libtool
-  ];
-  buildInputs = [
-    libxml2
-    nettle
-  ] ++ lib.optional withGTK3 gtk3;
+  nativeBuildInputs = [ pkg-config autoconf automake libtool ];
+  buildInputs = [ libxml2 nettle ] ++ lib.optional withGTK3 gtk3;
 
   meta = with lib; {
     description = "Software Token for Linux/UNIX";

@@ -1,22 +1,12 @@
-{
-  lib,
-  stdenv,
-  pkgsCross,
-  makeBinaryWrapper,
-  writeText,
-  runCommand,
-  runCommandCC,
+{ lib, stdenv, pkgsCross, makeBinaryWrapper, writeText, runCommand, runCommandCC
 }:
 
 let
-  env = {
-    nativeBuildInputs = [ makeBinaryWrapper ];
-  };
+  env = { nativeBuildInputs = [ makeBinaryWrapper ]; };
   envCheck = runCommandCC "envcheck" env ''
     cc -Wall -Werror -Wpedantic -o $out ${./envcheck.c}
   '';
-  makeGoldenTest =
-    testname:
+  makeGoldenTest = testname:
     runCommand "make-binary-wrapper-test-${testname}" env ''
       mkdir -p tmp/foo # for the chdir test
 
@@ -44,31 +34,27 @@ let
 
       cp wrapper.c $out
     '';
-  tests =
-    lib.genAttrs
-      [
-        "add-flags"
-        "argv0"
-        "basic"
-        "chdir"
-        "combination"
-        "env"
-        "inherit-argv0"
-        "invalid-env"
-        "overlength-strings"
-        "prefix"
-        "suffix"
-      ]
-      makeGoldenTest
-    // lib.optionalAttrs (!stdenv.isDarwin) {
-      cross =
-        pkgsCross.${if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform"}.callPackage
-          ./cross.nix
-          { };
-    };
-in
+  tests = lib.genAttrs [
+    "add-flags"
+    "argv0"
+    "basic"
+    "chdir"
+    "combination"
+    "env"
+    "inherit-argv0"
+    "invalid-env"
+    "overlength-strings"
+    "prefix"
+    "suffix"
+  ] makeGoldenTest // lib.optionalAttrs (!stdenv.isDarwin) {
+    cross = pkgsCross.${
+        if stdenv.buildPlatform.isAarch64 then
+          "gnu64"
+        else
+          "aarch64-multiplatform"
+      }.callPackage ./cross.nix { };
+  };
 
-writeText "make-binary-wrapper-tests" ''
+in writeText "make-binary-wrapper-tests" ''
   ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
-''
-// tests
+'' // tests

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  cups,
-  perl,
-  coreutils,
-  gnused,
-  gnugrep,
-  brgenml1lpr,
-  debugLvl ? "0",
-}:
+{ lib, stdenv, fetchurl, makeWrapper, cups, perl, coreutils, gnused, gnugrep
+, brgenml1lpr, debugLvl ? "0" }:
 
 /* [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
 
@@ -66,7 +55,8 @@ stdenv.mkDerivation rec {
   version = "3.1.0-1";
 
   src = fetchurl {
-    url = "https://download.brother.com/welcome/dlf101125/brgenml1cupswrapper-${version}.i386.deb";
+    url =
+      "https://download.brother.com/welcome/dlf101125/brgenml1cupswrapper-${version}.i386.deb";
     sha256 = "0kd2a2waqr10kfv1s8is3nd5dlphw4d1343srdsbrlbbndja3s6r";
   };
 
@@ -76,14 +66,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    cups
-    perl
-    coreutils
-    gnused
-    gnugrep
-    brgenml1lpr
-  ];
+  buildInputs = [ cups perl coreutils gnused gnugrep brgenml1lpr ];
 
   dontBuild = true;
 

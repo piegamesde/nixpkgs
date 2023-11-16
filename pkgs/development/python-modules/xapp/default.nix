@@ -1,17 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  python,
-  meson,
-  ninja,
-  psutil,
-  pygobject3,
-  gtk3,
-  gobject-introspection,
-  xapp,
-  polkit,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, python, meson, ninja, psutil
+, pygobject3, gtk3, gobject-introspection, xapp, polkit }:
 
 buildPythonPackage rec {
   pname = "xapp";
@@ -26,19 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-Kvhp+biZ+KK9FYma/8cUEaQCHPKMLjOO909kbyMLQ3o=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
-  propagatedBuildInputs = [
-    psutil
-    pygobject3
-    gtk3
-    gobject-introspection
-    xapp
-    polkit
-  ];
+  propagatedBuildInputs =
+    [ psutil pygobject3 gtk3 gobject-introspection xapp polkit ];
 
   postPatch = ''
     substituteInPlace "xapp/os.py" --replace "/usr/bin/pkexec" "${polkit}/bin/pkexec"

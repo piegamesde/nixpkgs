@@ -1,21 +1,7 @@
-{
-  lib,
-  stdenv,
-  python27,
-  callPackage,
-  fetchFromGitHub,
-  makeWrapper,
-  # re2c deps
-  autoreconfHook,
-  # py-yajl deps
-  git,
-  # oil deps
-  cmark,
-  file,
-  glibcLocales,
-  six,
-  typing,
-}:
+{ lib, stdenv, python27, callPackage, fetchFromGitHub, makeWrapper, # re2c deps
+autoreconfHook, # py-yajl deps
+git, # oil deps
+cmark, file, glibcLocales, six, typing }:
 
 rec {
   re2c = stdenv.mkDerivation rec {
@@ -96,17 +82,9 @@ rec {
 
     configureFlags = [ "--without-readline" ];
 
-    nativeBuildInputs = [
-      re2c
-      file
-      makeWrapper
-    ];
+    nativeBuildInputs = [ re2c file makeWrapper ];
 
-    propagatedBuildInputs = [
-      six
-      typing
-      py-yajl
-    ];
+    propagatedBuildInputs = [ six typing py-yajl ];
 
     doCheck = true;
 
@@ -128,12 +106,12 @@ rec {
        later drop this support. See:
        https://github.com/oilshell/oil/blob/46900310c7e4a07a6223eb6c08e4f26460aad285/doctools/cmark.py#L30-L34
     */
-    _NIX_SHELL_LIBCMARK = "${cmark}/lib/libcmark${stdenv.hostPlatform.extensions.sharedLibrary}";
+    _NIX_SHELL_LIBCMARK =
+      "${cmark}/lib/libcmark${stdenv.hostPlatform.extensions.sharedLibrary}";
 
     # See earlier note on glibcLocales TODO: verify needed?
-    LOCALE_ARCHIVE =
-      lib.optionalString (stdenv.buildPlatform.libc == "glibc")
-        "${glibcLocales}/lib/locale/locale-archive";
+    LOCALE_ARCHIVE = lib.optionalString (stdenv.buildPlatform.libc == "glibc")
+      "${glibcLocales}/lib/locale/locale-archive";
 
     # not exhaustive; sample what resholve uses as a sanity check
     pythonImportsCheck = [

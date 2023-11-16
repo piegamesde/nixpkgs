@@ -1,38 +1,13 @@
-{
-  asio,
-  cmake,
-  curl,
-  fetchFromGitHub,
-  fetchpatch,
-  ffmpeg,
-  gnutls,
-  lame,
-  lib,
-  libev,
-  game-music-emu,
-  libmicrohttpd,
-  libopenmpt,
-  mpg123,
-  ncurses,
-  pkg-config,
-  portaudio,
-  stdenv,
-  taglib,
-  # Linux Dependencies
-  alsa-lib,
-  pipewireSupport ? !stdenv.hostPlatform.isDarwin,
-  pipewire,
-  pulseaudio,
-  sndioSupport ? true,
-  sndio,
-  systemd,
-  systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
+{ asio, cmake, curl, fetchFromGitHub, fetchpatch, ffmpeg, gnutls, lame, lib
+, libev, game-music-emu, libmicrohttpd, libopenmpt, mpg123, ncurses, pkg-config
+, portaudio, stdenv, taglib
+# Linux Dependencies
+, alsa-lib, pipewireSupport ? !stdenv.hostPlatform.isDarwin, pipewire
+, pulseaudio, sndioSupport ? true, sndio, systemd, systemdSupport ?
+  lib.meta.availableOn stdenv.hostPlatform systemd
   # Darwin Dependencies
-  Cocoa,
-  SystemConfiguration,
-  coreaudioSupport ? stdenv.hostPlatform.isDarwin,
-  CoreAudio,
-}:
+, Cocoa, SystemConfiguration, coreaudioSupport ? stdenv.hostPlatform.isDarwin
+, CoreAudio }:
 
 stdenv.mkDerivation rec {
   pname = "musikcube";
@@ -42,44 +17,31 @@ stdenv.mkDerivation rec {
     owner = "clangen";
     repo = pname;
     rev = version;
-    hash = "sha512-ahKPmChHRVpOQcgt0fOYumlsMApeN4MWwywE9F0edeN0Xr3Vp830mWGzEBJvMvGI/lnU/1rd7tREaHfm1vCJaw==";
+    hash =
+      "sha512-ahKPmChHRVpOQcgt0fOYumlsMApeN4MWwywE9F0edeN0Xr3Vp830mWGzEBJvMvGI/lnU/1rd7tREaHfm1vCJaw==";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs =
-    [
-      asio
-      curl
-      ffmpeg
-      gnutls
-      lame
-      libev
-      game-music-emu
-      libmicrohttpd
-      libopenmpt
-      mpg123
-      ncurses
-      portaudio
-      taglib
-    ]
-    ++ lib.optionals systemdSupport [ systemd ]
-    ++ lib.optionals stdenv.isLinux [
-      alsa-lib
-      pulseaudio
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Cocoa
-      SystemConfiguration
-    ]
+  buildInputs = [
+    asio
+    curl
+    ffmpeg
+    gnutls
+    lame
+    libev
+    game-music-emu
+    libmicrohttpd
+    libopenmpt
+    mpg123
+    ncurses
+    portaudio
+    taglib
+  ] ++ lib.optionals systemdSupport [ systemd ]
+    ++ lib.optionals stdenv.isLinux [ alsa-lib pulseaudio ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa SystemConfiguration ]
     ++ lib.optionals coreaudioSupport [ CoreAudio ]
     ++ lib.optionals sndioSupport [ sndio ]
     ++ lib.optionals pipewireSupport [ pipewire ];
@@ -92,13 +54,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Terminal-based music player, library, and streaming audio server";
+    description =
+      "Terminal-based music player, library, and streaming audio server";
     homepage = "https://musikcube.com/";
-    maintainers = with maintainers; [
-      aanderse
-      srapenne
-      afh
-    ];
+    maintainers = with maintainers; [ aanderse srapenne afh ];
     license = licenses.bsd3;
     platforms = platforms.all;
   };

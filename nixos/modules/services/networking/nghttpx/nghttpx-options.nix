@@ -1,49 +1,45 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   options.services.nghttpx = {
     enable = lib.mkEnableOption (lib.mdDoc "nghttpx");
 
     frontends = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule (import ./frontend-submodule.nix));
+      type = lib.types.listOf
+        (lib.types.submodule (import ./frontend-submodule.nix));
       description = lib.mdDoc ''
         A list of frontend listener specifications.
       '';
-      example = [
-        {
-          server = {
-            host = "*";
-            port = 80;
-          };
+      example = [{
+        server = {
+          host = "*";
+          port = 80;
+        };
 
-          params = {
-            tls = "no-tls";
-          };
-        }
-      ];
+        params = { tls = "no-tls"; };
+      }];
     };
 
     backends = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule (import ./backend-submodule.nix));
+      type =
+        lib.types.listOf (lib.types.submodule (import ./backend-submodule.nix));
       description = lib.mdDoc ''
         A list of backend specifications.
       '';
-      example = [
-        {
-          server = {
-            host = "172.16.0.22";
-            port = 8443;
-          };
-          patterns = [ "/" ];
-          params = {
-            proto = "http/1.1";
-            redirect-if-not-tls = true;
-          };
-        }
-      ];
+      example = [{
+        server = {
+          host = "172.16.0.22";
+          port = 8443;
+        };
+        patterns = [ "/" ];
+        params = {
+          proto = "http/1.1";
+          redirect-if-not-tls = true;
+        };
+      }];
     };
 
     tls = lib.mkOption {
-      type = lib.types.nullOr (lib.types.submodule (import ./tls-submodule.nix));
+      type =
+        lib.types.nullOr (lib.types.submodule (import ./tls-submodule.nix));
       default = null;
       description = lib.mdDoc ''
         TLS certificate and key paths. Note that this does not enable
@@ -92,11 +88,7 @@
     };
 
     backend-address-family = lib.mkOption {
-      type = lib.types.enum [
-        "auto"
-        "IPv4"
-        "IPv6"
-      ];
+      type = lib.types.enum [ "auto" "IPv4" "IPv6" ];
       default = "auto";
       description = lib.mdDoc ''
         Specify address family of backend connections. If "auto" is

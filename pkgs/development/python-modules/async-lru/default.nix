@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  typing-extensions,
-  pytestCheckHook,
-  pytest-asyncio,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, typing-extensions
+, pytestCheckHook, pytest-asyncio }:
 
 buildPythonPackage rec {
   pname = "async-lru";
@@ -29,10 +22,7 @@ buildPythonPackage rec {
     sed -i -e '/^addopts/d' -e '/^filterwarnings/,+2d' setup.cfg
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
 
   pythonImportsCheck = [ "async_lru" ];
 

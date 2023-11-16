@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  mkYarnPackage,
-  baseUrl ? null,
-}:
+{ lib, fetchFromGitHub, mkYarnPackage, baseUrl ? null }:
 
 mkYarnPackage rec {
   pname = "synapse-admin";
@@ -56,9 +51,6 @@ mkYarnPackage rec {
     homepage = "https://github.com/Awesome-Technologies/synapse-admin";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      mkg20001
-      ma27
-    ];
+    maintainers = with maintainers; [ mkg20001 ma27 ];
   };
 }

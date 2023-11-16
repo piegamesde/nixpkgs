@@ -1,9 +1,7 @@
 { lib, vscode-utils }:
 
-let
-  inherit (vscode-utils) buildVscodeMarketplaceExtension;
-in
-buildVscodeMarketplaceExtension {
+let inherit (vscode-utils) buildVscodeMarketplaceExtension;
+in buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "vscode-wakatime";
     publisher = "WakaTime";

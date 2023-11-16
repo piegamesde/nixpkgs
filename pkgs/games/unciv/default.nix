@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  copyDesktopItems,
-  makeDesktopItem,
-  makeWrapper,
-  jre,
-  libpulseaudio,
-  libXxf86vm,
-}:
+{ stdenv, lib, fetchurl, copyDesktopItems, makeDesktopItem, makeWrapper, jre
+, libpulseaudio, libXxf86vm }:
 let
   desktopItem = makeDesktopItem {
     name = "unciv";
@@ -18,26 +9,21 @@ let
     categories = [ "Game" ];
   };
 
-  envLibPath = lib.makeLibraryPath [
-    libpulseaudio
-    libXxf86vm
-  ];
-in
-stdenv.mkDerivation rec {
+  envLibPath = lib.makeLibraryPath [ libpulseaudio libXxf86vm ];
+
+in stdenv.mkDerivation rec {
   pname = "unciv";
   version = "4.6.19";
 
   src = fetchurl {
-    url = "https://github.com/yairm210/Unciv/releases/download/${version}/Unciv.jar";
+    url =
+      "https://github.com/yairm210/Unciv/releases/download/${version}/Unciv.jar";
     hash = "sha256-21Pge/b6pZ4csGVr2J0V6rwZGKBEEqEkuef+7imGtl4=";
   };
 
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
 
   installPhase = ''
     runHook preInstall

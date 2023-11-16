@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "grb";
@@ -18,7 +14,8 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
-    description = "A cli-accessible Greek Bible with the Septuagint, SBL and Apocrypha";
+    description =
+      "A cli-accessible Greek Bible with the Septuagint, SBL and Apocrypha";
     homepage = "https://github.com/LukeSmithxyz/grb";
     license = licenses.publicDomain;
     maintainers = [ maintainers.cafkafk ];

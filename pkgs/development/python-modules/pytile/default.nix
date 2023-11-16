@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytile";
@@ -29,18 +19,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples as they are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples as they are prefixed with test_
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "pytile" ];
 

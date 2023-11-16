@@ -1,47 +1,37 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.dnscache;
 
-  dnscache-root = pkgs.runCommand "dnscache-root" { preferLocalBuild = true; } ''
-    mkdir -p $out/{servers,ip}
+  dnscache-root =
+    pkgs.runCommand "dnscache-root" { preferLocalBuild = true; } ''
+      mkdir -p $out/{servers,ip}
 
-    ${concatMapStrings
-      (ip: ''
+      ${concatMapStrings (ip: ''
         touch "$out/ip/"${lib.escapeShellArg ip}
-      '')
-      cfg.clientIps}
+      '') cfg.clientIps}
 
-    ${concatStrings (
-      mapAttrsToList
-        (host: ips: ''
-          ${concatMapStrings
-            (ip: ''
-              echo ${lib.escapeShellArg ip} >> "$out/servers/"${lib.escapeShellArg host}
-            '')
-            ips}
-        '')
-        cfg.domainServers
-    )}
+      ${concatStrings (mapAttrsToList (host: ips: ''
+        ${concatMapStrings (ip: ''
+          echo ${lib.escapeShellArg ip} >> "$out/servers/"${
+            lib.escapeShellArg host
+          }
+        '') ips}
+      '') cfg.domainServers)}
 
-    # if a list of root servers was not provided in config, copy it
-    # over. (this is also done by dnscache-conf, but we 'rm -rf
-    # /var/lib/dnscache/root' below & replace it wholesale with this,
-    # so we have to ensure servers/@ exists ourselves.)
-    if [ ! -e $out/servers/@ ]; then
-      # symlink does not work here, due chroot
-      cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
-    fi
-  '';
-in
-{
+      # if a list of root servers was not provided in config, copy it
+      # over. (this is also done by dnscache-conf, but we 'rm -rf
+      # /var/lib/dnscache/root' below & replace it wholesale with this,
+      # so we have to ensure servers/@ exists ourselves.)
+      if [ ! -e $out/servers/@ ]; then
+        # symlink does not work here, due chroot
+        cp ${pkgs.djbdns}/etc/dnsroots.global $out/servers/@;
+      fi
+    '';
+
+in {
 
   ###### interface
 
@@ -51,23 +41,23 @@ in
       enable = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Whether to run the dnscache caching dns server.";
+        description =
+          lib.mdDoc "Whether to run the dnscache caching dns server.";
       };
 
       ip = mkOption {
         default = "0.0.0.0";
         type = types.str;
-        description = lib.mdDoc "IP address on which to listen for connections.";
+        description =
+          lib.mdDoc "IP address on which to listen for connections.";
       };
 
       clientIps = mkOption {
         default = [ "127.0.0.1" ];
         type = types.listOf types.str;
-        description = lib.mdDoc "Client IP addresses (or prefixes) from which to accept connections.";
-        example = [
-          "192.168"
-          "172.23.75.82"
-        ];
+        description = lib.mdDoc
+          "Client IP addresses (or prefixes) from which to accept connections.";
+        example = [ "192.168" "172.23.75.82" ];
       };
 
       domainServers = mkOption {
@@ -94,6 +84,7 @@ in
           needed if you want to use e.g. Google DNS as your upstream DNS.
         '';
       };
+
     };
   };
 
@@ -106,11 +97,7 @@ in
     systemd.services.dnscache = {
       description = "djbdns dnscache server";
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [
-        bash
-        daemontools
-        djbdns
-      ];
+      path = with pkgs; [ bash daemontools djbdns ];
       preStart = ''
         rm -rf /var/lib/dnscache
         dnscache-conf dnscache dnscache /var/lib/dnscache ${config.services.dnscache.ip}

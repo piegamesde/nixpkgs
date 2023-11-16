@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, django, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "filebrowser-safe";
@@ -37,4 +31,5 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ prikhi ];
     platforms = platforms.unix;
   };
+
 }

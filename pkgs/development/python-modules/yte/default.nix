@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  dpath,
-  fetchFromGitHub,
-  plac,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, dpath, fetchFromGitHub, plac, poetry-core
+, pytestCheckHook, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "yte";
@@ -26,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    dpath
-    plac
-    pyyaml
-  ];
+  propagatedBuildInputs = [ dpath plac pyyaml ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

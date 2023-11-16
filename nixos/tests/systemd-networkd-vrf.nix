@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
@@ -23,91 +22,81 @@ import ./make-test-python.nix (
         };
       };
     };
-  in
-  {
+  in {
     name = "systemd-networkd-vrf";
     meta.maintainers = with lib.maintainers; [ ma27 ];
 
     nodes = {
-      client =
-        { pkgs, ... }:
-        {
-          virtualisation.vlans = [
-            1
-            2
-          ];
+      client = { pkgs, ... }: {
+        virtualisation.vlans = [ 1 2 ];
 
-          networking = {
-            useDHCP = false;
-            useNetworkd = true;
-            firewall.checkReversePath = "loose";
+        networking = {
+          useDHCP = false;
+          useNetworkd = true;
+          firewall.checkReversePath = "loose";
+        };
+
+        systemd.network = {
+          enable = true;
+
+          netdevs."10-vrf1" = {
+            netdevConfig = {
+              Kind = "vrf";
+              Name = "vrf1";
+              MTUBytes = "1300";
+            };
+            vrfConfig.Table = 23;
+          };
+          netdevs."10-vrf2" = {
+            netdevConfig = {
+              Kind = "vrf";
+              Name = "vrf2";
+              MTUBytes = "1300";
+            };
+            vrfConfig.Table = 42;
           };
 
-          systemd.network = {
-            enable = true;
+          networks."10-vrf1" = {
+            matchConfig.Name = "vrf1";
+            networkConfig.IPForward = "yes";
+            routes = [{
+              routeConfig = {
+                Destination = "192.168.1.2";
+                Metric = 100;
+              };
+            }];
+          };
+          networks."10-vrf2" = {
+            matchConfig.Name = "vrf2";
+            networkConfig.IPForward = "yes";
+            routes = [{
+              routeConfig = {
+                Destination = "192.168.2.3";
+                Metric = 100;
+              };
+            }];
+          };
 
-            netdevs."10-vrf1" = {
-              netdevConfig = {
-                Kind = "vrf";
-                Name = "vrf1";
-                MTUBytes = "1300";
-              };
-              vrfConfig.Table = 23;
+          networks."10-eth1" = {
+            matchConfig.Name = "eth1";
+            linkConfig.RequiredForOnline = "no";
+            networkConfig = {
+              VRF = "vrf1";
+              Address = "192.168.1.1/24";
+              IPForward = "yes";
             };
-            netdevs."10-vrf2" = {
-              netdevConfig = {
-                Kind = "vrf";
-                Name = "vrf2";
-                MTUBytes = "1300";
-              };
-              vrfConfig.Table = 42;
-            };
-
-            networks."10-vrf1" = {
-              matchConfig.Name = "vrf1";
-              networkConfig.IPForward = "yes";
-              routes = [
-                {
-                  routeConfig = {
-                    Destination = "192.168.1.2";
-                    Metric = 100;
-                  };
-                }
-              ];
-            };
-            networks."10-vrf2" = {
-              matchConfig.Name = "vrf2";
-              networkConfig.IPForward = "yes";
-              routes = [
-                {
-                  routeConfig = {
-                    Destination = "192.168.2.3";
-                    Metric = 100;
-                  };
-                }
-              ];
-            };
-
-            networks."10-eth1" = {
-              matchConfig.Name = "eth1";
-              linkConfig.RequiredForOnline = "no";
-              networkConfig = {
-                VRF = "vrf1";
-                Address = "192.168.1.1/24";
-                IPForward = "yes";
-              };
-            };
-            networks."10-eth2" = {
-              matchConfig.Name = "eth2";
-              linkConfig.RequiredForOnline = "no";
-              networkConfig = {
-                VRF = "vrf2";
-                Address = "192.168.2.1/24";
-                IPForward = "yes";
-              };
+          };
+          networks."10-eth2" = {
+            matchConfig.Name = "eth2";
+            linkConfig.RequiredForOnline = "no";
+            networkConfig = {
+              VRF = "vrf2";
+              Address = "192.168.2.1/24";
+              IPForward = "yes";
             };
           };
         };
+      };
 
       node1 = lib.mkMerge [
         (mkNode 1 2)
@@ -197,5 +186,4 @@ import ./make-test-python.nix (
       node2.shutdown()
       node3.shutdown()
     '';
-  }
-)
+  })

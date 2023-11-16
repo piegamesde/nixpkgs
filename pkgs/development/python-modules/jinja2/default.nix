@@ -1,18 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  babel,
-  markupsafe,
-  pytestCheckHook,
-  sphinxHook,
-  pallets-sphinx-themes,
-  sphinxcontrib-log-cabinet,
-  sphinx-issues,
-  enableDocumentation ? false,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, babel, markupsafe
+, pytestCheckHook, sphinxHook, pallets-sphinx-themes, sphinxcontrib-log-cabinet
+, sphinx-issues, enableDocumentation ? false }:
 
 buildPythonPackage rec {
   pname = "Jinja2";
@@ -28,10 +16,7 @@ buildPythonPackage rec {
 
   patches = lib.optionals enableDocumentation [ ./patches/import-order.patch ];
 
-  propagatedBuildInputs = [
-    babel
-    markupsafe
-  ];
+  propagatedBuildInputs = [ babel markupsafe ];
 
   nativeBuildInputs = lib.optionals enableDocumentation [
     sphinxHook
@@ -46,13 +31,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # Avoid failure due to deprecation warning
-      # Fixed in https://github.com/python/cpython/pull/28153
-      # Remove after cpython 3.9.8
-      "-p no:warnings"
-    ];
+  pytestFlagsArray = [
+    # Avoid failure due to deprecation warning
+    # Fixed in https://github.com/python/cpython/pull/28153
+    # Remove after cpython 3.9.8
+    "-p no:warnings"
+  ];
 
   meta = with lib; {
     homepage = "https://jinja.palletsprojects.com/";

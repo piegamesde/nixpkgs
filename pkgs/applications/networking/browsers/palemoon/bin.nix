@@ -1,22 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchzip,
-  alsa-lib,
-  autoPatchelfHook,
-  copyDesktopItems,
-  dbus-glib,
-  ffmpeg,
-  gtk2-x11,
-  withGTK3 ? true,
-  gtk3,
-  libXt,
-  libpulseaudio,
-  makeDesktopItem,
-  wrapGAppsHook,
-  testers,
-  palemoon-bin,
-}:
+{ stdenv, lib, fetchzip, alsa-lib, autoPatchelfHook, copyDesktopItems, dbus-glib
+, ffmpeg, gtk2-x11, withGTK3 ? true, gtk3, libXt, libpulseaudio, makeDesktopItem
+, wrapGAppsHook, testers, palemoon-bin }:
 
 stdenv.mkDerivation rec {
   pname = "palemoon-bin";
@@ -31,51 +15,32 @@ stdenv.mkDerivation rec {
         if withGTK3 then "3" else "2"
       }.tar.xz"
     ];
-    hash =
-      if withGTK3 then
-        "sha256-Bw8L5+3f46lOGJ5xR3bBF7sQWwEFxoK/NH3ngs1i4lU="
-      else
-        "sha256-eP7GIsWPFLYmBPUcMPn6vAlsFEAP3Oyy9mhj0oGeMT4=";
+    hash = if withGTK3 then
+      "sha256-Bw8L5+3f46lOGJ5xR3bBF7sQWwEFxoK/NH3ngs1i4lU="
+    else
+      "sha256-eP7GIsWPFLYmBPUcMPn6vAlsFEAP3Oyy9mhj0oGeMT4=";
   };
 
   preferLocalBuild = true;
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    copyDesktopItems
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook copyDesktopItems wrapGAppsHook ];
 
-  buildInputs = [
-    alsa-lib
-    dbus-glib
-    gtk2-x11
-    libXt
-    stdenv.cc.cc.lib
-  ] ++ lib.optionals withGTK3 [ gtk3 ];
+  buildInputs = [ alsa-lib dbus-glib gtk2-x11 libXt stdenv.cc.cc.lib ]
+    ++ lib.optionals withGTK3 [ gtk3 ];
 
   desktopItems = [
     (makeDesktopItem rec {
       name = pname;
       desktopName = "Pale Moon Web Browser";
       comment = "Browse the World Wide Web";
-      keywords = [
-        "Internet"
-        "WWW"
-        "Browser"
-        "Web"
-        "Explorer"
-      ];
+      keywords = [ "Internet" "WWW" "Browser" "Web" "Explorer" ];
       exec = "palemoon %u";
       terminal = false;
       type = "Application";
       icon = "palemoon";
-      categories = [
-        "Network"
-        "WebBrowser"
-      ];
+      categories = [ "Network" "WebBrowser" ];
       mimeTypes = [
         "text/html"
         "text/xml"
@@ -95,9 +60,7 @@ stdenv.mkDerivation rec {
       ];
       startupNotify = true;
       startupWMClass = "Pale moon";
-      extraConfig = {
-        X-MultipleArgs = "false";
-      };
+      extraConfig = { X-MultipleArgs = "false"; };
       actions = {
         "NewTab" = {
           name = "Open new tab";
@@ -155,10 +118,7 @@ stdenv.mkDerivation rec {
     # Make optional dependencies available
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          ffmpeg
-          libpulseaudio
-        ]
+        lib.makeLibraryPath [ ffmpeg libpulseaudio ]
       }"
     )
     wrapGApp $out/lib/palemoon/palemoon
@@ -168,7 +128,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.palemoon.org/";
-    description = "An Open Source, Goanna-based web browser focusing on efficiency and customization";
+    description =
+      "An Open Source, Goanna-based web browser focusing on efficiency and customization";
     longDescription = ''
       Pale Moon is an Open Source, Goanna-based web browser focusing on
       efficiency and customization.
@@ -179,7 +140,8 @@ stdenv.mkDerivation rec {
       experience, while offering full customization and a growing collection of
       extensions and themes to make the browser truly your own.
     '';
-    changelog = "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
+    changelog =
+      "https://repo.palemoon.org/MoonchildProductions/Pale-Moon/releases/tag/${version}_Release";
     license = [
       licenses.mpl20
       {
@@ -188,10 +150,7 @@ stdenv.mkDerivation rec {
         # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
       }
     ];
-    maintainers = with maintainers; [
-      AndersonTorres
-      OPNA2608
-    ];
+    maintainers = with maintainers; [ AndersonTorres OPNA2608 ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     mainProgram = "palemoon";
     platforms = [ "x86_64-linux" ];

@@ -1,10 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  qtbase,
-  cmake,
-  fetchFromGitHub,
-}:
+{ mkDerivation, lib, qtbase, cmake, fetchFromGitHub }:
 
 mkDerivation rec {
   pname = "evtest-qt";

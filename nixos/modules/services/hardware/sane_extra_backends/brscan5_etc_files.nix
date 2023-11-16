@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  brscan5,
-  netDevices ? [ ],
-}:
+{ stdenv, lib, brscan5, netDevices ? [ ] }:
 
 /* Testing
    -------
@@ -42,9 +37,8 @@ let
     else
       ''ip="${nd.ip}"''}'';
   addAllNetDev = xs: lib.concatStringsSep "\n" (map addNetDev xs);
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
 
   name = "brscan5-etc-files";
   version = "1.2.6-0";

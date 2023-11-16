@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  argtable,
-}:
+{ lib, stdenv, fetchurl, argtable }:
 
 stdenv.mkDerivation rec {
   version = "1.2.4";
@@ -28,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "General purpose multiple sequence alignment program for protein and DNA/RNA";
+    description =
+      "General purpose multiple sequence alignment program for protein and DNA/RNA";
     homepage = "http://www.clustal.org/omega/";
     license = licenses.gpl2;
     maintainers = [ maintainers.bzizou ];

@@ -1,10 +1,4 @@
-{
-  version ? "release",
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  go-ethereum,
-}:
+{ version ? "release", stdenv, lib, fetchFromGitHub, go-ethereum }:
 
 stdenv.mkDerivation rec {
   pname = "bee-clef";
@@ -34,7 +28,9 @@ stdenv.mkDerivation rec {
     mkdir -p $out/lib/systemd/system/
     cp packaging/bee-clef.service $out/lib/systemd/system/
     substituteAll packaging/bee-clef-service $out/share/bee-clef/bee-clef-service
-    substituteAll ${./ensure-clef-account} $out/share/bee-clef/ensure-clef-account
+    substituteAll ${
+      ./ensure-clef-account
+    } $out/share/bee-clef/ensure-clef-account
     substituteAll packaging/bee-clef-keys $out/bin/bee-clef-keys
     cp packaging/rules.js packaging/4byte.json $out/share/bee-clef/
     chmod +x $out/bin/bee-clef-keys

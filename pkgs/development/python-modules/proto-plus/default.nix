@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  protobuf,
-  googleapis-common-protos,
-  pytestCheckHook,
-  pytz,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, protobuf, googleapis-common-protos
+, pytestCheckHook, pytz }:
 
 buildPythonPackage rec {
   pname = "proto-plus";
@@ -21,11 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ protobuf ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-    googleapis-common-protos
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytz googleapis-common-protos ];
 
   pythonImportsCheck = [ "proto" ];
 
@@ -33,9 +21,6 @@ buildPythonPackage rec {
     description = "Beautiful, idiomatic protocol buffers in Python";
     homepage = "https://github.com/googleapis/proto-plus-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      ruuda
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ ruuda SuperSandro2000 ];
   };
 }

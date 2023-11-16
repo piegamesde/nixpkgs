@@ -1,38 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  glib,
-  gettext,
-  cinnamon-desktop,
-  gtk3,
-  libnotify,
-  libxml2,
-  gnome-online-accounts,
-  colord,
-  polkit,
-  libxkbfile,
-  cinnamon-menus,
-  libgnomekbd,
-  libxklavier,
-  networkmanager,
-  libgudev,
-  libwacom,
-  gnome,
-  wrapGAppsHook,
-  tzdata,
-  glibc,
-  libnma,
-  modemmanager,
-  xorg,
-  gdk-pixbuf,
-  meson,
-  ninja,
-  cinnamon-translations,
-  python3,
-  upower,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, glib, gettext, cinnamon-desktop
+, gtk3, libnotify, libxml2, gnome-online-accounts, colord, polkit, libxkbfile
+, cinnamon-menus, libgnomekbd, libxklavier, networkmanager, libgudev, libwacom
+, gnome, wrapGAppsHook, tzdata, glibc, libnma, modemmanager, xorg, gdk-pixbuf
+, meson, ninja, cinnamon-translations, python3, upower }:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-control-center";
@@ -82,24 +52,17 @@ stdenv.mkDerivation rec {
     patchShebangs meson_install_schemas.py
   '';
 
-  mesonFlags =
-    [
-      # use locales from cinnamon-translations
-      "--localedir=${cinnamon-translations}/share/locale"
-    ];
-
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    wrapGAppsHook
-    gettext
-    python3
+  mesonFlags = [
+    # use locales from cinnamon-translations
+    "--localedir=${cinnamon-translations}/share/locale"
   ];
+
+  nativeBuildInputs = [ pkg-config meson ninja wrapGAppsHook gettext python3 ];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/cinnamon-control-center";
-    description = "A collection of configuration plugins used in cinnamon-settings";
+    description =
+      "A collection of configuration plugins used in cinnamon-settings";
     license = licenses.gpl2;
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;

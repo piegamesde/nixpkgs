@@ -1,23 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  jdk8,
-  maven,
-  makeWrapper,
-  jre8_headless,
-  pcsclite,
-}:
+{ lib, stdenv, fetchFromGitHub, jdk8, maven, makeWrapper, jre8_headless
+, pcsclite }:
 
 let
   jdk = jdk8;
   jre_headless = jre8_headless;
-in
-# TODO: This is quite a bit of duplicated logic with gephi. Factor it out?
-stdenv.mkDerivation rec {
+  # TODO: This is quite a bit of duplicated logic with gephi. Factor it out?
+in stdenv.mkDerivation rec {
   pname = "global-platform-pro";
   version = "18.09.14";
-  GPPRO_VERSION = "18.09.14-0-gb439b52"; # git describe --tags --always --long --dirty
+  GPPRO_VERSION =
+    "18.09.14-0-gb439b52"; # git describe --tags --always --long --dirty
 
   src = fetchFromGitHub {
     owner = "martinpaljak";
@@ -29,10 +21,7 @@ stdenv.mkDerivation rec {
   deps = stdenv.mkDerivation {
     name = "${pname}-${version}-deps";
     inherit src;
-    nativeBuildInputs = [
-      jdk
-      maven
-    ];
+    nativeBuildInputs = [ jdk maven ];
     installPhase = ''
       # Download the dependencies
       while ! mvn package "-Dmaven.repo.local=$out/.m2" -Dmaven.wagon.rto=5000; do
@@ -50,11 +39,7 @@ stdenv.mkDerivation rec {
     outputHash = "1qwgvz6l5wia8q5824c9f3iwyapfskljhqf1z09fw6jjj1jy3b15";
   };
 
-  nativeBuildInputs = [
-    jdk
-    maven
-    makeWrapper
-  ];
+  nativeBuildInputs = [ jdk maven makeWrapper ];
 
   buildPhase = ''
     cp -dpR "${deps}/.m2" ./
@@ -71,7 +56,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Command-line utility for managing applets and keys on Java Cards";
+    description =
+      "Command-line utility for managing applets and keys on Java Cards";
     longDescription = ''
       This command-line utility can be used to manage applets and keys
       on Java Cards. It is made available as the `gp` executable.

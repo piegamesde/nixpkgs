@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  folium,
-  gdal,
-  geopandas,
-  matplotlib,
-  networkx,
-  numpy,
-  pandas,
-  pythonOlder,
-  rasterio,
-  requests,
-  rtree,
-  scikit-learn,
-  scipy,
-  shapely,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, folium, gdal, geopandas, matplotlib
+, networkx, numpy, pandas, pythonOlder, rasterio, requests, rtree, scikit-learn
+, scipy, shapely }:
 
 buildPythonPackage rec {
   pname = "osmnx";
@@ -54,10 +38,13 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "osmnx" ];
 
   meta = with lib; {
-    description = "A package to easily download, construct, project, visualize, and analyze complex street networks from OpenStreetMap with NetworkX.";
+    description =
+      "A package to easily download, construct, project, visualize, and analyze complex street networks from OpenStreetMap with NetworkX.";
     homepage = "https://github.com/gboeing/osmnx";
-    changelog = "https://github.com/gboeing/osmnx/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/gboeing/osmnx/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ psyanticy ];
   };
 }
+

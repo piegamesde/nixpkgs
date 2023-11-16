@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pysigma,
-  pysigma-pipeline-sysmon,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pysigma
+, pysigma-pipeline-sysmon, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pysigma-backend-splunk";
@@ -27,10 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pysigma ];
 
-  nativeCheckInputs = [
-    pysigma-pipeline-sysmon
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pysigma-pipeline-sysmon pytestCheckHook ];
 
   pythonImportsCheck = [ "sigma.backends.splunk" ];
 

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  cmake,
-  zlib,
-  boost,
-}:
+{ lib, stdenv, fetchgit, cmake, zlib, boost }:
 
 stdenv.mkDerivation rec {
   pname = "avy";
@@ -19,21 +12,17 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    zlib
-    boost.out
-    boost.dev
-  ];
-  env.NIX_CFLAGS_COMPILE = toString (
-    [ "-Wno-narrowing" ]
-    # Squelch endless stream of warnings on same few things
+  buildInputs = [ zlib boost.out boost.dev ];
+  env.NIX_CFLAGS_COMPILE = toString ([
+    "-Wno-narrowing"
+  ]
+  # Squelch endless stream of warnings on same few things
     ++ lib.optionals stdenv.cc.isClang [
       "-Wno-empty-body"
       "-Wno-tautological-compare"
       "-Wc++11-compat-deprecated-writable-strings"
       "-Wno-deprecated"
-    ]
-  );
+    ]);
 
   prePatch = ''
     sed -i -e '1i#include <stdint.h>' abc/src/bdd/dsd/dsd.h

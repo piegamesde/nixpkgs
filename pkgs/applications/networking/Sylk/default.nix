@@ -1,19 +1,15 @@
-{
-  appimageTools,
-  fetchurl,
-  lib,
-}:
+{ appimageTools, fetchurl, lib }:
 
 let
   pname = "Sylk";
   version = "3.0.1";
-in
 
-appimageTools.wrapType2 rec {
+in appimageTools.wrapType2 rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "http://download.ag-projects.com/Sylk/Sylk-${version}-x86_64.AppImage";
+    url =
+      "http://download.ag-projects.com/Sylk/Sylk-${version}-x86_64.AppImage";
     hash = "sha256-VgepO7LHFmNKq/H0RFcIkafgtiVGt8K/LdiCO5Dw2s4=";
   };
 
@@ -30,9 +26,6 @@ appimageTools.wrapType2 rec {
     homepage = "https://sylkserver.com/";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ zimbatm ];
-    platforms = [
-      "i386-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i386-linux" "x86_64-linux" ];
   };
 }

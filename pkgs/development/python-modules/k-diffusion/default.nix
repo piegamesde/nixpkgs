@@ -1,25 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # dependencies
-  accelerate,
-  clean-fid,
-  clip-anytorch,
-  einops,
-  jsonmerge,
-  kornia,
-  pillow,
-  resize-right,
-  scikit-image,
-  scipy,
-  torch,
-  torchdiffeq,
-  torchsde,
-  torchvision,
-  tqdm,
-  wandb,
+# dependencies
+, accelerate, clean-fid, clip-anytorch, einops, jsonmerge, kornia, pillow
+, resize-right, scikit-image, scipy, torch, torchdiffeq, torchsde, torchvision
+, tqdm, wandb
 
 }:
 

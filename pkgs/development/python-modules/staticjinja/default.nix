@@ -1,20 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  poetry-core,
-  docopt-ng,
-  easywatch,
-  jinja2,
-  pytestCheckHook,
-  pytest-check,
-  pythonOlder,
-  markdown,
-  testers,
-  tomlkit,
-  staticjinja,
-  callPackage,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, poetry-core, docopt-ng, easywatch
+, jinja2, pytestCheckHook, pytest-check, pythonOlder, markdown, testers, tomlkit
+, staticjinja, callPackage }:
 
 buildPythonPackage rec {
   pname = "staticjinja";
@@ -33,18 +19,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    jinja2
-    docopt-ng
-    easywatch
-  ];
+  propagatedBuildInputs = [ jinja2 docopt-ng easywatch ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-check
-    markdown
-    tomlkit
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-check markdown tomlkit ];
 
   # The tests need to find and call the installed staticjinja executable
   preCheck = ''
@@ -57,7 +34,8 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "A library and cli tool that makes it easy to build static sites using Jinja2";
+    description =
+      "A library and cli tool that makes it easy to build static sites using Jinja2";
     homepage = "https://staticjinja.readthedocs.io/en/latest/";
     license = licenses.mit;
     maintainers = with maintainers; [ fgaz ];

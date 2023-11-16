@@ -1,44 +1,13 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  ki18n,
-  xcb-util-cursor,
-  kconfig,
-  kcoreaddons,
-  kdbusaddons,
-  kdeclarative,
-  kio,
-  kipi-plugins,
-  knotifications,
-  kscreen,
-  kwidgetsaddons,
-  kwindowsystem,
-  kxmlgui,
-  libkipi,
-  qtx11extras,
-  knewstuff,
-  kwayland,
-  qttools,
-  kcolorpicker,
-  kimageannotator,
-  qcoro,
-  qtquickcontrols2,
-  wayland,
-  plasma-wayland-protocols,
-  kpurpose,
-  kpipewire,
-  wrapGAppsHook,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, xcb-util-cursor
+, kconfig, kcoreaddons, kdbusaddons, kdeclarative, kio, kipi-plugins
+, knotifications, kscreen, kwidgetsaddons, kwindowsystem, kxmlgui, libkipi
+, qtx11extras, knewstuff, kwayland, qttools, kcolorpicker, kimageannotator
+, qcoro, qtquickcontrols2, wayland, plasma-wayland-protocols, kpurpose
+, kpipewire, wrapGAppsHook }:
 
 mkDerivation {
   pname = "spectacle";
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
   buildInputs = [
     kconfig
     kcoreaddons
@@ -67,7 +36,9 @@ mkDerivation {
   ];
   postPatch = ''
     substituteInPlace desktop/org.kde.spectacle.desktop.cmake \
-      --replace "Exec=@QtBinariesDir@/qdbus" "Exec=${lib.getBin qttools}/bin/qdbus"
+      --replace "Exec=@QtBinariesDir@/qdbus" "Exec=${
+        lib.getBin qttools
+      }/bin/qdbus"
   '';
 
   dontWrapGApps = true;
@@ -76,10 +47,7 @@ mkDerivation {
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  propagatedUserEnvPkgs = [
-    kipi-plugins
-    libkipi
-  ];
+  propagatedUserEnvPkgs = [ kipi-plugins libkipi ];
   meta = with lib; {
     homepage = "https://apps.kde.org/spectacle/";
     description = "Screenshot capture utility";

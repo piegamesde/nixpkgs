@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cups,
-  cups-filters,
-  ghostscript,
-  gnused,
-  perl,
-  autoconf,
-  automake,
-  patchPpdFilesHook,
-}:
+{ lib, stdenv, fetchFromGitHub, cups, cups-filters, ghostscript, gnused, perl
+, autoconf, automake, patchPpdFilesHook }:
 
 stdenv.mkDerivation rec {
   pname = "foomatic-db";
@@ -25,20 +14,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-eFgHTbj4pNfLG2ftU29FQ8rgRMbX+44UytfoZ4vdgZ4=";
   };
 
-  buildInputs = [
-    cups
-    cups-filters
-    ghostscript
-    gnused
-    perl
-  ];
+  buildInputs = [ cups cups-filters ghostscript gnused perl ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    patchPpdFilesHook
-    perl
-  ];
+  nativeBuildInputs = [ autoconf automake patchPpdFilesHook perl ];
 
   # sed-substitute indirection is more robust
   # against characters in paths that might need escaping
@@ -88,12 +66,15 @@ stdenv.mkDerivation rec {
   # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
-    find -H "${placeholder "out"}/share/cups/model/foomatic-db" -type f -iname '*.ppd' -print0  \
+    find -H "${
+      placeholder "out"
+    }/share/cups/model/foomatic-db" -type f -iname '*.ppd' -print0  \
       | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
   '';
 
   meta = {
-    changelog = "https://github.com/OpenPrinting/foomatic-db/blob/${src.rev}/ChangeLog";
+    changelog =
+      "https://github.com/OpenPrinting/foomatic-db/blob/${src.rev}/ChangeLog";
     description = "OpenPrinting printer support database (free content)";
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";

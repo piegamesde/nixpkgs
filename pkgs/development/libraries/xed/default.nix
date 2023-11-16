@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, stdenv, fetchFromGitHub, python3Packages }:
 
 let
   # mbuild is a custom build system used only to build xed
@@ -18,8 +13,8 @@ let
       sha256 = "sha256-eOAqmoPotdXGcBmrD9prXph4XOL6noJU6GYT/ud/VXk=";
     };
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "xed";
   version = "2022.08.11";
 

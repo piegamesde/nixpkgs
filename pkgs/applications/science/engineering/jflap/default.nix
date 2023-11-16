@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  jre8,
-  makeWrapper,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, stdenvNoCC, fetchurl, jre8, makeWrapper, makeDesktopItem
+, copyDesktopItems }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "jflap";
@@ -17,10 +10,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "oiwJXdxWsYFj6Ovu7xZbOgTLVw8160a5YQUWbgbJlAY=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems ];
 
   buildInputs = [ jre8 ];
 
@@ -63,10 +53,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.jflap.org/";
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [
-      grnnja
-      yuu
-    ];
+    maintainers = with maintainers; [ grnnja yuu ];
     platforms = jre8.meta.platforms;
   };
 }

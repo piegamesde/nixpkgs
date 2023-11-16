@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  jdupes,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, jdupes }:
 
 stdenvNoCC.mkDerivation {
   pname = "dracula-icon-theme";

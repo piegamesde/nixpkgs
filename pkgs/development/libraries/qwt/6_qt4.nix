@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  qt4,
-  qmake4Hook,
-  AGL,
-}:
+{ lib, stdenv, fetchurl, qt4, qmake4Hook, AGL }:
 
 stdenv.mkDerivation rec {
   pname = "qwt";

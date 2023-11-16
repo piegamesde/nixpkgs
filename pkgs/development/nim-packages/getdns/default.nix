@@ -1,10 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromSourcehut,
-  pkg-config,
-  getdns,
-}:
+{ lib, buildNimPackage, fetchFromSourcehut, pkg-config, getdns }:
 
 buildNimPackage rec {
   pname = "getdns";

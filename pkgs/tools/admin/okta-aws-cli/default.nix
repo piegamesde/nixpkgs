@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "okta-aws-cli";
@@ -19,10 +15,7 @@ buildGoModule rec {
 
   vendorSha256 = "1gzaadpf9zrci7yv88f434mvc7gralb7dj6wl6r4vsv3qk291680";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "A CLI for having Okta as the IdP for AWS CLI operations";

@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "roboto";
   version = "2.138";
 
   src = fetchzip {
-    url = "https://github.com/google/roboto/releases/download/v${version}/roboto-unhinted.zip";
+    url =
+      "https://github.com/google/roboto/releases/download/v${version}/roboto-unhinted.zip";
     stripRoot = false;
     hash = "sha256-ue3PUZinBpcYgSho1Zrw1KHl7gc/GlN1GhWFk6g5QXE=";
   };

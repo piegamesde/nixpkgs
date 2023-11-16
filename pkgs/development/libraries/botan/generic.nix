@@ -1,25 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  python3,
-  bzip2,
-  zlib,
-  gmp,
-  boost,
-  # Passed by version specific builders
-  baseVersion,
-  revision,
-  sha256,
-  sourceExtension ? "tar.xz",
-  extraConfigureFlags ? "",
-  extraPatches ? [ ],
-  postPatch ? null,
-  knownVulnerabilities ? [ ],
-  CoreServices,
-  Security,
-  ...
-}:
+{ lib, stdenv, fetchurl, python3, bzip2, zlib, gmp, boost
+# Passed by version specific builders
+, baseVersion, revision, sha256, sourceExtension ? "tar.xz"
+, extraConfigureFlags ? "", extraPatches ? [ ], postPatch ? null
+, knownVulnerabilities ? [ ], CoreServices, Security, ... }:
 
 stdenv.mkDerivation rec {
   pname = "botan";
@@ -36,18 +19,8 @@ stdenv.mkDerivation rec {
   patches = extraPatches;
   inherit postPatch;
 
-  buildInputs =
-    [
-      python3
-      bzip2
-      zlib
-      gmp
-      boost
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      CoreServices
-      Security
-    ];
+  buildInputs = [ python3 bzip2 zlib gmp boost ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices Security ];
 
   configurePhase = ''
     python configure.py --prefix=$out --with-bzip2 --with-zlib ${extraConfigureFlags}${

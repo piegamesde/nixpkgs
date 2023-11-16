@@ -1,22 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.programs.iay;
   inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    mkPackageOptionMD
-    optionalString
-    types
-  ;
-in
-{
+    mkEnableOption mkIf mkOption mkPackageOptionMD optionalString types;
+in {
   options.programs.iay = {
     enable = mkEnableOption (lib.mdDoc "iay");
     package = mkPackageOptionMD pkgs "iay" { };

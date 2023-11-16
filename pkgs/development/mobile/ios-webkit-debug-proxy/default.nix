@@ -1,17 +1,5 @@
-{
-  stdenv,
-  autoconf,
-  automake,
-  fetchFromGitHub,
-  fetchpatch,
-  lib,
-  libimobiledevice,
-  libusb1,
-  libplist,
-  libtool,
-  openssl,
-  pkg-config,
-}:
+{ stdenv, autoconf, automake, fetchFromGitHub, fetchpatch, lib, libimobiledevice
+, libusb1, libplist, libtool, openssl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "ios-webkit-debug-proxy";
@@ -27,30 +15,18 @@ stdenv.mkDerivation rec {
   patches = [
     # OpenSSL 3.0 compatibility
     (fetchpatch {
-      url = "https://github.com/google/ios-webkit-debug-proxy/commit/5ba30a2a67f39d25025cadf37c0eafb2e2d2d0a8.patch";
+      url =
+        "https://github.com/google/ios-webkit-debug-proxy/commit/5ba30a2a67f39d25025cadf37c0eafb2e2d2d0a8.patch";
       sha256 = "sha256-2b9BjG9wkqO+ZfoBYYJvD2Db5Kr0F/MxKMTRsI0ea3s=";
     })
     # Examples compilation breaks with --disable-static, see https://github.com/google/ios-webkit-debug-proxy/issues/399
     ./0001-Don-t-compile-examples.patch
   ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-  ];
-  buildInputs = [
-    libimobiledevice
-    libusb1
-    libplist
-    openssl
-  ];
+  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
+  buildInputs = [ libimobiledevice libusb1 libplist openssl ];
 
   preConfigure = ''
     NOCONFIGURE=1 ./autogen.sh
@@ -58,7 +34,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "A DevTools proxy (Chrome Remote Debugging Protocol) for iOS devices (Safari Remote Web Inspector).";
+    description =
+      "A DevTools proxy (Chrome Remote Debugging Protocol) for iOS devices (Safari Remote Web Inspector).";
     longDescription = ''
       The ios_webkit_debug_proxy (aka iwdp) proxies requests from usbmuxd
       daemon over a websocket connection, allowing developers to send commands

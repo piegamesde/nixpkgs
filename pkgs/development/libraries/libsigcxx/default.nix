@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  meson,
-  ninja,
-  gnome,
-}:
+{ lib, stdenv, fetchurl, pkg-config, meson, ninja, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libsigc++";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I1pAvsc0bHuCtqjKrgRWNT3AbnHxS8QUvMhYrxg4cZo=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja ];
 
   doCheck = true;
 

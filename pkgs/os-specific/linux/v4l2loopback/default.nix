@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  kernel,
-  kmod,
-}:
+{ lib, stdenv, fetchFromGitHub, kernel, kmod }:
 
 stdenv.mkDerivation rec {
   pname = "v4l2loopback";
@@ -17,16 +11,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-gLFtR7s+3LUQ0BZxHbmaArHbufuphbtAX99nxJU3c84=";
   };
 
-  patches =
-    [
-      # fix bug https://github.com/umlaeute/v4l2loopback/issues/535
-      ./revert-pr518.patch
-    ];
-
-  hardeningDisable = [
-    "format"
-    "pic"
+  patches = [
+    # fix bug https://github.com/umlaeute/v4l2loopback/issues/535
+    ./revert-pr518.patch
   ];
+
+  hardeningDisable = [ "format" "pic" ];
 
   preBuild = ''
     substituteInPlace Makefile --replace "modules_install" "INSTALL_MOD_PATH=$out modules_install"
@@ -39,10 +29,7 @@ stdenv.mkDerivation rec {
     make install-utils PREFIX=$bin
   '';
 
-  outputs = [
-    "out"
-    "bin"
-  ];
+  outputs = [ "out" "bin" ];
 
   makeFlags = kernel.makeFlags ++ [
     "KERNELRELEASE=${kernel.modDirVersion}"

@@ -1,32 +1,7 @@
-{
-  stdenv,
-  lib,
-  makeWrapper,
-  socat,
-  iptables,
-  iproute2,
-  ipset,
-  bridge-utils,
-  btrfs-progs,
-  conntrack-tools,
-  buildGoModule,
-  runc,
-  rsync,
-  kmod,
-  libseccomp,
-  pkg-config,
-  ethtool,
-  util-linux,
-  fetchFromGitHub,
-  fetchurl,
-  fetchzip,
-  fetchgit,
-  zstd,
-  yq-go,
-  sqlite,
-  nixosTests,
-  pkgsBuildBuild,
-}:
+{ stdenv, lib, makeWrapper, socat, iptables, iproute2, ipset, bridge-utils
+, btrfs-progs, conntrack-tools, buildGoModule, runc, rsync, kmod, libseccomp
+, pkg-config, ethtool, util-linux, fetchFromGitHub, fetchurl, fetchzip, fetchgit
+, zstd, yq-go, sqlite, nixosTests, pkgsBuildBuild }:
 
 # k3s is a kinda weird derivation. One of the main points of k3s is the
 # simplicity of it being one binary that can perform several tasks.
@@ -49,7 +24,8 @@
 # make sure they're in the path if desired.
 let
   k3sVersion = "1.26.4+k3s1"; # k3s git tag
-  k3sCommit = "8d0255af07e95b841952563253d27b0d10bd72f0"; # k3s git commit at the above version
+  k3sCommit =
+    "8d0255af07e95b841952563253d27b0d10bd72f0"; # k3s git commit at the above version
   k3sRepoSha256 = "0qlszdnlsvj3hzx2p0wl3zhaw908w8a62z6vlf2g69a3c75f55cs";
   k3sVendorSha256 = "sha256-JXTsZYtTspu/pWMRSS2BcegktawBJ6BK7YEKbz1J/ao=";
 
@@ -78,18 +54,16 @@ let
     description = "A lightweight Kubernetes distribution";
     license = licenses.asl20;
     homepage = "https://k3s.io";
-    maintainers = with maintainers; [
-      euank
-      mic92
-      yajo
-    ];
+    maintainers = with maintainers; [ euank mic92 yajo ];
     platforms = platforms.linux;
   };
 
   # https://github.com/k3s-io/k3s/blob/5fb370e53e0014dc96183b8ecb2c25a61e891e76/scripts/build#L19-L40
   versionldflags = [
     "-X github.com/rancher/k3s/pkg/version.Version=v${k3sVersion}"
-    "-X github.com/rancher/k3s/pkg/version.GitCommit=${lib.substring 0 8 k3sCommit}"
+    "-X github.com/rancher/k3s/pkg/version.GitCommit=${
+      lib.substring 0 8 k3sCommit
+    }"
     "-X k8s.io/client-go/pkg/version.gitVersion=v${k3sVersion}"
     "-X k8s.io/client-go/pkg/version.gitCommit=${k3sCommit}"
     "-X k8s.io/client-go/pkg/version.gitTreeState=clean"
@@ -118,7 +92,8 @@ let
   # k3s binary.
   k3sRoot = fetchzip {
     # Note: marked as apache 2.0 license
-    url = "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar";
+    url =
+      "https://github.com/k3s-io/k3s-root/releases/download/v${k3sRootVersion}/k3s-root-amd64.tar";
     sha256 = k3sRootSha256;
     stripRoot = false;
   };
@@ -181,18 +156,12 @@ let
     vendorSha256 = k3sVendorSha256;
 
     nativeBuildInputs = [ pkg-config ];
-    buildInputs = [
-      libseccomp
-      sqlite.dev
-    ];
+    buildInputs = [ libseccomp sqlite.dev ];
 
     subPackages = [ "cmd/server" ];
     ldflags = versionldflags;
 
-    tags = [
-      "libsqlite3"
-      "linux"
-    ];
+    tags = [ "libsqlite3" "linux" ];
 
     # create the multicall symlinks for k3s
     postInstall = ''
@@ -211,7 +180,8 @@ let
     '';
 
     meta = baseMeta // {
-      description = "The various binaries that get packaged into the final k3s binary";
+      description =
+        "The various binaries that get packaged into the final k3s binary";
     };
   };
   k3sContainerd = buildGoModule {
@@ -225,14 +195,10 @@ let
     };
     vendorSha256 = null;
     buildInputs = [ btrfs-progs ];
-    subPackages = [
-      "cmd/containerd"
-      "cmd/containerd-shim-runc-v2"
-    ];
+    subPackages = [ "cmd/containerd" "cmd/containerd-shim-runc-v2" ];
     ldflags = versionldflags;
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "k3s";
   version = k3sVersion;
 
@@ -276,20 +242,10 @@ buildGoModule rec {
 
   buildInputs = k3sRuntimeDeps;
 
-  nativeBuildInputs = [
-    makeWrapper
-    rsync
-    yq-go
-    zstd
-  ];
+  nativeBuildInputs = [ makeWrapper rsync yq-go zstd ];
 
   # embedded in the final k3s cli
-  propagatedBuildInputs = [
-    k3sCNIPlugins
-    k3sContainerd
-    k3sServer
-    runc
-  ];
+  propagatedBuildInputs = [ k3sCNIPlugins k3sContainerd k3sServer runc ];
 
   # We override most of buildPhase due to peculiarities in k3s's build.
   # Specifically, it has a 'go generate' which runs part of the package. See
@@ -338,12 +294,11 @@ buildGoModule rec {
 
   passthru.updateScript = ./update.sh;
 
-  passthru.mkTests =
-    version:
+  passthru.mkTests = version:
     let
-      k3s_version = "k3s_" + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
-    in
-    {
+      k3s_version = "k3s_"
+        + lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor version);
+    in {
       single-node = nixosTests.k3s.single-node.${k3s_version};
       multi-node = nixosTests.k3s.multi-node.${k3s_version};
     };

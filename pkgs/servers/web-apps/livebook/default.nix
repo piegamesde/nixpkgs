@@ -1,12 +1,4 @@
-{
-  lib,
-  beamPackages,
-  makeWrapper,
-  rebar3,
-  elixir,
-  erlang,
-  fetchFromGitHub,
-}:
+{ lib, beamPackages, makeWrapper, rebar3, elixir, erlang, fetchFromGitHub }:
 beamPackages.mixRelease rec {
   pname = "livebook";
   version = "0.9.2";
@@ -43,7 +35,8 @@ beamPackages.mixRelease rec {
   meta = with lib; {
     license = licenses.asl20;
     homepage = "https://livebook.dev/";
-    description = "Automate code & data workflows with interactive Elixir notebooks";
+    description =
+      "Automate code & data workflows with interactive Elixir notebooks";
     maintainers = with maintainers; [ munksgaard ];
     platforms = platforms.unix;
   };

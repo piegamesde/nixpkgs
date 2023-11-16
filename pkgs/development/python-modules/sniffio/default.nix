@@ -1,13 +1,5 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-  glibcLocales,
-  isPy3k,
-  pythonOlder,
-  pytestCheckHook,
-  curio,
-}:
+{ buildPythonPackage, lib, fetchPypi, glibcLocales, isPy3k, pythonOlder
+, pytestCheckHook, curio }:
 
 buildPythonPackage rec {
   pname = "sniffio";
@@ -23,10 +15,7 @@ buildPythonPackage rec {
 
   buildInputs = [ glibcLocales ];
 
-  nativeCheckInputs = [
-    curio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ curio pytestCheckHook ];
 
   meta = with lib; {
     homepage = "https://github.com/python-trio/sniffio";

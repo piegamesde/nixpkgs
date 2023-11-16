@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jplephem";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/brandon-rhodes/python-jplephem/";
-    description = "Python version of NASA DE4xx ephemerides, the basis for the Astronomical Alamanac";
+    description =
+      "Python version of NASA DE4xx ephemerides, the basis for the Astronomical Alamanac";
     license = licenses.mit;
     maintainers = with maintainers; [ zane ];
   };

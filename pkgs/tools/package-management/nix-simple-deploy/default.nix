@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  makeWrapper,
-  openssh,
-  nix-serve,
-}:
+{ lib, fetchFromGitHub, rustPlatform, makeWrapper, openssh, nix-serve }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nix-simple-deploy";
@@ -24,16 +17,12 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram "$out/bin/nix-simple-deploy" \
-      --prefix PATH : "${
-        lib.makeBinPath [
-          openssh
-          nix-serve
-        ]
-      }"
+      --prefix PATH : "${lib.makeBinPath [ openssh nix-serve ]}"
   '';
 
   meta = with lib; {
-    description = "Deploy software or an entire NixOS system configuration to another NixOS system";
+    description =
+      "Deploy software or an entire NixOS system configuration to another NixOS system";
     homepage = "https://github.com/misuzu/nix-simple-deploy";
     platforms = platforms.unix;
     license = with licenses; [

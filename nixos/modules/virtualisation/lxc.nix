@@ -1,20 +1,14 @@
 # LXC Configuration
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.virtualisation.lxc;
-in
 
-{
+in {
   ###### interface
 
   options.virtualisation.lxc = {

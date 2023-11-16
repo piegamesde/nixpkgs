@@ -1,10 +1,4 @@
-{
-  stdenv,
-  jdk,
-  lib,
-  callPackage,
-  modules ? [ "java.base" ],
-}:
+{ stdenv, jdk, lib, callPackage, modules ? [ "java.base" ] }:
 
 let
   jre = stdenv.mkDerivation {
@@ -39,5 +33,4 @@ let
       ];
     };
   };
-in
-jre
+in jre

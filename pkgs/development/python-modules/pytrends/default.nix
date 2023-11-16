@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  requests,
-  lxml,
-  pandas,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, requests, lxml, pandas }:
 
 buildPythonPackage rec {
   pname = "pytrends";
@@ -18,11 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-pU/B4xcUQrPI9cCApeId+Ae8T6rXeQzGK33bBZ6wqUs=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    lxml
-    pandas
-  ];
+  propagatedBuildInputs = [ requests lxml pandas ];
 
   doCheck = false;
   pythonImportsCheck = [ "pytrends" ];
@@ -33,4 +21,5 @@ buildPythonPackage rec {
     license = [ licenses.asl20 ];
     maintainers = [ maintainers.mmahut ];
   };
+
 }

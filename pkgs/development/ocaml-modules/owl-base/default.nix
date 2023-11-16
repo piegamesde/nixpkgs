@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-}:
+{ lib, buildDunePackage, fetchurl }:
 
 buildDunePackage rec {
   pname = "owl-base";
@@ -11,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/owlbarn/owl/releases/download/${version}/owl-${version}.tbz";
+    url =
+      "https://github.com/owlbarn/owl/releases/download/${version}/owl-${version}.tbz";
     hash = "sha256-mDYCZ2z33VTEvc6gV4JTecIXA/vHIWuU37BADGl/yog=";
   };
 

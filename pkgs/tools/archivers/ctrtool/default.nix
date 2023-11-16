@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "ctrtool";
@@ -17,13 +13,12 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/ctrtool";
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "CXX=${stdenv.cc.targetPrefix}c++"
-  ];
+  makeFlags =
+    [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
   enableParallelBuilding = true;
 
-  installPhase = "\n    mkdir $out/bin -p\n    cp ctrtool${stdenv.hostPlatform.extensions.executable} $out/bin/\n  ";
+  installPhase =
+    "\n    mkdir $out/bin -p\n    cp ctrtool${stdenv.hostPlatform.extensions.executable} $out/bin/\n  ";
 
   meta = with lib; {
     license = licenses.mit;
@@ -31,4 +26,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.marius851000 ];
   };
+
 }

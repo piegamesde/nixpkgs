@@ -1,21 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  topkg,
-  uchar,
-  result,
-  gg,
-  uutf,
-  otfm,
-  js_of_ocaml,
-  js_of_ocaml-ppx,
-  pdfBackend ? true, # depends on uutf and otfm
-  htmlcBackend ? true # depends on js_of_ocaml
-  ,
+{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg, uchar, result, gg
+, uutf, otfm, js_of_ocaml, js_of_ocaml-ppx, pdfBackend ? true
+, # depends on uutf and otfm
+htmlcBackend ? true # depends on js_of_ocaml
 }:
 
 let
@@ -24,9 +10,8 @@ let
   pname = "vg";
   version = "0.9.4";
   webpage = "https://erratique.ch/software/${pname}";
-in
 
-if versionOlder ocaml.version "4.03" then
+in if versionOlder ocaml.version "4.03" then
   throw "vg is not available for OCaml ${ocaml.version}"
 else
 
@@ -39,32 +24,16 @@ else
       sha256 = "181sz6l5xrj5jvwg4m2yqsjzwp2s5h8v0mwhjcwbam90kdfx2nak";
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild ];
     buildInputs = [ topkg ];
 
-    propagatedBuildInputs =
-      [
-        uchar
-        result
-        gg
-      ]
-      ++ optionals pdfBackend [
-        uutf
-        otfm
-      ]
-      ++ optionals htmlcBackend [
-        js_of_ocaml
-        js_of_ocaml-ppx
-      ];
+    propagatedBuildInputs = [ uchar result gg ]
+      ++ optionals pdfBackend [ uutf otfm ]
+      ++ optionals htmlcBackend [ js_of_ocaml js_of_ocaml-ppx ];
 
     strictDeps = true;
 
-    buildPhase =
-      topkg.buildPhase
+    buildPhase = topkg.buildPhase
       + " --with-uutf ${lib.boolToString pdfBackend}"
       + " --with-otfm ${lib.boolToString pdfBackend}"
       + " --with-js_of_ocaml ${lib.boolToString htmlcBackend}"

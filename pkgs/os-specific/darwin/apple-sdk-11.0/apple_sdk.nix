@@ -1,72 +1,38 @@
-{
-  lib,
-  stdenvNoCC,
-  buildPackages,
-  fetchurl,
-  xar,
-  cpio,
-  pkgs,
-  python3,
-  pbzx,
-  MacOSX-SDK,
-}:
+{ lib, stdenvNoCC, buildPackages, fetchurl, xar, cpio, pkgs, python3, pbzx
+, MacOSX-SDK }:
 
 # TODO: reorganize to make this just frameworks, and move libs to default.nix
 
 let
   stdenv = stdenvNoCC;
 
-  standardFrameworkPath =
-    name: private:
-    "/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework";
+  standardFrameworkPath = name: private:
+    "/System/Library/${
+      lib.optionalString private "Private"
+    }Frameworks/${name}.framework";
 
-  mkDepsRewrites =
-    deps:
+  mkDepsRewrites = deps:
     let
       mergeRewrites = x: y: {
         prefix = lib.mergeAttrs (x.prefix or { }) (y.prefix or { });
         const = lib.mergeAttrs (x.const or { }) (y.const or { });
       };
 
-      rewriteArgs =
-        {
-          prefix ? { },
-          const ? { },
-        }:
-        lib.concatLists (
-          (lib.mapAttrsToList
-            (from: to: [
-              "-p"
-              "${from}:${to}"
-            ])
-            prefix
-          )
-          ++ (lib.mapAttrsToList
-            (from: to: [
-              "-c"
-              "${from}:${to}"
-            ])
-            const
-          )
-        );
+      rewriteArgs = { prefix ? { }, const ? { } }:
+        lib.concatLists
+        ((lib.mapAttrsToList (from: to: [ "-p" "${from}:${to}" ]) prefix)
+          ++ (lib.mapAttrsToList (from: to: [ "-c" "${from}:${to}" ]) const));
 
-      rewrites =
-        depList:
-        lib.fold mergeRewrites { } (
-          map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList)
-        );
-    in
-    lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
+      rewrites = depList:
+        lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites)
+          (lib.filter (dep: dep ? tbdRewrites) depList));
+    in lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
 
-  mkFramework =
-    {
-      name,
-      deps,
-      private ? false,
-    }:
+  mkFramework = { name, deps, private ? false }:
     let
       self = stdenv.mkDerivation {
-        pname = "apple-${lib.optionalString private "private-"}framework-${name}";
+        pname =
+          "apple-${lib.optionalString private "private-"}framework-${name}";
         version = MacOSX-SDK.version;
 
         dontUnpack = true;
@@ -81,7 +47,9 @@ let
         installPhase = ''
           mkdir -p $out/Library/Frameworks
 
-          cp -r ${MacOSX-SDK}${standardFrameworkPath name private} $out/Library/Frameworks
+          cp -r ${MacOSX-SDK}${
+            standardFrameworkPath name private
+          } $out/Library/Frameworks
 
           if [[ -d ${MacOSX-SDK}/usr/lib/swift/${name}.swiftmodule ]]; then
             mkdir -p $out/lib/swift
@@ -95,7 +63,9 @@ let
           find $out -name '*.tbd' -type f | while read tbd; do
             echo "Fixing re-exports in $tbd"
             rewrite-tbd \
-              -p ${standardFrameworkPath name private}/:$out/Library/Frameworks/${name}.framework/ \
+              -p ${
+                standardFrameworkPath name private
+              }/:$out/Library/Frameworks/${name}.framework/ \
               -p /usr/lib/swift/:$out/lib/swift/ \
               ${mkDepsRewrites deps} \
               -r ${builtins.storeDir} \
@@ -107,7 +77,8 @@ let
 
         passthru = {
           tbdRewrites = {
-            prefix."${standardFrameworkPath name private}/" = "${self}/Library/Frameworks/${name}.framework/";
+            prefix."${standardFrameworkPath name private}/" =
+              "${self}/Library/Frameworks/${name}.framework/";
           };
         };
 
@@ -117,23 +88,19 @@ let
           platforms = platforms.darwin;
         };
       };
-    in
-    self;
+    in self;
 
-  framework =
-    name: deps:
+  framework = name: deps:
     mkFramework {
       inherit name deps;
       private = false;
     };
-  privateFramework =
-    name: deps:
+  privateFramework = name: deps:
     mkFramework {
       inherit name deps;
       private = true;
     };
-in
-rec {
+in rec {
   libs = {
     xpc = stdenv.mkDerivation {
       name = "apple-lib-xpc";
@@ -216,203 +183,107 @@ rec {
     };
   };
 
-  frameworks =
-    let
-      # Dependency map created by gen-frameworks.py.
-      generatedDeps = import ./frameworks.nix { inherit frameworks libs; };
+  frameworks = let
+    # Dependency map created by gen-frameworks.py.
+    generatedDeps = import ./frameworks.nix { inherit frameworks libs; };
 
-      # Additional dependencies that are not picked up by gen-frameworks.py.
-      # Some of these are simply private frameworks the generator does not see.
-      extraDeps =
-        with libs;
-        with frameworks;
-        let
-          inherit (pkgs.darwin.apple_sdk_11_0) libnetwork;
-          libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
-        in
-        {
-          # Below this comment are entries migrated from before the generator was
-          # added. If, for a given framework, you are able to reverify the extra
-          # deps are really necessary on top of the generator deps, move it above
-          # this comment (and maybe document your findings).
-          AVFoundation = {
-            inherit ApplicationServices AVFCapture AVFCore;
-          };
-          Accelerate = {
-            inherit CoreWLAN IOBluetooth;
-          };
-          AddressBook = {
-            inherit AddressBookCore ContactsPersistence libobjc;
-          };
-          AppKit = {
-            inherit AudioToolbox AudioUnit UIFoundation;
-          };
-          AudioToolbox = {
-            inherit AudioToolboxCore;
-          };
-          AudioUnit = {
-            inherit Carbon CoreAudio;
-          };
-          Carbon = {
-            inherit IOKit QuartzCore libobjc;
-          };
-          CoreAudio = {
-            inherit IOKit;
-          };
-          CoreFoundation = {
-            inherit libobjc;
-          };
-          CoreGraphics = {
-            inherit SystemConfiguration;
-          };
-          CoreMIDIServer = {
-            inherit CoreMIDI;
-          };
-          CoreMedia = {
-            inherit ApplicationServices AudioToolbox AudioUnit;
-          };
-          CoreServices = {
-            inherit CoreAudio NetFS ServiceManagement;
-          };
-          CoreWLAN = {
-            inherit SecurityFoundation;
-          };
-          DiscRecording = {
-            inherit IOKit libobjc;
-          };
-          Foundation = {
-            inherit SystemConfiguration libobjc;
-          };
-          GameKit = {
-            inherit
-              GameCenterFoundation
-              GameCenterUI
-              GameCenterUICore
-              ReplayKit
-            ;
-          };
-          ICADevices = {
-            inherit Carbon libobjc;
-          };
-          IOBluetooth = {
-            inherit CoreBluetooth;
-          };
-          JavaScriptCore = {
-            inherit libobjc;
-          };
-          Kernel = {
-            inherit IOKit;
-          };
-          LinkPresentation = {
-            inherit URLFormatting;
-          };
-          MediaToolbox = {
-            inherit AudioUnit;
-          };
-          MetricKit = {
-            inherit SignpostMetrics;
-          };
-          Network = {
-            inherit libnetwork;
-          };
-          PCSC = {
-            inherit CoreData;
-          };
-          PassKit = {
-            inherit PassKitCore;
-          };
-          QTKit = {
-            inherit
-              CoreMedia
-              CoreMediaIO
-              MediaToolbox
-              VideoToolbox
-            ;
-          };
-          Quartz = {
-            inherit QTKit;
-          };
-          QuartzCore = {
-            inherit
-              ApplicationServices
-              CoreImage
-              CoreVideo
-              Metal
-              OpenCL
-              libobjc
-            ;
-          };
-          Security = {
-            inherit IOKit libDER;
-          };
-          TWAIN = {
-            inherit Carbon;
-          };
-          VideoDecodeAcceleration = {
-            inherit CoreVideo;
-          };
-          WebKit = {
-            inherit ApplicationServices Carbon libobjc;
-          };
+    # Additional dependencies that are not picked up by gen-frameworks.py.
+    # Some of these are simply private frameworks the generator does not see.
+    extraDeps = with libs;
+      with frameworks;
+      let
+        inherit (pkgs.darwin.apple_sdk_11_0) libnetwork;
+        libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
+      in {
+        # Below this comment are entries migrated from before the generator was
+        # added. If, for a given framework, you are able to reverify the extra
+        # deps are really necessary on top of the generator deps, move it above
+        # this comment (and maybe document your findings).
+        AVFoundation = { inherit ApplicationServices AVFCapture AVFCore; };
+        Accelerate = { inherit CoreWLAN IOBluetooth; };
+        AddressBook = { inherit AddressBookCore ContactsPersistence libobjc; };
+        AppKit = { inherit AudioToolbox AudioUnit UIFoundation; };
+        AudioToolbox = { inherit AudioToolboxCore; };
+        AudioUnit = { inherit Carbon CoreAudio; };
+        Carbon = { inherit IOKit QuartzCore libobjc; };
+        CoreAudio = { inherit IOKit; };
+        CoreFoundation = { inherit libobjc; };
+        CoreGraphics = { inherit SystemConfiguration; };
+        CoreMIDIServer = { inherit CoreMIDI; };
+        CoreMedia = { inherit ApplicationServices AudioToolbox AudioUnit; };
+        CoreServices = { inherit CoreAudio NetFS ServiceManagement; };
+        CoreWLAN = { inherit SecurityFoundation; };
+        DiscRecording = { inherit IOKit libobjc; };
+        Foundation = { inherit SystemConfiguration libobjc; };
+        GameKit = {
+          inherit GameCenterFoundation GameCenterUI GameCenterUICore ReplayKit;
         };
-
-      # Overrides for framework derivations.
-      overrides = super: {
-        CoreFoundation = lib.overrideDerivation super.CoreFoundation (
-          drv: { setupHook = ./cf-setup-hook.sh; }
-        );
-
-        # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
-        # there are references to it in nixpkgs.
-        QuickTime = throw "QuickTime framework not available";
-
-        # Seems to be appropriate given https://developer.apple.com/forums/thread/666686
-        JavaVM = super.JavaNativeFoundation;
-
-        CoreVideo = lib.overrideDerivation super.CoreVideo (
-          drv: {
-            installPhase =
-              drv.installPhase
-              + ''
-                # When used as a module, complains about a missing import for
-                # Darwin.C.stdint. Apparently fixed in later SDKs.
-                awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
-                  $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
-              '';
-          }
-        );
-
-        System = lib.overrideDerivation super.System (
-          drv: {
-            installPhase =
-              drv.installPhase
-              + ''
-                # Contrarily to the other frameworks, System framework's TBD file
-                # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
-                # This produces an error when installing the framework as:
-                #   1. The original file is not copied into the output directory
-                #   2. Even if it was copied, the relative path wouldn't match
-                # Thus, it is easier to replace the file than to fix the symlink.
-                cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
-                  $out/Library/Frameworks/System.framework/Versions/B/System.tbd
-              '';
-          }
-        );
+        ICADevices = { inherit Carbon libobjc; };
+        IOBluetooth = { inherit CoreBluetooth; };
+        JavaScriptCore = { inherit libobjc; };
+        Kernel = { inherit IOKit; };
+        LinkPresentation = { inherit URLFormatting; };
+        MediaToolbox = { inherit AudioUnit; };
+        MetricKit = { inherit SignpostMetrics; };
+        Network = { inherit libnetwork; };
+        PCSC = { inherit CoreData; };
+        PassKit = { inherit PassKitCore; };
+        QTKit = { inherit CoreMedia CoreMediaIO MediaToolbox VideoToolbox; };
+        Quartz = { inherit QTKit; };
+        QuartzCore = {
+          inherit ApplicationServices CoreImage CoreVideo Metal OpenCL libobjc;
+        };
+        Security = { inherit IOKit libDER; };
+        TWAIN = { inherit Carbon; };
+        VideoDecodeAcceleration = { inherit CoreVideo; };
+        WebKit = { inherit ApplicationServices Carbon libobjc; };
       };
 
-      # Merge extraDeps into generatedDeps.
-      deps = generatedDeps // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
+    # Overrides for framework derivations.
+    overrides = super: {
+      CoreFoundation = lib.overrideDerivation super.CoreFoundation
+        (drv: { setupHook = ./cf-setup-hook.sh; });
 
-      # Create derivations, and add private frameworks.
-      bareFrameworks =
-        (lib.mapAttrs framework deps)
-        // (lib.mapAttrs privateFramework (
-          import ./private-frameworks.nix {
-            inherit frameworks;
-            libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
-          }
-        ));
-    in
+      # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
+      # there are references to it in nixpkgs.
+      QuickTime = throw "QuickTime framework not available";
+
+      # Seems to be appropriate given https://developer.apple.com/forums/thread/666686
+      JavaVM = super.JavaNativeFoundation;
+
+      CoreVideo = lib.overrideDerivation super.CoreVideo (drv: {
+        installPhase = drv.installPhase + ''
+          # When used as a module, complains about a missing import for
+          # Darwin.C.stdint. Apparently fixed in later SDKs.
+          awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
+            $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
+        '';
+      });
+
+      System = lib.overrideDerivation super.System (drv: {
+        installPhase = drv.installPhase + ''
+          # Contrarily to the other frameworks, System framework's TBD file
+          # is a symlink pointing to ${MacOSX-SDK}/usr/lib/libSystem.B.tbd.
+          # This produces an error when installing the framework as:
+          #   1. The original file is not copied into the output directory
+          #   2. Even if it was copied, the relative path wouldn't match
+          # Thus, it is easier to replace the file than to fix the symlink.
+          cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
+            $out/Library/Frameworks/System.framework/Versions/B/System.tbd
+        '';
+      });
+    };
+
+    # Merge extraDeps into generatedDeps.
+    deps = generatedDeps
+      // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
+
+    # Create derivations, and add private frameworks.
+    bareFrameworks = (lib.mapAttrs framework deps)
+      // (lib.mapAttrs privateFramework (import ./private-frameworks.nix {
+        inherit frameworks;
+        libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
+      }));
     # Apply derivation overrides.
-    bareFrameworks // overrides bareFrameworks;
+  in bareFrameworks // overrides bareFrameworks;
 }

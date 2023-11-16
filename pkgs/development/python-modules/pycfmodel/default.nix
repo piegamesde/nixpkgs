@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpx,
-  pydantic,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, httpx, pydantic, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pycfmodel";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pydantic ];
 
-  nativeCheckInputs = [
-    httpx
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ httpx pytestCheckHook ];
 
   disabledTests = [
     # Test require network access

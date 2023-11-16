@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubent";
@@ -17,11 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-XXf6CPPHVvCTZA4Ve5/wmlgXQ/gZZUW0W/jXA0bJgLA=";
 
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.version=v${version}"
-  ];
+  ldflags = [ "-w" "-s" "-X main.version=v${version}" ];
 
   subPackages = [ "cmd/kubent" ];
 

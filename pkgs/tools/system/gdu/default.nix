@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  gdu,
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, testers, gdu
 }:
 
 buildGoModule rec {
@@ -26,7 +19,9 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/dundee/gdu/v${lib.versions.major version}/build.Version=${version}"
+    "-X github.com/dundee/gdu/v${
+      lib.versions.major version
+    }/build.Version=${version}"
   ];
 
   postPatch = ''
@@ -51,9 +46,6 @@ buildGoModule rec {
     homepage = "https://github.com/dundee/gdu";
     changelog = "https://github.com/dundee/gdu/releases/tag/v${version}";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [
-      fab
-      zowoq
-    ];
+    maintainers = with maintainers; [ fab zowoq ];
   };
 }

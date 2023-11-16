@@ -1,9 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-  bash,
-}:
+{ lib, python3Packages, fetchPypi, bash }:
 
 python3Packages.buildPythonApplication rec {
   pname = "simp_le-client";
@@ -38,10 +33,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/zenhack/simp_le";
     description = "Simple Let's Encrypt client";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      gebner
-      makefu
-    ];
+    maintainers = with maintainers; [ gebner makefu ];
     platforms = platforms.linux;
   };
 }

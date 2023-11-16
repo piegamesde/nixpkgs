@@ -1,12 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  enableStatic ? stdenv.hostPlatform.isStatic,
-  enableShared ? !stdenv.hostPlatform.isStatic,
-  unstableGitUpdater,
-  autoreconfHook,
-}:
+{ stdenv, lib, fetchFromGitHub, enableStatic ? stdenv.hostPlatform.isStatic
+, enableShared ? !stdenv.hostPlatform.isStatic, unstableGitUpdater
+, autoreconfHook }:
 
 stdenv.mkDerivation {
   pname = "libbacktrace";
@@ -42,12 +36,11 @@ stdenv.mkDerivation {
 
   doCheck = stdenv.isLinux;
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   meta = with lib; {
-    description = "A C library that may be linked into a C/C++ program to produce symbolic backtraces";
+    description =
+      "A C library that may be linked into a C/C++ program to produce symbolic backtraces";
     homepage = "https://github.com/ianlancetaylor/libbacktrace";
     maintainers = with maintainers; [ twey ];
     license = with licenses; [ bsd3 ];

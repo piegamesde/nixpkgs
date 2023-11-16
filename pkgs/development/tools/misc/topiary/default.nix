@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  nix-update-script,
-}:
+{ lib, rustPlatform, fetchFromGitHub, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "topiary";
@@ -19,23 +14,23 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tree-sitter-bash-0.19.0" = "sha256-Po2r+wUWJwC+ODk/xotYI7PsmjC3TFSu1dU0FrrnAXQ=";
-      "tree-sitter-facade-0.9.3" = "sha256-M/npshnHJkU70pP3I4WMXp3onlCSWM5mMIqXP45zcUs=";
-      "tree-sitter-nickel-0.0.1" = "sha256-aYsEx1Y5oDEqSPCUbf1G3J5Y45ULT9OkD+fn6stzrOU=";
-      "tree-sitter-query-0.1.0" = "sha256-Gv882sbL2fmR++h4/I7dFCp+g6pddRCaLyX7+loEoHU=";
-      "web-tree-sitter-sys-1.3.0" = "sha256-9rKB0rt0y9TD/HLRoB9LjEP9nO4kSWR9ylbbOXo2+2M=";
+      "tree-sitter-bash-0.19.0" =
+        "sha256-Po2r+wUWJwC+ODk/xotYI7PsmjC3TFSu1dU0FrrnAXQ=";
+      "tree-sitter-facade-0.9.3" =
+        "sha256-M/npshnHJkU70pP3I4WMXp3onlCSWM5mMIqXP45zcUs=";
+      "tree-sitter-nickel-0.0.1" =
+        "sha256-aYsEx1Y5oDEqSPCUbf1G3J5Y45ULT9OkD+fn6stzrOU=";
+      "tree-sitter-query-0.1.0" =
+        "sha256-Gv882sbL2fmR++h4/I7dFCp+g6pddRCaLyX7+loEoHU=";
+      "web-tree-sitter-sys-1.3.0" =
+        "sha256-9rKB0rt0y9TD/HLRoB9LjEP9nO4kSWR9ylbbOXo2+2M=";
     };
   };
 
-  cargoBuildFlags = [
-    "-p"
-    "topiary-cli"
-  ];
+  cargoBuildFlags = [ "-p" "topiary-cli" ];
   cargoTestFlags = cargoBuildFlags;
 
-  env = {
-    TOPIARY_LANGUAGE_DIR = "${placeholder "out"}/share/languages";
-  };
+  env = { TOPIARY_LANGUAGE_DIR = "${placeholder "out"}/share/languages"; };
 
   # Cargo.lock is outdated
   postPatch = ''
@@ -49,7 +44,8 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "A uniform formatter for simple languages, as part of the Tree-sitter ecosystem";
+    description =
+      "A uniform formatter for simple languages, as part of the Tree-sitter ecosystem";
     homepage = "https://github.com/tweag/topiary";
     changelog = "https://github.com/tweag/topiary/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  dagger,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, dagger }:
 
 buildGoModule rec {
   pname = "dagger";
@@ -38,9 +32,6 @@ buildGoModule rec {
     description = "A portable devkit for CICD pipelines";
     homepage = "https://dagger.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      jfroche
-      sagikazarmark
-    ];
+    maintainers = with maintainers; [ jfroche sagikazarmark ];
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  wrapQtAppsHook,
-}:
+{ lib, fetchFromGitHub, python3Packages, wrapQtAppsHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "friture";
@@ -16,14 +11,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-xKgyBV/Qc+9PgXyxcT0xG1GXLC6KnjavJ/0SUE+9VSY=";
   };
 
-  nativeBuildInputs =
-    (
-      with python3Packages; [
-        numpy
-        cython
-        scipy
-      ]
-    )
+  nativeBuildInputs = (with python3Packages; [ numpy cython scipy ])
     ++ [ wrapQtAppsHook ];
 
   propagatedBuildInputs = with python3Packages; [
@@ -64,9 +52,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://friture.org/";
     license = licenses.gpl3;
     platforms = platforms.linux; # fails on Darwin
-    maintainers = with maintainers; [
-      laikq
-      alyaeanyx
-    ];
+    maintainers = with maintainers; [ laikq alyaeanyx ];
   };
 }

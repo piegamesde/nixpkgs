@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  kube-linter,
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers, kube-linter
 }:
 
 buildGoModule rec {
@@ -43,15 +37,13 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "A static analysis tool that checks Kubernetes YAML files and Helm charts";
+    description =
+      "A static analysis tool that checks Kubernetes YAML files and Helm charts";
     homepage = "https://kubelinter.io";
-    changelog = "https://github.com/stackrox/kube-linter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/stackrox/kube-linter/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      mtesseract
-      stehessel
-      Intuinewin
-    ];
+    maintainers = with maintainers; [ mtesseract stehessel Intuinewin ];
     platforms = platforms.all;
   };
 }

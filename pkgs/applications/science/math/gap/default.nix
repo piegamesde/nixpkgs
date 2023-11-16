@@ -1,35 +1,21 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  makeWrapper,
-  readline,
-  gmp,
-  pari,
-  zlib,
-  # one of
-  # - "minimal" (~400M):
-  #     Install the bare minimum of packages required by gap to start.
-  #     This is likely to break a lot of stuff. Do not expect upstream support with
-  #     this configuration.
-  # - "standard" (~700M):
-  #     Install the "standard packages" which gap autoloads by default. These
-  #     packages are effectively considered a part of gap.
-  # - "full" (~1.7G):
-  #     Install all available packages. This takes a lot of space.
-  packageSet ? "standard",
+{ stdenv, lib, fetchurl, makeWrapper, readline, gmp, pari, zlib
+# one of
+# - "minimal" (~400M):
+#     Install the bare minimum of packages required by gap to start.
+#     This is likely to break a lot of stuff. Do not expect upstream support with
+#     this configuration.
+# - "standard" (~700M):
+#     Install the "standard packages" which gap autoloads by default. These
+#     packages are effectively considered a part of gap.
+# - "full" (~1.7G):
+#     Install all available packages. This takes a lot of space.
+, packageSet ? "standard"
   # Kept for backwards compatibility. Overrides packageSet to "full".
-  keepAllPackages ? false,
-}:
+, keepAllPackages ? false }:
 let
   # packages absolutely required for gap to start
   # `*` represents the version where applicable
-  requiredPackages = [
-    "gapdoc"
-    "primgrp"
-    "smallgrp"
-    "transgrp"
-  ];
+  requiredPackages = [ "gapdoc" "primgrp" "smallgrp" "transgrp" ];
   # packages autoloaded by default if available, and their dependencies
   autoloadedPackages = [
     "atlasrep"
@@ -52,44 +38,38 @@ let
     "utils" # dependency of atlasrep
   ];
   keepAll = keepAllPackages || (packageSet == "full");
-  packagesToKeep = requiredPackages ++ lib.optionals (packageSet == "standard") autoloadedPackages;
+  packagesToKeep = requiredPackages
+    ++ lib.optionals (packageSet == "standard") autoloadedPackages;
 
   # Generate bash script that removes all packages from the `pkg` subdirectory
   # that are not on the whitelist. The whitelist consists of strings expected by
   # `find`'s `-name`.
-  removeNonWhitelistedPkgs =
-    whitelist:
+  removeNonWhitelistedPkgs = whitelist:
     ''
       find pkg -type d -maxdepth 1 -mindepth 1 \
-    ''
-    + (lib.concatStringsSep "\n" (map (str: "-not -name '${str}' \\") whitelist))
-    + ''
-      -exec echo "Removing package {}" \; \
-      -exec rm -r '{}' \;
-    '';
-in
-stdenv.mkDerivation rec {
+    '' + (lib.concatStringsSep "\n"
+      (map (str: "-not -name '${str}' \\") whitelist)) + ''
+        -exec echo "Removing package {}" \; \
+        -exec rm -r '{}' \;
+      '';
+in stdenv.mkDerivation rec {
   pname = "gap";
   # https://www.gap-system.org/Releases/
   version = "4.12.2";
 
   src = fetchurl {
-    url = "https://github.com/gap-system/gap/releases/download/v${version}/gap-${version}.tar.gz";
+    url =
+      "https://github.com/gap-system/gap/releases/download/v${version}/gap-${version}.tar.gz";
     sha256 = "sha256-ZyMIdF63iiIklO6N1nhu3VvDMUVvzGRWrAZL2yjVh6g=";
   };
 
   # remove all non-essential packages (which take up a lot of space)
   preConfigure =
-    lib.optionalString (!keepAll) (removeNonWhitelistedPkgs packagesToKeep)
-    + ''
+    lib.optionalString (!keepAll) (removeNonWhitelistedPkgs packagesToKeep) + ''
       patchShebangs .
     '';
 
-  buildInputs = [
-    readline
-    gmp
-    zlib
-  ];
+  buildInputs = [ readline gmp zlib ];
 
   nativeBuildInputs = [ makeWrapper ];
 

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "tgcrypto";

@@ -1,13 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib)
-    mkOption
-    mkIf
-    types
-    length
-    attrNames
-  ;
+  inherit (lib) mkOption mkIf types length attrNames;
   cfg = config.services.kerberos_server;
   kerberos = config.krb5.kerberos;
 
@@ -18,19 +12,9 @@ let
         description = lib.mdDoc "Which principal the rule applies to";
       };
       access = mkOption {
-        type =
-          types.either
-            (types.listOf (
-              types.enum [
-                "add"
-                "cpw"
-                "delete"
-                "get"
-                "list"
-                "modify"
-              ]
-            ))
-            (types.enum [ "all" ]);
+        type = types.either (types.listOf
+          (types.enum [ "add" "cpw" "delete" "get" "list" "modify" ]))
+          (types.enum [ "all" ]);
         default = "all";
         description = lib.mdDoc "The changes the principal is allowed to make.";
       };
@@ -62,18 +46,15 @@ let
       };
     };
   };
-in
 
-{
-  imports = [
-    ./mit.nix
-    ./heimdal.nix
-  ];
+in {
+  imports = [ ./mit.nix ./heimdal.nix ];
 
   ###### interface
   options = {
     services.kerberos_server = {
-      enable = lib.mkEnableOption (lib.mdDoc "the kerberos authentication server");
+      enable =
+        lib.mkEnableOption (lib.mdDoc "the kerberos authentication server");
 
       realms = mkOption {
         type = types.attrsOf (types.submodule realm);
@@ -88,11 +69,9 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ kerberos ];
-    assertions = [
-      {
-        assertion = length (attrNames cfg.realms) <= 1;
-        message = "Only one realm per server is currently supported.";
-      }
-    ];
+    assertions = [{
+      assertion = length (attrNames cfg.realms) <= 1;
+      message = "Only one realm per server is currently supported.";
+    }];
   };
 }

@@ -1,19 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-typesetting";
   version = "20210531-git";
 
   description = "Common Lisp Typesetting system";
 
-  deps = [
-    args."cl-pdf"
-    args."iterate"
-    args."zpb-ttf"
-  ];
+  deps = [ args."cl-pdf" args."iterate" args."zpb-ttf" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-typesetting/2021-05-31/cl-typesetting-20210531-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-typesetting/2021-05-31/cl-typesetting-20210531-git.tgz";
     sha256 = "1gv21dsfghf8y2d7f5w5m8fn0q5l7xb8z7qw11wnnnd7msk11dd5";
   };
 

@@ -1,20 +1,9 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  contrib,
-  effects,
-  lightyear,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, contrib, effects, lightyear, lib }:
 build-idris-package {
   pname = "ipkgparser";
   version = "2017-11-14";
 
-  idrisDeps = [
-    contrib
-    effects
-    lightyear
-  ];
+  idrisDeps = [ contrib effects lightyear ];
 
   src = fetchFromGitHub {
     owner = "emptyflash";
@@ -24,7 +13,8 @@ build-idris-package {
   };
 
   meta = {
-    description = "Parser for Idris iPkg files written in Idris using Lightyear";
+    description =
+      "Parser for Idris iPkg files written in Idris using Lightyear";
     homepage = "https://github.com/emptyflash/idris-ipkg-parser";
     maintainers = [ lib.maintainers.brainrape ];
   };

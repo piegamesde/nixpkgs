@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  python,
-  numba,
-  ndtypes,
-  xnd,
-  libndtypes,
-  libxnd,
-  libgumath,
-  isPy27,
-}:
+{ lib, stdenv, buildPythonPackage, python, numba, ndtypes, xnd, libndtypes
+, libxnd, libgumath, isPy27 }:
 
 buildPythonPackage {
   pname = "gumath";
@@ -18,10 +7,7 @@ buildPythonPackage {
   inherit (libgumath) src version meta;
 
   nativeCheckInputs = [ numba ];
-  propagatedBuildInputs = [
-    ndtypes
-    xnd
-  ];
+  propagatedBuildInputs = [ ndtypes xnd ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -46,4 +32,6 @@ buildPythonPackage {
     python test_xndarray.py
     popd
   '';
+
 }
+

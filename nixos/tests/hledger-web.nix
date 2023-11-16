@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     journal = pkgs.writeText "test.journal" ''
       2010/01/10 Loan
@@ -9,32 +8,28 @@ import ./make-test-python.nix (
           expenses:donation           250$
           assets:cash                -250$
     '';
-  in
-  rec {
+  in rec {
     name = "hledger-web";
     meta.maintainers = with lib.maintainers; [ marijanp ];
 
     nodes = rec {
-      server =
-        { config, pkgs, ... }:
-        {
-          services.hledger-web = {
-            host = "127.0.0.1";
-            port = 5000;
-            enable = true;
-            capabilities.manage = true;
-          };
-          networking.firewall.allowedTCPPorts = [ config.services.hledger-web.port ];
-          systemd.services.hledger-web.preStart = ''
-            ln -s ${journal} /var/lib/hledger-web/.hledger.journal
-          '';
+      server = { config, pkgs, ... }: {
+        services.hledger-web = {
+          host = "127.0.0.1";
+          port = 5000;
+          enable = true;
+          capabilities.manage = true;
         };
-      apiserver =
-        { ... }:
-        {
-          imports = [ server ];
-          services.hledger-web.serveApi = true;
-        };
+        networking.firewall.allowedTCPPorts =
+          [ config.services.hledger-web.port ];
+        systemd.services.hledger-web.preStart = ''
+          ln -s ${journal} /var/lib/hledger-web/.hledger.journal
+        '';
+      };
+      apiserver = { ... }: {
+        imports = [ server ];
+        services.hledger-web.serveApi = true;
+      };
     };
 
     testScript = ''
@@ -52,5 +47,4 @@ import ./make-test-python.nix (
           transactions = apiserver.succeed("curl -L http://127.0.0.1:5000/transactions")
           assert "NixOS Foundation donation" in transactions
     '';
-  }
-)
+  })

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-  protobuf,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, protobuf }:
 
 buildGoModule rec {
   pname = "prototool";

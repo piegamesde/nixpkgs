@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  git,
-  makeWrapper,
-  which,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, git, makeWrapper, which, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "git-subrepo";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-83N0Ek6DawUrOc6s2Utzi8776bX4UTGS/a/OffkV44Y=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    which
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper which installShellFiles ];
 
   buildInputs = [ git ];
 

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,32 +7,20 @@ let
   cfg = config.services.autorandr;
   hookType = types.lines;
 
-  matrixOf =
-    n: m: elemType:
+  matrixOf = n: m: elemType:
     mkOptionType rec {
       name = "matrixOf";
-      description = "${toString n}×${toString m} matrix of ${elemType.description}s";
-      check =
-        xss:
-        let
-          listOfSize = l: xs: isList xs && length xs == l;
-        in
-        listOfSize n xss && all (xs: listOfSize m xs && all elemType.check xs) xss;
+      description =
+        "${toString n}×${toString m} matrix of ${elemType.description}s";
+      check = xss:
+        let listOfSize = l: xs: isList xs && length xs == l;
+        in listOfSize n xss
+        && all (xs: listOfSize m xs && all elemType.check xs) xss;
       merge = mergeOneOption;
-      getSubOptions =
-        prefix:
-        elemType.getSubOptions (
-          prefix
-          ++ [
-            "*"
-            "*"
-          ]
-        );
+      getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "*" "*" ]);
       getSubModules = elemType.getSubModules;
       substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
-      functor = (defaultFunctor name) // {
-        wrapped = elemType;
-      };
+      functor = (defaultFunctor name) // { wrapped = elemType; };
     };
 
   profileModule = types.submodule {
@@ -115,14 +98,7 @@ let
       };
 
       rotate = mkOption {
-        type = types.nullOr (
-          types.enum [
-            "normal"
-            "left"
-            "right"
-            "inverted"
-          ]
-        );
+        type = types.nullOr (types.enum [ "normal" "left" "right" "inverted" ]);
         description = lib.mdDoc "Output rotate configuration.";
         default = null;
         example = "left";
@@ -153,31 +129,26 @@ let
       };
 
       scale = mkOption {
-        type = types.nullOr (
-          types.submodule {
-            options = {
-              method = mkOption {
-                type = types.enum [
-                  "factor"
-                  "pixel"
-                ];
-                description = lib.mdDoc "Output scaling method.";
-                default = "factor";
-                example = "pixel";
-              };
-
-              x = mkOption {
-                type = types.either types.float types.ints.positive;
-                description = lib.mdDoc "Horizontal scaling factor/pixels.";
-              };
-
-              y = mkOption {
-                type = types.either types.float types.ints.positive;
-                description = lib.mdDoc "Vertical scaling factor/pixels.";
-              };
+        type = types.nullOr (types.submodule {
+          options = {
+            method = mkOption {
+              type = types.enum [ "factor" "pixel" ];
+              description = lib.mdDoc "Output scaling method.";
+              default = "factor";
+              example = "pixel";
             };
-          }
-        );
+
+            x = mkOption {
+              type = types.either types.float types.ints.positive;
+              description = lib.mdDoc "Horizontal scaling factor/pixels.";
+            };
+
+            y = mkOption {
+              type = types.either types.float types.ints.positive;
+              description = lib.mdDoc "Vertical scaling factor/pixels.";
+            };
+          };
+        });
         description = lib.mdDoc ''
           Output scale configuration.
 
@@ -227,33 +198,27 @@ let
     };
   };
 
-  hookToFile =
-    folder: name: hook:
+  hookToFile = folder: name: hook:
     nameValuePair "xdg/autorandr/${folder}/${name}" {
       source = "${pkgs.writeShellScriptBin "hook" hook}/bin/hook";
     };
-  profileToFiles =
-    name: profile:
+  profileToFiles = name: profile:
     with profile;
     mkMerge ([
       {
-        "xdg/autorandr/${name}/setup".text = concatStringsSep "\n" (
-          mapAttrsToList fingerprintToString fingerprint
-        );
-        "xdg/autorandr/${name}/config".text = concatStringsSep "\n" (
-          mapAttrsToList configToString profile.config
-        );
+        "xdg/autorandr/${name}/setup".text = concatStringsSep "\n"
+          (mapAttrsToList fingerprintToString fingerprint);
+        "xdg/autorandr/${name}/config".text =
+          concatStringsSep "\n" (mapAttrsToList configToString profile.config);
       }
       (mapAttrs' (hookToFile "${name}/postswitch.d") hooks.postswitch)
       (mapAttrs' (hookToFile "${name}/preswitch.d") hooks.preswitch)
       (mapAttrs' (hookToFile "${name}/predetect.d") hooks.predetect)
     ]);
   fingerprintToString = name: edid: "${name} ${edid}";
-  configToString =
-    name: config:
+  configToString = name: config:
     if config.enable then
-      concatStringsSep "\n" (
-        [ "output ${name}" ]
+      concatStringsSep "\n" ([ "output ${name}" ]
         ++ optional (config.position != "") "pos ${config.position}"
         ++ optional (config.crtc != null) "crtc ${toString config.crtc}"
         ++ optional config.primary "primary"
@@ -262,26 +227,23 @@ let
         ++ optional (config.mode != "") "mode ${config.mode}"
         ++ optional (config.rate != "") "rate ${config.rate}"
         ++ optional (config.rotate != null) "rotate ${config.rotate}"
-        ++ optional (config.transform != null) (
-          "transform " + concatMapStringsSep "," toString (flatten config.transform)
-        )
-        ++ optional (config.scale != null) (
-          (if config.scale.method == "factor" then "scale" else "scale-from")
-          + " ${toString config.scale.x}x${toString config.scale.y}"
-        )
-      )
-    else
-      ''
-        output ${name}
-        off
-      '';
-in
-{
+        ++ optional (config.transform != null) ("transform "
+          + concatMapStringsSep "," toString (flatten config.transform))
+        ++ optional (config.scale != null)
+        ((if config.scale.method == "factor" then "scale" else "scale-from")
+          + " ${toString config.scale.x}x${toString config.scale.y}"))
+    else ''
+      output ${name}
+      off
+    '';
+
+in {
 
   options = {
 
     services.autorandr = {
-      enable = mkEnableOption (lib.mdDoc "handling of hotplug and sleep events by autorandr");
+      enable = mkEnableOption
+        (lib.mdDoc "handling of hotplug and sleep events by autorandr");
 
       defaultTarget = mkOption {
         default = "default";
@@ -296,7 +258,8 @@ in
       ignoreLid = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Treat outputs as connected even if their lids are closed";
+        description =
+          lib.mdDoc "Treat outputs as connected even if their lids are closed";
       };
 
       hooks = mkOption {
@@ -358,7 +321,9 @@ in
           }
         '';
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -395,6 +360,7 @@ in
         KillMode = "process";
       };
     };
+
   };
 
   meta.maintainers = with maintainers; [ alexnortung ];

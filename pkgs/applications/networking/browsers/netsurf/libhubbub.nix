@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  perl,
-  buildsystem,
-  libparserutils,
-}:
+{ lib, stdenv, fetchurl, pkg-config, perl, buildsystem, libparserutils }:
 
 stdenv.mkDerivation rec {
   pname = "netsurf-${libname}";
@@ -14,21 +6,16 @@ stdenv.mkDerivation rec {
   version = "0.3.7";
 
   src = fetchurl {
-    url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
+    url =
+      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
     sha256 = "sha256-nnriU+bJBp51frmtTkhG84tNtSwMoBUURqn6Spd3NbY=";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    perl
-    libparserutils
-    buildsystem
-  ];
+  buildInputs = [ perl libparserutils buildsystem ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/projects/hubbub/";
@@ -44,10 +31,7 @@ stdenv.mkDerivation rec {
       content well.
     '';
     license = licenses.mit;
-    maintainers = [
-      maintainers.vrthra
-      maintainers.AndersonTorres
-    ];
+    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
     platforms = platforms.linux;
   };
 }

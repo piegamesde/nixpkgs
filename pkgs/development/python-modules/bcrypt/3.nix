@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  setuptools,
-  isPyPy,
-  fetchPypi,
-  pythonOlder,
-  cffi,
-  pytestCheckHook,
-  six,
-}:
+{ lib, buildPythonPackage, setuptools, isPyPy, fetchPypi, pythonOlder, cffi
+, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "bcrypt";
@@ -24,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    six
-    cffi
-  ];
+  propagatedBuildInputs = [ six cffi ];
 
   propagatedNativeBuildInputs = [ cffi ];
 

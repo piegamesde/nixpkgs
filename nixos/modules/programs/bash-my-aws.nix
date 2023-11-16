@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -14,8 +9,7 @@ let
   initScript = ''
     eval $(${pkgs.bash-my-aws}/bin/bma-init)
   '';
-in
-{
+in {
   options = {
     programs.bash-my-aws = {
       enable = mkEnableOption (lib.mdDoc "bash-my-aws");

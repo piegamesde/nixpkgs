@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  fetchpatch,
-  click,
-  click-default-group,
-  docformatter,
-  jinja2,
-  toposort,
-  lxml,
-  requests,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch, click
+, click-default-group, docformatter, jinja2, toposort, lxml, requests
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "xsdata";
@@ -27,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-o9Xxt7b/+MkW94Jcg26ihaTn0/OpTcu+0OY7oV3JRGY=";
   };
 
-  patches =
-    [
-      # https://github.com/tefra/xsdata/pull/741
-      (fetchpatch {
-        name = "use-docformatter-1.5.1.patch";
-        url = "https://github.com/tefra/xsdata/commit/040692db47e6e51028fd959c793e757858c392d7.patch";
-        excludes = [ "setup.cfg" ];
-        hash = "sha256-ncecMJLJUiUb4lB8ys+nyiGU/UmayK++o89h3sAwREQ=";
-      })
-    ];
+  patches = [
+    # https://github.com/tefra/xsdata/pull/741
+    (fetchpatch {
+      name = "use-docformatter-1.5.1.patch";
+      url =
+        "https://github.com/tefra/xsdata/commit/040692db47e6e51028fd959c793e757858c392d7.patch";
+      excludes = [ "setup.cfg" ];
+      hash = "sha256-ncecMJLJUiUb4lB8ys+nyiGU/UmayK++o89h3sAwREQ=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -44,20 +32,12 @@ buildPythonPackage rec {
   '';
 
   passthru.optional-dependencies = {
-    cli = [
-      click
-      click-default-group
-      docformatter
-      jinja2
-      toposort
-    ];
+    cli = [ click click-default-group docformatter jinja2 toposort ];
     lxml = [ lxml ];
     soap = [ requests ];
   };
 
-  nativeCheckInputs =
-    [ pytestCheckHook ]
-    ++ passthru.optional-dependencies.cli
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.cli
     ++ passthru.optional-dependencies.lxml
     ++ passthru.optional-dependencies.soap;
 

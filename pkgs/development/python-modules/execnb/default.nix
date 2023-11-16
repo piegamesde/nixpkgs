@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fastcore,
-  traitlets,
-  ipython,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, fastcore, traitlets, ipython, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -19,11 +12,7 @@ buildPythonPackage rec {
     sha256 = "sha256-nuAp4OMAfA3u3DJyORjFw7y7ZLsLCKEfxSFIXqNh+k0=";
   };
 
-  propagatedBuildInputs = [
-    fastcore
-    traitlets
-    ipython
-  ];
+  propagatedBuildInputs = [ fastcore traitlets ipython ];
 
   # no real tests
   doCheck = false;

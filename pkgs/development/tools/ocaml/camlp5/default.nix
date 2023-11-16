@@ -1,12 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, perl }:
 
-if lib.versionOlder ocaml.version "4.02" || lib.versionOlder "4.13" ocaml.version then
+if lib.versionOlder ocaml.version "4.02"
+|| lib.versionOlder "4.13" ocaml.version then
   throw "camlp5 is not available for OCaml ${ocaml.version}"
 else
 
@@ -24,10 +19,7 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [
-      ocaml
-      perl
-    ];
+    nativeBuildInputs = [ ocaml perl ];
 
     prefixKey = "-prefix ";
 
@@ -49,9 +41,6 @@ else
       homepage = "https://camlp5.github.io/";
       license = licenses.bsd3;
       platforms = ocaml.meta.platforms or [ ];
-      maintainers = with maintainers; [
-        maggesi
-        vbgl
-      ];
+      maintainers = with maintainers; [ maggesi vbgl ];
     };
   }

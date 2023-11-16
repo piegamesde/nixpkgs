@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  espeak-ng,
-  tts,
-}:
+{ lib, python3, fetchFromGitHub, espeak-ng, tts }:
 
 let
   python = python3.override {
@@ -13,8 +7,7 @@ let
       torchvision = super.torchvision-bin;
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "tts";
   version = "0.14.0";
   format = "pyproject";
@@ -26,37 +19,32 @@ python.pkgs.buildPythonApplication rec {
     hash = "sha256-AVU4ULz++t9850pYeNrG5HKNvUZcMld4O1/zu697rzk=";
   };
 
-  postPatch =
-    let
-      relaxedConstraints = [
-        "bnunicodenormalizer"
-        "cython"
-        "gruut"
-        "inflect"
-        "librosa"
-        "mecab-python3"
-        "numba"
-        "numpy"
-        "unidic-lite"
-        "trainer"
-      ];
-    in
-    ''
-      sed -r -i \
-        ${
-          lib.concatStringsSep "\n" (
-            map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\") relaxedConstraints
-          )
-        }
-      requirements.txt
-      # only used for notebooks and visualization
-      sed -r -i -e '/umap-learn/d' requirements.txt
-    '';
+  postPatch = let
+    relaxedConstraints = [
+      "bnunicodenormalizer"
+      "cython"
+      "gruut"
+      "inflect"
+      "librosa"
+      "mecab-python3"
+      "numba"
+      "numpy"
+      "unidic-lite"
+      "trainer"
+    ];
+  in ''
+    sed -r -i \
+      ${
+        lib.concatStringsSep "\n"
+        (map (package: "-e 's/${package}.*[<>=]+.*/${package}/g' \\")
+          relaxedConstraints)
+      }
+    requirements.txt
+    # only used for notebooks and visualization
+    sed -r -i -e '/umap-learn/d' requirements.txt
+  '';
 
-  nativeBuildInputs = with python.pkgs; [
-    cython
-    packaging
-  ];
+  nativeBuildInputs = with python.pkgs; [ cython packaging ];
 
   propagatedBuildInputs = with python.pkgs; [
     anyascii
@@ -108,10 +96,7 @@ python.pkgs.buildPythonApplication rec {
   doCheck = false;
   passthru.tests.pytest = tts.overridePythonAttrs (_: { doCheck = true; });
 
-  nativeCheckInputs = with python.pkgs; [
-    espeak-ng
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python.pkgs; [ espeak-ng pytestCheckHook ];
 
   preCheck = ''
     # use the installed TTS in $PYTHONPATH instead of the one from source to also have cython modules.
@@ -181,14 +166,13 @@ python.pkgs.buildPythonApplication rec {
     "tests/tts_tests/test_overflow.py"
   ];
 
-  passthru = {
-    inherit python;
-  };
+  passthru = { inherit python; };
 
   meta = with lib; {
     homepage = "https://github.com/coqui-ai/TTS";
     changelog = "https://github.com/coqui-ai/TTS/releases/tag/v${version}";
-    description = "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
+    description =
+      "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
     license = licenses.mpl20;
     maintainers = teams.tts.members;
   };

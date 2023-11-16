@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "unasync";
@@ -34,7 +28,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "unasync" ];
 
   meta = with lib; {
-    description = "Project that can transform your asynchronous code into synchronous code";
+    description =
+      "Project that can transform your asynchronous code into synchronous code";
     homepage = "https://github.com/python-trio/unasync";
     license = with licenses; [
       mit # or

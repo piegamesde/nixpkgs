@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  tox,
-  six,
-  python-dateutil,
-  kitchen,
-  pytestCheckHook,
-  pytz,
-  pkgs,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, tox, six, python-dateutil, kitchen
+, pytestCheckHook, pytz, pkgs }:
 
 buildPythonPackage rec {
   pname = "taskw";
@@ -29,12 +18,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pkgs.taskwarrior ];
 
-  propagatedBuildInputs = [
-    six
-    python-dateutil
-    kitchen
-    pytz
-  ];
+  propagatedBuildInputs = [ six python-dateutil kitchen pytz ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

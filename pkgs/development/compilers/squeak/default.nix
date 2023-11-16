@@ -1,37 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  fetchzip,
-  autoconf,
-  automake,
-  autoreconfHook,
-  clang,
-  dos2unix,
-  file,
-  perl,
-  pkg-config,
-  alsa-lib,
-  coreutils,
-  freetype,
-  glib,
-  glibc,
-  gnugrep,
-  libpulseaudio,
-  libtool,
-  libuuid,
-  openssl,
-  pango,
-  xorg,
-  squeakImageHash ? null,
-  squeakSourcesHash ? null,
-  squeakSourcesVersion ? null,
-  squeakVersion ? null,
-  squeakVmCommitHash ? null,
-  squeakVmCommitHashHash ? null,
-  squeakVmVersion ? null,
-}@args:
+{ lib, stdenv, fetchFromGitHub, fetchurl, fetchzip, autoconf, automake
+, autoreconfHook, clang, dos2unix, file, perl, pkg-config, alsa-lib, coreutils
+, freetype, glib, glibc, gnugrep, libpulseaudio, libtool, libuuid, openssl
+, pango, xorg, squeakImageHash ? null, squeakSourcesHash ? null
+, squeakSourcesVersion ? null, squeakVersion ? null, squeakVmCommitHash ? null
+, squeakVmCommitHashHash ? null, squeakVmVersion ? null }@args:
 
 let
   inherit (builtins) elemAt;
@@ -58,17 +30,14 @@ let
   squeakVmVersionMinor = elemAt squeakVmVersionBaseSplit 1;
   squeakVmVersionRelease = elemAt squeakVmVersionSplit 2;
 
-  squeakVmCommitHash = nullableOr args.squeakVmCommitHash or null (
-    fetchurl {
-      url = "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
-      curlOpts = "--header Accept:application/vnd.github.v3.sha";
-      hash =
-        nullableOr args.squeakVmCommitHashHash or null
-          "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
-    }
-  );
-in
-stdenv.mkDerivation {
+  squeakVmCommitHash = nullableOr args.squeakVmCommitHash or null (fetchurl {
+    url =
+      "https://api.github.com/repos/OpenSmalltalk/opensmalltalk-vm/commits/${squeakVmVersionRelease}";
+    curlOpts = "--header Accept:application/vnd.github.v3.sha";
+    hash = nullableOr args.squeakVmCommitHashHash or null
+      "sha256-quwmhpJlb2fp0fI9b03fBxSR44j1xmHPW20wkSqTOhQ=";
+  });
+in stdenv.mkDerivation {
   pname = "squeak";
   version = squeakVersion;
 
@@ -80,39 +49,31 @@ stdenv.mkDerivation {
     owner = "OpenSmalltalk";
     repo = "opensmalltalk-vm";
     rev = squeakVmVersionRelease;
-    hash = nullableOr args.squeakVmHash or null "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
+    hash = nullableOr args.squeakVmHash or null
+      "sha256-rNJn5ya+7ggC21MpwSrl2ByJDjVycONKHADboH7dQLM=";
   };
-  imageSrc =
-    let
-      squeakImageName = "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
-    in
-    fetchzip {
-      url = "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
-      name = "source";
-      stripRoot = false;
-      hash =
-        nullableOr args.squeakImageHash or null
-          "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas=";
-    };
+  imageSrc = let
+    squeakImageName =
+      "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
+  in fetchzip {
+    url =
+      "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";
+    name = "source";
+    stripRoot = false;
+    hash = nullableOr args.squeakImageHash or null
+      "sha256-wDuRyc/DNqG1D4DzyBkUvrzFkBlXBtbpnANZlRV/Fas=";
+  };
   sourcesSrc = fetchurl {
-    url = "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
-    hash =
-      nullableOr args.squeakSourcesHash or null
-        "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE=";
+    url =
+      "https://files.squeak.org/sources_files/SqueakV${squeakSourcesVersion}.sources.gz";
+    hash = nullableOr args.squeakSourcesHash or null
+      "sha256-ZViZ1VgI32LwLTEyw7utp8oaAK3UmCNJnHqsGm1IKYE=";
   };
 
   vmBuild = "linux64x64";
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    autoreconfHook
-    clang
-    dos2unix
-    file
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ autoconf automake autoreconfHook clang dos2unix file perl pkg-config ];
   buildInputs = [
     alsa-lib
     coreutils
@@ -215,10 +176,7 @@ stdenv.mkDerivation {
   ];
   configureScript = "./mvm";
 
-  installTargets = [
-    "install"
-    "install-image"
-  ];
+  installTargets = [ "install" "install-image" ];
 
   postInstall = ''
     rm "$out/squeak"
@@ -230,10 +188,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Squeak virtual machine";
     homepage = "https://opensmalltalk.org/";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    license = with licenses; [ asl20 mit ];
     maintainers = with lib.maintainers; [ ehmry ];
     platforms = [ "x86_64-linux" ];
   };

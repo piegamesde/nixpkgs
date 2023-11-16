@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gettext,
-  gnome,
-  itstool,
-  libxml2,
-  yelp-tools,
-}:
+{ lib, stdenv, fetchurl, gettext, gnome, itstool, libxml2, yelp-tools }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-user-docs";
@@ -20,18 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "k/MpTUP9IvmWLM9r0X/2Tq54psoGP+bB6bxY0A8046g=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    itstool
-    libxml2
-    yelp-tools
-  ];
+  nativeBuildInputs = [ gettext itstool libxml2 yelp-tools ];
 
   enableParallelBuilding = true;
 
-  passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
     description = "User and system administration help for the GNOME desktop";

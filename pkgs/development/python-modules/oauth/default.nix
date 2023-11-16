@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "oauth";
@@ -21,4 +17,5 @@ buildPythonPackage rec {
     description = "Library for OAuth version 1.0a";
     license = licenses.mit;
   };
+
 }

@@ -1,20 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-  alcotest,
-  cstruct,
-  domain-name,
-  duration,
-  gmap,
-  ipaddr,
-  logs,
-  lru,
-  metrics,
-  ptime,
-  fmt,
-  base64,
-}:
+{ lib, buildDunePackage, fetchurl, alcotest, cstruct, domain-name, duration
+, gmap, ipaddr, logs, lru, metrics, ptime, fmt, base64 }:
 
 buildDunePackage rec {
   pname = "dns";
@@ -24,7 +9,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-dns/releases/download/v${version}/dns-${version}.tbz";
+    url =
+      "https://github.com/mirage/ocaml-dns/releases/download/v${version}/dns-${version}.tbz";
     hash = "sha256-vDe1U1NbbIPcD1AmMG265ke7651C64mds7KcFHUN4fU=";
   };
 
@@ -51,4 +37,5 @@ buildDunePackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.vbgl ];
   };
+
 }

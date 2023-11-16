@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  pytestCheckHook,
-  markdown,
-  pyyaml,
-  pygments,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytestCheckHook, markdown
+, pyyaml, pygments }:
 
 let
   extensions = [
@@ -36,8 +28,7 @@ let
     "tasklist"
     "tilde"
   ];
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "pymdown-extensions";
   version = "9.9.2";
   format = "pyproject";
@@ -51,25 +42,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    markdown
-    pygments
-  ];
+  propagatedBuildInputs = [ markdown pygments ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ];
 
   pythonImportsCheck = map (ext: "pymdownx.${ext}") extensions;
 
   meta = with lib; {
     description = "Extensions for Python Markdown";
     homepage = "https://facelessuser.github.io/pymdown-extensions/";
-    license = with licenses; [
-      mit
-      bsd2
-    ];
+    license = with licenses; [ mit bsd2 ];
     maintainers = with maintainers; [ cpcloud ];
   };
 }

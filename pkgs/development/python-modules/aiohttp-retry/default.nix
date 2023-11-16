@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pytest-aiohttp,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytestCheckHook
+, pytest-aiohttp, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiohttp-retry";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
   pythonImportsCheck = [ "aiohttp_retry" ];
 

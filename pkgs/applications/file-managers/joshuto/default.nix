@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  SystemConfiguration,
-  Foundation,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, SystemConfiguration, Foundation }:
 
 rustPlatform.buildRustPackage rec {
   pname = "joshuto";
@@ -20,18 +13,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-e4asmP/wTnX6/xrK6lAgCkRlGRFniveEiL5GRXVzcZg=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    SystemConfiguration
-    Foundation
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ SystemConfiguration Foundation ];
 
   meta = with lib; {
     description = "Ranger-like terminal file manager written in Rust";
     homepage = "https://github.com/kamiyaa/joshuto";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [
-      figsoda
-      totoroot
-    ];
+    maintainers = with maintainers; [ figsoda totoroot ];
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  boto3,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, boto3 }:
 
 buildPythonApplication rec {
   pname = "aws-mfa";

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libxml2,
-  curl,
-  libseccomp,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, libxml2, curl, libseccomp, installShellFiles }:
 
 stdenv.mkDerivation {
   pname = "rdrview";
@@ -19,11 +11,7 @@ stdenv.mkDerivation {
     sha256 = "02VC8r8PdcAfMYB0/NtbPnhsWatpLQc4mW4TmSE1+zk=";
   };
 
-  buildInputs = [
-    libxml2
-    curl
-    libseccomp
-  ];
+  buildInputs = [ libxml2 curl libseccomp ];
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''

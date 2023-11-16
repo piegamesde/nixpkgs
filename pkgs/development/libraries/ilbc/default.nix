@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gawk,
-  cmake,
-}:
+{ lib, stdenv, fetchurl, gawk, cmake }:
 
 stdenv.mkDerivation rec {
   name = "ilbc-rfc3951";
@@ -25,7 +19,5 @@ stdenv.mkDerivation rec {
     cp -v ${./CMakeLists.txt} CMakeLists.txt
   '';
 
-  meta = {
-    platforms = lib.platforms.unix;
-  };
+  meta = { platforms = lib.platforms.unix; };
 }

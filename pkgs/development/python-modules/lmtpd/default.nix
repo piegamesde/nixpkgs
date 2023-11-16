@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  lib,
-}:
+{ buildPythonPackage, fetchPypi, isPy3k, lib }:
 
 buildPythonPackage rec {
   pname = "lmtpd";

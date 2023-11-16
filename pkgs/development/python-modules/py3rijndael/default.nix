@@ -1,15 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 let
   pname = "py3rijndael";
   version = "0.3.3";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 

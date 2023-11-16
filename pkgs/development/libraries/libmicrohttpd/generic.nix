@@ -1,49 +1,25 @@
-{
-  lib,
-  stdenv,
-  libgcrypt,
-  curl,
-  gnutls,
-  pkg-config,
-  libiconv,
-  libintl,
-  version,
-  src,
-  meta ? { },
-  fetchpatch,
-}:
+{ lib, stdenv, libgcrypt, curl, gnutls, pkg-config, libiconv, libintl, version
+, src, meta ? { }, fetchpatch }:
 
-let
-  meta_ = meta;
-in
+let meta_ = meta;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libmicrohttpd";
   inherit version src;
 
   patches = lib.optionals (lib.versionOlder version "0.9.76") [
     (fetchpatch {
       name = "CVE-2023-27371.patch";
-      url = "https://git.gnunet.org/libmicrohttpd.git/patch/?id=e0754d1638c602382384f1eface30854b1defeec";
+      url =
+        "https://git.gnunet.org/libmicrohttpd.git/patch/?id=e0754d1638c602382384f1eface30854b1defeec";
       hash = "sha256-vzrq9HPysGpc13rFEk6zLPgpUqp/ST4q/Wp30Dam97k=";
       excludes = [ "ChangeLog" ];
     })
   ];
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-    "info"
-  ];
+  outputs = [ "out" "dev" "devdoc" "info" ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libgcrypt
-    curl
-    gnutls
-    libiconv
-    libintl
-  ];
+  buildInputs = [ libgcrypt curl gnutls libiconv libintl ];
 
   preCheck = ''
     # Since `localhost' can't be resolved in a chroot, work around it.
@@ -53,8 +29,7 @@ stdenv.mkDerivation rec {
   # Disabled because the tests can time-out.
   doCheck = false;
 
-  meta =
-    with lib;
+  meta = with lib;
     {
       description = "Embeddable HTTP server library";
 
@@ -67,12 +42,7 @@ stdenv.mkDerivation rec {
 
       homepage = "https://www.gnu.org/software/libmicrohttpd/";
 
-      maintainers = with maintainers; [
-        eelco
-        vrthra
-        fpletz
-      ];
+      maintainers = with maintainers; [ eelco vrthra fpletz ];
       platforms = platforms.unix;
-    }
-    // meta_;
+    } // meta_;
 }

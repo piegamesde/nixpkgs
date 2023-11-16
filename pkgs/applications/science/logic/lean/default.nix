@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gmp,
-  coreutils,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gmp, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "lean";
@@ -31,13 +24,12 @@ stdenv.mkDerivation rec {
   # library.
   doCheck = true;
 
-  preConfigure =
-    assert builtins.stringLength src.rev == 40; ''
-      substituteInPlace src/githash.h.in \
-        --subst-var-by GIT_SHA1 "${src.rev}"
-      substituteInPlace library/init/version.lean.in \
-        --subst-var-by GIT_SHA1 "${src.rev}"
-    '';
+  preConfigure = assert builtins.stringLength src.rev == 40; ''
+    substituteInPlace src/githash.h.in \
+      --subst-var-by GIT_SHA1 "${src.rev}"
+    substituteInPlace library/init/version.lean.in \
+      --subst-var-by GIT_SHA1 "${src.rev}"
+  '';
 
   postPatch = "patchShebangs .";
 
@@ -49,12 +41,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Automatic and interactive theorem prover";
     homepage = "https://leanprover.github.io/";
-    changelog = "https://github.com/leanprover-community/lean/blob/v${version}/doc/changes.md";
+    changelog =
+      "https://github.com/leanprover-community/lean/blob/v${version}/doc/changes.md";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      thoughtpolice
-      gebner
-    ];
+    maintainers = with maintainers; [ thoughtpolice gebner ];
   };
 }
+

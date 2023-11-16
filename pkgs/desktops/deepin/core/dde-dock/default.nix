@@ -1,25 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  dtkwidget,
-  dde-qt-dbus-factory,
-  qt5integration,
-  qt5platform-plugins,
-  dde-control-center,
-  deepin-desktop-schemas,
-  cmake,
-  qttools,
-  qtx11extras,
-  pkg-config,
-  wrapQtAppsHook,
-  wrapGAppsHook,
-  gsettings-qt,
-  libdbusmenu,
-  xorg,
-  gtest,
-  qtbase,
-}:
+{ stdenv, lib, fetchFromGitHub, dtkwidget, dde-qt-dbus-factory, qt5integration
+, qt5platform-plugins, dde-control-center, deepin-desktop-schemas, cmake
+, qttools, qtx11extras, pkg-config, wrapQtAppsHook, wrapGAppsHook, gsettings-qt
+, libdbusmenu, xorg, gtest, qtbase }:
 
 stdenv.mkDerivation rec {
   pname = "dde-dock";
@@ -43,13 +25,7 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook wrapGAppsHook ];
   dontWrapGApps = true;
 
   buildInputs = [
@@ -67,15 +43,13 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   cmakeFlags = [ "-DVERSION=${version}" ];
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
-  qtWrapperArgs = [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
+  qtWrapperArgs =
+    [ "--prefix QT_PLUGIN_PATH : ${qt5integration}/${qtbase.qtPluginPrefix}" ];
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")

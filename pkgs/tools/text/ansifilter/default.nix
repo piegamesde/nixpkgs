@@ -1,11 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  pkg-config,
-  boost,
-  lua,
-}:
+{ fetchurl, lib, stdenv, pkg-config, boost, lua }:
 
 stdenv.mkDerivation rec {
   pname = "ansifilter";
@@ -17,10 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    boost
-    lua
-  ];
+  buildInputs = [ boost lua ];
 
   postPatch = ''
     substituteInPlace src/makefile --replace "CC=g++" "CC=c++"
@@ -28,10 +18,7 @@ stdenv.mkDerivation rec {
     substituteInPlace makefile --replace 'gzip -9f' 'gzip -9nf'
   '';
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-    "conf_dir=/etc/ansifilter"
-  ];
+  makeFlags = [ "PREFIX=${placeholder "out"}" "conf_dir=/etc/ansifilter" ];
 
   meta = with lib; {
     description = "Tool to convert ANSI to other formats";

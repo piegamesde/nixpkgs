@@ -1,10 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  sage-src,
-  cython,
-  jinja2,
-  pkgconfig, # the python module, not the pkg-config alias
+{ lib, buildPythonPackage, sage-src, cython, jinja2
+, pkgconfig # the python module, not the pkg-config alias
 }:
 
 buildPythonPackage rec {
@@ -20,7 +15,8 @@ buildPythonPackage rec {
     cd pkgs/sage-setup
   '';
 
-  doCheck = false; # sagelib depends on sage-setup, but sage-setup's tests depend on sagelib
+  doCheck =
+    false; # sagelib depends on sage-setup, but sage-setup's tests depend on sagelib
 
   meta = with lib; {
     description = "Build system of the Sage library";

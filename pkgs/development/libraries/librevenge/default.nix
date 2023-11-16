@@ -1,28 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  boost,
-  pkg-config,
-  cppunit,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, boost, pkg-config, cppunit, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "librevenge";
   version = "0.0.5";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/libwpd/librevenge/librevenge-${version}/librevenge-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/project/libwpd/librevenge/librevenge-${version}/librevenge-${version}.tar.xz";
     sha256 = "sha256-EG0MRLtkCLE0i54EZWZvqDuBYXdmWiLNAX6IbBqu6zQ=";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    boost
-    cppunit
-    zlib
-  ];
+  buildInputs = [ boost cppunit zlib ];
 
   # Clang and gcc-7 generate warnings, and
   # -Werror causes these warnings to be interpreted as errors

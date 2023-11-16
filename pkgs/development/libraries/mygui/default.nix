@@ -1,25 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  boost,
-  freetype,
-  libuuid,
-  ois,
-  withOgre ? false,
-  ogre,
-  libGL,
-  libGLU,
-  libX11,
-  Cocoa,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, freetype, libuuid, ois
+, withOgre ? false, ogre, libGL, libGLU, libX11, Cocoa }:
 
-let
-  renderSystem = if withOgre then "3" else "4";
-in
-stdenv.mkDerivation rec {
+let renderSystem = if withOgre then "3" else "4";
+in stdenv.mkDerivation rec {
   pname = "mygui";
   version = "3.4.1";
 
@@ -32,23 +15,11 @@ stdenv.mkDerivation rec {
 
   patches = [ ./disable-framework.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs =
-    [
-      boost
-      freetype
-      libuuid
-      ois
-    ]
+  buildInputs = [ boost freetype libuuid ois ]
     ++ lib.optionals withOgre [ ogre ]
-    ++ lib.optionals (!withOgre && stdenv.isLinux) [
-      libGL
-      libGLU
-    ]
+    ++ lib.optionals (!withOgre && stdenv.isLinux) [ libGL libGLU ]
     ++ lib.optionals stdenv.isLinux [ libX11 ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 

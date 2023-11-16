@@ -1,46 +1,11 @@
-{
-  fetchFromGitHub,
-  fetchurl,
-  fetchzip,
-  stdenv,
-  cmake,
-  python3,
-  jdk17,
-  git,
-  libcef,
-  rsync,
-  lib,
-  ant,
-  ninja,
+{ fetchFromGitHub, fetchurl, fetchzip, stdenv, cmake, python3, jdk17, git
+, libcef, rsync, lib, ant, ninja
 
-  debugBuild ? false,
+, debugBuild ? false
 
-  glib,
-  nss,
-  nspr,
-  atk,
-  at-spi2-atk,
-  libdrm,
-  expat,
-  libxcb,
-  libxkbcommon,
-  libX11,
-  libXcomposite,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXrandr,
-  mesa,
-  gtk3,
-  pango,
-  cairo,
-  alsa-lib,
-  dbus,
-  at-spi2-core,
-  cups,
-  libxshmfence,
-  udev,
-}:
+, glib, nss, nspr, atk, at-spi2-atk, libdrm, expat, libxcb, libxkbcommon, libX11
+, libXcomposite, libXdamage, libXext, libXfixes, libXrandr, mesa, gtk3, pango
+, cairo, alsa-lib, dbus, at-spi2-core, cups, libxshmfence, udev }:
 
 assert !stdenv.isDarwin;
 # I can't test darwin
@@ -75,8 +40,8 @@ let
   ];
 
   buildType = if debugBuild then "Debug" else "Release";
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "jcef-jetbrains";
   rev = "3dfde2a70f1f914c6a84ba967123a0e38f51053f";
   # This is the commit number
@@ -84,21 +49,8 @@ stdenv.mkDerivation rec {
   # Run `git rev-list --count HEAD`
   version = "654";
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    jdk17
-    git
-    rsync
-    ant
-    ninja
-  ];
-  buildInputs = [
-    libX11
-    libXdamage
-    nss
-    nspr
-  ];
+  nativeBuildInputs = [ cmake python3 jdk17 git rsync ant ninja ];
+  buildInputs = [ libX11 libXdamage nss nspr ];
 
   src = fetchFromGitHub {
     owner = "jetbrains";
@@ -106,18 +58,18 @@ stdenv.mkDerivation rec {
     inherit rev;
     hash = "sha256-g8jWzRI2uYzu8O7JHENn0u9yY08fvY6g0Uym02oYUMI=";
   };
-  cef-bin =
-    let
-      fileName = "cef_binary_104.4.26+g4180781+chromium-104.0.5112.102_linux64_minimal";
-      urlName = builtins.replaceStrings [ "+" ] [ "%2B" ] fileName;
-    in
-    fetchzip rec {
-      name = fileName;
-      url = "https://cef-builds.spotifycdn.com/${urlName}.tar.bz2";
-      hash = "sha256-0PAWWBR+9TO8hhejydWz8R6Df3d9A/Mb0VL8stlPz5Q=";
-    };
+  cef-bin = let
+    fileName =
+      "cef_binary_104.4.26+g4180781+chromium-104.0.5112.102_linux64_minimal";
+    urlName = builtins.replaceStrings [ "+" ] [ "%2B" ] fileName;
+  in fetchzip rec {
+    name = fileName;
+    url = "https://cef-builds.spotifycdn.com/${urlName}.tar.bz2";
+    hash = "sha256-0PAWWBR+9TO8hhejydWz8R6Df3d9A/Mb0VL8stlPz5Q=";
+  };
   clang-fmt = fetchurl {
-    url = "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8";
+    url =
+      "https://storage.googleapis.com/chromium-clang-format/942fc8b1789144b8071d3fc03ff0fcbe1cf81ac8";
     hash = "sha256-5iAU49tQmLS7zkS+6iGT+6SEdERRo1RkyRpiRvc9nVY=";
   };
 
@@ -150,10 +102,7 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  outputs = [
-    "out"
-    "unpacked"
-  ];
+  outputs = [ "out" "unpacked" ];
 
   postBuild = ''
     export JCEF_ROOT_DIR=$(realpath ..)

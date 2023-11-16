@@ -1,8 +1,4 @@
-{
-  lib,
-  buildFishPlugin,
-  fetchFromGitHub,
-}:
+{ lib, buildFishPlugin, fetchFromGitHub }:
 
 buildFishPlugin rec {
   pname = "sponge";
@@ -16,7 +12,8 @@ buildFishPlugin rec {
   };
 
   meta = with lib; {
-    description = "keeps your fish shell history clean from typos, incorrectly used commands and everything you don't want to store due to privacy reasons";
+    description =
+      "keeps your fish shell history clean from typos, incorrectly used commands and everything you don't want to store due to privacy reasons";
     homepage = "https://github.com/meaningful-ooo/sponge";
     license = licenses.mit;
     maintainers = with maintainers; [ quantenzitrone ];

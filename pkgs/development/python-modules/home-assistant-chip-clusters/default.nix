@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  aenum,
-  dacite,
-}:
+{ lib, buildPythonPackage, fetchPypi, aenum, dacite }:
 
 buildPythonPackage rec {
   pname = "home-assistant-chip-clusters";
@@ -19,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-g3Hj21UPkHKKRXPewKLivWaUn1kXnVebayJYOmZfLBY=";
   };
 
-  propagatedBuildInputs = [
-    aenum
-    dacite
-  ];
+  propagatedBuildInputs = [ aenum dacite ];
 
   pythonImportsCheck = [ "chip.clusters" ];
 
@@ -31,7 +22,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python-base APIs and tools for CHIP";
     homepage = "https://github.com/home-assistant-libs/chip-wheels";
-    changelog = "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = teams.home-assistant.members;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

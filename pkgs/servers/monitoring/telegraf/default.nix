@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-  testers,
-  telegraf,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests, testers, telegraf }:
 
 buildGoModule rec {
   pname = "telegraf";
@@ -38,15 +31,12 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "The plugin-driven server agent for collecting & reporting metrics";
+    description =
+      "The plugin-driven server agent for collecting & reporting metrics";
     homepage = "https://www.influxdata.com/time-series-platform/telegraf/";
-    changelog = "https://github.com/influxdata/telegraf/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/influxdata/telegraf/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      mic92
-      roblabla
-      timstott
-      zowoq
-    ];
+    maintainers = with maintainers; [ mic92 roblabla timstott zowoq ];
   };
 }

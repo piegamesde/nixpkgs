@@ -1,8 +1,4 @@
-{
-  fetchzip,
-  lib,
-  stdenvNoCC,
-}:
+{ fetchzip, lib, stdenvNoCC }:
 
 /* This cannot be built from source as it requires entitlements and
    for that it needs to be code signed. Automatic updates will have
@@ -43,13 +39,7 @@ stdenvNoCC.mkDerivation rec {
     description = "A replacement for Terminal and the successor to iTerm";
     homepage = "https://www.iterm2.com/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-      steinybot
-      tricktron
-    ];
-    platforms = [
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
+    maintainers = with maintainers; [ steinybot tricktron ];
+    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
   };
 }

@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, lib, pkgs, utils, ... }:
 
 with lib;
 
@@ -77,11 +71,11 @@ let
 
   mkName = name: "kanata-${name}";
 
-  mkDevices =
-    devices: optionalString ((length devices) > 0) "linux-dev ${concatStringsSep ":" devices}";
+  mkDevices = devices:
+    optionalString ((length devices) > 0)
+    "linux-dev ${concatStringsSep ":" devices}";
 
-  mkConfig =
-    name: keyboard:
+  mkConfig = name: keyboard:
     pkgs.writeText "${mkName name}-config.kdb" ''
       (defcfg
         ${keyboard.extraDefCfg}
@@ -91,8 +85,7 @@ let
       ${keyboard.config}
     '';
 
-  mkService =
-    name: keyboard:
+  mkService = name: keyboard:
     nameValuePair (mkName name) {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
@@ -101,7 +94,10 @@ let
           ${getExe cfg.package} \
             --cfg ${mkConfig name keyboard} \
             --symlink-path ''${RUNTIME_DIRECTORY}/${name} \
-            ${optionalString (keyboard.port != null) "--port ${toString keyboard.port}"} \
+            ${
+              optionalString (keyboard.port != null)
+              "--port ${toString keyboard.port}"
+            } \
             ${utils.escapeSystemdExecArgs keyboard.extraArgs}
         '';
 
@@ -113,10 +109,7 @@ let
         ];
 
         # hardening
-        DeviceAllow = [
-          "/dev/uinput rw"
-          "char-input r"
-        ];
+        DeviceAllow = [ "/dev/uinput rw" "char-input r" ];
         CapabilityBoundingSet = [ "" ];
         DevicePolicy = "closed";
         IPAddressAllow = optional (keyboard.port != null) "localhost";
@@ -134,20 +127,16 @@ let
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" ] ++ optional (keyboard.port != null) "AF_INET";
+        RestrictAddressFamilies = [ "AF_UNIX" ]
+          ++ optional (keyboard.port != null) "AF_INET";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = [ "native" ];
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
         UMask = "0077";
       };
     };
-in
-{
+in {
   options.services.kanata = {
     enable = mkEnableOption (mdDoc "kanata");
     package = mkOption {

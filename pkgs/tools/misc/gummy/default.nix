@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  testers,
-  gummy,
-  cmake,
-  libX11,
-  libXext,
-  sdbus-cpp,
-  udev,
-  coreutils,
-}:
+{ lib, stdenv, fetchFromGitHub, testers, gummy, cmake, libX11, libXext
+, sdbus-cpp, udev, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "gummy";
@@ -25,12 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libX11
-    libXext
-    sdbus-cpp
-    udev
-  ];
+  buildInputs = [ libX11 libXext sdbus-cpp udev ];
 
   cmakeFlags = [ "-DUDEV_DIR=${placeholder "out"}/lib/udev" ];
 
@@ -38,7 +22,9 @@ stdenv.mkDerivation rec {
   # Setting this through cmake does not seem to work.
   postPatch = ''
     substituteInPlace src/gummy/gummy.cpp \
-      --replace "CMAKE_INSTALL_DAEMON_PATH" "\"${placeholder "out"}/libexec/gummyd\""
+      --replace "CMAKE_INSTALL_DAEMON_PATH" "\"${
+        placeholder "out"
+      }/libexec/gummyd\""
   '';
 
   preFixup = ''

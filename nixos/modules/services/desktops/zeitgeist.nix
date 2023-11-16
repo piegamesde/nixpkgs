@@ -1,24 +1,19 @@
 # Zeitgeist
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 {
 
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {
+    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+  };
 
   ###### interface
 
   options = {
-    services.zeitgeist = {
-      enable = mkEnableOption (lib.mdDoc "zeitgeist");
-    };
+    services.zeitgeist = { enable = mkEnableOption (lib.mdDoc "zeitgeist"); };
   };
 
   ###### implementation

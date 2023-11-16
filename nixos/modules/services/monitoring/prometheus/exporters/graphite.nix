@@ -1,15 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 let
   cfg = config.services.prometheus.exporters.graphite;
   format = pkgs.formats.yaml { };
-in
-{
+in {
   port = 9108;
   extraOpts = {
     graphitePort = lib.mkOption {
@@ -37,8 +31,12 @@ in
       ExecStart = ''
         ${pkgs.prometheus-graphite-exporter}/bin/graphite_exporter \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
-          --graphite.listen-address ${cfg.listenAddress}:${toString cfg.graphitePort} \
-          --graphite.mapping-config ${format.generate "mapping.yml" cfg.mappingSettings} \
+          --graphite.listen-address ${cfg.listenAddress}:${
+            toString cfg.graphitePort
+          } \
+          --graphite.mapping-config ${
+            format.generate "mapping.yml" cfg.mappingSettings
+          } \
           ${lib.concatStringsSep " \\\n  " cfg.extraFlags}
       '';
     };

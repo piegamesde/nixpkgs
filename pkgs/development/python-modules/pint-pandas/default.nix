@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  setuptools,
-  pint,
-  pandas,
-  pytestCheckHook,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, setuptools, pint
+, pandas, pytestCheckHook }:
 
 buildPythonPackage {
   pname = "pint-pandas";
@@ -25,10 +16,7 @@ buildPythonPackage {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    pint
-    pandas
-  ];
+  propagatedBuildInputs = [ pint pandas ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

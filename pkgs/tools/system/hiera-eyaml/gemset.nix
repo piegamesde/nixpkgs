@@ -1,9 +1,6 @@
 {
   hiera-eyaml = {
-    dependencies = [
-      "highline"
-      "optimist"
-    ];
+    dependencies = [ "highline" "optimist" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

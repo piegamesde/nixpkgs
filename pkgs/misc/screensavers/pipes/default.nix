@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  coreutils,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "pipes";
@@ -25,12 +18,7 @@ stdenv.mkDerivation rec {
     make PREFIX=$out/ install
 
     wrapProgram $out/bin/pipes.sh \
-      --set PATH "${
-        lib.makeBinPath [
-          coreutils
-          ncurses
-        ]
-      }"
+      --set PATH "${lib.makeBinPath [ coreutils ncurses ]}"
   '';
 
   meta = with lib; {

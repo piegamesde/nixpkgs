@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,31 +6,17 @@ let
   pkg = pkgs.pgadmin4;
   cfg = config.services.pgadmin;
 
-  _base = with types; [
-    int
-    bool
-    str
-  ];
-  base =
-    with types;
-    oneOf (
-      [
-        (listOf (oneOf _base))
-        (attrsOf (oneOf _base))
-      ]
-      ++ _base
-    );
+  _base = with types; [ int bool str ];
+  base = with types;
+    oneOf ([ (listOf (oneOf _base)) (attrsOf (oneOf _base)) ] ++ _base);
 
-  formatAttrset =
-    attr:
+  formatAttrset = attr:
     "{${
-      concatStringsSep "\n" (
-        mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr
-      )
+      concatStringsSep "\n" (mapAttrsToList
+        (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr)
     }}";
 
-  formatPyValue =
-    value:
+  formatPyValue = value:
     if builtins.isString value then
       builtins.toJSON value
     else if value ? _expr then
@@ -51,20 +32,12 @@ let
     else
       throw "Unrecognized type";
 
-  formatPy =
-    attrs: concatStringsSep "\n" (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
+  formatPy = attrs:
+    concatStringsSep "\n"
+    (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
 
-  pyType =
-    with types;
-    attrsOf (
-      oneOf [
-        (attrsOf base)
-        (listOf base)
-        base
-      ]
-    );
-in
-{
+  pyType = with types; attrsOf (oneOf [ (attrsOf base) (listOf base) base ]);
+in {
   options.services.pgadmin = {
     enable = mkEnableOption (lib.mdDoc "PostgreSQL Admin 4");
 
@@ -136,7 +109,8 @@ in
       };
     };
 
-    openFirewall = mkEnableOption (lib.mdDoc "firewall passthrough for pgadmin4");
+    openFirewall =
+      mkEnableOption (lib.mdDoc "firewall passthrough for pgadmin4");
 
     settings = mkOption {
       description = lib.mdDoc ''
@@ -151,12 +125,10 @@ in
   config = mkIf (cfg.enable) {
     networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.port ];
 
-    services.pgadmin.settings =
-      {
-        DEFAULT_SERVER_PORT = cfg.port;
-        SERVER_MODE = true;
-      }
-      // (optionalAttrs cfg.openFirewall { DEFAULT_SERVER = mkDefault "::"; })
+    services.pgadmin.settings = {
+      DEFAULT_SERVER_PORT = cfg.port;
+      SERVER_MODE = true;
+    } // (optionalAttrs cfg.openFirewall { DEFAULT_SERVER = mkDefault "::"; })
       // (optionalAttrs cfg.emailServer.enable {
         MAIL_SERVER = cfg.emailServer.address;
         MAIL_PORT = cfg.emailServer.port;
@@ -174,11 +146,7 @@ in
       # in case postgres doesn't start, pgadmin will just start normally
       wants = [ "postgresql.service" ];
 
-      path = [
-        config.services.postgresql.package
-        pkgs.coreutils
-        pkgs.bash
-      ];
+      path = [ config.services.postgresql.package pkgs.coreutils pkgs.bash ];
 
       preStart = ''
         # NOTE: this is idempotent (aka running it twice has no effect)
@@ -215,13 +183,11 @@ in
     users.groups.pgadmin = { };
 
     environment.etc."pgadmin/config_system.py" = {
-      text =
-        lib.optionalString cfg.emailServer.enable ''
-          with open("${cfg.emailServer.passwordFile}") as f:
-            pw = f.read()
-          MAIL_PASSWORD = pw
-        ''
-        + formatPy cfg.settings;
+      text = lib.optionalString cfg.emailServer.enable ''
+        with open("${cfg.emailServer.passwordFile}") as f:
+          pw = f.read()
+        MAIL_PASSWORD = pw
+      '' + formatPy cfg.settings;
       mode = "0600";
       user = "pgadmin";
       group = "pgadmin";

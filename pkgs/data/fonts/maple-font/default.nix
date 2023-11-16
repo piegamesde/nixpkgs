@@ -1,23 +1,14 @@
-{
-  lib,
-  stdenv,
-  unzip,
-  fetchurl,
-}:
+{ lib, stdenv, unzip, fetchurl }:
 
 let
-  maple-font =
-    {
-      pname,
-      sha256,
-      desc,
-    }:
+  maple-font = { pname, sha256, desc }:
     stdenv.mkDerivation rec {
 
       inherit pname desc;
       version = "6.3";
       src = fetchurl {
-        url = "https://github.com/subframe7536/Maple-font/releases/download/v${version}/${pname}.zip";
+        url =
+          "https://github.com/subframe7536/Maple-font/releases/download/v${version}/${pname}.zip";
         inherit sha256;
       };
 
@@ -41,8 +32,8 @@ let
         maintainers = with maintainers; [ oluceps ];
       };
     };
-in
-{
+
+in {
   Mono = maple-font {
     pname = "MapleMono";
     sha256 = "sha256-Ap4OwP/QGFz9+xn12rekia1/pwRxZvv+H+ZmZiXcxcY=";
@@ -73,3 +64,4 @@ in
     desc = "WOFF2.0";
   };
 }
+

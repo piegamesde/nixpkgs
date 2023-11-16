@@ -1,19 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  libiconv,
-  cargo,
-  coursier,
-  dotnet-sdk,
-  git,
-  glibcLocales,
-  go,
-  nodejs,
-  perl,
-  testers,
-  pre-commit,
-}:
+{ lib, fetchFromGitHub, python3Packages, libiconv, cargo, coursier, dotnet-sdk
+, git, glibcLocales, go, nodejs, perl, testers, pre-commit }:
 
 with python3Packages;
 buildPythonApplication rec {
@@ -35,14 +21,7 @@ buildPythonApplication rec {
     ./hook-tmpl.patch
   ];
 
-  propagatedBuildInputs = [
-    cfgv
-    identify
-    nodeenv
-    pyyaml
-    toml
-    virtualenv
-  ];
+  propagatedBuildInputs = [ cfgv identify nodeenv pyyaml toml virtualenv ];
 
   nativeCheckInputs = [
     cargo
@@ -77,26 +56,24 @@ buildPythonApplication rec {
 
   pytestFlagsArray = [ "--forked" ];
 
-  preCheck =
-    lib.optionalString (!(stdenv.isLinux && stdenv.isAarch64)) ''
-      # Disable outline atomics for rust tests on aarch64-linux.
-      export RUSTFLAGS="-Ctarget-feature=-outline-atomics"
-    ''
-    + ''
-      export GIT_AUTHOR_NAME=test GIT_COMMITTER_NAME=test \
-             GIT_AUTHOR_EMAIL=test@example.com GIT_COMMITTER_EMAIL=test@example.com \
-             VIRTUALENV_NO_DOWNLOAD=1 PRE_COMMIT_NO_CONCURRENCY=1 LANG=en_US.UTF-8
+  preCheck = lib.optionalString (!(stdenv.isLinux && stdenv.isAarch64)) ''
+    # Disable outline atomics for rust tests on aarch64-linux.
+    export RUSTFLAGS="-Ctarget-feature=-outline-atomics"
+  '' + ''
+    export GIT_AUTHOR_NAME=test GIT_COMMITTER_NAME=test \
+           GIT_AUTHOR_EMAIL=test@example.com GIT_COMMITTER_EMAIL=test@example.com \
+           VIRTUALENV_NO_DOWNLOAD=1 PRE_COMMIT_NO_CONCURRENCY=1 LANG=en_US.UTF-8
 
-      # Resolve `.NET location: Not found` errors for dotnet tests
-      export DOTNET_ROOT="${dotnet-sdk}"
+    # Resolve `.NET location: Not found` errors for dotnet tests
+    export DOTNET_ROOT="${dotnet-sdk}"
 
-      export HOME=$(mktemp -d)
+    export HOME=$(mktemp -d)
 
-      git init -b master
+    git init -b master
 
-      python -m venv --system-site-packages venv
-      source "$PWD/venv/bin/activate"
-    '';
+    python -m venv --system-site-packages venv
+    source "$PWD/venv/bin/activate"
+  '';
 
   postCheck = ''
     deactivate
@@ -174,7 +151,8 @@ buildPythonApplication rec {
   passthru.tests.version = testers.testVersion { package = pre-commit; };
 
   meta = with lib; {
-    description = "A framework for managing and maintaining multi-language pre-commit hooks";
+    description =
+      "A framework for managing and maintaining multi-language pre-commit hooks";
     homepage = "https://pre-commit.com/";
     license = licenses.mit;
     maintainers = with maintainers; [ borisbabic ];

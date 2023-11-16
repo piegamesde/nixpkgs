@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  chmlib,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, chmlib }:
 
 buildPythonPackage rec {
   pname = "pychm";

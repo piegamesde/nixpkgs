@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  pulseaudio,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, pulseaudio }:
 
 buildGoModule rec {
   pname = "kappanhang";

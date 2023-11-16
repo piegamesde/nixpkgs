@@ -1,16 +1,6 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  pytest-console-scripts,
-  pytestCheckHook,
-  pythonOlder,
-  pyvips,
-  scipy,
-  setuptools-scm,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, numpy
+, pytest-console-scripts, pytestCheckHook, pythonOlder, pyvips, scipy
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "scooby";
@@ -54,8 +44,10 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/banesullivan/scooby/releases/tag/v${version}";
-    description = "A lightweight tool for reporting Python package versions and hardware resources";
+    changelog =
+      "https://github.com/banesullivan/scooby/releases/tag/v${version}";
+    description =
+      "A lightweight tool for reporting Python package versions and hardware resources";
     homepage = "https://github.com/banesullivan/scooby";
     license = licenses.mit;
     maintainers = with maintainers; [ wegank ];

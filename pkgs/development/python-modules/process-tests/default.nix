@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "process-tests";
@@ -21,4 +17,5 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     homepage = "https://github.com/ionelmc/python-process-tests";
   };
+
 }

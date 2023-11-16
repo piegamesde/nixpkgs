@@ -1,31 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gnome,
-  gtk3,
-  gjs,
-  flex,
-  bison,
-  libxml2,
-  intltool,
-  gdl,
-  libgda,
-  gtksourceview,
-  gsettings-desktop-schemas,
-  itstool,
-  python3,
-  ncurses,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gnome, gtk3, gjs, flex, bison, libxml2
+, intltool, gdl, libgda, gtksourceview, gsettings-desktop-schemas, itstool
+, python3, ncurses, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "anjuta";
   version = "3.34.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/anjuta/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/anjuta/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "13ql7axw6zz387s7pa1m7wmh7qps3x7fk53h9832vq1yxlq33aa2";
   };
 

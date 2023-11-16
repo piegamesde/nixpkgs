@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fire,
-  tqdm,
-  intelhex,
-  libusb1,
-}:
+{ lib, buildPythonPackage, fetchPypi, fire, tqdm, intelhex, libusb1 }:
 
 buildPythonPackage rec {
   pname = "nkdfu";
@@ -18,12 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-8l913dOCxHKFtpQ83p9RV3sUlu0oT5PVi14FSuYJ9fg=";
   };
 
-  propagatedBuildInputs = [
-    fire
-    tqdm
-    intelhex
-    libusb1
-  ];
+  propagatedBuildInputs = [ fire tqdm intelhex libusb1 ];
 
   # no tests
   doCheck = false;

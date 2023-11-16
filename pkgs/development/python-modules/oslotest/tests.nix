@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  oslo-config,
-  oslotest,
-  stestr,
-}:
+{ buildPythonPackage, oslo-config, oslotest, stestr }:
 
 buildPythonPackage rec {
   pname = "oslotest-tests";
@@ -20,11 +15,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  nativeCheckInputs = [
-    oslotest
-    oslo-config
-    stestr
-  ];
+  nativeCheckInputs = [ oslotest oslo-config stestr ];
 
   checkPhase = ''
     stestr run

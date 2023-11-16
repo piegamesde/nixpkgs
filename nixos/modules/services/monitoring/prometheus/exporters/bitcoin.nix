@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.bitcoin;
-in
-{
+let cfg = config.services.prometheus.exporters.bitcoin;
+in {
   port = 9332;
   extraOpts = {
     rpcUser = mkOption {
@@ -29,10 +22,7 @@ in
     };
 
     rpcScheme = mkOption {
-      type = types.enum [
-        "http"
-        "https"
-      ];
+      type = types.enum [ "http" "https" ];
       default = "http";
       description = lib.mdDoc ''
         Whether to connect to bitcoind over http or https.

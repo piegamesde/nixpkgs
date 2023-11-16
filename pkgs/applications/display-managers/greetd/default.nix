@@ -1,11 +1,4 @@
-{
-  rustPlatform,
-  lib,
-  fetchFromSourcehut,
-  pam,
-  scdoc,
-  installShellFiles,
-}:
+{ rustPlatform, lib, fetchFromSourcehut, pam, scdoc, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "greetd";
@@ -20,10 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-8nMQ81Y0DnPs9WmxNASlcjTEVw5lh+nZtZ7vmmBCu2g=";
 
-  nativeBuildInputs = [
-    scdoc
-    installShellFiles
-  ];
+  nativeBuildInputs = [ scdoc installShellFiles ];
 
   buildInputs = [ pam ];
 

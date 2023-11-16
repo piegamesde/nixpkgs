@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  python3,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchurl, python3, installShellFiles }:
 
 stdenv.mkDerivation rec {
   version = "2.4.4";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uBwcntmLmIAztbIOHEDx0Y0/kcoJqAHqBOM2yBiRHrU=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    python3.pkgs.wrapPython
-  ];
+  nativeBuildInputs = [ installShellFiles python3.pkgs.wrapPython ];
 
   dontConfigure = true;
   dontBuild = true;

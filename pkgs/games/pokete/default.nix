@@ -1,11 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  testers,
-  pokete,
-  faketty,
-}:
+{ lib, python3, fetchFromGitHub, testers, pokete, faketty }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pokete";
@@ -20,10 +13,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-T18908Einsgful8hYMVHl0cL4sIYFvhpy0MbLIcVhxs=";
   };
 
-  pythonPath = with python3.pkgs; [
-    scrap-engine
-    pynput
-  ];
+  pythonPath = with python3.pkgs; [ scrap-engine pynput ];
 
   buildPhase = ''
     ${python3.interpreter} -O -m compileall .

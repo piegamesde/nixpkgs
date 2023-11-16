@@ -1,18 +1,8 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  fetchFromGitLab,
-  json_c,
-  libsodium,
-  libxml2,
-  ncurses,
-}:
+{ lib, stdenv, cmake, fetchFromGitLab, json_c, libsodium, libxml2, ncurses }:
 
-let
-  rev = "22796663dcad81684ab24308d9db570f6781ba2c";
-in
-stdenv.mkDerivation rec {
+let rev = "22796663dcad81684ab24308d9db570f6781ba2c";
+
+in stdenv.mkDerivation rec {
   name = "mpw-${version}-${builtins.substring 0 8 rev}";
   version = "2.6";
 
@@ -32,19 +22,11 @@ stdenv.mkDerivation rec {
       --replace ./mpw ./build/mpw
   '';
 
-  cmakeFlags = [
-    "-Dmpw_version=${version}"
-    "-DBUILD_MPW_TESTS=ON"
-  ];
+  cmakeFlags = [ "-Dmpw_version=${version}" "-DBUILD_MPW_TESTS=ON" ];
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    json_c
-    libxml2
-    libsodium
-    ncurses
-  ];
+  buildInputs = [ json_c libxml2 libsodium ncurses ];
 
   installPhase = ''
     runHook preInstall

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "tidb";
@@ -27,7 +23,8 @@ buildGoModule rec {
   subPackages = [ "tidb-server" ];
 
   meta = with lib; {
-    description = "An open-source, cloud-native, distributed, MySQL-Compatible database for elastic scale and real-time analytics";
+    description =
+      "An open-source, cloud-native, distributed, MySQL-Compatible database for elastic scale and real-time analytics";
     homepage = "https://pingcap.com";
     license = licenses.asl20;
     maintainers = [ ];

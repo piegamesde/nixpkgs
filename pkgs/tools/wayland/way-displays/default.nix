@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  wayland,
-  libinput,
-  yaml-cpp,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, wayland, libinput, yaml-cpp }:
 
 stdenv.mkDerivation rec {
   pname = "way-displays";
@@ -21,16 +13,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    wayland
-  ];
+  nativeBuildInputs = [ pkg-config wayland ];
 
-  buildInputs = [
-    wayland
-    yaml-cpp
-    libinput
-  ];
+  buildInputs = [ wayland yaml-cpp libinput ];
 
   makeFlags = [ "DESTDIR=$(out) PREFIX= PREFIX_ETC= ROOT_ETC=$(out)/etc" ];
 

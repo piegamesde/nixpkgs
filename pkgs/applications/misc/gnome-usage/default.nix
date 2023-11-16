@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  vala,
-  gettext,
-  libxml2,
-  desktop-file-utils,
-  wrapGAppsHook,
-  glib,
-  gtk3,
-  libgtop,
-  libdazzle,
-  gnome,
-  tracker,
-  libhandy,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, vala, gettext, libxml2
+, desktop-file-utils, wrapGAppsHook, glib, gtk3, libgtop, libdazzle, gnome
+, tracker, libhandy }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-usage";
@@ -41,27 +24,19 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    gnome.adwaita-icon-theme
-    gtk3
-    libdazzle
-    libgtop
-    tracker
-    libhandy
-  ];
+  buildInputs =
+    [ glib gnome.adwaita-icon-theme gtk3 libdazzle libgtop tracker libhandy ];
 
   postPatch = ''
     chmod +x build-aux/meson/postinstall.sh
     patchShebangs build-aux/meson/postinstall.sh
   '';
 
-  passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
-    description = "A nice way to view information about use of system resources, like memory and disk space";
+    description =
+      "A nice way to view information about use of system resources, like memory and disk space";
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = teams.gnome.members;

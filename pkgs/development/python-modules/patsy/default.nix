@@ -1,12 +1,6 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  six,
-  numpy,
-  scipy, # optional, allows spline-related features (see patsy's docs)
-  pytestCheckHook,
-}:
+{ lib, fetchPypi, buildPythonPackage, six, numpy
+, scipy # optional, allows spline-related features (see patsy's docs)
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "patsy";
@@ -17,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-vcGAAYdeMZvJHIEsHrahC+S7E8uB63Y/RmF53KO2cnc=";
   };
 
-  propagatedBuildInputs = [
-    six
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ six numpy scipy ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -34,3 +24,4 @@ buildPythonPackage rec {
     maintainers = with lib.maintainers; [ ilya-kolpakov ];
   };
 }
+

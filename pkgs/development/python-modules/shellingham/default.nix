@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytest-mock
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "shellingham";
@@ -23,10 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook ];
 
   pythonImportsCheck = [ "shellingham" ];
 

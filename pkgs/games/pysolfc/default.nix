@@ -1,23 +1,19 @@
-{
-  lib,
-  fetchzip,
-  buildPythonApplication,
-  python3Packages,
-  desktop-file-utils,
-  freecell-solver,
-}:
+{ lib, fetchzip, buildPythonApplication, python3Packages, desktop-file-utils
+, freecell-solver }:
 
 buildPythonApplication rec {
   pname = "PySolFC";
   version = "2.16.0";
 
   src = fetchzip {
-    url = "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC/PySolFC-${version}/PySolFC-${version}.tar.xz";
+    url =
+      "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC/PySolFC-${version}/PySolFC-${version}.tar.xz";
     sha256 = "sha256-kklB16IrDicxqMee1kbxtoqgwcSrMjCV4HP6GtnZxo8=";
   };
 
   cardsets = fetchzip {
-    url = "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC-Cardsets/PySolFC-Cardsets-2.1/PySolFC-Cardsets-2.1.tar.bz2";
+    url =
+      "https://versaweb.dl.sourceforge.net/project/pysolfc/PySolFC-Cardsets/PySolFC-Cardsets-2.1/PySolFC-Cardsets-2.1.tar.bz2";
     sha256 = "sha256-0ji6jY7zJFaaaJdInaULKUou+u934RMzYjxVDGVHbE0=";
   };
 

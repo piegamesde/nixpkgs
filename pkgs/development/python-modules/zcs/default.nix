@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  yacs,
-  boxx,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, python, yacs, boxx, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "zcs";
@@ -33,7 +25,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Configuration system which takes advantage of both argparse and yacs";
+    description =
+      "Configuration system which takes advantage of both argparse and yacs";
     homepage = "https://github.com/DIYer22/zcs";
     license = licenses.mit;
     maintainers = with maintainers; [ lucasew ];

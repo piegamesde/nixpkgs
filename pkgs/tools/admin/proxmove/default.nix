@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "proxmove";
@@ -32,7 +28,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "The Proxmox VM migrator: migrates VMs between different Proxmox VE clusters";
+    description =
+      "The Proxmox VM migrator: migrates VMs between different Proxmox VE clusters";
     homepage = "https://github.com/ossobv/proxmove";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

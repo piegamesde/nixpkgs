@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pycountry";
@@ -23,8 +17,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/flyingcircusio/pycountry";
-    description = "ISO country, subdivision, language, currency and script definitions and their translations";
+    description =
+      "ISO country, subdivision, language, currency and script definitions and their translations";
     license = licenses.lgpl2;
     maintainers = with maintainers; [ ];
   };
+
 }

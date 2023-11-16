@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pycryptodomex,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, pycryptodomex, pythonOlder, requests }:
 
 buildPythonPackage rec {
   version = "1.0.2";
@@ -18,10 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-68rnLrMlp/BsvqlbnV5kvsJTcDEtsV6OLkbE1U5ynno=";
   };
 
-  propagatedBuildInputs = [
-    pycryptodomex
-    requests
-  ];
+  propagatedBuildInputs = [ pycryptodomex requests ];
 
   # upstream tests are not very comprehensive
   doCheck = false;

@@ -1,11 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  # , backports
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm
+# , backports
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "backports.weakref";

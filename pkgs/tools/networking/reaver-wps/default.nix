@@ -1,27 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libpcap,
-  sqlite,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, libpcap, sqlite, makeWrapper }:
 
 stdenv.mkDerivation rec {
   version = "1.4";
   pname = "reaver-wps";
-  confdir = "/var/db/${pname}-${version}"; # the sqlite database is at "${confdir}/reaver/reaver.db"
+  confdir =
+    "/var/db/${pname}-${version}"; # the sqlite database is at "${confdir}/reaver/reaver.db"
 
   src = fetchurl {
-    url = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/reaver-wps/reaver-${version}.tar.gz";
+    url =
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/reaver-wps/reaver-${version}.tar.gz";
     sha256 = "0bdjai4p8xbsw8zdkkk43rgsif79x0nyx4djpyv0mzh59850blxd";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    libpcap
-    sqlite
-  ];
+  buildInputs = [ libpcap sqlite ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: crypto/dh_groups.o:src/crypto/../globule.h:141: multiple definition of

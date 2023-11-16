@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -17,7 +12,8 @@ let
       MAILTO="${config.services.cron.mailto}"
     ''}
     NIX_CONF_DIR=/etc/nix
-    ${lib.concatStrings (map (job: job + "\n") config.services.cron.systemCronJobs)}
+    ${lib.concatStrings
+    (map (job: job + "\n") config.services.cron.systemCronJobs)}
   '';
 
   # Vixie cron requires build-time configuration for the sendmail path.
@@ -30,9 +26,8 @@ let
   allFiles =
     optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile
     ++ config.services.cron.cronFiles;
-in
 
-{
+in {
 
   ###### interface
 
@@ -49,7 +44,8 @@ in
       mailto = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc "Email address to which job output will be mailed.";
+        description =
+          lib.mdDoc "Email address to which job output will be mailed.";
       };
 
       systemCronJobs = mkOption {
@@ -84,7 +80,9 @@ in
           crontab file when the cron service starts.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -101,18 +99,15 @@ in
       };
       environment.systemPackages = [ cronNixosPkg ];
       environment.etc.crontab = {
-        source =
-          pkgs.runCommand "crontabs"
-            {
-              inherit allFiles;
-              preferLocalBuild = true;
-            }
-            ''
-              touch $out
-              for i in $allFiles; do
-                cat "$i" >> $out
-              done
-            '';
+        source = pkgs.runCommand "crontabs" {
+          inherit allFiles;
+          preferLocalBuild = true;
+        } ''
+          touch $out
+          for i in $allFiles; do
+            cat "$i" >> $out
+          done
+        '';
         mode = "0600"; # Cron requires this.
       };
 
@@ -134,6 +129,9 @@ in
         restartTriggers = [ config.time.timeZone ];
         serviceConfig.ExecStart = "${cronNixosPkg}/bin/cron -n";
       };
+
     })
+
   ];
+
 }

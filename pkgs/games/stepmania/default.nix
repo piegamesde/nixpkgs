@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  nasm,
-  gtk2,
-  glib,
-  ffmpeg_4,
-  alsa-lib,
-  libmad,
-  libogg,
-  libvorbis,
-  glew,
-  libpulseaudio,
-  udev,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, nasm, gtk2, glib, ffmpeg_4, alsa-lib
+, libmad, libogg, libvorbis, glew, libpulseaudio, udev }:
 
 stdenv.mkDerivation rec {
   pname = "stepmania";
@@ -33,10 +18,7 @@ stdenv.mkDerivation rec {
     sed '1i#include <ctime>' -i src/arch/ArchHooks/ArchHooks.h # gcc12
   '';
 
-  nativeBuildInputs = [
-    cmake
-    nasm
-  ];
+  nativeBuildInputs = [ cmake nasm ];
 
   buildInputs = [
     gtk2

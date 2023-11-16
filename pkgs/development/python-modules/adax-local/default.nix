@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  bleak,
-  buildPythonPackage,
-  fetchFromGitHub,
-  async-timeout,
-  pythonOlder,
-}:
+{ lib, aiohttp, bleak, buildPythonPackage, fetchFromGitHub, async-timeout
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "adax-local";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-V3jSBdYDo32oTAGNTvHJi+GSwlL3keSDhXpNpMoCkWs=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    bleak
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp bleak async-timeout ];
 
   # Module has no tests
   doCheck = false;

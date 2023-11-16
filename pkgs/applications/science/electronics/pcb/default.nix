@@ -1,26 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gtk2,
-  bison,
-  intltool,
-  flex,
-  netpbm,
-  imagemagick,
-  dbus,
-  freetype,
-  fontconfig,
-  libGLU,
-  libGL,
-  shared-mime-info,
-  tcl,
-  tk,
-  gnome2,
-  gd,
-  xorg,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gtk2, bison, intltool, flex, netpbm
+, imagemagick, dbus, freetype, fontconfig, libGLU, libGL, shared-mime-info, tcl
+, tk, gnome2, gd, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "pcb";
@@ -31,14 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-roUvRq+Eq6f1HYE/uRb8f82+6kP3E08VBQcCThdD+14=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    bison
-    intltool
-    flex
-    netpbm
-    imagemagick
-  ];
+  nativeBuildInputs = [ pkg-config bison intltool flex netpbm imagemagick ];
 
   buildInputs = [
     gtk2

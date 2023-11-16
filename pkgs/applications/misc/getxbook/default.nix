@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-}:
+{ lib, stdenv, fetchurl, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "getxbook";
@@ -14,13 +9,12 @@ stdenv.mkDerivation rec {
     sha256 = "0ihwrx4gspj8l7fc8vxch6dpjrw1lvv9z3c19f0wxnmnxhv1cjvs";
   };
 
-  env.NIX_CFLAGS_COMPILE = builtins.toString (
-    [ "-Wno-error=deprecated-declarations" ]
-    ++ lib.optionals (!stdenv.cc.isClang) [
-      "-Wno-error=format-truncation"
-      "-Wno-error=stringop-overflow"
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE = builtins.toString
+    ([ "-Wno-error=deprecated-declarations" ]
+      ++ lib.optionals (!stdenv.cc.isClang) [
+        "-Wno-error=format-truncation"
+        "-Wno-error=stringop-overflow"
+      ]);
 
   buildInputs = [ openssl ];
 

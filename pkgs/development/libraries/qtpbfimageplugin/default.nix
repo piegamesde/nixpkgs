@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qmake,
-  qtbase,
-  protobuf,
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, qtbase, protobuf }:
 
 stdenv.mkDerivation rec {
   pname = "qtpbfimageplugin";
@@ -19,25 +12,20 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [
-    qtbase
-    protobuf
-  ];
+  buildInputs = [ qtbase protobuf ];
 
   dontWrapQtApps = true;
 
-  postPatch =
-    ''
-      # Fix plugin dir
-      substituteInPlace pbfplugin.pro \
-        --replace "\$\$[QT_INSTALL_PLUGINS]" "$out/$qtPluginPrefix"
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # Fix darwin build
-      substituteInPlace pbfplugin.pro \
-        --replace '$$PROTOBUF/include' '${protobuf}/include' \
-        --replace '$$PROTOBUF/lib/libprotobuf-lite.a' '${protobuf}/lib/libprotobuf-lite.dylib'
-    '';
+  postPatch = ''
+    # Fix plugin dir
+    substituteInPlace pbfplugin.pro \
+      --replace "\$\$[QT_INSTALL_PLUGINS]" "$out/$qtPluginPrefix"
+  '' + lib.optionalString stdenv.isDarwin ''
+    # Fix darwin build
+    substituteInPlace pbfplugin.pro \
+      --replace '$$PROTOBUF/include' '${protobuf}/include' \
+      --replace '$$PROTOBUF/lib/libprotobuf-lite.a' '${protobuf}/lib/libprotobuf-lite.dylib'
+  '';
 
   meta = with lib; {
     description = "Qt image plugin for displaying Mapbox vector tiles";

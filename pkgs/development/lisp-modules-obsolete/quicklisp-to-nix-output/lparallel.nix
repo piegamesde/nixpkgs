@@ -1,18 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "lparallel";
   version = "20160825-git";
 
   description = "Parallelism for Common Lisp";
 
-  deps = [
-    args."alexandria"
-    args."bordeaux-threads"
-  ];
+  deps = [ args."alexandria" args."bordeaux-threads" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/lparallel/2016-08-25/lparallel-20160825-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/lparallel/2016-08-25/lparallel-20160825-git.tgz";
     sha256 = "0wwwwszbj6m0b2rsp8mpn4m6y7xk448bw8fb7gy0ggmsdfgchfr1";
   };
 

@@ -1,17 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  robotframework,
-  robotframework-pythonlibcore,
-  selenium,
-  approvaltests,
-  pytest-mockito,
-  pytestCheckHook,
-  robotstatuschecker,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, python, robotframework
+, robotframework-pythonlibcore, selenium, approvaltests, pytest-mockito
+, pytestCheckHook, robotstatuschecker }:
 
 buildPythonPackage rec {
   version = "6.1.0";
@@ -25,24 +14,16 @@ buildPythonPackage rec {
     sha256 = "sha256-iCZU+9xFUPoyucdQ/26dgxAm8jRf92P3JyA2KqV8bYI=";
   };
 
-  propagatedBuildInputs = [
-    robotframework
-    robotframework-pythonlibcore
-    selenium
-  ];
+  propagatedBuildInputs =
+    [ robotframework robotframework-pythonlibcore selenium ];
 
-  nativeCheckInputs = [
-    approvaltests
-    pytest-mockito
-    pytestCheckHook
-    robotstatuschecker
-  ];
+  nativeCheckInputs =
+    [ approvaltests pytest-mockito pytestCheckHook robotstatuschecker ];
 
-  disabledTestPaths =
-    [
-      # https://github.com/robotframework/SeleniumLibrary/issues/1804
-      "utest/test/keywords/test_webdrivercache.py"
-    ];
+  disabledTestPaths = [
+    # https://github.com/robotframework/SeleniumLibrary/issues/1804
+    "utest/test/keywords/test_webdrivercache.py"
+  ];
 
   disabledTests = [
     "test_create_opera_executable_path_not_set"
@@ -59,7 +40,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/robotframework/SeleniumLibrary/blob/${src.rev}/docs/SeleniumLibrary-${version}.rst";
+    changelog =
+      "https://github.com/robotframework/SeleniumLibrary/blob/${src.rev}/docs/SeleniumLibrary-${version}.rst";
     description = "Web testing library for Robot Framework";
     homepage = "https://github.com/robotframework/SeleniumLibrary";
     license = licenses.asl20;

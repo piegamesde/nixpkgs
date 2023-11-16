@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  postgresql,
-}:
+{ lib, stdenv, fetchurl, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "pg_bigm";
@@ -28,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Text similarity measurement and index searching based on bigrams";
+    description =
+      "Text similarity measurement and index searching based on bigrams";
     homepage = "https://pgbigm.osdn.jp/";
     maintainers = [ maintainers.marsam ];
     platforms = postgresql.meta.platforms;

@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 with python3.pkgs;
 
@@ -19,19 +15,10 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "typer" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    colorama
-    openai
-    pyperclip
-    rich
-    shellingham
-    typer
-  ] ++ typer.optional-dependencies.all;
+  propagatedBuildInputs = [ colorama openai pyperclip rich shellingham typer ]
+    ++ typer.optional-dependencies.all;
 
   # No tests available
   doCheck = false;

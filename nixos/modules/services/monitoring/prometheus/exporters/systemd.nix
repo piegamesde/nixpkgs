@@ -1,16 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.systemd;
-in
-{
+let cfg = config.services.prometheus.exporters.systemd;
+
+in {
   port = 9558;
 
   serviceOpts = {
@@ -21,11 +15,10 @@ in
             concatStringsSep " " cfg.extraFlags
           }
       '';
-      RestrictAddressFamilies =
-        [
-          # Need AF_UNIX to collect data
-          "AF_UNIX"
-        ];
+      RestrictAddressFamilies = [
+        # Need AF_UNIX to collect data
+        "AF_UNIX"
+      ];
     };
   };
 }

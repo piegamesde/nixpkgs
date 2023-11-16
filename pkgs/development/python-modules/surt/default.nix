@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  six,
-  tldextract,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six, tldextract, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "surt";
@@ -18,10 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-pSMNpFfq2V0ANWNFPcb1DwPHccbfddo9P4xZ+ghwbz4=";
   };
 
-  propagatedBuildInputs = [
-    six
-    tldextract
-  ];
+  propagatedBuildInputs = [ six tldextract ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  cmake,
-  ninja,
-  pkg-config,
-  python3,
-  git,
-  SDL2,
-  SDL2_ttf,
-  freetype,
-  harfbuzz,
-  ffmpeg,
-  cacert,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, cmake, ninja, pkg-config, python3, git
+, SDL2, SDL2_ttf, freetype, harfbuzz, ffmpeg, cacert }:
 
 let
   version = "0.3.1";
@@ -28,11 +13,7 @@ let
       hash = "sha256-6YfYeUrM7cq8hnOPMq0Uq/HToFBDri0N/r0SU0LeT/Y=";
     };
 
-    nativeBuildInputs = [
-      meson
-      cacert
-      git
-    ];
+    nativeBuildInputs = [ meson cacert git ];
 
     buildCommand = ''
       cp -r --no-preserve=mode $src $out
@@ -45,8 +26,7 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-lIm2Bwy61St9d1e6QSm5ZpSIDR9ucaQKBPHATTDEgW4=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "vivictpp";
   inherit version;
 
@@ -62,20 +42,15 @@ stdenv.mkDerivation rec {
     git
   ];
 
-  buildInputs = [
-    SDL2
-    SDL2_ttf
-    freetype
-    harfbuzz
-    ffmpeg
-  ];
+  buildInputs = [ SDL2 SDL2_ttf freetype harfbuzz ffmpeg ];
 
   preConfigure = ''
     patchShebangs .
   '';
 
   meta = with lib; {
-    description = "An easy to use tool for subjective comparison of the visual quality of different encodings of the same video source";
+    description =
+      "An easy to use tool for subjective comparison of the visual quality of different encodings of the same video source";
     homepage = "https://github.com/vivictorg/vivictpp";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

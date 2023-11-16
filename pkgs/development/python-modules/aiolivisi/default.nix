@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchPypi,
-  pydantic,
-  pytestCheckHook,
-  pythonOlder,
-  websockets,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pydantic, pytestCheckHook
+, pythonOlder, websockets }:
 
 buildPythonPackage rec {
   pname = "aiolivisi";
@@ -28,11 +20,7 @@ buildPythonPackage rec {
       --replace "REQUIREMENTS," "[],"
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-    websockets
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic websockets ];
 
   # Module has no tests
   doCheck = false;
@@ -42,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module to communicate with LIVISI Smart Home Controller";
     homepage = "https://github.com/StefanIacobLivisi/aiolivisi";
-    changelog = "https://github.com/StefanIacobLivisi/aiolivisi/releases/tag/${version}";
+    changelog =
+      "https://github.com/StefanIacobLivisi/aiolivisi/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

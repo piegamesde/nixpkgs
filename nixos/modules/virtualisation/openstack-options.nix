@@ -1,13 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  inherit (lib) literalExpression types;
-in
-{
+{ config, lib, pkgs, ... }:
+let inherit (lib) literalExpression types;
+in {
   options = {
     openstack = {
       zfs = {
@@ -30,23 +23,21 @@ in
 
           default = { };
 
-          type = types.attrsOf (
-            types.submodule {
-              options = {
-                mount = lib.mkOption {
-                  description = lib.mdDoc "Where to mount this dataset.";
-                  type = types.nullOr types.str;
-                  default = null;
-                };
-
-                properties = lib.mkOption {
-                  description = lib.mdDoc "Properties to set on this dataset.";
-                  type = types.attrsOf types.str;
-                  default = { };
-                };
+          type = types.attrsOf (types.submodule {
+            options = {
+              mount = lib.mkOption {
+                description = lib.mdDoc "Where to mount this dataset.";
+                type = types.nullOr types.str;
+                default = null;
               };
-            }
-          );
+
+              properties = lib.mkOption {
+                description = lib.mdDoc "Properties to set on this dataset.";
+                type = types.attrsOf types.str;
+                default = { };
+              };
+            };
+          });
         };
       };
 
@@ -64,20 +55,13 @@ in
   config = lib.mkIf config.openstack.zfs.enable {
     networking.hostId = lib.mkDefault "00000000";
 
-    fileSystems =
-      let
-        mountable =
-          lib.filterAttrs (_: value: ((value.mount or null) != null))
-            config.openstack.zfs.datasets;
-      in
-      lib.mapAttrs'
-        (
-          dataset: opts:
-          lib.nameValuePair opts.mount {
-            device = dataset;
-            fsType = "zfs";
-          }
-        )
-        mountable;
+    fileSystems = let
+      mountable = lib.filterAttrs (_: value: ((value.mount or null) != null))
+        config.openstack.zfs.datasets;
+    in lib.mapAttrs' (dataset: opts:
+      lib.nameValuePair opts.mount {
+        device = dataset;
+        fsType = "zfs";
+      }) mountable;
   };
 }

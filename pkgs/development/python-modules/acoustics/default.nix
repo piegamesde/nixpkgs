@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  matplotlib,
-  numpy,
-  pandas,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-  tabulate,
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, matplotlib, numpy, pandas
+, pytestCheckHook, pythonOlder, scipy, tabulate }:
 
 buildPythonPackage rec {
   pname = "acoustics";
@@ -26,13 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    pandas
-    scipy
-    tabulate
-  ];
+  propagatedBuildInputs = [ matplotlib numpy pandas scipy tabulate ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -44,11 +27,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
 
-  disabledTestPaths =
-    [
-      # ValueError: Unknown window type: "hanning"
-      "tests/standards/test_iso_1996_2_2007.py"
-    ];
+  disabledTestPaths = [
+    # ValueError: Unknown window type: "hanning"
+    "tests/standards/test_iso_1996_2_2007.py"
+  ];
 
   pythonImportsCheck = [ "acoustics" ];
 

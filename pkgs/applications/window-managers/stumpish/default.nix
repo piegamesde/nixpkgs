@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  substituteAll,
-  fetchFromGitHub,
-  gnused,
-  ncurses,
-  xorg,
-  rlwrap,
-}:
+{ lib, stdenv, substituteAll, fetchFromGitHub, gnused, ncurses, xorg, rlwrap }:
 
 stdenv.mkDerivation {
   pname = "stumpish";
@@ -20,12 +11,7 @@ stdenv.mkDerivation {
     sha256 = "1dxzsnir3158p8y2128s08r9ca0ywr9mcznivmhn1lycw8mg4nfl";
   };
 
-  buildInputs = [
-    gnused
-    xorg.xprop
-    rlwrap
-    ncurses
-  ];
+  buildInputs = [ gnused xorg.xprop rlwrap ncurses ];
 
   patches = [
     (substituteAll {

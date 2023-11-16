@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pycodestyle,
-  pythonOlder,
-}:
+{ lib, fetchPypi, buildPythonPackage, pycodestyle, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "flake8-blind-except";

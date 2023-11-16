@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  makeRustPlatform,
-  rustc,
-  cargo,
-  installShellFiles,
-  stdenv,
-}:
+{ lib, fetchFromGitHub, makeRustPlatform, rustc, cargo, installShellFiles
+, stdenv }:
 
 let
   args = rec {
@@ -30,7 +23,8 @@ let
     meta = with lib; {
       description = "A tool to make production Rust binaries auditable";
       homepage = "https://github.com/rust-secure-code/cargo-auditable";
-      changelog = "https://github.com/rust-secure-code/cargo-auditable/blob/v${version}/cargo-auditable/CHANGELOG.md";
+      changelog =
+        "https://github.com/rust-secure-code/cargo-auditable/blob/v${version}/cargo-auditable/CHANGELOG.md";
       license = with licenses; [
         mit # or
         asl20
@@ -46,10 +40,8 @@ let
   };
 
   bootstrap = rustPlatform.buildRustPackage (args // { auditable = false; });
-in
 
-rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
-  args
+in rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (args
   // {
     nativeBuildInputs = [ installShellFiles ];
 
@@ -57,8 +49,5 @@ rustPlatform.buildRustPackage.override { cargo-auditable = bootstrap; } (
       installManPage cargo-auditable/cargo-auditable.1
     '';
 
-    passthru = {
-      inherit bootstrap;
-    };
-  }
-)
+    passthru = { inherit bootstrap; };
+  })

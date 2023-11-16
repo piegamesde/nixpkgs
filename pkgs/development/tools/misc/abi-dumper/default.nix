@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ctags,
-  perl,
-  elfutils,
-  vtable-dumper,
-}:
+{ lib, stdenv, fetchFromGitHub, ctags, perl, elfutils, vtable-dumper }:
 
 stdenv.mkDerivation rec {
   pname = "abi-dumper";
@@ -26,12 +18,7 @@ stdenv.mkDerivation rec {
       --replace '"ctags"' '"${ctags}/bin/ctags"'
   '';
 
-  buildInputs = [
-    elfutils
-    ctags
-    perl
-    vtable-dumper
-  ];
+  buildInputs = [ elfutils ctags perl vtable-dumper ];
 
   preBuild = "mkdir -p $out";
   makeFlags = [ "prefix=$(out)" ];

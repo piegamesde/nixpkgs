@@ -1,18 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flatten-dict,
-  funcy,
-  matplotlib,
-  tabulate,
-  pytestCheckHook,
-  pytest-mock,
-  pytest-test-utils,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, flatten-dict, funcy
+, matplotlib, tabulate, pytestCheckHook, pytest-mock, pytest-test-utils
+, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dvc-render";
@@ -33,22 +21,13 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools-scm ];
 
   passthru.optional-dependencies = {
-    table = [
-      flatten-dict
-      tabulate
-    ];
-    markdown = [
-      tabulate
-      matplotlib
-    ];
+    table = [ flatten-dict tabulate ];
+    markdown = [ tabulate matplotlib ];
   };
 
-  nativeCheckInputs = [
-    funcy
-    pytestCheckHook
-    pytest-mock
-    pytest-test-utils
-  ] ++ passthru.optional-dependencies.table ++ passthru.optional-dependencies.markdown;
+  nativeCheckInputs = [ funcy pytestCheckHook pytest-mock pytest-test-utils ]
+    ++ passthru.optional-dependencies.table
+    ++ passthru.optional-dependencies.markdown;
 
   disabledTestPaths = lib.optionals stdenv.isDarwin [ "tests/test_vega.py" ];
 
@@ -57,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for rendering DVC plots";
     homepage = "https://github.com/iterative/dvc-render";
-    changelog = "https://github.com/iterative/dvc-render/releases/tag/${version}";
+    changelog =
+      "https://github.com/iterative/dvc-render/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

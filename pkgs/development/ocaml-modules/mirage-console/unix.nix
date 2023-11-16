@@ -1,10 +1,4 @@
-{
-  buildDunePackage,
-  mirage-console,
-  lwt,
-  cstruct,
-  cstruct-lwt,
-}:
+{ buildDunePackage, mirage-console, lwt, cstruct, cstruct-lwt }:
 
 buildDunePackage {
   pname = "mirage-console-unix";
@@ -13,11 +7,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    mirage-console
-    cstruct
-    cstruct-lwt
-  ];
+  propagatedBuildInputs = [ mirage-console cstruct cstruct-lwt ];
 
   meta = mirage-console.meta // {
     description = "Implementation of Mirage consoles for Unix";

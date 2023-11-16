@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-}:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   pname = "PStreams";
@@ -10,11 +6,10 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://git.code.sf.net/p/pstreams/code";
-    rev =
-      let
-        dot2Underscore = lib.strings.stringAsChars (c: if c == "." then "_" else c);
-      in
-      "RELEASE_${dot2Underscore version}";
+    rev = let
+      dot2Underscore =
+        lib.strings.stringAsChars (c: if c == "." then "_" else c);
+    in "RELEASE_${dot2Underscore version}";
     sha256 = "0r8aj0nh5mkf8cvnzl8bdy4nm7i74vs83axxfimcd74kjfn0irys";
   };
 

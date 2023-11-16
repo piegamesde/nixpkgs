@@ -1,22 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  autoreconfHook,
-  glib,
-  gtk3,
-  pcsclite,
-  lua5_2,
-  curl,
-  readline,
-  PCSC,
-  xcbuild,
-}:
-let
-  version = "0.8.4";
-in
-stdenv.mkDerivation {
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, glib, gtk3, pcsclite
+, lua5_2, curl, readline, PCSC, xcbuild }:
+let version = "0.8.4";
+in stdenv.mkDerivation {
   pname = "cardpeek";
   inherit version;
 
@@ -34,17 +19,10 @@ stdenv.mkDerivation {
       --replace 'PCSC_HEADERS=`ls -d /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/*.sdk/System/Library/Frameworks/PCSC.framework/Versions/Current/Headers/ | sort | head -1`' 'PCSC_HEADERS=${PCSC}/Library/Frameworks/PCSC.framework/Headers'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
-  buildInputs = [
-    glib
-    gtk3
-    lua5_2
-    curl
-    readline
-  ] ++ lib.optional stdenv.isDarwin PCSC ++ lib.optional stdenv.isLinux pcsclite;
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
+  buildInputs = [ glib gtk3 lua5_2 curl readline ]
+    ++ lib.optional stdenv.isDarwin PCSC
+    ++ lib.optional stdenv.isLinux pcsclite;
 
   enableParallelBuilding = true;
 

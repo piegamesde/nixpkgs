@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  boost,
-  python3,
-}:
+{ lib, stdenv, fetchurl, cmake, boost, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "avro-c++";
@@ -16,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-73DKihz+7XAX3LLA7VkTdN6rFhuGvmyksxK8JMranFY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ];
+  nativeBuildInputs = [ cmake python3 ];
   buildInputs = [ boost ];
 
   preConfigure = ''
@@ -28,7 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A C++ library which implements parts of the Avro Specification";
+    description =
+      "A C++ library which implements parts of the Avro Specification";
     homepage = "https://avro.apache.org/";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ rasendubi ];

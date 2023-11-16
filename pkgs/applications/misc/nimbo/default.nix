@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  installShellFiles,
-  awscli,
-}:
+{ lib, python3, fetchFromGitHub, installShellFiles, awscli }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "nimbo";
@@ -38,12 +32,7 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
   pythonImportsCheck = [ "nimbo" ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [ awscli ])
-  ];
+  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ awscli ]) ];
 
   postInstall = ''
     installShellCompletion --cmd nimbo \
@@ -56,9 +45,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Run machine learning jobs on AWS with a single command";
     homepage = "https://github.com/nimbo-sh/nimbo";
     license = licenses.bsl11;
-    maintainers = with maintainers; [
-      alexeyre
-      noreferences
-    ];
+    maintainers = with maintainers; [ alexeyre noreferences ];
   };
 }

@@ -1,28 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  meson,
-  pkg-config,
-  ninja,
-  wayland-scanner,
-  libdrm,
-  minimal ? false,
-  libva-minimal,
-  libX11,
-  libXext,
-  libXfixes,
-  wayland,
-  libffi,
-  libGL,
-  mesa,
-  # for passthru.tests
-  intel-compute-runtime,
-  intel-media-driver,
-  mpv,
-  vaapiIntel,
-  vlc,
-}:
+{ stdenv, lib, fetchFromGitHub, meson, pkg-config, ninja, wayland-scanner
+, libdrm, minimal ? false, libva-minimal, libX11, libXext, libXfixes, wayland
+, libffi, libGL, mesa
+# for passthru.tests
+, intel-compute-runtime, intel-media-driver, mpv, vaapiIntel, vlc }:
 
 stdenv.mkDerivation rec {
   pname = "libva" + lib.optionalString minimal "-minimal";
@@ -35,49 +15,32 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VD+CTF0QLfzrUr4uFiyDlZux3MqsyyuJF/cXuhOFzwo=";
   };
 
-  outputs = [
-    "dev"
-    "out"
-  ];
+  outputs = [ "dev" "out" ];
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ meson pkg-config ninja wayland-scanner ];
 
-  buildInputs =
-    [ libdrm ]
-    ++ lib.optionals (!minimal) [
-      libva-minimal
-      libX11
-      libXext
-      libXfixes
-      wayland
-      libffi
-      libGL
-    ];
+  buildInputs = [ libdrm ] ++ lib.optionals (!minimal) [
+    libva-minimal
+    libX11
+    libXext
+    libXfixes
+    wayland
+    libffi
+    libGL
+  ];
   # TODO: share libs between minimal and !minimal - perhaps just symlink them
 
-  mesonFlags =
-    [
-      # Add FHS and Debian paths for non-NixOS applications
-      "-Ddriverdir=${mesa.drivers.driverLink}/lib/dri:/usr/lib/dri:/usr/lib32/dri:/usr/lib/x86_64-linux-gnu/dri:/usr/lib/i386-linux-gnu/dri"
-    ];
+  mesonFlags = [
+    # Add FHS and Debian paths for non-NixOS applications
+    "-Ddriverdir=${mesa.drivers.driverLink}/lib/dri:/usr/lib/dri:/usr/lib32/dri:/usr/lib/x86_64-linux-gnu/dri:/usr/lib/i386-linux-gnu/dri"
+  ];
 
   passthru.tests = {
     # other drivers depending on libva and selected application users.
     # Please get a confirmation from the maintainer before adding more applications.
-    inherit
-      intel-compute-runtime
-      intel-media-driver
-      vaapiIntel
-      mpv
-      vlc
-    ;
+    inherit intel-compute-runtime intel-media-driver vaapiIntel mpv vlc;
   };
 
   meta = with lib; {

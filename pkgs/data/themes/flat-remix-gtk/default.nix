@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gtk-engine-murrine,
-}:
+{ stdenv, lib, fetchFromGitHub, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "flat-remix-gtk";

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  imagemagick,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, imagemagick, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "ttygif";
@@ -18,20 +11,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GsMeVR2wNivQguZ6B/0v39Td9VGHg+m3RtAG9DYkNmU=";
   };
 
-  makeFlags = [
-    "CC:=$(CC)"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "CC:=$(CC)" "PREFIX=${placeholder "out"}" ];
 
   nativeBuildInputs = [ makeWrapper ];
   postInstall = ''
     wrapProgram $out/bin/ttygif \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          imagemagick
-          xorg.xwd
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ imagemagick xorg.xwd ]}
   '';
 
   meta = with lib; {

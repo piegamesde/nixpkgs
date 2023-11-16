@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "flexi-streams";
   version = "20210807-git";
 
@@ -11,7 +10,8 @@ rec {
   deps = [ args."trivial-gray-streams" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/flexi-streams/2021-08-07/flexi-streams-20210807-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/flexi-streams/2021-08-07/flexi-streams-20210807-git.tgz";
     sha256 = "1g2cvz0bjigr6lw3gigdwcm1x1w0pcyr3ainnix9wyp1kxc2n2rw";
   };
 

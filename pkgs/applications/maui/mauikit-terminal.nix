@@ -1,28 +1,12 @@
-{
-  lib,
-  mkDerivation,
-  cmake,
-  extra-cmake-modules,
-  kconfig,
-  kcoreaddons,
-  ki18n,
-  mauikit,
-}:
+{ lib, mkDerivation, cmake, extra-cmake-modules, kconfig, kcoreaddons, ki18n
+, mauikit }:
 
 mkDerivation {
   pname = "mauikit-terminal";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
-  buildInputs = [
-    kconfig
-    kcoreaddons
-    ki18n
-    mauikit
-  ];
+  buildInputs = [ kconfig kcoreaddons ki18n mauikit ];
 
   meta = with lib; {
     homepage = "https://invent.kde.org/maui/mauikit-terminal";

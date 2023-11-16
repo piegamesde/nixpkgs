@@ -1,51 +1,40 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
-  let
-    pin = "1234";
-  in
-  {
+import ./make-test-python.nix ({ pkgs, ... }:
+  let pin = "1234";
+  in {
     name = "phosh";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        tomfitzhenry
-        zhaofengli
-      ];
+      maintainers = [ tomfitzhenry zhaofengli ];
     };
 
     nodes = {
-      phone =
-        { config, pkgs, ... }:
-        {
-          users.users.nixos = {
-            isNormalUser = true;
-            password = pin;
-          };
-
-          services.xserver.desktopManager.phosh = {
-            enable = true;
-            user = "nixos";
-            group = "users";
-
-            phocConfig = {
-              outputs.Virtual-1 = {
-                scale = 2;
-              };
-            };
-          };
-
-          systemd.services.phosh = {
-            environment = {
-              # Accelerated graphics fail on phoc 0.20 (wlroots 0.15)
-              "WLR_RENDERER" = "pixman";
-            };
-          };
-
-          virtualisation.resolution = {
-            x = 720;
-            y = 1440;
-          };
-          virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci,xres=720,yres=1440" ];
+      phone = { config, pkgs, ... }: {
+        users.users.nixos = {
+          isNormalUser = true;
+          password = pin;
         };
+
+        services.xserver.desktopManager.phosh = {
+          enable = true;
+          user = "nixos";
+          group = "users";
+
+          phocConfig = { outputs.Virtual-1 = { scale = 2; }; };
+        };
+
+        systemd.services.phosh = {
+          environment = {
+            # Accelerated graphics fail on phoc 0.20 (wlroots 0.15)
+            "WLR_RENDERER" = "pixman";
+          };
+        };
+
+        virtualisation.resolution = {
+          x = 720;
+          y = 1440;
+        };
+        virtualisation.qemu.options =
+          [ "-vga none -device virtio-gpu-pci,xres=720,yres=1440" ];
+      };
     };
 
     enableOCR = true;
@@ -78,5 +67,4 @@ import ./make-test-python.nix (
           phone.wait_for_text("123") # A button on the OSK
           phone.screenshot("04osk")
     '';
-  }
-)
+  })

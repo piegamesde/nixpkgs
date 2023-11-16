@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  ocaml,
-  cppo,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, ocaml, cppo }:
 
 buildDunePackage rec {
   pname = "camomile";

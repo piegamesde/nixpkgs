@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  jinja2,
-  flake8,
-}:
+{ lib, buildPythonPackage, fetchPypi, jinja2, flake8 }:
 
 buildPythonPackage rec {
   pname = "swagger-ui-bundle";

@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  SDL2,
-  libGLU,
-  luajit,
-  curl,
-  curlpp,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, SDL2, libGLU, luajit, curl, curlpp }:
 
 let
   # Newer versions of sdl-gpu don't work with Riko4 (corrupted graphics),
@@ -23,22 +13,19 @@ let
       rev = "a4ff1ab02410f154b004c29ec46e07b22890fa1f";
       sha256 = "1wdwg331s7r4dhq1l8w4dvlqf4iywskpdrscgbwrz9j0c6nqqi3v";
     };
-    buildInputs = [
-      SDL2
-      libGLU
-    ];
+    buildInputs = [ SDL2 libGLU ];
     nativeBuildInputs = [ cmake ];
 
     meta = with lib; {
       homepage = "https://github.com/grimfang4/sdl-gpu";
-      description = "A library for high-performance, modern 2D graphics with SDL written in C";
+      description =
+        "A library for high-performance, modern 2D graphics with SDL written in C";
       license = licenses.mit;
       maintainers = with maintainers; [ CrazedProgrammer ];
     };
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "riko4";
   version = "0.1.0";
   src = fetchFromGitHub {
@@ -48,13 +35,7 @@ stdenv.mkDerivation rec {
     sha256 = "008i9991sn616dji96jfwq6gszrspbx4x7cynxb1cjw66phyy5zp";
   };
 
-  buildInputs = [
-    SDL2
-    luajit
-    sdl-gpu
-    curl
-    curlpp
-  ];
+  buildInputs = [ SDL2 luajit sdl-gpu curl curlpp ];
   nativeBuildInputs = [ cmake ];
 
   hardeningDisable = [ "fortify" ];

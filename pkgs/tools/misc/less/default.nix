@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  pcre2,
-}:
+{ lib, stdenv, fetchurl, ncurses, pcre2 }:
 
 stdenv.mkDerivation rec {
   pname = "less";
@@ -23,19 +17,13 @@ stdenv.mkDerivation rec {
     "--with-regex=pcre2"
   ];
 
-  buildInputs = [
-    ncurses
-    pcre2
-  ];
+  buildInputs = [ ncurses pcre2 ];
 
   meta = with lib; {
     homepage = "https://www.greenwoodsoftware.com/less/";
     description = "A more advanced file pager than ‘more’";
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      eelco
-      dtzWill
-    ];
+    maintainers = with maintainers; [ eelco dtzWill ];
   };
 }

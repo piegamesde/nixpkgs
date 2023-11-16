@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -25,8 +20,7 @@ let
       }
     });
   '';
-in
-{
+in {
   options = {
     services.mirakurun = {
       enable = mkEnableOption (lib.mdDoc "the Mirakurun DVR Tuner Server");
@@ -134,9 +128,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ mirakurun ] ++ optional cfg.allowSmartCardAccess polkitRule;
+    environment.systemPackages = [ mirakurun ]
+      ++ optional cfg.allowSmartCardAccess polkitRule;
     environment.etc = {
-      "mirakurun/server.yml".source = settingsFmt.generate "server.yml" cfg.serverSettings;
+      "mirakurun/server.yml".source =
+        settingsFmt.generate "server.yml" cfg.serverSettings;
       "mirakurun/tuners.yml" = mkIf (cfg.tunerSettings != null) {
         source = settingsFmt.generate "tuners.yml" cfg.tunerSettings;
         mode = "0644";
@@ -170,7 +166,8 @@ in
       port = mkIf (cfg.port != null) cfg.port;
     };
 
-    systemd.tmpfiles.rules = [ "d '/etc/mirakurun' - ${username} ${groupname} - -" ];
+    systemd.tmpfiles.rules =
+      [ "d '/etc/mirakurun' - ${username} ${groupname} - -" ];
 
     systemd.services.mirakurun = {
       description = mirakurun.meta.description;
@@ -198,15 +195,12 @@ in
         NODE_ENV = "production";
       };
 
-      restartTriggers =
-        let
-          getconf = target: config.environment.etc."mirakurun/${target}.yml".source;
-          targets =
-            [ "server" ]
-            ++ optional (cfg.tunerSettings != null) "tuners"
-            ++ optional (cfg.channelSettings != null) "channels";
-        in
-        (map getconf targets);
+      restartTriggers = let
+        getconf = target:
+          config.environment.etc."mirakurun/${target}.yml".source;
+        targets = [ "server" ] ++ optional (cfg.tunerSettings != null) "tuners"
+          ++ optional (cfg.channelSettings != null) "channels";
+      in (map getconf targets);
     };
   };
 }

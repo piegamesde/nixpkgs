@@ -1,22 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  which,
-  perl,
-  autoconf,
-  automake,
-  libtool,
-  openssl,
-  systemd,
-  pam,
-  fuse,
-  libjpeg,
-  libopus,
-  nasm,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, which, perl, autoconf, automake
+, libtool, openssl, systemd, pam, fuse, libjpeg, libopus, nasm, xorg }:
 
 let
   xorgxrdp = stdenv.mkDerivation rec {
@@ -30,14 +13,7 @@ let
       hash = "sha256-WI1KyJDQkmNHwweZMbNd2KUfawaieoGMDMQfeD12cZs=";
     };
 
-    nativeBuildInputs = [
-      pkg-config
-      autoconf
-      automake
-      which
-      libtool
-      nasm
-    ];
+    nativeBuildInputs = [ pkg-config autoconf automake which libtool nasm ];
 
     buildInputs = [ xorg.xorgserver ];
 
@@ -70,15 +46,8 @@ let
       hash = "sha256-8gAP4wOqSmar8JhKRt4qRRwh23coIn0Q8Tt9ClHQSt8=";
     };
 
-    nativeBuildInputs = [
-      pkg-config
-      autoconf
-      automake
-      which
-      libtool
-      nasm
-      perl
-    ];
+    nativeBuildInputs =
+      [ pkg-config autoconf automake which libtool nasm perl ];
 
     buildInputs = [
       openssl
@@ -113,10 +82,7 @@ let
       "--enable-pam-config=unix"
     ];
 
-    installFlags = [
-      "DESTDIR=$(out)"
-      "prefix="
-    ];
+    installFlags = [ "DESTDIR=$(out)" "prefix=" ];
 
     postInstall = ''
       # remove generated keys (as non-deterministic)
@@ -158,5 +124,4 @@ let
       platforms = platforms.linux;
     };
   };
-in
-xrdp
+in xrdp

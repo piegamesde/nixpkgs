@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-}:
+{ lib, buildDunePackage, fetchurl }:
 
 buildDunePackage rec {
   pname = "omd";
@@ -11,7 +7,8 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03";
 
   src = fetchurl {
-    url = "https://github.com/ocaml/omd/releases/download/${version}/omd-${version}.tbz";
+    url =
+      "https://github.com/ocaml/omd/releases/download/${version}/omd-${version}.tbz";
     sha256 = "sha256-YCPhZCYx8I9njrVyWCCHnte7Wj/+53fN7evCjB+F+ts=";
   };
 

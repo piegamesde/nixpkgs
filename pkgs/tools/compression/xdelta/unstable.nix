@@ -1,18 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  lzmaSupport ? true,
-  xz ? null,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, lzmaSupport ? true, xz ? null }:
 
 assert lzmaSupport -> xz != null;
 
-let
-  mkWith = flag: name: if flag then "--with-${name}" else "--without-${name}";
-in
-stdenv.mkDerivation rec {
+let mkWith = flag: name: if flag then "--with-${name}" else "--without-${name}";
+in stdenv.mkDerivation rec {
   pname = "xdelta";
   version = "3.1.0";
 

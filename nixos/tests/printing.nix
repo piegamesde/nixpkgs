@@ -1,65 +1,49 @@
 # Test printing via CUPS.
 
-import ./make-test-python.nix (
-  {
-    pkgs,
-    socket ? true # whether to use socket activation
-    ,
-    ...
-  }:
+import ./make-test-python.nix ({ pkgs
+  , socket ? true # whether to use socket activation
+  , ... }:
 
   {
     name = "printing";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        domenkozar
-        eelco
-        matthewbauer
-      ];
+      maintainers = [ domenkozar eelco matthewbauer ];
     };
 
-    nodes.server =
-      { ... }:
-      {
-        services.printing = {
-          enable = true;
-          stateless = true;
-          startWhenNeeded = socket;
-          listenAddresses = [ "*:631" ];
-          defaultShared = true;
-          extraConf = ''
-            <Location />
-              Order allow,deny
-              Allow from all
-            </Location>
-          '';
-        };
-        networking.firewall.allowedTCPPorts = [ 631 ];
-        # Add a HP Deskjet printer connected via USB to the server.
-        hardware.printers.ensurePrinters = [
-          {
-            name = "DeskjetLocal";
-            deviceUri = "usb://foobar/printers/foobar";
-            model = "drv:///sample.drv/deskjet.ppd";
-          }
-        ];
+    nodes.server = { ... }: {
+      services.printing = {
+        enable = true;
+        stateless = true;
+        startWhenNeeded = socket;
+        listenAddresses = [ "*:631" ];
+        defaultShared = true;
+        extraConf = ''
+          <Location />
+            Order allow,deny
+            Allow from all
+          </Location>
+        '';
       };
+      networking.firewall.allowedTCPPorts = [ 631 ];
+      # Add a HP Deskjet printer connected via USB to the server.
+      hardware.printers.ensurePrinters = [{
+        name = "DeskjetLocal";
+        deviceUri = "usb://foobar/printers/foobar";
+        model = "drv:///sample.drv/deskjet.ppd";
+      }];
+    };
 
-    nodes.client =
-      { ... }:
-      {
-        services.printing.enable = true;
-        services.printing.startWhenNeeded = socket;
-        # Add printer to the client as well, via IPP.
-        hardware.printers.ensurePrinters = [
-          {
-            name = "DeskjetRemote";
-            deviceUri = "ipp://server/printers/DeskjetLocal";
-            model = "drv:///sample.drv/deskjet.ppd";
-          }
-        ];
-        hardware.printers.ensureDefaultPrinter = "DeskjetRemote";
-      };
+    nodes.client = { ... }: {
+      services.printing.enable = true;
+      services.printing.startWhenNeeded = socket;
+      # Add printer to the client as well, via IPP.
+      hardware.printers.ensurePrinters = [{
+        name = "DeskjetRemote";
+        deviceUri = "ipp://server/printers/DeskjetLocal";
+        model = "drv:///sample.drv/deskjet.ppd";
+      }];
+      hardware.printers.ensureDefaultPrinter = "DeskjetRemote";
+    };
 
     testScript = ''
       import os
@@ -133,5 +117,4 @@ import ./make-test-python.nix (
               # Otherwise, pairs of "c*"-"d*-001" files might persist.
               server.execute("rm /var/spool/cups/*")
     '';
-  }
-)
+  })

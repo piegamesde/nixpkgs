@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "redhat-official";
@@ -28,7 +24,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/RedHatOfficial/RedHatFont";
-    description = "Red Hat's Open Source Fonts - Red Hat Display and Red Hat Text";
+    description =
+      "Red Hat's Open Source Fonts - Red Hat Display and Red Hat Text";
     license = licenses.ofl;
     platforms = platforms.all;
     maintainers = with maintainers; [ dtzWill ];

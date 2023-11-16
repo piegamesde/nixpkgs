@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "merriweather";

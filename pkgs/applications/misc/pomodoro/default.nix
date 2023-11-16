@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  Foundation,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, Foundation }:
 
 rustPlatform.buildRustPackage rec {
   pname = "pomodoro";
@@ -21,7 +15,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optionals stdenv.isDarwin [ Foundation ];
 
   meta = with lib; {
-    description = "A simple CLI pomodoro timer using desktop notifications written in Rust";
+    description =
+      "A simple CLI pomodoro timer using desktop notifications written in Rust";
     homepage = "https://github.com/SanderJSA/Pomodoro";
     license = licenses.mit;
     maintainers = with maintainers; [ annaaurora ];

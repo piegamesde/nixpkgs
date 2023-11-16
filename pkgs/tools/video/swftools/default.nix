@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  freetype,
-  libjpeg,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, freetype, libjpeg, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "swftools";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./swftools.patch ];
 
-  buildInputs = [
-    freetype
-    libjpeg
-    zlib
-  ];
+  buildInputs = [ freetype libjpeg zlib ];
 
   meta = with lib; {
     description = "Collection of SWF manipulation and creation utilities";

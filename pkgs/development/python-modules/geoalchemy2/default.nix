@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  packaging,
-  setuptools-scm,
-  shapely,
-  sqlalchemy,
-  alembic,
-  psycopg2,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, packaging, setuptools-scm, shapely
+, sqlalchemy, alembic, psycopg2, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "geoalchemy2";
@@ -27,17 +16,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    packaging
-    shapely
-    sqlalchemy
-  ];
+  propagatedBuildInputs = [ packaging shapely sqlalchemy ];
 
-  nativeCheckInputs = [
-    alembic
-    psycopg2
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ alembic psycopg2 pytestCheckHook ];
 
   pytestFlagsArray = [
     # tests require live postgis database
@@ -61,7 +42,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Toolkit for working with spatial databases";
     homepage = "https://geoalchemy-2.readthedocs.io/";
-    changelog = "https://github.com/geoalchemy/geoalchemy2/releases/tag/${version}";
+    changelog =
+      "https://github.com/geoalchemy/geoalchemy2/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

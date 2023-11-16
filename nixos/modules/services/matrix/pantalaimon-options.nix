@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  name,
-  ...
-}:
+{ config, lib, name, ... }:
 
 with lib; {
   options = {
@@ -16,12 +11,7 @@ with lib; {
     };
 
     logLevel = mkOption {
-      type = types.enum [
-        "info"
-        "warning"
-        "error"
-        "debug"
-      ];
+      type = types.enum [ "info" "warning" "error" "debug" ];
       default = "warning";
       description = lib.mdDoc ''
         Set the log level of the daemon.

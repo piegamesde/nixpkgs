@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  ocamlPackages,
-}:
+{ lib, fetchFromGitHub, ocamlPackages }:
 
 ocamlPackages.buildDunePackage rec {
   pname = "orpie";
@@ -24,11 +20,7 @@ ocamlPackages.buildDunePackage rec {
   '';
 
   nativeBuildInputs = [ ocamlPackages.camlp5 ];
-  buildInputs = with ocamlPackages; [
-    curses
-    num
-    gsl
-  ];
+  buildInputs = with ocamlPackages; [ curses num gsl ];
 
   meta = {
     inherit (src.meta) homepage;

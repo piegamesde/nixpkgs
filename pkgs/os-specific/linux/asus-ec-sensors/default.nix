@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  kernel,
-}:
+{ lib, stdenv, fetchFromGitHub, kernel }:
 
 stdenv.mkDerivation rec {
   name = "asus-ec-sensors-${version}-${kernel.version}";
@@ -32,7 +27,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Linux HWMON sensors driver for ASUS motherboards to read sensor data from the embedded controller";
+    description =
+      "Linux HWMON sensors driver for ASUS motherboards to read sensor data from the embedded controller";
     homepage = "https://github.com/zeule/asus-ec-sensors";
     license = licenses.gpl2;
     platforms = [ "x86_64-linux" ];

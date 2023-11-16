@@ -1,25 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib)
-    generators
-    literalExpression
-    mkEnableOption
-    mkIf
-    mkOption
-    recursiveUpdate
-    types
-  ;
+    generators literalExpression mkEnableOption mkIf mkOption recursiveUpdate
+    types;
   cfg = config.services.zeronet;
   dataDir = "/var/lib/zeronet";
-  configFile = pkgs.writeText "zeronet.conf" (
-    generators.toINI { } (recursiveUpdate defaultSettings cfg.settings)
-  );
+  configFile = pkgs.writeText "zeronet.conf"
+    (generators.toINI { } (recursiveUpdate defaultSettings cfg.settings));
 
   defaultSettings = {
     global = {
@@ -27,17 +15,15 @@ let
       log_dir = dataDir;
       ui_port = cfg.port;
       fileserver_port = cfg.fileserverPort;
-      tor =
-        if !cfg.tor then
-          "disable"
-        else if cfg.torAlways then
-          "always"
-        else
-          "enable";
+      tor = if !cfg.tor then
+        "disable"
+      else if cfg.torAlways then
+        "always"
+      else
+        "enable";
     };
   };
-in
-with lib; {
+in with lib; {
   options.services.zeronet = {
     enable = mkEnableOption (lib.mdDoc "zeronet");
 
@@ -49,16 +35,7 @@ with lib; {
     };
 
     settings = mkOption {
-      type =
-        with types;
-        attrsOf (
-          oneOf [
-            str
-            int
-            bool
-            (listOf str)
-          ]
-        );
+      type = with types; attrsOf (oneOf [ str int bool (listOf str) ]);
       default = { };
       example = literalExpression "{ global.tor = enable; }";
 
@@ -124,22 +101,10 @@ with lib; {
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "zeronet"
-        "dataDir"
-      ]
-      "Zeronet will store data by default in /var/lib/zeronet"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "zeronet"
-        "logDir"
-      ]
-      "Zeronet will log by default in /var/lib/zeronet"
-    )
+    (mkRemovedOptionModule [ "services" "zeronet" "dataDir" ]
+      "Zeronet will store data by default in /var/lib/zeronet")
+    (mkRemovedOptionModule [ "services" "zeronet" "logDir" ]
+      "Zeronet will log by default in /var/lib/zeronet")
   ];
 
   meta.maintainers = with maintainers; [ Madouura ];

@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  docopt,
-  fetchFromGitHub,
-  fetchpatch,
-  hypothesis,
-  passlib,
-  poetry-core,
-  pytest-logdog,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  setuptools,
-  transitions,
-  websockets,
-}:
+{ lib, buildPythonPackage, docopt, fetchFromGitHub, fetchpatch, hypothesis
+, passlib, poetry-core, pytest-logdog, pytest-asyncio, pytestCheckHook
+, pythonOlder, pyyaml, setuptools, transitions, websockets }:
 
 buildPythonPackage rec {
   pname = "amqtt";
@@ -39,29 +24,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    docopt
-    passlib
-    pyyaml
-    setuptools
-    transitions
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ docopt passlib pyyaml setuptools transitions websockets ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytest-logdog
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ hypothesis pytest-logdog pytest-asyncio pytestCheckHook ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  disabledTestPaths =
-    [
-      # Test are not ported from hbmqtt yet
-      "tests/test_client.py"
-    ];
+  disabledTestPaths = [
+    # Test are not ported from hbmqtt yet
+    "tests/test_client.py"
+  ];
 
   preCheck = ''
     # Some tests need amqtt

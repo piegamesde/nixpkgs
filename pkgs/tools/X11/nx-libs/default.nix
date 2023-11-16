@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoconf,
-  automake,
-  fetchFromGitHub,
-  fetchpatch,
-  libjpeg_turbo,
-  libpng,
-  libtool,
-  libxml2,
-  pkg-config,
-  which,
-  xorg,
-  libtirpc,
-}:
+{ lib, stdenv, autoconf, automake, fetchFromGitHub, fetchpatch, libjpeg_turbo
+, libpng, libtool, libxml2, pkg-config, which, xorg, libtirpc }:
 stdenv.mkDerivation rec {
   pname = "nx-libs";
   version = "3.5.99.26";
@@ -27,20 +13,14 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "binutils-2.36.patch";
-      url = "https://github.com/ArcticaProject/nx-libs/commit/605a266911b50ababbb3f8a8b224efb42743379c.patch";
+      url =
+        "https://github.com/ArcticaProject/nx-libs/commit/605a266911b50ababbb3f8a8b224efb42743379c.patch";
       sha256 = "sha256-kk5ms3i0PrHL74I4OlsqDrdDcCJ0us03cQcBy4zjAoQ=";
     })
   ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-    which
-    xorg.gccmakedep
-    xorg.imake
-  ];
+  nativeBuildInputs =
+    [ autoconf automake libtool pkg-config which xorg.gccmakedep xorg.imake ];
   buildInputs = [
     libjpeg_turbo
     libpng

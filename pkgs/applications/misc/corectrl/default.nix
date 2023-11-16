@@ -1,27 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  extra-cmake-modules,
-  botan2,
-  karchive,
-  kauth,
-  libdrm,
-  hwdata,
-  glxinfo,
-  polkit,
-  procps,
-  util-linux,
-  vulkan-tools,
-  qtbase,
-  qtcharts,
-  qtquickcontrols2,
-  qtsvg,
-  qttools,
-  qtxmlpatterns,
-  quazip,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitLab, extra-cmake-modules, botan2, karchive, kauth
+, libdrm, hwdata, glxinfo, polkit, procps, util-linux, vulkan-tools, qtbase
+, qtcharts, qtquickcontrols2, qtsvg, qttools, qtxmlpatterns, quazip
+, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "corectrl";
@@ -35,10 +15,7 @@ stdenv.mkDerivation rec {
   };
   patches = [ ./polkit-dir.patch ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules wrapQtAppsHook ];
   buildInputs = [
     botan2
     karchive
@@ -64,13 +41,7 @@ stdenv.mkDerivation rec {
     "-DPOLKIT_POLICY_INSTALL_DIR=${placeholder "out"}/share/polkit-1/actions"
   ];
 
-  runtimeDeps = [
-    hwdata
-    glxinfo
-    vulkan-tools
-    util-linux
-    procps
-  ];
+  runtimeDeps = [ hwdata glxinfo vulkan-tools util-linux procps ];
   binPath = lib.makeBinPath runtimeDeps;
 
   dontWrapQtApps = true;

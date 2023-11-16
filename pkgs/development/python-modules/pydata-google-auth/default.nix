@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  google-auth,
-  google-auth-oauthlib,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, google-auth, google-auth-oauthlib
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "pydata-google-auth";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    google-auth
-    google-auth-oauthlib
-  ];
+  propagatedBuildInputs = [ google-auth google-auth-oauthlib ];
 
   # tests require network access
   doCheck = false;

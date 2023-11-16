@@ -1,13 +1,5 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  h2,
-  lib,
-  pyjwt,
-  pyopenssl,
-  pythonOlder,
-}:
+{ buildPythonPackage, fetchPypi, setuptools, h2, lib, pyjwt, pyopenssl
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aioapns";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    h2
-    pyopenssl
-    pyjwt
-  ];
+  propagatedBuildInputs = [ h2 pyopenssl pyjwt ];
 
   # Project has no tests
   doCheck = false;

@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  udev,
-  stdenv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, udev, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-espflash";
@@ -21,12 +13,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isLinux [ udev ]
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   cargoSha256 = "sha256-82o3B6qmBVPpBVAogClmTbxrBRXY8Lmd2sHmonP5/s8=";
 
   meta = with lib; {
-    description = "Serial flasher utility for Espressif SoCs and modules based on esptool.py";
+    description =
+      "Serial flasher utility for Espressif SoCs and modules based on esptool.py";
     homepage = "https://github.com/esp-rs/cargo-espflash";
     license = with licenses; [
       mit # or

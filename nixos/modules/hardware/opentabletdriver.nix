@@ -1,15 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.hardware.opentabletdriver;
-in
-{
+let cfg = config.hardware.opentabletdriver;
+in {
   meta.maintainers = with lib.maintainers; [ thiagokokada ];
 
   options = {
@@ -25,10 +18,7 @@ in
 
       blacklistedKernelModules = mkOption {
         type = types.listOf types.str;
-        default = [
-          "hid-uclogic"
-          "wacom"
-        ];
+        default = [ "hid-uclogic" "wacom" ];
         description = lib.mdDoc ''
           Blacklist of kernel modules known to conflict with OpenTabletDriver.
         '';
@@ -62,8 +52,7 @@ in
 
     boot.blacklistedKernelModules = cfg.blacklistedKernelModules;
 
-    systemd.user.services.opentabletdriver =
-      with pkgs;
+    systemd.user.services.opentabletdriver = with pkgs;
       mkIf cfg.daemon.enable {
         description = "Open source, cross-platform, user-mode tablet driver";
         wantedBy = [ "graphical-session.target" ];

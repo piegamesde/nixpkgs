@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  perlPackages,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, perlPackages, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "sieve-connect";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [ perlPackages.perl ];
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   preBuild = ''
     # Fixes failing build when not building in git repo

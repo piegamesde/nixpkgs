@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "select";
   version = "20210411-git";
 
@@ -8,15 +7,11 @@ rec {
 
   description = "DSL for array slices.";
 
-  deps = [
-    args."alexandria"
-    args."anaphora"
-    args."fiveam"
-    args."let-plus"
-  ];
+  deps = [ args."alexandria" args."anaphora" args."fiveam" args."let-plus" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/select/2021-04-11/select-20210411-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/select/2021-04-11/select-20210411-git.tgz";
     sha256 = "02xag0vpnqzfzw2mvrw6nwfhhy0iwq3zcvdh60cvx39labfvfdgb";
   };
 

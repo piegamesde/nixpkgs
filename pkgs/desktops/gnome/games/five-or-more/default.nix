@@ -1,21 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  gnome,
-  gtk3,
-  wrapGAppsHook,
-  librsvg,
-  libgnome-games-support,
-  gettext,
-  itstool,
-  libxml2,
-  python3,
-  vala,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, pkg-config, gnome, gtk3, wrapGAppsHook
+, librsvg, libgnome-games-support, gettext, itstool, libxml2, python3, vala }:
 
 stdenv.mkDerivation rec {
   pname = "five-or-more";
@@ -40,11 +24,7 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [
-    gtk3
-    librsvg
-    libgnome-games-support
-  ];
+  buildInputs = [ gtk3 librsvg libgnome-games-support ];
 
   postPatch = ''
     chmod +x meson_post_install.py # patchShebangs requires executable file

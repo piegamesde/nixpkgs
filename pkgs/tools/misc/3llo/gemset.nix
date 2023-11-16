@@ -42,10 +42,7 @@
     version = "0.7.1";
   };
   tty-prompt = {
-    dependencies = [
-      "pastel"
-      "tty-reader"
-    ];
+    dependencies = [ "pastel" "tty-reader" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -56,11 +53,7 @@
     version = "0.23.1";
   };
   tty-reader = {
-    dependencies = [
-      "tty-cursor"
-      "tty-screen"
-      "wisper"
-    ];
+    dependencies = [ "tty-cursor" "tty-screen" "wisper" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

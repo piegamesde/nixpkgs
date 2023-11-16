@@ -1,45 +1,15 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  qtbase,
-  qtsvg,
-  qttools,
-  perl,
+{ mkDerivation, lib, fetchFromGitHub, cmake, pkg-config, qtbase, qtsvg, qttools
+, perl
 
-  # Cantata doesn't build with cdparanoia enabled so we disable that
-  # default for now until I (or someone else) figure it out.
-  withCdda ? false,
-  cdparanoia,
-  withCddb ? false,
-  libcddb,
-  withLame ? false,
-  lame,
-  withMusicbrainz ? false,
-  libmusicbrainz5,
+# Cantata doesn't build with cdparanoia enabled so we disable that
+# default for now until I (or someone else) figure it out.
+, withCdda ? false, cdparanoia, withCddb ? false, libcddb, withLame ? false
+, lame, withMusicbrainz ? false, libmusicbrainz5
 
-  withTaglib ? true,
-  taglib,
-  taglib_extras,
-  withHttpStream ? true,
-  qtmultimedia,
-  withReplaygain ? true,
-  ffmpeg,
-  speex,
-  mpg123,
-  withMtp ? true,
-  libmtp,
-  withOnlineServices ? true,
-  withDevices ? true,
-  udisks2,
-  withDynamic ? true,
-  withHttpServer ? true,
-  withLibVlc ? false,
-  libvlc,
-  withStreams ? true,
-}:
+, withTaglib ? true, taglib, taglib_extras, withHttpStream ? true, qtmultimedia
+, withReplaygain ? true, ffmpeg, speex, mpg123, withMtp ? true, libmtp
+, withOnlineServices ? true, withDevices ? true, udisks2, withDynamic ? true
+, withHttpServer ? true, withLibVlc ? false, libvlc, withStreams ? true }:
 
 # Inter-dependencies.
 assert withCddb -> withCdda && withTaglib;
@@ -78,17 +48,9 @@ let
       pkgs = [ ];
     }
     {
-      names = [
-        "FFMPEG"
-        "MPG123"
-        "SPEEXDSP"
-      ];
+      names = [ "FFMPEG" "MPG123" "SPEEXDSP" ];
       enable = withReplaygain;
-      pkgs = [
-        ffmpeg
-        speex
-        mpg123
-      ];
+      pkgs = [ ffmpeg speex mpg123 ];
     }
     {
       names = [ "HTTPS_SUPPORT" ];
@@ -136,15 +98,9 @@ let
       pkgs = [ ];
     }
     {
-      names = [
-        "TAGLIB"
-        "TAGLIB_EXTRAS"
-      ];
+      names = [ "TAGLIB" "TAGLIB_EXTRAS" ];
       enable = withTaglib;
-      pkgs = [
-        taglib
-        taglib_extras
-      ];
+      pkgs = [ taglib taglib_extras ];
     }
     {
       names = [ "UDISKS2" ];
@@ -152,8 +108,8 @@ let
       pkgs = [ udisks2 ];
     }
   ];
-in
-mkDerivation rec {
+
+in mkDerivation rec {
   pname = "cantata";
   version = "2.5.0";
 
@@ -164,29 +120,23 @@ mkDerivation rec {
     sha256 = "sha256-UaZEKZvCA50WsdQSSJQQ11KTK6rM4ouCHDX7pn3NlQw=";
   };
 
-  patches =
-    [
-      # Cantata wants to check if perl is in the PATH at runtime, but we
-      # patchShebangs the playlists scripts, making that unnecessary (perl will
-      # always be available because it's a dependency)
-      ./dont-check-for-perl-in-PATH.diff
-    ];
+  patches = [
+    # Cantata wants to check if perl is in the PATH at runtime, but we
+    # patchShebangs the playlists scripts, making that unnecessary (perl will
+    # always be available because it's a dependency)
+    ./dont-check-for-perl-in-PATH.diff
+  ];
 
   postPatch = ''
     patchShebangs playlists
   '';
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
-  ] ++ lib.flatten (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
+  buildInputs =
+    [ qtbase qtsvg (perl.withPackages (ppkgs: with ppkgs; [ URI ])) ]
+    ++ lib.flatten
+    (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools ];
 
   cmakeFlags = lib.flatten (map (e: map (f: fstat e.enable f) e.names) options);
 

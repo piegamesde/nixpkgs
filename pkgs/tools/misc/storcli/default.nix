@@ -1,33 +1,27 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-  rpmextract,
-}:
+{ lib, stdenvNoCC, fetchzip, rpmextract }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "storcli";
   version = "7.2309.00";
 
   src = fetchzip {
-    url = "https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/Unified_storcli_all_os_${version}00.0000.zip";
+    url =
+      "https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/Unified_storcli_all_os_${version}00.0000.zip";
     sha256 = "sha256-n2MzT2LHLHWMWhshWXJ/Q28w9EnLrW6t7hLNveltxLo=";
   };
 
   nativeBuildInputs = [ rpmextract ];
 
-  unpackPhase =
-    let
-      inherit (stdenvNoCC.hostPlatform) system;
-      platforms = {
-        x86_64-linux = "Linux";
-        aarch64-linux = "ARM/Linux";
-      };
-      platform = platforms.${system} or (throw "unsupported system: ${system}");
-    in
-    ''
-      rpmextract $src/${platform}/storcli-00${version}00.0000-1.*.rpm
-    '';
+  unpackPhase = let
+    inherit (stdenvNoCC.hostPlatform) system;
+    platforms = {
+      x86_64-linux = "Linux";
+      aarch64-linux = "ARM/Linux";
+    };
+    platform = platforms.${system} or (throw "unsupported system: ${system}");
+  in ''
+    rpmextract $src/${platform}/storcli-00${version}00.0000-1.*.rpm
+  '';
 
   dontPatch = true;
   dontConfigure = true;
@@ -50,9 +44,6 @@ stdenvNoCC.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     maintainers = with maintainers; [ panicgh ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 }

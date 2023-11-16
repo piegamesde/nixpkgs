@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  faad2,
-  fftwFloat,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, faad2, fftwFloat, zlib }:
 
 stdenv.mkDerivation {
   pname = "dab_lib";
@@ -22,15 +13,8 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/library/";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    faad2
-    fftwFloat
-    zlib
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ faad2 fftwFloat zlib ];
 
   meta = with lib; {
     description = "DAB/DAB+ decoding library";

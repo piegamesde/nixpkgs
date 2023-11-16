@@ -1,21 +1,18 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   name = "gotosocial";
   meta.maintainers = with lib.maintainers; [ misuzu ];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.jq ];
-      services.gotosocial = {
-        enable = true;
-        setupPostgresqlDB = true;
-        settings = {
-          host = "localhost:8081";
-          port = 8081;
-        };
+  nodes.machine = { pkgs, ... }: {
+    environment.systemPackages = [ pkgs.jq ];
+    services.gotosocial = {
+      enable = true;
+      setupPostgresqlDB = true;
+      settings = {
+        host = "localhost:8081";
+        port = 8081;
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("gotosocial.service")

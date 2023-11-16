@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  defusedxml,
-  fetchFromGitHub,
-  mock,
-  pytest-asyncio,
-  pytest-timeout,
-  pytest-vcr,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-mock,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, defusedxml, fetchFromGitHub, mock, pytest-asyncio
+, pytest-timeout, pytest-vcr, pytestCheckHook, pythonOlder, requests
+, requests-mock, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "rxv";
@@ -32,10 +20,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    defusedxml
-    requests
-  ];
+  propagatedBuildInputs = [ defusedxml requests ];
 
   nativeCheckInputs = [
     mock
@@ -49,7 +34,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "rxv" ];
 
   meta = with lib; {
-    description = "Python library for communicate with Yamaha RX-Vxxx receivers";
+    description =
+      "Python library for communicate with Yamaha RX-Vxxx receivers";
     homepage = "https://github.com/wuub/rxv";
     license = licenses.mit;
     maintainers = with maintainers; [ flyfloh ];

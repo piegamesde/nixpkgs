@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  six,
-  mock,
-  pyfakefs,
-  pytest-forked,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, six, mock, pyfakefs, pytest-forked
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyu2f";
@@ -23,18 +15,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    mock
-    pyfakefs
-    pytest-forked
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pyfakefs pytest-forked pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # API breakage with pyfakefs>=5.0
-      "pyu2f/tests/hid/linux_test.py"
-    ];
+  disabledTestPaths = [
+    # API breakage with pyfakefs>=5.0
+    "pyu2f/tests/hid/linux_test.py"
+  ];
 
   meta = with lib; {
     description = "U2F host library for interacting with a U2F device over USB";

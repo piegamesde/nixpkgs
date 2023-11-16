@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
 
@@ -16,7 +12,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./gcc-O3.patch ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.cc.isClang "-Wno-error=c++11-narrowing";
 
   meta = with lib; {
     homepage = "http://www.phontron.com/kytea/";
@@ -32,4 +29,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ericsagnes ];
     platforms = platforms.unix;
   };
+
 }

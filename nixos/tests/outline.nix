@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     accessKey = "BKIKJAA5BMMU2RHO6IBB";
     secretKey = "V7f1CwQqAcwo80UEIJEjc5gVQUSSx5ohQ9GSrr12";
@@ -10,33 +9,30 @@ import ./make-test-python.nix (
       MINIO_ROOT_USER=${accessKey}
       MINIO_ROOT_PASSWORD=${secretKey}
     '';
-  in
-  {
+  in {
     name = "outline";
 
     meta.maintainers = with lib.maintainers; [ xanderio ];
 
     nodes = {
-      outline =
-        { pkgs, config, ... }:
-        {
-          nixpkgs.config.allowUnfree = true;
-          environment.systemPackages = [ pkgs.minio-client ];
-          services.outline = {
-            enable = true;
-            forceHttps = false;
-            storage = {
-              inherit accessKey secretKeyFile;
-              uploadBucketUrl = "http://localhost:9000";
-              uploadBucketName = "outline";
-              region = config.services.minio.region;
-            };
-          };
-          services.minio = {
-            enable = true;
-            inherit rootCredentialsFile;
+      outline = { pkgs, config, ... }: {
+        nixpkgs.config.allowUnfree = true;
+        environment.systemPackages = [ pkgs.minio-client ];
+        services.outline = {
+          enable = true;
+          forceHttps = false;
+          storage = {
+            inherit accessKey secretKeyFile;
+            uploadBucketUrl = "http://localhost:9000";
+            uploadBucketName = "outline";
+            region = config.services.minio.region;
           };
         };
+        services.minio = {
+          enable = true;
+          inherit rootCredentialsFile;
+        };
+      };
     };
 
     testScript = ''
@@ -53,5 +49,4 @@ import ./make-test-python.nix (
       outline.wait_for_open_port(3000)
       outline.succeed("curl --fail http://localhost:3000/")
     '';
-  }
-)
+  })

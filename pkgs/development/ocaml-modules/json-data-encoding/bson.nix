@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  json-data-encoding,
-  ocplib-endian,
-  crowbar,
-  alcotest,
-}:
+{ lib, buildDunePackage, json-data-encoding, ocplib-endian, crowbar, alcotest }:
 
 buildDunePackage {
   pname = "json-data-encoding-bson";
@@ -14,15 +7,9 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    json-data-encoding
-    ocplib-endian
-  ];
+  propagatedBuildInputs = [ json-data-encoding ocplib-endian ];
 
-  checkInputs = [
-    crowbar
-    alcotest
-  ];
+  checkInputs = [ crowbar alcotest ];
 
   meta = json-data-encoding.meta // {
     description = "Type-safe encoding to and decoding from JSON (bson support)";

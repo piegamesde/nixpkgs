@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,10 +6,10 @@ let
 
   cfg = config.services.jupyterhub;
 
-  kernels =
-    (pkgs.jupyter-kernel.create {
-      definitions = if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
-    });
+  kernels = (pkgs.jupyter-kernel.create {
+    definitions =
+      if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
+  });
 
   jupyterhubConfig = pkgs.writeText "jupyterhub_config.py" ''
     c.JupyterHub.bind_url = "http://${cfg.host}:${toString cfg.port}"
@@ -30,8 +25,7 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   meta.maintainers = with maintainers; [ costrouc ];
 
   options.services.jupyterhub = {
@@ -79,13 +73,8 @@ in
 
     jupyterhubEnv = mkOption {
       type = types.package;
-      default = pkgs.python3.withPackages (
-        p:
-        with p; [
-          jupyterhub
-          jupyterhub-systemdspawner
-        ]
-      );
+      default = pkgs.python3.withPackages
+        (p: with p; [ jupyterhub jupyterhub-systemdspawner ]);
       defaultText = literalExpression ''
         pkgs.python3.withPackages (p: with p; [
           jupyterhub
@@ -104,13 +93,8 @@ in
 
     jupyterlabEnv = mkOption {
       type = types.package;
-      default = pkgs.python3.withPackages (
-        p:
-        with p; [
-          jupyterhub
-          jupyterlab
-        ]
-      );
+      default =
+        pkgs.python3.withPackages (p: with p; [ jupyterhub jupyterlab ]);
       defaultText = literalExpression ''
         pkgs.python3.withPackages (p: with p; [
           jupyterhub
@@ -129,9 +113,8 @@ in
     };
 
     kernels = mkOption {
-      type = types.nullOr (
-        types.attrsOf (types.submodule (import ../jupyter/kernel-options.nix { inherit lib pkgs; }))
-      );
+      type = types.nullOr (types.attrsOf (types.submodule
+        (import ../jupyter/kernel-options.nix { inherit lib pkgs; })));
 
       default = null;
       example = literalExpression ''
@@ -202,7 +185,8 @@ in
 
         serviceConfig = {
           Restart = "always";
-          ExecStart = "${cfg.jupyterhubEnv}/bin/jupyterhub --config ${jupyterhubConfig}";
+          ExecStart =
+            "${cfg.jupyterhubEnv}/bin/jupyterhub --config ${jupyterhubConfig}";
           User = "root";
           StateDirectory = cfg.stateDirectory;
           WorkingDirectory = "/var/lib/${cfg.stateDirectory}";

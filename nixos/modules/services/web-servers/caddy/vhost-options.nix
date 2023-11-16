@@ -1,14 +1,7 @@
 { cfg }:
-{
-  config,
-  lib,
-  name,
-  ...
-}:
-let
-  inherit (lib) literalExpression mkOption types;
-in
-{
+{ config, lib, name, ... }:
+let inherit (lib) literalExpression mkOption types;
+in {
   options = {
 
     hostName = mkOption {
@@ -20,10 +13,7 @@ in
     serverAliases = mkOption {
       type = with types; listOf str;
       default = [ ];
-      example = [
-        "www.example.org"
-        "example.org"
-      ];
+      example = [ "www.example.org" "example.org" ];
       description = lib.mdDoc ''
         Additional names of virtual hosts served by this virtual host configuration.
       '';
@@ -35,10 +25,7 @@ in
         A list of host interfaces to bind to for this virtual host.
       '';
       default = [ ];
-      example = [
-        "127.0.0.1"
-        "::1"
-      ];
+      example = [ "127.0.0.1" "::1" ];
     };
 
     useACMEHost = mkOption {
@@ -83,5 +70,6 @@ in
         automatically generated `Caddyfile`.
       '';
     };
+
   };
 }

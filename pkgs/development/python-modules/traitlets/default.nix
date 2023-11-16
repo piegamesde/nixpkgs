@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  glibcLocales,
-  pytest,
-  mock,
-  ipython_genutils,
-  decorator,
-  pythonOlder,
-  six,
-  hatchling,
-}:
+{ lib, buildPythonPackage, fetchPypi, glibcLocales, pytest, mock
+, ipython_genutils, decorator, pythonOlder, six, hatchling }:
 
 buildPythonPackage rec {
   pname = "traitlets";
@@ -24,16 +13,8 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ hatchling ];
-  nativeCheckInputs = [
-    glibcLocales
-    pytest
-    mock
-  ];
-  propagatedBuildInputs = [
-    ipython_genutils
-    decorator
-    six
-  ];
+  nativeCheckInputs = [ glibcLocales pytest mock ];
+  propagatedBuildInputs = [ ipython_genutils decorator six ];
 
   checkPhase = ''
     LC_ALL="en_US.UTF-8" py.test

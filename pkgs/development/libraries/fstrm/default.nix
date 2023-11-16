@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libevent,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libevent, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "fstrm";
@@ -19,20 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/WFP2g3Vuf/qaY8pprY8XFAlpEE+0SJUlFNWfa+7ZlE=";
   };
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ];
+  outputs = [ "bin" "out" "dev" ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    libevent
-    openssl
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ libevent openssl ];
 
   preBuild = ''
     NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -L${openssl}/lib"
@@ -47,3 +29,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
+

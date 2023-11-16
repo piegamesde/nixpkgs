@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  puredata,
-}:
+{ lib, stdenv, fetchFromGitHub, puredata }:
 
 stdenv.mkDerivation rec {
   pname = "cyclone";
@@ -18,10 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ puredata ];
 
-  makeFlags = [
-    "pdincludepath=${puredata}/include/pd"
-    "prefix=$(out)"
-  ];
+  makeFlags = [ "pdincludepath=${puredata}/include/pd" "prefix=$(out)" ];
 
   postInstall = ''
     mv "$out/lib/pd-externals/cyclone" "$out/"
@@ -29,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A library of PureData classes, bringing some level of compatibility between Max/MSP and Pd environments";
+    description =
+      "A library of PureData classes, bringing some level of compatibility between Max/MSP and Pd environments";
     homepage = "http://puredata.info/downloads/cyclone";
     license = lib.licenses.tcltk;
     maintainers = [ lib.maintainers.magnetophon ];

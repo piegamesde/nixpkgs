@@ -1,8 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
-}:
+{ buildPythonPackage, lib, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "torrent_parser";

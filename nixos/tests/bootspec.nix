@@ -1,22 +1,13 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  baseline = {
-    virtualisation.useBootLoader = true;
-  };
-  grub = {
-    boot.loader.grub.enable = true;
-  };
-  systemd-boot = {
-    boot.loader.systemd-boot.enable = true;
-  };
+  baseline = { virtualisation.useBootLoader = true; };
+  grub = { boot.loader.grub.enable = true; };
+  systemd-boot = { boot.loader.systemd-boot.enable = true; };
   uefi = {
     virtualisation.useEFIBoot = true;
     boot.loader.efi.canTouchEfiVariables = true;
@@ -26,14 +17,9 @@ let
   standard = {
     boot.bootspec.enable = true;
 
-    imports = [
-      baseline
-      systemd-boot
-      uefi
-    ];
+    imports = [ baseline systemd-boot uefi ];
   };
-in
-{
+in {
   basic = makeTest {
     name = "systemd-boot-with-bootspec";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
@@ -55,11 +41,7 @@ in
     nodes.machine = {
       boot.bootspec.enable = true;
 
-      imports = [
-        baseline
-        grub
-        uefi
-      ];
+      imports = [ baseline grub uefi ];
     };
 
     testScript = ''
@@ -77,10 +59,7 @@ in
     nodes.machine = {
       boot.bootspec.enable = true;
 
-      imports = [
-        baseline
-        grub
-      ];
+      imports = [ baseline grub ];
     };
 
     testScript = ''
@@ -149,17 +128,15 @@ in
     name = "bootspec-with-extensions";
     meta.maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
 
-    nodes.machine =
-      { config, ... }:
-      {
-        imports = [ standard ];
-        environment.systemPackages = [ pkgs.jq ];
-        boot.bootspec.extensions = {
-          "org.nix-tests.product" = {
-            osRelease = config.environment.etc."os-release".source;
-          };
+    nodes.machine = { config, ... }: {
+      imports = [ standard ];
+      environment.systemPackages = [ pkgs.jq ];
+      boot.bootspec.extensions = {
+        "org.nix-tests.product" = {
+          osRelease = config.environment.etc."os-release".source;
         };
       };
+    };
 
     testScript = ''
       machine.start()
@@ -171,4 +148,5 @@ in
       assert current_os_release == bootspec_os_release, "Filename referenced by extension has unexpected contents"
     '';
   };
+
 }

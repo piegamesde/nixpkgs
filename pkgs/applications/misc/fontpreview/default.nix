@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  xdotool,
-  fzf,
-  imagemagick,
-  sxiv,
-  getopt,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, xdotool, fzf, imagemagick, sxiv
+, getopt }:
 
 stdenv.mkDerivation rec {
   pname = "fontpreview";
@@ -29,20 +20,13 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/fontpreview \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          xdotool
-          fzf
-          imagemagick
-          sxiv
-          getopt
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ xdotool fzf imagemagick sxiv getopt ]}
   '';
 
   meta = with lib; {
     homepage = "https://github.com/sdushantha/fontpreview";
-    description = "Highly customizable and minimal font previewer written in bash";
+    description =
+      "Highly customizable and minimal font previewer written in bash";
     longDescription = ''
       fontpreview is a commandline tool that lets you quickly search for fonts
       that are installed on your machine and preview them. The fuzzy search

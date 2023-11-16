@@ -1,17 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 
-  # propagates
-  packaging,
+# propagates
+, packaging
 
-  # tests
-  pyqt5,
-  pyside,
-  pytestCheckHook,
-}:
+# tests
+, pyqt5, pyside, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "QtPy";
@@ -39,11 +32,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Fatal error in python on x86_64
-      "qtpy/tests/test_uic.py"
-    ];
+  disabledTestPaths = [
+    # Fatal error in python on x86_64
+    "qtpy/tests/test_uic.py"
+  ];
 
   meta = with lib; {
     description = "Abstraction layer for PyQt5/PyQt6/PySide2/PySide6";

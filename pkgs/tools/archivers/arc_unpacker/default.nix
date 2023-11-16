@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  makeWrapper,
-  boost,
-  libpng,
-  libiconv,
-  libjpeg,
-  zlib,
-  openssl,
-  libwebp,
-  catch2,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, makeWrapper, boost, libpng
+, libiconv, libjpeg, zlib, openssl, libwebp, catch2 }:
 
 stdenv.mkDerivation {
   pname = "arc_unpacker";
@@ -29,7 +15,8 @@ stdenv.mkDerivation {
   patches = [
     (fetchpatch {
       name = "failing_tests.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/failing_tests.patch?h=arc_unpacker-git&id=bda1ad9f69e6802e703b2e6913d71a36d76cfef9";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/failing_tests.patch?h=arc_unpacker-git&id=bda1ad9f69e6802e703b2e6913d71a36d76cfef9";
       hash = "sha256-bClACsf/+SktyLAPtt7EcSqprkw8JVIi1ZLpcJcv9IE=";
     })
   ];
@@ -39,21 +26,9 @@ stdenv.mkDerivation {
     sed '1i#include <limits>' -i src/dec/eagls/pak_archive_decoder.cc # gcc12
   '';
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    catch2
-  ];
+  nativeBuildInputs = [ cmake makeWrapper catch2 ];
 
-  buildInputs = [
-    boost
-    libiconv
-    libjpeg
-    libpng
-    libwebp
-    openssl
-    zlib
-  ];
+  buildInputs = [ boost libiconv libjpeg libpng libwebp openssl zlib ];
 
   checkPhase = ''
     runHook preCheck

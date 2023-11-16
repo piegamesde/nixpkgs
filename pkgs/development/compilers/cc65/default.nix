@@ -1,8 +1,4 @@
-{
-  lib,
-  gccStdenv,
-  fetchFromGitHub,
-}:
+{ lib, gccStdenv, fetchFromGitHub }:
 
 gccStdenv.mkDerivation rec {
   pname = "cc65";

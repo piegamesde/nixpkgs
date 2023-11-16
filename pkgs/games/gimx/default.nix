@@ -1,17 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  curl,
-  libusb1,
-  xorg,
-  libxml2,
-  ncurses5,
-  bluez,
-  libmhash,
-  gimxPdpGamepad ? false,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, curl, libusb1, xorg, libxml2
+, ncurses5, bluez, libmhash, gimxPdpGamepad ? false }:
 
 let
   gimx-config = fetchFromGitHub {
@@ -20,8 +8,8 @@ let
     rev = "c20300f24d32651d369e2b27614b62f4b856e4a0";
     sha256 = "02wcjk8da188x7y0jf3p0arjdh9zbb0lla3fxdb28b1xyybfvx5p";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "gimx";
   version = "unstable-2021-08-31";
 

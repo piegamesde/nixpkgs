@@ -1,14 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 let
   types = lib.types;
   cfg = config.services.shorewall;
-in
-{
+in {
   options = {
     services.shorewall = {
       enable = lib.mkOption {
@@ -68,9 +62,9 @@ in
       '';
     };
     environment = {
-      etc =
-        lib.mapAttrs' (name: conf: lib.nameValuePair "shorewall/${name}" { source = conf; })
-          cfg.configs;
+      etc = lib.mapAttrs'
+        (name: conf: lib.nameValuePair "shorewall/${name}" { source = conf; })
+        cfg.configs;
       systemPackages = [ cfg.package ];
     };
   };

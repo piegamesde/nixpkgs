@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 with python3.pkgs;
 
@@ -36,22 +32,11 @@ buildPythonApplication rec {
     gransy = [ zeep ];
     ddns = [ dnspython ];
     oci = [ oci ];
-    full = [
-      boto3
-      dnspython
-      localzone
-      oci
-      softlayer
-      zeep
-    ];
+    full = [ boto3 dnspython localzone oci softlayer zeep ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    pytest-xdist
-    vcrpy
-  ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ mock pytestCheckHook pytest-xdist vcrpy ]
+    ++ passthru.optional-dependencies.full;
 
   disabledTestPaths = [
     # Tests require network access
@@ -63,9 +48,11 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "lexicon" ];
 
   meta = with lib; {
-    description = "Manipulate DNS records of various DNS providers in a standardized way";
+    description =
+      "Manipulate DNS records of various DNS providers in a standardized way";
     homepage = "https://github.com/AnalogJ/lexicon";
-    changelog = "https://github.com/AnalogJ/lexicon/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/AnalogJ/lexicon/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ flyfloh ];
   };

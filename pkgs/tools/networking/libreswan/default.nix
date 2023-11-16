@@ -1,39 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  nixosTests,
-  pkg-config,
-  systemd,
-  gmp,
-  unbound,
-  bison,
-  flex,
-  pam,
-  libevent,
-  libcap_ng,
-  libxcrypt,
-  curl,
-  nspr,
-  bash,
-  runtimeShell,
-  iproute2,
-  iptables,
-  procps,
-  coreutils,
-  gnused,
-  gawk,
-  nss,
-  which,
-  python3,
-  libselinux,
-  ldns,
-  xmlto,
-  docbook_xml_dtd_412,
-  docbook_xsl,
-  findXMLCatalogs,
-  dns-root-data,
-}:
+{ lib, stdenv, fetchurl, nixosTests, pkg-config, systemd, gmp, unbound, bison
+, flex, pam, libevent, libcap_ng, libxcrypt, curl, nspr, bash, runtimeShell
+, iproute2, iptables, procps, coreutils, gnused, gawk, nss, which, python3
+, libselinux, ldns, xmlto, docbook_xml_dtd_412, docbook_xsl, findXMLCatalogs
+, dns-root-data }:
 
 let
   # Tools needed by ipsec scripts
@@ -47,9 +16,8 @@ let
     nss.tools
     which
   ];
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "libreswan";
   version = "4.11";
 
@@ -142,10 +110,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Hack to make install work
-  installFlags = [
-    "FINALVARDIR=\${out}/var"
-    "FINALSYSCONFDIR=\${out}/etc"
-  ];
+  installFlags = [ "FINALVARDIR=\${out}/var" "FINALSYSCONFDIR=\${out}/etc" ];
 
   postInstall = ''
     # Install examples directory (needed for letsencrypt)
@@ -162,15 +127,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://libreswan.org";
-    description = "A free software implementation of the VPN protocol based on IPSec and the Internet Key Exchange";
+    description =
+      "A free software implementation of the VPN protocol based on IPSec and the Internet Key Exchange";
     platforms = platforms.linux ++ platforms.freebsd;
-    license = with licenses; [
-      gpl2Plus
-      mpl20
-    ];
-    maintainers = with maintainers; [
-      afranchuk
-      rnhmjoj
-    ];
+    license = with licenses; [ gpl2Plus mpl20 ];
+    maintainers = with maintainers; [ afranchuk rnhmjoj ];
   };
 }

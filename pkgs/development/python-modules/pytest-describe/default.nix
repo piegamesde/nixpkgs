@@ -1,20 +1,15 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
+{ lib, buildPythonPackage, fetchPypi
 
-  # build
-  pytest,
+# build
+, pytest
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 let
   pname = "pytest-describe";
   version = "2.1.0";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -30,7 +25,8 @@ buildPythonPackage {
   meta = with lib; {
     description = "Describe-style plugin for the pytest framework";
     homepage = "https://github.com/pytest-dev/pytest-describe";
-    changelog = "https://github.com/pytest-dev/pytest-describe/releases/tag/${version}";
+    changelog =
+      "https://github.com/pytest-dev/pytest-describe/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

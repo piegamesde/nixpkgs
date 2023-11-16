@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,48 +9,25 @@ let
   libexec = "${pkgs.libreswan}/libexec/ipsec";
   ipsec = "${pkgs.libreswan}/sbin/ipsec";
 
-  trim =
-    chars: str:
+  trim = chars: str:
     let
-      nonchars = filter (x: !(elem x.value chars)) (
-        imap0
-          (i: v: {
-            ind = i;
-            value = v;
-          })
-          (stringToCharacters str)
-      );
-    in
-    if length nonchars == 0 then
+      nonchars = filter (x: !(elem x.value chars)) (imap0 (i: v: {
+        ind = i;
+        value = v;
+      }) (stringToCharacters str));
+    in if length nonchars == 0 then
       ""
     else
-      substring (head nonchars).ind (add 1 (sub (last nonchars).ind (head nonchars).ind)) str;
-  indent =
-    str:
-    concatStrings (
-      concatMap
-        (s: [
-          "  "
-          (trim
-            [
-              " "
-              "	"
-            ]
-            s
-          )
-          "\n"
-        ])
-        (splitString "\n" str)
-    );
+      substring (head nonchars).ind
+      (add 1 (sub (last nonchars).ind (head nonchars).ind)) str;
+  indent = str:
+    concatStrings
+    (concatMap (s: [ "  " (trim [ " " "	" ] s) "\n" ]) (splitString "\n" str));
   configText = indent (toString cfg.configSetup);
-  connectionText = concatStrings (
-    mapAttrsToList
-      (n: v: ''
-        conn ${n}
-        ${indent v}
-      '')
-      cfg.connections
-  );
+  connectionText = concatStrings (mapAttrsToList (n: v: ''
+    conn ${n}
+    ${indent v}
+  '') cfg.connections);
 
   configFile = pkgs.writeText "ipsec-nixos.conf" ''
     config setup
@@ -64,16 +36,12 @@ let
     ${connectionText}
   '';
 
-  policyFiles =
-    mapAttrs'
-      (name: text: {
-        name = "ipsec.d/policies/${name}";
-        value.source = pkgs.writeText "ipsec-policy-${name}" text;
-      })
-      cfg.policies;
-in
+  policyFiles = mapAttrs' (name: text: {
+    name = "ipsec.d/policies/${name}";
+    value.source = pkgs.writeText "ipsec-policy-${name}" text;
+  }) cfg.policies;
 
-{
+in {
 
   ###### interface
 
@@ -94,9 +62,8 @@ in
           protostack=netkey
           virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10
         '';
-        description =
-          lib.mdDoc
-            "Options to go in the 'config setup' section of the Libreswan IPsec configuration";
+        description = lib.mdDoc
+          "Options to go in the 'config setup' section of the Libreswan IPsec configuration";
       };
 
       connections = mkOption {
@@ -115,7 +82,8 @@ in
             ''';
           }
         '';
-        description = lib.mdDoc "A set of connections to define for the Libreswan IPsec service";
+        description = lib.mdDoc
+          "A set of connections to define for the Libreswan IPsec service";
       };
 
       policies = mkOption {
@@ -147,7 +115,9 @@ in
           FAQ](https://libreswan.org/wiki/FAQ#Why_is_it_recommended_to_disable_send_redirects_in_.2Fproc.2Fsys.2Fnet_.3F) page for why this is recommended.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -155,10 +125,7 @@ in
   config = mkIf cfg.enable {
 
     # Install package, systemd units, etc.
-    environment.systemPackages = [
-      pkgs.libreswan
-      pkgs.iproute2
-    ];
+    environment.systemPackages = [ pkgs.libreswan pkgs.iproute2 ];
     systemd.packages = [ pkgs.libreswan ];
     systemd.tmpfiles.packages = [ pkgs.libreswan ];
 
@@ -175,7 +142,8 @@ in
     systemd.services.ipsec = {
       description = "Internet Key Exchange (IKE) Protocol Daemon for IPsec";
       wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ] ++ mapAttrsToList (n: v: v.source) policyFiles;
+      restartTriggers = [ configFile ]
+        ++ mapAttrsToList (n: v: v.source) policyFiles;
       path = with pkgs; [
         libreswan
         iproute2
@@ -190,5 +158,7 @@ in
         echo 0 | tee /proc/sys/net/ipv{4,6}/conf/*/accept_redirects
       '';
     };
+
   };
+
 }

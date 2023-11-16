@@ -1,11 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "pyprusalink";

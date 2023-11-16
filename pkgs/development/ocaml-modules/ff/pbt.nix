@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  zarith,
-  ff-sig,
-  alcotest,
-}:
+{ lib, buildDunePackage, zarith, ff-sig, alcotest }:
 
 buildDunePackage {
   pname = "ff-pbt";
@@ -17,12 +11,10 @@ buildDunePackage {
 
   doCheck = true;
 
-  propagatedBuildInputs = [
-    zarith
-    ff-sig
-  ];
+  propagatedBuildInputs = [ zarith ff-sig ];
 
   meta = ff-sig.meta // {
-    description = "Property based testing library for finite fields over the package ff-sig";
+    description =
+      "Property based testing library for finite fields over the package ff-sig";
   };
 }

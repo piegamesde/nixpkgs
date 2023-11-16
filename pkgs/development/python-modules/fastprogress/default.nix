@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fastprogress";
@@ -24,8 +18,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/fastai/fastprogress";
-    description = "Simple and flexible progress bar for Jupyter Notebook and console";
+    description =
+      "Simple and flexible progress bar for Jupyter Notebook and console";
     license = licenses.asl20;
     maintainers = with maintainers; [ ris ];
   };
+
 }

@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gdk-pixbuf,
-  gtk-engine-murrine,
-  gtk_engines,
-  librsvg,
-}:
+{ lib, stdenv, fetchFromGitHub, gdk-pixbuf, gtk-engine-murrine, gtk_engines
+, librsvg }:
 
 stdenv.mkDerivation rec {
   pname = "skeu";
@@ -19,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lbl09p0h493ya978fh7cib68qlmxfxahmbj0mpa3b65ynxda645";
   };
 
-  buildInputs = [
-    gdk-pixbuf
-    gtk_engines
-    librsvg
-  ];
+  buildInputs = [ gdk-pixbuf gtk_engines librsvg ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

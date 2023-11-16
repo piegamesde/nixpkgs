@@ -1,18 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
+{ lib, stdenv, fetchFromGitHub
 
-  # build
-  cmake,
-  pkg-config,
+# build
+, cmake, pkg-config
 
-  # runtime
-  expat,
-  ipu6-camera-bin,
-  libtool,
-  gst_all_1,
-}:
+# runtime
+, expat, ipu6-camera-bin, libtool, gst_all_1 }:
 
 stdenv.mkDerivation {
   pname = "${ipu6-camera-bin.ipuVersion}-camera-hal";
@@ -25,10 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-AePL7IqoOhlxhfPRLpCman5DNh3wYS4MUcLgmgBUcCM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   cmakeFlags = [
     "-DIPU_VER=${ipu6-camera-bin.ipuVersion}"
@@ -63,9 +52,7 @@ stdenv.mkDerivation {
       --replace 'prefix=/usr' "prefix=$out"
   '';
 
-  passthru = {
-    inherit (ipu6-camera-bin) ipuVersion;
-  };
+  passthru = { inherit (ipu6-camera-bin) ipuVersion; };
 
   meta = with lib; {
     description = "HAL for processing of images in userspace";

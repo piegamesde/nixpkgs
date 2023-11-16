@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cython, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "lupa";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Lua in Python";
     homepage = "https://github.com/scoder/lupa";
-    changelog = "https://github.com/scoder/lupa/blob/lupa-${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/scoder/lupa/blob/lupa-${version}/CHANGES.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

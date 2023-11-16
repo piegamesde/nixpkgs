@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  pytestCheckHook,
-  xorgserver,
-  pulseaudio,
-  pytest-asyncio,
-  qtile,
-  keyring,
-  requests,
-  stravalib,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, pytestCheckHook
+, xorgserver, pulseaudio, pytest-asyncio, qtile, keyring, requests, stravalib }:
 
 buildPythonPackage rec {
   pname = "qtile-extras";
@@ -29,18 +17,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    xorgserver
-  ];
-  checkInputs = [
-    pytest-asyncio
-    qtile
-    pulseaudio
-    keyring
-    requests
-    stravalib
-  ];
+  nativeCheckInputs = [ pytestCheckHook xorgserver ];
+  checkInputs = [ pytest-asyncio qtile pulseaudio keyring requests stravalib ];
   disabledTests = [
     # AttributeError: 'ImgMask' object has no attribute '_default_size'. Did you mean: 'default_size'?
     # cairocffi.pixbuf.ImageLoadingError: Pixbuf error: Unrecognized image file format
@@ -76,9 +54,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "qtile_extras" ];
 
   meta = with lib; {
-    description = "Extra modules and widgets for the Qtile tiling window manager";
+    description =
+      "Extra modules and widgets for the Qtile tiling window manager";
     homepage = "https://github.com/elParaguayo/qtile-extras";
-    changelog = "https://github.com/elParaguayo/qtile-extras/blob/${src.rev}/CHANGELOG";
+    changelog =
+      "https://github.com/elParaguayo/qtile-extras/blob/${src.rev}/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ arjan-s ];
   };

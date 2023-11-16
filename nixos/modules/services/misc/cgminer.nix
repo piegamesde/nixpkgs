@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,49 +6,46 @@ let
   cfg = config.services.cgminer;
 
   convType = with builtins; v: if isBool v then boolToString v else toString v;
-  mergedHwConfig = mapAttrsToList (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'') (
-    foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware
-  );
-  mergedConfig =
-    with builtins;
-    mapAttrsToList
-      (n: v: ''"${n}":  ${if isBool v then "" else ''"''}${convType v}${if isBool v then "" else ''"''}'')
-      cfg.config;
+  mergedHwConfig = mapAttrsToList
+    (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
+    (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
+  mergedConfig = with builtins;
+    mapAttrsToList (n: v:
+      ''
+        "${n}":  ${if isBool v then "" else ''"''}${convType v}${
+          if isBool v then "" else ''"''
+        }'') cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {
     ${
-      concatStringsSep
-        ''
-          ,
-        ''
-        mergedHwConfig
+      concatStringsSep ''
+        ,
+      '' mergedHwConfig
     },
     ${
-      concatStringsSep
-        ''
-          ,
-        ''
-        mergedConfig
+      concatStringsSep ''
+        ,
+      '' mergedConfig
     },
     "pools": [
     ${
-      concatStringsSep
-        ''
-          ,
-        ''
-        (map (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'') cfg.pools)
+      concatStringsSep ''
+        ,
+      '' (map
+        (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'')
+        cfg.pools)
     }]
     }
   '';
-in
-{
+in {
   ###### interface
   options = {
 
     services.cgminer = {
 
-      enable = mkEnableOption (lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin");
+      enable = mkEnableOption
+        (lib.mdDoc "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin");
 
       package = mkOption {
         default = pkgs.cgminer;
@@ -72,13 +64,11 @@ in
         default = [ ]; # Run benchmark
         type = types.listOf (types.attrsOf types.str);
         description = lib.mdDoc "List of pools where to mine";
-        example = [
-          {
-            url = "http://p2pool.org:9332";
-            username = "17EUZxTvs9uRmPsjPZSYUU3zCz9iwstudk";
-            password = "X";
-          }
-        ];
+        example = [{
+          url = "http://p2pool.org:9332";
+          username = "17EUZxTvs9uRmPsjPZSYUU3zCz9iwstudk";
+          password = "X";
+        }];
       };
 
       hardware = mkOption {
@@ -146,10 +136,7 @@ in
     systemd.services.cgminer = {
       path = [ pkgs.cgminer ];
 
-      after = [
-        "network.target"
-        "display-manager.service"
-      ];
+      after = [ "network.target" "display-manager.service" ];
       wantedBy = [ "multi-user.target" ];
 
       environment = {
@@ -161,11 +148,14 @@ in
 
       startLimitIntervalSec = 60; # 1 min
       serviceConfig = {
-        ExecStart = "${pkgs.cgminer}/bin/cgminer --syslog --text-only --config ${cgminerConfig}";
+        ExecStart =
+          "${pkgs.cgminer}/bin/cgminer --syslog --text-only --config ${cgminerConfig}";
         User = cfg.user;
         RestartSec = "30s";
         Restart = "always";
       };
     };
+
   };
+
 }

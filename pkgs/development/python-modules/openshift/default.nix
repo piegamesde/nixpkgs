@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  jinja2,
-  kubernetes,
-  ruamel-yaml,
-  six,
-  python-string-utils,
-  pytest-bdd,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, jinja2, kubernetes, ruamel-yaml, six
+, python-string-utils, pytest-bdd, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "openshift";
@@ -29,26 +19,17 @@ buildPythonPackage rec {
     sed -i '/--cov/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [
-    jinja2
-    kubernetes
-    python-string-utils
-    ruamel-yaml
-    six
-  ];
+  propagatedBuildInputs =
+    [ jinja2 kubernetes python-string-utils ruamel-yaml six ];
 
   pythonImportsCheck = [ "openshift" ];
 
-  nativeCheckInputs = [
-    pytest-bdd
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-bdd pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # requires kubeconfig
-      "test/integration"
-    ];
+  disabledTestPaths = [
+    # requires kubeconfig
+    "test/integration"
+  ];
 
   meta = with lib; {
     description = "Python client for the OpenShift API";

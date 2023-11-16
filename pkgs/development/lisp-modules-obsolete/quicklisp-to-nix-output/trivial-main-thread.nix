@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "trivial-main-thread";
   version = "20190710-git";
 
@@ -16,7 +15,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/trivial-main-thread/2019-07-10/trivial-main-thread-20190710-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/trivial-main-thread/2019-07-10/trivial-main-thread-20190710-git.tgz";
     sha256 = "1zj12rc29rrff5grmi7sjxfzdv78khbb4sg43hy2cb33hykpvg2h";
   };
 

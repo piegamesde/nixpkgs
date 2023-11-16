@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  pkg-config,
-  meson,
-  ninja,
-  vala,
-  python3,
-  gtk3,
-  glib,
-  granite,
-  libgee,
-  libhandy,
-  wrapGAppsHook,
-  appstream,
+{ lib, stdenv, fetchFromGitHub, nix-update-script, pkg-config, meson, ninja
+, vala, python3, gtk3, glib, granite, libgee, libhandy, wrapGAppsHook, appstream
 }:
 
 stdenv.mkDerivation rec {
@@ -28,41 +13,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QvqyaI9szZuYuE3D6o4zjr5J6mvEzNHqTBWii+gjyMc=";
   };
 
-  patches =
-    [
-      # The standard location to the metadata pool where metadata
-      # will be read from is likely hardcoded as /usr/share/metainfo
-      # https://github.com/ximion/appstream/blob/v0.15.2/src/as-pool.c#L117
-      # https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
-      ./fix-metadata-path.patch
-    ];
-
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook
+  patches = [
+    # The standard location to the metadata pool where metadata
+    # will be read from is likely hardcoded as /usr/share/metainfo
+    # https://github.com/ximion/appstream/blob/v0.15.2/src/as-pool.c#L117
+    # https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
+    ./fix-metadata-path.patch
   ];
 
-  buildInputs = [
-    appstream
-    granite
-    gtk3
-    libgee
-    libhandy
-    glib
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook ];
+
+  buildInputs = [ appstream granite gtk3 libgee libhandy glib ];
 
   postPatch = ''
     chmod +x meson/post_install.py
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "GitHub Issue Reporter designed for elementary OS";

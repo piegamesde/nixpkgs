@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-}:
+{ stdenv, lib, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "keama";
@@ -17,10 +13,7 @@ stdenv.mkDerivation rec {
 
   # The Kea Migration Assistant lives as a subdirectory of the
   # original ISC DHCP server source code.
-  makeFlags = [
-    "-C"
-    "keama"
-  ];
+  makeFlags = [ "-C" "keama" ];
 
   meta = with lib; {
     description = "Kea Migration Assistent";
@@ -30,7 +23,8 @@ stdenv.mkDerivation rec {
       configuration and produces a JSON configuration in Kea format.
     '';
 
-    homepage = "https://gitlab.isc.org/isc-projects/dhcp/-/wikis/kea-migration-assistant";
+    homepage =
+      "https://gitlab.isc.org/isc-projects/dhcp/-/wikis/kea-migration-assistant";
     license = licenses.mpl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ blitz ];

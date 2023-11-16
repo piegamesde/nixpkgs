@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  editline,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, editline }:
 
 stdenv.mkDerivation rec {
   pname = "jush";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [ editline ];
 

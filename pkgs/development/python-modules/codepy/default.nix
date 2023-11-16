@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytools,
-  appdirs,
-  six,
-  cgen,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytools, appdirs, six, cgen }:
 
 buildPythonPackage rec {
   pname = "codepy";
@@ -19,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-viMfB/nDrvDA/IGRZEX+yXylxbbmqbh/fgdYXBzK0zM=";
   };
 
-  buildInputs = [
-    pytools
-    six
-    cgen
-  ];
+  buildInputs = [ pytools six cgen ];
   propagatedBuildInputs = [ appdirs ];
 
   pythonImportsCheck = [ "codepy" ];

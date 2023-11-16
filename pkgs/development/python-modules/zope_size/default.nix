@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_i18nmessageid,
-  zope_interface,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_i18nmessageid, zope_interface }:
 
 buildPythonPackage rec {
   pname = "zope.size";
@@ -15,15 +9,14 @@ buildPythonPackage rec {
     hash = "sha256-bhv3QJdZtNpyAuL6/aZXWD1Acx8661VweWaItJPpkHk=";
   };
 
-  propagatedBuildInputs = [
-    zope_i18nmessageid
-    zope_interface
-  ];
+  propagatedBuildInputs = [ zope_i18nmessageid zope_interface ];
 
   meta = with lib; {
     homepage = "https://github.com/zopefoundation/zope.size";
-    description = "Interfaces and simple adapter that give the size of an object";
+    description =
+      "Interfaces and simple adapter that give the size of an object";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
+
 }

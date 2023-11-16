@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 # TODO: This may file may need additional review, eg which configurations to
 # expose to the user.
@@ -34,9 +29,8 @@ let
 
   dataDir = "${cfg.baseDir}/data";
   systemDir = "${cfg.baseDir}/system";
-in
 
-{
+in {
 
   ###### interface
 
@@ -81,7 +75,9 @@ in
           data/ stores the databases, system/ stores the password database security2.fdb.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -163,5 +159,6 @@ in
     };
 
     users.groups.firebird.gid = config.ids.gids.firebird;
+
   };
 }

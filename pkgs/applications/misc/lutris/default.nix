@@ -1,57 +1,19 @@
-{
-  buildPythonApplication,
-  lib,
-  fetchFromGitHub,
+{ buildPythonApplication, lib, fetchFromGitHub
 
-  # build inputs
-  atk,
-  file,
-  gdk-pixbuf,
-  glib-networking,
-  gnome-desktop,
-  gobject-introspection,
-  gst_all_1,
-  gtk3,
-  libnotify,
-  pango,
-  webkitgtk,
-  wrapGAppsHook,
+# build inputs
+, atk, file, gdk-pixbuf, glib-networking, gnome-desktop, gobject-introspection
+, gst_all_1, gtk3, libnotify, pango, webkitgtk, wrapGAppsHook
 
-  # check inputs
-  xvfb-run,
-  nose2,
-  flake8,
+# check inputs
+, xvfb-run, nose2, flake8
 
-  # python dependencies
-  certifi,
-  dbus-python,
-  distro,
-  evdev,
-  lxml,
-  pillow,
-  pygobject3,
-  pypresence,
-  pyyaml,
-  requests,
-  protobuf,
-  moddb,
+# python dependencies
+, certifi, dbus-python, distro, evdev, lxml, pillow, pygobject3, pypresence
+, pyyaml, requests, protobuf, moddb
 
-  # commands that lutris needs
-  xrandr,
-  pciutils,
-  psmisc,
-  glxinfo,
-  vulkan-tools,
-  xboxdrv,
-  pulseaudio,
-  p7zip,
-  xgamma,
-  libstrangle,
-  fluidsynth,
-  xorgserver,
-  xorg,
-  util-linux,
-}:
+# commands that lutris needs
+, xrandr, pciutils, psmisc, glxinfo, vulkan-tools, xboxdrv, pulseaudio, p7zip
+, xgamma, libstrangle, fluidsynth, xorgserver, xorg, util-linux }:
 
 let
   # See lutris/util/linux.py
@@ -73,8 +35,7 @@ let
     # bypass mount suid wrapper which does not work in fhsenv
     util-linux
   ];
-in
-buildPythonApplication rec {
+in buildPythonApplication rec {
   pname = "lutris-unwrapped";
   version = "0.5.13";
 
@@ -85,31 +46,24 @@ buildPythonApplication rec {
     hash = "sha256-ectrfbIkPhIqfhkavDpBCNdLPnGQhCnfFYwTf2IxB50=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gobject-introspection
-  ];
-  buildInputs =
-    [
-      atk
-      gdk-pixbuf
-      glib-networking
-      gnome-desktop
-      gtk3
-      libnotify
-      pango
-      webkitgtk
-    ]
-    ++ (
-      with gst_all_1; [
-        gst-libav
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-ugly
-        gstreamer
-      ]
-    );
+  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  buildInputs = [
+    atk
+    gdk-pixbuf
+    glib-networking
+    gnome-desktop
+    gtk3
+    libnotify
+    pango
+    webkitgtk
+  ] ++ (with gst_all_1; [
+    gst-libav
+    gst-plugins-bad
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-ugly
+    gstreamer
+  ]);
 
   # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
   propagatedBuildInputs = [
@@ -132,11 +86,7 @@ buildPythonApplication rec {
       --replace "'libmagic.so.1'" "'${lib.getLib file}/lib/libmagic.so.1'"
   '';
 
-  nativeCheckInputs = [
-    xvfb-run
-    nose2
-    flake8
-  ] ++ requiredTools;
+  nativeCheckInputs = [ xvfb-run nose2 flake8 ] ++ requiredTools;
   checkPhase = ''
     runHook preCheck
 

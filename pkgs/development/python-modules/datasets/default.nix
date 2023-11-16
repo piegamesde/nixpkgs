@@ -1,24 +1,6 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  dill,
-  fetchFromGitHub,
-  fetchpatch,
-  fsspec,
-  huggingface-hub,
-  importlib-metadata,
-  multiprocess,
-  numpy,
-  packaging,
-  pandas,
-  pyarrow,
-  pythonOlder,
-  requests,
-  responses,
-  tqdm,
-  xxhash,
-}:
+{ lib, aiohttp, buildPythonPackage, dill, fetchFromGitHub, fetchpatch, fsspec
+, huggingface-hub, importlib-metadata, multiprocess, numpy, packaging, pandas
+, pyarrow, pythonOlder, requests, responses, tqdm, xxhash }:
 
 buildPythonPackage rec {
   pname = "datasets";
@@ -64,9 +46,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "datasets" ];
 
   meta = with lib; {
-    description = "Open-access datasets and evaluation metrics for natural language processing";
+    description =
+      "Open-access datasets and evaluation metrics for natural language processing";
     homepage = "https://github.com/huggingface/datasets";
-    changelog = "https://github.com/huggingface/datasets/releases/tag/${version}";
+    changelog =
+      "https://github.com/huggingface/datasets/releases/tag/${version}";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ ];

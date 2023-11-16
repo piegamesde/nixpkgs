@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   pname = "pyscrypt";
@@ -20,7 +15,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/ricmoo/pyscrypt/";
-    description = "Pure-Python implementation of Scrypt PBKDF and scrypt file format library";
+    description =
+      "Pure-Python implementation of Scrypt PBKDF and scrypt file format library";
     license = licenses.mit;
     maintainers = with maintainers; [ valodim ];
   };

@@ -1,30 +1,8 @@
-{
-  lib,
-  aiomysql,
-  aiopg,
-  aiosqlite,
-  asyncpg,
-  buildPythonPackage,
-  cryptography,
-  databases,
-  fastapi,
-  fetchFromGitHub,
-  httpx,
-  importlib-metadata,
-  mysqlclient,
-  nest-asyncio,
-  orjson,
-  poetry-core,
-  psycopg2,
-  pydantic,
-  pymysql,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  sqlalchemy,
-  typing-extensions,
-}:
+{ lib, aiomysql, aiopg, aiosqlite, asyncpg, buildPythonPackage, cryptography
+, databases, fastapi, fetchFromGitHub, httpx, importlib-metadata, mysqlclient
+, nest-asyncio, orjson, poetry-core, psycopg2, pydantic, pymysql, pytest-asyncio
+, pytestCheckHook, pythonOlder, pythonRelaxDepsHook, sqlalchemy
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "ormar";
@@ -40,25 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-7d0vmYDN1EjzNWmylb/As4ywo8YYzQ88UwigIsVnwMM=";
   };
 
-  pythonRelaxDeps = [
-    "databases"
-    "pydantic"
-    "SQLAlchemy"
-  ];
+  pythonRelaxDeps = [ "databases" "pydantic" "SQLAlchemy" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
-  propagatedBuildInputs =
-    [
-      databases
-      psycopg2
-      pydantic
-      sqlalchemy
-      psycopg2
-    ]
+  propagatedBuildInputs = [ databases psycopg2 pydantic sqlalchemy psycopg2 ]
     ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
@@ -86,12 +50,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    fastapi
-    httpx
-    nest-asyncio
-    pytest-asyncio
-  ] ++ passthru.optional-dependencies.all;
+  checkInputs = [ fastapi httpx nest-asyncio pytest-asyncio ]
+    ++ passthru.optional-dependencies.all;
 
   disabledTestPaths = [ "benchmarks/test_benchmark_*.py" ];
 

@@ -1,38 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  wrapQtAppsHook,
-  cmake,
-  pkg-config,
-  git,
-  qtbase,
-  qtquickcontrols,
-  qtmultimedia,
-  openal,
-  glew,
-  vulkan-headers,
-  vulkan-loader,
-  libpng,
-  ffmpeg,
-  libevdev,
-  libusb1,
-  zlib,
-  curl,
-  wolfssl,
-  python3,
-  pugixml,
-  faudio,
-  flatbuffers,
-  sdl2Support ? true,
-  SDL2,
-  pulseaudioSupport ? true,
-  libpulseaudio,
-  waylandSupport ? true,
-  wayland,
-  alsaSupport ? true,
-  alsa-lib,
-}:
+{ lib, stdenv, fetchFromGitHub, wrapQtAppsHook, cmake, pkg-config, git, qtbase
+, qtquickcontrols, qtmultimedia, openal, glew, vulkan-headers, vulkan-loader
+, libpng, ffmpeg, libevdev, libusb1, zlib, curl, wolfssl, python3, pugixml
+, faudio, flatbuffers, sdl2Support ? true, SDL2, pulseaudioSupport ? true
+, libpulseaudio, waylandSupport ? true, wayland, alsaSupport ? true, alsa-lib }:
 
 let
   # Keep these separate so the update script can regex them
@@ -47,8 +17,7 @@ let
     rev = "v3.18.12";
     sha256 = "0c3g30rj1y8fbd2q4kwlpg1jdy02z4w5ryhj3yr9051pdnf4kndz";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "rpcs3";
   version = rpcs3Version;
 
@@ -60,7 +29,8 @@ stdenv.mkDerivation {
     sha256 = rpcs3Sha256;
   };
 
-  patches = [ ./0001-llvm-ExecutionEngine-IntelJITEvents-only-use-ITTAPI_.patch ];
+  patches =
+    [ ./0001-llvm-ExecutionEngine-IntelJITEvents-only-use-ITTAPI_.patch ];
 
   passthru.updateScript = ./update.sh;
 
@@ -87,59 +57,49 @@ stdenv.mkDerivation {
     "-DITTAPI_SOURCE_DIR=${ittapi}"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    git
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
 
-  buildInputs =
-    [
-      qtbase
-      qtquickcontrols
-      qtmultimedia
-      openal
-      glew
-      vulkan-headers
-      vulkan-loader
-      libpng
-      ffmpeg
-      libevdev
-      zlib
-      libusb1
-      curl
-      wolfssl
-      python3
-      pugixml
-      faudio
-      flatbuffers
-    ]
-    ++ lib.optional sdl2Support SDL2
+  buildInputs = [
+    qtbase
+    qtquickcontrols
+    qtmultimedia
+    openal
+    glew
+    vulkan-headers
+    vulkan-loader
+    libpng
+    ffmpeg
+    libevdev
+    zlib
+    libusb1
+    curl
+    wolfssl
+    python3
+    pugixml
+    faudio
+    flatbuffers
+  ] ++ lib.optional sdl2Support SDL2
     ++ lib.optional pulseaudioSupport libpulseaudio
-    ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional waylandSupport wayland;
+    ++ lib.optional alsaSupport alsa-lib ++ lib.optional waylandSupport wayland;
 
   postInstall = ''
     # Taken from https://wiki.rpcs3.net/index.php?title=Help:Controller_Configuration
-    install -D ${./99-ds3-controllers.rules} $out/etc/udev/rules.d/99-ds3-controllers.rules
-    install -D ${./99-ds4-controllers.rules} $out/etc/udev/rules.d/99-ds4-controllers.rules
-    install -D ${./99-dualsense-controllers.rules} $out/etc/udev/rules.d/99-dualsense-controllers.rules
+    install -D ${
+      ./99-ds3-controllers.rules
+    } $out/etc/udev/rules.d/99-ds3-controllers.rules
+    install -D ${
+      ./99-ds4-controllers.rules
+    } $out/etc/udev/rules.d/99-ds4-controllers.rules
+    install -D ${
+      ./99-dualsense-controllers.rules
+    } $out/etc/udev/rules.d/99-dualsense-controllers.rules
   '';
 
   meta = with lib; {
     description = "PS3 emulator/debugger";
     homepage = "https://rpcs3.net/";
-    maintainers = with maintainers; [
-      abbradar
-      neonfuz
-      ilian
-      zane
-    ];
+    maintainers = with maintainers; [ abbradar neonfuz ilian zane ];
     license = licenses.gpl2Only;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
   };
 }

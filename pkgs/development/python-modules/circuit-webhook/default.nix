@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "circuit-webhook";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Module for Unify Circuit API webhooks";
-    homepage = "https://github.com/braam/unify/tree/master/circuit-webhook-python";
+    homepage =
+      "https://github.com/braam/unify/tree/master/circuit-webhook-python";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

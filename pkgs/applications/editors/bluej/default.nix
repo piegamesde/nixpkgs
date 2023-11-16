@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openjdk,
-  glib,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchurl, openjdk, glib, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "bluej";

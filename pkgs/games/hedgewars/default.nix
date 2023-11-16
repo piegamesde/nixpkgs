@@ -1,34 +1,10 @@
-{
-  stdenv,
-  SDL2_image,
-  SDL2_ttf,
-  SDL2_net,
-  fpc,
-  ghcWithPackages,
-  ffmpeg_4,
-  freeglut,
-  lib,
-  fetchurl,
-  cmake,
-  pkg-config,
-  lua5_1,
-  SDL2,
-  SDL2_mixer,
-  zlib,
-  libpng,
-  libGL,
-  libGLU,
-  physfs,
-  qtbase,
-  qttools,
-  wrapQtAppsHook,
-  llvm,
-  withServer ? true,
-}:
+{ stdenv, SDL2_image, SDL2_ttf, SDL2_net, fpc, ghcWithPackages, ffmpeg_4
+, freeglut, lib, fetchurl, cmake, pkg-config, lua5_1, SDL2, SDL2_mixer, zlib
+, libpng, libGL, libGLU, physfs, qtbase, qttools, wrapQtAppsHook, llvm
+, withServer ? true }:
 
 let
-  ghc = ghcWithPackages (
-    pkgs:
+  ghc = ghcWithPackages (pkgs:
     with pkgs; [
       SHA
       bytestring
@@ -41,24 +17,18 @@ let
       sandi
       utf8-string
       vector
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+in stdenv.mkDerivation rec {
   pname = "hedgewars";
   version = "1.0.2";
 
   src = fetchurl {
-    url = "https://www.hedgewars.org/download/releases/hedgewars-src-${version}.tar.bz2";
+    url =
+      "https://www.hedgewars.org/download/releases/hedgewars-src-${version}.tar.bz2";
     sha256 = "sha256-IB/l5FvYyls9gbGOwGvWu8n6fCxjvwGQBeL4C+W88hI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
 
   buildInputs = [
     SDL2_ttf
@@ -96,12 +66,7 @@ stdenv.mkDerivation rec {
 
   qtWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [
-        libGL
-        libGLU
-        freeglut
-        physfs
-      ]
+      lib.makeLibraryPath [ libGL libGLU freeglut physfs ]
     }"
   ];
 
@@ -132,10 +97,7 @@ stdenv.mkDerivation rec {
       contact with explosions, to zero (the damage dealt to the attacked
       hedgehog or hedgehogs after a player's or CPU turn is shown only when
       all movement on the battlefield has ceased).'';
-    maintainers = with maintainers; [
-      kragniz
-      fpletz
-    ];
+    maintainers = with maintainers; [ kragniz fpletz ];
     broken = stdenv.isDarwin;
     platforms = platforms.linux;
   };

@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  cmake,
-  pkg-config,
-  cairo,
-  libxkbcommon,
-  xcbutilcursor,
-  xcbutilkeysyms,
-  xcbutil,
-  libXrandr,
-  libXinerama,
-  libXcursor,
-  alsa-lib,
-  libjack2,
-  lv2,
-  gcc-unwrapped,
-  curl,
-}:
+{ stdenv, lib, fetchFromGitLab, cmake, pkg-config, cairo, libxkbcommon
+, xcbutilcursor, xcbutilkeysyms, xcbutil, libXrandr, libXinerama, libXcursor
+, alsa-lib, libjack2, lv2, gcc-unwrapped, curl }:
 
 stdenv.mkDerivation rec {
   pname = "LibreArp";
@@ -31,10 +14,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
     cairo
     libxkbcommon

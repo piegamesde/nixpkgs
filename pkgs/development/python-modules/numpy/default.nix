@@ -1,46 +1,32 @@
-{
-  lib,
-  fetchPypi,
-  python,
-  buildPythonPackage,
-  gfortran,
-  hypothesis,
-  pytest,
-  typing-extensions,
-  blas,
-  lapack,
-  writeTextFile,
-  cython,
-  pythonOlder,
-}:
+{ lib, fetchPypi, python, buildPythonPackage, gfortran, hypothesis, pytest
+, typing-extensions, blas, lapack, writeTextFile, cython, pythonOlder }:
 
 assert (!blas.isILP64) && (!lapack.isILP64);
 
 let
   cfg = writeTextFile {
     name = "site.cfg";
-    text =
-      (lib.generators.toINI { } {
-        ${blas.implementation} = {
-          include_dirs = "${lib.getDev blas}/include:${lib.getDev lapack}/include";
-          library_dirs = "${blas}/lib:${lapack}/lib";
-          runtime_library_dirs = "${blas}/lib:${lapack}/lib";
-          libraries = "lapack,lapacke,blas,cblas";
-        };
-        lapack = {
-          include_dirs = "${lib.getDev lapack}/include";
-          library_dirs = "${lapack}/lib";
-          runtime_library_dirs = "${lapack}/lib";
-        };
-        blas = {
-          include_dirs = "${lib.getDev blas}/include";
-          library_dirs = "${blas}/lib";
-          runtime_library_dirs = "${blas}/lib";
-        };
-      });
+    text = (lib.generators.toINI { } {
+      ${blas.implementation} = {
+        include_dirs =
+          "${lib.getDev blas}/include:${lib.getDev lapack}/include";
+        library_dirs = "${blas}/lib:${lapack}/lib";
+        runtime_library_dirs = "${blas}/lib:${lapack}/lib";
+        libraries = "lapack,lapacke,blas,cblas";
+      };
+      lapack = {
+        include_dirs = "${lib.getDev lapack}/include";
+        library_dirs = "${lapack}/lib";
+        runtime_library_dirs = "${lapack}/lib";
+      };
+      blas = {
+        include_dirs = "${lib.getDev blas}/include";
+        library_dirs = "${blas}/lib";
+        runtime_library_dirs = "${blas}/lib";
+      };
+    });
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "numpy";
   version = "1.24.2";
   format = "setuptools";
@@ -52,23 +38,15 @@ buildPythonPackage rec {
     hash = "sha256-ADqfUw6IDLLNF3y6GvciC5qkLe+cSvwqL8Pua+frKyI=";
   };
 
-  patches =
-    lib.optionals python.hasDistutilsCxxPatch
-      [
-        # We patch cpython/distutils to fix https://bugs.python.org/issue1222585
-        # Patching of numpy.distutils is needed to prevent it from undoing the
-        # patch to distutils.
-        ./numpy-distutils-C++.patch
-      ];
+  patches = lib.optionals python.hasDistutilsCxxPatch [
+    # We patch cpython/distutils to fix https://bugs.python.org/issue1222585
+    # Patching of numpy.distutils is needed to prevent it from undoing the
+    # patch to distutils.
+    ./numpy-distutils-C++.patch
+  ];
 
-  nativeBuildInputs = [
-    gfortran
-    cython
-  ];
-  buildInputs = [
-    blas
-    lapack
-  ];
+  nativeBuildInputs = [ gfortran cython ];
+  buildInputs = [ blas lapack ];
 
   # we default openblas to build with 64 threads
   # if a machine has more than 64 threads, it will segfault

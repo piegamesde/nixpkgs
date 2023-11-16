@@ -1,9 +1,4 @@
-{
-  stdenv,
-  makeWrapper,
-  runCommand,
-  why3,
-}:
+{ stdenv, makeWrapper, runCommand, why3 }:
 provers:
 let
   configAwkScript = runCommand "why3-conf.awk" { inherit provers; } ''
@@ -15,8 +10,7 @@ let
     done
     echo '{ print }' >> $out
   '';
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "${why3.pname}-with-provers";
   version = why3.version;
 

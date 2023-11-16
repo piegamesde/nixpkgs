@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.plantuml-server;
-in
 
-{
+in {
   options = {
     services.plantuml-server = {
       enable = mkEnableOption (lib.mdDoc "PlantUML server");
@@ -54,7 +48,8 @@ in
       home = mkOption {
         type = types.str;
         default = "/var/lib/plantuml";
-        description = lib.mdDoc "Home directory of the PlantUML server instance.";
+        description =
+          lib.mdDoc "Home directory of the PlantUML server instance.";
       };
 
       listenHost = mkOption {
@@ -85,25 +80,22 @@ in
       plantumlStats = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
+        description = lib.mdDoc
+          "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
       };
 
       httpAuthorization = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header.";
+        description = lib.mdDoc
+          "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header.";
       };
 
       allowPlantumlInclude = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
+        description = lib.mdDoc
+          "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
       };
     };
   };
@@ -127,7 +119,8 @@ in
         GRAPHVIZ_DOT = "${cfg.graphvizPackage}/bin/dot";
         PLANTUML_STATS = if cfg.plantumlStats then "on" else "off";
         HTTP_AUTHORIZATION = cfg.httpAuthorization;
-        ALLOW_PLANTUML_INCLUDE = if cfg.allowPlantumlInclude then "true" else "false";
+        ALLOW_PLANTUML_INCLUDE =
+          if cfg.allowPlantumlInclude then "true" else "false";
       };
       script = ''
         ${cfg.packages.jdk}/bin/java \

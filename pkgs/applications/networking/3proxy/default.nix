@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "3proxy";
@@ -35,9 +30,7 @@ stdenv.mkDerivation rec {
     rm -fr $out/var
   '';
 
-  passthru.tests = {
-    smoke-test = nixosTests._3proxy;
-  };
+  passthru.tests = { smoke-test = nixosTests._3proxy; };
 
   meta = with lib; {
     description = "Tiny free proxy server";

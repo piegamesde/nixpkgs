@@ -1,44 +1,12 @@
-{
-  channel,
-  version,
-  revision,
-  sha256,
-}:
+{ channel, version, revision, sha256 }:
 
-{
-  stdenv,
-  fetchurl,
-  lib,
-  makeWrapper,
+{ stdenv, fetchurl, lib, makeWrapper
 
-  binutils-unwrapped,
-  xz,
-  gnutar,
-  file,
+, binutils-unwrapped, xz, gnutar, file
 
-  glibc,
-  glib,
-  nss,
-  nspr,
-  atk,
-  at-spi2-atk,
-  xorg,
-  cups,
-  dbus,
-  expat,
-  libdrm,
-  libxkbcommon,
-  gtk3,
-  pango,
-  cairo,
-  gdk-pixbuf,
-  mesa,
-  alsa-lib,
-  at-spi2-core,
-  libuuid,
-  systemd,
-  wayland,
-}:
+, glibc, glib, nss, nspr, atk, at-spi2-atk, xorg, cups, dbus, expat, libdrm
+, libxkbcommon, gtk3, pango, cairo, gdk-pixbuf, mesa, alsa-lib, at-spi2-core
+, libuuid, systemd, wayland }:
 
 let
 
@@ -51,123 +19,111 @@ let
   iconSuffix = if channel == "stable" then "" else "_${channel}";
 
   desktopSuffix = if channel == "stable" then "" else "-${channel}";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${baseName}-${channel}-${version}";
 
   src = fetchurl {
-    url = "https://packages.microsoft.com/repos/edge/pool/main/m/${baseName}-${channel}/${baseName}-${channel}_${version}-${revision}_amd64.deb";
+    url =
+      "https://packages.microsoft.com/repos/edge/pool/main/m/${baseName}-${channel}/${baseName}-${channel}_${version}-${revision}_amd64.deb";
     inherit sha256;
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
-  unpackCmd = "${binutils-unwrapped}/bin/ar p $src data.tar.xz | ${xz}/bin/xz -dc | ${gnutar}/bin/tar -xf -";
+  unpackCmd =
+    "${binutils-unwrapped}/bin/ar p $src data.tar.xz | ${xz}/bin/xz -dc | ${gnutar}/bin/tar -xf -";
   sourceRoot = ".";
 
   dontPatch = true;
   dontConfigure = true;
   dontPatchELF = true;
 
-  buildPhase =
-    let
-      libPath = {
-        msedge = lib.makeLibraryPath [
-          glibc
-          glib
-          nss
-          nspr
-          atk
-          at-spi2-atk
-          xorg.libX11
-          xorg.libxcb
-          cups.lib
-          dbus.lib
-          expat
-          libdrm
-          xorg.libXcomposite
-          xorg.libXdamage
-          xorg.libXext
-          xorg.libXfixes
-          xorg.libXrandr
-          libxkbcommon
-          gtk3
-          pango
-          cairo
-          gdk-pixbuf
-          mesa
-          alsa-lib
-          at-spi2-core
-          xorg.libxshmfence
-          systemd
-          wayland
-        ];
-        naclHelper = lib.makeLibraryPath [
-          glib
-          nspr
-          atk
-          libdrm
-          xorg.libxcb
-          mesa
-          xorg.libX11
-          xorg.libXext
-          dbus.lib
-          libxkbcommon
-        ];
-        libwidevinecdm = lib.makeLibraryPath [
-          glib
-          nss
-          nspr
-        ];
-        libGLESv2 = lib.makeLibraryPath [
-          xorg.libX11
-          xorg.libXext
-          xorg.libxcb
-          wayland
-        ];
-        libsmartscreenn = lib.makeLibraryPath [ libuuid ];
-        liboneauth = lib.makeLibraryPath [
-          libuuid
-          xorg.libX11
-        ];
-      };
-    in
-    ''
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath.msedge}" \
-        opt/microsoft/${shortName}/msedge
+  buildPhase = let
+    libPath = {
+      msedge = lib.makeLibraryPath [
+        glibc
+        glib
+        nss
+        nspr
+        atk
+        at-spi2-atk
+        xorg.libX11
+        xorg.libxcb
+        cups.lib
+        dbus.lib
+        expat
+        libdrm
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        libxkbcommon
+        gtk3
+        pango
+        cairo
+        gdk-pixbuf
+        mesa
+        alsa-lib
+        at-spi2-core
+        xorg.libxshmfence
+        systemd
+        wayland
+      ];
+      naclHelper = lib.makeLibraryPath [
+        glib
+        nspr
+        atk
+        libdrm
+        xorg.libxcb
+        mesa
+        xorg.libX11
+        xorg.libXext
+        dbus.lib
+        libxkbcommon
+      ];
+      libwidevinecdm = lib.makeLibraryPath [ glib nss nspr ];
+      libGLESv2 =
+        lib.makeLibraryPath [ xorg.libX11 xorg.libXext xorg.libxcb wayland ];
+      libsmartscreenn = lib.makeLibraryPath [ libuuid ];
+      liboneauth = lib.makeLibraryPath [ libuuid xorg.libX11 ];
+    };
+  in ''
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath.msedge}" \
+      opt/microsoft/${shortName}/msedge
 
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        opt/microsoft/${shortName}/msedge-sandbox
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      opt/microsoft/${shortName}/msedge-sandbox
 
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        opt/microsoft/${shortName}/msedge_crashpad_handler
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      opt/microsoft/${shortName}/msedge_crashpad_handler
 
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath.naclHelper}" \
-        opt/microsoft/${shortName}/nacl_helper
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath.naclHelper}" \
+      opt/microsoft/${shortName}/nacl_helper
 
-      patchelf \
-        --set-rpath "${libPath.libwidevinecdm}" \
-        opt/microsoft/${shortName}/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
+    patchelf \
+      --set-rpath "${libPath.libwidevinecdm}" \
+      opt/microsoft/${shortName}/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so
 
-      patchelf \
-        --set-rpath "${libPath.libGLESv2}" \
-        opt/microsoft/${shortName}/libGLESv2.so
+    patchelf \
+      --set-rpath "${libPath.libGLESv2}" \
+      opt/microsoft/${shortName}/libGLESv2.so
 
-      patchelf \
-        --set-rpath "${libPath.libsmartscreenn}" \
-        opt/microsoft/${shortName}/libsmartscreenn.so
+    patchelf \
+      --set-rpath "${libPath.libsmartscreenn}" \
+      opt/microsoft/${shortName}/libsmartscreenn.so
 
-      patchelf \
-        --set-rpath "${libPath.liboneauth}" \
-        opt/microsoft/${shortName}/liboneauth.so
-    '';
+    patchelf \
+      --set-rpath "${libPath.liboneauth}" \
+      opt/microsoft/${shortName}/liboneauth.so
+  '';
 
   installPhase = ''
     mkdir -p $out
@@ -185,7 +141,9 @@ stdenv.mkDerivation rec {
 
     for icon in '16' '24' '32' '48' '64' '128' '256'
     do
-      ${"icon_source=$out/opt/microsoft/${shortName}/product_logo_\${icon}${iconSuffix}.png"}
+      ${
+        "icon_source=$out/opt/microsoft/${shortName}/product_logo_\${icon}${iconSuffix}.png"
+      }
       ${"icon_target=$out/share/icons/hicolor/\${icon}x\${icon}/apps"}
       mkdir -p $icon_target
       cp $icon_source $icon_target/microsoft-edge${desktopSuffix}.png
@@ -224,9 +182,6 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      zanculmarktum
-      kuwii
-    ];
+    maintainers = with maintainers; [ zanculmarktum kuwii ];
   };
 }

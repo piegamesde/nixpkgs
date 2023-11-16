@@ -1,13 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qtbase,
-  qtwebengine,
-  qtwebkit,
-  qmake,
-  minizinc,
-}:
+{ lib, mkDerivation, fetchFromGitHub, qtbase, qtwebengine, qtwebkit, qmake
+, minizinc }:
 
 mkDerivation rec {
   pname = "minizinc-ide";
@@ -22,23 +14,22 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [
-    qtbase
-    qtwebengine
-    qtwebkit
-  ];
+  buildInputs = [ qtbase qtwebengine qtwebkit ];
 
   sourceRoot = "source/MiniZincIDE";
 
   dontWrapQtApps = true;
 
   postInstall = ''
-    wrapProgram $out/bin/MiniZincIDE --prefix PATH ":" ${lib.makeBinPath [ minizinc ]}
+    wrapProgram $out/bin/MiniZincIDE --prefix PATH ":" ${
+      lib.makeBinPath [ minizinc ]
+    }
   '';
 
   meta = with lib; {
     homepage = "https://www.minizinc.org/";
-    description = "IDE for MiniZinc, a medium-level constraint modelling language";
+    description =
+      "IDE for MiniZinc, a medium-level constraint modelling language";
     longDescription = ''
       MiniZinc is a medium-level constraint modelling
       language. It is high-level enough to express most

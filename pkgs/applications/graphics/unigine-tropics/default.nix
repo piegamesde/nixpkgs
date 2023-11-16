@@ -1,24 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  autoPatchelfHook,
-  libX11,
-  libXext,
-  libXrandr,
-  libXinerama,
-  libglvnd,
-  openal,
-  glibc,
-  makeDesktopItem,
-  copyDesktopItems,
-  imagemagick,
-}:
-let
-  version = "1.3";
-in
-stdenv.mkDerivation {
+{ lib, stdenv, fetchurl, makeWrapper, autoPatchelfHook, libX11, libXext
+, libXrandr, libXinerama, libglvnd, openal, glibc, makeDesktopItem
+, copyDesktopItems, imagemagick }:
+let version = "1.3";
+in stdenv.mkDerivation {
   pname = "unigine-tropics";
   inherit version;
 
@@ -27,11 +11,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-/eA1i42/PMcoBbUJIGS66j7QpZ13oPkOi1Y6Q27TikU=";
   };
 
-  libPath = lib.makeLibraryPath [
-    libglvnd
-    openal
-    glibc
-  ];
+  libPath = lib.makeLibraryPath [ libglvnd openal glibc ];
 
   installPhase = ''
     bash $src --target $name
@@ -69,20 +49,10 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-    imagemagick
-    copyDesktopItems
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook makeWrapper imagemagick copyDesktopItems ];
 
-  buildInputs = [
-    stdenv.cc.cc
-    libX11
-    libXext
-    libXrandr
-    libXinerama
-  ];
+  buildInputs = [ stdenv.cc.cc libX11 libXext libXrandr libXinerama ];
 
   dontUnpack = true;
 
@@ -92,10 +62,7 @@ stdenv.mkDerivation {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = [ lib.maintainers.BarinovMaxim ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     mainProgram = "Tropics";
   };
 }

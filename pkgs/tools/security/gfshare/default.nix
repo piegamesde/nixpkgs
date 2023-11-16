@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchgit, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "gfshare";
@@ -18,12 +13,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ autoreconfHook ];
   doCheck = true;
 
-  outputs = [
-    "bin"
-    "lib"
-    "dev"
-    "out"
-  ];
+  outputs = [ "bin" "lib" "dev" "out" ];
 
   meta = with lib; {
     # Not the most descriptive homepage but it's what Debian and Ubuntu use
@@ -34,6 +24,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ maintainers.rraval ];
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gfshare.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gfshare.x86_64-darwin
   };
 }

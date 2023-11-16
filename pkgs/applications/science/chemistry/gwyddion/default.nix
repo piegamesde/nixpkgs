@@ -1,43 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gtk2,
-  pkg-config,
-  fftw,
-  file,
-  pythonSupport ? false,
-  python2Packages,
-  gnome2,
-  openexrSupport ? true,
-  openexr,
-  libzipSupport ? true,
-  libzip,
-  libxml2Support ? true,
-  libxml2,
-  libwebpSupport ? true,
-  libwebp,
-  # libXmu is not used if libunique is.
-  libXmuSupport ? false,
-  xorg,
-  libxsltSupport ? true,
-  libxslt,
-  fitsSupport ? true,
-  cfitsio,
-  zlibSupport ? true,
-  zlib,
-  libuniqueSupport ? true,
-  libunique,
-  libpngSupport ? true,
-  libpng,
-  openglSupport ? !stdenv.isDarwin,
-}:
+{ lib, stdenv, fetchurl, gtk2, pkg-config, fftw, file, pythonSupport ? false
+, python2Packages, gnome2, openexrSupport ? true, openexr, libzipSupport ? true
+, libzip, libxml2Support ? true, libxml2, libwebpSupport ? true, libwebp,
+# libXmu is not used if libunique is.
+libXmuSupport ? false, xorg, libxsltSupport ? true, libxslt, fitsSupport ? true
+, cfitsio, zlibSupport ? true, zlib, libuniqueSupport ? true, libunique
+, libpngSupport ? true, libpng, openglSupport ? !stdenv.isDarwin }:
 
-let
-  inherit (python2Packages) pygtk pygobject2 python;
-in
+let inherit (python2Packages) pygtk pygobject2 python;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gwyddion";
   version = "2.61";
   src = fetchurl {
@@ -45,37 +16,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rDhYVMDTH9mSu90HZAX8ap4HF//8fYhW/ozzJdIrUgo=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    file
-  ];
+  nativeBuildInputs = [ pkg-config file ];
 
-  buildInputs =
-    with lib;
-    [
-      gtk2
-      fftw
-    ]
-    ++ optional openglSupport gnome2.gtkglext
-    ++ optional openexrSupport openexr
-    ++ optional libXmuSupport xorg.libXmu
-    ++ optional fitsSupport cfitsio
-    ++ optional libpngSupport libpng
-    ++ optional libxsltSupport libxslt
-    ++ optional libxml2Support libxml2
-    ++ optional libwebpSupport libwebp
-    ++ optional zlibSupport zlib
-    ++ optional libuniqueSupport libunique
-    ++ optional libzipSupport libzip;
+  buildInputs = with lib;
+    [ gtk2 fftw ] ++ optional openglSupport gnome2.gtkglext
+    ++ optional openexrSupport openexr ++ optional libXmuSupport xorg.libXmu
+    ++ optional fitsSupport cfitsio ++ optional libpngSupport libpng
+    ++ optional libxsltSupport libxslt ++ optional libxml2Support libxml2
+    ++ optional libwebpSupport libwebp ++ optional zlibSupport zlib
+    ++ optional libuniqueSupport libunique ++ optional libzipSupport libzip;
 
-  propagatedBuildInputs =
-    with lib;
-    optionals pythonSupport [
-      pygtk
-      pygobject2
-      python
-      gnome2.gtksourceview
-    ];
+  propagatedBuildInputs = with lib;
+    optionals pythonSupport [ pygtk pygobject2 python gnome2.gtksourceview ];
 
   # This patch corrects problems with python support, but should apply cleanly
   # regardless of whether python support is enabled, and have no effects if

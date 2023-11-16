@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  darwin,
-  pandoc,
-  installShellFiles,
+{ lib, stdenv, fetchFromGitHub, rustPlatform, darwin, pandoc, installShellFiles
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -21,11 +14,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-oAkZHx33YrwRUUIoooqpy72QCq0ZkAgBZ8W8XDe2fNE=";
 
-  nativeBuildInputs = [
-    pandoc
-    installShellFiles
-  ];
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  nativeBuildInputs = [ pandoc installShellFiles ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   postBuild = ''
     patchShebangs --build ./documentation/build.sh

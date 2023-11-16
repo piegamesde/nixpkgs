@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  core,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, core }:
 
 buildDunePackage rec {
   pname = "tdigest";

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "rove";
   version = "20211209-git";
 
-  description = "Yet another testing framework intended to be a successor of Prove";
+  description =
+    "Yet another testing framework intended to be a successor of Prove";
 
   deps = [
     args."alexandria"
@@ -14,7 +14,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/rove/2021-12-09/rove-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/rove/2021-12-09/rove-20211209-git.tgz";
     sha256 = "1b1fajdxnba743l7mv4nc31az2g7mapalq3z3l57j7r5sximf0qr";
   };
 

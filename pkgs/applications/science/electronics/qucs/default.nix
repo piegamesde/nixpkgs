@@ -1,15 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  flex,
-  bison,
-  qt4,
-  libX11,
-  cmake,
-  gperf,
-  adms,
-}:
+{ lib, stdenv, fetchFromGitHub, flex, bison, qt4, libX11, cmake, gperf, adms }:
 
 stdenv.mkDerivation rec {
   version = "0.0.19";
@@ -26,17 +15,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./cmakelists.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    flex
-    bison
-  ];
-  buildInputs = [
-    qt4
-    libX11
-    gperf
-    adms
-  ];
+  nativeBuildInputs = [ cmake flex bison ];
+  buildInputs = [ qt4 libX11 gperf adms ];
 
   meta = {
     description = "Integrated circuit simulator";

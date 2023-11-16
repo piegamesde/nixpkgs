@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  bison,
-  pcre,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, bison, pcre }:
 
 stdenv.mkDerivation rec {
   pname = "swig";
@@ -20,12 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0khm9gh5pczfcihr0pbicaicc4v9kjm5ip2alvkhmbb3ga6njkcm";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    bison
-  ];
+  nativeBuildInputs = [ autoconf automake libtool bison ];
   buildInputs = [ pcre ];
 
   configureFlags = [ "--without-tcl" ];
@@ -40,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
+    description =
+      "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
     homepage = "https://swig.org/";
     # Different types of licenses available: http://www.swig.org/Release/LICENSE .
     license = licenses.gpl3Plus;

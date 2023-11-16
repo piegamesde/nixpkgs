@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildNpmPackage,
-  fetchFromGitHub,
-  pkg-config,
-  libsecret,
-  darwin,
-  python3,
-  testers,
-  vsce,
-}:
+{ lib, stdenv, buildNpmPackage, fetchFromGitHub, pkg-config, libsecret, darwin
+, python3, testers, vsce }:
 
 buildNpmPackage rec {
   pname = "vsce";
@@ -28,19 +18,10 @@ buildNpmPackage rec {
     substituteInPlace package.json --replace '"version": "0.0.0"' '"version": "${version}"'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config python3 ];
 
-  buildInputs =
-    [ libsecret ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
-        AppKit
-        Security
-      ]
-    );
+  buildInputs = [ libsecret ] ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ AppKit Security ]);
 
   makeCacheWritable = true;
   npmFlags = [ "--legacy-peer-deps" ];

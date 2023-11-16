@@ -1,28 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jdk,
-  ant,
-  cunit,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, jdk, ant, cunit, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "java-service-wrapper";
   version = "3.5.54";
 
   src = fetchurl {
-    url = "https://wrapper.tanukisoftware.com/download/${version}/wrapper_${version}_src.tar.gz";
+    url =
+      "https://wrapper.tanukisoftware.com/download/${version}/wrapper_${version}_src.tar.gz";
     hash = "sha256-t16i1WqvDqr4J5sDldeUk6+DAyN/6oWGV6eME5yj+i4=";
   };
 
   buildInputs = [ jdk ];
-  nativeBuildInputs = [
-    ant
-    cunit
-    ncurses
-  ];
+  nativeBuildInputs = [ ant cunit ncurses ];
 
   buildPhase = ''
     runHook preBuild
@@ -49,14 +38,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Enables a Java Application to be run as a Windows Service or Unix Daemon";
+    description =
+      "Enables a Java Application to be run as a Windows Service or Unix Daemon";
     homepage = "https://wrapper.tanukisoftware.com/";
-    changelog = "https://wrapper.tanukisoftware.com/doc/english/release-notes.html#${version}";
+    changelog =
+      "https://wrapper.tanukisoftware.com/doc/english/release-notes.html#${version}";
     license = licenses.gpl2Only;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     maintainers = [ maintainers.suhr ];
   };
 }

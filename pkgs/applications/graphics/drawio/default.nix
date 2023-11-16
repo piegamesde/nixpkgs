@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  makeDesktopItem,
-  copyDesktopItems,
-  desktopToDarwinBundle,
-  fixup_yarn_lock,
-  makeWrapper,
-  nodejs,
-  yarn,
-  electron,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchYarnDeps, makeDesktopItem, copyDesktopItems
+, desktopToDarwinBundle, fixup_yarn_lock, makeWrapper, nodejs, yarn, electron }:
 
 stdenv.mkDerivation rec {
   pname = "drawio";
@@ -30,13 +18,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-gLt6a2Kq1LIzFiSnqLKKFTg8sd3Wrqsdys23SCFcrQ0=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    fixup_yarn_lock
-    makeWrapper
-    nodejs
-    yarn
-  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [ copyDesktopItems fixup_yarn_lock makeWrapper nodejs yarn ]
+    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = true;
 
@@ -86,10 +70,7 @@ stdenv.mkDerivation rec {
       icon = "drawio";
       desktopName = "drawio";
       comment = "draw.io desktop";
-      mimeTypes = [
-        "application/vnd.jgraph.mxfile"
-        "application/vnd.visio"
-      ];
+      mimeTypes = [ "application/vnd.jgraph.mxfile" "application/vnd.visio" ];
       categories = [ "Graphics" ];
       startupWMClass = "drawio";
     })
@@ -99,11 +80,9 @@ stdenv.mkDerivation rec {
     description = "A desktop application for creating diagrams";
     homepage = "https://about.draw.io/";
     license = licenses.asl20;
-    changelog = "https://github.com/jgraph/drawio-desktop/releases/tag/v${version}";
-    maintainers = with maintainers; [
-      qyliss
-      darkonion0
-    ];
+    changelog =
+      "https://github.com/jgraph/drawio-desktop/releases/tag/v${version}";
+    maintainers = with maintainers; [ qyliss darkonion0 ];
     platforms = platforms.darwin ++ platforms.linux;
     broken = stdenv.isDarwin;
   };

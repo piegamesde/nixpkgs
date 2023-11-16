@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  exceptiongroup,
-  pytest-trio,
-  pytestCheckHook,
-  trio,
-  trustme,
-  wsproto,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, exceptiongroup, pytest-trio
+, pytestCheckHook, trio, trustme, wsproto }:
 
 buildPythonPackage rec {
   pname = "trio-websocket";
@@ -23,17 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-djoTxkIKY52l+WnxL1FwlqrU/zvsLVkPUAHn9BxJ45k=";
   };
 
-  propagatedBuildInputs = [
-    exceptiongroup
-    trio
-    wsproto
-  ];
+  propagatedBuildInputs = [ exceptiongroup trio wsproto ];
 
-  nativeCheckInputs = [
-    pytest-trio
-    pytestCheckHook
-    trustme
-  ];
+  nativeCheckInputs = [ pytest-trio pytestCheckHook trustme ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     # Failed: DID NOT RAISE <class 'ValueError'>
@@ -51,7 +33,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "trio_websocket" ];
 
   meta = with lib; {
-    changelog = "https://github.com/HyperionGray/trio-websocket/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/HyperionGray/trio-websocket/blob/${version}/CHANGELOG.md";
     description = "WebSocket client and server implementation for Python Trio";
     homepage = "https://github.com/HyperionGray/trio-websocket";
     license = licenses.mit;

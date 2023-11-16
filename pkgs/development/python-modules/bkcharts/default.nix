@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  pandas,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, pandas }:
 
 buildPythonPackage rec {
   pname = "bkcharts";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     sha256 = "a5eaa8e78853dcecaa46345812e4fabe9cd3b96330ebf0809f640a4a0556d72e";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    pandas
-  ];
+  propagatedBuildInputs = [ numpy pandas ];
 
   # Circular test dependency on bokeh
   doCheck = false;

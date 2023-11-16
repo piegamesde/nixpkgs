@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "20kly";
@@ -37,7 +33,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "A steampunk-themed strategy game where you have to manage a steam supply network";
+    description =
+      "A steampunk-themed strategy game where you have to manage a steam supply network";
     homepage = "http://jwhitham.org.uk/20kly/";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fgaz ];

@@ -1,11 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qmake,
-  boost,
-}:
+{ mkDerivation, lib, stdenv, fetchFromGitHub, qmake, boost }:
 
 mkDerivation rec {
   pname = "glogg";

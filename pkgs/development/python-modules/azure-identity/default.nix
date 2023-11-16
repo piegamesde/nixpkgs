@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  azure-common,
-  azure-core,
-  cryptography,
-  mock,
-  msal,
-  msal-extensions,
-  msrest,
-  msrestazure,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, azure-common, azure-core, cryptography
+, mock, msal, msal-extensions, msrest, msrestazure, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "azure-identity";

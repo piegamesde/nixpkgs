@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  pytestCheckHook,
-  enrich,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook, enrich }:
 
 buildPythonPackage rec {
   pname = "subprocess-tee";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    enrich
-  ];
+  nativeCheckInputs = [ pytestCheckHook enrich ];
 
   disabledTests = [
     # cyclic dependency on `molecule` (see https://github.com/pycontribs/subprocess-tee/issues/50)
@@ -35,7 +25,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/pycontribs/subprocess-tee";
-    description = "A subprocess.run drop-in replacement that supports a tee mode";
+    description =
+      "A subprocess.run drop-in replacement that supports a tee mode";
     license = licenses.mit;
     maintainers = with maintainers; [ putchar ];
   };

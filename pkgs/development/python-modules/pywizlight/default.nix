@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pywizlight";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ click ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

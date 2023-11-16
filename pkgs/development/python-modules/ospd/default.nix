@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  defusedxml,
-  deprecated,
-  fetchFromGitHub,
-  lxml,
-  paramiko,
-  psutil,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, defusedxml, deprecated, fetchFromGitHub, lxml
+, paramiko, psutil, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ospd";
@@ -26,13 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-dZgs+G2vJQIKnN9xHcNeNViG7mOIdKb+Ms2AKE+FC4M=";
   };
 
-  propagatedBuildInputs = [
-    defusedxml
-    deprecated
-    lxml
-    paramiko
-    psutil
-  ];
+  propagatedBuildInputs = [ defusedxml deprecated lxml paramiko psutil ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

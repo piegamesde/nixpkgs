@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "lolcat";
@@ -15,10 +11,6 @@ bundlerApp {
     description = "A rainbow version of cat";
     homepage = "https://github.com/busyloop/lolcat";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      StillerHarpo
-      manveru
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ StillerHarpo manveru nicknovitski ];
   };
 }

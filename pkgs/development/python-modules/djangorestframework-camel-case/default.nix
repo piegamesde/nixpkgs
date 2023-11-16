@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  djangorestframework,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, djangorestframework, six }:
 
 buildPythonPackage rec {
   pname = "djangorestframework-camel-case";

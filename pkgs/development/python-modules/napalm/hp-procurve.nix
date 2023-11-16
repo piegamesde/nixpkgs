@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  napalm,
-  netmiko,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, napalm, netmiko
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "napalm-hp-procurve";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
     echo -n > requirements.txt
   '';
 
-  buildInputs = [
-    setuptools
-    napalm
-  ];
+  buildInputs = [ setuptools napalm ];
   propagatedBuildInputs = [ netmiko ];
 
   # setup.cfg seems to contain invalid pytest parameters
@@ -46,7 +36,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "HP ProCurve Driver for NAPALM automation frontend";
-    homepage = "https://github.com/napalm-automation-community/napalm-hp-procurve";
+    homepage =
+      "https://github.com/napalm-automation-community/napalm-hp-procurve";
     license = licenses.asl20;
     maintainers = with maintainers; [ ];
   };

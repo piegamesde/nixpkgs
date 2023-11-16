@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "sssd";
@@ -12,5 +11,4 @@ import ./make-test-python.nix (
       machine.wait_for_unit("sssd.service")
       machine.succeed("sssctl config-check")
     '';
-  }
-)
+  })

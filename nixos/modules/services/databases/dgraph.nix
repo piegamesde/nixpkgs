@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -11,11 +6,12 @@ let
   cfg = config.services.dgraph;
   settingsFormat = pkgs.formats.json { };
   configFile = settingsFormat.generate "config.json" cfg.settings;
-  dgraphWithNode = pkgs.runCommand "dgraph" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
-      --prefix PATH : "${lib.makeBinPath [ pkgs.nodejs ]}" \
-  '';
+  dgraphWithNode =
+    pkgs.runCommand "dgraph" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+      mkdir -p $out/bin
+      makeWrapper ${cfg.package}/bin/dgraph $out/bin/dgraph \
+        --prefix PATH : "${lib.makeBinPath [ pkgs.nodejs ]}" \
+    '';
   securityOptions = {
     NoNewPrivileges = true;
 
@@ -40,11 +36,7 @@ let
     RemoveIPC = true;
 
     RestrictNamespaces = true;
-    RestrictAddressFamilies = [
-      "AF_INET"
-      "AF_INET6"
-      "AF_UNIX"
-    ];
+    RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
 
@@ -61,11 +53,11 @@ let
       "~@setuid"
     ];
   };
-in
-{
+in {
   options = {
     services.dgraph = {
-      enable = mkEnableOption (lib.mdDoc "Dgraph native GraphQL database with a graph backend");
+      enable = mkEnableOption
+        (lib.mdDoc "Dgraph native GraphQL database with a graph backend");
 
       package = lib.mkPackageOptionMD pkgs "dgraph" { };
 
@@ -92,6 +84,7 @@ in
             The port which to run dgraph alpha on.
           '';
         };
+
       };
 
       zero = {
@@ -110,16 +103,16 @@ in
           '';
         };
       };
+
     };
   };
 
   config = mkIf cfg.enable {
-    services.dgraph.settings = {
-      badger.compression = mkDefault "zstd:3";
-    };
+    services.dgraph.settings = { badger.compression = mkDefault "zstd:3"; };
 
     systemd.services.dgraph-zero = {
-      description = "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";
+      description =
+        "Dgraph native GraphQL database with a graph backend. Zero controls node clustering";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
@@ -127,17 +120,17 @@ in
         StateDirectory = "dgraph-zero";
         WorkingDirectory = "/var/lib/dgraph-zero";
         DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${toString cfg.zero.port}";
+        ExecStart = "${cfg.package}/bin/dgraph zero --my ${cfg.zero.host}:${
+            toString cfg.zero.port
+          }";
         Restart = "on-failure";
       } // securityOptions;
     };
 
     systemd.services.dgraph-alpha = {
-      description = "Dgraph native GraphQL database with a graph backend. Alpha serves data";
-      after = [
-        "network.target"
-        "dgraph-zero.service"
-      ];
+      description =
+        "Dgraph native GraphQL database with a graph backend. Alpha serves data";
+      after = [ "network.target" "dgraph-zero.service" ];
       requires = [ "dgraph-zero.service" ];
       wantedBy = [ "multi-user.target" ];
 
@@ -145,7 +138,8 @@ in
         StateDirectory = "dgraph-alpha";
         WorkingDirectory = "/var/lib/dgraph-alpha";
         DynamicUser = true;
-        ExecStart = "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${
+        ExecStart =
+          "${dgraphWithNode}/bin/dgraph alpha --config ${configFile} --my ${cfg.alpha.host}:${
             toString cfg.alpha.port
           } --zero ${cfg.zero.host}:${toString cfg.zero.port}";
         ExecStop = ''

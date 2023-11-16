@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
-{
+{ lib, stdenv, fetchFromGitHub }: {
   bats-assert = stdenv.mkDerivation rec {
     pname = "bats-assert";
     version = "2.1.0";

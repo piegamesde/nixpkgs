@@ -1,13 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  pyparsing,
-  decorator,
-  six,
-  future,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, pyparsing, decorator, six, future }:
 
 buildPythonPackage rec {
   pname = "PyContracts";
@@ -19,15 +10,11 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ nose ];
-  propagatedBuildInputs = [
-    pyparsing
-    decorator
-    six
-    future
-  ];
+  propagatedBuildInputs = [ pyparsing decorator six future ];
 
   meta = with lib; {
-    description = "Allows to declare constraints on function parameters and return values";
+    description =
+      "Allows to declare constraints on function parameters and return values";
     homepage = "https://pypi.python.org/pypi/PyContracts";
     license = licenses.lgpl2;
   };

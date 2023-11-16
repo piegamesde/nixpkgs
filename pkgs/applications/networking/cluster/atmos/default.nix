@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "atmos";
@@ -17,11 +13,8 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-vZwADD7fi9ZvJby9Ijdeueid8jRfUyyj6Nu4kgkO5Wo=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/cloudposse/atmos/cmd.Version=v${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/cloudposse/atmos/cmd.Version=v${version}" ];
 
   preCheck = ''
     # Remove tests that depend on a network connection.
@@ -40,8 +33,10 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://atmos.tools";
     changelog = "https://github.com/cloudposse/atmos/releases/tag/v${version}";
-    description = "Universal Tool for DevOps and Cloud Automation (works with terraform, helm, helmfile, etc)";
+    description =
+      "Universal Tool for DevOps and Cloud Automation (works with terraform, helm, helmfile, etc)";
     license = licenses.asl20;
     maintainers = with maintainers; [ rb ];
   };
 }
+

@@ -1,31 +1,25 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  ncurses,
-  libX11,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, ncurses, libX11 }:
 
 let
   useX11 = !stdenv.isAarch32 && !stdenv.isMips;
   useNativeCompilers = !stdenv.isMips;
   inherit (lib) optional optionals optionalString;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ocaml";
   version = "4.00.1";
 
   src = fetchurl {
-    url = "https://caml.inria.fr/pub/distrib/ocaml-4.00/${pname}-${version}.tar.bz2";
+    url =
+      "https://caml.inria.fr/pub/distrib/ocaml-4.00/${pname}-${version}.tar.bz2";
     sha256 = "33c3f4acff51685f5bfd7c260f066645e767d4e865877bf1613c176a77799951";
   };
 
   # Compatibility with Glibc 2.34
   patches = [
     (fetchpatch {
-      url = "https://github.com/ocaml/ocaml/commit/60b0cdaf2519d881947af4175ac4c6ff68901be3.patch";
+      url =
+        "https://github.com/ocaml/ocaml/commit/60b0cdaf2519d881947af4175ac4c6ff68901be3.patch";
       sha256 = "sha256:07g9q9sjk4xsbqix7jxggfp36v15pmqw4bms80g5car0hfbszirn";
     })
   ];
@@ -37,18 +31,9 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
   prefixKey = "-prefix ";
-  configureFlags =
-    [ "-no-tk" ]
-    ++ optionals useX11 [
-      "-x11lib"
-      libX11
-    ];
-  buildFlags =
-    [ "world" ]
-    ++ optionals useNativeCompilers [
-      "bootstrap"
-      "world.opt"
-    ];
+  configureFlags = [ "-no-tk" ] ++ optionals useX11 [ "-x11lib" libX11 ];
+  buildFlags = [ "world" ]
+    ++ optionals useNativeCompilers [ "bootstrap" "world.opt" ];
   buildInputs = [ ncurses ] ++ optionals useX11 [ libX11 ];
   installTargets = "install" + optionalString useNativeCompilers " installopt";
   preConfigure = ''
@@ -60,9 +45,7 @@ stdenv.mkDerivation rec {
     ln -sv $out/lib/ocaml/caml $out/include/caml
   '';
 
-  passthru = {
-    nativeCompilers = useNativeCompilers;
-  };
+  passthru = { nativeCompilers = useNativeCompilers; };
 
   meta = with lib; {
     homepage = "http://caml.inria.fr/ocaml";
@@ -93,4 +76,5 @@ stdenv.mkDerivation rec {
 
     platforms = with platforms; linux;
   };
+
 }

@@ -1,38 +1,8 @@
-{
-  alsa-lib,
-  at-spi2-core,
-  cmake,
-  curl,
-  dbus,
-  libepoxy,
-  fetchFromGitHub,
-  freeglut,
-  freetype,
-  gcc-unwrapped,
-  gtk3,
-  lib,
-  libGL,
-  libXcursor,
-  libXdmcp,
-  libXext,
-  libXinerama,
-  libXrandr,
-  libXtst,
-  libdatrie,
-  libjack2,
-  libpsl,
-  libselinux,
-  libsepol,
-  libsysprof-capture,
-  libthai,
-  libxkbcommon,
-  lv2,
-  pcre,
-  pkg-config,
-  python3,
-  sqlite,
-  stdenv,
-}:
+{ alsa-lib, at-spi2-core, cmake, curl, dbus, libepoxy, fetchFromGitHub, freeglut
+, freetype, gcc-unwrapped, gtk3, lib, libGL, libXcursor, libXdmcp, libXext
+, libXinerama, libXrandr, libXtst, libdatrie, libjack2, libpsl, libselinux
+, libsepol, libsysprof-capture, libthai, libxkbcommon, lv2, pcre, pkg-config
+, python3, sqlite, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "CHOWTapeModel";
@@ -46,10 +16,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
   buildInputs = [
     alsa-lib
@@ -102,12 +69,14 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/jatinchowdhury18/AnalogTapeModel";
-    description = "Physical modelling signal processing for analog tape recording. LV2, VST3 and standalone";
+    description =
+      "Physical modelling signal processing for analog tape recording. LV2, VST3 and standalone";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ magnetophon ];
     platforms = platforms.linux;
     # error: 'vvtanh' was not declared in this scope; did you mean 'tanh'?
     # error: no matching function for call to 'juce::dsp::SIMDRegister<double>::SIMDRegister(xsimd::simd_batch_traits<xsimd::batch<double, 2> >::batch_bool_type)'
-    broken = stdenv.isAarch64; # since 2021-12-27 on hydra (update to 2.10): https://hydra.nixos.org/build/162558991
+    broken =
+      stdenv.isAarch64; # since 2021-12-27 on hydra (update to 2.10): https://hydra.nixos.org/build/162558991
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  ruby,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, ruby, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp rec {
   pname = "brakeman";
@@ -15,7 +10,8 @@ bundlerApp rec {
   meta = with lib; {
     description = "Static analysis security scanner for Ruby on Rails";
     homepage = "https://brakemanscanner.org/";
-    changelog = "https://github.com/presidentbeef/brakeman/blob/v${version}/CHANGES.md";
+    changelog =
+      "https://github.com/presidentbeef/brakeman/blob/v${version}/CHANGES.md";
     license = [ licenses.unfreeRedistributable ];
     platforms = ruby.meta.platforms;
     maintainers = [ maintainers.marsam ];

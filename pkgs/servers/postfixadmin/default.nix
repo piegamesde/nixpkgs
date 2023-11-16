@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  stdenv,
-  lib,
-}:
+{ fetchFromGitHub, stdenv, lib }:
 
 stdenv.mkDerivation rec {
   pname = "postfixadmin";
@@ -23,7 +19,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Web based virtual user administration interface for Postfix mail servers";
+    description =
+      "Web based virtual user administration interface for Postfix mail servers";
     homepage = "https://postfixadmin.sourceforge.io/";
     maintainers = with lib.maintainers; [ globin ];
     license = lib.licenses.gpl2Plus;

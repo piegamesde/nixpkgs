@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ninja,
-  meson,
-  pkg-config,
-  gthree,
-  gsound,
-  libepoxy,
-  gtk3,
-}:
+{ lib, stdenv, fetchFromGitHub, ninja, meson, pkg-config, gthree, gsound
+, libepoxy, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-hexgl";
@@ -22,18 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "yZWGymaSUfnCP8VAEdDH64w0muSnRK/XPi1/IqTrE4k=";
   };
 
-  nativeBuildInputs = [
-    ninja
-    meson
-    pkg-config
-  ];
+  nativeBuildInputs = [ ninja meson pkg-config ];
 
-  buildInputs = [
-    gthree
-    gsound
-    libepoxy
-    gtk3
-  ];
+  buildInputs = [ gthree gsound libepoxy gtk3 ];
 
   meta = with lib; {
     description = "Gthree port of HexGL";

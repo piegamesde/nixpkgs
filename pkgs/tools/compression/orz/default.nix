@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  rust-cbindgen,
-}:
+{ lib, rustPlatform, fetchFromGitHub, rust-cbindgen }:
 
 rustPlatform.buildRustPackage rec {
   pname = "orz";
@@ -18,11 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-aUsRbIajBP6esjW7Wj7mqIkbYUCbZ2GgxjRXMPTnHYg=";
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-  ];
+  outputs = [ "out" "dev" "lib" ];
 
   nativeBuildInputs = [ rust-cbindgen ];
 
@@ -34,7 +25,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A high performance, general purpose data compressor written in rust";
+    description =
+      "A high performance, general purpose data compressor written in rust";
     homepage = "https://github.com/richox/orz";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

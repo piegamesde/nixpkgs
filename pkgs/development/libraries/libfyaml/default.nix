@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "libfyaml";
@@ -17,17 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-b/jRKe23NIVSydoczI+Ax2VjBJLfAEwF8SW61vIDTwA=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-  ];
+  outputs = [ "bin" "dev" "out" "man" ];
 
   doCheck = true;
 
@@ -37,7 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/pantoniou/libfyaml";
-    description = "Fully feature complete YAML parser and emitter, supporting the latest YAML spec and passing the full YAML testsuite";
+    description =
+      "Fully feature complete YAML parser and emitter, supporting the latest YAML spec and passing the full YAML testsuite";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
     platforms = platforms.all;

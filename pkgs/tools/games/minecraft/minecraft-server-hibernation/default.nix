@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "minecraft-server-hibernation";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-W6P7wz1FGL6Os1zmmqWJ7/sO8zizfnwg+TMiFWGHIOM=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "Autostart and stop minecraft-server when players join/leave";

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  gtk3,
-  libwnck,
-  libfakekey,
-  libXtst,
-  mate,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, libwnck, libfakekey, libXtst
+, mate, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-netbook";
@@ -24,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "12gdy69nfysl8vmd8lv8b0lknkaagplrrz88nh6n0rmjkxnipgz3";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    libwnck
-    libfakekey
-    libXtst
-    mate.mate-panel
-  ];
+  buildInputs = [ gtk3 libwnck libfakekey libXtst mate.mate-panel ];
 
   enableParallelBuilding = true;
 
@@ -52,10 +30,7 @@ stdenv.mkDerivation rec {
       devices with low resolution displays.
     '';
     homepage = "https://mate-desktop.org";
-    license = with licenses; [
-      gpl3Only
-      lgpl2Plus
-    ];
+    license = with licenses; [ gpl3Only lgpl2Plus ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

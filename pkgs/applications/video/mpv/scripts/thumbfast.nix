@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  mpv-unwrapped,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, mpv-unwrapped }:
 
 stdenvNoCC.mkDerivation {
   name = "mpv-thumbfast";
@@ -18,7 +13,9 @@ stdenvNoCC.mkDerivation {
 
   postPatch = ''
     substituteInPlace thumbfast.lua \
-      --replace 'mpv_path = "mpv"' 'mpv_path = "${lib.getBin mpv-unwrapped}/bin/mpv"'
+      --replace 'mpv_path = "mpv"' 'mpv_path = "${
+        lib.getBin mpv-unwrapped
+      }/bin/mpv"'
   '';
 
   dontBuild = true;

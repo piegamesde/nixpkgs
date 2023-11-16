@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gtest,
-  boost,
-  gd,
-  libsndfile,
-  libmad,
-  libid3tag,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gtest, boost, gd, libsndfile, libmad
+, libid3tag }:
 
 stdenv.mkDerivation rec {
   pname = "audiowaveform";
@@ -22,18 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3Fpc0HvtuAYIkyuFrZ+sHkHRHaP4vo0Q4IoGqTksyqE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    gtest
-  ];
+  nativeBuildInputs = [ cmake gtest ];
 
-  buildInputs = [
-    boost
-    gd
-    libsndfile
-    libmad
-    libid3tag
-  ];
+  buildInputs = [ boost gd libsndfile libmad libid3tag ];
 
   preConfigure = ''
     ln -s ${gtest.src} googletest
@@ -43,13 +24,15 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "C++ program to generate waveform data and render waveform images from audio files";
+    description =
+      "C++ program to generate waveform data and render waveform images from audio files";
     longDescription = ''
       audiowaveform is a C++ command-line application that generates waveform data from either MP3, WAV, FLAC, or Ogg Vorbis format audio files.
       Waveform data can be used to produce a visual rendering of the audio, similar in appearance to audio editing applications.
     '';
     homepage = "https://github.com/bbc/audiowaveform";
-    changelog = "https://github.com/bbc/audiowaveform/blob/${version}/ChangeLog";
+    changelog =
+      "https://github.com/bbc/audiowaveform/blob/${version}/ChangeLog";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [ edbentley ];

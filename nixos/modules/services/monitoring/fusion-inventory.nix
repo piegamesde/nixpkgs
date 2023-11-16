@@ -1,10 +1,5 @@
 # Fusion Inventory daemon.
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,8 +13,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
 
   ###### interface
 
@@ -60,7 +55,8 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.fusionInventory}/bin/fusioninventory-agent --conf-file=${configFile} --daemon --no-fork";
+        ExecStart =
+          "${pkgs.fusionInventory}/bin/fusioninventory-agent --conf-file=${configFile} --daemon --no-fork";
       };
     };
   };

@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPgxExtension,
-  postgresql,
-  nixosTests,
-  cargo-pgx_0_7_1,
-  nix-update-script,
-  stdenv,
-}:
+{ lib, fetchFromGitHub, buildPgxExtension, postgresql, nixosTests
+, cargo-pgx_0_7_1, nix-update-script, stdenv }:
 
 (buildPgxExtension.override { cargo-pgx = cargo-pgx_0_7_1; }) rec {
   inherit postgresql;
@@ -27,16 +19,15 @@
 
   passthru = {
     updateScript = nix-update-script { };
-    tests = {
-      timescaledb_toolkit = nixosTests.timescaledb;
-    };
+    tests = { timescaledb_toolkit = nixosTests.timescaledb; };
   };
 
   # tests take really long
   doCheck = false;
 
   meta = with lib; {
-    description = "Provide additional tools to ease all things analytic when using TimescaleDB";
+    description =
+      "Provide additional tools to ease all things analytic when using TimescaleDB";
     homepage = "https://github.com/timescale/timescaledb-toolkit";
     maintainers = with maintainers; [ typetetris ];
     platforms = postgresql.meta.platforms;

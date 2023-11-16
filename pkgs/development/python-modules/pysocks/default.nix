@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pysocks";
@@ -21,4 +17,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ thoughtpolice ];
   };
+
 }

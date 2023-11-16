@@ -1,18 +1,6 @@
-{
-  lib,
-  aiohttp,
-  async-timeout,
-  asyncio-dgram,
-  buildPythonPackage,
-  docutils,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  voluptuous,
-}:
+{ lib, aiohttp, async-timeout, asyncio-dgram, buildPythonPackage, docutils
+, fetchFromGitHub, poetry-core, pytest-aiohttp, pytest-asyncio, pytestCheckHook
+, pythonOlder, voluptuous }:
 
 buildPythonPackage rec {
   pname = "aioguardian";
@@ -30,20 +18,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    asyncio-dgram
-    docutils
-    voluptuous
-  ];
+  propagatedBuildInputs =
+    [ aiohttp async-timeout asyncio-dgram docutils voluptuous ];
 
-  nativeCheckInputs = [
-    asyncio-dgram
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ asyncio-dgram pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
   disabledTestPaths = [ "examples/" ];
 

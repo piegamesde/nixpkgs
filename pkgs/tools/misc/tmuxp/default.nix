@@ -1,14 +1,8 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-  installShellFiles,
-}:
+{ lib, python3Packages, fetchPypi, installShellFiles }:
 
-let
-  pypkgs = python3Packages;
-in
-pypkgs.buildPythonApplication rec {
+let pypkgs = python3Packages;
+
+in pypkgs.buildPythonApplication rec {
   pname = "tmuxp";
   version = "1.27.0";
 
@@ -22,12 +16,7 @@ pypkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = with pypkgs; [
-    click
-    colorama
-    kaptan
-    libtmux
-  ];
+  propagatedBuildInputs = with pypkgs; [ click colorama kaptan libtmux ];
 
   postInstall = ''
     installShellCompletion --cmd tmuxp \

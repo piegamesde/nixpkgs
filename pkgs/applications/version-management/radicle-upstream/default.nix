@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  appimageTools,
-  autoPatchelfHook,
-  zlib,
-  fetchurl,
-  undmg,
-}:
+{ lib, stdenv, appimageTools, autoPatchelfHook, zlib, fetchurl, undmg }:
 
 let
   pname = "radicle-upstream";
@@ -66,12 +58,7 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-    ;
+    inherit pname version src meta;
 
     nativeBuildInputs = [ undmg ];
 
@@ -88,10 +75,6 @@ let
     homepage = "https://radicle.xyz/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ d-xo ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

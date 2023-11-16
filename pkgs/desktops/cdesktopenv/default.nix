@@ -1,42 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  xorgproto,
-  libX11,
-  bison,
-  ksh,
-  perl,
-  gnum4,
-  libXinerama,
-  libXt,
-  libXext,
-  libtirpc,
-  motif,
-  libXft,
-  xbitmaps,
-  libjpeg,
-  libXmu,
-  libXdmcp,
-  libXScrnSaver,
-  symlinkJoin,
-  bdftopcf,
-  ncompress,
-  mkfontdir,
-  tcl-8_5,
-  libXaw,
-  libxcrypt,
-  gcc,
-  glibcLocales,
-  autoPatchelfHook,
-  libredirect,
-  makeWrapper,
-  xset,
-  xrdb,
-  fakeroot,
-  rpcsvc-proto,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, xorgproto, libX11, bison, ksh, perl, gnum4
+, libXinerama, libXt, libXext, libtirpc, motif, libXft, xbitmaps, libjpeg
+, libXmu, libXdmcp, libXScrnSaver, symlinkJoin, bdftopcf, ncompress, mkfontdir
+, tcl-8_5, libXaw, libxcrypt, gcc, glibcLocales, autoPatchelfHook, libredirect
+, makeWrapper, xset, xrdb, fakeroot, rpcsvc-proto }:
 
 let
   x11ProjectRoot = symlinkJoin {
@@ -48,8 +14,7 @@ let
       xrdb # session load
     ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "2.3.2";
   pname = "cde";
 
@@ -65,7 +30,8 @@ stdenv.mkDerivation rec {
 
     (fetchpatch {
       name = "binutils-2.36.patch";
-      url = "https://github.com/cdesktopenv/cde/commit/0b7849e210a99a413ddeb52a0eb5aef9a08504a0.patch";
+      url =
+        "https://github.com/cdesktopenv/cde/commit/0b7849e210a99a413ddeb52a0eb5aef9a08504a0.patch";
       sha256 = "0wlhs617hws3rwln9v74y1nw27n3pp7jkpnxlala7k5y64506ipj";
       stripLen = 1;
     })
@@ -89,14 +55,8 @@ stdenv.mkDerivation rec {
     ksh
     libxcrypt
   ];
-  nativeBuildInputs = [
-    bison
-    ncompress
-    autoPatchelfHook
-    makeWrapper
-    fakeroot
-    rpcsvc-proto
-  ];
+  nativeBuildInputs =
+    [ bison ncompress autoPatchelfHook makeWrapper fakeroot rpcsvc-proto ];
   # build fails otherwise
   enableParallelBuilding = false;
 
@@ -159,9 +119,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/cdesktopenv/";
     license = licenses.lgpl2;
     maintainers = [ ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

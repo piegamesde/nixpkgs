@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-}:
+{ config, lib, pkgs }:
 
-lib.makeScope pkgs.newScope (
-  self:
+lib.makeScope pkgs.newScope (self:
   with self; {
     # Dependencies
 
@@ -50,11 +45,6 @@ lib.makeScope pkgs.newScope (
 
     all-wrapped = callPackage ./wrapper.nix {
       name = "all-wrapped";
-      appls = [
-        durden
-        cat9
-        pipeworld
-      ];
+      appls = [ durden cat9 pipeworld ];
     };
-  }
-)
+  })

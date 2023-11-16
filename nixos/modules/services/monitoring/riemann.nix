@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with pkgs;
 with lib;
@@ -12,13 +7,11 @@ let
 
   cfg = config.services.riemann;
 
-  classpath = concatStringsSep ":" (
-    cfg.extraClasspathEntries ++ [ "${riemann}/share/java/riemann.jar" ]
-  );
+  classpath = concatStringsSep ":"
+    (cfg.extraClasspathEntries ++ [ "${riemann}/share/java/riemann.jar" ]);
 
-  riemannConfig = concatStringsSep "\n" (
-    [ cfg.config ] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles)
-  );
+  riemannConfig = concatStringsSep "\n"
+    ([ cfg.config ] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles));
 
   launcher = writeScriptBin "riemann" ''
     #!/bin/sh
@@ -26,8 +19,8 @@ let
       -cp ${classpath} \
       riemann.bin ${cfg.configFile}
   '';
-in
-{
+
+in {
 
   options = {
 
@@ -86,7 +79,8 @@ in
       group = "riemann";
     };
 
-    services.riemann.configFile = mkDefault (writeText "riemann-config.clj" riemannConfig);
+    services.riemann.configFile =
+      mkDefault (writeText "riemann-config.clj" riemannConfig);
 
     systemd.services.riemann = {
       wantedBy = [ "multi-user.target" ];
@@ -97,5 +91,7 @@ in
       };
       serviceConfig.LimitNOFILE = 65536;
     };
+
   };
+
 }

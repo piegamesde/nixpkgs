@@ -1,13 +1,6 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-let
-  cfg = config.services.spark;
-in
-with lib; {
+{ config, pkgs, lib, ... }:
+let cfg = config.services.spark;
+in with lib; {
   options = {
     services.spark = {
       master = {
@@ -30,9 +23,8 @@ with lib; {
         };
         extraEnvironment = mkOption {
           type = types.attrsOf types.str;
-          description =
-            lib.mdDoc
-              "Extra environment variables to pass to spark master. See spark-standalone documentation.";
+          description = lib.mdDoc
+            "Extra environment variables to pass to spark master. See spark-standalone documentation.";
           default = { };
           example = {
             SPARK_MASTER_WEBUI_PORT = 8181;
@@ -64,7 +56,8 @@ with lib; {
         };
         extraEnvironment = mkOption {
           type = types.attrsOf types.str;
-          description = lib.mdDoc "Extra environment variables to pass to spark worker.";
+          description =
+            lib.mdDoc "Extra environment variables to pass to spark worker.";
           default = { };
           example = {
             SPARK_WORKER_CORES = 5;
@@ -74,11 +67,11 @@ with lib; {
       };
       confDir = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory.";
+        description = lib.mdDoc
+          "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory.";
         default = "${cfg.package}/lib/${cfg.package.untarDir}/conf";
-        defaultText = literalExpression ''"''${package}/lib/''${package.untarDir}/conf"'';
+        defaultText =
+          literalExpression ''"''${package}/lib/''${package.untarDir}/conf"'';
       };
       logDir = mkOption {
         type = types.path;
@@ -108,11 +101,7 @@ with lib; {
     systemd = {
       services = {
         spark-master = lib.mkIf cfg.master.enable {
-          path = with pkgs; [
-            procps
-            openssh
-            nettools
-          ];
+          path = with pkgs; [ procps openssh nettools ];
           description = "spark master service.";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
@@ -127,20 +116,17 @@ with lib; {
             User = "spark";
             Group = "spark";
             WorkingDirectory = "${cfg.package}/lib/${cfg.package.untarDir}";
-            ExecStart = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-master.sh";
-            ExecStop = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-master.sh";
+            ExecStart =
+              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-master.sh";
+            ExecStop =
+              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-master.sh";
             TimeoutSec = 300;
             StartLimitBurst = 10;
             Restart = "always";
           };
         };
         spark-worker = lib.mkIf cfg.worker.enable {
-          path = with pkgs; [
-            procps
-            openssh
-            nettools
-            rsync
-          ];
+          path = with pkgs; [ procps openssh nettools rsync ];
           description = "spark master service.";
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
@@ -155,8 +141,10 @@ with lib; {
             Type = "forking";
             User = "spark";
             WorkingDirectory = "${cfg.package}/lib/${cfg.package.untarDir}";
-            ExecStart = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-worker.sh spark://${cfg.worker.master}";
-            ExecStop = "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-worker.sh";
+            ExecStart =
+              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/start-worker.sh spark://${cfg.worker.master}";
+            ExecStop =
+              "${cfg.package}/lib/${cfg.package.untarDir}/sbin/stop-worker.sh";
             TimeoutSec = 300;
             StartLimitBurst = 10;
             Restart = "always";

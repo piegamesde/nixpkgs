@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "jefferson";
@@ -18,11 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    click
-    cstruct
-    python-lzo
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ click cstruct python-lzo ];
 
   pythonImportsCheck = [ "jefferson" ];
 

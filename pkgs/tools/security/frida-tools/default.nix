@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  python3Packages,
-}:
+{ lib, fetchPypi, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "frida-tools";
@@ -21,7 +17,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   meta = {
-    description = "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers (client tools)";
+    description =
+      "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers (client tools)";
     homepage = "https://www.frida.re/";
     maintainers = with lib.maintainers; [ s1341 ];
     license = lib.licenses.wxWindows;

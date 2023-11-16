@@ -1,22 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
 
   cfg = config.services.surrealdb;
-in
-{
+in {
 
   options = {
     services.surrealdb = {
-      enable = mkEnableOption (
-        lib.mdDoc "A scalable, distributed, collaborative, document-graph database, for the realtime web "
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "A scalable, distributed, collaborative, document-graph database, for the realtime web ");
 
       package = mkOption {
         default = pkgs.surrealdb;
@@ -77,7 +70,8 @@ in
     environment.systemPackages = [ cfg.package ];
 
     systemd.services.surrealdb = {
-      description = "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
+      description =
+        "A scalable, distributed, collaborative, document-graph database, for the realtime web ";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
@@ -114,10 +108,7 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
       };
     };
   };

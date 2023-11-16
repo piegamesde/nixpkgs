@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  substituteAll,
-  hatchling,
-  ipykernel,
-  ipython,
-  jupyter-client,
-  jupyter-core,
-  prompt-toolkit,
-  pygments,
-  pyzmq,
-  traitlets,
-  flaky,
-  pexpect,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, substituteAll, hatchling
+, ipykernel, ipython, jupyter-client, jupyter-core, prompt-toolkit, pygments
+, pyzmq, traitlets, flaky, pexpect, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jupyter_console";
@@ -36,7 +20,9 @@ buildPythonPackage rec {
     # use wrapped executable in tests
     substituteInPlace jupyter_console/tests/test_console.py \
       --replace "args = ['-m', 'jupyter_console', '--colors=NoColor']" "args = ['--colors=NoColor']" \
-      --replace "cmd = sys.executable" "cmd = '${placeholder "out"}/bin/jupyter-console'" \
+      --replace "cmd = sys.executable" "cmd = '${
+        placeholder "out"
+      }/bin/jupyter-console'" \
       --replace "check_output([sys.executable, '-m', 'jupyter_console'," "check_output(['${
         placeholder "out"
       }/bin/jupyter-console',"
@@ -55,11 +41,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "jupyter_console" ];
 
-  nativeCheckInputs = [
-    flaky
-    pexpect
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ flaky pexpect pytestCheckHook ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -68,7 +50,8 @@ buildPythonPackage rec {
   meta = {
     description = "Jupyter terminal console";
     homepage = "https://github.com/jupyter/jupyter_console";
-    changelog = "https://github.com/jupyter/jupyter_console/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jupyter/jupyter_console/releases/tag/v${version}";
     license = lib.licenses.bsd3;
   };
 }

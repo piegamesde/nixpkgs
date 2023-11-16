@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  installShellFiles,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchCrate, installShellFiles, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "the-way";
@@ -20,7 +13,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
 
   useNextest = true;
 
@@ -35,11 +29,9 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Terminal code snippets manager";
     homepage = "https://github.com/out-of-cheese-error/the-way";
-    changelog = "https://github.com/out-of-cheese-error/the-way/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/out-of-cheese-error/the-way/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [
-      figsoda
-      numkem
-    ];
+    maintainers = with maintainers; [ figsoda numkem ];
   };
 }

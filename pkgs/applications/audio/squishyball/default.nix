@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  fetchFromGitLab,
-  fetchpatch,
-  flac,
-  libao,
-  libvorbis,
-  ncurses,
-  opusfile,
-  pkg-config,
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitLab, fetchpatch, flac, libao
+, libvorbis, ncurses, opusfile, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "squishyball";
@@ -24,18 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "07zs8wx1ahf3q505fk9b6cgzlkhnayfsscch46yy9s1wgxgphj7s";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    flac
-    libao
-    libvorbis
-    ncurses
-    opusfile
-  ];
+  buildInputs = [ flac libao libvorbis ncurses opusfile ];
 
   patches = [
     ./gnu-screen.patch
@@ -44,7 +24,8 @@ stdenv.mkDerivation rec {
     #  https://gitlab.xiph.org/xiph/squishyball/-/issues/1
     (fetchpatch {
       name = "ncurses-6.3.patch";
-      url = "https://gitlab.xiph.org/xiph/squishyball/uploads/5609ceaf85ebb6dc297c0efe61b9a1b7/0001-mincurses.c-use-ncurses-API-to-enter-raw-mode-ncurse.patch";
+      url =
+        "https://gitlab.xiph.org/xiph/squishyball/uploads/5609ceaf85ebb6dc297c0efe61b9a1b7/0001-mincurses.c-use-ncurses-API-to-enter-raw-mode-ncurse.patch";
       sha256 = "06llp7cd77f4vvhz8qdld551dnlpjxf98j7rmp3i1x1kng4f0iy3";
     })
   ];
@@ -56,7 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A tool to perform sample comparison testing on the command line";
+    description =
+      "A tool to perform sample comparison testing on the command line";
     longDescription = ''
       squishyball is a simple command-line utility for performing
       double-blind A/B, A/B/X or X/X/Y testing on the command line.

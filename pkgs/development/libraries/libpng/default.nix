@@ -1,22 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  apngSupport ? true,
-}:
+{ lib, stdenv, fetchurl, zlib, apngSupport ? true }:
 
 assert zlib != null;
 
 let
   patchVersion = "1.6.39";
   patch_src = fetchurl {
-    url = "mirror://sourceforge/libpng-apng/libpng-${patchVersion}-apng.patch.gz";
+    url =
+      "mirror://sourceforge/libpng-apng/libpng-${patchVersion}-apng.patch.gz";
     hash = "sha256-SsS26roAzeISxI22XLlCkQc/68oixcef2ocJFQLoDP0=";
   };
   whenPatched = lib.optionalString apngSupport;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "libpng" + whenPatched "-apng";
   version = "1.6.39";
 
@@ -26,20 +21,14 @@ stdenv.mkDerivation rec {
   };
   postPatch = whenPatched "gunzip < ${patch_src} | patch -Np1";
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
   outputBin = "dev";
 
   propagatedBuildInputs = [ zlib ];
 
   doCheck = true;
 
-  passthru = {
-    inherit zlib;
-  };
+  passthru = { inherit zlib; };
 
   meta = with lib; {
     description =

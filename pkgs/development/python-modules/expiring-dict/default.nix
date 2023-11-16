@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  sortedcontainers,
-}:
+{ lib, buildPythonPackage, fetchPypi, sortedcontainers }:
 
 buildPythonPackage rec {
   pname = "expiring-dict";

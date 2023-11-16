@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,20 +8,19 @@ let
 
   mongodb = cfg.package;
 
-  mongoCnf =
-    cfg:
+  mongoCnf = cfg:
     pkgs.writeText "mongodb.conf" ''
       net.bindIp: ${cfg.bind_ip}
       ${optionalString cfg.quiet "systemLog.quiet: true"}
       systemLog.destination: syslog
       storage.dbPath: ${cfg.dbpath}
       ${optionalString cfg.enableAuth "security.authorization: enabled"}
-      ${optionalString (cfg.replSetName != "") "replication.replSetName: ${cfg.replSetName}"}
+      ${optionalString (cfg.replSetName != "")
+      "replication.replSetName: ${cfg.replSetName}"}
       ${cfg.extraConfig}
     '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -66,15 +60,15 @@ in
       enableAuth = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable client authentication. Creates a default superuser with username root!";
+        description = lib.mdDoc
+          "Enable client authentication. Creates a default superuser with username root!";
       };
 
       initialRootPassword = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description = lib.mdDoc "Password for the root user if auth is enabled.";
+        description =
+          lib.mdDoc "Password for the root user if auth is enabled.";
       };
 
       dbpath = mkOption {
@@ -115,17 +109,16 @@ in
         '';
       };
     };
+
   };
 
   ###### implementation
 
   config = mkIf config.services.mongodb.enable {
-    assertions = [
-      {
-        assertion = !cfg.enableAuth || cfg.initialRootPassword != null;
-        message = "`enableAuth` requires `initialRootPassword` to be set.";
-      }
-    ];
+    assertions = [{
+      assertion = !cfg.enableAuth || cfg.initialRootPassword != null;
+      message = "`enableAuth` requires `initialRootPassword` to be set.";
+    }];
 
     users.users.mongodb = mkIf (cfg.user == "mongodb") {
       name = "mongodb";
@@ -144,7 +137,9 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${mongodb}/bin/mongod --config ${mongoCnf cfg} --fork --pidfilepath ${cfg.pidFile}";
+        ExecStart = "${mongodb}/bin/mongod --config ${
+            mongoCnf cfg
+          } --fork --pidfilepath ${cfg.pidFile}";
         User = cfg.user;
         PIDFile = cfg.pidFile;
         Type = "forking";
@@ -152,24 +147,21 @@ in
         PermissionsStartOnly = true;
       };
 
-      preStart =
-        let
-          cfg_ = cfg // {
-            enableAuth = false;
-            bind_ip = "127.0.0.1";
-          };
-        in
-        ''
-          rm ${cfg.dbpath}/mongod.lock || true
-          if ! test -e ${cfg.dbpath}; then
-              install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
-              # See postStart!
-              touch ${cfg.dbpath}/.first_startup
-          fi
-          if ! test -e ${cfg.pidFile}; then
-              install -D -o ${cfg.user} /dev/null ${cfg.pidFile}
-          fi ''
-        + lib.optionalString cfg.enableAuth ''
+      preStart = let
+        cfg_ = cfg // {
+          enableAuth = false;
+          bind_ip = "127.0.0.1";
+        };
+      in ''
+        rm ${cfg.dbpath}/mongod.lock || true
+        if ! test -e ${cfg.dbpath}; then
+            install -d -m0700 -o ${cfg.user} ${cfg.dbpath}
+            # See postStart!
+            touch ${cfg.dbpath}/.first_startup
+        fi
+        if ! test -e ${cfg.pidFile}; then
+            install -D -o ${cfg.user} /dev/null ${cfg.pidFile}
+        fi '' + lib.optionalString cfg.enableAuth ''
 
           if ! test -e "${cfg.dbpath}/.auth_setup_complete"; then
             systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${mongodb}/bin/mongod --config ${
@@ -201,7 +193,8 @@ in
           ${
             optionalString (cfg.initialScript != null) ''
               ${mongodb}/bin/mongo ${
-                optionalString (cfg.enableAuth) "-u root -p ${cfg.initialRootPassword}"
+                optionalString (cfg.enableAuth)
+                "-u root -p ${cfg.initialRootPassword}"
               } admin "${cfg.initialScript}"
             ''
           }
@@ -209,5 +202,7 @@ in
         fi
       '';
     };
+
   };
+
 }

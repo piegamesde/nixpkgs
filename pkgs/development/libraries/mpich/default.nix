@@ -1,18 +1,9 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  perl,
-  gfortran,
-  openssh,
-  hwloc,
-  python3,
-  # either libfabric or ucx work for ch4backend on linux. On darwin, neither of
-  # these libraries currently build so this argument is ignored on Darwin.
-  ch4backend,
-  # Process manager to build
-  withPm ? "hydra:gforker",
-}:
+{ stdenv, lib, fetchurl, perl, gfortran, openssh, hwloc, python3
+# either libfabric or ucx work for ch4backend on linux. On darwin, neither of
+# these libraries currently build so this argument is ignored on Darwin.
+, ch4backend
+# Process manager to build
+, withPm ? "hydra:gforker" }:
 
 assert (ch4backend.pname == "ucx" || ch4backend.pname == "libfabric");
 
@@ -21,16 +12,13 @@ stdenv.mkDerivation rec {
   version = "4.1.2";
 
   src = fetchurl {
-    url = "https://www.mpich.org/static/downloads/${version}/mpich-${version}.tar.gz";
+    url =
+      "https://www.mpich.org/static/downloads/${version}/mpich-${version}.tar.gz";
     sha256 = "sha256-NJLpitq2K1l+8NKS+yRZthI7yABwqKoKML5pYgdaEvA=";
   };
 
   configureFlags =
-    [
-      "--enable-shared"
-      "--enable-sharedlib"
-      "--with-pm=${withPm}"
-    ]
+    [ "--enable-shared" "--enable-sharedlib" "--with-pm=${withPm}" ]
     ++ lib.optionals (lib.versionAtLeast gfortran.version "10") [
       "FFLAGS=-fallow-argument-mismatch" # https://github.com/pmodels/mpich/issues/4300
       "FCFLAGS=-fallow-argument-mismatch"
@@ -38,15 +26,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    gfortran
-    python3
-  ];
-  buildInputs = [
-    perl
-    openssh
-    hwloc
-  ] ++ lib.optional (!stdenv.isDarwin) ch4backend;
+  nativeBuildInputs = [ gfortran python3 ];
+  buildInputs = [ perl openssh hwloc ]
+    ++ lib.optional (!stdenv.isDarwin) ch4backend;
 
   doCheck = true;
 
@@ -58,7 +40,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Implementation of the Message Passing Interface (MPI) standard";
+    description =
+      "Implementation of the Message Passing Interface (MPI) standard";
 
     longDescription = ''
       MPICH2 is a free high-performance and portable implementation of
@@ -67,7 +50,8 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.mcs.anl.gov/mpi/mpich2/";
     license = {
-      url = "http://git.mpich.org/mpich.git/blob/a385d6d0d55e83c3709ae851967ce613e892cd21:/COPYRIGHT";
+      url =
+        "http://git.mpich.org/mpich.git/blob/a385d6d0d55e83c3709ae851967ce613e892cd21:/COPYRIGHT";
       fullName = "MPICH license (permissive)";
     };
     maintainers = [ maintainers.markuskowa ];

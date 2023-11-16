@@ -1,15 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  zlib,
-  libpng,
-  libGL,
-  libGLU,
-  freeglut,
-  darwin,
-}:
+{ lib, stdenv, fetchurl, cmake, zlib, libpng, libGL, libGLU, freeglut, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "gl2ps";
@@ -22,16 +11,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      zlib
-      libpng
-    ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      libGL
-      libGLU
-      freeglut
-    ]
+  buildInputs = [ zlib libpng ]
+    ++ lib.optionals (!stdenv.isDarwin) [ libGL libGLU freeglut ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.OpenGL ];
 
   meta = with lib; {
@@ -39,9 +20,6 @@ stdenv.mkDerivation rec {
     description = "An OpenGL to PostScript printing library";
     platforms = platforms.all;
     license = licenses.lgpl2;
-    maintainers = with maintainers; [
-      raskin
-      twhitehead
-    ];
+    maintainers = with maintainers; [ raskin twhitehead ];
   };
 }

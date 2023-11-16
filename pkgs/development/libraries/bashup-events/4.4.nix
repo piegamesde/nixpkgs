@@ -12,11 +12,7 @@ callPackage ./generic.nix {
   };
   keep = {
     # allow vars in eval
-    eval = [
-      "e"
-      "bashup_ev"
-      "n"
-    ];
+    eval = [ "e" "bashup_ev" "n" ];
     # allow vars executed as commands
     "$f" = true;
     "$n" = true;

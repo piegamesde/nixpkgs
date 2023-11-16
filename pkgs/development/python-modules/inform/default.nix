@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flit-core,
-  arrow,
-  six,
-  hypothesis,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, arrow, six, hypothesis
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "inform";
@@ -26,15 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    arrow
-    six
-  ];
+  propagatedBuildInputs = [ arrow six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis ];
 
   disabledTests = [ "test_prostrate" ];
 
@@ -46,7 +31,8 @@ buildPythonPackage rec {
       allow you to simply and cleanly print different types of messages.
     '';
     homepage = "https://inform.readthedocs.io";
-    changelog = "https://github.com/KenKundert/inform/blob/v${version}/doc/releases.rst";
+    changelog =
+      "https://github.com/KenKundert/inform/blob/v${version}/doc/releases.rst";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ jeremyschlatter ];
   };

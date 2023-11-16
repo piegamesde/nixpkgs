@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchFromGitHub, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "cde";

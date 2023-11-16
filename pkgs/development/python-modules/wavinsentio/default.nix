@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "wavinsentio";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "wavinsentio" ];
 
   meta = with lib; {
-    description = "Python module to interact with the Wavin Sentio underfloor heating system";
+    description =
+      "Python module to interact with the Wavin Sentio underfloor heating system";
     homepage = "https://github.com/djerik/wavinsentio";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

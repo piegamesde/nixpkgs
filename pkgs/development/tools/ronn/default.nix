@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  bundlerEnv,
-  bundlerUpdateScript,
-  makeWrapper,
-  groff,
-  callPackage,
+{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, groff, callPackage
 }:
 
 stdenv.mkDerivation rec {
@@ -33,16 +26,14 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = bundlerUpdateScript "ronn";
 
-  passthru.tests.reproducible-html-manpage = callPackage ./test-reproducible-html.nix { };
+  passthru.tests.reproducible-html-manpage =
+    callPackage ./test-reproducible-html.nix { };
 
   meta = with lib; {
     description = "markdown-based tool for building manpages";
     homepage = "https://github.com/apjanke/ronn-ng";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      zimbatm
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ zimbatm nicknovitski ];
     platforms = env.ruby.meta.platforms;
   };
 }

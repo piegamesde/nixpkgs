@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "tinyfecvpn";
@@ -34,7 +29,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/wangyu-/tinyfecVPN";
-    description = "A VPN Designed for Lossy Links, with Build-in Forward Error Correction(FEC) Support";
+    description =
+      "A VPN Designed for Lossy Links, with Build-in Forward Error Correction(FEC) Support";
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

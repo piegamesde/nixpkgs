@@ -1,9 +1,4 @@
-{
-  llvmPackages,
-  lib,
-  fetchFromGitHub,
-  cmake,
-}:
+{ llvmPackages, lib, fetchFromGitHub, cmake }:
 
 llvmPackages.stdenv.mkDerivation rec {
   pname = "cone";

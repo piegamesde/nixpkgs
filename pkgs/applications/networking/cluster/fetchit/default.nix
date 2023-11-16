@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  lvm2,
-  pkg-config,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles, lvm2
+, pkg-config }:
 
 buildGoModule rec {
   pname = "fetchit";
@@ -23,10 +16,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/fetchit" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    installShellFiles
-  ];
+  nativeBuildInputs = [ pkg-config installShellFiles ];
   buildInputs = [ lvm2 ];
 
   # Flags are derived from
@@ -67,7 +57,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A tool to manage the life cycle and configuration of Podman containers";
+    description =
+      "A tool to manage the life cycle and configuration of Podman containers";
     longDescription = ''
       FetchIt allows for a GitOps based approach to manage containers running on
       a single host or multiple hosts based on a git repository. This allows for

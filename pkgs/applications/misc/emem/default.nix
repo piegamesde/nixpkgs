@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jdk,
-}:
+{ lib, stdenv, fetchurl, jdk }:
 
 stdenv.mkDerivation rec {
   pname = "emem";
@@ -12,7 +7,8 @@ stdenv.mkDerivation rec {
   inherit jdk;
 
   src = fetchurl {
-    url = "https://github.com/ebzzry/${pname}/releases/download/v${version}/${pname}.jar";
+    url =
+      "https://github.com/ebzzry/${pname}/releases/download/v${version}/${pname}.jar";
     sha256 = "18x3s3jrph8k3pc75jgwkfqazygpsx93zjxx68zms58my17cybh1";
   };
 

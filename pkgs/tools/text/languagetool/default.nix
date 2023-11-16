@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  jre,
-  makeWrapper,
-  nixosTests,
-}:
+{ lib, stdenv, fetchzip, jre, makeWrapper, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "LanguageTool";
@@ -43,6 +36,7 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ edwtjo ];
     platforms = jre.meta.platforms;
-    description = "A proofreading program for English, French German, Polish, and more";
+    description =
+      "A proofreading program for English, French German, Polish, and more";
   };
 }

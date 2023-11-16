@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchPypi,
-  buildPythonPackage,
-  libmediainfo,
-  setuptools-scm,
-  pytest,
-  glibcLocales,
-  pythonOlder,
-}:
+{ lib, stdenv, fetchPypi, buildPythonPackage, libmediainfo, setuptools-scm
+, pytest, glibcLocales, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pymediainfo";
@@ -34,10 +25,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    glibcLocales
-    pytest
-  ];
+  nativeCheckInputs = [ glibcLocales pytest ];
 
   checkPhase = ''
     export LC_ALL=en_US.UTF-8

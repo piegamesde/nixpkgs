@@ -1,18 +1,10 @@
-{
-  lib,
-  stdenvNoCC,
-  gzip,
-  raspa,
-}:
+{ lib, stdenvNoCC, gzip, raspa }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "raspa-data";
   inherit (raspa) version src;
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   nativeBuildInpuhs = [ gzip ];
 
@@ -31,10 +23,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     inherit (raspa.meta) homepage license maintainers;
     description = "Example packs and documentation of RASPA";
-    outputsToInstall = [
-      "out"
-      "doc"
-    ];
+    outputsToInstall = [ "out" "doc" ];
     platforms = lib.platforms.all;
   };
 }

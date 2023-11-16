@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation {
   pname = "micro-httpd";
@@ -28,3 +24,4 @@ stdenv.mkDerivation {
     mainProgram = "micro_httpd";
   };
 }
+

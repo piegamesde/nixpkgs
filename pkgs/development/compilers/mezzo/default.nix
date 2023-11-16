@@ -1,29 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  camlp4,
-  menhir,
-  menhirLib,
-  yojson,
-  ulex,
-  pprint,
-  fix,
-  functory,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, camlp4, menhir
+, menhirLib, yojson, ulex, pprint, fix, functory }:
 
 if lib.versionAtLeast ocaml.version "4.06" then
   throw "mezzo is not available for OCaml ${ocaml.version}"
 else
 
-  let
-    check-ocaml-version = with lib; versionAtLeast (getVersion ocaml);
-  in
+  let check-ocaml-version = with lib; versionAtLeast (getVersion ocaml);
 
-  assert check-ocaml-version "4";
+  in assert check-ocaml-version "4";
 
   stdenv.mkDerivation {
 
@@ -39,29 +23,14 @@ else
 
     strictDeps = true;
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-      camlp4
-      menhir
-    ];
-    buildInputs = [
-      yojson
-      menhirLib
-      ulex
-      pprint
-      fix
-      functory
-      ocamlbuild
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild camlp4 menhir ];
+    buildInputs = [ yojson menhirLib ulex pprint fix functory ocamlbuild ];
 
     # Sets warning 3 as non-fatal
-    prePatch =
-      lib.optionalString (check-ocaml-version "4.02") ''
-        substituteInPlace myocamlbuild.pre.ml \
-        --replace '@1..3' '@1..2+3'
-      ''
+    prePatch = lib.optionalString (check-ocaml-version "4.02") ''
+      substituteInPlace myocamlbuild.pre.ml \
+      --replace '@1..3' '@1..2+3'
+    ''
       # Compatibility with PPrint ≥ 20220103
       + ''
         substituteInPlace typing/Fact.ml --replace PPrintOCaml PPrint.OCaml
@@ -76,8 +45,10 @@ else
 
     meta = with lib; {
       homepage = "http://protz.github.io/mezzo/";
-      description = "A programming language in the ML tradition, which places strong emphasis on the control of aliasing and access to mutable memory";
+      description =
+        "A programming language in the ML tradition, which places strong emphasis on the control of aliasing and access to mutable memory";
       license = licenses.gpl2;
       platforms = ocaml.meta.platforms or [ ];
     };
   }
+

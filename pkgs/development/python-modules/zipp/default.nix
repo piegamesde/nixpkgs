@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  func-timeout,
-  jaraco_itertools,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, func-timeout, jaraco_itertools
+, pythonOlder, setuptools-scm }:
 
 let
   zipp = buildPythonPackage rec {
@@ -26,10 +19,7 @@ let
     # Prevent infinite recursion with pytest
     doCheck = false;
 
-    nativeCheckInputs = [
-      func-timeout
-      jaraco_itertools
-    ];
+    nativeCheckInputs = [ func-timeout jaraco_itertools ];
 
     pythonImportsCheck = [ "zipp" ];
 
@@ -44,5 +34,4 @@ let
       maintainers = with maintainers; [ SuperSandro2000 ];
     };
   };
-in
-zipp
+in zipp

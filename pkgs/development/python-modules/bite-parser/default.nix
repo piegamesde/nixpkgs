@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, poetry-core, pytest-asyncio
+, pytestCheckHook, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "bite-parser";
@@ -25,18 +17,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    typing-extensions
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook typing-extensions ];
 
   pythonImportsCheck = [ "bite" ];
 
   meta = {
-    description = "Asynchronous parser taking incremental bites out of your byte input stream";
+    description =
+      "Asynchronous parser taking incremental bites out of your byte input stream";
     homepage = "https://github.com/jgosmann/bite-parser";
-    changelog = "https://github.com/jgosmann/bite-parser/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/jgosmann/bite-parser/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];
   };

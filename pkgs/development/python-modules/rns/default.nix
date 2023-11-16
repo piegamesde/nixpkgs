@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  netifaces,
-  pyserial,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, netifaces, pyserial
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rns";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-OFU61RX6XtC/7x3SWbRCsODTrs3k3FCTCvEapkkeWQU=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    netifaces
-    pyserial
-  ];
+  propagatedBuildInputs = [ cryptography netifaces pyserial ];
 
   # Module has no tests
   doCheck = false;
@@ -36,7 +25,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cryptography-based networking stack for wide-area networks";
     homepage = "https://github.com/markqvist/Reticulum";
-    changelog = "https://github.com/markqvist/Reticulum/releases/tag/${version}";
+    changelog =
+      "https://github.com/markqvist/Reticulum/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

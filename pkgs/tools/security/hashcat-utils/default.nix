@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "hashcat-utils";
@@ -25,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Small utilities that are useful in advanced password cracking";
+    description =
+      "Small utilities that are useful in advanced password cracking";
     homepage = "https://github.com/hashcat/hashcat-utils";
     license = licenses.mit;
     platforms = platforms.unix;

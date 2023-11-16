@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  cpm-cmake,
-  git,
-  git2-cpp,
-  cacert,
-  boost179,
-  icu,
-  libarchive,
-  libgit2,
-  lz4,
-  mitama-cpp-result,
-  ninja,
-  openssl_3,
-  package-project-cmake,
-  spdlog,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, cpm-cmake, git, git2-cpp, cacert
+, boost179, icu, libarchive, libgit2, lz4, mitama-cpp-result, ninja, openssl_3
+, package-project-cmake, spdlog }:
 
 let
   glob = fetchFromGitHub {
@@ -40,8 +23,7 @@ let
     rev = "9086b1114f39a8fb10d08ca704771c2f9f247d02";
     sha256 = "sha256-fHUElHO4ckNQq7Q88GdbHGxfaAvWoWtGB0eD9y2MnLo=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "poac";
   version = "0.5.1";
 
@@ -54,7 +36,9 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     mkdir -p ${placeholder "out"}/share/cpm
-    cp ${cpm-cmake}/share/cpm/CPM.cmake ${placeholder "out"}/share/cpm/CPM_0.35.1.cmake
+    cp ${cpm-cmake}/share/cpm/CPM.cmake ${
+      placeholder "out"
+    }/share/cpm/CPM_0.35.1.cmake
   '';
 
   cmakeFlags = [
@@ -69,11 +53,7 @@ stdenv.mkDerivation rec {
     "-DFETCHCONTENT_SOURCE_DIR_TOML11=${toml11}"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    cacert
-  ];
+  nativeBuildInputs = [ cmake git cacert ];
   buildInputs = [
     (boost179.override {
       enableShared = stdenv.isDarwin;
@@ -101,9 +81,8 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ken-matsui ];
     platforms = platforms.unix;
     # https://github.com/NixOS/nixpkgs/pull/189712#issuecomment-1237791234
-    broken =
-      (stdenv.isLinux && stdenv.isAarch64)
-      # error: excess elements in scalar initializer on std::aligned_alloc
+    broken = (stdenv.isLinux && stdenv.isAarch64)
+    # error: excess elements in scalar initializer on std::aligned_alloc
       || (stdenv.isDarwin && stdenv.isx86_64);
   };
 }

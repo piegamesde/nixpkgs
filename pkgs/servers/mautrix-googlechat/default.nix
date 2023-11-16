@@ -1,12 +1,5 @@
-{
-  fetchFromGitHub,
-  fetchpatch,
-  lib,
-  python3,
-  enableE2be ? true,
-  enableMetrics ? true,
-  enableSqlite ? true,
-}:
+{ fetchFromGitHub, fetchpatch, lib, python3, enableE2be ? true
+, enableMetrics ? true, enableSqlite ? true }:
 python3.pkgs.buildPythonApplication rec {
   pname = "mautrix-googlechat";
   version = "unstable-2023-01-25";
@@ -23,7 +16,8 @@ python3.pkgs.buildPythonApplication rec {
       # patch setup.py to generate $out/bin/mautrix-googlechat
       # https://github.com/mautrix/googlechat/pull/81
       name = "mautrix-googlechat-entry-point.patch";
-      url = "https://github.com/mautrix/googlechat/pull/81/commits/112fa3d27bc6f89a02321cb80d219de149e00df8.patch";
+      url =
+        "https://github.com/mautrix/googlechat/pull/81/commits/112fa3d27bc6f89a02321cb80d219de149e00df8.patch";
       sha256 = "sha256-DsITDNLsIgBIqN6sD5JHaFW0LToxVUTzWc7mE2L09IQ=";
     })
   ];
@@ -35,17 +29,12 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru.optional-dependencies = with python3.pkgs; {
-    e2be = [
-      python-olm
-      pycryptodome
-      unpaddedbase64
-    ];
+    e2be = [ python-olm pycryptodome unpaddedbase64 ];
     metrics = [ prometheus-client ];
     sqlite = [ aiosqlite ];
   };
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       aiohttp
       commonmark
@@ -56,8 +45,7 @@ python3.pkgs.buildPythonApplication rec {
       python-magic
       protobuf3
       mautrix
-    ]
-    ++ lib.optionals enableE2be passthru.optional-dependencies.e2be
+    ] ++ lib.optionals enableE2be passthru.optional-dependencies.e2be
     ++ lib.optionals enableMetrics passthru.optional-dependencies.metrics
     ++ lib.optionals enableSqlite passthru.optional-dependencies.sqlite;
 

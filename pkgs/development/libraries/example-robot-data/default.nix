@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pythonSupport ? false,
-  python3Packages,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pythonSupport ? false, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "example-robot-data";
@@ -25,7 +18,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals pythonSupport [ python3Packages.pinocchio ];
 
-  cmakeFlags = lib.optionals (!pythonSupport) [ "-DBUILD_PYTHON_INTERFACE=OFF" ];
+  cmakeFlags =
+    lib.optionals (!pythonSupport) [ "-DBUILD_PYTHON_INTERFACE=OFF" ];
 
   meta = with lib; {
     description = "Set of robot URDFs for benchmarking and developed examples.";

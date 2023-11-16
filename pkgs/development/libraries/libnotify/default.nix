@@ -1,29 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  libxslt,
-  docbook-xsl-ns,
-  glib,
-  gdk-pixbuf,
-  gnome,
-  buildPackages,
-  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
-  gobject-introspection,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, libxslt, docbook-xsl-ns, glib
+, gdk-pixbuf, gnome, buildPackages
+, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages
+, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "libnotify";
   version = "0.8.2";
 
-  outputs = [
-    "out"
-    "man"
-    "dev"
-  ];
+  outputs = [ "out" "man" "dev" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -51,10 +35,7 @@ stdenv.mkDerivation rec {
     glib # for glib-mkenums needed during the build
   ] ++ lib.optionals withIntrospection [ gobject-introspection ];
 
-  propagatedBuildInputs = [
-    gdk-pixbuf
-    glib
-  ];
+  propagatedBuildInputs = [ gdk-pixbuf glib ];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -64,7 +45,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library that sends desktop notifications to a notification daemon";
+    description =
+      "A library that sends desktop notifications to a notification daemon";
     homepage = "https://gitlab.gnome.org/GNOME/libnotify";
     license = licenses.lgpl21;
     maintainers = teams.gnome.members;

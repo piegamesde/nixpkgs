@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  zlib,
-  libpng,
-  libjpeg,
-  libwebp,
-  libGLU,
-  libGL,
-  glm,
-  libX11,
-  libXext,
-  libXfixes,
-  libXrandr,
-  libXcomposite,
-  slop,
-  icu,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, zlib, libpng, libjpeg
+, libwebp, libGLU, libGL, glm, libX11, libXext, libXfixes, libXrandr
+, libXcomposite, slop, icu }:
 
 stdenv.mkDerivation rec {
   pname = "maim";
@@ -31,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uFtiwaM3H09vfvz3wVvumbqkoZhLNJxONkMqqqrJBs4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
     zlib
     libpng

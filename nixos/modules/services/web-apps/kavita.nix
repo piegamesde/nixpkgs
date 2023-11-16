@@ -1,14 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.services.kavita;
-in
-{
+let cfg = config.services.kavita;
+in {
   options.services.kavita = {
     enable = lib.mkEnableOption (lib.mdDoc "Kavita reading server");
 
@@ -39,10 +32,7 @@ in
       description = lib.mdDoc "Port to bind to.";
     };
     ipAdresses = lib.mkOption {
-      default = [
-        "0.0.0.0"
-        "::"
-      ];
+      default = [ "0.0.0.0" "::" ];
       type = lib.types.listOf lib.types.str;
       description = lib.mdDoc ''
         IP Addresses to bind to. The default is to bind

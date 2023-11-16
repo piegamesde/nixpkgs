@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  addOpenGLRunpath,
-  autoPatchelfHook,
-  buildPythonPackage,
-  cudaPackages,
-  fetchurl,
-  pythonAtLeast,
-  pythonOlder,
-  pillow,
-  python,
-  torch-bin,
+{ lib, stdenv, addOpenGLRunpath, autoPatchelfHook, buildPythonPackage
+, cudaPackages, fetchurl, pythonAtLeast, pythonOlder, pillow, python, torch-bin
 }:
 
 let
@@ -18,8 +7,7 @@ let
   srcs = import ./binary-hashes.nix version;
   unsupported = throw "Unsupported system";
   version = "0.15.2";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit version;
 
   pname = "torchvision";
@@ -30,23 +18,16 @@ buildPythonPackage {
 
   disabled = (pythonOlder "3.8") || (pythonAtLeast "3.12");
 
-  buildInputs =
-    with cudaPackages;
+  buildInputs = with cudaPackages;
     [
       # $out/${sitePackages}/torchvision/_C.so wants libcudart.so.11.0 but torchvision.libs only ships
       # libcudart.$hash.so.11.0
       cuda_cudart
     ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    addOpenGLRunpath
-  ];
+  nativeBuildInputs = [ autoPatchelfHook addOpenGLRunpath ];
 
-  propagatedBuildInputs = [
-    pillow
-    torch-bin
-  ];
+  propagatedBuildInputs = [ pillow torch-bin ];
 
   # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
   dontStrip = true;

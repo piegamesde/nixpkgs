@@ -1,33 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  wayland,
-  wayland-protocols,
-  wayland-scanner,
-  wlr-protocols,
-  libGL,
-  bash,
-  installExampleScripts ? true,
-  makeWrapper,
-  pipectl,
-  slurp,
-  rofi,
-  scdoc,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wayland, wayland-protocols
+, wayland-scanner, wlr-protocols, libGL, bash, installExampleScripts ? true
+, makeWrapper, pipectl, slurp, rofi, scdoc }:
 
 let
-  wl-present-binpath = lib.makeBinPath [
-    pipectl
-    rofi
-    slurp
-    (placeholder "out")
-  ];
-in
+  wl-present-binpath =
+    lib.makeBinPath [ pipectl rofi slurp (placeholder "out") ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "wl-mirror";
   version = "0.13.1";
 
@@ -39,20 +18,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wayland-scanner
-    scdoc
-    makeWrapper
-  ];
-  buildInputs = [
-    libGL
-    wayland
-    wayland-protocols
-    wlr-protocols
-    bash
-  ];
+  nativeBuildInputs = [ cmake pkg-config wayland-scanner scdoc makeWrapper ];
+  buildInputs = [ libGL wayland wayland-protocols wlr-protocols bash ];
 
   postPatch = ''
     echo 'v${version}' > version.txt
@@ -74,10 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Ferdi265/wl-mirror";
     description = "Mirrors an output onto a Wayland surface.";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      synthetica
-      twitchyliquid64
-    ];
+    maintainers = with maintainers; [ synthetica twitchyliquid64 ];
     platforms = platforms.linux;
   };
 }

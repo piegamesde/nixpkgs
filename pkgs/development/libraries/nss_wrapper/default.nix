@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, cmake, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "nss_wrapper";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Nvh0gypPIVjgT2mqd+VRXhbPbjv4GWjV3YSW231pBq0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   meta = with lib; {
     description = "A wrapper for the user, group and hosts NSS API";

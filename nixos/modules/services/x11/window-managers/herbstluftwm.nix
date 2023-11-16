@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.herbstluftwm;
-in
+let cfg = config.services.xserver.windowManager.herbstluftwm;
 
-{
+in {
   options = {
     services.xserver.windowManager.herbstluftwm = {
       enable = mkEnableOption (lib.mdDoc "herbstluftwm");
@@ -40,11 +33,10 @@ in
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {
       name = "herbstluftwm";
-      start =
-        let
-          configFileClause = optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
-        in
-        "${cfg.package}/bin/herbstluftwm ${configFileClause}";
+      start = let
+        configFileClause =
+          optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"'';
+      in "${cfg.package}/bin/herbstluftwm ${configFileClause}";
     };
     environment.systemPackages = [ cfg.package ];
   };

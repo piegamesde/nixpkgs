@@ -1,20 +1,6 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  dataproperty,
-  mbstrdecoder,
-  pathvalidate,
-  setuptools,
-  tabledata,
-  tcolorpy,
-  typepy,
-  pytestCheckHook,
-  pyyaml,
-  toml,
-  elasticsearch,
-  dominate,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, dataproperty, mbstrdecoder
+, pathvalidate, setuptools, tabledata, tcolorpy, typepy, pytestCheckHook, pyyaml
+, toml, elasticsearch, dominate }:
 
 buildPythonPackage rec {
   pname = "pytablewriter";
@@ -27,21 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-+IOHnmdd9g3SoHyITJJtbJ0/SAAmwWmwX5XeqsO34EM=";
   };
 
-  propagatedBuildInputs = [
-    dataproperty
-    mbstrdecoder
-    pathvalidate
-    tabledata
-    tcolorpy
-    typepy
-  ];
+  propagatedBuildInputs =
+    [ dataproperty mbstrdecoder pathvalidate tabledata tcolorpy typepy ];
 
-  checkInputs = [
-    pyyaml
-    toml
-    elasticsearch
-    dominate
-  ];
+  checkInputs = [ pyyaml toml elasticsearch dominate ];
   nativeCheckInputs = [ pytestCheckHook ];
   # Circular dependency
   disabledTests = [

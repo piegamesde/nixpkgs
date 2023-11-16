@@ -1,66 +1,18 @@
-{
-  version,
-  src,
-  branch,
-  compat-list,
+{ version, src, branch, compat-list
 
-  lib,
-  stdenv,
-  wrapQtAppsHook,
-  alsa-lib,
-  boost,
-  catch2_3,
-  cmake,
-  cpp-jwt,
-  cubeb,
-  discord-rpc,
-  doxygen,
-  enet,
-  ffmpeg,
-  fmt,
-  glslang,
-  httplib,
-  inih,
-  libjack2,
-  libopus,
-  libpulseaudio,
-  libusb1,
-  libva,
-  libzip,
-  lz4,
-  nlohmann_json,
-  perl,
-  pkg-config,
-  python3,
-  qtbase,
-  qtmultimedia,
-  qttools,
-  qtwayland,
-  qtwebengine,
-  rapidjson,
-  SDL2,
-  sndio,
-  speexdsp,
-  udev,
-  vulkan-headers,
-  vulkan-loader,
-  zlib,
-  zstd,
-}:
+, lib, stdenv, wrapQtAppsHook, alsa-lib, boost, catch2_3, cmake, cpp-jwt, cubeb
+, discord-rpc, doxygen, enet, ffmpeg, fmt, glslang, httplib, inih, libjack2
+, libopus, libpulseaudio, libusb1, libva, libzip, lz4, nlohmann_json, perl
+, pkg-config, python3, qtbase, qtmultimedia, qttools, qtwayland, qtwebengine
+, rapidjson, SDL2, sndio, speexdsp, udev, vulkan-headers, vulkan-loader, zlib
+, zstd }:
 
 stdenv.mkDerivation {
   pname = "yuzu-${branch}";
 
   inherit version src;
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    perl
-    pkg-config
-    python3
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake doxygen perl pkg-config python3 wrapQtAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -152,7 +104,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://yuzu-emu.org";
     changelog = "https://yuzu-emu.org/entry";
-    description = "The ${branch} branch of an experimental Nintendo Switch emulator written in C++";
+    description =
+      "The ${branch} branch of an experimental Nintendo Switch emulator written in C++";
     longDescription = ''
       An experimental Nintendo Switch emulator written in C++.
       Using the mainline branch is recommended for general usage.
@@ -167,12 +120,6 @@ stdenv.mkDerivation {
       mit
       cc0
     ];
-    maintainers = with maintainers; [
-      ashley
-      ivar
-      joshuafern
-      sbruder
-      k900
-    ];
+    maintainers = with maintainers; [ ashley ivar joshuafern sbruder k900 ];
   };
 }

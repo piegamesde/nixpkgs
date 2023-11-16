@@ -1,12 +1,4 @@
-{
-  lib,
-  alembic,
-  banal,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  sqlalchemy,
-}:
+{ lib, alembic, banal, buildPythonPackage, fetchPypi, pythonOlder, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "dataset";
@@ -20,11 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-fNvJBdZjtYKvhGzwULfP2iDNUrqhxiwRlhlFrHfmGdU=";
   };
 
-  propagatedBuildInputs = [
-    alembic
-    banal
-    sqlalchemy
-  ];
+  propagatedBuildInputs = [ alembic banal sqlalchemy ];
 
   # checks attempt to import nonexistent module 'test.test' and fail
   doCheck = false;

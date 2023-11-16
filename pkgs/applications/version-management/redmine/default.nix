@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bundlerEnv,
-  ruby,
-  defaultGemConfig,
-  makeWrapper,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, bundlerEnv, ruby, defaultGemConfig, makeWrapper
+, nixosTests }:
 
 let
   version = "5.0.5";
@@ -16,17 +8,10 @@ let
 
     inherit ruby;
     gemdir = ./.;
-    groups = [
-      "development"
-      "ldap"
-      "markdown"
-      "common_mark"
-      "minimagick"
-      "test"
-    ];
+    groups =
+      [ "development" "ldap" "markdown" "common_mark" "minimagick" "test" ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "redmine";
   inherit version;
 
@@ -36,11 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    rubyEnv
-    rubyEnv.wrappedRuby
-    rubyEnv.bundler
-  ];
+  buildInputs = [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler ];
 
   # taken from https://www.redmine.org/issues/33784
   # can be dropped when the upstream bug is closed and the fix is present in the upstream release
@@ -67,11 +48,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.redmine.org/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      aanderse
-      felixsinger
-      megheaiulian
-    ];
+    maintainers = with maintainers; [ aanderse felixsinger megheaiulian ];
     license = licenses.gpl2;
   };
 }

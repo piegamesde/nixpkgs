@@ -1,13 +1,8 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl
-  # Octave dependencies
-  ,
-  signal, # >= 1.3.0
-  # Build dependencies
-  gfortran,
-}:
+{ buildOctavePackage, lib, fetchurl
+# Octave dependencies
+, signal # >= 1.3.0
+# Build dependencies
+, gfortran }:
 
 buildOctavePackage rec {
   pname = "tisean";

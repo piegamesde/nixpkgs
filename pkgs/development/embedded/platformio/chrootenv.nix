@@ -1,34 +1,12 @@
-{
-  lib,
-  buildFHSEnv,
-  platformio-core,
-}:
+{ lib, buildFHSEnv, platformio-core }:
 
 let
-  pio-pkgs =
-    pkgs:
-    let
-      inherit (platformio-core) python;
-    in
-    (
-      with pkgs; [
-        platformio-core
-        zlib
-        git
-        xdg-user-dirs
-        ncurses
-      ]
-    )
-    ++ (
-      with python.pkgs; [
-        python
-        setuptools
-        pip
-        bottle
-      ]
-    );
-in
-buildFHSEnv {
+  pio-pkgs = pkgs:
+    let inherit (platformio-core) python;
+    in (with pkgs; [ platformio-core zlib git xdg-user-dirs ncurses ])
+    ++ (with python.pkgs; [ python setuptools pip bottle ]);
+
+in buildFHSEnv {
   name = "platformio";
 
   targetPkgs = pio-pkgs;

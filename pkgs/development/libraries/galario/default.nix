@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  fetchFromGitHub,
-  cmake,
-  fftw,
-  fftwFloat,
-  enablePython ? false,
-  pythonPackages ? null,
-  llvmPackages,
-}:
+{ lib, stdenv, fetchzip, fetchFromGitHub, cmake, fftw, fftwFloat
+, enablePython ? false, pythonPackages ? null, llvmPackages }:
 let
   # CMake recipes are needed to build galario
   # Build process would usually download them
@@ -17,8 +7,7 @@ let
     url = "https://github.com/UCL/GreatCMakeCookOff/archive/v2.1.9.tar.gz";
     sha256 = "1yd53b5gx38g6f44jmjk4lc4igs3p25z6616hfb7aq79ly01q0w2";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "galario";
   version = "1.2.2";
 
@@ -31,11 +20,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      fftw
-      fftwFloat
-    ]
+  buildInputs = [ fftw fftwFloat ]
     ++ lib.optional enablePython pythonPackages.python
     ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
@@ -61,15 +46,14 @@ stdenv.mkDerivation rec {
       "export DYLD_LIBRARY_PATH=$(pwd)/src/"
     else
       "export LD_LIBRARY_PATH=$(pwd)/src/"}
-    ${lib.optionalString enablePython "sed -i -e 's|^#!.*|#!${stdenv.shell}|' python/py.test.sh"}
+    ${lib.optionalString enablePython
+    "sed -i -e 's|^#!.*|#!${stdenv.shell}|' python/py.test.sh"}
   '';
 
-  cmakeFlags =
-    lib.optionals enablePython
-      [
-        # RPATH of binary /nix/store/.../lib/python3.10/site-packages/galario/double/libcommon.so contains a forbidden reference to /build/
-        "-DCMAKE_SKIP_BUILD_RPATH=ON"
-      ];
+  cmakeFlags = lib.optionals enablePython [
+    # RPATH of binary /nix/store/.../lib/python3.10/site-packages/galario/double/libcommon.so contains a forbidden reference to /build/
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+  ];
 
   doCheck = true;
 
@@ -79,7 +63,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "GPU Accelerated Library for Analysing Radio Interferometer Observations";
+    description =
+      "GPU Accelerated Library for Analysing Radio Interferometer Observations";
     longDescription = ''
       Galario is a library that exploits the computing power of modern
       graphic cards (GPUs) to accelerate the comparison of model

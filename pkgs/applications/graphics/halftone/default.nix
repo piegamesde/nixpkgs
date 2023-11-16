@@ -1,18 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  wrapGAppsHook4,
-  meson,
-  ninja,
-  pkg-config,
-  appstream-glib,
-  desktop-file-utils,
-  gobject-introspection,
-  glib,
-  blueprint-compiler,
-  libadwaita,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, wrapGAppsHook4, meson, ninja, pkg-config, appstream-glib
+, desktop-file-utils, gobject-introspection, glib, blueprint-compiler
+, libadwaita, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "halftone";
@@ -42,10 +30,7 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [ libadwaita ];
 
-  propagatedBuildInputs = with python3Packages; [
-    pygobject3
-    wand
-  ];
+  propagatedBuildInputs = with python3Packages; [ pygobject3 wand ];
 
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")

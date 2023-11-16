@@ -1,37 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  fetchFromGitHub,
-  gnumake,
-  gcc,
-  pkg-config,
-  lua5_4,
-  openssl,
-  jack1,
-  python3,
-  alsa-lib,
-  ncurses,
-  libevdev,
-}:
+{ lib, stdenv, fetchurl, zlib, fetchFromGitHub, gnumake, gcc, pkg-config, lua5_4
+, openssl, jack1, python3, alsa-lib, ncurses, libevdev }:
 
 stdenv.mkDerivation rec {
   pname = "midimonster";
   version = "0.6.0";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gnumake
-    gcc
-    lua5_4
-    openssl
-    jack1
-    python3
-    alsa-lib
-    ncurses
-    libevdev
-  ];
+  buildInputs =
+    [ gnumake gcc lua5_4 openssl jack1 python3 alsa-lib ncurses libevdev ];
 
   src = fetchFromGitHub {
     repo = "midimonster";
@@ -43,10 +19,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
   enableParallelBuilding = true;
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   buildPhase = ''
     PLUGINS=$out/lib/midimonster make all

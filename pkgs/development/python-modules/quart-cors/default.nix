@@ -1,19 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
-  # build-system
-  poetry-core,
+# build-system
+, poetry-core
 
-  # propagates
-  quart,
-  typing-extensions,
+# propagates
+, quart, typing-extensions
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "quart-cors";
@@ -34,16 +28,19 @@ buildPythonPackage rec {
       --replace "--no-cov-on-fail " ""
   '';
 
-  propagatedBuildInputs = [ quart ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [ quart ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   pythonImportsCheck = [ "quart_cors" ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Quart-CORS is an extension for Quart to enable and control Cross Origin Resource Sharing, CORS";
+    description =
+      "Quart-CORS is an extension for Quart to enable and control Cross Origin Resource Sharing, CORS";
     homepage = "https://github.com/pgjones/quart-cors/";
-    changelog = "https://github.com/pgjones/quart-cors/blob/${src.rev}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/pgjones/quart-cors/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

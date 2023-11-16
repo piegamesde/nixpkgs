@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "git-cliff";
@@ -25,9 +19,11 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
-    description = "A highly customizable Changelog Generator that follows Conventional Commit specifications";
+    description =
+      "A highly customizable Changelog Generator that follows Conventional Commit specifications";
     homepage = "https://github.com/orhun/git-cliff";
-    changelog = "https://github.com/orhun/git-cliff/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/orhun/git-cliff/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ siraben ];
   };

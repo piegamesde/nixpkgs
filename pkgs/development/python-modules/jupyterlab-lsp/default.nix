@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  jupyterlab,
-  jupyter-lsp,
-}:
+{ lib, buildPythonPackage, fetchPypi, jupyterlab, jupyter-lsp }:
 
 buildPythonPackage rec {
   pname = "jupyterlab-lsp";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-OqsByMrAQKjTqev6QIUiOwVLf71iGdPHtWD2qXZsovM=";
   };
 
-  propagatedBuildInputs = [
-    jupyterlab
-    jupyter-lsp
-  ];
+  propagatedBuildInputs = [ jupyterlab jupyter-lsp ];
   # No tests
   doCheck = false;
   pythonImportsCheck = [ "jupyterlab_lsp" ];

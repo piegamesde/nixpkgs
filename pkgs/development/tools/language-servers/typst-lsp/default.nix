@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "typst-lsp";
@@ -31,9 +27,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nvarner/typst-lsp";
     changelog = "https://github.com/nvarner/typst-lsp/releases/tag/${src.rev}";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [
-      figsoda
-      GaetanLepage
-    ];
+    maintainers = with maintainers; [ figsoda GaetanLepage ];
   };
 }

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  voluptuous,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, voluptuous }:
 
 buildPythonPackage rec {
   pname = "voluptuous-serialize";
@@ -28,9 +22,11 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Convert Voluptuous schemas to dictionaries so they can be serialized";
+    description =
+      "Convert Voluptuous schemas to dictionaries so they can be serialized";
     homepage = "https://github.com/home-assistant-libs/voluptuous-serialize";
-    changelog = "https://github.com/home-assistant-libs/voluptuous-serialize/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-libs/voluptuous-serialize/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

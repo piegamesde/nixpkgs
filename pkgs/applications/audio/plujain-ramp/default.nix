@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  lv2,
-}:
+{ lib, stdenv, fetchFromGitHub, lv2 }:
 
 stdenv.mkDerivation rec {
   version = "1.1.3";

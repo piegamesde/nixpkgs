@@ -1,35 +1,31 @@
-{
-  stdenv,
-  buildPackages,
-  callPackage,
-}:
+{ stdenv, buildPackages, callPackage }:
 
 let
-  chezArch =
-    if stdenv.hostPlatform.isAarch then
-      "arm${toString stdenv.hostPlatform.parsed.cpu.bits}"
-    else if stdenv.hostPlatform.isx86_32 then
-      "i3"
-    else if stdenv.hostPlatform.isx86_64 then
-      "a6"
-    else if stdenv.hostPlatform.isPower then
-      "ppc${toString stdenv.hostPlatform.parsed.cpu.bits}"
-    else
-      throw "Add ${stdenv.hostPlatform.parsed.cpu.arch} to chezArch to enable building chez-racket";
+  chezArch = if stdenv.hostPlatform.isAarch then
+    "arm${toString stdenv.hostPlatform.parsed.cpu.bits}"
+  else if stdenv.hostPlatform.isx86_32 then
+    "i3"
+  else if stdenv.hostPlatform.isx86_64 then
+    "a6"
+  else if stdenv.hostPlatform.isPower then
+    "ppc${toString stdenv.hostPlatform.parsed.cpu.bits}"
+  else
+    throw
+    "Add ${stdenv.hostPlatform.parsed.cpu.arch} to chezArch to enable building chez-racket";
 
-  chezOs =
-    if stdenv.hostPlatform.isDarwin then
-      "osx"
-    else if stdenv.hostPlatform.isFreeBSD then
-      "fb"
-    else if stdenv.hostPlatform.isLinux then
-      "le"
-    else if stdenv.hostPlatform.isNetBSD then
-      "nb"
-    else if stdenv.hostPlatform.isOpenBSD then
-      "ob"
-    else
-      throw "Add ${stdenv.hostPlatform.uname.system} to chezOs to enable building chez-racket";
+  chezOs = if stdenv.hostPlatform.isDarwin then
+    "osx"
+  else if stdenv.hostPlatform.isFreeBSD then
+    "fb"
+  else if stdenv.hostPlatform.isLinux then
+    "le"
+  else if stdenv.hostPlatform.isNetBSD then
+    "nb"
+  else if stdenv.hostPlatform.isOpenBSD then
+    "ob"
+  else
+    throw
+    "Add ${stdenv.hostPlatform.uname.system} to chezOs to enable building chez-racket";
 
   inherit (stdenv.hostPlatform) system;
   chezSystem = "t${chezArch}${chezOs}";
@@ -70,5 +66,4 @@ let
     setupHook = ./setup-hook.sh;
   };
   final = callPackage (import ./shared.nix forFinal) { };
-in
-final
+in final

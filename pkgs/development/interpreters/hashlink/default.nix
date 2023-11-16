@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  libGL,
-  libGLU,
-  libpng,
-  libjpeg_turbo,
-  libuv,
-  libvorbis,
-  mbedtls_2,
-  openal,
-  pcre,
-  SDL2,
-  sqlite,
-  getconf,
-}:
+{ stdenv, lib, fetchFromGitHub, libGL, libGLU, libpng, libjpeg_turbo, libuv
+, libvorbis, mbedtls_2, openal, pcre, SDL2, sqlite, getconf }:
 
 stdenv.mkDerivation rec {
   pname = "hashlink";
@@ -53,14 +38,7 @@ stdenv.mkDerivation rec {
     description = "A virtual machine for Haxe";
     homepage = "https://hashlink.haxe.org/";
     license = licenses.mit;
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
-    maintainers = with maintainers; [
-      iblech
-      locallycompact
-      logo
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
+    maintainers = with maintainers; [ iblech locallycompact logo ];
   };
 }

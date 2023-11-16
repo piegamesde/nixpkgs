@@ -1,31 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  db-dtypes,
-  fetchPypi,
-  freezegun,
-  google-api-core,
-  google-cloud-bigquery-storage,
-  google-cloud-core,
-  google-cloud-datacatalog,
-  google-cloud-storage,
-  google-cloud-testutils,
-  google-resumable-media,
-  grpcio,
-  ipython,
-  mock,
-  pandas,
-  proto-plus,
-  protobuf,
-  psutil,
-  pyarrow,
-  pytest-xdist,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  requests,
-  tqdm,
-}:
+{ lib, buildPythonPackage, db-dtypes, fetchPypi, freezegun, google-api-core
+, google-cloud-bigquery-storage, google-cloud-core, google-cloud-datacatalog
+, google-cloud-storage, google-cloud-testutils, google-resumable-media, grpcio
+, ipython, mock, pandas, proto-plus, protobuf, psutil, pyarrow, pytest-xdist
+, pytestCheckHook, python-dateutil, pythonOlder, requests, tqdm }:
 
 buildPythonPackage rec {
   pname = "google-cloud-bigquery";
@@ -52,16 +29,8 @@ buildPythonPackage rec {
   ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
-    bqstorage = [
-      google-cloud-bigquery-storage
-      grpcio
-      pyarrow
-    ];
-    pandas = [
-      db-dtypes
-      pandas
-      pyarrow
-    ];
+    bqstorage = [ google-cloud-bigquery-storage grpcio pyarrow ];
+    pandas = [ db-dtypes pandas pyarrow ];
     tqdm = [ tqdm ];
     ipython = [ ipython ];
   };
@@ -75,7 +44,8 @@ buildPythonPackage rec {
     google-cloud-storage
     pytestCheckHook
     pytest-xdist
-  ] ++ passthru.optional-dependencies.pandas ++ passthru.optional-dependencies.ipython;
+  ] ++ passthru.optional-dependencies.pandas
+    ++ passthru.optional-dependencies.ipython;
 
   # prevent google directory from shadowing google imports
   preCheck = ''
@@ -117,15 +87,13 @@ buildPythonPackage rec {
     "tests/system/test_pandas.py"
   ];
 
-  pythonImportsCheck = [
-    "google.cloud.bigquery"
-    "google.cloud.bigquery_v2"
-  ];
+  pythonImportsCheck = [ "google.cloud.bigquery" "google.cloud.bigquery_v2" ];
 
   meta = with lib; {
     description = "Google BigQuery API client library";
     homepage = "https://github.com/googleapis/python-bigquery";
-    changelog = "https://github.com/googleapis/python-bigquery/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-bigquery/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

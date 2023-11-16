@@ -1,19 +1,6 @@
-{
-  lib,
-  mkXfceDerivation,
-  exo,
-  librsvg,
-  dbus-glib,
-  libepoxy,
-  gtk3,
-  libXdamage,
-  libstartup_notification,
-  libxfce4ui,
-  libxfce4util,
-  libwnck,
-  libXpresent,
-  xfconf,
-}:
+{ lib, mkXfceDerivation, exo, librsvg, dbus-glib, libepoxy, gtk3, libXdamage
+, libstartup_notification, libxfce4ui, libxfce4util, libwnck, libXpresent
+, xfconf }:
 
 mkXfceDerivation {
   category = "xfce";
@@ -22,10 +9,7 @@ mkXfceDerivation {
 
   sha256 = "sha256-nTPgxC0XMBJ48lPCeQgCvWWK1/2ZIoQOYsMeaxDpE1c=";
 
-  nativeBuildInputs = [
-    exo
-    librsvg
-  ];
+  nativeBuildInputs = [ exo librsvg ];
 
   buildInputs = [
     dbus-glib

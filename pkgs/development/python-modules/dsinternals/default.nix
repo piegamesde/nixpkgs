@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pycryptodomex,
-  pyopenssl,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pycryptodomex, pyopenssl
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "dsinternals";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-C1ar9c4F4WI5ICX7PJe8FzVwK8bxZds+kMBpttEp9Ko=";
   };
 
-  propagatedBuildInputs = [
-    pyopenssl
-    pycryptodomex
-  ];
+  propagatedBuildInputs = [ pyopenssl pycryptodomex ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

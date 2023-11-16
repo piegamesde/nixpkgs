@@ -1,10 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "lightwave2";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "lightwave2" ];
 
   meta = with lib; {
-    description = "Library to interact with LightWaveRF 2nd Gen lights and switches";
+    description =
+      "Library to interact with LightWaveRF 2nd Gen lights and switches";
     homepage = "https://github.com/bigbadblunt/lightwave2";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

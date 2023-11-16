@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL2,
-  qtbase,
-  qtcharts,
-  qtlocation,
-  qtserialport,
-  qtsvg,
-  qtquickcontrols2,
-  qtgraphicaleffects,
-  qtspeech,
-  qtx11extras,
-  qmake,
-  qttools,
-  gst_all_1,
-  wayland,
-  pkg-config,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, qtbase, qtcharts, qtlocation, qtserialport
+, qtsvg, qtquickcontrols2, qtgraphicaleffects, qtspeech, qtx11extras, qmake
+, qttools, gst_all_1, wayland, pkg-config, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "qgroundcontrol";
@@ -46,12 +28,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [ SDL2 ] ++ gstInputs ++ qtInputs;
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config qmake qttools wrapQtAppsHook ];
 
   preConfigure = ''
     mkdir build
@@ -102,7 +79,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Provides full ground station support and configuration for the PX4 and APM Flight Stacks";
+    description =
+      "Provides full ground station support and configuration for the PX4 and APM Flight Stacks";
     homepage = "http://qgroundcontrol.com/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

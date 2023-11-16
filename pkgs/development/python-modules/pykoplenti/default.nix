@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  prompt-toolkit,
-  pycryptodome,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, aiohttp, buildPythonPackage, click, fetchFromGitHub, prompt-toolkit
+, pycryptodome, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "pykoplenti";
@@ -32,12 +23,7 @@ buildPythonPackage rec {
       --replace 'version = unreleased' 'version = ${version}'
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    click
-    prompt-toolkit
-    pycryptodome
-  ];
+  propagatedBuildInputs = [ aiohttp click prompt-toolkit pycryptodome ];
 
   # Project has no tests
   doCheck = false;

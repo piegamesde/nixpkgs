@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 buildPythonPackage rec {
   pname = "plugnplay";
   version = "0.5.4";

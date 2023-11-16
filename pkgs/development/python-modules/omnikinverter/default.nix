@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  yarl,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-asyncio, pytestCheckHook, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "omnikinverter";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     # Upstream doesn't set a version for the pyproject.toml
@@ -50,7 +33,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for the Omnik Inverter";
     homepage = "https://github.com/klaasnicolaas/python-omnikinverter";
-    changelog = "https://github.com/klaasnicolaas/python-omnikinverter/releases/tag/v${version}";
+    changelog =
+      "https://github.com/klaasnicolaas/python-omnikinverter/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

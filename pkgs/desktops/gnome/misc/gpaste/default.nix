@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gjs,
-  glib,
-  gobject-introspection,
-  gtk3,
-  gtk4,
-  gcr_4,
-  libadwaita,
-  meson,
-  mutter,
-  ninja,
-  pango,
-  pkg-config,
-  vala,
-  desktop-file-utils,
-  wrapGAppsHook,
-}:
+{ stdenv, lib, fetchFromGitHub, gjs, glib, gobject-introspection, gtk3, gtk4
+, gcr_4, libadwaita, meson, mutter, ninja, pango, pkg-config, vala
+, desktop-file-utils, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   version = "44.0";
@@ -40,7 +23,9 @@ stdenv.mkDerivation rec {
     substituteInPlace src/gnome-shell/prefs.js \
       --subst-var-by typelibPath "${placeholder "out"}/lib/girepository-1.0"
     substituteInPlace src/libgpaste/gpaste/gpaste-settings.c \
-      --subst-var-by gschemasCompiled ${glib.makeSchemaPath (placeholder "out") "${pname}-${version}"}
+      --subst-var-by gschemasCompiled ${
+        glib.makeSchemaPath (placeholder "out") "${pname}-${version}"
+      }
   '';
 
   nativeBuildInputs = [
@@ -53,19 +38,12 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    gjs
-    glib
-    gtk3
-    gtk4
-    gcr_4
-    libadwaita
-    mutter
-    pango
-  ];
+  buildInputs = [ gjs glib gtk3 gtk4 gcr_4 libadwaita mutter pango ];
 
   mesonFlags = [
-    "-Dcontrol-center-keybindings-dir=${placeholder "out"}/share/gnome-control-center/keybindings"
+    "-Dcontrol-center-keybindings-dir=${
+      placeholder "out"
+    }/share/gnome-control-center/keybindings"
     "-Ddbus-services-dir=${placeholder "out"}/share/dbus-1/services"
     "-Dsystemd-user-unit-dir=${placeholder "out"}/etc/systemd/user"
   ];

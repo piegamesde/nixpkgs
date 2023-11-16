@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  requests,
-  six,
-  pytestCheckHook,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, requests, six
+, pytestCheckHook, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pynetbox";
@@ -25,24 +17,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    requests
-    six
-  ];
+  propagatedBuildInputs = [ requests six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ];
 
-  disabledTestPaths =
-    [
-      # requires docker for integration test
-      "tests/integration"
-    ];
+  disabledTestPaths = [
+    # requires docker for integration test
+    "tests/integration"
+  ];
 
   meta = with lib; {
-    changelog = "https://github.com/netbox-community/pynetbox/releases/tag/v${version}";
+    changelog =
+      "https://github.com/netbox-community/pynetbox/releases/tag/v${version}";
     description = "API client library for Netbox";
     homepage = "https://github.com/netbox-community/pynetbox";
     license = licenses.asl20;

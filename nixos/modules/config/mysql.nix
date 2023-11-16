@@ -1,19 +1,13 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.users.mysql;
-in
-{
+let cfg = config.users.mysql;
+in {
   options = {
     users.mysql = {
-      enable = mkEnableOption (lib.mdDoc "Authentication against a MySQL/MariaDB database");
+      enable = mkEnableOption
+        (lib.mdDoc "Authentication against a MySQL/MariaDB database");
       host = mkOption {
         type = types.str;
         example = "localhost";
@@ -27,12 +21,14 @@ in
       user = mkOption {
         type = types.str;
         example = "nss-user";
-        description = lib.mdDoc "The username to use when connecting to the database";
+        description =
+          lib.mdDoc "The username to use when connecting to the database";
       };
       passwordFile = mkOption {
         type = types.path;
         example = "/run/secrets/mysql-auth-db-passwd";
-        description = lib.mdDoc "The path to the file containing the password for the user";
+        description =
+          lib.mdDoc "The path to the file containing the password for the user";
       };
       pam = mkOption {
         description = lib.mdDoc "Settings for `pam_mysql`";
@@ -41,7 +37,8 @@ in
             table = mkOption {
               type = types.str;
               example = "users";
-              description = lib.mdDoc "The name of table that maps unique login names to the passwords.";
+              description = lib.mdDoc
+                "The name of table that maps unique login names to the passwords.";
             };
             updateTable = mkOption {
               type = types.nullOr types.str;
@@ -55,12 +52,14 @@ in
             userColumn = mkOption {
               type = types.str;
               example = "username";
-              description = lib.mdDoc "The name of the column that contains a unix login name.";
+              description = lib.mdDoc
+                "The name of the column that contains a unix login name.";
             };
             passwordColumn = mkOption {
               type = types.str;
               example = "password";
-              description = lib.mdDoc "The name of the column that contains a (encrypted) password string.";
+              description = lib.mdDoc
+                "The name of the column that contains a (encrypted) password string.";
             };
             statusColumn = mkOption {
               type = types.nullOr types.str;
@@ -135,17 +134,12 @@ in
               '';
             };
             cryptDefault = mkOption {
-              type = types.nullOr (
-                types.enum [
-                  "md5"
-                  "sha256"
-                  "sha512"
-                  "blowfish"
-                ]
-              );
+              type = types.nullOr
+                (types.enum [ "md5" "sha256" "sha512" "blowfish" ]);
               default = null;
               example = "blowfish";
-              description = lib.mdDoc "The default encryption method to use for `passwordCrypt = 1`.";
+              description = lib.mdDoc
+                "The default encryption method to use for `passwordCrypt = 1`.";
             };
             where = mkOption {
               type = types.nullOr types.str;
@@ -175,12 +169,14 @@ in
               enable = mkOption {
                 type = types.bool;
                 default = false;
-                description = lib.mdDoc "Enables logging of authentication attempts in the MySQL database.";
+                description = lib.mdDoc
+                  "Enables logging of authentication attempts in the MySQL database.";
               };
               table = mkOption {
                 type = types.str;
                 example = "logs";
-                description = lib.mdDoc "The name of the table to which logs are written.";
+                description =
+                  lib.mdDoc "The name of the table to which logs are written.";
               };
               msgColumn = mkOption {
                 type = types.str;
@@ -381,81 +377,66 @@ in
       group = "root";
       mode = "0600";
       # password will be added from password file in activation script
-      text =
-        ''
-          users.host=${cfg.host}
-          users.db_user=${cfg.user}
-          users.database=${cfg.database}
-          users.table=${cfg.pam.table}
-          users.user_column=${cfg.pam.userColumn}
-          users.password_column=${cfg.pam.passwordColumn}
-          users.password_crypt=${cfg.pam.passwordCrypt}
-          users.disconnect_every_operation=${if cfg.pam.disconnectEveryOperation then "1" else "0"}
-          verbose=${if cfg.pam.verbose then "1" else "0"}
-        ''
-        + optionalString (cfg.pam.cryptDefault != null) ''
-          users.use_${cfg.pam.cryptDefault}=1
-        ''
-        + optionalString (cfg.pam.where != null) ''
-          users.where_clause=${cfg.pam.where}
-        ''
-        + optionalString (cfg.pam.statusColumn != null) ''
-          users.status_column=${cfg.pam.statusColumn}
-        ''
-        + optionalString (cfg.pam.updateTable != null) ''
-          users.update_table=${cfg.pam.updateTable}
-        ''
-        + optionalString cfg.pam.logging.enable ''
-          log.enabled=true
-          log.table=${cfg.pam.logging.table}
-          log.message_column=${cfg.pam.logging.msgColumn}
-          log.pid_column=${cfg.pam.logging.pidColumn}
-          log.user_column=${cfg.pam.logging.userColumn}
-          log.host_column=${cfg.pam.logging.hostColumn}
-          log.rhost_column=${cfg.pam.logging.rHostColumn}
-          log.time_column=${cfg.pam.logging.timeColumn}
-        '';
+      text = ''
+        users.host=${cfg.host}
+        users.db_user=${cfg.user}
+        users.database=${cfg.database}
+        users.table=${cfg.pam.table}
+        users.user_column=${cfg.pam.userColumn}
+        users.password_column=${cfg.pam.passwordColumn}
+        users.password_crypt=${cfg.pam.passwordCrypt}
+        users.disconnect_every_operation=${
+          if cfg.pam.disconnectEveryOperation then "1" else "0"
+        }
+        verbose=${if cfg.pam.verbose then "1" else "0"}
+      '' + optionalString (cfg.pam.cryptDefault != null) ''
+        users.use_${cfg.pam.cryptDefault}=1
+      '' + optionalString (cfg.pam.where != null) ''
+        users.where_clause=${cfg.pam.where}
+      '' + optionalString (cfg.pam.statusColumn != null) ''
+        users.status_column=${cfg.pam.statusColumn}
+      '' + optionalString (cfg.pam.updateTable != null) ''
+        users.update_table=${cfg.pam.updateTable}
+      '' + optionalString cfg.pam.logging.enable ''
+        log.enabled=true
+        log.table=${cfg.pam.logging.table}
+        log.message_column=${cfg.pam.logging.msgColumn}
+        log.pid_column=${cfg.pam.logging.pidColumn}
+        log.user_column=${cfg.pam.logging.userColumn}
+        log.host_column=${cfg.pam.logging.hostColumn}
+        log.rhost_column=${cfg.pam.logging.rHostColumn}
+        log.time_column=${cfg.pam.logging.timeColumn}
+      '';
     };
 
     environment.etc."libnss-mysql.cfg" = {
       mode = "0600";
       user = config.services.nscd.user;
       group = config.services.nscd.group;
-      text =
-        optionalString (cfg.nss.getpwnam != null) ''
-          getpwnam ${cfg.nss.getpwnam}
-        ''
-        + optionalString (cfg.nss.getpwuid != null) ''
-          getpwuid ${cfg.nss.getpwuid}
-        ''
-        + optionalString (cfg.nss.getspnam != null) ''
-          getspnam ${cfg.nss.getspnam}
-        ''
-        + optionalString (cfg.nss.getpwent != null) ''
-          getpwent ${cfg.nss.getpwent}
-        ''
-        + optionalString (cfg.nss.getspent != null) ''
-          getspent ${cfg.nss.getspent}
-        ''
-        + optionalString (cfg.nss.getgrnam != null) ''
-          getgrnam ${cfg.nss.getgrnam}
-        ''
-        + optionalString (cfg.nss.getgrgid != null) ''
-          getgrgid ${cfg.nss.getgrgid}
-        ''
-        + optionalString (cfg.nss.getgrent != null) ''
-          getgrent ${cfg.nss.getgrent}
-        ''
-        + optionalString (cfg.nss.memsbygid != null) ''
-          memsbygid ${cfg.nss.memsbygid}
-        ''
-        + optionalString (cfg.nss.gidsbymem != null) ''
-          gidsbymem ${cfg.nss.gidsbymem}
-        ''
-        + ''
-          host ${cfg.host}
-          database ${cfg.database}
-        '';
+      text = optionalString (cfg.nss.getpwnam != null) ''
+        getpwnam ${cfg.nss.getpwnam}
+      '' + optionalString (cfg.nss.getpwuid != null) ''
+        getpwuid ${cfg.nss.getpwuid}
+      '' + optionalString (cfg.nss.getspnam != null) ''
+        getspnam ${cfg.nss.getspnam}
+      '' + optionalString (cfg.nss.getpwent != null) ''
+        getpwent ${cfg.nss.getpwent}
+      '' + optionalString (cfg.nss.getspent != null) ''
+        getspent ${cfg.nss.getspent}
+      '' + optionalString (cfg.nss.getgrnam != null) ''
+        getgrnam ${cfg.nss.getgrnam}
+      '' + optionalString (cfg.nss.getgrgid != null) ''
+        getgrgid ${cfg.nss.getgrgid}
+      '' + optionalString (cfg.nss.getgrent != null) ''
+        getgrent ${cfg.nss.getgrent}
+      '' + optionalString (cfg.nss.memsbygid != null) ''
+        memsbygid ${cfg.nss.memsbygid}
+      '' + optionalString (cfg.nss.gidsbymem != null) ''
+        gidsbymem ${cfg.nss.gidsbymem}
+      '' + ''
+        host ${cfg.host}
+        database ${cfg.database}
+      '';
     };
 
     environment.etc."libnss-mysql-root.cfg" = {

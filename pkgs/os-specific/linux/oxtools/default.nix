@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glibc,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, glibc, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "0xtools";

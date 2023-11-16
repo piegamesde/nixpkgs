@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  pycodestyle,
-  isort,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pycodestyle, isort }:
 
 buildPythonPackage rec {
   pname = "avro-python3";
@@ -17,10 +10,7 @@ buildPythonPackage rec {
     sha256 = "3b63f24e6b04368c3e4a6f923f484be0230d821aad65ac36108edbff29e9aaab";
   };
 
-  buildInputs = [
-    pycodestyle
-    isort
-  ];
+  buildInputs = [ pycodestyle isort ];
   doCheck = false; # No such file or directory: './run_tests.py
 
   meta = with lib; {
@@ -28,9 +18,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/avro-python3/";
     license = licenses.asl20;
 
-    maintainers = [
-      maintainers.shlevy
-      maintainers.timma
-    ];
+    maintainers = [ maintainers.shlevy maintainers.timma ];
   };
 }

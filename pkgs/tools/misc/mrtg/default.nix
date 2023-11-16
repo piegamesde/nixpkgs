@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-  gd,
-  rrdtool,
-}:
+{ lib, stdenv, fetchurl, perl, gd, rrdtool }:
 
 stdenv.mkDerivation rec {
   pname = "mrtg";
@@ -16,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-x/EcteIXpQDYfuO10mxYqGUu28DTKRaIu3krAQ+uQ6w=";
   };
 
-  buildInputs = [
-    perl
-    gd
-    rrdtool
-  ];
+  buildInputs = [ perl gd rrdtool ];
 
   meta = with lib; {
     description = "The Multi Router Traffic Grapher";

@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "rake";
@@ -15,10 +11,7 @@ bundlerApp {
     description = "A software task management and build automation tool";
     homepage = "https://github.com/ruby/rake";
     license = with licenses; mit;
-    maintainers = with maintainers; [
-      manveru
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ manveru nicknovitski ];
     platforms = platforms.unix;
   };
 }

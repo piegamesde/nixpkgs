@@ -1,9 +1,7 @@
 { lib, fetchFromGitHub }:
 
-let
-  version = "3.11.19";
-in
-fetchFromGitHub {
+let version = "3.11.19";
+in fetchFromGitHub {
   name = "stevenblack-blocklist-${version}";
 
   owner = "StevenBlack";

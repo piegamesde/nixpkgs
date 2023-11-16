@@ -2,10 +2,7 @@
 
 { ... }:
 
-{
-  runtimeDependencies ? [ ],
-  ...
-}:
+{ runtimeDependencies ? [ ], ... }:
 
 {
   runtimeDependencies = runtimeDependencies ++ [ openssl ];

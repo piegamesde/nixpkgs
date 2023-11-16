@@ -1,11 +1,4 @@
-{
-  lib,
-  pkg-config,
-  jre8,
-  libuuid,
-  openmodelica,
-  mkOpenModelicaDerivation,
-}:
+{ lib, pkg-config, jre8, libuuid, openmodelica, mkOpenModelicaDerivation }:
 
 mkOpenModelicaDerivation rec {
   pname = "omparser";
@@ -14,10 +7,7 @@ mkOpenModelicaDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    jre8
-    libuuid
-  ];
+  buildInputs = [ jre8 libuuid ];
 
   patches = [ ./Makefile.in.patch ];
 
@@ -27,10 +17,7 @@ mkOpenModelicaDerivation rec {
       suite'';
     homepage = "https://openmodelica.org";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      balodja
-      smironov
-    ];
+    maintainers = with maintainers; [ balodja smironov ];
     platforms = platforms.linux;
   };
 }

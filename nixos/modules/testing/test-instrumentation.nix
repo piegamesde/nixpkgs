@@ -1,34 +1,22 @@
 # This module allows the test driver to connect to the virtual machine
 # via a root shell attached to port 514.
 
-{
-  options,
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
-in
+let qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
 
-{
+in {
 
   config = {
 
     systemd.services.backdoor = {
       wantedBy = [ "multi-user.target" ];
-      requires = [
-        "dev-hvc0.device"
-        "dev-${qemu-common.qemuSerialDevice}.device"
-      ];
-      after = [
-        "dev-hvc0.device"
-        "dev-${qemu-common.qemuSerialDevice}.device"
-      ];
+      requires =
+        [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
+      after =
+        [ "dev-hvc0.device" "dev-${qemu-common.qemuSerialDevice}.device" ];
       script = ''
         export USER=root
         export HOME=/root
@@ -64,7 +52,8 @@ in
     # Prevent agetty from being instantiated on the serial device, since it
     # interferes with the backdoor (writes to it will randomly fail
     # with EIO).  Likewise for hvc0.
-    systemd.services."serial-getty@${qemu-common.qemuSerialDevice}".enable = false;
+    systemd.services."serial-getty@${qemu-common.qemuSerialDevice}".enable =
+      false;
     systemd.services."serial-getty@hvc0".enable = false;
 
     # Only set these settings when the options exist. Some tests (e.g. those
@@ -160,4 +149,5 @@ in
     # Squelch warning about unset system.stateVersion
     system.stateVersion = lib.mkDefault lib.trivial.release;
   };
+
 }

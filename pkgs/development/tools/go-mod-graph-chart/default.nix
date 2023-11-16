@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "go-mod-graph-chart";
@@ -21,7 +17,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A tool build chart by go mod graph output with zero dependencies";
+    description =
+      "A tool build chart by go mod graph output with zero dependencies";
     homepage = "https://github.com/PaulXu-cn/go-mod-graph-chart";
     mainProgram = "gmchart";
     license = licenses.mit;

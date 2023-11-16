@@ -1,12 +1,5 @@
-{
-  buildDunePackage,
-  dune-configurator,
-  fetchFromGitHub,
-  lib,
-  SDL2,
-  SDL2_mixer,
-  tsdl,
-}:
+{ buildDunePackage, dune-configurator, fetchFromGitHub, lib, SDL2, SDL2_mixer
+, tsdl }:
 
 buildDunePackage rec {
   pname = "tsdl-mixer";
@@ -23,11 +16,7 @@ buildDunePackage rec {
 
   buildInputs = [ dune-configurator ];
 
-  propagatedBuildInputs = [
-    SDL2
-    SDL2_mixer
-    tsdl
-  ];
+  propagatedBuildInputs = [ SDL2 SDL2_mixer tsdl ];
 
   meta = with lib; {
     description = "SDL2_mixer bindings to go with Tsdl";

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  nose,
-  parts,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, nose, parts, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bitlist";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ parts ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    nose
-  ];
+  nativeCheckInputs = [ pytestCheckHook nose ];
 
   pythonImportsCheck = [ "bitlist" ];
 
@@ -38,7 +27,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Python library for working with little-endian list representation of bit strings";
+    description =
+      "Python library for working with little-endian list representation of bit strings";
     homepage = "https://github.com/lapets/bitlist";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

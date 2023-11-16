@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildEnv,
-  fetchurl,
-  mono,
-}:
+{ lib, stdenv, buildEnv, fetchurl, mono }:
 
 let
   version = "0.108.0";
@@ -14,8 +8,10 @@ let
     inherit version;
 
     src = fetchurl {
-      url = "https://github.com/KeeTrayTOTP/KeeTrayTOTP/releases/download/v${version}/KeeTrayTOTP.plgx";
-      sha256 = "4f7251a9bbb79cad04aee96d1809c6b36d43285a9f3834fef5330fc97ae8bc09";
+      url =
+        "https://github.com/KeeTrayTOTP/KeeTrayTOTP/releases/download/v${version}/KeeTrayTOTP.plgx";
+      sha256 =
+        "4f7251a9bbb79cad04aee96d1809c6b36d43285a9f3834fef5330fc97ae8bc09";
     };
 
     dontUnpack = true;
@@ -32,21 +28,13 @@ let
         TOTPs can also be sent by auto-type. The plugin is compatible with Google, Dropbox, Steam, and many more services.
       '';
       homepage = "https://github.com/KeeTrayTOTP/KeeTrayTOTP";
-      platforms = [
-        "aarch64-linux"
-        "i686-linux"
-        "x86_64-linux"
-      ];
+      platforms = [ "aarch64-linux" "i686-linux" "x86_64-linux" ];
       license = licenses.gpl3;
       maintainers = with maintainers; [ nazarewk ];
     };
   };
-in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
+  # Mono is required to compile plugin at runtime, after loading.
+in buildEnv {
   name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
+  paths = [ mono drv ];
 }

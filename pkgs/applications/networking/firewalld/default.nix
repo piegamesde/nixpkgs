@@ -1,41 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  bash,
-  docbook_xml_dtd_42,
-  docbook-xsl-nons,
-  glib,
-  gobject-introspection,
-  gtk3,
-  intltool,
-  libnotify,
-  libxml2,
-  libxslt,
-  networkmanagerapplet,
-  pkg-config,
-  python3,
-  wrapGAppsNoGuiHook,
-  withGui ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, bash, docbook_xml_dtd_42
+, docbook-xsl-nons, glib, gobject-introspection, gtk3, intltool, libnotify
+, libxml2, libxslt, networkmanagerapplet, pkg-config, python3
+, wrapGAppsNoGuiHook, withGui ? false }:
 
 let
-  pythonPath = python3.withPackages (
-    ps:
+  pythonPath = python3.withPackages (ps:
     with ps;
-    [
-      dbus-python
-      nftables
-      pygobject3
-    ]
-    ++ lib.optionals withGui [
-      pyqt5
-      pyqt5_sip
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    [ dbus-python nftables pygobject3 ]
+    ++ lib.optionals withGui [ pyqt5 pyqt5_sip ]);
+in stdenv.mkDerivation rec {
   pname = "firewalld";
   version = "1.3.2";
 
@@ -48,49 +21,34 @@ stdenv.mkDerivation rec {
 
   patches = [ ./respect-xml-catalog-files-var.patch ];
 
-  postPatch =
-    ''
-      substituteInPlace src/firewall/config/__init__.py.in \
-        --replace "/usr/share" "$out/share"
+  postPatch = ''
+    substituteInPlace src/firewall/config/__init__.py.in \
+      --replace "/usr/share" "$out/share"
 
-      for file in config/firewall-{applet,config}.desktop.in; do
-        substituteInPlace $file \
-          --replace "/usr/bin/" "$out/bin/"
-      done
-    ''
-    + lib.optionalString withGui ''
-      substituteInPlace src/firewall-applet.in \
-        --replace "/usr/bin/nm-connection-editor" "${networkmanagerapplet}/bin/nm-conenction-editor"
-    '';
+    for file in config/firewall-{applet,config}.desktop.in; do
+      substituteInPlace $file \
+        --replace "/usr/bin/" "$out/bin/"
+    done
+  '' + lib.optionalString withGui ''
+    substituteInPlace src/firewall-applet.in \
+      --replace "/usr/bin/nm-connection-editor" "${networkmanagerapplet}/bin/nm-conenction-editor"
+  '';
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      docbook_xml_dtd_42
-      docbook-xsl-nons
-      glib
-      intltool
-      libxml2
-      libxslt
-      pkg-config
-      python3
-      python3.pkgs.wrapPython
-    ]
-    ++ lib.optionals withGui [
-      gobject-introspection
-      wrapGAppsNoGuiHook
-    ];
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook_xml_dtd_42
+    docbook-xsl-nons
+    glib
+    intltool
+    libxml2
+    libxslt
+    pkg-config
+    python3
+    python3.pkgs.wrapPython
+  ] ++ lib.optionals withGui [ gobject-introspection wrapGAppsNoGuiHook ];
 
-  buildInputs =
-    [
-      bash
-      glib
-    ]
-    ++ lib.optionals withGui [
-      gtk3
-      libnotify
-      pythonPath
-    ];
+  buildInputs = [ bash glib ]
+    ++ lib.optionals withGui [ gtk3 libnotify pythonPath ];
 
   dontWrapGApps = true;
 

@@ -1,21 +1,8 @@
-{
-  lib,
-  buildGoModule,
-  callPackage,
-  fetchFromGitHub,
-  woodpecker-frontend,
-}:
-let
-  common = callPackage ./common.nix { };
-in
-buildGoModule {
+{ lib, buildGoModule, callPackage, fetchFromGitHub, woodpecker-frontend }:
+let common = callPackage ./common.nix { };
+in buildGoModule {
   pname = "woodpecker-server";
-  inherit (common)
-    version
-    src
-    ldflags
-    postBuild
-  ;
+  inherit (common) version src ldflags postBuild;
   vendorSha256 = null;
 
   postPatch = ''

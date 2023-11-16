@@ -1,22 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  python3,
-  zlib,
-  libssh2,
-  openssl,
-  pcre,
-  http-parser,
-  libiconv,
-  Security,
-  staticBuild ? stdenv.hostPlatform.isStatic,
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, python3, zlib, libssh2
+, openssl, pcre, http-parser, libiconv, Security, staticBuild ?
+  stdenv.hostPlatform.isStatic
   # for passthru.tests
-  libgit2-glib,
-  python3Packages,
-}:
+, libgit2-glib, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "libgit2";
@@ -36,19 +22,10 @@ stdenv.mkDerivation rec {
     "-DBUILD_SHARED_LIBS=${if staticBuild then "OFF" else "ON"}"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake python3 pkg-config ];
 
-  buildInputs = [
-    zlib
-    libssh2
-    openssl
-    pcre
-    http-parser
-  ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ zlib libssh2 openssl pcre http-parser ]
+    ++ lib.optional stdenv.isDarwin Security;
 
   propagatedBuildInputs = lib.optional (!stdenv.isLinux) libiconv;
 
@@ -60,7 +37,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Linkable library implementation of Git that you can use in your application";
+    description =
+      "Linkable library implementation of Git that you can use in your application";
     homepage = "https://libgit2.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;

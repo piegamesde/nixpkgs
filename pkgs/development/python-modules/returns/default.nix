@@ -1,23 +1,6 @@
-{
-  lib,
-  anyio,
-  curio,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpx,
-  hypothesis,
-  mypy,
-  poetry-core,
-  pytestCheckHook,
-  pytest-aio,
-  pytest-cov,
-  pytest-mypy,
-  pytest-mypy-plugins,
-  pytest-subtests,
-  setuptools,
-  trio,
-  typing-extensions,
-}:
+{ lib, anyio, curio, buildPythonPackage, fetchFromGitHub, httpx, hypothesis
+, mypy, poetry-core, pytestCheckHook, pytest-aio, pytest-cov, pytest-mypy
+, pytest-mypy-plugins, pytest-subtests, setuptools, trio, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "returns";
@@ -54,7 +37,8 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "--ignore=typesafety" ];
 
   meta = with lib; {
-    description = "Make your functions return something meaningful, typed, and safe!";
+    description =
+      "Make your functions return something meaningful, typed, and safe!";
     homepage = "returns.rtfd.io";
     license = licenses.bsd2;
     maintainers = [ maintainers.jessemoore ];

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  Carbon,
-}:
+{ lib, stdenv, fetchFromGitHub, Carbon }:
 
 stdenv.mkDerivation {
   pname = "qes";
@@ -28,3 +23,4 @@ stdenv.mkDerivation {
     license = licenses.mit;
   };
 }
+

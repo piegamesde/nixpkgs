@@ -20,10 +20,7 @@
     version = "3.15.6";
   };
   libusb = {
-    dependencies = [
-      "ffi"
-      "mini_portile2"
-    ];
+    dependencies = [ "ffi" "mini_portile2" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -44,10 +41,7 @@
     version = "2.5.0";
   };
   nokogiri = {
-    dependencies = [
-      "mini_portile2"
-      "racc"
-    ];
+    dependencies = [ "mini_portile2" "racc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

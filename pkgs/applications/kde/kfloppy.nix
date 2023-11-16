@@ -1,11 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  kcompletion,
-  kxmlgui,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kcompletion, kxmlgui }:
 
 mkDerivation {
   pname = "kfloppy";
@@ -17,9 +10,5 @@ mkDerivation {
     platforms = platforms.linux;
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [
-    kdoctools
-    kcompletion
-    kxmlgui
-  ];
+  buildInputs = [ kdoctools kcompletion kxmlgui ];
 }

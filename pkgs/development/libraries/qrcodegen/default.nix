@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "qrcodegen";
@@ -33,10 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nayuki.io/page/qr-code-generator-library";
     description = "High-quality QR Code generator library in many languages";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      mcbeth
-      AndersonTorres
-    ];
+    maintainers = with maintainers; [ mcbeth AndersonTorres ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

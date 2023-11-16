@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bats,
-  uncrustify,
-  testers,
-  packcc,
-}:
+{ lib, stdenv, fetchFromGitHub, bats, uncrustify, testers, packcc }:
 
 stdenv.mkDerivation rec {
   pname = "packcc";
@@ -34,10 +26,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    bats
-    uncrustify
-  ];
+  nativeCheckInputs = [ bats uncrustify ];
 
   preCheck = ''
     patchShebangs ../../tests

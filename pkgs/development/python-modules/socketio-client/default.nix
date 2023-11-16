@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  requests,
-  six,
-  websocket-client,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, requests, six, websocket-client, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "socketio-client";
@@ -18,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-71sjiGJDDYElPGUNCH1HaVdvgMt8KeD/kXVDpF615ho=";
   };
 
-  propagatedBuildInputs = [
-    six
-    websocket-client
-    requests
-  ];
+  propagatedBuildInputs = [ six websocket-client requests ];
 
   # Perform networking tests.
   doCheck = false;

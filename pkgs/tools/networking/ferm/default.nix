@@ -1,36 +1,22 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  perl,
-  iptables,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, perl, iptables, nixosTests }:
 
-let
-  inherit (lib.versions) majorMinor;
-in
-stdenv.mkDerivation rec {
+let inherit (lib.versions) majorMinor;
+in stdenv.mkDerivation rec {
   version = "2.7";
   pname = "ferm";
 
   src = fetchurl {
-    url = "http://ferm.foo-projects.org/download/${majorMinor version}/ferm-${version}.tar.xz";
+    url = "http://ferm.foo-projects.org/download/${
+        majorMinor version
+      }/ferm-${version}.tar.xz";
     sha256 = "sha256-wA2RDVOU5pZ1YI617g9QTVz9pB6ZCi2akbqsbfk+P5I=";
   };
 
   # perl is used at build time to gather the ferm version.
-  nativeBuildInputs = [
-    makeWrapper
-    perl
-  ];
+  nativeBuildInputs = [ makeWrapper perl ];
   buildInputs = [ perl ];
 
-  makeFlags = [
-    "PERL=perl"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "PERL=perl" "PREFIX=${placeholder "out"}" ];
 
   postInstall = ''
     rm -r $out/lib/systemd

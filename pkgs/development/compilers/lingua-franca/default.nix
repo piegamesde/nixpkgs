@@ -1,17 +1,12 @@
-{
-  lib,
-  pkgs,
-  stdenv,
-  fetchzip,
-  jdk17_headless,
-}:
+{ lib, pkgs, stdenv, fetchzip, jdk17_headless }:
 
 stdenv.mkDerivation rec {
   pname = "lfc";
   version = "0.4.0";
 
   src = fetchzip {
-    url = "https://github.com/lf-lang/lingua-franca/releases/download/v${version}/lf-cli-${version}.zip";
+    url =
+      "https://github.com/lf-lang/lingua-franca/releases/download/v${version}/lf-cli-${version}.zip";
     sha256 = "sha256-LrAm77iPUlqVfRdYy2bZ4mim7DHIr5JxPdbrgxokGvc=";
   };
 

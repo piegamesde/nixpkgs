@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub
+, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "incomfort-client";
@@ -27,10 +19,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  checkInputs = [
-    aioresponses
-    pytest-asyncio
-  ];
+  checkInputs = [ aioresponses pytest-asyncio ];
 
   pythonImportsCheck = [ "incomfortclient" ];
 

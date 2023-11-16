@@ -1,30 +1,14 @@
-{
-  stdenv,
-  lib,
-  python3,
-  cmake,
-  libllvm,
-  ocaml,
-  findlib,
-  ctypes,
-}:
+{ stdenv, lib, python3, cmake, libllvm, ocaml, findlib, ctypes }:
 
-let
-  version = lib.getVersion libllvm;
-in
+let version = lib.getVersion libllvm;
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "ocaml-llvm";
   inherit version;
 
   inherit (libllvm) src;
 
-  nativeBuildInputs = [
-    cmake
-    python3
-    ocaml
-    findlib
-  ];
+  nativeBuildInputs = [ cmake python3 ocaml findlib ];
   buildInputs = [ ctypes ];
   propagatedBuildInputs = [ libllvm ];
 
@@ -43,10 +27,7 @@ stdenv.mkDerivation {
 
   buildFlags = [ "ocaml_all" ];
 
-  installFlags = [
-    "-C"
-    "bindings/ocaml"
-  ];
+  installFlags = [ "-C" "bindings/ocaml" ];
 
   postInstall = ''
     mkdir -p $OCAMLFIND_DESTDIR/
@@ -55,9 +36,7 @@ stdenv.mkDerivation {
     mv $OCAMLFIND_DESTDIR/llvm/stublibs $OCAMLFIND_DESTDIR/stublibs
   '';
 
-  passthru = {
-    inherit libllvm;
-  };
+  passthru = { inherit libllvm; };
 
   meta = {
     inherit (libllvm.meta) license homepage;
@@ -65,4 +44,5 @@ stdenv.mkDerivation {
     description = "OCaml bindings distributed with LLVM";
     maintainers = with lib.maintainers; [ vbgl ];
   };
+
 }

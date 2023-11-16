@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  setuptools-scm,
-  tempora,
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, setuptools-scm, tempora
 }:
 
 buildPythonPackage rec {

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  Libsystem,
-}:
+{ lib, stdenv, fetchurl, Libsystem }:
 let
   version = "110.95";
   baseurl = "http://smlnj.cs.uchicago.edu/dist/working/${version}";
@@ -112,24 +107,21 @@ let
       sha256 = "0nqavqcbidwnphbbwjrxhpy8glbyad51wy0cpqimbsw3sgns0zkd";
     }
   ];
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "smlnj";
   inherit version;
 
   inherit sources;
 
-  patchPhase =
-    ''
-      sed -i '/PATH=/d' config/_arch-n-opsys base/runtime/config/gen-posix-names.sh
-      echo SRCARCHIVEURL="file:/$TMP" > config/srcarchiveurl
-      patch --verbose config/_heap2exec ${./heap2exec.diff}
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # Locate standard headers like <unistd.h>
-      substituteInPlace base/runtime/config/gen-posix-names.sh \
-        --replace "\$SDK_PATH/usr" "${Libsystem}"
-    '';
+  patchPhase = ''
+    sed -i '/PATH=/d' config/_arch-n-opsys base/runtime/config/gen-posix-names.sh
+    echo SRCARCHIVEURL="file:/$TMP" > config/srcarchiveurl
+    patch --verbose config/_heap2exec ${./heap2exec.diff}
+  '' + lib.optionalString stdenv.isDarwin ''
+    # Locate standard headers like <unistd.h>
+    substituteInPlace base/runtime/config/gen-posix-names.sh \
+      --replace "\$SDK_PATH/usr" "${Libsystem}"
+  '';
 
   unpackPhase = ''
     for s in $sources; do
@@ -159,11 +151,7 @@ stdenv.mkDerivation {
     description = "Standard ML of New Jersey, a compiler";
     homepage = "http://smlnj.org";
     license = licenses.bsd3;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
     maintainers = with maintainers; [ thoughtpolice ];
     mainProgram = "sml";
     # never built on x86_64-darwin since first introduction in nixpkgs

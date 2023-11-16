@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  lxml,
-  pythonAtLeast,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, lxml, pythonAtLeast, pythonOlder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "unittest-xml-reporting";
@@ -34,11 +27,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/xmlrunner/unittest-xml-reporting";
-    description = "unittest-based test runner with Ant/JUnit like XML reporting";
+    description =
+      "unittest-based test runner with Ant/JUnit like XML reporting";
     license = licenses.bsd2;
-    maintainers = with maintainers; [
-      rprospero
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ rprospero SuperSandro2000 ];
   };
 }

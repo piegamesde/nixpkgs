@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  wakatime,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, wakatime }:
 
 buildGoModule rec {
   pname = "wakatime";
@@ -25,24 +19,24 @@ buildGoModule rec {
     "-X github.com/wakatime/wakatime-cli/pkg/version.Version=${version}"
   ];
 
-  preCheck =
-    let
-      skippedTests = [
-        # Tests requiring network
-        "TestFileExperts"
-        "TestSendHeartbeats"
-        "TestSendHeartbeats_ExtraHeartbeats"
-        "TestSendHeartbeats_IsUnsavedEntity"
-        "TestSendHeartbeats_NonExistingExtraHeartbeatsEntity"
+  preCheck = let
+    skippedTests = [
+      # Tests requiring network
+      "TestFileExperts"
+      "TestSendHeartbeats"
+      "TestSendHeartbeats_ExtraHeartbeats"
+      "TestSendHeartbeats_IsUnsavedEntity"
+      "TestSendHeartbeats_NonExistingExtraHeartbeatsEntity"
 
-        # Flaky tests
-        "TestLoadParams_ApiKey_FromVault_Err_Darwin"
-      ];
-    in
-    ''
-      # Disable tests
-      buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
-    '';
+      # Flaky tests
+      "TestLoadParams_ApiKey_FromVault_Err_Darwin"
+    ];
+  in ''
+    # Disable tests
+    buildFlagsArray+=("-run" "[^(${
+      builtins.concatStringsSep "|" skippedTests
+    })]")
+  '';
 
   passthru.tests.version = testers.testVersion {
     package = wakatime;

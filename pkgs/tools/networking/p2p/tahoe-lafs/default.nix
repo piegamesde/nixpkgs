@@ -1,10 +1,4 @@
-{
-  lib,
-  nettools,
-  python3Packages,
-  texinfo,
-  fetchFromGitHub,
-}:
+{ lib, nettools, python3Packages, texinfo, fetchFromGitHub }:
 
 # FAILURES: The "running build_ext" phase fails to compile Twisted
 # plugins, because it tries to write them into Twisted's (immutable)
@@ -22,11 +16,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-MuD/ZY+die7RCsuVdcePSD0DdwatXRi7CxW2iFt22L0=";
   };
 
-  outputs = [
-    "out"
-    "doc"
-    "info"
-  ];
+  outputs = [ "out" "doc" "info" ];
 
   postPatch = ''
     sed -i "src/allmydata/util/iputil.py" \
@@ -65,14 +55,10 @@ python3Packages.buildPythonApplication rec {
     )
   '';
 
-  nativeBuildInputs = with python3Packages; [
-    sphinx
-    texinfo
-  ];
+  nativeBuildInputs = with python3Packages; [ sphinx texinfo ];
 
   # The `backup' command requires `sqlite3'.
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       appdirs
       beautifulsoup4
@@ -98,15 +84,10 @@ python3Packages.buildPythonApplication rec {
       twisted
       zfec
       zope_interface
-    ]
-    ++ twisted.optional-dependencies.tls
+    ] ++ twisted.optional-dependencies.tls
     ++ twisted.optional-dependencies.conch;
 
-  nativeCheckInputs = with python3Packages; [
-    mock
-    hypothesis
-    twisted
-  ];
+  nativeCheckInputs = with python3Packages; [ mock hypothesis twisted ];
 
   # Install the documentation.
   postInstall = ''
@@ -128,7 +109,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Tahoe-LAFS, a decentralized, fault-tolerant, distributed storage system";
+    description =
+      "Tahoe-LAFS, a decentralized, fault-tolerant, distributed storage system";
     longDescription = ''
       Tahoe-LAFS is a secure, decentralized, fault-tolerant filesystem.
       This filesystem is encrypted and spread over multiple peers in

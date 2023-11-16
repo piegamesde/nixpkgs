@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  bitstruct,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  voluptuous,
-}:
+{ lib, aiohttp, bitstruct, buildPythonPackage, cryptography, fetchFromGitHub
+, pytestCheckHook, pythonOlder, setuptools, voluptuous }:
 
 buildPythonPackage rec {
   pname = "python-otbr-api";
@@ -27,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    bitstruct
-    cryptography
-    voluptuous
-  ];
+  propagatedBuildInputs = [ aiohttp bitstruct cryptography voluptuous ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -41,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for the Open Thread Border Router";
     homepage = "https://github.com/home-assistant-libs/python-otbr-api";
-    changelog = "https://github.com/home-assistant-libs/python-otbr-api/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-libs/python-otbr-api/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

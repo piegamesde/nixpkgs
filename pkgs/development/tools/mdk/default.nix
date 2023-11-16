@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  intltool,
-  pkg-config,
-  glib,
-}:
+{ lib, stdenv, fetchurl, intltool, pkg-config, glib }:
 
 stdenv.mkDerivation rec {
   pname = "gnu-mdk";
@@ -14,10 +7,7 @@ stdenv.mkDerivation rec {
     url = "mirror://gnu/mdk/v${version}/mdk-${version}.tar.gz";
     sha256 = "0bhk3c82kyp8167h71vdpbcr852h5blpnwggcswqqwvvykbms7lb";
   };
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
   buildInputs = [ glib ];
   postInstall = ''
     mkdir -p $out/share/emacs/site-lisp/

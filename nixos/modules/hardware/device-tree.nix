@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -70,8 +65,7 @@ let
     };
   };
 
-  filterDTBs =
-    src:
+  filterDTBs = src:
     if cfg.filter == null then
       "${src}/dtbs"
     else
@@ -86,55 +80,39 @@ let
 
   # Compile single Device Tree overlay source
   # file (.dts) into its compiled variant (.dtbo)
-  compileDTS =
-    name: f:
-    pkgs.callPackage
-      (
-        { stdenv, dtc }:
-        stdenv.mkDerivation {
-          name = "${name}-dtbo";
+  compileDTS = name: f:
+    pkgs.callPackage ({ stdenv, dtc }:
+      stdenv.mkDerivation {
+        name = "${name}-dtbo";
 
-          nativeBuildInputs = [ dtc ];
+        nativeBuildInputs = [ dtc ];
 
-          buildCommand = ''
-            $CC -E -nostdinc -I${
-              getDev cfg.kernelPackage
-            }/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
-              dtc -I dts -O dtb -@ -o $out
-          '';
-        }
-      )
-      { };
+        buildCommand = ''
+          $CC -E -nostdinc -I${
+            getDev cfg.kernelPackage
+          }/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
+            dtc -I dts -O dtb -@ -o $out
+        '';
+      }) { };
 
   # Fill in `dtboFile` for each overlay if not set already.
   # Existence of one of these is guarded by assertion below
-  withDTBOs =
-    xs:
-    flip map xs (
-      o:
-      o
-      // {
-        dtboFile =
-          if o.dtboFile == null then
-            if o.dtsFile != null then
-              compileDTS o.name o.dtsFile
-            else
-              compileDTS o.name (pkgs.writeText "dts" o.dtsText)
+  withDTBOs = xs:
+    flip map xs (o:
+      o // {
+        dtboFile = if o.dtboFile == null then
+          if o.dtsFile != null then
+            compileDTS o.name o.dtsFile
           else
-            o.dtboFile;
-      }
-    );
-in
-{
+            compileDTS o.name (pkgs.writeText "dts" o.dtsText)
+        else
+          o.dtboFile;
+      });
+
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "hardware"
-        "deviceTree"
-        "base"
-      ]
-      "Use hardware.deviceTree.kernelPackage instead"
-    )
+    (mkRemovedOptionModule [ "hardware" "deviceTree" "base" ]
+      "Use hardware.deviceTree.kernelPackage instead")
   ];
 
   options = {
@@ -190,15 +168,11 @@ in
             { name = "precompiled"; dtboFile = ./dtbos/example.dtbo; }
           ]
         '';
-        type = types.listOf (
-          types.coercedTo types.path
-            (path: {
-              name = baseNameOf path;
-              filter = null;
-              dtboFile = path;
-            })
-            overlayType
-        );
+        type = types.listOf (types.coercedTo types.path (path: {
+          name = baseNameOf path;
+          filter = null;
+          dtboFile = path;
+        }) overlayType);
         description = lib.mdDoc ''
           List of overlays to apply to base device-tree (.dtb) files.
         '';
@@ -217,23 +191,22 @@ in
 
   config = mkIf (cfg.enable) {
 
-    assertions =
-      let
-        invalidOverlay = o: (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null);
-      in
-      lib.singleton {
-        assertion = lib.all (o: !invalidOverlay o) cfg.overlays;
-        message = ''
-          deviceTree overlay needs one of dtsFile, dtsText or dtboFile set.
-          Offending overlay(s):
-          ${toString (map (o: o.name) (builtins.filter invalidOverlay cfg.overlays))}
-        '';
-      };
+    assertions = let
+      invalidOverlay = o:
+        (o.dtsFile == null) && (o.dtsText == null) && (o.dtboFile == null);
+    in lib.singleton {
+      assertion = lib.all (o: !invalidOverlay o) cfg.overlays;
+      message = ''
+        deviceTree overlay needs one of dtsFile, dtsText or dtboFile set.
+        Offending overlay(s):
+        ${toString
+        (map (o: o.name) (builtins.filter invalidOverlay cfg.overlays))}
+      '';
+    };
 
-    hardware.deviceTree.package =
-      if (cfg.overlays != [ ]) then
-        pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
-      else
-        filteredDTBs;
+    hardware.deviceTree.package = if (cfg.overlays != [ ]) then
+      pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
+    else
+      filteredDTBs;
   };
 }

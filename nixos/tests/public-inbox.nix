@@ -1,37 +1,26 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     orga = "example";
     domain = "${orga}.localdomain";
 
-    tls-cert = pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; } ''
-      openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
-        -subj '/CN=machine.${domain}'
-      install -D -t $out key.pem cert.pem
-    '';
-  in
-  {
+    tls-cert =
+      pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; } ''
+        openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
+          -subj '/CN=machine.${domain}'
+        install -D -t $out key.pem cert.pem
+      '';
+  in {
     name = "public-inbox";
 
     meta.maintainers = with pkgs.lib.maintainers; [ julm ];
 
-    nodes.machine =
-      {
-        config,
-        pkgs,
-        nodes,
-        ...
-      }:
+    nodes.machine = { config, pkgs, nodes, ... }:
       let
         inherit (config.services) gitolite public-inbox;
         # Git repositories paths in Gitolite.
         # Only their baseNameOf is used for configuring public-inbox.
-        repositories = [
-          "user/repo1"
-          "user/repo2"
-        ];
-      in
-      {
+        repositories = [ "user/repo1" "user/repo2" ];
+      in {
         virtualisation.diskSize = 1 * 1024;
         virtualisation.memorySize = 1 * 1024;
         networking.domain = domain;
@@ -76,50 +65,40 @@ import ./make-test-python.nix (
             cert = "${tls-cert}/cert.pem";
             key = "${tls-cert}/key.pem";
           };
-          inboxes =
-            lib.recursiveUpdate
-              (lib.genAttrs (map baseNameOf repositories) (
-                repo: {
-                  address =
-                    [
-                      # Routed to the "public-inbox:" transport in services.postfix.transport
-                      "${repo}@${domain}"
-                    ];
-                  description = ''
-                    ${repo}@${domain} :
-                    discussions about ${repo}.
-                  '';
-                  url = "https://machine.${domain}/inbox/${repo}";
-                  newsgroup = "inbox.comp.${orga}.${repo}";
-                  coderepo = [ repo ];
-                }
-              ))
-              {
-                repo2 = {
-                  hide = [
-                    "imap" # FIXME: doesn't work for IMAP as of public-inbox 1.6.1
-                    "manifest"
-                    "www"
-                  ];
-                };
+          inboxes = lib.recursiveUpdate
+            (lib.genAttrs (map baseNameOf repositories) (repo: {
+              address = [
+                # Routed to the "public-inbox:" transport in services.postfix.transport
+                "${repo}@${domain}"
+              ];
+              description = ''
+                ${repo}@${domain} :
+                discussions about ${repo}.
+              '';
+              url = "https://machine.${domain}/inbox/${repo}";
+              newsgroup = "inbox.comp.${orga}.${repo}";
+              coderepo = [ repo ];
+            })) {
+              repo2 = {
+                hide = [
+                  "imap" # FIXME: doesn't work for IMAP as of public-inbox 1.6.1
+                  "manifest"
+                  "www"
+                ];
               };
-          settings.coderepo = lib.listToAttrs (
-            map
-              (
-                path:
-                lib.nameValuePair (baseNameOf path) {
-                  dir = "/var/lib/gitolite/repositories/${path}.git";
-                  cgitUrl = "https://git.${domain}/${path}.git";
-                }
-              )
-              repositories
-          );
+            };
+          settings.coderepo = lib.listToAttrs (map (path:
+            lib.nameValuePair (baseNameOf path) {
+              dir = "/var/lib/gitolite/repositories/${path}.git";
+              cgitUrl = "https://git.${domain}/${path}.git";
+            }) repositories);
         };
 
         # Use gitolite to store Git repositories listed in coderepo entries
         services.gitolite = {
           enable = true;
-          adminPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmoTOQnGqX+//us5oye8UuE+tQBx9QEM7PN13jrwgqY root@localhost";
+          adminPubkey =
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJmoTOQnGqX+//us5oye8UuE+tQBx9QEM7PN13jrwgqY root@localhost";
         };
         systemd.services.public-inbox-httpd = {
           serviceConfig.SupplementaryGroups = [ gitolite.group ];
@@ -138,7 +117,8 @@ import ./make-test-python.nix (
             sslCertificateKey = "${tls-cert}/key.pem";
             locations."/".return = "302 /inbox";
             locations."= /inbox".return = "302 /inbox/";
-            locations."/inbox".proxyPass = "http://unix:${public-inbox.http.port}:/inbox";
+            locations."/inbox".proxyPass =
+              "http://unix:${public-inbox.http.port}:/inbox";
             # If using TCP instead of a Unix socket:
             #locations."/inbox".proxyPass = "http://127.0.0.1:${toString public-inbox.http.port}/inbox";
             # Referred to by settings.publicinbox.css
@@ -183,10 +163,8 @@ import ./make-test-python.nix (
           recipientDelimiter = "+";
         };
 
-        environment.systemPackages = [
-          pkgs.mailutils
-          pkgs.openssl
-        ];
+        environment.systemPackages = [ pkgs.mailutils pkgs.openssl ];
+
       };
 
     testScript = ''
@@ -245,5 +223,4 @@ import ./make-test-python.nix (
       machine.succeed("curl -L https://machine.${domain}/inbox/repo1/repo1@root-1/raw | sudo -u public-inbox public-inbox-learn rm --all")
       machine.fail("curl -L https://machine.${domain}/inbox/repo1/repo1@root-1/T/#u | grep 'This is a testing mail.'")
     '';
-  }
-)
+  })

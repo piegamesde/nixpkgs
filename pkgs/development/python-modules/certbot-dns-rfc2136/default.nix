@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  acme,
-  certbot,
-  dnspython,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ buildPythonPackage, acme, certbot, dnspython, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "certbot-dns-rfc2136";
@@ -13,11 +6,7 @@ buildPythonPackage rec {
   inherit (certbot) src version;
   disabled = pythonOlder "3.6";
 
-  propagatedBuildInputs = [
-    acme
-    certbot
-    dnspython
-  ];
+  propagatedBuildInputs = [ acme certbot dnspython ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

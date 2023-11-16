@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "rpl";
@@ -22,11 +18,10 @@ python3Packages.buildPythonApplication rec {
     ./remove-argparse-manpage.diff # quickfix for ImportError: No module named build_manpages.build_manpages
   ];
 
-  buildInputs =
-    [
-      #python3Packages.argparse-manpage # TODO
-      python3Packages.chardet
-    ];
+  buildInputs = [
+    #python3Packages.argparse-manpage # TODO
+    python3Packages.chardet
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

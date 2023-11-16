@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "prayer-times-calculator";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for the Prayer Times API";
     homepage = "https://github.com/uchagani/prayer-times-calculator";
-    changelog = "https://github.com/uchagani/prayer-times-calculator/releases/tag/${version}";
+    changelog =
+      "https://github.com/uchagani/prayer-times-calculator/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

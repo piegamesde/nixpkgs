@@ -1,26 +1,7 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitea,
-  openssl,
-  pkg-config,
-  protobuf,
-  cacert,
-  testers,
-  Security,
-  garage,
-  nixosTests,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitea, openssl, pkg-config, protobuf
+, cacert, testers, Security, garage, nixosTests }:
 let
-  generic =
-    {
-      version,
-      sha256,
-      cargoSha256,
-      eol ? false,
-      broken ? false,
-    }:
+  generic = { version, sha256, cargoSha256, eol ? false, broken ? false }:
     rustPlatform.buildRustPackage {
       pname = "garage";
       inherit version;
@@ -35,10 +16,7 @@ let
 
       inherit cargoSha256;
 
-      nativeBuildInputs = [
-        protobuf
-        pkg-config
-      ];
+      nativeBuildInputs = [ protobuf pkg-config ];
 
       buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 
@@ -48,8 +26,7 @@ let
 
       # See https://git.deuxfleurs.fr/Deuxfleurs/garage/src/tag/v0.8.2/nix/compile.nix#L192-L198
       # on version changes for checking if changes are required here
-      buildFeatures =
-        [ "kubernetes-discovery" ]
+      buildFeatures = [ "kubernetes-discovery" ]
         ++ (lib.optionals (lib.versionAtLeast version "0.8") [
           "bundled-libs"
           "sled"
@@ -64,11 +41,7 @@ let
       # To make integration tests pass, we include the optional k2v feature here,
       # but in buildFeatures only for version 0.8+, where it's enabled by default.
       # See: https://garagehq.deuxfleurs.fr/documentation/reference-manual/k2v/
-      checkFeatures =
-        [
-          "k2v"
-          "kubernetes-discovery"
-        ]
+      checkFeatures = [ "k2v" "kubernetes-discovery" ]
         ++ (lib.optionals (lib.versionAtLeast version "0.8") [
           "bundled-libs"
           "sled"
@@ -79,7 +52,8 @@ let
       passthru = nixosTests.garage;
 
       meta = {
-        description = "S3-compatible object store for small self-hosted geo-distributed deployments";
+        description =
+          "S3-compatible object store for small self-hosted geo-distributed deployments";
         homepage = "https://garagehq.deuxfleurs.fr";
         license = lib.licenses.agpl3Only;
         maintainers = with lib.maintainers; [
@@ -88,12 +62,12 @@ let
           teutat3s
           raitobezarius
         ];
-        knownVulnerabilities = (lib.optional eol "Garage version ${version} is EOL");
+        knownVulnerabilities =
+          (lib.optional eol "Garage version ${version} is EOL");
         inherit broken;
       };
     };
-in
-rec {
+in rec {
   # Until Garage hits 1.0, 0.7.3 is equivalent to 7.3.0 for now, therefore
   # we have to keep all the numbers in the version to handle major/minor/patch level.
   # for <1.0.

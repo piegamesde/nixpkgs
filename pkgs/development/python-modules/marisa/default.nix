@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  marisa,
-  swig,
-}:
+{ lib, buildPythonPackage, marisa, swig }:
 
 buildPythonPackage rec {
   pname = "marisa";
@@ -27,10 +22,7 @@ buildPythonPackage rec {
   meta = {
     description = "Python bindings for marisa";
     homepage = "https://github.com/s-yata/marisa-trie";
-    license = with lib.licenses; [
-      bsd2
-      lgpl21Plus
-    ];
+    license = with lib.licenses; [ bsd2 lgpl21Plus ];
     maintainers = with lib.maintainers; [ dotlambda ];
   };
 }

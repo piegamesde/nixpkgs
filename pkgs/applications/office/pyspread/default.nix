@@ -1,12 +1,5 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  copyDesktopItems,
-  wrapQtAppsHook,
-  qtsvg,
-  makeDesktopItem,
-}:
+{ lib, python3, fetchPypi, copyDesktopItems, wrapQtAppsHook, qtsvg
+, makeDesktopItem }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "pyspread";
@@ -17,10 +10,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-rg2T9Y9FU2a+aWg0XM8jyQB9t8zDVlpad3TjUcx4//8=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ copyDesktopItems wrapQtAppsHook ];
 
   buildInputs = [ qtsvg ];
 
@@ -46,11 +36,7 @@ python3.pkgs.buildPythonApplication rec {
       desktopName = "Pyspread";
       genericName = "Spreadsheet";
       comment = meta.description;
-      categories = [
-        "Office"
-        "Development"
-        "Spreadsheet"
-      ];
+      categories = [ "Office" "Development" "Spreadsheet" ];
     })
   ];
 

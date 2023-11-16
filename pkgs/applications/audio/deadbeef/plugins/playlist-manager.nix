@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  deadbeef,
-  gtk3,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, deadbeef, gtk3 }:
 
 stdenv.mkDerivation {
   pname = "deadbeef-playlist-manager-plugin";
@@ -20,10 +13,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    deadbeef
-    gtk3
-  ];
+  buildInputs = [ deadbeef gtk3 ];
 
   installPhase = ''
     runHook preInstall
@@ -34,13 +24,11 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  buildFlags = [
-    "CFLAGS=-I${deadbeef}/include/deadbeef"
-    "gtk3"
-  ];
+  buildFlags = [ "CFLAGS=-I${deadbeef}/include/deadbeef" "gtk3" ];
 
   meta = with lib; {
-    description = "Removes duplicate and vanished files from the current playlist";
+    description =
+      "Removes duplicate and vanished files from the current playlist";
     homepage = "https://github.com/kpcee/deadbeef-playlist-manager";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.cmm ];

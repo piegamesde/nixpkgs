@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  pkgs,
-  fetchurl,
-  wrapGAppsHook,
-  glib,
-  gtk3,
-  atomEnv,
-}:
+{ lib, stdenv, pkgs, fetchurl, wrapGAppsHook, glib, gtk3, atomEnv }:
 
 let
   versions = {
@@ -24,24 +15,19 @@ let
     };
   };
 
-  common =
-    pname:
-    {
-      version,
-      sha256,
-      beta ? null,
-      broken ? false,
-    }:
+  common = pname:
+    { version, sha256, beta ? null, broken ? false }:
     let
-      fullVersion = version + lib.optionalString (beta != null) "-beta${toString beta}";
+      fullVersion = version
+        + lib.optionalString (beta != null) "-beta${toString beta}";
       name = "${pname}-${fullVersion}";
-    in
-    stdenv.mkDerivation {
+    in stdenv.mkDerivation {
       inherit name;
       version = fullVersion;
 
       src = fetchurl {
-        url = "https://github.com/atom/atom/releases/download/v${fullVersion}/atom-amd64.deb";
+        url =
+          "https://github.com/atom/atom/releases/download/v${fullVersion}/atom-amd64.deb";
         name = "${name}.deb";
         inherit sha256;
       };
@@ -106,13 +92,9 @@ let
         homepage = "https://atom.io/";
         sourceProvenance = with sourceTypes; [ binaryNativeCode ];
         license = licenses.mit;
-        maintainers = with maintainers; [
-          offline
-          ysndr
-        ];
+        maintainers = with maintainers; [ offline ysndr ];
         platforms = platforms.x86_64;
         inherit broken;
       };
     };
-in
-lib.mapAttrs common versions
+in lib.mapAttrs common versions

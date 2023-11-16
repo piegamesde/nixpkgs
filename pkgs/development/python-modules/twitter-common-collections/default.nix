@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  twitter-common-lang,
-}:
+{ lib, buildPythonPackage, fetchPypi, twitter-common-lang }:
 
 buildPythonPackage rec {
   pname = "twitter.common.collections";
@@ -22,4 +17,5 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ copumpkin ];
   };
+
 }

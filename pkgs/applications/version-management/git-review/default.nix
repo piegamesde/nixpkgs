@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromGitea,
-  buildPythonApplication,
-  pbr,
-  requests,
-  setuptools,
-  gitUpdater,
-}:
+{ lib, fetchFromGitea, buildPythonApplication, pbr, requests, setuptools
+, gitUpdater }:
 
 buildPythonApplication rec {
   pname = "git-review";
@@ -24,10 +17,7 @@ buildPythonApplication rec {
     sha256 = "sha256-C8M4b/paHJB9geizc1eIhXsTuLeeS4dDisCfCQF1RuU=";
   };
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   nativeBuildInputs = [ pbr ];
 

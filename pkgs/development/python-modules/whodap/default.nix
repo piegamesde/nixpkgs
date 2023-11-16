@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  httpx,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-asyncio, pytestCheckHook
+, pythonOlder, httpx }:
 
 buildPythonPackage rec {
   pname = "whodap";
@@ -24,21 +17,18 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ httpx ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Requires network access
-      "tests/test_client.py"
-    ];
+  disabledTestPaths = [
+    # Requires network access
+    "tests/test_client.py"
+  ];
 
   pythonImportsCheck = [ "whodap" ];
 
   meta = with lib; {
-    description = "Python RDAP utility for querying and parsing information about domain names";
+    description =
+      "Python RDAP utility for querying and parsing information about domain names";
     homepage = "https://github.com/pogzyb/whodap";
     changelog = "https://github.com/pogzyb/whodap/releases/tag/v${version}";
     license = with licenses; [ mit ];

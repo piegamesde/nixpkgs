@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  gtk3,
-  libintl,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, gtk3, libintl }:
 
 stdenv.mkDerivation rec {
   pname = "lxtask";
@@ -17,15 +9,9 @@ stdenv.mkDerivation rec {
     sha256 = "0b2fxg8jjjpk219gh7qa18g45365598nd2bq7rrq0bdvqjdxy5i2";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    gtk3
-    libintl
-  ];
+  buildInputs = [ gtk3 libintl ];
 
   configureFlags = [ "--enable-gtk3" ];
 

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  lv2,
-  zita-resampler,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, lv2, zita-resampler }:
 
 stdenv.mkDerivation rec {
   pname = "tamgamp.lv2";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    lv2
-    zita-resampler
-  ];
+  buildInputs = [ lv2 zita-resampler ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

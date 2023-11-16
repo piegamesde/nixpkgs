@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  filetype,
-  future,
-  hypothesis,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-oauthlib,
-  responses,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, filetype, future
+, hypothesis, pytestCheckHook, pythonOlder, requests, requests-oauthlib
+, responses }:
 
 buildPythonPackage rec {
   pname = "python-twitter";
@@ -27,27 +16,18 @@ buildPythonPackage rec {
     sha256 = "08ydmf6dcd416cvw6xq1wxsz6b9s21f2mf9fh3y4qz9swj6n9h8z";
   };
 
-  patches =
-    [
-      # Fix tests. Remove with the next release
-      (fetchpatch {
-        url = "https://github.com/bear/python-twitter/commit/f7eb83d9dca3ba0ee93e629ba5322732f99a3a30.patch";
-        sha256 = "008b1bd03wwngs554qb136lsasihql3yi7vlcacmk4s5fmr6klqw";
-      })
-    ];
-
-  propagatedBuildInputs = [
-    filetype
-    future
-    requests
-    requests-oauthlib
+  patches = [
+    # Fix tests. Remove with the next release
+    (fetchpatch {
+      url =
+        "https://github.com/bear/python-twitter/commit/f7eb83d9dca3ba0ee93e629ba5322732f99a3a30.patch";
+      sha256 = "008b1bd03wwngs554qb136lsasihql3yi7vlcacmk4s5fmr6klqw";
+    })
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-    hypothesis
-  ];
+  propagatedBuildInputs = [ filetype future requests requests-oauthlib ];
+
+  nativeCheckInputs = [ pytestCheckHook responses hypothesis ];
 
   postPatch = ''
     substituteInPlace setup.py \

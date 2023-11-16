@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  cmake,
-  libGLU,
-  libGL,
-  xorg,
-}:
+{ lib, stdenv, fetchgit, cmake, libGLU, libGL, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "glee";
@@ -21,11 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    libGLU
-    libGL
-    xorg.libX11
-  ];
+  buildInputs = [ libGLU libGL xorg.libX11 ];
 
   configureScript = ''
     cmake

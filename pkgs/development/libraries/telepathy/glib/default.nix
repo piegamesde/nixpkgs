@@ -1,25 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dbus-glib,
-  glib,
-  python3,
-  pkg-config,
-  libxslt,
-  gobject-introspection,
-  vala,
-  glibcLocales,
-}:
+{ lib, stdenv, fetchurl, dbus-glib, glib, python3, pkg-config, libxslt
+, gobject-introspection, vala, glibcLocales }:
 
 stdenv.mkDerivation rec {
   pname = "telepathy-glib";
   version = "0.24.2";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "${meta.homepage}/releases/telepathy-glib/${pname}-${version}.tar.gz";
@@ -27,20 +13,11 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-    libxslt
-    gobject-introspection
-    vala
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config libxslt gobject-introspection vala python3 ];
 
   buildInputs = [ glibcLocales ];
 
-  propagatedBuildInputs = [
-    dbus-glib
-    glib
-  ];
+  propagatedBuildInputs = [ dbus-glib glib ];
 
   configureFlags = [ "--enable-vala-bindings" ];
 
@@ -55,10 +32,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://telepathy.freedesktop.org";
     platforms = platforms.unix;
-    license = with licenses; [
-      bsd2
-      bsd3
-      lgpl21Plus
-    ];
+    license = with licenses; [ bsd2 bsd3 lgpl21Plus ];
   };
 }

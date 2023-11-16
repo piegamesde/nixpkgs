@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hatchling,
-  pytestCheckHook,
-  bracex,
-}:
+{ lib, buildPythonPackage, fetchPypi, hatchling, pytestCheckHook, bracex }:
 
 buildPythonPackage rec {
   pname = "wcmatch";

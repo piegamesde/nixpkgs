@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hyperopt,
-  mock,
-  numpy,
-  poetry-core,
-  prometheus-client,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hyperopt, mock, numpy, poetry-core
+, prometheus-client, pytestCheckHook, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "gradient-utils";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    hyperopt
-    prometheus-client
-    numpy
-  ];
+  propagatedBuildInputs = [ hyperopt prometheus-client numpy ];
 
-  nativeCheckInputs = [
-    mock
-    requests
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock requests pytestCheckHook ];
 
   postPatch = ''
     # https://github.com/Paperspace/gradient-utils/issues/68
@@ -53,11 +34,10 @@ buildPythonPackage rec {
     export HOSTNAME=myhost-experimentId
   '';
 
-  disabledTestPaths =
-    [
-      # Requires a working Prometheus push gateway
-      "tests/integration/test_metrics.py"
-    ];
+  disabledTestPaths = [
+    # Requires a working Prometheus push gateway
+    "tests/integration/test_metrics.py"
+  ];
 
   pythonImportsCheck = [ "gradient_utils" ];
 

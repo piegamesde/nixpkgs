@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "swaggerhole";
@@ -17,10 +13,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-3HmIpn1A86PXZRL+SqMdr84O16hW1mCUWHKnOVolmx8=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-    whispers
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ requests whispers ];
 
   # Project has no tests
   doCheck = false;

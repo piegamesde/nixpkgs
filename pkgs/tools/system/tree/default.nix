@@ -1,29 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-}:
+{ lib, stdenv, fetchFromGitLab }:
 
 let
   # These settings are found in the Makefile, but there seems to be no
   # way to select one ore the other setting other than editing the file
   # manually, so we have to duplicate the know how here.
-  systemFlags =
-    lib.optionalString stdenv.isDarwin ''
-      CFLAGS="-O2 -Wall -fomit-frame-pointer -no-cpp-precomp"
-      LDFLAGS=
-    ''
-    + lib.optionalString stdenv.isCygwin ''
-      CFLAGS="-O2 -Wall -fomit-frame-pointer"
-      LDFLAGS=-s
-      TREE_DEST=tree.exe
-    ''
-    + lib.optionalString (stdenv.isFreeBSD || stdenv.isOpenBSD) ''
-      CFLAGS="-O2 -Wall -fomit-frame-pointer"
-      LDFLAGS=-s
-    ''; # use linux flags by default
-in
-stdenv.mkDerivation rec {
+  systemFlags = lib.optionalString stdenv.isDarwin ''
+    CFLAGS="-O2 -Wall -fomit-frame-pointer -no-cpp-precomp"
+    LDFLAGS=
+  '' + lib.optionalString stdenv.isCygwin ''
+    CFLAGS="-O2 -Wall -fomit-frame-pointer"
+    LDFLAGS=-s
+    TREE_DEST=tree.exe
+  '' + lib.optionalString (stdenv.isFreeBSD || stdenv.isOpenBSD) ''
+    CFLAGS="-O2 -Wall -fomit-frame-pointer"
+    LDFLAGS=-s
+  ''; # use linux flags by default
+in stdenv.mkDerivation rec {
   pname = "tree";
   version = "2.0.4";
 
@@ -38,10 +30,8 @@ stdenv.mkDerivation rec {
     makeFlagsArray+=(${systemFlags})
   '';
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags =
+    [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     homepage = "http://mama.indstate.edu/users/ice/tree/";

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  zope_proxy,
-}:
+{ lib, buildPythonPackage, fetchPypi, zope_proxy }:
 
 buildPythonPackage rec {
   pname = "zope.location";
@@ -29,4 +24,5 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
+
 }

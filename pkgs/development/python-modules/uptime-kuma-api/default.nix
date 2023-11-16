@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python-socketio,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, python-socketio, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "uptime-kuma-api";
@@ -19,10 +13,8 @@ buildPythonPackage rec {
     hash = "sha256-6Cwo71pgwBk5B6MaFFs9XlbocJLL/s4+7m7Gi13ddlM=";
   };
 
-  propagatedBuildInputs = [
-    python-socketio
-    python-socketio.optional-dependencies.client
-  ];
+  propagatedBuildInputs =
+    [ python-socketio python-socketio.optional-dependencies.client ];
 
   pythonImportsCheck = [ "uptime_kuma_api" ];
 
@@ -32,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A Python wrapper for the Uptime Kuma Socket.IO API";
     homepage = "https://github.com/lucasheld/uptime-kuma-api";
-    changelog = "https://github.com/lucasheld/uptime-kuma-api/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/lucasheld/uptime-kuma-api/blob/${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ julienmalka ];
   };

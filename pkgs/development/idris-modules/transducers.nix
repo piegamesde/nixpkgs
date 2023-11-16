@@ -1,8 +1,4 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, lib }:
 build-idris-package {
   pname = "transducers";
   version = "2017-07-28";

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-  iptables,
-  iproute2,
-  procps,
-  shadow,
-  getent,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, makeWrapper, iptables, iproute2
+, procps, shadow, getent }:
 
 buildGoModule rec {
   pname = "tailscale";
@@ -27,10 +17,7 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
-  subPackages = [
-    "cmd/tailscale"
-    "cmd/tailscaled"
-  ];
+  subPackages = [ "cmd/tailscale" "cmd/tailscaled" ];
 
   ldflags = [
     "-w"
@@ -43,12 +30,7 @@ buildGoModule rec {
 
   postInstall = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/tailscaled --prefix PATH : ${
-      lib.makeBinPath [
-        iproute2
-        iptables
-        getent
-        shadow
-      ]
+      lib.makeBinPath [ iproute2 iptables getent shadow ]
     }
     wrapProgram $out/bin/tailscale --suffix PATH : ${lib.makeBinPath [ procps ]}
 
@@ -60,11 +42,6 @@ buildGoModule rec {
     homepage = "https://tailscale.com";
     description = "The node agent for Tailscale, a mesh VPN built on WireGuard";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      danderson
-      mbaillie
-      twitchyliquid64
-      jk
-    ];
+    maintainers = with maintainers; [ danderson mbaillie twitchyliquid64 jk ];
   };
 }

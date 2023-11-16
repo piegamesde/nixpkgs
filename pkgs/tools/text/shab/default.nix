@@ -1,11 +1,4 @@
-{
-  bash,
-  stdenv,
-  lib,
-  runCommand,
-  writeText,
-  fetchFromGitHub,
-}:
+{ bash, stdenv, lib, runCommand, writeText, fetchFromGitHub }:
 let
   version = "1.0.0";
 
@@ -42,9 +35,7 @@ let
       [[ "$(echo 'Hello $entity' | entity=world $out/bin/shab)" == 'Hello world' ]]
     '';
 
-    passthru = {
-      inherit render renderText;
-    };
+    passthru = { inherit render renderText; };
 
     meta = with lib; {
       description = "The bash templating language";
@@ -59,14 +50,9 @@ let
      parameters.name:  the name to use as part of the store path
      parameters:       variables to expose to the template
   */
-  render =
-    shabScript: parameters:
-    let
-      extraParams = {
-        inherit shabScript;
-      };
-    in
-    runCommand "out" (parameters // extraParams) ''
+  render = shabScript: parameters:
+    let extraParams = { inherit shabScript; };
+    in runCommand "out" (parameters // extraParams) ''
       ${shab}/bin/shab "$shabScript" >$out
     '';
 
@@ -74,6 +60,7 @@ let
      parameters.name:  the name to use as part of the store path
      parameters:       variables to expose to the template
   */
-  renderText = shabScriptText: parameters: render (writeText "template" shabScriptText) parameters;
-in
-shab
+  renderText = shabScriptText: parameters:
+    render (writeText "template" shabScriptText) parameters;
+
+in shab

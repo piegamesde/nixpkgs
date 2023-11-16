@@ -1,27 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchpatch,
-  fetchFromGitHub,
-  pythonAtLeast,
+{ lib, buildPythonPackage, fetchpatch, fetchFromGitHub, pythonAtLeast
 
-  coqpit,
-  fsspec,
-  torch-bin,
-  tensorboardx,
-  protobuf,
-  psutil,
+, coqpit, fsspec, torch-bin, tensorboardx, protobuf, psutil
 
-  pytestCheckHook,
-  soundfile,
-  torchvision-bin,
-}:
+, pytestCheckHook, soundfile, torchvision-bin }:
 
 let
   pname = "trainer";
   version = "0.0.26";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -36,23 +22,13 @@ buildPythonPackage {
     sed -i 's/^protobuf.*/protobuf/' requirements.txt
   '';
 
-  propagatedBuildInputs = [
-    coqpit
-    fsspec
-    protobuf
-    psutil
-    soundfile
-    tensorboardx
-    torch-bin
-  ];
+  propagatedBuildInputs =
+    [ coqpit fsspec protobuf psutil soundfile tensorboardx torch-bin ];
 
   # only one test and that requires training data from the internet
   doCheck = false;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    torchvision-bin
-  ];
+  nativeCheckInputs = [ pytestCheckHook torchvision-bin ];
 
   pythonImportsCheck = [ "trainer" ];
 

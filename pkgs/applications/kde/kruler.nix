@@ -1,13 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  knotifications,
-  kwindowsystem,
-  kxmlgui,
-  qtx11extras,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, knotifications
+, kwindowsystem, kxmlgui, qtx11extras }:
 
 mkDerivation {
   pname = "kruler";
@@ -17,14 +9,6 @@ mkDerivation {
     license = with lib.licenses; [ gpl2 ];
     maintainers = [ lib.maintainers.vandenoever ];
   };
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
-  buildInputs = [
-    kwindowsystem
-    knotifications
-    kxmlgui
-    qtx11extras
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  buildInputs = [ kwindowsystem knotifications kxmlgui qtx11extras ];
 }

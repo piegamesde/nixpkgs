@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  stdcompat,
-  ppxlib,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, stdcompat, ppxlib }:
 
 buildDunePackage rec {
   pname = "ppx_show";
@@ -17,10 +11,7 @@ buildDunePackage rec {
     sha256 = "sha256-YwWAdOtb0zg2hqNkGRiigz/Pci8Jy/QD+WyUEohEsns=";
   };
 
-  buildInputs = [
-    stdcompat
-    ppxlib
-  ];
+  buildInputs = [ stdcompat ppxlib ];
 
   meta = with lib; {
     homepage = "https://github.com/thierry-martinez/${pname}";

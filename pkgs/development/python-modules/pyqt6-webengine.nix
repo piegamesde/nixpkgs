@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pkg-config,
-  lndir,
-  sip,
-  pyqt-builder,
-  qt6Packages,
-  pythonOlder,
-  pyqt6,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, pkg-config, lndir, sip, pyqt-builder
+, qt6Packages, pythonOlder, pyqt6, python }:
 
 buildPythonPackage rec {
   pname = "PyQt6_WebEngine";
@@ -44,10 +33,7 @@ buildPythonPackage rec {
     export MAKEFLAGS+=" -j$NIX_BUILD_CORES"
   '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   dontWrapQtApps = true;
 
@@ -64,9 +50,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pyqt6 ];
 
-  passthru = {
-    inherit sip;
-  };
+  passthru = { inherit sip; };
 
   dontConfigure = true;
 
@@ -84,9 +68,6 @@ buildPythonPackage rec {
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [
-      LunNova
-      nrdxp
-    ];
+    maintainers = with maintainers; [ LunNova nrdxp ];
   };
 }

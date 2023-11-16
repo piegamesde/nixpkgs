@@ -12,34 +12,22 @@ pkgs:
 
 let
   inherit (pkgs) lib;
-  inherit (lib)
-    all
-    flip
-    mapAttrs
-    mapAttrsToList
-    getAttrFromPath
-    importJSON
-  ;
+  inherit (lib) all flip mapAttrs mapAttrsToList getAttrFromPath importJSON;
 
   data = importJSON ./pkg-config-data.json;
   inherit (data) modules;
 
   platform = pkgs.stdenv.hostPlatform;
 
-  isSupported =
-    moduleData:
-    moduleData ? supportedWhenPlatformAttrsEqual
-    -> all (x: x) (
-      mapAttrsToList (k: v: platform ? ${k} && platform.${k} == v)
-        moduleData.supportedWhenPlatformAttrsEqual
-    );
+  isSupported = moduleData:
+    moduleData ? supportedWhenPlatformAttrsEqual -> all (x: x)
+    (mapAttrsToList (k: v: platform ? ${k} && platform.${k} == v)
+      moduleData.supportedWhenPlatformAttrsEqual);
 
-  modulePkgs = flip mapAttrs modules (
-    _moduleName: moduleData:
+  modulePkgs = flip mapAttrs modules (_moduleName: moduleData:
     if moduleData ? attrPath && isSupported moduleData then
       getAttrFromPath moduleData.attrPath pkgs
     else
-      null
-  );
-in
-modulePkgs
+      null);
+
+in modulePkgs

@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -15,10 +10,11 @@ with lib;
 
     services.system-config-printer = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "system-config-printer, a service for CUPS administration used by printing interfaces"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "system-config-printer, a service for CUPS administration used by printing interfaces");
+
     };
+
   };
 
   ###### implementation
@@ -34,5 +30,7 @@ with lib;
     # for $out/bin/install-printer-driver
     # TODO: Enable once #177946 is resolved
     # services.packagekit.enable = true;
+
   };
+
 }

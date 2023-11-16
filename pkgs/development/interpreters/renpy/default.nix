@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  pkg-config,
-  SDL2,
-  libpng,
-  ffmpeg,
-  freetype,
-  glew,
-  libGL,
-  libGLU,
-  fribidi,
-  zlib,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, pkg-config, SDL2, libpng, ffmpeg
+, freetype, glew, libGL, libGLU, fribidi, zlib, makeWrapper }:
 
 let
   # https://renpy.org/doc/html/changelog.html#versioning
@@ -23,8 +8,7 @@ let
   # version corresponds to the tag on GitHub
   base_version = "8.1.0";
   vc_version = "23051307";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "renpy";
 
   version = "${base_version}.${vc_version}";
@@ -36,52 +20,33 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5EU4jaBTU+a9UNHRs7xrKQ7ZivhDEqisO3l4W2E6F+c=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    python3.pkgs.cython
-    python3.pkgs.setuptools
-  ];
+  nativeBuildInputs =
+    [ pkg-config makeWrapper python3.pkgs.cython python3.pkgs.setuptools ];
 
-  buildInputs =
-    [
-      SDL2
-      libpng
-      ffmpeg
-      freetype
-      glew
-      libGLU
-      libGL
-      fribidi
-      zlib
-    ]
-    ++ (
-      with python3.pkgs; [
-        python
-        pygame_sdl2
-        tkinter
-        future
-        six
-        pefile
-        requests
-        ecdsa
-      ]
-    );
+  buildInputs = [ SDL2 libpng ffmpeg freetype glew libGLU libGL fribidi zlib ]
+    ++ (with python3.pkgs; [
+      python
+      pygame_sdl2
+      tkinter
+      future
+      six
+      pefile
+      requests
+      ecdsa
+    ]);
 
-  RENPY_DEPS_INSTALL = lib.concatStringsSep "::" (
-    map (path: path) [
-      SDL2
-      SDL2.dev
-      libpng
-      ffmpeg.lib
-      freetype
-      glew.dev
-      libGLU
-      libGL
-      fribidi
-      zlib
-    ]
-  );
+  RENPY_DEPS_INSTALL = lib.concatStringsSep "::" (map (path: path) [
+    SDL2
+    SDL2.dev
+    libpng
+    ffmpeg.lib
+    freetype
+    glew.dev
+    libGLU
+    libGL
+    fribidi
+    zlib
+  ]);
 
   enableParallelBuilding = true;
 
@@ -117,7 +82,8 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  env.NIX_CFLAGS_COMPILE = with python3.pkgs; "-I${pygame_sdl2}/include/${python.libPrefix}";
+  env.NIX_CFLAGS_COMPILE = with python3.pkgs;
+    "-I${pygame_sdl2}/include/${python.libPrefix}";
 
   meta = with lib; {
     description = "Visual Novel Engine";
@@ -128,7 +94,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ shadowrz ];
   };
 
-  passthru = {
-    inherit base_version vc_version;
-  };
+  passthru = { inherit base_version vc_version; };
 }

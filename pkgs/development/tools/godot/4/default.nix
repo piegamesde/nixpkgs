@@ -1,38 +1,10 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  autoPatchelfHook,
-  installShellFiles,
-  scons,
-  vulkan-loader,
-  libGL,
-  libX11,
-  libXcursor,
-  libXinerama,
-  libXext,
-  libXrandr,
-  libXrender,
-  libXi,
-  libXfixes,
-  libxkbcommon,
-  alsa-lib,
-  libpulseaudio,
-  dbus,
-  speechd,
-  fontconfig,
-  udev,
-  withPlatform ? "linuxbsd",
-  withTarget ? "editor",
-  withPrecision ? "single",
-  withPulseaudio ? true,
-  withDbus ? true,
-  withSpeechd ? true,
-  withFontconfig ? true,
-  withUdev ? true,
-  withTouch ? true,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, autoPatchelfHook, installShellFiles
+, scons, vulkan-loader, libGL, libX11, libXcursor, libXinerama, libXext
+, libXrandr, libXrender, libXi, libXfixes, libxkbcommon, alsa-lib, libpulseaudio
+, dbus, speechd, fontconfig, udev, withPlatform ? "linuxbsd"
+, withTarget ? "editor", withPrecision ? "single", withPulseaudio ? true
+, withDbus ? true, withSpeechd ? true, withFontconfig ? true, withUdev ? true
+, withTouch ? true }:
 
 assert lib.asserts.assertOneOf "withPrecision" withPrecision [
   "single"
@@ -48,14 +20,14 @@ let
 
     # Options from 'godot/platform/linuxbsd/detect.py'
     pulseaudio = withPulseaudio; # Use PulseAudio
-    dbus = withDbus; # Use D-Bus to handle screensaver and portal desktop settings
+    dbus =
+      withDbus; # Use D-Bus to handle screensaver and portal desktop settings
     speechd = withSpeechd; # Use Speech Dispatcher for Text-to-Speech support
     fontconfig = withFontconfig; # Use fontconfig for system fonts support
     udev = withUdev; # Use udev for gamepad connection callbacks
     touch = withTouch; # Enable touch events
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "godot";
   version = "4.0.3-stable";
 
@@ -66,36 +38,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-g9+CV3HsiJqiSJpZvK0N7BqKzp2Pvi6otjRLsFdmWGk=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoPatchelfHook
-    installShellFiles
-  ];
+  nativeBuildInputs = [ pkg-config autoPatchelfHook installShellFiles ];
 
   buildInputs = [ scons ];
 
-  runtimeDependencies =
-    [
-      vulkan-loader
-      libGL
-      libX11
-      libXcursor
-      libXinerama
-      libXext
-      libXrandr
-      libXrender
-      libXi
-      libXfixes
-      libxkbcommon
-      alsa-lib
-    ]
-    ++ lib.optional withPulseaudio libpulseaudio
-    ++ lib.optional withDbus dbus
-    ++ lib.optional withDbus dbus.lib
-    ++ lib.optional withSpeechd speechd
+  runtimeDependencies = [
+    vulkan-loader
+    libGL
+    libX11
+    libXcursor
+    libXinerama
+    libXext
+    libXrandr
+    libXrender
+    libXi
+    libXfixes
+    libxkbcommon
+    alsa-lib
+  ] ++ lib.optional withPulseaudio libpulseaudio ++ lib.optional withDbus dbus
+    ++ lib.optional withDbus dbus.lib ++ lib.optional withSpeechd speechd
     ++ lib.optional withFontconfig fontconfig
-    ++ lib.optional withFontconfig fontconfig.lib
-    ++ lib.optional withUdev udev;
+    ++ lib.optional withFontconfig fontconfig.lib ++ lib.optional withUdev udev;
 
   enableParallelBuilding = true;
 
@@ -103,14 +66,12 @@ stdenv.mkDerivation rec {
   sconsFlags = [ "production=true" ];
   preConfigure = ''
     sconsFlags+=" ${
-      lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
+      lib.concatStringsSep " "
+      (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
     }"
   '';
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -131,14 +92,7 @@ stdenv.mkDerivation rec {
     homepage = "https://godotengine.org";
     description = "Free and Open Source 2D and 3D game engine";
     license = licenses.mit;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    maintainers = with maintainers; [
-      twey
-      shiryel
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [ twey shiryel ];
   };
 }

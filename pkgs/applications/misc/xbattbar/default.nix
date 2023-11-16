@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  libX11,
-  perl,
-  ...
-}:
+{ lib, stdenv, fetchgit, libX11, perl, ... }:
 
 stdenv.mkDerivation rec {
   pname = "xbattbar";

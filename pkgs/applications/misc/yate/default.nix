@@ -1,27 +1,19 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  qt4,
-  openssl,
-  pkg-config,
-}:
+{ stdenv, fetchurl, lib, qt4, openssl, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "yate";
   version = "6.4.0-1";
 
   src = fetchurl {
-    url = "http://voip.null.ro/tarballs/yate${lib.versions.major version}/${pname}-${version}.tar.gz";
+    url = "http://voip.null.ro/tarballs/yate${
+        lib.versions.major version
+      }/${pname}-${version}.tar.gz";
     hash = "sha256-jCPca/+/jUeNs6hZZLUBl3HI9sms9SIPNGVRanSKA7A=";
   };
 
   # TODO zaptel ? postgres ?
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    qt4
-    openssl
-  ];
+  buildInputs = [ qt4 openssl ];
 
   # /dev/null is used when linking which is a impure path for the wrapper
   postPatch = ''
@@ -46,9 +38,7 @@ stdenv.mkDerivation rec {
     # OpenH323 and PWlib (licensed under MPL).
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.marcweber ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
+
 }

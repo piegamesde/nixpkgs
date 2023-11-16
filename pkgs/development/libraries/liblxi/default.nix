@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  cmake,
-  libtirpc,
-  rpcsvc-proto,
-  avahi,
-  libxml2,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, cmake, libtirpc
+, rpcsvc-proto, avahi, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "liblxi";
@@ -23,19 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-jS0huNkbyKrsJ3NkenrYtjkzLakOsTJpwlgSo98ribE=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    cmake
-    pkg-config
-    rpcsvc-proto
-  ];
+  nativeBuildInputs = [ meson ninja cmake pkg-config rpcsvc-proto ];
 
-  buildInputs =
-    lib.optionals (!stdenv.isDarwin) [
-      libtirpc
-      avahi
-    ]
+  buildInputs = lib.optionals (!stdenv.isDarwin) [ libtirpc avahi ]
     ++ [ libxml2 ];
 
   meta = with lib; {

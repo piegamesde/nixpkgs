@@ -1,25 +1,13 @@
-{
-  fetchFromGitHub,
-  findutils,
-  gnugrep,
-  gnused,
-  iproute2,
-  iptables,
-  lib,
-  nettools, # for hostname
-  openssh,
-  openssl,
-  parted,
-  procps, # for pidof,
-  python3,
-  shadow, # for useradd, usermod
-  util-linux, # for (u)mount, fdisk, sfdisk, mkswap
+{ fetchFromGitHub, findutils, gnugrep, gnused, iproute2, iptables, lib, nettools
+, # for hostname
+openssh, openssl, parted, procps, # for pidof,
+python3, shadow, # for useradd, usermod
+util-linux, # for (u)mount, fdisk, sfdisk, mkswap
 }:
 
-let
-  inherit (lib) makeBinPath;
-in
-python3.pkgs.buildPythonPackage rec {
+let inherit (lib) makeBinPath;
+
+in python3.pkgs.buildPythonPackage rec {
   pname = "waagent";
   version = "2.8.0.11";
   src = fetchFromGitHub {
@@ -64,4 +52,5 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/Azure/WALinuxAgent";
     license = with lib.licenses; [ asl20 ];
   };
+
 }

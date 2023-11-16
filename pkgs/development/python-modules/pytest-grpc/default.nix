@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  grpcio,
-  pytest,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, grpcio, pytest, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-grpc";

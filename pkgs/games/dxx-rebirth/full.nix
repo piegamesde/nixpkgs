@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  dxx-rebirth,
-  descent1-assets,
-  descent2-assets,
-}:
+{ lib, stdenv, makeWrapper, dxx-rebirth, descent1-assets, descent2-assets }:
 
 let
-  generic =
-    ver: assets:
+  generic = ver: assets:
     stdenv.mkDerivation {
       name = "d${toString ver}x-rebirth-full-${assets.version}";
 
@@ -18,7 +10,9 @@ let
       buildCommand = ''
         mkdir -p $out/bin
 
-        makeWrapper ${dxx-rebirth}/bin/d${toString ver}x-rebirth $out/bin/descent${toString ver} \
+        makeWrapper ${dxx-rebirth}/bin/d${
+          toString ver
+        }x-rebirth $out/bin/descent${toString ver} \
           --add-flags "-hogdir ${assets}/share/games/descent${toString ver}"
       '';
 
@@ -27,17 +21,14 @@ let
             toString ver
           } using the DXX-Rebirth project engine and game assets from GOG";
         homepage = "https://www.dxx-rebirth.com/";
-        license = with licenses; [
-          free
-          unfree
-        ];
+        license = with licenses; [ free unfree ];
         maintainers = with maintainers; [ peterhoeg ];
         platforms = with platforms; linux;
         hydraPlatforms = [ ];
       };
     };
-in
-{
+
+in {
   d1x-rebirth-full = generic 1 descent1-assets;
   d2x-rebirth-full = generic 2 descent2-assets;
 }

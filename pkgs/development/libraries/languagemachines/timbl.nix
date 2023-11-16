@@ -1,34 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  automake,
-  autoconf,
-  libtool,
-  pkg-config,
-  autoconf-archive,
-  libxml2,
-  bzip2,
-  libtar,
-  languageMachines,
-}:
+{ lib, stdenv, fetchurl, automake, autoconf, libtool, pkg-config
+, autoconf-archive, libxml2, bzip2, libtar, languageMachines }:
 
-let
-  release = lib.importJSON ./release-info/LanguageMachines-timbl.json;
-in
+let release = lib.importJSON ./release-info/LanguageMachines-timbl.json;
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "timbl";
   version = release.version;
   src = fetchurl {
     inherit (release) url sha256;
     name = "timbl-${release.version}.tar.gz";
   };
-  nativeBuildInputs = [
-    pkg-config
-    automake
-    autoconf
-  ];
+  nativeBuildInputs = [ pkg-config automake autoconf ];
   buildInputs = [
     bzip2
     libtar
@@ -52,4 +34,5 @@ stdenv.mkDerivation {
       For over fifteen years TiMBL has been mostly used in natural language processing as a machine learning classifier component, but its use extends to virtually any supervised machine learning domain. Due to its particular decision-tree-based implementation, TiMBL is in many cases far more efficient in classification than a standard k-nearest neighbor algorithm would be.
     '';
   };
+
 }

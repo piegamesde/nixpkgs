@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitLab,
-  requests,
-  pytestCheckHook,
-  requests-mock,
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, requests, pytestCheckHook
+, requests-mock }:
 
 buildPythonPackage rec {
   pname = "doorbirdpy";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   pythonImportsCheck = [ "doorbirdpy" ];
 

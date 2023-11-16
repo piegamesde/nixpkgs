@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  redland,
-  pkg-config,
-  gmp,
-  zlib,
-  librdf_raptor2,
-  librdf_rasqal,
-}:
+{ lib, stdenv, fetchurl, redland, pkg-config, gmp, zlib, librdf_raptor2
+, librdf_rasqal }:
 
 stdenv.mkDerivation rec {
   pname = "redstore";
@@ -20,13 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gmp
-    redland
-    zlib
-    librdf_raptor2
-    librdf_rasqal
-  ];
+  buildInputs = [ gmp redland zlib librdf_raptor2 librdf_rasqal ];
 
   preConfigure = ''
     # Define _XOPEN_SOURCE to enable, e.g., getaddrinfo.

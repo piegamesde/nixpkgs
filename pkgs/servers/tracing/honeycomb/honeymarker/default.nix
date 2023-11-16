@@ -1,10 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
-import ./versions.nix (
-  { version, sha256 }:
+{ lib, buildGoModule, fetchFromGitHub }:
+import ./versions.nix ({ version, sha256 }:
   buildGoModule {
     pname = "honeymarker";
     inherit version;
@@ -19,10 +14,11 @@ import ./versions.nix (
     inherit (buildGoModule.go) GOOS GOARCH;
 
     meta = with lib; {
-      description = "provides a simple CRUD interface for dealing with per-dataset markers on honeycomb.io";
+      description =
+        "provides a simple CRUD interface for dealing with per-dataset markers on honeycomb.io";
       homepage = "https://honeycomb.io/";
       license = licenses.asl20;
       maintainers = [ maintainers.iand675 ];
     };
-  }
-)
+  })
+

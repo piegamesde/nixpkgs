@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.afterstep;
-in
-{
+let cfg = config.services.xserver.windowManager.afterstep;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.afterstep.enable = mkEnableOption (lib.mdDoc "afterstep");
+    services.xserver.windowManager.afterstep.enable =
+      mkEnableOption (lib.mdDoc "afterstep");
   };
 
   ###### implementation

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libmtsupport,
-  libfacet,
-  libbtree,
-  libmtquery,
-  help2man,
+{ lib, stdenv, fetchurl, libmtsupport, libfacet, libbtree, libmtquery, help2man
 }:
 
 stdenv.mkDerivation rec {
@@ -18,13 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "e407702c90c5272882386914e1eeca5f6c5039393af9a44538536b94867b0a0e";
   };
 
-  buildInputs = [
-    libmtsupport
-    libfacet
-    libbtree
-    libmtquery
-    help2man
-  ];
+  buildInputs = [ libmtsupport libfacet libbtree libmtquery help2man ];
 
   patchPhase = ''
     sed -i -e 's@\$(DESTDIR)/usr@'$out'@' \
@@ -41,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://multitran.sourceforge.net/";
-    description = "Multitran: simple command line utilities for dictionary maintenance";
+    description =
+      "Multitran: simple command line utilities for dictionary maintenance";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ viric ];
     platforms = with lib.platforms; linux;

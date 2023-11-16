@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPyPy,
-  pkgs,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, pkgs }:
 
 buildPythonPackage rec {
   pname = "PyAudio";
@@ -23,4 +17,5 @@ buildPythonPackage rec {
     homepage = "https://people.csail.mit.edu/hubert/pyaudio/";
     license = licenses.mit;
   };
+
 }

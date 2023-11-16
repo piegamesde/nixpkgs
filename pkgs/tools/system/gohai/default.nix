@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "gohai";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-aN1fwGbBm45e6qdRu+4wnv2ZI7SOsIPONB4vF9o2vlI=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   doCheck = false;
 

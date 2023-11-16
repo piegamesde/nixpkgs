@@ -1,13 +1,5 @@
-{
-  buildPythonPackage,
-  cryptography,
-  fetchPypi,
-  lib,
-  pythonOlder,
-  protobuf,
-  pycryptodome,
-  requests,
-}:
+{ buildPythonPackage, cryptography, fetchPypi, lib, pythonOlder, protobuf
+, pycryptodome, requests }:
 
 buildPythonPackage rec {
   version = "0.4.4.5";
@@ -25,12 +17,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "gpapi.googleplay" ];
 
-  propagatedBuildInputs = [
-    cryptography
-    protobuf
-    pycryptodome
-    requests
-  ];
+  propagatedBuildInputs = [ cryptography protobuf pycryptodome requests ];
 
   meta = with lib; {
     homepage = "https://github.com/NoMore201/googleplay-api";

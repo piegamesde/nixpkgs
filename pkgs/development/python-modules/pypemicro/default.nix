@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  autoPatchelfHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, autoPatchelfHook }:
 
 buildPythonPackage rec {
   pname = "pypemicro";
@@ -27,9 +22,6 @@ buildPythonPackage rec {
       bsd3
       unfree
     ]; # it includes shared libraries for which no license is available (https://github.com/NXPmicro/pypemicro/issues/10)
-    maintainers = with maintainers; [
-      frogamic
-      sbruder
-    ];
+    maintainers = with maintainers; [ frogamic sbruder ];
   };
 }

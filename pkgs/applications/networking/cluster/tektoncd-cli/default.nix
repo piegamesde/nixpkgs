@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "tektoncd-cli";
@@ -70,11 +65,7 @@ buildGoModule rec {
       Pipelines.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      jk
-      mstrangfeld
-      vdemeester
-    ];
+    maintainers = with maintainers; [ jk mstrangfeld vdemeester ];
     mainProgram = "tkn";
   };
 }

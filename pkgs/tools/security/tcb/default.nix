@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  linux-pam,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, linux-pam, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "tcb";
@@ -18,19 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Sp5u7iTEZZnAqKQXoPO8eWpSkZeBzQqZI82wRQmgU9A=";
   };
 
-  outputs = [
-    "out"
-    "bin"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "bin" "dev" "man" ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    linux-pam
-    libxcrypt
-  ];
+  buildInputs = [ linux-pam libxcrypt ];
 
   patches = [ ./fix-makefiles.patch ];
 

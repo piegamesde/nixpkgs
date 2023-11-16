@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  poetry-core,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, lxml, poetry-core, pythonOlder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "xpath-expressions";
@@ -23,10 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    lxml
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ lxml pytestCheckHook ];
 
   postPatch = ''
     # Was fixed upstream but not released

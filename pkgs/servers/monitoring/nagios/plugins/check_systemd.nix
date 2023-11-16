@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  python3Packages,
-  lib,
-}:
+{ fetchFromGitHub, python3Packages, lib }:
 
 python3Packages.buildPythonApplication rec {
   pname = "check_systemd";
@@ -31,7 +27,8 @@ python3Packages.buildPythonApplication rec {
   nativeCheckInputs = [ python3Packages.pytestCheckHook ];
 
   meta = with lib; {
-    description = "Nagios / Icinga monitoring plugin to check systemd for failed units";
+    description =
+      "Nagios / Icinga monitoring plugin to check systemd for failed units";
     inherit (src.meta) homepage;
     changelog = "https://github.com/Josef-Friedrich/check_systemd/releases";
     maintainers = with maintainers; [ symphorien ];

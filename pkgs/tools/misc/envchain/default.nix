@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libedit,
-  libsecret,
-  ncurses,
-  pkg-config,
-  readline,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, libedit, libsecret, ncurses, pkg-config
+, readline, Security }:
 
 stdenv.mkDerivation rec {
   pname = "envchain";
@@ -27,21 +18,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      libsecret
-      readline
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      libedit
-      ncurses
-      Security
-    ];
+  buildInputs = [ libsecret readline ]
+    ++ lib.optionals stdenv.isDarwin [ libedit ncurses Security ];
 
   makeFlags = [ "DESTDIR=$(out)" ];
 
   meta = with lib; {
-    description = "Set environment variables with macOS keychain or D-Bus secret service";
+    description =
+      "Set environment variables with macOS keychain or D-Bus secret service";
     homepage = "https://github.com/sorah/envchain";
     license = licenses.mit;
     platforms = platforms.unix;

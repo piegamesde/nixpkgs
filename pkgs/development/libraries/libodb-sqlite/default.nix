@@ -1,22 +1,10 @@
-{
-  lib,
-  stdenv,
-  build2,
-  fetchurl,
-  libodb,
-  sqlite,
-  enableShared ? !stdenv.hostPlatform.isStatic,
-  enableStatic ? !enableShared,
-}:
+{ lib, stdenv, build2, fetchurl, libodb, sqlite
+, enableShared ? !stdenv.hostPlatform.isStatic, enableStatic ? !enableShared }:
 stdenv.mkDerivation rec {
   pname = "libodb-sqlite";
   version = "2.5.0-b.23";
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "doc" ];
 
   src = fetchurl {
     url = "https://pkg.cppget.org/1/beta/odb/libodb-sqlite-${version}.tar.gz";
@@ -27,7 +15,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libodb ];
   propagatedBuildInputs = [ sqlite ];
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags =
+    [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
 
   doCheck = true;
 
@@ -47,7 +36,8 @@ stdenv.mkDerivation rec {
       to this library.
     '';
     homepage = "https://www.codesynthesis.com/products/odb/";
-    changelog = "https://git.codesynthesis.com/cgit/odb/libodb-sqlite/tree/NEWS";
+    changelog =
+      "https://git.codesynthesis.com/cgit/odb/libodb-sqlite/tree/NEWS";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ r-burns ];
     platforms = platforms.all;

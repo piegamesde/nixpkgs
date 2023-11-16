@@ -1,18 +1,8 @@
 {
-  # general
-  lib,
-  resholve,
-  bash,
-  doCheck ? true,
-  doInstallCheck ? true,
+# general
+lib, resholve, bash, doCheck ? true, doInstallCheck ? true
   # variant-specific
-  variant,
-  version,
-  branch,
-  src,
-  fake ? false,
-  keep,
-}:
+, variant, version, branch, src, fake ? false, keep }:
 let
   # extracting this so that it's trivial to test in other shells
   installCheck = shell: ''
@@ -29,8 +19,8 @@ let
     exit 1 # fail if emitting event didn't exit clean
     EOF
   '';
-in
-resholve.mkDerivation rec {
+
+in resholve.mkDerivation rec {
   # bashup.events doesn't version yet but it has two variants with
   # differing features/performance characteristics:
   # - branch master: a variant for bash 3.2+
@@ -75,7 +65,8 @@ resholve.mkDerivation rec {
 
   meta = with lib; {
     inherit branch;
-    description = "An event listener/callback API for creating extensible bash programs";
+    description =
+      "An event listener/callback API for creating extensible bash programs";
     homepage = "https://github.com/bashup/events";
     license = licenses.cc0;
     maintainers = with maintainers; [ abathur ];

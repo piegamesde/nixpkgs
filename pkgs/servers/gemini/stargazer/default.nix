@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  rustPlatform,
-  installShellFiles,
-  scdoc,
-  Security,
-}:
+{ lib, stdenv, fetchFromSourcehut, rustPlatform, installShellFiles, scdoc
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "stargazer";
@@ -23,10 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false; # Uses extenal testing framework that requires network
 
-  nativeBuildInputs = [
-    installShellFiles
-    scdoc
-  ];
+  nativeBuildInputs = [ installShellFiles scdoc ];
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 

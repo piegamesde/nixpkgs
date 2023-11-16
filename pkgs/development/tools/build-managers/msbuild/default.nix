@@ -1,24 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  makeWrapper,
-  glibcLocales,
-  mono,
-  dotnetPackages,
-  unzip,
-  dotnetCorePackages,
-  writeText,
-  roslyn,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, makeWrapper, glibcLocales, mono
+, dotnetPackages, unzip, dotnetCorePackages, writeText, roslyn }:
 
 let
 
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
 
   xplat = fetchurl {
-    url = "https://github.com/mono/msbuild/releases/download/v16.9.0/mono_msbuild_6.12.0.137.zip";
+    url =
+      "https://github.com/mono/msbuild/releases/download/v16.9.0/mono_msbuild_6.12.0.137.zip";
     sha256 = "1wnzbdpk4s9bmawlh359ak2b8zi0sgx1qvcjnvfncr1wsck53v7q";
   };
 
@@ -34,32 +23,25 @@ let
   '';
 
   inherit (stdenv.hostPlatform.extensions) sharedLibrary;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "msbuild";
   version = "16.10.1+xamarinxplat.2021.05.26.14.00";
 
   src = fetchurl {
-    url = "https://download.mono-project.com/sources/msbuild/msbuild-${version}.tar.xz";
+    url =
+      "https://download.mono-project.com/sources/msbuild/msbuild-${version}.tar.xz";
     sha256 = "05ghqqkdj4s3d0xkp7mkdzjig5zj3k6ajx71j0g2wv6rdbvg6899";
   };
 
-  nativeBuildInputs = [
-    dotnet-sdk
-    mono
-    unzip
-    makeWrapper
-  ];
+  nativeBuildInputs = [ dotnet-sdk mono unzip makeWrapper ];
 
-  buildInputs = [
-    dotnetPackages.Nuget
-    glibcLocales
-  ];
+  buildInputs = [ dotnetPackages.Nuget glibcLocales ];
 
   # https://github.com/NixOS/nixpkgs/issues/38991
   # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
-  LOCALE_ARCHIVE = lib.optionalString stdenv.isLinux "${glibcLocales}/lib/locale/locale-archive";
+  LOCALE_ARCHIVE = lib.optionalString stdenv.isLinux
+    "${glibcLocales}/lib/locale/locale-archive";
 
   postPatch = ''
     # not patchShebangs, there is /bin/bash in the body of the script as well
@@ -159,7 +141,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Mono version of Microsoft Build Engine, the build platform for .NET, and Visual Studio";
+    description =
+      "Mono version of Microsoft Build Engine, the build platform for .NET, and Visual Studio";
     homepage = "https://github.com/mono/msbuild";
     sourceProvenance = with sourceTypes; [
       fromSource

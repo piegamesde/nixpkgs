@@ -1,35 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  automake,
-  autoconf,
-  libtool,
-  pkg-config,
-  autoconf-archive,
-  libxml2,
-  icu,
-  bzip2,
-  libtar,
-  languageMachines,
-}:
+{ lib, stdenv, fetchurl, automake, autoconf, libtool, pkg-config
+, autoconf-archive, libxml2, icu, bzip2, libtar, languageMachines }:
 
-let
-  release = lib.importJSON ./release-info/LanguageMachines-libfolia.json;
-in
+let release = lib.importJSON ./release-info/LanguageMachines-libfolia.json;
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "libfolia";
   version = release.version;
   src = fetchurl {
     inherit (release) url sha256;
     name = "libfolia-${release.version}.tar.gz";
   };
-  nativeBuildInputs = [
-    pkg-config
-    automake
-    autoconf
-  ];
+  nativeBuildInputs = [ pkg-config automake autoconf ];
   buildInputs = [
     bzip2
     libtool
@@ -45,7 +26,8 @@ stdenv.mkDerivation {
   CXXFLAGS = [ "-DU_USING_ICU_NAMESPACE=1" ];
 
   meta = with lib; {
-    description = "A C++ API for FoLiA documents; an XML-based linguistic annotation format.";
+    description =
+      "A C++ API for FoLiA documents; an XML-based linguistic annotation format.";
     homepage = "https://proycon.github.io/folia/";
     license = licenses.gpl3;
     platforms = platforms.all;
@@ -55,4 +37,5 @@ stdenv.mkDerivation {
       A high-level C++ API to read, manipulate, and create FoLiA documents. FoLiA is an XML-based annotation format, suitable for the representation of linguistically annotated language resources. FoLiA’s intended use is as a format for storing and/or exchanging language resources, including corpora.
     '';
   };
+
 }

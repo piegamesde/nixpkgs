@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  appimageTools,
-  fetchurl,
-  undmg,
-}:
+{ lib, stdenv, appimageTools, fetchurl, undmg }:
 
 let
   pname = "localsend";
@@ -12,27 +6,23 @@ let
 
   srcs = {
     x86_64-linux = fetchurl {
-      url = "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}-linux-x86-64.AppImage";
+      url =
+        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}-linux-x86-64.AppImage";
       hash = "sha256-5MxLQG704bVfaW2tCI6BeFmd8X9Xnn1xWPeIGKZv3P8=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.dmg";
+      url =
+        "https://github.com/localsend/localsend/releases/download/v${version}/LocalSend-${version}.dmg";
       hash = "sha256-IASoA56Vzec+O62CjSM+2Q8XJJzpEK7hsI3L7R1+Izc=";
     };
   };
-  src =
-    srcs.${stdenv.hostPlatform.system}
-      or (throw "Unsupported system for package localsend: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system for package localsend: ${stdenv.hostPlatform.system}");
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 
   linux = appimageTools.wrapType2 rec {
-    inherit
-      pname
-      version
-      src
-      meta
-    ;
+    inherit pname version src meta;
 
     extraPkgs = p: [
       p.ayatana-ido
@@ -56,12 +46,7 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-    ;
+    inherit pname version src meta;
 
     nativeBuildInputs = [ undmg ];
 
@@ -81,5 +66,4 @@ let
     maintainers = with maintainers; [ sikmir ];
     platforms = builtins.attrNames srcs;
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

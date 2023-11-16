@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glib,
-  pkg-config,
-  xorg,
-  dbus,
-}:
+{ lib, stdenv, fetchFromGitHub, glib, pkg-config, xorg, dbus }:
 
 stdenv.mkDerivation rec {
   pname = "xssproxy";
@@ -20,20 +12,13 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    glib
-    xorg.libX11
-    xorg.libXScrnSaver
-    dbus
-  ];
+  buildInputs = [ glib xorg.libX11 xorg.libXScrnSaver dbus ];
 
-  makeFlags = [
-    "bindir=$(out)/bin"
-    "man1dir=$(out)/share/man/man1"
-  ];
+  makeFlags = [ "bindir=$(out)/bin" "man1dir=$(out)/share/man/man1" ];
 
   meta = {
-    description = "Forward freedesktop.org Idle Inhibition Service calls to Xss";
+    description =
+      "Forward freedesktop.org Idle Inhibition Service calls to Xss";
     homepage = "https://github.com/vincentbernat/xssproxy";
     license = lib.licenses.gpl3;
     maintainers = with lib.maintainers; [ benley ];

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, python }:
 
 buildPythonPackage rec {
   pname = "safe-pysha3";

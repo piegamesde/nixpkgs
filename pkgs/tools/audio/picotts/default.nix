@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  popt,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, popt }:
 
 stdenv.mkDerivation {
   pname = "picotts";
@@ -18,14 +10,8 @@ stdenv.mkDerivation {
     rev = "2f86050dc5da9ab68fc61510b594d8e6975c4d2d";
     sha256 = "1k2mdv9llkh77jr4qr68yf0zgjqk87np35fgfmnc3rpdp538sccl";
   };
-  nativeBuildInputs = [
-    autoconf
-    automake
-  ];
-  buildInputs = [
-    libtool
-    popt
-  ];
+  nativeBuildInputs = [ autoconf automake ];
+  buildInputs = [ libtool popt ];
   sourceRoot = "source/pico";
   preConfigure = "./autogen.sh";
   meta = {
@@ -36,3 +22,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
   };
 }
+

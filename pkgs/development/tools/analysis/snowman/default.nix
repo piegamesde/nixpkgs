@@ -1,11 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  qtbase,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, boost, qtbase }:
 
 mkDerivation rec {
   pname = "snowman";
@@ -20,10 +13,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    boost
-    qtbase
-  ];
+  buildInputs = [ boost qtbase ];
 
   postUnpack = ''
     export sourceRoot=$sourceRoot/src

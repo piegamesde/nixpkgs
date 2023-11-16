@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  curl,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, curl, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "html-xml-utils";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XoRynvNszTkk0ocu1O5pVMYzMtylQAuo606u8fLbT7I=";
   };
 
-  buildInputs = [
-    curl
-    libiconv
-  ];
+  buildInputs = [ curl libiconv ];
 
   meta = with lib; {
     description = "Utilities for manipulating HTML and XML files";

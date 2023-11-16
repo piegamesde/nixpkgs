@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  varnish,
-  libmhash,
-  docutils,
-  coreutils,
-  version,
-  sha256,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, varnish, libmhash
+, docutils, coreutils, version, sha256 }:
 
 stdenv.mkDerivation rec {
   pname = "${varnish.name}-digest";
@@ -23,15 +12,8 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    docutils
-  ];
-  buildInputs = [
-    varnish
-    libmhash
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config docutils ];
+  buildInputs = [ varnish libmhash ];
 
   postPatch = ''
     substituteInPlace autogen.sh  --replace "''${dataroot}/aclocal"                  "${varnish.dev}/share/aclocal"

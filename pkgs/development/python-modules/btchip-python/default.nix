@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hidapi,
-  pyscard,
-  ecdsa,
-}:
+{ lib, buildPythonPackage, fetchPypi, hidapi, pyscard, ecdsa }:
 
 buildPythonPackage rec {
   pname = "btchip-python";
@@ -23,10 +16,7 @@ buildPythonPackage rec {
       --replace "python-pyscard>=1.6.12-4build1" "python-pyscard>=1.6.12"
   '';
 
-  propagatedBuildInputs = [
-    hidapi
-    ecdsa
-  ];
+  propagatedBuildInputs = [ hidapi ecdsa ];
 
   passthru.optional-dependencies.smartcard = [ pyscard ];
 
@@ -36,7 +26,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "btchip.btchip" ];
 
   meta = with lib; {
-    description = "Python communication library for Ledger Hardware Wallet products";
+    description =
+      "Python communication library for Ledger Hardware Wallet products";
     homepage = "https://github.com/LedgerHQ/btchip-python";
     license = licenses.asl20;
   };

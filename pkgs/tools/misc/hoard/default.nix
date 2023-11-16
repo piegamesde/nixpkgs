@@ -1,13 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  ncurses,
-  openssl,
-  pkg-config,
-  stdenv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, ncurses, openssl, pkg-config, stdenv
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hoard";
@@ -20,10 +12,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-Gm3X6/g5JQJEl7wRvWcO4j5XpROhtfRJ72LNaUeZRGc=";
   };
 
-  buildInputs = [
-    ncurses
-    openssl
-  ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ ncurses openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   nativeBuildInputs = [ pkg-config ];
 

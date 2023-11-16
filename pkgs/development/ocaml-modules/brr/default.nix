@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  topkg,
-  js_of_ocaml-compiler,
-  js_of_ocaml-toplevel,
-  note,
-}:
+{ stdenv, lib, fetchurl, ocaml, findlib, ocamlbuild, topkg, js_of_ocaml-compiler
+, js_of_ocaml-toplevel, note }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-brr";
@@ -18,17 +8,8 @@ stdenv.mkDerivation rec {
     url = "https://erratique.ch/software/brr/releases/brr-${version}.tbz";
     hash = "sha256-v+Ik1tdRBVnNDqhmNoJuLelL3k5OhxIsUorGdTb9sbw=";
   };
-  buildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-    topkg
-  ];
-  propagatedBuildInputs = [
-    js_of_ocaml-compiler
-    js_of_ocaml-toplevel
-    note
-  ];
+  buildInputs = [ ocaml findlib ocamlbuild topkg ];
+  propagatedBuildInputs = [ js_of_ocaml-compiler js_of_ocaml-toplevel note ];
   inherit (topkg) buildPhase installPhase;
 
   meta = {

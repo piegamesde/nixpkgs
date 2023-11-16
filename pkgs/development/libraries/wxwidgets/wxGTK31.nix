@@ -1,34 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gst_all_1,
-  gtk3,
-  libGL,
-  libGLU,
-  libSM,
-  libXinerama,
-  libXtst,
-  libXxf86vm,
-  pkg-config,
-  xorgproto,
-  compat28 ? false,
-  compat30 ? true,
-  unicode ? true,
-  withEGL ? true,
-  withMesa ? !stdenv.isDarwin,
-  withWebKit ? stdenv.isDarwin,
-  webkitgtk,
-  setfile,
-  AGL,
-  Carbon,
-  Cocoa,
-  Kernel,
-  QTKit,
-  AVFoundation,
-  AVKit,
-  WebKit,
-}:
+{ lib, stdenv, fetchFromGitHub, gst_all_1, gtk3, libGL, libGLU, libSM
+, libXinerama, libXtst, libXxf86vm, pkg-config, xorgproto, compat28 ? false
+, compat30 ? true, unicode ? true, withEGL ? true, withMesa ? !stdenv.isDarwin
+, withWebKit ? stdenv.isDarwin, webkitgtk, setfile, AGL, Carbon, Cocoa, Kernel
+, QTKit, AVFoundation, AVKit, WebKit }:
 
 stdenv.mkDerivation rec {
   pname = "wxwidgets";
@@ -42,19 +16,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # https://github.com/wxWidgets/wxWidgets/issues/17942
-      ./patches/0001-fix-assertion-using-hide-in-destroy.patch
-    ];
+  patches = [
+    # https://github.com/wxWidgets/wxWidgets/issues/17942
+    ./patches/0001-fix-assertion-using-hide-in-destroy.patch
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      gst_all_1.gst-plugins-base
-      gst_all_1.gstreamer
-    ]
+  buildInputs = [ gst_all_1.gst-plugins-base gst_all_1.gstreamer ]
     ++ lib.optionals (!stdenv.isDarwin) [
       gtk3
       libSM
@@ -62,8 +31,7 @@ stdenv.mkDerivation rec {
       libXtst
       libXxf86vm
       xorgproto
-    ]
-    ++ lib.optional withMesa libGLU
+    ] ++ lib.optional withMesa libGLU
     ++ lib.optional (withWebKit && !stdenv.isDarwin) webkitgtk
     ++ lib.optional (withWebKit && stdenv.isDarwin) WebKit
     ++ lib.optionals stdenv.isDarwin [
@@ -79,53 +47,42 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin AGL;
 
-  configureFlags =
-    [
-      "--disable-precomp-headers"
-      # This is the default option, but be explicit
-      "--disable-monolithic"
-      "--enable-mediactrl"
-      (if compat28 then "--enable-compat28" else "--disable-compat28")
-      (if compat30 then "--enable-compat30" else "--disable-compat30")
-    ]
-    ++ lib.optional (!withEGL) "--disable-glcanvasegl"
+  configureFlags = [
+    "--disable-precomp-headers"
+    # This is the default option, but be explicit
+    "--disable-monolithic"
+    "--enable-mediactrl"
+    (if compat28 then "--enable-compat28" else "--disable-compat28")
+    (if compat30 then "--enable-compat30" else "--disable-compat30")
+  ] ++ lib.optional (!withEGL) "--disable-glcanvasegl"
     ++ lib.optional unicode "--enable-unicode"
     ++ lib.optional withMesa "--with-opengl"
-    ++ lib.optionals stdenv.isDarwin [
-      "--with-osx_cocoa"
-      "--with-libiconv"
-    ]
-    ++ lib.optionals withWebKit [
-      "--enable-webview"
-      "--enable-webviewwebkit"
-    ];
+    ++ lib.optionals stdenv.isDarwin [ "--with-osx_cocoa" "--with-libiconv" ]
+    ++ lib.optionals withWebKit [ "--enable-webview" "--enable-webviewwebkit" ];
 
-  SEARCH_LIB = lib.optionalString (!stdenv.isDarwin) "${libGLU.out}/lib ${libGL.out}/lib ";
+  SEARCH_LIB =
+    lib.optionalString (!stdenv.isDarwin) "${libGLU.out}/lib ${libGL.out}/lib ";
 
-  preConfigure =
-    ''
-      substituteInPlace configure --replace \
-        'SEARCH_INCLUDE=' 'DUMMY_SEARCH_INCLUDE='
-      substituteInPlace configure --replace \
-        'SEARCH_LIB=' 'DUMMY_SEARCH_LIB='
-      substituteInPlace configure --replace \
-        /usr /no-such-path
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      substituteInPlace configure --replace \
-        'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' \
-        'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
-      substituteInPlace configure --replace \
-        "-framework System" "-lSystem"
-    '';
+  preConfigure = ''
+    substituteInPlace configure --replace \
+      'SEARCH_INCLUDE=' 'DUMMY_SEARCH_INCLUDE='
+    substituteInPlace configure --replace \
+      'SEARCH_LIB=' 'DUMMY_SEARCH_LIB='
+    substituteInPlace configure --replace \
+      /usr /no-such-path
+  '' + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace configure --replace \
+      'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' \
+      'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
+    substituteInPlace configure --replace \
+      "-framework System" "-lSystem"
+  '';
 
   postInstall = "\n    pushd $out/include\n    ln -s wx-*/* .\n    popd\n  ";
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit compat28 compat30 unicode;
-  };
+  passthru = { inherit compat28 compat30 unicode; };
 
   meta = with lib; {
     homepage = "https://www.wxwidgets.org/";

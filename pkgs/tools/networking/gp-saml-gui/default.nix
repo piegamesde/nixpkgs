@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPythonPackage,
-  webkitgtk,
-  wrapGAppsHook,
-  glib-networking,
-  gobject-introspection,
-  openconnect,
-  pygobject3,
-  requests,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, webkitgtk, wrapGAppsHook
+, glib-networking, gobject-introspection, openconnect, pygobject3, requests }:
 buildPythonPackage rec {
   pname = "gp-saml-gui";
   version = "0.1";
@@ -24,17 +13,10 @@ buildPythonPackage rec {
 
   buildInputs = lib.optional stdenv.isLinux glib-networking;
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gobject-introspection
-    glib-networking
-  ];
+  nativeBuildInputs = [ wrapGAppsHook gobject-introspection glib-networking ];
 
-  propagatedBuildInputs = [
-    requests
-    pygobject3
-    openconnect
-  ] ++ lib.optional stdenv.isLinux webkitgtk;
+  propagatedBuildInputs = [ requests pygobject3 openconnect ]
+    ++ lib.optional stdenv.isLinux webkitgtk;
 
   preFixup = ''
     gappsWrapperArgs+=(
@@ -43,7 +25,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Interactively authenticate to GlobalProtect VPNs that require SAML";
+    description =
+      "Interactively authenticate to GlobalProtect VPNs that require SAML";
     homepage = "https://github.com/dlenski/gp-saml-gui";
     license = licenses.gpl3Only;
     maintainers = [ maintainers.pallix ];

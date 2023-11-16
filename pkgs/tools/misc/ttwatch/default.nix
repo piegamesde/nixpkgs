@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  perl,
-  pkg-config,
-  openssl,
-  curl,
-  libusb1,
-  protobufc,
-  enableUnsafe ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, perl, pkg-config, openssl, curl, libusb1
+, protobufc, enableUnsafe ? false }:
 
 stdenv.mkDerivation {
   pname = "ttwatch";
@@ -23,17 +12,8 @@ stdenv.mkDerivation {
     sha256 = "0yd2hs9d03gfvwm1vywpg2qga6x5c74zrj665wf9aa8gmn96hv8r";
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-    pkg-config
-  ];
-  buildInputs = [
-    openssl
-    curl
-    libusb1
-    protobufc
-  ];
+  nativeBuildInputs = [ cmake perl pkg-config ];
+  buildInputs = [ openssl curl libusb1 protobufc ];
 
   cmakeFlags = lib.optionals enableUnsafe [ "-Dunsafe=on" ];
 

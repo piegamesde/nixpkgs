@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  colorama,
-  pytest,
-  pytest-cov,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, colorama, pytest, pytest-cov }:
 
 buildPythonPackage {
   pname = "typesentry";
@@ -20,10 +13,7 @@ buildPythonPackage {
   };
 
   propagatedBuildInputs = [ colorama ];
-  nativeCheckInputs = [
-    pytest
-    pytest-cov
-  ];
+  nativeCheckInputs = [ pytest pytest-cov ];
   checkPhase = ''
     pytest
   '';

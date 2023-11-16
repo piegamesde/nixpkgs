@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  requests-oauthlib,
-  pythonOlder,
-  setuptools,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, requests-oauthlib, pythonOlder
+, setuptools, six }:
 
 buildPythonPackage rec {
   pname = "homeconnect";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    requests
-    requests-oauthlib
-    six
-  ];
+  propagatedBuildInputs = [ requests requests-oauthlib six ];
 
   # Project has no tests
   doCheck = false;
@@ -37,7 +25,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for the BSH Home Connect REST API";
     homepage = "https://github.com/DavidMStraub/homeconnect";
-    changelog = "https://github.com/DavidMStraub/homeconnect/releases/tag/v${version}";
+    changelog =
+      "https://github.com/DavidMStraub/homeconnect/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

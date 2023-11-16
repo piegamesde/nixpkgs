@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  more-properties,
-  typing-inspect,
-  toolz,
-  toposort,
-  bson,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, more-properties
+, typing-inspect, toolz, toposort, bson, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "dataclasses-serialization";
@@ -40,17 +30,9 @@ buildPythonPackage rec {
     sed -i '/(\(Dict\|List\)/d' tests/test_json.py tests/test_bson.py
   '';
 
-  propagatedBuildInputs = [
-    more-properties
-    typing-inspect
-    toolz
-    toposort
-  ];
+  propagatedBuildInputs = [ more-properties typing-inspect toolz toposort ];
 
-  nativeCheckInputs = [
-    bson
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ bson pytestCheckHook ];
 
   pythonImportsCheck = [
     "dataclasses_serialization.bson"
@@ -59,7 +41,8 @@ buildPythonPackage rec {
   ];
 
   meta = {
-    description = "Serialize/deserialize Python dataclasses to various other data formats";
+    description =
+      "Serialize/deserialize Python dataclasses to various other data formats";
     homepage = "https://github.com/madman-bob/python-dataclasses-serialization";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ dotlambda ];

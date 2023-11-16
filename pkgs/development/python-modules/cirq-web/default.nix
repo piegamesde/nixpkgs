@@ -1,8 +1,4 @@
-{
-  buildPythonPackage,
-  cirq-core,
-  pytestCheckHook,
-}:
+{ buildPythonPackage, cirq-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "cirq-web";
@@ -17,9 +13,8 @@ buildPythonPackage rec {
   # cirq's importlib hook doesn't work here
   #pythonImportsCheck = [ "cirq_web" ];
 
-  disabledTestPaths =
-    [
-      # No need to test the version number
-      "cirq_web/_version_test.py"
-    ];
+  disabledTestPaths = [
+    # No need to test the version number
+    "cirq_web/_version_test.py"
+  ];
 }

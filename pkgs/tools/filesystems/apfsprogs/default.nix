@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, nixosTests }:
 
 stdenv.mkDerivation {
   pname = "apfsprogs";
@@ -32,9 +27,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    apfs = nixosTests.apfs;
-  };
+  passthru.tests = { apfs = nixosTests.apfs; };
 
   meta = with lib; {
     description = "Experimental APFS tools for linux";

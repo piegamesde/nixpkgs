@@ -1,36 +1,16 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  zlib,
-  libusb1,
-  libGL,
-  qmake,
-  wrapGAppsHook,
-  wrapQtAppsHook,
-  mkDerivation,
+{ stdenv, lib, fetchFromGitHub, pkg-config, zlib, libusb1, libGL, qmake
+, wrapGAppsHook, wrapQtAppsHook, mkDerivation
 
-  qttools,
-  qtbase,
-  qt3d,
-  qtsvg,
-  qtserialport,
-  qtdeclarative,
-  qtquickcontrols,
-  qtquickcontrols2,
-  qtgraphicaleffects,
-  qtwayland,
-  nix-update-script,
-}:
+, qttools, qtbase, qt3d, qtsvg, qtserialport, qtdeclarative, qtquickcontrols
+, qtquickcontrols2, qtgraphicaleffects, qtwayland, nix-update-script }:
 let
   pname = "qFlipper";
   version = "1.3.2";
   sha256 = "sha256-n/vvLR4p7ZmQC+FuYOvarmgydfYwxRBRktzs7CfiNQg=";
   timestamp = "99999999999";
   commit = "nix-${version}";
-in
-mkDerivation {
+
+in mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -41,13 +21,7 @@ mkDerivation {
     inherit sha256;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    qttools
-    wrapGAppsHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config qmake qttools wrapGAppsHook wrapQtAppsHook ];
 
   buildInputs = [
     zlib
@@ -64,10 +38,8 @@ mkDerivation {
     qtgraphicaleffects
   ] ++ lib.optionals (stdenv.isLinux) [ qtwayland ];
 
-  qmakeFlags = [
-    "DEFINES+=DISABLE_APPLICATION_UPDATES"
-    "CONFIG+=qtquickcompiler"
-  ];
+  qmakeFlags =
+    [ "DEFINES+=DISABLE_APPLICATION_UPDATES" "CONFIG+=qtquickcompiler" ];
 
   dontWrapGApps = true;
 

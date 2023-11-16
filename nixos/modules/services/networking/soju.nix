@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,9 +6,8 @@ let
   cfg = config.services.soju;
   stateDir = "/var/lib/soju";
   listenCfg = concatMapStringsSep "\n" (l: "listen ${l}") cfg.listen;
-  tlsCfg =
-    optionalString (cfg.tlsCertificate != null)
-      "tls ${cfg.tlsCertificate} ${cfg.tlsCertificateKey}";
+  tlsCfg = optionalString (cfg.tlsCertificate != null)
+    "tls ${cfg.tlsCertificate} ${cfg.tlsCertificateKey}";
   logCfg = optionalString cfg.enableMessageLogging "log fs ${stateDir}/logs";
 
   configFile = pkgs.writeText "soju.conf" ''
@@ -27,8 +21,7 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   ###### interface
 
   options.services.soju = {
@@ -102,15 +95,14 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = (cfg.tlsCertificate != null) == (cfg.tlsCertificateKey != null);
-        message = ''
-          services.soju.tlsCertificate and services.soju.tlsCertificateKey
-          must both be specified to enable TLS.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = (cfg.tlsCertificate != null)
+        == (cfg.tlsCertificateKey != null);
+      message = ''
+        services.soju.tlsCertificate and services.soju.tlsCertificateKey
+        must both be specified to enable TLS.
+      '';
+    }];
 
     systemd.services.soju = {
       description = "soju IRC bouncer";

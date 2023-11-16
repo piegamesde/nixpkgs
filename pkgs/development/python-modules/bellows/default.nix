@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  click-log,
-  fetchFromGitHub,
-  pure-pcapy3,
-  pyserial-asyncio,
-  pytest-asyncio,
-  pytest-timeout,
-  pytestCheckHook,
-  pythonOlder,
-  voluptuous,
-  zigpy,
-}:
+{ lib, buildPythonPackage, click, click-log, fetchFromGitHub, pure-pcapy3
+, pyserial-asyncio, pytest-asyncio, pytest-timeout, pytestCheckHook, pythonOlder
+, voluptuous, zigpy }:
 
 buildPythonPackage rec {
   pname = "bellows";
@@ -28,20 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-JpRL4RxVcH+hzz7YTlRw+FHH95RavS/m1HWyBiLLWME=";
   };
 
-  propagatedBuildInputs = [
-    click
-    click-log
-    pure-pcapy3
-    pyserial-asyncio
-    voluptuous
-    zigpy
-  ];
+  propagatedBuildInputs =
+    [ click click-log pure-pcapy3 pyserial-asyncio voluptuous zigpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    pytest-timeout
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio pytest-timeout ];
 
   pythonImportsCheck = [ "bellows" ];
 

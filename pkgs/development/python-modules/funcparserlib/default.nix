@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  python,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, python, pytestCheckHook
+, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "funcparserlib";
@@ -25,15 +17,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    six
-  ];
+  nativeCheckInputs = [ pytestCheckHook six ];
 
   pythonImportsCheck = [ "funcparserlib" ];
 
   meta = with lib; {
-    description = "Recursive descent parsing library based on functional combinators";
+    description =
+      "Recursive descent parsing library based on functional combinators";
     homepage = "https://github.com/vlasovskikh/funcparserlib";
     license = licenses.mit;
     platforms = platforms.unix;

@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
     hello-world = pkgs.writeText "hello-world" ''
@@ -9,29 +8,26 @@ import ./make-test-python.nix (
 
       main = run {0ℓ} (putStrLn "Hello World!")
     '';
-  in
-  {
+  in {
     name = "agda";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        alexarice
-        turion
-      ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ alexarice turion ]; };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; }) ];
-        virtualisation.memorySize = 2000; # Agda uses a lot of memory
-      };
+    nodes.machine = { pkgs, ... }: {
+      environment.systemPackages =
+        [ (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; }) ];
+      virtualisation.memorySize = 2000; # Agda uses a lot of memory
+    };
 
     testScript = ''
       assert (
-          "${pkgs.agdaPackages.lib.interfaceFile "Everything.agda"}" == "Everything.agdai"
+          "${
+            pkgs.agdaPackages.lib.interfaceFile "Everything.agda"
+          }" == "Everything.agdai"
       ), "wrong interface file for Everything.agda"
       assert (
-          "${pkgs.agdaPackages.lib.interfaceFile "tmp/Everything.agda.md"}" == "tmp/Everything.agdai"
+          "${
+            pkgs.agdaPackages.lib.interfaceFile "tmp/Everything.agda.md"
+          }" == "tmp/Everything.agdai"
       ), "wrong interface file for tmp/Everything.agda.md"
 
       # Minimal script that typechecks
@@ -48,5 +44,4 @@ import ./make-test-python.nix (
           "./HelloWorld"
       ), "HelloWorld does not run properly"
     '';
-  }
-)
+  })

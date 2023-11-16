@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  alsa-lib,
-  espeak,
-  gpsd,
-  hamlib,
-  perl,
-  python3,
-  udev,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, alsa-lib, espeak, gpsd, hamlib, perl
+, python3, udev }:
 
 with lib;
 
@@ -29,18 +18,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs =
-    [
-      espeak
-      gpsd
-      hamlib
-      perl
-      python3
-    ]
-    ++ (optionals stdenv.isLinux [
-      alsa-lib
-      udev
-    ]);
+  buildInputs = [ espeak gpsd hamlib perl python3 ]
+    ++ (optionals stdenv.isLinux [ alsa-lib udev ]);
 
   postPatch = ''
     substituteInPlace conf/CMakeLists.txt \
@@ -62,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A Soundcard Packet TNC, APRS Digipeater, IGate, APRStt gateway";
+    description =
+      "A Soundcard Packet TNC, APRS Digipeater, IGate, APRStt gateway";
     homepage = "https://github.com/wb2osz/direwolf/";
     license = licenses.gpl2;
     platforms = platforms.unix;

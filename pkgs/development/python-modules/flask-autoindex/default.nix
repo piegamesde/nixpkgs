@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-  flask-silk,
-  future,
-  pythonOlder,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, flask, flask-silk, future, pythonOlder
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flask-autoindex";
@@ -22,11 +14,7 @@ buildPythonPackage rec {
     sha256 = "ea319f7ccadf68ddf98d940002066278c779323644f9944b300066d50e2effc7";
   };
 
-  propagatedBuildInputs = [
-    flask
-    flask-silk
-    future
-  ];
+  propagatedBuildInputs = [ flask flask-silk future ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 
@@ -39,7 +27,8 @@ buildPythonPackage rec {
       The result is just like mod_autoindex, but the look is more awesome!
     '';
     homepage = "https://flask-autoindex.readthedocs.io/";
-    changelog = "https://github.com/general03/flask-autoindex/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/general03/flask-autoindex/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
     maintainers = teams.sage.members;
     # https://github.com/general03/flask-autoindex/issues/67

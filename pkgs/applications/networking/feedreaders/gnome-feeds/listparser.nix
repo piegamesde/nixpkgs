@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "listparser";
@@ -13,10 +9,7 @@ python3.pkgs.buildPythonPackage rec {
     sha256 = "0hdqs1mmayw1r8yla43hgb4d9y3zqs5483vgf8j9ygczkd2wrq2b";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-    six
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ requests six ];
 
   checkPhase = ''
     ${python3.interpreter} lptest.py

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libglade,
-  gtk2,
-  guile,
-  libxml2,
-  perl,
-  intltool,
-  libtool,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, libglade, gtk2, guile, libxml2, perl, intltool, libtool
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "drgeo";
@@ -24,18 +13,8 @@ stdenv.mkDerivation rec {
   };
   patches = [ ./struct.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
-  buildInputs = [
-    libglade
-    gtk2
-    guile
-    libxml2
-    perl
-    libtool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
+  buildInputs = [ libglade gtk2 guile libxml2 perl libtool ];
 
   prebuild = ''
     cp drgeo.desktop.in drgeo.desktop

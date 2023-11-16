@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "neo-cowsay";
@@ -19,10 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [
-    "cmd/cowsay"
-    "cmd/cowthink"
-  ];
+  subPackages = [ "cmd/cowsay" "cmd/cowthink" ];
 
   meta = with lib; {
     description = "Cowsay reborn, written in Go";

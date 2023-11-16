@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, cmake, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "libplctag";
@@ -20,11 +15,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/libplctag/libplctag";
-    description = "Library that uses EtherNet/IP or Modbus TCP to read and write tags in PLCs";
-    license = with licenses; [
-      lgpl2Plus
-      mpl20
-    ];
+    description =
+      "Library that uses EtherNet/IP or Modbus TCP to read and write tags in PLCs";
+    license = with licenses; [ lgpl2Plus mpl20 ];
     maintainers = with maintainers; [ petterstorvik ];
     platforms = platforms.all;
   };

@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ocamlbuild,
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild }:
 
 if lib.versionOlder ocaml.version "4.02" then
   throw "erm_xml is not available for OCaml ${ocaml.version}"
@@ -22,11 +15,7 @@ else
       sha256 = "sha256-OQdLTq9tJZc6XlcuPv2gxzYiQAUGd6AiBzfSi169XL0=";
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild ];
 
     strictDeps = true;
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib }:
 
 stdenv.mkDerivation {
   pname = "bwa";
@@ -24,7 +19,8 @@ stdenv.mkDerivation {
     sed -i '/^CC/d' Makefile
   '';
 
-  makeFlags = lib.optional stdenv.hostPlatform.isStatic "AR=${stdenv.cc.targetPrefix}ar";
+  makeFlags =
+    lib.optional stdenv.hostPlatform.isStatic "AR=${stdenv.cc.targetPrefix}ar";
 
   # it's unclear which headers are intended to be part of the public interface
   # so we may find ourselves having to add more here over time
@@ -42,7 +38,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A software package for mapping low-divergent sequences against a large reference genome, such as the human genome";
+    description =
+      "A software package for mapping low-divergent sequences against a large reference genome, such as the human genome";
     license = licenses.gpl3Plus;
     homepage = "https://bio-bwa.sourceforge.net/";
     maintainers = with maintainers; [ luispedro ];

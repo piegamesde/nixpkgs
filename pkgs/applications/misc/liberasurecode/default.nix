@@ -1,22 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  doxygen,
-  installShellFiles,
-  zlib,
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, doxygen, installShellFiles, zlib
 }:
 
 stdenv.mkDerivation rec {
   pname = "liberasurecode";
   version = "1.6.3";
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "doc" ];
 
   src = fetchFromGitHub {
     owner = "openstack";
@@ -30,11 +19,7 @@ stdenv.mkDerivation rec {
       --replace "GENERATE_MAN           = NO" "GENERATE_MAN           = YES"
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    doxygen
-    installShellFiles
-  ];
+  nativeBuildInputs = [ autoreconfHook doxygen installShellFiles ];
 
   buildInputs = [ zlib ];
 
@@ -51,7 +36,8 @@ stdenv.mkDerivation rec {
   checkTarget = "test";
 
   meta = with lib; {
-    description = "Erasure Code API library written in C with pluggable Erasure Code backends";
+    description =
+      "Erasure Code API library written in C with pluggable Erasure Code backends";
     homepage = "https://github.com/openstack/liberasurecode";
     license = licenses.bsd2;
     maintainers = teams.openstack.members;

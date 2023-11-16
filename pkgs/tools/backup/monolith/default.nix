@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  libiconv,
-  Security,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, libiconv
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "monolith";
@@ -23,12 +15,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-kFDyjiupjN1cuhzE16v6JP/yyXdtwL3srZVtSimnahA=";
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
-      libiconv
-      Security
-    ];
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   checkFlagsArray = [ "--skip=tests::cli" ];
 

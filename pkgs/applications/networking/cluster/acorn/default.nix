@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "acorn";
@@ -17,11 +13,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-ebUYPvJInR6Vr8unlMVKEbJX4wzb6vcnNiElFY3doaQ=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/acorn-io/acorn/pkg/version.Tag=v${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/acorn-io/acorn/pkg/version.Tag=v${version}" ];
 
   # integration tests require network and kubernetes master
   doCheck = false;

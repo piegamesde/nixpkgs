@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  atomEnv,
-  systemd,
-  pulseaudio,
-  libxshmfence,
-  libnotify,
-  libappindicator-gtk3,
-  wrapGAppsHook,
-  autoPatchelfHook,
-}:
+{ lib, stdenv, fetchurl, atomEnv, systemd, pulseaudio, libxshmfence, libnotify
+, libappindicator-gtk3, wrapGAppsHook, autoPatchelfHook }:
 
 let
 
@@ -19,20 +8,21 @@ let
 
   srcs = {
     "x86_64-linux" = {
-      url = "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-x64.tar.gz";
+      url =
+        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-x64.tar.gz";
       hash = "sha256-rw+SYCFmN2W4t5iIWEpV9VHxcvwTLOckMV58WRa5dZE=";
     };
 
     "aarch64-linux" = {
-      url = "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-arm64.tar.gz";
+      url =
+        "https://releases.mattermost.com/desktop/${version}/${pname}-${version}-linux-arm64.tar.gz";
       hash = "sha256-FEIldkb3FbUfVAYRkjs7oPRJDHdsIGDW5iaC2Qz1dpc=";
     };
   };
 
   inherit (stdenv.hostPlatform) system;
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl (srcs."${system}" or (throw "Unsupported system ${system}"));
@@ -41,19 +31,12 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontStrip = true;
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ wrapGAppsHook autoPatchelfHook ];
 
   buildInputs = atomEnv.packages ++ [ libxshmfence ];
 
-  runtimeDependencies = [
-    (lib.getLib systemd)
-    pulseaudio
-    libnotify
-    libappindicator-gtk3
-  ];
+  runtimeDependencies =
+    [ (lib.getLib systemd) pulseaudio libnotify libappindicator-gtk3 ];
 
   installPhase = ''
     runHook preInstall
@@ -87,10 +70,7 @@ stdenv.mkDerivation {
     homepage = "https://about.mattermost.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.asl20;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     maintainers = [ maintainers.joko ];
   };
 }

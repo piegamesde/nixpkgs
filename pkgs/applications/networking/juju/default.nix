@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "juju";
@@ -23,7 +19,8 @@ buildGoModule rec {
   subPackages = [ "cmd/juju" ];
 
   meta = with lib; {
-    description = "Open source modelling tool for operating software in the cloud";
+    description =
+      "Open source modelling tool for operating software in the cloud";
     homepage = "https://juju.is";
     license = licenses.mit;
     maintainers = with maintainers; [ citadelcore ];

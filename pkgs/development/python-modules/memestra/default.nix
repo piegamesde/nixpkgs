@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  beniget,
-  frilouz,
-  gast,
-  nbconvert,
-  nbformat,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchPypi, beniget, frilouz, gast, nbconvert
+, nbformat, pythonOlder, pyyaml }:
 
 buildPythonPackage rec {
   pname = "memestra";
@@ -22,14 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-6shwf9BoDfZMy0itP8esNP4ov6fw6LJpO3Y5ZahwDZw=";
   };
 
-  propagatedBuildInputs = [
-    gast
-    beniget
-    frilouz
-    nbconvert
-    nbformat
-    pyyaml
-  ];
+  propagatedBuildInputs = [ gast beniget frilouz nbconvert nbformat pyyaml ];
 
   # Tests are not detected and so the checkPhase fails
   doCheck = false;

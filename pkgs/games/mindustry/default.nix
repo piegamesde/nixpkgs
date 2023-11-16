@@ -1,41 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  makeDesktopItem,
-  copyDesktopItems,
-  fetchFromGitHub,
-  gradle,
-  jdk,
-  perl,
+{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, copyDesktopItems
+, fetchFromGitHub, gradle, jdk, perl
 
-  # for arc
-  SDL2,
-  pkg-config,
-  stb,
-  ant,
-  alsa-lib,
-  alsa-plugins,
-  glew,
-  glew-egl,
+# for arc
+, SDL2, pkg-config, stb, ant, alsa-lib, alsa-plugins, glew, glew-egl
 
-  # for soloud
-  libpulseaudio ? null,
-  libjack2 ? null,
+# for soloud
+, libpulseaudio ? null, libjack2 ? null
 
-  nixosTests,
+, nixosTests
 
-  # Make the build version easily overridable.
-  # Server and client build versions must match, and an empty build version means
-  # any build is allowed, so this parameter acts as a simple whitelist.
-  # Takes the package version and returns the build version.
-  makeBuildVersion ? (v: v),
-  enableClient ? true,
-  enableServer ? true,
+# Make the build version easily overridable.
+# Server and client build versions must match, and an empty build version means
+# any build is allowed, so this parameter acts as a simple whitelist.
+# Takes the package version and returns the build version.
+, makeBuildVersion ? (v: v), enableClient ? true, enableServer ? true
 
-  enableWayland ? false,
-}:
+, enableWayland ? false }:
 
 let
   pname = "mindustry";
@@ -65,12 +45,14 @@ let
   };
   freetypeSource = fetchurl {
     # This is pinned in Arc's extensions/freetype/build.gradle
-    url = "https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz";
+    url =
+      "https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz";
     hash = "sha256-Xqt5XrsjrHcAHPtot9TVC11sdGkkewsBsslTJp9ljaw=";
   };
   glewSource = fetchurl {
     # This is pinned in Arc's backends/backend-sdl/build.gradle
-    url = "https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip";
+    url =
+      "https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.zip";
     hash = "sha256-qQRqkTd0OVoJXtzAsKwtgcOqzKYXh7OYOblB6b4U4NQ=";
   };
   SDLmingwSource = fetchurl {
@@ -114,10 +96,7 @@ let
     inherit version unpackPhase patches;
     postPatch = cleanupMindustrySrc;
 
-    nativeBuildInputs = [
-      gradle
-      perl
-    ];
+    nativeBuildInputs = [ gradle perl ];
     # Here we download dependencies for both the server and the client so
     # we only have to specify one hash for 'deps'. Deps can be garbage
     # collected after the build, so this is not really an issue.
@@ -136,40 +115,21 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-vZc8T7Hk1DLHYgqj8zxKUP2NPXumRxuheMk21Sh2TZY=";
   };
-in
-assert lib.assertMsg (enableClient || enableServer)
-    "mindustry: at least one of 'enableClient' and 'enableServer' must be true";
+
+in assert lib.assertMsg (enableClient || enableServer)
+  "mindustry: at least one of 'enableClient' and 'enableServer' must be true";
 stdenv.mkDerivation rec {
-  inherit
-    pname
-    version
-    unpackPhase
-    patches
-  ;
+  inherit pname version unpackPhase patches;
 
   postPatch = cleanupMindustrySrc;
 
-  buildInputs = lib.optionals enableClient [
-    SDL2
-    selectedGlew
-    alsa-lib
-  ];
-  nativeBuildInputs =
-    [
-      pkg-config
-      gradle
-      makeWrapper
-      jdk
-    ]
-    ++ lib.optionals enableClient [
-      ant
-      copyDesktopItems
-    ];
+  buildInputs = lib.optionals enableClient [ SDL2 selectedGlew alsa-lib ];
+  nativeBuildInputs = [ pkg-config gradle makeWrapper jdk ]
+    ++ lib.optionals enableClient [ ant copyDesktopItems ];
 
   desktopItems = lib.optional enableClient desktopItem;
 
-  buildPhase =
-    with lib;
+  buildPhase = with lib;
     ''
       export GRADLE_USER_HOME=$(mktemp -d)
 
@@ -182,8 +142,7 @@ stdenv.mkDerivation rec {
       sed -ie "/curl.*sdlmingw/{;s#curl -o #cp ${SDLmingwSource} #;s# -L http.*\.tar.gz##;}" Arc/backends/backend-sdl/build.gradle
 
       pushd Mindustry
-    ''
-    + optionalString enableClient ''
+    '' + optionalString enableClient ''
 
       pushd ../Arc
       gradle --offline --no-daemon jnigenBuild -Pbuildversion=${buildVersion}
@@ -199,34 +158,26 @@ stdenv.mkDerivation rec {
       popd
 
       gradle --offline --no-daemon desktop:dist -Pbuildversion=${buildVersion}
-    ''
-    + optionalString enableServer ''
+    '' + optionalString enableServer ''
       gradle --offline --no-daemon server:dist -Pbuildversion=${buildVersion}
     '';
 
-  installPhase =
-    with lib;
+  installPhase = with lib;
     let
-      installClient =
-        ''
-          install -Dm644 desktop/build/libs/Mindustry.jar $out/share/mindustry.jar
-          mkdir -p $out/bin
-          makeWrapper ${jdk}/bin/java $out/bin/mindustry \
-            --add-flags "-jar $out/share/mindustry.jar" \
-            --suffix LD_LIBRARY_PATH : ${
-              lib.makeLibraryPath [
-                libpulseaudio
-                alsa-lib
-                libjack2
-              ]
-            } \
-            --set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib/''
+      installClient = ''
+        install -Dm644 desktop/build/libs/Mindustry.jar $out/share/mindustry.jar
+        mkdir -p $out/bin
+        makeWrapper ${jdk}/bin/java $out/bin/mindustry \
+          --add-flags "-jar $out/share/mindustry.jar" \
+          --suffix LD_LIBRARY_PATH : ${
+            lib.makeLibraryPath [ libpulseaudio alsa-lib libjack2 ]
+          } \
+          --set ALSA_PLUGIN_DIR ${alsa-plugins}/lib/alsa-lib/''
         + optionalString enableWayland ''
           \
                  --set SDL_VIDEODRIVER wayland \
                  --set SDL_VIDEO_WAYLAND_WMCLASS Mindustry
-        ''
-        + ''
+        '' + ''
 
           # Retain runtime depends to prevent them from being cleaned up.
           # Since a jar is a compressed archive, nix can't figure out that the dependency is actually in there,
@@ -246,19 +197,14 @@ stdenv.mkDerivation rec {
         makeWrapper ${jdk}/bin/java $out/bin/mindustry-server \
           --add-flags "-jar $out/share/mindustry-server.jar"
       '';
-    in
-    ''
+    in ''
       runHook preInstall
-    ''
-    + optionalString enableClient installClient
-    + optionalString enableServer installServer
-    + ''
+    '' + optionalString enableClient installClient
+    + optionalString enableServer installServer + ''
       runHook postInstall
     '';
 
-  passthru.tests = {
-    nixosTest = nixosTests.mindustry;
-  };
+  passthru.tests = { nixosTest = nixosTests.mindustry; };
 
   meta = with lib; {
     homepage = "https://mindustrygame.github.io/";
@@ -269,11 +215,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      chkno
-      fgaz
-      thekostins
-    ];
+    maintainers = with maintainers; [ chkno fgaz thekostins ];
     platforms = platforms.x86_64;
     # Hash mismatch on darwin:
     # https://github.com/NixOS/nixpkgs/pull/105590#issuecomment-737120293

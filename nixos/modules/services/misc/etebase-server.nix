@@ -1,74 +1,37 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
   cfg = config.services.etebase-server;
 
-  pythonEnv = pkgs.python3.withPackages (
-    ps:
-    with ps; [
-      etebase-server
-      daphne
-    ]
-  );
+  pythonEnv =
+    pkgs.python3.withPackages (ps: with ps; [ etebase-server daphne ]);
 
   iniFmt = pkgs.formats.ini { };
 
   configIni = iniFmt.generate "etebase-server.ini" cfg.settings;
 
   defaultUser = "etebase-server";
-in
-{
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "etebase-server"
-        "customIni"
-      ]
-      "Set the option `services.etebase-server.settings' instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "etebase-server"
-        "database"
-      ]
-      "Set the option `services.etebase-server.settings.database' instead."
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "etebase-server"
-        "secretFile"
-      ]
-      [
-        "services"
-        "etebase-server"
-        "settings"
-        "secret_file"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "etebase-server"
-        "host"
-      ]
-      [
-        "services"
-        "etebase-server"
-        "settings"
-        "allowed_hosts"
-        "allowed_host1"
-      ]
-    )
+    (mkRemovedOptionModule [ "services" "etebase-server" "customIni" ]
+      "Set the option `services.etebase-server.settings' instead.")
+    (mkRemovedOptionModule [ "services" "etebase-server" "database" ]
+      "Set the option `services.etebase-server.settings.database' instead.")
+    (mkRenamedOptionModule [ "services" "etebase-server" "secretFile" ] [
+      "services"
+      "etebase-server"
+      "settings"
+      "secret_file"
+    ])
+    (mkRenamedOptionModule [ "services" "etebase-server" "host" ] [
+      "services"
+      "etebase-server"
+      "settings"
+      "allowed_hosts"
+      "allowed_host1"
+    ])
   ];
 
   options = {
@@ -138,13 +101,15 @@ in
               static_root = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/static";
-                defaultText = literalExpression ''"''${config.services.etebase-server.dataDir}/static"'';
+                defaultText = literalExpression
+                  ''"''${config.services.etebase-server.dataDir}/static"'';
                 description = lib.mdDoc "The directory for static files.";
               };
               media_root = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/media";
-                defaultText = literalExpression ''"''${config.services.etebase-server.dataDir}/media"'';
+                defaultText = literalExpression
+                  ''"''${config.services.etebase-server.dataDir}/media"'';
                 description = lib.mdDoc "The media directory.";
               };
             };
@@ -170,7 +135,8 @@ in
               name = mkOption {
                 type = types.str;
                 default = "${cfg.dataDir}/db.sqlite3";
-                defaultText = literalExpression ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
+                defaultText = literalExpression
+                  ''"''${config.services.etebase-server.dataDir}/db.sqlite3"'';
                 description = lib.mdDoc "The database name.";
               };
             };
@@ -188,9 +154,7 @@ in
             debug = true;
             media_root = "/path/to/media";
           };
-          allowed_hosts = {
-            allowed_host2 = "localhost";
-          };
+          allowed_hosts = { allowed_host2 = "localhost"; };
         };
       };
 
@@ -204,25 +168,25 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = with pkgs; [
-      (runCommand "etebase-server" { nativeBuildInputs = [ makeWrapper ]; } ''
-        makeWrapper ${pythonEnv}/bin/etebase-server \
-          $out/bin/etebase-server \
-          --chdir ${escapeShellArg cfg.dataDir} \
-          --prefix ETEBASE_EASY_CONFIG_PATH : "${configIni}"
-      '')
-    ];
+    environment.systemPackages = with pkgs;
+      [
+        (runCommand "etebase-server" { nativeBuildInputs = [ makeWrapper ]; } ''
+          makeWrapper ${pythonEnv}/bin/etebase-server \
+            $out/bin/etebase-server \
+            --chdir ${escapeShellArg cfg.dataDir} \
+            --prefix ETEBASE_EASY_CONFIG_PATH : "${configIni}"
+        '')
+      ];
 
     systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
+      "d '${cfg.dataDir}' - ${cfg.user} ${
+        config.users.users.${cfg.user}.group
+      } - -"
     ];
 
     systemd.services.etebase-server = {
       description = "An Etebase (EteSync 2.0) server";
-      after = [
-        "network.target"
-        "systemd-tmpfiles-setup.service"
-      ];
+      after = [ "network.target" "systemd-tmpfiles-setup.service" ];
       wantedBy = [ "multi-user.target" ];
       path = [ pythonEnv ];
       serviceConfig = {
@@ -230,9 +194,7 @@ in
         Restart = "always";
         WorkingDirectory = cfg.dataDir;
       };
-      environment = {
-        ETEBASE_EASY_CONFIG_PATH = configIni;
-      };
+      environment = { ETEBASE_EASY_CONFIG_PATH = configIni; };
       preStart = ''
         # Auto-migrate on first run or if the package has changed
         versionFile="${cfg.dataDir}/src-version"
@@ -242,16 +204,16 @@ in
           echo ${pkgs.etebase-server} > "$versionFile"
         fi
       '';
-      script =
-        let
-          networking =
-            if cfg.unixSocket != null then "-u ${cfg.unixSocket}" else "-b 0.0.0.0 -p ${toString cfg.port}";
-        in
-        ''
-          cd "${pythonEnv}/lib/etebase-server";
-          daphne ${networking} \
-            etebase_server.asgi:application
-        '';
+      script = let
+        networking = if cfg.unixSocket != null then
+          "-u ${cfg.unixSocket}"
+        else
+          "-b 0.0.0.0 -p ${toString cfg.port}";
+      in ''
+        cd "${pythonEnv}/lib/etebase-server";
+        daphne ${networking} \
+          etebase_server.asgi:application
+      '';
     };
 
     users = optionalAttrs (cfg.user == defaultUser) {
@@ -264,6 +226,7 @@ in
       groups.${defaultUser} = { };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libminc,
-  netpbm,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libminc, netpbm }:
 
 stdenv.mkDerivation rec {
   pname = "bicpl";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    libminc
-    netpbm
-  ];
+  buildInputs = [ libminc netpbm ];
 
   cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
 

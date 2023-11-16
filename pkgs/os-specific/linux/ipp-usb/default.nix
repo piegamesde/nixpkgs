@@ -1,12 +1,4 @@
-{
-  buildGoModule,
-  avahi,
-  libusb1,
-  pkg-config,
-  lib,
-  fetchFromGitHub,
-  ronn,
-}:
+{ buildGoModule, avahi, libusb1, pkg-config, lib, fetchFromGitHub, ronn }:
 buildGoModule rec {
   pname = "ipp-usb";
   version = "0.9.23";
@@ -29,14 +21,8 @@ buildGoModule rec {
     done
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    ronn
-  ];
-  buildInputs = [
-    libusb1
-    avahi
-  ];
+  nativeBuildInputs = [ pkg-config ronn ];
+  buildInputs = [ libusb1 avahi ];
 
   vendorSha256 = "sha256-KwW6KgopjF4tVo8eB4OtpXF5R8jfrJ9nibNmaN8U4l8=";
 

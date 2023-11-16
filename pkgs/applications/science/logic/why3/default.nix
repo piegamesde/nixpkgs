@@ -1,21 +1,13 @@
-{
-  callPackage,
-  fetchurl,
-  lib,
-  stdenv,
-  ocamlPackages,
-  coqPackages,
-  rubber,
-  hevea,
-  emacs,
-}:
+{ callPackage, fetchurl, lib, stdenv, ocamlPackages, coqPackages, rubber, hevea
+, emacs }:
 
 stdenv.mkDerivation rec {
   pname = "why3";
   version = "1.6.0";
 
   src = fetchurl {
-    url = "https://why3.gitlabpages.inria.fr/releases/${pname}-${version}.tar.gz";
+    url =
+      "https://why3.gitlabpages.inria.fr/releases/${pname}-${version}.tar.gz";
     hash = "sha256-hFvM6kHScaCtcHCc6Vezl9CR7BFbiKPoTEh7kj0ZJxw=";
   };
 
@@ -29,8 +21,7 @@ stdenv.mkDerivation rec {
     coqPackages.coq
   ];
 
-  buildInputs =
-    with ocamlPackages;
+  buildInputs = with ocamlPackages;
     [
       ocamlgraph
       zarith
@@ -47,15 +38,9 @@ stdenv.mkDerivation rec {
       # S-expression output for why3pp
       ppx_deriving
       ppx_sexp_conv
-    ]
-    ++
-      # Coq Support
-      (
-        with coqPackages; [
-          coq
-          flocq
-        ]
-      );
+    ] ++
+    # Coq Support
+    (with coqPackages; [ coq flocq ]);
 
   propagatedBuildInputs = with ocamlPackages; [
     camlzip
@@ -69,10 +54,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-verbose-make" ];
 
-  installTargets = [
-    "install"
-    "install-lib"
-  ];
+  installTargets = [ "install" "install-lib" ];
 
   passthru.withProvers = callPackage ./with-provers.nix { };
 
@@ -81,9 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://why3.lri.fr/";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      thoughtpolice
-      vbgl
-    ];
+    maintainers = with maintainers; [ thoughtpolice vbgl ];
   };
 }

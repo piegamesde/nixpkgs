@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyserial,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyserial, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyrfxtrx";
@@ -21,11 +15,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # https://github.com/Danielhiversen/pyRFXtrx/issues/130
-      "tests/test_rollertrol.py"
-    ];
+  disabledTestPaths = [
+    # https://github.com/Danielhiversen/pyRFXtrx/issues/130
+    "tests/test_rollertrol.py"
+  ];
 
   meta = with lib; {
     description = "Library to communicate with the RFXtrx family of devices";

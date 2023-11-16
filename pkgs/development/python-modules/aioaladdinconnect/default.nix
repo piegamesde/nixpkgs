@@ -1,10 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aioaladdinconnect";
@@ -27,9 +21,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "AIOAladdinConnect" ];
 
   meta = with lib; {
-    description = "Library for controlling Genie garage doors connected to Aladdin Connect devices";
+    description =
+      "Library for controlling Genie garage doors connected to Aladdin Connect devices";
     homepage = "https://github.com/mkmer/AIOAladdinConnect";
-    changelog = "https://github.com/mkmer/AIOAladdinConnect/releases/tag/${version}";
+    changelog =
+      "https://github.com/mkmer/AIOAladdinConnect/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

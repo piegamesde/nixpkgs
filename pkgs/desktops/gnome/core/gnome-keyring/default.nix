@@ -1,36 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  dbus,
-  libgcrypt,
-  pam,
-  python3,
-  glib,
-  libxslt,
-  gettext,
-  gcr,
-  autoreconfHook,
-  libcap_ng,
-  libselinux,
-  p11-kit,
-  openssh,
-  wrapGAppsHook,
-  docbook-xsl-nons,
-  docbook_xml_dtd_43,
-  gnome,
-  useWrappedDaemon ? true,
-}:
+{ lib, stdenv, fetchurl, pkg-config, dbus, libgcrypt, pam, python3, glib
+, libxslt, gettext, gcr, autoreconfHook, libcap_ng, libselinux, p11-kit, openssh
+, wrapGAppsHook, docbook-xsl-nons, docbook_xml_dtd_43, gnome
+, useWrappedDaemon ? true }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-keyring";
   version = "42.1";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gnome-keyring/${
@@ -50,24 +27,14 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    libgcrypt
-    pam
-    openssh
-    libcap_ng
-    libselinux
-    gcr
-    p11-kit
-  ];
+  buildInputs = [ glib libgcrypt pam openssh libcap_ng libselinux gcr p11-kit ];
 
-  nativeCheckInputs = [
-    dbus
-    python3
-  ];
+  nativeCheckInputs = [ dbus python3 ];
 
   configureFlags = [
-    "--with-pkcs11-config=${placeholder "out"}/etc/pkcs11/" # installation directories
+    "--with-pkcs11-config=${
+      placeholder "out"
+    }/etc/pkcs11/" # installation directories
     "--with-pkcs11-modules=${placeholder "out"}/lib/pkcs11/"
   ];
 
@@ -105,7 +72,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Collection of components in GNOME that store secrets, passwords, keys, certificates and make them available to applications";
+    description =
+      "Collection of components in GNOME that store secrets, passwords, keys, certificates and make them available to applications";
     homepage = "https://wiki.gnome.org/Projects/GnomeKeyring";
     license = licenses.gpl2;
     maintainers = teams.gnome.members;

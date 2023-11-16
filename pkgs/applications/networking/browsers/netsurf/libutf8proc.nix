@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  buildsystem,
-}:
+{ lib, stdenv, fetchurl, pkg-config, buildsystem }:
 
 stdenv.mkDerivation rec {
   pname = "netsurf-${libname}";
@@ -12,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "2.4.0-1";
 
   src = fetchurl {
-    url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
+    url =
+      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}-src.tar.gz";
     hash = "sha256-AasdaYnBx3VQkNskw/ZOSflcVgrknCa+xRQrrGgCxHI=";
   };
 
@@ -20,19 +15,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ buildsystem ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "NSSHARED=${buildsystem}/share/netsurf-buildsystem"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "NSSHARED=${buildsystem}/share/netsurf-buildsystem" ];
 
   meta = with lib; {
     homepage = "https://www.netsurf-browser.org/";
     description = "UTF8 Processing library for netsurf browser";
     license = licenses.mit;
-    maintainers = [
-      maintainers.vrthra
-      maintainers.AndersonTorres
-    ];
+    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
     platforms = platforms.linux;
   };
 }

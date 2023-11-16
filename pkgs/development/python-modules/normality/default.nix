@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  text-unidecode,
-  chardet,
-  banal,
-  pyicu,
-  pytestCheckHook,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, text-unidecode, chardet, banal
+, pyicu, pytestCheckHook }:
 buildPythonPackage rec {
   pname = "normality";
   version = "2.2.5";
@@ -19,12 +11,7 @@ buildPythonPackage rec {
     sha256 = "n8Ycm5DeFItmMJTolazZKGIyN7CTg2ajDCwi/UqzVe8=";
   };
 
-  propagatedBuildInputs = [
-    text-unidecode
-    chardet
-    banal
-    pyicu
-  ];
+  propagatedBuildInputs = [ text-unidecode chardet banal pyicu ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

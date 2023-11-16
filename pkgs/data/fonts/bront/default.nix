@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation {
   pname = "bront_fonts";

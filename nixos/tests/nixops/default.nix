@@ -14,42 +14,30 @@ let
     # inherit testsForPackage;
   };
 
-  testsForPackage = lib.makeOverridable (
-    args: lib.recurseIntoAttrs { legacyNetwork = testLegacyNetwork args; }
-  );
+  testsForPackage = lib.makeOverridable
+    (args: lib.recurseIntoAttrs { legacyNetwork = testLegacyNetwork args; });
 
-  testLegacyNetwork =
-    { nixopsPkg }:
+  testLegacyNetwork = { nixopsPkg }:
     pkgs.nixosTest ({
       name = "nixops-legacy-network";
       nodes = {
-        deployer =
-          {
-            config,
-            lib,
-            nodes,
-            pkgs,
-            ...
-          }:
-          {
-            imports = [ ../../modules/installer/cd-dvd/channel.nix ];
-            environment.systemPackages = [ nixopsPkg ];
-            nix.settings.substituters = lib.mkForce [ ];
-            users.users.person.isNormalUser = true;
-            virtualisation.writableStore = true;
-            virtualisation.additionalPaths = [
-              pkgs.hello
-              pkgs.figlet
-            ];
+        deployer = { config, lib, nodes, pkgs, ... }: {
+          imports = [ ../../modules/installer/cd-dvd/channel.nix ];
+          environment.systemPackages = [ nixopsPkg ];
+          nix.settings.substituters = lib.mkForce [ ];
+          users.users.person.isNormalUser = true;
+          virtualisation.writableStore = true;
+          virtualisation.additionalPaths = [ pkgs.hello pkgs.figlet ];
 
-            # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
-            system.includeBuildDependencies = true;
-          };
-        server = { lib, ... }: { imports = [ ./legacy/base-configuration.nix ]; };
+          # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
+          system.includeBuildDependencies = true;
+        };
+        server = { lib, ... }: {
+          imports = [ ./legacy/base-configuration.nix ];
+        };
       };
 
-      testScript =
-        { nodes }:
+      testScript = { nodes }:
         let
           deployerSetup = pkgs.writeScript "deployerSetup" ''
             #!${pkgs.runtimeShell}
@@ -60,11 +48,9 @@ let
             cp ${snakeOilPrivateKey} ~/.ssh/id_ed25519
             chmod 0400 ~/.ssh/id_ed25519
           '';
-          serverNetworkJSON = pkgs.writeText "server-network.json" (
-            builtins.toJSON nodes.server.config.system.build.networkConfig
-          );
-        in
-        ''
+          serverNetworkJSON = pkgs.writeText "server-network.json"
+            (builtins.toJSON nodes.server.config.system.build.networkConfig);
+        in ''
           import shlex
 
           def deployer_do(cmd):
@@ -104,12 +90,11 @@ let
   /* Return a store path with a closure containing everything including
      derivations and all build dependency outputs, all the way down.
   */
-  allDrvOutputs =
-    pkg:
-    let
-      name = "allDrvOutputs-${pkg.pname or pkg.name or "unknown"}";
-    in
-    pkgs.runCommand name { refs = pkgs.writeReferencesToFile pkg.drvPath; } ''
+  allDrvOutputs = pkg:
+    let name = "allDrvOutputs-${pkg.pname or pkg.name or "unknown"}";
+    in pkgs.runCommand name {
+      refs = pkgs.writeReferencesToFile pkg.drvPath;
+    } ''
       touch $out
       while read ref; do
         case $ref in
@@ -119,5 +104,5 @@ let
         esac
       done <$refs
     '';
-in
-tests
+
+in tests

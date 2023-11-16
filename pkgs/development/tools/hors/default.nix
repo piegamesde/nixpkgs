@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hors";
@@ -27,7 +21,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Instant coding answers via the command line";
     homepage = "https://github.com/windsoilder/hors";
-    changelog = "https://github.com/WindSoilder/hors/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/WindSoilder/hors/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ figsoda ];
   };

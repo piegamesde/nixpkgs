@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  pep8,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, pep8 }:
 
 buildPythonPackage rec {
   pname = "tissue";
@@ -24,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.lgpl2;
     maintainers = with maintainers; [ domenkozar ];
   };
+
 }

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  buildPackages,
-  diffutils,
-  ed,
-  lzip,
-}:
+{ lib, stdenv, fetchurl, buildPackages, diffutils, ed, lzip }:
 
 stdenv.mkDerivation rec {
   pname = "rcs";
@@ -21,10 +13,11 @@ stdenv.mkDerivation rec {
   DIFF = "${diffutils}/bin/diff";
   DIFF3 = "${diffutils}/bin/diff3";
 
-  disallowedReferences = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-    buildPackages.diffutils
-    buildPackages.ed
-  ];
+  disallowedReferences =
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      buildPackages.diffutils
+      buildPackages.ed
+    ];
 
   env.NIX_CFLAGS_COMPILE = "-std=c99";
 

@@ -1,21 +1,11 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  pyyaml,
-  six,
-  lxml,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, pyyaml, six, lxml }:
 
 buildPythonPackage rec {
   pname = "ipyxact";
   version = "0.3.2";
 
   propagatedBuildInputs = [ pyyaml ];
-  checkInputs = [
-    six
-    lxml
-  ];
+  checkInputs = [ six lxml ];
 
   src = fetchFromGitHub {
     owner = "olofk";

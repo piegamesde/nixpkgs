@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.surfboard;
-in
-{
+let cfg = config.services.prometheus.exporters.surfboard;
+in {
   port = 9239;
   extraOpts = {
     modemAddress = mkOption {

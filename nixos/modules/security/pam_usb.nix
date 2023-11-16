@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,10 +6,10 @@ let
 
   cfg = config.security.pam.usb;
 
-  anyUsbAuth = any (attrByPath [ "usbAuth" ] false) (attrValues config.security.pam.services);
-in
+  anyUsbAuth = any (attrByPath [ "usbAuth" ] false)
+    (attrValues config.security.pam.services);
 
-{
+in {
   options = {
 
     security.pam.usb = {
@@ -26,7 +21,9 @@ in
           more information, visit <https://github.com/aluzzardi/pam_usb/wiki/Getting-Started#setting-up-devices-and-users>.
         '';
       };
+
     };
+
   };
 
   config = mkIf (cfg.enable || anyUsbAuth) {
@@ -48,5 +45,6 @@ in
     };
 
     environment.systemPackages = [ pkgs.pmount ];
+
   };
 }

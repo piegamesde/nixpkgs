@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  setuptools-scm,
-  toml,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools-scm, toml
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pure_eval";

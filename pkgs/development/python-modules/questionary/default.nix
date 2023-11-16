@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  prompt-toolkit,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, poetry-core, prompt-toolkit
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "questionary";
@@ -33,11 +25,10 @@ buildPythonPackage rec {
     ulimit -n 1024
   '';
 
-  disabledTests =
-    [
-      # RuntimeError: no running event loop
-      "test_blank_line_fix"
-    ];
+  disabledTests = [
+    # RuntimeError: no running event loop
+    "test_blank_line_fix"
+  ];
 
   pythonImportsCheck = [ "questionary" ];
 

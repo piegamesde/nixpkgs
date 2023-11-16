@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  matplotlib,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-  seaborn,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, pytestCheckHook
+, pythonOlder, scipy, seaborn, requests }:
 
 buildPythonPackage rec {
   pname = "simpful";
@@ -25,22 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-1CU/Iz83CKRx7dsOTGfdJm98TUfc2kxCHKIEUXP36HQ=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    requests
-  ];
+  propagatedBuildInputs = [ numpy scipy requests ];
 
-  passthru.optional-dependencies = {
-    plotting = [
-      matplotlib
-      seaborn
-    ];
-  };
+  passthru.optional-dependencies = { plotting = [ matplotlib seaborn ]; };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "simpful" ];
 

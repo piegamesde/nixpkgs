@@ -1,17 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 let
-  inherit (lib)
-    mkOption
-    mkIf
-    types
-    optionalString
-  ;
+  inherit (lib) mkOption mkIf types optionalString;
 
   cfg = config.programs.tmux;
 
@@ -37,7 +27,8 @@ let
     set -g status-keys ${cfg.keyMode}
     set -g mode-keys   ${cfg.keyMode}
 
-    ${optionalString (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize) ''
+    ${optionalString
+    (cfg.keyMode == "vi" && cfg.customPaneNavigationAndResize) ''
       bind h select-pane -L
       bind j select-pane -D
       bind k select-pane -U
@@ -70,8 +61,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
   ###### interface
 
   options = {
@@ -80,7 +71,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whenever to configure {command}`tmux` system-wide.";
+        description =
+          lib.mdDoc "Whenever to configure {command}`tmux` system-wide.";
         relatedPackages = [ "tmux" ];
       };
 
@@ -108,16 +100,16 @@ in
       customPaneNavigationAndResize = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
+        description = lib.mdDoc
+          "Override the hjkl and HJKL bindings for pane navigation and resizing in VI mode.";
       };
 
       escapeTime = mkOption {
         default = 500;
         example = 0;
         type = types.int;
-        description = lib.mdDoc "Time in milliseconds for which tmux waits after an escape is input.";
+        description = lib.mdDoc
+          "Time in milliseconds for which tmux waits after an escape is input.";
       };
 
       extraConfig = mkOption {
@@ -132,23 +124,22 @@ in
         default = 2000;
         example = 5000;
         type = types.int;
-        description = lib.mdDoc "Maximum number of lines held in window history.";
+        description =
+          lib.mdDoc "Maximum number of lines held in window history.";
       };
 
       keyMode = mkOption {
         default = defaultKeyMode;
         example = "vi";
-        type = types.enum [
-          "emacs"
-          "vi"
-        ];
+        type = types.enum [ "emacs" "vi" ];
         description = lib.mdDoc "VI or Emacs style shortcuts.";
       };
 
       newSession = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Automatically spawn a session if trying to attach and none are running.";
+        description = lib.mdDoc
+          "Automatically spawn a session if trying to attach and none are running.";
       };
 
       reverseSplit = mkOption {
@@ -168,7 +159,8 @@ in
         default = defaultShortcut;
         example = "a";
         type = types.str;
-        description = lib.mdDoc "Ctrl following by this key is used as the main shortcut.";
+        description =
+          lib.mdDoc "Ctrl following by this key is used as the main shortcut.";
       };
 
       terminal = mkOption {
@@ -218,7 +210,8 @@ in
       systemPackages = [ pkgs.tmux ] ++ cfg.plugins;
 
       variables = {
-        TMUX_TMPDIR = lib.optional cfg.secureSocket ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+        TMUX_TMPDIR = lib.optional cfg.secureSocket
+          ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
       };
     };
     security.wrappers = mkIf cfg.withUtempter {
@@ -233,17 +226,10 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [
-        "programs"
-        "tmux"
-        "extraTmuxConf"
-      ]
-      [
-        "programs"
-        "tmux"
-        "extraConfig"
-      ]
-    )
+    (lib.mkRenamedOptionModule [ "programs" "tmux" "extraTmuxConf" ] [
+      "programs"
+      "tmux"
+      "extraConfig"
+    ])
   ];
 }

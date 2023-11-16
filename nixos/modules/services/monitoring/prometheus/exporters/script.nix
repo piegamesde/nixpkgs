@@ -1,44 +1,38 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
 let
   cfg = config.services.prometheus.exporters.script;
-  configFile = pkgs.writeText "script-exporter.yaml" (builtins.toJSON cfg.settings);
-in
-{
+  configFile =
+    pkgs.writeText "script-exporter.yaml" (builtins.toJSON cfg.settings);
+in {
   port = 9172;
   extraOpts = {
     settings.scripts = mkOption {
-      type =
-        with types;
-        listOf (
-          submodule {
-            options = {
-              name = mkOption {
-                type = str;
-                example = "sleep";
-                description = lib.mdDoc "Name of the script.";
-              };
-              script = mkOption {
-                type = str;
-                example = "sleep 5";
-                description = lib.mdDoc "Shell script to execute when metrics are requested.";
-              };
-              timeout = mkOption {
-                type = nullOr int;
-                default = null;
-                example = 60;
-                description = lib.mdDoc "Optional timeout for the script in seconds.";
-              };
+      type = with types;
+        listOf (submodule {
+          options = {
+            name = mkOption {
+              type = str;
+              example = "sleep";
+              description = lib.mdDoc "Name of the script.";
             };
-          }
-        );
+            script = mkOption {
+              type = str;
+              example = "sleep 5";
+              description =
+                lib.mdDoc "Shell script to execute when metrics are requested.";
+            };
+            timeout = mkOption {
+              type = nullOr int;
+              default = null;
+              example = 60;
+              description =
+                lib.mdDoc "Optional timeout for the script in seconds.";
+            };
+          };
+        });
       example = literalExpression ''
         {
           scripts = [

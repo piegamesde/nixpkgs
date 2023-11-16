@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  fftwSinglePrec,
-  libsndfile,
-  sigutils,
-  soapysdr-with-plugins,
-  libxml2,
-  volk,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, fftwSinglePrec, libsndfile
+, sigutils, soapysdr-with-plugins, libxml2, volk }:
 
 stdenv.mkDerivation rec {
   pname = "suscan";
@@ -27,28 +16,16 @@ stdenv.mkDerivation rec {
     sed -i 's/fftw3 >= 3.0/fftw3f >= 3.0/' suscan.pc.in
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    fftwSinglePrec
-    libsndfile
-    sigutils
-    soapysdr-with-plugins
-    libxml2
-    volk
-  ];
+  buildInputs =
+    [ fftwSinglePrec libsndfile sigutils soapysdr-with-plugins libxml2 volk ];
 
   meta = with lib; {
     description = "Channel scanner based on sigutils library";
     homepage = "https://github.com/BatchDrake/suscan";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      polygon
-      oxapentane
-    ];
+    maintainers = with maintainers; [ polygon oxapentane ];
   };
 }

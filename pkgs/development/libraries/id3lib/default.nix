@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libiconv,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, libiconv, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "id3lib";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     ./patch_id3lib_3.8.3_UTF16_writing_bug.diff
   ];
 
-  buildInputs = [
-    libiconv
-    zlib
-  ];
+  buildInputs = [ libiconv zlib ];
 
   src = fetchurl {
     url = "mirror://sourceforge/id3lib/${pname}-${version}.tar.gz";
@@ -28,7 +19,8 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails to compile
 
   meta = with lib; {
-    description = "Library for reading, writing, and manipulating ID3v1 and ID3v2 tags";
+    description =
+      "Library for reading, writing, and manipulating ID3v1 and ID3v2 tags";
     homepage = "https://id3lib.sourceforge.net";
     platforms = platforms.unix;
     license = licenses.lgpl2;

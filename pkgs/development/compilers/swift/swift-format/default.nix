@@ -1,26 +1,14 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  swift,
-  swiftpm,
-  swiftpm2nix,
-  Foundation,
-}:
+{ lib, stdenv, callPackage, swift, swiftpm, swiftpm2nix, Foundation }:
 let
   sources = callPackage ../sources.nix { };
   generated = swiftpm2nix.helpers ./generated;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "swift-format";
 
   inherit (sources) version;
   src = sources.swift-format;
 
-  nativeBuildInputs = [
-    swift
-    swiftpm
-  ];
+  nativeBuildInputs = [ swift swiftpm ];
   buildInputs = [ Foundation ];
 
   configurePhase = generated.configure;

@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  acl,
-  glib,
-  intltool,
-  pkg-config,
-  udev,
-  util-linux,
-}:
+{ lib, stdenv, fetchFromGitHub, acl, glib, intltool, pkg-config, udev
+, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "udevil";
@@ -21,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "0nd44r8rbxifx4x4m24z5aji1c6k1fhw8cmf5s43wd5qys0bcdad";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    glib
-    udev
-  ];
+  buildInputs = [ glib udev ];
 
   preConfigure = ''
     substituteInPlace src/Makefile.in --replace "-o root -g root" ""
@@ -50,11 +35,10 @@ stdenv.mkDerivation rec {
       --replace /usr/bin/devmon "$out/bin/devmon"
   '';
 
-  patches =
-    [
-      # sys/stat.h header missing on src/device-info.h
-      ./device-info-sys-stat.patch
-    ];
+  patches = [
+    # sys/stat.h header missing on src/device-info.h
+    ./device-info-sys-stat.patch
+  ];
 
   meta = with lib; {
     homepage = "https://ignorantguru.github.io/udevil/";

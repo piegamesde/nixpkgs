@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "flatbuffers";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-h0lF7jf1cDVVyqhUCi7D0NoZ3b4X/vWXsFplND80lGs=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ];
+  nativeBuildInputs = [ cmake python3 ];
 
   postPatch = ''
     # Fix default value of "test_data_path" to make tests work

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  glib,
-  gtk3,
-  gnome,
-  gsettings-desktop-schemas,
-  wrapGAppsHook,
-  xorg,
-}:
+{ lib, stdenv, fetchurl, pkg-config, glib, gtk3, gnome
+, gsettings-desktop-schemas, wrapGAppsHook, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "mousetweaks";
@@ -22,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "005fhmvb45sa9mq17dpa23n1xnspiissx5rnpiy7hiqmy3g5rg8f";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
 
   buildInputs = [
     glib
@@ -37,12 +24,11 @@ stdenv.mkDerivation rec {
     xorg.libXcursor
   ];
 
-  passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
-    description = "Provides mouse accessibility enhancements for the GNOME desktop";
+    description =
+      "Provides mouse accessibility enhancements for the GNOME desktop";
     longDescription = ''
       Mousetweaks provides mouse accessibility enhancements for the GNOME
       desktop. These enhancements are:

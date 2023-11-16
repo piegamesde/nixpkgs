@@ -1,39 +1,14 @@
-{
-  cmake,
-  lib,
-  stdenv,
-  fetchurl,
-  bash,
-  unzip,
-  glibc,
-  openssl,
-  gcc,
-  libgit2,
-  libGLU,
-  libGL,
-  freetype,
-  xorg,
-  alsa-lib,
-  cairo,
-  libuuid,
-  autoreconfHook,
-  gcc48,
-  fetchFromGitHub,
-  makeWrapper,
-  runtimeShell,
-  libnsl,
-}@args:
+{ cmake, lib, stdenv, fetchurl, bash, unzip, glibc, openssl, gcc, libgit2
+, libGLU, libGL, freetype, xorg, alsa-lib, cairo, libuuid, autoreconfHook, gcc48
+, fetchFromGitHub, makeWrapper, runtimeShell, libnsl }@args:
 
 let
   pharo-vm-build = import ./build-vm.nix args;
   pharo-vm-build-legacy = import ./build-vm-legacy.nix args;
-in
 
-let
-  suffix = if stdenv.is64bit then "64" else "32";
-in
+in let suffix = if stdenv.is64bit then "64" else "32";
 
-{
+in {
   # Build the latest VM
   spur = pharo-vm-build rec {
     name = "pharo-spur${suffix}";
@@ -67,4 +42,5 @@ in
       sha256 = "16n2zg7v2s1ml0vvpbhkw6khmgn637sr0d7n2b28qm5yc8pfhcj4";
     };
   };
+
 }

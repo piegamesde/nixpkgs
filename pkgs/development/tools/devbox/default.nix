@@ -1,9 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, installShellFiles, lib }:
 buildGoModule rec {
   pname = "devbox";
   version = "0.5.4";
@@ -15,11 +10,8 @@ buildGoModule rec {
     hash = "sha256-PcD7VNIB50AD1Ho3agM6DocDgAxrRWjPBpK1NDgE+IU=";
   };
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X go.jetpack.io/devbox/internal/build.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X go.jetpack.io/devbox/internal/build.Version=${version}" ];
 
   # integration tests want file system access
   doCheck = false;

@@ -1,30 +1,7 @@
-{
-  lib,
-  stdenv,
-  buildPythonApplication,
-  fetchPypi,
-  pytestCheckHook,
-  pkg-config,
-  cmake,
-  flex,
-  glib,
-  json-glib,
-  libxml2,
-  appdirs,
-  dbus-deviation,
-  faust-cchardet,
-  feedgen,
-  lxml,
-  networkx,
-  pkgconfig,
-  pyyaml,
-  schema,
-  setuptools,
-  toposort,
-  wheezy-template,
-  libclang,
-  gst_all_1,
-}:
+{ lib, stdenv, buildPythonApplication, fetchPypi, pytestCheckHook, pkg-config
+, cmake, flex, glib, json-glib, libxml2, appdirs, dbus-deviation, faust-cchardet
+, feedgen, lxml, networkx, pkgconfig, pyyaml, schema, setuptools, toposort
+, wheezy-template, libclang, gst_all_1 }:
 
 buildPythonApplication rec {
   pname = "hotdoc";
@@ -35,17 +12,9 @@ buildPythonApplication rec {
     hash = "sha256-ESOmWeLJSXLDKBPsMBGR0zPbJHEqg/fj0G3VjUfPAJg=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    flex
-  ];
+  nativeBuildInputs = [ pkg-config cmake flex ];
 
-  buildInputs = [
-    glib
-    json-glib
-    libxml2.dev
-  ];
+  buildInputs = [ glib json-glib libxml2.dev ];
 
   propagatedBuildInputs = [
     appdirs
@@ -75,21 +44,15 @@ buildPythonApplication rec {
   ];
 
   # Run the tests by package instead of current dir
-  pytestFlagsArray = [
-    "--pyargs"
-    "hotdoc"
-  ];
+  pytestFlagsArray = [ "--pyargs" "hotdoc" ];
 
-  disabledTests =
-    [
-      # Test does not correctly handle path normalization for test comparison
-      "test_cli_overrides"
-    ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # Test does not correctly handle absolute /home paths on Darwin (even fake ones)
-        "test_index"
-      ];
+  disabledTests = [
+    # Test does not correctly handle path normalization for test comparison
+    "test_cli_overrides"
+  ] ++ lib.optionals stdenv.isDarwin [
+    # Test does not correctly handle absolute /home paths on Darwin (even fake ones)
+    "test_index"
+  ];
 
   # Hardcode libclang paths
   postPatch = ''
@@ -108,9 +71,7 @@ buildPythonApplication rec {
     popd
   '';
 
-  passthru.tests = {
-    inherit (gst_all_1) gstreamer gst-plugins-base;
-  };
+  passthru.tests = { inherit (gst_all_1) gstreamer gst-plugins-base; };
 
   meta = with lib; {
     description = "The tastiest API documentation system";

@@ -1,26 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch2,
-  cmake,
-  libpcap,
-  libnet,
-  zlib,
-  curl,
-  pcre,
-  openssl,
-  ncurses,
-  glib,
-  gtk3,
-  atk,
-  pango,
-  flex,
-  bison,
-  geoip,
-  harfbuzz,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch2, cmake, libpcap, libnet, zlib, curl
+, pcre, openssl, ncurses, glib, gtk3, atk, pango, flex, bison, geoip, harfbuzz
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "ettercap";
@@ -36,18 +16,14 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch2 {
       name = "curl-8.patch";
-      url = "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff";
+      url =
+        "https://github.com/Ettercap/ettercap/commit/9ec4066addc49483e40055e0738c2e0ef144702f.diff";
       sha256 = "6D8lIxub0OS52BFr42yWRyqS2Q5CrpTLTt6rcItXFMM=";
     })
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [
-    cmake
-    flex
-    bison
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake flex bison pkg-config ];
   buildInputs = [
     libpcap
     libnet

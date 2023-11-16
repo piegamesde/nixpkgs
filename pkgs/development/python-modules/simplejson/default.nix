@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -36,11 +30,9 @@ buildPythonPackage rec {
       for unicode characters).
     '';
     homepage = "https://github.com/simplejson/simplejson";
-    changelog = "https://github.com/simplejson/simplejson/blob/v${version}/CHANGES.txt";
-    license = with licenses; [
-      mit
-      afl21
-    ];
+    changelog =
+      "https://github.com/simplejson/simplejson/blob/v${version}/CHANGES.txt";
+    license = with licenses; [ mit afl21 ];
     maintainers = with maintainers; [ fab ];
   };
 }

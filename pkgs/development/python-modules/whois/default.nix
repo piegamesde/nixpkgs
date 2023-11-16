@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  inetutils,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, inetutils, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "whois";
@@ -20,11 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-hs4iCv2OqwLhTj2H4oijRYIyqXrHmewqgnMtU+3Uup0=";
   };
 
-  propagatedBuildInputs =
-    [
-      # whois is needed
-      inetutils
-    ];
+  propagatedBuildInputs = [
+    # whois is needed
+    inetutils
+  ];
 
   # tests require network access
   doCheck = false;
@@ -34,7 +27,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module/library for retrieving WHOIS information";
     homepage = "https://github.com/DannyCork/python-whois/";
-    changelog = "https://github.com/DannyCork/python-whois/releases/tag/${version}";
+    changelog =
+      "https://github.com/DannyCork/python-whois/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

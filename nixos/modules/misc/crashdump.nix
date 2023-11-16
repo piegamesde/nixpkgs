@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,9 +6,9 @@ let
   crashdump = config.boot.crashDump;
 
   kernelParams = concatStringsSep " " crashdump.kernelParams;
-in
-###### interface
-{
+
+  ###### interface
+in {
   options = {
     boot = {
       crashDump = {
@@ -39,10 +34,7 @@ in
         };
         kernelParams = mkOption {
           type = types.listOf types.str;
-          default = [
-            "1"
-            "boot.shell_on_fail"
-          ];
+          default = [ "1" "boot.shell_on_fail" ];
           description = lib.mdDoc ''
             Parameters that will be passed to the kernel kexec-ed on crash.
           '';
@@ -67,19 +59,17 @@ in
         "nmi_watchdog=panic"
         "softlockup_panic=1"
       ];
-      kernelPatches = [
-        {
-          name = "crashdump-config";
-          patch = null;
-          extraConfig = ''
-            CRASH_DUMP y
-            DEBUG_INFO y
-            PROC_VMCORE y
-            LOCKUP_DETECTOR y
-            HARDLOCKUP_DETECTOR y
-          '';
-        }
-      ];
+      kernelPatches = [{
+        name = "crashdump-config";
+        patch = null;
+        extraConfig = ''
+          CRASH_DUMP y
+          DEBUG_INFO y
+          PROC_VMCORE y
+          LOCKUP_DETECTOR y
+          HARDLOCKUP_DETECTOR y
+        '';
+      }];
     };
   };
 }

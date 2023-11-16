@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.shelly;
-in
-{
+let cfg = config.services.prometheus.exporters.shelly;
+in {
   port = 9784;
   extraOpts = {
     metrics-file = mkOption {

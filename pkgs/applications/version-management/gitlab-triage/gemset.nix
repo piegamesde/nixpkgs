@@ -1,11 +1,6 @@
 {
   activesupport = {
-    dependencies = [
-      "concurrent-ruby"
-      "i18n"
-      "minitest"
-      "tzinfo"
-    ];
+    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -26,12 +21,7 @@
     version = "1.1.10";
   };
   gitlab-triage = {
-    dependencies = [
-      "activesupport"
-      "globalid"
-      "graphql-client"
-      "httparty"
-    ];
+    dependencies = [ "activesupport" "globalid" "graphql-client" "httparty" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -63,10 +53,7 @@
     version = "2.0.11";
   };
   graphql-client = {
-    dependencies = [
-      "activesupport"
-      "graphql"
-    ];
+    dependencies = [ "activesupport" "graphql" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -77,10 +64,7 @@
     version = "0.18.0";
   };
   httparty = {
-    dependencies = [
-      "mime-types"
-      "multi_xml"
-    ];
+    dependencies = [ "mime-types" "multi_xml" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

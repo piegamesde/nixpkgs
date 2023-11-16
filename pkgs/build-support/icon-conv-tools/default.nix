@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  icoutils,
-}:
+{ lib, stdenv, icoutils }:
 
 stdenv.mkDerivation {
   pname = "icon-conv-tools";

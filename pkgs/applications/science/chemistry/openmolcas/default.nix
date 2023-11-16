@@ -1,42 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  gfortran,
-  perl,
-  blas-ilp64,
-  hdf5-cpp,
-  python3,
-  texlive,
-  armadillo,
-  libxc,
-  makeWrapper,
-  # Note that the CASPT2 module is broken with MPI
-  # See https://gitlab.com/Molcas/OpenMolcas/-/issues/169
-  enableMpi ? false,
-  mpi,
-  globalarrays,
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, gfortran, perl, blas-ilp64, hdf5-cpp
+, python3, texlive, armadillo, libxc, makeWrapper
+# Note that the CASPT2 module is broken with MPI
+# See https://gitlab.com/Molcas/OpenMolcas/-/issues/169
+, enableMpi ? false, mpi, globalarrays }:
 
 assert blas-ilp64.isILP64;
-assert lib.elem blas-ilp64.passthru.implementation [
-  "openblas"
-  "mkl"
-];
+assert lib.elem blas-ilp64.passthru.implementation [ "openblas" "mkl" ];
 
-let
-  python = python3.withPackages (
-    ps:
-    with ps; [
-      six
-      pyparsing
-      numpy
-      h5py
-    ]
-  );
-in
-stdenv.mkDerivation {
+let python = python3.withPackages (ps: with ps; [ six pyparsing numpy h5py ]);
+
+in stdenv.mkDerivation {
   pname = "openmolcas";
   version = "23.02";
 
@@ -48,11 +21,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-Kj2RDJq8PEvKclLrSYIOdl6g6lcRsTNZCjwxGOs3joY=";
   };
 
-  patches =
-    [
-      # Required to handle openblas multiple outputs
-      ./openblasPath.patch
-    ];
+  patches = [
+    # Required to handle openblas multiple outputs
+    ./openblasPath.patch
+  ];
 
   postPatch = ''
     # Using env fails in the sandbox
@@ -60,50 +32,28 @@ stdenv.mkDerivation {
       "/usr/bin/env','python3" "python3"
   '';
 
-  nativeBuildInputs = [
-    perl
-    gfortran
-    cmake
-    texlive.combined.scheme-minimal
-    makeWrapper
-  ];
+  nativeBuildInputs =
+    [ perl gfortran cmake texlive.combined.scheme-minimal makeWrapper ];
 
-  buildInputs =
-    [
-      blas-ilp64.passthru.provider
-      hdf5-cpp
-      python
-      armadillo
-      libxc
-    ]
-    ++ lib.optionals enableMpi [
-      mpi
-      globalarrays
-    ];
+  buildInputs = [ blas-ilp64.passthru.provider hdf5-cpp python armadillo libxc ]
+    ++ lib.optionals enableMpi [ mpi globalarrays ];
 
   passthru = lib.optionalAttrs enableMpi { inherit mpi; };
 
-  cmakeFlags =
-    [
-      "-DOPENMP=ON"
-      "-DLINALG=OpenBLAS"
-      "-DTOOLS=ON"
-      "-DHDF5=ON"
-      "-DFDE=ON"
-      "-DEXTERNAL_LIBXC=${libxc}"
-    ]
-    ++ lib.optionals (blas-ilp64.passthru.implementation == "openblas") [
-      "-DOPENBLASROOT=${blas-ilp64.passthru.provider.dev}"
-      "-DLINALG=OpenBLAS"
-    ]
-    ++ lib.optionals (blas-ilp64.passthru.implementation == "mkl") [
-      "-DMKLROOT=${blas-ilp64.passthru.provider}"
-      "-DLINALG=MKL"
-    ]
-    ++ lib.optionals enableMpi [
-      "-DGA=ON"
-      "-DMPI=ON"
-    ];
+  cmakeFlags = [
+    "-DOPENMP=ON"
+    "-DLINALG=OpenBLAS"
+    "-DTOOLS=ON"
+    "-DHDF5=ON"
+    "-DFDE=ON"
+    "-DEXTERNAL_LIBXC=${libxc}"
+  ] ++ lib.optionals (blas-ilp64.passthru.implementation == "openblas") [
+    "-DOPENBLASROOT=${blas-ilp64.passthru.provider.dev}"
+    "-DLINALG=OpenBLAS"
+  ] ++ lib.optionals (blas-ilp64.passthru.implementation == "mkl") [
+    "-DMKLROOT=${blas-ilp64.passthru.provider}"
+    "-DLINALG=MKL"
+  ] ++ lib.optionals enableMpi [ "-DGA=ON" "-DMPI=ON" ];
 
   preConfigure = lib.optionalString enableMpi ''
     export GAROOT=${globalarrays};
@@ -138,3 +88,4 @@ stdenv.mkDerivation {
     mainProgram = "pymolcas";
   };
 }
+

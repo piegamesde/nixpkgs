@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  makeBinaryWrapper,
-  jre_headless,
-}:
+{ lib, stdenvNoCC, fetchurl, makeBinaryWrapper, jre_headless }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ltex-ls";
   version = "16.0.0";
 
   src = fetchurl {
-    url = "https://github.com/valentjn/ltex-ls/releases/download/${version}/ltex-ls-${version}.tar.gz";
+    url =
+      "https://github.com/valentjn/ltex-ls/releases/download/${version}/ltex-ls-${version}.tar.gz";
     sha256 = "sha256-lW1TfTckqhCmhjcvduISY9qAdKPM/0cobxbIrCq5JkQ=";
   };
 

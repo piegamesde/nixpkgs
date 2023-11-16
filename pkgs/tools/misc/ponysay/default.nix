@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  texinfo,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, texinfo, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "ponysay";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    python3
-    texinfo
-  ];
+  buildInputs = [ python3 texinfo ];
 
   inherit python3;
 

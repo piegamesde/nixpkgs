@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mako,
-  parse,
-  parse-type,
-  poetry-core,
-  pytest,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mako, parse, parse-type, poetry-core
+, pytest, pytestCheckHook, pythonOlder, setuptools, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pytest-bdd";
@@ -31,17 +19,9 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    mako
-    parse
-    parse-type
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ mako parse parse-type typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    setuptools
-  ];
+  nativeCheckInputs = [ pytestCheckHook setuptools ];
 
   preCheck = ''
     export PATH=$PATH:$out/bin

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,42 +8,34 @@ let
   useSSL = (cfg.rpc.certificate != null) && (cfg.rpc.key != null);
   useRPC = (cfg.rpc.user != null) && (cfg.rpc.password != null);
 
-  listToConf =
-    option: list:
-    concatMapStrings
-      (value: ''
-        ${option}=${value}
-      '')
-      list;
+  listToConf = option: list:
+    concatMapStrings (value: ''
+      ${option}=${value}
+    '') list;
 
-  configFile = pkgs.writeText "namecoin.conf" (
-    ''
-      server=1
-      daemon=0
-      txindex=1
-      txprevcache=1
-      walletpath=${cfg.wallet}
-      gen=${if cfg.generate then "1" else "0"}
-      ${listToConf "addnode" cfg.extraNodes}
-      ${listToConf "connect" cfg.trustedNodes}
-    ''
-    + optionalString useRPC ''
-      rpcbind=${cfg.rpc.address}
-      rpcport=${toString cfg.rpc.port}
-      rpcuser=${cfg.rpc.user}
-      rpcpassword=${cfg.rpc.password}
-      ${listToConf "rpcallowip" cfg.rpc.allowFrom}
-    ''
-    + optionalString useSSL ''
-      rpcssl=1
-      rpcsslcertificatechainfile=${cfg.rpc.certificate}
-      rpcsslprivatekeyfile=${cfg.rpc.key}
-      rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
-    ''
-  );
-in
+  configFile = pkgs.writeText "namecoin.conf" (''
+    server=1
+    daemon=0
+    txindex=1
+    txprevcache=1
+    walletpath=${cfg.wallet}
+    gen=${if cfg.generate then "1" else "0"}
+    ${listToConf "addnode" cfg.extraNodes}
+    ${listToConf "connect" cfg.trustedNodes}
+  '' + optionalString useRPC ''
+    rpcbind=${cfg.rpc.address}
+    rpcport=${toString cfg.rpc.port}
+    rpcuser=${cfg.rpc.user}
+    rpcpassword=${cfg.rpc.password}
+    ${listToConf "rpcallowip" cfg.rpc.allowFrom}
+  '' + optionalString useSSL ''
+    rpcssl=1
+    rpcsslcertificatechainfile=${cfg.rpc.certificate}
+    rpcsslprivatekeyfile=${cfg.rpc.key}
+    rpcsslciphers=TLSv1.2+HIGH:TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!3DES:@STRENGTH
+  '');
 
-{
+in {
 
   ###### interface
 
@@ -150,7 +137,9 @@ in
           Wiledcards (*) can be user to specify a range.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -164,9 +153,7 @@ in
       createHome = true;
     };
 
-    users.groups.namecoin = {
-      gid = config.ids.gids.namecoin;
-    };
+    users.groups.namecoin = { gid = config.ids.gids.namecoin; };
 
     systemd.services.namecoind = {
       description = "Namecoind daemon";
@@ -178,7 +165,8 @@ in
       serviceConfig = {
         User = "namecoin";
         Group = "namecoin";
-        ExecStart = "${pkgs.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole";
+        ExecStart =
+          "${pkgs.namecoind}/bin/namecoind -conf=${configFile} -datadir=${dataDir} -printtoconsole";
         ExecStop = "${pkgs.coreutils}/bin/kill -KILL $MAINPID";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Nice = "10";
@@ -190,15 +178,22 @@ in
 
       preStart = optionalString (cfg.wallet != "${dataDir}/wallet.dat") ''
         # check wallet file permissions
-        if [ "$(stat --printf '%u' ${cfg.wallet})" != "${toString config.ids.uids.namecoin}" \
-           -o "$(stat --printf '%g' ${cfg.wallet})" != "${toString config.ids.gids.namecoin}" \
+        if [ "$(stat --printf '%u' ${cfg.wallet})" != "${
+          toString config.ids.uids.namecoin
+        }" \
+           -o "$(stat --printf '%g' ${cfg.wallet})" != "${
+             toString config.ids.gids.namecoin
+           }" \
            -o "$(stat --printf '%a' ${cfg.wallet})" != "640" ]; then
            echo "ERROR: bad ownership or rights on ${cfg.wallet}" >&2
            exit 1
         fi
       '';
+
     };
+
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+
 }

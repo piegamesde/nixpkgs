@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "symfpu";
@@ -21,7 +17,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A (concrete or symbolic) implementation of IEEE-754 / SMT-LIB floating-point";
+    description =
+      "A (concrete or symbolic) implementation of IEEE-754 / SMT-LIB floating-point";
     homepage = "https://github.com/martin-cs/symfpu";
     license = licenses.gpl3Only;
     platforms = platforms.unix;

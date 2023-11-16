@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql }:
 
 stdenv.mkDerivation {
   pname = "pgjwt";

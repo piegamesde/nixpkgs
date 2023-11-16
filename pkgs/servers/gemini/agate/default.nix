@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  nixosTests,
-  fetchFromGitHub,
-  rustPlatform,
-  libiconv,
-  Security,
-}:
+{ lib, stdenv, nixosTests, fetchFromGitHub, rustPlatform, libiconv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "agate";
@@ -20,10 +12,7 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-6Z+mcQAJwW7tm4SBbrHwHIwiqlFV+PIa5I2onU2rPts=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -33,9 +22,7 @@ rustPlatform.buildRustPackage rec {
     runHook postInstallCheck
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) agate;
-  };
+  passthru.tests = { inherit (nixosTests) agate; };
 
   meta = with lib; {
     homepage = "https://github.com/mbrubeck/agate";

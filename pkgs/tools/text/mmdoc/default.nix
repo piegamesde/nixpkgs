@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmark-gfm,
-  xxd,
-  fastJson,
-  libzip,
-  ninja,
-  meson,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, cmark-gfm, xxd, fastJson, libzip, ninja, meson
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "mmdoc";
@@ -22,18 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-1e6TS4TjshicUdT7wuvLsDpotr2LUxbn15r+eNXMo2M=";
   };
 
-  nativeBuildInputs = [
-    ninja
-    meson
-    pkg-config
-    xxd
-  ];
+  nativeBuildInputs = [ ninja meson pkg-config xxd ];
 
-  buildInputs = [
-    cmark-gfm
-    fastJson
-    libzip
-  ];
+  buildInputs = [ cmark-gfm fastJson libzip ];
 
   meta = with lib; {
     description = "Minimal Markdown Documentation";

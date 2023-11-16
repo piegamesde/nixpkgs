@@ -1,9 +1,7 @@
 { pkgs, modulesPath, ... }:
 
-let
-  username = "azurenixosuser";
-in
-{
+let username = "azurenixosuser";
+in {
   imports = [
     "${modulesPath}/virtualisation/azure-common.nix"
     "${modulesPath}/virtualisation/azure-image.nix"
@@ -29,11 +27,5 @@ in
   services.openssh.passwordAuthentication = false;
   security.sudo.wheelNeedsPassword = false;
 
-  environment.systemPackages = with pkgs; [
-    git
-    file
-    htop
-    wget
-    curl
-  ];
+  environment.systemPackages = with pkgs; [ git file htop wget curl ];
 }

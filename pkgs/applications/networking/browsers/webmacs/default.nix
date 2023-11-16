@@ -1,10 +1,4 @@
-{
-  lib,
-  mkDerivationWith,
-  fetchFromGitHub,
-  python3Packages,
-  herbstluftwm,
-}:
+{ lib, mkDerivationWith, fetchFromGitHub, python3Packages, herbstluftwm }:
 
 mkDerivationWith python3Packages.buildPythonApplication rec {
   pname = "webmacs";
@@ -72,4 +66,5 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
     maintainers = with maintainers; [ jacg ];
     platforms = platforms.all;
   };
+
 }

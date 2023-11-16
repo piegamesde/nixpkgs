@@ -1,23 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  autoreconfHook,
-  alsa-lib,
-  bluez,
-  glib,
-  sbc,
-  dbus,
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, alsa-lib, bluez
+, glib, sbc, dbus
 
-  # optional, but useful utils
-  readline,
-  libbsd,
-  ncurses,
+# optional, but useful utils
+, readline, libbsd, ncurses
 
-  # optional codecs
-  aacSupport ? true,
-  fdk_aac,
+# optional codecs
+, aacSupport ? true, fdk_aac
 # TODO: aptxSupport
 }:
 
@@ -32,21 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qoG1hTVuSFbccfct9DqSI0BBPJwSFlhPPtv87ThtSBk=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs = [
-    alsa-lib
-    bluez
-    glib
-    sbc
-    dbus
-    readline
-    libbsd
-    ncurses
-  ] ++ lib.optional aacSupport fdk_aac;
+  buildInputs = [ alsa-lib bluez glib sbc dbus readline libbsd ncurses ]
+    ++ lib.optional aacSupport fdk_aac;
 
   configureFlags = [
     "--with-alsaplugindir=${placeholder "out"}/lib/alsa-lib"
@@ -81,4 +58,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.oxij ];
   };
+
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  sqlalchemy,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, sqlalchemy }:
 
 buildPythonPackage rec {
   pname = "telethon-session-sqlalchemy";

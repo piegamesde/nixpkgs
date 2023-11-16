@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  obs-studio,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, obs-studio }:
 
 stdenv.mkDerivation rec {
   pname = "obs-source-record";
@@ -27,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "OBS Studio plugin to make sources available to record via a filter";
+    description =
+      "OBS Studio plugin to make sources available to record via a filter";
     homepage = "https://github.com/exeldro/obs-source-record";
     maintainers = with maintainers; [ robbins ];
     license = licenses.gpl2Only;

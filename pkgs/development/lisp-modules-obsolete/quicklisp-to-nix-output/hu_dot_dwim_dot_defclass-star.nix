@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "hu_dot_dwim_dot_defclass-star";
   version = "stable-git";
 
@@ -15,7 +14,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/hu.dwim.defclass-star/2021-12-09/hu.dwim.defclass-star-stable-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/hu.dwim.defclass-star/2021-12-09/hu.dwim.defclass-star-stable-git.tgz";
     sha256 = "0draahmhi5mmrj9aqabqdaipqcb9adxqdypjbdiawg55dw36g0cy";
   };
 

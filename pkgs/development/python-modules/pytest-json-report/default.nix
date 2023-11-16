@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest,
-  pytest-metadata,
-  pytest-xdist,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, pytest-metadata
+, pytest-xdist, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytest-json-report";
@@ -27,16 +19,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pytest-metadata ];
 
-  nativeCheckInputs = [
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-xdist pytestCheckHook ];
 
-  disabledTests =
-    [
-      # pytest-flaky is not available at the moment
-      "test_bug_31"
-    ];
+  disabledTests = [
+    # pytest-flaky is not available at the moment
+    "test_bug_31"
+  ];
 
   pythonImportsCheck = [ "pytest_jsonreport" ];
 

@@ -1,42 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dosfstools,
-  libseccomp,
-  makeWrapper,
-  mtools,
-  parted,
-  pkg-config,
-  qemu,
-  syslinux,
-  util-linux,
-}:
+{ lib, stdenv, fetchurl, dosfstools, libseccomp, makeWrapper, mtools, parted
+, pkg-config, qemu, syslinux, util-linux }:
 
 let
   version = "0.8.0";
   # list of all theoretically available targets
-  targets = [
-    "genode"
-    "hvt"
-    "muen"
-    "spt"
-    "virtio"
-    "xen"
-  ];
-in
-stdenv.mkDerivation {
+  targets = [ "genode" "hvt" "muen" "spt" "virtio" "xen" ];
+in stdenv.mkDerivation {
   pname = "solo5";
   inherit version;
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
   buildInputs = lib.optional (stdenv.hostPlatform.isLinux) libseccomp;
 
   src = fetchurl {
-    url = "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
+    url =
+      "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
     sha256 = "sha256-t80VOZ8Tr1Dq+mJfRPVLGqYprCaqegcQtDqdoHaSXW0=";
   };
 
@@ -65,23 +43,13 @@ stdenv.mkDerivation {
       --replace "cp " "cp --no-preserve=mode "
 
     wrapProgram $out/bin/solo5-virtio-mkimage \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          dosfstools
-          mtools
-          parted
-          syslinux
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ dosfstools mtools parted syslinux ]}
 
     runHook postInstall
   '';
 
   doCheck = stdenv.hostPlatform.isLinux;
-  nativeCheckInputs = [
-    util-linux
-    qemu
-  ];
+  nativeCheckInputs = [ util-linux qemu ];
   checkPhase = ''
     runHook preCheck
     patchShebangs tests
@@ -94,19 +62,11 @@ stdenv.mkDerivation {
     homepage = "https://github.com/solo5/solo5";
     license = licenses.isc;
     maintainers = [ maintainers.ehmry ];
-    platforms = builtins.map ({ arch, os }: "${arch}-${os}") (
-      cartesianProductOfSets {
-        arch = [
-          "aarch64"
-          "x86_64"
-        ];
-        os = [
-          "freebsd"
-          "genode"
-          "linux"
-          "openbsd"
-        ];
-      }
-    );
+    platforms = builtins.map ({ arch, os }: "${arch}-${os}")
+      (cartesianProductOfSets {
+        arch = [ "aarch64" "x86_64" ];
+        os = [ "freebsd" "genode" "linux" "openbsd" ];
+      });
   };
+
 }

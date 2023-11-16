@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bottom";
@@ -22,9 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-    darwin.apple_sdk_11_0.frameworks.Foundation
-  ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin
+    [ darwin.apple_sdk_11_0.frameworks.Foundation ];
 
   doCheck = false;
 
@@ -38,14 +30,13 @@ rustPlatform.buildRustPackage rec {
   BTM_GENERATE = true;
 
   meta = with lib; {
-    description = "A cross-platform graphical process/system monitor with a customizable interface";
+    description =
+      "A cross-platform graphical process/system monitor with a customizable interface";
     homepage = "https://github.com/ClementTsang/bottom";
-    changelog = "https://github.com/ClementTsang/bottom/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ClementTsang/bottom/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      berbiche
-      figsoda
-    ];
+    maintainers = with maintainers; [ berbiche figsoda ];
     mainProgram = "btm";
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  diff-match-patch,
-}:
+{ lib, buildPythonPackage, fetchPypi, diff-match-patch }:
 
 buildPythonPackage rec {
   pname = "three-merge";
@@ -21,7 +16,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "three_merge" ];
 
   meta = with lib; {
-    description = "Simple library for merging two strings with respect to a base one";
+    description =
+      "Simple library for merging two strings with respect to a base one";
     homepage = "https://github.com/spyder-ide/three-merge";
     license = licenses.mit;
     maintainers = with maintainers; [ SuperSandro2000 ];

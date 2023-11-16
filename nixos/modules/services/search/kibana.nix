@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -15,33 +9,28 @@ let
   ge7 = builtins.compareVersions cfg.package.version "7" >= 0;
   lt6_6 = builtins.compareVersions cfg.package.version "6.6" < 0;
 
-  cfgFile = pkgs.writeText "kibana.json" (
-    builtins.toJSON (
-      (filterAttrsRecursive (n: v: v != null && v != [ ]) (
-        {
-          server.host = cfg.listenAddress;
-          server.port = cfg.port;
-          server.ssl.certificate = cfg.cert;
-          server.ssl.key = cfg.key;
+  cfgFile = pkgs.writeText "kibana.json" (builtins.toJSON
+    ((filterAttrsRecursive (n: v: v != null && v != [ ]) ({
+      server.host = cfg.listenAddress;
+      server.port = cfg.port;
+      server.ssl.certificate = cfg.cert;
+      server.ssl.key = cfg.key;
 
-          kibana.index = cfg.index;
-          kibana.defaultAppId = cfg.defaultAppId;
+      kibana.index = cfg.index;
+      kibana.defaultAppId = cfg.defaultAppId;
 
-          elasticsearch.url = cfg.elasticsearch.url;
-          elasticsearch.hosts = cfg.elasticsearch.hosts;
-          elasticsearch.username = cfg.elasticsearch.username;
-          elasticsearch.password = cfg.elasticsearch.password;
+      elasticsearch.url = cfg.elasticsearch.url;
+      elasticsearch.hosts = cfg.elasticsearch.hosts;
+      elasticsearch.username = cfg.elasticsearch.username;
+      elasticsearch.password = cfg.elasticsearch.password;
 
-          elasticsearch.ssl.certificate = cfg.elasticsearch.cert;
-          elasticsearch.ssl.key = cfg.elasticsearch.key;
-          elasticsearch.ssl.certificateAuthorities = cfg.elasticsearch.certificateAuthorities;
-        }
-        // cfg.extraConf
-      ))
-    )
-  );
-in
-{
+      elasticsearch.ssl.certificate = cfg.elasticsearch.cert;
+      elasticsearch.ssl.key = cfg.elasticsearch.key;
+      elasticsearch.ssl.certificateAuthorities =
+        cfg.elasticsearch.certificateAuthorities;
+    } // cfg.extraConf))));
+
+in {
   options.services.kibana = {
     enable = mkEnableOption (lib.mdDoc "kibana service");
 
@@ -70,7 +59,8 @@ in
     };
 
     index = mkOption {
-      description = lib.mdDoc "Elasticsearch index to use for saving kibana config.";
+      description =
+        lib.mdDoc "Elasticsearch index to use for saving kibana config.";
       default = ".kibana";
       type = types.str;
     };
@@ -149,7 +139,8 @@ in
       };
 
       cert = mkOption {
-        description = lib.mdDoc "Certificate file to auth against elasticsearch.";
+        description =
+          lib.mdDoc "Certificate file to auth against elasticsearch.";
         default = null;
         type = types.nullOr types.path;
       };
@@ -191,21 +182,18 @@ in
       }
       {
         assertion = lt6_6 -> cfg.elasticsearch.hosts == null;
-        message = "The option services.kibana.elasticsearch.hosts is only valid for kibana >= 6.6.";
+        message =
+          "The option services.kibana.elasticsearch.hosts is only valid for kibana >= 6.6.";
       }
     ];
     systemd.services.kibana = {
       description = "Kibana Service";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "elasticsearch.service"
-      ];
-      environment = {
-        BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json";
-      };
+      after = [ "network.target" "elasticsearch.service" ];
+      environment = { BABEL_CACHE_PATH = "${cfg.dataDir}/.babelcache.json"; };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/kibana" + " --config ${cfgFile}" + " --path.data ${cfg.dataDir}";
+        ExecStart = "${cfg.package}/bin/kibana" + " --config ${cfgFile}"
+          + " --path.data ${cfg.dataDir}";
         User = "kibana";
         WorkingDirectory = cfg.dataDir;
       };

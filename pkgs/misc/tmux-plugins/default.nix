@@ -1,79 +1,49 @@
-{
-  lib,
-  fetchFromGitHub,
-  pkgs,
-  stdenv,
-}:
+{ lib, fetchFromGitHub, pkgs, stdenv }:
 
 let
   rtpPath = "share/tmux-plugins";
 
-  addRtp =
-    path: rtpFilePath: attrs: derivation:
-    derivation
-    // {
+  addRtp = path: rtpFilePath: attrs: derivation:
+    derivation // {
       rtp = "${derivation}/${path}/${rtpFilePath}";
-    }
-    // {
+    } // {
       overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
     };
 
-  mkTmuxPlugin =
-    a@{
-      pluginName,
-      rtpFilePath ? (builtins.replaceStrings [ "-" ] [ "_" ] pluginName) + ".tmux",
-      namePrefix ? "tmuxplugin-",
-      src,
-      unpackPhase ? "",
-      configurePhase ? ":",
-      buildPhase ? ":",
-      addonInfo ? null,
-      preInstall ? "",
-      postInstall ? "",
-      path ? lib.getName pluginName,
-      ...
-    }:
+  mkTmuxPlugin = a@{ pluginName, rtpFilePath ?
+      (builtins.replaceStrings [ "-" ] [ "_" ] pluginName) + ".tmux"
+    , namePrefix ? "tmuxplugin-", src, unpackPhase ? "", configurePhase ? ":"
+    , buildPhase ? ":", addonInfo ? null, preInstall ? "", postInstall ? ""
+    , path ? lib.getName pluginName, ... }:
     if lib.hasAttr "dependencies" a then
-      throw "dependencies attribute is obselete. see NixOS/nixpkgs#118034" # added 2021-04-01
+      throw
+      "dependencies attribute is obselete. see NixOS/nixpkgs#118034" # added 2021-04-01
     else
-      addRtp "${rtpPath}/${path}" rtpFilePath a (
-        stdenv.mkDerivation (
-          a
-          // {
-            pname = namePrefix + pluginName;
+      addRtp "${rtpPath}/${path}" rtpFilePath a (stdenv.mkDerivation (a // {
+        pname = namePrefix + pluginName;
 
-            inherit
-              pluginName
-              unpackPhase
-              configurePhase
-              buildPhase
-              addonInfo
-              preInstall
-              postInstall
-            ;
+        inherit pluginName unpackPhase configurePhase buildPhase addonInfo
+          preInstall postInstall;
 
-            installPhase = ''
-              runHook preInstall
+        installPhase = ''
+          runHook preInstall
 
-              target=$out/${rtpPath}/${path}
-              mkdir -p $out/${rtpPath}
-              cp -r . $target
-              if [ -n "$addonInfo" ]; then
-                echo "$addonInfo" > $target/addon-info.json
-              fi
+          target=$out/${rtpPath}/${path}
+          mkdir -p $out/${rtpPath}
+          cp -r . $target
+          if [ -n "$addonInfo" ]; then
+            echo "$addonInfo" > $target/addon-info.json
+          fi
 
-              runHook postInstall
-            '';
-          }
-        )
-      );
-in
-rec {
+          runHook postInstall
+        '';
+      }));
+
+in rec {
   inherit mkTmuxPlugin;
 
-  mkDerivation =
-    throw
-      "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"; # added 2021-03-14
+  mkDerivation = throw
+    "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"; # added 2021-03-14
 
   battery = mkTmuxPlugin {
     pluginName = "battery";
@@ -250,18 +220,15 @@ rec {
         wrapProgram $target/scripts/$f \
           --prefix PATH : ${
             with pkgs;
-            lib.makeBinPath ([
-              pkgs.fzf
-              pkgs.python3
-              pkgs.xclip
-            ])
+            lib.makeBinPath ([ pkgs.fzf pkgs.python3 pkgs.xclip ])
           }
       done
 
     '';
     meta = {
       homepage = "https://github.com/laktak/extrakto";
-      description = "Fuzzy find your text with fzf instead of selecting it by hand ";
+      description =
+        "Fuzzy find your text with fzf instead of selecting it by hand ";
       license = lib.licenses.mit;
       platforms = lib.platforms.unix;
       maintainers = with lib.maintainers; [ kidd ];
@@ -285,7 +252,8 @@ rec {
       wrapProgram $target/scripts/$f \
         --prefix PATH : ${
           with pkgs;
-          lib.makeBinPath ([ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])
+          lib.makeBinPath ([ gawk ]
+            ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])
         }
       done
     '';
@@ -321,12 +289,7 @@ rec {
         wrapProgram $target/scripts/$f \
           --prefix PATH : ${
             with pkgs;
-            lib.makeBinPath [
-              coreutils
-              fzf
-              gawk
-              gnused
-            ]
+            lib.makeBinPath [ coreutils fzf gawk gnused ]
           }
       done
     '';
@@ -407,7 +370,8 @@ rec {
     };
     meta = with lib; {
       homepage = "https://github.com/MunifTanjim/tmux-mode-indicator";
-      description = "Plugin that displays prompt indicating currently active Tmux mode";
+      description =
+        "Plugin that displays prompt indicating currently active Tmux mode";
       license = licenses.mit;
       platforms = platforms.unix;
       maintainers = with maintainers; [ aacebedo ];
@@ -705,7 +669,8 @@ rec {
 
     meta = with lib; {
       homepage = "https://github.com/tmux-plugins/vim-tmux-focus-events";
-      description = "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
+      description =
+        "Makes FocusGained and FocusLost autocommand events work in vim when using tmux";
       license = licenses.mit;
       platforms = platforms.unix;
       maintainers = with maintainers; [ ronanmacf ];

@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy27,
-  lib,
-  mock,
-  numpy,
-  pytestCheckHook,
+{ buildPythonPackage, fetchFromGitHub, isPy27, lib, mock, numpy, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -40,3 +33,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ dmrauh ];
   };
 }
+

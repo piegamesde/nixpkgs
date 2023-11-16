@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cassowary";
@@ -17,11 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-b77Sje5OsysTRRbzgdLnTlLLyLIACjD4c/oS9zyI0d8=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   meta = with lib; {
     homepage = "https://github.com/rogerwelin/cassowary";

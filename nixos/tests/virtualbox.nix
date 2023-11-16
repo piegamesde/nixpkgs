@@ -1,35 +1,19 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-  debug ? false,
-  enableUnfree ? false,
-  use64bitGuest ? true,
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; }, debug ? false
+, enableUnfree ? false, use64bitGuest ? true }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  testVMConfig =
-    vmName: attrs:
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
+  testVMConfig = vmName: attrs:
+    { config, pkgs, lib, ... }:
     let
       guestAdditions = pkgs.linuxPackages.virtualboxGuestAdditions;
 
       miniInit = ''
         #!${pkgs.runtimeShell} -xe
-        export PATH="${
-          lib.makeBinPath [
-            pkgs.coreutils
-            pkgs.util-linux
-          ]
-        }"
+        export PATH="${lib.makeBinPath [ pkgs.coreutils pkgs.util-linux ]}"
 
         mkdir -p /run/dbus /var
         ln -s /run /var
@@ -57,8 +41,7 @@ let
 
         rm -f /mnt-root/boot-done /mnt-root/shutdown
       '';
-    in
-    {
+    in {
       boot.kernelParams = [
         "console=tty0"
         "console=ttyS0"
@@ -111,71 +94,56 @@ let
       networking.usePredictableInterfaceNames = false;
     };
 
-  mkLog =
-    logfile: tag:
+  mkLog = logfile: tag:
     let
       rotated = map (i: "${logfile}.${toString i}") (range 1 9);
       all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
       logcmd = ''tail -F ${all} 2> /dev/null | logger -t "${tag}"'';
-    in
-    if debug then "machine.execute(ru('${logcmd} & disown'))" else "pass";
+    in if debug then "machine.execute(ru('${logcmd} & disown'))" else "pass";
 
-  testVM =
-    vmName: vmScript:
+  testVM = vmName: vmScript:
     let
-      cfg =
-        (import ../lib/eval-config.nix {
-          system = if use64bitGuest then "x86_64-linux" else "i686-linux";
-          modules = [
-            ../modules/profiles/minimal.nix
-            (testVMConfig vmName vmScript)
-          ];
-        }).config;
-    in
-    pkgs.vmTools.runInLinuxVM (
-      pkgs.runCommand "virtualbox-image"
-        {
-          preVM = ''
-            mkdir -p "$out"
-            diskImage="$(pwd)/qimage"
-            ${pkgs.vmTools.qemu}/bin/qemu-img create -f raw "$diskImage" 100M
-          '';
+      cfg = (import ../lib/eval-config.nix {
+        system = if use64bitGuest then "x86_64-linux" else "i686-linux";
+        modules =
+          [ ../modules/profiles/minimal.nix (testVMConfig vmName vmScript) ];
+      }).config;
+    in pkgs.vmTools.runInLinuxVM (pkgs.runCommand "virtualbox-image" {
+      preVM = ''
+        mkdir -p "$out"
+        diskImage="$(pwd)/qimage"
+        ${pkgs.vmTools.qemu}/bin/qemu-img create -f raw "$diskImage" 100M
+      '';
 
-          postVM = ''
-            echo "creating VirtualBox disk image..."
-            ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -O vdi \
-              "$diskImage" "$out/disk.vdi"
-          '';
+      postVM = ''
+        echo "creating VirtualBox disk image..."
+        ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -O vdi \
+          "$diskImage" "$out/disk.vdi"
+      '';
 
-          buildInputs = [
-            pkgs.util-linux
-            pkgs.perl
-          ];
-        }
-        ''
-          ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
-          ${pkgs.parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
-          ${pkgs.e2fsprogs}/sbin/mkfs.ext4 /dev/vda1
-          ${pkgs.e2fsprogs}/sbin/tune2fs -c 0 -i 0 /dev/vda1
-          mkdir /mnt
-          mount /dev/vda1 /mnt
-          cp "${cfg.system.build.kernel}/bzImage" /mnt/linux
-          cp "${cfg.system.build.initialRamdisk}/initrd" /mnt/initrd
+      buildInputs = [ pkgs.util-linux pkgs.perl ];
+    } ''
+      ${pkgs.parted}/sbin/parted --script /dev/vda mklabel msdos
+      ${pkgs.parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
+      ${pkgs.e2fsprogs}/sbin/mkfs.ext4 /dev/vda1
+      ${pkgs.e2fsprogs}/sbin/tune2fs -c 0 -i 0 /dev/vda1
+      mkdir /mnt
+      mount /dev/vda1 /mnt
+      cp "${cfg.system.build.kernel}/bzImage" /mnt/linux
+      cp "${cfg.system.build.initialRamdisk}/initrd" /mnt/initrd
 
-          ${pkgs.grub2}/bin/grub-install --boot-directory=/mnt /dev/vda
+      ${pkgs.grub2}/bin/grub-install --boot-directory=/mnt /dev/vda
 
-          cat > /mnt/grub/grub.cfg <<GRUB
-          set root=hd0,1
-          linux /linux ${concatStringsSep " " cfg.boot.kernelParams}
-          initrd /initrd
-          boot
-          GRUB
-          umount /mnt
-        ''
-    );
+      cat > /mnt/grub/grub.cfg <<GRUB
+      set root=hd0,1
+      linux /linux ${concatStringsSep " " cfg.boot.kernelParams}
+      initrd /initrd
+      boot
+      GRUB
+      umount /mnt
+    '');
 
-  createVM =
-    name: attrs:
+  createVM = name: attrs:
     let
       mkFlags = concatStringsSep " ";
 
@@ -186,15 +154,12 @@ let
         "--register"
       ];
 
-      vmFlags = mkFlags (
-        [
-          "--uart1 0x3F8 4"
-          "--uartmode1 client /run/virtualbox-log-${name}.sock"
-          "--memory 768"
-          "--audio none"
-        ]
-        ++ (attrs.vmFlags or [ ])
-      );
+      vmFlags = mkFlags ([
+        "--uart1 0x3F8 4"
+        "--uartmode1 client /run/virtualbox-log-${name}.sock"
+        "--memory 768"
+        "--audio none"
+      ] ++ (attrs.vmFlags or [ ]));
 
       controllerFlags = mkFlags [
         "--name SATA"
@@ -212,18 +177,11 @@ let
         "--medium ${testVM name attrs}/disk.vdi"
       ];
 
-      sharedFlags = mkFlags [
-        "--name vboxshare"
-        "--hostpath ${sharePath}"
-      ];
+      sharedFlags = mkFlags [ "--name vboxshare" "--hostpath ${sharePath}" ];
 
-      nixstoreFlags = mkFlags [
-        "--name nixstore"
-        "--hostpath /nix/store"
-        "--readonly"
-      ];
-    in
-    {
+      nixstoreFlags =
+        mkFlags [ "--name nixstore" "--hostpath /nix/store" "--readonly" ];
+    in {
       machine = {
         systemd.sockets."vboxtestlog-${name}" = {
           description = "VirtualBox Test Machine Log Socket For ${name}";
@@ -378,41 +336,29 @@ let
     headless.services.xserver.enable = false;
   };
 
-  vboxVMsWithExtpack = mapAttrs createVM { testExtensionPack.vmFlags = enableExtensionPackVMFlags; };
+  vboxVMsWithExtpack = mapAttrs createVM {
+    testExtensionPack.vmFlags = enableExtensionPackVMFlags;
+  };
 
-  mkVBoxTest =
-    useExtensionPack: vms: name: testScript:
+  mkVBoxTest = useExtensionPack: vms: name: testScript:
     makeTest {
       name = "virtualbox-${name}";
 
-      nodes.machine =
-        { lib, config, ... }:
-        {
-          imports =
-            let
-              mkVMConf = name: val: val.machine // { key = "${name}-config"; };
-              vmConfigs = mapAttrsToList mkVMConf vms;
-            in
-            [
-              ./common/user-account.nix
-              ./common/x11.nix
-            ]
-            ++ vmConfigs;
-          virtualisation.memorySize = 2048;
-          virtualisation.qemu.options = [
-            "-cpu"
-            "kvm64,svm=on,vmx=on"
-          ];
-          virtualisation.virtualbox.host.enable = true;
-          test-support.displayManager.auto.user = "alice";
-          users.users.alice.extraGroups =
-            let
-              inherit (config.virtualisation.virtualbox.host) enableHardening;
-            in
-            lib.mkIf enableHardening (lib.singleton "vboxusers");
-          virtualisation.virtualbox.host.enableExtensionPack = useExtensionPack;
-          nixpkgs.config.allowUnfree = useExtensionPack;
-        };
+      nodes.machine = { lib, config, ... }: {
+        imports = let
+          mkVMConf = name: val: val.machine // { key = "${name}-config"; };
+          vmConfigs = mapAttrsToList mkVMConf vms;
+        in [ ./common/user-account.nix ./common/x11.nix ] ++ vmConfigs;
+        virtualisation.memorySize = 2048;
+        virtualisation.qemu.options = [ "-cpu" "kvm64,svm=on,vmx=on" ];
+        virtualisation.virtualbox.host.enable = true;
+        test-support.displayManager.auto.user = "alice";
+        users.users.alice.extraGroups =
+          let inherit (config.virtualisation.virtualbox.host) enableHardening;
+          in lib.mkIf enableHardening (lib.singleton "vboxusers");
+        virtualisation.virtualbox.host.enableExtensionPack = useExtensionPack;
+        nixpkgs.config.allowUnfree = useExtensionPack;
+      };
 
       testScript = ''
         from shlex import quote
@@ -461,8 +407,8 @@ let
       destroy_vm_testExtensionPack()
     '';
   };
-in
-mapAttrs (mkVBoxTest false vboxVMs) {
+
+in mapAttrs (mkVBoxTest false vboxVMs) {
   simple-gui = ''
     # Home to select Tools, down to move to the VM, enter to start it.
     def send_vm_startup():
@@ -572,5 +518,4 @@ mapAttrs (mkVBoxTest false vboxVMs) {
     destroy_vm_test1()
     destroy_vm_test2()
   '';
-}
-// (if enableUnfree then unfreeTests else { })
+} // (if enableUnfree then unfreeTests else { })

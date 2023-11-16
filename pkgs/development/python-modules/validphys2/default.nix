@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  lhapdf,
-  nnpdf,
-  prompt-toolkit,
-  reportengine,
-  requests,
-  seaborn,
-  validobj,
-}:
+{ lib, buildPythonPackage, lhapdf, nnpdf, prompt-toolkit, reportengine, requests
+, seaborn, validobj }:
 
 buildPythonPackage rec {
   pname = "validphys2";
@@ -26,15 +17,8 @@ buildPythonPackage rec {
       --replace '= __give_git()' '= "'$version'"'
   '';
 
-  propagatedBuildInputs = [
-    lhapdf
-    nnpdf
-    prompt-toolkit
-    reportengine
-    requests
-    seaborn
-    validobj
-  ];
+  propagatedBuildInputs =
+    [ lhapdf nnpdf prompt-toolkit reportengine requests seaborn validobj ];
 
   doCheck = false; # no tests
   pythonImportsCheck = [ "validphys" ];

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  ocamlPackages,
-  buildOasisPackage,
-  extlib,
-  num,
-}:
+{ lib, fetchFromGitHub, ocamlPackages, buildOasisPackage, extlib, num }:
 
 buildOasisPackage rec {
   pname = "tcslib";
@@ -20,10 +13,7 @@ buildOasisPackage rec {
     sha256 = "05g6m82blsccq8wx8knxv6a5fzww7hi624jx91f9h87nk2fsplhi";
   };
 
-  propagatedBuildInputs = [
-    extlib
-    num
-  ];
+  propagatedBuildInputs = [ extlib num ];
 
   meta = {
     homepage = "https://github.com/tcsprojects/tcslib";

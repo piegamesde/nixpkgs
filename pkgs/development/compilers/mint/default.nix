@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  crystal,
-  openssl,
-}:
+{ lib, fetchFromGitHub, crystal, openssl }:
 
 crystal.buildCrystalPackage rec {
   version = "0.15.1";
@@ -34,11 +29,7 @@ crystal.buildCrystalPackage rec {
     homepage = "https://mint-lang.com/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ manveru ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" "x86_64-darwin" ];
     broken = lib.versionOlder crystal.version "1.0";
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  btrfs-progs,
-}:
+{ lib, stdenv, fetchFromGitHub, btrfs-progs }:
 
 stdenv.mkDerivation rec {
   pname = "compsize";
@@ -25,7 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "btrfs: Find compression type/ratio on a file or set of files";
+    description =
+      "btrfs: Find compression type/ratio on a file or set of files";
     homepage = "https://github.com/kilobyte/compsize";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ CrazedProgrammer ];

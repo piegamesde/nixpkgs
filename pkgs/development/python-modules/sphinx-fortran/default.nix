@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  future,
-  numpy,
-  sphinx,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, future, numpy
+, sphinx, six }:
 
 buildPythonPackage rec {
   pname = "sphinx-fortran";
@@ -20,12 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-IVKu5u9gqs7/9EZrf4ZYd12K6J31u+/B8kk4+8yfohM=";
   };
 
-  propagatedBuildInputs = [
-    future
-    numpy
-    sphinx
-    six
-  ];
+  propagatedBuildInputs = [ future numpy sphinx six ];
 
   pythonImportsCheck = [ "sphinxfortran" ];
 

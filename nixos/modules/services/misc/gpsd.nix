@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, lib, pkgs, utils, ... }:
 
 with lib;
 
@@ -13,20 +7,14 @@ let
   uid = config.ids.uids.gpsd;
   gid = config.ids.gids.gpsd;
   cfg = config.services.gpsd;
-in
-{
+
+in {
 
   ###### interface
 
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "gpsd"
-        "device"
-      ]
-      "Use `services.gpsd.devices` instead."
-    )
+    (lib.mkRemovedOptionModule [ "services" "gpsd" "device" ]
+      "Use `services.gpsd.devices` instead.")
   ];
 
   options = {
@@ -103,7 +91,9 @@ in
           Listen on all addresses rather than just loopback.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -117,9 +107,7 @@ in
       home = "/var/empty";
     };
 
-    users.groups.gpsd = {
-      inherit gid;
-    };
+    users.groups.gpsd = { inherit gid; };
 
     systemd.services.gpsd = {
       description = "GPSD daemon";
@@ -127,19 +115,18 @@ in
       after = [ "network.target" ];
       serviceConfig = {
         Type = "forking";
-        ExecStart =
-          let
-            devices = utils.escapeSystemdExecArgs cfg.devices;
-          in
-          ''
-            ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
-              -S "${toString cfg.port}"                             \
-              ${optionalString cfg.readonly "-b"}                   \
-              ${optionalString cfg.nowait "-n"}                     \
-              ${optionalString cfg.listenany "-G"}                  \
-              ${devices}
-          '';
+        ExecStart = let devices = utils.escapeSystemdExecArgs cfg.devices;
+        in ''
+          ${pkgs.gpsd}/sbin/gpsd -D "${toString cfg.debugLevel}"  \
+            -S "${toString cfg.port}"                             \
+            ${optionalString cfg.readonly "-b"}                   \
+            ${optionalString cfg.nowait "-n"}                     \
+            ${optionalString cfg.listenany "-G"}                  \
+            ${devices}
+        '';
       };
     };
+
   };
+
 }

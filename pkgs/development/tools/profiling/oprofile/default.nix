@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchurl,
-  pkg-config,
-  libbfd,
-  popt,
-  zlib,
-  linuxHeaders,
-  libiberty_static,
-}:
+{ lib, stdenv, buildPackages, fetchurl, pkg-config, libbfd, popt, zlib
+, linuxHeaders, libiberty_static }:
 
 stdenv.mkDerivation rec {
   pname = "oprofile";
@@ -27,13 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libbfd
-    zlib
-    popt
-    linuxHeaders
-    libiberty_static
-  ];
+  buildInputs = [ libbfd zlib popt linuxHeaders libiberty_static ];
 
   configureFlags = [
     "--with-kernel=${linuxHeaders}"

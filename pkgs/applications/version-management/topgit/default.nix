@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  git,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, git, perl }:
 
 stdenv.mkDerivation rec {
   pname = "topgit";
@@ -19,10 +13,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
 
-  nativeBuildInputs = [
-    perl
-    git
-  ];
+  nativeBuildInputs = [ perl git ];
 
   postInstall = ''
     install -Dm644 README -t "$out/share/doc/${pname}-${version}/"
@@ -30,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "TopGit manages large amount of interdependent topic branches";
+    description =
+      "TopGit manages large amount of interdependent topic branches";
     homepage = "https://github.com/mackyle/topgit";
     license = licenses.gpl2;
     platforms = platforms.unix;

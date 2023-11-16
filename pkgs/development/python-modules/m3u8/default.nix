@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  iso8601,
-  bottle,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, iso8601, bottle, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "m3u8";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ iso8601 ];
 
-  nativeCheckInputs = [
-    bottle
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ bottle pytestCheckHook ];
 
   disabledTests = [
     # Tests require network access

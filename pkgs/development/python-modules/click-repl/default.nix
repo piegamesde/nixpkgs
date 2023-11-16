@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  click,
-  prompt-toolkit,
-  six,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, click, prompt-toolkit, six
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "click-repl";
@@ -19,11 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-kaTUKaIomJL0u3NX40bL0I54vkR+Utcdw1QKSbnVy5s=";
   };
 
-  propagatedBuildInputs = [
-    click
-    prompt-toolkit
-    six
-  ];
+  propagatedBuildInputs = [ click prompt-toolkit six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

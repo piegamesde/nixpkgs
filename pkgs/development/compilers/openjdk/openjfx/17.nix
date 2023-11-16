@@ -1,29 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  writeText,
-  openjdk17_headless,
-  gradle_7,
-  pkg-config,
-  perl,
-  cmake,
-  gperf,
-  gtk2,
-  gtk3,
-  libXtst,
-  libXxf86vm,
-  glib,
-  alsa-lib,
-  ffmpeg_4-headless,
-  python3,
-  ruby,
-  icu71,
-  fetchurl,
-  runCommand,
-  withMedia ? true,
-  withWebKit ? false,
-}:
+{ stdenv, lib, fetchFromGitHub, writeText, openjdk17_headless, gradle_7
+, pkg-config, perl, cmake, gperf, gtk2, gtk3, libXtst, libXxf86vm, glib
+, alsa-lib, ffmpeg_4-headless, python3, ruby, icu71, fetchurl, runCommand
+, withMedia ? true, withWebKit ? false }:
 
 let
   major = "17";
@@ -32,10 +10,13 @@ let
   repover = "${major}${update}${build}";
   gradle_ = (gradle_7.override { java = openjdk17_headless; });
 
-  dashed-icu-version = lib.concatStringsSep "-" (lib.splitString "." (lib.getVersion icu71));
-  underscored-icu-version = lib.concatStringsSep "_" (lib.splitString "." (lib.getVersion icu71));
+  dashed-icu-version =
+    lib.concatStringsSep "-" (lib.splitString "." (lib.getVersion icu71));
+  underscored-icu-version =
+    lib.concatStringsSep "_" (lib.splitString "." (lib.getVersion icu71));
   icu-data = fetchurl {
-    url = "https://github.com/unicode-org/icu/releases/download/release-${dashed-icu-version}/icu4c-${underscored-icu-version}-data-bin-l.zip";
+    url =
+      "https://github.com/unicode-org/icu/releases/download/release-${dashed-icu-version}/icu4c-${underscored-icu-version}-data-bin-l.zip";
     hash = "sha256-pVWIy0BkICsthA5mxhR9SJQHleMNnaEcGl/AaLi5qZM=";
   };
 
@@ -44,62 +25,39 @@ let
     cp ${icu-data} $out/download/release-${dashed-icu-version}/icu4c-${underscored-icu-version}-data-bin-l.zip
   '';
 
-  makePackage =
-    args:
-    stdenv.mkDerivation (
-      {
-        version = "${major}${update}${build}";
+  makePackage = args:
+    stdenv.mkDerivation ({
+      version = "${major}${update}${build}";
 
-        src = fetchFromGitHub {
-          owner = "openjdk";
-          repo = "jfx${major}u";
-          rev = repover;
-          sha256 = "sha256-9VfXk2EfMebMyVKPohPRP2QXRFf8XemUtfY0JtBCHyw=";
-        };
+      src = fetchFromGitHub {
+        owner = "openjdk";
+        repo = "jfx${major}u";
+        rev = repover;
+        sha256 = "sha256-9VfXk2EfMebMyVKPohPRP2QXRFf8XemUtfY0JtBCHyw=";
+      };
 
-        buildInputs = [
-          gtk2
-          gtk3
-          libXtst
-          libXxf86vm
-          glib
-          alsa-lib
-          ffmpeg_4-headless
-          icu71
-        ];
-        nativeBuildInputs = [
-          gradle_
-          perl
-          pkg-config
-          cmake
-          gperf
-          python3
-          ruby
-        ];
+      buildInputs =
+        [ gtk2 gtk3 libXtst libXxf86vm glib alsa-lib ffmpeg_4-headless icu71 ];
+      nativeBuildInputs = [ gradle_ perl pkg-config cmake gperf python3 ruby ];
 
-        dontUseCmakeConfigure = true;
+      dontUseCmakeConfigure = true;
 
-        config = writeText "gradle.properties" (
-          ''
-            CONF = Release
-            JDK_HOME = ${openjdk17_headless.home}
-          ''
-          + args.gradleProperties or ""
-        );
+      config = writeText "gradle.properties" (''
+        CONF = Release
+        JDK_HOME = ${openjdk17_headless.home}
+      '' + args.gradleProperties or "");
 
-        buildPhase = ''
-          runHook preBuild
+      buildPhase = ''
+        runHook preBuild
 
-          export GRADLE_USER_HOME=$(mktemp -d)
-          ln -s $config gradle.properties
-          export NIX_CFLAGS_COMPILE="$(pkg-config --cflags glib-2.0) $NIX_CFLAGS_COMPILE"
-          gradle --no-daemon $gradleFlags sdk
+        export GRADLE_USER_HOME=$(mktemp -d)
+        ln -s $config gradle.properties
+        export NIX_CFLAGS_COMPILE="$(pkg-config --cflags glib-2.0) $NIX_CFLAGS_COMPILE"
+        gradle --no-daemon $gradleFlags sdk
 
-          runHook postBuild
-        '';
-      }
-      // args
-    );
+        runHook postBuild
+      '';
+    } // args);
 
   # Fake build to pre-download deps into fixed-output derivation.
   # We run nearly full build because I see no other way to download everything that's needed.
@@ -119,14 +77,15 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-dV7/U5GpFxhI13smZ587C6cVE4FRNPY0zexZkYK4Yqo=";
   };
-in
-makePackage {
+
+in makePackage {
   pname = "openjfx-modular-sdk";
 
   gradleProperties = ''
     COMPILE_MEDIA = ${lib.boolToString withMedia}
     COMPILE_WEBKIT = ${lib.boolToString withWebKit}
-    ${lib.optionalString withWebKit "icuRepositoryURL = file://${fakeRepository}"}
+    ${lib.optionalString withWebKit
+    "icuRepositoryURL = file://${fakeRepository}"}
   '';
 
   preBuild = ''

@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  pkg-config,
-  libjpeg,
-  libpng,
-  libtiff,
-  libwebp,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, pkg-config, libjpeg, libpng, libtiff
+, libwebp, numpy }:
 
 buildPythonPackage rec {
   pname = "python-imread";
@@ -22,13 +12,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    nose
-    libjpeg
-    libpng
-    libtiff
-    libwebp
-  ];
+  buildInputs = [ nose libjpeg libpng libtiff libwebp ];
   propagatedBuildInputs = [ numpy ];
 
   meta = with lib; {
@@ -38,4 +22,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     platforms = platforms.unix;
   };
+
 }

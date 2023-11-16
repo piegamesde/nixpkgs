@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  urllib3,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytestCheckHook, python-dateutil, pythonOlder, urllib3 }:
 
 buildPythonPackage rec {
   pname = "myhome";
@@ -26,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    python-dateutil
-    urllib3
-  ];
+  propagatedBuildInputs = [ aiohttp python-dateutil urllib3 ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

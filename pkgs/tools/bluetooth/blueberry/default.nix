@@ -1,18 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  bluez-tools,
-  cinnamon,
-  gnome,
-  gobject-introspection,
-  intltool,
-  libnotify,
-  pavucontrol,
-  python3Packages,
-  util-linux,
-  wrapGAppsHook,
-}:
+{ stdenv, lib, fetchFromGitHub, bluez-tools, cinnamon, gnome
+, gobject-introspection, intltool, libnotify, pavucontrol, python3Packages
+, util-linux, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "blueberry";
@@ -25,11 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MyIjcTyKn1aC2th6fCOw4cIqrRKatk2s4QD5R9cm83A=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    python3Packages.wrapPython
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gobject-introspection python3Packages.wrapPython wrapGAppsHook ];
 
   buildInputs = [
     bluez-tools
@@ -40,11 +25,7 @@ stdenv.mkDerivation rec {
     util-linux
   ];
 
-  pythonPath = with python3Packages; [
-    dbus-python
-    pygobject3
-    setproctitle
-  ];
+  pythonPath = with python3Packages; [ dbus-python pygobject3 setproctitle ];
 
   installPhase = ''
     runHook preInstall
@@ -94,9 +75,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxmint/blueberry";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      bobby285271
-      romildo
-    ];
+    maintainers = with maintainers; [ bobby285271 romildo ];
   };
 }

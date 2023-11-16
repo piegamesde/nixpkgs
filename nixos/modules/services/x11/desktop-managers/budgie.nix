@@ -1,22 +1,9 @@
-{
-  lib,
-  pkgs,
-  config,
-  utils,
-  ...
-}:
+{ lib, pkgs, config, utils, ... }:
 
 let
   inherit (lib)
-    concatMapStrings
-    literalExpression
-    mdDoc
-    mkDefault
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-  ;
+    concatMapStrings literalExpression mdDoc mkDefault mkEnableOption mkIf
+    mkOption types;
 
   cfg = config.services.xserver.desktopManager.budgie;
 
@@ -54,8 +41,7 @@ let
     '';
     destination = "/share/gnome-background-properties/nixos.xml";
   };
-in
-{
+in {
   options = {
     services.xserver.desktopManager.budgie = {
       enable = mkEnableOption (mdDoc "the Budgie desktop");
@@ -79,7 +65,8 @@ in
       };
 
       extraGSettingsOverridePackages = mkOption {
-        description = mdDoc "List of packages for which GSettings are overridden.";
+        description =
+          mdDoc "List of packages for which GSettings are overridden.";
         type = types.listOf types.path;
         default = [ ];
       };
@@ -88,12 +75,14 @@ in
         description = mdDoc "Extra plugins for the Budgie desktop";
         type = types.listOf types.package;
         default = [ ];
-        example = literalExpression "[ pkgs.budgiePlugins.budgie-analogue-clock-applet ]";
+        example = literalExpression
+          "[ pkgs.budgiePlugins.budgie-analogue-clock-applet ]";
       };
     };
 
     environment.budgie.excludePackages = mkOption {
-      description = mdDoc "Which packages Budgie should exclude from the default environment.";
+      description = mdDoc
+        "Which packages Budgie should exclude from the default environment.";
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ pkgs.mate-terminal ]";
@@ -101,7 +90,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = with pkgs; [ budgie.budgie-desktop ];
+    services.xserver.displayManager.sessionPackages = with pkgs;
+      [ budgie.budgie-desktop ];
 
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkDefault true;
@@ -119,29 +109,29 @@ in
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ];
+    services.xserver.desktopManager.budgie.sessionPath =
+      [ pkgs.budgie.budgie-desktop-view ];
 
     environment.extraInit = ''
-      ${concatMapStrings
-        (p: ''
-          if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-            export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-          fi
-          if [ -d "${p}/lib/girepository-1.0" ]; then
-            export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-          fi
-        '')
-        cfg.sessionPath}
+      ${concatMapStrings (p: ''
+        if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+          export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+        fi
+        if [ -d "${p}/lib/girepository-1.0" ]; then
+          export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+          export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+        fi
+      '') cfg.sessionPath}
     '';
 
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       [
         # Budgie Desktop.
         budgie.budgie-backgrounds
         budgie.budgie-control-center
-        (budgie.budgie-desktop-with-plugins.override { plugins = cfg.extraPlugins; })
+        (budgie.budgie-desktop-with-plugins.override {
+          plugins = cfg.extraPlugins;
+        })
         budgie.budgie-desktop-view
         budgie.budgie-screensaver
 
@@ -159,36 +149,28 @@ in
 
         # Update user directories.
         xdg-user-dirs
-      ]
-      ++ (utils.removePackagesByName
-        [
-          cinnamon.nemo
-          mate.eom
-          mate.pluma
-          mate.atril
-          mate.engrampa
-          mate.mate-calc
-          mate.mate-terminal
-          mate.mate-system-monitor
-          vlc
+      ] ++ (utils.removePackagesByName [
+        cinnamon.nemo
+        mate.eom
+        mate.pluma
+        mate.atril
+        mate.engrampa
+        mate.mate-calc
+        mate.mate-terminal
+        mate.mate-system-monitor
+        vlc
 
-          # Desktop themes.
-          qogir-theme
-          qogir-icon-theme
-          nixos-background-info
+        # Desktop themes.
+        qogir-theme
+        qogir-icon-theme
+        nixos-background-info
 
-          # Default settings.
-          nixos-gsettings-overrides
-        ]
-        config.environment.budgie.excludePackages
-      )
-      ++ cfg.sessionPath;
+        # Default settings.
+        nixos-gsettings-overrides
+      ] config.environment.budgie.excludePackages) ++ cfg.sessionPath;
 
     # Fonts.
-    fonts.fonts = mkDefault [
-      pkgs.noto-fonts
-      pkgs.hack-font
-    ];
+    fonts.fonts = mkDefault [ pkgs.noto-fonts pkgs.hack-font ];
     fonts.fontconfig.defaultFonts = {
       sansSerif = mkDefault [ "Noto Sans" ];
       monospace = mkDefault [ "Hack" ];
@@ -206,7 +188,8 @@ in
     ];
 
     # GSettings overrides.
-    environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+    environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR =
+      "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
     # Required by Budgie Desktop.
     services.xserver.updateDbusEnvironment = true;
@@ -219,20 +202,28 @@ in
     security.polkit.enable = mkDefault true;
 
     # Required by Budgie Panel plugins and/or Budgie Control Center panels.
-    networking.networkmanager.enable = mkDefault true; # for BCC's Network panel.
-    programs.nm-applet.enable = config.networking.networkmanager.enable; # Budgie has no Network applet.
-    programs.nm-applet.indicator = false; # Budgie doesn't support AppIndicators.
+    networking.networkmanager.enable =
+      mkDefault true; # for BCC's Network panel.
+    programs.nm-applet.enable =
+      config.networking.networkmanager.enable; # Budgie has no Network applet.
+    programs.nm-applet.indicator =
+      false; # Budgie doesn't support AppIndicators.
 
-    hardware.bluetooth.enable = mkDefault true; # for Budgie's Status Indicator and BCC's Bluetooth panel.
-    hardware.pulseaudio.enable = mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
+    hardware.bluetooth.enable =
+      mkDefault true; # for Budgie's Status Indicator and BCC's Bluetooth panel.
+    hardware.pulseaudio.enable =
+      mkDefault true; # for Budgie's Status Indicator and BCC's Sound panel.
 
     xdg.portal.enable = mkDefault true; # for BCC's Applications panel.
-    xdg.portal.extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk # provides a XDG Portals implementation.
-    ];
+    xdg.portal.extraPortals = with pkgs;
+      [
+        xdg-desktop-portal-gtk # provides a XDG Portals implementation.
+      ];
 
-    services.geoclue2.enable = mkDefault true; # for BCC's Privacy > Location Services panel.
-    services.upower.enable = config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
+    services.geoclue2.enable =
+      mkDefault true; # for BCC's Privacy > Location Services panel.
+    services.upower.enable =
+      config.powerManagement.enable; # for Budgie's Status Indicator and BCC's Power panel.
     services.xserver.libinput.enable = mkDefault true; # for BCC's Mouse panel.
     services.colord.enable = mkDefault true; # for BCC's Color panel.
     services.gnome.at-spi2-core.enable = mkDefault true; # for BCC's A11y panel.

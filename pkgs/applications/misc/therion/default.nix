@@ -1,33 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  perl,
-  tcl,
-  tcllib,
-  tk,
-  expat,
-  bwidget,
-  python3,
-  texlive,
-  survex,
-  makeWrapper,
-  fmt,
-  proj,
-  wxGTK32,
-  vtk,
-  freetype,
-  libjpeg,
-  gettext,
-  libGL,
-  libGLU,
-  sqlite,
-  libtiff,
-  curl,
-  tkimg,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, perl, tcl, tcllib, tk, expat
+, bwidget, python3, texlive, survex, makeWrapper, fmt, proj, wxGTK32, vtk
+, freetype, libjpeg, gettext, libGL, libGLU, sqlite, libtiff, curl, tkimg }:
 
 stdenv.mkDerivation rec {
   pname = "therion";
@@ -81,10 +54,7 @@ stdenv.mkDerivation rec {
     runHook preFixup
     wrapProgram $out/bin/therion \
       --prefix PATH : ${
-        lib.makeBinPath [
-          survex
-          texlive.combined.scheme-tetex
-        ]
+        lib.makeBinPath [ survex texlive.combined.scheme-tetex ]
       }
     wrapProgram $out/bin/xtherion \
       --prefix PATH : ${lib.makeBinPath [ tk ]}

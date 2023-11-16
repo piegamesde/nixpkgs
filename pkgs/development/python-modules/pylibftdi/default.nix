@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  libftdi1,
-  libusb1,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, libftdi1, libusb1, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pylibftdi";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     sha256 = "f4a87fc4af2c9c7d42badd4192ca9b529f32c9d96fdc8daea7e29c509226df5f";
   };
 
-  propagatedBuildInputs = [
-    libftdi1
-    libusb1
-  ];
+  propagatedBuildInputs = [ libftdi1 libusb1 ];
 
   postPatch = ''
     substituteInPlace pylibftdi/driver.py \
@@ -34,7 +24,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pylibftdi.readthedocs.io/";
-    description = "Wrapper to Intra2net's libftdi driver for FTDI's USB devices";
+    description =
+      "Wrapper to Intra2net's libftdi driver for FTDI's USB devices";
     license = licenses.mit;
     maintainers = with maintainers; [ matthuszagh ];
   };

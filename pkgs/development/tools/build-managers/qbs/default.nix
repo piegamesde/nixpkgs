@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qmake,
-  qtbase,
-  qtscript,
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qtscript }:
 
 stdenv.mkDerivation rec {
   pname = "qbs";
@@ -23,18 +16,13 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  qmakeFlags = [
-    "QBS_INSTALL_PREFIX=$(out)"
-    "qbs.pro"
-  ];
+  qmakeFlags = [ "QBS_INSTALL_PREFIX=$(out)" "qbs.pro" ];
 
-  buildInputs = [
-    qtbase
-    qtscript
-  ];
+  buildInputs = [ qtbase qtscript ];
 
   meta = with lib; {
-    description = "A tool that helps simplify the build process for developing projects across multiple platforms";
+    description =
+      "A tool that helps simplify the build process for developing projects across multiple platforms";
     homepage = "https://wiki.qt.io/Qbs";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ expipiplus1 ];

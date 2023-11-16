@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  gmp,
-  libX11,
-  libpthreadstubs,
-  perl,
-  readline,
-  tex,
-  withThread ? true,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, gmp, libX11, libpthreadstubs, perl
+, readline, tex, withThread ? true }:
 
 assert withThread -> libpthreadstubs != null;
 
@@ -29,33 +18,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-rfWlhjjNr9cqi0i8n0RJcrIzKcjVRaHT7Ru+sbZWkmg=";
   };
 
-  patches =
-    [
-      # https://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=2466
-      (fetchpatch {
-        name = "incorrect-result-from-qfbclassno.patch";
-        url = "https://pari.math.u-bordeaux.fr/cgi-bin/gitweb.cgi?p=pari.git;a=commitdiff_plain;h=7ca0c2eae87def89fa7253c60e4791a8ef26629d";
-        excludes = [
-          "src/test/32/quadclassunit"
-          "CHANGES"
-        ];
-        hash = "sha256-CQRkIYDFMrWHCoSWGsIydPjGk3w09zzghajlNuq29Jk=";
-      })
-    ];
+  patches = [
+    # https://pari.math.u-bordeaux.fr/cgi-bin/bugreport.cgi?bug=2466
+    (fetchpatch {
+      name = "incorrect-result-from-qfbclassno.patch";
+      url =
+        "https://pari.math.u-bordeaux.fr/cgi-bin/gitweb.cgi?p=pari.git;a=commitdiff_plain;h=7ca0c2eae87def89fa7253c60e4791a8ef26629d";
+      excludes = [ "src/test/32/quadclassunit" "CHANGES" ];
+      hash = "sha256-CQRkIYDFMrWHCoSWGsIydPjGk3w09zzghajlNuq29Jk=";
+    })
+  ];
 
-  buildInputs = [
-    gmp
-    libX11
-    perl
-    readline
-    tex
-  ] ++ lib.optionals withThread [ libpthreadstubs ];
+  buildInputs = [ gmp libX11 perl readline tex ]
+    ++ lib.optionals withThread [ libpthreadstubs ];
 
   configureScript = "./Configure";
-  configureFlags = [
-    "--with-gmp=${lib.getDev gmp}"
-    "--with-readline=${lib.getDev readline}"
-  ] ++ lib.optional withThread "--mt=pthread";
+  configureFlags =
+    [ "--with-gmp=${lib.getDev gmp}" "--with-readline=${lib.getDev readline}" ]
+    ++ lib.optional withThread "--mt=pthread";
 
   preConfigure = ''
     export LD=$CC
@@ -65,7 +45,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://pari.math.u-bordeaux.fr";
-    description = "Computer algebra system for high-performance number theory computations";
+    description =
+      "Computer algebra system for high-performance number theory computations";
     longDescription = ''
       PARI/GP is a widely used computer algebra system designed for fast
       computations in number theory (factorizations, algebraic number theory,

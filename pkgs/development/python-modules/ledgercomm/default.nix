@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "ledgercomm";
@@ -20,7 +15,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ledgercomm" ];
 
   meta = with lib; {
-    description = "Python library to send and receive APDU through HID or TCP socket. It can be used with a Ledger Nano S/X or with the Speculos emulator.";
+    description =
+      "Python library to send and receive APDU through HID or TCP socket. It can be used with a Ledger Nano S/X or with the Speculos emulator.";
     homepage = "https://github.com/LedgerHQ/ledgercomm";
     license = licenses.mit;
   };

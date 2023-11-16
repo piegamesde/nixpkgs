@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pidgin,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, pidgin, pkg-config }:
 
 stdenv.mkDerivation {
   pname = "purple-slack-unstable";
@@ -31,3 +25,4 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ eyjhb ];
   };
 }
+

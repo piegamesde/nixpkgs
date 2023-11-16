@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  mpir,
-  gmp,
-  mpfr,
-  flint,
-  arb,
-  antic,
-}:
+{ lib, stdenv, fetchFromGitHub, mpir, gmp, mpfr, flint, arb, antic }:
 
 stdenv.mkDerivation rec {
   pname = "calcium";
@@ -21,14 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ony2FGMnWyNqD7adGeiDtysHNZ4ClMvQ1ijVPSHJmyc=";
   };
 
-  buildInputs = [
-    mpir
-    gmp
-    mpfr
-    flint
-    arb
-    antic
-  ];
+  buildInputs = [ mpir gmp mpfr flint arb antic ];
 
   configureFlags = [
     "--with-gmp=${gmp}"
@@ -42,7 +25,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "A C library for exact computation with real and complex numbers";
+    description =
+      "A C library for exact computation with real and complex numbers";
     homepage = "https://fredrikj.net/calcium/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ smasher164 ];

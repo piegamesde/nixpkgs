@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  openssl,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, openssl, which }:
 
 stdenv.mkDerivation {
   pname = "mbox";
@@ -17,10 +11,7 @@ stdenv.mkDerivation {
     sha256 = "06qggqxnzcxnc34m6sbafxwr2p64x65m9zm5wp7pwyarcckhh2hd";
   };
 
-  buildInputs = [
-    openssl
-    which
-  ];
+  buildInputs = [ openssl which ];
 
   preConfigure = ''
     cd src
@@ -38,7 +29,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Lightweight sandboxing mechanism that any user can use without special privileges";
+    description =
+      "Lightweight sandboxing mechanism that any user can use without special privileges";
     homepage = "http://pdos.csail.mit.edu/mbox/";
     maintainers = with maintainers; [ ehmry ];
     license = licenses.bsd3;

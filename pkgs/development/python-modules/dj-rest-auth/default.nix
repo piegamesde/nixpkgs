@@ -1,15 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  django,
-  django-allauth,
-  djangorestframework,
-  djangorestframework-simplejwt,
-  responses,
-  unittest-xml-reporting,
-  python,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, django-allauth
+, djangorestframework, djangorestframework-simplejwt, responses
+, unittest-xml-reporting, python }:
 
 buildPythonPackage rec {
   pname = "dj-rest-auth";
@@ -34,11 +25,9 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.with_social = [ django-allauth ];
 
-  nativeCheckInputs = [
-    djangorestframework-simplejwt
-    responses
-    unittest-xml-reporting
-  ] ++ passthru.optional-dependencies.with_social;
+  nativeCheckInputs =
+    [ djangorestframework-simplejwt responses unittest-xml-reporting ]
+    ++ passthru.optional-dependencies.with_social;
 
   preCheck = ''
     # connects to graph.facebook.com

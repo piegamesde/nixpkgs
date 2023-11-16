@@ -1,11 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  python3,
-  sassc,
-  sass,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, python3, sassc, sass }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mint-l-theme";
@@ -18,11 +11,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-x+elC1NWcd+x8dNewwKPZBdkxSzEbo7jsG8B9DcWdoA=";
   };
 
-  nativeBuildInputs = [
-    python3
-    sassc
-    sass
-  ];
+  nativeBuildInputs = [ python3 sassc sass ];
 
   postPatch = ''
     patchShebangs .

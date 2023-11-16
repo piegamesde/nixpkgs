@@ -1,14 +1,6 @@
-{
-  stdenv,
-  fetchYarnDeps,
-  fixup_yarn_lock,
-  callPackage,
-  nodejs,
-}:
-let
-  common = callPackage ./common.nix { };
-in
-stdenv.mkDerivation {
+{ stdenv, fetchYarnDeps, fixup_yarn_lock, callPackage, nodejs }:
+let common = callPackage ./common.nix { };
+in stdenv.mkDerivation {
   pname = "tandoor-recipes-frontend";
   inherit (common) version;
 
@@ -19,11 +11,7 @@ stdenv.mkDerivation {
     sha256 = common.yarnSha256;
   };
 
-  nativeBuildInputs = [
-    fixup_yarn_lock
-    nodejs
-    nodejs.pkgs.yarn
-  ];
+  nativeBuildInputs = [ fixup_yarn_lock nodejs nodejs.pkgs.yarn ];
 
   configurePhase = ''
     runHook preConfigure
@@ -56,7 +44,5 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = common.meta // {
-    description = "Tandoor Recipes frontend";
-  };
+  meta = common.meta // { description = "Tandoor Recipes frontend"; };
 }

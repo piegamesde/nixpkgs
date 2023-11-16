@@ -1,122 +1,100 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  openssl,
-  pkgsCross,
-  buildPackages,
+{ lib, stdenv, fetchFromGitHub, openssl, pkgsCross, buildPackages
 
-  # Warning: this blob (hdcp.bin) runs on the main CPU (not the GPU) at
-  # privilege level EL3, which is above both the kernel and the
-  # hypervisor.
-  #
-  # This parameter applies only to platforms which are believed to use
-  # hdcp.bin. On all other platforms, or if unfreeIncludeHDCPBlob=false,
-  # hdcp.bin will be deleted before building.
-  unfreeIncludeHDCPBlob ? true,
-}:
+# Warning: this blob (hdcp.bin) runs on the main CPU (not the GPU) at
+# privilege level EL3, which is above both the kernel and the
+# hypervisor.
+#
+# This parameter applies only to platforms which are believed to use
+# hdcp.bin. On all other platforms, or if unfreeIncludeHDCPBlob=false,
+# hdcp.bin will be deleted before building.
+, unfreeIncludeHDCPBlob ? true }:
 
 let
-  buildArmTrustedFirmware =
-    {
-      filesToInstall,
-      installDir ? "$out",
-      platform ? null,
-      platformCanUseHDCPBlob ? false # set this to true if the platform is able to use hdcp.bin
-      ,
-      extraMakeFlags ? [ ],
-      extraMeta ? { },
-      ...
-    }@args:
+  buildArmTrustedFirmware = { filesToInstall, installDir ? "$out"
+    , platform ? null, platformCanUseHDCPBlob ?
+      false # set this to true if the platform is able to use hdcp.bin
+    , extraMakeFlags ? [ ], extraMeta ? { }, ... }@args:
 
     # delete hdcp.bin if either: the platform is thought to
     # not need it or unfreeIncludeHDCPBlob is false
     let
-      deleteHDCPBlobBeforeBuild = !platformCanUseHDCPBlob || !unfreeIncludeHDCPBlob;
-    in
+      deleteHDCPBlobBeforeBuild = !platformCanUseHDCPBlob
+        || !unfreeIncludeHDCPBlob;
 
-    stdenv.mkDerivation (
-      rec {
+    in stdenv.mkDerivation (rec {
 
-        pname = "arm-trusted-firmware${lib.optionalString (platform != null) "-${platform}"}";
-        version = "2.8";
+      pname = "arm-trusted-firmware${
+          lib.optionalString (platform != null) "-${platform}"
+        }";
+      version = "2.8";
 
-        src = fetchFromGitHub {
-          owner = "ARM-software";
-          repo = "arm-trusted-firmware";
-          rev = "v${version}";
-          hash = "sha256-WDJMMIWZHNqxxAKeHiZDxtPjfsfQAWsbYv+0o0PiJQs=";
-        };
+      src = fetchFromGitHub {
+        owner = "ARM-software";
+        repo = "arm-trusted-firmware";
+        rev = "v${version}";
+        hash = "sha256-WDJMMIWZHNqxxAKeHiZDxtPjfsfQAWsbYv+0o0PiJQs=";
+      };
 
-        patches =
-          lib.optionals deleteHDCPBlobBeforeBuild
-            [
-              # this is a rebased version of https://gitlab.com/vicencb/kevinboot/-/blob/master/atf.patch
-              ./remove-hdcp-blob.patch
-            ];
+      patches = lib.optionals deleteHDCPBlobBeforeBuild [
+        # this is a rebased version of https://gitlab.com/vicencb/kevinboot/-/blob/master/atf.patch
+        ./remove-hdcp-blob.patch
+      ];
 
-        postPatch = lib.optionalString deleteHDCPBlobBeforeBuild ''
-          rm plat/rockchip/rk3399/drivers/dp/hdcp.bin
-        '';
+      postPatch = lib.optionalString deleteHDCPBlobBeforeBuild ''
+        rm plat/rockchip/rk3399/drivers/dp/hdcp.bin
+      '';
 
-        depsBuildBuild = [ buildPackages.stdenv.cc ];
+      depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-        # For Cortex-M0 firmware in RK3399
-        nativeBuildInputs = [ pkgsCross.arm-embedded.stdenv.cc ];
+      # For Cortex-M0 firmware in RK3399
+      nativeBuildInputs = [ pkgsCross.arm-embedded.stdenv.cc ];
 
-        buildInputs = [ openssl ];
+      buildInputs = [ openssl ];
 
-        makeFlags = [
-          "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-          # binutils 2.39 regression
-          # `warning: /build/source/build/rk3399/release/bl31/bl31.elf has a LOAD segment with RWX permissions`
-          # See also: https://developer.trustedfirmware.org/T996
-          "LDFLAGS=-no-warn-rwx-segments"
-        ] ++ (lib.optional (platform != null) "PLAT=${platform}") ++ extraMakeFlags;
+      makeFlags = [
+        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
+        # binutils 2.39 regression
+        # `warning: /build/source/build/rk3399/release/bl31/bl31.elf has a LOAD segment with RWX permissions`
+        # See also: https://developer.trustedfirmware.org/T996
+        "LDFLAGS=-no-warn-rwx-segments"
+      ] ++ (lib.optional (platform != null) "PLAT=${platform}")
+        ++ extraMakeFlags;
 
-        installPhase = ''
-          runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-          mkdir -p ${installDir}
-          cp ${lib.concatStringsSep " " filesToInstall} ${installDir}
+        mkdir -p ${installDir}
+        cp ${lib.concatStringsSep " " filesToInstall} ${installDir}
 
-          runHook postInstall
-        '';
+        runHook postInstall
+      '';
 
-        hardeningDisable = [ "all" ];
-        dontStrip = true;
+      hardeningDisable = [ "all" ];
+      dontStrip = true;
 
-        # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
-        enableParallelBuilding = false;
+      # Fatal error: can't create build/sun50iw1p1/release/bl31/sunxi_clocks.o: No such file or directory
+      enableParallelBuilding = false;
 
-        meta =
-          with lib;
-          {
-            homepage = "https://github.com/ARM-software/arm-trusted-firmware";
-            description = "A reference implementation of secure world software for ARMv8-A";
-            license = [
-              licenses.bsd3
-            ] ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [ licenses.unfreeRedistributable ];
-            maintainers = with maintainers; [ lopsided98 ];
-          }
-          // extraMeta;
-      }
-      // builtins.removeAttrs args [ "extraMeta" ]
-    );
-in
-{
+      meta = with lib;
+        {
+          homepage = "https://github.com/ARM-software/arm-trusted-firmware";
+          description =
+            "A reference implementation of secure world software for ARMv8-A";
+          license = [ licenses.bsd3 ]
+            ++ lib.optionals (!deleteHDCPBlobBeforeBuild)
+            [ licenses.unfreeRedistributable ];
+          maintainers = with maintainers; [ lopsided98 ];
+        } // extraMeta;
+    } // builtins.removeAttrs args [ "extraMeta" ]);
+
+in {
   inherit buildArmTrustedFirmware;
 
   armTrustedFirmwareTools = buildArmTrustedFirmware rec {
-    extraMakeFlags = [
-      "HOSTCC=${stdenv.cc.targetPrefix}gcc"
-      "fiptool"
-      "certtool"
-    ];
-    filesToInstall = [
-      "tools/fiptool/fiptool"
-      "tools/cert_create/cert_create"
-    ];
+    extraMakeFlags =
+      [ "HOSTCC=${stdenv.cc.targetPrefix}gcc" "fiptool" "certtool" ];
+    filesToInstall =
+      [ "tools/fiptool/fiptool" "tools/cert_create/cert_create" ];
     postInstall = ''
       mkdir -p "$out/bin"
       find "$out" -type f -executable -exec mv -t "$out/bin" {} +

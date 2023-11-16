@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ttyper";
@@ -20,11 +16,9 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Terminal-based typing test";
     homepage = "https://github.com/max-niederman/ttyper";
-    changelog = "https://github.com/max-niederman/ttyper/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/max-niederman/ttyper/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      figsoda
-      max-niederman
-    ];
+    maintainers = with maintainers; [ figsoda max-niederman ];
   };
 }

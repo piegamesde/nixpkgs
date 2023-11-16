@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  curl,
-  duktape,
-  html-tidy,
-  openssl,
-  pcre,
-  perl,
-  pkg-config,
-  quickjs,
-  readline,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, curl, duktape, html-tidy, openssl, pcre, perl
+, pkg-config, quickjs, readline, which }:
 
 stdenv.mkDerivation rec {
   pname = "edbrowse";
@@ -25,26 +12,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZXxzQBAmu7kM3sjqg/rDLBXNucO8sFRFKXV8UxQVQZU=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    which
-  ];
-  buildInputs = [
-    curl
-    duktape
-    html-tidy
-    openssl
-    pcre
-    perl
-    quickjs
-    readline
-  ];
+  nativeBuildInputs = [ pkg-config which ];
+  buildInputs = [ curl duktape html-tidy openssl pcre perl quickjs readline ];
 
-  patches =
-    [
-      # Fixes some small annoyances on src/makefile
-      ./0001-small-fixes.patch
-    ];
+  patches = [
+    # Fixes some small annoyances on src/makefile
+    ./0001-small-fixes.patch
+  ];
 
   postPatch = ''
     substituteInPlace src/makefile --replace\
@@ -54,11 +28,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  makeFlags = [
-    "-C"
-    "src"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "-C" "src" "PREFIX=${placeholder "out"}" ];
 
   meta = with lib; {
     homepage = "https://edbrowse.org/";
@@ -75,11 +45,7 @@ stdenv.mkDerivation rec {
       into databases through odbc. It was primarily written by Karl Dahlke.
     '';
     license = licenses.gpl1Plus;
-    maintainers = with maintainers; [
-      schmitthenner
-      vrthra
-      equirosa
-    ];
+    maintainers = with maintainers; [ schmitthenner vrthra equirosa ];
     platforms = platforms.linux;
   };
 }

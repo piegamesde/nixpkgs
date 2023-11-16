@@ -1,18 +1,6 @@
-{
-  lib,
-  aiofiles,
-  aiohttp,
-  async_generator,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pypubsub,
-  pyserial,
-  pyserial-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  voluptuous,
-}:
+{ lib, aiofiles, aiohttp, async_generator, buildPythonPackage, fetchFromGitHub
+, pypubsub, pyserial, pyserial-asyncio, pytestCheckHook, pythonOlder, setuptools
+, voluptuous }:
 
 buildPythonPackage rec {
   pname = "pyinsteon";
@@ -30,19 +18,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiofiles
-    aiohttp
-    pypubsub
-    pyserial
-    pyserial-asyncio
-    voluptuous
-  ];
+  propagatedBuildInputs =
+    [ aiofiles aiohttp pypubsub pyserial pyserial-asyncio voluptuous ];
 
-  nativeCheckInputs = [
-    async_generator
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ async_generator pytestCheckHook ];
 
   pythonImportsCheck = [ "pyinsteon" ];
 

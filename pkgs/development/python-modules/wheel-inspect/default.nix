@@ -1,17 +1,6 @@
-{
-  lib,
-  attrs,
-  buildPythonPackage,
-  entry-points-txt,
-  fetchFromGitHub,
-  headerparser,
-  jsonschema,
-  packaging,
-  pytestCheckHook,
-  pythonOlder,
-  readme_renderer,
-  wheel-filename,
-}:
+{ lib, attrs, buildPythonPackage, entry-points-txt, fetchFromGitHub
+, headerparser, jsonschema, packaging, pytestCheckHook, pythonOlder
+, readme_renderer, wheel-filename }:
 
 buildPythonPackage rec {
   pname = "wheel-inspect";
@@ -36,10 +25,7 @@ buildPythonPackage rec {
     wheel-filename
   ];
 
-  nativeCheckInputs = [
-    jsonschema
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ jsonschema pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace tox.ini \
@@ -50,10 +36,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "wheel_inspect" ];
 
-  pytestFlagsArray = [
-    "-W"
-    "ignore::DeprecationWarning"
-  ];
+  pytestFlagsArray = [ "-W" "ignore::DeprecationWarning" ];
 
   meta = with lib; {
     description = "Extract information from wheels";

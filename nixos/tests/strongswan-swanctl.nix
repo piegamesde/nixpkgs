@@ -16,8 +16,7 @@
 # See the NixOS manual for how to run this test:
 # https://nixos.org/nixos/manual/index.html#sec-running-nixos-tests-interactively
 
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
     allowESP = "iptables --insert INPUT --protocol ESP --jump ACCEPT";
@@ -30,39 +29,27 @@ import ./make-test-python.nix (
     secret = "0sFpZAZqEN6Ti9sqt4ZP5EWcqx";
     esp_proposals = [ "aes128gcm128-x25519" ];
     proposals = [ "aes128-sha256-x25519" ];
-  in
-  {
+  in {
     name = "strongswan-swanctl";
     meta.maintainers = with pkgs.lib.maintainers; [ basvandijk ];
     nodes = {
 
-      alice =
-        { ... }:
-        {
-          virtualisation.vlans = [ 0 ];
-          networking = {
-            dhcpcd.enable = false;
-            defaultGateway = "192.168.0.3";
-          };
+      alice = { ... }: {
+        virtualisation.vlans = [ 0 ];
+        networking = {
+          dhcpcd.enable = false;
+          defaultGateway = "192.168.0.3";
         };
+      };
 
-      moon =
-        { config, ... }:
-        let
-          strongswan = config.services.strongswan-swanctl.package;
-        in
-        {
-          virtualisation.vlans = [
-            0
-            1
-          ];
+      moon = { config, ... }:
+        let strongswan = config.services.strongswan-swanctl.package;
+        in {
+          virtualisation.vlans = [ 0 1 ];
           networking = {
             dhcpcd.enable = false;
             firewall = {
-              allowedUDPPorts = [
-                4500
-                500
-              ];
+              allowedUDPPorts = [ 4500 500 ];
               extraCommands = allowESP;
             };
             nat = {
@@ -80,12 +67,8 @@ import ./make-test-python.nix (
               connections = {
                 rw = {
                   local_addrs = [ moonIp ];
-                  local.main = {
-                    auth = "psk";
-                  };
-                  remote.main = {
-                    auth = "psk";
-                  };
+                  local.main = { auth = "psk"; };
+                  remote.main = { auth = "psk"; };
                   children = {
                     net = {
                       local_ts = [ vlan0 ];
@@ -107,12 +90,9 @@ import ./make-test-python.nix (
           };
         };
 
-      carol =
-        { config, ... }:
-        let
-          strongswan = config.services.strongswan-swanctl.package;
-        in
-        {
+      carol = { config, ... }:
+        let strongswan = config.services.strongswan-swanctl.package;
+        in {
           virtualisation.vlans = [ 1 ];
           networking = {
             dhcpcd.enable = false;
@@ -155,10 +135,10 @@ import ./make-test-python.nix (
             };
           };
         };
+
     };
     testScript = ''
       start_all()
       carol.wait_until_succeeds("ping -c 1 alice")
     '';
-  }
-)
+  })

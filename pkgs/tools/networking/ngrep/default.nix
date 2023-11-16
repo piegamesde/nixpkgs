@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  autoreconfHook,
-  libpcap,
-  pcre,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, libpcap, pcre }:
 
 stdenv.mkDerivation rec {
   pname = "ngrep";
@@ -21,16 +13,14 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/jpr5/ngrep/pull/11.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/jpr5/ngrep/pull/11.patch";
       sha256 = "0k5qzvj8j3r1409qwwvzp7m3clgs2g7hs4q68bhrqbrsvvb2h5dh";
     })
   ];
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    libpcap
-    pcre
-  ];
+  buildInputs = [ libpcap pcre ];
 
   configureFlags = [
     "--enable-ipv6"

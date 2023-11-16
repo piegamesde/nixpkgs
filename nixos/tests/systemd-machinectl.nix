@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
   let
 
     container = {
@@ -18,45 +17,42 @@ import ./make-test-python.nix (
       imports = [ ../modules/profiles/minimal.nix ];
     };
 
-    containerSystem =
-      (import ../lib/eval-config.nix {
-        inherit (pkgs) system;
-        modules = [ container ];
-      }).config.system.build.toplevel;
+    containerSystem = (import ../lib/eval-config.nix {
+      inherit (pkgs) system;
+      modules = [ container ];
+    }).config.system.build.toplevel;
 
     containerName = "container";
     containerRoot = "/var/lib/machines/${containerName}";
-  in
-  {
+
+  in {
     name = "systemd-machinectl";
 
-    nodes.machine =
-      { lib, ... }:
-      {
-        # use networkd to obtain systemd network setup
-        networking.useNetworkd = true;
-        networking.useDHCP = false;
+    nodes.machine = { lib, ... }: {
+      # use networkd to obtain systemd network setup
+      networking.useNetworkd = true;
+      networking.useDHCP = false;
 
-        # do not try to access cache.nixos.org
-        nix.settings.substituters = lib.mkForce [ ];
+      # do not try to access cache.nixos.org
+      nix.settings.substituters = lib.mkForce [ ];
 
-        # auto-start container
-        systemd.targets.machines.wants = [ "systemd-nspawn@${containerName}.service" ];
+      # auto-start container
+      systemd.targets.machines.wants =
+        [ "systemd-nspawn@${containerName}.service" ];
 
-        virtualisation.additionalPaths = [ containerSystem ];
+      virtualisation.additionalPaths = [ containerSystem ];
 
-        # not needed, but we want to test the nspawn file generation
-        systemd.nspawn.${containerName} = { };
+      # not needed, but we want to test the nspawn file generation
+      systemd.nspawn.${containerName} = { };
 
-        systemd.services."systemd-nspawn@${containerName}" = {
-          serviceConfig.Environment =
-            [
-              # Disable tmpfs for /tmp
-              "SYSTEMD_NSPAWN_TMPFS_TMP=0"
-            ];
-          overrideStrategy = "asDropin";
-        };
+      systemd.services."systemd-nspawn@${containerName}" = {
+        serviceConfig.Environment = [
+          # Disable tmpfs for /tmp
+          "SYSTEMD_NSPAWN_TMPFS_TMP=0"
+        ];
+        overrideStrategy = "asDropin";
       };
+    };
 
     testScript = ''
       start_all()
@@ -114,5 +110,4 @@ import ./make-test-python.nix (
       machine.succeed("chattr -i ${containerRoot}/var/empty");
       machine.succeed("rm -rf ${containerRoot}");
     '';
-  }
-)
+  })

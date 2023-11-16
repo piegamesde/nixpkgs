@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  callPackage,
-  lib,
-  jmp,
-  tabulate,
-  jaxlib,
+{ buildPythonPackage, fetchFromGitHub, callPackage, lib, jmp, tabulate, jaxlib
 }:
 
 buildPythonPackage rec {
@@ -19,16 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-d5THbfMRrbBL/2sQ99l2yeaTI9gT+bSkcxmVdRJT5bA=";
   };
 
-  outputs = [
-    "out"
-    "testsout"
-  ];
+  outputs = [ "out" "testsout" ];
 
-  propagatedBuildInputs = [
-    jaxlib
-    jmp
-    tabulate
-  ];
+  propagatedBuildInputs = [ jaxlib jmp tabulate ];
 
   pythonImportsCheck = [ "haiku" ];
 
@@ -40,12 +26,11 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion with bsuite
   doCheck = false;
 
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = with lib; {
-    description = "Haiku is a simple neural network library for JAX developed by some of the authors of Sonnet.";
+    description =
+      "Haiku is a simple neural network library for JAX developed by some of the authors of Sonnet.";
     homepage = "https://github.com/deepmind/dm-haiku";
     license = licenses.asl20;
     maintainers = with maintainers; [ ndl ];

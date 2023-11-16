@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  packaging,
-  pandas,
-  pyarrow,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, packaging, pandas, pyarrow
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "db-dtypes";
@@ -24,12 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-OAVHx/a4uupVGXSWN2/3uem9/4i+TUkzTX4kp0uLY44=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    pandas
-    pyarrow
-  ];
+  propagatedBuildInputs = [ numpy packaging pandas pyarrow ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -38,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Pandas Data Types for SQL systems (BigQuery, Spanner)";
     homepage = "https://github.com/googleapis/python-db-dtypes-pandas";
-    changelog = "https://github.com/googleapis/python-db-dtypes-pandas/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-db-dtypes-pandas/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

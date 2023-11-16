@@ -2,12 +2,10 @@
   services = {
     xserver = {
       windowManager = {
-        session = [
-          {
-            name = "none";
-            start = "";
-          }
-        ];
+        session = [{
+          name = "none";
+          start = "";
+        }];
       };
     };
   };

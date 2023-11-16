@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  bash,
-  perl,
-}:
+{ fetchurl, lib, stdenv, bash, perl }:
 
 stdenv.mkDerivation rec {
   pname = "rush";
@@ -50,7 +44,5 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
   };
 
-  passthru = {
-    shellPath = "/bin/rush";
-  };
+  passthru = { shellPath = "/bin/rush"; };
 }

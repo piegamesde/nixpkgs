@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libjack2,
-  libsndfile,
-  xorg,
-  freetype,
-  libxkbcommon,
-  cairo,
-  glib,
-  gnome,
-  flac,
-  libogg,
-  libvorbis,
-  libopus,
-  cmake,
-  pango,
-  pkg-config,
-  catch2,
-}:
+{ lib, stdenv, fetchFromGitHub, libjack2, libsndfile, xorg, freetype
+, libxkbcommon, cairo, glib, gnome, flac, libogg, libvorbis, libopus, cmake
+, pango, pkg-config, catch2 }:
 
 stdenv.mkDerivation rec {
   pname = "sfizz";
@@ -55,10 +37,7 @@ stdenv.mkDerivation rec {
     freetype
     pango
   ];
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   postPatch = ''
     cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
@@ -69,10 +48,7 @@ stdenv.mkDerivation rec {
       --replace '/usr/bin/zenity' '${gnome.zenity}/bin/zenity'
   '';
 
-  cmakeFlags = [
-    "-DCMAKE_BUILD_TYPE=Release"
-    "-DSFIZZ_TESTS=ON"
-  ];
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" "-DSFIZZ_TESTS=ON" ];
 
   doCheck = true;
 

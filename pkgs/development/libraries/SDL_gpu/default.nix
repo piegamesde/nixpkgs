@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  SDL2,
-  libGLU,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, SDL2, libGLU }:
 
 stdenv.mkDerivation {
   pname = "SDL_gpu-unstable";
@@ -19,10 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    SDL2
-    libGLU
-  ];
+  buildInputs = [ SDL2 libGLU ];
 
   cmakeFlags = [
     "-DSDL_gpu_BUILD_DEMOS=OFF"
@@ -37,7 +27,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "A library for high-performance, modern 2D graphics with SDL written in C";
+    description =
+      "A library for high-performance, modern 2D graphics with SDL written in C";
     homepage = "https://github.com/grimfang4/sdl-gpu";
     license = licenses.mit;
     maintainers = with maintainers; [ pmiddend ];

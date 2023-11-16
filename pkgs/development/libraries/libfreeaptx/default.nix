@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "libfreeaptx";
@@ -15,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eEUhOrKqb2hHWanY+knpY9FBEnjkkFTB+x6BZgMBpbo=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile \
@@ -44,7 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Free Implementation of Audio Processing Technology codec (aptX)";
+    description =
+      "Free Implementation of Audio Processing Technology codec (aptX)";
     license = licenses.lgpl21Plus;
     homepage = "https://github.com/iamthehorker/libfreeaptx";
     platforms = platforms.unix;

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "smbscan";
@@ -16,10 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-cL1mnyzIbHB/X4c7sZKVv295LNnjqwR8TZBMe9s/peg=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    impacket
-    python-slugify
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ impacket python-slugify ];
 
   installPhase = ''
     runHook preInstall

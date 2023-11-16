@@ -1,28 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  meson,
-  ninja,
-  glib,
-  gnome,
-  gettext,
-  gobject-introspection,
-  vala,
-  sqlite,
-  dbus-glib,
-  dbus,
-  libgee,
-  evolution-data-server-gtk4,
-  python3,
-  readline,
-  gtk-doc,
-  docbook-xsl-nons,
-  docbook_xml_dtd_43,
-  telepathy-glib,
-  telepathySupport ? false,
-}:
+{ stdenv, lib, fetchurl, pkg-config, meson, ninja, glib, gnome, gettext
+, gobject-introspection, vala, sqlite, dbus-glib, dbus, libgee
+, evolution-data-server-gtk4, python3, readline, gtk-doc, docbook-xsl-nons
+, docbook_xml_dtd_43, telepathy-glib, telepathySupport ? false }:
 
 # TODO: enable more folks backends
 
@@ -30,11 +9,7 @@ stdenv.mkDerivation rec {
   pname = "folks";
   version = "0.15.6";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -61,24 +36,18 @@ stdenv.mkDerivation rec {
     readline
   ] ++ lib.optionals telepathySupport [ telepathy-glib ];
 
-  propagatedBuildInputs = [
-    glib
-    libgee
-    sqlite
-  ];
+  propagatedBuildInputs = [ glib libgee sqlite ];
 
   nativeCheckInputs = [
     dbus
-    (python3.withPackages (
-      pp:
+    (python3.withPackages (pp:
       with pp; [
         python-dbusmock
         # The following possibly need to be propagated by dbusmock
         # if they are not optional
         dbus-python
         pygobject3
-      ]
-    ))
+      ]))
   ];
 
   mesonFlags = [
@@ -112,7 +81,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library that aggregates people from multiple sources to create metacontacts";
+    description =
+      "A library that aggregates people from multiple sources to create metacontacts";
     homepage = "https://wiki.gnome.org/Projects/Folks";
     license = licenses.lgpl21Plus;
     maintainers = teams.gnome.members;

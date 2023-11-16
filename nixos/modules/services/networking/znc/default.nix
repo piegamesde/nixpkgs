@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,94 +13,72 @@ let
     paths = cfg.modulePackages;
   };
 
-  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (attrValues (cfg.config.Listener or { }));
+  listenerPorts = concatMap (l: optional (l ? Port) l.Port)
+    (attrValues (cfg.config.Listener or { }));
 
   # Converts the config option to a string
-  semanticString =
-    let
+  semanticString = let
 
-      sortedAttrs =
-        set:
-        sort
-          (
-            l: r:
-            if l == "extraConfig" then
-              false # Always put extraConfig last
-            else if isAttrs set.${l} == isAttrs set.${r} then
-              l < r
-            else
-              isAttrs set.${r} # Attrsets should be last, makes for a nice config
+    sortedAttrs = set:
+      sort (l: r:
+        if l == "extraConfig" then
+          false # Always put extraConfig last
+        else if isAttrs set.${l} == isAttrs set.${r} then
+          l < r
+        else
+          isAttrs set.${r} # Attrsets should be last, makes for a nice config
           # This last case occurs when any side (but not both) is an attrset
           # The order of these is correct when the attrset is on the right
           # which we're just returning
-          )
-          (attrNames set);
+      ) (attrNames set);
 
-      # Specifies an attrset that encodes the value according to its type
-      encode =
-        name: value:
-        {
-          null = [ ];
-          bool = [ "${name} = ${boolToString value}" ];
-          int = [ "${name} = ${toString value}" ];
+    # Specifies an attrset that encodes the value according to its type
+    encode = name: value:
+      {
+        null = [ ];
+        bool = [ "${name} = ${boolToString value}" ];
+        int = [ "${name} = ${toString value}" ];
 
-          # extraConfig should be inserted verbatim
-          string = [ (if name == "extraConfig" then value else "${name} = ${value}") ];
+        # extraConfig should be inserted verbatim
+        string =
+          [ (if name == "extraConfig" then value else "${name} = ${value}") ];
 
-          # Values like `Foo = [ "bar" "baz" ];` should be transformed into
-          #   Foo=bar
-          #   Foo=baz
-          list = concatMap (encode name) value;
+        # Values like `Foo = [ "bar" "baz" ];` should be transformed into
+        #   Foo=bar
+        #   Foo=baz
+        list = concatMap (encode name) value;
 
-          # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
-          #   <Foo bar>
-          #     Baz=baz
-          #     Qux=qux
-          #   </Foo>
-          set =
-            concatMap
-              (
-                subname:
-                optionals (value.${subname} != null) (
-                  [ "<${name} ${subname}>" ] ++ map (line: "	${line}") (toLines value.${subname}) ++ [ "</${name}>" ]
-                )
-              )
-              (filter (v: v != null) (attrNames value));
-        }
-        .${builtins.typeOf value};
+        # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
+        #   <Foo bar>
+        #     Baz=baz
+        #     Qux=qux
+        #   </Foo>
+        set = concatMap (subname:
+          optionals (value.${subname} != null) ([ "<${name} ${subname}>" ]
+            ++ map (line: "	${line}") (toLines value.${subname})
+            ++ [ "</${name}>" ])) (filter (v: v != null) (attrNames value));
 
-      # One level "above" encode, acts upon a set and uses encode on each name,value pair
-      toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
-    in
-    concatStringsSep "\n" (toLines cfg.config);
+      }.${builtins.typeOf value};
+
+    # One level "above" encode, acts upon a set and uses encode on each name,value pair
+    toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
+
+  in concatStringsSep "\n" (toLines cfg.config);
 
   semanticTypes = with types; rec {
-    zncAtom = nullOr (
-      oneOf [
-        int
-        bool
-        str
-      ]
-    );
+    zncAtom = nullOr (oneOf [ int bool str ]);
     zncAttr = attrsOf (nullOr zncConf);
-    zncAll = oneOf [
-      zncAtom
-      (listOf zncAtom)
-      zncAttr
-    ];
-    zncConf = attrsOf (
-      zncAll
-      // {
-        # Since this is a recursive type and the description by default contains
-        # the description of its subtypes, infinite recursion would occur without
-        # explicitly breaking this cycle
-        description = "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)";
-      }
-    );
+    zncAll = oneOf [ zncAtom (listOf zncAtom) zncAttr ];
+    zncConf = attrsOf (zncAll // {
+      # Since this is a recursive type and the description by default contains
+      # the description of its subtypes, infinite recursion would occur without
+      # explicitly breaking this cycle
+      description =
+        "znc values (null, atoms (str, int, bool), list of atoms, or attrsets of znc values)";
+    });
   };
-in
 
-{
+in {
 
   imports = [ ./options.nix ];
 
@@ -220,14 +193,16 @@ in
       modulePackages = mkOption {
         type = types.listOf types.package;
         default = [ ];
-        example = literalExpression "[ pkgs.zncModules.fish pkgs.zncModules.push ]";
+        example =
+          literalExpression "[ pkgs.zncModules.fish pkgs.zncModules.push ]";
         description = lib.mdDoc ''
           A list of global znc module packages to add to znc.
         '';
       };
 
       mutable = mkOption {
-        default = true; # TODO: Default to true when config is set, make sure to not delete the old config if present
+        default =
+          true; # TODO: Default to true when config is set, make sure to not delete the old config if present
         type = types.bool;
         description = lib.mdDoc ''
           Indicates whether to allow the contents of the
@@ -259,7 +234,8 @@ in
   config = mkIf cfg.enable {
 
     services.znc = {
-      configFile = mkDefault (pkgs.writeText "znc-generated.conf" semanticString);
+      configFile =
+        mkDefault (pkgs.writeText "znc-generated.conf" semanticString);
       config = {
         Version = lib.getVersion pkgs.znc;
         Listener.l.Port = mkDefault 5000;
@@ -277,7 +253,8 @@ in
         User = cfg.user;
         Group = cfg.group;
         Restart = "always";
-        ExecStart = "${pkgs.znc}/bin/znc --foreground --datadir ${cfg.dataDir} ${
+        ExecStart =
+          "${pkgs.znc}/bin/znc --foreground --datadir ${cfg.dataDir} ${
             escapeShellArgs cfg.extraFlags
           }";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -303,19 +280,12 @@ in
         ProtectSystem = "strict";
         ReadWritePaths = [ cfg.dataDir ];
         RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-          "~@resources"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
         UMask = "0027";
       };
       preStart = ''
@@ -361,5 +331,6 @@ in
         members = [ defaultUser ];
       };
     };
+
   };
 }

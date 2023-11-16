@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "closure-html";
   version = "20180711-git";
 
@@ -16,7 +15,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/closure-html/2018-07-11/closure-html-20180711-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/closure-html/2018-07-11/closure-html-20180711-git.tgz";
     sha256 = "0ljcrz1wix77h1ywp0bixm3pb5ncmr1vdiwh8m1qzkygwpfjr8aq";
   };
 

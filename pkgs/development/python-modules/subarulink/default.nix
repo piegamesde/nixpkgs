@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  stdiomask,
-}:
+{ lib, aiohttp, buildPythonPackage, cryptography, fetchFromGitHub
+, pytest-asyncio, pytestCheckHook, pythonOlder, stdiomask }:
 
 buildPythonPackage rec {
   pname = "subarulink";
@@ -24,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-/VaGiOnPyTHSwkxlQtwyIZohD3QK897kapmM3S8bHtM=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    stdiomask
-  ];
+  propagatedBuildInputs = [ aiohttp stdiomask ];
 
-  nativeCheckInputs = [
-    cryptography
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ cryptography pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

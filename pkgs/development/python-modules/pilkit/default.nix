@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  pillow,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pillow, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pilkit";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pillow ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace tox.ini \
@@ -37,7 +27,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pilkit" ];
 
   meta = with lib; {
-    description = "A collection of utilities and processors for the Python Imaging Library";
+    description =
+      "A collection of utilities and processors for the Python Imaging Library";
     homepage = "https://github.com/matthewwithanm/pilkit/";
     license = licenses.bsd0;
     maintainers = with maintainers; [ domenkozar ];

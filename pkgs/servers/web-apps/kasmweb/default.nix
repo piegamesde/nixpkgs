@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchzip,
-}:
+{ stdenv, lib, fetchzip }:
 
 stdenv.mkDerivation rec {
   pname = "kasmweb";
@@ -10,7 +6,8 @@ stdenv.mkDerivation rec {
   build = "d4fd8a";
 
   src = fetchzip {
-    url = "https://kasm-static-content.s3.amazonaws.com/kasm_release_${version}.${build}.tar.gz";
+    url =
+      "https://kasm-static-content.s3.amazonaws.com/kasm_release_${version}.${build}.tar.gz";
     sha256 = "sha256-dCjWmI8gYtoMiMHVNgTg2ZROHXvT4ulynNvnKfMxURo=";
   };
 

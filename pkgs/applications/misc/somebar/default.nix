@@ -1,23 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  meson,
-  ninja,
-  pkg-config,
-  wayland,
-  pango,
-  wayland-protocols,
-  wayland-scanner,
-  conf ? null,
-}:
+{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, wayland, pango
+, wayland-protocols, wayland-scanner, conf ? null }:
 
 let
   # There is a configuration in src/config.def.hpp, which we use by default
-  configFile = if lib.isDerivation conf || builtins.isPath conf then conf else "src/config.def.hpp";
-in
+  configFile = if lib.isDerivation conf || builtins.isPath conf then
+    conf
+  else
+    "src/config.def.hpp";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "somebar";
   version = "1.0.3";
 
@@ -28,17 +19,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PBxCy1dZrOL1nmhVDQozvF0XL79uKMhhERGNpPPzaRU=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    wayland-scanner
-  ];
-  buildInputs = [
-    pango
-    wayland
-    wayland-protocols
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config wayland-scanner ];
+  buildInputs = [ pango wayland wayland-protocols ];
 
   prePatch = ''
     cp ${configFile} src/config.hpp

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-  setuptools,
-  which,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, pytestCheckHook, python
+, pythonOlder, setuptools, which }:
 
 buildPythonPackage rec {
   pname = "nodeenv";
@@ -26,23 +17,21 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   preFixup = ''
     substituteInPlace $out/${python.sitePackages}/nodeenv.py \
-      --replace '["which", candidate]' '["${lib.getBin which}/bin/which", candidate]'
+      --replace '["which", candidate]' '["${
+        lib.getBin which
+      }/bin/which", candidate]'
   '';
 
   pythonImportsCheck = [ "nodeenv" ];
 
-  disabledTests =
-    [
-      # Test requires coverage
-      "test_smoke"
-    ];
+  disabledTests = [
+    # Test requires coverage
+    "test_smoke"
+  ];
 
   meta = with lib; {
     description = "Node.js virtual environment builder";

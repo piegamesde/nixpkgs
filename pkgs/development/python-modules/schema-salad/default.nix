@@ -1,17 +1,5 @@
-{
-  lib,
-  black,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  cachecontrol,
-  lockfile,
-  mistune,
-  rdflib,
-  ruamel-yaml,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, black, buildPythonPackage, fetchPypi, setuptools-scm, cachecontrol
+, lockfile, mistune, rdflib, ruamel-yaml, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "schema-salad";
@@ -27,15 +15,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cachecontrol
-    lockfile
-    mistune
-    rdflib
-    ruamel-yaml
-  ];
+  propagatedBuildInputs = [ cachecontrol lockfile mistune rdflib ruamel-yaml ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.pycodegen;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.pycodegen;
 
   preCheck = ''
     rm tox.ini
@@ -52,14 +35,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "schema_salad" ];
 
-  passthru.optional-dependencies = {
-    pycodegen = [ black ];
-  };
+  passthru.optional-dependencies = { pycodegen = [ black ]; };
 
   meta = with lib; {
     description = "Semantic Annotations for Linked Avro Data";
     homepage = "https://github.com/common-workflow-language/schema_salad";
-    changelog = "https://github.com/common-workflow-language/schema_salad/releases/tag/${version}";
+    changelog =
+      "https://github.com/common-workflow-language/schema_salad/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ veprbl ];
   };

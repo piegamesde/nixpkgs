@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  fetchFromGitHub,
-  poetry-core,
-  python,
-  pythonOlder,
-  ua-parser,
-}:
+{ lib, buildPythonPackage, django, fetchFromGitHub, poetry-core, python
+, pythonOlder, ua-parser }:
 
 buildPythonPackage rec {
   pname = "django-sesame";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    django
-    ua-parser
-  ];
+  nativeCheckInputs = [ django ua-parser ];
 
   pythonImportsCheck = [ "sesame" ];
 

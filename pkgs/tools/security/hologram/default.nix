@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "hologram";
@@ -23,10 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-HI5+02qSQVLy6ZKaFjy1bWtvVk5bqMBg1umu2ic5HuY=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://github.com/AdRoll/hologram/";

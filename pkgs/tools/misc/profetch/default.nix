@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gprolog,
-}:
+{ stdenv, lib, fetchFromGitHub, gprolog }:
 
 stdenv.mkDerivation rec {
   pname = "profetch";

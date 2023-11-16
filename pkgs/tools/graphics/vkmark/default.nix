@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  meson,
-  ninja,
-  vulkan-headers,
-  vulkan-loader,
-  mesa,
-  wayland-protocols,
-  wayland,
-  glm,
-  assimp,
-  libxcb,
-  xcbutilwm,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, meson, ninja, vulkan-headers
+, vulkan-loader, mesa, wayland-protocols, wayland, glm, assimp, libxcb
+, xcbutilwm }:
 
 stdenv.mkDerivation rec {
   pname = "vkmark";
@@ -27,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/awEJbmSiNJT71bijI5mrJkKN4DhRNxXO/qYpQECFnA=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [
     vulkan-headers
     vulkan-loader

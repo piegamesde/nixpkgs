@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, python3, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "repath";

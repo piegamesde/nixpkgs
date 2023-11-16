@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libpng,
-}:
+{ lib, stdenv, fetchurl, libpng }:
 
 stdenv.mkDerivation rec {
   pname = "pngcrush";

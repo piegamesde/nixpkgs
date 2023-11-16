@@ -1,13 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  stdenv,
-  makeWrapper,
-  gitMinimal,
-  testers,
-  gitsign,
-}:
+{ lib, buildGoModule, fetchFromGitHub, stdenv, makeWrapper, gitMinimal, testers
+, gitsign }:
 
 buildGoModule rec {
   pname = "gitsign";
@@ -21,10 +13,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-+EKC/Up48EjwfVhLTpoxctWCSMDL0kLZaRPLBl0JGFQ=";
 
-  subPackages = [
-    "."
-    "cmd/gitsign-credential-cache"
-  ];
+  subPackages = [ "." "cmd/gitsign-credential-cache" ];
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -53,9 +42,6 @@ buildGoModule rec {
     changelog = "https://github.com/sigstore/gitsign/releases/tag/v${version}";
     description = "Keyless Git signing using Sigstore";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      lesuisse
-      developer-guy
-    ];
+    maintainers = with lib.maintainers; [ lesuisse developer-guy ];
   };
 }

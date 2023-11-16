@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rust,
-  rustPlatform,
-  pkg-config,
-  ronn,
-  systemd,
-  kmod,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, rust, rustPlatform, pkg-config, ronn, systemd
+, kmod, nixosTests }:
 
 rustPlatform.buildRustPackage rec {
   pname = "zram-generator";
@@ -29,16 +19,15 @@ rustPlatform.buildRustPackage rec {
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
     substituteInPlace Makefile \
-      --replace 'target/$(BUILDTYPE)' 'target/${rust.toRustTargetSpec stdenv.hostPlatform}/$(BUILDTYPE)'
+      --replace 'target/$(BUILDTYPE)' 'target/${
+        rust.toRustTargetSpec stdenv.hostPlatform
+      }/$(BUILDTYPE)'
     substituteInPlace src/generator.rs \
       --replace 'Command::new("systemd-detect-virt")' 'Command::new("${systemd}/bin/systemd-detect-virt")' \
       --replace 'Command::new("modprobe")' 'Command::new("${kmod}/bin/modprobe")'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    ronn
-  ];
+  nativeBuildInputs = [ pkg-config ronn ];
 
   buildInputs = [ systemd ];
 
@@ -58,9 +47,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    tests = {
-      inherit (nixosTests) zram-generator;
-    };
+    tests = { inherit (nixosTests) zram-generator; };
     updateScript = ./update.sh;
   };
 

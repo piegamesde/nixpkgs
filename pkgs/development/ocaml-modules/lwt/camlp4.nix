@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  camlp4,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, camlp4 }:
 
 buildDunePackage rec {
   pname = "lwt_camlp4";
@@ -32,3 +27,4 @@ buildDunePackage rec {
     maintainers = [ lib.maintainers.vbgl ];
   };
 }
+

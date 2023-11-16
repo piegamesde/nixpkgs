@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  bdftopcf,
-  xorg,
-  libfaketime,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, bdftopcf, xorg, libfaketime, }:
 
 stdenv.mkDerivation rec {
   pname = "tewi-font";
@@ -19,13 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "1axv9bv10xlcmgfyjh3z5kn5fkg3m6n1kskcs5hvlmyb6m1zk91j";
   };
 
-  nativeBuildInputs = [
-    python3
-    bdftopcf
-    xorg.mkfontscale
-    libfaketime
-    xorg.fonttosfnt
-  ];
+  nativeBuildInputs =
+    [ python3 bdftopcf xorg.mkfontscale libfaketime xorg.fonttosfnt ];
 
   postPatch = ''
     # make gzip deterministic

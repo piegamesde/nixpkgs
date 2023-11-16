@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  google-api-python-client,
-  oauth2client,
-  pyopenssl,
-  pyyaml,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, google-api-python-client, oauth2client
+, pyopenssl, pyyaml, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pydrive2";
@@ -22,12 +14,8 @@ buildPythonPackage rec {
     hash = "sha256-DAEbdOvCTzxspyggYmt38d/groj1dAxaXPlug915upk=";
   };
 
-  propagatedBuildInputs = [
-    google-api-python-client
-    oauth2client
-    pyopenssl
-    pyyaml
-  ];
+  propagatedBuildInputs =
+    [ google-api-python-client oauth2client pyopenssl pyyaml ];
 
   doCheck = false;
 

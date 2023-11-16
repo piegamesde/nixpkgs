@@ -1,18 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fontconfig,
-  python,
-  cython,
-  freefont_ttf,
-  makeFontsConf,
-}:
+{ lib, buildPythonPackage, fetchPypi, fontconfig, python, cython, freefont_ttf
+, makeFontsConf }:
 
-let
-  fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
-in
-buildPythonPackage rec {
+let fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+in buildPythonPackage rec {
   pname = "Python-fontconfig";
   version = "0.5.1";
 

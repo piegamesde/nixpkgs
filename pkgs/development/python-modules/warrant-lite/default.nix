@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  boto3,
-  envs,
-  python-jose,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, boto3, envs, python-jose
+, requests }:
 
 buildPythonPackage rec {
   pname = "warrant-lite";
@@ -21,12 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-FunWoslZn3o0WHet2+LtggO3bbbe2ULMXW93q07GxJ4=";
   };
 
-  propagatedBuildInputs = [
-    boto3
-    envs
-    python-jose
-    requests
-  ];
+  propagatedBuildInputs = [ boto3 envs python-jose requests ];
 
   postPatch = ''
     # requirements.txt is not part of the source

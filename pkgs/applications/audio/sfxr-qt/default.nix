@@ -1,18 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  extra-cmake-modules,
-  qtbase,
-  qtquickcontrols2,
-  SDL,
-  python3,
-  catch2,
-  callPackage,
-  nixosTests,
-}:
+{ lib, mkDerivation, fetchFromGitHub, fetchpatch, cmake, extra-cmake-modules
+, qtbase, qtquickcontrols2, SDL, python3, catch2, callPackage, nixosTests }:
 
 mkDerivation rec {
   pname = "sfxr-qt";
@@ -34,7 +21,8 @@ mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "sfxr-qr-missing-qpainterpath-include";
-      url = "https://github.com/agateau/sfxr-qt/commit/ef051f473654052112b647df987eb263e38faf47.patch";
+      url =
+        "https://github.com/agateau/sfxr-qt/commit/ef051f473654052112b647df987eb263e38faf47.patch";
       sha256 = "sha256-bqMnxHUzdS5oG/2hfr5MvkpwrtZW+GTN5fS2WpV2W2c=";
     })
   ];
@@ -42,21 +30,10 @@ mkDerivation rec {
   nativeBuildInputs = [
     cmake
     extra-cmake-modules
-    (python3.withPackages (
-      pp:
-      with pp; [
-        pyyaml
-        jinja2
-        setuptools
-      ]
-    ))
+    (python3.withPackages (pp: with pp; [ pyyaml jinja2 setuptools ]))
   ];
 
-  buildInputs = [
-    qtbase
-    qtquickcontrols2
-    SDL
-  ];
+  buildInputs = [ qtbase qtquickcontrols2 SDL ];
 
   doCheck = true;
 

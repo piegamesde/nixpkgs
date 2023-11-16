@@ -1,12 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  python3Packages,
-  meld,
-  subversion,
-  gvfs,
-  xdg-utils,
-  gtk3,
+{ fetchFromGitHub, lib, python3Packages, meld, subversion, gvfs, xdg-utils, gtk3
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -41,10 +33,7 @@ python3Packages.buildPythonApplication rec {
     sed -ie "s|gnome-open|xdg-open|" ./rabbitvcs/util/helper.py
   '';
 
-  outputs = [
-    "out"
-    "cli"
-  ];
+  outputs = [ "out" "cli" ];
 
   postInstall = ''
     mkdir -p $cli/bin

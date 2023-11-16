@@ -1,20 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  runtimeShell,
+{ lib, buildPythonPackage, fetchFromGitHub, runtimeShell
 
-  # build
-  poetry-core,
+# build
+, poetry-core
 
-  # propagates
-  docutils,
+# propagates
+, docutils
 
-  # tests
-  pytestCheckHook,
-  readme_renderer,
-  textile,
-}:
+# tests
+, pytestCheckHook, readme_renderer, textile }:
 
 buildPythonPackage rec {
   pname = "python-creole";
@@ -44,11 +37,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "creole" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    readme_renderer
-    textile
-  ];
+  nativeCheckInputs = [ pytestCheckHook readme_renderer textile ];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -77,7 +66,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Creole markup tools written in Python";
     homepage = "https://github.com/jedie/python-creole";
-    changelog = "https://github.com/jedie/python-creole/releases/tag/v${version}";
+    changelog =
+      "https://github.com/jedie/python-creole/releases/tag/v${version}";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hexa ];
   };

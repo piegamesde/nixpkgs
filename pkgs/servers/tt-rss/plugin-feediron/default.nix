@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  tt-rss,
-}:
+{ lib, stdenv, fetchFromGitHub, tt-rss }:
 
 stdenv.mkDerivation rec {
   pname = "tt-rss-plugin-feediron";

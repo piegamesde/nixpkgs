@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,9 +8,8 @@ let
   apple = "05ac";
 
   cfg = config.services.usbmuxd;
-in
 
-{
+in {
   options.services.usbmuxd = {
 
     enable = mkOption {
@@ -50,11 +44,9 @@ in
       default = pkgs.usbmuxd;
       defaultText = literalExpression "pkgs.usbmuxd";
       description = lib.mdDoc "Which package to use for the usbmuxd daemon.";
-      relatedPackages = [
-        "usbmuxd"
-        "usbmuxd2"
-      ];
+      relatedPackages = [ "usbmuxd" "usbmuxd2" ];
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -67,7 +59,8 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultUserGroup) { ${cfg.group} = { }; };
+    users.groups =
+      optionalAttrs (cfg.group == defaultUserGroup) { ${cfg.group} = { }; };
 
     # Give usbmuxd permission for Apple devices
     services.udev.extraRules = ''
@@ -81,9 +74,11 @@ in
       serviceConfig = {
         # Trigger the udev rule manually. This doesn't require replugging the
         # device when first enabling the option to get it to work
-        ExecStartPre = "${pkgs.udev}/bin/udevadm trigger -s usb -a idVendor=${apple}";
+        ExecStartPre =
+          "${pkgs.udev}/bin/udevadm trigger -s usb -a idVendor=${apple}";
         ExecStart = "${cfg.package}/bin/usbmuxd -U ${cfg.user} -v";
       };
     };
+
   };
 }

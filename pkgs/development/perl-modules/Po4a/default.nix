@@ -1,42 +1,23 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  docbook_xsl,
-  docbook_xsl_ns,
-  gettext,
-  libxslt,
-  glibcLocales,
-  docbook_xml_dtd_412,
-  docbook_sgml_dtd_41,
-  opensp,
-  bash,
-  perl,
-  buildPerlPackage,
-  ModuleBuild,
-  TextWrapI18N,
-  LocaleGettext,
-  TermReadKey,
-  SGMLSpm,
-  UnicodeLineBreak,
-  PodParser,
-  YAMLTiny,
-  fetchpatch,
-  writeShellScriptBin,
-}:
+{ stdenv, lib, fetchurl, docbook_xsl, docbook_xsl_ns, gettext, libxslt
+, glibcLocales, docbook_xml_dtd_412, docbook_sgml_dtd_41, opensp, bash, perl
+, buildPerlPackage, ModuleBuild, TextWrapI18N, LocaleGettext, TermReadKey
+, SGMLSpm, UnicodeLineBreak, PodParser, YAMLTiny, fetchpatch
+, writeShellScriptBin }:
 
 buildPerlPackage rec {
   pname = "po4a";
   version = "0.62";
   src = fetchurl {
-    url = "https://github.com/mquinson/po4a/releases/download/v${version}/po4a-${version}.tar.gz";
+    url =
+      "https://github.com/mquinson/po4a/releases/download/v${version}/po4a-${version}.tar.gz";
     sha256 = "0eb510a66f59de68cf7a205342036cc9fc08b39334b91f1456421a5f3359e68b";
   };
   patches = [
     (fetchpatch {
       # make devdoc output reproducible
       # https://github.com/mquinson/po4a/pull/387
-      url = "https://github.com/mquinson/po4a/commit/df7433b58f6570558d44b6aac885c2a8f7862e51.patch";
+      url =
+        "https://github.com/mquinson/po4a/commit/df7433b58f6570558d44b6aac885c2a8f7862e51.patch";
       sha256 = "9MVkYiItR2P3PBCUc4OhEOUHQuLqTWUYtYlZ3L8miC8=";
     })
   ];
@@ -48,9 +29,9 @@ buildPerlPackage rec {
     # shellscript that suffices for the tests in t/fmt/tex/, i.e. it looks up
     # article.cls to an existing file, but doesn't find article-wrong.cls.
     let
-      kpsewhich-stub = writeShellScriptBin "kpsewhich" ''[[ $1 = "article.cls" ]] && echo /dev/null'';
-    in
-    [
+      kpsewhich-stub = writeShellScriptBin "kpsewhich"
+        ''[[ $1 = "article.cls" ]] && echo /dev/null'';
+    in [
       gettext
       libxslt
       docbook_xsl
@@ -62,13 +43,9 @@ buildPerlPackage rec {
       kpsewhich-stub
       glibcLocales
     ];
-  propagatedBuildInputs = lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N ++ [
-    LocaleGettext
-    SGMLSpm
-    UnicodeLineBreak
-    PodParser
-    YAMLTiny
-  ];
+  propagatedBuildInputs =
+    lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N
+    ++ [ LocaleGettext SGMLSpm UnicodeLineBreak PodParser YAMLTiny ];
   # TODO: TermReadKey was temporarily removed from propagatedBuildInputs to unfreeze the build
   buildInputs = [ bash ];
   LC_ALL = "en_US.UTF-8";

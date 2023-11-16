@@ -1,13 +1,5 @@
-{
-  lib,
-  authlib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pkce,
-  pytestCheckHook,
-  pythonOlder,
-  simplejson,
-}:
+{ lib, authlib, buildPythonPackage, fetchFromGitHub, pkce, pytestCheckHook
+, pythonOlder, simplejson }:
 
 buildPythonPackage rec {
   pname = "pyvicare";
@@ -31,15 +23,9 @@ buildPythonPackage rec {
       --replace "'setuptools-git-versioning<1.8.0'" ""
   '';
 
-  propagatedBuildInputs = [
-    authlib
-    pkce
-  ];
+  propagatedBuildInputs = [ authlib pkce ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    simplejson
-  ];
+  nativeCheckInputs = [ pytestCheckHook simplejson ];
 
   pythonImportsCheck = [ "PyViCare" ];
 

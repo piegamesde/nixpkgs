@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "docbook-xml-ebnf";
@@ -24,7 +20,5 @@ stdenv.mkDerivation rec {
     cp -p $catalog $(stripHash $catalog)
   '';
 
-  meta = {
-    platforms = lib.platforms.unix;
-  };
+  meta = { platforms = lib.platforms.unix; };
 }

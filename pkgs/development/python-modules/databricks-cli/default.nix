@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  configparser,
-  decorator,
-  fetchFromGitHub,
-  mock,
-  oauthlib,
-  pyjwt,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-mock,
-  six,
-  tabulate,
-}:
+{ lib, buildPythonPackage, click, configparser, decorator, fetchFromGitHub, mock
+, oauthlib, pyjwt, pytestCheckHook, pythonOlder, requests, requests-mock, six
+, tabulate }:
 
 buildPythonPackage rec {
   pname = "databricks-cli";
@@ -30,22 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-Eg6qpoEvWlbOJbMIkbJiHfHVrglVfVNq/TCOhQxukl0=";
   };
 
-  propagatedBuildInputs = [
-    click
-    configparser
-    oauthlib
-    pyjwt
-    requests
-    requests-mock
-    six
-    tabulate
-  ];
+  propagatedBuildInputs =
+    [ click configparser oauthlib pyjwt requests requests-mock six tabulate ];
 
-  nativeCheckInputs = [
-    decorator
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ decorator mock pytestCheckHook ];
 
   disabledTestPaths = [
     # Disabled due to option parsing which we don't have
@@ -58,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Command line interface for Databricks";
     homepage = "https://github.com/databricks/databricks-cli";
-    changelog = "https://github.com/databricks/databricks-cli/releases/tag/${version}";
+    changelog =
+      "https://github.com/databricks/databricks-cli/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ tbenst ];
   };

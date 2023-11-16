@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aioprocessing";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "aioprocessing" ];
 
   meta = with lib; {
-    description = "Library that integrates the multiprocessing module with asyncio";
+    description =
+      "Library that integrates the multiprocessing module with asyncio";
     homepage = "https://github.com/dano/aioprocessing";
     license = licenses.bsd2;
     maintainers = with maintainers; [ uskudnik ];

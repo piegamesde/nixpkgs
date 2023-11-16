@@ -1,20 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  ocamlmod,
-  ocamlify,
-}:
+{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, ocamlmod, ocamlify }:
 
 stdenv.mkDerivation {
   version = "0.4.11";
   pname = "ocaml-oasis";
 
   src = fetchurl {
-    url = "https://download.ocamlcore.org/oasis/oasis/0.4.11/oasis-0.4.11.tar.gz";
+    url =
+      "https://download.ocamlcore.org/oasis/oasis/0.4.11/oasis-0.4.11.tar.gz";
     hash = "sha256-GLc97vTtbpqDM38ks7vi3tZSaLP/cwn8wA0l5X4dwS4=";
   };
 
@@ -22,13 +14,7 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-    ocamlmod
-    ocamlify
-  ];
+  nativeBuildInputs = [ ocaml findlib ocamlbuild ocamlmod ocamlify ];
 
   buildInputs = [ ocamlbuild ];
 
@@ -52,10 +38,7 @@ stdenv.mkDerivation {
     description = "Configure, build and install system for OCaml projects";
     homepage = "https://github.com/ocaml/oasis";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [
-      vbgl
-      maggesi
-    ];
+    maintainers = with maintainers; [ vbgl maggesi ];
     mainProgram = "oasis";
     inherit (ocaml.meta) platforms;
   };

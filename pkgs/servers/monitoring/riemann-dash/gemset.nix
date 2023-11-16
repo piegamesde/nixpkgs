@@ -72,13 +72,7 @@
     version = "0.10.0";
   };
   riemann-dash = {
-    dependencies = [
-      "erubis"
-      "multi_json"
-      "sass"
-      "sinatra"
-      "webrick"
-    ];
+    dependencies = [ "erubis" "multi_json" "sass" "sinatra" "webrick" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -100,10 +94,7 @@
     version = "3.7.4";
   };
   sass-listen = {
-    dependencies = [
-      "rb-fsevent"
-      "rb-inotify"
-    ];
+    dependencies = [ "rb-fsevent" "rb-inotify" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -114,11 +105,7 @@
     version = "4.0.0";
   };
   sinatra = {
-    dependencies = [
-      "rack"
-      "rack-protection"
-      "tilt"
-    ];
+    dependencies = [ "rack" "rack-protection" "tilt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

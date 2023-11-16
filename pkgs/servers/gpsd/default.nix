@@ -1,36 +1,16 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
+{ stdenv, lib, fetchurl
 
-  # nativeBuildInputs
-  scons,
-  pkg-config,
+# nativeBuildInputs
+, scons, pkg-config
 
-  # buildInputs
-  dbus,
-  libusb1,
-  ncurses,
-  pps-tools,
-  python3Packages,
+# buildInputs
+, dbus, libusb1, ncurses, pps-tools, python3Packages
 
-  # optional deps for GUI packages
-  guiSupport ? true,
-  dbus-glib,
-  libX11,
-  libXt,
-  libXpm,
-  libXaw,
-  libXext,
-  gobject-introspection,
-  pango,
-  gdk-pixbuf,
-  atk,
-  wrapGAppsHook,
+# optional deps for GUI packages
+, guiSupport ? true, dbus-glib, libX11, libXt, libXpm, libXaw, libXext
+, gobject-introspection, pango, gdk-pixbuf, atk, wrapGAppsHook
 
-  gpsdUser ? "gpsd",
-  gpsdGroup ? "dialout",
-}:
+, gpsdUser ? "gpsd", gpsdGroup ? "dialout" }:
 
 stdenv.mkDerivation rec {
   pname = "gpsd";
@@ -42,25 +22,10 @@ stdenv.mkDerivation rec {
   };
 
   # TODO: render & install HTML documentation using asciidoctor
-  nativeBuildInputs =
-    [
-      pkg-config
-      python3Packages.wrapPython
-      scons
-    ]
-    ++ lib.optionals guiSupport [
-      gobject-introspection
-      wrapGAppsHook
-    ];
+  nativeBuildInputs = [ pkg-config python3Packages.wrapPython scons ]
+    ++ lib.optionals guiSupport [ gobject-introspection wrapGAppsHook ];
 
-  buildInputs =
-    [
-      dbus
-      libusb1
-      ncurses
-      pps-tools
-      python3Packages.python
-    ]
+  buildInputs = [ dbus libusb1 ncurses pps-tools python3Packages.python ]
     ++ lib.optionals guiSupport [
       atk
       dbus-glib
@@ -109,10 +74,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/lib/udev/rules.d"
   '';
 
-  installTargets = [
-    "install"
-    "udev-install"
-  ];
+  installTargets = [ "install" "udev-install" ];
 
   # remove binaries for x-less install because xgps sconsflag is partially broken
   postFixup = ''
@@ -143,9 +105,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.com/gpsd/gpsd/-/blob/release-${version}/NEWS";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      bjornfor
-      rasendubi
-    ];
+    maintainers = with maintainers; [ bjornfor rasendubi ];
   };
 }

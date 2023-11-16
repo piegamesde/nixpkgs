@@ -1,15 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  numpy,
-  onnx,
-  packaging,
-  pytestCheckHook,
-  torch,
-  torchvision,
-  typing-extensions,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, numpy, onnx, packaging
+, pytestCheckHook, torch, torchvision, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pytorch-pfn-extras";
@@ -22,18 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-x1aE/55+2QwYG3Hhy35j26jLAj9O5orrU/c4KlTTOcc=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    torch
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ numpy packaging torch typing-extensions ];
 
-  nativeCheckInputs = [
-    onnx
-    pytestCheckHook
-    torchvision
-  ];
+  nativeCheckInputs = [ onnx pytestCheckHook torchvision ];
 
   # ignore all pytest warnings
   preCheck = ''
@@ -73,7 +54,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Supplementary components to accelerate research and development in PyTorch";
+    description =
+      "Supplementary components to accelerate research and development in PyTorch";
     homepage = "https://github.com/pfnet/pytorch-pfn-extras";
     license = licenses.mit;
     maintainers = with maintainers; [ samuela ];

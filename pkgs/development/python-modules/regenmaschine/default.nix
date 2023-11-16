@@ -1,17 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  typing-extensions,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-aiohttp, pytest-asyncio, pytest-mock, pytestCheckHook, pythonOlder
+, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "regenmaschine";
@@ -29,33 +18,26 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ aiohttp typing-extensions ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytest-mock pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Examples are prefix with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Examples are prefix with test_
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "regenmaschine" ];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
-    description = "Python library for interacting with RainMachine smart sprinkler controllers";
+    description =
+      "Python library for interacting with RainMachine smart sprinkler controllers";
     homepage = "https://github.com/bachya/regenmaschine";
-    changelog = "https://github.com/bachya/regenmaschine/releases/tag/${version}";
+    changelog =
+      "https://github.com/bachya/regenmaschine/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

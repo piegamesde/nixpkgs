@@ -1,34 +1,11 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  asn1crypto,
-  click,
-  cryptography,
-  pyhanko-certvalidator,
-  pytz,
-  pyyaml,
-  qrcode,
-  requests,
-  tzlocal,
-  certomancer,
-  freezegun,
-  python-pae,
-  pytest-aiohttp,
-  requests-mock,
-  pytestCheckHook,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, asn1crypto, click
+, cryptography, pyhanko-certvalidator, pytz, pyyaml, qrcode, requests, tzlocal
+, certomancer, freezegun, python-pae, pytest-aiohttp, requests-mock
+, pytestCheckHook
 
-  # optionals
-  defusedxml,
-  oscrypto,
-  fonttools,
-  uharfbuzz,
-  pillow,
-  python-barcode,
-  python-pkcs11,
-  aiohttp,
-}:
+# optionals
+, defusedxml, oscrypto, fonttools, uharfbuzz, pillow, python-barcode
+, python-pkcs11, aiohttp }:
 
 buildPythonPackage rec {
   pname = "pyhanko";
@@ -60,14 +37,8 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     extra_pubkey_algs = [ oscrypto ];
     xmp = [ defusedxml ];
-    opentype = [
-      fonttools
-      uharfbuzz
-    ];
-    image-support = [
-      pillow
-      python-barcode
-    ];
+    opentype = [ fonttools uharfbuzz ];
+    image-support = [ pillow python-barcode ];
     pkcs11 = [ python-pkcs11 ];
     async_http = [ aiohttp ];
   };
@@ -87,11 +58,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  disabledTestPaths =
-    [
-      # ModuleNotFoundError: No module named 'csc_dummy'
-      "pyhanko_tests/test_csc.py"
-    ];
+  disabledTestPaths = [
+    # ModuleNotFoundError: No module named 'csc_dummy'
+    "pyhanko_tests/test_csc.py"
+  ];
 
   disabledTests = [
     # Most of the test require working with local certificates,

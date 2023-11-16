@@ -1,15 +1,12 @@
-{
-  python3Packages,
-  lib,
-  fetchzip,
-}:
+{ python3Packages, lib, fetchzip }:
 
 python3Packages.buildPythonApplication rec {
   pname = "nerd-font-patcher";
   version = "3.0.2";
 
   src = fetchzip {
-    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/FontPatcher.zip";
+    url =
+      "https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/FontPatcher.zip";
     sha256 = "sha256-ZJpF/Q5lfcW3srb2NbJk+/QEuwaFjdzboa+rl9L7GGE=";
     stripRoot = false;
   };

@@ -1,27 +1,20 @@
-{
-  typing-booster,
-  symlinkJoin,
-  hunspellDicts,
-  lib,
-  makeWrapper,
-  langs ? [
-    "de-de"
-    "en-gb-ise"
-    "en-us"
-    "es-es"
-    "fr-moderne"
-    "it-it"
-    "sv-se"
-    "sv-fi"
-  ],
-}:
+{ typing-booster, symlinkJoin, hunspellDicts, lib, makeWrapper, langs ? [
+  "de-de"
+  "en-gb-ise"
+  "en-us"
+  "es-es"
+  "fr-moderne"
+  "it-it"
+  "sv-se"
+  "sv-fi"
+] }:
 
 let
 
-  hunspellDirs = lib.makeSearchPath "share/hunspell" (lib.attrVals langs hunspellDicts);
-in
+  hunspellDirs =
+    lib.makeSearchPath "share/hunspell" (lib.attrVals langs hunspellDicts);
 
-symlinkJoin {
+in symlinkJoin {
   name = "${typing-booster.name}-with-hunspell";
   paths = [ typing-booster ];
   nativeBuildInputs = [ makeWrapper ];

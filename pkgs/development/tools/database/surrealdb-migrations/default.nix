@@ -1,19 +1,10 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  testers,
-  Security,
-  surrealdb-migrations,
-  nix-update-script,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, testers, Security
+, surrealdb-migrations, nix-update-script }:
 
 let
   pname = "surrealdb-migrations";
   version = "0.9.9";
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -23,9 +14,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-wVaNsdNrRhb6lai60c1msBWTtLWsESOJNoHFJzdHtrs=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   buildInputs = [ ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
@@ -59,7 +48,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   meta = with lib; {
-    description = "An awesome SurrealDB migration tool, with a user-friendly CLI and a versatile Rust library that enables seamless integration into any project.";
+    description =
+      "An awesome SurrealDB migration tool, with a user-friendly CLI and a versatile Rust library that enables seamless integration into any project.";
     homepage = "https://crates.io/crates/surrealdb-migrations";
     mainProgram = "surrealdb-migrations";
     license = licenses.mit;

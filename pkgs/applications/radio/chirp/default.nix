@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  glib,
-  gsettings-desktop-schemas,
-  python3,
-  unstableGitUpdater,
-  wrapGAppsHook,
-}:
+{ lib, fetchFromGitHub, glib, gsettings-desktop-schemas, python3
+, unstableGitUpdater, wrapGAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "chirp";
@@ -18,10 +11,7 @@ python3.pkgs.buildPythonApplication rec {
     rev = "72789c3652c332dc68ba694f8f8f005913fe5c95";
     hash = "sha256-WQwCX7h9BFLdYOBVVntxQ6g4t3j7QLfNmlHVLzlRh7U=";
   };
-  buildInputs = [
-    glib
-    gsettings-desktop-schemas
-  ];
+  buildInputs = [ glib gsettings-desktop-schemas ];
   nativeBuildInputs = [ wrapGAppsHook ];
   propagatedBuildInputs = with python3.pkgs; [
     future

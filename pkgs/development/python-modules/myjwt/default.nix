@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  click,
-  colorama,
-  cryptography,
-  exrex,
-  fetchFromGitHub,
-  poetry-core,
-  pyopenssl,
-  pyperclip,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  questionary,
-  requests,
-  requests-mock,
-}:
+{ lib, stdenv, buildPythonPackage, click, colorama, cryptography, exrex
+, fetchFromGitHub, poetry-core, pyopenssl, pyperclip, pytest-mock
+, pytestCheckHook, pythonOlder, questionary, requests, requests-mock }:
 
 buildPythonPackage rec {
   pname = "myjwt";
@@ -51,16 +35,13 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [
-    pytest-mock
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytest-mock pytestCheckHook requests-mock ];
 
   pythonImportsCheck = [ "myjwt" ];
 
   meta = with lib; {
-    description = "CLI tool for testing vulnerabilities of JSON Web Tokens (JWT)";
+    description =
+      "CLI tool for testing vulnerabilities of JSON Web Tokens (JWT)";
     homepage = "https://github.com/mBouamama/MyJWT";
     changelog = "https://github.com/tyki6/MyJWT/releases/tag/${version}";
     license = with licenses; [ mit ];

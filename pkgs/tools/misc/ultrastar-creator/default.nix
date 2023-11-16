@@ -1,14 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qmake,
-  qtbase,
-  pkg-config,
-  taglib,
-  libbass,
-  libbass_fx,
-}:
+{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, pkg-config, taglib, libbass
+, libbass_fx }:
 
 # TODO: get rid of (unfree) libbass
 # issue:https://github.com/UltraStar-Deluxe/UltraStar-Creator/issues/3
@@ -42,16 +33,8 @@ mkDerivation {
     cd src
   '';
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-  ];
-  buildInputs = [
-    qtbase
-    taglib
-    libbass
-    libbass_fx
-  ];
+  nativeBuildInputs = [ qmake pkg-config ];
+  buildInputs = [ qtbase taglib libbass libbass_fx ];
 
   meta = with lib; {
     description = "Ultrastar karaoke song creation tool";

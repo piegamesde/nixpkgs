@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gnutls,
-  pkg-config,
-  readline,
-  zlib,
-  libidn2,
-  gmp,
-  libiconv,
-  libunistring,
-  gettext,
-}:
+{ lib, stdenv, fetchurl, gnutls, pkg-config, readline, zlib, libidn2, gmp
+, libiconv, libunistring, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "lftp";
@@ -27,16 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gnutls
-    readline
-    zlib
-    libidn2
-    gmp
-    libiconv
-    libunistring
-    gettext
-  ];
+  buildInputs =
+    [ gnutls readline zlib libidn2 gmp libiconv libunistring gettext ];
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 
@@ -51,7 +31,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "A file transfer program supporting a number of network protocols";
+    description =
+      "A file transfer program supporting a number of network protocols";
     homepage = "https://lftp.yar.ru/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

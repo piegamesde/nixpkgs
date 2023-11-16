@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  airspy,
-  soapysdr,
-  libobjc,
-  IOKit,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, airspy, soapysdr, libobjc, IOKit
+, Security }:
 
 stdenv.mkDerivation rec {
   pname = "soapyairspy";
@@ -22,16 +13,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs =
-    [
-      airspy
-      soapysdr
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      libobjc
-      IOKit
-      Security
-    ];
+  buildInputs = [ airspy soapysdr ]
+    ++ lib.optionals stdenv.isDarwin [ libobjc IOKit Security ];
 
   cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
 

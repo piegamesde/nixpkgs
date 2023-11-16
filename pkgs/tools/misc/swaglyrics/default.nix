@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ lib, python3, fetchFromGitHub, ncurses }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "swaglyrics";
@@ -31,16 +26,8 @@ python3.pkgs.buildPythonApplication rec {
     unidecode
   ];
 
-  nativeCheckInputs =
-    with python3.pkgs;
-    [
-      blinker
-      flask
-      flask-testing
-      mock
-      pytestCheckHook
-    ]
-    ++ [ ncurses ];
+  nativeCheckInputs = with python3.pkgs;
+    [ blinker flask flask-testing mock pytestCheckHook ] ++ [ ncurses ];
 
   preBuild = ''
     export HOME=$(mktemp -d)

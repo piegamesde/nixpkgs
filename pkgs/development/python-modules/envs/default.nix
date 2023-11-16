@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  fetchPypi,
-  jinja2,
-  mock,
-  nose,
-  poetry-core,
-  pythonOlder,
-  terminaltables,
-}:
+{ lib, buildPythonPackage, click, fetchPypi, jinja2, mock, nose, poetry-core
+, pythonOlder, terminaltables }:
 
 buildPythonPackage rec {
   pname = "envs";
@@ -25,16 +15,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    click
-    jinja2
-    terminaltables
-  ];
+  propagatedBuildInputs = [ click jinja2 terminaltables ];
 
-  nativeCheckInputs = [
-    mock
-    nose
-  ];
+  nativeCheckInputs = [ mock nose ];
 
   checkPhase = ''
     runHook preCheck

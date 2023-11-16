@@ -1,18 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  makeWrapper,
-  boost,
-  xercesc,
-  qtbase,
-  qttools,
-  qtwebengine,
-  qtxmlpatterns,
-  python3Packages,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, makeWrapper, boost
+, xercesc, qtbase, qttools, qtwebengine, qtxmlpatterns, python3Packages }:
 
 mkDerivation rec {
   pname = "sigil";
@@ -27,11 +14,7 @@ mkDerivation rec {
 
   pythonPath = with python3Packages; [ lxml ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
 
   buildInputs = [
     boost

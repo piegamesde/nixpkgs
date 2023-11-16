@@ -1,10 +1,4 @@
-{
-  lib,
-  libusb1,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-}:
+{ lib, libusb1, buildGoModule, fetchFromGitHub, pkg-config }:
 
 buildGoModule rec {
   pname = "yubihsm-connector";
@@ -23,17 +17,15 @@ buildGoModule rec {
 
   buildInputs = [ libusb1 ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   preBuild = ''
     go generate
   '';
 
   meta = with lib; {
-    description = "yubihsm-connector performs the communication between the YubiHSM 2 and applications that use it";
+    description =
+      "yubihsm-connector performs the communication between the YubiHSM 2 and applications that use it";
     homepage = "https://developers.yubico.com/yubihsm-connector/";
     maintainers = with maintainers; [ matthewcroughan ];
     license = licenses.asl20;

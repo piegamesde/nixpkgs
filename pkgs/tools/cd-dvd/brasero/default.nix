@@ -1,32 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  gtk3,
-  itstool,
-  gst_all_1,
-  libxml2,
-  libnotify,
-  libcanberra-gtk3,
-  intltool,
-  dvdauthor,
-  libburn,
-  libisofs,
-  vcdimager,
-  wrapGAppsHook,
-  hicolor-icon-theme,
-}:
+{ stdenv, lib, fetchurl, pkg-config, gtk3, itstool, gst_all_1, libxml2
+, libnotify, libcanberra-gtk3, intltool, dvdauthor, libburn, libisofs, vcdimager
+, wrapGAppsHook, hicolor-icon-theme }:
 
 let
   major = "3.12";
   minor = "3";
-  binpath = lib.makeBinPath [
-    dvdauthor
-    vcdimager
-  ];
-in
-stdenv.mkDerivation rec {
+  binpath = lib.makeBinPath [ dvdauthor vcdimager ];
+
+in stdenv.mkDerivation rec {
   version = "${major}.${minor}";
   pname = "brasero";
 
@@ -35,12 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-h3SerjOhQSB9GwC+IzttgEWYLtMkntS5ja4fOpdf6hU=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    itstool
-    intltool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config itstool intltool wrapGAppsHook ];
 
   buildInputs = [
     gtk3

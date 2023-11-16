@@ -1,18 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  packaging,
-  poetry-core,
-  pydantic,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  yarl,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, packaging
+, poetry-core, pydantic, pytest-asyncio, pytest-mock, pytestCheckHook
+, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "python-bsblan";
@@ -30,19 +18,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    packaging
-    pydantic
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp packaging pydantic yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytest-mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -53,9 +31,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bsblan" ];
 
   meta = with lib; {
-    description = "Module to control and monitor an BSBLan device programmatically";
+    description =
+      "Module to control and monitor an BSBLan device programmatically";
     homepage = "https://github.com/liudger/python-bsblan";
-    changelog = "https://github.com/liudger/python-bsblan/releases/tag/v${version}";
+    changelog =
+      "https://github.com/liudger/python-bsblan/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

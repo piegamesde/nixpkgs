@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "debianutils";
   version = "5.7";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/d/${pname}/${pname}_${version}.orig.tar.gz";
+    url =
+      "mirror://debian/pool/main/d/${pname}/${pname}_${version}.orig.tar.gz";
     sha256 = "sha256-J+yeDn5E3Iq2EapXYzBHG6ywfkSR/+zw06ppCckvkCI=";
   };
 
@@ -21,11 +18,7 @@ stdenv.mkDerivation rec {
       The specific utilities included are: add-shell installkernel ischroot remove-shell run-parts savelog tempfile which
     '';
     downloadPage = "https://packages.debian.org/sid/debianutils";
-    license = with licenses; [
-      gpl2Plus
-      publicDomain
-      smail
-    ];
+    license = with licenses; [ gpl2Plus publicDomain smail ];
     maintainers = [ ];
     platforms = platforms.all;
   };

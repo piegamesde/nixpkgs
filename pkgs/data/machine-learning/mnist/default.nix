@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-}:
+{ lib, stdenvNoCC, fetchurl }:
 let
   srcs = {
     train-images = fetchurl {
@@ -22,8 +18,7 @@ let
       sha256 = "1imf0i194ndjxzxdx87zlgn728xx3p1qhq1ssbmnvv005vwn1bpp";
     };
   };
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   pname = "mnist";
   version = "2018-11-16";
   installPhase = ''

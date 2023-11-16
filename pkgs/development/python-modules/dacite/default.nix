@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "dacite";
@@ -34,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python helper to create data classes from dictionaries";
     homepage = "https://github.com/konradhalas/dacite";
-    changelog = "https://github.com/konradhalas/dacite/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/konradhalas/dacite/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

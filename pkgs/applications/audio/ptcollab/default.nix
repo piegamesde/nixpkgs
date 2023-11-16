@@ -1,16 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  qmake,
-  pkg-config,
-  qtbase,
-  qtmultimedia,
-  libvorbis,
-  rtmidi,
-}:
+{ mkDerivation, lib, stdenv, fetchFromGitHub, nix-update-script, qmake
+, pkg-config, qtbase, qtmultimedia, libvorbis, rtmidi }:
 
 mkDerivation rec {
   pname = "ptcollab";
@@ -23,17 +12,9 @@ mkDerivation rec {
     sha256 = "sha256-O7CNPMS0eRcqt2xAtyEFyLSV8U2xbxuV1DpBxZAFwQs=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ qmake pkg-config ];
 
-  buildInputs = [
-    qtbase
-    qtmultimedia
-    libvorbis
-    rtmidi
-  ];
+  buildInputs = [ qtbase qtmultimedia libvorbis rtmidi ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # Move appbundles to Applications before wrapping happens
@@ -46,12 +27,11 @@ mkDerivation rec {
     ln -s $out/{Applications/ptcollab.app/Contents/MacOS,bin}/ptcollab
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "Experimental pxtone editor where you can collaborate with friends";
+    description =
+      "Experimental pxtone editor where you can collaborate with friends";
     homepage = "https://yuxshao.github.io/ptcollab/";
     license = licenses.mit;
     maintainers = with maintainers; [ OPNA2608 ];

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiohttp,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, isPy27 }:
 
 buildPythonPackage rec {
   pname = "plexwebsocket";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/jjlawren/python-plexwebsocket/";
-    description = "Async library to react to events issued over Plex websockets";
+    description =
+      "Async library to react to events issued over Plex websockets";
     license = licenses.mit;
     maintainers = with maintainers; [ colemickens ];
   };

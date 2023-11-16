@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  isPy27,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pytest-cov,
-  hyppo,
-  matplotlib,
-  networkx,
-  numpy,
-  scikit-learn,
-  scipy,
-  seaborn,
-}:
+{ lib, buildPythonPackage, isPy27, fetchFromGitHub, pytestCheckHook, pytest-cov
+, hyppo, matplotlib, networkx, numpy, scikit-learn, scipy, seaborn }:
 
 buildPythonPackage rec {
   pname = "graspologic";
@@ -27,25 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-EmbCA4JpY2OIwXrRWjBxA4iNm0ddQODjoGmHIYgvAWs=";
   };
 
-  propagatedBuildInputs = [
-    hyppo
-    matplotlib
-    networkx
-    numpy
-    scikit-learn
-    scipy
-    seaborn
-  ];
+  propagatedBuildInputs =
+    [ hyppo matplotlib networkx numpy scikit-learn scipy seaborn ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov
-  ];
-  pytestFlagsArray = [
-    "tests"
-    "--ignore=docs"
-    "--ignore=tests/test_sklearn.py"
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-cov ];
+  pytestFlagsArray =
+    [ "tests" "--ignore=docs" "--ignore=tests/test_sklearn.py" ];
   disabledTests = [ "gridplot_outputs" ];
 
   meta = with lib; {

@@ -1,38 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  docbook_xml_dtd_45,
-  docbook_xsl,
-  intltool,
-  itstool,
-  libxslt,
-  pkg-config,
-  wrapGAppsHook,
-  yelp-tools,
-  curl,
-  gdk-pixbuf,
-  gtk3,
-  json-glib,
-  libxml2,
-  gpsbabel,
-  withGeoClue ? true,
-  geoclue2,
-  withGeoTag ? true,
-  gexiv2,
-  withMagic ? true,
-  file,
-  withMapnik ? false,
-  mapnik,
-  withMBTiles ? true,
-  sqlite,
-  withMd5Hash ? true,
-  nettle,
-  withOAuth ? true,
-  liboauth,
-  withRealtimeGPSTracking ? true,
-  gpsd,
-}:
+{ lib, stdenv, fetchurl, docbook_xml_dtd_45, docbook_xsl, intltool, itstool
+, libxslt, pkg-config, wrapGAppsHook, yelp-tools, curl, gdk-pixbuf, gtk3
+, json-glib, libxml2, gpsbabel, withGeoClue ? true, geoclue2, withGeoTag ? true
+, gexiv2, withMagic ? true, file, withMapnik ? false, mapnik, withMBTiles ? true
+, sqlite, withMd5Hash ? true, nettle, withOAuth ? true, liboauth
+, withRealtimeGPSTracking ? true, gpsd }:
 
 stdenv.mkDerivation rec {
   pname = "viking";
@@ -54,20 +25,10 @@ stdenv.mkDerivation rec {
     yelp-tools
   ];
 
-  buildInputs =
-    [
-      curl
-      gdk-pixbuf
-      gtk3
-      json-glib
-      libxml2
-    ]
-    ++ lib.optional withGeoClue geoclue2
-    ++ lib.optional withGeoTag gexiv2
-    ++ lib.optional withMagic file
-    ++ lib.optional withMapnik mapnik
-    ++ lib.optional withMBTiles sqlite
-    ++ lib.optional withMd5Hash nettle
+  buildInputs = [ curl gdk-pixbuf gtk3 json-glib libxml2 ]
+    ++ lib.optional withGeoClue geoclue2 ++ lib.optional withGeoTag gexiv2
+    ++ lib.optional withMagic file ++ lib.optional withMapnik mapnik
+    ++ lib.optional withMBTiles sqlite ++ lib.optional withMd5Hash nettle
     ++ lib.optional withOAuth liboauth
     ++ lib.optional withRealtimeGPSTracking gpsd;
 
@@ -103,10 +64,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sourceforge.net/projects/viking/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      pSub
-      sikmir
-    ];
+    maintainers = with maintainers; [ pSub sikmir ];
     platforms = with platforms; linux;
   };
 }

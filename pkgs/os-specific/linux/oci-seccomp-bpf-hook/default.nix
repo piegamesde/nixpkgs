@@ -1,13 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  go-md2man,
-  installShellFiles,
-  pkg-config,
-  bcc,
-  libseccomp,
-}:
+{ lib, buildGoModule, fetchFromGitHub, go-md2man, installShellFiles, pkg-config
+, bcc, libseccomp }:
 
 buildGoModule rec {
   pname = "oci-seccomp-bpf-hook";
@@ -20,19 +12,9 @@ buildGoModule rec {
   };
   vendorHash = null;
 
-  outputs = [
-    "out"
-    "man"
-  ];
-  nativeBuildInputs = [
-    go-md2man
-    installShellFiles
-    pkg-config
-  ];
-  buildInputs = [
-    bcc
-    libseccomp
-  ];
+  outputs = [ "out" "man" ];
+  nativeBuildInputs = [ go-md2man installShellFiles pkg-config ];
+  buildInputs = [ bcc libseccomp ];
 
   checkPhase = ''
     go test -v ./...

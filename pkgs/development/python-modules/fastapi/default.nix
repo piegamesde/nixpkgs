@@ -1,24 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pydantic,
-  starlette,
-  pytestCheckHook,
-  pytest-asyncio,
-  aiosqlite,
-  databases,
-  flask,
-  httpx,
-  hatchling,
-  orjson,
-  passlib,
-  peewee,
-  python-jose,
-  sqlalchemy,
-  trio,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pydantic, starlette, pytestCheckHook
+, pytest-asyncio, aiosqlite, databases, flask, httpx, hatchling, orjson, passlib
+, peewee, python-jose, sqlalchemy, trio, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fastapi";
@@ -42,10 +24,7 @@ buildPythonPackage rec {
       --replace "starlette==" "starlette>="
   '';
 
-  propagatedBuildInputs = [
-    starlette
-    pydantic
-  ];
+  propagatedBuildInputs = [ starlette pydantic ];
 
   nativeCheckInputs = [
     aiosqlite
@@ -60,14 +39,14 @@ buildPythonPackage rec {
     pytest-asyncio
     sqlalchemy
     trio
-  ] ++ passlib.optional-dependencies.bcrypt ++ pydantic.optional-dependencies.email;
+  ] ++ passlib.optional-dependencies.bcrypt
+    ++ pydantic.optional-dependencies.email;
 
-  pytestFlagsArray =
-    [
-      # ignoring deprecation warnings to avoid test failure from
-      # tests/test_tutorial/test_testing/test_tutorial001.py
-      "-W ignore::DeprecationWarning"
-    ];
+  pytestFlagsArray = [
+    # ignoring deprecation warnings to avoid test failure from
+    # tests/test_tutorial/test_testing/test_tutorial001.py
+    "-W ignore::DeprecationWarning"
+  ];
 
   disabledTestPaths = [
     # Disabled tests require orjson which requires rust nightly

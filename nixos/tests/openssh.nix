@@ -1,87 +1,68 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
-  let
-    inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
-  in
-  {
+  let inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
+  in {
     name = "openssh";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        aszlig
-        eelco
-      ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ aszlig eelco ]; };
 
     nodes = {
 
-      server =
-        { ... }:
+      server = { ... }:
 
         {
           services.openssh.enable = true;
-          security.pam.services.sshd.limits = [
-            {
-              domain = "*";
-              item = "memlock";
-              type = "-";
-              value = 1024;
-            }
-          ];
+          security.pam.services.sshd.limits = [{
+            domain = "*";
+            item = "memlock";
+            type = "-";
+            value = 1024;
+          }];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
 
-      server_lazy =
-        { ... }:
+      server_lazy = { ... }:
 
         {
           services.openssh = {
             enable = true;
             startWhenNeeded = true;
           };
-          security.pam.services.sshd.limits = [
-            {
-              domain = "*";
-              item = "memlock";
-              type = "-";
-              value = 1024;
-            }
-          ];
+          security.pam.services.sshd.limits = [{
+            domain = "*";
+            item = "memlock";
+            type = "-";
+            value = 1024;
+          }];
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
 
-      server_localhost_only =
-        { ... }:
+      server_localhost_only = { ... }:
 
         {
           services.openssh = {
             enable = true;
-            listenAddresses = [
-              {
-                addr = "127.0.0.1";
-                port = 22;
-              }
-            ];
+            listenAddresses = [{
+              addr = "127.0.0.1";
+              port = 22;
+            }];
           };
         };
 
-      server_localhost_only_lazy =
-        { ... }:
+      server_localhost_only_lazy = { ... }:
 
         {
           services.openssh = {
             enable = true;
             startWhenNeeded = true;
-            listenAddresses = [
-              {
-                addr = "127.0.0.1";
-                port = 22;
-              }
-            ];
+            listenAddresses = [{
+              addr = "127.0.0.1";
+              port = 22;
+            }];
           };
         };
 
       client = { ... }: { };
+
     };
 
     testScript = ''
@@ -142,5 +123,4 @@ import ./make-test-python.nix (
           server_localhost_only.succeed("ss -nlt | grep '127.0.0.1:22'")
           server_localhost_only_lazy.succeed("ss -nlt | grep '127.0.0.1:22'")
     '';
-  }
-)
+  })

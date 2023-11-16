@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -15,38 +10,26 @@ let
 
   keyFile = "${cfg.keyPath}/${cfg.selector}.private";
 
-  args =
-    [
-      "-f"
-      "-l"
-      "-p"
-      cfg.socket
-      "-d"
-      cfg.domains
-      "-k"
-      keyFile
-      "-s"
-      cfg.selector
-    ]
-    ++ optionals (cfg.configFile != null) [
-      "-x"
-      cfg.configFile
-    ];
-in
-{
+  args = [
+    "-f"
+    "-l"
+    "-p"
+    cfg.socket
+    "-d"
+    cfg.domains
+    "-k"
+    keyFile
+    "-s"
+    cfg.selector
+  ] ++ optionals (cfg.configFile != null) [ "-x" cfg.configFile ];
+
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "opendkim"
-        "keyFile"
-      ]
-      [
-        "services"
-        "opendkim"
-        "keyPath"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "opendkim" "keyFile" ] [
+      "services"
+      "opendkim"
+      "keyPath"
+    ])
   ];
 
   ###### interface
@@ -58,13 +41,15 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the OpenDKIM sender authentication system.";
+        description = lib.mdDoc
+          "Whether to enable the OpenDKIM sender authentication system.";
       };
 
       socket = mkOption {
         type = types.str;
         default = defaultSock;
-        description = lib.mdDoc "Socket which is used for communication with OpenDKIM.";
+        description =
+          lib.mdDoc "Socket which is used for communication with OpenDKIM.";
       };
 
       user = mkOption {
@@ -82,7 +67,8 @@ in
       domains = mkOption {
         type = types.str;
         default = "csl:${config.networking.hostName}";
-        defaultText = literalExpression ''"csl:''${config.networking.hostName}"'';
+        defaultText =
+          literalExpression ''"csl:''${config.networking.hostName}"'';
         example = "csl:example.com,mydomain.net";
         description = lib.mdDoc ''
           Local domains set (see `opendkim(8)` for more information on datasets).
@@ -109,7 +95,9 @@ in
         default = null;
         description = lib.mdDoc "Additional opendkim configuration.";
       };
+
     };
+
   };
 
   ###### implementation
@@ -123,11 +111,14 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "opendkim") { opendkim.gid = config.ids.gids.opendkim; };
+    users.groups = optionalAttrs (cfg.group == "opendkim") {
+      opendkim.gid = config.ids.gids.opendkim;
+    };
 
     environment.systemPackages = [ pkgs.opendkim ];
 
-    systemd.tmpfiles.rules = [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";
@@ -173,20 +164,15 @@ in
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6 AF_UNIX"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6 AF_UNIX" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged @resources"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged @resources" ];
         UMask = "0077";
       };
     };
+
   };
 }

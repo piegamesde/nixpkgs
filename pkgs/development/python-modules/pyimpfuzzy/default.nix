@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ssdeep,
-  pefile,
-}:
+{ lib, buildPythonPackage, fetchPypi, ssdeep, pefile }:
 buildPythonPackage rec {
   pname = "pyimpfuzzy";
   version = "0.5";
@@ -24,7 +18,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyimpfuzzy" ];
 
   meta = with lib; {
-    description = "A Python module which calculates and compares the impfuzzy (import fuzzy hashing)";
+    description =
+      "A Python module which calculates and compares the impfuzzy (import fuzzy hashing)";
     homepage = "https://github.com/JPCERTCC/impfuzzy";
     license = licenses.gpl2Only;
     maintainers = [ ];

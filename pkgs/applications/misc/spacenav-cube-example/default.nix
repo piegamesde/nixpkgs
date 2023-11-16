@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  libspnav,
-  libX11,
-  mesa_glu,
-}:
+{ stdenv, lib, libspnav, libX11, mesa_glu }:
 
 stdenv.mkDerivation {
   pname = "spacenav-cube-example";
@@ -14,11 +8,7 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/examples/cube";
 
-  buildInputs = [
-    libX11
-    mesa_glu
-    libspnav
-  ];
+  buildInputs = [ libX11 mesa_glu libspnav ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

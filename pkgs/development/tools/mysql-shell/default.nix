@@ -1,53 +1,17 @@
-{
-  lib,
-  stdenv,
-  pkg-config,
-  cmake,
-  fetchurl,
-  git,
-  cctools,
-  developer_cmds,
-  DarwinTools,
-  makeWrapper,
-  CoreServices,
-  bison,
-  openssl,
-  protobuf,
-  curl,
-  zlib,
-  libssh,
-  zstd,
-  lz4,
-  boost,
-  readline,
-  libtirpc,
-  rpcsvc-proto,
-  libedit,
-  libevent,
-  icu,
-  re2,
-  ncurses,
-  libfido2,
-  python3,
-  cyrus_sasl,
-  openldap,
-  antlr,
-}:
+{ lib, stdenv, pkg-config, cmake, fetchurl, git, cctools, developer_cmds
+, DarwinTools, makeWrapper, CoreServices, bison, openssl, protobuf, curl, zlib
+, libssh, zstd, lz4, boost, readline, libtirpc, rpcsvc-proto, libedit, libevent
+, icu, re2, ncurses, libfido2, python3, cyrus_sasl, openldap, antlr }:
 
-let
-  pythonDeps = with python3.pkgs; [
-    certifi
-    paramiko
-    pyyaml
-  ];
-in
-stdenv.mkDerivation rec {
+let pythonDeps = with python3.pkgs; [ certifi paramiko pyyaml ];
+in stdenv.mkDerivation rec {
   pname = "mysql-shell";
   version = "8.0.33";
 
   srcs = [
     (fetchurl {
-      url = "https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell-${version}-src.tar.gz";
+      url =
+        "https://cdn.mysql.com//Downloads/MySQL-Shell/mysql-shell-${version}-src.tar.gz";
       hash = "sha256-ElcAOvyQjXNns35p4J+jnGu8orZR81Itz/fxYh7Usbs=";
     })
     (fetchurl {
@@ -67,45 +31,31 @@ stdenv.mkDerivation rec {
     substituteInPlace cmake/libutils.cmake --replace /usr/bin/libtool libtool
   '';
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      cmake
-      git
-      bison
-      makeWrapper
-    ]
+  nativeBuildInputs = [ pkg-config cmake git bison makeWrapper ]
     ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
-    ++ lib.optionals stdenv.isDarwin [
-      cctools
-      developer_cmds
-      DarwinTools
-    ];
+    ++ lib.optionals stdenv.isDarwin [ cctools developer_cmds DarwinTools ];
 
-  buildInputs =
-    [
-      boost
-      curl
-      libedit
-      libssh
-      lz4
-      openssl
-      protobuf
-      readline
-      zlib
-      zstd
-      libevent
-      icu
-      re2
-      ncurses
-      libfido2
-      cyrus_sasl
-      openldap
-      python3
-      antlr.runtime.cpp
-    ]
-    ++ pythonDeps
-    ++ lib.optionals stdenv.isLinux [ libtirpc ]
+  buildInputs = [
+    boost
+    curl
+    libedit
+    libssh
+    lz4
+    openssl
+    protobuf
+    readline
+    zlib
+    zstd
+    libevent
+    icu
+    re2
+    ncurses
+    libfido2
+    cyrus_sasl
+    openldap
+    python3
+    antlr.runtime.cpp
+  ] ++ pythonDeps ++ lib.optionals stdenv.isLinux [ libtirpc ]
     ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   preConfigure = ''
@@ -137,7 +87,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://dev.mysql.com/doc/mysql-shell/${lib.versions.majorMinor version}/en/";
+    homepage = "https://dev.mysql.com/doc/mysql-shell/${
+        lib.versions.majorMinor version
+      }/en/";
     description = "A new command line scriptable shell for MySQL";
     license = licenses.gpl2;
     maintainers = with maintainers; [ aaronjheng ];

@@ -1,19 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  makeWrapper,
-  pkg-config,
-  zstd,
-  stdenv,
-  alsa-lib,
-  libxkbcommon,
-  udev,
-  vulkan-loader,
-  wayland,
-  xorg,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, makeWrapper, pkg-config, zstd, stdenv
+, alsa-lib, libxkbcommon, udev, vulkan-loader, wayland, xorg, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jumpy";
@@ -29,49 +15,39 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "bevy_simple_tilemap-0.10.1" = "sha256-Q/AsBZjsr+uTIh/oN0OsIJxntZ4nuc1AReo0Ronj930=";
-      "bones_asset-0.1.0" = "sha256-YyY5OsbRLkpAgvNifRiXfmzfsgFw/oFV1nQVCkXG4j4=";
+      "bevy_simple_tilemap-0.10.1" =
+        "sha256-Q/AsBZjsr+uTIh/oN0OsIJxntZ4nuc1AReo0Ronj930=";
+      "bones_asset-0.1.0" =
+        "sha256-YyY5OsbRLkpAgvNifRiXfmzfsgFw/oFV1nQVCkXG4j4=";
     };
   };
 
-  patches =
-    [
-      # jumpy uses an outdated version of mimalloc
-      # which fails to build on aarch64-linux
-      ./update-mimalloc.patch
-    ];
-
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
+  patches = [
+    # jumpy uses an outdated version of mimalloc
+    # which fails to build on aarch64-linux
+    ./update-mimalloc.patch
   ];
 
-  buildInputs =
-    [ zstd ]
-    ++ lib.optionals stdenv.isLinux [
-      alsa-lib
-      libxkbcommon
-      udev
-      vulkan-loader
-      wayland
-      xorg.libX11
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libXrandr
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.Cocoa
-      rustPlatform.bindgenHook
-    ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
-  cargoBuildFlags = [
-    "--bin"
-    "jumpy"
+  buildInputs = [ zstd ] ++ lib.optionals stdenv.isLinux [
+    alsa-lib
+    libxkbcommon
+    udev
+    vulkan-loader
+    wayland
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXi
+    xorg.libXrandr
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.Cocoa
+    rustPlatform.bindgenHook
   ];
 
-  env = {
-    ZSTD_SYS_USE_PKG_CONFIG = true;
-  };
+  cargoBuildFlags = [ "--bin" "jumpy" ];
+
+  env = { ZSTD_SYS_USE_PKG_CONFIG = true; };
 
   postInstall = ''
     mkdir $out/share
@@ -86,7 +62,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A tactical 2D shooter played by up to 4 players online or on a shared screen";
+    description =
+      "A tactical 2D shooter played by up to 4 players online or on a shared screen";
     homepage = "https://fishfight.org/";
     changelog = "https://github.com/fishfolk/jumpy/releases/tag/v${version}";
     license = with licenses; [

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libkrb5,
-  openssl,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, libkrb5, openssl, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "pgaudit";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-8pShPr4HJaJQPjW1iPJIpj3CutTx8Tgr+rOqoXtgCcw=";
   };
 
-  buildInputs = [
-    libkrb5
-    openssl
-    postgresql
-  ];
+  buildInputs = [ libkrb5 openssl postgresql ];
 
   makeFlags = [ "USE_PGXS=1" ];
 

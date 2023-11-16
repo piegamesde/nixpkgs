@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  gettext,
-  meson,
-  ninja,
-  fetchurl,
-  apacheHttpd,
-  pkg-config,
-  glib,
-  libxml2,
-  systemd,
-  wrapGAppsHook,
-  itstool,
-  mod_dnssd,
-  gnome,
-}:
+{ stdenv, lib, gettext, meson, ninja, fetchurl, apacheHttpd, pkg-config, glib
+, libxml2, systemd, wrapGAppsHook, itstool, mod_dnssd, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-user-share";
@@ -39,20 +24,10 @@ stdenv.mkDerivation rec {
     "-Dsystemduserunitdir=${placeholder "out"}/etc/systemd/user"
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gettext
-    itstool
-    libxml2
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja gettext itstool libxml2 wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    systemd
-  ];
+  buildInputs = [ glib systemd ];
 
   doCheck = true;
 
@@ -65,7 +40,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://help.gnome.org/users/gnome-user-share/3.8";
-    description = "Service that exports the contents of the Public folder in your home directory on the local network";
+    description =
+      "Service that exports the contents of the Public folder in your home directory on the local network";
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
     platforms = platforms.linux;

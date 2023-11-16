@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  curl,
-  dialog,
-  installShellFiles,
-  perl,
-  python3,
+{ lib, stdenv, fetchFromGitLab, curl, dialog, installShellFiles, perl, python3
 }:
 
 stdenv.mkDerivation rec {
@@ -32,10 +24,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [
-    perl
-    python3
-  ];
+  buildInputs = [ perl python3 ];
 
   installPhase = ''
     runHook preInstall

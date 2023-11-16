@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  makeWrapper,
-  copyDesktopItems,
-  makeDesktopItem,
-  unzip,
-  imagemagick,
-  jre,
-}:
+{ lib, stdenvNoCC, fetchurl, makeWrapper, copyDesktopItems, makeDesktopItem
+, unzip, imagemagick, jre }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mars-mips";
@@ -23,12 +14,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-    unzip
-    imagemagick
-  ];
+  nativeBuildInputs = [ makeWrapper copyDesktopItems unzip imagemagick ];
 
   desktopItems = [
     (makeDesktopItem {
@@ -37,10 +23,7 @@ stdenvNoCC.mkDerivation rec {
       exec = "mars-mips";
       icon = "mars-mips";
       comment = "An IDE for programming in MIPS assembly language";
-      categories = [
-        "Development"
-        "IDE"
-      ];
+      categories = [ "Development" "IDE" ];
     })
   ];
 
@@ -60,7 +43,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An IDE for programming in MIPS assembly language intended for educational-level use";
+    description =
+      "An IDE for programming in MIPS assembly language intended for educational-level use";
     homepage = "https://courses.missouristate.edu/KenVollmar/MARS/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.mit;

@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  raspberrypifw,
-  pcre,
-  boost,
-  freetype,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, raspberrypifw, pcre, boost, freetype
+, zlib }:
 
 let
   ffmpeg = stdenv.mkDerivation rec {
@@ -21,14 +12,11 @@ let
     };
 
     configurePlatforms = [ ];
-    configureFlags =
-      [ "--arch=${stdenv.hostPlatform.parsed.cpu.name}" ]
-      ++ lib.optionals stdenv.hostPlatform.isAarch32
-        [
-          # TODO be better with condition
-          "--cpu=arm1176jzf-s"
-        ]
-      ++ [
+    configureFlags = [ "--arch=${stdenv.hostPlatform.parsed.cpu.name}" ]
+      ++ lib.optionals stdenv.hostPlatform.isAarch32 [
+        # TODO be better with condition
+        "--cpu=arm1176jzf-s"
+      ] ++ [
         "--disable-muxers"
         "--enable-muxer=spdif"
         "--enable-muxer=adts"
@@ -58,8 +46,7 @@ let
         "--disable-debug"
         "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
         "--target_os=${stdenv.hostPlatform.parsed.kernel.name}"
-      ]
-      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "--cross-prefix=${stdenv.cc.targetPrefix}"
         "--enable-cross-compile"
       ];
@@ -68,11 +55,11 @@ let
 
     meta = {
       homepage = "http://www.ffmpeg.org/";
-      description = "A complete, cross-platform solution to record, convert and stream audio and video";
+      description =
+        "A complete, cross-platform solution to record, convert and stream audio and video";
     };
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "omxplayer";
   version = "unstable-2013-03-28";
 
@@ -93,14 +80,7 @@ stdenv.mkDerivation rec {
     cp omxplayer.bin $out/bin
   '';
 
-  buildInputs = [
-    raspberrypifw
-    ffmpeg
-    pcre
-    boost
-    freetype
-    zlib
-  ];
+  buildInputs = [ raspberrypifw ffmpeg pcre boost freetype zlib ];
 
   meta = with lib; {
     homepage = "https://github.com/huceke/omxplayer";

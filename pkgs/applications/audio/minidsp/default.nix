@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  stdenv,
-  libusb1,
-  AppKit,
-  IOKit,
-  pkg-config,
-}:
+{ lib, fetchFromGitHub, rustPlatform, stdenv, libusb1, AppKit, IOKit, pkg-config
+, }:
 rustPlatform.buildRustPackage rec {
   pname = "minidsp";
   version = "0.1.9";
@@ -24,12 +16,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoBuildFlags = [ "-p minidsp -p minidsp-daemon" ];
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ libusb1 ]
-    ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      IOKit
-    ];
+  buildInputs = lib.optionals stdenv.isLinux [ libusb1 ]
+    ++ lib.optionals stdenv.isDarwin [ AppKit IOKit ];
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
 
@@ -38,9 +26,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mrene/minidsp-rs";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = [
-      maintainers.adamcstephens
-      maintainers.mrene
-    ];
+    maintainers = [ maintainers.adamcstephens maintainers.mrene ];
   };
 }

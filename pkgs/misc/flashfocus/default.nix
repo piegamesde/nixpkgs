@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  netcat-openbsd,
-  nix-update-script,
-}:
+{ lib, python3, fetchPypi, netcat-openbsd, nix-update-script }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "flashfocus";
@@ -22,10 +16,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "pyyaml"
-    "xcffib"
-  ];
+  pythonRelaxDeps = [ "pyyaml" "xcffib" ];
 
   propagatedBuildInputs = with python3.pkgs; [
     i3ipc

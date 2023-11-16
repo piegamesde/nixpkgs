@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  cmake,
-  libgsf,
-  glib,
-  libxml2,
-}:
+{ lib, stdenv, fetchurl, pkg-config, cmake, libgsf, glib, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "wv2";
@@ -19,15 +10,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-include.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    libgsf
-    glib
-    libxml2
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ libgsf glib libxml2 ];
 
   env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2";
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "qc";
@@ -18,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-7t5rQliLm6pMUHhtev/kNrQ7AOvmA/rR93SwNQhov6o=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=github.com/qownnotes/qc/cmd.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=github.com/qownnotes/qc/cmd.version=${version}" ];
 
   doCheck = false;
 
@@ -39,9 +30,6 @@ buildGoModule rec {
     description = "QOwnNotes command-line snippet manager";
     homepage = "https://github.com/qownnotes/qc";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      pbek
-      totoroot
-    ];
+    maintainers = with maintainers; [ pbek totoroot ];
   };
 }

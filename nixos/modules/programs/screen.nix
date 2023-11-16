@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkOption mkIf types;
   cfg = config.programs.screen;
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -34,4 +28,5 @@ in
     environment.systemPackages = [ pkgs.screen ];
     security.pam.services.screen = { };
   };
+
 }

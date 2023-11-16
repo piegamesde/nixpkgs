@@ -1,8 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-}:
+{ buildPythonPackage, lib, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "XStatic-Bootstrap";
@@ -22,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ makefu ];
   };
+
 }

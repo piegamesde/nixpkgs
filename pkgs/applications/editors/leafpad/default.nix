@@ -1,24 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  intltool,
-  pkg-config,
-  gtk2,
-}:
+{ lib, stdenv, fetchurl, intltool, pkg-config, gtk2 }:
 
 stdenv.mkDerivation rec {
   version = "0.8.19";
   pname = "leafpad";
   src = fetchurl {
-    url = "https://download.savannah.gnu.org/releases/leafpad/${pname}-${version}.tar.gz";
+    url =
+      "https://download.savannah.gnu.org/releases/leafpad/${pname}-${version}.tar.gz";
     sha256 = "sha256-B9P3EvTb0KMyUf0d7hTiGv3J+SCQ/HaMEasKxVatvpc=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
   buildInputs = [ gtk2 ];
 
   hardeningDisable = [ "format" ];

@@ -1,45 +1,9 @@
-{
-  lib,
-  stdenv,
-  alsa-lib,
-  atk,
-  at-spi2-core,
-  cairo,
-  cups,
-  dbus,
-  dpkg,
-  expat,
-  fetchurl,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  libdrm,
-  libX11,
-  libXScrnSaver,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
-  libXrandr,
-  libXrender,
-  libXtst,
-  libappindicator-gtk3,
-  libcxx,
-  libnotify,
-  libpulseaudio,
-  libxcb,
-  makeDesktopItem,
-  makeWrapper,
-  mesa,
-  nspr,
-  nss,
-  pango,
-  systemd,
-}:
+{ lib, stdenv, alsa-lib, atk, at-spi2-core, cairo, cups, dbus, dpkg, expat
+, fetchurl, fontconfig, freetype, gdk-pixbuf, glib, gtk3, libdrm, libX11
+, libXScrnSaver, libXcomposite, libXcursor, libXdamage, libXext, libXfixes
+, libXi, libXrandr, libXrender, libXtst, libappindicator-gtk3, libcxx, libnotify
+, libpulseaudio, libxcb, makeDesktopItem, makeWrapper, mesa, nspr, nss, pango
+, systemd }:
 
 let
   gitterDirectorySuffix = "opt/gitter";
@@ -85,8 +49,7 @@ let
        --set-rpath "$out/${gitterDirectorySuffix}/lib:${libPath}" \
        $out/${gitterDirectorySuffix}/${target}
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "gitter";
   version = "5.0.1";
 
@@ -95,10 +58,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ps9akylqrril4902r8mi0mprm0hb5wra51ry6c1rb5xz5nrzgh1";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    dpkg
-  ];
+  nativeBuildInputs = [ makeWrapper dpkg ];
 
   unpackPhase = "dpkg -x $src .";
 
@@ -129,10 +89,7 @@ stdenv.mkDerivation rec {
     icon = pname;
     desktopName = "Gitter";
     genericName = meta.description;
-    categories = [
-      "Network"
-      "InstantMessaging"
-    ];
+    categories = [ "Network" "InstantMessaging" ];
   };
 
   meta = with lib; {

@@ -1,14 +1,5 @@
-{
-  lib,
-  aesara,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numdifftools,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-}:
+{ lib, aesara, buildPythonPackage, fetchFromGitHub, numdifftools, numpy
+, pytestCheckHook, pythonOlder, scipy }:
 
 buildPythonPackage rec {
   pname = "aeppl";
@@ -24,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-y2JQxHztLEORoqVikOD/pSF5+WJRo/f8XyZKVDx2Ybs=";
   };
 
-  propagatedBuildInputs = [
-    aesara
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ aesara numpy scipy ];
 
-  nativeCheckInputs = [
-    numdifftools
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ numdifftools pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -41,11 +25,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aeppl" ];
 
-  disabledTests =
-    [
-      # Compute issue
-      "test_initial_values"
-    ];
+  disabledTests = [
+    # Compute issue
+    "test_initial_values"
+  ];
 
   meta = with lib; {
     description = "Library for an Aesara-based PPL";

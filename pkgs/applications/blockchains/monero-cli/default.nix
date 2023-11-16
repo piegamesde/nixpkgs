@@ -1,28 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  boost,
-  miniupnpc,
-  openssl,
-  unbound,
-  zeromq,
-  pcsclite,
-  readline,
-  libsodium,
-  hidapi,
-  randomx,
-  rapidjson,
-  CoreData,
-  IOKit,
-  PCSC,
-  trezorSupport ? true,
-  libusb1,
-  protobuf,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, miniupnpc, openssl
+, unbound, zeromq, pcsclite, readline, libsodium, hidapi, randomx, rapidjson
+, CoreData, IOKit, PCSC, trezorSupport ? true, libusb1, protobuf, python3 }:
 
 let
   # submodules
@@ -38,9 +16,8 @@ let
     rev = "bff7fdfe436c727982cc553bdfb29a9021b423b0";
     sha256 = "VNypeEz9AV0ts8X3vINwYMOgO8VpNmyUPC4iY3OOuZI=";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "monero-cli";
   version = "0.18.2.2";
 
@@ -62,36 +39,23 @@ stdenv.mkDerivation rec {
     cp -r . $source
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs =
-    [
-      boost
-      miniupnpc
-      openssl
-      unbound
-      zeromq
-      pcsclite
-      readline
-      libsodium
-      hidapi
-      randomx
-      rapidjson
-      protobuf
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      IOKit
-      CoreData
-      PCSC
-    ]
-    ++ lib.optionals trezorSupport [
-      libusb1
-      protobuf
-      python3
-    ];
+  buildInputs = [
+    boost
+    miniupnpc
+    openssl
+    unbound
+    zeromq
+    pcsclite
+    readline
+    libsodium
+    hidapi
+    randomx
+    rapidjson
+    protobuf
+  ] ++ lib.optionals stdenv.isDarwin [ IOKit CoreData PCSC ]
+    ++ lib.optionals trezorSupport [ libusb1 protobuf python3 ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
@@ -101,10 +65,7 @@ stdenv.mkDerivation rec {
     "-DRandomX_ROOT_DIR=${randomx}"
   ] ++ lib.optional stdenv.isDarwin "-DBoost_USE_MULTITHREADED=OFF";
 
-  outputs = [
-    "out"
-    "source"
-  ];
+  outputs = [ "out" "source" ];
 
   meta = with lib; {
     description = "Private, secure, untraceable currency";

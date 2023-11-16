@@ -1,18 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "babel";
   version = "20200925-git";
 
   description = "Babel, a charset conversion library.";
 
-  deps = [
-    args."alexandria"
-    args."trivial-features"
-  ];
+  deps = [ args."alexandria" args."trivial-features" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/babel/2020-09-25/babel-20200925-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/babel/2020-09-25/babel-20200925-git.tgz";
     sha256 = "1hpjm2whw7zla9igzj50y3nibii0mfg2a6y6nslaf5vpkni88jfi";
   };
 

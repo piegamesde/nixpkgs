@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bundlerEnv,
-  ruby,
-}:
+{ lib, stdenv, fetchFromGitHub, bundlerEnv, ruby }:
 
 let
   gems = bundlerEnv {
@@ -12,8 +6,8 @@ let
     inherit ruby;
     gemdir = ./.;
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "whatweb";
   version = "0.5.5";
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  git,
-  awscli,
-  python3,
-}:
+{ lib, fetchFromGitHub, git, awscli, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "iceshelf";
@@ -19,11 +13,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "08rcbd14vn7312rmk2hyvdzvhibri31c4r5lzdrwb1n1y9q761qm";
   };
 
-  propagatedBuildInputs = [
-    git
-    awscli
-    python3.pkgs.python-gnupg
-  ];
+  propagatedBuildInputs = [ git awscli python3.pkgs.python-gnupg ];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/doc/${pname} $out/${python3.sitePackages}
@@ -33,7 +23,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "A simple tool to allow storage of signed, encrypted, incremental backups using Amazon's Glacier storage";
+    description =
+      "A simple tool to allow storage of signed, encrypted, incremental backups using Amazon's Glacier storage";
     license = licenses.lgpl2;
     homepage = "https://github.com/mrworf/iceshelf";
     maintainers = with maintainers; [ mmahut ];

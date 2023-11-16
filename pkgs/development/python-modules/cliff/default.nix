@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  autopage,
-  cmd2,
-  importlib-metadata,
-  installShellFiles,
-  openstackdocstheme,
-  pbr,
-  prettytable,
-  pyparsing,
-  pyyaml,
-  stevedore,
-  sphinx,
-  callPackage,
-}:
+{ lib, buildPythonPackage, fetchPypi, autopage, cmd2, importlib-metadata
+, installShellFiles, openstackdocstheme, pbr, prettytable, pyparsing, pyyaml
+, stevedore, sphinx, callPackage }:
 
 buildPythonPackage rec {
   pname = "cliff";
@@ -31,11 +17,7 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  nativeBuildInputs = [
-    installShellFiles
-    openstackdocstheme
-    sphinx
-  ];
+  nativeBuildInputs = [ installShellFiles openstackdocstheme sphinx ];
 
   propagatedBuildInputs = [
     autopage
@@ -58,9 +40,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "cliff" ];
 
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = with lib; {
     description = "Command Line Interface Formulation Framework";

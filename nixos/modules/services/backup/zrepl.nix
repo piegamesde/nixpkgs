@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 let
   cfg = config.services.zrepl;
   format = pkgs.formats.yaml { };
   configFile = format.generate "zrepl.yml" cfg.settings;
-in
-{
+in {
   meta.maintainers = with maintainers; [ cole-h ];
 
   options = {
@@ -58,9 +52,7 @@ in
       path = [ config.boot.zfs.package ];
       restartTriggers = [ configFile ];
 
-      serviceConfig = {
-        Restart = "on-failure";
-      };
+      serviceConfig = { Restart = "on-failure"; };
     };
   };
 }

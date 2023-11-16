@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hopcroftkarp,
-  multiset,
-  pytestCheckHook,
-  hypothesis,
-  setuptools-scm,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hopcroftkarp, multiset
+, pytestCheckHook, hypothesis, setuptools-scm, isPy27 }:
 
 buildPythonPackage rec {
   pname = "matchpy";
@@ -31,15 +22,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    hopcroftkarp
-    multiset
-  ];
+  propagatedBuildInputs = [ hopcroftkarp multiset ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis ];
 
   pythonImportsCheck = [ "matchpy" ];
 

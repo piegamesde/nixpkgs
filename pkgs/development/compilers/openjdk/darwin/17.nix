@@ -1,30 +1,22 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  setJavaClassPath,
-}:
+{ lib, stdenv, fetchurl, unzip, setJavaClassPath }:
 let
   # Details from https://www.azul.com/downloads/?version=java-17-lts&os=macos&package=jdk
   # Note that the latest build may differ by platform
-  dist =
-    {
-      x86_64-darwin = {
-        arch = "x64";
-        zuluVersion = "17.34.19";
-        jdkVersion = "17.0.3";
-        sha256 = "sha256-qImyxVC2y2QhxuVZwamKPyo46+n+7ytIFXpYI0e6w2c=";
-      };
+  dist = {
+    x86_64-darwin = {
+      arch = "x64";
+      zuluVersion = "17.34.19";
+      jdkVersion = "17.0.3";
+      sha256 = "sha256-qImyxVC2y2QhxuVZwamKPyo46+n+7ytIFXpYI0e6w2c=";
+    };
 
-      aarch64-darwin = {
-        arch = "aarch64";
-        zuluVersion = "17.34.19";
-        jdkVersion = "17.0.3";
-        sha256 = "sha256-eaRX8Qa/Mqr9JhpHSEcf0Q9c4qmqLMgWqRhkEEwAjf8=";
-      };
-    }
-    ."${stdenv.hostPlatform.system}";
+    aarch64-darwin = {
+      arch = "aarch64";
+      zuluVersion = "17.34.19";
+      jdkVersion = "17.0.3";
+      sha256 = "sha256-eaRX8Qa/Mqr9JhpHSEcf0Q9c4qmqLMgWqRhkEEwAjf8=";
+    };
+  }."${stdenv.hostPlatform.system}";
 
   jce-policies = fetchurl {
     # Ugh, unversioned URLs... I hope this doesn't change often enough to cause pain before we move to a Darwin source build of OpenJDK!
@@ -37,7 +29,8 @@ let
     version = dist.jdkVersion;
 
     src = fetchurl {
-      url = "https://cdn.azul.com/zulu/bin/zulu${dist.zuluVersion}-ca-jdk${dist.jdkVersion}-macosx_${dist.arch}.tar.gz";
+      url =
+        "https://cdn.azul.com/zulu/bin/zulu${dist.zuluVersion}-ca-jdk${dist.jdkVersion}-macosx_${dist.arch}.tar.gz";
       inherit (dist) sha256;
       curlOpts = "-H Referer:https://www.azul.com/downloads/zulu/";
     };
@@ -76,14 +69,13 @@ let
     # fixupPhase is moving the man to share/man which breaks it because it's a
     # relative symlink.
     postFixup = ''
-      ln -nsf ../zulu-${lib.versions.major version}.jdk/Contents/Home/man $out/share/man
+      ln -nsf ../zulu-${
+        lib.versions.major version
+      }.jdk/Contents/Home/man $out/share/man
     '';
 
-    passthru = {
-      home = jdk;
-    };
+    passthru = { home = jdk; };
 
     meta = import ./meta.nix lib version;
   };
-in
-jdk
+in jdk

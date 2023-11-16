@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchCrate,
-  rustPlatform,
-  cmake,
-  pkg-config,
-  openssl,
-}:
+{ lib, fetchCrate, rustPlatform, cmake, pkg-config, openssl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wyvern";
@@ -20,14 +13,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-cwk8yFt8JrYkYlNUW9n/bgMUA6jyOpG0TSh5C+eERLY=";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ openssl ];
 
   meta = with lib; {
-    description = "A simple CLI client for installing and maintaining linux GOG games";
+    description =
+      "A simple CLI client for installing and maintaining linux GOG games";
     homepage = "https://git.sr.ht/~nicohman/wyvern";
     license = licenses.gpl3;
     maintainers = with maintainers; [ _0x4A6F ];

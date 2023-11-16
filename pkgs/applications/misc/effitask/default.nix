@@ -1,13 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  gtk3,
-  stdenv,
-  rust,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, gtk3, stdenv, rust }:
 
 rustPlatform.buildRustPackage rec {
   pname = "effitask";
@@ -24,15 +15,14 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    openssl
-    gtk3
-  ];
+  buildInputs = [ openssl gtk3 ];
 
   # default installPhase don't install assets
   installPhase = ''
     runHook preInstall
-    make install PREFIX="$out" TARGET="target/${rust.toRustTarget stdenv.hostPlatform}/release/effitask"
+    make install PREFIX="$out" TARGET="target/${
+      rust.toRustTarget stdenv.hostPlatform
+    }/release/effitask"
     runHook postInstall
   '';
 

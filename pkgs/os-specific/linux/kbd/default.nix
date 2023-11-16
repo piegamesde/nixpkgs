@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  nixosTests,
-  autoreconfHook,
-  pkg-config,
-  flex,
-  check,
-  pam,
-  coreutils,
-  gzip,
-  bzip2,
-  xz,
-  zstd,
-}:
+{ lib, stdenv, fetchurl, nixosTests, autoreconfHook, pkg-config, flex, check
+, pam, coreutils, gzip, bzip2, xz, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "kbd";
@@ -24,16 +10,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zN9FI4emOAlz0pJzY+nLuTn6IGiRWm+Tf/nSRSICRoM=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  configureFlags = [
-    "--enable-optional-progs"
-    "--enable-libkeymap"
-    "--disable-nls"
-  ];
+  configureFlags =
+    [ "--enable-optional-progs" "--enable-libkeymap" "--disable-nls" ];
 
   patches = [ ./search-paths.patch ];
 
@@ -65,19 +45,13 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  buildInputs = [
-    check
-    pam
-  ];
+  buildInputs = [ check pam ];
   NIX_LDFLAGS = lib.optional stdenv.hostPlatform.isStatic "-laudit";
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    flex
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config flex ];
 
   passthru.tests = {
-    inherit (nixosTests) keymap kbd-setfont-decompress kbd-update-search-paths-patch;
+    inherit (nixosTests)
+      keymap kbd-setfont-decompress kbd-update-search-paths-patch;
   };
   passthru.gzip = gzip;
 

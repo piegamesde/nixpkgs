@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  requests,
-  typing-extensions,
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests, typing-extensions
 }:
 
 buildPythonPackage rec {
@@ -19,7 +13,8 @@ buildPythonPackage rec {
     hash = "sha256-Y1gcYEyn6sAhSJwVqsygaklY63b2ZXTG+rBerGVN2Fc=";
   };
 
-  propagatedBuildInputs = [ requests ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [ requests ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # Tests require a running Mailman instance
   doCheck = false;
@@ -30,10 +25,7 @@ buildPythonPackage rec {
     description = "REST client for driving Mailman 3";
     homepage = "https://www.gnu.org/software/mailman/";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [
-      globin
-      qyliss
-    ];
+    maintainers = with maintainers; [ globin qyliss ];
     platforms = platforms.linux;
   };
 }

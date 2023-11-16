@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  gtk3,
-  mate,
-  hicolor-icon-theme,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, gtk3, mate, hicolor-icon-theme
+, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "mate-icon-theme-faenza";
@@ -20,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "000vr9cnbl2qlysf2gyg1lsjirqdzmwrnh6d3hyrsfc0r2vh4wna";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gtk3
-  ];
+  nativeBuildInputs = [ autoreconfHook gtk3 ];
 
-  propagatedBuildInputs = [
-    mate.mate-icon-theme
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ mate.mate-icon-theme hicolor-icon-theme ];
 
   dontDropIconThemeCache = true;
 

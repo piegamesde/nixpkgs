@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  callPackage,
-  factory_boy,
-  fetchFromGitHub,
-  lib,
-  wagtail,
-}:
+{ buildPythonPackage, callPackage, factory_boy, fetchFromGitHub, lib, wagtail }:
 
 buildPythonPackage rec {
   pname = "wagtail-factories";
@@ -18,10 +11,7 @@ buildPythonPackage rec {
     sha256 = "sha256-xNLHJ/8IZt3pzHAzr9swcL6GcIQyIjIFfoeHUW1i76U=";
   };
 
-  propagatedBuildInputs = [
-    factory_boy
-    wagtail
-  ];
+  propagatedBuildInputs = [ factory_boy wagtail ];
 
   # Tests require wagtail which in turn requires wagtail-factories
   # Note that pythonImportsCheck is not used because it requires a Django app
@@ -32,7 +22,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Factory boy classes for wagtail";
     homepage = "https://github.com/wagtail/wagtail-factories";
-    changelog = "https://github.com/wagtail/wagtail-factories/blob/${version}/CHANGES";
+    changelog =
+      "https://github.com/wagtail/wagtail-factories/blob/${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ sephi ];
   };

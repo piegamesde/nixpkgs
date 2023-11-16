@@ -1,22 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  makeDesktopItem,
-  # sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
-  jdk8,
-  jre8,
-  ant,
-  gtk3,
-  gsettings-desktop-schemas,
-  sweethome3dApp,
-  unzip,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem
+# sweethome3d 6.5.2 does not yet fully build&run with jdk 9 and later?
+, jdk8, jre8, ant, gtk3, gsettings-desktop-schemas, sweethome3dApp, unzip }:
 
 let
 
-  sweetExec = with lib; m: "sweethome3d-" + removeSuffix "libraryeditor" (toLower m) + "-editor";
+  sweetExec = with lib;
+    m:
+    "sweethome3d-" + removeSuffix "libraryeditor" (toLower m) + "-editor";
 
   applicationSrc = stdenv.mkDerivation {
     name = "application-src";
@@ -27,49 +17,22 @@ let
   };
 
   mkEditorProject =
-    {
-      pname,
-      module,
-      version,
-      src,
-      license,
-      description,
-      desktopName,
-    }:
+    { pname, module, version, src, license, description, desktopName }:
 
     stdenv.mkDerivation rec {
       application = sweethome3dApp;
-      inherit
-        pname
-        module
-        version
-        src
-        description
-      ;
+      inherit pname module version src description;
       exec = sweetExec module;
       editorItem = makeDesktopItem {
         inherit exec desktopName;
         name = pname;
         comment = description;
         genericName = "Computer Aided (Interior) Design";
-        categories = [
-          "Graphics"
-          "2DGraphics"
-          "3DGraphics"
-        ];
+        categories = [ "Graphics" "2DGraphics" "3DGraphics" ];
       };
 
-      nativeBuildInputs = [
-        makeWrapper
-        unzip
-      ];
-      buildInputs = [
-        ant
-        jre8
-        jdk8
-        gtk3
-        gsettings-desktop-schemas
-      ];
+      nativeBuildInputs = [ makeWrapper unzip ];
+      buildInputs = [ ant jre8 jdk8 gtk3 gsettings-desktop-schemas ];
 
       postPatch = ''
         sed -i -e 's,../SweetHome3D,${applicationSrc},g' build.xml
@@ -105,17 +68,19 @@ let
         maintainers = [ lib.maintainers.edwtjo ];
         platforms = lib.platforms.linux;
       };
+
     };
 
   d2u = lib.replaceStrings [ "." ] [ "_" ];
-in
-{
+
+in {
 
   textures-editor = mkEditorProject rec {
     version = "1.7";
     module = "TexturesLibraryEditor";
     pname = module;
-    description = "Easily create SH3T files and edit the properties of the texture images it contain";
+    description =
+      "Easily create SH3T files and edit the properties of the texture images it contain";
     license = lib.licenses.gpl2Plus;
     src = fetchurl {
       url = "mirror://sourceforge/sweethome3d/${module}-${version}-src.zip";
@@ -128,7 +93,8 @@ in
     version = "1.28";
     module = "FurnitureLibraryEditor";
     pname = module;
-    description = "Quickly create SH3F files and edit the properties of the 3D models it contain";
+    description =
+      "Quickly create SH3F files and edit the properties of the 3D models it contain";
     license = lib.licenses.gpl2;
     src = fetchurl {
       url = "mirror://sourceforge/sweethome3d/${module}-${version}-src.zip";
@@ -136,4 +102,5 @@ in
     };
     desktopName = "Sweet Home 3D - Furniture Library Editor";
   };
+
 }

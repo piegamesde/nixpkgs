@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  opencl-headers,
-  ocl-icd,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, ninja, opencl-headers, ocl-icd }:
 
 stdenv.mkDerivation rec {
   pname = "clblast";
@@ -19,15 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-eRwSfP6p0+9yql7TiXZsExRMcnnBLXXW2hh1JliYU2I=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  buildInputs = [
-    opencl-headers
-    ocl-icd
-  ];
+  buildInputs = [ opencl-headers ocl-icd ];
 
   cmakeFlags = [
     # https://github.com/NixOS/nixpkgs/issues/144170

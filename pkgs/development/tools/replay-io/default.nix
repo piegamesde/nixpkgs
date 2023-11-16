@@ -1,35 +1,14 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchFromGitHub,
-  autoPatchelfHook,
-  makeWrapper,
-  libcxx,
-  libX11,
-  libXt,
-  libXdamage,
-  glib,
-  gtk3,
-  dbus-glib,
-  openssl,
-  nodejs,
-  zlib,
-  fetchzip,
-}:
-let
-  metadata = lib.importJSON ./meta.json;
-in
-rec {
+{ stdenv, lib, fetchurl, fetchFromGitHub, autoPatchelfHook, makeWrapper, libcxx
+, libX11, libXt, libXdamage, glib, gtk3, dbus-glib, openssl, nodejs, zlib
+, fetchzip }:
+let metadata = lib.importJSON ./meta.json;
+in rec {
   replay-recordreplay = stdenv.mkDerivation rec {
     pname = "replay-recordreplay";
-    version = builtins.head (builtins.match ".*/linux-recordreplay-(.*).tgz" metadata.recordreplay.url);
+    version = builtins.head (builtins.match ".*/linux-recordreplay-(.*).tgz"
+      metadata.recordreplay.url);
     nativeBuildInputs = [ autoPatchelfHook ];
-    buildInputs = [
-      stdenv.cc.cc.lib
-      openssl
-      zlib
-    ];
+    buildInputs = [ stdenv.cc.cc.lib openssl zlib ];
 
     src = (fetchzip metadata.recordreplay);
     dontBuild = true;
@@ -39,7 +18,9 @@ rec {
       runHook postInstall
     '';
     postFixup = ''
-      patchelf --set-rpath "$(patchelf --print-rpath $out):${lib.makeLibraryPath [ openssl ]}" $out
+      patchelf --set-rpath "$(patchelf --print-rpath $out):${
+        lib.makeLibraryPath [ openssl ]
+      }" $out
     '';
     meta = with lib; {
       description = "RecordReplay internal recording library";
@@ -52,20 +33,11 @@ rec {
 
   replay-io = stdenv.mkDerivation rec {
     pname = "replay-io";
-    version = builtins.head (builtins.match ".*/linux-gecko-(.*).tar.bz2" metadata.replay.url);
+    version = builtins.head
+      (builtins.match ".*/linux-gecko-(.*).tar.bz2" metadata.replay.url);
     srcs = fetchurl metadata.replay;
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
-    ];
-    buildInputs = [
-      dbus-glib
-      glib
-      gtk3
-      libX11
-      libXdamage
-      libXt
-    ];
+    nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+    buildInputs = [ dbus-glib glib gtk3 libX11 libXdamage libXt ];
     installPhase = ''
       runHook preInstall
       mkdir -p $out/opt/replay-io
@@ -98,11 +70,9 @@ rec {
 
   replay-node = stdenv.mkDerivation rec {
     pname = "replay-node";
-    version = builtins.head (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url);
-    nativeBuildInputs = [
-      autoPatchelfHook
-      makeWrapper
-    ];
+    version = builtins.head
+      (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url);
+    nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
     buildInputs = [ stdenv.cc.cc.lib ];
 
     src = (fetchurl metadata.replay-node);
@@ -123,7 +93,8 @@ rec {
     '';
 
     meta = with lib; {
-      description = "Event-driven I/O framework for the V8 JavaScript engine, patched for replay";
+      description =
+        "Event-driven I/O framework for the V8 JavaScript engine, patched for replay";
       homepage = "https://github.com/RecordReplay/node";
       license = licenses.mit;
       maintainers = with maintainers; [ phryneas ];
@@ -134,7 +105,8 @@ rec {
 
   replay-node-cli = stdenv.mkDerivation {
     pname = "replay-node-cli";
-    version = "0.1.7-" + builtins.head (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url);
+    version = "0.1.7-" + builtins.head
+      (builtins.match ".*/linux-node-(.*)" metadata.replay-node.url);
     src = fetchFromGitHub {
       owner = "RecordReplay";
       repo = "replay-node-cli";
@@ -143,10 +115,7 @@ rec {
     };
 
     nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [
-      stdenv.cc.cc.lib
-      nodejs
-    ];
+    buildInputs = [ stdenv.cc.cc.lib nodejs ];
     dontBuild = true;
     installPhase = ''
       runHook preInstall
@@ -160,7 +129,8 @@ rec {
     '';
 
     meta = with lib; {
-      description = "The Time Travel Debugger for Web Development - Node Command Line";
+      description =
+        "The Time Travel Debugger for Web Development - Node Command Line";
       longDescription = ''
         The Replay Node Command Line allows you to record node applications and debug them
         with familiar browser dev tools.

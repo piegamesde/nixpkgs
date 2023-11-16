@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  substituteAll,
-  python3Packages,
-  chia,
-}:
+{ lib, fetchFromGitHub, substituteAll, python3Packages, chia, }:
 python3Packages.buildPythonApplication rec {
   pname = "chia-dev-tools";
   version = "1.1.5";
@@ -52,7 +46,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://www.chia.net/";
-    description = "Utility for developing in the Chia ecosystem: Chialisp functions, object inspection, RPC client and more";
+    description =
+      "Utility for developing in the Chia ecosystem: Chialisp functions, object inspection, RPC client and more";
     license = with licenses; [ asl20 ];
     maintainers = teams.chia.members;
   };

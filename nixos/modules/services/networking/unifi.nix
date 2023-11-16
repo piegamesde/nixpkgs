@@ -1,11 +1,4 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, options, lib, pkgs, utils, ... }:
 with lib;
 let
   cfg = config.services.unifi;
@@ -13,15 +6,16 @@ let
   cmd = ''
     @${cfg.jrePackage}/bin/java java \
         ${
-          optionalString (cfg.initialJavaHeapSize != null) "-Xms${(toString cfg.initialJavaHeapSize)}m"
+          optionalString (cfg.initialJavaHeapSize != null)
+          "-Xms${(toString cfg.initialJavaHeapSize)}m"
         } \
         ${
-          optionalString (cfg.maximumJavaHeapSize != null) "-Xmx${(toString cfg.maximumJavaHeapSize)}m"
+          optionalString (cfg.maximumJavaHeapSize != null)
+          "-Xmx${(toString cfg.maximumJavaHeapSize)}m"
         } \
         -jar ${stateDir}/lib/ace.jar
   '';
-in
-{
+in {
 
   options = {
 
@@ -36,10 +30,12 @@ in
     services.unifi.jrePackage = mkOption {
       type = types.package;
       default =
-        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then pkgs.jdk11 else pkgs.jre8;
-      defaultText =
-        literalExpression
-          ''if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
+        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3") then
+          pkgs.jdk11
+        else
+          pkgs.jre8;
+      defaultText = literalExpression ''
+        if (lib.versionAtLeast (lib.getVersion cfg.unifiPackage) "7.3" then pkgs.jdk11 else pkgs.jre8'';
       description = lib.mdDoc ''
         The JRE package to use. Check the release notes to ensure it is supported.
       '';
@@ -94,6 +90,7 @@ in
         JVM will decide this value at runtime.
       '';
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -128,10 +125,7 @@ in
       # This a HACK to fix missing dependencies of dynamic libs extracted from jars
       environment.LD_LIBRARY_PATH = with pkgs.stdenv; "${cc.cc.lib}/lib";
       # Make sure package upgrades trigger a service restart
-      restartTriggers = [
-        cfg.unifiPackage
-        cfg.mongodbPackage
-      ];
+      restartTriggers = [ cfg.unifiPackage cfg.mongodbPackage ];
 
       serviceConfig = {
         Type = "simple";
@@ -180,11 +174,10 @@ in
         LogsDirectory = "unifi";
         CacheDirectory = "unifi";
 
-        TemporaryFileSystem =
-          [
-            # required as we want to create bind mounts below
-            "${stateDir}/webapps:rw"
-          ];
+        TemporaryFileSystem = [
+          # required as we want to create bind mounts below
+          "${stateDir}/webapps:rw"
+        ];
 
         # We must create the binary directories as bind mounts instead of symlinks
         # This is because the controller resolves all symlinks to absolute paths
@@ -204,27 +197,15 @@ in
         MemoryDenyWriteExecute = false;
       };
     };
+
   };
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "unifi"
-        "dataDir"
-      ]
-      "You should move contents of dataDir to /var/lib/unifi/data"
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "unifi"
-        "openPorts"
-      ]
-      [
-        "services"
-        "unifi"
-        "openFirewall"
-      ]
-    )
+    (mkRemovedOptionModule [ "services" "unifi" "dataDir" ]
+      "You should move contents of dataDir to /var/lib/unifi/data")
+    (mkRenamedOptionModule [ "services" "unifi" "openPorts" ] [
+      "services"
+      "unifi"
+      "openFirewall"
+    ])
   ];
 }

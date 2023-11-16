@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  libarchive,
-  glibcLocales,
-  mock,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, libarchive, glibcLocales
+, mock, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "libarchive-c";
@@ -30,15 +22,12 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "libarchive" ];
 
-  nativeCheckInputs = [
-    glibcLocales
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ glibcLocales mock pytestCheckHook ];
 
   meta = with lib; {
     homepage = "https://github.com/Changaco/python-libarchive-c";
     description = "Python interface to libarchive";
     license = licenses.cc0;
   };
+
 }

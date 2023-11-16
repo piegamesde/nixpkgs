@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libxml2,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "libqb";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vt9FmIRojX3INOn3CXAjkswVFD8Th4sRIz3RR4GJHFQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [ libxml2 ];
 
@@ -31,7 +21,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/clusterlabs/libqb";
-    description = "A library providing high performance logging, tracing, ipc, and poll";
+    description =
+      "A library providing high performance logging, tracing, ipc, and poll";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
   };

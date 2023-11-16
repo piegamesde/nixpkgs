@@ -1,23 +1,11 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "kustomize";
   version = "5.0.3";
 
-  ldflags =
-    let
-      t = "sigs.k8s.io/kustomize/api/provenance";
-    in
-    [
-      "-s"
-      "-X ${t}.version=${version}"
-      "-X ${t}.gitCommit=${src.rev}"
-    ];
+  ldflags = let t = "sigs.k8s.io/kustomize/api/provenance";
+  in [ "-s" "-X ${t}.version=${version}" "-X ${t}.gitCommit=${src.rev}" ];
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";

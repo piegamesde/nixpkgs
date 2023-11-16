@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "NoiseTorch";
@@ -20,12 +16,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.distribution=nixpkgs"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X main.version=${version}" "-X main.distribution=nixpkgs" ];
 
   subPackages = [ "." ];
 
@@ -41,13 +33,11 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Virtual microphone device with noise supression for PulseAudio";
+    description =
+      "Virtual microphone device with noise supression for PulseAudio";
     homepage = "https://github.com/noisetorch/NoiseTorch";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      panaeon
-      lom
-    ];
+    maintainers = with maintainers; [ panaeon lom ];
   };
 }

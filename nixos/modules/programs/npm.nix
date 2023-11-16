@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.npm;
-in
+let cfg = config.programs.npm;
 
-{
+in {
   ###### interface
 
   options = {
@@ -55,4 +48,5 @@ in
 
     environment.systemPackages = [ cfg.package ];
   };
+
 }

@@ -1,12 +1,6 @@
 # rapidjson used in nixpkgs is too old. Although it is technically a latest release, it was made in 2016.
 # Redpanda uses its own version
-{
-  clangStdenv,
-  cmake,
-  fetchFromGitHub,
-  lib,
-  pkg-config,
-}:
+{ clangStdenv, cmake, fetchFromGitHub, lib, pkg-config }:
 
 clangStdenv.mkDerivation rec {
   pname = "rapidjson";
@@ -19,15 +13,13 @@ clangStdenv.mkDerivation rec {
     sha256 = "sha256-wggyCL5uEsnJDxkYAUsXOjoO1MNQBGB05E6aSpsNcl0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
   doCheck = false;
 
   meta = with lib; {
-    description = "Fast JSON parser/generator for C++ with both SAX/DOM style API";
+    description =
+      "Fast JSON parser/generator for C++ with both SAX/DOM style API";
     homepage = "http://rapidjson.org/";
     maintainers = with maintainers; [ avakhrenev ];
     license = licenses.mit;

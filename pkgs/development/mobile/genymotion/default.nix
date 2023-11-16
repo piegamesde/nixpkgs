@@ -1,25 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  makeWrapper,
-  which,
-  zlib,
-  libGL,
-  glib,
-  xorg,
-  libxkbcommon,
-  xdg-utils,
-  libXrender,
-  fontconfig,
-  freetype,
-  systemd,
-  libpulseaudio,
-  # For glewinfo
-  libXmu,
-  libXi,
-  libXext,
-}:
+{ stdenv, lib, fetchurl, makeWrapper, which, zlib, libGL, glib, xorg
+, libxkbcommon, xdg-utils, libXrender, fontconfig, freetype, systemd
+, libpulseaudio
+# For glewinfo
+, libXmu, libXi, libXext }:
 
 let
   packages = [
@@ -39,21 +22,18 @@ let
     libpulseaudio
   ];
   libPath = lib.makeLibraryPath packages;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "genymotion";
   version = "3.4.0";
   src = fetchurl {
-    url = "https://dl.genymotion.com/releases/genymotion-${version}/genymotion-${version}-linux_x64.bin";
+    url =
+      "https://dl.genymotion.com/releases/genymotion-${version}/genymotion-${version}-linux_x64.bin";
     name = "genymotion-${version}-linux_x64.bin";
     sha256 = "sha256-2pYnjjskmIxQXLXwQpSz/HxoCqvK0TuRDBoh/KrVTpM=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    which
-    xdg-utils
-  ];
+  buildInputs = [ which xdg-utils ];
 
   unpackPhase = ''
     mkdir -p phony-home $out/share/applications

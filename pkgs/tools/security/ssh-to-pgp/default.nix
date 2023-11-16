@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  gnupg,
-}:
+{ lib, fetchFromGitHub, buildGoModule, gnupg }:
 
 buildGoModule rec {
   pname = "ssh-to-pgp";

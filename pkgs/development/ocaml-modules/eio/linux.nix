@@ -1,10 +1,4 @@
-{
-  buildDunePackage,
-  eio,
-  fmt,
-  logs,
-  uring,
-}:
+{ buildDunePackage, eio, fmt, logs, uring }:
 
 buildDunePackage {
   pname = "eio_linux";
@@ -15,10 +9,5 @@ buildDunePackage {
 
   dontStrip = true;
 
-  propagatedBuildInputs = [
-    eio
-    fmt
-    logs
-    uring
-  ];
+  propagatedBuildInputs = [ eio fmt logs uring ];
 }

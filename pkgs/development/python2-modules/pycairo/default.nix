@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  buildPythonPackage,
-  pytest,
-  pkg-config,
-  cairo,
-  python,
-}:
+{ lib, fetchFromGitHub, meson, ninja, buildPythonPackage, pytest, pkg-config
+, cairo, python }:
 
 buildPythonPackage rec {
   pname = "pycairo";
@@ -23,11 +14,7 @@ buildPythonPackage rec {
     sha256 = "142145a2whvlk92jijrbf3i2bqrzmspwpysj0bfypw0krzi0aa6j";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
   buildInputs = [ cairo ];
 
@@ -37,21 +24,17 @@ buildPythonPackage rec {
     ${pytest}/bin/pytest
   '';
 
-  mesonFlags =
-    [
-      # This is only used for figuring out what version of Python is in
-      # use, and related stuff like figuring out what the install prefix
-      # should be, but it does need to be able to execute Python code.
-      "-Dpython=${python.pythonForBuild.interpreter}"
-    ];
+  mesonFlags = [
+    # This is only used for figuring out what version of Python is in
+    # use, and related stuff like figuring out what the install prefix
+    # should be, but it does need to be able to execute Python code.
+    "-Dpython=${python.pythonForBuild.interpreter}"
+  ];
 
   meta = with lib; {
     description = "Python 2 bindings for cairo";
     homepage = "https://pycairo.readthedocs.io/";
-    license = with licenses; [
-      lgpl21Only
-      mpl11
-    ];
+    license = with licenses; [ lgpl21Only mpl11 ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

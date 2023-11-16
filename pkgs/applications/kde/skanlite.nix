@@ -1,11 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  kio,
-  libksane,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, kio, libksane }:
 
 mkDerivation {
   pname = "skanlite";
@@ -16,12 +9,6 @@ mkDerivation {
     maintainers = with maintainers; [ polendri ];
   };
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
-  buildInputs = [
-    kio
-    libksane
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
+  buildInputs = [ kio libksane ];
 }

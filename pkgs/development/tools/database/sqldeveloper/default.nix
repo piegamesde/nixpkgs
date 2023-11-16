@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  makeDesktopItem,
-  makeWrapper,
-  requireFile,
-  unzip,
-  jdk,
-}:
+{ lib, stdenv, makeDesktopItem, makeWrapper, requireFile, unzip, jdk }:
 
 let
   version = "20.4.0.379.2205";
@@ -20,8 +12,7 @@ let
     comment = "Oracle's Oracle DB GUI client";
     categories = [ "Development" ];
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
 
   inherit version;
   pname = "sqldeveloper";
@@ -57,10 +48,7 @@ stdenv.mkDerivation {
     sha256 = "1h53gl41ydr7kim6q9ckg3xyhb0rhmwj7jnis0xz6vms52b3h59k";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper unzip ];
 
   unpackCmd = "unzip $curSrc";
 
@@ -87,7 +75,8 @@ stdenv.mkDerivation {
       a reports interface, a complete data modeling solution, and a migration
       platform for moving your 3rd party databases to Oracle.
     '';
-    homepage = "http://www.oracle.com/technetwork/developer-tools/sql-developer/overview/";
+    homepage =
+      "http://www.oracle.com/technetwork/developer-tools/sql-developer/overview/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ ardumont ];

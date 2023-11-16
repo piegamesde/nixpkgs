@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssh,
-}:
+{ lib, stdenv, fetchurl, openssh }:
 
 stdenv.mkDerivation rec {
   pname = "autossh";

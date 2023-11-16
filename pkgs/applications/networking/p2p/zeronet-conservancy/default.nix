@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  nixosTests,
-}:
+{ lib, fetchFromGitHub, python3Packages, nixosTests }:
 
 python3Packages.buildPythonApplication rec {
   pname = "zeronet-conservancy";
@@ -51,9 +46,7 @@ python3Packages.buildPythonApplication rec {
       --set PATH ${python3Packages.python}/bin
   '';
 
-  passthru.tests = {
-    nixos-test = nixosTests.zeronet-conservancy;
-  };
+  passthru.tests = { nixos-test = nixosTests.zeronet-conservancy; };
 
   meta = with lib; {
     description = "A fork/continuation of the ZeroNet project";

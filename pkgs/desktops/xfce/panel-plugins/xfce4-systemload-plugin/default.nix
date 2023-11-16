@@ -1,19 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  xfce4-panel,
-  libxfce4ui,
-  xfconf,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, xfce4-panel, libxfce4ui, xfconf
+, gitUpdater }:
 
-let
-  category = "panel-plugins";
-in
-stdenv.mkDerivation rec {
+let category = "panel-plugins";
+in stdenv.mkDerivation rec {
   pname = "xfce4-systemload-plugin";
   version = "1.3.2";
 
@@ -24,16 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uzA/wwIOBTrR+guPy/DXaBxVY7uPZJNX1qlaV3gCsHI=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    libxfce4ui
-    xfce4-panel
-    xfconf
-  ];
+  buildInputs = [ libxfce4ui xfce4-panel xfconf ];
 
   passthru.updateScript = gitUpdater {
     url = "https://gitlab.xfce.org/panel-plugins/${pname}";

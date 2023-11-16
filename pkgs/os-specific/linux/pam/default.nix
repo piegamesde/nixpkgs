@@ -1,23 +1,13 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchurl,
-  flex,
-  cracklib,
-  db4,
-  gettext,
-  audit,
-  libxcrypt,
-  nixosTests,
-}:
+{ lib, stdenv, buildPackages, fetchurl, flex, cracklib, db4, gettext, audit
+, libxcrypt, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "linux-pam";
   version = "1.5.2";
 
   src = fetchurl {
-    url = "https://github.com/linux-pam/linux-pam/releases/download/v${version}/Linux-PAM-${version}.tar.xz";
+    url =
+      "https://github.com/linux-pam/linux-pam/releases/download/v${version}/Linux-PAM-${version}.tar.xz";
     sha256 = "sha256-5OxxMakdpEUSV0Jo9JPG2MoQXIcJFpG46bVspoXU+U0=";
   };
 
@@ -30,13 +20,11 @@ stdenv.mkDerivation rec {
   ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ flex ] ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
+  nativeBuildInputs = [ flex ]
+    ++ lib.optional stdenv.buildPlatform.isDarwin gettext;
 
-  buildInputs = [
-    cracklib
-    db4
-    libxcrypt
-  ] ++ lib.optional stdenv.buildPlatform.isLinux audit;
+  buildInputs = [ cracklib db4 libxcrypt ]
+    ++ lib.optional stdenv.buildPlatform.isLinux audit;
 
   enableParallelBuilding = true;
 
@@ -58,17 +46,13 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails
 
   passthru.tests = {
-    inherit (nixosTests)
-      pam-oath-login
-      pam-u2f
-      shadow
-      sssd-ldap
-    ;
+    inherit (nixosTests) pam-oath-login pam-u2f shadow sssd-ldap;
   };
 
   meta = with lib; {
     homepage = "http://www.linux-pam.org/";
-    description = "Pluggable Authentication Modules, a flexible mechanism for authenticating user";
+    description =
+      "Pluggable Authentication Modules, a flexible mechanism for authenticating user";
     platforms = platforms.linux;
     license = licenses.bsd3;
   };

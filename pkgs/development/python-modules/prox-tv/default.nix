@@ -1,14 +1,5 @@
-{
-  lib,
-  blas,
-  lapack,
-  buildPythonPackage,
-  cffi,
-  fetchFromGitHub,
-  nose,
-  numpy,
-  stdenv,
-}:
+{ lib, blas, lapack, buildPythonPackage, cffi, fetchFromGitHub, nose, numpy
+, stdenv }:
 
 buildPythonPackage {
   pname = "prox-tv";
@@ -23,22 +14,18 @@ buildPythonPackage {
 
   nativeCheckInputs = [ nose ];
 
-  propagatedBuildInputs = [
-    numpy
-    cffi
-  ];
+  propagatedBuildInputs = [ numpy cffi ];
 
   # this test is known to fail on darwin
   checkPhase = ''
-    nosetests --exclude=test_tvp_1d ${lib.optionalString stdenv.isDarwin " --exclude=test_tv2_1d"}
+    nosetests --exclude=test_tvp_1d ${
+      lib.optionalString stdenv.isDarwin " --exclude=test_tv2_1d"
+    }
   '';
 
   propagatedNativeBuildInputs = [ cffi ];
 
-  buildInputs = [
-    blas
-    lapack
-  ];
+  buildInputs = [ blas lapack ];
 
   enableParallelBuilding = true;
 

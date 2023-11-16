@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
     mkConfig = name: keys: ''
@@ -53,40 +52,28 @@ import ./make-test-python.nix (
     ];
 
     newConfig = pkgs.writeText "xmonad.hs" (mkConfig "newXMonad" newKeys);
-  in
-  {
+  in {
     name = "xmonad";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        nequissimus
-        ivanbrennan
-      ];
+      maintainers = [ nequissimus ivanbrennan ];
     };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        imports = [
-          ./common/x11.nix
-          ./common/user-account.nix
-        ];
-        test-support.displayManager.auto.user = "alice";
-        services.xserver.displayManager.defaultSession = "none+xmonad";
-        services.xserver.windowManager.xmonad = {
-          enable = true;
-          enableConfiguredRecompile = true;
-          enableContribAndExtras = true;
-          extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
-          config = mkConfig "oldXMonad" oldKeys;
-        };
+    nodes.machine = { pkgs, ... }: {
+      imports = [ ./common/x11.nix ./common/user-account.nix ];
+      test-support.displayManager.auto.user = "alice";
+      services.xserver.displayManager.defaultSession = "none+xmonad";
+      services.xserver.windowManager.xmonad = {
+        enable = true;
+        enableConfiguredRecompile = true;
+        enableContribAndExtras = true;
+        extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
+        config = mkConfig "oldXMonad" oldKeys;
       };
+    };
 
-    testScript =
-      { nodes, ... }:
-      let
-        user = nodes.machine.config.users.users.alice;
-      in
-      ''
+    testScript = { nodes, ... }:
+      let user = nodes.machine.config.users.users.alice;
+      in ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/.Xauthority")
         machine.succeed("xauth merge ${user.home}/.Xauthority")
@@ -127,5 +114,4 @@ import ./make-test-python.nix (
         machine.send_key("alt-ctrl-t")
         machine.wait_for_file("/tmp/somefile")
       '';
-  }
-)
+  })

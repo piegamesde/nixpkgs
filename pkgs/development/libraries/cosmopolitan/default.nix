@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  unzip,
-  bintools-unwrapped,
-  coreutils,
-  substituteAll,
-}:
+{ lib, stdenv, fetchFromGitHub, unzip, bintools-unwrapped, coreutils
+, substituteAll }:
 
 stdenv.mkDerivation rec {
   pname = "cosmopolitan";
@@ -19,24 +12,17 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DTL1dXH+LhaxWpiCrsNjV74Bw5+kPbhEAA2Z1NKiPDk=";
   };
 
-  patches =
-    [
-      # make sure tests set PATH correctly
-      (substituteAll {
-        src = ./fix-paths.patch;
-        inherit coreutils;
-      })
-    ];
-
-  nativeBuildInputs = [
-    bintools-unwrapped
-    unzip
+  patches = [
+    # make sure tests set PATH correctly
+    (substituteAll {
+      src = ./fix-paths.patch;
+      inherit coreutils;
+    })
   ];
 
-  outputs = [
-    "out"
-    "dist"
-  ];
+  nativeBuildInputs = [ bintools-unwrapped unzip ];
+
+  outputs = [ "out" "dist" ];
 
   # slashes are significant because upstream uses o/$(MODE)/foo.o
   buildFlags = [

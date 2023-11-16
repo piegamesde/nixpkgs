@@ -1,20 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.nullidentdmod;
-in
-{
+let cfg = config.services.nullidentdmod;
+
+in {
   options.services.nullidentdmod = with types; {
     enable = mkEnableOption (lib.mdDoc "the nullidentdmod identd daemon");
 
     userid = mkOption {
       type = nullOr str;
-      description = lib.mdDoc "User ID to return. Set to null to return a random string each time.";
+      description = lib.mdDoc
+        "User ID to return. Set to null to return a random string each time.";
       default = null;
       example = "alice";
     };

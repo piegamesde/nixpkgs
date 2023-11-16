@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub }:
 
 buildNpmPackage rec {
   pname = "newman";
@@ -22,7 +18,8 @@ buildNpmPackage rec {
   meta = with lib; {
     homepage = "https://www.getpostman.com";
     description = "A command-line collection runner for Postman";
-    changelog = "https://github.com/postmanlabs/newman/releases/tag/v${version}";
+    changelog =
+      "https://github.com/postmanlabs/newman/releases/tag/v${version}";
     maintainers = with maintainers; [ freezeboy ];
     license = licenses.asl20;
   };

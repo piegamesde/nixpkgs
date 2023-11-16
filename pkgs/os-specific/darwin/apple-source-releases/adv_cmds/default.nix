@@ -1,11 +1,4 @@
-{
-  lib,
-  appleDerivation,
-  xcbuild,
-  ncurses,
-  libutil,
-  Libc,
-}:
+{ lib, appleDerivation, xcbuild, ncurses, libutil, Libc }:
 
 appleDerivation {
   # We can't just run the root build, because https://github.com/facebook/xcbuild/issues/264
@@ -51,11 +44,7 @@ appleDerivation {
   '';
 
   nativeBuildInputs = [ xcbuild ];
-  buildInputs = [
-    ncurses
-    libutil
-    Libc
-  ];
+  buildInputs = [ ncurses libutil Libc ];
 
   meta = {
     platforms = lib.platforms.darwin;

@@ -1,13 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  ocaml,
-  fetchurl,
-  ctypes,
-  result,
-  alcotest,
-  file,
-}:
+{ lib, buildDunePackage, ocaml, fetchurl, ctypes, result, alcotest, file }:
 
 buildDunePackage rec {
   pname = "luv";
@@ -15,7 +6,8 @@ buildDunePackage rec {
   useDune2 = true;
 
   src = fetchurl {
-    url = "https://github.com/aantron/luv/releases/download/${version}/luv-${version}.tar.gz";
+    url =
+      "https://github.com/aantron/luv/releases/download/${version}/luv-${version}.tar.gz";
     sha256 = "sha256-zOz0cxGzhLi3Q36qyStNCz8JGXHtECQfZysMKiyKOkM=";
   };
 
@@ -26,10 +18,7 @@ buildDunePackage rec {
   '';
 
   nativeBuildInputs = [ file ];
-  propagatedBuildInputs = [
-    ctypes
-    result
-  ];
+  propagatedBuildInputs = [ ctypes result ];
   checkInputs = [ alcotest ];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
@@ -37,15 +26,7 @@ buildDunePackage rec {
     homepage = "https://github.com/aantron/luv";
     description = "Binding to libuv: cross-platform asynchronous I/O";
     # MIT-licensed, extra licenses apply partially to libuv vendor
-    license = with licenses; [
-      mit
-      bsd2
-      bsd3
-      cc-by-sa-40
-    ];
-    maintainers = with maintainers; [
-      locallycompact
-      sternenseemann
-    ];
+    license = with licenses; [ mit bsd2 bsd3 cc-by-sa-40 ];
+    maintainers = with maintainers; [ locallycompact sternenseemann ];
   };
 }

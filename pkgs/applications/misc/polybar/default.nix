@@ -1,45 +1,13 @@
-{
-  config,
-  cairo,
-  cmake,
-  fetchFromGitHub,
-  libuv,
-  libXdmcp,
-  libpthreadstubs,
-  libxcb,
-  pcre,
-  pkg-config,
-  python3,
-  python3Packages, # sphinx-build
-  lib,
-  stdenv,
-  xcbproto,
-  xcbutil,
-  xcbutilcursor,
-  xcbutilimage,
-  xcbutilrenderutil,
-  xcbutilwm,
-  xcbutilxrm,
-  makeWrapper,
-  removeReferencesTo,
-  alsa-lib,
-  curl,
-  libmpdclient,
-  libpulseaudio,
-  wirelesstools,
-  libnl,
-  i3,
-  jsoncpp,
+{ config, cairo, cmake, fetchFromGitHub, libuv, libXdmcp, libpthreadstubs
+, libxcb, pcre, pkg-config, python3, python3Packages # sphinx-build
+, lib, stdenv, xcbproto, xcbutil, xcbutilcursor, xcbutilimage, xcbutilrenderutil
+, xcbutilwm, xcbutilxrm, makeWrapper, removeReferencesTo, alsa-lib, curl
+, libmpdclient, libpulseaudio, wirelesstools, libnl, i3, jsoncpp
 
-  # override the variables ending in 'Support' to enable or disable modules
-  alsaSupport ? true,
-  githubSupport ? false,
-  mpdSupport ? false,
-  pulseSupport ? config.pulseaudio or false,
-  iwSupport ? false,
-  nlSupport ? true,
-  i3Support ? false,
-}:
+# override the variables ending in 'Support' to enable or disable modules
+, alsaSupport ? true, githubSupport ? false, mpdSupport ? false
+, pulseSupport ? config.pulseaudio or false, iwSupport ? false, nlSupport ? true
+, i3Support ? false }:
 
 stdenv.mkDerivation rec {
   pname = "polybar";
@@ -53,40 +21,30 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3Packages.sphinx
-    removeReferencesTo
-  ] ++ lib.optional i3Support makeWrapper;
+  nativeBuildInputs =
+    [ cmake pkg-config python3Packages.sphinx removeReferencesTo ]
+    ++ lib.optional i3Support makeWrapper;
 
-  buildInputs =
-    [
-      cairo
-      libuv
-      libXdmcp
-      libpthreadstubs
-      libxcb
-      pcre
-      python3
-      xcbproto
-      xcbutil
-      xcbutilcursor
-      xcbutilimage
-      xcbutilrenderutil
-      xcbutilwm
-      xcbutilxrm
-    ]
-    ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional githubSupport curl
+  buildInputs = [
+    cairo
+    libuv
+    libXdmcp
+    libpthreadstubs
+    libxcb
+    pcre
+    python3
+    xcbproto
+    xcbutil
+    xcbutilcursor
+    xcbutilimage
+    xcbutilrenderutil
+    xcbutilwm
+    xcbutilxrm
+  ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional githubSupport curl
     ++ lib.optional mpdSupport libmpdclient
     ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optional iwSupport wirelesstools
-    ++ lib.optional nlSupport libnl
-    ++ lib.optionals i3Support [
-      jsoncpp
-      i3
-    ];
+    ++ lib.optional iwSupport wirelesstools ++ lib.optional nlSupport libnl
+    ++ lib.optionals i3Support [ jsoncpp i3 ];
 
   patches = [ ./remove-hardcoded-etc.diff ];
 
@@ -115,12 +73,7 @@ stdenv.mkDerivation rec {
       having a black belt in shell scripting.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [
-      afldcr
-      Br1ght0ne
-      fortuneteller2k
-      ckie
-    ];
+    maintainers = with maintainers; [ afldcr Br1ght0ne fortuneteller2k ckie ];
     platforms = platforms.linux;
   };
 }

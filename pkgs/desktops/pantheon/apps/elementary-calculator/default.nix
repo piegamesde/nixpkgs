@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  vala,
-  wrapGAppsHook4,
-  elementary-gtk-theme,
-  elementary-icon-theme,
-  granite7,
-  gtk4,
-  libgee,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, python3, vala, wrapGAppsHook4, elementary-gtk-theme, elementary-icon-theme
+, granite7, gtk4, libgee }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-calculator";
@@ -27,21 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PLdPu43ns03vhBwaGw4BWCLNvcJbhUA+5Gr5b//TqfA=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    python3
-    vala
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config python3 vala wrapGAppsHook4 ];
 
-  buildInputs = [
-    elementary-icon-theme
-    granite7
-    gtk4
-    libgee
-  ];
+  buildInputs = [ elementary-icon-theme granite7 gtk4 libgee ];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -57,9 +31,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/elementary/calculator";

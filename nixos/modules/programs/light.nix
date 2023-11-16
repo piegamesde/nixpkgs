@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.light;
-in
-{
+let cfg = config.programs.light;
+
+in {
   options = {
     programs.light = {
       enable = mkOption {

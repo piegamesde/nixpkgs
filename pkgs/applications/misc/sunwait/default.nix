@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation {
   pname = "sunwait";
@@ -22,7 +18,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Calculates sunrise or sunset times with civil, nautical, astronomical and custom twilights";
+    description =
+      "Calculates sunrise or sunset times with civil, nautical, astronomical and custom twilights";
     homepage = "https://github.com/risacher/sunwait";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];

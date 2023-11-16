@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.shellhub-agent;
-in
-{
+let cfg = config.services.shellhub-agent;
+in {
   ###### interface
 
   options = {
@@ -102,3 +95,4 @@ in
     };
   };
 }
+

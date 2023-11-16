@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gtest,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gtest, which }:
 
 stdenv.mkDerivation rec {
   pname = "genmap";
@@ -23,10 +16,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   patches = [ ./gtest.patch ];
-  nativeCheckInputs = [
-    gtest
-    which
-  ];
+  nativeCheckInputs = [ gtest which ];
   preCheck = "make genmap_algo_test";
 
   # disable benchmarks

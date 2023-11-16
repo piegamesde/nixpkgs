@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  boost,
-  bison,
-  flex,
-  fetchFromGitHub,
-  perl,
-  python3,
-  python3Packages,
-  zlib,
-  minisat,
-  cryptominisat,
-}:
+{ lib, stdenv, cmake, boost, bison, flex, fetchFromGitHub, perl, python3
+, python3Packages, zlib, minisat, cryptominisat }:
 
 stdenv.mkDerivation rec {
   pname = "stp";
@@ -25,19 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1yg2v4wmswh1sigk47drwsxyayr472mf4i47lqmlcgn9hhbx1q87";
   };
 
-  buildInputs = [
-    boost
-    zlib
-    minisat
-    cryptominisat
-    python3
-  ];
-  nativeBuildInputs = [
-    cmake
-    bison
-    flex
-    perl
-  ];
+  buildInputs = [ boost zlib minisat cryptominisat python3 ];
+  nativeBuildInputs = [ cmake bison flex perl ];
   preConfigure = ''
     python_install_dir=$out/${python3Packages.python.sitePackages}
     mkdir -p $python_install_dir

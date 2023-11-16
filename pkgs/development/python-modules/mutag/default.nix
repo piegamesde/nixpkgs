@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy3k,
-  pyparsing,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, pyparsing }:
 
 buildPythonPackage {
   pname = "mutag";
@@ -26,4 +20,5 @@ buildPythonPackage {
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];
   };
+
 }

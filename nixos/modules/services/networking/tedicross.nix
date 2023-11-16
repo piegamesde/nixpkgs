@@ -1,24 +1,22 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
   dataDir = "/var/lib/tedicross";
   cfg = config.services.tedicross;
-  configJSON = pkgs.writeText "tedicross-settings.json" (builtins.toJSON cfg.config);
-  configYAML = pkgs.runCommand "tedicross-settings.yaml" { preferLocalBuild = true; } ''
-    ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
-  '';
-in
-{
+  configJSON =
+    pkgs.writeText "tedicross-settings.json" (builtins.toJSON cfg.config);
+  configYAML =
+    pkgs.runCommand "tedicross-settings.yaml" { preferLocalBuild = true; } ''
+      ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
+    '';
+
+in {
   options = {
     services.tedicross = {
-      enable = mkEnableOption (lib.mdDoc "the TediCross Telegram-Discord bridge service");
+      enable = mkEnableOption
+        (lib.mdDoc "the TediCross Telegram-Discord bridge service");
 
       config = mkOption {
         type = types.attrs;
@@ -91,7 +89,8 @@ in
       after = [ "network-online.target" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.nodePackages.tedicross}/bin/tedicross --config='${configYAML}' --data-dir='${dataDir}'";
+        ExecStart =
+          "${pkgs.nodePackages.tedicross}/bin/tedicross --config='${configYAML}' --data-dir='${dataDir}'";
         Restart = "always";
         DynamicUser = true;
         StateDirectory = baseNameOf dataDir;
@@ -102,3 +101,4 @@ in
 
   meta.maintainers = with maintainers; [ pacien ];
 }
+

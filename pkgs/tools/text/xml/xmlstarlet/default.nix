@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libxml2,
-  libxslt,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libxml2, libxslt }:
 
 stdenv.mkDerivation rec {
   pname = "xmlstarlet";
@@ -17,10 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libxml2
-    libxslt
-  ];
+  buildInputs = [ libxml2 libxslt ];
 
   preConfigure = ''
     export LIBXSLT_PREFIX=${libxslt.dev}

@@ -1,21 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build deps
-  poetry-core,
+# build deps
+, poetry-core
 
-  # propagates
-  cbor2,
-  python-dateutil,
-  pyyaml,
-  tomlkit,
-  u-msgpack-python,
+# propagates
+, cbor2, python-dateutil, pyyaml, tomlkit, u-msgpack-python
 
-  # tested using
-  pytestCheckHook,
-}:
+# tested using
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "remarshal";
@@ -38,13 +30,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    cbor2
-    python-dateutil
-    pyyaml
-    tomlkit
-    u-msgpack-python
-  ];
+  propagatedBuildInputs =
+    [ cbor2 python-dateutil pyyaml tomlkit u-msgpack-python ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

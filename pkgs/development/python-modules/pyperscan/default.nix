@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPythonPackage,
-  rustPlatform,
-  pytestCheckHook,
-  libiconv,
-  vectorscan,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPythonPackage, rustPlatform
+, pytestCheckHook, libiconv, vectorscan }:
 
 buildPythonPackage rec {
   pname = "pyperscan";
@@ -50,9 +42,6 @@ buildPythonPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [
-      tnias
-      vlaci
-    ];
+    maintainers = with maintainers; [ tnias vlaci ];
   };
 }

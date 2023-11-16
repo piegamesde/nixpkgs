@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  wheel,
-  sphinx,
-  docutils,
-}:
+{ lib, buildPythonPackage, fetchPypi, wheel, sphinx, docutils }:
 
 buildPythonPackage rec {
   pname = "sphinx-togglebutton";
@@ -16,11 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-qwyLNmQnsB5MiYAtXQeEcsQn+m6dEtUhw0+gRCVZ3Ho=";
   };
 
-  propagatedBuildInputs = [
-    wheel
-    sphinx
-    docutils
-  ];
+  propagatedBuildInputs = [ wheel sphinx docutils ];
 
   pythonImportsCheck = [ "sphinx_togglebutton" ];
 

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  installShellFiles,
-  perl,
-  python3,
-  gnuplot,
-  coreutils,
-  gnugrep,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, installShellFiles, perl, python3
+, gnuplot, coreutils, gnugrep }:
 
 stdenv.mkDerivation rec {
   pname = "gitstats";
@@ -23,21 +13,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qUQB3aCRbPkbMoMf39kPQ0vil8RjXL8RqjdTryfkzK0=";
   };
 
-  patches =
-    [
-      # make gitstats compatible with python3
-      # https://github.com/hoxu/gitstats/pull/105
-      (fetchpatch {
-        name = "convert-gitstats-to-use-python3.patch";
-        url = "https://github.com/hoxu/gitstats/commit/ca415668ce6b739ca9fefba6acd29c63b89f4211.patch";
-        hash = "sha256-sgjoj8eQ5CxQBffmhqymsmXb8peuaSbfFoWciLK3LOo=";
-      })
-    ];
-
-  nativeBuildInputs = [
-    installShellFiles
-    perl
+  patches = [
+    # make gitstats compatible with python3
+    # https://github.com/hoxu/gitstats/pull/105
+    (fetchpatch {
+      name = "convert-gitstats-to-use-python3.patch";
+      url =
+        "https://github.com/hoxu/gitstats/commit/ca415668ce6b739ca9fefba6acd29c63b89f4211.patch";
+      hash = "sha256-sgjoj8eQ5CxQBffmhqymsmXb8peuaSbfFoWciLK3LOo=";
+    })
   ];
+
+  nativeBuildInputs = [ installShellFiles perl ];
 
   buildInputs = [ python3 ];
 
@@ -50,10 +37,7 @@ stdenv.mkDerivation rec {
         -i gitstats
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "VERSION=${version}"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "VERSION=${version}" ];
 
   buildFlags = [ "man" ];
 

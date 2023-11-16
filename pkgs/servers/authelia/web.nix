@@ -2,13 +2,8 @@
 
 let
   inherit (import ./sources.nix { inherit fetchFromGitHub; })
-    pname
-    version
-    src
-    npmDepsHash
-  ;
-in
-buildNpmPackage {
+    pname version src npmDepsHash;
+in buildNpmPackage {
   pname = "${pname}-web";
   inherit src version npmDepsHash;
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  pythonOlder,
-  buildPythonPackage,
-}:
+{ lib, fetchPypi, pythonOlder, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "ed25519-blake2b";
@@ -22,9 +17,6 @@ buildPythonPackage rec {
     description = "Ed25519 public-key signatures (BLAKE2b fork)";
     homepage = "https://github.com/Matoking/python-ed25519-blake2b";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      onny
-      stargate01
-    ];
+    maintainers = with maintainers; [ onny stargate01 ];
   };
 }

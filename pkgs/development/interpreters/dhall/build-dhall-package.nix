@@ -1,18 +1,9 @@
-{
-  dhall,
-  dhall-docs,
-  haskell,
-  lib,
-  lndir,
-  runCommand,
-  writeText,
-}:
+{ dhall, dhall-docs, haskell, lib, lndir, runCommand, writeText }:
 
-{
-  name,
+{ name
 
-  # Expressions to add to the cache before interpreting the code
-  dependencies ? [ ],
+# Expressions to add to the cache before interpreting the code
+, dependencies ? [ ]
 
   # A Dhall expression
   #
@@ -24,35 +15,34 @@
   #
   # You can add a dependency to the cache using the preceding `dependencies`
   # option
-  code,
+, code
 
-  # `buildDhallPackage` can include both a "source distribution" in
-  # `source.dhall` and a "binary distribution" in `binary.dhall`:
-  #
-  # * `source.dhall` is a dependency-free αβ-normalized Dhall expression
-  #
-  # * `binary.dhall` is an expression of the form: `missing sha256:${HASH}`
-  #
-  #   This expression requires you to install the cache product located at
-  #   `.cache/dhall/1220${HASH}` to successfully resolve
-  #
-  # By default, `buildDhallPackage` only includes "binary.dhall" to conserve
-  # space within the Nix store, but if you set the following `source` option to
-  # `true` then the package will also include `source.dhall`.
-  source ? false,
+# `buildDhallPackage` can include both a "source distribution" in
+# `source.dhall` and a "binary distribution" in `binary.dhall`:
+#
+# * `source.dhall` is a dependency-free αβ-normalized Dhall expression
+#
+# * `binary.dhall` is an expression of the form: `missing sha256:${HASH}`
+#
+#   This expression requires you to install the cache product located at
+#   `.cache/dhall/1220${HASH}` to successfully resolve
+#
+# By default, `buildDhallPackage` only includes "binary.dhall" to conserve
+# space within the Nix store, but if you set the following `source` option to
+# `true` then the package will also include `source.dhall`.
+, source ? false
 
   # Directory to generate documentation for (i.e. as the `--input` option to the
   # `dhall-docs` command.)
   #
   # If `null`, then no documentation is generated.
-  documentationRoot ? null,
+, documentationRoot ? null
 
   # Base URL prepended to paths copied to the clipboard
   #
   # This is used in conjunction with `documentationRoot`, and is unused if
   # `documentationRoot` is `null`.
-  baseImportUrl ? null,
-}:
+, baseImportUrl ? null }:
 
 let
   # HTTP support is disabled in order to force that HTTP dependencies are built
@@ -70,8 +60,8 @@ let
   dataDhall = "${data}/dhall";
 
   sourceFile = "source.dhall";
-in
-runCommand name { inherit dependencies; } ''
+
+in runCommand name { inherit dependencies; } ''
   set -eu
 
   mkdir -p ${cacheDhall}

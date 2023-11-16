@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core }:
 
 buildPythonPackage rec {
   pname = "pyrate-limiter";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Rate-Limiter using Leaky-Bucket Algorimth Family";
     homepage = "https://github.com/vutran1710/PyrateLimiter";
-    changelog = "https://github.com/vutran1710/PyrateLimiter/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/vutran1710/PyrateLimiter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ kranzes ];
   };

@@ -1,17 +1,12 @@
-{
-  lib,
-  mkFranzDerivation,
-  fetchurl,
-  xorg,
-  nix-update-script,
-}:
+{ lib, mkFranzDerivation, fetchurl, xorg, nix-update-script }:
 
 mkFranzDerivation rec {
   pname = "ferdium";
   name = "Ferdium";
   version = "6.3.0";
   src = fetchurl {
-    url = "https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-amd64.deb";
+    url =
+      "https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-amd64.deb";
     sha256 = "sha256-3i3cEGwUXNITABJRXV+xQ2knYjuG1F818EvhLBrVep8=";
   };
 
@@ -19,10 +14,7 @@ mkFranzDerivation rec {
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [
-        "--override-filename"
-        ./default.nix
-      ];
+      extraArgs = [ "--override-filename" ./default.nix ];
     };
   };
 

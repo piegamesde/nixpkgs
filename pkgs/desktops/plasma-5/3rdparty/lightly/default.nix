@@ -1,17 +1,6 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  kdecoration,
-  kcoreaddons,
-  kguiaddons,
-  kconfigwidgets,
-  kwindowsystem,
-  kiconthemes,
-  qtx11extras,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, kdecoration
+, kcoreaddons, kguiaddons, kconfigwidgets, kwindowsystem, kiconthemes
+, qtx11extras }:
 
 mkDerivation rec {
   pname = "lightly";
@@ -25,10 +14,7 @@ mkDerivation rec {
 
   extraCmakeFlags = [ "-DBUILD_TESTING=OFF" ];
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     kcoreaddons

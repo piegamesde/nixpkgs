@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 buildGoModule rec {
   pname = "vmagent";
   version = "1.91.2";
@@ -25,7 +21,8 @@ buildGoModule rec {
   subPackages = [ "app/vmagent" ];
 
   meta = with lib; {
-    homepage = "https://github.com/VictoriaMetrics/VictoriaMetrics/tree/master/app/vmagent";
+    homepage =
+      "https://github.com/VictoriaMetrics/VictoriaMetrics/tree/master/app/vmagent";
     description = "VictoriaMetrics metrics scraper";
     license = licenses.asl20;
     platforms = platforms.linux;

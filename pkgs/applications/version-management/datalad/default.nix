@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  python3,
-  git,
-  git-annex,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, python3, git, git-annex }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "datalad";
@@ -19,13 +11,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-vqO37o5NxQk+gHfvhM1I2ea9/q9ZaLWkDEyPYJKEPcs";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    git
-  ];
+  nativeBuildInputs = [ installShellFiles git ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       # core
       platformdirs
@@ -75,8 +63,7 @@ python3.pkgs.buildPythonApplication rec {
 
       # python>=3.8
       distro
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
+    ] ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
     ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ];
 
   postInstall = ''
@@ -92,7 +79,8 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "datalad" ];
 
   meta = with lib; {
-    description = "Keep code, data, containers under control with git and git-annex";
+    description =
+      "Keep code, data, containers under control with git and git-annex";
     homepage = "https://www.datalad.org";
     license = licenses.mit;
     maintainers = with maintainers; [ renesat ];

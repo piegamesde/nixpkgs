@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qtbase,
-  qmake,
-  pkg-config,
-  libssh,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, qtbase, qmake, pkg-config, libssh
+, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "qjournalctl";
@@ -24,26 +16,16 @@ stdenv.mkDerivation rec {
     substituteInPlace qjournalctl.pro --replace /usr/ $out/
   '';
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
 
-  buildInputs = [
-    libssh
-    qtbase
-  ];
+  buildInputs = [ libssh qtbase ];
 
   meta = with lib; {
-    description = "Qt-based graphical user interface for systemd's journalctl command";
+    description =
+      "Qt-based graphical user interface for systemd's journalctl command";
     homepage = "https://github.com/pentix/qjournalctl";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      dtzWill
-      srgom
-      romildo
-    ];
+    maintainers = with maintainers; [ dtzWill srgom romildo ];
   };
 }

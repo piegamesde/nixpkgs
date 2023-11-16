@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "jwx";
@@ -20,12 +16,10 @@ buildGoModule rec {
   sourceRoot = "source/cmd/jwx";
 
   meta = with lib; {
-    description = " Implementation of various JWx (Javascript Object Signing and Encryption/JOSE) technologies";
+    description =
+      " Implementation of various JWx (Javascript Object Signing and Encryption/JOSE) technologies";
     homepage = "https://github.com/lestrrat-go/jwx";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      arianvp
-      flokli
-    ];
+    maintainers = with maintainers; [ arianvp flokli ];
   };
 }

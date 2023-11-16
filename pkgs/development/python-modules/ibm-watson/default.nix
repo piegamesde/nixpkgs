@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  responses,
-  pytestCheckHook,
-  python-dotenv,
-  pytest-rerunfailures,
-  requests,
-  python-dateutil,
-  websocket-client,
-  ibm-cloud-sdk-core,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, responses, pytestCheckHook
+, python-dotenv, pytest-rerunfailures, requests, python-dateutil
+, websocket-client, ibm-cloud-sdk-core, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ibm-watson";
@@ -27,19 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-AerEd4TkK/A0KhSy+QWxRDD4pjobsx4oDxMr+wUCGt0=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    python-dateutil
-    websocket-client
-    ibm-cloud-sdk-core
-  ];
+  propagatedBuildInputs =
+    [ requests python-dateutil websocket-client ibm-cloud-sdk-core ];
 
-  nativeCheckInputs = [
-    responses
-    pytestCheckHook
-    python-dotenv
-    pytest-rerunfailures
-  ];
+  nativeCheckInputs =
+    [ responses pytestCheckHook python-dotenv pytest-rerunfailures ];
 
   postPatch = ''
     substituteInPlace setup.py \

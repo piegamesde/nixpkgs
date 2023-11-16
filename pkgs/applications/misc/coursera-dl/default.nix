@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  glibcLocales,
-  pandoc,
-  python3,
-}:
+{ lib, fetchFromGitHub, fetchpatch, glibcLocales, pandoc, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "coursera-dl";
@@ -21,11 +14,13 @@ python3.pkgs.buildPythonApplication rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/coursera-dl/coursera-dl/commit/c8796e567698be166cb15f54e095140c1a9b567e.patch";
+      url =
+        "https://github.com/coursera-dl/coursera-dl/commit/c8796e567698be166cb15f54e095140c1a9b567e.patch";
       sha256 = "sha256:07ca6zdyw3ypv7yzfv2kzmjvv86h0rwzllcg0zky27qppqz917bv";
     })
     (fetchpatch {
-      url = "https://github.com/coursera-dl/coursera-dl/commit/6c221706ba828285ca7a30a08708e63e3891b36f.patch";
+      url =
+        "https://github.com/coursera-dl/coursera-dl/commit/6c221706ba828285ca7a30a08708e63e3891b36f.patch";
       sha256 = "sha256-/AKFvBPInSq/lsz+G0jVSl/ukVgCnt66oePAb+66AjI=";
     })
   ];
@@ -54,10 +49,7 @@ python3.pkgs.buildPythonApplication rec {
     urllib3
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-    mock
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook mock ];
 
   disabledTests = [
     "test_get_credentials_with_keyring"
@@ -67,7 +59,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "CLI for downloading Coursera.org videos and naming them";
     homepage = "https://github.com/coursera-dl/coursera-dl";
-    changelog = "https://github.com/coursera-dl/coursera-dl/blob/0.11.5/CHANGELOG.md";
+    changelog =
+      "https://github.com/coursera-dl/coursera-dl/blob/0.11.5/CHANGELOG.md";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ alexfmpe ];
     platforms = platforms.darwin ++ platforms.linux;

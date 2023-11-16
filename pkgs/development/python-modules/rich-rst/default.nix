@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  docutils,
-  rich,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, docutils, rich }:
 
 buildPythonPackage rec {
   pname = "rich-rst";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    docutils
-    rich
-  ];
+  propagatedBuildInputs = [ docutils rich ];
 
   # Module has no tests
   doCheck = false;

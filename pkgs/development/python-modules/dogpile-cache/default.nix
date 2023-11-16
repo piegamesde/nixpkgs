@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pytestCheckHook,
-  mock,
-  mako,
-  decorator,
-  stevedore,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook, mock, mako
+, decorator, stevedore }:
 
 buildPythonPackage rec {
   pname = "dogpile-cache";
@@ -31,16 +22,9 @@ buildPythonPackage rec {
 
   dontUseSetuptoolsCheck = true;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    mako
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock mako ];
 
-  propagatedBuildInputs = [
-    decorator
-    stevedore
-  ];
+  propagatedBuildInputs = [ decorator stevedore ];
 
   meta = with lib; {
     description = "A caching front-end based on the Dogpile lock";

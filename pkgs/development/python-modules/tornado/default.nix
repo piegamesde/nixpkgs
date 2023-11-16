@@ -1,10 +1,4 @@
-{
-  lib,
-  python,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, python, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "tornado";
@@ -28,11 +22,10 @@ buildPythonPackage rec {
     "tornado/test/iostream_test.py"
   ];
 
-  disabledTests =
-    [
-      # Exception: did not get expected log message
-      "test_unix_socket_bad_request"
-    ];
+  disabledTests = [
+    # Exception: did not get expected log message
+    "test_unix_socket_bad_request"
+  ];
 
   pythonImportsCheck = [ "tornado" ];
 

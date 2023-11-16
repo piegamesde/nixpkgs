@@ -1,22 +1,18 @@
-{
-  lib,
-  appimageTools,
-  fetchurl,
-}:
+{ lib, appimageTools, fetchurl }:
 
 let
   pname = "mockoon";
   version = "3.0.0";
 
   src = fetchurl {
-    url = "https://github.com/mockoon/mockoon/releases/download/v${version}/mockoon-${version}.AppImage";
+    url =
+      "https://github.com/mockoon/mockoon/releases/download/v${version}/mockoon-${version}.AppImage";
     hash = "sha256-YGcD/8h21fUoBEAcBVI5jo0UMCKdVRdC1zxDIrHjU+8=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in
 
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''

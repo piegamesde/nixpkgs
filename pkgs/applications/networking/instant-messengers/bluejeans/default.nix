@@ -1,61 +1,25 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  rpmextract,
-  libnotify,
-  libuuid,
-  cairo,
-  cups,
-  pango,
-  fontconfig,
-  udev,
-  dbus,
-  gtk3,
-  atk,
-  at-spi2-atk,
-  expat,
-  gdk-pixbuf,
-  freetype,
-  nspr,
-  glib,
-  nss,
-  libX11,
-  libXrandr,
-  libXrender,
-  libXtst,
-  libXdamage,
-  libxcb,
-  libXcursor,
-  libXi,
-  libXext,
-  libXfixes,
-  libXft,
-  libXcomposite,
-  libXScrnSaver,
-  alsa-lib,
-  pulseaudio,
-  makeWrapper,
-  xdg-utils,
-}:
+{ stdenv, lib, fetchurl, rpmextract, libnotify, libuuid, cairo, cups, pango
+, fontconfig, udev, dbus, gtk3, atk, at-spi2-atk, expat, gdk-pixbuf, freetype
+, nspr, glib, nss, libX11, libXrandr, libXrender, libXtst, libXdamage, libxcb
+, libXcursor, libXi, libXext, libXfixes, libXft, libXcomposite, libXScrnSaver
+, alsa-lib, pulseaudio, makeWrapper, xdg-utils }:
 
 let
-  getFirst = n: v: builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
-in
+  getFirst = n: v:
+    builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "bluejeans";
   version = "2.32.1.3";
 
   src = fetchurl {
-    url = "https://swdl.bluejeans.com/desktop-app/linux/${getFirst 3 version}/BlueJeans_${version}.rpm";
+    url = "https://swdl.bluejeans.com/desktop-app/linux/${
+        getFirst 3 version
+      }/BlueJeans_${version}.rpm";
     sha256 = "sha256-lsUS7JymCMOa5wlWJOwLFm4KRnAYixi9Kk5CYHB17Ac=";
   };
 
-  nativeBuildInputs = [
-    rpmextract
-    makeWrapper
-  ];
+  nativeBuildInputs = [ rpmextract makeWrapper ];
 
   libPath = lib.makeLibraryPath [
     libnotify
@@ -111,7 +75,9 @@ stdenv.mkDerivation rec {
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       opt/BlueJeans/resources/BluejeansHelper
 
-    cc $localtime64_stub -shared -o "${placeholder "out"}"/opt/BlueJeans/liblocaltime64_stub.so
+    cc $localtime64_stub -shared -o "${
+      placeholder "out"
+    }"/opt/BlueJeans/liblocaltime64_stub.so
 
     # make xdg-open overrideable at runtime
     makeWrapper $out/opt/BlueJeans/bluejeans-v2 $out/bin/bluejeans \
@@ -128,7 +94,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "Video, audio, and web conferencing that works together with the collaboration tools you use every day";
+    description =
+      "Video, audio, and web conferencing that works together with the collaboration tools you use every day";
     homepage = "https://www.bluejeans.com";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
@@ -136,3 +103,4 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
   };
 }
+

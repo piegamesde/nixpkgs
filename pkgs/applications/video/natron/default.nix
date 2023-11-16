@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  wrapQtAppsHook,
-  boost,
-  cairo,
-  ceres-solver,
-  expat,
-  extra-cmake-modules,
-  glog,
-  libXdmcp,
-  python3,
-  wayland,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapQtAppsHook, boost, cairo
+, ceres-solver, expat, extra-cmake-modules, glog, libXdmcp, python3, wayland }:
 
 let
   minorVersion = "2.5";
@@ -25,8 +10,7 @@ let
     rev = "Natron-v${minorVersion}";
     hash = "sha256-TD7Uge9kKbFxOmOCn+TSQovnKTmFS3uERTu5lmZFHbc=";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit version;
   pname = "natron";
 
@@ -40,11 +24,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = [ "-DNATRON_SYSTEM_LIBS=ON" ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     boost
@@ -68,10 +48,7 @@ stdenv.mkDerivation {
   postFixup = ''
     wrapProgram $out/bin/Natron \
       --prefix PYTHONPATH : "${
-        python3.pkgs.makePythonPath [
-          python3.pkgs.qtpy
-          python3.pkgs.pyside2
-        ]
+        python3.pkgs.makePythonPath [ python3.pkgs.qtpy python3.pkgs.pyside2 ]
       }" \
       --set-default OCIO "$out/share/OpenColorIO-Configs/blender/config.ocio"
   '';

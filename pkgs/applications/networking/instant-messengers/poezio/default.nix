@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  pkg-config,
-  python3,
-}:
+{ lib, fetchFromGitLab, pkg-config, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "poezio";
@@ -40,7 +35,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Free console XMPP client";
     homepage = "https://poez.io";
-    changelog = "https://lab.louiz.org/poezio/poezio/-/blob/v${version}/CHANGELOG";
+    changelog =
+      "https://lab.louiz.org/poezio/poezio/-/blob/v${version}/CHANGELOG";
     license = licenses.zlib;
     maintainers = with maintainers; [ lsix ];
   };

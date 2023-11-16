@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "socklog";
@@ -15,11 +11,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "admin/socklog-${version}";
 
-  outputs = [
-    "out"
-    "man"
-    "doc"
-  ];
+  outputs = [ "out" "man" "doc" ];
 
   postPatch = ''
     # Fails to run as user without supplementary groups

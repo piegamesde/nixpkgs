@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  libpng,
-  zlib,
-  zopfli,
-}:
+{ lib, stdenv, fetchzip, libpng, zlib, zopfli }:
 
 stdenv.mkDerivation rec {
   pname = "apngasm";
@@ -17,11 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "0qhljqql159xkn1l83vz0q8wvzr7rjz4jnhiy0zn36pgvacg0zn1";
   };
 
-  buildInputs = [
-    libpng
-    zlib
-    zopfli
-  ];
+  buildInputs = [ libpng zlib zopfli ];
 
   postPatch = ''
     rm -rf libpng zlib zopfli
@@ -36,10 +25,12 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "Create highly optimized Animated PNG files from PNG/TGA images";
+    description =
+      "Create highly optimized Animated PNG files from PNG/TGA images";
     homepage = "https://apngasm.sourceforge.net/";
     license = licenses.zlib;
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.linux;
   };
+
 }

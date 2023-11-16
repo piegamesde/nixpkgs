@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonApplication,
-}:
+{ lib, fetchPypi, buildPythonApplication }:
 
 buildPythonApplication rec {
   pname = "py65";

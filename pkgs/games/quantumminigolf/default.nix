@@ -1,28 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fftwSinglePrec,
-  freetype,
-  SDL,
-  SDL_ttf,
-}:
+{ lib, stdenv, fetchurl, fftwSinglePrec, freetype, SDL, SDL_ttf }:
 
 stdenv.mkDerivation rec {
   pname = "quantumminigolf";
   version = "1.1.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/quantumminigolf/quantumminigolf/${version}/quantumminigolf-${version}.src.tar.gz";
+    url =
+      "mirror://sourceforge/project/quantumminigolf/quantumminigolf/${version}/quantumminigolf-${version}.src.tar.gz";
     sha256 = "sha256-Y3LUGk6pAuNGVOYkc0WYDbgJFtwJJn+aLRHmCKY7W5k=";
   };
 
-  buildInputs = [
-    fftwSinglePrec
-    freetype
-    SDL
-    SDL_ttf
-  ];
+  buildInputs = [ fftwSinglePrec freetype SDL SDL_ttf ];
 
   preBuild = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I${

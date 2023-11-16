@@ -1,18 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-  python-engineio,
-  python-socketio,
-  pythonOlder,
-  websockets,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-aiohttp, pytest-asyncio, pytestCheckHook, python-engineio
+, python-socketio, pythonOlder, websockets }:
 
 buildPythonPackage rec {
   pname = "aioambient";
@@ -35,19 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    python-engineio
-    python-socketio
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aiohttp python-engineio python-socketio websockets ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
   # Ignore the examples directory as the files are prefixed with test_
   disabledTestPaths = [ "examples/" ];

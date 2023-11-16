@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  luajit,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, luajit }:
 
 rustPlatform.buildRustPackage rec {
   pname = "river-luatile";

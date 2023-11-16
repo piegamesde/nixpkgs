@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  colorlog,
-  pyvmomi,
-  requests,
-  verboselogs,
-  pyopenssl,
-  setuptools,
-  mock,
-  pytest-mock,
-  pytestCheckHook,
-  qemu,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, colorlog, pyvmomi
+, requests, verboselogs, pyopenssl, setuptools, mock, pytest-mock
+, pytestCheckHook, qemu }:
 
 buildPythonPackage rec {
   pname = "cot";
@@ -28,21 +14,10 @@ buildPythonPackage rec {
     hash = "sha256-9LNVNBX5DarGVvidPoLnmz11F5Mjm7FzpoO0zAzrJjU=";
   };
 
-  propagatedBuildInputs = [
-    colorlog
-    pyvmomi
-    requests
-    verboselogs
-    pyopenssl
-    setuptools
-  ];
+  propagatedBuildInputs =
+    [ colorlog pyvmomi requests verboselogs pyopenssl setuptools ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    pytest-mock
-    qemu
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook pytest-mock qemu ];
 
   prePatch = ''
     # argparse is part of the standardlib

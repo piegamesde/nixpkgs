@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.flow;
-in
-{
+let cfg = config.services.prometheus.exporters.flow;
+in {
   port = 9590;
   extraOpts = {
     brokers = mkOption {
@@ -48,8 +41,13 @@ in
           -asn ${toString cfg.asn} \
           -topic ${cfg.topic} \
           -brokers ${concatStringsSep "," cfg.brokers} \
-          ${optionalString (cfg.partitions != [ ]) "-partitions ${concatStringsSep "," cfg.partitions}"} \
-          -addr ${cfg.listenAddress}:${toString cfg.port} ${concatStringsSep " " cfg.extraFlags}
+          ${
+            optionalString (cfg.partitions != [ ])
+            "-partitions ${concatStringsSep "," cfg.partitions}"
+          } \
+          -addr ${cfg.listenAddress}:${toString cfg.port} ${
+            concatStringsSep " " cfg.extraFlags
+          }
       '';
     };
   };

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  CoreServices,
-}:
+{ lib, stdenv, fetchurl, CoreServices }:
 
 stdenv.mkDerivation rec {
   version = "060102";

@@ -1,44 +1,15 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  setuptools,
-  pythonOlder,
-  fetchPypi,
-  substituteAll,
+{ lib, stdenv, buildPythonPackage, setuptools, pythonOlder, fetchPypi
+, substituteAll
 
-  # build
-  autoPatchelfHook,
-  attrdict,
-  doxygen,
-  pkg-config,
-  python,
-  sip,
-  which,
+# build
+, autoPatchelfHook, attrdict, doxygen, pkg-config, python, sip, which
 
-  # runtime
-  cairo,
-  gst_all_1,
-  gtk3,
-  libGL,
-  libGLU,
-  libSM,
-  libXinerama,
-  libXtst,
-  libXxf86vm,
-  libglvnd,
-  mesa,
-  pango,
-  SDL,
-  webkitgtk,
-  wxGTK,
-  xorgproto,
+# runtime
+, cairo, gst_all_1, gtk3, libGL, libGLU, libSM, libXinerama, libXtst, libXxf86vm
+, libglvnd, mesa, pango, SDL, webkitgtk, wxGTK, xorgproto
 
-  # propagates
-  numpy,
-  pillow,
-  six,
-}:
+# propagates
+, numpy, pillow, six }:
 
 buildPythonPackage rec {
   pname = "wxPython";
@@ -60,41 +31,25 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    attrdict
-    pkg-config
-    setuptools
-    SDL
-    sip
-    which
-    wxGTK
-  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = [ attrdict pkg-config setuptools SDL sip which wxGTK ]
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
-  buildInputs =
-    [
-      wxGTK
-      SDL
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      gst_all_1.gst-plugins-base
-      gst_all_1.gstreamer
-      libGL
-      libGLU
-      libSM
-      libXinerama
-      libXtst
-      libXxf86vm
-      libglvnd
-      mesa
-      webkitgtk
-      xorgproto
-    ];
-
-  propagatedBuildInputs = [
-    numpy
-    pillow
-    six
+  buildInputs = [ wxGTK SDL ] ++ lib.optionals stdenv.isLinux [
+    gst_all_1.gst-plugins-base
+    gst_all_1.gstreamer
+    libGL
+    libGLU
+    libSM
+    libXinerama
+    libXtst
+    libXxf86vm
+    libglvnd
+    mesa
+    webkitgtk
+    xorgproto
   ];
+
+  propagatedBuildInputs = [ numpy pillow six ];
 
   buildPhase = ''
     runHook preBuild

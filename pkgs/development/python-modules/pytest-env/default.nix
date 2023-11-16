@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hatch-vcs,
-  hatchling,
-  pytest,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, hatch-vcs, hatchling, pytest
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-env";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-17L1Jz7G0eIhdXmYvC9Q0kdO19C5MxuSVWAR+txOmr8=";
   };
 
-  nativeBuildInputs = [
-    hatch-vcs
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-vcs hatchling ];
 
   buildInputs = [ pytest ];
 

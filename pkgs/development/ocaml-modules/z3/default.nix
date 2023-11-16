@@ -1,25 +1,16 @@
-{
-  stdenv,
-  lib,
-  ocaml,
-  findlib,
-  zarith,
-  z3,
-}:
+{ stdenv, lib, ocaml, findlib, zarith, z3 }:
 
 if lib.versionOlder ocaml.version "4.07" then
   throw "z3 is not available for OCaml ${ocaml.version}"
 else
 
   let
-    z3-with-ocaml =
-      (z3.override {
-        ocamlBindings = true;
-        inherit ocaml findlib zarith;
-      });
-  in
+    z3-with-ocaml = (z3.override {
+      ocamlBindings = true;
+      inherit ocaml findlib zarith;
+    });
 
-  stdenv.mkDerivation {
+  in stdenv.mkDerivation {
 
     pname = "ocaml${ocaml.version}-z3";
     inherit (z3-with-ocaml) version;
@@ -39,7 +30,5 @@ else
 
     strictDeps = true;
 
-    meta = z3.meta // {
-      description = "Z3 Theorem Prover (OCaml API)";
-    };
+    meta = z3.meta // { description = "Z3 Theorem Prover (OCaml API)"; };
   }

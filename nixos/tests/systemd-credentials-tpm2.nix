@@ -1,10 +1,4 @@
-import ./make-test-python.nix (
-  {
-    lib,
-    pkgs,
-    system,
-    ...
-  }:
+import ./make-test-python.nix ({ lib, pkgs, system, ... }:
 
   let
     tpmSocketPath = "/tmp/swtpm-sock";
@@ -12,30 +6,25 @@ import ./make-test-python.nix (
       x86_64-linux = "tpm-tis";
       aarch64-linux = "tpm-tis-device";
     };
-  in
 
-  {
+  in {
     name = "systemd-credentials-tpm2";
 
-    meta = {
-      maintainers = with pkgs.lib.maintainers; [ tmarkus ];
-    };
+    meta = { maintainers = with pkgs.lib.maintainers; [ tmarkus ]; };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        virtualisation = {
-          qemu.options = [
-            "-chardev socket,id=chrtpm,path=${tpmSocketPath}"
-            "-tpmdev emulator,id=tpm_dev_0,chardev=chrtpm"
-            "-device ${tpmDeviceModels.${system}},tpmdev=tpm_dev_0"
-          ];
-        };
-
-        boot.initrd.availableKernelModules = [ "tpm_tis" ];
-
-        environment.systemPackages = with pkgs; [ diffutils ];
+    nodes.machine = { pkgs, ... }: {
+      virtualisation = {
+        qemu.options = [
+          "-chardev socket,id=chrtpm,path=${tpmSocketPath}"
+          "-tpmdev emulator,id=tpm_dev_0,chardev=chrtpm"
+          "-device ${tpmDeviceModels.${system}},tpmdev=tpm_dev_0"
+        ];
       };
+
+      boot.initrd.availableKernelModules = [ "tpm_tis" ];
+
+      environment.systemPackages = with pkgs; [ diffutils ];
+    };
 
     testScript = ''
       import subprocess
@@ -129,5 +118,4 @@ import ./make-test-python.nix (
       with subtest("Check whether systemd service can access credential in $CREDENTIALS_DIRECTORY"):
           systemd_run(machine, f"cmp --silent -- $CREDENTIALS_DIRECTORY/{CRED_NAME} {CRED_RAW_FILE}")
     '';
-  }
-)
+  })

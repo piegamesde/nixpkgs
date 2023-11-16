@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  einops,
-  fetchFromGitHub,
-  flit-core,
-  numba,
-  numpy,
-  pandas,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-  xarray,
-}:
+{ lib, buildPythonPackage, einops, fetchFromGitHub, flit-core, numba, numpy
+, pandas, pytestCheckHook, pythonOlder, scipy, xarray }:
 
 buildPythonPackage rec {
   pname = "xarray-einstats";
@@ -29,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    xarray
-  ];
+  propagatedBuildInputs = [ numpy scipy xarray ];
 
-  nativeCheckInputs = [
-    einops
-    numba
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ einops numba pytestCheckHook ];
 
   pythonImportsCheck = [ "xarray_einstats" ];
 

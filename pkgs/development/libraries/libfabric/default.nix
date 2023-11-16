@@ -1,15 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  autoreconfHook,
-  enablePsm2 ? (stdenv.isx86_64 && stdenv.isLinux),
-  libpsm2,
-  enableOpx ? (stdenv.isx86_64 && stdenv.isLinux),
-  libuuid,
-  numactl,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook
+, enablePsm2 ? (stdenv.isx86_64 && stdenv.isLinux), libpsm2
+, enableOpx ? (stdenv.isx86_64 && stdenv.isLinux), libuuid, numactl }:
 
 stdenv.mkDerivation rec {
   pname = "libfabric";
@@ -24,16 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-30ADIUbpzwyxMJtPyLDwXYGJF4c1ZiSJH2mBBtgfE18=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs =
-    lib.optionals enableOpx [
-      libuuid
-      numactl
-    ]
+  buildInputs = lib.optionals enableOpx [ libuuid numactl ]
     ++ lib.optionals enablePsm2 [ libpsm2 ];
 
   configureFlags = [
@@ -44,10 +28,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://ofiwg.github.io/libfabric/";
     description = "Open Fabric Interfaces";
-    license = with licenses; [
-      gpl2
-      bsd2
-    ];
+    license = with licenses; [ gpl2 bsd2 ];
     platforms = platforms.all;
     maintainers = [ maintainers.bzizou ];
   };

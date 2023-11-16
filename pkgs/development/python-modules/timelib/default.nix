@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, cython, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "timelib";
@@ -21,4 +16,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/pediapress/timelib/";
     license = licenses.zlib;
   };
+
 }

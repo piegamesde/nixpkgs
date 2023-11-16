@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  fetchpatch,
-  pytest,
-  pytest-asyncio,
-  pytestCheckHook,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, fetchpatch, pytest
+, pytest-asyncio, pytestCheckHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pytest-mock";
@@ -26,7 +17,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # Remove unnecessary py.code import
-      url = "https://github.com/pytest-dev/pytest-mock/pull/328/commits/e2016928db1147a2a46de6ee9fa878ca0e9d8fc8.patch";
+      url =
+        "https://github.com/pytest-dev/pytest-mock/pull/328/commits/e2016928db1147a2a46de6ee9fa878ca0e9d8fc8.patch";
       hash = "sha256-5Gpzi7h7Io1CMykmBCZR/upM8E9isc3jEItYgwjEOWA=";
     })
   ];
@@ -35,17 +27,16 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "pytest_mock" ];
 
   meta = with lib; {
-    description = "Thin wrapper around the mock package for easier use with pytest";
+    description =
+      "Thin wrapper around the mock package for easier use with pytest";
     homepage = "https://github.com/pytest-dev/pytest-mock";
-    changelog = "https://github.com/pytest-dev/pytest-mock/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/pytest-dev/pytest-mock/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

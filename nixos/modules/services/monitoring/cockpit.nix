@@ -1,24 +1,11 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 
 let
   cfg = config.services.cockpit;
   inherit (lib)
-    types
-    mkEnableOption
-    mkOption
-    mkIf
-    mdDoc
-    literalMD
-    mkPackageOptionMD
-  ;
+    types mkEnableOption mkOption mkIf mdDoc literalMD mkPackageOptionMD;
   settingsFormat = pkgs.formats.ini { };
-in
-{
+in {
   options = {
     services.cockpit = {
       enable = mkEnableOption (mdDoc "Cockpit");
@@ -59,7 +46,8 @@ in
     environment.pathsToLink = [ "/share/cockpit" ];
 
     # generate cockpit settings
-    environment.etc."cockpit/cockpit.conf".source = settingsFormat.generate "cockpit.conf" cfg.settings;
+    environment.etc."cockpit/cockpit.conf".source =
+      settingsFormat.generate "cockpit.conf" cfg.settings;
 
     security.pam.services.cockpit = { };
 
@@ -70,7 +58,8 @@ in
 
     # Translation from $out/lib/systemd/system/systemd-cockpithttps.slice
     systemd.slices.system-cockpithttps = {
-      description = "Resource limits for all cockpit-ws-https@.service instances";
+      description =
+        "Resource limits for all cockpit-ws-https@.service instances";
       sliceConfig = {
         TasksMax = 200;
         MemoryHigh = "75%";
@@ -82,10 +71,7 @@ in
     systemd.sockets."cockpit-wsinstance-https@" = {
       unitConfig = {
         Description = "Socket for Cockpit Web Service https instance %I";
-        BindsTo = [
-          "cockpit.service"
-          "cockpit-wsinstance-https@%i.service"
-        ];
+        BindsTo = [ "cockpit.service" "cockpit-wsinstance-https@%i.service" ];
         # clean up the socket after the service exits, to prevent fd leak
         # this also effectively prevents a DoS by starting arbitrarily many sockets, as
         # the services are resource-limited by system-cockpithttps.slice
@@ -106,7 +92,8 @@ in
       documentation = [ "man:cockpit-ws(8)" ];
       serviceConfig = {
         Slice = "system-cockpithttps.slice";
-        ExecStart = "${cfg.package}/libexec/cockpit-ws --for-tls-proxy --port=0";
+        ExecStart =
+          "${cfg.package}/libexec/cockpit-ws --for-tls-proxy --port=0";
         User = "root";
         Group = "";
       };
@@ -178,7 +165,8 @@ in
           ''-${cfg.package}/share/cockpit/motd/update-motd "" localhost''
           "-${pkgs.coreutils}/bin/ln -snf active.motd /run/cockpit/motd"
         ];
-        ExecStopPost = "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
+        ExecStopPost =
+          "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
       };
       wantedBy = [ "sockets.target" ];
     };
@@ -188,10 +176,7 @@ in
       description = "Cockpit Web Service";
       documentation = [ "man:cockpit-ws(8)" ];
       restartIfChanged = true;
-      path = with pkgs; [
-        coreutils
-        cfg.package
-      ];
+      path = with pkgs; [ coreutils cfg.package ];
       requires = [
         "cockpit.socket"
         "cockpit-wsinstance-http.socket"
@@ -201,18 +186,15 @@ in
         "cockpit-wsinstance-http.socket"
         "cockpit-wsinstance-https-factory.socket"
       ];
-      environment = {
-        G_MESSAGES_DEBUG = "cockpit-ws,cockpit-bridge";
-      };
+      environment = { G_MESSAGES_DEBUG = "cockpit-ws,cockpit-bridge"; };
       serviceConfig = {
         RuntimeDirectory = "cockpit/tls";
-        ExecStartPre =
-          [
-            # cockpit-tls runs in a more constrained environment, these + means that these commands
-            # will run with full privilege instead of inside that constrained environment
-            # See https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart= for details
-            "+${cfg.package}/libexec/cockpit-certificate-ensure --for-cockpit-tls"
-          ];
+        ExecStartPre = [
+          # cockpit-tls runs in a more constrained environment, these + means that these commands
+          # will run with full privilege instead of inside that constrained environment
+          # See https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart= for details
+          "+${cfg.package}/libexec/cockpit-certificate-ensure --for-cockpit-tls"
+        ];
         ExecStart = "${cfg.package}/libexec/cockpit-tls";
         User = "root";
         Group = "";
@@ -222,11 +204,7 @@ in
         PrivateTmp = true;
         PrivateDevices = true;
         ProtectKernelTunables = true;
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
         MemoryDenyWriteExecute = true;
       };
     };
@@ -246,14 +224,10 @@ in
       description = "Cockpit motd updater service";
       documentation = [ "man:cockpit-ws(8)" ];
       wants = [ "network.target" ];
-      after = [
-        "network.target"
-        "cockpit.socket"
-      ];
+      after = [ "network.target" "cockpit.socket" ];
     };
 
-    systemd.tmpfiles.rules = [
-      # From $out/lib/tmpfiles.d/cockpit-tmpfiles.conf
+    systemd.tmpfiles.rules = [ # From $out/lib/tmpfiles.d/cockpit-tmpfiles.conf
       "C /run/cockpit/inactive.motd 0640 root root - ${cfg.package}/share/cockpit/motd/inactive.motd"
       "f /run/cockpit/active.motd   0640 root root -"
       "L+ /run/cockpit/motd - - - - inactive.motd"

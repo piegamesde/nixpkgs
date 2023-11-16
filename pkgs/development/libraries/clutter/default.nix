@@ -1,59 +1,25 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libGLU,
-  libGL,
-  libX11,
-  libXext,
-  libXfixes,
-  libXdamage,
-  libXcomposite,
-  libXi,
-  libxcb,
-  cogl,
-  pango,
-  atk,
-  json-glib,
-  gobject-introspection,
-  gtk3,
-  gnome,
-  libinput,
-  libgudev,
-  libxkbcommon,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libGLU, libGL, libX11, libXext, libXfixes
+, libXdamage, libXcomposite, libXi, libxcb, cogl, pango, atk, json-glib
+, gobject-introspection, gtk3, gnome, libinput, libgudev, libxkbcommon }:
 
 let
   pname = "clutter";
   version = "1.26.4";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${
+        lib.versions.majorMinor version
+      }/${name}.tar.xz";
     sha256 = "1rn4cd1an6a9dfda884aqpcwcgq8dgydpqvb19nmagw4b70zlj4b";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   buildInputs = [ gtk3 ];
-  nativeBuildInputs = [
-    pkg-config
-    gobject-introspection
-  ];
-  propagatedBuildInputs =
-    [
-      cogl
-      pango
-      atk
-      json-glib
-      gobject-introspection
-    ]
+  nativeBuildInputs = [ pkg-config gobject-introspection ];
+  propagatedBuildInputs = [ cogl pango atk json-glib gobject-introspection ]
     ++ lib.optionals (!stdenv.isDarwin) [
       libX11
       libGL
@@ -69,15 +35,13 @@ stdenv.mkDerivation rec {
       libxkbcommon
     ];
 
-  configureFlags =
-    [
-      "--enable-introspection" # needed by muffin AFAIK
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      "--without-x"
-      "--enable-x11-backend=no"
-      "--enable-quartz-backend=yes"
-    ];
+  configureFlags = [
+    "--enable-introspection" # needed by muffin AFAIK
+  ] ++ lib.optionals stdenv.isDarwin [
+    "--without-x"
+    "--enable-x11-backend=no"
+    "--enable-quartz-backend=yes"
+  ];
 
   #doCheck = true; # no tests possible without a display
 
@@ -89,7 +53,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = {
-    description = "Library for creating fast, dynamic graphical user interfaces";
+    description =
+      "Library for creating fast, dynamic graphical user interfaces";
 
     longDescription = ''
       Clutter is free software library for creating fast, compelling,

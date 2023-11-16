@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  ocamlPackages,
-}:
+{ lib, fetchFromGitHub, ocamlPackages }:
 
 with ocamlPackages;
 
@@ -21,10 +17,7 @@ buildDunePackage rec {
     hash = "sha256-/j3VJRx/w9HQUnfoq/4gMWV5oVdRiPGddrgbCDk5y8c=";
   };
 
-  nativeBuildInpts = [
-    ppx_sexp_conv
-    ppx_deriving
-  ];
+  nativeBuildInpts = [ ppx_sexp_conv ppx_deriving ];
 
   buildInputs = [
     erm_xmpp

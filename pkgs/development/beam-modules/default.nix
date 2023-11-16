@@ -1,8 +1,4 @@
-{
-  lib,
-  __splicedPackages,
-  erlang,
-}:
+{ lib, __splicedPackages, erlang }:
 
 let
   pkgs = __splicedPackages;
@@ -11,22 +7,19 @@ let
   lib' = pkgs.callPackage ./lib.nix { };
 
   # FIXME: add support for overrideScope
-  callPackageWithScope =
-    scope: drv: args:
-    lib.callPackageWith scope drv args;
+  callPackageWithScope = scope: drv: args: lib.callPackageWith scope drv args;
   mkScope = scope: pkgs // scope;
 
-  packages =
-    self:
+  packages = self:
     let
       defaultScope = mkScope self;
       callPackage = drv: args: callPackageWithScope defaultScope drv args;
-    in
-    rec {
+    in rec {
       inherit callPackage erlang;
       beamPackages = self;
 
-      inherit (callPackage ../tools/build-managers/rebar3 { }) rebar3 rebar3WithPlugins;
+      inherit (callPackage ../tools/build-managers/rebar3 { })
+        rebar3 rebar3WithPlugins;
       rebar = callPackage ../tools/build-managers/rebar { };
 
       pc = callPackage ./pc { };
@@ -80,15 +73,17 @@ let
       # Remove old versions of elixir, when the supports fades out:
       # https://hexdocs.pm/elixir/compatibility-and-deprecations.html
 
-      elixir-ls = callPackage ./elixir-ls { inherit elixir fetchMixDeps mixRelease; };
+      elixir-ls =
+        callPackage ./elixir-ls { inherit elixir fetchMixDeps mixRelease; };
 
       lfe = lfe_2_1;
-      lfe_2_1 = lib'.callLFE ../interpreters/lfe/2.1.nix { inherit erlang buildRebar3 buildHex; };
+      lfe_2_1 = lib'.callLFE ../interpreters/lfe/2.1.nix {
+        inherit erlang buildRebar3 buildHex;
+      };
 
       # Non hex packages. Examples how to build Rebar/Mix packages with and
       # without helper functions buildRebar3 and buildMix.
       hex = callPackage ./hex { };
       webdriver = callPackage ./webdriver { };
     };
-in
-makeExtensible packages
+in makeExtensible packages

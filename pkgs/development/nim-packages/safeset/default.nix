@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildNimPackage, fetchFromGitHub }:
 buildNimPackage rec {
   pname = "safeset";
 
@@ -17,10 +13,8 @@ buildNimPackage rec {
 
   doCheck = true;
 
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "safeset library for nim";
       license = [ licenses.gpl2 ];
       maintainers = [ maintainers.marcusramberg ];

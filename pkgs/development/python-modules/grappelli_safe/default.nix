@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "1.1.1";
@@ -31,4 +27,5 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ prikhi ];
     platforms = platforms.unix;
   };
+
 }

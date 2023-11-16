@@ -1,31 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  zlib,
-  eigen,
-  libGL,
-  doxygen,
-  spglib,
-  mmtf-cpp,
-  glew,
-  python3,
-  libarchive,
-  libmsym,
-  msgpack,
-  qttools,
-  wrapQtAppsHook,
+{ lib, stdenv, fetchFromGitHub, cmake, zlib, eigen, libGL, doxygen, spglib
+, mmtf-cpp, glew, python3, libarchive, libmsym, msgpack, qttools, wrapQtAppsHook
 }:
 
 let
-  pythonWP = python3.withPackages (
-    p:
-    with p; [
-      openbabel-bindings
-      numpy
-    ]
-  );
+  pythonWP = python3.withPackages (p: with p; [ openbabel-bindings numpy ]);
 
   # Pure data repositories
   moleculesRepo = fetchFromGitHub {
@@ -40,8 +18,8 @@ let
     rev = "1.0.1";
     sha256 = "sH/WuvLaYu6akOc3ssAKhnxD8KNoDxuafDSozHqJZC4=";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "avogadrolibs";
   version = "1.97.0";
 
@@ -57,10 +35,7 @@ stdenv.mkDerivation rec {
     cp -r ${crystalsRepo} crystals
   '';
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
   buildInputs = [
     eigen

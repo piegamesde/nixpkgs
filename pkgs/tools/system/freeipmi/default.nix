@@ -1,12 +1,4 @@
-{
-  buildPackages,
-  fetchurl,
-  lib,
-  stdenv,
-  libgcrypt,
-  readline,
-  libgpg-error,
-}:
+{ buildPackages, fetchurl, lib, stdenv, libgcrypt, readline, libgpg-error }:
 
 stdenv.mkDerivation rec {
   version = "1.6.11";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = [
-    libgcrypt
-    readline
-    libgpg-error
-  ];
+  buildInputs = [ libgcrypt readline libgpg-error ];
 
   configureFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     "ac_cv_file__dev_urandom=true"
@@ -33,7 +21,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = {
-    description = "Implementation of the Intelligent Platform Management Interface";
+    description =
+      "Implementation of the Intelligent Platform Management Interface";
 
     longDescription = ''
       GNU FreeIPMI provides in-band and out-of-band IPMI software based on

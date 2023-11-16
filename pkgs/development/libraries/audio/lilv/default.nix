@@ -1,27 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  lv2,
-  pkg-config,
-  python3,
-  serd,
-  sord,
-  sratom,
-  wafHook,
+{ lib, stdenv, fetchurl, lv2, pkg-config, python3, serd, sord, sratom, wafHook
 
-  # test derivations
-  pipewire,
-}:
+# test derivations
+, pipewire }:
 
 stdenv.mkDerivation rec {
   pname = "lilv";
   version = "0.24.12";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "https://download.drobilla.net/${pname}-${version}.tar.bz2";
@@ -30,22 +16,12 @@ stdenv.mkDerivation rec {
 
   patches = [ ./lilv-pkgconfig.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-    wafHook
-  ];
-  buildInputs = [
-    serd
-    sord
-    sratom
-  ];
+  nativeBuildInputs = [ pkg-config python3 wafHook ];
+  buildInputs = [ serd sord sratom ];
   propagatedBuildInputs = [ lv2 ];
   dontAddWafCrossFlags = true;
 
-  passthru.tests = {
-    inherit pipewire;
-  };
+  passthru.tests = { inherit pipewire; };
 
   meta = with lib; {
     homepage = "http://drobilla.net/software/lilv";

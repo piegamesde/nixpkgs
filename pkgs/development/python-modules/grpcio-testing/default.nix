@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  grpcio,
-  protobuf,
-  pythonOlder,
-  pythonRelaxDepsHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, grpcio, protobuf, pythonOlder
+, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "grpcio-testing";
@@ -25,10 +18,7 @@ buildPythonPackage rec {
       --replace "'grpcio>={version}'.format(version=grpc_version.VERSION)" "'grpcio'"
   '';
 
-  propagatedBuildInputs = [
-    grpcio
-    protobuf
-  ];
+  propagatedBuildInputs = [ grpcio protobuf ];
 
   pythonImportsCheck = [ "grpc_testing" ];
 

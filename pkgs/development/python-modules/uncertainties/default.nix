@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  nose,
-  numpy,
-  future,
-}:
+{ lib, fetchPypi, buildPythonPackage, nose, numpy, future }:
 
 buildPythonPackage rec {
   pname = "uncertainties";
@@ -17,10 +10,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ future ];
-  nativeCheckInputs = [
-    nose
-    numpy
-  ];
+  nativeCheckInputs = [ nose numpy ];
 
   checkPhase = ''
     nosetests -sv
@@ -28,7 +18,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://pythonhosted.org/uncertainties/";
-    description = "Transparent calculations with uncertainties on the quantities involved (aka error propagation)";
+    description =
+      "Transparent calculations with uncertainties on the quantities involved (aka error propagation)";
     maintainers = with maintainers; [ rnhmjoj ];
     license = licenses.bsd3;
   };

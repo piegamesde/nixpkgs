@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  cairomm,
-  cmake,
-  libsndfile,
-  lv2,
-  ntk,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, cairomm, cmake, libsndfile, lv2, ntk
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "sorcer";
@@ -22,17 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1x7pi77nal10717l02qpnhrx6d7w5nqrljkn9zx5w7gpb8fpb3vp";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    boost
-    cairomm
-    libsndfile
-    lv2
-    ntk
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ boost cairomm libsndfile lv2 ntk ];
 
   postPatch = ''
     # Fix build with lv2 1.18: https://github.com/brummer10/guitarix/commit/c0334c72
@@ -48,7 +29,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     homepage = "http://openavproductions.com/sorcer/";
-    description = "A wavetable LV2 plugin synth, targeted at the electronic / dubstep genre";
+    description =
+      "A wavetable LV2 plugin synth, targeted at the electronic / dubstep genre";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.magnetophon ];
     platforms = platforms.linux;

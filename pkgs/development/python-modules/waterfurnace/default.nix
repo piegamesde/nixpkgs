@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  mock,
-  pytestCheckHook,
-  requests,
-  pythonOlder,
-  websocket-client,
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, mock, pytestCheckHook
+, requests, pythonOlder, websocket-client }:
 
 buildPythonPackage rec {
   pname = "waterfurnace";
@@ -29,23 +20,17 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  propagatedBuildInputs = [
-    click
-    requests
-    websocket-client
-  ];
+  propagatedBuildInputs = [ click requests websocket-client ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "waterfurnace" ];
 
   meta = with lib; {
     description = "Python interface to waterfurnace geothermal systems";
     homepage = "https://github.com/sdague/waterfurnace";
-    changelog = "https://github.com/sdague/waterfurnace/blob/v${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/sdague/waterfurnace/blob/v${version}/HISTORY.rst";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

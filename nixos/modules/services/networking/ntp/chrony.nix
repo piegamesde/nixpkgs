@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,12 +11,14 @@ let
   keyFile = "${stateDir}/chrony.keys";
 
   configFile = pkgs.writeText "chrony.conf" ''
-    ${concatMapStringsSep "\n"
-      (server: "server " + server + " " + cfg.serverOption + optionalString (cfg.enableNTS) " nts")
-      cfg.servers}
+    ${concatMapStringsSep "\n" (server:
+      "server " + server + " " + cfg.serverOption
+      + optionalString (cfg.enableNTS) " nts") cfg.servers}
 
     ${optionalString (cfg.initstepslew.enabled && (cfg.servers != [ ]))
-      "initstepslew ${toString cfg.initstepslew.threshold} ${concatStringsSep " " cfg.servers}"}
+    "initstepslew ${toString cfg.initstepslew.threshold} ${
+      concatStringsSep " " cfg.servers
+    }"}
 
     driftfile ${driftFile}
     keyfile ${keyFile}
@@ -32,16 +29,9 @@ let
     ${cfg.extraConfig}
   '';
 
-  chronyFlags = [
-    "-n"
-    "-m"
-    "-u"
-    "chrony"
-    "-f"
-    "${configFile}"
-  ] ++ cfg.extraFlags;
-in
-{
+  chronyFlags = [ "-n" "-m" "-u" "chrony" "-f" "${configFile}" ]
+    ++ cfg.extraFlags;
+in {
   options = {
     services.chrony = {
       enable = mkOption {
@@ -73,10 +63,7 @@ in
 
       serverOption = mkOption {
         default = "iburst";
-        type = types.enum [
-          "iburst"
-          "offline"
-        ];
+        type = types.enum [ "iburst" "offline" ];
         description = lib.mdDoc ''
           Set option for server directives.
 
@@ -175,14 +162,8 @@ in
       wantedBy = [ "multi-user.target" ];
       wants = [ "time-sync.target" ];
       before = [ "time-sync.target" ];
-      after = [
-        "network.target"
-        "nss-lookup.target"
-      ];
-      conflicts = [
-        "ntpd.service"
-        "systemd-timesyncd.service"
-      ];
+      after = [ "network.target" "nss-lookup.target" ];
+      conflicts = [ "ntpd.service" "systemd-timesyncd.service" ];
 
       path = [ chronyPkg ];
 
@@ -208,11 +189,7 @@ in
           "CAP_SYS_TIME"
         ];
         # Device Access
-        DeviceAllow = [
-          "char-pps rw"
-          "char-ptp rw"
-          "char-rtc rw"
-        ];
+        DeviceAllow = [ "char-pps rw" "char-ptp rw" "char-rtc rw" ];
         DevicePolicy = "closed";
         # Security
         NoNewPrivileges = true;
@@ -228,11 +205,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

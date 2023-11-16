@@ -1,14 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  dune-configurator,
-  alsa,
-  ao,
-  mad,
-  pulseaudio,
-  theora,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, alsa, ao, mad
+, pulseaudio, theora }:
 
 buildDunePackage rec {
   pname = "mm";
@@ -36,7 +27,8 @@ buildDunePackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-mm";
-    description = "High-level library to create and manipulate multimedia streams";
+    description =
+      "High-level library to create and manipulate multimedia streams";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ dandellion ];
   };

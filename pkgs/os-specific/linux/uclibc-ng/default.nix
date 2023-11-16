@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchurl,
-  linuxHeaders,
-  libiconvReal,
-  extraConfig ? "",
-}:
+{ lib, stdenv, buildPackages, fetchurl, linuxHeaders, libiconvReal
+, extraConfig ? "" }:
 
 let
   isCross = (stdenv.buildPlatform != stdenv.hostPlatform);
@@ -34,38 +27,35 @@ let
   '';
 
   # UCLIBC_SUSV4_LEGACY defines 'tmpnam', needed for gcc libstdc++ builds.
-  nixConfig =
-    ''
-      RUNTIME_PREFIX "/"
-      DEVEL_PREFIX "/"
-      UCLIBC_HAS_WCHAR y
-      UCLIBC_HAS_FTW y
-      UCLIBC_HAS_RPC y
-      DO_C99_MATH y
-      UCLIBC_HAS_PROGRAM_INVOCATION_NAME y
-      UCLIBC_HAS_RESOLVER_SUPPORT y
-      UCLIBC_SUSV4_LEGACY y
-      UCLIBC_HAS_THREADS_NATIVE y
-      KERNEL_HEADERS "${linuxHeaders}/include"
-    ''
-    + lib.optionalString (stdenv.hostPlatform.gcc.float or "" == "soft") ''
-      UCLIBC_HAS_FPU n
-    ''
-    + lib.optionalString (stdenv.isAarch32 && isCross) ''
-      CONFIG_ARM_EABI y
-      ARCH_WANTS_BIG_ENDIAN n
-      ARCH_BIG_ENDIAN n
-      ARCH_WANTS_LITTLE_ENDIAN y
-      ARCH_LITTLE_ENDIAN y
-      UCLIBC_HAS_FPU n
-    '';
-in
-stdenv.mkDerivation rec {
+  nixConfig = ''
+    RUNTIME_PREFIX "/"
+    DEVEL_PREFIX "/"
+    UCLIBC_HAS_WCHAR y
+    UCLIBC_HAS_FTW y
+    UCLIBC_HAS_RPC y
+    DO_C99_MATH y
+    UCLIBC_HAS_PROGRAM_INVOCATION_NAME y
+    UCLIBC_HAS_RESOLVER_SUPPORT y
+    UCLIBC_SUSV4_LEGACY y
+    UCLIBC_HAS_THREADS_NATIVE y
+    KERNEL_HEADERS "${linuxHeaders}/include"
+  '' + lib.optionalString (stdenv.hostPlatform.gcc.float or "" == "soft") ''
+    UCLIBC_HAS_FPU n
+  '' + lib.optionalString (stdenv.isAarch32 && isCross) ''
+    CONFIG_ARM_EABI y
+    ARCH_WANTS_BIG_ENDIAN n
+    ARCH_BIG_ENDIAN n
+    ARCH_WANTS_LITTLE_ENDIAN y
+    ARCH_LITTLE_ENDIAN y
+    UCLIBC_HAS_FPU n
+  '';
+in stdenv.mkDerivation rec {
   pname = "uclibc-ng";
   version = "1.0.42";
 
   src = fetchurl {
-    url = "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.xz";
+    url =
+      "https://downloads.uclibc-ng.org/releases/${version}/uClibc-ng-${version}.tar.xz";
     sha256 = "sha256-7G2uRM6GVYiF5WvDvva9TQgjlxFObh/BV5X3HoBNcBY=";
   };
 
@@ -129,10 +119,7 @@ stdenv.mkDerivation rec {
       experimental and need more testing.
     '';
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [
-      rasendubi
-      AndersonTorres
-    ];
+    maintainers = with maintainers; [ rasendubi AndersonTorres ];
     platforms = platforms.linux;
     badPlatforms = platforms.aarch64;
   };
@@ -142,4 +129,5 @@ stdenv.mkDerivation rec {
     # link to.
     libiconv = libiconvReal;
   };
+
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  aiolifx,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, aiolifx }:
 
 buildPythonPackage rec {
   pname = "aiolifx-connection";

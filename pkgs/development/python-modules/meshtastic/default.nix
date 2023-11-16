@@ -1,23 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  dotmap,
-  fetchFromGitHub,
-  pexpect,
-  protobuf,
-  pygatt,
-  pypubsub,
-  pyqrcode,
-  pyserial,
-  pytap2,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  requests,
-  setuptools,
-  tabulate,
-  timeago,
-}:
+{ lib, buildPythonPackage, dotmap, fetchFromGitHub, pexpect, protobuf, pygatt
+, pypubsub, pyqrcode, pyserial, pytap2, pytestCheckHook, pythonOlder, pyyaml
+, requests, setuptools, tabulate, timeago }:
 
 buildPythonPackage rec {
   pname = "meshtastic";
@@ -48,14 +31,9 @@ buildPythonPackage rec {
     timeago
   ];
 
-  passthru.optional-dependencies = {
-    tunnel = [ pytap2 ];
-  };
+  passthru.optional-dependencies = { tunnel = [ pytap2 ]; };
 
-  nativeCheckInputs = [
-    pytap2
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytap2 pytestCheckHook ];
 
   preCheck = ''
     export PATH="$PATH:$out/bin";

@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ldc ? null,
-  dcompiler ? ldc,
-}:
+{ stdenv, lib, fetchFromGitHub, ldc ? null, dcompiler ? ldc }:
 
 assert dcompiler != null;
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  static ? false,
-}:
+{ lib, stdenv, fetchurl, static ? false }:
 
 stdenv.mkDerivation rec {
   pname = "libjpeg";
@@ -16,12 +11,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional static "--enable-static --disable-shared";
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-  ];
+  outputs = [ "bin" "dev" "out" "man" ];
 
   meta = with lib; {
     homepage = "https://www.ijg.org/";

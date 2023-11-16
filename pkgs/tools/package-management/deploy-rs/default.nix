@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  CoreServices,
-  SystemConfiguration,
+{ lib, stdenv, fetchFromGitHub, rustPlatform, CoreServices, SystemConfiguration
 }:
 
 rustPlatform.buildRustPackage {
@@ -20,10 +14,8 @@ rustPlatform.buildRustPackage {
 
   cargoHash = "sha256-iUYtLH01YGxsDQbSnQrs4jw2eJxsOn2v3HOIfhsZbdQ=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-    SystemConfiguration
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ CoreServices SystemConfiguration ];
 
   meta = with lib; {
     description = "Multi-profile Nix-flake deploy tool";

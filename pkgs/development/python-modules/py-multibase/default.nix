@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  morphys,
-  pytestCheckHook,
-  python-baseconv,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, morphys, pytestCheckHook, python-baseconv
+, pythonOlder, six }:
 buildPythonPackage rec {
   pname = "py-multibase";
   version = "1.0.3";
@@ -28,20 +20,18 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  propagatedBuildInputs = [
-    morphys
-    python-baseconv
-    six
-  ];
+  propagatedBuildInputs = [ morphys python-baseconv six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "multibase" ];
 
   meta = with lib; {
-    description = "Module for distinguishing base encodings and other simple string encodings";
+    description =
+      "Module for distinguishing base encodings and other simple string encodings";
     homepage = "https://github.com/multiformats/py-multibase";
-    changelog = "https://github.com/multiformats/py-multibase/blob/v${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/multiformats/py-multibase/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ rakesh4g ];
   };

@@ -1,9 +1,4 @@
-{
-  runCommand,
-  git,
-  coccinelle,
-  python3,
-}:
+{ runCommand, git, coccinelle, python3, }:
 
 /* Can be used as part of an update script to automatically create a patch
    hardcoding the path of all GSettings schemas in C code.
@@ -32,26 +27,25 @@
    hardcodes looking for `org.gnome.evolution` into `@EVOLUTION_SCHEMA_PATH@`.
    All schemas must be listed.
 */
-{ src, schemaIdToVariableMapping }:
+{ src, schemaIdToVariableMapping, }:
 
-runCommand "hardcode-gsettings.patch"
-  {
-    inherit src;
-    nativeBuildInputs = [
-      git
-      coccinelle
-      python3 # For patch script
-    ];
-  }
-  ''
-    unpackPhase
-    cd "''${sourceRoot:-.}"
-    set -x
-    cp ${
-      builtins.toFile "glib-schema-to-var.json" (builtins.toJSON schemaIdToVariableMapping)
-    } ./glib-schema-to-var.json
-    git init
-    git add -A
-    spatch --sp-file "${./hardcode-gsettings.cocci}" --dir . --in-place
-    git diff > "$out"
-  ''
+runCommand "hardcode-gsettings.patch" {
+  inherit src;
+  nativeBuildInputs = [
+    git
+    coccinelle
+    python3 # For patch script
+  ];
+} ''
+  unpackPhase
+  cd "''${sourceRoot:-.}"
+  set -x
+  cp ${
+    builtins.toFile "glib-schema-to-var.json"
+    (builtins.toJSON schemaIdToVariableMapping)
+  } ./glib-schema-to-var.json
+  git init
+  git add -A
+  spatch --sp-file "${./hardcode-gsettings.cocci}" --dir . --in-place
+  git diff > "$out"
+''

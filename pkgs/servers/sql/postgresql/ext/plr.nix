@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  R,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, R, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "plr";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    R
-    postgresql
-  ];
+  buildInputs = [ R postgresql ];
   preBuild = ''
     export USE_PGXS=1
   '';

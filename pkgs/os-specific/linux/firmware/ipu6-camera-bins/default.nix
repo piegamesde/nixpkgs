@@ -1,16 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoPatchelfHook,
-  expat,
-  zlib,
+{ lib, stdenv, fetchFromGitHub, autoPatchelfHook, expat, zlib
 
-  # Pick one of
-  # - ipu6 (Tiger Lake)
-  # - ipu6ep (Alder Lake)
-  ipuVersion ? "ipu6",
-}:
+# Pick one of
+# - ipu6 (Tiger Lake)
+# - ipu6ep (Alder Lake)
+, ipuVersion ? "ipu6" }:
 
 stdenv.mkDerivation {
   pname = "${ipuVersion}-camera-bin";
@@ -25,12 +18,7 @@ stdenv.mkDerivation {
 
   sourceRoot = "source/${ipuVersion}";
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    stdenv.cc.cc.lib
-    expat
-    zlib
-  ];
+  nativeBuildInputs = [ autoPatchelfHook stdenv.cc.cc.lib expat zlib ];
 
   installPhase = ''
     runHook preInstall
@@ -56,25 +44,20 @@ stdenv.mkDerivation {
     done
   '';
 
-  passthru = {
-    inherit ipuVersion;
-  };
+  passthru = { inherit ipuVersion; };
 
-  meta =
-    let
-      generation =
-        {
-          ipu6 = "Tiger Lake";
-          ipu6ep = "Alder Lake";
-        }
-        .${ipuVersion};
-    in
-    with lib; {
-      description = "${generation} IPU firmware and proprietary image processing libraries";
-      homepage = "https://github.com/intel/ipu6-camera-bins";
-      license = licenses.issl;
-      sourceProvenance = with sourceTypes; [ binaryFirmware ];
-      maintainers = with maintainers; [ hexa ];
-      platforms = [ "x86_64-linux" ];
-    };
+  meta = let
+    generation = {
+      ipu6 = "Tiger Lake";
+      ipu6ep = "Alder Lake";
+    }.${ipuVersion};
+  in with lib; {
+    description =
+      "${generation} IPU firmware and proprietary image processing libraries";
+    homepage = "https://github.com/intel/ipu6-camera-bins";
+    license = licenses.issl;
+    sourceProvenance = with sourceTypes; [ binaryFirmware ];
+    maintainers = with maintainers; [ hexa ];
+    platforms = [ "x86_64-linux" ];
+  };
 }

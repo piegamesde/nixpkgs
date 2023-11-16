@@ -1,13 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  cmake,
-  pkg-config,
-  openssl,
-  hyperscan,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, cmake, pkg-config, openssl
+, hyperscan }:
 
 rustPlatform.buildRustPackage rec {
   pname = "noseyparker";
@@ -28,21 +20,16 @@ rustPlatform.buildRustPackage rec {
     rm tests/test_noseyparker_scan.rs
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    openssl
-    hyperscan
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ openssl hyperscan ];
 
   OPENSSL_NO_VENDOR = 1;
 
   meta = with lib; {
     description = "Find secrets and sensitive information in textual data";
     homepage = "https://github.com/praetorian-inc/noseyparker";
-    changelog = "https://github.com/praetorian-inc/noseyparker/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/praetorian-inc/noseyparker/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ _0x4A6F ];
     # limited by hyperscan

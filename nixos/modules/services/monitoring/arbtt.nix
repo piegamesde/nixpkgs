@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.arbtt;
-in
-{
+let cfg = config.services.arbtt;
+in {
   options = {
     services.arbtt = {
       enable = mkEnableOption (lib.mdDoc "Arbtt statistics capture service");
@@ -52,7 +45,8 @@ in
 
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/arbtt-capture --logfile=${cfg.logFile} --sample-rate=${
+        ExecStart =
+          "${cfg.package}/bin/arbtt-capture --logfile=${cfg.logFile} --sample-rate=${
             toString cfg.sampleRate
           }";
         Restart = "always";

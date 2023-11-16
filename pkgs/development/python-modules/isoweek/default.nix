@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-}:
+{ lib, fetchPypi, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "isoweek";
@@ -14,9 +10,11 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "The module provide the class Week. Instances represent specific weeks spanning Monday to Sunday.";
+    description =
+      "The module provide the class Week. Instances represent specific weeks spanning Monday to Sunday.";
     homepage = "https://github.com/gisle/isoweek";
     license = licenses.bsd2;
     maintainers = with maintainers; [ mrmebelman ];
   };
 }
+

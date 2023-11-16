@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "range-v3";
@@ -21,9 +15,8 @@ stdenv.mkDerivation rec {
 
   # Building the tests currently fails on AArch64 due to internal compiler
   # errors (with GCC 9.2):
-  cmakeFlags = [
-    "-DRANGES_ENABLE_WERROR=OFF"
-  ] ++ lib.optional stdenv.isAarch64 "-DRANGE_V3_TESTS=OFF";
+  cmakeFlags = [ "-DRANGES_ENABLE_WERROR=OFF" ]
+    ++ lib.optional stdenv.isAarch64 "-DRANGE_V3_TESTS=OFF";
 
   doCheck = !stdenv.isAarch64;
   checkTarget = "test";
@@ -31,7 +24,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Experimental range library for C++11/14/17";
     homepage = "https://github.com/ericniebler/range-v3";
-    changelog = "https://github.com/ericniebler/range-v3/releases/tag/${version}";
+    changelog =
+      "https://github.com/ericniebler/range-v3/releases/tag/${version}";
     license = licenses.boost;
     platforms = platforms.all;
     maintainers = with maintainers; [ ];

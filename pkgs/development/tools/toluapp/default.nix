@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  lua,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, lua }:
 
 stdenv.mkDerivation rec {
   version = "1.0.93";
@@ -20,10 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ lua ];
 
-  patches = [
-    ./environ-and-linux-is-kinda-posix.patch
-    ./headers.patch
-  ];
+  patches = [ ./environ-and-linux-is-kinda-posix.patch ./headers.patch ];
 
   meta = with lib; {
     description = "A tool to integrate C/Cpp code with Lua";

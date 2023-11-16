@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "ghorg";
@@ -20,14 +16,11 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   meta = with lib; {
-    description = "Quickly clone an entire org/users repositories into one directory";
+    description =
+      "Quickly clone an entire org/users repositories into one directory";
     longDescription = ''
       ghorg allows you to quickly clone all of an orgs, or users repos into a
       single directory. This can be useful in many situations including

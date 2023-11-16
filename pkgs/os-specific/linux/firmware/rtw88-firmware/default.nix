@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  linuxPackages,
-}:
+{ stdenvNoCC, lib, linuxPackages }:
 
 stdenvNoCC.mkDerivation {
   pname = "rtw88-firmware";

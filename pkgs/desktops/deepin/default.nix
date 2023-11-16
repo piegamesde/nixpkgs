@@ -1,15 +1,8 @@
-{
-  lib,
-  pkgs,
-  libsForQt5,
-}:
+{ lib, pkgs, libsForQt5 }:
 let
-  packages =
-    self:
-    let
-      inherit (self) callPackage;
-    in
-    {
+  packages = self:
+    let inherit (self) callPackage;
+    in {
       #### LIBRARIES
       dtkcommon = callPackage ./library/dtkcommon { };
       dtkcore = callPackage ./library/dtkcore { };
@@ -18,7 +11,8 @@ let
       deepin-pdfium = callPackage ./library/deepin-pdfium { };
       qt5platform-plugins = callPackage ./library/qt5platform-plugins { };
       qt5integration = callPackage ./library/qt5integration { };
-      deepin-wayland-protocols = callPackage ./library/deepin-wayland-protocols { };
+      deepin-wayland-protocols =
+        callPackage ./library/deepin-wayland-protocols { };
       dwayland = callPackage ./library/dwayland { };
       dde-qt-dbus-factory = callPackage ./library/dde-qt-dbus-factory { };
       disomaster = callPackage ./library/disomaster { };
@@ -72,7 +66,8 @@ let
       dde-api = callPackage ./go-package/dde-api { };
       dde-daemon = callPackage ./go-package/dde-daemon { };
       deepin-pw-check = callPackage ./go-package/deepin-pw-check { };
-      deepin-desktop-schemas = callPackage ./go-package/deepin-desktop-schemas { };
+      deepin-desktop-schemas =
+        callPackage ./go-package/deepin-desktop-schemas { };
       startdde = callPackage ./go-package/startdde { };
 
       #### TOOLS
@@ -90,5 +85,4 @@ let
       deepin-desktop-base = callPackage ./misc/deepin-desktop-base { };
       deepin-turbo = callPackage ./misc/deepin-turbo { };
     };
-in
-lib.makeScope libsForQt5.newScope packages
+in lib.makeScope libsForQt5.newScope packages

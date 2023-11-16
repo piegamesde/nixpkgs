@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 buildGoModule rec {
   pname = "yai";
   version = "0.6.0";
@@ -16,10 +12,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-+NhYK8FXd5B3GsGUPJOMM7Tt3GS1ZJ7LeApz38Xkwx8=";
 
-  ldflags = [
-    "-w -s"
-    "-X main.buildVersion=${version}"
-  ];
+  ldflags = [ "-w -s" "-X main.buildVersion=${version}" ];
 
   preCheck = ''
     # analyzer_test.go needs a user

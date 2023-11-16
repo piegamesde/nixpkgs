@@ -1,45 +1,36 @@
-{
-  config,
-  lib,
-  hostPkgs,
-  ...
-}:
+{ config, lib, hostPkgs, ... }:
 let
-  inherit (lib)
-    mkOption
-    types
-    literalMD
-    mdDoc
-  ;
+  inherit (lib) mkOption types literalMD mdDoc;
 
   # Reifies and correctly wraps the python test driver for
   # the respective qemu version and with or without ocr support
   testDriver = hostPkgs.callPackage ../test-driver {
     inherit (config) enableOCR extraPythonPackages;
     qemu_pkg = config.qemu.package;
-    imagemagick_light = hostPkgs.imagemagick_light.override { inherit (hostPkgs) libtiff; };
+    imagemagick_light =
+      hostPkgs.imagemagick_light.override { inherit (hostPkgs) libtiff; };
     tesseract4 = hostPkgs.tesseract4.override { enableLanguages = [ "eng" ]; };
   };
 
-  vlans =
-    map (m: (m.virtualisation.vlans ++ (lib.mapAttrsToList (_: v: v.vlan) m.virtualisation.interfaces)))
-      (lib.attrValues config.nodes);
+  vlans = map (m:
+    (m.virtualisation.vlans
+      ++ (lib.mapAttrsToList (_: v: v.vlan) m.virtualisation.interfaces)))
+    (lib.attrValues config.nodes);
   vms = map (m: m.system.build.vm) (lib.attrValues config.nodes);
 
   nodeHostNames =
-    let
-      nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
-    in
-    nodesList ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList) "machine";
+    let nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
+    in nodesList
+    ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
+    "machine";
 
-  pythonizeName =
-    name:
+  pythonizeName = name:
     let
       head = lib.substring 0 1 name;
       tail = lib.substring 1 (-1) name;
-    in
-    (if builtins.match "[A-z_]" head == null then "_" else head)
-    + lib.stringAsChars (c: if builtins.match "[A-z0-9_]" c == null then "_" else c) tail;
+    in (if builtins.match "[A-z_]" head == null then "_" else head)
+    + lib.stringAsChars
+    (c: if builtins.match "[A-z0-9_]" c == null then "_" else c) tail;
 
   uniqueVlans = lib.unique (builtins.concatLists vlans);
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
@@ -48,72 +39,62 @@ let
 
   withChecks = lib.warnIf config.skipLint "Linting is disabled";
 
-  driver =
-    hostPkgs.runCommand "nixos-test-driver-${config.name}"
-      {
-        # inherit testName; TODO (roberth): need this?
-        nativeBuildInputs = [
-          hostPkgs.makeWrapper
-        ] ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ];
-        buildInputs = [ testDriver ];
-        testScript = config.testScriptString;
-        preferLocalBuild = true;
-        passthru = config.passthru;
-        meta = config.meta // {
-          mainProgram = "nixos-test-driver";
-        };
+  driver = hostPkgs.runCommand "nixos-test-driver-${config.name}" {
+    # inherit testName; TODO (roberth): need this?
+    nativeBuildInputs = [ hostPkgs.makeWrapper ]
+      ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ];
+    buildInputs = [ testDriver ];
+    testScript = config.testScriptString;
+    preferLocalBuild = true;
+    passthru = config.passthru;
+    meta = config.meta // { mainProgram = "nixos-test-driver"; };
+  } ''
+    mkdir -p $out/bin
+
+    vmStartScripts=($(for i in ${toString vms}; do echo $i/bin/run-*-vm; done))
+
+    ${lib.optionalString (!config.skipTypeCheck) ''
+      # prepend type hints so the test script can be type checked with mypy
+      cat "${../test-script-prepend.py}" >> testScriptWithTypes
+      echo "${builtins.toString machineNames}" >> testScriptWithTypes
+      echo "${builtins.toString vlanNames}" >> testScriptWithTypes
+      echo -n "$testScript" >> testScriptWithTypes
+
+      cat -n testScriptWithTypes
+
+      mypy  --no-implicit-optional \
+            --pretty \
+            --no-color-output \
+            testScriptWithTypes
+    ''}
+
+    echo -n "$testScript" >> $out/test-script
+
+    ln -s ${testDriver}/bin/nixos-test-driver $out/bin/nixos-test-driver
+
+    ${testDriver}/bin/generate-driver-symbols
+    ${lib.optionalString (!config.skipLint) ''
+      PYFLAKES_BUILTINS="$(
+        echo -n ${
+          lib.escapeShellArg (lib.concatStringsSep "," pythonizedNames)
+        },
+        < ${lib.escapeShellArg "driver-symbols"}
+      )" ${hostPkgs.python3Packages.pyflakes}/bin/pyflakes $out/test-script
+    ''}
+
+    # set defaults through environment
+    # see: ./test-driver/test-driver.py argparse implementation
+    wrapProgram $out/bin/nixos-test-driver \
+      --set startScripts "''${vmStartScripts[*]}" \
+      --set testScript "$out/test-script" \
+      --set vlans '${toString vlans}' \
+      ${
+        lib.escapeShellArgs
+        (lib.concatMap (arg: [ "--add-flags" arg ]) config.extraDriverArgs)
       }
-      ''
-        mkdir -p $out/bin
+  '';
 
-        vmStartScripts=($(for i in ${toString vms}; do echo $i/bin/run-*-vm; done))
-
-        ${lib.optionalString (!config.skipTypeCheck) ''
-          # prepend type hints so the test script can be type checked with mypy
-          cat "${../test-script-prepend.py}" >> testScriptWithTypes
-          echo "${builtins.toString machineNames}" >> testScriptWithTypes
-          echo "${builtins.toString vlanNames}" >> testScriptWithTypes
-          echo -n "$testScript" >> testScriptWithTypes
-
-          cat -n testScriptWithTypes
-
-          mypy  --no-implicit-optional \
-                --pretty \
-                --no-color-output \
-                testScriptWithTypes
-        ''}
-
-        echo -n "$testScript" >> $out/test-script
-
-        ln -s ${testDriver}/bin/nixos-test-driver $out/bin/nixos-test-driver
-
-        ${testDriver}/bin/generate-driver-symbols
-        ${lib.optionalString (!config.skipLint) ''
-          PYFLAKES_BUILTINS="$(
-            echo -n ${lib.escapeShellArg (lib.concatStringsSep "," pythonizedNames)},
-            < ${lib.escapeShellArg "driver-symbols"}
-          )" ${hostPkgs.python3Packages.pyflakes}/bin/pyflakes $out/test-script
-        ''}
-
-        # set defaults through environment
-        # see: ./test-driver/test-driver.py argparse implementation
-        wrapProgram $out/bin/nixos-test-driver \
-          --set startScripts "''${vmStartScripts[*]}" \
-          --set testScript "$out/test-script" \
-          --set vlans '${toString vlans}' \
-          ${
-            lib.escapeShellArgs (
-              lib.concatMap
-                (arg: [
-                  "--add-flags"
-                  arg
-                ])
-                config.extraDriverArgs
-            )
-          }
-      '';
-in
-{
+in {
   options = {
 
     driver = mkOption {
@@ -131,9 +112,8 @@ in
     };
 
     qemu.package = mkOption {
-      description =
-        mdDoc
-          "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes).";
+      description = mdDoc
+        "Which qemu package to use for the virtualisation of [{option}`nodes`](#test-opt-nodes).";
       type = types.package;
       default = hostPkgs.qemu_test;
       defaultText = "hostPkgs.qemu_test";

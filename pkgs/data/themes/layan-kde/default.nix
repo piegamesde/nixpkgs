@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gitUpdater,
-}:
+{ stdenv, lib, fetchFromGitHub, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "layan-kde";

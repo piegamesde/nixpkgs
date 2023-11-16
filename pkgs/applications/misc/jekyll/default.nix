@@ -1,11 +1,5 @@
-{
-  lib,
-  bundlerApp,
-  ruby,
-  writeShellScriptBin,
-  makeWrapper,
-  withOptionalDependencies ? false,
-}:
+{ lib, bundlerApp, ruby, writeShellScriptBin, makeWrapper
+, withOptionalDependencies ? false }:
 
 let
   rubyWrapper = writeShellScriptBin "ruby" ''
@@ -25,8 +19,7 @@ let
     # Else: Don't modify the arguments:
     exec ${ruby}/bin/ruby "$@"
   '';
-in
-bundlerApp {
+in bundlerApp {
   pname = "jekyll";
   exes = [ "jekyll" ];
 

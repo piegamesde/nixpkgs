@@ -1,13 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchgit,
-  isPy3k,
-  pyusb,
-  pybluez,
-  pytest,
-  git,
-}:
+{ lib, buildPythonPackage, fetchgit, isPy3k, pyusb, pybluez, pytest, git }:
 
 buildPythonPackage rec {
   version = "3.0.1";
@@ -20,12 +11,7 @@ buildPythonPackage rec {
     sha256 = "004c0dr6767bjiddvp0pchcx05falhjzj33rkk03rrl0ha2nhxvz";
   };
 
-  propagatedBuildInputs = [
-    pyusb
-    pybluez
-    pytest
-    git
-  ];
+  propagatedBuildInputs = [ pyusb pybluez pytest git ];
 
   meta = with lib; {
     description = "Python driver/interface for Lego Mindstorms NXT robot";

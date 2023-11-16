@@ -1,54 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoPatchelfHook,
-  dpkg,
-  makeWrapper,
-  alsa-lib,
-  at-spi2-atk,
-  at-spi2-core,
-  atk,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  ffmpeg,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  libappindicator-gtk3,
-  libdbusmenu,
-  libdrm,
-  libnotify,
-  libpulseaudio,
-  libsecret,
-  libuuid,
-  libxkbcommon,
-  mesa,
-  nss,
-  pango,
-  systemd,
-  xdg-utils,
-  xorg,
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, dpkg, makeWrapper, alsa-lib
+, at-spi2-atk, at-spi2-core, atk, cairo, cups, dbus, expat, ffmpeg, fontconfig
+, freetype, gdk-pixbuf, glib, gtk3, libappindicator-gtk3, libdbusmenu, libdrm
+, libnotify, libpulseaudio, libsecret, libuuid, libxkbcommon, mesa, nss, pango
+, systemd, xdg-utils, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "tidal-hifi";
   version = "5.1.0";
 
   src = fetchurl {
-    url = "https://github.com/Mastermindzh/tidal-hifi/releases/download/${version}/tidal-hifi_${version}_amd64.deb";
+    url =
+      "https://github.com/Mastermindzh/tidal-hifi/releases/download/${version}/tidal-hifi_${version}_amd64.deb";
     sha256 = "sha256-IaSgul2L0L343TVT3ujgBoMt6tITwjJaBNOVJPCBDtI=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
 
   buildInputs = [
     alsa-lib
@@ -91,12 +57,8 @@ stdenv.mkDerivation rec {
     xorg.libXtst
   ];
 
-  runtimeDependencies = [
-    (lib.getLib systemd)
-    libnotify
-    libdbusmenu
-    xdg-utils
-  ];
+  runtimeDependencies =
+    [ (lib.getLib systemd) libnotify libdbusmenu xdg-utils ];
 
   unpackPhase = "dpkg-deb -x $src .";
 
@@ -120,9 +82,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The web version of Tidal running in electron with hifi support thanks to widevine";
+    description =
+      "The web version of Tidal running in electron with hifi support thanks to widevine";
     homepage = "https://github.com/Mastermindzh/tidal-hifi";
-    changelog = "https://github.com/Mastermindzh/tidal-hifi/releases/tag/${version}";
+    changelog =
+      "https://github.com/Mastermindzh/tidal-hifi/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ qbit ];
     platforms = [ "x86_64-linux" ];

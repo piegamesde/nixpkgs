@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  gmp,
-  htslib,
-  zlib,
-  xz,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, cmake, boost, gmp, htslib, zlib, xz
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "octopus";
@@ -23,31 +12,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FAogksVxUlzMlC0BqRu22Vchj6VX+8yNlHRLyb3g1sE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    boost
-    gmp
-    htslib
-    zlib
-    xz
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ boost gmp htslib zlib xz ];
 
   patches = [
     (fetchurl {
-      url = "https://github.com/luntergroup/octopus/commit/17a597d192bcd5192689bf38c5836a98b824867a.patch";
+      url =
+        "https://github.com/luntergroup/octopus/commit/17a597d192bcd5192689bf38c5836a98b824867a.patch";
       sha256 = "sha256-VaUr63v7mzhh4VBghH7a7qrqOYwl6vucmmKzTi9yAjY=";
     })
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=deprecated-declarations"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=deprecated-declarations"
+  ];
 
   postInstall = ''
     mkdir $out/bin

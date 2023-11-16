@@ -1,27 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-  twiggy,
-  requests,
-  offtrac,
-  bugzilla,
-  taskw,
-  python-dateutil,
-  pytz,
-  keyring,
-  six,
-  jinja2,
-  pycurl,
-  dogpile-cache,
-  lockfile,
-  click,
-  pyxdg,
-  future,
-  jira,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, twiggy, requests
+, offtrac, bugzilla, taskw, python-dateutil, pytz, keyring, six, jinja2, pycurl
+, dogpile-cache, lockfile, click, pyxdg, future, jira }:
 
 buildPythonPackage rec {
   pname = "bugwarrior";
@@ -59,12 +38,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/ralphbean/bugwarrior";
-    description = "Sync github, bitbucket, bugzilla, and trac issues with taskwarrior";
+    description =
+      "Sync github, bitbucket, bugzilla, and trac issues with taskwarrior";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      pierron
-      yurrriq
-    ];
+    maintainers = with maintainers; [ pierron yurrriq ];
   };
 }

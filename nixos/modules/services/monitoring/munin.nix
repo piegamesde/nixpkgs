@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 # TODO: support munin-async
 # TODO: LWP/Pg perl libs aren't recognized
@@ -27,7 +22,8 @@ let
     logdir    /var/log/munin
     rundir    /run/munin
 
-    ${lib.optionalString (cronCfg.extraCSS != "") "staticdir ${customStaticDir}"}
+    ${lib.optionalString (cronCfg.extraCSS != "")
+    "staticdir ${customStaticDir}"}
 
     ${cronCfg.extraGlobalConfig}
 
@@ -90,12 +86,12 @@ let
   # store, with no renaming.
   # This is suitable for use with munin-node-configure --suggest, i.e.
   # munin.extraAutoPlugins.
-  internManyPlugins = name: path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
+  internManyPlugins = name: path:
+    "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
 
   # Use the appropriate intern-fn to copy the plugins into the store and patch
   # them afterwards in an attempt to get them to run on NixOS.
-  internAndFixPlugins =
-    name: intern-fn: paths:
+  internAndFixPlugins = name: intern-fn: paths:
     pkgs.runCommand name { } ''
       mkdir -p "$out"
       cd "$out"
@@ -109,18 +105,15 @@ let
   # TODO: write a derivation for munin-contrib, so that for contrib plugins
   # you can just refer to them by name rather than needing to include a copy
   # of munin-contrib in your nixos configuration.
-  extraPluginDir = internAndFixPlugins "munin-extra-plugins.d" internOnePlugin nodeCfg.extraPlugins;
+  extraPluginDir = internAndFixPlugins "munin-extra-plugins.d" internOnePlugin
+    nodeCfg.extraPlugins;
 
-  extraAutoPluginDir = internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins (
-    builtins.listToAttrs (
-      map
-        (path: {
-          name = baseNameOf path;
-          value = path;
-        })
-        nodeCfg.extraAutoPlugins
-    )
-  );
+  extraAutoPluginDir =
+    internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins
+    (builtins.listToAttrs (map (path: {
+      name = baseNameOf path;
+      value = path;
+    }) nodeCfg.extraAutoPlugins));
 
   customStaticDir = pkgs.runCommand "munin-custom-static-data" { } ''
     cp -a "${pkgs.munin}/etc/opt/munin/static" "$out"
@@ -129,9 +122,8 @@ let
     echo "${cronCfg.extraCSS}" >> style.css
     echo "${cronCfg.extraCSS}" >> style-new.css
   '';
-in
 
-{
+in {
 
   options = {
 
@@ -246,10 +238,7 @@ in
           `/var/log/munin/munin-update.log` for timing
           information, and the NixOS build of Munin does not write this file.
         '';
-        example = [
-          "diskstats"
-          "zfs_usage_*"
-        ];
+        example = [ "diskstats" "zfs_usage_*" ];
       };
     };
 
@@ -315,7 +304,9 @@ in
           }
         '';
       };
+
     };
+
   };
 
   config = mkMerge [
@@ -330,9 +321,8 @@ in
         home = "/var/lib/munin";
       };
 
-      users.groups.munin = {
-        gid = config.ids.gids.munin;
-      };
+      users.groups.munin = { gid = config.ids.gids.munin; };
+
     })
     (mkIf nodeCfg.enable {
 
@@ -373,12 +363,14 @@ in
           ''}
         '';
         serviceConfig = {
-          ExecStart = "${pkgs.munin}/sbin/munin-node --config ${nodeConf} --servicedir /etc/munin/plugins/ --sconfdir=${pluginConfDir}";
+          ExecStart =
+            "${pkgs.munin}/sbin/munin-node --config ${nodeConf} --servicedir /etc/munin/plugins/ --sconfdir=${pluginConfDir}";
         };
       };
 
       # munin_stats plugin breaks as of 2.0.33 when this doesn't exist
       systemd.tmpfiles.rules = [ "d /run/munin 0755 munin munin -" ];
+
     })
     (mkIf cronCfg.enable {
 

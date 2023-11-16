@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  faker,
-  fetchFromGitHub,
-  flask,
-  gunicorn,
-  pyopenssl,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  requests,
-}:
+{ lib, buildPythonPackage, click, faker, fetchFromGitHub, flask, gunicorn
+, pyopenssl, pytestCheckHook, pythonOlder, setuptools-scm, requests }:
 
 buildPythonPackage rec {
   pname = "threat9-test-bed";
@@ -31,14 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    click
-    faker
-    flask
-    gunicorn
-    pyopenssl
-    requests
-  ];
+  propagatedBuildInputs = [ click faker flask gunicorn pyopenssl requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,18 +1,9 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  bzip2,
-  CoreServices,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, bzip2, CoreServices }:
 
 let
   pname = "mdbook-epub";
   version = "unstable-2022-12-25";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {

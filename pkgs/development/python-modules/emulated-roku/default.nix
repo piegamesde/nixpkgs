@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiohttp,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp }:
 
 buildPythonPackage rec {
   pname = "emulated-roku";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "emulated_roku" ];
 
   meta = with lib; {
-    description = "Library to emulate a roku server to serve as a proxy for remotes such as Harmony";
+    description =
+      "Library to emulate a roku server to serve as a proxy for remotes such as Harmony";
     homepage = "https://github.com/mindigmarton/emulated_roku";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

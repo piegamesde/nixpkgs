@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  yuicompressor,
-  zopfli,
-  stdenv,
-}:
+{ lib, buildGoModule, fetchFromGitHub, yuicompressor, zopfli, stdenv }:
 buildGoModule {
   pname = "dcs";
   version = "unstable-2021-04-07";
@@ -22,10 +15,7 @@ buildGoModule {
   # Depends on dcs binaries
   doCheck = false;
 
-  nativeBuildInputs = [
-    yuicompressor
-    zopfli
-  ];
+  nativeBuildInputs = [ yuicompressor zopfli ];
 
   postBuild = ''
     make -C static -j$NIX_BUILD_CORES
@@ -42,6 +32,7 @@ buildGoModule {
     homepage = "https://github.com/Debian/dcs";
     license = licenses.bsd3;
     maintainers = [ ];
-    broken = stdenv.isAarch64 || stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dcs.x86_64-darwin
+    broken = stdenv.isAarch64
+      || stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dcs.x86_64-darwin
   };
 }

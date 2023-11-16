@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  cryptography,
-  cython,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, cryptography, cython }:
 
 buildPythonPackage rec {
   pname = "oracledb";
@@ -30,7 +23,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python driver for Oracle Database";
     homepage = "https://oracle.github.io/python-oracledb";
-    changelog = "https://github.com/oracle/python-oracledb/blob/v${version}/doc/src/release_notes.rst";
+    changelog =
+      "https://github.com/oracle/python-oracledb/blob/v${version}/doc/src/release_notes.rst";
     license = with licenses; [
       asl20 # and or
       upl

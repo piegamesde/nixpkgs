@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tensorboard-data-server";
@@ -23,7 +18,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Fast data loading for TensorBoard";
-    homepage = "https://github.com/tensorflow/tensorboard/tree/master/tensorboard/data/server";
+    homepage =
+      "https://github.com/tensorflow/tensorboard/tree/master/tensorboard/data/server";
     license = licenses.asl20;
     maintainers = with maintainers; [ abbradar ];
   };

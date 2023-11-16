@@ -1,11 +1,6 @@
 {
   actioncable = {
-    dependencies = [
-      "actionpack"
-      "activesupport"
-      "nio4r"
-      "websocket-driver"
-    ];
+    dependencies = [ "actionpack" "activesupport" "nio4r" "websocket-driver" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -111,10 +106,7 @@
     version = "7.0.5";
   };
   activejob = {
-    dependencies = [
-      "activesupport"
-      "globalid"
-    ];
+    dependencies = [ "activesupport" "globalid" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -136,10 +128,7 @@
     version = "7.0.5";
   };
   activerecord = {
-    dependencies = [
-      "activemodel"
-      "activesupport"
-    ];
+    dependencies = [ "activemodel" "activesupport" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -168,12 +157,7 @@
     version = "7.0.5";
   };
   activesupport = {
-    dependencies = [
-      "concurrent-ruby"
-      "i18n"
-      "minitest"
-      "tzinfo"
-    ];
+    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -195,10 +179,7 @@
     version = "2.8.4";
   };
   algoliasearch = {
-    dependencies = [
-      "httpclient"
-      "json"
-    ];
+    dependencies = [ "httpclient" "json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -310,11 +291,7 @@
     version = "11.1.3";
   };
   cairo = {
-    dependencies = [
-      "native-package-installer"
-      "pkg-config"
-      "red-colors"
-    ];
+    dependencies = [ "native-package-installer" "pkg-config" "red-colors" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -325,10 +302,7 @@
     version = "1.17.8";
   };
   cairo-gobject = {
-    dependencies = [
-      "cairo"
-      "glib2"
-    ];
+    dependencies = [ "cairo" "glib2" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -339,10 +313,7 @@
     version = "4.1.7";
   };
   camping = {
-    dependencies = [
-      "mab"
-      "rack"
-    ];
+    dependencies = [ "mab" "rack" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -443,11 +414,7 @@
     version = "1.12.1";
   };
   cocoapods-acknowledgements = {
-    dependencies = [
-      "cocoapods"
-      "redcarpet"
-      "xcodeproj"
-    ];
+    dependencies = [ "cocoapods" "redcarpet" "xcodeproj" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -520,10 +487,7 @@
     version = "1.12.1";
   };
   cocoapods-coverage = {
-    dependencies = [
-      "cocoapods-testing"
-      "slather"
-    ];
+    dependencies = [ "cocoapods-testing" "slather" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -626,10 +590,7 @@
     version = "1.0.1";
   };
   cocoapods-keys = {
-    dependencies = [
-      "dotenv"
-      "ruby-keychain"
-    ];
+    dependencies = [ "dotenv" "ruby-keychain" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -682,10 +643,7 @@
     version = "0.0.6";
   };
   cocoapods-trunk = {
-    dependencies = [
-      "nap"
-      "netrc"
-    ];
+    dependencies = [ "nap" "netrc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -757,10 +715,7 @@
     version = "1.1.3";
   };
   coffee-script = {
-    dependencies = [
-      "coffee-script-source"
-      "execjs"
-    ];
+    dependencies = [ "coffee-script-source" "execjs" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -996,10 +951,7 @@
     version = "0.1.0";
   };
   em-websocket = {
-    dependencies = [
-      "eventmachine"
-      "http_parser.rb"
-    ];
+    dependencies = [ "eventmachine" "http_parser.rb" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1082,10 +1034,7 @@
     version = "2.8.1";
   };
   faraday = {
-    dependencies = [
-      "faraday-net_http"
-      "ruby2_keywords"
-    ];
+    dependencies = [ "faraday-net_http" "ruby2_keywords" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1116,10 +1065,7 @@
     version = "1.15.5";
   };
   ffi-compiler = {
-    dependencies = [
-      "ffi"
-      "rake"
-    ];
+    dependencies = [ "ffi" "rake" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1151,12 +1097,7 @@
     version = "1.1.1";
   };
   fog-core = {
-    dependencies = [
-      "builder"
-      "excon"
-      "formatador"
-      "mime-types"
-    ];
+    dependencies = [ "builder" "excon" "formatador" "mime-types" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1167,10 +1108,7 @@
     version = "2.3.0";
   };
   fog-dnsimple = {
-    dependencies = [
-      "fog-core"
-      "fog-json"
-    ];
+    dependencies = [ "fog-core" "fog-json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1181,10 +1119,7 @@
     version = "2.1.0";
   };
   fog-json = {
-    dependencies = [
-      "fog-core"
-      "multi_json"
-    ];
+    dependencies = [ "fog-core" "multi_json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1266,10 +1201,7 @@
     version = "1.1.3";
   };
   gio2 = {
-    dependencies = [
-      "fiddle"
-      "gobject-introspection"
-    ];
+    dependencies = [ "fiddle" "gobject-introspection" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1280,10 +1212,7 @@
     version = "4.1.7";
   };
   git = {
-    dependencies = [
-      "addressable"
-      "rchardet"
-    ];
+    dependencies = [ "addressable" "rchardet" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1350,13 +1279,8 @@
     version = "228";
   };
   github-pages-health-check = {
-    dependencies = [
-      "addressable"
-      "dnsruby"
-      "octokit"
-      "public_suffix"
-      "typhoeus"
-    ];
+    dependencies =
+      [ "addressable" "dnsruby" "octokit" "public_suffix" "typhoeus" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1377,10 +1301,7 @@
     version = "1.9.0";
   };
   glib2 = {
-    dependencies = [
-      "native-package-installer"
-      "pkg-config"
-    ];
+    dependencies = [ "native-package-installer" "pkg-config" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1434,11 +1355,7 @@
     version = "3.2.6";
   };
   haml = {
-    dependencies = [
-      "temple"
-      "thor"
-      "tilt"
-    ];
+    dependencies = [ "temple" "thor" "tilt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1499,10 +1416,7 @@
     version = "0.8.6";
   };
   html-pipeline = {
-    dependencies = [
-      "activesupport"
-      "nokogiri"
-    ];
+    dependencies = [ "activesupport" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1523,12 +1437,8 @@
     version = "1.4.2";
   };
   http = {
-    dependencies = [
-      "addressable"
-      "http-cookie"
-      "http-form_data"
-      "llhttp-ffi"
-    ];
+    dependencies =
+      [ "addressable" "http-cookie" "http-form_data" "llhttp-ffi" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1621,11 +1531,7 @@
     version = "0.1.5";
   };
   indieweb-endpoints = {
-    dependencies = [
-      "http"
-      "link-header-parser"
-      "nokogiri"
-    ];
+    dependencies = [ "http" "link-header-parser" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1646,10 +1552,7 @@
     version = "1.5.6";
   };
   jbuilder = {
-    dependencies = [
-      "actionview"
-      "activesupport"
-    ];
+    dependencies = [ "actionview" "activesupport" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1706,10 +1609,7 @@
     version = "0.7.0";
   };
   jekyll-coffeescript = {
-    dependencies = [
-      "coffee-script"
-      "coffee-script-source"
-    ];
+    dependencies = [ "coffee-script" "coffee-script-source" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1731,12 +1631,7 @@
     version = "1.4.0";
   };
   jekyll-commonmark-ghpages = {
-    dependencies = [
-      "commonmarker"
-      "jekyll"
-      "jekyll-commonmark"
-      "rouge"
-    ];
+    dependencies = [ "commonmarker" "jekyll" "jekyll-commonmark" "rouge" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1758,11 +1653,7 @@
     version = "0.1.4";
   };
   jekyll-favicon = {
-    dependencies = [
-      "jekyll"
-      "mini_magick"
-      "rexml"
-    ];
+    dependencies = [ "jekyll" "mini_magick" "rexml" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1795,10 +1686,7 @@
     version = "1.5.0";
   };
   jekyll-github-metadata = {
-    dependencies = [
-      "jekyll"
-      "octokit"
-    ];
+    dependencies = [ "jekyll" "octokit" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1820,10 +1708,7 @@
     version = "0.2.1";
   };
   jekyll-mentions = {
-    dependencies = [
-      "html-pipeline"
-      "jekyll"
-    ];
+    dependencies = [ "html-pipeline" "jekyll" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1888,12 +1773,7 @@
     version = "0.6.1";
   };
   jekyll-remote-theme = {
-    dependencies = [
-      "addressable"
-      "jekyll"
-      "jekyll-sass-converter"
-      "rubyzip"
-    ];
+    dependencies = [ "addressable" "jekyll" "jekyll-sass-converter" "rubyzip" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1937,12 +1817,7 @@
     version = "1.4.0";
   };
   jekyll-spaceship = {
-    dependencies = [
-      "gemoji"
-      "jekyll"
-      "nokogiri"
-      "rainbow"
-    ];
+    dependencies = [ "gemoji" "jekyll" "nokogiri" "rainbow" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1963,10 +1838,7 @@
     version = "1.0.0";
   };
   jekyll-theme-architect = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1977,10 +1849,7 @@
     version = "0.2.0";
   };
   jekyll-theme-cayman = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1991,10 +1860,7 @@
     version = "0.2.0";
   };
   jekyll-theme-dinky = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2005,10 +1871,7 @@
     version = "0.2.0";
   };
   jekyll-theme-hacker = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2019,10 +1882,7 @@
     version = "0.2.0";
   };
   jekyll-theme-leap-day = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2033,10 +1893,7 @@
     version = "0.2.0";
   };
   jekyll-theme-merlot = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2047,10 +1904,7 @@
     version = "0.2.0";
   };
   jekyll-theme-midnight = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2061,10 +1915,7 @@
     version = "0.2.0";
   };
   jekyll-theme-minimal = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2075,10 +1926,7 @@
     version = "0.2.0";
   };
   jekyll-theme-modernist = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2089,11 +1937,7 @@
     version = "0.2.0";
   };
   jekyll-theme-primer = {
-    dependencies = [
-      "jekyll"
-      "jekyll-github-metadata"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-github-metadata" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2104,10 +1948,7 @@
     version = "0.6.0";
   };
   jekyll-theme-slate = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2118,10 +1959,7 @@
     version = "0.2.0";
   };
   jekyll-theme-tactile = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2132,10 +1970,7 @@
     version = "0.2.0";
   };
   jekyll-theme-time-machine = {
-    dependencies = [
-      "jekyll"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2187,11 +2022,7 @@
     version = "3.3.7";
   };
   jemoji = {
-    dependencies = [
-      "gemoji"
-      "html-pipeline"
-      "jekyll"
-    ];
+    dependencies = [ "gemoji" "html-pipeline" "jekyll" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2264,12 +2095,7 @@
     version = "1.1.0";
   };
   kramdown-rfc2629 = {
-    dependencies = [
-      "certified"
-      "json_pure"
-      "kramdown"
-      "kramdown-parser-gfm"
-    ];
+    dependencies = [ "certified" "json_pure" "kramdown" "kramdown-parser-gfm" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2320,10 +2146,7 @@
     version = "4.0.4";
   };
   listen = {
-    dependencies = [
-      "rb-fsevent"
-      "rb-inotify"
-    ];
+    dependencies = [ "rb-fsevent" "rb-inotify" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2334,10 +2157,7 @@
     version = "3.8.0";
   };
   llhttp-ffi = {
-    dependencies = [
-      "ffi-compiler"
-      "rake"
-    ];
+    dependencies = [ "ffi-compiler" "rake" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2348,10 +2168,7 @@
     version = "0.4.0";
   };
   loofah = {
-    dependencies = [
-      "crass"
-      "nokogiri"
-    ];
+    dependencies = [ "crass" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2383,12 +2200,7 @@
     version = "0.2.9";
   };
   mail = {
-    dependencies = [
-      "mini_mime"
-      "net-imap"
-      "net-pop"
-      "net-smtp"
-    ];
+    dependencies = [ "mini_mime" "net-imap" "net-pop" "net-smtp" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2501,11 +2313,7 @@
     version = "2.8.2";
   };
   minima = {
-    dependencies = [
-      "jekyll"
-      "jekyll-feed"
-      "jekyll-seo-tag"
-    ];
+    dependencies = [ "jekyll" "jekyll-feed" "jekyll-seo-tag" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2617,10 +2425,7 @@
     version = "1.4.10";
   };
   net-imap = {
-    dependencies = [
-      "date"
-      "net-protocol"
-    ];
+    dependencies = [ "date" "net-protocol" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2705,10 +2510,7 @@
     version = "2.5.9";
   };
   nokogiri = {
-    dependencies = [
-      "mini_portile2"
-      "racc"
-    ];
+    dependencies = [ "mini_portile2" "racc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2719,10 +2521,7 @@
     version = "1.15.2";
   };
   octokit = {
-    dependencies = [
-      "faraday"
-      "sawyer"
-    ];
+    dependencies = [ "faraday" "sawyer" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2786,10 +2585,7 @@
     version = "4.4.1";
   };
   pandocomatic = {
-    dependencies = [
-      "optimist"
-      "paru"
-    ];
+    dependencies = [ "optimist" "paru" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2800,10 +2596,7 @@
     version = "1.1.0";
   };
   pango = {
-    dependencies = [
-      "cairo-gobject"
-      "gobject-introspection"
-    ];
+    dependencies = [ "cairo-gobject" "gobject-introspection" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2917,11 +2710,7 @@
     version = "0.3.5";
   };
   prettier = {
-    dependencies = [
-      "syntax_tree"
-      "syntax_tree-haml"
-      "syntax_tree-rbs"
-    ];
+    dependencies = [ "syntax_tree" "syntax_tree-haml" "syntax_tree-rbs" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2942,10 +2731,7 @@
     version = "1.2.1";
   };
   pry = {
-    dependencies = [
-      "coderay"
-      "method_source"
-    ];
+    dependencies = [ "coderay" "method_source" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2956,10 +2742,7 @@
     version = "0.14.2";
   };
   pry-byebug = {
-    dependencies = [
-      "byebug"
-      "pry"
-    ];
+    dependencies = [ "byebug" "pry" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -2970,10 +2753,7 @@
     version = "3.10.1";
   };
   pry-doc = {
-    dependencies = [
-      "pry"
-      "yard"
-    ];
+    dependencies = [ "pry" "yard" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3071,10 +2851,7 @@
     version = "7.0.5";
   };
   rails-dom-testing = {
-    dependencies = [
-      "activesupport"
-      "nokogiri"
-    ];
+    dependencies = [ "activesupport" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3085,10 +2862,7 @@
     version = "2.0.3";
   };
   rails-html-sanitizer = {
-    dependencies = [
-      "loofah"
-      "nokogiri"
-    ];
+    dependencies = [ "loofah" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3099,14 +2873,8 @@
     version = "1.6.0";
   };
   railties = {
-    dependencies = [
-      "actionpack"
-      "activesupport"
-      "method_source"
-      "rake"
-      "thor"
-      "zeitwerk"
-    ];
+    dependencies =
+      [ "actionpack" "activesupport" "method_source" "rake" "thor" "zeitwerk" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3252,10 +3020,7 @@
     version = "0.14.1";
   };
   redis-rack = {
-    dependencies = [
-      "rack"
-      "redis-store"
-    ];
+    dependencies = [ "rack" "redis-store" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3287,12 +3052,7 @@
     version = "2.8.0";
   };
   rest-client = {
-    dependencies = [
-      "http-accept"
-      "http-cookie"
-      "mime-types"
-      "netrc"
-    ];
+    dependencies = [ "http-accept" "http-cookie" "mime-types" "netrc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3355,11 +3115,7 @@
     version = "4.0.2";
   };
   rspec = {
-    dependencies = [
-      "rspec-core"
-      "rspec-expectations"
-      "rspec-mocks"
-    ];
+    dependencies = [ "rspec-core" "rspec-expectations" "rspec-mocks" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3381,10 +3137,7 @@
     version = "3.12.2";
   };
   rspec-expectations = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3395,10 +3148,7 @@
     version = "3.12.3";
   };
   rspec-mocks = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3451,10 +3201,7 @@
     version = "1.29.0";
   };
   rubocop-performance = {
-    dependencies = [
-      "rubocop"
-      "rubocop-ast"
-    ];
+    dependencies = [ "rubocop" "rubocop-ast" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3476,10 +3223,7 @@
     version = "1.2.5";
   };
   ruby-keychain = {
-    dependencies = [
-      "ffi"
-      "og-corefoundation"
-    ];
+    dependencies = [ "ffi" "og-corefoundation" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3602,10 +3346,7 @@
     version = "3.7.4";
   };
   sass-listen = {
-    dependencies = [
-      "rb-fsevent"
-      "rb-inotify"
-    ];
+    dependencies = [ "rb-fsevent" "rb-inotify" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3627,10 +3368,7 @@
     version = "2.4.0";
   };
   sawyer = {
-    dependencies = [
-      "addressable"
-      "faraday"
-    ];
+    dependencies = [ "addressable" "faraday" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3672,10 +3410,7 @@
     version = "5.69.0";
   };
   sequel_pg = {
-    dependencies = [
-      "pg"
-      "sequel"
-    ];
+    dependencies = [ "pg" "sequel" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3686,11 +3421,7 @@
     version = "1.17.1";
   };
   simplecov = {
-    dependencies = [
-      "docile"
-      "simplecov-html"
-      "simplecov_json_formatter"
-    ];
+    dependencies = [ "docile" "simplecov-html" "simplecov_json_formatter" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3732,12 +3463,7 @@
     version = "0.2.1";
   };
   sinatra = {
-    dependencies = [
-      "mustermann"
-      "rack"
-      "rack-protection"
-      "tilt"
-    ];
+    dependencies = [ "mustermann" "rack" "rack-protection" "tilt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3748,13 +3474,8 @@
     version = "3.0.6";
   };
   slather = {
-    dependencies = [
-      "CFPropertyList"
-      "activesupport"
-      "clamp"
-      "nokogiri"
-      "xcodeproj"
-    ];
+    dependencies =
+      [ "CFPropertyList" "activesupport" "clamp" "nokogiri" "xcodeproj" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3853,11 +3574,7 @@
     version = "6.1.1";
   };
   syntax_tree-haml = {
-    dependencies = [
-      "haml"
-      "prettier_print"
-      "syntax_tree"
-    ];
+    dependencies = [ "haml" "prettier_print" "syntax_tree" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -3868,11 +3585,7 @@
     version = "4.0.3";
   };
   syntax_tree-rbs = {
-    dependencies = [
-      "prettier_print"
-      "rbs"
-      "syntax_tree"
-    ];
+    dependencies = [ "prettier_print" "rbs" "syntax_tree" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -4079,11 +3792,7 @@
     version = "0.2.0";
   };
   webmention = {
-    dependencies = [
-      "http"
-      "indieweb-endpoints"
-      "nokogiri"
-    ];
+    dependencies = [ "http" "indieweb-endpoints" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -4125,14 +3834,8 @@
     version = "5.1.0";
   };
   xcodeproj = {
-    dependencies = [
-      "CFPropertyList"
-      "atomos"
-      "claide"
-      "colored2"
-      "nanaimo"
-      "rexml"
-    ];
+    dependencies =
+      [ "CFPropertyList" "atomos" "claide" "colored2" "nanaimo" "rexml" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

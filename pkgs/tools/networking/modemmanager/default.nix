@@ -1,26 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  glib,
-  udev,
-  libgudev,
-  polkit,
-  ppp,
-  gettext,
-  pkg-config,
-  libxslt,
-  python3,
-  libmbim,
-  libqmi,
-  systemd,
-  bash-completion,
-  meson,
-  ninja,
-  vala,
-  gobject-introspection,
-  dbus,
-}:
+{ lib, stdenv, fetchFromGitLab, glib, udev, libgudev, polkit, ppp, gettext
+, pkg-config, libxslt, python3, libmbim, libqmi, systemd, bash-completion, meson
+, ninja, vala, gobject-introspection, dbus }:
 
 stdenv.mkDerivation rec {
   pname = "modemmanager";
@@ -34,22 +14,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-/A4WTsUQVeZDi5ei6qBvqoWYLKdRcZaYZU8/qWOPrvM=";
   };
 
-  patches =
-    [
-      # Since /etc is the domain of NixOS, not Nix, we cannot install files there.
-      # But these are just placeholders so we do not need to install them at all.
-      ./no-dummy-dirs-in-sysconfdir.patch
-    ];
-
-  nativeBuildInputs = [
-    meson
-    ninja
-    vala
-    gobject-introspection
-    gettext
-    pkg-config
-    libxslt
+  patches = [
+    # Since /etc is the domain of NixOS, not Nix, we cannot install files there.
+    # But these are just placeholders so we do not need to install them at all.
+    ./no-dummy-dirs-in-sysconfdir.patch
   ];
+
+  nativeBuildInputs =
+    [ meson ninja vala gobject-introspection gettext pkg-config libxslt ];
 
   buildInputs = [
     glib
@@ -64,11 +36,8 @@ stdenv.mkDerivation rec {
     dbus
   ];
 
-  nativeInstallCheckInputs = [
-    python3
-    python3.pkgs.dbus-python
-    python3.pkgs.pygobject3
-  ];
+  nativeInstallCheckInputs =
+    [ python3 python3.pkgs.dbus-python python3.pkgs.pygobject3 ];
 
   mesonFlags = [
     "-Dudevdir=${placeholder "out"}/lib/udev"

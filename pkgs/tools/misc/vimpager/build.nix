@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  coreutils,
-  sharutils,
-  runtimeShell,
-  version,
-  sha256,
-}:
+{ lib, stdenv, fetchFromGitHub, coreutils, sharutils, runtimeShell, version
+, sha256 }:
 
 stdenv.mkDerivation {
   inherit version;
@@ -34,11 +26,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Use Vim as PAGER";
     homepage = "https://www.vim.org/scripts/script.php?script_id=1723";
-    license = with licenses; [
-      bsd2
-      mit
-      vim
-    ];
+    license = with licenses; [ bsd2 mit vim ];
     platforms = platforms.unix;
   };
 }

@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  itstool,
-  exempi,
-  lcms2,
-  libexif,
-  libjpeg,
-  librsvg,
-  libxml2,
-  libpeas,
-  shared-mime-info,
-  gtk3,
-  mate,
-  hicolor-icon-theme,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, itstool, exempi, lcms2, libexif
+, libjpeg, librsvg, libxml2, libpeas, shared-mime-info, gtk3, mate
+, hicolor-icon-theme, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "eom";
@@ -31,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "tSUSKUlPfmxi4J+yEeQzCN9PB0xVG6CiM9ws1oZLmWA=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    itstool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config gettext itstool wrapGAppsHook ];
 
   buildInputs = [
     exempi
@@ -57,7 +34,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = mateUpdateScript { inherit pname; };
 
   meta = with lib; {
-    description = "An image viewing and cataloging program for the MATE desktop";
+    description =
+      "An image viewing and cataloging program for the MATE desktop";
     homepage = "https://mate-desktop.org";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

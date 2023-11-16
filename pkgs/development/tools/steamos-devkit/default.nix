@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  fetchFromGitLab,
-  writeScript,
-  python3,
-  copyDesktopItems,
-  makeDesktopItem,
-  pkg-config,
-  SDL2,
-}:
+{ lib, fetchFromGitHub, fetchFromGitLab, writeScript, python3, copyDesktopItems
+, makeDesktopItem, pkg-config, SDL2 }:
 let
   # steamos-devkit requires a build of the unreleased pyimgui 2.0 branch, move to pythonPackages when 2.0 is released.
   pyimgui = python3.pkgs.buildPythonPackage {
@@ -23,17 +14,9 @@ let
       sha256 = "sha256-k070ue132m8H1Zm8bo7J7spCS5dSTGOj689ci7vJ+aw=";
     };
 
-    nativeBuildInputs = with python3.pkgs; [
-      cython
-      pkg-config
-      SDL2
-    ];
+    nativeBuildInputs = with python3.pkgs; [ cython pkg-config SDL2 ];
 
-    propagatedBuildInputs = with python3.pkgs; [
-      click
-      pyopengl
-      pysdl2
-    ];
+    propagatedBuildInputs = with python3.pkgs; [ click pyopengl pysdl2 ];
 
     # Requires OpenGL acceleration
     doCheck = false;
@@ -55,8 +38,7 @@ let
     import devkit_client.gui2
     devkit_client.gui2.main()
   '';
-in
-python3.pkgs.buildPythonPackage rec {
+in python3.pkgs.buildPythonPackage rec {
   pname = "steamos-devkit";
   version = "0.20230411.0";
 

@@ -1,21 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aiohttp-retry,
-  aiounittest,
-  buildPythonPackage,
-  cryptography,
-  django,
-  fetchFromGitHub,
-  mock,
-  multidict,
-  pyngrok,
-  pyjwt,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  requests,
-}:
+{ lib, aiohttp, aiohttp-retry, aiounittest, buildPythonPackage, cryptography
+, django, fetchFromGitHub, mock, multidict, pyngrok, pyjwt, pytestCheckHook
+, pythonOlder, pytz, requests }:
 
 buildPythonPackage rec {
   pname = "twilio";
@@ -31,23 +16,10 @@ buildPythonPackage rec {
     hash = "sha256-UXQMDP5JjxTnHpvw730Yz0U8/CwYdRz3R64TP0Zgbcw=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    aiohttp-retry
-    pyjwt
-    pyngrok
-    pytz
-    requests
-  ];
+  propagatedBuildInputs = [ aiohttp aiohttp-retry pyjwt pyngrok pytz requests ];
 
-  nativeCheckInputs = [
-    aiounittest
-    cryptography
-    django
-    mock
-    multidict
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aiounittest cryptography django mock multidict pytestCheckHook ];
 
   disabledTests = [
     # Tests require network access
@@ -66,7 +38,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Twilio API client and TwiML generator";
     homepage = "https://github.com/twilio/twilio-python/";
-    changelog = "https://github.com/twilio/twilio-python/blob/${version}/CHANGES.md";
+    changelog =
+      "https://github.com/twilio/twilio-python/blob/${version}/CHANGES.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

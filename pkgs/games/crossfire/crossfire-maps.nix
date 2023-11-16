@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchsvn,
-  version,
-  rev,
-  sha256,
-}:
+{ stdenv, lib, fetchsvn, version, rev, sha256 }:
 
 stdenv.mkDerivation rec {
   pname = "crossfire-maps";

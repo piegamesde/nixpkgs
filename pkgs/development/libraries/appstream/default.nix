@@ -1,41 +1,13 @@
-{
-  lib,
-  stdenv,
-  substituteAll,
-  fetchFromGitHub,
-  meson,
-  mesonEmulatorHook,
-  ninja,
-  pkg-config,
-  gettext,
-  xmlto,
-  docbook-xsl-nons,
-  docbook_xml_dtd_45,
-  libxslt,
-  libstemmer,
-  glib,
-  xapian,
-  libxml2,
-  libxmlb,
-  libyaml,
-  gobject-introspection,
-  pcre,
-  itstool,
-  gperf,
-  vala,
-  curl,
-  nixosTests,
-}:
+{ lib, stdenv, substituteAll, fetchFromGitHub, meson, mesonEmulatorHook, ninja
+, pkg-config, gettext, xmlto, docbook-xsl-nons, docbook_xml_dtd_45, libxslt
+, libstemmer, glib, xapian, libxml2, libxmlb, libyaml, gobject-introspection
+, pcre, itstool, gperf, vala, curl, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "appstream";
   version = "0.15.5";
 
-  outputs = [
-    "out"
-    "dev"
-    "installedTests"
-  ];
+  outputs = [ "out" "dev" "installedTests" ];
 
   src = fetchFromGitHub {
     owner = "ximion";
@@ -72,18 +44,10 @@ stdenv.mkDerivation rec {
     itstool
     vala
     gperf
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    libstemmer
-    pcre
-    glib
-    xapian
-    libxml2
-    libxmlb
-    libyaml
-    curl
-  ];
+  buildInputs = [ libstemmer pcre glib xapian libxml2 libxmlb libyaml curl ];
 
   mesonFlags = [
     "-Dapidocs=false"
@@ -93,9 +57,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    tests = {
-      installed-tests = nixosTests.installed-tests.appstream;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.appstream; };
   };
 
   meta = with lib; {

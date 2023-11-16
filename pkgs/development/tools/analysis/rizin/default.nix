@@ -1,33 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libusb-compat-0_1,
-  readline,
-  libewf,
-  perl,
-  zlib,
-  openssl,
-  libuv,
-  file,
-  libzip,
-  lz4,
-  xxHash,
-  meson,
-  python3,
-  cmake,
-  ninja,
-  capstone,
-  tree-sitter,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libusb-compat-0_1, readline, libewf, perl
+, zlib, openssl, libuv, file, libzip, lz4, xxHash, meson, python3, cmake, ninja
+, capstone, tree-sitter }:
 
 stdenv.mkDerivation rec {
   pname = "rizin";
   version = "0.5.2";
 
   src = fetchurl {
-    url = "https://github.com/rizinorg/rizin/releases/download/v${version}/rizin-src-v${version}.tar.xz";
+    url =
+      "https://github.com/rizinorg/rizin/releases/download/v${version}/rizin-src-v${version}.tar.xz";
     hash = "sha256-cauA/DyKycgKEAANg4EoryigXTGg7hg5AMLFxuNQ7KM=";
   };
 
@@ -52,20 +33,18 @@ stdenv.mkDerivation rec {
 
   # meson's find_library seems to not use our compiler wrapper if static parameter
   # is either true/false... We work around by also providing LIBRARY_PATH
-  preConfigure =
-    ''
-      LIBRARY_PATH=""
-      for b in ${toString (map lib.getLib buildInputs)}; do
-        if [[ -d "$b/lib" ]]; then
-          LIBRARY_PATH="$b/lib''${LIBRARY_PATH:+:}$LIBRARY_PATH"
-        fi
-      done
-      export LIBRARY_PATH
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      substituteInPlace binrz/rizin/macos_sign.sh \
-        --replace 'codesign' '# codesign'
-    '';
+  preConfigure = ''
+    LIBRARY_PATH=""
+    for b in ${toString (map lib.getLib buildInputs)}; do
+      if [[ -d "$b/lib" ]]; then
+        LIBRARY_PATH="$b/lib''${LIBRARY_PATH:+:}$LIBRARY_PATH"
+      fi
+    done
+    export LIBRARY_PATH
+  '' + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace binrz/rizin/macos_sign.sh \
+      --replace 'codesign' '# codesign'
+  '';
 
   buildInputs = [
     file
@@ -92,14 +71,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "UNIX-like reverse engineering framework and command-line toolset.";
+    description =
+      "UNIX-like reverse engineering framework and command-line toolset.";
     homepage = "https://rizin.re/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      raskin
-      makefu
-      mic92
-    ];
+    maintainers = with lib.maintainers; [ raskin makefu mic92 ];
     platforms = with lib.platforms; unix;
   };
 }

@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  async-timeout,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ stdenv, lib, async-timeout, buildPythonPackage, fetchFromGitHub
+, pytest-asyncio, pytest-mock, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pescea";
@@ -27,11 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ async-timeout ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
 
   postPatch = ''
     # https://github.com/lazdavila/pescea/pull/1

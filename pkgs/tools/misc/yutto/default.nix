@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  ffmpeg,
-  nix-update-script,
-}:
+{ lib, python3, fetchPypi, ffmpeg, nix-update-script }:
 
 with python3.pkgs;
 
@@ -22,13 +16,7 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    aiofiles
-    biliass
-    dicttoxml
-    colorama
-  ];
+  propagatedBuildInputs = [ aiohttp aiofiles biliass dicttoxml colorama ];
 
   preFixup = ''
     makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ ffmpeg ]})

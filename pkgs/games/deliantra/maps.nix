@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  deliantra-server,
-}:
+{ stdenv, lib, fetchurl, deliantra-server }:
 
 stdenv.mkDerivation rec {
   pname = "deliantra-maps";
@@ -23,10 +18,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Map data for the Deliantra free MMORPG";
     homepage = "http://www.deliantra.net/";
-    license = with licenses; [
-      gpl2Plus
-      agpl3Plus
-    ];
+    license = with licenses; [ gpl2Plus agpl3Plus ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ ToxicFrog ];
   };

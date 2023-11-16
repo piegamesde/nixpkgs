@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-  djangorestframework,
-  python,
-  mock,
+{ lib, buildPythonPackage, fetchPypi, django, djangorestframework, python, mock
 }:
 
 buildPythonPackage rec {
@@ -24,11 +17,7 @@ buildPythonPackage rec {
   # Tests fail (needs the 'crispy_forms' module not packaged on nixos)
   doCheck = false;
 
-  nativeCheckInputs = [
-    djangorestframework
-    django
-    mock
-  ];
+  nativeCheckInputs = [ djangorestframework django mock ];
 
   checkPhase = ''
     runHook preCheck
@@ -37,7 +26,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Reusable Django application for allowing users to filter querysets dynamically";
+    description =
+      "Reusable Django application for allowing users to filter querysets dynamically";
     homepage = "https://pypi.org/project/django-filter/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];

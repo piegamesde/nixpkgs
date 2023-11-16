@@ -1,21 +1,6 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  karchive,
-  kcmutils,
-  kcrash,
-  kdnssd,
-  ki18n,
-  knotifications,
-  knotifyconfig,
-  kplotting,
-  kross,
-  libgcrypt,
-  libktorrent,
-  taglib,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, karchive, kcmutils, kcrash
+, kdnssd, ki18n, knotifications, knotifyconfig, kplotting, kross, libgcrypt
+, libktorrent, taglib }:
 
 mkDerivation {
   pname = "ktorrent";
@@ -26,10 +11,7 @@ mkDerivation {
     maintainers = with maintainers; [ eelco ];
   };
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     karchive
     kcmutils

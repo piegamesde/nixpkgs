@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  lxml,
-  requests,
-  pyparsing,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, lxml, requests, pyparsing, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "twill";
@@ -20,11 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-tWcZRvBvkRyQ7gD5zjocBzFVlzQ0Mhf1unF3gUkhB94=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-    requests
-    pyparsing
-  ];
+  propagatedBuildInputs = [ lxml requests pyparsing ];
 
   pythonImportsCheck = [ "twill" ];
 

@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  async-timeout,
-  buildPythonPackage,
-  fetchFromGitHub,
-  orjson,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aioresponses, async-timeout, buildPythonPackage, fetchFromGitHub
+, orjson, pytest-aiohttp, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pydeconz";
@@ -25,17 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-Vf3nYUopaGY5JK//rqqsz47VRHwql1cQcslYbkH3owQ=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    orjson
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout orjson ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses pytest-aiohttp pytestCheckHook ];
 
   pythonImportsCheck = [ "pydeconz" ];
 

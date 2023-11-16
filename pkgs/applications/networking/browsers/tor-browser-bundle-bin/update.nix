@@ -1,24 +1,12 @@
-{
-  lib,
-  writeShellScript,
-  coreutils,
-  gnused,
-  gnugrep,
-  curl,
-  gnupg,
-  nix,
-  common-updater-scripts,
+{ lib, writeShellScript, coreutils, gnused, gnugrep, curl, gnupg, nix
+, common-updater-scripts
 
-  # options
-  pname,
-  version,
-  meta,
-  baseUrl ? "https://dist.torproject.org/torbrowser/",
+# options
+, pname, version, meta, baseUrl ? "https://dist.torproject.org/torbrowser/"
   # prefix used to match published archive
-  prefix ? "tor-browser-",
+, prefix ? "tor-browser-"
   # suffix used to match published archive
-  suffix ? "_ALL.tar.xz",
-}:
+, suffix ? "_ALL.tar.xz" }:
 
 writeShellScript "update-${pname}" ''
   PATH="${

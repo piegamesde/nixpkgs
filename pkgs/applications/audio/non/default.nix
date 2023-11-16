@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  python3,
-  cairo,
-  libjpeg,
-  ntk,
-  libjack2,
-  libsndfile,
-  ladspaH,
-  liblo,
-  libsigcxx,
-  lrdf,
-  wafHook,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, python3, cairo, libjpeg, ntk
+, libjack2, libsndfile, ladspaH, liblo, libsigcxx, lrdf, wafHook }:
 
 stdenv.mkDerivation {
   pname = "non";
@@ -26,10 +11,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-iMJNMDytNXpEkUhL0RILSd25ixkm8HL/edtOZta0Pf4=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wafHook
-  ];
+  nativeBuildInputs = [ pkg-config wafHook ];
   buildInputs = [
     python3
     cairo
@@ -44,7 +26,8 @@ stdenv.mkDerivation {
   ];
 
   meta = {
-    description = "Lightweight and lightning fast modular Digital Audio Workstation";
+    description =
+      "Lightweight and lightning fast modular Digital Audio Workstation";
     homepage = "http://non.tuxfamily.org";
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.linux;

@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  bzip2,
-  libX11,
-  mkDerivation,
-  qtbase,
-  qttools,
-  qtmultimedia,
-  qtscript,
-  libiconv,
-  pcre-cpp,
-  libidn,
-  lua5,
-  miniupnpc,
-  aspell,
-  gettext,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, bzip2, libX11, mkDerivation
+, qtbase, qttools, qtmultimedia, qtscript, libiconv, pcre-cpp, libidn, lua5
+, miniupnpc, aspell, gettext, perl }:
 
 mkDerivation rec {
   pname = "eiskaltdcpp";
@@ -32,10 +13,7 @@ mkDerivation rec {
     sha256 = "sha256-JmAopXFS6MkxW0wDQ1bC/ibRmWgOpzU0971hcqAehLU=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
     qtbase
     qttools
@@ -49,13 +27,7 @@ mkDerivation rec {
     miniupnpc
     aspell
     gettext
-    (perl.withPackages (
-      p:
-      with p; [
-        GetoptLong
-        TermShellUI
-      ]
-    ))
+    (perl.withPackages (p: with p; [ GetoptLong TermShellUI ]))
   ] ++ lib.optional stdenv.isDarwin libiconv;
 
   cmakeFlags = [
@@ -81,7 +53,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A cross-platform program that uses the Direct Connect and ADC protocols";
+    description =
+      "A cross-platform program that uses the Direct Connect and ADC protocols";
     homepage = "https://github.com/eiskaltdcpp/eiskaltdcpp";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-}:
+{ lib, python3Packages, fetchPypi }:
 
 python3Packages.buildPythonApplication rec {
   pname = "nhentai";
@@ -23,7 +19,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/RicterZ/nhentai";
-    description = "nHentai is a CLI tool for downloading doujinshi from <http://nhentai.net>";
+    description =
+      "nHentai is a CLI tool for downloading doujinshi from <http://nhentai.net>";
     license = licenses.mit;
     maintainers = with maintainers; [ travisdavis-ops ];
   };

@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.target;
-in
-{
+let cfg = config.services.target;
+in {
   ###### interface
   options = {
     services.target = with types; {
@@ -36,18 +29,11 @@ in
 
     environment.systemPackages = with pkgs; [ targetcli ];
 
-    boot.kernelModules = [
-      "configfs"
-      "target_core_mod"
-      "iscsi_target_mod"
-    ];
+    boot.kernelModules = [ "configfs" "target_core_mod" "iscsi_target_mod" ];
 
     systemd.services.iscsi-target = {
       enable = true;
-      after = [
-        "network.target"
-        "local-fs.target"
-      ];
+      after = [ "network.target" "local-fs.target" ];
       requires = [ "sys-kernel-config.mount" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

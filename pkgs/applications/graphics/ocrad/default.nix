@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  lzip,
-  texinfo,
-}:
+{ fetchurl, lib, stdenv, lzip, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "ocrad";

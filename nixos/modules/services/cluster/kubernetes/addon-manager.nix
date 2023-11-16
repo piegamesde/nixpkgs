@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,12 +11,11 @@ let
   addons = pkgs.runCommand "kubernetes-addons" { } ''
     mkdir -p $out
     # since we are mounting the addons to the addon manager, they need to be copied
-    ${concatMapStringsSep ";" (a: "cp -v ${a}/* $out/") (
-      mapAttrsToList (name: addon: pkgs.writeTextDir "${name}.json" (builtins.toJSON addon)) (cfg.addons)
-    )}
+    ${concatMapStringsSep ";" (a: "cp -v ${a}/* $out/") (mapAttrsToList
+      (name: addon: pkgs.writeTextDir "${name}.json" (builtins.toJSON addon))
+      (cfg.addons))}
   '';
-in
-{
+in {
   ###### interface
   options.services.kubernetes.addonManager = with lib.types; {
 
@@ -48,7 +42,8 @@ in
     };
 
     addons = mkOption {
-      description = lib.mdDoc "Kubernetes addons (any kind of Kubernetes resource can be an addon).";
+      description = lib.mdDoc
+        "Kubernetes addons (any kind of Kubernetes resource can be an addon).";
       default = { };
       type = attrsOf (either attrs (listOf attrs));
       example = literalExpression ''
@@ -89,88 +84,67 @@ in
         Restart = "on-failure";
         RestartSec = 10;
       };
-      unitConfig = {
-        StartLimitIntervalSec = 0;
-      };
+      unitConfig = { StartLimitIntervalSec = 0; };
     };
 
-    services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled (
-      let
-        name = "system:kube-addon-manager";
-        namespace = "kube-system";
-      in
-      {
+    services.kubernetes.addonManager.bootstrapAddons = mkIf isRBACEnabled (let
+      name = "system:kube-addon-manager";
+      namespace = "kube-system";
+    in {
 
-        kube-addon-manager-r = {
-          apiVersion = "rbac.authorization.k8s.io/v1";
+      kube-addon-manager-r = {
+        apiVersion = "rbac.authorization.k8s.io/v1";
+        kind = "Role";
+        metadata = { inherit name namespace; };
+        rules = [{
+          apiGroups = [ "*" ];
+          resources = [ "*" ];
+          verbs = [ "*" ];
+        }];
+      };
+
+      kube-addon-manager-rb = {
+        apiVersion = "rbac.authorization.k8s.io/v1";
+        kind = "RoleBinding";
+        metadata = { inherit name namespace; };
+        roleRef = {
+          apiGroup = "rbac.authorization.k8s.io";
           kind = "Role";
-          metadata = {
-            inherit name namespace;
-          };
-          rules = [
-            {
-              apiGroups = [ "*" ];
-              resources = [ "*" ];
-              verbs = [ "*" ];
-            }
-          ];
+          inherit name;
         };
+        subjects = [{
+          apiGroup = "rbac.authorization.k8s.io";
+          kind = "User";
+          inherit name;
+        }];
+      };
 
-        kube-addon-manager-rb = {
-          apiVersion = "rbac.authorization.k8s.io/v1";
-          kind = "RoleBinding";
-          metadata = {
-            inherit name namespace;
-          };
-          roleRef = {
-            apiGroup = "rbac.authorization.k8s.io";
-            kind = "Role";
-            inherit name;
-          };
-          subjects = [
-            {
-              apiGroup = "rbac.authorization.k8s.io";
-              kind = "User";
-              inherit name;
-            }
-          ];
-        };
+      kube-addon-manager-cluster-lister-cr = {
+        apiVersion = "rbac.authorization.k8s.io/v1";
+        kind = "ClusterRole";
+        metadata = { name = "${name}:cluster-lister"; };
+        rules = [{
+          apiGroups = [ "*" ];
+          resources = [ "*" ];
+          verbs = [ "list" ];
+        }];
+      };
 
-        kube-addon-manager-cluster-lister-cr = {
-          apiVersion = "rbac.authorization.k8s.io/v1";
+      kube-addon-manager-cluster-lister-crb = {
+        apiVersion = "rbac.authorization.k8s.io/v1";
+        kind = "ClusterRoleBinding";
+        metadata = { name = "${name}:cluster-lister"; };
+        roleRef = {
+          apiGroup = "rbac.authorization.k8s.io";
           kind = "ClusterRole";
-          metadata = {
-            name = "${name}:cluster-lister";
-          };
-          rules = [
-            {
-              apiGroups = [ "*" ];
-              resources = [ "*" ];
-              verbs = [ "list" ];
-            }
-          ];
+          name = "${name}:cluster-lister";
         };
-
-        kube-addon-manager-cluster-lister-crb = {
-          apiVersion = "rbac.authorization.k8s.io/v1";
-          kind = "ClusterRoleBinding";
-          metadata = {
-            name = "${name}:cluster-lister";
-          };
-          roleRef = {
-            apiGroup = "rbac.authorization.k8s.io";
-            kind = "ClusterRole";
-            name = "${name}:cluster-lister";
-          };
-          subjects = [
-            {
-              kind = "User";
-              inherit name;
-            }
-          ];
-        };
-      }
-    );
+        subjects = [{
+          kind = "User";
+          inherit name;
+        }];
+      };
+    });
 
     services.kubernetes.pki.certs = {
       addonManager = top.lib.mkCert {

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  perl,
-  wdiff,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, perl, wdiff }:
 
 stdenv.mkDerivation rec {
   version = "1.7.2";

@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  buildNpmPackage,
-  makeWrapper,
-  exiftool,
-  ffmpeg,
-}:
+{ lib, fetchFromGitHub, buildGoModule, buildNpmPackage, makeWrapper, exiftool
+, ffmpeg }:
 
 let
   pname = "photofield-ui";
@@ -32,9 +25,8 @@ let
       mv dist $out/share/photofield-ui
     '';
   };
-in
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "photofield";
   inherit version src;
 
@@ -44,12 +36,7 @@ buildGoModule rec {
     cp -r ${webui}/share/photofield-ui ui/dist
   '';
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.builtBy=Nix"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" "-X main.builtBy=Nix" ];
 
   tags = [ "embedstatic" ];
 
@@ -59,12 +46,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/photofield \
-      --prefix PATH : "${
-        lib.makeBinPath [
-          exiftool
-          ffmpeg
-        ]
-      }"
+      --prefix PATH : "${lib.makeBinPath [ exiftool ffmpeg ]}"
   '';
 
   meta = with lib; {

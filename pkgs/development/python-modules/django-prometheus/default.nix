@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  prometheus-client,
-  pytest-django,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, prometheus-client
+, pytest-django, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-prometheus";
@@ -32,14 +25,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "django_prometheus" ];
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytestCheckHook ];
 
   meta = with lib; {
-    changelog = "https://github.com/korfuri/django-prometheus/releases/tag/v${version}";
-    description = "Django middlewares to monitor your application with Prometheus.io";
+    changelog =
+      "https://github.com/korfuri/django-prometheus/releases/tag/v${version}";
+    description =
+      "Django middlewares to monitor your application with Prometheus.io";
     homepage = "https://github.com/korfuri/django-prometheus";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

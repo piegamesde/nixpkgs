@@ -1,47 +1,20 @@
-{
-  rustcVersion,
-  rustcSha256,
-  enableRustcDev ? true,
-  bootstrapVersion,
-  bootstrapHashes,
-  selectRustPackage,
-  rustcPatches ? [ ],
-  llvmBootstrapForDarwin,
-  llvmShared,
-  llvmSharedForBuild,
-  llvmSharedForHost,
-  llvmSharedForTarget,
-  llvmPackages, # Exposed through rustc for LTO in Firefox
+{ rustcVersion, rustcSha256, enableRustcDev ? true, bootstrapVersion
+, bootstrapHashes, selectRustPackage, rustcPatches ? [ ], llvmBootstrapForDarwin
+, llvmShared, llvmSharedForBuild, llvmSharedForHost, llvmSharedForTarget
+, llvmPackages # Exposed through rustc for LTO in Firefox
 }:
-{
-  stdenv,
-  lib,
-  buildPackages,
-  newScope,
-  callPackage,
-  CoreFoundation,
-  Security,
-  SystemConfiguration,
-  pkgsBuildTarget,
-  pkgsBuildBuild,
-  makeRustPlatform,
-}:
+{ stdenv, lib, buildPackages, newScope, callPackage, CoreFoundation, Security
+, SystemConfiguration, pkgsBuildTarget, pkgsBuildBuild, makeRustPlatform }:
 
 let
   # Use `import` to make sure no packages sneak in here.
   lib' = import ../../../build-support/rust/lib { inherit lib; };
-in
-{
+in {
   lib = lib';
 
   # Backwards compat before `lib` was factored out.
   inherit (lib')
-    toTargetArch
-    toTargetOs
-    toRustTarget
-    toRustTargetSpec
-    IsNoStdTarget
-  ;
+    toTargetArch toTargetOs toRustTarget toRustTargetSpec IsNoStdTarget;
 
   # This just contains tools for now. But it would conceivably contain
   # libraries too, say if we picked some default/recommended versions to build
@@ -59,43 +32,33 @@ in
       version = bootstrapVersion;
       hashes = bootstrapHashes;
     };
-    stable = lib.makeScope newScope (
-      self:
+    stable = lib.makeScope newScope (self:
       let
         # Like `buildRustPackages`, but may also contain prebuilt binaries to
         # break cycle. Just like `bootstrapTools` for nixpkgs as a whole,
         # nothing in the final package set should refer to this.
-        bootstrapRustPackages = self.buildRustPackages.overrideScope' (
-          _: _:
+        bootstrapRustPackages = self.buildRustPackages.overrideScope' (_: _:
           lib.optionalAttrs (stdenv.buildPlatform == stdenv.hostPlatform)
-            (selectRustPackage buildPackages).packages.prebuilt
-        );
+          (selectRustPackage buildPackages).packages.prebuilt);
         bootRustPlatform = makeRustPlatform bootstrapRustPackages;
-      in
-      {
+      in {
         # Packages suitable for build-time, e.g. `build.rs`-type stuff.
         buildRustPackages = (selectRustPackage buildPackages).packages.stable;
         # Analogous to stdenv
         rustPlatform = makeRustPlatform self.buildRustPackages;
-        rustc = self.callPackage ./rustc.nix (
-          {
-            version = rustcVersion;
-            sha256 = rustcSha256;
-            inherit enableRustcDev;
-            inherit
-              llvmShared
-              llvmSharedForBuild
-              llvmSharedForHost
-              llvmSharedForTarget
-              llvmPackages
-            ;
+        rustc = self.callPackage ./rustc.nix ({
+          version = rustcVersion;
+          sha256 = rustcSha256;
+          inherit enableRustcDev;
+          inherit llvmShared llvmSharedForBuild llvmSharedForHost
+            llvmSharedForTarget llvmPackages;
 
-            patches = rustcPatches;
+          patches = rustcPatches;
 
-            # Use boot package set to break cycle
-            inherit (bootstrapRustPackages) cargo rustc;
-          }
-          // lib.optionalAttrs (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform) {
+          # Use boot package set to break cycle
+          inherit (bootstrapRustPackages) cargo rustc;
+        } // lib.optionalAttrs
+          (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform) {
             stdenv = llvmBootstrapForDarwin.stdenv;
             pkgsBuildBuild = pkgsBuildBuild // {
               targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
@@ -106,8 +69,7 @@ in
             pkgsBuildTarget = pkgsBuildTarget // {
               targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
             };
-          }
-        );
+          });
         rustfmt = self.callPackage ./rustfmt.nix {
           inherit Security;
           inherit (self.buildRustPackages) rustc;
@@ -118,7 +80,8 @@ in
           inherit CoreFoundation Security;
         };
         cargo-auditable = self.callPackage ./cargo-auditable.nix { };
-        cargo-auditable-cargo-wrapper = self.callPackage ./cargo-auditable-cargo-wrapper.nix { };
+        cargo-auditable-cargo-wrapper =
+          self.callPackage ./cargo-auditable-cargo-wrapper.nix { };
         clippy = self.callPackage ./clippy.nix {
           # We want to use self, not buildRustPackages, so that
           # buildPackages.clippy uses the cross compiler and supports
@@ -126,7 +89,6 @@ in
           rustPlatform = makeRustPlatform self;
           inherit Security;
         };
-      }
-    );
+      });
   };
 }

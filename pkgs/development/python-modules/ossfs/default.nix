@@ -1,14 +1,5 @@
-{
-  lib,
-  aiooss2,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fsspec,
-  oss2,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  setuptools-scm,
-}:
+{ lib, aiooss2, buildPythonPackage, fetchFromGitHub, fsspec, oss2, pythonOlder
+, pythonRelaxDepsHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "ossfs";
@@ -26,22 +17,11 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonRelaxDeps = [
-    "aiooss2"
-    "fsspec"
-    "oss2"
-  ];
+  pythonRelaxDeps = [ "aiooss2" "fsspec" "oss2" ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
 
-  propagatedBuildInputs = [
-    aiooss2
-    fsspec
-    oss2
-  ];
+  propagatedBuildInputs = [ aiooss2 fsspec oss2 ];
 
   # Most tests require network access
   doCheck = false;
@@ -49,7 +29,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ossfs" ];
 
   meta = with lib; {
-    description = "Filesystem for Alibaba Cloud (Aliyun) Object Storage System (OSS)";
+    description =
+      "Filesystem for Alibaba Cloud (Aliyun) Object Storage System (OSS)";
     homepage = "https://github.com/fsspec/ossfs";
     changelog = "https://github.com/fsspec/ossfs/releases/tag/${version}";
     license = licenses.asl20;

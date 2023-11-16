@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchsvn,
-  fetchFromGitHub,
-  fpc,
-  openssl,
-}:
+{ lib, stdenv, fetchsvn, fetchFromGitHub, fpc, openssl }:
 
 let
   flreSrc = fetchFromGitHub {
@@ -38,8 +31,7 @@ let
     rev = "1696f0a2b822fef26c8992f96620f1be129cfa99";
     hash = "sha256-x0AjOTa1g7gJOR2iBO76yBt1kzcRNujHRUsq5QOlfP0=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "xidel";
   version = "unstable-2022-11-01";
 
@@ -94,7 +86,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Command line tool to download and extract data from HTML/XML pages as well as JSON APIs";
+    description =
+      "Command line tool to download and extract data from HTML/XML pages as well as JSON APIs";
     homepage = "https://www.videlibri.de/xidel.html";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

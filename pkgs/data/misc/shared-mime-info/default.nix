@@ -1,26 +1,11 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  fetchpatch,
-  meson,
-  ninja,
-  pkg-config,
-  gettext,
-  itstool,
-  libxml2,
-  glib,
-  shared-mime-info,
-}:
+{ stdenv, lib, fetchFromGitLab, fetchpatch, meson, ninja, pkg-config, gettext
+, itstool, libxml2, glib, shared-mime-info }:
 
 stdenv.mkDerivation rec {
   pname = "shared-mime-info";
   version = "2.2";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -30,18 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QrRe/DcjpTMejHXDSOLbjpJywod8qIjP6/leTZ21rhE=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    libxml2
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) shared-mime-info;
+  nativeBuildInputs = [ meson ninja pkg-config gettext libxml2 ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    shared-mime-info;
 
-  buildInputs = [
-    libxml2
-    glib
-  ];
+  buildInputs = [ libxml2 glib ];
 
   strictDeps = true;
 

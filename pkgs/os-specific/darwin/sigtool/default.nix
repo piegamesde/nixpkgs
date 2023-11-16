@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "sigtool";

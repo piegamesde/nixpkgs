@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ruby,
-  makeWrapper,
-  git,
-}:
+{ lib, stdenv, fetchFromGitHub, ruby, makeWrapper, git }:
 
 stdenv.mkDerivation rec {
   pname = "svn2git";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w649l/WO68vYYxZOBKzI8XhGFkaSwWx/O3oVOtnGg6w=";
   };
 
-  nativeBuildInputs = [
-    ruby
-    makeWrapper
-  ];
+  nativeBuildInputs = [ ruby makeWrapper ];
 
   dontBuild = true;
 

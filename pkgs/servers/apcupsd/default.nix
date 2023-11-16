@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  systemd,
-  util-linux,
-  coreutils,
-  wall,
-  hostname,
-  man,
-  enableCgiScripts ? true,
-  gd,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, pkg-config, systemd, util-linux, coreutils, wall
+, hostname, man, enableCgiScripts ? true, gd, nixosTests }:
 
 assert enableCgiScripts -> gd != null;
 
@@ -26,10 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    util-linux
-    man
-  ] ++ lib.optional enableCgiScripts gd;
+  buildInputs = [ util-linux man ] ++ lib.optional enableCgiScripts gd;
 
   prePatch = ''
     sed -e "s,\$(INSTALL_PROGRAM) \$(STRIP),\$(INSTALL_PROGRAM)," \
@@ -55,7 +39,10 @@ stdenv.mkDerivation rec {
         --with-lock-dir=/run/lock \
         --with-pid-dir=/run \
         --enable-usb \
-        ${lib.optionalString enableCgiScripts "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"}
+        ${
+          lib.optionalString enableCgiScripts
+          "--enable-cgi --with-cgi-bin=$out/libexec/cgi-bin"
+        }
         "
   '';
 

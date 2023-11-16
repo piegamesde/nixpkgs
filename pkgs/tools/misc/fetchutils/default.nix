@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  bash,
-  scdoc,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, bash, scdoc }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "fetchutils";
@@ -17,10 +11,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-ONrVZC6GBV5v3TeBekW9ybZjDHF3FNyXw1rYknqKRbk=";
   };
 
-  buildInputs = [
-    bash
-    scdoc
-  ];
+  buildInputs = [ bash scdoc ];
 
   installFlags = [ "PREFIX=$(out)/" ];
 
@@ -29,7 +20,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A collection of small shell utilities to fetch system information";
+    description =
+      "A collection of small shell utilities to fetch system information";
     homepage = "https://github.com/lptstr/fetchutils";
     license = licenses.mit;
     platforms = platforms.unix;

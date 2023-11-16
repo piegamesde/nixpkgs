@@ -1,22 +1,5 @@
-{
-  fetchurl,
-  stdenv,
-  unixODBC,
-  cmake,
-  postgresql,
-  mariadb,
-  sqlite,
-  zlib,
-  libxml2,
-  dpkg,
-  lib,
-  openssl,
-  libkrb5,
-  libuuid,
-  patchelf,
-  libiconv,
-  fetchFromGitHub,
-}:
+{ fetchurl, stdenv, unixODBC, cmake, postgresql, mariadb, sqlite, zlib, libxml2
+, dpkg, lib, openssl, libkrb5, libuuid, patchelf, libiconv, fetchFromGitHub }:
 
 # I haven't done any parameter tweaking.. So the defaults provided here might be bad
 
@@ -30,10 +13,7 @@
       sha256 = "1cyams7157f3gry86x64xrplqi2vyqrq3rqka59gv4lb4rpl7jl7";
     };
 
-    buildInputs = [
-      unixODBC
-      postgresql
-    ];
+    buildInputs = [ unixODBC postgresql ];
 
     passthru = {
       fancyName = "PostgreSQL";
@@ -63,11 +43,7 @@
     };
 
     nativeBuildInputs = [ cmake ];
-    buildInputs = [
-      unixODBC
-      openssl
-      libiconv
-    ];
+    buildInputs = [ unixODBC openssl libiconv ];
 
     preConfigure = ''
       # we don't want to build a .pkg
@@ -103,15 +79,13 @@
     version = "${majorVersion}.6";
 
     src = fetchurl {
-      url = "https://dev.mysql.com/get/Downloads/Connector-ODBC/${majorVersion}/${pname}-${version}-src.tar.gz";
+      url =
+        "https://dev.mysql.com/get/Downloads/Connector-ODBC/${majorVersion}/${pname}-${version}-src.tar.gz";
       sha256 = "1smi4z49i4zm7cmykjkwlxxzqvn7myngsw5bc35z6gqxmi8c55xr";
     };
 
     nativeBuildInputs = [ cmake ];
-    buildInputs = [
-      unixODBC
-      mariadb
-    ];
+    buildInputs = [ unixODBC mariadb ];
 
     cmakeFlags = [ "-DWITH_UNIXODBC=1" ];
 
@@ -138,17 +112,10 @@
       sha256 = "0dgsj28sc7f7aprmdd0n5a1rmcx6pv7170c8dfjl0x1qsjxim6hs";
     };
 
-    buildInputs = [
-      unixODBC
-      sqlite
-      zlib
-      libxml2
-    ];
+    buildInputs = [ unixODBC sqlite zlib libxml2 ];
 
-    configureFlags = [
-      "--with-odbc=${unixODBC}"
-      "--with-sqlite3=${sqlite.dev}"
-    ];
+    configureFlags =
+      [ "--with-odbc=${unixODBC}" "--with-sqlite3=${sqlite.dev}" ];
 
     installTargets = [ "install-3" ];
 
@@ -181,14 +148,12 @@
     versionAdditional = "1.1";
 
     src = fetchurl {
-      url = "https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql${versionMajor}_${version}_amd64.deb";
+      url =
+        "https://packages.microsoft.com/debian/10/prod/pool/main/m/msodbcsql17/msodbcsql${versionMajor}_${version}_amd64.deb";
       sha256 = "0vwirnp56jibm3qf0kmi4jnz1w7xfhnsfr8imr0c9hg6av4sk3a6";
     };
 
-    nativeBuildInputs = [
-      dpkg
-      patchelf
-    ];
+    nativeBuildInputs = [ dpkg patchelf ];
 
     unpackPhase = "dpkg -x $src ./";
     buildPhase = "";
@@ -201,26 +166,22 @@
 
     postFixup = ''
       patchelf --set-rpath ${
-        lib.makeLibraryPath [
-          unixODBC
-          openssl
-          libkrb5
-          libuuid
-          stdenv.cc.cc
-        ]
+        lib.makeLibraryPath [ unixODBC openssl libkrb5 libuuid stdenv.cc.cc ]
       } \
         $out/lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}
     '';
 
     passthru = {
       fancyName = "ODBC Driver 17 for SQL Server";
-      driver = "lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}";
+      driver =
+        "lib/libmsodbcsql-${versionMajor}.${versionMinor}.so.${versionAdditional}";
     };
 
     meta = with lib; {
       broken = stdenv.isDarwin;
       description = "ODBC Driver 17 for SQL Server";
-      homepage = "https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017";
+      homepage =
+        "https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017";
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       license = licenses.unfree;
       platforms = platforms.linux;
@@ -233,7 +194,8 @@
     version = "1.4.49.1000";
 
     src = fetchurl {
-      url = "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${version}/AmazonRedshiftODBC-64-bit-${version}-1.x86_64.deb";
+      url =
+        "https://s3.amazonaws.com/redshift-downloads/drivers/odbc/${version}/AmazonRedshiftODBC-64-bit-${version}-1.x86_64.deb";
       sha256 = "sha256-r5HvsZjB7+x+ClxtWoONkE1/NAbz90NbHfzxC6tf7jA=";
     };
 
@@ -265,7 +227,8 @@
     meta = with lib; {
       broken = stdenv.isDarwin;
       description = "Amazon Redshift ODBC driver";
-      homepage = "https://docs.aws.amazon.com/redshift/latest/mgmt/configure-odbc-connection.html";
+      homepage =
+        "https://docs.aws.amazon.com/redshift/latest/mgmt/configure-odbc-connection.html";
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       license = licenses.unfree;
       platforms = platforms.linux;

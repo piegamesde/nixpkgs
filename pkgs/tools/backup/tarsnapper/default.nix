@@ -1,9 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  tarsnap,
-}:
+{ lib, python3Packages, fetchFromGitHub, tarsnap }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tarsnapper";
@@ -24,11 +19,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ nose ];
 
-  patches =
-    [
-      # Remove standard module argparse from requirements
-      ./remove-argparse.patch
-    ];
+  patches = [
+    # Remove standard module argparse from requirements
+    ./remove-argparse.patch
+  ];
 
   makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ tarsnap ]}" ];
 

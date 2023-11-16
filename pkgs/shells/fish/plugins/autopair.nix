@@ -1,8 +1,4 @@
-{
-  lib,
-  buildFishPlugin,
-  fetchFromGitHub,
-}:
+{ lib, buildFishPlugin, fetchFromGitHub }:
 
 buildFishPlugin rec {
   pname = "autopair";
@@ -19,10 +15,6 @@ buildFishPlugin rec {
     description = "Auto-complete matching pairs in the Fish command line";
     homepage = "https://github.com/jorgebucaran/autopair.fish";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      figsoda
-      kidonng
-      thehedgeh0g
-    ];
+    maintainers = with maintainers; [ figsoda kidonng thehedgeh0g ];
   };
 }

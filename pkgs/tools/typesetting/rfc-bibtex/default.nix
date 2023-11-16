@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 with python3.pkgs;
 buildPythonApplication rec {
@@ -17,10 +13,7 @@ buildPythonApplication rec {
     hash = "sha256-bPCNQqiG50vWVFA6J2kyxftwsXunHTNBdSkoIRYkb0s=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    vcrpy
-  ];
+  nativeCheckInputs = [ pytestCheckHook vcrpy ];
 
   pythonImportsCheck = [ "rfc_bibtex" ];
 

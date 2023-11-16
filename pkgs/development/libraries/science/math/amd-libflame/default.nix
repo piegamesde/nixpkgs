@@ -1,14 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gfortran,
-  python3,
-  amd-blis,
+{ lib, stdenv, fetchFromGitHub, gfortran, python3, amd-blis
 
-  withOpenMP ? true,
-  blas64 ? false,
-}:
+, withOpenMP ? true, blas64 ? false }:
 
 # right now only LP64 is supported
 assert !blas64;
@@ -24,22 +16,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-jESae5NqANw90RBbIHH2oGEq5/mudc4IONv50P/AeQ0=";
   };
 
-  patches =
-    [
-      # The LAPACKE interface is compiled as a separate static library,
-      # we want the main dynamic library to provide LAPACKE symbols.
-      # This patch adds lapacke.a to the shared library as well.
-      ./add-lapacke.diff
-    ];
-
-  passthru = {
-    inherit blas64;
-  };
-
-  nativeBuildInputs = [
-    gfortran
-    python3
+  patches = [
+    # The LAPACKE interface is compiled as a separate static library,
+    # we want the main dynamic library to provide LAPACKE symbols.
+    # This patch adds lapacke.a to the shared library as well.
+    ./add-lapacke.diff
   ];
+
+  passthru = { inherit blas64; };
+
+  nativeBuildInputs = [ gfortran python3 ];
 
   buildInputs = [ amd-blis ];
 
@@ -75,7 +61,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "LAPACK-compatible linear algebra library optimized for AMD CPUs";
+    description =
+      "LAPACK-compatible linear algebra library optimized for AMD CPUs";
     homepage = "https://developer.amd.com/amd-aocl/blas-library/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

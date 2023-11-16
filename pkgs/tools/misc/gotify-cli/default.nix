@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "gotify-cli";
@@ -30,7 +26,8 @@ buildGoModule rec {
   meta = with lib; {
     license = licenses.mit;
     homepage = "https://github.com/gotify/cli";
-    description = "A command line interface for pushing messages to gotify/server";
+    description =
+      "A command line interface for pushing messages to gotify/server";
     maintainers = with maintainers; [ ];
     mainProgram = "gotify";
   };

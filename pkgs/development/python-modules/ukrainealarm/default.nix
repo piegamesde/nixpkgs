@@ -1,24 +1,19 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build time
-  setuptools-scm,
+# build time
+, setuptools-scm
 
-  # propagates
-  aiohttp,
+# propagates
+, aiohttp
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 let
   pname = "ukrainealarm";
   version = "0.0.1";
-in
 
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -37,16 +32,16 @@ buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "ukrainealarm"
-    "ukrainealarm.client"
-  ];
+  pythonImportsCheck = [ "ukrainealarm" "ukrainealarm.client" ];
 
   meta = with lib; {
-    changelog = "https://github.com/PaulAnnekov/ukrainealarm/releases/tag/v${version}";
-    description = "Implements api.ukrainealarm.com API that returns info about Ukraine air raid alarms";
+    changelog =
+      "https://github.com/PaulAnnekov/ukrainealarm/releases/tag/v${version}";
+    description =
+      "Implements api.ukrainealarm.com API that returns info about Ukraine air raid alarms";
     homepage = "https://github.com/PaulAnnekov/ukrainealarm";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };
 }
+

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses }:
 
 stdenv.mkDerivation {
   pname = "netris";

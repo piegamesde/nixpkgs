@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glfw,
-  freetype,
-  openssl,
-  makeWrapper,
-  upx,
-  boehmgc,
-  xorg,
-  binaryen,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, glfw, freetype, openssl, makeWrapper, upx
+, boehmgc, xorg, binaryen, darwin }:
 
 let
   version = "weekly.2023.19";
@@ -31,15 +19,13 @@ let
     };
 
     # patch the ptrace reference for darwin
-    installPhase =
-      lib.optionalString stdenv.isDarwin ''
-        substituteInPlace v.c \
-          --replace "#include <sys/ptrace.h>" "${ptraceSubstitution}"
-      ''
-      + ''
-        mkdir -p $out
-        cp v.c $out/
-      '';
+    installPhase = lib.optionalString stdenv.isDarwin ''
+      substituteInPlace v.c \
+        --replace "#include <sys/ptrace.h>" "${ptraceSubstitution}"
+    '' + ''
+      mkdir -p $out
+      cp v.c $out/
+    '';
   };
   # Required for vdoc.
   markdown = fetchFromGitHub {
@@ -49,8 +35,7 @@ let
     hash = "sha256-hFf7c8ZNMU1j7fgmDakuO7tBVr12Wq0dgQddJnkMajE=";
   };
   boehmgcStatic = boehmgc.override { enableStatic = true; };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "vlang";
   inherit version;
 
@@ -61,16 +46,12 @@ stdenv.mkDerivation {
     sha256 = "sha256-fHn1z2q3LmSycCOa1ii4DoHvbEW4uJt3Psq3/VuZNVQ=";
   };
 
-  propagatedBuildInputs = [
-    glfw
-    freetype
-    openssl
-  ] ++ lib.optional stdenv.hostPlatform.isUnix upx;
+  propagatedBuildInputs = [ glfw freetype openssl ]
+    ++ lib.optional stdenv.hostPlatform.isUnix upx;
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs =
-    [ binaryen ]
+  buildInputs = [ binaryen ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
     ++ lib.optionals stdenv.isLinux [
       xorg.libX11
@@ -121,7 +102,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://vlang.io/";
-    description = "Simple, fast, safe, compiled language for developing maintainable software";
+    description =
+      "Simple, fast, safe, compiled language for developing maintainable software";
     license = licenses.mit;
     maintainers = with maintainers; [ Madouura ];
     mainProgram = "v";

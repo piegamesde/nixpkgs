@@ -1,12 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ocaml,
-  seq,
-  qcheck,
-  ounit2,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ocaml, seq, qcheck, ounit2 }:
 
 buildDunePackage rec {
   version = "1.1";
@@ -22,10 +14,7 @@ buildDunePackage rec {
   };
 
   propagatedBuildInputs = [ seq ];
-  checkInputs = [
-    qcheck
-    ounit2
-  ];
+  checkInputs = [ qcheck ounit2 ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

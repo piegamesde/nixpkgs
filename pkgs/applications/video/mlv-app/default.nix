@@ -1,12 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  mkDerivation,
-  qmake,
-  qtbase,
-  qtmultimedia,
-  stdenv,
-}:
+{ fetchFromGitHub, lib, mkDerivation, qmake, qtbase, qtmultimedia, stdenv }:
 
 mkDerivation rec {
   pname = "mlv-app";
@@ -36,10 +28,7 @@ mkDerivation rec {
     cd platform/qt/
   '';
 
-  buildInputs = [
-    qtmultimedia
-    qtbase
-  ];
+  buildInputs = [ qtmultimedia qtbase ];
 
   dontWrapQtApps = true;
 

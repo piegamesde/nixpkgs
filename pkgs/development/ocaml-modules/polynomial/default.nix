@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildDunePackage,
-  zarith,
-  ff-sig,
-}:
+{ lib, fetchFromGitLab, buildDunePackage, zarith, ff-sig }:
 
 buildDunePackage rec {
   pname = "polynomial";
@@ -18,10 +12,7 @@ buildDunePackage rec {
     sha256 = "sha256-is/PrYLCwStHiQsNq5OVRCwHdXjO2K2Z7FrXgytRfAU=";
   };
 
-  propagatedBuildInputs = [
-    zarith
-    ff-sig
-  ];
+  propagatedBuildInputs = [ zarith ff-sig ];
 
   doCheck = false; # circular dependencies
 

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  alsa-lib,
-  gtk4,
-  wrapGAppsHook4,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, alsa-lib, gtk4, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "alsa-scarlett-gui";
@@ -21,22 +13,14 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
 
-  makeFlags = [
-    "DESTDIR=\${out}"
-    "PREFIX=''"
-  ];
+  makeFlags = [ "DESTDIR=\${out}" "PREFIX=''" ];
   sourceRoot = "source/src";
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook4
-  ];
-  buildInputs = [
-    gtk4
-    alsa-lib
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook4 ];
+  buildInputs = [ gtk4 alsa-lib ];
 
   meta = with lib; {
-    description = "GUI for alsa controls presented by Focusrite Scarlett Gen 2/3 Mixer Driver";
+    description =
+      "GUI for alsa controls presented by Focusrite Scarlett Gen 2/3 Mixer Driver";
     homepage = "https://github.com/geoffreybennett/alsa-scarlett-gui";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ sebtm ];

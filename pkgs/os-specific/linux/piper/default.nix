@@ -1,20 +1,6 @@
-{
-  lib,
-  meson,
-  ninja,
-  pkg-config,
-  gettext,
-  fetchFromGitHub,
-  python3,
-  wrapGAppsHook,
-  gtk3,
-  glib,
-  desktop-file-utils,
-  appstream-glib,
-  gnome,
-  gobject-introspection,
-  librsvg,
-}:
+{ lib, meson, ninja, pkg-config, gettext, fetchFromGitHub, python3
+, wrapGAppsHook, gtk3, glib, desktop-file-utils, appstream-glib, gnome
+, gobject-introspection, librsvg }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "piper";
@@ -39,23 +25,10 @@ python3.pkgs.buildPythonApplication rec {
     appstream-glib
     gobject-introspection
   ];
-  buildInputs = [
-    gtk3
-    glib
-    gnome.adwaita-icon-theme
-    python3
-    librsvg
-  ];
-  propagatedBuildInputs = with python3.pkgs; [
-    lxml
-    evdev
-    pygobject3
-  ];
+  buildInputs = [ gtk3 glib gnome.adwaita-icon-theme python3 librsvg ];
+  propagatedBuildInputs = with python3.pkgs; [ lxml evdev pygobject3 ];
 
-  mesonFlags = [
-    "-Druntime-dependency-checks=false"
-    "-Dtests=false"
-  ];
+  mesonFlags = [ "-Druntime-dependency-checks=false" "-Dtests=false" ];
 
   postPatch = ''
     chmod +x meson_install.sh # patchShebangs requires executable file

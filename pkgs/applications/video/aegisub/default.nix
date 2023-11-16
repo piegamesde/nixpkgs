@@ -1,53 +1,19 @@
-{
-  lib,
-  config,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  cmake,
-  expat,
-  harfbuzz,
-  ffmpeg,
-  ffms,
-  fftw,
-  fontconfig,
-  freetype,
-  fribidi,
-  glib,
-  icu,
-  intltool,
-  libGL,
-  libGLU,
-  libX11,
-  libass,
-  libiconv,
-  libuchardet,
-  luajit,
-  pcre,
-  pkg-config,
-  which,
-  wrapGAppsHook,
-  wxGTK,
-  zlib,
+{ lib, config, stdenv, fetchFromGitHub, boost, cmake, expat, harfbuzz, ffmpeg
+, ffms, fftw, fontconfig, freetype, fribidi, glib, icu, intltool, libGL, libGLU
+, libX11, libass, libiconv, libuchardet, luajit, pcre, pkg-config, which
+, wrapGAppsHook, wxGTK, zlib
 
-  spellcheckSupport ? true,
-  hunspell ? null,
+, spellcheckSupport ? true, hunspell ? null
 
-  openalSupport ? false,
-  openal ? null,
+, openalSupport ? false, openal ? null
 
-  alsaSupport ? stdenv.isLinux,
-  alsa-lib ? null,
+, alsaSupport ? stdenv.isLinux, alsa-lib ? null
 
-  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux,
-  libpulseaudio ? null,
+, pulseaudioSupport ? config.pulseaudio or stdenv.isLinux, libpulseaudio ? null
 
-  portaudioSupport ? false,
-  portaudio ? null,
+, portaudioSupport ? false, portaudio ? null
 
-  useBundledLuaJIT ? false,
-  darwin,
-}:
+, useBundledLuaJIT ? false, darwin }:
 
 assert spellcheckSupport -> (hunspell != null);
 assert openalSupport -> (openal != null);
@@ -59,15 +25,8 @@ let
   luajit52 = luajit.override { enable52Compat = true; };
   inherit (lib) optional;
   inherit (darwin.apple_sdk.frameworks)
-    CoreText
-    CoreFoundation
-    AppKit
-    Carbon
-    IOKit
-    Cocoa
-  ;
-in
-stdenv.mkDerivation rec {
+    CoreText CoreFoundation AppKit Carbon IOKit Cocoa;
+in stdenv.mkDerivation rec {
   pname = "aegisub";
   version = "3.3.3";
 
@@ -78,58 +37,45 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oKhLv81EFudrJaaJ2ga3pVh4W5Hd2YchpjsoYoqRm78=";
   };
 
-  nativeBuildInputs = [
-    intltool
-    luajit52
-    pkg-config
-    which
-    cmake
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ intltool luajit52 pkg-config which cmake wrapGAppsHook ];
 
-  buildInputs =
-    [
-      boost
-      expat
-      ffmpeg
-      ffms
-      fftw
-      fontconfig
-      freetype
-      fribidi
-      glib
-      harfbuzz
-      icu
-      libGL
-      libGLU
-      libX11
-      libass
-      libiconv
-      libuchardet
-      pcre
-      wxGTK
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      CoreText
-      CoreFoundation
-      AppKit
-      Carbon
-      IOKit
-      Cocoa
-    ]
-    ++ optional alsaSupport alsa-lib
-    ++ optional openalSupport openal
+  buildInputs = [
+    boost
+    expat
+    ffmpeg
+    ffms
+    fftw
+    fontconfig
+    freetype
+    fribidi
+    glib
+    harfbuzz
+    icu
+    libGL
+    libGLU
+    libX11
+    libass
+    libiconv
+    libuchardet
+    pcre
+    wxGTK
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [
+    CoreText
+    CoreFoundation
+    AppKit
+    Carbon
+    IOKit
+    Cocoa
+  ] ++ optional alsaSupport alsa-lib ++ optional openalSupport openal
     ++ optional portaudioSupport portaudio
     ++ optional pulseaudioSupport libpulseaudio
     ++ optional spellcheckSupport hunspell;
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [
-    "bindnow"
-    "relro"
-  ];
+  hardeningDisable = [ "bindnow" "relro" ];
 
   patches = lib.optionals (!useBundledLuaJIT) [ ./remove-bundled-luajit.patch ];
 
@@ -162,10 +108,7 @@ stdenv.mkDerivation rec {
     # The Aegisub sources are itself BSD/ISC, but they are linked against GPL'd
     # softwares - so the resulting program will be GPL
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      AndersonTorres
-      wegank
-    ];
+    maintainers = with maintainers; [ AndersonTorres wegank ];
     platforms = platforms.unix;
   };
 }

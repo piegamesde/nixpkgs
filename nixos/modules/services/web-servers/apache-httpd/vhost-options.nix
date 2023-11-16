@@ -1,18 +1,6 @@
-{
-  config,
-  lib,
-  name,
-  ...
-}:
-let
-  inherit (lib)
-    literalExpression
-    mkOption
-    nameValuePair
-    types
-  ;
-in
-{
+{ config, lib, name, ... }:
+let inherit (lib) literalExpression mkOption nameValuePair types;
+in {
   options = {
 
     hostName = mkOption {
@@ -24,39 +12,33 @@ in
     serverAliases = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "www.example.org"
-        "www.example.org:8080"
-        "example.org"
-      ];
+      example = [ "www.example.org" "www.example.org:8080" "example.org" ];
       description = lib.mdDoc ''
         Additional names of virtual hosts served by this virtual host configuration.
       '';
     };
 
     listen = mkOption {
-      type =
-        with types;
-        listOf (
-          submodule ({
-            options = {
-              port = mkOption {
-                type = types.port;
-                description = lib.mdDoc "Port to listen on";
-              };
-              ip = mkOption {
-                type = types.str;
-                default = "*";
-                description = lib.mdDoc "IP to listen on. 0.0.0.0 for IPv4 only, * for all.";
-              };
-              ssl = mkOption {
-                type = types.bool;
-                default = false;
-                description = lib.mdDoc "Whether to enable SSL (https) support.";
-              };
+      type = with types;
+        listOf (submodule ({
+          options = {
+            port = mkOption {
+              type = types.port;
+              description = lib.mdDoc "Port to listen on";
             };
-          })
-        );
+            ip = mkOption {
+              type = types.str;
+              default = "*";
+              description =
+                lib.mdDoc "IP to listen on. 0.0.0.0 for IPv4 only, * for all.";
+            };
+            ssl = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc "Whether to enable SSL (https) support.";
+            };
+          };
+        }));
       default = [ ];
       example = [
         {
@@ -210,12 +192,10 @@ in
     servedDirs = mkOption {
       type = types.listOf types.attrs;
       default = [ ];
-      example = [
-        {
-          urlPath = "/nix";
-          dir = "/home/eelco/Dev/nix-homepage";
-        }
-      ];
+      example = [{
+        urlPath = "/nix";
+        dir = "/home/eelco/Dev/nix-homepage";
+      }];
       description = lib.mdDoc ''
         This option provides a simple way to serve static directories.
       '';
@@ -224,12 +204,10 @@ in
     servedFiles = mkOption {
       type = types.listOf types.attrs;
       default = [ ];
-      example = [
-        {
-          urlPath = "/foo/bar.png";
-          file = "/home/eelco/some-file.png";
-        }
-      ];
+      example = [{
+        urlPath = "/foo/bar.png";
+        file = "/home/eelco/some-file.png";
+      }];
       description = lib.mdDoc ''
         This option provides a simple way to serve individual, static files.
 
@@ -310,12 +288,14 @@ in
         Declarative location config. See <https://httpd.apache.org/docs/2.4/mod/core.html#location> for details.
       '';
     };
+
   };
 
   config = {
 
-    locations = builtins.listToAttrs (
-      map (elem: nameValuePair elem.urlPath { alias = elem.file; }) config.servedFiles
-    );
+    locations = builtins.listToAttrs
+      (map (elem: nameValuePair elem.urlPath { alias = elem.file; })
+        config.servedFiles);
+
   };
 }

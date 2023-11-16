@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.programs.hyprland;
@@ -13,8 +8,7 @@ let
     hidpiXWayland = cfg.xwayland.hidpi;
     nvidiaPatches = cfg.nvidiaPatches;
   };
-in
-{
+in {
   options.programs.hyprland = {
     enable = mkEnableOption null // {
       description = mdDoc ''
@@ -46,9 +40,7 @@ in
     };
 
     xwayland = {
-      enable = mkEnableOption (mdDoc "XWayland") // {
-        default = true;
-      };
+      enable = mkEnableOption (mdDoc "XWayland") // { default = true; };
       hidpi = mkEnableOption null // {
         description = mdDoc ''
           Enable HiDPI XWayland, based on [XWayland MR 733](https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/733).
@@ -57,7 +49,8 @@ in
       };
     };
 
-    nvidiaPatches = mkEnableOption (mdDoc "patching wlroots for better Nvidia support");
+    nvidiaPatches =
+      mkEnableOption (mdDoc "patching wlroots for better Nvidia support");
   };
 
   config = mkIf cfg.enable {

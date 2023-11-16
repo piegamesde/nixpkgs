@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "catimg";
@@ -25,4 +20,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ryantm ];
     platforms = platforms.unix;
   };
+
 }

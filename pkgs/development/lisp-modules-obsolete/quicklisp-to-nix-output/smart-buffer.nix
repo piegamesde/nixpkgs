@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "smart-buffer";
   version = "20211020-git";
 
@@ -14,7 +13,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/smart-buffer/2021-10-20/smart-buffer-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/smart-buffer/2021-10-20/smart-buffer-20211020-git.tgz";
     sha256 = "0v25s4msnwi9vn0cwfv3kxamj0mr2xdwngwmxmhh93mr4fkqzdnv";
   };
 

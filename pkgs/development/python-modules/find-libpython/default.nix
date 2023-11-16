@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "find-libpython";
@@ -24,8 +18,10 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Finds the libpython associated with your environment, wherever it may be hiding";
-    changelog = "https://github.com/ktbarrett/find_libpython/releases/tag/${version}";
+    description =
+      "Finds the libpython associated with your environment, wherever it may be hiding";
+    changelog =
+      "https://github.com/ktbarrett/find_libpython/releases/tag/${version}";
     homepage = "https://github.com/ktbarrett/find_libpython";
     license = licenses.mit;
     maintainers = with maintainers; [ jleightcap ];

@@ -1,10 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  python3Packages,
-  makeWrapper,
-  patch,
-}:
+{ stdenv, fetchFromGitHub, python3Packages, makeWrapper, patch }:
 
 { rev, sha256 }:
 
@@ -21,10 +15,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  buildInputs = [
-    python3Packages.python
-    patch
-  ];
+  buildInputs = [ python3Packages.python patch ];
 
   nativeBuildInputs = [ makeWrapper ];
 

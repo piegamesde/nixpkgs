@@ -1,30 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  mesonEmulatorHook,
-  ninja,
-  pkg-config,
-  vala,
-  gtk-doc,
-  docbook_xsl,
-  docbook_xml_dtd_412,
-  glib,
-  gdk-pixbuf,
-  gobject-introspection,
-  gnome,
-}:
+{ lib, stdenv, fetchurl, meson, mesonEmulatorHook, ninja, pkg-config, vala
+, gtk-doc, docbook_xsl, docbook_xml_dtd_412, glib, gdk-pixbuf
+, gobject-introspection, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "libmediaart";
   version = "1.9.6";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -42,12 +24,10 @@ stdenv.mkDerivation rec {
     docbook_xsl
     docbook_xml_dtd_412
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
-  buildInputs = [
-    glib
-    gdk-pixbuf
-  ];
+  buildInputs = [ glib gdk-pixbuf ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 
@@ -59,7 +39,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Library tasked with managing, extracting and handling media art caches";
+    description =
+      "Library tasked with managing, extracting and handling media art caches";
     maintainers = teams.gnome.members;
     license = licenses.gpl2;
     platforms = platforms.unix;

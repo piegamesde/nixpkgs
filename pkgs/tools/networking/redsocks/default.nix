@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libevent,
-}:
+{ lib, stdenv, fetchFromGitHub, libevent }:
 
 stdenv.mkDerivation rec {
   pname = "redsocks";

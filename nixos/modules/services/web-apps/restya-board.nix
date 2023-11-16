@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -19,9 +14,8 @@ let
   runDir = "/run/restya-board";
 
   poolName = "restya-board";
-in
 
-{
+in {
 
   ###### interface
 
@@ -169,7 +163,9 @@ in
           Timezone the web-app runs in.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -207,12 +203,10 @@ in
 
     services.nginx.enable = true;
     services.nginx.virtualHosts.${cfg.virtualHost.serverName} = {
-      listen = [
-        {
-          addr = cfg.virtualHost.listenHost;
-          port = cfg.virtualHost.listenPort;
-        }
-      ];
+      listen = [{
+        addr = cfg.virtualHost.listenHost;
+        port = cfg.virtualHost.listenPort;
+      }];
       serverName = cfg.virtualHost.serverName;
       root = runDir;
       extraConfig = ''
@@ -269,10 +263,12 @@ in
       serviceConfig.RemainAfterExit = true;
 
       wantedBy = [ "multi-user.target" ];
-      requires = if cfg.database.host == null then [ ] else [ "postgresql.service" ];
-      after = [
-        "network.target"
-      ] ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ]);
+      requires =
+        if cfg.database.host == null then [ ] else [ "postgresql.service" ];
+      after = [ "network.target" ] ++ (if cfg.database.host == null then
+        [ ]
+      else
+        [ "postgresql.service" ]);
 
       script = ''
         rm -rf "${runDir}"
@@ -285,18 +281,18 @@ in
 
         sed -i "s@^php@${config.services.phpfpm.phpPackage}/bin/php@" "${runDir}/server/php/shell/"*.sh
 
-        ${if (cfg.database.host == null) then
-          ''
-            sed -i "s/^.*'R_DB_HOST'.*$/define('R_DB_HOST', 'localhost');/g" "${runDir}/server/php/config.inc.php"
-            sed -i "s/^.*'R_DB_PASSWORD'.*$/define('R_DB_PASSWORD', 'restya');/g" "${runDir}/server/php/config.inc.php"
-          ''
-        else
-          ''
-            sed -i "s/^.*'R_DB_HOST'.*$/define('R_DB_HOST', '${cfg.database.host}');/g" "${runDir}/server/php/config.inc.php"
-            sed -i "s/^.*'R_DB_PASSWORD'.*$/define('R_DB_PASSWORD', ${
-              if cfg.database.passwordFile == null then "''" else "'$(cat ${cfg.database.passwordFile})');/g"
-            }" "${runDir}/server/php/config.inc.php"
-          ''}
+        ${if (cfg.database.host == null) then ''
+          sed -i "s/^.*'R_DB_HOST'.*$/define('R_DB_HOST', 'localhost');/g" "${runDir}/server/php/config.inc.php"
+          sed -i "s/^.*'R_DB_PASSWORD'.*$/define('R_DB_PASSWORD', 'restya');/g" "${runDir}/server/php/config.inc.php"
+        '' else ''
+          sed -i "s/^.*'R_DB_HOST'.*$/define('R_DB_HOST', '${cfg.database.host}');/g" "${runDir}/server/php/config.inc.php"
+          sed -i "s/^.*'R_DB_PASSWORD'.*$/define('R_DB_PASSWORD', ${
+            if cfg.database.passwordFile == null then
+              "''"
+            else
+              "'$(cat ${cfg.database.passwordFile})');/g"
+          }" "${runDir}/server/php/config.inc.php"
+        ''}
         sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${
           toString cfg.database.port
         }');/g" "${runDir}/server/php/config.inc.php"
@@ -383,8 +379,12 @@ in
       restya-board-users restya-board restya_board
     '';
 
-    services.postgresql.authentication = optionalString (cfg.database.host == null) ''
-      local restya_board all ident map=restya-board-users
-    '';
+    services.postgresql.authentication =
+      optionalString (cfg.database.host == null) ''
+        local restya_board all ident map=restya-board-users
+      '';
+
   };
+
 }
+

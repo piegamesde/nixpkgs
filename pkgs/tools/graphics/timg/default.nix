@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  graphicsmagick,
-  libjpeg,
-  ffmpeg,
-  zlib,
-  libexif,
-  openslide,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, graphicsmagick, libjpeg
+, ffmpeg, zlib, libexif, openslide }:
 
 stdenv.mkDerivation rec {
   pname = "timg";
@@ -23,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YqcPTgStevUkl4grgaOLK8v1vbgFNgc7MfkMB07KDqo=";
   };
 
-  buildInputs = [
-    graphicsmagick
-    ffmpeg
-    libexif
-    libjpeg
-    openslide
-    zlib
-  ];
+  buildInputs = [ graphicsmagick ffmpeg libexif libjpeg openslide zlib ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   cmakeFlags = [
     "-DTIMG_VERSION_FROM_GIT=Off"

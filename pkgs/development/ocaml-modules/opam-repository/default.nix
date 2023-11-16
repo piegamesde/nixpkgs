@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  unzip,
-  opam-format,
-  curl,
-}:
+{ lib, buildDunePackage, unzip, opam-format, curl }:
 
 buildDunePackage rec {
   pname = "opam-repository";
@@ -23,14 +17,12 @@ buildDunePackage rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    unzip
-    curl
-  ];
+  nativeBuildInputs = [ unzip curl ];
   propagatedBuildInputs = [ opam-format ];
 
   meta = opam-format.meta // {
-    description = "OPAM repository and remote sources handling, including curl/wget, rsync, git, mercurial, darcs backends";
+    description =
+      "OPAM repository and remote sources handling, including curl/wget, rsync, git, mercurial, darcs backends";
     maintainers = with lib.maintainers; [ sternenseemann ];
   };
 }

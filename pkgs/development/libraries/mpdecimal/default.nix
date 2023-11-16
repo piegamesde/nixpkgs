@@ -1,21 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "mpdecimal";
   version = "2.5.1";
-  outputs = [
-    "out"
-    "cxx"
-    "doc"
-    "dev"
-  ];
+  outputs = [ "out" "cxx" "doc" "dev" ];
 
   src = fetchurl {
-    url = "https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-${version}.tar.gz";
+    url =
+      "https://www.bytereef.org/software/mpdecimal/releases/mpdecimal-${version}.tar.gz";
     hash = "sha256-n5zUwEH5m1xJ/7e1nZ8S2VtoPYhYVgiqVqYwdmeysh8=";
   };
 
@@ -30,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Library for arbitrary precision decimal floating point arithmetic";
+    description =
+      "Library for arbitrary precision decimal floating point arithmetic";
 
     longDescription = ''
       libmpdec is a fast C/C++ library for correctly-rounded arbitrary

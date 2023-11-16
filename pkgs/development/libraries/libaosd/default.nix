@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cairo,
-  pango,
-  libX11,
-  libXcomposite,
-  autoconf,
-  automake,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cairo, pango, libX11, libXcomposite
+, autoconf, automake }:
 
 stdenv.mkDerivation rec {
   version = "0.2.7-9-g177589f";
@@ -22,17 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1cn7k0n74p6jp25kxwcyblhmbdvgw3mikvj0m2jh4c6xccfrgb9a";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    pkg-config
-  ];
-  buildInputs = [
-    cairo
-    pango
-    libX11
-    libXcomposite
-  ];
+  nativeBuildInputs = [ autoconf automake pkg-config ];
+  buildInputs = [ cairo pango libX11 libXcomposite ];
   enableParallelBuilding = true;
 
   preConfigure = ''

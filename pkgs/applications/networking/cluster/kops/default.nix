@@ -1,25 +1,8 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 let
-  generic =
-    {
-      version,
-      sha256,
-      rev ? version,
-      ...
-    }@attrs:
-    let
-      attrs' = builtins.removeAttrs attrs [
-        "version"
-        "sha256"
-        "rev"
-      ];
-    in
-    buildGoModule {
+  generic = { version, sha256, rev ? version, ... }@attrs:
+    let attrs' = builtins.removeAttrs attrs [ "version" "sha256" "rev" ];
+    in buildGoModule {
       pname = "kops";
       inherit version;
 
@@ -53,21 +36,16 @@ let
       '';
 
       meta = with lib; {
-        description = "Easiest way to get a production Kubernetes up and running";
+        description =
+          "Easiest way to get a production Kubernetes up and running";
         homepage = "https://github.com/kubernetes/kops";
-        changelog = "https://github.com/kubernetes/kops/tree/master/docs/releases";
+        changelog =
+          "https://github.com/kubernetes/kops/tree/master/docs/releases";
         license = licenses.asl20;
-        maintainers = with maintainers; [
-          offline
-          zimbatm
-          diegolelis
-          yurrriq
-        ];
+        maintainers = with maintainers; [ offline zimbatm diegolelis yurrriq ];
       };
-    }
-    // attrs';
-in
-rec {
+    } // attrs';
+in rec {
   mkKops = generic;
 
   kops_1_24 = mkKops rec {

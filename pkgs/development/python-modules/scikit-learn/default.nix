@@ -1,22 +1,6 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fetchpatch,
-  gfortran,
-  glibcLocales,
-  numpy,
-  scipy,
-  pytestCheckHook,
-  pytest-xdist,
-  pillow,
-  cython,
-  joblib,
-  llvmPackages,
-  threadpoolctl,
-  pythonOlder,
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, fetchpatch, gfortran, glibcLocales
+, numpy, scipy, pytestCheckHook, pytest-xdist, pillow, cython, joblib
+, llvmPackages, threadpoolctl, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "scikit-learn";
@@ -28,28 +12,14 @@ buildPythonPackage rec {
     hash = "sha256-+/ilyJPJtLmbzH7Y+z6FAJV6ET9BAYYDhtBmNVIPfPs=";
   };
 
-  buildInputs = [
-    pillow
-    glibcLocales
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs = [ pillow glibcLocales ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
-  nativeBuildInputs = [
-    cython
-    gfortran
-  ];
+  nativeBuildInputs = [ cython gfortran ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    numpy.blas
-    joblib
-    threadpoolctl
-  ];
+  propagatedBuildInputs = [ numpy scipy numpy.blas joblib threadpoolctl ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
 
   LC_ALL = "en_US.UTF-8";
 
@@ -81,7 +51,9 @@ buildPythonPackage rec {
     # https://github.com/scikit-learn/scikit-learn/issues/17582
     # Since we are overriding '-k' we need to include the 'disabledTests' from above manually.
     "-k"
-    "'not (NuSVC and memmap) ${toString (lib.forEach disabledTests (t: "and not ${t}"))}'"
+    "'not (NuSVC and memmap) ${
+      toString (lib.forEach disabledTests (t: "and not ${t}"))
+    }'"
   ];
 
   preCheck = ''
@@ -93,14 +65,13 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "sklearn" ];
 
   meta = with lib; {
-    description = "A set of python modules for machine learning and data mining";
-    changelog =
-      let
-        major = versions.major version;
-        minor = versions.minor version;
-        dashVer = replaceStrings [ "." ] [ "-" ] version;
-      in
-      "https://scikit-learn.org/stable/whats_new/v${major}.${minor}.html#version-${dashVer}";
+    description =
+      "A set of python modules for machine learning and data mining";
+    changelog = let
+      major = versions.major version;
+      minor = versions.minor version;
+      dashVer = replaceStrings [ "." ] [ "-" ] version;
+    in "https://scikit-learn.org/stable/whats_new/v${major}.${minor}.html#version-${dashVer}";
     homepage = "https://scikit-learn.org";
     license = licenses.bsd3;
     maintainers = with maintainers; [ davhau ];

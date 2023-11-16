@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, nixosTests }:
 
 stdenv.mkDerivation rec {
   version = "1.13";
@@ -27,9 +21,7 @@ stdenv.mkDerivation rec {
     installManPage doc/beanstalkd.1
   '';
 
-  passthru.tests = {
-    smoke-test = nixosTests.beanstalkd;
-  };
+  passthru.tests = { smoke-test = nixosTests.beanstalkd; };
 
   meta = with lib; {
     homepage = "http://kr.github.io/beanstalkd/";

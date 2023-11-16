@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,7 @@ let
   cfg = config.services.molly-brown;
   settingsFormat = pkgs.formats.toml { };
   configFile = settingsFormat.generate "molly-brown.toml" cfg.settings;
-in
-{
+in {
 
   options.services.molly-brown = {
 
@@ -74,23 +68,21 @@ in
         for details on supported values.
       '';
     };
+
   };
 
   config = mkIf cfg.enable {
 
-    services.molly-brown.settings =
-      let
-        logDir = "/var/log/molly-brown";
-      in
-      {
-        Port = cfg.port;
-        Hostname = cfg.hostName;
-        CertPath = cfg.certPath;
-        KeyPath = cfg.keyPath;
-        DocBase = cfg.docBase;
-        AccessLog = "${logDir}/access.log";
-        ErrorLog = "${logDir}/error.log";
-      };
+    services.molly-brown.settings = let logDir = "/var/log/molly-brown";
+    in {
+      Port = cfg.port;
+      Hostname = cfg.hostName;
+      CertPath = cfg.certPath;
+      KeyPath = cfg.keyPath;
+      DocBase = cfg.docBase;
+      AccessLog = "${logDir}/access.log";
+      ErrorLog = "${logDir}/error.log";
+    };
 
     systemd.services.molly-brown = {
       description = "Molly Brown gemini server";
@@ -103,5 +95,7 @@ in
         Restart = "always";
       };
     };
+
   };
+
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  robotframework,
-}:
+{ lib, buildPythonPackage, fetchPypi, robotframework }:
 
 buildPythonPackage rec {
   version = "1.2.4";
@@ -20,9 +15,11 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ robotframework ];
 
   meta = with lib; {
-    description = "Database Library contains utilities meant for Robot Framework";
+    description =
+      "Database Library contains utilities meant for Robot Framework";
     homepage = "https://github.com/franz-see/Robotframework-Database-Library";
     license = licenses.asl20;
     maintainers = with maintainers; [ talkara ];
   };
+
 }

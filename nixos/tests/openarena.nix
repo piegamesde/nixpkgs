@@ -1,17 +1,15 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
-    client =
-      { pkgs, ... }:
+    client = { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];
         hardware.opengl.driSupport = true;
         environment.systemPackages = [ pkgs.openarena ];
       };
-  in
-  {
+
+  in {
     name = "openarena";
     meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
 
@@ -71,5 +69,5 @@ import ./make-test-python.nix (
       client1.screenshot("screen_client1_3")
       client2.screenshot("screen_client2_3")
     '';
-  }
-)
+
+  })

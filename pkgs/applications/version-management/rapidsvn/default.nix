@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  wxGTK32,
-  subversion,
-  apr,
-  aprutil,
-  python3,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK32, subversion, apr
+, aprutil, python3, darwin }:
 
 stdenv.mkDerivation rec {
   pname = "rapidsvn";
@@ -29,13 +19,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    wxGTK32
-    subversion
-    apr
-    aprutil
-    python3
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
+  buildInputs = [ wxGTK32 subversion apr aprutil python3 ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ];
 
   configureFlags = [
     "--with-svn-include=${subversion.dev}/include"
@@ -45,7 +30,8 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-std=c++14";
 
   meta = {
-    description = "Multi-platform GUI front-end for the Subversion revision system";
+    description =
+      "Multi-platform GUI front-end for the Subversion revision system";
     homepage = "http://rapidsvn.tigris.org/";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.viric ];

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pytestCheckHook,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "cppy";

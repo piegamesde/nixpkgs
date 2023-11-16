@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  SDL2,
-  SDL2_image,
-  SDL2_mixer,
-  cmake,
-  gtk3-x11,
-  python3,
-  protobuf,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, SDL2_image, SDL2_mixer, cmake
+, gtk3-x11, python3, protobuf }:
 
 stdenv.mkDerivation rec {
   pname = "cdogs-sdl";
@@ -32,32 +21,18 @@ stdenv.mkDerivation rec {
     "-DCMAKE_C_FLAGS=-Wno-error=array-bounds"
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=stringop-overflow"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=stringop-overflow"
+  ];
 
   nativeBuildInputs = [
     pkg-config
     cmake
-    (python3.withPackages (
-      pp:
-      with pp; [
-        pp.protobuf
-        setuptools
-      ]
-    ))
+    (python3.withPackages (pp: with pp; [ pp.protobuf setuptools ]))
   ];
 
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    gtk3-x11
-    protobuf
-  ];
+  buildInputs = [ SDL2 SDL2_image SDL2_mixer gtk3-x11 protobuf ];
 
   meta = with lib; {
     homepage = "https://cxong.github.io/cdogs-sdl";
@@ -65,6 +40,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ nixinator ];
     platforms = platforms.unix;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/cdogs-sdl.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/cdogs-sdl.x86_64-darwin
   };
 }

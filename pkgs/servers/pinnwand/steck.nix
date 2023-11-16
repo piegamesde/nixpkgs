@@ -1,10 +1,4 @@
-{
-  lib,
-  pkgs,
-  python3Packages,
-  fetchPypi,
-  nixosTests,
-}:
+{ lib, pkgs, python3Packages, fetchPypi, nixosTests }:
 
 python3Packages.buildPythonApplication rec {
   pname = "steck";
@@ -46,3 +40,4 @@ python3Packages.buildPythonApplication rec {
     maintainers = with maintainers; [ hexa ];
   };
 }
+

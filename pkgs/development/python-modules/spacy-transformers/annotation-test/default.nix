@@ -1,8 +1,4 @@
-{
-  stdenv,
-  pytest,
-  spacy_models,
-}:
+{ stdenv, pytest, spacy_models }:
 
 stdenv.mkDerivation {
   name = "spacy-transformers-annotation-test";
@@ -13,10 +9,7 @@ stdenv.mkDerivation {
   dontBuild = true;
   doCheck = true;
 
-  nativeCheckInputs = [
-    pytest
-    spacy_models.en_core_web_trf
-  ];
+  nativeCheckInputs = [ pytest spacy_models.en_core_web_trf ];
 
   checkPhase = ''
     pytest annotate.py

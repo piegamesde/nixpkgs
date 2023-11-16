@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flit-core,
-  pytestCheckHook,
-  sphinx,
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pytestCheckHook, sphinx
 }:
 
 buildPythonPackage rec {
@@ -23,10 +17,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sphinxcontrib.jquery" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    sphinx
-  ];
+  nativeCheckInputs = [ pytestCheckHook sphinx ];
 
   meta = with lib; {
     description = "Extension to include jQuery on newer Sphinx releases";
@@ -35,7 +26,8 @@ buildPythonPackage rec {
       in Sphinx themes or extensions
     '';
     homepage = "https://github.com/sphinx-contrib/jquery";
-    changelog = "https://github.com/sphinx-contrib/jquery/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/sphinx-contrib/jquery/blob/v${version}/CHANGES.rst";
     license = licenses.bsd0;
     maintainers = with maintainers; [ kaction ];
   };

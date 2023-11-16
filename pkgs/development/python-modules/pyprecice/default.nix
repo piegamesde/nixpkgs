@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchFromGitHub,
-  mpi4py,
-  numpy,
-  precice,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub, mpi4py, numpy, precice
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyprecice";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    numpy
-    mpi4py
-    precice
-  ];
+  propagatedBuildInputs = [ numpy mpi4py precice ];
 
   # Disable Test because everything depends on open mpi which requires network
   doCheck = false;

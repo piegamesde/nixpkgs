@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  six,
-  enum34,
-  pathlib,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, six, enum34
+, pathlib, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyScss";
@@ -22,12 +14,8 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs =
-    [ six ]
-    ++ lib.optionals (pythonOlder "3.4") [
-      enum34
-      pathlib
-    ];
+  propagatedBuildInputs = [ six ]
+    ++ lib.optionals (pythonOlder "3.4") [ enum34 pathlib ];
 
   # Test suite is broken.
   # See https://github.com/Kronuz/pyScss/issues/415

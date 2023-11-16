@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytest-asyncio
+, pytestCheckHook, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "reactivex";
@@ -27,10 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     # Upstream doesn't set a version for their GitHub releases

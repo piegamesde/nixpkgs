@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  distro,
-  fetchFromGitHub,
-  jre,
-  numpy,
-  pandas,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  setuptools,
-}:
+{ lib, buildPythonPackage, distro, fetchFromGitHub, jre, numpy, pandas
+, pytestCheckHook, pythonOlder, setuptools-scm, setuptools }:
 
 buildPythonPackage rec {
   pname = "tabula-py";
@@ -36,12 +25,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    distro
-    numpy
-    pandas
-    setuptools
-  ];
+  propagatedBuildInputs = [ distro numpy pandas setuptools ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,31 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  dj-rest-auth,
-  django,
-  django-allauth,
-  django-filter,
-  django-oauth-toolkit,
-  django-polymorphic,
-  django-rest-auth,
-  django-rest-polymorphic,
-  djangorestframework,
-  djangorestframework-camel-case,
-  djangorestframework-dataclasses,
-  djangorestframework-recursive,
-  djangorestframework-simplejwt,
-  drf-jwt,
-  drf-nested-routers,
-  drf-spectacular-sidecar,
-  inflection,
-  jsonschema,
-  psycopg2,
-  pytest-django,
-  pytestCheckHook,
-  pyyaml,
-  uritemplate,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, dj-rest-auth, django, django-allauth
+, django-filter, django-oauth-toolkit, django-polymorphic, django-rest-auth
+, django-rest-polymorphic, djangorestframework, djangorestframework-camel-case
+, djangorestframework-dataclasses, djangorestframework-recursive
+, djangorestframework-simplejwt, drf-jwt, drf-nested-routers
+, drf-spectacular-sidecar, inflection, jsonschema, psycopg2, pytest-django
+, pytestCheckHook, pyyaml, uritemplate }:
 
 buildPythonPackage rec {
   pname = "drf-spectacular";
@@ -38,14 +17,8 @@ buildPythonPackage rec {
     hash = "sha256-wwR7ZdbWFNRgxQubdgriDke5W6u7VNsNZV9xqQypSrY=";
   };
 
-  propagatedBuildInputs = [
-    django
-    djangorestframework
-    inflection
-    jsonschema
-    pyyaml
-    uritemplate
-  ];
+  propagatedBuildInputs =
+    [ django djangorestframework inflection jsonschema pyyaml uritemplate ];
 
   nativeCheckInputs = [
     dj-rest-auth
@@ -67,18 +40,19 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # requires django with gdal
-      "test_rest_framework_gis"
-    ];
+  disabledTests = [
+    # requires django with gdal
+    "test_rest_framework_gis"
+  ];
 
   pythonImportsCheck = [ "drf_spectacular" ];
 
   meta = with lib; {
-    description = "Sane and flexible OpenAPI 3 schema generation for Django REST framework";
+    description =
+      "Sane and flexible OpenAPI 3 schema generation for Django REST framework";
     homepage = "https://github.com/tfranzel/drf-spectacular";
-    changelog = "https://github.com/tfranzel/drf-spectacular/releases/tag/${version}";
+    changelog =
+      "https://github.com/tfranzel/drf-spectacular/releases/tag/${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

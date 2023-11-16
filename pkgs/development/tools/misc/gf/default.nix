@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  fetchFromGitHub,
-  libX11,
-  pkg-config,
-  gdb,
-  freetype,
-  freetypeSupport ? true,
-  extensions ? [ ],
-}:
+{ lib, stdenv, makeWrapper, fetchFromGitHub, libX11, pkg-config, gdb, freetype
+, freetypeSupport ? true, extensions ? [ ] }:
 
 stdenv.mkDerivation rec {
   pname = "gf";
@@ -22,22 +12,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-HRejpEN/29Q+wukU3Jv3vZoK6/VjZK6VnZdvPuFBC9I=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
-  buildInputs = [
-    libX11
-    gdb
-  ] ++ lib.optional freetypeSupport freetype;
+  nativeBuildInputs = [ makeWrapper pkg-config ];
+  buildInputs = [ libX11 gdb ] ++ lib.optional freetypeSupport freetype;
 
   patches = [ ./build-use-optional-freetype-with-pkg-config.patch ];
 
-  postPatch = lib.forEach extensions (
-    ext: ''
-      cp ${ext} ./${ext.name or (builtins.baseNameOf ext)}
-    ''
-  );
+  postPatch = lib.forEach extensions (ext: ''
+    cp ${ext} ./${ext.name or (builtins.baseNameOf ext)}
+  '');
 
   preConfigure = ''
     patchShebangs build.sh

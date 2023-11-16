@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "twitter.common.options";
@@ -19,4 +15,5 @@ buildPythonPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ copumpkin ];
   };
+
 }

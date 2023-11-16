@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "can-utils";
@@ -18,13 +14,11 @@ stdenv.mkDerivation rec {
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
-    description = "CAN userspace utilities and tools (for use with Linux SocketCAN)";
+    description =
+      "CAN userspace utilities and tools (for use with Linux SocketCAN)";
     homepage = "https://github.com/linux-can/can-utils";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      bjornfor
-      Luflosi
-    ];
+    maintainers = with maintainers; [ bjornfor Luflosi ];
   };
 }

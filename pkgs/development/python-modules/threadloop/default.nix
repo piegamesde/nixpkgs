@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lib,
-  tornado,
-}:
+{ buildPythonPackage, fetchPypi, lib, tornado }:
 
 buildPythonPackage rec {
   pname = "threadloop";
@@ -16,7 +11,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ tornado ];
 
-  doCheck = false; # ImportError: cannot import name 'ThreadLoop' from 'threadloop'
+  doCheck =
+    false; # ImportError: cannot import name 'ThreadLoop' from 'threadloop'
 
   pythonImportsCheck = [ "threadloop" ];
 

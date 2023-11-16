@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  responses,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, requests, responses }:
 
 buildPythonPackage rec {
   pname = "tesla-powerwall";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   pytestFlagsArray = [ "tests/unit" ];
 
@@ -36,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "API for Tesla Powerwall";
     homepage = "https://github.com/jrester/tesla_powerwall";
-    changelog = "https://github.com/jrester/tesla_powerwall/blob/v${version}/CHANGELOG";
+    changelog =
+      "https://github.com/jrester/tesla_powerwall/blob/v${version}/CHANGELOG";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

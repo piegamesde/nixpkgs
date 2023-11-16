@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  gevent,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, gevent, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "gipc";
@@ -40,4 +34,5 @@ buildPythonPackage rec {
     homepage = "http://gehrcke.de/gipc";
     license = licenses.mit;
   };
+
 }

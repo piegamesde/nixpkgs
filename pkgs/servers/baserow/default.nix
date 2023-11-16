@@ -1,16 +1,11 @@
-{
-  lib,
-  fetchFromGitLab,
-  makeWrapper,
-  python3,
-  antlr4_9,
-}:
+{ lib, fetchFromGitLab, makeWrapper, python3, antlr4_9 }:
 
 let
 
   python = python3.override {
     packageOverrides = self: super: {
-      antlr4-python3-runtime = super.antlr4-python3-runtime.override { antlr4 = antlr4_9; };
+      antlr4-python3-runtime =
+        super.antlr4-python3-runtime.override { antlr4 = antlr4_9; };
 
       baserow_premium = self.buildPythonPackage rec {
         pname = "baserow_premium";
@@ -30,9 +25,8 @@ let
       };
     };
   };
-in
 
-with python.pkgs;
+in with python.pkgs;
 buildPythonApplication rec {
   pname = "baserow";
   version = "1.12.1";
@@ -122,11 +116,10 @@ buildPythonApplication rec {
     cp -r src/baserow/core/management/backup $out/lib/${python.libPrefix}/site-packages/baserow/core/management/
   '';
 
-  disabledTests =
-    [
-      # Disable linting checks
-      "flake8_plugins"
-    ];
+  disabledTests = [
+    # Disable linting checks
+    "flake8_plugins"
+  ];
 
   disabledTestPaths = [
     # Disable premium tests

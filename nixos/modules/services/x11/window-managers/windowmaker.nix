@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.windowmaker;
-in
-{
+let cfg = config.services.xserver.windowManager.windowmaker;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.windowmaker.enable = mkEnableOption (lib.mdDoc "windowmaker");
+    services.xserver.windowManager.windowmaker.enable =
+      mkEnableOption (lib.mdDoc "windowmaker");
   };
 
   ###### implementation

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  six,
-  setuptools-scm,
-  xorg,
-  python,
-  mock,
-  nose,
-  pytestCheckHook,
-  util-linux,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, six, setuptools-scm, xorg
+, python, mock, nose, pytestCheckHook, util-linux }:
 
 buildPythonPackage rec {
   pname = "xlib";
@@ -32,26 +20,21 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    nose
-    util-linux
-    xorg.xauth
-    xorg.xorgserver
+  nativeCheckInputs =
+    [ pytestCheckHook mock nose util-linux xorg.xauth xorg.xorgserver ];
+
+  disabledTestPaths = [
+    # requires x session
+    "test/test_xlib_display.py"
   ];
 
-  disabledTestPaths =
-    [
-      # requires x session
-      "test/test_xlib_display.py"
-    ];
-
   meta = with lib; {
-    changelog = "https://github.com/python-xlib/python-xlib/releases/tag/${version}";
+    changelog =
+      "https://github.com/python-xlib/python-xlib/releases/tag/${version}";
     description = "Fully functional X client library for Python programs";
     homepage = "https://github.com/python-xlib/python-xlib";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ ];
   };
+
 }

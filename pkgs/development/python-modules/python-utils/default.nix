@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  loguru,
-  pytest-asyncio,
-  pytest-mypy,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, loguru, pytest-asyncio
+, pytest-mypy, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "python-utils";
@@ -29,31 +20,25 @@ buildPythonPackage rec {
     sed -i '/--mypy/d' pytest.ini
   '';
 
-  passthru.optional-dependencies = {
-    loguru = [ loguru ];
-  };
+  passthru.optional-dependencies = { loguru = [ loguru ]; };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mypy
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.loguru;
+  nativeCheckInputs = [ pytest-asyncio pytest-mypy pytestCheckHook ]
+    ++ passthru.optional-dependencies.loguru;
 
   pythonImportsCheck = [ "python_utils" ];
 
   pytestFlagsArray = [ "_python_utils_tests" ];
 
-  disabledTests =
-    lib.optionals stdenv.isDarwin
-      [
-        # Flaky tests on darwin
-        "test_timeout_generator"
-      ];
+  disabledTests = lib.optionals stdenv.isDarwin [
+    # Flaky tests on darwin
+    "test_timeout_generator"
+  ];
 
   meta = with lib; {
     description = "Module with some convenient utilities";
     homepage = "https://github.com/WoLpH/python-utils";
-    changelog = "https://github.com/wolph/python-utils/releases/tag/v${version}";
+    changelog =
+      "https://github.com/wolph/python-utils/releases/tag/v${version}";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };

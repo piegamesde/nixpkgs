@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  random2,
-}:
+{ lib, buildPythonPackage, fetchPypi, six, random2 }:
 
 buildPythonPackage rec {
   pname = "pysol-cards";
@@ -16,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-sPv9OGFb/G/XVdq1hQWprhYtDaGGbCXKkUGTi1gj8GE=";
   };
 
-  propagatedBuildInputs = [
-    six
-    random2
-  ];
+  propagatedBuildInputs = [ six random2 ];
 
   meta = with lib; {
     description = "Generates Solitaire deals";

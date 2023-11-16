@@ -1,9 +1,4 @@
-{
-  cmake,
-  fetchFromGitHub,
-  lib,
-  stdenv,
-}:
+{ cmake, fetchFromGitHub, lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "libowlevelzs";

@@ -1,15 +1,7 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-  fetchpatch,
-}:
+{ lib, buildGoPackage, fetchFromGitHub, fetchpatch }:
 
 let
-  generic =
-    {
-      patches ? [ ],
-    }:
+  generic = { patches ? [ ] }:
     buildGoPackage rec {
       version = "1.6.4";
       pname = "certmgr";
@@ -30,14 +22,10 @@ let
         description = "Cloudflare's certificate manager";
         platforms = platforms.linux;
         license = licenses.bsd2;
-        maintainers = with maintainers; [
-          johanot
-          srhb
-        ];
+        maintainers = with maintainers; [ johanot srhb ];
       };
     };
-in
-{
+in {
   certmgr = generic { };
 
   certmgr-selfsigned = generic {

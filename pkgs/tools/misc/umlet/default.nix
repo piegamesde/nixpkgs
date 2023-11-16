@@ -1,23 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  unzip,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, jre, unzip, runtimeShell }:
 
 let
   major = "15";
   minor = "0";
   patch = "0";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "umlet";
   version = "${major}.${minor}.${patch}";
 
   src = fetchurl {
-    url = "https://www.umlet.com/umlet_${major}_${minor}/umlet-standalone-${version}.zip";
+    url =
+      "https://www.umlet.com/umlet_${major}_${minor}/umlet-standalone-${version}.zip";
     sha256 = "sha256-gdvhqYGyrFuQhhrkF26wXb3TQLRCLm59/uSxTPmHdAE=";
   };
 

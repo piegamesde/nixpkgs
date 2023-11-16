@@ -1,12 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  gpgme,
-  installShellFiles,
-  testers,
-  openshift,
-}:
+{ lib, buildGoModule, fetchFromGitHub, gpgme, installShellFiles, testers
+, openshift }:
 buildGoModule rec {
   pname = "openshift";
   version = "4.12.0";
@@ -57,15 +50,11 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Build, deploy, and manage your applications with Docker and Kubernetes";
+    description =
+      "Build, deploy, and manage your applications with Docker and Kubernetes";
     homepage = "http://www.openshift.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      offline
-      bachp
-      moretea
-      stehessel
-    ];
+    maintainers = with maintainers; [ offline bachp moretea stehessel ];
     mainProgram = "oc";
     platforms = platforms.unix;
   };

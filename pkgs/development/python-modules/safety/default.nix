@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  pythonRelaxDepsHook,
-  setuptools,
-  click,
-  requests,
-  packaging,
-  dparse,
-  ruamel-yaml,
-  pytestCheckHook,
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pythonRelaxDepsHook
+, setuptools, click, requests, packaging, dparse, ruamel-yaml, pytestCheckHook
 }:
 
 buildPythonPackage rec {
@@ -35,21 +24,12 @@ buildPythonPackage rec {
       --replace "telemetry', default=True" "telemetry', default=False"
   '';
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools ];
 
   pythonRelaxDeps = [ "packaging" ];
 
-  propagatedBuildInputs = [
-    setuptools
-    click
-    requests
-    packaging
-    dparse
-    ruamel-yaml
-  ];
+  propagatedBuildInputs =
+    [ setuptools click requests packaging dparse ruamel-yaml ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -72,9 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyupio/safety";
     changelog = "https://github.com/pyupio/safety/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      thomasdesr
-      dotlambda
-    ];
+    maintainers = with maintainers; [ thomasdesr dotlambda ];
   };
 }

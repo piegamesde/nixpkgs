@@ -1,23 +1,18 @@
-{
-  lib,
-  fetchurl,
-  appimageTools,
-}:
+{ lib, fetchurl, appimageTools }:
 
 appimageTools.wrapType2 rec {
   pname = "zecwallet-lite";
   version = "1.8.8";
 
   src = fetchurl {
-    url = "https://github.com/adityapk00/zecwallet-lite/releases/download/v${version}/Zecwallet.Lite-${version}.AppImage";
+    url =
+      "https://github.com/adityapk00/zecwallet-lite/releases/download/v${version}/Zecwallet.Lite-${version}.AppImage";
     hash = "sha256-6jppP3V7R8tCR5Wv5UWfbWKkAdsgrCjSiO/bbpLNcw4=";
   };
 
   extraInstallCommands =
-    let
-      contents = appimageTools.extract { inherit pname version src; };
-    in
-    ''
+    let contents = appimageTools.extract { inherit pname version src; };
+    in ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
 
       install -m 444 -D ${contents}/zecwallet-lite.desktop -t $out/share/applications

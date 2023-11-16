@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  capstone,
-  stdenv,
-  setuptools,
-}:
+{ lib, buildPythonPackage, capstone, stdenv, setuptools }:
 
 buildPythonPackage rec {
   pname = "capstone";
@@ -38,9 +32,6 @@ buildPythonPackage rec {
     homepage = "http://www.capstone-engine.org/";
     license = licenses.bsdOriginal;
     description = "Python bindings for Capstone disassembly engine";
-    maintainers = with maintainers; [
-      bennofs
-      ris
-    ];
+    maintainers = with maintainers; [ bennofs ris ];
   };
 }

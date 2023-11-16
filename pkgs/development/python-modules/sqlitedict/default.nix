@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  py,
-  pytest-benchmark,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, py, pytest-benchmark
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "sqlitedict";
@@ -22,11 +16,7 @@ buildPythonPackage rec {
     mkdir tests/db
   '';
 
-  nativeCheckInputs = [
-    py
-    pytest-benchmark
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ py pytest-benchmark pytestCheckHook ];
 
   pytestFlagsArray = [ "--benchmark-disable" ];
 

@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchFromGitHub,
-  buildGoModule,
-  nixosTests,
-}:
+{ stdenv, lib, fetchurl, fetchFromGitHub, buildGoModule, nixosTests }:
 let
   owner = "superseriousbusiness";
   repo = "gotosocial";
@@ -15,11 +8,11 @@ let
   web-assets-hash = "sha256-OvgAr3obsK1JndLKmnjNY06dEbQKyP4xG/viBjCivvs=";
 
   web-assets = fetchurl {
-    url = "https://github.com/${owner}/${repo}/releases/download/v${version}/${repo}_${version}_web-assets.tar.gz";
+    url =
+      "https://github.com/${owner}/${repo}/releases/download/v${version}/${repo}_${version}_web-assets.tar.gz";
     hash = web-assets-hash;
   };
-in
-buildGoModule rec {
+in buildGoModule rec {
   inherit version;
   pname = repo;
 
@@ -31,11 +24,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
 
   postInstall = ''
     tar xf ${web-assets}
@@ -50,7 +39,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://gotosocial.org";
-    changelog = "https://github.com/superseriousbusiness/gotosocial/releases/tag/v${version}";
+    changelog =
+      "https://github.com/superseriousbusiness/gotosocial/releases/tag/v${version}";
     description = "Fast, fun, ActivityPub server, powered by Go";
     longDescription = ''
       ActivityPub social network server, written in Golang.

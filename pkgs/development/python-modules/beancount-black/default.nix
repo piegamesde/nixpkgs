@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pythonOlder,
-  beancount-parser,
-  click,
-  poetry-core,
-  pytestCheckHook,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pythonOlder, beancount-parser, click
+, poetry-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "beancount-black";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    beancount-parser
-    click
-  ];
+  propagatedBuildInputs = [ beancount-parser click ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

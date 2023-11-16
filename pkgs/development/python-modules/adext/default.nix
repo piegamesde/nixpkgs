@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools-scm,
-  alarmdecoder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools-scm, alarmdecoder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "adext";

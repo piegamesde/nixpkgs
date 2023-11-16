@@ -1,22 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  alsa-lib,
-  libglvnd,
-  libX11,
-  libXcursor,
-  libXext,
-  libXi,
-  libXinerama,
-  libXrandr,
-  libXxf86vm,
-  go-licenses,
-  pkg-config,
-  zip,
-  advancecomp,
-  nixosTests,
-}:
+{ lib, fetchFromGitHub, buildGoModule, alsa-lib, libglvnd, libX11, libXcursor
+, libXext, libXi, libXinerama, libXrandr, libXxf86vm, go-licenses, pkg-config
+, zip, advancecomp, nixosTests }:
 
 buildGoModule rec {
   pname = "aaaaxy";
@@ -44,17 +28,9 @@ buildGoModule rec {
     libXxf86vm
   ];
 
-  nativeBuildInputs = [
-    go-licenses
-    pkg-config
-    zip
-    advancecomp
-  ];
+  nativeBuildInputs = [ go-licenses pkg-config zip advancecomp ];
 
-  outputs = [
-    "out"
-    "testing_infra"
-  ];
+  outputs = [ "out" "testing_infra" ];
 
   postPatch = ''
     # Without patching, "go run" fails with the error message:
@@ -87,14 +63,13 @@ buildGoModule rec {
     install -Dm644 'assets/demos/benchmark.dem' -t "$testing_infra/assets/demos/"
   '';
 
-  passthru.tests = {
-    aaaaxy = nixosTests.aaaaxy;
-  };
+  passthru.tests = { aaaaxy = nixosTests.aaaaxy; };
 
   strictDeps = true;
 
   meta = with lib; {
-    description = "A nonlinear 2D puzzle platformer taking place in impossible spaces";
+    description =
+      "A nonlinear 2D puzzle platformer taking place in impossible spaces";
     homepage = "https://divverent.github.io/aaaaxy/";
     license = licenses.asl20;
     maintainers = with maintainers; [ Luflosi ];

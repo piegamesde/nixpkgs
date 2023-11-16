@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  wrapGAppsHook,
-  gst_all_1,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, wrapGAppsHook, gst_all_1, cmake }:
 stdenv.mkDerivation rec {
   pname = "gst-plugins-viperfx";
   version = "unstable-2020-9-20";
@@ -18,16 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0so4jV56nl3tZHuZpvtyMrpOZ4tNJ59Pyj6zbV5bJ5Y=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
 
-  propagatedBuildInputs = [
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-  ];
+  propagatedBuildInputs = [ gst_all_1.gstreamer gst_all_1.gst-plugins-base ];
 
   installPhase = ''
     runHook preInstall

@@ -1,10 +1,4 @@
-{
-  lib,
-  zlib,
-  fetchFromGitHub,
-  python3Packages,
-  wrapQtAppsHook,
-}:
+{ lib, zlib, fetchFromGitHub, python3Packages, wrapQtAppsHook }:
 
 python3Packages.buildPythonApplication rec {
   pname = "manuskript";
@@ -21,11 +15,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
-  propagatedBuildInputs = [
-    python3Packages.pyqt5
-    python3Packages.lxml
-    zlib
-  ];
+  propagatedBuildInputs = [ python3Packages.pyqt5 python3Packages.lxml zlib ];
 
   patchPhase = ''
     substituteInPlace manuskript/ui/welcome.py \

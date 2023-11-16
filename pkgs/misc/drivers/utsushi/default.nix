@@ -1,23 +1,7 @@
-{
-  lib,
-  stdenv,
-  writeScriptBin,
-  fetchpatch,
-  fetchFromGitLab,
-  autoreconfHook,
-  pkg-config,
-  autoconf-archive,
-  libxslt,
-  boost,
-  gtkmm2,
-  imagemagick,
-  sane-backends,
-  tesseract4,
-  udev,
-  libusb1,
-  withNetworkScan ? false,
-  utsushi-networkscan,
-}:
+{ lib, stdenv, writeScriptBin, fetchpatch, fetchFromGitLab, autoreconfHook
+, pkg-config, autoconf-archive, libxslt, boost, gtkmm2, imagemagick
+, sane-backends, tesseract4, udev, libusb1, withNetworkScan ? false
+, utsushi-networkscan }:
 
 let
   fakegit = writeScriptBin "git" ''
@@ -26,8 +10,8 @@ let
       [ -r .rev ] && cat .rev || true
     fi
   '';
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "imagescan";
   version = "3.65.0";
 
@@ -40,35 +24,27 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/iscan/files/iscan-3.63.0-autoconf-2.70.patch?id=4fe8a9e6c60f9163cadad830ba4935c069c67b10";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/iscan/files/iscan-3.63.0-autoconf-2.70.patch?id=4fe8a9e6c60f9163cadad830ba4935c069c67b10";
       sha256 = "sha256-2V4cextjcEQrywe4tvvD5KaVYdXnwdNhTiY/aSNx3mM=";
     })
     (fetchpatch {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/iscan/files/iscan-3.61.0-imagemagick-7.patch?id=985c92af4730d864e86fa87746185b0246e9db93";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/iscan/files/iscan-3.61.0-imagemagick-7.patch?id=985c92af4730d864e86fa87746185b0246e9db93";
       sha256 = "sha256-dfdVMp3ZfclYeRxYjMIvl+ZdlLn9S+IwQ+OmlHW8318=";
     })
     (fetchpatch {
-      url = "https://raw.githubusercontent.com/archlinux/svntogit-community/b3046e0e78b95440f135fcadb19a9eb531729a58/trunk/boost-1.74.patch";
+      url =
+        "https://raw.githubusercontent.com/archlinux/svntogit-community/b3046e0e78b95440f135fcadb19a9eb531729a58/trunk/boost-1.74.patch";
       sha256 = "sha256-W8R1l7ZPcsfiIy1QBJvh0M8du0w1cnTg3PyAz65v4rE=";
     })
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    autoconf-archive
-    fakegit
-    libxslt
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook pkg-config autoconf-archive fakegit libxslt ];
 
-  buildInputs = [
-    boost.dev
-    gtkmm2.dev
-    imagemagick
-    sane-backends
-    udev.dev
-    libusb1.dev
-  ];
+  buildInputs =
+    [ boost.dev gtkmm2.dev imagemagick sane-backends udev.dev libusb1.dev ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=deprecated-declarations"
@@ -182,10 +158,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.com/utsushi/imagescan";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      wucke13
-      maxwilson
-    ];
+    maintainers = with maintainers; [ wucke13 maxwilson ];
     platforms = platforms.linux;
   };
 }

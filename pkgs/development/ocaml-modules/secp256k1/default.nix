@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  base,
-  stdio,
-  dune-configurator,
-  secp256k1,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, base, stdio, dune-configurator
+, secp256k1 }:
 
 buildDunePackage rec {
   pname = "secp256k1";
@@ -21,12 +14,7 @@ buildDunePackage rec {
     hash = "sha256-22+dZb3MC1W5Qvsz3+IHV1/XiGCRmJHTH+6IW2QX2hU=";
   };
 
-  buildInputs = [
-    base
-    stdio
-    dune-configurator
-    secp256k1
-  ];
+  buildInputs = [ base stdio dune-configurator secp256k1 ];
 
   meta = with lib; {
     homepage = "https://github.com/dakk/secp256k1-ml";

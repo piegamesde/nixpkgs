@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "drake";
@@ -12,13 +8,10 @@ bundlerApp {
   passthru.updateScript = bundlerUpdateScript "drake";
 
   meta = with lib; {
-    description = "A branch of Rake supporting automatic parallelizing of tasks";
+    description =
+      "A branch of Rake supporting automatic parallelizing of tasks";
     homepage = "http://quix.github.io/rake/";
-    maintainers = with maintainers; [
-      romildo
-      manveru
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ romildo manveru nicknovitski ];
     license = licenses.mit;
     platforms = platforms.unix;
   };

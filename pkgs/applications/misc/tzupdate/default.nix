@@ -1,13 +1,7 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
-let
-  inherit (python3.pkgs) buildPythonApplication requests;
-in
-buildPythonApplication rec {
+let inherit (python3.pkgs) buildPythonApplication requests;
+in buildPythonApplication rec {
   pname = "tzupdate";
   version = "2.1.0";
 

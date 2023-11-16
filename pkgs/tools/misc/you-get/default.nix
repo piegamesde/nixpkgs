@@ -1,11 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  substituteAll,
-  ffmpeg,
-  installShellFiles,
-}:
+{ lib, python3, fetchPypi, substituteAll, ffmpeg, installShellFiles }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "you-get";
@@ -42,9 +35,11 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "you_get" ];
 
   meta = with lib; {
-    description = "A tiny command line utility to download media contents from the web";
+    description =
+      "A tiny command line utility to download media contents from the web";
     homepage = "https://you-get.org";
-    changelog = "https://github.com/soimort/you-get/raw/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/soimort/you-get/raw/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ryneeverett ];
   };

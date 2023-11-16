@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "octomap";
@@ -20,15 +15,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=deprecated-declarations"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=deprecated-declarations"
+  ];
 
   meta = with lib; {
-    description = "A probabilistic, flexible, and compact 3D mapping library for robotic systems";
+    description =
+      "A probabilistic, flexible, and compact 3D mapping library for robotic systems";
     homepage = "https://octomap.github.io/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lopsided98 ];

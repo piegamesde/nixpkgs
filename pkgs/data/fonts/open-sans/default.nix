@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitLab,
-}:
+{ lib, stdenvNoCC, fetchFromGitLab }:
 
 stdenvNoCC.mkDerivation {
   pname = "open-sans";

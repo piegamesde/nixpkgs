@@ -1,39 +1,23 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
+{ lib, stdenv, fetchurl, fetchpatch
 
-  # dependencies
-  cyrus_sasl,
-  db,
-  groff,
-  libsodium,
-  libtool,
-  openssl,
-  systemdMinimal,
-  libxcrypt,
+# dependencies
+, cyrus_sasl, db, groff, libsodium, libtool, openssl, systemdMinimal, libxcrypt
 
-  # passthru
-  nixosTests,
-}:
+# passthru
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "openldap";
   version = "2.6.4";
 
   src = fetchurl {
-    url = "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${pname}-${version}.tgz";
+    url =
+      "https://www.openldap.org/software/download/OpenLDAP/openldap-release/${pname}-${version}.tgz";
     hash = "sha256-1RcE5QF4QwwGzz2KoXTaZrrfVZdHpH2SC7VLLUqkCZE=";
   };
 
   # TODO: separate "out" and "bin"
-  outputs = [
-    "out"
-    "dev"
-    "man"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "man" "devdoc" ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -42,34 +26,26 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ groff ];
 
   buildInputs =
-    [
-      (cyrus_sasl.override { inherit openssl; })
-      db
-      libsodium
-      libtool
-      openssl
-    ]
+    [ (cyrus_sasl.override { inherit openssl; }) db libsodium libtool openssl ]
     ++ lib.optionals (stdenv.isLinux) [
       libxcrypt # causes linking issues on *-darwin
       systemdMinimal
     ];
 
-  preConfigure = lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
-    MACOSX_DEPLOYMENT_TARGET=10.16
-  '';
+  preConfigure = lib.optionalString
+    (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+      MACOSX_DEPLOYMENT_TARGET=10.16
+    '';
 
-  configureFlags =
-    [
-      "--enable-argon2"
-      "--enable-crypt"
-      "--enable-modules"
-      "--enable-overlays"
-    ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "--with-yielding_select=yes"
-      "ac_cv_func_memcmp_working=yes"
-    ]
-    ++ lib.optional stdenv.isFreeBSD "--with-pic";
+  configureFlags = [
+    "--enable-argon2"
+    "--enable-crypt"
+    "--enable-modules"
+    "--enable-overlays"
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    "--with-yielding_select=yes"
+    "ac_cv_func_memcmp_working=yes"
+  ] ++ lib.optional stdenv.isFreeBSD "--with-pic";
 
   env.NIX_CFLAGS_COMPILE = toString [ ''-DLDAPI_SOCK="/run/openldap/ldapi"'' ];
 
@@ -124,19 +100,14 @@ stdenv.mkDerivation rec {
     chmod +x "$out"/lib/*.{so,dylib}
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) openldap;
-  };
+  passthru.tests = { inherit (nixosTests) openldap; };
 
   meta = with lib; {
     homepage = "https://www.openldap.org/";
-    description = "An open source implementation of the Lightweight Directory Access Protocol";
+    description =
+      "An open source implementation of the Lightweight Directory Access Protocol";
     license = licenses.openldap;
-    maintainers = with maintainers; [
-      ajs124
-      das_j
-      hexa
-    ];
+    maintainers = with maintainers; [ ajs124 das_j hexa ];
     platforms = platforms.unix;
   };
 }

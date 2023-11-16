@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  coreutils,
-  curl,
-  diffutils,
-  gawk,
-  gnugrep,
-  gnused,
-  hexdump,
-  openssl,
-  makeWrapper,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, stdenv, coreutils, curl, diffutils, gawk, gnugrep, gnused, hexdump
+, openssl, makeWrapper, fetchFromGitHub, installShellFiles }:
 stdenv.mkDerivation rec {
   pname = "dehydrated";
   version = "0.7.1";
@@ -24,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-K08eeruyT5vKzK3PzfCkubZiHbf9Yq7wzD1z69MeDtY=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   installPhase = ''
     installManPage docs/man/dehydrated.1

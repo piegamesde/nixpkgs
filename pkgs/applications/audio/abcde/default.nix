@@ -1,25 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libcdio-paranoia,
-  cddiscid,
-  wget,
-  which,
-  vorbis-tools,
-  id3v2,
-  eyeD3,
-  lame,
-  flac,
-  glyr,
-  perlPackages,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, libcdio-paranoia, cddiscid, wget, which, vorbis-tools
+, id3v2, eyeD3, lame, flac, glyr, perlPackages, makeWrapper }:
 
-let
-  version = "2.9.3";
-in
-stdenv.mkDerivation {
+let version = "2.9.3";
+in stdenv.mkDerivation {
   pname = "abcde";
   inherit version;
   src = fetchurl {
@@ -44,11 +27,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = with perlPackages; [
-    perl
-    MusicBrainz
-    MusicBrainzDiscID
-  ];
+  buildInputs = with perlPackages; [ perl MusicBrainz MusicBrainzDiscID ];
 
   installFlags = [ "sysconfdir=$(out)/etc" ];
 

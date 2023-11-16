@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-prevalence";
   version = "20210531-git";
 
@@ -17,7 +16,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-prevalence/2021-05-31/cl-prevalence-20210531-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-prevalence/2021-05-31/cl-prevalence-20210531-git.tgz";
     sha256 = "1608xbfyr0id1nwf9845yfaqz5jbi60vz6c36h70bnzkm4b55s1w";
   };
 

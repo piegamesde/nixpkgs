@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchCrate,
-  rustPlatform,
-}:
+{ lib, fetchCrate, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "license-generator";

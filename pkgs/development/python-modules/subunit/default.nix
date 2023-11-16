@@ -1,20 +1,9 @@
-{
-  buildPythonPackage,
-  # pkgs dependencies
-  check,
-  cppunit,
-  pkg-config,
-  subunit,
-  pythonOlder,
+{ buildPythonPackage
+# pkgs dependencies
+, check, cppunit, pkg-config, subunit, pythonOlder
 
-  # python dependencies
-  fixtures,
-  hypothesis,
-  pytestCheckHook,
-  setuptools,
-  testscenarios,
-  testtools,
-}:
+# python dependencies
+, fixtures, hypothesis, pytestCheckHook, setuptools, testscenarios, testtools }:
 
 buildPythonPackage {
   inherit (subunit) name src meta;
@@ -27,23 +16,12 @@ buildPythonPackage {
       --replace "version=VERSION" 'version="${subunit.version}"'
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    setuptools
-  ];
+  nativeBuildInputs = [ pkg-config setuptools ];
 
-  buildInputs = [
-    check
-    cppunit
-  ];
+  buildInputs = [ check cppunit ];
   propagatedBuildInputs = [ testtools ];
 
-  nativeCheckInputs = [
-    testscenarios
-    hypothesis
-    fixtures
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ testscenarios hypothesis fixtures pytestCheckHook ];
 
   pytestFlagsArray = [ "python/subunit" ];
 

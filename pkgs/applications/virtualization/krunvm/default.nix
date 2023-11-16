@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  asciidoctor,
-  buildah,
-  buildah-unwrapped,
-  cargo,
-  libiconv,
-  libkrun,
-  makeWrapper,
-  rustc,
-  sigtool,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, asciidoctor, buildah
+, buildah-unwrapped, cargo, libiconv, libkrun, makeWrapper, rustc, sigtool }:
 
 stdenv.mkDerivation rec {
   pname = "krunvm";
@@ -30,13 +17,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-Y0FNi/+HuN5SqexHTKjcW6lEaeis7xZDYc2/FOAANIA=";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    cargo
-    rustc
-    asciidoctor
-    makeWrapper
-  ] ++ lib.optionals stdenv.isDarwin [ sigtool ];
+  nativeBuildInputs =
+    [ rustPlatform.cargoSetupHook cargo rustc asciidoctor makeWrapper ]
+    ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
   buildInputs = [ libkrun ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 

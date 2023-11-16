@@ -1,19 +1,6 @@
-{
-  mkDerivation,
-  fetchpatch,
-  extra-cmake-modules,
-  kconfig,
-  kcoreaddons,
-  ki18n,
-  kio,
-  kservice,
-  plasma-framework,
-  qtbase,
-  qtdeclarative,
-  solid,
-  threadweaver,
-  kwindowsystem,
-}:
+{ mkDerivation, fetchpatch, extra-cmake-modules, kconfig, kcoreaddons, ki18n
+, kio, kservice, plasma-framework, qtbase, qtdeclarative, solid, threadweaver
+, kwindowsystem }:
 
 let
   self = mkDerivation {
@@ -29,11 +16,6 @@ let
       solid
       threadweaver
     ];
-    propagatedBuildInputs = [
-      plasma-framework
-      qtbase
-      kwindowsystem
-    ];
+    propagatedBuildInputs = [ plasma-framework qtbase kwindowsystem ];
   };
-in
-self
+in self

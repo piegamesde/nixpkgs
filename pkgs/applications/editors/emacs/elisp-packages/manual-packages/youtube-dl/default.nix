@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  trivialBuild,
-  emacs,
-}:
+{ lib, fetchFromGitHub, trivialBuild, emacs }:
 
 trivialBuild {
   pname = "youtube-dl";

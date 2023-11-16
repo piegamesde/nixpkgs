@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  gtk2,
-  lv2,
-  pkg-config,
-  python3,
-  serd,
-  sord,
-  sratom,
-  wafHook,
-  withQt5 ? true,
-  qt5 ? null,
-}:
+{ stdenv, lib, fetchurl, gtk2, lv2, pkg-config, python3, serd, sord, sratom
+, wafHook, withQt5 ? true, qt5 ? null }:
 
 stdenv.mkDerivation rec {
   pname = "suil";
@@ -23,25 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "0z4v01pjw4wh65x38w6icn28wdwxz13ayl8hvn4p1g9kmamp1z06";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wafHook
-    python3
-  ];
-  buildInputs =
-    [
-      gtk2
-      lv2
-      serd
-      sord
-      sratom
-    ]
-    ++ lib.optionals withQt5 (
-      with qt5; [
-        qtbase
-        qttools
-      ]
-    );
+  nativeBuildInputs = [ pkg-config wafHook python3 ];
+  buildInputs = [ gtk2 lv2 serd sord sratom ]
+    ++ lib.optionals withQt5 (with qt5; [ qtbase qttools ]);
 
   dontWrapQtApps = true;
 
@@ -49,7 +20,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://drobilla.net/software/suil";
-    description = "A lightweight C library for loading and wrapping LV2 plugin UIs";
+    description =
+      "A lightweight C library for loading and wrapping LV2 plugin UIs";
     license = licenses.mit;
     maintainers = with maintainers; [ goibhniu ];
     platforms = platforms.unix;

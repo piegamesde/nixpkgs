@@ -1,34 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  perl,
-  util-linux,
-  keyutils,
-  nss,
-  nspr,
-  python2,
-  pam,
-  enablePython ? false,
-  intltool,
-  makeWrapper,
-  coreutils,
-  bash,
-  gettext,
-  cryptsetup,
-  lvm2,
-  rsync,
-  which,
-  lsof,
-}:
+{ lib, stdenv, fetchurl, pkg-config, perl, util-linux, keyutils, nss, nspr
+, python2, pam, enablePython ? false, intltool, makeWrapper, coreutils, bash
+, gettext, cryptsetup, lvm2, rsync, which, lsof }:
 
 stdenv.mkDerivation rec {
   pname = "ecryptfs";
   version = "111";
 
   src = fetchurl {
-    url = "https://launchpad.net/ecryptfs/trunk/${version}/+download/ecryptfs-utils_${version}.orig.tar.gz";
+    url =
+      "https://launchpad.net/ecryptfs/trunk/${version}/+download/ecryptfs-utils_${version}.orig.tar.gz";
     sha256 = "0zwq19siiwf09h7lwa7n7mgmrr8cxifp45lmwgcfr8c1gviv6b0i";
   };
 
@@ -57,29 +37,17 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optionals (!enablePython) [ "--disable-pywrap" ];
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      makeWrapper
-      intltool
-    ]
-    # if python2 support is requested, it is needed at builtime as well as runtime.
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+    intltool
+  ]
+  # if python2 support is requested, it is needed at builtime as well as runtime.
     ++ lib.optionals (enablePython) [ python2 ];
-  buildInputs = [
-    perl
-    nss
-    nspr
-    pam
-  ] ++ lib.optionals (enablePython) [ python2 ];
-  propagatedBuildInputs = [
-    coreutils
-    gettext
-    cryptsetup
-    lvm2
-    rsync
-    keyutils
-    which
-  ];
+  buildInputs = [ perl nss nspr pam ]
+    ++ lib.optionals (enablePython) [ python2 ];
+  propagatedBuildInputs =
+    [ coreutils gettext cryptsetup lvm2 rsync keyutils which ];
 
   postInstall = ''
     FILES="$(grep -r '/bin/sh' $out/bin -l)"

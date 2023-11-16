@@ -1,15 +1,5 @@
-{
-  lib,
-  astor,
-  buildPythonPackage,
-  fetchFromGitHub,
-  funcparserlib,
-  hy,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-  testers,
-}:
+{ lib, astor, buildPythonPackage, fetchFromGitHub, funcparserlib, hy
+, pytestCheckHook, python, pythonOlder, testers }:
 
 buildPythonPackage rec {
   pname = "hy";
@@ -28,7 +18,8 @@ buildPythonPackage rec {
   # https://github.com/hylang/hy/blob/1.0a4/get_version.py#L9-L10
   HY_VERSION = version;
 
-  propagatedBuildInputs = [ funcparserlib ] ++ lib.optionals (pythonOlder "3.9") [ astor ];
+  propagatedBuildInputs = [ funcparserlib ]
+    ++ lib.optionals (pythonOlder "3.9") [ astor ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -37,10 +28,7 @@ buildPythonPackage rec {
     export PATH="$out/bin:$PATH"
   '';
 
-  disabledTests = [
-    "test_circular_macro_require"
-    "test_macro_require"
-  ];
+  disabledTests = [ "test_circular_macro_require" "test_macro_require" ];
 
   pythonImportsCheck = [ "hy" ];
 
@@ -52,14 +40,14 @@ buildPythonPackage rec {
     # For backwards compatibility with removed pkgs/development/interpreters/hy
     # Example usage:
     #   hy.withPackages (ps: with ps; [ hyrule requests ])
-    withPackages =
-      python-packages:
-      (python.withPackages (ps: (python-packages ps) ++ [ ps.hy ])).overrideAttrs (
-        old: {
+    withPackages = python-packages:
+      (python.withPackages
+        (ps: (python-packages ps) ++ [ ps.hy ])).overrideAttrs (old: {
           name = "${hy.name}-env";
-          meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) { mainProgram = "hy"; };
-        }
-      );
+          meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) {
+            mainProgram = "hy";
+          };
+        });
   };
 
   meta = with lib; {
@@ -67,11 +55,6 @@ buildPythonPackage rec {
     homepage = "https://hylang.org/";
     changelog = "https://github.com/hylang/hy/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      fab
-      mazurel
-      nixy
-      thiagokokada
-    ];
+    maintainers = with maintainers; [ fab mazurel nixy thiagokokada ];
   };
 }

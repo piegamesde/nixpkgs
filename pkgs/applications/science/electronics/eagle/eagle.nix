@@ -1,28 +1,6 @@
-{
-  lib,
-  stdenv,
-  mkDerivation,
-  fetchurl,
-  makeDesktopItem,
-  libXrender,
-  libXrandr,
-  libXcursor,
-  libX11,
-  libXext,
-  libXi,
-  libxcb,
-  libGL,
-  glib,
-  nss,
-  nspr,
-  expat,
-  alsa-lib,
-  qtbase,
-  qtdeclarative,
-  qtsvg,
-  qtlocation,
-  qtwebchannel,
-  qtwebengine,
+{ lib, stdenv, mkDerivation, fetchurl, makeDesktopItem, libXrender, libXrandr
+, libXcursor, libX11, libXext, libXi, libxcb, libGL, glib, nss, nspr, expat
+, alsa-lib, qtbase, qtdeclarative, qtsvg, qtlocation, qtwebchannel, qtwebengine
 }:
 
 let
@@ -47,8 +25,7 @@ let
     qtwebchannel
     qtwebengine
   ];
-in
-mkDerivation rec {
+in mkDerivation rec {
   pname = "eagle";
   version = "9.6.2";
 
@@ -126,7 +103,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Schematic editor and PCB layout tool from Autodesk (formerly CadSoft)";
+    description =
+      "Schematic editor and PCB layout tool from Autodesk (formerly CadSoft)";
     homepage = "https://www.autodesk.com/products/eagle/overview";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

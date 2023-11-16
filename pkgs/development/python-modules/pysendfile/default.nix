@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   pname = "pysendfile";
@@ -27,4 +21,5 @@ buildPythonPackage rec {
     description = "A Python interface to sendfile(2)";
     license = licenses.mit;
   };
+
 }

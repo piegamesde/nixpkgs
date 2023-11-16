@@ -1,26 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dovecot,
-  openssl,
-}:
-let
-  dovecotMajorMinor = lib.versions.majorMinor dovecot.version;
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchurl, dovecot, openssl }:
+let dovecotMajorMinor = lib.versions.majorMinor dovecot.version;
+in stdenv.mkDerivation rec {
   pname = "dovecot-pigeonhole";
   version = "0.5.20";
 
   src = fetchurl {
-    url = "https://pigeonhole.dovecot.org/releases/${dovecotMajorMinor}/dovecot-${dovecotMajorMinor}-pigeonhole-${version}.tar.gz";
+    url =
+      "https://pigeonhole.dovecot.org/releases/${dovecotMajorMinor}/dovecot-${dovecotMajorMinor}-pigeonhole-${version}.tar.gz";
     hash = "sha256-rjK9SHDqLBMorgm6IG6ewSEoBG1q/KUvu8nvf3VhfJg=";
   };
 
-  buildInputs = [
-    dovecot
-    openssl
-  ];
+  buildInputs = [ dovecot openssl ];
 
   preConfigure = ''
     substituteInPlace src/managesieve/managesieve-settings.c --replace \
@@ -43,10 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://pigeonhole.dovecot.org/";
     description = "A sieve plugin for the Dovecot IMAP server";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [
-      globin
-      ajs124
-    ];
+    maintainers = with maintainers; [ globin ajs124 ];
     platforms = platforms.unix;
   };
 }

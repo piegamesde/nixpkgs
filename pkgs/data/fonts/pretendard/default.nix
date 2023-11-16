@@ -1,23 +1,15 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 let
   version = "1.3.3";
 
-  mkPretendard =
-    {
-      pname,
-      typeface,
-      hash,
-    }:
+  mkPretendard = { pname, typeface, hash }:
     stdenvNoCC.mkDerivation {
       inherit pname version;
 
       src = fetchzip {
-        url = "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip";
+        url =
+          "https://github.com/orioncactus/pretendard/releases/download/v${version}/${typeface}-${version}.zip";
         stripRoot = false;
         inherit hash;
       };
@@ -38,8 +30,8 @@ let
         maintainers = with maintainers; [ sudosubin ];
       };
     };
-in
-{
+
+in {
   pretendard = mkPretendard {
     pname = "pretendard";
     typeface = "Pretendard";

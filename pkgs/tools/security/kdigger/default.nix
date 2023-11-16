@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "kdigger";
@@ -61,7 +55,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/quarkslab/kdigger";
     changelog = "https://github.com/quarkslab/kdigger/releases/tag/v${version}";
-    description = "An in-pod context discovery tool for Kubernetes penetration testing";
+    description =
+      "An in-pod context discovery tool for Kubernetes penetration testing";
     longDescription = ''
       kdigger, short for "Kubernetes digger", is a context discovery tool for
       Kubernetes penetration testing. This tool is a compilation of various
@@ -70,10 +65,6 @@ buildGoModule rec {
     '';
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ];
   };
 }

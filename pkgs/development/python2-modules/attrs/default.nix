@@ -1,9 +1,4 @@
-{
-  lib,
-  callPackage,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, callPackage, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "attrs";
@@ -14,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-YmuoI0IR25joad92IwoTfExAoS1yRFxF1fW3FvB24v0=";
   };
 
-  outputs = [
-    "out"
-    "testout"
-  ];
+  outputs = [ "out" "testout" ];
 
   postInstall = ''
     # Install tests as the tests output.
@@ -31,9 +23,7 @@ buildPythonPackage rec {
   # Instead, we do this as a passthru.tests test.
   doCheck = false;
 
-  passthru.tests = {
-    pytest = callPackage ./tests.nix { };
-  };
+  passthru.tests = { pytest = callPackage ./tests.nix { }; };
 
   meta = with lib; {
     description = "Python attributes without boilerplate";

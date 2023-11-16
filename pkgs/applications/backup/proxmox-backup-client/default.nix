@@ -1,18 +1,5 @@
-{
-  lib,
-  fetchgit,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  fuse3,
-  libuuid,
-  acl,
-  libxcrypt,
-  git,
-  installShellFiles,
-  sphinx,
-  stdenv,
-}:
+{ lib, fetchgit, rustPlatform, pkg-config, openssl, fuse3, libuuid, acl
+, libxcrypt, git, installShellFiles, sphinx, stdenv, }:
 
 rustPlatform.buildRustPackage rec {
   pname = "proxmox-backup-client";
@@ -78,9 +65,7 @@ rustPlatform.buildRustPackage rec {
       --zsh zsh-completions/_pxar
   '';
 
-  cargoLock = {
-    lockFileContents = builtins.readFile ./Cargo.lock;
-  };
+  cargoLock = { lockFileContents = builtins.readFile ./Cargo.lock; };
 
   cargoBuildFlags = [
     "--package=proxmox-backup-client"
@@ -92,29 +77,15 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [
-    git
-    pkg-config
-    rustPlatform.bindgenHook
-    installShellFiles
-    sphinx
-  ];
-  buildInputs = [
-    openssl
-    fuse3
-    libuuid
-    acl
-    libxcrypt
-  ];
+  nativeBuildInputs =
+    [ git pkg-config rustPlatform.bindgenHook installShellFiles sphinx ];
+  buildInputs = [ openssl fuse3 libuuid acl libxcrypt ];
 
   meta = with lib; {
     description = "The command line client for Proxmox Backup Server";
     homepage = "https://pbs.proxmox.com/docs/backup-client.html";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [
-      cofob
-      christoph-heiss
-    ];
+    maintainers = with maintainers; [ cofob christoph-heiss ];
     platforms = platforms.linux;
     mainProgram = pname;
   };

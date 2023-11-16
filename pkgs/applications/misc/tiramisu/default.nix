@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  glib,
-  vala,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, glib, vala }:
 
 stdenv.mkDerivation rec {
   pname = "tiramisu";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glib ];
 
-  nativeBuildInputs = [
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ pkg-config vala ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
@@ -37,9 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Sweets/tiramisu";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      wishfort36
-      fortuneteller2k
-    ];
+    maintainers = with maintainers; [ wishfort36 fortuneteller2k ];
   };
 }

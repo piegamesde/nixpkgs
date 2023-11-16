@@ -1,15 +1,9 @@
-{
-  lib,
-  stdenv,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, python3, fetchFromGitHub }:
 
 let
   pname = "niff";
   version = "0.1";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "${pname}-${version}";
 
   src = fetchFromGitHub {
@@ -29,7 +23,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "A program that compares two Nix expressions and determines which attributes changed";
+    description =
+      "A program that compares two Nix expressions and determines which attributes changed";
     homepage = "https://github.com/FRidh/niff";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.fridh ];

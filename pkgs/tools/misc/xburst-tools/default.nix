@@ -1,20 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  libusb-compat-0_1,
-  libusb1,
-  autoconf,
-  automake,
-  libconfuse,
-  pkg-config,
-  gccCross ? null,
-}:
+{ lib, stdenv, fetchgit, libusb-compat-0_1, libusb1, autoconf, automake
+, libconfuse, pkg-config, gccCross ? null }:
 
-let
-  version = "2011-12-26";
-in
-stdenv.mkDerivation {
+let version = "2011-12-26";
+in stdenv.mkDerivation {
   pname = "xburst-tools";
   inherit version;
 
@@ -38,24 +26,14 @@ stdenv.mkDerivation {
     "CROSS_COMPILE=${gccCross.targetPrefix}"
   ];
 
-  hardeningDisable = [
-    "pic"
-    "stackprotector"
-  ];
+  hardeningDisable = [ "pic" "stackprotector" ];
 
   # Not to strip cross build binaries (this is for the gcc-cross-wrapper)
   dontCrossStrip = true;
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    pkg-config
-  ];
-  buildInputs = [
-    libusb-compat-0_1
-    libusb1
-    libconfuse
-  ] ++ lib.optional (gccCross != null) gccCross;
+  nativeBuildInputs = [ autoconf automake pkg-config ];
+  buildInputs = [ libusb-compat-0_1 libusb1 libconfuse ]
+    ++ lib.optional (gccCross != null) gccCross;
 
   meta = {
     broken = stdenv.isDarwin;

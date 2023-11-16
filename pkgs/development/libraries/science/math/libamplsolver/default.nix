@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  substitute,
-  fetchurl,
-  fetchpatch,
-}:
+{ lib, stdenv, substitute, fetchurl, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "libamplsolver";
@@ -26,21 +20,18 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  installPhase =
-    ''
-      runHook preInstall
-      pushd sys.$(uname -m).$(uname -s)
-      install -D -m 0644 *.h -t $out/include
-      install -D -m 0644 *${stdenv.hostPlatform.extensions.sharedLibrary}* -t $out/lib
-      install -D -m 0644 *.a -t $out/lib
-      popd
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      install_name_tool -id $out/lib/libamplsolver.dylib $out/lib/libamplsolver.dylib
-    ''
-    + ''
-      runHook postInstall
-    '';
+  installPhase = ''
+    runHook preInstall
+    pushd sys.$(uname -m).$(uname -s)
+    install -D -m 0644 *.h -t $out/include
+    install -D -m 0644 *${stdenv.hostPlatform.extensions.sharedLibrary}* -t $out/lib
+    install -D -m 0644 *.a -t $out/lib
+    popd
+  '' + lib.optionalString stdenv.isDarwin ''
+    install_name_tool -id $out/lib/libamplsolver.dylib $out/lib/libamplsolver.dylib
+  '' + ''
+    runHook postInstall
+  '';
 
   meta = with lib; {
     description = "A library of routines that help solvers work with AMPL";

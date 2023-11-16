@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  anyio,
-  buildPythonPackage,
-  cargo,
-  fetchFromGitHub,
-  rustPlatform,
-  rustc,
-  setuptools-rust,
-  pythonOlder,
-  dirty-equals,
-  pytest-mock,
-  pytest-timeout,
-  pytestCheckHook,
-  python,
-  CoreServices,
-  libiconv,
-}:
+{ lib, stdenv, anyio, buildPythonPackage, cargo, fetchFromGitHub, rustPlatform
+, rustc, setuptools-rust, pythonOlder, dirty-equals, pytest-mock, pytest-timeout
+, pytestCheckHook, python, CoreServices, libiconv }:
 
 buildPythonPackage rec {
   pname = "watchfiles";
@@ -38,26 +22,15 @@ buildPythonPackage rec {
     hash = "sha256-9ruk3PMcWNLOIGth5fo91/miyF17lgERWL3F4y4as18=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-    libiconv
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices libiconv ];
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    rustPlatform.maturinBuildHook
-    cargo
-    rustc
-  ];
+  nativeBuildInputs =
+    [ rustPlatform.cargoSetupHook rustPlatform.maturinBuildHook cargo rustc ];
 
   propagatedBuildInputs = [ anyio ];
 
-  nativeCheckInputs = [
-    dirty-equals
-    pytest-mock
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ dirty-equals pytest-mock pytest-timeout pytestCheckHook ];
 
   postPatch = ''
     sed -i "/^requires-python =.*/a version = '${version}'" pyproject.toml

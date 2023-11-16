@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  lxml,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, lxml, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tableaudocumentapi";
@@ -31,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for working with Tableau files";
     homepage = "https://github.com/tableau/document-api-python";
-    changelog = "https://github.com/tableau/document-api-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/tableau/document-api-python/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

@@ -1,31 +1,23 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.nextdns;
-in
-{
+let cfg = config.services.nextdns;
+in {
   options = {
     services.nextdns = {
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the NextDNS DNS/53 to DoH Proxy service.";
+        description = lib.mdDoc
+          "Whether to enable the NextDNS DNS/53 to DoH Proxy service.";
       };
       arguments = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "-config"
-          "10.0.3.0/24=abcdef"
-        ];
-        description = lib.mdDoc "Additional arguments to be passed to nextdns run.";
+        example = [ "-config" "10.0.3.0/24=abcdef" ];
+        description =
+          lib.mdDoc "Additional arguments to be passed to nextdns run.";
       };
     };
   };
@@ -34,13 +26,13 @@ in
   config = mkIf cfg.enable {
     systemd.services.nextdns = {
       description = "NextDNS DNS/53 to DoH Proxy";
-      environment = {
-        SERVICE_RUN_MODE = "1";
-      };
+      environment = { SERVICE_RUN_MODE = "1"; };
       startLimitIntervalSec = 5;
       startLimitBurst = 10;
       serviceConfig = {
-        ExecStart = "${pkgs.nextdns}/bin/nextdns run ${escapeShellArgs config.services.nextdns.arguments}";
+        ExecStart = "${pkgs.nextdns}/bin/nextdns run ${
+            escapeShellArgs config.services.nextdns.arguments
+          }";
         RestartSec = 120;
         LimitMEMLOCK = "infinity";
       };

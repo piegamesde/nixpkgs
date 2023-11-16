@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  karton-core,
-  malduck,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, karton-core, malduck, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "karton-config-extractor";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-ep69Rrm8Ek0lkgctz6vDAZ1MZ8kWKZSyIvMMAmzTngA=";
   };
 
-  propagatedBuildInputs = [
-    karton-core
-    malduck
-  ];
+  propagatedBuildInputs = [ karton-core malduck ];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -39,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Static configuration extractor for the Karton framework";
     homepage = "https://github.com/CERT-Polska/karton-config-extractor";
-    changelog = "https://github.com/CERT-Polska/karton-config-extractor/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CERT-Polska/karton-config-extractor/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

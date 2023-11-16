@@ -1,22 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flit-core,
-  pythonOlder,
-  docutils,
-  jinja2,
-  markdown-it-py,
-  mdit-py-plugins,
-  pyyaml,
-  sphinx,
-  typing-extensions,
-  beautifulsoup4,
-  pytest-param-files,
-  pytest-regressions,
-  sphinx-pytest,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pythonOlder, docutils
+, jinja2, markdown-it-py, mdit-py-plugins, pyyaml, sphinx, typing-extensions
+, beautifulsoup4, pytest-param-files, pytest-regressions, sphinx-pytest
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "myst-parser";
@@ -72,7 +57,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Sphinx and Docutils extension to parse MyST";
     homepage = "https://myst-parser.readthedocs.io/";
-    changelog = "https://raw.githubusercontent.com/executablebooks/MyST-Parser/v${version}/CHANGELOG.md";
+    changelog =
+      "https://raw.githubusercontent.com/executablebooks/MyST-Parser/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ loicreynier ];
   };

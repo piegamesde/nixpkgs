@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  slang,
-  ncurses,
-  openssl,
-}:
+{ lib, stdenv, fetchurl, slang, ncurses, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "slrn";
@@ -29,11 +22,7 @@ stdenv.mkDerivation rec {
     "--with-slrnpull"
   ];
 
-  buildInputs = [
-    slang
-    ncurses
-    openssl
-  ];
+  buildInputs = [ slang ncurses openssl ];
 
   meta = with lib; {
     description = "The slrn (S-Lang read news) newsreader";

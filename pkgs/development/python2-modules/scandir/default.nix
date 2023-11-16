@@ -1,9 +1,4 @@
-{
-  lib,
-  python,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, python, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "scandir";

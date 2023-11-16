@@ -20,12 +20,7 @@
     version = "0.92.3";
   };
   fog-core = {
-    dependencies = [
-      "builder"
-      "excon"
-      "formatador"
-      "mime-types"
-    ];
+    dependencies = [ "builder" "excon" "formatador" "mime-types" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -36,10 +31,7 @@
     version = "2.3.0";
   };
   fog-json = {
-    dependencies = [
-      "fog-core"
-      "multi_json"
-    ];
+    dependencies = [ "fog-core" "multi_json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -50,13 +42,7 @@
     version = "1.2.0";
   };
   fog-libvirt = {
-    dependencies = [
-      "fog-core"
-      "fog-json"
-      "fog-xml"
-      "json"
-      "ruby-libvirt"
-    ];
+    dependencies = [ "fog-core" "fog-json" "fog-xml" "json" "ruby-libvirt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -67,10 +53,7 @@
     version = "0.9.0";
   };
   fog-xml = {
-    dependencies = [
-      "fog-core"
-      "nokogiri"
-    ];
+    dependencies = [ "fog-core" "nokogiri" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -142,10 +125,7 @@
     version = "1.15.0";
   };
   nokogiri = {
-    dependencies = [
-      "mini_portile2"
-      "racc"
-    ];
+    dependencies = [ "mini_portile2" "racc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -186,12 +166,7 @@
     version = "0.8.0";
   };
   vagrant-libvirt = {
-    dependencies = [
-      "fog-core"
-      "fog-libvirt"
-      "nokogiri"
-      "rexml"
-    ];
+    dependencies = [ "fog-core" "fog-libvirt" "nokogiri" "rexml" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

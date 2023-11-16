@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  curl,
-  autoconf,
-  automake,
-  makeWrapper,
-  sbcl,
-}:
+{ lib, stdenv, fetchFromGitHub, curl, autoconf, automake, makeWrapper, sbcl }:
 
 stdenv.mkDerivation rec {
   pname = "roswell";
@@ -20,13 +11,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-tNOkZcdjwvrsleWMtcQ76KMBnssnuYQU3gqXnBVPN6w=";
   };
 
-  patches =
-    [
-      # Load the name of the image from the environment variable so that
-      # it can be consistently overwritten. Using the command line
-      # argument in the wrapper did not work.
-      ./0001-get-image-from-environment.patch
-    ];
+  patches = [
+    # Load the name of the image from the environment variable so that
+    # it can be consistently overwritten. Using the command line
+    # argument in the wrapper did not work.
+    ./0001-get-image-from-environment.patch
+  ];
 
   preConfigure = ''
     sh bootstrap
@@ -41,16 +31,9 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${lib.makeBinPath [ sbcl ]} --argv0 ros
   '';
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoconf automake makeWrapper ];
 
-  buildInputs = [
-    sbcl
-    curl
-  ];
+  buildInputs = [ sbcl curl ];
 
   meta = with lib; {
     description = "Lisp implementation installer/manager and launcher";

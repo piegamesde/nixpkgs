@@ -1,24 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  openexr,
-  boost,
-  jemalloc,
-  c-blosc,
-  ilmbase,
-  tbb,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, openexr, boost, jemalloc, c-blosc
+, ilmbase, tbb }:
 
 stdenv.mkDerivation rec {
   pname = "openvdb";
   version = "10.0.1";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "AcademySoftwareFoundation";
@@ -29,14 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    openexr
-    boost
-    tbb
-    jemalloc
-    c-blosc
-    ilmbase
-  ];
+  buildInputs = [ openexr boost tbb jemalloc c-blosc ilmbase ];
 
   cmakeFlags = [ "-DOPENVDB_CORE_STATIC=OFF" ];
 

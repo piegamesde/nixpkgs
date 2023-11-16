@@ -3,9 +3,5 @@
 with import <nixpkgs> { };
 stdenv.mkDerivation {
   name = "env";
-  buildInputs = [
-    ruby.devEnv
-    gnumake
-    bundix
-  ];
+  buildInputs = [ ruby.devEnv gnumake bundix ];
 }

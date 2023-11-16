@@ -1,14 +1,7 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 with lib;
-let
-  cfg = config.services.pict-rs;
-in
-{
+let cfg = config.services.pict-rs;
+in {
   meta.maintainers = with maintainers; [ happysalada ];
   meta.doc = ./pict-rs.md;
 

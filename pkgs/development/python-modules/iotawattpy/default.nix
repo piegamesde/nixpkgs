@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  httpx,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, httpx, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "iotawattpy";

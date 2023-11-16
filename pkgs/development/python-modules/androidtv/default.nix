@@ -1,14 +1,5 @@
-{
-  lib,
-  adb-shell,
-  aiofiles,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  pure-python-adb,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, adb-shell, aiofiles, buildPythonPackage, fetchFromGitHub, mock
+, pure-python-adb, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "androidtv";
@@ -24,31 +15,27 @@ buildPythonPackage rec {
     hash = "sha256-LKV5aO3sptHz48UYpP+zPk6pPhyHAZWAxiTTIWKHiSg=";
   };
 
-  propagatedBuildInputs = [
-    adb-shell
-    pure-python-adb
-  ];
+  propagatedBuildInputs = [ adb-shell pure-python-adb ];
 
   passthru.optional-dependencies = {
     async = [ aiofiles ];
     inherit (adb-shell.optional-dependencies) usb;
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.async ++ passthru.optional-dependencies.usb;
+  nativeCheckInputs = [ mock pytestCheckHook ]
+    ++ passthru.optional-dependencies.async
+    ++ passthru.optional-dependencies.usb;
 
-  disabledTests =
-    [
-      # Requires git but fails anyway
-      "test_no_underscores"
-    ];
+  disabledTests = [
+    # Requires git but fails anyway
+    "test_no_underscores"
+  ];
 
   pythonImportsCheck = [ "androidtv" ];
 
   meta = with lib; {
-    description = "Communicate with an Android TV or Fire TV device via ADB over a network";
+    description =
+      "Communicate with an Android TV or Fire TV device via ADB over a network";
     homepage = "https://github.com/JeffLIrion/python-androidtv/";
     license = licenses.mit;
     maintainers = with maintainers; [ jamiemagee ];

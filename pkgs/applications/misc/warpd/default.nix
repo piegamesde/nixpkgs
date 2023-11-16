@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  git,
-  withWayland ? true,
-  cairo,
-  libxkbcommon,
-  wayland,
-  withX ? true,
-  libXi,
-  libXinerama,
-  libXft,
-  libXfixes,
-  libXtst,
-  libX11,
-  libXext,
-}:
+{ lib, stdenv, fetchFromGitHub, git, withWayland ? true, cairo, libxkbcommon
+, wayland, withX ? true, libXi, libXinerama, libXft, libXfixes, libXtst, libX11
+, libXext }:
 
 stdenv.mkDerivation rec {
   pname = "warpd";
@@ -31,12 +16,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ git ];
 
-  buildInputs =
-    lib.optionals withWayland [
-      cairo
-      libxkbcommon
-      wayland
-    ]
+  buildInputs = lib.optionals withWayland [ cairo libxkbcommon wayland ]
     ++ lib.optionals withX [
       libXi
       libXinerama
@@ -47,9 +27,9 @@ stdenv.mkDerivation rec {
       libXext
     ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ] ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y" ++ lib.optional (!withX) "DISABLE_X=y";
+  makeFlags = [ "PREFIX=$(out)" ]
+    ++ lib.optional (!withWayland) "DISABLE_WAYLAND=y"
+    ++ lib.optional (!withX) "DISABLE_X=y";
 
   postPatch = ''
     substituteInPlace mk/linux.mk \

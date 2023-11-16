@@ -1,34 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  meson,
-  ninja,
-  pkg-config,
-  vala,
-  desktop-file-utils,
-  gtk3,
-  libexif,
-  libgee,
-  libhandy,
-  geocode-glib,
-  gexiv2,
-  libgphoto2,
-  granite,
-  gst_all_1,
-  libgudev,
-  json-glib,
-  libraw,
-  librest,
-  libsoup,
-  sqlite,
-  python3,
-  webkitgtk,
-  libwebp,
-  appstream,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, pkg-config
+, vala, desktop-file-utils, gtk3, libexif, libgee, libhandy, geocode-glib
+, gexiv2, libgphoto2, granite, gst_all_1, libgudev, json-glib, libraw, librest
+, libsoup, sqlite, python3, webkitgtk, libwebp, appstream, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-photos";
@@ -52,34 +25,30 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      geocode-glib
-      gexiv2
-      granite
-      gtk3
-      json-glib
-      libexif
-      libgee
-      libgphoto2
-      libgudev
-      libhandy
-      libraw
-      librest
-      libsoup
-      libwebp
-      sqlite
-      webkitgtk
-    ]
-    ++ (
-      with gst_all_1; [
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-ugly
-        gstreamer
-      ]
-    );
+  buildInputs = [
+    geocode-glib
+    gexiv2
+    granite
+    gtk3
+    json-glib
+    libexif
+    libgee
+    libgphoto2
+    libgudev
+    libhandy
+    libraw
+    librest
+    libsoup
+    libwebp
+    sqlite
+    webkitgtk
+  ] ++ (with gst_all_1; [
+    gst-plugins-bad
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-ugly
+    gstreamer
+  ]);
 
   mesonFlags = [ "-Dplugins=false" ];
 
@@ -88,9 +57,7 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Photo viewer and organizer designed for elementary OS";

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromSourcehut,
-  ffmpeg,
-  makeWrapper,
-}:
+{ lib, buildGoModule, fetchFromSourcehut, ffmpeg, makeWrapper }:
 
 buildGoModule rec {
   pname = "unflac";
@@ -25,7 +19,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A command line tool for fast frame accurate audio image + cue sheet splitting";
+    description =
+      "A command line tool for fast frame accurate audio image + cue sheet splitting";
     homepage = "https://sr.ht/~ft/unflac/";
     license = licenses.mit;
     platforms = platforms.all;

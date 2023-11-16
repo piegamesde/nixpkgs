@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  imageio,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  scikit-image,
-  slicerator,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, imageio, numpy, pytestCheckHook
+, pythonOlder, scikit-image, slicerator }:
 
 buildPythonPackage rec {
   pname = "pims";
@@ -24,38 +15,27 @@ buildPythonPackage rec {
     hash = "sha256-QdllA1QTSJ8vWaSJ0XoUanX53sb4RaOmdXBCFEsoWMU=";
   };
 
-  propagatedBuildInputs = [
-    slicerator
-    imageio
-    numpy
-  ];
+  propagatedBuildInputs = [ slicerator imageio numpy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    scikit-image
-  ];
+  nativeCheckInputs = [ pytestCheckHook scikit-image ];
 
   pythonImportsCheck = [ "pims" ];
 
-  pytestFlagsArray = [
-    "-W"
-    "ignore::Warning"
+  pytestFlagsArray = [ "-W" "ignore::Warning" ];
+
+  disabledTests = [
+    # NotImplementedError: Do not know how to deal with infinite readers
+    "TestVideo_ImageIO"
   ];
 
-  disabledTests =
-    [
-      # NotImplementedError: Do not know how to deal with infinite readers
-      "TestVideo_ImageIO"
-    ];
-
-  disabledTestPaths =
-    [
-      # AssertionError: Tuples differ: (377, 505, 4) != (384, 512, 4)
-      "pims/tests/test_display.py"
-    ];
+  disabledTestPaths = [
+    # AssertionError: Tuples differ: (377, 505, 4) != (384, 512, 4)
+    "pims/tests/test_display.py"
+  ];
 
   meta = with lib; {
-    description = "Module to load video and sequential images in various formats";
+    description =
+      "Module to load video and sequential images in various formats";
     homepage = "https://github.com/soft-matter/pims";
     changelog = "https://github.com/soft-matter/pims/releases/tag/v${version}";
     license = licenses.bsd3;

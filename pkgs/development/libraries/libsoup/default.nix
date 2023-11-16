@@ -1,33 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  glib,
-  libxml2,
-  meson,
-  ninja,
-  pkg-config,
-  gnome,
-  libsysprof-capture,
-  gobject-introspection,
-  vala,
-  libpsl,
-  brotli,
-  gnomeSupport ? true,
-  sqlite,
-  glib-networking,
-  buildPackages,
-  withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages,
-}:
+{ stdenv, lib, fetchurl, glib, libxml2, meson, ninja, pkg-config, gnome
+, libsysprof-capture, gobject-introspection, vala, libpsl, brotli
+, gnomeSupport ? true, sqlite, glib-networking, buildPackages
+, withIntrospection ? stdenv.hostPlatform.emulatorAvailable buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "libsoup";
   version = "2.74.3";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -38,29 +18,13 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      pkg-config
-      glib
-    ]
-    ++ lib.optionals withIntrospection [
-      gobject-introspection
-      vala
-    ];
+  nativeBuildInputs = [ meson ninja pkg-config glib ]
+    ++ lib.optionals withIntrospection [ gobject-introspection vala ];
 
-  buildInputs = [
-    sqlite
-    libpsl
-    glib.out
-    brotli
-  ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
+  buildInputs = [ sqlite libpsl glib.out brotli ]
+    ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
 
-  propagatedBuildInputs = [
-    glib
-    libxml2
-  ];
+  propagatedBuildInputs = [ glib libxml2 ];
 
   mesonFlags = [
     "-Dtls_check=false" # glib-networking is a runtime dependency, not a compile-time dependency
@@ -73,7 +37,8 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-lpthread";
 
-  doCheck = false; # ERROR:../tests/socket-test.c:37:do_unconnected_socket_test: assertion failed (res == SOUP_STATUS_OK): (2 == 200)
+  doCheck =
+    false; # ERROR:../tests/socket-test.c:37:do_unconnected_socket_test: assertion failed (res == SOUP_STATUS_OK): (2 == 200)
 
   postPatch = ''
     # fixes finding vapigen when cross-compiling

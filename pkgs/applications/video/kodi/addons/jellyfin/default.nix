@@ -1,20 +1,7 @@
-{
-  lib,
-  addonDir,
-  buildKodiAddon,
-  fetchFromGitHub,
-  kodi,
-  requests,
-  dateutil,
-  six,
-  kodi-six,
-  signals,
-  websocket,
-}:
-let
-  python = kodi.pythonPackages.python.withPackages (p: with p; [ pyyaml ]);
-in
-buildKodiAddon rec {
+{ lib, addonDir, buildKodiAddon, fetchFromGitHub, kodi, requests, dateutil, six
+, kodi-six, signals, websocket }:
+let python = kodi.pythonPackages.python.withPackages (p: with p; [ pyyaml ]);
+in buildKodiAddon rec {
   pname = "jellyfin";
   namespace = "plugin.video.jellyfin";
   version = "0.7.10";
@@ -42,14 +29,7 @@ buildKodiAddon rec {
     mv /build/source/addon.xml $out${addonDir}/${namespace}/
   '';
 
-  propagatedBuildInputs = [
-    requests
-    dateutil
-    six
-    kodi-six
-    signals
-    websocket
-  ];
+  propagatedBuildInputs = [ requests dateutil six kodi-six signals websocket ];
 
   meta = with lib; {
     homepage = "https://jellyfin.org/";

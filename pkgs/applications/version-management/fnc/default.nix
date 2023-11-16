@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchurl,
-  fetchpatch,
-  stdenv,
-  zlib,
-  ncurses,
-  libiconv,
-}:
+{ lib, fetchurl, fetchpatch, stdenv, zlib, ncurses, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "fnc";
@@ -17,21 +9,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8up844ekIOMcPlfB2DJzR/GgJY9s/sBeYpG+YtdauvU=";
   };
 
-  buildInputs = [
-    libiconv
-    ncurses
-    zlib
-  ];
+  buildInputs = [ libiconv ncurses zlib ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU
-      [
-        # Needed with GCC 12
-        "-Wno-error=maybe-uninitialized"
-      ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
+    # Needed with GCC 12
+    "-Wno-error=maybe-uninitialized"
+  ]);
 
   preInstall = ''
     mkdir -p $out/bin

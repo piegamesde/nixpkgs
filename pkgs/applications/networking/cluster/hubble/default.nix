@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "hubble";
@@ -47,12 +41,10 @@ buildGoModule rec {
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
-    description = "Network, Service & Security Observability for Kubernetes using eBPF";
+    description =
+      "Network, Service & Security Observability for Kubernetes using eBPF";
     license = licenses.asl20;
     homepage = "https://github.com/cilium/hubble/";
-    maintainers = with maintainers; [
-      humancalico
-      bryanasdev000
-    ];
+    maintainers = with maintainers; [ humancalico bryanasdev000 ];
   };
 }

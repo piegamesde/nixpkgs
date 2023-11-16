@@ -1,17 +1,10 @@
-{
-  lib,
-  stdenvNoCC,
-  rsync,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, rsync, fetchFromGitHub }:
 
 # Note this is impure, using system XCode to build ios-deploy. We
 # should have a special flag for users to enable this.
 
-let
-  version = "1.11.0";
-in
-stdenvNoCC.mkDerivation {
+let version = "1.11.0";
+in stdenvNoCC.mkDerivation {
   pname = "ios-deploy";
   inherit version;
   src = fetchFromGitHub {
@@ -36,7 +29,8 @@ stdenvNoCC.mkDerivation {
   '';
   meta = {
     platforms = lib.platforms.darwin;
-    description = "Install and debug iOS apps from the command line. Designed to work on un-jailbroken devices";
+    description =
+      "Install and debug iOS apps from the command line. Designed to work on un-jailbroken devices";
     license = lib.licenses.gpl3;
   };
 }

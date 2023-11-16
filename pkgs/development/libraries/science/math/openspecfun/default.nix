@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gfortran,
-}:
+{ lib, stdenv, fetchFromGitHub, gfortran }:
 
 stdenv.mkDerivation rec {
   pname = "openspecfun";

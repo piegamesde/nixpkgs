@@ -1,24 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gexiv2,
-  gobject-introspection,
-  gtk3,
-  hicolor-icon-theme,
-  intltool,
-  libnotify,
-  librsvg,
-  python3,
-  runtimeShell,
-  wrapGAppsHook,
-  fehSupport ? false,
-  feh,
-  imagemagickSupport ? true,
-  imagemagick,
-  appindicatorSupport ? true,
-  libayatana-appindicator,
-}:
+{ lib, stdenv, fetchFromGitHub, gexiv2, gobject-introspection, gtk3
+, hicolor-icon-theme, intltool, libnotify, librsvg, python3, runtimeShell
+, wrapGAppsHook, fehSupport ? false, feh, imagemagickSupport ? true, imagemagick
+, appindicatorSupport ? true, libayatana-appindicator }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "variety";
@@ -31,23 +14,13 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Uln0uoaEZgV9FN3HEBTeFOD7d6RkAQLgQZw7bcgu26A=";
   };
 
-  nativeBuildInputs = [
-    intltool
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ intltool wrapGAppsHook gobject-introspection ];
 
-  buildInputs = [
-    gexiv2
-    gobject-introspection
-    gtk3
-    hicolor-icon-theme
-    libnotify
-    librsvg
-  ] ++ lib.optional appindicatorSupport libayatana-appindicator;
+  buildInputs =
+    [ gexiv2 gobject-introspection gtk3 hicolor-icon-theme libnotify librsvg ]
+    ++ lib.optional appindicatorSupport libayatana-appindicator;
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       beautifulsoup4
       configobj
@@ -60,8 +33,7 @@ python3.pkgs.buildPythonApplication rec {
       pygobject3
       requests
       setuptools
-    ]
-    ++ lib.optional fehSupport feh
+    ] ++ lib.optional fehSupport feh
     ++ lib.optional imagemagickSupport imagemagick;
 
   doCheck = false;
@@ -98,10 +70,6 @@ python3.pkgs.buildPythonApplication rec {
       blur, as well as options to layer quotes and a clock onto the background.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      p3psi
-      AndersonTorres
-      zfnmxt
-    ];
+    maintainers = with maintainers; [ p3psi AndersonTorres zfnmxt ];
   };
 }

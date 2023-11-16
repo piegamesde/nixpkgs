@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flask,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flask }:
 
 buildPythonPackage rec {
   pname = "Flask-Versioned";
@@ -25,3 +20,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ globin ];
   };
 }
+

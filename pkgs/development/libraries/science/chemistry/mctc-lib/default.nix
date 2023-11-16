@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  gfortran,
-  pkg-config,
-  json-fortran,
-  cmake,
-}:
+{ stdenv, lib, fetchFromGitHub, gfortran, pkg-config, json-fortran, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "mctc-lib";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-AXjg/ZsitdDf9fNoGVmVal1iZ4/sxjJb7A9W4yye/rg=";
   };
 
-  nativeBuildInputs = [
-    gfortran
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ gfortran pkg-config cmake ];
 
   buildInputs = [ json-fortran ];
 

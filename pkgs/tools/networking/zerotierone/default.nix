@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
+{ lib, stdenv, rustPlatform, fetchFromGitHub
 
-  buildPackages,
-  cargo,
-  iproute2,
-  lzo,
-  openssl,
-  pkg-config,
-  ronn,
-  rustc,
-  zlib,
-}:
+, buildPackages, cargo, iproute2, lzo, openssl, pkg-config, ronn, rustc, zlib }:
 
 let
   pname = "zerotierone";
@@ -25,8 +12,8 @@ let
     rev = version;
     sha256 = "sha256-mapFKeF+8jMGkxSuHaw5oUdTdSQgAdxEwF/S6iyVLbY=";
   };
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   inherit pname version src;
 
   cargoDeps = rustPlatform.importCargoLock {
@@ -52,26 +39,13 @@ stdenv.mkDerivation {
       --replace '-mcpu=arm1176jzf-s' ""
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    ronn
-    rustPlatform.cargoSetupHook
-    cargo
-    rustc
-  ];
-  buildInputs = [
-    iproute2
-    lzo
-    openssl
-    zlib
-  ];
+  nativeBuildInputs =
+    [ pkg-config ronn rustPlatform.cargoSetupHook cargo rustc ];
+  buildInputs = [ iproute2 lzo openssl zlib ];
 
   enableParallelBuilding = true;
 
-  buildFlags = [
-    "all"
-    "selftest"
-  ];
+  buildFlags = [ "all" "selftest" ];
 
   doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
   checkPhase = ''
@@ -91,15 +65,13 @@ stdenv.mkDerivation {
     rm -rf $out/upstream
   '';
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   passthru.updateScript = ./update.sh;
 
   meta = with lib; {
-    description = "Create flat virtual Ethernet networks of almost unlimited size";
+    description =
+      "Create flat virtual Ethernet networks of almost unlimited size";
     homepage = "https://www.zerotier.com";
     license = licenses.bsl11;
     maintainers = with maintainers; [

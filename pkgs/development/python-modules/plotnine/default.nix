@@ -1,20 +1,6 @@
-{
-  lib,
-  adjusttext,
-  buildPythonPackage,
-  fetchPypi,
-  geopandas,
-  matplotlib,
-  mizani,
-  pandas,
-  patsy,
-  pytestCheckHook,
-  pythonOlder,
-  scikit-misc,
-  scipy,
-  setuptools-scm,
-  statsmodels,
-}:
+{ lib, adjusttext, buildPythonPackage, fetchPypi, geopandas, matplotlib, mizani
+, pandas, patsy, pytestCheckHook, pythonOlder, scikit-misc, scipy
+, setuptools-scm, statsmodels }:
 
 buildPythonPackage rec {
   pname = "plotnine";
@@ -35,21 +21,9 @@ buildPythonPackage rec {
       --replace " --cov=plotnine --cov-report=xml" ""
   '';
 
-  propagatedBuildInputs = [
-    matplotlib
-    mizani
-    pandas
-    patsy
-    scipy
-    statsmodels
-  ];
+  propagatedBuildInputs = [ matplotlib mizani pandas patsy scipy statsmodels ];
 
-  nativeCheckInputs = [
-    adjusttext
-    geopandas
-    pytestCheckHook
-    scikit-misc
-  ];
+  nativeCheckInputs = [ adjusttext geopandas pytestCheckHook scikit-misc ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

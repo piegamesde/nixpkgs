@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libmpdclient,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libmpdclient, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "ympd";
@@ -26,18 +18,13 @@ stdenv.mkDerivation rec {
   # Should be fixed by pending https://github.com/notandy/ympd/pull/191 (does not apply as is).
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    libmpdclient
-    openssl
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ libmpdclient openssl ];
 
   meta = with lib; {
     homepage = "https://github.com/notandy/ympd";
-    description = "Standalone MPD Web GUI written in C, utilizing Websockets and Bootstrap/JS";
+    description =
+      "Standalone MPD Web GUI written in C, utilizing Websockets and Bootstrap/JS";
     maintainers = [ maintainers.siddharthist ];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  stdenv,
-}:
+{ lib, buildGoModule, fetchFromGitHub, stdenv }:
 
 buildGoModule rec {
   pname = "juicefs";
@@ -18,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-dsKNFIXcSeYUyh1TO1h1Ze3jS97pdhn2eU9hHjTARCo=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   doCheck = false; # requires network access
 
@@ -35,7 +27,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A distributed POSIX file system built on top of Redis and S3";
+    description =
+      "A distributed POSIX file system built on top of Redis and S3";
     homepage = "https://www.juicefs.com/";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

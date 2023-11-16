@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hatchling,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, hatchling, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bracex";

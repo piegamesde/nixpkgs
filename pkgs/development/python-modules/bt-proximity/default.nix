@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pybluez,
-}:
+{ lib, buildPythonPackage, fetchPypi, pybluez }:
 
 buildPythonPackage rec {
   pname = "bt-proximity";

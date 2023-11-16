@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pyramid,
-  simplejson,
-  six,
-  venusian,
-}:
+{ lib, buildPythonPackage, fetchPypi, pyramid, simplejson, six, venusian }:
 
 buildPythonPackage rec {
   pname = "cornice";
@@ -17,12 +9,7 @@ buildPythonPackage rec {
     sha256 = "6edf6f206ff1c3d108d7a7b9ae640a2f4737cfc04f0914ccc4eefe511d3a8985";
   };
 
-  propagatedBuildInputs = [
-    pyramid
-    simplejson
-    six
-    venusian
-  ];
+  propagatedBuildInputs = [ pyramid simplejson six venusian ];
 
   # tests not packaged with pypi release
   doCheck = false;

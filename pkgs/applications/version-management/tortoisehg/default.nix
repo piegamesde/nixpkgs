@@ -1,17 +1,12 @@
-{
-  lib,
-  fetchurl,
-  python3Packages,
-  mercurial,
-  qt5,
-}:
+{ lib, fetchurl, python3Packages, mercurial, qt5 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tortoisehg";
   version = "6.2.2";
 
   src = fetchurl {
-    url = "https://www.mercurial-scm.org/release/tortoisehg/targz/tortoisehg-${version}.tar.gz";
+    url =
+      "https://www.mercurial-scm.org/release/tortoisehg/targz/tortoisehg-${version}.tar.gz";
     sha256 = "sha256-Xbvg/FcuX/AL2reWsaM2oaFyLby3+HDCfYtRyswE7DA=";
   };
 
@@ -55,9 +50,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://tortoisehg.bitbucket.io/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [
-      danbst
-      gbtb
-    ];
+    maintainers = with lib.maintainers; [ danbst gbtb ];
   };
 }

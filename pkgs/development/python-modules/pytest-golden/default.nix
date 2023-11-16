@@ -1,18 +1,7 @@
-{
-  lib,
-  atomicwrites,
-  buildPythonPackage,
-  fetchFromGitHub,
-  #, hatchling
-  ruamel-yaml,
-  poetry-core,
-  pytest,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  testfixtures,
-}:
+{ lib, atomicwrites, buildPythonPackage, fetchFromGitHub
+#, hatchling
+, ruamel-yaml, poetry-core, pytest, pytest-asyncio, pytestCheckHook, pythonOlder
+, pythonRelaxDepsHook, testfixtures }:
 
 buildPythonPackage rec {
   pname = "pytest-golden";
@@ -44,21 +33,15 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    atomicwrites
-    ruamel-yaml
-    testfixtures
-  ];
+  propagatedBuildInputs = [ atomicwrites ruamel-yaml testfixtures ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "pytest_golden" ];
 
   meta = with lib; {
-    description = "Plugin for pytest that offloads expected outputs to data files";
+    description =
+      "Plugin for pytest that offloads expected outputs to data files";
     homepage = "https://github.com/oprypin/pytest-golden";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];

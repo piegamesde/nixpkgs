@@ -1,26 +1,16 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build
-  hatchling,
+# build
+, hatchling
 
-  # runtime
-  jsonschema,
-  python-json-logger,
-  pyyaml,
-  traitlets,
+# runtime
+, jsonschema, python-json-logger, pyyaml, traitlets
 
-  # optionals
-  click,
-  rich,
+# optionals
+, click, rich
 
-  # tests
-  pytest-asyncio,
-  pytest-console-scripts,
-  pytestCheckHook,
-}:
+# tests
+, pytest-asyncio, pytest-console-scripts, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jupyter-events";
@@ -36,33 +26,24 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    jsonschema
-    python-json-logger
-    pyyaml
-    traitlets
-  ] ++ jsonschema.optional-dependencies.format ++ jsonschema.optional-dependencies.format-nongpl;
+  propagatedBuildInputs = [ jsonschema python-json-logger pyyaml traitlets ]
+    ++ jsonschema.optional-dependencies.format
+    ++ jsonschema.optional-dependencies.format-nongpl;
 
-  passthru.optional-dependencies = {
-    cli = [
-      click
-      rich
-    ];
-  };
+  passthru.optional-dependencies = { cli = [ click rich ]; };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-console-scripts
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytest-asyncio pytest-console-scripts pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   preCheck = ''
     export PATH="$out/bin:$PATH"
   '';
 
   meta = with lib; {
-    changelog = "https://github.com/jupyter/jupyter_events/releases/tag/v${version}";
-    description = "Configurable event system for Jupyter applications and extensions";
+    changelog =
+      "https://github.com/jupyter/jupyter_events/releases/tag/v${version}";
+    description =
+      "Configurable event system for Jupyter applications and extensions";
     homepage = "https://github.com/jupyter/jupyter_events";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

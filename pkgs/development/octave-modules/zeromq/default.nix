@@ -1,11 +1,4 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl,
-  zeromq,
-  pkg-config,
-  autoreconfHook,
-}:
+{ buildOctavePackage, lib, fetchurl, zeromq, pkg-config, autoreconfHook }:
 
 buildOctavePackage rec {
   pname = "zeromq";
@@ -24,10 +17,7 @@ buildOctavePackage rec {
     cd ..
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
   propagatedBuildInputs = [ zeromq ];
 

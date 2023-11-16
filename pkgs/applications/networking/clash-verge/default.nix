@@ -1,43 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dpkg,
-  wrapGAppsHook,
-  autoPatchelfHook,
-  clash,
-  clash-meta,
-  openssl,
-  webkitgtk,
-  udev,
-  libayatana-appindicator,
-}:
+{ lib, stdenv, fetchurl, dpkg, wrapGAppsHook, autoPatchelfHook, clash
+, clash-meta, openssl, webkitgtk, udev, libayatana-appindicator }:
 
 stdenv.mkDerivation rec {
   pname = "clash-verge";
   version = "1.3.2";
 
   src = fetchurl {
-    url = "https://github.com/zzzgydi/clash-verge/releases/download/v${version}/clash-verge_${version}_amd64.deb";
+    url =
+      "https://github.com/zzzgydi/clash-verge/releases/download/v${version}/clash-verge_${version}_amd64.deb";
     hash = "sha256-46+7P9WH85fC3m+5LQHpvZX2ggeH6djoO53fQxQJdYk=";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    wrapGAppsHook
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ dpkg wrapGAppsHook autoPatchelfHook ];
 
-  buildInputs = [
-    openssl
-    webkitgtk
-    stdenv.cc.cc
-  ];
+  buildInputs = [ openssl webkitgtk stdenv.cc.cc ];
 
-  runtimeDependencies = [
-    (lib.getLib udev)
-    libayatana-appindicator
-  ];
+  runtimeDependencies = [ (lib.getLib udev) libayatana-appindicator ];
 
   installPhase = ''
     runHook preInstall

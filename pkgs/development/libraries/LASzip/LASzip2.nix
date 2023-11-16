@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   version = "2.2.0";
@@ -19,7 +14,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "Turn quickly bulky LAS files into compact LAZ files without information loss";
+    description =
+      "Turn quickly bulky LAS files into compact LAZ files without information loss";
     homepage = "https://laszip.org";
     license = licenses.lgpl2;
     maintainers = [ maintainers.michelk ];

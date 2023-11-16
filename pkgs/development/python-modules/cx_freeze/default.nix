@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  ncurses,
-  importlib-metadata,
-  setuptools,
-  patchelf,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, ncurses, importlib-metadata
+, setuptools, patchelf }:
 
 buildPythonPackage rec {
   pname = "cx-freeze";
@@ -36,18 +28,14 @@ buildPythonPackage rec {
       --replace 'setuptools>=61.2,<67' setuptools
   '';
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [ patchelf ])
-  ];
+  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ patchelf ]) ];
 
   # fails to find Console even though it exists on python 3.x
   doCheck = false;
 
   meta = with lib; {
-    description = "A set of scripts and modules for freezing Python scripts into executables";
+    description =
+      "A set of scripts and modules for freezing Python scripts into executables";
     homepage = "https://marcelotduarte.github.io/cx_Freeze/";
     license = licenses.psfl;
     maintainers = with maintainers; [ ];

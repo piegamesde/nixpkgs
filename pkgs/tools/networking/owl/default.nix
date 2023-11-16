@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  libev,
-  libnl,
-  libpcap,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libev, libnl, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "owl";
@@ -21,14 +13,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    libev
-    libnl
-    libpcap
-  ];
+  buildInputs = [ libev libnl libpcap ];
 
   meta = with lib; {
-    description = "An open Apple Wireless Direct Link (AWDL) implementation written in C";
+    description =
+      "An open Apple Wireless Direct Link (AWDL) implementation written in C";
     homepage = "https://owlink.org/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wolfangaukang ];

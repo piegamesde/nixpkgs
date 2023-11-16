@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  Cocoa,
-  installShellFiles,
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitHub, Cocoa, installShellFiles }:
 
 buildGoModule rec {
   pname = "noti";
@@ -48,9 +41,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/variadico/noti";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      stites
-      marsam
-    ];
+    maintainers = with maintainers; [ stites marsam ];
   };
 }

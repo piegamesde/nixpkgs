@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  git,
-  pytest,
-  pyyaml,
-  setuptools,
-  installShellFiles,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, git, pytest, pyyaml, setuptools
+, installShellFiles }:
 
 buildPythonApplication rec {
   version = "0.11.9";
@@ -20,10 +12,7 @@ buildPythonApplication rec {
     owner = "nosarthur";
   };
 
-  propagatedBuildInputs = [
-    pyyaml
-    setuptools
-  ];
+  propagatedBuildInputs = [ pyyaml setuptools ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -34,10 +23,7 @@ buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = [
-    git
-    pytest
-  ];
+  nativeCheckInputs = [ git pytest ];
 
   checkPhase = ''
     git init

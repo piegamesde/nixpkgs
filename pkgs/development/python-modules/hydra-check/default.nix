@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  requests,
-  beautifulsoup4,
-  colorama,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, requests
+, beautifulsoup4, colorama }:
 
 buildPythonPackage rec {
   pname = "hydra-check";
@@ -24,11 +16,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ poetry-core ];
-  propagatedBuildInputs = [
-    colorama
-    requests
-    beautifulsoup4
-  ];
+  propagatedBuildInputs = [ colorama requests beautifulsoup4 ];
 
   pythonImportsCheck = [ "hydra_check" ];
 
@@ -36,9 +24,6 @@ buildPythonPackage rec {
     description = "check hydra for the build status of a package";
     homepage = "https://github.com/nix-community/hydra-check";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      makefu
-      artturin
-    ];
+    maintainers = with maintainers; [ makefu artturin ];
   };
 }

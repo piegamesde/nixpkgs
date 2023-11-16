@@ -1,25 +1,15 @@
-{
-  pkgs,
-  lib,
-  stdenv,
-  buildGoModule,
-  callPackage,
-  fetchFromGitHub,
-  nixosTests,
-  nodejs_18,
-}:
+{ pkgs, lib, stdenv, buildGoModule, callPackage, fetchFromGitHub, nixosTests
+, nodejs_18 }:
 
 let
-  uiNodeDependencies =
-    (import ./node-composition.nix {
-      inherit pkgs;
-      inherit (stdenv.hostPlatform) system;
-      # pin nodejs version
-      nodejs = nodejs_18;
-    }).nodeDependencies;
-in
+  uiNodeDependencies = (import ./node-composition.nix {
+    inherit pkgs;
+    inherit (stdenv.hostPlatform) system;
+    # pin nodejs version
+    nodejs = nodejs_18;
+  }).nodeDependencies;
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "karma";
   version = "0.114";
 

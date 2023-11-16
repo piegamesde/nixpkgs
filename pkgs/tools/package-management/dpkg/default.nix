@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  perl,
-  gnutar,
-  zlib,
-  bzip2,
-  xz,
-  zstd,
-  libmd,
-  makeWrapper,
-  coreutils,
-  autoreconfHook,
-  pkg-config,
-}:
+{ lib, stdenv, fetchgit, perl, gnutar, zlib, bzip2, xz, zstd, libmd, makeWrapper
+, coreutils, autoreconfHook, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "dpkg";
@@ -68,20 +54,8 @@ stdenv.mkDerivation rec {
        --replace '"diff"' \"${coreutils}/bin/diff\"
   '';
 
-  buildInputs = [
-    perl
-    zlib
-    bzip2
-    xz
-    zstd
-    libmd
-  ];
-  nativeBuildInputs = [
-    makeWrapper
-    perl
-    autoreconfHook
-    pkg-config
-  ];
+  buildInputs = [ perl zlib bzip2 xz zstd libmd ];
+  nativeBuildInputs = [ makeWrapper perl autoreconfHook pkg-config ];
 
   postInstall = ''
     for i in $out/bin/*; do

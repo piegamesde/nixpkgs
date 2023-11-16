@@ -1,12 +1,5 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, lxml, pythonOlder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pymeteoclimatic";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     sha256 = "0ys0d6jy7416gbsd0pqgvm5ygzn36pjdaklqi4q56vsb13zn7y0h";
   };
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    lxml
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 lxml ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

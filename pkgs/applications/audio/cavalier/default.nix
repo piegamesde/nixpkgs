@@ -1,20 +1,6 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  gobject-introspection,
-  glib,
-  gtk4,
-  librsvg,
-  libadwaita,
-  wrapGAppsHook4,
-  appstream-glib,
-  desktop-file-utils,
-  cava,
-}:
+{ lib, python3, fetchFromGitHub, meson, ninja, pkg-config, gobject-introspection
+, glib, gtk4, librsvg, libadwaita, wrapGAppsHook4, appstream-glib
+, desktop-file-utils, cava }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cavalier";
@@ -38,12 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    librsvg
-    libadwaita
-  ];
+  buildInputs = [ glib gtk4 librsvg libadwaita ];
 
   propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
 
@@ -58,7 +39,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Audio visualizer based on CAVA with customizable LibAdwaita interface";
+    description =
+      "Audio visualizer based on CAVA with customizable LibAdwaita interface";
     homepage = "https://github.com/fsobolev/cavalier";
     license = licenses.mit;
     platforms = platforms.linux;

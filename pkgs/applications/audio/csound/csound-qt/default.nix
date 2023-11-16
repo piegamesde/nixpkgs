@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  csound,
-  desktop-file-utils,
-  fetchFromGitHub,
-  python,
-  python-qt,
-  qmake,
-  qtwebengine,
-  qtxmlpatterns,
-  rtmidi,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, csound, desktop-file-utils, fetchFromGitHub, python, python-qt
+, qmake, qtwebengine, qtxmlpatterns, rtmidi, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "csound-qt";
@@ -26,18 +14,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./rtmidipath.patch ];
 
-  nativeBuildInputs = [
-    qmake
-    qtwebengine
-    qtxmlpatterns
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake qtwebengine qtxmlpatterns wrapQtAppsHook ];
 
-  buildInputs = [
-    csound
-    desktop-file-utils
-    rtmidi
-  ];
+  buildInputs = [ csound desktop-file-utils rtmidi ];
 
   qmakeFlags = [
     "qcs.pro"
@@ -58,7 +37,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "CsoundQt is a frontend for Csound with editor, integrated help, widgets and other features";
+    description =
+      "CsoundQt is a frontend for Csound with editor, integrated help, widgets and other features";
     homepage = "https://csoundqt.github.io/";
     license = licenses.gpl2;
     platforms = platforms.linux;

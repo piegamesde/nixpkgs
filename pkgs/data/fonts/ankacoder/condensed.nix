@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ankacoder-condensed";
   version = "1.100";
 
   src = fetchzip {
-    url = "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/anka-coder-fonts/AnkaCoderCondensed.${version}.zip";
+    url =
+      "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/anka-coder-fonts/AnkaCoderCondensed.${version}.zip";
     stripRoot = false;
     hash = "sha256-NHrkV4Sb7i+DC4e4lToEYzah3pI+sKyYf2rGbhWj7iY=";
   };
@@ -31,3 +28,4 @@ stdenvNoCC.mkDerivation rec {
     platforms = platforms.all;
   };
 }
+

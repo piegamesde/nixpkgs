@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ghostscript,
-  libpng,
-  makeWrapper,
-  coreutils,
-  bc,
-  gnugrep,
-  gawk,
-  gnused,
-}:
+{ lib, stdenv, fetchurl, ghostscript, libpng, makeWrapper, coreutils, bc
+, gnugrep, gawk, gnused }:
 
 stdenv.mkDerivation rec {
   pname = "fig2dev";
@@ -30,14 +19,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/fig2ps2tex \
-        --set PATH ${
-          lib.makeBinPath [
-            coreutils
-            bc
-            gnugrep
-            gawk
-          ]
-        }
+        --set PATH ${lib.makeBinPath [ coreutils bc gnugrep gawk ]}
     wrapProgram $out/bin/pic2tpic \
         --set PATH ${lib.makeBinPath [ gnused ]}
   '';

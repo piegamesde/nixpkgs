@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jdk,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jdk }:
 
 stdenv.mkDerivation rec {
   pname = "lombok";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  outputs = [
-    "out"
-    "bin"
-  ];
+  outputs = [ "out" "bin" ];
 
   buildCommand = ''
     mkdir -p $out/share/java
@@ -32,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "A library that can write a lot of boilerplate for your Java project";
+    description =
+      "A library that can write a lot of boilerplate for your Java project";
     platforms = lib.platforms.all;
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.mit;

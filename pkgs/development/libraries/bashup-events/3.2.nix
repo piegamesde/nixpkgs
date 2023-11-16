@@ -18,12 +18,7 @@ callPackage ./generic.nix {
   };
   keep = {
     # allow vars in eval
-    eval = [
-      "e"
-      "f"
-      "q"
-      "r"
-    ];
+    eval = [ "e" "f" "q" "r" ];
     # allow vars executed as commands
     "$f" = true;
     "$n" = true;

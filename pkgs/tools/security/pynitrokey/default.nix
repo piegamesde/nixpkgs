@@ -1,11 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-  nrfutil,
-  libnitrokey,
-  nix-update-script,
-}:
+{ lib, python3Packages, fetchPypi, nrfutil, libnitrokey, nix-update-script }:
 
 with python3Packages;
 
@@ -44,17 +37,13 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRelaxDeps = [
-    "cryptography"
-    "protobuf"
-    "python-dateutil"
-    "spsdk"
-    "typing_extensions"
-  ];
+  pythonRelaxDeps =
+    [ "cryptography" "protobuf" "python-dateutil" "spsdk" "typing_extensions" ];
 
   # libnitrokey is not propagated to users of the pynitrokey Python package.
   # It is only usable from the wrapped bin/nitropy
-  makeWrapperArgs = [ "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}" ];
+  makeWrapperArgs =
+    [ "--set LIBNK_PATH ${lib.makeLibraryPath [ libnitrokey ]}" ];
 
   # no tests
   doCheck = false;
@@ -66,10 +55,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Python client for Nitrokey devices";
     homepage = "https://github.com/Nitrokey/pynitrokey";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ frogamic ];
     mainProgram = "nitropy";
   };

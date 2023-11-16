@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "apachetomcatscanner";
@@ -16,11 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-ChVVXUjm6y71iRs64Kv63oiOG1GSqmx6J0YiGtEI0ao=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-    sectools
-    xlsxwriter
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ requests sectools xlsxwriter ];
 
   # Project has no test
   doCheck = false;
@@ -30,7 +22,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to scan for Apache Tomcat server vulnerabilities";
     homepage = "https://github.com/p0dalirius/ApacheTomcatScanner";
-    changelog = "https://github.com/p0dalirius/ApacheTomcatScanner/releases/tag/${version}";
+    changelog =
+      "https://github.com/p0dalirius/ApacheTomcatScanner/releases/tag/${version}";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ fab ];
   };

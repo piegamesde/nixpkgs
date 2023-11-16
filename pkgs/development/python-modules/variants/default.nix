@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder
+, setuptools-scm, six }:
 
 buildPythonPackage rec {
   pname = "variants";
@@ -22,17 +15,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    six
-  ];
+  nativeCheckInputs = [ pytestCheckHook six ];
 
   pythonImportsCheck = [ "variants" ];
 
   meta = with lib; {
-    description = "Library providing syntactic sugar for creating variant forms of a canonical function";
+    description =
+      "Library providing syntactic sugar for creating variant forms of a canonical function";
     homepage = "https://github.com/python-variants/variants";
-    changelog = "https://github.com/python-variants/variants/releases/tag/${version}";
+    changelog =
+      "https://github.com/python-variants/variants/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ rakesh4g ];
   };

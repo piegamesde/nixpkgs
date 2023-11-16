@@ -1,13 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  pkg-config,
-  SDL2,
-  gtk2,
-  mpfr,
+{ stdenv, lib, fetchFromGitHub, autoconf, automake, pkg-config, SDL2, gtk2, mpfr
 }:
 stdenv.mkDerivation {
   pname = "basiliskii";
@@ -21,24 +12,13 @@ stdenv.mkDerivation {
   };
   sourceRoot = "source/BasiliskII/src/Unix";
   patches = [ ./remove-redhat-6-workaround-for-scsi-sg.h.patch ];
-  nativeBuildInputs = [
-    autoconf
-    automake
-    pkg-config
-  ];
-  buildInputs = [
-    SDL2
-    gtk2
-    mpfr
-  ];
+  nativeBuildInputs = [ autoconf automake pkg-config ];
+  buildInputs = [ SDL2 gtk2 mpfr ];
   preConfigure = ''
     NO_CONFIGURE=1 ./autogen.sh
   '';
-  configureFlags = [
-    "--enable-sdl-video"
-    "--enable-sdl-audio"
-    "--with-bincue"
-  ];
+  configureFlags =
+    [ "--enable-sdl-video" "--enable-sdl-audio" "--with-bincue" ];
 
   meta = with lib; {
     description = "68k Macintosh emulator";

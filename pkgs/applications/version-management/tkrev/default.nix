@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  tcl,
-  tk,
-}:
+{ lib, stdenv, fetchurl, tcl, tk }:
 
 stdenv.mkDerivation rec {
   pname = "tkrev";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WHDZPShEB9Q+Bjbb37mogJLUZk2GuWoO8bz+Zydc7i4=";
   };
 
-  buildInputs = [
-    tcl
-    tk
-  ];
+  buildInputs = [ tcl tk ];
 
   patchPhase = ''
     for file in tkrev/tkrev.tcl tkdiff/tkdiff; do

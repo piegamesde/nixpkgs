@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fiona,
-  packaging,
-  pandas,
-  pyproj,
-  pytestCheckHook,
-  pythonOlder,
-  rtree,
-  shapely,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, fiona, packaging, pandas
+, pyproj, pytestCheckHook, pythonOlder, rtree, shapely }:
 
 buildPythonPackage rec {
   pname = "geopandas";
@@ -27,18 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-8H0IO+Oabl1ZOHHvMFHnPEyW0xH/G4wuUtkZrsP6K3k=";
   };
 
-  propagatedBuildInputs = [
-    fiona
-    packaging
-    pandas
-    pyproj
-    shapely
-  ];
+  propagatedBuildInputs = [ fiona packaging pandas pyproj shapely ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    rtree
-  ];
+  nativeCheckInputs = [ pytestCheckHook rtree ];
 
   doCheck = !stdenv.isDarwin;
 
@@ -46,11 +25,10 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests =
-    [
-      # Requires network access
-      "test_read_file_url"
-    ];
+  disabledTests = [
+    # Requires network access
+    "test_read_file_url"
+  ];
 
   pytestFlagsArray = [ "geopandas" ];
 
@@ -59,7 +37,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python geospatial data analysis framework";
     homepage = "https://geopandas.org";
-    changelog = "https://github.com/geopandas/geopandas/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/geopandas/geopandas/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = teams.geospatial.members;
   };

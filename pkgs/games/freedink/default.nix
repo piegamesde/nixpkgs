@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  SDL,
-  SDL_mixer,
-  SDL_image,
-  SDL_ttf,
-  SDL_gfx,
-  pkg-config,
-  intltool,
-  fontconfig,
-  libzip,
-  zip,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, SDL, SDL_mixer, SDL_image, SDL_ttf, SDL_gfx, pkg-config
+, intltool, fontconfig, libzip, zip, zlib }:
 
 let
   version = "1.08.20121209";
@@ -29,8 +15,8 @@ let
 
     prePatch = "substituteInPlace Makefile --replace /usr/local $out";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "freedink";
   inherit version;
 
@@ -39,22 +25,10 @@ stdenv.mkDerivation rec {
     sha256 = "19xximbcm6506kvpf3s0q96697kmzca3yrjdr6dgphklp33zqsqr";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    SDL
-    SDL_mixer
-    SDL_image
-    SDL_ttf
-    SDL_gfx
-    fontconfig
-    libzip
-    zip
-    zlib
-  ];
+  buildInputs =
+    [ SDL SDL_mixer SDL_image SDL_ttf SDL_gfx fontconfig libzip zip zlib ];
 
   preConfigure = ''
     # Build fails on Linux with windres.
@@ -69,7 +43,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   meta = {
-    description = "A free, portable and enhanced version of the Dink Smallwood game engine";
+    description =
+      "A free, portable and enhanced version of the Dink Smallwood game engine";
 
     longDescription = ''
       GNU FreeDink is a new and portable version of the Dink Smallwood
@@ -77,7 +52,8 @@ stdenv.mkDerivation rec {
       with close compatibility, under multiple platforms.
     '';
 
-    homepage = "https://www.gnu.org/software/freedink/"; # Formerly http://www.freedink.org
+    homepage =
+      "https://www.gnu.org/software/freedink/"; # Formerly http://www.freedink.org
     license = lib.licenses.gpl3Plus;
 
     maintainers = [ ];

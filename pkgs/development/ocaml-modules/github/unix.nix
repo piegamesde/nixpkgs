@@ -1,13 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  github,
-  cohttp,
-  cohttp-lwt-unix,
-  stringext,
-  cmdliner,
-  lwt,
-}:
+{ lib, buildDunePackage, github, cohttp, cohttp-lwt-unix, stringext, cmdliner
+, lwt }:
 
 buildDunePackage {
   pname = "github-unix";
@@ -15,16 +7,8 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    github
-    cohttp
-    cohttp-lwt-unix
-    stringext
-    cmdliner
-    lwt
-  ];
+  propagatedBuildInputs =
+    [ github cohttp cohttp-lwt-unix stringext cmdliner lwt ];
 
-  meta = github.meta // {
-    description = "GitHub APIv3 Unix library";
-  };
+  meta = github.meta // { description = "GitHub APIv3 Unix library"; };
 }

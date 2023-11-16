@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-}:
+{ lib, stdenv, fetchurl, unzip }:
 
 stdenv.mkDerivation rec {
   pname = "nvidia-video-sdk";
@@ -30,3 +25,4 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
   };
 }
+

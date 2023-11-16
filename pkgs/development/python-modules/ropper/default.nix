@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  capstone,
-  filebytes,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, capstone, filebytes
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ropper";
@@ -23,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-agbqP5O9QEP5UKkaWI5HxAlMsCBPKNSLnAAo2WFDXS8=";
   };
 
-  propagatedBuildInputs = [
-    capstone
-    filebytes
-  ];
+  propagatedBuildInputs = [ capstone filebytes ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

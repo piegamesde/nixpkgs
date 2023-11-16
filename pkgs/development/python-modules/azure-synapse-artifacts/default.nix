@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  azure-common,
-  azure-core,
-  msrest,
-}:
+{ lib, buildPythonPackage, fetchPypi, azure-common, azure-core, msrest }:
 
 buildPythonPackage rec {
   pname = "azure-synapse-artifacts";
@@ -17,11 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-J96cBqCCajK34M7v+2h6t2ptm7QwmfQt25674Q4Nr94=";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-core
-    msrest
-  ];
+  propagatedBuildInputs = [ azure-common azure-core msrest ];
 
   # zero tests run
   doCheck = false;

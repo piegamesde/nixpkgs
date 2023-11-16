@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nix-update-script,
-  meson,
-  ninja,
-  nixos-artwork,
-  glib,
-  pkg-config,
-  dbus,
-  polkit,
-  accountsservice,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, nix-update-script, meson, ninja, nixos-artwork
+, glib, pkg-config, dbus, polkit, accountsservice, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "elementary-default-settings";
@@ -65,9 +52,7 @@ stdenv.mkDerivation rec {
     rm -r $out/share/applications
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Default settings and configuration files for elementary";

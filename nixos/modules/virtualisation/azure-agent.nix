@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -14,16 +9,16 @@ let
     #!${pkgs.runtimeShell}
     /run/current-system/systemd/bin/systemctl start provisioned.target
   '';
-in
 
-{
+in {
 
   ###### interface
 
   options.virtualisation.azure.agent = {
     enable = mkOption {
       default = false;
-      description = lib.mdDoc "Whether to enable the Windows Azure Linux Agent.";
+      description =
+        lib.mdDoc "Whether to enable the Windows Azure Linux Agent.";
     };
     verboseLogging = mkOption {
       default = false;
@@ -31,9 +26,8 @@ in
     };
     mountResourceDisk = mkOption {
       default = true;
-      description =
-        lib.mdDoc
-          "Whether the agent should format (ext4) and mount the resource disk to /mnt/resource.";
+      description = lib.mdDoc
+        "Whether the agent should format (ext4) and mount the resource disk to /mnt/resource.";
     };
   };
 
@@ -43,11 +37,13 @@ in
     assertions = [
       {
         assertion = pkgs.stdenv.hostPlatform.isx86;
-        message = "Azure not currently supported on ${pkgs.stdenv.hostPlatform.system}";
+        message =
+          "Azure not currently supported on ${pkgs.stdenv.hostPlatform.system}";
       }
       {
         assertion = config.networking.networkmanager.enable == false;
-        message = "Windows Azure Linux Agent is not compatible with NetworkManager";
+        message =
+          "Windows Azure Linux Agent is not compatible with NetworkManager";
       }
     ];
 
@@ -227,14 +223,8 @@ in
     systemd.services.consume-hypervisor-entropy = {
       description = "Consume entropy in ACPI table provided by Hyper-V";
 
-      wantedBy = [
-        "sshd.service"
-        "waagent.service"
-      ];
-      before = [
-        "sshd.service"
-        "waagent.service"
-      ];
+      wantedBy = [ "sshd.service" "waagent.service" ];
+      before = [ "sshd.service" "waagent.service" ];
 
       path = [ pkgs.coreutils ];
       script = ''
@@ -249,16 +239,10 @@ in
 
     systemd.services.waagent = {
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network-online.target"
-        "sshd.service"
-      ];
+      after = [ "network-online.target" "sshd.service" ];
       wants = [ "network-online.target" ];
 
-      path = [
-        pkgs.e2fsprogs
-        pkgs.bash
-      ];
+      path = [ pkgs.e2fsprogs pkgs.bash ];
       description = "Windows Azure Agent Service";
       unitConfig.ConditionPathExists = "/etc/waagent.conf";
       serviceConfig = {
@@ -266,5 +250,6 @@ in
         Type = "simple";
       };
     };
+
   };
 }

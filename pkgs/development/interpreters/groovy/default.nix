@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  which,
-  makeWrapper,
-  jdk,
-}:
+{ lib, stdenv, fetchurl, unzip, which, makeWrapper, jdk }:
 
 # at runtime, need jdk
 
@@ -15,14 +7,12 @@ stdenv.mkDerivation rec {
   version = "3.0.11";
 
   src = fetchurl {
-    url = "mirror://apache/groovy/${version}/distribution/apache-groovy-binary-${version}.zip";
+    url =
+      "mirror://apache/groovy/${version}/distribution/apache-groovy-binary-${version}.zip";
     sha256 = "85abb44e81f94d794230cf5c2c7f1003e598a5f8a6ae04322f28c6f9efe395f6";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper unzip ];
 
   installPhase = ''
     mkdir -p $out

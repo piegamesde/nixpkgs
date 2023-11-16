@@ -1,18 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  git,
-  gnupg,
-  pass,
-  pwgen,
-  qrencode,
-  fetchpatch,
-  qtbase,
-  qtsvg,
-  qttools,
-  qmake,
-}:
+{ lib, mkDerivation, fetchFromGitHub, git, gnupg, pass, pwgen, qrencode
+, fetchpatch, qtbase, qtsvg, qttools, qmake }:
 
 mkDerivation rec {
   pname = "qtpass";
@@ -30,46 +17,28 @@ mkDerivation rec {
       --replace "/usr/bin/qrencode" "${qrencode}/bin/qrencode"
   '';
 
-  buildInputs = [
-    git
-    gnupg
-    pass
-    qtbase
-    qtsvg
+  buildInputs = [ git gnupg pass qtbase qtsvg ];
+
+  nativeBuildInputs = [ qmake qttools ];
+
+  patches = [
+    # Fix path to pass-otp plugin `/usr/lib/password-store/extensions/otp.bash` being hardcoded.
+    # TODO: Remove when https://github.com/IJHack/QtPass/pull/499 is merged and available.
+    (fetchpatch {
+      name = "qtpass-Dont-hardcode-pass-otp-usr-lib-path.patch";
+      url =
+        "https://github.com/IJHack/QtPass/commit/2ca9f0ec5a8d709c97a2433c5cd814040c82d4f3.patch";
+      sha256 = "0ljlvqxvarrz2a4j71i66aflrxi84zirb6cg9kvygnvhvm1zbc7d";
+    })
   ];
 
-  nativeBuildInputs = [
-    qmake
-    qttools
+  qmakeFlags = [
+    # setup hook only sets QMAKE_LRELEASE, set QMAKE_LUPDATE too:
+    "QMAKE_LUPDATE=${qttools.dev}/bin/lupdate"
   ];
 
-  patches =
-    [
-      # Fix path to pass-otp plugin `/usr/lib/password-store/extensions/otp.bash` being hardcoded.
-      # TODO: Remove when https://github.com/IJHack/QtPass/pull/499 is merged and available.
-      (fetchpatch {
-        name = "qtpass-Dont-hardcode-pass-otp-usr-lib-path.patch";
-        url = "https://github.com/IJHack/QtPass/commit/2ca9f0ec5a8d709c97a2433c5cd814040c82d4f3.patch";
-        sha256 = "0ljlvqxvarrz2a4j71i66aflrxi84zirb6cg9kvygnvhvm1zbc7d";
-      })
-    ];
-
-  qmakeFlags =
-    [
-      # setup hook only sets QMAKE_LRELEASE, set QMAKE_LUPDATE too:
-      "QMAKE_LUPDATE=${qttools.dev}/bin/lupdate"
-    ];
-
-  qtWrapperArgs = [
-    "--suffix PATH : ${
-      lib.makeBinPath [
-        git
-        gnupg
-        pass
-        pwgen
-      ]
-    }"
-  ];
+  qtWrapperArgs =
+    [ "--suffix PATH : ${lib.makeBinPath [ git gnupg pass pwgen ]}" ];
 
   postInstall = ''
     install -D qtpass.desktop -t $out/share/applications
@@ -78,7 +47,8 @@ mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A multi-platform GUI for pass, the standard unix password manager";
+    description =
+      "A multi-platform GUI for pass, the standard unix password manager";
     homepage = "https://qtpass.org";
     license = licenses.gpl3;
     maintainers = [ maintainers.hrdinka ];

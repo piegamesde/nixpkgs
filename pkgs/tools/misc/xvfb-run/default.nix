@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  makeWrapper,
-  xorgserver,
-  getopt,
-  xauth,
-  util-linux,
-  which,
-  fontsConf,
-  gawk,
-  coreutils,
-  installShellFiles,
-  xterm,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, xorgserver, getopt, xauth
+, util-linux, which, fontsConf, gawk, coreutils, installShellFiles, xterm }:
 stdenvNoCC.mkDerivation rec {
   pname = "xvfb-run";
   version = "1+g87f6705";
@@ -25,10 +11,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-KEg92RYgJd7naHFDKbdXEy075bt6NLcmX8VhQROHVPs=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   dontUnpack = true;
   dontBuild = true;
@@ -65,9 +48,7 @@ stdenvNoCC.mkDerivation rec {
     )
   '';
 
-  passthru = {
-    updateScript = ./update.sh;
-  };
+  passthru = { updateScript = ./update.sh; };
 
   meta = with lib; {
     description = "Convenience script to run a virtualized X-Server";

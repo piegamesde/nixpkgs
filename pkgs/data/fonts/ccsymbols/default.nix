@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  unzip,
-}:
+{ lib, stdenvNoCC, fetchurl, unzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ccsymbols";
@@ -26,13 +21,12 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = {
-    inherit pname version;
-  };
+  passthru = { inherit pname version; };
 
   meta = with lib; {
     description = "Creative Commons symbol font";
-    homepage = "https://www.ctrl.blog/entry/creative-commons-unicode-fallback-font.html";
+    homepage =
+      "https://www.ctrl.blog/entry/creative-commons-unicode-fallback-font.html";
     maintainers = with maintainers; [ qyliss ];
     license = licenses.publicDomain;
     platforms = platforms.all;

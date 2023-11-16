@@ -1,26 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  zlib,
-  pcre,
-  xorg,
-  libjpeg,
-  libtiff,
-  libpng,
-  gtk2,
-  libpaper,
-  makeWrapper,
-  ghostscript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, zlib, pcre, xorg, libjpeg, libtiff, libpng
+, gtk2, libpaper, makeWrapper, ghostscript }:
 
 stdenv.mkDerivation rec {
   pname = "ted";
   version = "2.23";
 
   src = fetchurl {
-    url = "http://ftp.nluug.nl/pub/editors/${pname}/${pname}-${version}.src.tar.gz";
+    url =
+      "http://ftp.nluug.nl/pub/editors/${pname}/${pname}-${version}.src.tar.gz";
     sha256 = "0v1ipynyjklb3chd1vq26a21sjjg66sir57gi2kkrbwnpk195a9z";
   };
 
@@ -68,7 +55,9 @@ stdenv.mkDerivation rec {
     pushd $out/share/Ted/examples
     for f in rtf2*.sh
     do
-        makeWrapper "$PWD/$f" "$out/bin/$f" --prefix PATH : $out/bin:${lib.makeBinPath [ ghostscript ]}
+        makeWrapper "$PWD/$f" "$out/bin/$f" --prefix PATH : $out/bin:${
+          lib.makeBinPath [ ghostscript ]
+        }
     done
     popd
 
@@ -77,10 +66,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
   buildInputs = [
     zlib
     pcre

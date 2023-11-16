@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL2,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2 }:
 
 stdenv.mkDerivation {
   pname = "oberon-risc-emu";

@@ -1,31 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeDesktopItem,
-  ghostscript,
-  atk,
-  gtk2,
-  glib,
-  fontconfig,
-  freetype,
-  libgnomecanvas,
-  pango,
-  libX11,
-  xorgproto,
-  zlib,
-  poppler,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, makeDesktopItem, ghostscript, atk, gtk2, glib
+, fontconfig, freetype, libgnomecanvas, pango, libX11, xorgproto, zlib, poppler
+, autoconf, automake, libtool, pkg-config }:
 
-let
-  isGdkQuartzBackend = (gtk2.gdktarget == "quartz");
-in
+let isGdkQuartzBackend = (gtk2.gdktarget == "quartz");
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "0.4.8.2016";
   pname = "xournal";
   src = fetchurl {
@@ -48,12 +27,7 @@ stdenv.mkDerivation rec {
     poppler
   ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake libtool pkg-config ];
 
   NIX_LDFLAGS = "-lz" + lib.optionalString (!isGdkQuartzBackend) " -lX11";
 
@@ -63,14 +37,8 @@ stdenv.mkDerivation rec {
     icon = "xournal";
     desktopName = "Xournal";
     comment = meta.description;
-    categories = [
-      "Office"
-      "Graphics"
-    ];
-    mimeTypes = [
-      "application/pdf"
-      "application/x-xoj"
-    ];
+    categories = [ "Office" "Graphics" ];
+    mimeTypes = [ "application/pdf" "application/x-xoj" ];
     genericName = "PDF Editor";
   };
 

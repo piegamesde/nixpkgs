@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.services.bee;
   format = pkgs.formats.yaml { };
   configFile = format.generate "bee.yaml" cfg.settings;
-in
-{
+in {
   meta = {
     # doc = ./bee.xml;
     maintainers = with maintainers; [ attila-lendvai ];
@@ -28,7 +22,8 @@ in
         default = pkgs.bee;
         defaultText = literalExpression "pkgs.bee";
         example = literalExpression "pkgs.bee-unstable";
-        description = lib.mdDoc "The package providing the bee binary for the service.";
+        description =
+          lib.mdDoc "The package providing the bee binary for the service.";
       };
 
       settings = mkOption {
@@ -78,16 +73,16 @@ in
         '';
       }
       {
-        assertion = (hasAttr "swap-endpoint" cfg.settings) || (cfg.settings.swap-enable or true == false);
+        assertion = (hasAttr "swap-endpoint" cfg.settings)
+          || (cfg.settings.swap-enable or true == false);
         message = ''
           In a swap-enabled network a working Ethereum blockchain node is required. You must specify one using `services.bee.settings.swap-endpoint`, or disable `services.bee.settings.swap-enable` = false.
         '';
       }
     ];
 
-    warnings =
-      optional (!config.services.bee-clef.enable)
-        "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true";
+    warnings = optional (!config.services.bee-clef.enable)
+      "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true";
 
     services.bee.settings = {
       data-dir = lib.mkDefault "/var/lib/bee";
@@ -99,7 +94,8 @@ in
 
     systemd.packages = [ cfg.package ]; # include the upstream bee.service file
 
-    systemd.tmpfiles.rules = [ "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}" ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}" ];
 
     systemd.services.bee = {
       requires = optional config.services.bee-clef.enable "bee-clef.service";
@@ -144,7 +140,8 @@ in
         home = cfg.settings.data-dir;
         isSystemUser = true;
         description = "Daemon user for Ethereum Swarm Bee";
-        extraGroups = optional config.services.bee-clef.enable config.services.bee-clef.group;
+        extraGroups = optional config.services.bee-clef.enable
+          config.services.bee-clef.group;
       };
     };
 

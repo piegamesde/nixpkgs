@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -11,8 +6,7 @@ let
   im = config.i18n.inputMethod;
   cfg = im.fcitx5;
   fcitx5Package = pkgs.fcitx5-with-addons.override { inherit (cfg) addons; };
-in
-{
+in {
   options = {
     i18n.inputMethod.fcitx5 = {
       addons = mkOption {
@@ -27,17 +21,9 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "i18n"
-        "inputMethod"
-        "fcitx5"
-        "enableRimeData"
-      ]
-      ''
-        RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
-      ''
-    )
+    (mkRemovedOptionModule [ "i18n" "inputMethod" "fcitx5" "enableRimeData" ] ''
+      RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
+    '')
   ];
 
   config = mkIf (im.enabled == "fcitx5") {

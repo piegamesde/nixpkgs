@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  fetchPypi,
-  python,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, django, fetchPypi, python, pythonOlder
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "django-formtools";
@@ -34,9 +27,6 @@ buildPythonPackage rec {
     description = "A set of high-level abstractions for Django forms";
     homepage = "https://github.com/jazzband/django-formtools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      greizgh
-      schmittlauch
-    ];
+    maintainers = with maintainers; [ greizgh schmittlauch ];
   };
 }

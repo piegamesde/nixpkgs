@@ -1,8 +1,6 @@
-import ../../make-test-python.nix (
-  { pkgs, ... }:
+import ../../make-test-python.nix ({ pkgs, ... }:
   let
-    cert =
-      pkgs:
+    cert = pkgs:
       pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
         openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=mastodon.local' -days 36500
         mkdir -p $out
@@ -12,25 +10,19 @@ import ../../make-test-python.nix (
     hosts = ''
       192.168.2.103 mastodon.local
     '';
-  in
-  {
+
+  in {
     name = "mastodon-remote-postgresql";
-    meta.maintainers = with pkgs.lib.maintainers; [
-      erictapen
-      izorkin
-      turion
-    ];
+    meta.maintainers = with pkgs.lib.maintainers; [ erictapen izorkin turion ];
 
     nodes = {
       database = {
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "192.168.2.102";
-                prefixLength = 24;
-              }
-            ];
+            ipv4.addresses = [{
+              address = "192.168.2.102";
+              prefixLength = 24;
+            }];
           };
           extraHosts = hosts;
           firewall.allowedTCPPorts = [ 5432 ];
@@ -53,23 +45,16 @@ import ../../make-test-python.nix (
       nginx = {
         networking = {
           interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "192.168.2.103";
-                prefixLength = 24;
-              }
-            ];
+            ipv4.addresses = [{
+              address = "192.168.2.103";
+              prefixLength = 24;
+            }];
           };
           extraHosts = hosts;
-          firewall.allowedTCPPorts = [
-            80
-            443
-          ];
+          firewall.allowedTCPPorts = [ 80 443 ];
         };
 
-        security = {
-          pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
-        };
+        security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
 
         services.nginx = {
           enable = true;
@@ -80,9 +65,7 @@ import ../../make-test-python.nix (
             enableACME = pkgs.lib.mkForce false;
             sslCertificate = "${cert pkgs}/cert.pem";
             sslCertificateKey = "${cert pkgs}/key.pem";
-            locations."/" = {
-              tryFiles = "$uri @proxy";
-            };
+            locations."/" = { tryFiles = "$uri @proxy"; };
             locations."@proxy" = {
               proxyPass = "http://192.168.2.201:55001";
               proxyWebsockets = true;
@@ -95,81 +78,68 @@ import ../../make-test-python.nix (
         };
       };
 
-      server =
-        { pkgs, ... }:
-        {
-          virtualisation.memorySize = 2048;
+      server = { pkgs, ... }: {
+        virtualisation.memorySize = 2048;
 
-          environment = {
-            etc = {
-              "mastodon/password-posgressql-db".text = ''
-                SoDTZcISc3f1M1LJsRLT
-              '';
-            };
-          };
-
-          networking = {
-            interfaces.eth1 = {
-              ipv4.addresses = [
-                {
-                  address = "192.168.2.201";
-                  prefixLength = 24;
-                }
-              ];
-            };
-            extraHosts = hosts;
-            firewall.allowedTCPPorts = [
-              55001
-              55002
-            ];
-          };
-
-          services.mastodon = {
-            enable = true;
-            configureNginx = false;
-            localDomain = "mastodon.local";
-            enableUnixSocket = false;
-            database = {
-              createLocally = false;
-              host = "192.168.2.102";
-              port = 5432;
-              name = "mastodon_local";
-              user = "mastodon_test";
-              passwordFile = "/etc/mastodon/password-posgressql-db";
-            };
-            smtp = {
-              createLocally = false;
-              fromAddress = "mastodon@mastodon.local";
-            };
-            extraConfig = {
-              BIND = "0.0.0.0";
-              EMAIL_DOMAIN_ALLOWLIST = "example.com";
-              RAILS_SERVE_STATIC_FILES = "true";
-              TRUSTED_PROXY_IP = "192.168.2.103";
-            };
+        environment = {
+          etc = {
+            "mastodon/password-posgressql-db".text = ''
+              SoDTZcISc3f1M1LJsRLT
+            '';
           };
         };
 
-      client =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.jq ];
-          networking = {
-            interfaces.eth1 = {
-              ipv4.addresses = [
-                {
-                  address = "192.168.2.202";
-                  prefixLength = 24;
-                }
-              ];
-            };
-            extraHosts = hosts;
+        networking = {
+          interfaces.eth1 = {
+            ipv4.addresses = [{
+              address = "192.168.2.201";
+              prefixLength = 24;
+            }];
           };
+          extraHosts = hosts;
+          firewall.allowedTCPPorts = [ 55001 55002 ];
+        };
 
-          security = {
-            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+        services.mastodon = {
+          enable = true;
+          configureNginx = false;
+          localDomain = "mastodon.local";
+          enableUnixSocket = false;
+          database = {
+            createLocally = false;
+            host = "192.168.2.102";
+            port = 5432;
+            name = "mastodon_local";
+            user = "mastodon_test";
+            passwordFile = "/etc/mastodon/password-posgressql-db";
+          };
+          smtp = {
+            createLocally = false;
+            fromAddress = "mastodon@mastodon.local";
+          };
+          extraConfig = {
+            BIND = "0.0.0.0";
+            EMAIL_DOMAIN_ALLOWLIST = "example.com";
+            RAILS_SERVE_STATIC_FILES = "true";
+            TRUSTED_PROXY_IP = "192.168.2.103";
           };
         };
+      };
+
+      client = { pkgs, ... }: {
+        environment.systemPackages = [ pkgs.jq ];
+        networking = {
+          interfaces.eth1 = {
+            ipv4.addresses = [{
+              address = "192.168.2.202";
+              prefixLength = 24;
+            }];
+          };
+          extraHosts = hosts;
+        };
+
+        security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
+      };
     };
 
     testScript = import ./script.nix {
@@ -185,5 +155,4 @@ import ../../make-test-python.nix (
         database.shutdown()
       '';
     };
-  }
-)
+  })

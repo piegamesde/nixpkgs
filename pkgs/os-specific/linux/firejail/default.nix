@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  pkg-config,
-  libapparmor,
-  which,
-  xdg-dbus-proxy,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, pkg-config, libapparmor, which
+, xdg-dbus-proxy, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "firejail";
@@ -23,10 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libapparmor
-    which
-  ];
+  buildInputs = [ libapparmor which ];
 
   configureFlags = [ "--enable-apparmor" ];
 

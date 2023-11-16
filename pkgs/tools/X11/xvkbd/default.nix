@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libXt,
-  libXaw,
-  libXtst,
-  libXi,
-  libXpm,
-  pkg-config,
-  xorgproto,
-  Xaw3d,
-}:
+{ lib, stdenv, fetchurl, libXt, libXaw, libXtst, libXi, libXpm, pkg-config
+, xorgproto, Xaw3d }:
 
 stdenv.mkDerivation rec {
   pname = "xvkbd";
@@ -21,15 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libXt
-    libXaw
-    libXtst
-    xorgproto
-    libXi
-    Xaw3d
-    libXpm
-  ];
+  buildInputs = [ libXt libXaw libXtst xorgproto libXi Xaw3d libXpm ];
 
   makeFlags = [
     # avoid default libXt location

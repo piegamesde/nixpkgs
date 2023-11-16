@@ -1,45 +1,20 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  substituteAll,
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, substituteAll
 
-  # build
-  setuptools,
+# build
+, setuptools
 
-  # patched in
-  geos,
-  gdal,
-  withGdal ? false,
+# patched in
+, geos, gdal, withGdal ? false
 
   # propagates
-  asgiref,
-  sqlparse,
+, asgiref, sqlparse
 
-  # extras
-  argon2-cffi,
-  bcrypt,
+# extras
+, argon2-cffi, bcrypt
 
-  # tests
-  aiosmtpd,
-  docutils,
-  geoip2,
-  jinja2,
-  numpy,
-  pillow,
-  pylibmc,
-  pymemcache,
-  python,
-  pywatchman,
-  pyyaml,
-  pytz,
-  redis,
-  selenium,
-  tblib,
-  tzdata,
-}:
+# tests
+, aiosmtpd, docutils, geoip2, jinja2, numpy, pillow, pylibmc, pymemcache, python
+, pywatchman, pyyaml, pytz, redis, selenium, tblib, tzdata }:
 
 buildPythonPackage rec {
   pname = "Django";
@@ -53,24 +28,22 @@ buildPythonPackage rec {
     hash = "sha256-Kmtvv/W1ndB77xC8sBm+4uqXowsqZW1RNGWWckMkut8=";
   };
 
-  patches =
-    [
-      (substituteAll {
-        src = ./django_4_set_zoneinfo_dir.patch;
-        zoneinfo = tzdata + "/share/zoneinfo";
-      })
-      # make sure the tests don't remove packages from our pythonpath
-      # and disable failing tests
-      ./django_4_tests.patch
-    ]
-    ++ lib.optionals withGdal [
-      (substituteAll {
-        src = ./django_4_set_geos_gdal_lib.patch;
-        geos = geos;
-        gdal = gdal;
-        extension = stdenv.hostPlatform.extensions.sharedLibrary;
-      })
-    ];
+  patches = [
+    (substituteAll {
+      src = ./django_4_set_zoneinfo_dir.patch;
+      zoneinfo = tzdata + "/share/zoneinfo";
+    })
+    # make sure the tests don't remove packages from our pythonpath
+    # and disable failing tests
+    ./django_4_tests.patch
+  ] ++ lib.optionals withGdal [
+    (substituteAll {
+      src = ./django_4_set_geos_gdal_lib.patch;
+      geos = geos;
+      gdal = gdal;
+      extension = stdenv.hostPlatform.extensions.sharedLibrary;
+    })
+  ];
 
   postPatch = ''
     substituteInPlace tests/utils_tests/test_autoreload.py \
@@ -79,10 +52,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    asgiref
-    sqlparse
-  ];
+  propagatedBuildInputs = [ asgiref sqlparse ];
 
   passthru.optional-dependencies = {
     argon2 = [ argon2-cffi ];
@@ -134,7 +104,8 @@ buildPythonPackage rec {
     changelog = "https://docs.djangoproject.com/en/${
         lib.versions.majorMinor version
       }/releases/${version}/";
-    description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design.";
+    description =
+      "A high-level Python Web framework that encourages rapid development and clean, pragmatic design.";
     homepage = "https://www.djangoproject.com";
     license = licenses.bsd3;
     maintainers = with maintainers; [ hexa ];

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchurl,
-  fetchpatch,
-  zlib,
-}:
+{ lib, stdenv, buildPackages, fetchurl, fetchpatch, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "kexec-tools";
@@ -19,28 +12,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-f+NqBkEBzVxRXkGyvjk9zjyoitzlnW7maOCvfAxFcM0=";
   };
 
-  patches =
-    [
-      # Use ELFv2 ABI on ppc64be
-      (fetchpatch {
-        url = "https://raw.githubusercontent.com/void-linux/void-packages/6c1192cbf166698932030c2e3de71db1885a572d/srcpkgs/kexec-tools/patches/ppc64-elfv2.patch";
-        sha256 = "19wzfwb0azm932v0vhywv4221818qmlmvdfwpvvpfyw4hjsc2s1l";
-      })
-    ];
-
-  hardeningDisable = [
-    "format"
-    "pic"
-    "relro"
-    "pie"
+  patches = [
+    # Use ELFv2 ABI on ppc64be
+    (fetchpatch {
+      url =
+        "https://raw.githubusercontent.com/void-linux/void-packages/6c1192cbf166698932030c2e3de71db1885a572d/srcpkgs/kexec-tools/patches/ppc64-elfv2.patch";
+      sha256 = "19wzfwb0azm932v0vhywv4221818qmlmvdfwpvvpfyw4hjsc2s1l";
+    })
   ];
+
+  hardeningDisable = [ "format" "pic" "relro" "pie" ];
 
   # Prevent kexec-tools from using uname to detect target, which is wrong in
   # cases like compiling for aarch32 on aarch64
-  configurePlatforms = [
-    "build"
-    "host"
-  ];
+  configurePlatforms = [ "build" "host" ];
   configureFlags = [ "BUILD_CC=${buildPackages.stdenv.cc.targetPrefix}cc" ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   buildInputs = [ zlib ];
@@ -49,12 +34,8 @@ stdenv.mkDerivation rec {
     homepage = "http://horms.net/projects/kexec/kexec-tools";
     description = "Tools related to the kexec Linux feature";
     platforms = platforms.linux;
-    badPlatforms = [
-      "riscv64-linux"
-      "riscv32-linux"
-      "sparc-linux"
-      "sparc64-linux"
-    ];
+    badPlatforms =
+      [ "riscv64-linux" "riscv32-linux" "sparc-linux" "sparc64-linux" ];
     license = licenses.gpl2;
   };
 }

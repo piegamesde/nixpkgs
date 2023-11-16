@@ -1,19 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  makeWrapper,
-  pkg-config,
-  perl,
-  openssl,
-  python3,
-  wrapQtAppsHook,
-  qtbase,
-  qtsvg,
-  xdg-utils,
-  substituteAll,
-  buildNpmPackage,
-}:
+{ lib, fetchFromGitHub, rustPlatform, makeWrapper, pkg-config, perl, openssl
+, python3, wrapQtAppsHook, qtbase, qtsvg, xdg-utils, substituteAll
+, buildNpmPackage }:
 
 let
   version = "0.12.2";
@@ -24,8 +11,7 @@ let
     sha256 = "sha256-IvRXfxTOSgBVlxy4SVij+POr7KgvXTEjGN3lSozhHkY=";
     fetchSubmodules = true;
   };
-in
-rec {
+in rec {
   aw-watcher-afk = python3.pkgs.buildPythonApplication {
     pname = "aw-watcher-afk";
     inherit version;
@@ -36,16 +22,13 @@ rec {
 
     nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
-    propagatedBuildInputs = with python3.pkgs; [
-      aw-client
-      xlib
-      pynput
-    ];
+    propagatedBuildInputs = with python3.pkgs; [ aw-client xlib pynput ];
 
     pythonImportsCheck = [ "aw_watcher_afk" ];
 
     meta = with lib; {
-      description = "Watches keyboard and mouse activity to determine if you are AFK or not (for use with ActivityWatch)";
+      description =
+        "Watches keyboard and mouse activity to determine if you are AFK or not (for use with ActivityWatch)";
       homepage = "https://github.com/ActivityWatch/aw-watcher-afk";
       maintainers = with maintainers; [ huantian ];
       license = licenses.mpl20;
@@ -62,15 +45,13 @@ rec {
 
     nativeBuildInputs = [ python3.pkgs.poetry-core ];
 
-    propagatedBuildInputs = with python3.pkgs; [
-      aw-client
-      xlib
-    ];
+    propagatedBuildInputs = with python3.pkgs; [ aw-client xlib ];
 
     pythonImportsCheck = [ "aw_watcher_window" ];
 
     meta = with lib; {
-      description = "Cross-platform window watcher (for use with ActivityWatch)";
+      description =
+        "Cross-platform window watcher (for use with ActivityWatch)";
       homepage = "https://github.com/ActivityWatch/aw-watcher-window";
       maintainers = with maintainers; [ huantian ];
       license = licenses.mpl20;
@@ -85,10 +66,7 @@ rec {
 
     src = "${sources}/aw-qt";
 
-    nativeBuildInputs = [
-      python3.pkgs.poetry-core
-      wrapQtAppsHook
-    ];
+    nativeBuildInputs = [ python3.pkgs.poetry-core wrapQtAppsHook ];
 
     propagatedBuildInputs = with python3.pkgs; [
       aw-core
@@ -129,7 +107,8 @@ rec {
     pythonImportsCheck = [ "aw_qt" ];
 
     meta = with lib; {
-      description = "Tray icon that manages ActivityWatch processes, built with Qt";
+      description =
+        "Tray icon that manages ActivityWatch processes, built with Qt";
       homepage = "https://github.com/ActivityWatch/aw-qt";
       maintainers = with maintainers; [ huantian ];
       license = licenses.mpl20;
@@ -145,27 +124,23 @@ rec {
     cargoLock = {
       lockFile = ./Cargo.lock;
       outputHashes = {
-        "rocket_cors-0.6.0-alpha1" = "sha256-GuMekgnsyuOg6lMiVvi4TwMba4sAFJ/zkgrdzSeBrv0=";
+        "rocket_cors-0.6.0-alpha1" =
+          "sha256-GuMekgnsyuOg6lMiVvi4TwMba4sAFJ/zkgrdzSeBrv0=";
       };
     };
 
     # Bypass rust nightly features not being available on rust stable
     RUSTC_BOOTSTRAP = 1;
 
-    patches =
-      [
-        # Override version string with hardcoded value as it may be outdated upstream.
-        (substituteAll {
-          src = ./override-version.patch;
-          version = sources.rev;
-        })
-      ];
-
-    nativeBuildInputs = [
-      makeWrapper
-      pkg-config
-      perl
+    patches = [
+      # Override version string with hardcoded value as it may be outdated upstream.
+      (substituteAll {
+        src = ./override-version.patch;
+        version = sources.rev;
+      })
     ];
+
+    nativeBuildInputs = [ makeWrapper pkg-config perl ];
 
     buildInputs = [ openssl ];
 
@@ -183,7 +158,8 @@ rec {
     '';
 
     meta = with lib; {
-      description = "High-performance implementation of the ActivityWatch server, written in Rust";
+      description =
+        "High-performance implementation of the ActivityWatch server, written in Rust";
       homepage = "https://github.com/ActivityWatch/aw-server-rust";
       maintainers = with maintainers; [ huantian ];
       mainProgram = "aw-server";
@@ -200,14 +176,13 @@ rec {
 
     npmDepsHash = "sha256-yds2P2PKfTB6yUGnc+P73InV5+MZP9kmz2ZS4CRqlmA=";
 
-    patches =
-      [
-        # Hardcode version to avoid the need to have the Git repo available at build time.
-        (substituteAll {
-          src = ./commit-hash.patch;
-          commit_hash = sources.rev;
-        })
-      ];
+    patches = [
+      # Hardcode version to avoid the need to have the Git repo available at build time.
+      (substituteAll {
+        src = ./commit-hash.patch;
+        commit_hash = sources.rev;
+      })
+    ];
 
     installPhase = ''
       runHook preInstall

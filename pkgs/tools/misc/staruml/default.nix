@@ -1,30 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  dpkg,
-  patchelf,
-  wrapGAppsHook,
-  hicolor-icon-theme,
-  gtk3,
-  glib,
-  systemd,
-  xorg,
-  nss,
-  nspr,
-  atk,
-  at-spi2-atk,
-  dbus,
-  gdk-pixbuf,
-  pango,
-  cairo,
-  expat,
-  libdrm,
-  mesa,
-  alsa-lib,
-  at-spi2-core,
-  cups,
-}:
+{ stdenv, lib, fetchurl, dpkg, patchelf, wrapGAppsHook, hicolor-icon-theme, gtk3
+, glib, systemd, xorg, nss, nspr, atk, at-spi2-atk, dbus, gdk-pixbuf, pango
+, cairo, expat, libdrm, mesa, alsa-lib, at-spi2-core, cups }:
 
 let
   LD_LIBRARY_PATH = lib.makeLibraryPath [
@@ -56,24 +32,18 @@ let
     at-spi2-core
     cups
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "4.1.6";
   pname = "staruml";
 
   src = fetchurl {
-    url = "https://staruml.io/download/releases-v4/StarUML_${version}_amd64.deb";
+    url =
+      "https://staruml.io/download/releases-v4/StarUML_${version}_amd64.deb";
     sha256 = "sha256-CUOdpR8RExMLeOX8469egENotMNuPU4z8S1IGqA21z0=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    dpkg
-  ];
-  buildInputs = [
-    glib
-    hicolor-icon-theme
-  ];
+  nativeBuildInputs = [ wrapGAppsHook dpkg ];
+  buildInputs = [ glib hicolor-icon-theme ];
 
   unpackPhase = ''
     mkdir pkg

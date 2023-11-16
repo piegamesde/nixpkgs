@@ -1,17 +1,5 @@
-{
-  lib,
-  anyio,
-  buildPythonPackage,
-  curio,
-  fetchFromGitHub,
-  hypothesis,
-  pytest,
-  pytestCheckHook,
-  pythonOlder,
-  sniffio,
-  trio,
-  trio-asyncio,
-}:
+{ lib, anyio, buildPythonPackage, curio, fetchFromGitHub, hypothesis, pytest
+, pytestCheckHook, pythonOlder, sniffio, trio, trio-asyncio }:
 
 buildPythonPackage rec {
   pname = "pytest-aio";
@@ -33,15 +21,8 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    anyio
-    curio
-    hypothesis
-    pytestCheckHook
-    sniffio
-    trio
-    trio-asyncio
-  ];
+  nativeCheckInputs =
+    [ anyio curio hypothesis pytestCheckHook sniffio trio trio-asyncio ];
 
   pythonImportsCheck = [ "pytest_aio" ];
 

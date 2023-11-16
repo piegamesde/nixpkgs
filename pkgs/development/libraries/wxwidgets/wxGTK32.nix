@@ -1,39 +1,8 @@
-{
-  lib,
-  stdenv,
-  expat,
-  fetchFromGitHub,
-  gst_all_1,
-  gtk3,
-  libGL,
-  libGLU,
-  libSM,
-  libXinerama,
-  libXtst,
-  libXxf86vm,
-  libpng,
-  libtiff,
-  libjpeg_turbo,
-  zlib,
-  pcre2,
-  pkg-config,
-  xorgproto,
-  compat28 ? false,
-  compat30 ? true,
-  unicode ? true,
-  withMesa ? !stdenv.isDarwin,
-  withWebKit ? stdenv.isDarwin,
-  webkitgtk,
-  setfile,
-  AGL,
-  Carbon,
-  Cocoa,
-  Kernel,
-  QTKit,
-  AVFoundation,
-  AVKit,
-  WebKit,
-}:
+{ lib, stdenv, expat, fetchFromGitHub, gst_all_1, gtk3, libGL, libGLU, libSM
+, libXinerama, libXtst, libXxf86vm, libpng, libtiff, libjpeg_turbo, zlib, pcre2
+, pkg-config, xorgproto, compat28 ? false, compat30 ? true, unicode ? true
+, withMesa ? !stdenv.isDarwin, withWebKit ? stdenv.isDarwin, webkitgtk, setfile
+, AGL, Carbon, Cocoa, Kernel, QTKit, AVFoundation, AVKit, WebKit }:
 let
   catch = fetchFromGitHub {
     owner = "wxWidgets";
@@ -48,8 +17,7 @@ let
     rev = "ccdb1995134d340a93fb20e3a3d323ccb3838dd0";
     hash = "sha256-ymziU0NgGqxPOKHwGm0QyEdK/8jL/QYk5UdIQ3Tn8jw=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "wxwidgets";
   version = "3.2.2.1";
 
@@ -62,25 +30,22 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      gst_all_1.gst-plugins-base
-      gst_all_1.gstreamer
-      libpng
-      libtiff
-      libjpeg_turbo
-      zlib
-      pcre2
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      gtk3
-      libSM
-      libXinerama
-      libXtst
-      libXxf86vm
-      xorgproto
-    ]
-    ++ lib.optional withMesa libGLU
+  buildInputs = [
+    gst_all_1.gst-plugins-base
+    gst_all_1.gstreamer
+    libpng
+    libtiff
+    libjpeg_turbo
+    zlib
+    pcre2
+  ] ++ lib.optionals stdenv.isLinux [
+    gtk3
+    libSM
+    libXinerama
+    libXtst
+    libXxf86vm
+    xorgproto
+  ] ++ lib.optional withMesa libGLU
     ++ lib.optional (withWebKit && stdenv.isLinux) webkitgtk
     ++ lib.optional (withWebKit && stdenv.isDarwin) WebKit
     ++ lib.optionals stdenv.isDarwin [
@@ -97,48 +62,37 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin AGL;
 
-  configureFlags =
-    [
-      "--disable-precomp-headers"
-      # This is the default option, but be explicit
-      "--disable-monolithic"
-      "--enable-mediactrl"
-      "--with-nanosvg"
-      (if compat28 then "--enable-compat28" else "--disable-compat28")
-      (if compat30 then "--enable-compat30" else "--disable-compat30")
-    ]
-    ++ lib.optional unicode "--enable-unicode"
+  configureFlags = [
+    "--disable-precomp-headers"
+    # This is the default option, but be explicit
+    "--disable-monolithic"
+    "--enable-mediactrl"
+    "--with-nanosvg"
+    (if compat28 then "--enable-compat28" else "--disable-compat28")
+    (if compat30 then "--enable-compat30" else "--disable-compat30")
+  ] ++ lib.optional unicode "--enable-unicode"
     ++ lib.optional withMesa "--with-opengl"
-    ++ lib.optionals stdenv.isDarwin [
-      "--with-osx_cocoa"
-      "--with-libiconv"
-    ]
-    ++ lib.optionals withWebKit [
-      "--enable-webview"
-      "--enable-webviewwebkit"
-    ];
+    ++ lib.optionals stdenv.isDarwin [ "--with-osx_cocoa" "--with-libiconv" ]
+    ++ lib.optionals withWebKit [ "--enable-webview" "--enable-webviewwebkit" ];
 
-  SEARCH_LIB = lib.optionalString (!stdenv.isDarwin) "${libGLU.out}/lib ${libGL.out}/lib";
+  SEARCH_LIB =
+    lib.optionalString (!stdenv.isDarwin) "${libGLU.out}/lib ${libGL.out}/lib";
 
-  preConfigure =
-    ''
-      cp -r ${catch}/* 3rdparty/catch/
-      cp -r ${nanosvg}/* 3rdparty/nanosvg/
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      substituteInPlace configure \
-        --replace 'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' 'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
-      substituteInPlace configure \
-        --replace "-framework System" "-lSystem"
-    '';
+  preConfigure = ''
+    cp -r ${catch}/* 3rdparty/catch/
+    cp -r ${nanosvg}/* 3rdparty/nanosvg/
+  '' + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace configure \
+      --replace 'ac_cv_prog_SETFILE="/Developer/Tools/SetFile"' 'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
+    substituteInPlace configure \
+      --replace "-framework System" "-lSystem"
+  '';
 
   postInstall = "\n    pushd $out/include\n    ln -s wx-*/* .\n    popd\n  ";
 
   enableParallelBuilding = true;
 
-  passthru = {
-    inherit compat28 compat30 unicode;
-  };
+  passthru = { inherit compat28 compat30 unicode; };
 
   meta = with lib; {
     homepage = "https://www.wxwidgets.org/";

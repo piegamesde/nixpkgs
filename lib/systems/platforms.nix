@@ -5,8 +5,7 @@
 # file takes an already-valid platform and further elaborates it with
 # optional fields; currently these are: linux-kernel, gcc, and rustc.
 
-{ lib }:
-rec {
+{ lib }: rec {
   pc = {
     linux-kernel = {
       name = "pc";
@@ -18,7 +17,8 @@ rec {
     };
   };
 
-  pc_simplekernel = lib.recursiveUpdate pc { linux-kernel.autoModules = false; };
+  pc_simplekernel =
+    lib.recursiveUpdate pc { linux-kernel.autoModules = false; };
 
   powernv = {
     linux-kernel = {
@@ -65,9 +65,7 @@ rec {
       # TODO reenable once manual-config's config actually builds a .dtb and this is checked to be working
       #DTB = true;
     };
-    gcc = {
-      arch = "armv5te";
-    };
+    gcc = { arch = "armv5te"; };
   };
 
   sheevaplug = {
@@ -178,9 +176,7 @@ rec {
       target = "uImage";
       DTB = true; # Beyond 3.10
     };
-    gcc = {
-      arch = "armv5te";
-    };
+    gcc = { arch = "armv5te"; };
   };
 
   raspberrypi = {
@@ -376,9 +372,7 @@ rec {
       '';
       target = "Image";
     };
-    gcc = {
-      arch = "armv8-a";
-    };
+    gcc = { arch = "armv8-a"; };
   };
 
   apple-m1 = {
@@ -393,9 +387,7 @@ rec {
   ##
 
   ben_nanonote = {
-    linux-kernel = {
-      name = "ben_nanonote";
-    };
+    linux-kernel = { name = "ben_nanonote"; };
     gcc = {
       arch = "mips32";
       float = "soft";
@@ -567,18 +559,15 @@ rec {
   # This function takes a minimally-valid "platform" and returns an
   # attrset containing zero or more additional attrs which should be
   # included in the platform in order to further elaborate it.
-  select =
-    platform:
+  select = platform:
     # x86
     if platform.isx86 then
       pc
 
-    # ARM
+      # ARM
     else if platform.isAarch32 then
-      let
-        version = platform.parsed.cpu.version or null;
-      in
-      if version == null then
+      let version = platform.parsed.cpu.version or null;
+      in if version == null then
         pc
       else if lib.versionOlder version "6" then
         sheevaplug

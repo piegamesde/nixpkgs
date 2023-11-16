@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  serialio,
-  sockio,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, serialio, sockio }:
 
 buildPythonPackage rec {
   pname = "connio";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-fPM7Ya69t0jpZhKM2MTk6BwjvoW3a8SV3k000LB9Ypo=";
   };
 
-  propagatedBuildInputs = [
-    serialio
-    sockio
-  ];
+  propagatedBuildInputs = [ serialio sockio ];
 
   # Module has no tests
   doCheck = false;

@@ -1,34 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bison,
-  cmake,
-  pkg-config,
-  boost,
-  icu,
-  libedit,
-  libevent,
-  lz4,
-  ncurses,
-  openssl,
-  protobuf,
-  re2,
-  readline,
-  zlib,
-  zstd,
-  libfido2,
-  numactl,
-  perl,
-  cctools,
-  CoreServices,
-  developer_cmds,
-  libtirpc,
-  rpcsvc-proto,
-  curl,
-  DarwinTools,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, bison, cmake, pkg-config, boost, icu, libedit, libevent
+, lz4, ncurses, openssl, protobuf, re2, readline, zlib, zstd, libfido2, numactl
+, perl, cctools, CoreServices, developer_cmds, libtirpc, rpcsvc-proto, curl
+, DarwinTools, nixosTests }:
 
 let
   self = stdenv.mkDerivation rec {
@@ -36,15 +9,13 @@ let
     version = "8.0.33";
 
     src = fetchurl {
-      url = "https://dev.mysql.com/get/Downloads/MySQL-${self.mysqlVersion}/${pname}-${version}.tar.gz";
+      url =
+        "https://dev.mysql.com/get/Downloads/MySQL-${self.mysqlVersion}/${pname}-${version}.tar.gz";
       hash = "sha256-liAC9dkG9C9AsnejnS25OTEkjB8H/49DEsKI5jgD3RI=";
     };
 
-    nativeBuildInputs = [
-      bison
-      cmake
-      pkg-config
-    ] ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
+    nativeBuildInputs = [ bison cmake pkg-config ]
+      ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ];
 
     patches = [
       ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
@@ -56,27 +27,22 @@ let
       substituteInPlace cmake/os/Darwin.cmake --replace /usr/bin/libtool libtool
     '';
 
-    buildInputs =
-      [
-        boost
-        (curl.override { inherit openssl; })
-        icu
-        libedit
-        libevent
-        lz4
-        ncurses
-        openssl
-        protobuf
-        re2
-        readline
-        zlib
-        zstd
-        libfido2
-      ]
-      ++ lib.optionals stdenv.isLinux [
-        numactl
-        libtirpc
-      ]
+    buildInputs = [
+      boost
+      (curl.override { inherit openssl; })
+      icu
+      libedit
+      libevent
+      lz4
+      ncurses
+      openssl
+      protobuf
+      re2
+      readline
+      zlib
+      zstd
+      libfido2
+    ] ++ lib.optionals stdenv.isLinux [ numactl libtirpc ]
       ++ lib.optionals stdenv.isDarwin [
         cctools
         CoreServices
@@ -84,10 +50,7 @@ let
         DarwinTools
       ];
 
-    outputs = [
-      "out"
-      "static"
-    ];
+    outputs = [ "out" "static" ];
 
     cmakeFlags = [
       "-DFORCE_UNSUPPORTED_COMPILER=1" # To configure on Darwin.
@@ -130,5 +93,4 @@ let
       platforms = platforms.unix;
     };
   };
-in
-self
+in self

@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  cryptography,
-  python-ldap,
-  requests,
-  six,
-}:
+{ stdenv, lib, fetchPypi, buildPythonPackage, cryptography, python-ldap
+, requests, six }:
 
 buildPythonPackage rec {
   pname = "dogtag-pki";
@@ -18,15 +10,9 @@ buildPythonPackage rec {
     sha256 = "sha256-rQSnQPNYr5SyeNbKoFAbnGb2X/8utrfWLa8gu93hy2w=";
   };
 
-  buildInputs = [
-    cryptography
-    python-ldap
-  ];
+  buildInputs = [ cryptography python-ldap ];
   pythonImportsCheck = [ "pki" ];
-  propagatedBuildInputs = [
-    requests
-    six
-  ];
+  propagatedBuildInputs = [ requests six ];
 
   meta = with lib; {
     description = "An enterprise-class Certificate Authority";

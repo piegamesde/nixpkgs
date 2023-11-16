@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  iconnamingutils,
-  gtk2,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, iconnamingutils, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-icon-theme";
@@ -21,11 +13,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    intltool
-    iconnamingutils
-    gtk2
-  ];
+  nativeBuildInputs = [ intltool iconnamingutils gtk2 ];
 
   dontDropIconThemeCache = true;
 
@@ -42,6 +30,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     maintainers = [ maintainers.romildo ];
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-icon-theme.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/gnome-icon-theme.x86_64-darwin
   };
 }

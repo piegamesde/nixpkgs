@@ -1,22 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  curl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, curl }:
 
-let
-  version = "1.10.4";
-in
-stdenv.mkDerivation {
+let version = "1.10.4";
+in stdenv.mkDerivation {
   pname = "libcpr";
   inherit version;
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "libcpr";

@@ -1,61 +1,51 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
-    master =
-      { pkgs, ... }:
-      {
-        # data base is stored in memory
-        # server crashes with default memory size
-        virtualisation.memorySize = 1024;
+    master = { pkgs, ... }: {
+      # data base is stored in memory
+      # server crashes with default memory size
+      virtualisation.memorySize = 1024;
 
-        services.moosefs.master = {
-          enable = true;
+      services.moosefs.master = {
+        enable = true;
+        openFirewall = true;
+        exports = [ "* / rw,alldirs,admin,maproot=0:0" "* . rw" ];
+      };
+    };
+
+    chunkserver = { pkgs, ... }: {
+      virtualisation.emptyDiskImages = [ 4096 ];
+      boot.initrd.postDeviceCommands = ''
+        ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
+      '';
+
+      fileSystems = pkgs.lib.mkVMOverride {
+        "/data" = {
+          device = "/dev/disk/by-label/data";
+          fsType = "ext4";
+        };
+      };
+
+      services.moosefs = {
+        masterHost = "master";
+        chunkserver = {
           openFirewall = true;
-          exports = [
-            "* / rw,alldirs,admin,maproot=0:0"
-            "* . rw"
-          ];
+          enable = true;
+          hdds = [ "~/data" ];
         };
       };
+    };
 
-    chunkserver =
-      { pkgs, ... }:
-      {
-        virtualisation.emptyDiskImages = [ 4096 ];
-        boot.initrd.postDeviceCommands = ''
-          ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
-        '';
-
-        fileSystems = pkgs.lib.mkVMOverride {
-          "/data" = {
-            device = "/dev/disk/by-label/data";
-            fsType = "ext4";
-          };
-        };
-
-        services.moosefs = {
-          masterHost = "master";
-          chunkserver = {
-            openFirewall = true;
-            enable = true;
-            hdds = [ "~/data" ];
-          };
-        };
+    metalogger = { pkgs, ... }: {
+      services.moosefs = {
+        masterHost = "master";
+        metalogger.enable = true;
       };
-
-    metalogger =
-      { pkgs, ... }:
-      {
-        services.moosefs = {
-          masterHost = "master";
-          metalogger.enable = true;
-        };
-      };
+    };
 
     client = { pkgs, ... }: { services.moosefs.client.enable = true; };
-  in
-  {
+
+  in {
     name = "moosefs";
 
     nodes = {
@@ -91,5 +81,4 @@ import ./make-test-python.nix (
       client1.succeed("echo test > /moosefs/file")
       client2.succeed("grep test /moosefs/file")
     '';
-  }
-)
+  })

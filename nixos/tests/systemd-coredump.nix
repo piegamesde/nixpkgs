@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
 
@@ -13,15 +12,13 @@ import ./make-test-python.nix (
         Restart = "no";
       };
     };
-  in
 
-  {
+  in {
     name = "systemd-coredump";
     meta = with pkgs.lib.maintainers; { maintainers = [ squalus ]; };
 
     nodes.machine1 = { pkgs, lib, ... }: commonConfig;
-    nodes.machine2 =
-      { pkgs, lib, ... }:
+    nodes.machine2 = { pkgs, lib, ... }:
       lib.recursiveUpdate commonConfig {
         systemd.coredump.enable = false;
         systemd.package = pkgs.systemd.override { withCoredump = false; };
@@ -39,5 +36,4 @@ import ./make-test-python.nix (
         machine2.systemctl("start crasher");
         machine2.wait_until_succeeds("stat /var/lib/crasher/core", timeout=10)
     '';
-  }
-)
+  })

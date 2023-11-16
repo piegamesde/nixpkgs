@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  requests,
-  xmltodict,
-  responses,
-  python,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, requests, xmltodict, responses
+, python }:
 
 buildPythonPackage rec {
   pname = "qnapstats";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-dpxl6a61h8zB7eS/2lxG+2//bOTzV6s4T1W+DVj0fnI=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    xmltodict
-  ];
+  propagatedBuildInputs = [ requests xmltodict ];
 
   nativeCheckInputs = [ responses ];
 

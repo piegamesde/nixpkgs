@@ -1,24 +1,9 @@
-{
-  lib,
-  pythonOlder,
-  pythonAtLeast,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  # Python Inputs
-  fastdtw,
-  numpy,
-  psutil,
-  qiskit-terra,
-  scikit-learn,
-  sparse,
-  torch,
-  # Check Inputs
-  pytestCheckHook,
-  ddt,
-  pytest-timeout,
-  qiskit-aer,
-}:
+{ lib, pythonOlder, pythonAtLeast, buildPythonPackage, fetchFromGitHub
+, fetchpatch
+# Python Inputs
+, fastdtw, numpy, psutil, qiskit-terra, scikit-learn, sparse, torch
+# Check Inputs
+, pytestCheckHook, ddt, pytest-timeout, qiskit-aer }:
 
 buildPythonPackage rec {
   pname = "qiskit-machine-learning";
@@ -33,23 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-wK0ZRNnU7WJlTWRJ2ce6LN6WGKlkh5jBrbXMDYcPQJI=";
   };
 
-  propagatedBuildInputs = [
-    fastdtw
-    numpy
-    psutil
-    torch
-    qiskit-terra
-    scikit-learn
-    sparse
-  ];
+  propagatedBuildInputs =
+    [ fastdtw numpy psutil torch qiskit-terra scikit-learn sparse ];
 
-  doCheck = false; # TODO: enable. Tests fail on unstable due to some multithreading issue?
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-timeout
-    ddt
-    qiskit-aer
-  ];
+  doCheck =
+    false; # TODO: enable. Tests fail on unstable due to some multithreading issue?
+  nativeCheckInputs = [ pytestCheckHook pytest-timeout ddt qiskit-aer ];
 
   pythonImportsCheck = [ "qiskit_machine_learning" ];
 

@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  meson,
-  ninja,
-  pkg-config,
-  python3Packages,
-  vulkan-headers,
-  vulkan-loader,
-  shaderc,
-  lcms2,
-  libGL,
-  xorg,
-  libunwind,
-  libdovi,
+{ lib, stdenv, fetchFromGitLab, meson, ninja, pkg-config, python3Packages
+, vulkan-headers, vulkan-loader, shaderc, lcms2, libGL, xorg, libunwind, libdovi
 }:
 
 stdenv.mkDerivation rec {
@@ -37,26 +23,17 @@ stdenv.mkDerivation rec {
     python3Packages.glad2
   ];
 
-  buildInputs = [
-    vulkan-loader
-    shaderc
-    lcms2
-    libGL
-    xorg.libX11
-    libunwind
-    libdovi
-  ];
+  buildInputs =
+    [ vulkan-loader shaderc lcms2 libGL xorg.libX11 libunwind libdovi ];
 
-  mesonFlags =
-    [
-      "-Dvulkan-registry=${vulkan-headers}/share/vulkan/registry/vk.xml"
-      "-Ddemos=false" # Don't build and install the demo programs
-      "-Dd3d11=disabled" # Disable the Direct3D 11 based renderer
-      "-Dglslang=disabled" # rely on shaderc for GLSL compilation instead
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      "-Dunwind=disabled" # libplacebo doesn’t build with `darwin.libunwind`
-    ];
+  mesonFlags = [
+    "-Dvulkan-registry=${vulkan-headers}/share/vulkan/registry/vk.xml"
+    "-Ddemos=false" # Don't build and install the demo programs
+    "-Dd3d11=disabled" # Disable the Direct3D 11 based renderer
+    "-Dglslang=disabled" # rely on shaderc for GLSL compilation instead
+  ] ++ lib.optionals stdenv.isDarwin [
+    "-Dunwind=disabled" # libplacebo doesn’t build with `darwin.libunwind`
+  ];
 
   postPatch = ''
     substituteInPlace meson.build \
@@ -64,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Reusable library for GPU-accelerated video/image rendering primitives";
+    description =
+      "Reusable library for GPU-accelerated video/image rendering primitives";
     longDescription = ''
       Reusable library for GPU-accelerated image/view processing primitives and
       shaders, as well a batteries-included, extensible, high-quality rendering
@@ -72,12 +50,10 @@ stdenv.mkDerivation rec {
       MoltenVK).
     '';
     homepage = "https://code.videolan.org/videolan/libplacebo";
-    changelog = "https://code.videolan.org/videolan/libplacebo/-/tags/v${version}";
+    changelog =
+      "https://code.videolan.org/videolan/libplacebo/-/tags/v${version}";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [
-      primeos
-      tadeokondrak
-    ];
+    maintainers = with maintainers; [ primeos tadeokondrak ];
     platforms = platforms.all;
   };
 }

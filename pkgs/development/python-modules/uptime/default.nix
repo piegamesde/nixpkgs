@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "uptime";
@@ -19,4 +15,5 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ rob ];
   };
+
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "dwarf2json";
@@ -19,7 +15,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/volatilityfoundation/dwarf2json";
-    description = "Convert ELF/DWARF symbol and type information into vol3's intermediate JSON";
+    description =
+      "Convert ELF/DWARF symbol and type information into vol3's intermediate JSON";
     license = licenses.vol-sl;
     maintainers = with maintainers; [ arkivm ];
   };

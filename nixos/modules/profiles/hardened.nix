@@ -6,22 +6,12 @@
 # profile, try disabling it. If you report an issue and use this
 # profile, always mention that you do.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 {
-  meta = {
-    maintainers = [
-      maintainers.joachifm
-      maintainers.emily
-    ];
-  };
+  meta = { maintainers = [ maintainers.joachifm maintainers.emily ]; };
 
   boot.kernelPackages = mkDefault pkgs.linuxPackages_hardened;
 
@@ -39,7 +29,8 @@ with lib;
   security.forcePageTableIsolation = mkDefault true;
 
   # This is required by podman to run containers in rootless mode.
-  security.unprivilegedUsernsClone = mkDefault config.virtualisation.containers.enable;
+  security.unprivilegedUsernsClone =
+    mkDefault config.virtualisation.containers.enable;
 
   security.virtualisation.flushL1DataCache = mkDefault "always";
 

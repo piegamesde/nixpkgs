@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  curl,
-  whois,
-  bind,
-  mtr,
-  jq,
-  ipcalc,
-  grepcidr,
-  nmap,
-  aha,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, curl, whois, bind, mtr, jq, ipcalc
+, grepcidr, nmap, aha }:
 
 stdenv.mkDerivation rec {
   pname = "asn";
@@ -32,17 +19,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/asn \
       --prefix PATH : "${
-        lib.makeBinPath [
-          curl
-          whois
-          bind
-          mtr
-          jq
-          ipcalc
-          grepcidr
-          nmap
-          aha
-        ]
+        lib.makeBinPath [ curl whois bind mtr jq ipcalc grepcidr nmap aha ]
       }"
   '';
 

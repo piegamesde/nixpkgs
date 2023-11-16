@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  libiconv,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, libiconv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-feature";
@@ -29,3 +23,4 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ riey ];
   };
 }
+

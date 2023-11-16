@@ -1,52 +1,16 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fetchpatch,
-  attrs,
-  argon2-cffi,
-  base58,
-  cbor2,
-  cffi,
-  click,
-  cryptography,
-  ecdsa,
-  eth-abi,
-  eth-account,
-  flatbuffers,
-  jinja2,
-  hkdf,
-  hyperlink,
-  mnemonic,
-  mock,
-  msgpack,
-  passlib,
-  py-ecc,
-  py-eth-sig-utils,
-  py-multihash,
-  py-ubjson,
-  pynacl,
-  pygobject3,
-  pyopenssl,
-  qrcode,
-  pytest-asyncio,
-  python-snappy,
-  pytestCheckHook,
-  pythonOlder,
-  # , pytrie
-  rlp,
-  service-identity,
-  spake2,
-  twisted,
-  txaio,
-  ujson,
-  # , web3
-  # , wsaccel
-  # , xbr
-  yapf,
-  # , zlmdb
-  zope_interface,
-}@args:
+{ lib, buildPythonPackage, fetchPypi, fetchpatch, attrs, argon2-cffi, base58
+, cbor2, cffi, click, cryptography, ecdsa, eth-abi, eth-account, flatbuffers
+, jinja2, hkdf, hyperlink, mnemonic, mock, msgpack, passlib, py-ecc
+, py-eth-sig-utils, py-multihash, py-ubjson, pynacl, pygobject3, pyopenssl
+, qrcode, pytest-asyncio, python-snappy, pytestCheckHook, pythonOlder
+# , pytrie
+, rlp, service-identity, spake2, twisted, txaio, ujson
+# , web3
+# , wsaccel
+# , xbr
+, yapf
+# , zlmdb
+, zope_interface }@args:
 
 buildPythonPackage rec {
   pname = "autobahn";
@@ -58,7 +22,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # https://github.com/crossbario/autobahn-python/pull/1604
-      url = "https://github.com/crossbario/autobahn-python/commit/ffe679fae4ebcdde964d4ee88cb82a9c65c40529.patch";
+      url =
+        "https://github.com/crossbario/autobahn-python/commit/ffe679fae4ebcdde964d4ee88cb82a9c65c40529.patch";
       hash = "sha256-QNnQkxMZJsFbiYUp4Os+dWo7jdCa96+kyb/2HxSMU8k=";
     })
   ];
@@ -73,19 +38,9 @@ buildPythonPackage rec {
       --replace "pytest>=2.8.6,<3.3.0" "pytest"
   '';
 
-  propagatedBuildInputs = [
-    cryptography
-    hyperlink
-    pynacl
-    txaio
-  ];
+  propagatedBuildInputs = [ cryptography hyperlink pynacl txaio ];
 
-  nativeCheckInputs =
-    [
-      mock
-      pytest-asyncio
-      pytestCheckHook
-    ]
+  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ]
     ++ passthru.optional-dependencies.scram
     ++ passthru.optional-dependencies.serialization
     ++ passthru.optional-dependencies.xbr;
@@ -100,11 +55,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "autobahn" ];
 
   passthru.optional-dependencies = rec {
-    all = accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram ++ twisted ++ ui ++ xbr;
-    accelerate =
-      [
-        # wsaccel
-      ];
+    all = accelerate ++ compress ++ encryption ++ nvx ++ serialization ++ scram
+      ++ twisted ++ ui ++ xbr;
+    accelerate = [ # wsaccel
+    ];
     compress = [ python-snappy ];
     encryption = [
       pynacl
@@ -113,23 +67,9 @@ buildPythonPackage rec {
       service-identity
     ];
     nvx = [ cffi ];
-    scram = [
-      argon2-cffi
-      cffi
-      passlib
-    ];
-    serialization = [
-      cbor2
-      flatbuffers
-      msgpack
-      ujson
-      py-ubjson
-    ];
-    twisted = [
-      attrs
-      args.twisted
-      zope_interface
-    ];
+    scram = [ argon2-cffi cffi passlib ];
+    serialization = [ cbor2 flatbuffers msgpack ujson py-ubjson ];
+    twisted = [ attrs args.twisted zope_interface ];
     ui = [ pygobject3 ];
     xbr = [
       base58

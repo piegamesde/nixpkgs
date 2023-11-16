@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,12 +11,12 @@ let
     proxyPort = ${toString cfg.proxyPort}
     allowedClients = ${concatStringsSep ", " cfg.allowedClients}
     ${optionalString (cfg.parentProxy != "") "parentProxy = ${cfg.parentProxy}"}
-    ${optionalString (cfg.socksParentProxy != "") "socksParentProxy = ${cfg.socksParentProxy}"}
+    ${optionalString (cfg.socksParentProxy != "")
+    "socksParentProxy = ${cfg.socksParentProxy}"}
     ${config.services.polipo.extraConfig}
   '';
-in
 
-{
+in {
 
   options = {
 
@@ -43,16 +38,8 @@ in
 
       allowedClients = mkOption {
         type = types.listOf types.str;
-        default = [
-          "127.0.0.1"
-          "::1"
-        ];
-        example = [
-          "127.0.0.1"
-          "::1"
-          "134.157.168.0/24"
-          "2001:660:116::/48"
-        ];
+        default = [ "127.0.0.1" "::1" ];
+        example = [ "127.0.0.1" "::1" "134.157.168.0/24" "2001:660:116::/48" ];
         description = lib.mdDoc ''
           List of IP addresses or network addresses that may connect to Polipo.
         '';
@@ -86,7 +73,9 @@ in
           verbatim to the configuration file.
         '';
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -105,15 +94,14 @@ in
 
     systemd.services.polipo = {
       description = "caching web proxy";
-      after = [
-        "network.target"
-        "nss-lookup.target"
-      ];
+      after = [ "network.target" "nss-lookup.target" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${pkgs.polipo}/bin/polipo -c ${polipoConfig}";
         User = "polipo";
       };
     };
+
   };
+
 }

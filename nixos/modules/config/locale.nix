@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,9 +11,8 @@ let
   };
 
   lcfg = config.location;
-in
 
-{
+in {
   options = {
 
     time = {
@@ -39,8 +33,10 @@ in
       hardwareClockInLocalTime = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "If set, keep the hardware clock in local time instead of UTC.";
+        description = lib.mdDoc
+          "If set, keep the hardware clock in local time instead of UTC.";
       };
+
     };
 
     location = {
@@ -64,16 +60,14 @@ in
       };
 
       provider = mkOption {
-        type = types.enum [
-          "manual"
-          "geoclue2"
-        ];
+        type = types.enum [ "manual" "geoclue2" ];
         default = "manual";
         description = lib.mdDoc ''
           The location provider to use for determining your location. If set to
           `manual` you must also provide latitude/longitude.
         '';
       };
+
     };
   };
 
@@ -86,17 +80,17 @@ in
     # This way services are restarted when tzdata changes.
     systemd.globalEnvironment.TZDIR = tzdir;
 
-    systemd.services.systemd-timedated.environment = lib.optionalAttrs (config.time.timeZone != null) {
-      NIXOS_STATIC_TIMEZONE = "1";
-    };
-
-    environment.etc =
-      {
-        zoneinfo.source = tzdir;
-      }
-      // lib.optionalAttrs (config.time.timeZone != null) {
-        localtime.source = "/etc/zoneinfo/${config.time.timeZone}";
-        localtime.mode = "direct-symlink";
+    systemd.services.systemd-timedated.environment =
+      lib.optionalAttrs (config.time.timeZone != null) {
+        NIXOS_STATIC_TIMEZONE = "1";
       };
+
+    environment.etc = {
+      zoneinfo.source = tzdir;
+    } // lib.optionalAttrs (config.time.timeZone != null) {
+      localtime.source = "/etc/zoneinfo/${config.time.timeZone}";
+      localtime.mode = "direct-symlink";
+    };
   };
+
 }

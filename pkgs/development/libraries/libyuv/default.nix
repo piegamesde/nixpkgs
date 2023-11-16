@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  cmake,
-  libjpeg,
-}:
+{ lib, stdenv, fetchgit, cmake, libjpeg }:
 
 stdenv.mkDerivation rec {
   pname = "libyuv";
@@ -19,7 +13,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   # NEON does not work on aarch64, we disable it
-  cmakeFlags = lib.optionals stdenv.isAarch64 [ "-DCMAKE_CXX_FLAGS=-DLIBYUV_DISABLE_NEON" ];
+  cmakeFlags = lib.optionals stdenv.isAarch64
+    [ "-DCMAKE_CXX_FLAGS=-DLIBYUV_DISABLE_NEON" ];
 
   buildInputs = [ libjpeg ];
 
@@ -27,7 +22,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://chromium.googlesource.com/libyuv/libyuv";
-    description = "Open source project that includes YUV scaling and conversion functionality";
+    description =
+      "Open source project that includes YUV scaling and conversion functionality";
     platforms = platforms.unix;
     maintainers = with maintainers; [ leixb ];
     license = licenses.bsd3;

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  numpy,
-}:
+{ lib, fetchPypi, buildPythonPackage, numpy }:
 
 buildPythonPackage rec {
   pname = "plyfile";
@@ -21,4 +16,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/dranjan/python-plyfile";
     maintainers = with maintainers; [ abbradar ];
   };
+
 }

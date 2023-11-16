@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  freezegun,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, freezegun
+, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aiorecollect";
@@ -29,18 +19,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    aresponses
-    freezegun
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses freezegun pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples directory as the files are prefixed with test_.
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples directory as the files are prefixed with test_.
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "aiorecollect" ];
 

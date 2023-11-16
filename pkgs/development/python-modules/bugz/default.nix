@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage {
   pname = "bugz-0.9.3";
@@ -23,4 +19,5 @@ buildPythonPackage {
     license = licenses.gpl2;
     maintainers = [ maintainers.costrouc ];
   };
+
 }

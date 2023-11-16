@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  click,
-  colorlog,
-  gitpython,
-  pluggy,
-  pyelftools,
-  pytablewriter,
-  pytestCheckHook,
-  pyyaml,
-  ruamel-yaml,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, click, colorlog, gitpython, pluggy
+, pyelftools, pytablewriter, pytestCheckHook, pyyaml, ruamel-yaml, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -52,7 +40,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "An ISA coverage extraction tool";
     homepage = "https://github.com/riscv/riscv-isac";
-    changelog = "https://github.com/riscv-software-src/riscv-isac/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/riscv-software-src/riscv-isac/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ genericnerdyusername ];
   };

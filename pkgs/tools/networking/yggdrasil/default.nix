@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "yggdrasil";
@@ -23,11 +18,7 @@ buildGoModule rec {
   # be granted write permission to /run.
   patches = [ ./change-runtime-dir.patch ];
 
-  subPackages = [
-    "cmd/genkeys"
-    "cmd/yggdrasil"
-    "cmd/yggdrasilctl"
-  ];
+  subPackages = [ "cmd/genkeys" "cmd/yggdrasil" "cmd/yggdrasilctl" ];
 
   ldflags = [
     "-X github.com/yggdrasil-network/yggdrasil-go/src/version.buildVersion=${version}"
@@ -39,14 +30,10 @@ buildGoModule rec {
   passthru.tests.basic = nixosTests.yggdrasil;
 
   meta = with lib; {
-    description = "An experiment in scalable routing as an encrypted IPv6 overlay network";
+    description =
+      "An experiment in scalable routing as an encrypted IPv6 overlay network";
     homepage = "https://yggdrasil-network.github.io/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [
-      bbigras
-      ehmry
-      gazally
-      lassulus
-    ];
+    maintainers = with maintainers; [ bbigras ehmry gazally lassulus ];
   };
 }

@@ -1,55 +1,24 @@
-{
-  version,
-  rev,
-  sha256,
-}:
+{ version, rev, sha256 }:
 
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  zlib,
-  libjpeg,
-  libpng,
-  fontconfig,
-  freetype,
-  libX11,
-  libXext,
-  libXinerama,
-  libXfixes,
-  libXcursor,
-  libXft,
-  libXrender,
-  ApplicationServices,
-  Carbon,
-  Cocoa,
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, zlib, libjpeg, libpng
+, fontconfig, freetype, libX11, libXext, libXinerama, libXfixes, libXcursor
+, libXft, libXrender, ApplicationServices, Carbon, Cocoa
 
-  withGL ? true,
-  libGL,
-  libGLU,
-  glew,
-  OpenGL,
+, withGL ? true, libGL, libGLU, glew, OpenGL
 
-  withCairo ? true,
-  cairo,
+, withCairo ? true, cairo
 
-  withPango ? (lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux),
-  pango,
+, withPango ?
+  (lib.strings.versionAtLeast version "1.4" && stdenv.hostPlatform.isLinux)
+, pango
 
-  withDocs ? true,
-  doxygen,
-  graphviz,
+, withDocs ? true, doxygen, graphviz
 
-  withExamples ? (stdenv.buildPlatform == stdenv.hostPlatform),
-  withShared ? true,
-}:
+, withExamples ? (stdenv.buildPlatform == stdenv.hostPlatform)
+, withShared ? true }:
 
-let
-  onOff = value: if value then "ON" else "OFF";
-in
-stdenv.mkDerivation rec {
+let onOff = value: if value then "ON" else "OFF";
+in stdenv.mkDerivation rec {
   pname = "fltk";
   inherit version;
 
@@ -59,7 +28,8 @@ stdenv.mkDerivation rec {
     inherit rev sha256;
   };
 
-  outputs = [ "out" ] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
+  outputs = [ "out" ] ++ lib.optional withExamples "bin"
+    ++ lib.optional withDocs "doc";
 
   # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
   outputBin = lib.optionalString withExamples "out";
@@ -70,33 +40,15 @@ stdenv.mkDerivation rec {
     patchShebangs documentation/make_*
   '';
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optionals withDocs [
-      doxygen
-      graphviz
-    ];
+  nativeBuildInputs = [ cmake pkg-config ]
+    ++ lib.optionals withDocs [ doxygen graphviz ];
 
   buildInputs =
-    lib.optionals stdenv.hostPlatform.isDarwin [
-      ApplicationServices
-      Carbon
-    ]
-    ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [
-      libGL
-      libGLU
-    ]
+    lib.optionals stdenv.hostPlatform.isDarwin [ ApplicationServices Carbon ]
+    ++ lib.optionals (withGL && !stdenv.hostPlatform.isDarwin) [ libGL libGLU ]
     ++ lib.optionals (withExamples && withGL) [ glew ];
 
-  propagatedBuildInputs =
-    [
-      zlib
-      libjpeg
-      libpng
-    ]
+  propagatedBuildInputs = [ zlib libjpeg libpng ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       freetype
       fontconfig
@@ -107,11 +59,9 @@ stdenv.mkDerivation rec {
       libXcursor
       libXft
       libXrender
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
+    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
     ++ lib.optionals (withGL && stdenv.hostPlatform.isDarwin) [ OpenGL ]
-    ++ lib.optionals withCairo [ cairo ]
-    ++ lib.optionals withPango [ pango ];
+    ++ lib.optionals withCairo [ cairo ] ++ lib.optionals withPango [ pango ];
 
   cmakeFlags = [
     # Common
@@ -154,41 +104,42 @@ stdenv.mkDerivation rec {
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
 
-  preBuild = lib.optionalString (withCairo && withShared && stdenv.hostPlatform.isDarwin) ''
-    # unresolved symbols in cairo dylib without this: https://github.com/fltk/fltk/issues/250
-    export NIX_LDFLAGS="$NIX_LDFLAGS -undefined dynamic_lookup"
-  '';
+  preBuild = lib.optionalString
+    (withCairo && withShared && stdenv.hostPlatform.isDarwin) ''
+      # unresolved symbols in cairo dylib without this: https://github.com/fltk/fltk/issues/250
+      export NIX_LDFLAGS="$NIX_LDFLAGS -undefined dynamic_lookup"
+    '';
 
   postBuild = lib.optionalString withDocs ''
     make docs
   '';
 
-  postInstall =
-    lib.optionalString withExamples ''
-      mkdir -p $bin/bin
-      mv bin/{test,examples}/* $bin/bin/
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      mkdir -p $out/Library/Frameworks
-      mv $out{,/Library/Frameworks}/FLTK.framework
+  postInstall = lib.optionalString withExamples ''
+    mkdir -p $bin/bin
+    mv bin/{test,examples}/* $bin/bin/
+  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -p $out/Library/Frameworks
+    mv $out{,/Library/Frameworks}/FLTK.framework
 
-      moveAppBundles() {
-        echo "Moving and symlinking $1"
-        appname="$(basename "$1")"
-        binname="$(basename "$(find "$1"/Contents/MacOS/ -type f -executable | head -n1)")"
-        curpath="$(dirname "$1")"
+    moveAppBundles() {
+      echo "Moving and symlinking $1"
+      appname="$(basename "$1")"
+      binname="$(basename "$(find "$1"/Contents/MacOS/ -type f -executable | head -n1)")"
+      curpath="$(dirname "$1")"
 
-        mkdir -p "$curpath"/../Applications/
-        mv "$1" "$curpath"/../Applications/
-        [ -f "$curpath"/"$binname" ] && rm "$curpath"/"$binname"
-        ln -s ../Applications/"$appname"/Contents/MacOS/"$binname" "$curpath"/"$binname"
-      }
+      mkdir -p "$curpath"/../Applications/
+      mv "$1" "$curpath"/../Applications/
+      [ -f "$curpath"/"$binname" ] && rm "$curpath"/"$binname"
+      ln -s ../Applications/"$appname"/Contents/MacOS/"$binname" "$curpath"/"$binname"
+    }
 
-      rm $out/bin/fluid.icns
-      for app in $out/bin/*.app ${lib.optionalString withExamples "$bin/bin/*.app"}; do
-        moveAppBundles "$app"
-      done
-    '';
+    rm $out/bin/fluid.icns
+    for app in $out/bin/*.app ${
+      lib.optionalString withExamples "$bin/bin/*.app"
+    }; do
+      moveAppBundles "$app"
+    done
+  '';
 
   postFixup = ''
     substituteInPlace $out/bin/fltk-config \

@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage {
   pname = "egglog";
@@ -18,13 +14,16 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "symbol_table-0.2.0" = "sha256-f9UclMOUig+N5L3ibBXou0pJ4S/CQqtaji7tnebVbis=";
-      "symbolic_expressions-5.0.3" = "sha256-mSxnhveAItlTktQC4hM8o6TYjgtCUgkdZj7i6MR4Oeo=";
+      "symbol_table-0.2.0" =
+        "sha256-f9UclMOUig+N5L3ibBXou0pJ4S/CQqtaji7tnebVbis=";
+      "symbolic_expressions-5.0.3" =
+        "sha256-mSxnhveAItlTktQC4hM8o6TYjgtCUgkdZj7i6MR4Oeo=";
     };
   };
 
   meta = with lib; {
-    description = "A fixpoint reasoning system that unifies Datalog and equality saturation";
+    description =
+      "A fixpoint reasoning system that unifies Datalog and equality saturation";
     homepage = "https://github.com/egraphs-good/egglog";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];

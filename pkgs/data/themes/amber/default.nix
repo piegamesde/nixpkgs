@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  sassc,
-  gdk-pixbuf,
-  librsvg,
-  gtk_engines,
-  gtk-engine-murrine,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, sassc, gdk-pixbuf, librsvg
+, gtk_engines, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "amber-theme";
@@ -22,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OrdBeAD+gdIu6u8ESE9PtqYadSuJ8nx1Z8fB4D9y4W4=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    sassc
-  ];
+  nativeBuildInputs = [ meson ninja sassc ];
 
-  buildInputs = [
-    gdk-pixbuf
-    librsvg
-    gtk_engines
-  ];
+  buildInputs = [ gdk-pixbuf librsvg gtk_engines ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 

@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  wrapQtAppsHook,
-  qmake,
-  pkg-config,
-  qtbase,
-  qtsvg,
-  qttools,
-  qtserialport,
-  boost,
-  libngspice,
-  libgit2,
-  quazip,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, wrapQtAppsHook, qmake, pkg-config
+, qtbase, qtsvg, qttools, qtserialport, boost, libngspice, libgit2, quazip }:
 
 let
   # SHA256 of the fritzing-parts HEAD on the master branch,
@@ -27,9 +12,8 @@ let
     rev = partsSha;
     sha256 = "sha256-QiOGWc+99MJhOVrXyNOinR8rTVvW/E+wPfoB6QvbhY0=";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "fritzing";
   version = "unstable-2022-07-01";
 
@@ -40,25 +24,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-smvfuxQWF/LMFFXHOKb3zUZsEet/XoiaxXOR5QMaYzw=";
   };
 
-  buildInputs = [
-    qtbase
-    qtsvg
-    qtserialport
-    boost
-    libgit2
-    quazip
-    libngspice
-  ];
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  buildInputs = [ qtbase qtsvg qtserialport boost libgit2 quazip libngspice ];
+  nativeBuildInputs = [ qmake pkg-config qttools wrapQtAppsHook ];
 
   patches = [
     (fetchpatch {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
+      url =
+        "https://aur.archlinux.org/cgit/aur.git/plain/0001-Quick-Dirty-patch-to-allow-finding-quazip-qt5-on-Arc.patch?h=fritzing&id=1ae0dc88464f375a54b156e6761315bcb04bcc1f";
       sha256 = "sha256-iS18EWw920gyeXDoHBRGwXvwMJurJS21H77Erl+fqog=";
     })
   ];
@@ -92,14 +64,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open source prototyping tool for Arduino-based projects";
     homepage = "https://fritzing.org/";
-    license = with licenses; [
-      gpl3
-      cc-by-sa-30
-    ];
-    maintainers = with maintainers; [
-      robberer
-      muscaln
-    ];
+    license = with licenses; [ gpl3 cc-by-sa-30 ];
+    maintainers = with maintainers; [ robberer muscaln ];
     platforms = platforms.linux;
     mainProgram = "Fritzing";
   };

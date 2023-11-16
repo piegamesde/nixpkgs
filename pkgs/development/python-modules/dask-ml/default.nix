@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  dask,
-  dask-glm,
-  distributed,
-  fetchPypi,
-  multipledispatch,
-  numba,
-  numpy,
-  packaging,
-  pandas,
-  pythonOlder,
-  scikit-learn,
-  scipy,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, dask, dask-glm, distributed, fetchPypi
+, multipledispatch, numba, numpy, packaging, pandas, pythonOlder, scikit-learn
+, scipy, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dask-ml";
@@ -45,12 +31,8 @@ buildPythonPackage rec {
   # has non-standard build from source, and pypi doesn't include tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "dask_ml"
-    "dask_ml.naive_bayes"
-    "dask_ml.wrappers"
-    "dask_ml.utils"
-  ];
+  pythonImportsCheck =
+    [ "dask_ml" "dask_ml.naive_bayes" "dask_ml.wrappers" "dask_ml.utils" ];
 
   meta = with lib; {
     description = "Scalable Machine Learn with Dask";

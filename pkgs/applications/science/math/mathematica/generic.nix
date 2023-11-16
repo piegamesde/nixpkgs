@@ -1,55 +1,15 @@
-{
-  addOpenGLRunpath,
-  autoPatchelfHook,
-  lib,
-  makeWrapper,
-  requireFile,
-  runCommand,
-  stdenv,
-  symlinkJoin,
-  # arguments from default.nix
-  lang,
-  meta,
-  name,
-  src,
-  version,
-  # dependencies
-  alsa-lib,
-  cudaPackages,
-  cups,
-  dbus,
-  flite,
-  fontconfig,
-  freetype,
-  gcc-unwrapped,
-  glib,
-  gmpxx,
-  keyutils,
-  libGL,
-  libGLU,
-  libpcap,
-  libtins,
-  libuuid,
-  libxkbcommon,
-  libxml2,
-  llvmPackages_12,
-  matio,
-  mpfr,
-  ncurses,
-  opencv4,
-  openjdk11,
-  openssl,
-  pciutils,
-  tre,
-  unixODBC,
-  xcbutilimage,
-  xcbutilkeysyms,
-  xkeyboard_config,
-  xorg,
-  zlib,
-  # options
-  cudaSupport,
-}:
+{ addOpenGLRunpath, autoPatchelfHook, lib, makeWrapper, requireFile, runCommand
+, stdenv, symlinkJoin
+# arguments from default.nix
+, lang, meta, name, src, version
+# dependencies
+, alsa-lib, cudaPackages, cups, dbus, flite, fontconfig, freetype, gcc-unwrapped
+, glib, gmpxx, keyutils, libGL, libGLU, libpcap, libtins, libuuid, libxkbcommon
+, libxml2, llvmPackages_12, matio, mpfr, ncurses, opencv4, openjdk11, openssl
+, pciutils, tre, unixODBC, xcbutilimage, xcbutilkeysyms, xkeyboard_config, xorg
+, zlib
+# options
+, cudaSupport }:
 
 let
   cudaEnv = symlinkJoin {
@@ -67,95 +27,78 @@ let
       ln -s lib $out/lib64
     '';
   };
-in
-stdenv.mkDerivation {
-  inherit
-    meta
-    name
-    src
-    version
-  ;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ] ++ lib.optional cudaSupport addOpenGLRunpath;
+in stdenv.mkDerivation {
+  inherit meta name src version;
 
-  buildInputs =
-    [
-      alsa-lib
-      cups.lib
-      dbus
-      flite
-      fontconfig
-      freetype
-      glib
-      gmpxx
-      keyutils.lib
-      libGL
-      libGLU
-      libpcap
-      libtins
-      libuuid
-      libxkbcommon
-      libxml2
-      llvmPackages_12.libllvm.lib
-      matio
-      mpfr
-      ncurses
-      opencv4
-      openjdk11
-      openssl
-      pciutils
-      tre
-      unixODBC
-      xcbutilimage
-      xcbutilkeysyms
-      xkeyboard_config
-    ]
-    ++ (
-      with xorg; [
-        libICE
-        libSM
-        libX11
-        libXScrnSaver
-        libXcomposite
-        libXcursor
-        libXdamage
-        libXext
-        libXfixes
-        libXi
-        libXinerama
-        libXmu
-        libXrandr
-        libXrender
-        libXtst
-        libxcb
-      ]
-    )
-    ++ lib.optional cudaSupport cudaEnv;
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ]
+    ++ lib.optional cudaSupport addOpenGLRunpath;
 
-  wrapProgramFlags =
-    [
-      "--prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          gcc-unwrapped.lib
-          zlib
-        ]
-      }"
-      "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
-      # Fix libQt errors - #96490
-      "--set USE_WOLFRAM_LD_LIBRARY_PATH 1"
-      # Fix xkeyboard config path for Qt
-      "--set QT_XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb"
-      # wayland isn't supported
-      "--set QT_QPA_PLATFORM xcb"
-    ]
-    ++ lib.optionals cudaSupport [
-      "--set CUDA_PATH ${cudaEnv}"
-      "--set NVIDIA_DRIVER_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libnvidia-tls.so"
-      "--set CUDA_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libcuda.so"
-    ];
+  buildInputs = [
+    alsa-lib
+    cups.lib
+    dbus
+    flite
+    fontconfig
+    freetype
+    glib
+    gmpxx
+    keyutils.lib
+    libGL
+    libGLU
+    libpcap
+    libtins
+    libuuid
+    libxkbcommon
+    libxml2
+    llvmPackages_12.libllvm.lib
+    matio
+    mpfr
+    ncurses
+    opencv4
+    openjdk11
+    openssl
+    pciutils
+    tre
+    unixODBC
+    xcbutilimage
+    xcbutilkeysyms
+    xkeyboard_config
+  ] ++ (with xorg; [
+    libICE
+    libSM
+    libX11
+    libXScrnSaver
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXinerama
+    libXmu
+    libXrandr
+    libXrender
+    libXtst
+    libxcb
+  ]) ++ lib.optional cudaSupport cudaEnv;
+
+  wrapProgramFlags = [
+    "--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [ gcc-unwrapped.lib zlib ]
+    }"
+    "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
+    # Fix libQt errors - #96490
+    "--set USE_WOLFRAM_LD_LIBRARY_PATH 1"
+    # Fix xkeyboard config path for Qt
+    "--set QT_XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb"
+    # wayland isn't supported
+    "--set QT_QPA_PLATFORM xcb"
+  ] ++ lib.optionals cudaSupport [
+    "--set CUDA_PATH ${cudaEnv}"
+    "--set NVIDIA_DRIVER_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libnvidia-tls.so"
+    "--set CUDA_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libcuda.so"
+  ];
 
   unpackPhase = ''
     runHook preUnpack

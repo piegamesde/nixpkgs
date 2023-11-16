@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fsspec,
-  oci,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fsspec, oci, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ocifs";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-HY2LTm3JckAzNMVuAJNs/0LixBwiG/QKa7ILquY0Q+c=";
   };
 
-  propagatedBuildInputs = [
-    fsspec
-    oci
-  ];
+  propagatedBuildInputs = [ fsspec oci ];
 
   # Module has no tests
   doCheck = false;
@@ -32,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ocifs" ];
 
   meta = with lib; {
-    description = "Oracle Cloud Infrastructure Object Storage fsspec implementation";
+    description =
+      "Oracle Cloud Infrastructure Object Storage fsspec implementation";
     homepage = "https://ocifs.readthedocs.io";
     license = with licenses; [ upl ];
     maintainers = with maintainers; [ fab ];

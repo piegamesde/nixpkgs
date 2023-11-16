@@ -1,10 +1,4 @@
-{
-  faust,
-  alsa-lib,
-  qtbase,
-  writeText,
-  makeWrapper,
-}:
+{ faust, alsa-lib, qtbase, writeText, makeWrapper }:
 let
   # Wrap the binary coming out of the the compilation script, so it knows QT_PLUGIN_PATH
   wrapBinary = writeText "wrapBinary" ''
@@ -19,15 +13,11 @@ let
       cd $workpath
     done
   '';
-in
-faust.wrapWithBuildEnv {
+in faust.wrapWithBuildEnv {
 
   baseName = "faust2alqt";
 
-  propagatedBuildInputs = [
-    alsa-lib
-    qtbase
-  ];
+  propagatedBuildInputs = [ alsa-lib qtbase ];
 
   dontWrapQtApps = true;
 

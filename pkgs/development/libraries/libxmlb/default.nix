@@ -1,32 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  docbook_xml_dtd_43,
-  docbook-xsl-nons,
-  glib,
-  gobject-introspection,
-  gtk-doc,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  shared-mime-info,
-  nixosTests,
-  xz,
-}:
+{ stdenv, lib, fetchFromGitHub, docbook_xml_dtd_43, docbook-xsl-nons, glib
+, gobject-introspection, gtk-doc, meson, ninja, pkg-config, python3
+, shared-mime-info, nixosTests, xz }:
 
 stdenv.mkDerivation rec {
   pname = "libxmlb";
   version = "0.3.10";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "devdoc"
-    "installedTests"
-  ];
+  outputs = [ "out" "lib" "dev" "devdoc" "installedTests" ];
 
   src = fetchFromGitHub {
     owner = "hughsie";
@@ -49,10 +29,7 @@ stdenv.mkDerivation rec {
     shared-mime-info
   ];
 
-  buildInputs = [
-    glib
-    xz
-  ];
+  buildInputs = [ glib xz ];
 
   mesonFlags = [
     "--libexecdir=${placeholder "out"}/libexec"
@@ -67,9 +44,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    tests = {
-      installed-tests = nixosTests.installed-tests.libxmlb;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.libxmlb; };
   };
 
   meta = with lib; {

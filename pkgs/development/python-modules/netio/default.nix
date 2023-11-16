@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyopenssl,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyopenssl, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "netio";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-07GzT9j27KmrTQ7naIdlIz7HB9knHpjH4mQhlwUKucU=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    pyopenssl
-  ];
+  propagatedBuildInputs = [ requests pyopenssl ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -39,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for interacting with NETIO devices";
     homepage = "https://github.com/netioproducts/PyNetio";
-    changelog = "https://github.com/netioproducts/PyNetio/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/netioproducts/PyNetio/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

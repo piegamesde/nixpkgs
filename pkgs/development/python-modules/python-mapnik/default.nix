@@ -1,31 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  substituteAll,
-  isPyPy,
-  python,
-  pillow,
-  pycairo,
-  pkg-config,
-  boost182,
-  cairo,
-  harfbuzz,
-  icu,
-  libjpeg,
-  libpng,
-  libtiff,
-  libwebp,
-  mapnik,
-  proj,
-  zlib,
-  libxml2,
-  sqlite,
-  nose,
-  pytestCheckHook,
-  stdenv,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, substituteAll, isPyPy
+, python, pillow, pycairo, pkg-config, boost182, cairo, harfbuzz, icu, libjpeg
+, libpng, libtiff, libwebp, mapnik, proj, zlib, libxml2, sqlite, nose
+, pytestCheckHook, stdenv }:
 
 buildPythonPackage rec {
   pname = "python-mapnik";
@@ -43,7 +19,8 @@ buildPythonPackage rec {
   patches = [
     # https://github.com/mapnik/python-mapnik/issues/239
     (fetchpatch {
-      url = "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch";
+      url =
+        "https://github.com/koordinates/python-mapnik/commit/318b1edac16f48a7f21902c192c1dd86f6210a44.patch";
       hash = "sha256-cfU8ZqPPGCqoHEyGvJ8Xy/bGpbN2vSDct6A3N5+I8xM=";
     })
     ./find-pycairo-with-pkg-config.patch
@@ -76,10 +53,7 @@ buildPythonPackage rec {
     sqlite
   ];
 
-  propagatedBuildInputs = [
-    pillow
-    pycairo
-  ];
+  propagatedBuildInputs = [ pillow pycairo ];
 
   configureFlags = [ "XMLPARSER=libxml2" ];
 
@@ -95,20 +69,15 @@ buildPythonPackage rec {
     export XMLPARSER=libxml2
   '';
 
-  nativeCheckInputs = [
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ nose pytestCheckHook ];
 
-  preCheck =
-    ''
-      # import from $out
-      rm -r mapnik
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # Replace the hardcoded /tmp references with $TMPDIR
-      sed -i "s,/tmp,$TMPDIR,g" test/python_tests/*.py
-    '';
+  preCheck = ''
+    # import from $out
+    rm -r mapnik
+  '' + lib.optionalString stdenv.isDarwin ''
+    # Replace the hardcoded /tmp references with $TMPDIR
+    sed -i "s,/tmp,$TMPDIR,g" test/python_tests/*.py
+  '';
 
   # https://github.com/mapnik/python-mapnik/issues/255
   disabledTests = [

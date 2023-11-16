@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.uptimed;
   stateDir = "/var/lib/uptimed";
-in
-{
+in {
   options = {
     services.uptimed = {
       enable = mkOption {

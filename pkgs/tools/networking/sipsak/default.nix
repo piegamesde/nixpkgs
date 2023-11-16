@@ -1,21 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  c-ares,
-  openssl ? null,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, c-ares, openssl ? null }:
 
 stdenv.mkDerivation rec {
   pname = "sipsak";
   version = "4.1.2.1";
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    openssl
-    c-ares
-  ];
+  buildInputs = [ openssl c-ares ];
 
   # -fcommon: workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -37,4 +27,6 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ sheenobu ];
     platforms = with platforms; unix;
   };
+
 }
+

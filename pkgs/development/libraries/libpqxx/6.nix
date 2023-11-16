@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-  doxygen,
-  xmlto,
-  python3,
-  gnused,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql, doxygen, xmlto, python3, gnused }:
 
 stdenv.mkDerivation rec {
   pname = "libpqxx";
@@ -20,15 +11,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-ybnW9ip1QVadmbYLP+gvo49k9ExHfnsOhSnI6NjsAQk=";
   };
 
-  nativeBuildInputs = [
-    gnused
-    python3
-  ];
-  buildInputs = [
-    postgresql
-    doxygen
-    xmlto
-  ];
+  nativeBuildInputs = [ gnused python3 ];
+  buildInputs = [ postgresql doxygen xmlto ];
 
   preConfigure = ''
     patchShebangs .

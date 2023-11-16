@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -19,13 +14,14 @@ let
       $cfg['admin_password'] = '${cfg.adminPasswordSha256}';
       $cfg['web_root'] = 'http://${withTrailingSlash cfg.hostName}';
       $cfg['var_root'] = '${withTrailingSlash cfg.dataDir}';
-      $cfg['maximal_upload_size'] = ${builtins.toString cfg.maxUploadSizeMegabytes};
+      $cfg['maximal_upload_size'] = ${
+        builtins.toString cfg.maxUploadSizeMegabytes
+      };
       $cfg['installation_done'] = true;
 
       ${cfg.extraConfig}
   '';
-in
-{
+in {
   options.services.jirafeau = {
     adminPasswordSha256 = mkOption {
       type = types.str;
@@ -50,14 +46,13 @@ in
         $cfg['style'] = 'courgette';
         $cfg['organisation'] = 'ACME';
       '';
-      description =
-        let
-          documentationLink = "https://gitlab.com/mojo42/Jirafeau/-/blob/${cfg.package.version}/lib/config.original.php";
-        in
-        lib.mdDoc ''
-          Jirefeau configuration. Refer to <${documentationLink}> for supported
-          values.
-        '';
+      description = let
+        documentationLink =
+          "https://gitlab.com/mojo42/Jirafeau/-/blob/${cfg.package.version}/lib/config.original.php";
+      in lib.mdDoc ''
+        Jirefeau configuration. Refer to <${documentationLink}> for supported
+        values.
+      '';
     };
 
     hostName = mkOption {
@@ -75,26 +70,27 @@ in
     maxUploadTimeout = mkOption {
       type = types.str;
       default = "30m";
-      description =
-        let
-          nginxCoreDocumentation = "http://nginx.org/en/docs/http/ngx_http_core_module.html";
-        in
-        lib.mdDoc ''
-          Timeout for reading client request bodies and headers. Refer to
-          <${nginxCoreDocumentation}#client_body_timeout> and
-          <${nginxCoreDocumentation}#client_header_timeout> for accepted values.
-        '';
+      description = let
+        nginxCoreDocumentation =
+          "http://nginx.org/en/docs/http/ngx_http_core_module.html";
+      in lib.mdDoc ''
+        Timeout for reading client request bodies and headers. Refer to
+        <${nginxCoreDocumentation}#client_body_timeout> and
+        <${nginxCoreDocumentation}#client_header_timeout> for accepted values.
+      '';
     };
 
     nginxConfig = mkOption {
-      type = types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; });
+      type = types.submodule
+        (import ../web-servers/nginx/vhost-options.nix { inherit config lib; });
       default = { };
       example = literalExpression ''
         {
           serverAliases = [ "wiki.''${config.networking.domain}" ];
         }
       '';
-      description = lib.mdDoc "Extra configuration for the nginx virtual host of Jirafeau.";
+      description =
+        lib.mdDoc "Extra configuration for the nginx virtual host of Jirafeau.";
     };
 
     package = mkOption {
@@ -105,15 +101,7 @@ in
     };
 
     poolConfig = mkOption {
-      type =
-        with types;
-        attrsOf (
-          oneOf [
-            str
-            int
-            bool
-          ]
-        );
+      type = with types; attrsOf (oneOf [ str int bool ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -136,17 +124,17 @@ in
         virtualHosts."${cfg.hostName}" = mkMerge [
           cfg.nginxConfig
           {
-            extraConfig =
-              let
-                clientMaxBodySize =
-                  if cfg.maxUploadSizeMegabytes == 0 then "0" else "${cfg.maxUploadSizeMegabytes}m";
-              in
-              ''
-                index index.php;
-                client_max_body_size ${clientMaxBodySize};
-                client_body_timeout ${cfg.maxUploadTimeout};
-                client_header_timeout ${cfg.maxUploadTimeout};
-              '';
+            extraConfig = let
+              clientMaxBodySize = if cfg.maxUploadSizeMegabytes == 0 then
+                "0"
+              else
+                "${cfg.maxUploadSizeMegabytes}m";
+            in ''
+              index index.php;
+              client_max_body_size ${clientMaxBodySize};
+              client_body_timeout ${cfg.maxUploadTimeout};
+              client_header_timeout ${cfg.maxUploadTimeout};
+            '';
             locations = {
               "~ \\.php$".extraConfig = ''
                 include ${config.services.nginx.package}/conf/fastcgi_params;

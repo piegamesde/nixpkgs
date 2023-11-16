@@ -1,23 +1,17 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  fetchurl,
-  jre,
-}:
+{ lib, stdenv, makeWrapper, fetchurl, jre }:
 
 let
   pname = "allure";
   version = "2.22.1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit pname version;
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [ jre ];
 
   src = fetchurl {
-    url = "https://github.com/allure-framework/allure2/releases/download/${version}/allure-${version}.tgz";
+    url =
+      "https://github.com/allure-framework/allure2/releases/download/${version}/allure-${version}.tgz";
     sha256 = "sha256-4eXYIZp44ymim1wVqAGZq3RPftAVbSHrZm6P9m3W8ro=";
   };
   dontConfigure = true;
@@ -36,9 +30,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://docs.qameta.io/allure/";
-    description = "Allure Report is a flexible, lightweight multi-language test reporting tool.";
-    longDescription = "Allure Report is a flexible, lightweight multi-language test reporting tool. It provides clear graphical reports and allows everyone involved in the development process to extract the maximum of information from the everyday testing process";
+    description =
+      "Allure Report is a flexible, lightweight multi-language test reporting tool.";
+    longDescription =
+      "Allure Report is a flexible, lightweight multi-language test reporting tool. It provides clear graphical reports and allows everyone involved in the development process to extract the maximum of information from the everyday testing process";
     license = licenses.asl20;
     maintainers = with maintainers; [ happysalada ];
   };
 }
+

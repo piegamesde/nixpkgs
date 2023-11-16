@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytest-httpserver,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytest-httpserver, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "vt-py";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-httpserver
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-httpserver pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \

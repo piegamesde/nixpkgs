@@ -1,21 +1,8 @@
-{
-  stdenv,
-  lib,
-  buildEnv,
-  writeText,
-  pkgs,
-  pkgsi686Linux,
-}:
+{ stdenv, lib, buildEnv, writeText, pkgs, pkgsi686Linux }:
 
-{
-  name,
-  profile ? "",
-  targetPkgs ? pkgs: [ ],
-  multiPkgs ? pkgs: [ ],
-  extraBuildCommands ? "",
-  extraBuildCommandsMulti ? "",
-  extraOutputsToInstall ? [ ],
-}:
+{ name, profile ? "", targetPkgs ? pkgs: [ ], multiPkgs ? pkgs: [ ]
+, extraBuildCommands ? "", extraBuildCommandsMulti ? ""
+, extraOutputsToInstall ? [ ] }:
 
 # HOWTO:
 # All packages (most likely programs) returned from targetPkgs will only be
@@ -35,12 +22,14 @@
 let
   is64Bit = stdenv.hostPlatform.parsed.cpu.bits == 64;
   # multi-lib glibc is only supported on x86_64
-  isMultiBuild = multiPkgs != null && stdenv.hostPlatform.system == "x86_64-linux";
+  isMultiBuild = multiPkgs != null && stdenv.hostPlatform.system
+    == "x86_64-linux";
   isTargetBuild = !isMultiBuild;
 
   # list of packages (usually programs) which are only be installed for the
   # host's architecture
-  targetPaths = targetPkgs pkgs ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
+  targetPaths = targetPkgs pkgs
+    ++ (if multiPkgs == null then [ ] else multiPkgs pkgs);
 
   # list of packages which are installed for both x86 and x86_64 on x86_64
   # systems
@@ -166,11 +155,7 @@ let
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
     paths = [ etcPkg ] ++ basePkgs ++ targetPaths;
-    extraOutputsToInstall = [
-      "out"
-      "lib"
-      "bin"
-    ] ++ extraOutputsToInstall;
+    extraOutputsToInstall = [ "out" "lib" "bin" ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
     postBuild = ''
       if [[ -d  $out/share/gsettings-schemas/ ]]; then
@@ -206,10 +191,7 @@ let
   staticUsrProfileMulti = buildEnv {
     name = "${name}-usr-multi";
     paths = baseMultiPkgs ++ multiPaths;
-    extraOutputsToInstall = [
-      "out"
-      "lib"
-    ] ++ extraOutputsToInstall;
+    extraOutputsToInstall = [ "out" "lib" ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
   };
 
@@ -239,7 +221,8 @@ let
     ln -Ls ${staticUsrProfileTarget}/lib/32/ld-linux.so.2 lib/
   '';
 
-  setupLibDirs = if isTargetBuild then setupLibDirs_target else setupLibDirs_multi;
+  setupLibDirs =
+    if isTargetBuild then setupLibDirs_target else setupLibDirs_multi;
 
   # the target profile is the actual profile that will be used for the chroot
   setupTargetProfile = ''
@@ -264,8 +247,8 @@ let
       fi
     done
   '';
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   name = "${name}-fhs";
   buildCommand = ''
     mkdir -p $out

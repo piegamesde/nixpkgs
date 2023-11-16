@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "keylight-exporter";
@@ -18,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-0QSsGgokErRNIHQIjZQn5t1dvc306uZck8uLSgjcrck=";
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) keylight;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) keylight; };
 
   meta = with lib; {
     homepage = "https://github.com/mdlayher/keylight_exporter";

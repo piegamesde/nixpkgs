@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  glib,
-  cairo,
-  Carbon,
-  fontconfig,
-  libtiff,
-  giflib,
-  libjpeg,
-  libpng,
-  libXrender,
-  libexif,
-  autoreconfHook,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, glib, cairo, Carbon, fontconfig
+, libtiff, giflib, libjpeg, libpng, libXrender, libexif, autoreconfHook
+, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "libgdiplus";
@@ -30,33 +15,20 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lgif";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   hardeningDisable = [ "format" ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  configureFlags = lib.optional stdenv.cc.isClang "--host=${stdenv.hostPlatform.system}";
+  configureFlags =
+    lib.optional stdenv.cc.isClang "--host=${stdenv.hostPlatform.system}";
 
   enableParallelBuilding = true;
 
-  buildInputs = [
-    glib
-    cairo
-    fontconfig
-    libtiff
-    giflib
-    libjpeg
-    libpng
-    libXrender
-    libexif
-  ] ++ lib.optional stdenv.isDarwin Carbon;
+  buildInputs =
+    [ glib cairo fontconfig libtiff giflib libjpeg libpng libXrender libexif ]
+    ++ lib.optional stdenv.isDarwin Carbon;
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     ln -s $out/lib/libgdiplus.0.dylib $out/lib/libgdiplus.so
@@ -67,7 +39,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Mono library that provides a GDI+-compatible API on non-Windows operating systems";
+    description =
+      "Mono library that provides a GDI+-compatible API on non-Windows operating systems";
     homepage = "https://www.mono-project.com/docs/gui/libgdiplus/";
     platforms = platforms.unix;
     license = licenses.mit;

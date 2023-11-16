@@ -1,17 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.postsrsd;
-in
-{
+
+in {
 
   ###### interface
 
@@ -22,7 +17,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the postsrsd SRS server for Postfix.";
+        description =
+          lib.mdDoc "Whether to enable the postsrsd SRS server for Postfix.";
       };
 
       secretsFile = mkOption {
@@ -37,13 +33,10 @@ in
       };
 
       separator = mkOption {
-        type = types.enum [
-          "-"
-          "="
-          "+"
-        ];
+        type = types.enum [ "-" "=" "+" ];
         default = "=";
-        description = lib.mdDoc "First separator character in generated addresses";
+        description =
+          lib.mdDoc "First separator character in generated addresses";
       };
 
       # bindAddress = mkOption { # uncomment once 1.5 is released
@@ -67,13 +60,15 @@ in
       timeout = mkOption {
         type = types.int;
         default = 1800;
-        description = lib.mdDoc "Timeout for idle client connections in seconds";
+        description =
+          lib.mdDoc "Timeout for idle client connections in seconds";
       };
 
       excludeDomains = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = lib.mdDoc "Origin domains to exclude from rewriting in addition to primary domain";
+        description = lib.mdDoc
+          "Origin domains to exclude from rewriting in addition to primary domain";
       };
 
       user = mkOption {
@@ -87,7 +82,9 @@ in
         default = "postsrsd";
         description = lib.mdDoc "Group for the daemon";
       };
+
     };
+
   };
 
   ###### implementation
@@ -103,7 +100,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "postsrsd") { postsrsd.gid = config.ids.gids.postsrsd; };
+    users.groups = optionalAttrs (cfg.group == "postsrsd") {
+      postsrsd.gid = config.ids.gids.postsrsd;
+    };
 
     systemd.services.postsrsd = {
       description = "PostSRSd SRS rewriting server";
@@ -139,5 +138,6 @@ in
         chown "${cfg.user}:${cfg.group}" "${cfg.secretsFile}"
       '';
     };
+
   };
 }

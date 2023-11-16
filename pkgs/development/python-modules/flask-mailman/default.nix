@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  mkdocs-material-extensions,
-  flask,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core
+, mkdocs-material-extensions, flask, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "flask-mailman";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    flask
-    mkdocs-material-extensions
-  ];
+  propagatedBuildInputs = [ flask mkdocs-material-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -36,7 +25,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/waynerv/flask-mailman";
-    description = "Flask extension providing simple email sending capabilities.";
+    description =
+      "Flask extension providing simple email sending capabilities.";
     license = licenses.bsd3;
     maintainers = with maintainers; [ gador ];
   };

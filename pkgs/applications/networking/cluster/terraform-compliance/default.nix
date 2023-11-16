@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "terraform-compliance";
@@ -38,17 +34,16 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_which_success"
-    "test_readable_plan_file_is_not_json"
-  ];
+  disabledTests =
+    [ "test_which_success" "test_readable_plan_file_is_not_json" ];
 
   pythonImportsCheck = [ "terraform_compliance" ];
 
   meta = with lib; {
     description = "BDD test framework for terraform";
     homepage = "https://github.com/terraform-compliance/cli";
-    changelog = "https://github.com/terraform-compliance/cli/releases/tag/${version}";
+    changelog =
+      "https://github.com/terraform-compliance/cli/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

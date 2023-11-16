@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "dbus";
   version = "20211020-git";
 
@@ -36,7 +35,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/dbus/2021-10-20/dbus-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/dbus/2021-10-20/dbus-20211020-git.tgz";
     sha256 = "1h0qa609qplq3grjf3n31h1bcdj154ww2dn29mjxlkm76n5asz14";
   };
 

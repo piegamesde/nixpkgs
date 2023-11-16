@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "gomplate";
@@ -41,11 +37,9 @@ buildGoModule rec {
   meta = with lib; {
     description = "A flexible commandline tool for template rendering";
     homepage = "https://gomplate.ca/";
-    changelog = "https://github.com/hairyhenderson/gomplate/releases/tag/v${version}";
+    changelog =
+      "https://github.com/hairyhenderson/gomplate/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      ris
-      jlesquembre
-    ];
+    maintainers = with maintainers; [ ris jlesquembre ];
   };
 }

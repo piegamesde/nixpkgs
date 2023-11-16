@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  MacOSX-SDK,
-  libcharset,
-}:
+{ stdenvNoCC, MacOSX-SDK, libcharset }:
 
 let
   self = stdenvNoCC.mkDerivation {
@@ -23,9 +19,9 @@ let
     passthru = {
       tbdRewrites = {
         const."/usr/lib/libobjc.A.dylib" = "${self}/lib/libobjc.A.dylib";
-        const."/usr/lib/swift/libswiftObjectiveC.dylib" = "${self}/lib/swift/libswiftObjectiveC.dylib";
+        const."/usr/lib/swift/libswiftObjectiveC.dylib" =
+          "${self}/lib/swift/libswiftObjectiveC.dylib";
       };
     };
   };
-in
-self
+in self

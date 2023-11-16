@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  libGLU,
-  libGL,
-  xorg,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, libGLU, libGL, xorg, numpy }:
 
 buildPythonPackage rec {
   pname = "pybullet";
@@ -17,22 +9,18 @@ buildPythonPackage rec {
     hash = "sha256-G8ua+4eghr4bLeGPCE0f2rgZTaG/cfJkdDyia6o5w1E=";
   };
 
-  buildInputs = [
-    libGLU
-    libGL
-    xorg.libX11
-  ];
+  buildInputs = [ libGLU libGL xorg.libX11 ];
 
   propagatedBuildInputs = [ numpy ];
 
-  patches =
-    [
-      # make sure X11 and OpenGL can be found at runtime
-      ./static-libs.patch
-    ];
+  patches = [
+    # make sure X11 and OpenGL can be found at runtime
+    ./static-libs.patch
+  ];
 
   meta = with lib; {
-    description = "Open-source software for robot simulation, integrated with OpenAI Gym";
+    description =
+      "Open-source software for robot simulation, integrated with OpenAI Gym";
     homepage = "https://pybullet.org/";
     license = licenses.zlib;
     maintainers = with maintainers; [ timokau ];

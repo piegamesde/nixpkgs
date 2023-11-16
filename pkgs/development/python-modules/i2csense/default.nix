@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  smbus-cffi,
-}:
+{ lib, buildPythonPackage, fetchPypi, smbus-cffi }:
 
 buildPythonPackage rec {
   pname = "i2csense";
@@ -19,11 +14,8 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [
-    "i2csense.bme280"
-    "i2csense.bh1750"
-    "i2csense.htu21d"
-  ];
+  pythonImportsCheck =
+    [ "i2csense.bme280" "i2csense.bh1750" "i2csense.htu21d" ];
 
   meta = with lib; {
     description = "A library to handle i2c sensors with the Raspberry Pi";

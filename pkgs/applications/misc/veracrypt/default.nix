@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  makeself,
-  yasm,
-  fuse,
-  wxGTK,
-  lvm2,
-  substituteAll,
-  e2fsprogs,
-  exfat,
-  ntfs3g,
-  btrfs-progs,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchurl, pkg-config, makeself, yasm, fuse, wxGTK, lvm2
+, substituteAll, e2fsprogs, exfat, ntfs3g, btrfs-progs, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "veracrypt";
@@ -30,9 +15,9 @@ stdenv.mkDerivation rec {
   patches = [
     (substituteAll {
       src = ./fix-paths.patch;
-      ext2 = "${e2fsprogs}/bin/mkfs.ext2";
-      ext3 = "${e2fsprogs}/bin/mkfs.ext3";
-      ext4 = "${e2fsprogs}/bin/mkfs.ext4";
+      ext2 = "${0.0 fsprogs}/bin/mkfs.ext2";
+      ext3 = "${0.0 fsprogs}/bin/mkfs.ext3";
+      ext4 = "${0.0 fsprogs}/bin/mkfs.ext4";
       exfat = "${exfat}/bin/mkfs.exfat";
       ntfs = "${ntfs3g}/bin/mkfs.ntfs";
       btrfs = "${btrfs-progs}/bin/mkfs.btrfs";
@@ -41,17 +26,8 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "src";
 
-  nativeBuildInputs = [
-    makeself
-    pkg-config
-    yasm
-    wrapGAppsHook
-  ];
-  buildInputs = [
-    fuse
-    lvm2
-    wxGTK
-  ];
+  nativeBuildInputs = [ makeself pkg-config yasm wrapGAppsHook ];
+  buildInputs = [ fuse lvm2 wxGTK ];
 
   enableParallelBuilding = true;
 

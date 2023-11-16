@@ -1,53 +1,33 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.freeciv;
   inherit (config.users) groups;
   rootDir = "/run/freeciv";
   argsFormat = {
-    type =
-      with lib.types;
+    type = with lib.types;
       let
-        valueType =
-          nullOr (
-            oneOf [
-              bool
-              int
-              float
-              str
-              (listOf valueType)
-            ]
-          )
+        valueType = nullOr (oneOf [ bool int float str (listOf valueType) ])
           // {
             description = "freeciv-server params";
           };
-      in
-      valueType;
-    generate =
-      name: value:
+      in valueType;
+    generate = name: value:
       let
-        mkParam =
-          k: v:
+        mkParam = k: v:
           if v == null then
             [ ]
           else if isBool v then
             if v then [ ("--" + k) ] else [ ]
-          else
-            [
-              ("--" + k)
-              v
-            ];
+          else [
+            ("--" + k)
+            v
+          ];
         mkParams = k: v: map (mkParam k) (if isList v then v else [ v ]);
-      in
-      escapeShellArgs (concatLists (concatLists (mapAttrsToList mkParams value)));
+      in escapeShellArgs
+      (concatLists (concatLists (mapAttrsToList mkParams value)));
   };
-in
-{
+in {
   options = {
     services.freeciv = {
       enable = mkEnableOption (lib.mdDoc "freeciv");
@@ -59,13 +39,10 @@ in
         type = types.submodule {
           freeformType = argsFormat.type;
           options.Announce = mkOption {
-            type = types.enum [
-              "IPv4"
-              "IPv6"
-              "none"
-            ];
+            type = types.enum [ "IPv4" "IPv6" "none" ];
             default = "none";
-            description = lib.mdDoc "Announce game in LAN using given protocol.";
+            description =
+              lib.mdDoc "Announce game in LAN using given protocol.";
           };
           options.auth = mkEnableOption (lib.mdDoc "server authentication");
           options.Database = mkOption {
@@ -76,16 +53,20 @@ in
                 backend="sqlite"
                 database="/var/lib/freeciv/auth.sqlite"
             '';
-            description = lib.mdDoc "Enable database connection with given configuration.";
+            description =
+              lib.mdDoc "Enable database connection with given configuration.";
           };
           options.debug = mkOption {
             type = types.ints.between 0 3;
             default = 0;
             description = lib.mdDoc "Set debug log level.";
           };
-          options.exit-on-end = mkEnableOption (lib.mdDoc "exit instead of restarting when a game ends");
-          options.Guests = mkEnableOption (lib.mdDoc "guests to login if auth is enabled");
-          options.Newusers = mkEnableOption (lib.mdDoc "new users to login if auth is enabled");
+          options.exit-on-end = mkEnableOption
+            (lib.mdDoc "exit instead of restarting when a game ends");
+          options.Guests =
+            mkEnableOption (lib.mdDoc "guests to login if auth is enabled");
+          options.Newusers =
+            mkEnableOption (lib.mdDoc "new users to login if auth is enabled");
           options.port = mkOption {
             type = types.port;
             default = 5556;
@@ -94,7 +75,8 @@ in
           options.quitidle = mkOption {
             type = types.nullOr types.int;
             default = null;
-            description = lib.mdDoc "Quit if no players for given time in seconds.";
+            description =
+              lib.mdDoc "Quit if no players for given time in seconds.";
           };
           options.read = mkOption {
             type = types.lines;
@@ -115,7 +97,8 @@ in
           };
         };
       };
-      openFirewall = mkEnableOption (lib.mdDoc "opening the firewall for the port listening for clients");
+      openFirewall = mkEnableOption
+        (lib.mdDoc "opening the firewall for the port listening for clients");
     };
   };
   config = mkIf cfg.enable {
@@ -144,22 +127,15 @@ in
         StandardInput = "fd:freeciv.socket";
         StandardOutput = "journal";
         StandardError = "journal";
-        ExecStart = pkgs.writeShellScript "freeciv-server" (
-          ''
-            set -eux
-            savedir=$(date +%Y-%m-%d_%H-%M-%S)
-          ''
-          + "${pkgs.freeciv}/bin/freeciv-server"
-          + " "
-          + optionalString (cfg.settings.saves != null) (
-            concatStringsSep " " [
-              "--saves"
-              "${escapeShellArg cfg.settings.saves}/$savedir"
-            ]
-          )
-          + " "
-          + argsFormat.generate "freeciv-server" (cfg.settings // { saves = null; })
-        );
+        ExecStart = pkgs.writeShellScript "freeciv-server" (''
+          set -eux
+          savedir=$(date +%Y-%m-%d_%H-%M-%S)
+        '' + "${pkgs.freeciv}/bin/freeciv-server" + " "
+          + optionalString (cfg.settings.saves != null) (concatStringsSep " " [
+            "--saves"
+            "${escapeShellArg cfg.settings.saves}/$savedir"
+          ]) + " " + argsFormat.generate "freeciv-server"
+          (cfg.settings // { saves = null; }));
         DynamicUser = true;
         # Create rootDir in the host's mount namespace.
         RuntimeDirectory = [ (baseNameOf rootDir) ];
@@ -174,11 +150,7 @@ in
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         MountAPIVFS = true;
-        BindReadOnlyPaths = [
-          builtins.storeDir
-          "/etc"
-          "/run"
-        ];
+        BindReadOnlyPaths = [ builtins.storeDir "/etc" "/run" ];
         # The following options are only for optimizing:
         # systemd-analyze security freeciv
         AmbientCapabilities = "";
@@ -202,10 +174,7 @@ in
         ProtectKernelTunables = true;
         ProtectSystem = "strict";
         RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -228,7 +197,8 @@ in
         SystemCallErrorNumber = "EPERM";
       };
     };
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
   };
   meta.maintainers = with lib.maintainers; [ julm ];
 }

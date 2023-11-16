@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "yewtube";
@@ -43,12 +39,10 @@ python3Packages.buildPythonApplication rec {
   pythonImportsCheck = [ "mps_youtube" ];
 
   meta = with lib; {
-    description = "Terminal based YouTube player and downloader, forked from mps-youtube";
+    description =
+      "Terminal based YouTube player and downloader, forked from mps-youtube";
     homepage = "https://github.com/mps-youtube/yewtube";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      fgaz
-      koral
-    ];
+    maintainers = with maintainers; [ fgaz koral ];
   };
 }

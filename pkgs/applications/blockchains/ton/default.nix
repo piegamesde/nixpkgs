@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  git,
-  pkg-config,
-  gperf,
-  libmicrohttpd,
-  openssl,
-  readline,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, git, pkg-config, gperf, libmicrohttpd
+, openssl, readline, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "ton";
@@ -24,29 +13,18 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake git pkg-config ];
 
-  buildInputs = [
-    gperf
-    libmicrohttpd
-    openssl
-    readline
-    zlib
-  ];
+  buildInputs = [ gperf libmicrohttpd openssl readline zlib ];
 
   meta = with lib; {
-    description = "A fully decentralized layer-1 blockchain designed by Telegram";
+    description =
+      "A fully decentralized layer-1 blockchain designed by Telegram";
     homepage = "https://ton.org/";
-    changelog = "https://github.com/ton-blockchain/ton/blob/v${version}/Changelog.md";
+    changelog =
+      "https://github.com/ton-blockchain/ton/blob/v${version}/Changelog.md";
     license = licenses.lgpl2Only;
     platforms = platforms.all;
     maintainers = with maintainers; [ misuzu ];

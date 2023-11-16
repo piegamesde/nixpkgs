@@ -1,8 +1,4 @@
-{
-  fetchurl,
-  lib,
-  trivialBuild,
-}:
+{ fetchurl, lib, trivialBuild }:
 
 trivialBuild {
   pname = "sv-kalender";

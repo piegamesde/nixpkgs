@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  http-sfv,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  requests,
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, http-sfv
+, pytestCheckHook, pythonOlder, setuptools-scm, requests }:
 
 buildPythonPackage rec {
   pname = "http-message-signatures";
@@ -28,15 +19,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    cryptography
-    http-sfv
-  ];
+  propagatedBuildInputs = [ cryptography http-sfv ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests ];
 
   pytestFlagsArray = [ "test/test.py" ];
 

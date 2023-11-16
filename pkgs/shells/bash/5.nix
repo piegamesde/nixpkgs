@@ -1,32 +1,18 @@
-{
-  lib,
-  stdenv,
-  buildPackages,
-  fetchurl,
-  binutils,
-  bison,
-  util-linux,
+{ lib, stdenv, buildPackages, fetchurl, binutils, bison, util-linux
 
-  # patch for cygwin requires readline support
-  interactive ? stdenv.isCygwin,
-  readline,
-  withDocs ? false,
-  texinfo,
-  forFHSEnv ? false,
+# patch for cygwin requires readline support
+, interactive ? stdenv.isCygwin, readline, withDocs ? false, texinfo
+, forFHSEnv ? false
 
-  pkgsStatic,
-}:
+, pkgsStatic }:
 
 let
-  upstreamPatches = import ./bash-5.2-patches.nix (
-    nr: sha256:
+  upstreamPatches = import ./bash-5.2-patches.nix (nr: sha256:
     fetchurl {
       url = "mirror://gnu/bash/bash-5.2-patches/bash52-${nr}";
       inherit sha256;
-    }
-  );
-in
-stdenv.mkDerivation rec {
+    });
+in stdenv.mkDerivation rec {
   name = "bash-${lib.optionalString interactive "interactive-"}${version}-p${
       toString (builtins.length upstreamPatches)
     }";
@@ -37,36 +23,28 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oTnBZt9/9EccXgczBRZC7lVWwcyKSnjxRVg8XIGrMvs=";
   };
 
-  hardeningDisable =
-    [ "format" ]
-    # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
-    # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
-    # or you can check libc/include/sys/cdefs.h in bionic source code
+  hardeningDisable = [
+    "format"
+  ]
+  # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
+  # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
+  # or you can check libc/include/sys/cdefs.h in bionic source code
     ++ lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify";
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-    "doc"
-    "info"
-  ];
+  outputs = [ "out" "dev" "man" "doc" "info" ];
 
   separateDebugInfo = true;
 
-  env.NIX_CFLAGS_COMPILE =
-    ''
-      -DSYS_BASHRC="/etc/bashrc"
-      -DSYS_BASH_LOGOUT="/etc/bash_logout"
-    ''
-    + lib.optionalString (!forFHSEnv) ''
-      -DDEFAULT_PATH_VALUE="/no-such-path"
-      -DSTANDARD_UTILS_PATH="/no-such-path"
-    ''
-    + ''
-      -DNON_INTERACTIVE_LOGIN_SHELLS
-      -DSSH_SOURCE_BASHRC
-    '';
+  env.NIX_CFLAGS_COMPILE = ''
+    -DSYS_BASHRC="/etc/bashrc"
+    -DSYS_BASH_LOGOUT="/etc/bash_logout"
+  '' + lib.optionalString (!forFHSEnv) ''
+    -DDEFAULT_PATH_VALUE="/no-such-path"
+    -DSTANDARD_UTILS_PATH="/no-such-path"
+  '' + ''
+    -DNON_INTERACTIVE_LOGIN_SHELLS
+    -DSSH_SOURCE_BASHRC
+  '';
 
   patchFlags = [ "-p0" ];
 
@@ -74,37 +52,35 @@ stdenv.mkDerivation rec {
     ./pgrp-pipe-5.patch
     (fetchurl {
       name = "fix-static.patch";
-      url = "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51";
+      url =
+        "https://cgit.freebsd.org/ports/plain/shells/bash/files/patch-configure?id=3e147a1f594751a68fea00a28090d0792bee0b51";
       sha256 = "XHFMQ6eXTReNoywdETyrfQEv1rKF8+XFbQZP4YoVKFk=";
     })
   ];
 
-  configureFlags =
-    [ (if interactive then "--with-installed-readline" else "--disable-readline") ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "bash_cv_job_control_missing=nomissing"
-      "bash_cv_sys_named_pipes=nomissing"
-      "bash_cv_getcwd_malloc=yes"
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isCygwin [
-      "--without-libintl-prefix"
-      "--without-libiconv-prefix"
-      "--with-installed-readline"
-      "bash_cv_dev_stdin=present"
-      "bash_cv_dev_fd=standard"
-      "bash_cv_termcap_lib=libncurses"
-    ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "musl") [
-      "--without-bash-malloc"
-      "--disable-nls"
-    ];
+  configureFlags = [
+    (if interactive then "--with-installed-readline" else "--disable-readline")
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    "bash_cv_job_control_missing=nomissing"
+    "bash_cv_sys_named_pipes=nomissing"
+    "bash_cv_getcwd_malloc=yes"
+  ] ++ lib.optionals stdenv.hostPlatform.isCygwin [
+    "--without-libintl-prefix"
+    "--without-libiconv-prefix"
+    "--with-installed-readline"
+    "bash_cv_dev_stdin=present"
+    "bash_cv_dev_fd=standard"
+    "bash_cv_termcap_lib=libncurses"
+  ] ++ lib.optionals (stdenv.hostPlatform.libc == "musl") [
+    "--without-bash-malloc"
+    "--disable-nls"
+  ];
 
   strictDeps = true;
   # Note: Bison is needed because the patches above modify parse.y.
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [
-    bison
-  ] ++ lib.optional withDocs texinfo ++ lib.optional stdenv.hostPlatform.isDarwin binutils;
+  nativeBuildInputs = [ bison ] ++ lib.optional withDocs texinfo
+    ++ lib.optional stdenv.hostPlatform.isDarwin binutils;
 
   buildInputs = lib.optional interactive readline;
 
@@ -123,17 +99,14 @@ stdenv.mkDerivation rec {
     rm -f $out/lib/bash/Makefile.inc
   '';
 
-  postFixup =
-    if interactive then
-      ''
-        substituteInPlace "$out/bin/bashbug" \
-          --replace '#!/bin/sh' "#!$out/bin/bash"
-      ''
-    # most space is taken by locale data
-    else
-      ''
-        rm -rf "$out/share" "$out/bin/bashbug"
-      '';
+  postFixup = if interactive then ''
+    substituteInPlace "$out/bin/bashbug" \
+      --replace '#!/bin/sh' "#!$out/bin/bash"
+  ''
+  # most space is taken by locale data
+  else ''
+    rm -rf "$out/share" "$out/bin/bashbug"
+  '';
 
   passthru = {
     shellPath = "/bin/bash";
@@ -142,8 +115,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/bash/";
-    description =
-      "GNU Bourne-Again Shell, the de facto standard shell on Linux"
+    description = "GNU Bourne-Again Shell, the de facto standard shell on Linux"
       + lib.optionalString interactive " (for interactive use)";
     longDescription = ''
       Bash is the shell, or command language interpreter, that will

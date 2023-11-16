@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "victor-mono";
@@ -16,7 +12,8 @@ stdenvNoCC.mkDerivation rec {
   # Both methods produce the same file, but this way
   # we can safely reason about what version it is.
   src = fetchzip {
-    url = "https://github.com/rubjo/victor-mono/raw/v${version}/public/VictorMonoAll.zip";
+    url =
+      "https://github.com/rubjo/victor-mono/raw/v${version}/public/VictorMonoAll.zip";
     stripRoot = false;
     hash = "sha256-l8XeKE9PtluiazZO0PXfkGCcnm5o+VZdL7NZ6w0tp80=";
   };
@@ -36,10 +33,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Free programming font with cursive italics and ligatures";
     homepage = "https://rubjo.github.io/victor-mono";
     license = licenses.ofl;
-    maintainers = with maintainers; [
-      jpotier
-      dtzWill
-    ];
+    maintainers = with maintainers; [ jpotier dtzWill ];
     platforms = platforms.all;
   };
 }

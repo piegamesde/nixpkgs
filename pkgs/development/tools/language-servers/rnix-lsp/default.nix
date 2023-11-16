@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  nix,
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, nix }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rnix-lsp";
@@ -22,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   nativeCheckInputs = lib.optional (!stdenv.isDarwin) nix;
 
   meta = with lib; {
-    description = "A work-in-progress language server for Nix, with syntax checking and basic completion";
+    description =
+      "A work-in-progress language server for Nix, with syntax checking and basic completion";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

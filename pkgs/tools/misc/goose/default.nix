@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  stdenv,
-}:
+{ lib, buildGoModule, fetchFromGitHub, stdenv }:
 
 buildGoModule rec {
   pname = "goose";
@@ -26,22 +21,18 @@ buildGoModule rec {
     rm -r tests/vertica
   '';
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.gooseVersion=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.gooseVersion=${version}" ];
 
-  checkFlags =
-    [
-      # these also require a docker daemon
-      "-skip=TestClickUpDown|TestClickHouseFirstThree"
-    ];
+  checkFlags = [
+    # these also require a docker daemon
+    "-skip=TestClickUpDown|TestClickHouseFirstThree"
+  ];
 
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {
-    description = "Database migration tool which supports SQL migrations and Go functions";
+    description =
+      "Database migration tool which supports SQL migrations and Go functions";
     homepage = "https://pressly.github.io/goose/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ yuka ];

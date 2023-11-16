@@ -1,18 +1,6 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  certifi,
-  fetchFromGitHub,
-  mock,
-  pytest-asyncio,
-  pytest-httpserver,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  trustme,
-  urllib3,
-}:
+{ lib, aiohttp, buildPythonPackage, certifi, fetchFromGitHub, mock
+, pytest-asyncio, pytest-httpserver, pytestCheckHook, pythonOlder, requests
+, trustme, urllib3 }:
 
 buildPythonPackage rec {
   pname = "elastic-transport";
@@ -33,10 +21,7 @@ buildPythonPackage rec {
       --replace " --cov-report=term-missing --cov=elastic_transport" ""
   '';
 
-  propagatedBuildInputs = [
-    urllib3
-    certifi
-  ];
+  propagatedBuildInputs = [ urllib3 certifi ];
 
   nativeCheckInputs = [
     aiohttp
@@ -62,9 +47,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Transport classes and utilities shared among Python Elastic client libraries";
+    description =
+      "Transport classes and utilities shared among Python Elastic client libraries";
     homepage = "https://github.com/elasticsearch/elastic-transport-python";
-    changelog = "https://github.com/elastic/elastic-transport-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/elastic/elastic-transport-python/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ fab ];
   };

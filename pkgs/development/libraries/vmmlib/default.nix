@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  boost,
-  lapack,
-  Accelerate,
-  CoreGraphics,
-  CoreVideo,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, lapack, Accelerate
+, CoreGraphics, CoreVideo }:
 
 stdenv.mkDerivation rec {
   version = "1.6.2";
@@ -26,20 +16,9 @@ stdenv.mkDerivation rec {
     ./disable-cpack.patch # disable the need of cpack/rpm
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
-  buildInputs =
-    [
-      boost
-      lapack
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Accelerate
-      CoreGraphics
-      CoreVideo
-    ];
+  nativeBuildInputs = [ pkg-config cmake ];
+  buildInputs = [ boost lapack ]
+    ++ lib.optionals stdenv.isDarwin [ Accelerate CoreGraphics CoreVideo ];
 
   doCheck = !stdenv.isDarwin;
 
@@ -47,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "A vector and matrix math library implemented using C++ templates";
+    description =
+      "A vector and matrix math library implemented using C++ templates";
 
     longDescription = ''
       vmmlib is a vector and matrix math library implemented

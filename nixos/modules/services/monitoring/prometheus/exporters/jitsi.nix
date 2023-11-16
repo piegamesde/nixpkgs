@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.jitsi;
-in
-{
+let cfg = config.services.prometheus.exporters.jitsi;
+in {
   port = 9700;
   extraOpts = {
     url = mkOption {

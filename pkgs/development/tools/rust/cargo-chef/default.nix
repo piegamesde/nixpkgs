@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-chef";
@@ -16,7 +12,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-A22x2s5tHf9M6UbFHwmVNgO2qe65io/GysF1+ZE8NXM=";
 
   meta = with lib; {
-    description = "A cargo-subcommand to speed up Rust Docker builds using Docker layer caching";
+    description =
+      "A cargo-subcommand to speed up Rust Docker builds using Docker layer caching";
     homepage = "https://github.com/LukeMathWalker/cargo-chef";
     license = licenses.mit;
     maintainers = with maintainers; [ kkharji ];

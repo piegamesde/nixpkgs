@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  cargo,
-  gettext,
-  meson,
-  ninja,
-  pkg-config,
-  rustPlatform,
-  rustc,
-  wrapGAppsHook4,
-  appstream-glib,
-  desktop-file-utils,
-  glib,
-  gtk4,
-  gdk-pixbuf,
-  libadwaita,
-  Foundation,
-}:
+{ stdenv, lib, fetchFromGitLab, cargo, gettext, meson, ninja, pkg-config
+, rustPlatform, rustc, wrapGAppsHook4, appstream-glib, desktop-file-utils, glib
+, gtk4, gdk-pixbuf, libadwaita, Foundation }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-obfuscate";
@@ -50,12 +33,8 @@ stdenv.mkDerivation rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    gdk-pixbuf
-    libadwaita
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  buildInputs = [ glib gtk4 gdk-pixbuf libadwaita ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   meta = with lib; {
     description = "Censor private information";

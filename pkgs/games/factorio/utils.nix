@@ -2,49 +2,39 @@
 # to generate mod directories for use at runtime by factorio.
 { lib, stdenv }:
 with lib; {
-  mkModDirDrv =
-    mods: modsDatFile: # a list of mod derivations
+  mkModDirDrv = mods: modsDatFile: # a list of mod derivations
     let
       recursiveDeps = modDrv: [ modDrv ] ++ map recursiveDeps modDrv.deps;
       modDrvs = unique (flatten (map recursiveDeps mods));
-    in
-    stdenv.mkDerivation {
+    in stdenv.mkDerivation {
       name = "factorio-mod-directory";
 
       preferLocalBuild = true;
-      buildCommand =
-        ''
-          mkdir -p $out
-          for modDrv in ${toString modDrvs}; do
-            # NB: there will only ever be a single zip file in each mod derivation's output dir
-            ln -s $modDrv/*.zip $out
-          done
-        ''
-        + (lib.optionalString (modsDatFile != null) ''
-          cp ${modsDatFile} $out/mod-settings.dat
-        '');
+      buildCommand = ''
+        mkdir -p $out
+        for modDrv in ${toString modDrvs}; do
+          # NB: there will only ever be a single zip file in each mod derivation's output dir
+          ln -s $modDrv/*.zip $out
+        done
+      '' + (lib.optionalString (modsDatFile != null) ''
+        cp ${modsDatFile} $out/mod-settings.dat
+      '');
     };
 
-  modDrv =
-    { allRecommendedMods, allOptionalMods }:
-    {
-      src,
-      name ? null,
-      deps ? [ ],
-      optionalDeps ? [ ],
-      recommendedDeps ? [ ],
-    }:
+  modDrv = { allRecommendedMods, allOptionalMods }:
+    { src, name ? null, deps ? [ ], optionalDeps ? [ ], recommendedDeps ? [ ] }:
     stdenv.mkDerivation {
 
       inherit src;
 
       # Use the name of the zip, but endstrip ".zip" and possibly the querystring that gets left in by fetchurl
-      name = replaceStrings [ "_" ] [ "-" ] (
-        if name != null then name else removeSuffix ".zip" (head (splitString "?" src.name))
-      );
+      name = replaceStrings [ "_" ] [ "-" ] (if name != null then
+        name
+      else
+        removeSuffix ".zip" (head (splitString "?" src.name)));
 
-      deps =
-        deps ++ optionals allOptionalMods optionalDeps ++ optionals allRecommendedMods recommendedDeps;
+      deps = deps ++ optionals allOptionalMods optionalDeps
+        ++ optionals allRecommendedMods recommendedDeps;
 
       preferLocalBuild = true;
       buildCommand = ''

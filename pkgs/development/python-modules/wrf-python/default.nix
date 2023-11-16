@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pythonOlder,
-  buildPythonPackage,
-  basemap,
-  gfortran,
-  netcdf4,
-  numpy,
-  python,
-  setuptools,
-  xarray,
-  wrapt,
-}:
+{ stdenv, lib, fetchFromGitHub, pythonOlder, buildPythonPackage, basemap
+, gfortran, netcdf4, numpy, python, setuptools, xarray, wrapt }:
 
 buildPythonPackage rec {
   pname = "wrf-python";
@@ -30,13 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ gfortran ];
 
-  propagatedBuildInputs = [
-    basemap
-    numpy
-    setuptools
-    xarray
-    wrapt
-  ];
+  propagatedBuildInputs = [ basemap numpy setuptools xarray wrapt ];
 
   nativeCheckInputs = [ netcdf4 ];
 

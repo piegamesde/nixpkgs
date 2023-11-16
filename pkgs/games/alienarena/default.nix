@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchsvn,
-  pkg-config,
-  libjpeg,
-  libX11,
-  libXxf86vm,
-  curl,
-  libogg,
-  libvorbis,
-  freetype,
-  openal,
-  libGL,
-}:
+{ lib, stdenv, fetchsvn, pkg-config, libjpeg, libX11, libXxf86vm, curl, libogg
+, libvorbis, freetype, openal, libGL }:
 
 stdenv.mkDerivation rec {
   pname = "alienarena";
@@ -25,17 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libjpeg
-    libX11
-    curl
-    libogg
-    libvorbis
-    freetype
-    openal
-    libGL
-    libXxf86vm
-  ];
+  buildInputs =
+    [ libjpeg libX11 curl libogg libvorbis freetype openal libGL libXxf86vm ];
 
   patchPhase = ''
     substituteInPlace ./configure \

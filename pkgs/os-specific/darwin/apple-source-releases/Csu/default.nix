@@ -1,8 +1,4 @@
-{
-  lib,
-  appleDerivation',
-  stdenv,
-}:
+{ lib, appleDerivation', stdenv }:
 
 appleDerivation' stdenv {
 
@@ -22,7 +18,8 @@ appleDerivation' stdenv {
   '';
 
   installFlags = [ "DSTROOT=$(out)" ];
-  enableParallelInstalling = false; # cp: cannot create regular file '$out/lib/crt1.10.6.o'
+  enableParallelInstalling =
+    false; # cp: cannot create regular file '$out/lib/crt1.10.6.o'
 
   meta = with lib; {
     description = "Apple's common startup stubs for darwin";

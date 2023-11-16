@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  confluent-kafka,
-  distributed,
-  fetchpatch,
-  fetchPypi,
-  flaky,
-  graphviz,
-  networkx,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  six,
-  toolz,
-  tornado,
-  zict,
-}:
+{ stdenv, lib, buildPythonPackage, confluent-kafka, distributed, fetchpatch
+, fetchPypi, flaky, graphviz, networkx, pytest-asyncio, pytestCheckHook
+, pythonOlder, requests, six, toolz, tornado, zict }:
 
 buildPythonPackage rec {
   pname = "streamz";
@@ -31,13 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-VXfWkEwuxInBQVQJV3IQXgGVRkiBmYfUZCBMbjyWNPM=";
   };
 
-  propagatedBuildInputs = [
-    networkx
-    six
-    toolz
-    tornado
-    zict
-  ];
+  propagatedBuildInputs = [ networkx six toolz tornado zict ];
 
   nativeCheckInputs = [
     confluent-kafka
@@ -67,11 +44,10 @@ buildPythonPackage rec {
     "test_buffer"
   ];
 
-  disabledTestPaths =
-    [
-      # Disable kafka tests
-      "streamz/tests/test_kafka.py"
-    ];
+  disabledTestPaths = [
+    # Disable kafka tests
+    "streamz/tests/test_kafka.py"
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

@@ -1,24 +1,19 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build time
-  setuptools-scm,
+# build time
+, setuptools-scm
 
-  # propagates
-  aiohttp,
+# propagates
+, aiohttp
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 let
   pname = "uasiren";
   version = "0.0.1";
-in
 
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -37,16 +32,16 @@ buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pythonImportsCheck = [
-    "uasiren"
-    "uasiren.client"
-  ];
+  pythonImportsCheck = [ "uasiren" "uasiren.client" ];
 
   meta = with lib; {
-    changelog = "https://github.com/PaulAnnekov/uasiren/releases/tag/v${version}";
-    description = "Implements siren.pp.ua API - public wrapper for api.ukrainealarm.com API that returns info about Ukraine air-raid alarms";
+    changelog =
+      "https://github.com/PaulAnnekov/uasiren/releases/tag/v${version}";
+    description =
+      "Implements siren.pp.ua API - public wrapper for api.ukrainealarm.com API that returns info about Ukraine air-raid alarms";
     homepage = "https://github.com/PaulAnnekov/uasiren";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };
 }
+

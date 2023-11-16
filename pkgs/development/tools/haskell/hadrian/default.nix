@@ -1,27 +1,8 @@
-{
-  # GHC source tree to build hadrian from
-  ghcSrc ? null,
-  ghcVersion ? null,
-  mkDerivation,
-  base,
-  bytestring,
-  Cabal,
-  containers,
-  directory,
-  extra,
-  filepath,
-  lib,
-  mtl,
-  parsec,
-  shake,
-  text,
-  transformers,
-  unordered-containers,
-  cryptohash-sha256,
-  base16-bytestring,
-  userSettings ? null,
-  writeText,
-}:
+{ # GHC source tree to build hadrian from
+ghcSrc ? null, ghcVersion ? null, mkDerivation, base, bytestring, Cabal
+, containers, directory, extra, filepath, lib, mtl, parsec, shake, text
+, transformers, unordered-containers, cryptohash-sha256, base16-bytestring
+, userSettings ? null, writeText }:
 
 if ghcSrc == null || ghcVersion == null then
   throw "hadrian: need to specify ghcSrc and ghcVersion arguments manually"
@@ -36,7 +17,9 @@ else
     '';
     # Overwrite UserSettings.hs with a provided custom one
     postPatch = lib.optionalString (userSettings != null) ''
-      install -m644 "${writeText "UserSettings.hs" userSettings}" src/UserSettings.hs
+      install -m644 "${
+        writeText "UserSettings.hs" userSettings
+      }" src/UserSettings.hs
     '';
     configureFlags = [
       # avoid QuickCheck dep which needs shared libs / TH
@@ -48,26 +31,24 @@ else
     ];
     isLibrary = false;
     isExecutable = true;
-    executableHaskellDepends =
-      [
-        base
-        bytestring
-        Cabal
-        containers
-        directory
-        extra
-        filepath
-        mtl
-        parsec
-        shake
-        text
-        transformers
-        unordered-containers
-      ]
-      ++ lib.optionals (lib.versionAtLeast ghcVersion "9.7") [
-        cryptohash-sha256
-        base16-bytestring
-      ];
+    executableHaskellDepends = [
+      base
+      bytestring
+      Cabal
+      containers
+      directory
+      extra
+      filepath
+      mtl
+      parsec
+      shake
+      text
+      transformers
+      unordered-containers
+    ] ++ lib.optionals (lib.versionAtLeast ghcVersion "9.7") [
+      cryptohash-sha256
+      base16-bytestring
+    ];
     description = "GHC build system";
     license = lib.licenses.bsd3;
   }

@@ -1,36 +1,8 @@
-{
-  alsa-lib,
-  cmake,
-  copyDesktopItems,
-  curl,
-  fetchFromBitbucket,
-  fetchFromGitHub,
-  fetchzip,
-  ghc_filesystem,
-  glew,
-  glfw,
-  gnome,
-  gtk3-x11,
-  imagemagick,
-  jansson,
-  jq,
-  lib,
-  libarchive,
-  libicns,
-  libjack2,
-  libpulseaudio,
-  libsamplerate,
-  libXext,
-  libXi,
-  makeDesktopItem,
-  makeWrapper,
-  pkg-config,
-  rtmidi,
-  speexdsp,
-  stdenv,
-  wrapGAppsHook,
-  zstd,
-}:
+{ alsa-lib, cmake, copyDesktopItems, curl, fetchFromBitbucket, fetchFromGitHub
+, fetchzip, ghc_filesystem, glew, glfw, gnome, gtk3-x11, imagemagick, jansson
+, jq, lib, libarchive, libicns, libjack2, libpulseaudio, libsamplerate, libXext
+, libXi, makeDesktopItem, makeWrapper, pkg-config, rtmidi, speexdsp, stdenv
+, wrapGAppsHook, zstd }:
 
 let
   # The package repo vendors some of the package dependencies as submodules.
@@ -102,16 +74,9 @@ let
       sha256 = "11gpl0ak757ilrq4fi0brj0chmlcr1hihc32yd7qza4fxjw2yx2v";
     };
 
-    nativeBuildInputs = [
-      cmake
-      pkg-config
-    ];
+    nativeBuildInputs = [ cmake pkg-config ];
 
-    buildInputs = [
-      alsa-lib
-      libjack2
-      libpulseaudio
-    ];
+    buildInputs = [ alsa-lib libjack2 libpulseaudio ];
 
     cmakeFlags = [
       "-DRTAUDIO_API_ALSA=ON"
@@ -120,8 +85,7 @@ let
       "-DRTAUDIO_API_CORE=OFF"
     ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "VCV-Rack";
   version = "2.3.0";
 
@@ -134,11 +98,7 @@ stdenv.mkDerivation rec {
       comment = "Create music by patching together virtual synthesizer modules";
       exec = "Rack";
       icon = "Rack";
-      categories = [
-        "AudioVideo"
-        "AudioVideoEditing"
-        "Audio"
-      ];
+      categories = [ "AudioVideo" "AudioVideoEditing" "Audio" ];
       keywords = [ "music" ];
     })
   ];
@@ -213,14 +173,8 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  makeFlags =
-    lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    ]
-    ++ [
-      "all"
-      "plugins"
-    ];
+  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ] ++ [ "all" "plugins" ];
 
   installPhase = ''
     runHook preInstall
@@ -259,16 +213,8 @@ stdenv.mkDerivation rec {
     homepage = "https://vcvrack.com/";
     # The source is GPL3+ licensed, some of the art is CC-BY-NC 4.0 or under a
     # no-derivatives clause
-    license = with licenses; [
-      gpl3Plus
-      cc-by-nc-40
-      unfreeRedistributable
-    ];
-    maintainers = with maintainers; [
-      nathyong
-      jpotier
-      ddelabru
-    ];
+    license = with licenses; [ gpl3Plus cc-by-nc-40 unfreeRedistributable ];
+    maintainers = with maintainers; [ nathyong jpotier ddelabru ];
     platforms = platforms.linux;
   };
 }

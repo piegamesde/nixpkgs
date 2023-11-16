@@ -1,21 +1,16 @@
 { version, sha256 }:
 
-{
-  fetchurl,
-  python,
-  lib,
-}:
+{ fetchurl, python, lib }:
 
 python.pkgs.buildPythonApplication rec {
   pname = "scons";
   inherit version;
 
   src = fetchurl {
-    url =
-      if lib.versionAtLeast version "4.3.0" then
-        "mirror://sourceforge/project/scons/scons/${version}/SCons-${version}.tar.gz"
-      else
-        "mirror://sourceforge/scons/scons-${version}.tar.gz";
+    url = if lib.versionAtLeast version "4.3.0" then
+      "mirror://sourceforge/project/scons/scons/${version}/SCons-${version}.tar.gz"
+    else
+      "mirror://sourceforge/scons/scons-${version}.tar.gz";
     inherit sha256;
   };
 
@@ -23,15 +18,13 @@ python.pkgs.buildPythonApplication rec {
 
   patches = lib.optionals (lib.versionAtLeast version "4.3.0") [ ./env.patch ];
 
-  postPatch =
-    lib.optionalString (lib.versionAtLeast version "4.0.0") ''
-      substituteInPlace setup.cfg \
-        --replace "build/dist" "dist"
-    ''
-    + lib.optionalString (lib.versionAtLeast version "4.1.0") ''
-      substituteInPlace setup.cfg \
-        --replace "build/doc/man/" ""
-    '';
+  postPatch = lib.optionalString (lib.versionAtLeast version "4.0.0") ''
+    substituteInPlace setup.cfg \
+      --replace "build/dist" "dist"
+  '' + lib.optionalString (lib.versionAtLeast version "4.1.0") ''
+    substituteInPlace setup.cfg \
+      --replace "build/doc/man/" ""
+  '';
 
   # The release tarballs don't contain any tests (runtest.py and test/*):
   doCheck = lib.versionOlder version "4.0.0";
@@ -58,7 +51,8 @@ python.pkgs.buildPythonApplication rec {
       software.
     '';
     homepage = "https://scons.org/";
-    changelog = "https://raw.githubusercontent.com/SConsProject/scons/rel_${version}/src/CHANGES.txt";
+    changelog =
+      "https://raw.githubusercontent.com/SConsProject/scons/rel_${version}/src/CHANGES.txt";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = [ ];

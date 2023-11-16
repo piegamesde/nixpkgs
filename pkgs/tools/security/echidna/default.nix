@@ -1,46 +1,11 @@
-{
-  lib,
-  fetchFromGitHub,
-  # Haskell deps
-  mkDerivation,
-  aeson,
-  base,
-  base16-bytestring,
-  binary,
-  brick,
-  bytestring,
-  containers,
-  data-dword,
-  data-has,
-  directory,
-  exceptions,
-  extra,
-  filepath,
-  hashable,
-  hevm,
-  hpack,
-  html-entities,
-  lens,
-  ListLike,
-  MonadRandom,
-  mtl,
-  optparse-applicative,
-  process,
-  random,
-  semver,
-  tasty,
-  tasty-hunit,
-  tasty-quickcheck,
-  text,
-  transformers,
-  unix,
-  unliftio,
-  unordered-containers,
-  vector,
-  vector-instances,
-  vty,
-  yaml,
-}:
+{ lib, fetchFromGitHub
+# Haskell deps
+, mkDerivation, aeson, base, base16-bytestring, binary, brick, bytestring
+, containers, data-dword, data-has, directory, exceptions, extra, filepath
+, hashable, hevm, hpack, html-entities, lens, ListLike, MonadRandom, mtl
+, optparse-applicative, process, random, semver, tasty, tasty-hunit
+, tasty-quickcheck, text, transformers, unix, unliftio, unordered-containers
+, vector, vector-instances, vty, yaml }:
 mkDerivation rec {
   pname = "echidna";
   version = "2.0.5";
@@ -91,11 +56,7 @@ mkDerivation rec {
   ];
   libraryToolDepends = [ hpack ];
   executableHaskellDepends = libraryHaskellDepends;
-  testHaskellDepends = [
-    tasty
-    tasty-hunit
-    tasty-quickcheck
-  ];
+  testHaskellDepends = [ tasty tasty-hunit tasty-quickcheck ];
   preConfigure = ''
     hpack
     # re-enable dynamic build for Linux

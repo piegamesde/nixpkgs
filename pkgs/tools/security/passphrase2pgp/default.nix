@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nix-update-script,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
 
 buildGoModule rec {
   pname = "passphrase2pgp";

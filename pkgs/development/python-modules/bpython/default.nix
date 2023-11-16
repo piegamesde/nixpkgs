@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  curtsies,
-  cwcwidth,
-  greenlet,
-  jedi,
-  pygments,
-  pytestCheckHook,
-  pythonOlder,
-  pyperclip,
-  pyxdg,
-  requests,
-  substituteAll,
-  typing-extensions,
-  urwid,
-  watchdog,
-}:
+{ lib, buildPythonPackage, fetchPypi, curtsies, cwcwidth, greenlet, jedi
+, pygments, pytestCheckHook, pythonOlder, pyperclip, pyxdg, requests
+, substituteAll, typing-extensions, urwid, watchdog }:
 
 buildPythonPackage rec {
   pname = "bpython";
@@ -53,19 +37,16 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "bpython" ];
 
-  disabledTests =
-    [
-      # Check for syntax error ends with an AssertionError
-      "test_syntaxerror"
-    ];
+  disabledTests = [
+    # Check for syntax error ends with an AssertionError
+    "test_syntaxerror"
+  ];
 
   meta = with lib; {
-    description = "A fancy curses interface to the Python interactive interpreter";
+    description =
+      "A fancy curses interface to the Python interactive interpreter";
     homepage = "https://bpython-interpreter.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      flokli
-      dotlambda
-    ];
+    maintainers = with maintainers; [ flokli dotlambda ];
   };
 }

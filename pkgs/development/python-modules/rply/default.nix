@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  appdirs,
-  py,
-  pytestCheckHook,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, appdirs, py, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "rply";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ appdirs ];
 
-  nativeCheckInputs = [
-    py
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ py pytestCheckHook ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

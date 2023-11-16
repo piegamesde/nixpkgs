@@ -1,19 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  python3,
-  gnome,
-  wrapGAppsNoGuiHook,
-  gobject-introspection,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, python3, gnome, wrapGAppsNoGuiHook
+, gobject-introspection }:
 
-let
-  inherit (python3.pkgs) buildPythonApplication pygobject3;
-in
-buildPythonApplication rec {
+let inherit (python3.pkgs) buildPythonApplication pygobject3;
+in buildPythonApplication rec {
   pname = "gnome-browser-connector";
   version = "42.1";
 
@@ -52,7 +41,8 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-browser-connector"; };
+    updateScript =
+      gnome.updateScript { packageName = "gnome-browser-connector"; };
   };
 
   meta = with lib; {

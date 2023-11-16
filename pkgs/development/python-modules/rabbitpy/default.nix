@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  mock,
-  nose,
-  pamqp,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, mock, nose, pamqp }:
 
 buildPythonPackage rec {
   version = "2.0.1";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [ pamqp ];
-  nativeCheckInputs = [
-    mock
-    nose
-  ];
+  nativeCheckInputs = [ mock nose ];
 
   checkPhase = ''
     runHook preCheck
@@ -39,7 +29,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A pure python, thread-safe, minimalistic and pythonic RabbitMQ client library";
+    description =
+      "A pure python, thread-safe, minimalistic and pythonic RabbitMQ client library";
     homepage = "https://pypi.python.org/pypi/rabbitpy";
     license = licenses.bsd3;
 
@@ -47,4 +38,5 @@ buildPythonPackage rec {
     # https://github.com/gmr/rabbitpy/issues/125
     broken = true;
   };
+
 }

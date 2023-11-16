@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  pbr,
-  fixtures,
-  testtools,
-}:
+{ lib, buildPythonPackage, fetchPypi, python, pbr, fixtures, testtools }:
 
 buildPythonPackage rec {
   pname = "testresources";
@@ -19,10 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pbr ];
 
-  nativeCheckInputs = [
-    fixtures
-    testtools
-  ];
+  nativeCheckInputs = [ fixtures testtools ];
 
   checkPhase = ''
     ${python.interpreter} -m testtools.run discover

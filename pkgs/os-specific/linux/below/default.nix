@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  clang,
-  pkg-config,
-  elfutils,
-  rustfmt,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, clang, pkg-config, elfutils
+, rustfmt, zlib }:
 
 rustPlatform.buildRustPackage rec {
   pname = "below";
@@ -26,15 +17,8 @@ rustPlatform.buildRustPackage rec {
   # bpf code compilation
   hardeningDisable = [ "stackprotector" ];
 
-  nativeBuildInputs = [
-    clang
-    pkg-config
-    rustfmt
-  ];
-  buildInputs = [
-    elfutils
-    zlib
-  ];
+  nativeBuildInputs = [ clang pkg-config rustfmt ];
+  buildInputs = [ elfutils zlib ];
 
   # needs /sys/fs/cgroup
   doCheck = false;

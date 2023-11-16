@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-}:
+{ lib, stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "stops";
   version = "0.4.0";
 
   src = fetchurl {
-    url = "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2";
+    url =
+      "https://kokkinizita.linuxaudio.org/linuxaudio/downloads/${pname}-${version}.tar.bz2";
     hash = "sha256-DnmguOAGyw9nv88ekJfbC04Qwbsw5tXEAaKeiCQR/LA=";
   };
 
@@ -32,9 +29,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/aeolus/index.html";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      nico202
-      orivej
-    ];
+    maintainers = with maintainers; [ nico202 orivej ];
   };
 }

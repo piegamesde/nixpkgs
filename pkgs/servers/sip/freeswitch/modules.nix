@@ -1,27 +1,12 @@
-{
-  libopus,
-  opusfile,
-  libopusenc,
-  libogg,
-  libctb,
-  gsmlib,
-  lua,
-  curl,
-  ffmpeg,
-  libmysqlclient,
-  postgresql,
-  spandsp3,
-  sofia_sip,
-  libks,
-}:
+{ libopus, opusfile, libopusenc, libogg, libctb, gsmlib, lua, curl, ffmpeg
+, libmysqlclient, postgresql, spandsp3, sofia_sip, libks }:
 
 let
 
   mk = path: inputs: { inherit path inputs; };
-in
 
-# TODO: many of these are untested and missing required inputs
-{
+  # TODO: many of these are untested and missing required inputs
+in {
   applications = {
     abstraction = mk "applications/mod_abstraction" [ ];
     av = mk "applications/mod_av" [ ffmpeg ];
@@ -123,17 +108,12 @@ in
     xml = mk "dialplans/mod_dialplan_xml" [ ];
   };
 
-  directories = {
-    ldap = mk "directories/mod_ldap" [ ];
-  };
+  directories = { ldap = mk "directories/mod_ldap" [ ]; };
 
   endpoints = {
     alsa = mk "endpoints/mod_alsa" [ ];
     dingaling = mk "endpoints/mod_dingaling" [ ];
-    gsmopen = mk "endpoints/mod_gsmopen" [
-      gsmlib
-      libctb
-    ];
+    gsmopen = mk "endpoints/mod_gsmopen" [ gsmlib libctb ];
     h323 = mk "endpoints/mod_h323" [ ];
     khomp = mk "endpoints/mod_khomp" [ ];
     loopback = mk "endpoints/mod_loopback" [ ];
@@ -171,12 +151,7 @@ in
     imagick = mk "formats/mod_imagick" [ ];
     local_stream = mk "formats/mod_local_stream" [ ];
     native_file = mk "formats/mod_native_file" [ ];
-    opusfile = mk "formats/mod_opusfile" [
-      libopus
-      opusfile
-      libopusenc
-      libogg
-    ];
+    opusfile = mk "formats/mod_opusfile" [ libopus opusfile libopusenc libogg ];
     png = mk "formats/mod_png" [ ];
     portaudio_stream = mk "formats/mod_portaudio_stream" [ ];
     shell_stream = mk "formats/mod_shell_stream" [ ];

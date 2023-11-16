@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchurl,
-  appimageTools,
-}:
+{ lib, fetchurl, appimageTools }:
 
 appimageTools.wrapType2 rec {
   pname = "remnote";
@@ -14,7 +10,8 @@ appimageTools.wrapType2 rec {
   };
 
   meta = with lib; {
-    description = "A note-taking application focused on learning and productivity";
+    description =
+      "A note-taking application focused on learning and productivity";
     homepage = "https://remnote.com/";
     maintainers = with maintainers; [ max-niederman ];
     license = licenses.unfree;

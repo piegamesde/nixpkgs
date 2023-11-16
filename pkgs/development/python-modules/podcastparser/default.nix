@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose }:
 
 buildPythonPackage rec {
   pname = "podcastparser";
@@ -23,7 +18,8 @@ buildPythonPackage rec {
   '';
 
   meta = {
-    description = "podcastparser is a simple, fast and efficient podcast parser written in Python.";
+    description =
+      "podcastparser is a simple, fast and efficient podcast parser written in Python.";
     homepage = "http://gpodder.org/podcastparser/";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ mic92 ];

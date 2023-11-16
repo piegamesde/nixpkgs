@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pytest-aiohttp
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "moonraker-api";
@@ -30,10 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
   pythonImportsCheck = [ "moonraker_api" ];
 

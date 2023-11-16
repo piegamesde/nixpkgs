@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flitBuildHook,
-  pytestCheckHook,
-  pythonOlder,
-  inform,
-  parametrize-from-file,
-  setuptools,
-  voluptuous,
-  quantiphy-eval,
-  rkm-codes,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flitBuildHook, pytestCheckHook
+, pythonOlder, inform, parametrize-from-file, setuptools, voluptuous
+, quantiphy-eval, rkm-codes }:
 
 buildPythonPackage rec {
   pname = "quantiphy";
@@ -29,25 +18,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flitBuildHook ];
 
-  propagatedBuildInputs = [
-    quantiphy-eval
-    rkm-codes
-  ];
+  propagatedBuildInputs = [ quantiphy-eval rkm-codes ];
 
-  nativeCheckInputs = [
-    inform
-    parametrize-from-file
-    pytestCheckHook
-    setuptools
-    voluptuous
-  ];
+  nativeCheckInputs =
+    [ inform parametrize-from-file pytestCheckHook setuptools voluptuous ];
 
   pythonImportsCheck = [ "quantiphy" ];
 
   meta = with lib; {
     description = "Module for physical quantities (numbers with units)";
     homepage = "https://quantiphy.readthedocs.io";
-    changelog = "https://github.com/KenKundert/quantiphy/releases/tag/v${version}";
+    changelog =
+      "https://github.com/KenKundert/quantiphy/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jpetrucciani ];
   };

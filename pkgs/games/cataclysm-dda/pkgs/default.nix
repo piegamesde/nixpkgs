@@ -1,8 +1,4 @@
-{
-  lib,
-  callPackage,
-  build ? null,
-}:
+{ lib, callPackage, build ? null }:
 
 let
   pkgs = {
@@ -10,15 +6,12 @@ let
 
     soundpack = { };
 
-    tileset = {
-      UndeadPeople = callPackage ./tilesets/UndeadPeople { };
-    };
+    tileset = { UndeadPeople = callPackage ./tilesets/UndeadPeople { }; };
   };
 
   pkgs' = lib.mapAttrs (_: mods: lib.filterAttrs isAvailable mods) pkgs;
 
-  isAvailable =
-    _: mod:
+  isAvailable = _: mod:
     if (build == null) then
       true
     else if build.isTiles then
@@ -27,6 +20,5 @@ let
       mod.forCurses or false
     else
       false;
-in
 
-lib.makeExtensible (_: pkgs')
+in lib.makeExtensible (_: pkgs')

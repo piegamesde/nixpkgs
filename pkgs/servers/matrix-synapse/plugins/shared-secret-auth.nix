@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  matrix-synapse,
-  twisted,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matrix-synapse, twisted }:
 
 buildPythonPackage rec {
   pname = "matrix-synapse-shared-secret-auth";
@@ -24,7 +18,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ twisted ];
 
   meta = with lib; {
-    description = "Shared Secret Authenticator password provider module for Matrix Synapse";
+    description =
+      "Shared Secret Authenticator password provider module for Matrix Synapse";
     homepage = "https://github.com/devture/matrix-synapse-shared-secret-auth";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ sumnerevans ];

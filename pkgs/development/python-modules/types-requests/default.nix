@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  types-urllib3,
-}:
+{ lib, buildPythonPackage, fetchPypi, types-urllib3 }:
 
 buildPythonPackage rec {
   pname = "types-requests";

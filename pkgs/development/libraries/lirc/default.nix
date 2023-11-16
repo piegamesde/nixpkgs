@@ -1,33 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  autoreconfHook,
-  pkg-config,
-  help2man,
-  python3,
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, pkg-config, help2man
+, python3
 
-  alsa-lib,
-  libxslt,
-  systemd,
-  libusb-compat-0_1,
-  libftdi1,
-  libICE,
-  libSM,
-  libX11,
+, alsa-lib, libxslt, systemd, libusb-compat-0_1, libftdi1, libICE, libSM, libX11
 }:
 
 let
-  pythonEnv = python3.pythonForBuild.withPackages (
-    p:
-    with p; [
-      pyyaml
-      setuptools
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+  pythonEnv =
+    python3.pythonForBuild.withPackages (p: with p; [ pyyaml setuptools ]);
+in stdenv.mkDerivation rec {
   pname = "lirc";
   version = "0.10.2";
 
@@ -39,7 +19,8 @@ stdenv.mkDerivation rec {
   patches = [
     # Fix installation of Python bindings
     (fetchpatch {
-      url = "https://sourceforge.net/p/lirc/tickets/339/attachment/0001-Fix-Python-bindings.patch";
+      url =
+        "https://sourceforge.net/p/lirc/tickets/339/attachment/0001-Fix-Python-bindings.patch";
       sha256 = "088a39x8c1qd81qwvbiqd6crb2lk777wmrs8rdh1ga06lglyvbly";
     })
 
@@ -73,23 +54,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    help2man
-    libxslt
-    pythonEnv
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook help2man libxslt pythonEnv pkg-config ];
 
-  buildInputs = [
-    alsa-lib
-    systemd
-    libusb-compat-0_1
-    libftdi1
-    libICE
-    libSM
-    libX11
-  ];
+  buildInputs =
+    [ alsa-lib systemd libusb-compat-0_1 libftdi1 libICE libSM libX11 ];
 
   DEVINPUT_HEADER = "include/linux/input-event-codes.h";
 
@@ -103,10 +71,7 @@ stdenv.mkDerivation rec {
     "PYTHON=${pythonEnv.interpreter}"
   ];
 
-  installFlags = [
-    "sysconfdir=$out/etc"
-    "localstatedir=$TMPDIR"
-  ];
+  installFlags = [ "sysconfdir=$out/etc" "localstatedir=$TMPDIR" ];
 
   meta = with lib; {
     description = "Allows to receive and send infrared signals";

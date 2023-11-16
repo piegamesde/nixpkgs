@@ -1,110 +1,84 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gitUpdater,
-  gdk-pixbuf,
-  gnome-themes-extra,
-  gtk-engine-murrine,
-  jdupes,
-  librsvg,
-  sassc,
-  which,
-  themeVariants ? [ ] # default: blue
-  ,
-  colorVariants ? [ ] # default: all
-  ,
-  tweaks ? [ ],
-}:
+{ lib, stdenv, fetchFromGitHub, gitUpdater, gdk-pixbuf, gnome-themes-extra
+, gtk-engine-murrine, jdupes, librsvg, sassc, which
+, themeVariants ? [ ] # default: blue
+, colorVariants ? [ ] # default: all
+, tweaks ? [ ] }:
 
-let
-  pname = "qogir-theme";
-in
-lib.checkListOfEnum "${pname}: theme variants"
-  [
-    "default"
-    "manjaro"
-    "ubuntu"
-    "all"
-  ]
-  themeVariants
-  lib.checkListOfEnum
-  "${pname}: color variants"
-  [
-    "standard"
-    "light"
-    "dark"
-  ]
-  colorVariants
-  lib.checkListOfEnum
-  "${pname}: tweaks"
-  [
-    "image"
-    "square"
-    "round"
-  ]
-  tweaks
+let pname = "qogir-theme";
 
-  stdenv.mkDerivation
-  rec {
-    inherit pname;
-    version = "2023-05-24";
+in lib.checkListOfEnum "${pname}: theme variants" [
+  "default"
+  "manjaro"
+  "ubuntu"
+  "all"
+] themeVariants lib.checkListOfEnum
+"${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
+lib.checkListOfEnum "${pname}: tweaks" [ "image" "square" "round" ] tweaks
 
-    src = fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = pname;
-      rev = version;
-      sha256 = "L19pbmJJFr1xi4ZTp0ocxmdMvWmtkK2zquOFfbV+P5Q=";
-    };
+stdenv.mkDerivation rec {
+  inherit pname;
+  version = "2023-05-24";
 
-    nativeBuildInputs = [
-      jdupes
-      sassc
-      which
-    ];
+  src = fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = pname;
+    rev = version;
+    sha256 = "L19pbmJJFr1xi4ZTp0ocxmdMvWmtkK2zquOFfbV+P5Q=";
+  };
 
-    buildInputs = [
-      gdk-pixbuf # pixbuf engine for Gtk2
-      gnome-themes-extra # adwaita engine for Gtk2
-      librsvg # pixbuf loader for svg
-    ];
+  nativeBuildInputs = [ jdupes sassc which ];
 
-    propagatedUserEnvPkgs = [
-      gtk-engine-murrine # murrine engine for Gtk2
-    ];
+  buildInputs = [
+    gdk-pixbuf # pixbuf engine for Gtk2
+    gnome-themes-extra # adwaita engine for Gtk2
+    librsvg # pixbuf loader for svg
+  ];
 
-    postPatch = ''
-      patchShebangs install.sh clean-old-theme.sh
-    '';
+  propagatedUserEnvPkgs = [
+    gtk-engine-murrine # murrine engine for Gtk2
+  ];
 
-    installPhase = ''
-      runHook preInstall
+  postPatch = ''
+    patchShebangs install.sh clean-old-theme.sh
+  '';
 
-      mkdir -p $out/share/themes
+  installPhase = ''
+    runHook preInstall
 
-      name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
-        --dest $out/share/themes
+    mkdir -p $out/share/themes
 
-      mkdir -p $out/share/doc/${pname}
-      cp -a src/firefox $out/share/doc/${pname}
+    name= HOME="$TMPDIR" ./install.sh \
+      ${
+        lib.optionalString (themeVariants != [ ]) "--theme "
+        + builtins.toString themeVariants
+      } \
+      ${
+        lib.optionalString (colorVariants != [ ]) "--color "
+        + builtins.toString colorVariants
+      } \
+      ${
+        lib.optionalString (tweaks != [ ]) "--tweaks "
+        + builtins.toString tweaks
+      } \
+      --dest $out/share/themes
 
-      rm $out/share/themes/*/{AUTHORS,COPYING}
+    mkdir -p $out/share/doc/${pname}
+    cp -a src/firefox $out/share/doc/${pname}
 
-      jdupes --quiet --link-soft --recurse $out/share
+    rm $out/share/themes/*/{AUTHORS,COPYING}
 
-      runHook postInstall
-    '';
+    jdupes --quiet --link-soft --recurse $out/share
 
-    passthru.updateScript = gitUpdater { };
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "Flat Design theme for GTK based desktop environments";
-      homepage = "https://github.com/vinceliuice/Qogir-theme";
-      license = licenses.gpl3Only;
-      platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
-    };
-  }
+  passthru.updateScript = gitUpdater { };
+
+  meta = with lib; {
+    description = "Flat Design theme for GTK based desktop environments";
+    homepage = "https://github.com/vinceliuice/Qogir-theme";
+    license = licenses.gpl3Only;
+    platforms = platforms.unix;
+    maintainers = [ maintainers.romildo ];
+  };
+}

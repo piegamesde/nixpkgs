@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libbsd,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, libbsd, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "signify";

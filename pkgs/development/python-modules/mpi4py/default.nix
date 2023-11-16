@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  fetchpatch,
-  python,
-  buildPythonPackage,
-  mpi,
-  openssh,
-}:
+{ lib, fetchPypi, fetchpatch, python, buildPythonPackage, mpi, openssh }:
 
 buildPythonPackage rec {
   pname = "mpi4py";
@@ -17,9 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-F4WPLrxiMiDQEg0fqNQo0DPd50nEvDWzPYGmatf5NIA=";
   };
 
-  passthru = {
-    inherit mpi;
-  };
+  passthru = { inherit mpi; };
 
   postPatch = ''
     substituteInPlace test/test_spawn.py --replace \

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -24,47 +19,24 @@ let
     fallback_local_ip=${boolToStr cfg.fallbackLocalIP}
   '';
 
-  configFileLogin =
-    configFilePam
-    + ''
-      motd=${boolToStr cfg.motd}
-      accept_env_factor=${boolToStr cfg.acceptEnvFactor}
-    '';
-in
-{
+  configFileLogin = configFilePam + ''
+    motd=${boolToStr cfg.motd}
+    accept_env_factor=${boolToStr cfg.acceptEnvFactor}
+  '';
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "security"
-        "duosec"
-        "group"
-      ]
-      [
-        "security"
-        "duosec"
-        "groups"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "security"
-        "duosec"
-        "ikey"
-      ]
-      [
-        "security"
-        "duosec"
-        "integrationKey"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "security"
-        "duosec"
-        "skey"
-      ]
-      "The insecure security.duosec.skey option has been replaced by a new security.duosec.secretKeyFile option. Use this new option to store a secure copy of your key instead."
-    )
+    (mkRenamedOptionModule [ "security" "duosec" "group" ] [
+      "security"
+      "duosec"
+      "groups"
+    ])
+    (mkRenamedOptionModule [ "security" "duosec" "ikey" ] [
+      "security"
+      "duosec"
+      "integrationKey"
+    ])
+    (mkRemovedOptionModule [ "security" "duosec" "skey" ]
+      "The insecure security.duosec.skey option has been replaced by a new security.duosec.secretKeyFile option. Use this new option to store a secure copy of your key instead.")
   ];
 
   options = {
@@ -72,13 +44,15 @@ in
       ssh.enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "If enabled, protect SSH logins with Duo Security.";
+        description =
+          lib.mdDoc "If enabled, protect SSH logins with Duo Security.";
       };
 
       pam.enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "If enabled, protect logins with Duo Security using PAM support.";
+        description = lib.mdDoc
+          "If enabled, protect logins with Duo Security using PAM support.";
       };
 
       integrationKey = mkOption {
@@ -113,10 +87,7 @@ in
       };
 
       failmode = mkOption {
-        type = types.enum [
-          "safe"
-          "secure"
-        ];
+        type = types.enum [ "safe" "secure" ];
         default = "safe";
         description = lib.mdDoc ''
           On service or configuration errors that prevent Duo
@@ -158,11 +129,7 @@ in
       };
 
       prompts = mkOption {
-        type = types.enum [
-          1
-          2
-          3
-        ];
+        type = types.enum [ 1 2 3 ];
         default = 3;
         description = lib.mdDoc ''
           If a user fails to authenticate with a second factor, Duo
@@ -271,18 +238,16 @@ in
     /* If PAM *and* SSH are enabled, then don't do anything special.
        If PAM isn't used, set the default SSH-only options.
     */
-    services.openssh.extraConfig = mkIf (cfg.ssh.enable || cfg.pam.enable) (
-      if cfg.pam.enable then
+    services.openssh.extraConfig = mkIf (cfg.ssh.enable || cfg.pam.enable)
+      (if cfg.pam.enable then
         "UseDNS no"
-      else
-        ''
-          # Duo Security configuration
-          ForceCommand ${config.security.wrapperDir}/login_duo
-          PermitTunnel no
-          ${optionalString (!cfg.allowTcpForwarding) ''
-            AllowTcpForwarding no
-          ''}
-        ''
-    );
+      else ''
+        # Duo Security configuration
+        ForceCommand ${config.security.wrapperDir}/login_duo
+        PermitTunnel no
+        ${optionalString (!cfg.allowTcpForwarding) ''
+          AllowTcpForwarding no
+        ''}
+      '');
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  yt-dlp,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, yt-dlp }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mpv-playlistmanager";

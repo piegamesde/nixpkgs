@@ -1,28 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  opencl-clhpp,
-  ocl-icd,
-  fftw,
-  fftwFloat,
-  blas,
-  lapack,
-  boost,
-  mesa,
-  libGLU,
-  libGL,
-  freeimage,
-  python3,
-  clfft,
-  clblas,
-  doxygen,
-  buildDocs ? false,
-  cudaSupport ? false,
-  cudatoolkit,
-  darwin,
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, opencl-clhpp, ocl-icd, fftw
+, fftwFloat, blas, lapack, boost, mesa, libGLU, libGL, freeimage, python3, clfft
+, clblas, doxygen, buildDocs ? false, cudaSupport ? false, cudatoolkit, darwin
 }:
 
 stdenv.mkDerivation rec {
@@ -37,11 +15,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  cmakeFlags = [
-    "-DAF_BUILD_OPENCL=OFF"
-    "-DAF_BUILD_EXAMPLES=OFF"
-    "-DBUILD_TESTING=OFF"
-  ] ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs";
+  cmakeFlags =
+    [ "-DAF_BUILD_OPENCL=OFF" "-DAF_BUILD_EXAMPLES=OFF" "-DBUILD_TESTING=OFF" ]
+    ++ lib.optional cudaSupport "-DCMAKE_LIBRARY_PATH=${cudatoolkit}/lib/stubs";
 
   patches = [ ./no-download.patch ];
 
@@ -58,35 +34,30 @@ stdenv.mkDerivation rec {
     export CUDA_PATH="${cudatoolkit}"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ cmake pkg-config python3 ];
 
   strictDeps = true;
 
-  buildInputs =
-    [
-      opencl-clhpp
-      fftw
-      fftwFloat
-      blas
-      lapack
-      libGLU
-      libGL
-      mesa
-      freeimage
-      boost.out
-      boost.dev
-    ]
-    ++ lib.optionals stdenv.isLinux [ ocl-icd ]
+  buildInputs = [
+    opencl-clhpp
+    fftw
+    fftwFloat
+    blas
+    lapack
+    libGLU
+    libGL
+    mesa
+    freeimage
+    boost.out
+    boost.dev
+  ] ++ lib.optionals stdenv.isLinux [ ocl-icd ]
     ++ lib.optionals cudaSupport [ cudatoolkit ]
-    ++ lib.optionals buildDocs [ doxygen ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk_11_0.frameworks.Accelerate ];
+    ++ lib.optionals buildDocs [ doxygen ] ++ lib.optionals stdenv.isDarwin
+    [ darwin.apple_sdk_11_0.frameworks.Accelerate ];
 
   meta = with lib; {
-    description = "A general-purpose library for parallel and massively-parallel computations";
+    description =
+      "A general-purpose library for parallel and massively-parallel computations";
     longDescription = ''
       A general-purpose library that simplifies the process of developing software that targets parallel and massively-parallel architectures including CPUs, GPUs, and other hardware acceleration devices.";
     '';

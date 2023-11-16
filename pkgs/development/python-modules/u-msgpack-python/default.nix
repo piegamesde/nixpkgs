@@ -1,10 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-  glibcLocales,
-  unittestCheckHook,
-}:
+{ buildPythonPackage, lib, fetchPypi, glibcLocales, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "u-msgpack-python";
@@ -22,8 +16,10 @@ buildPythonPackage rec {
   nativeCheckInputs = [ unittestCheckHook ];
 
   meta = {
-    description = "A portable, lightweight MessagePack serializer and deserializer written in pure Python";
+    description =
+      "A portable, lightweight MessagePack serializer and deserializer written in pure Python";
     homepage = "https://github.com/vsergeev/u-msgpack-python";
     license = lib.licenses.mit;
   };
+
 }

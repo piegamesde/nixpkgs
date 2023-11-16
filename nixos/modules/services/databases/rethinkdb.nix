@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.rethinkdb;
   rethinkdb = cfg.package;
-in
 
-{
+in {
 
   ###### interface
 
@@ -39,12 +33,14 @@ in
 
       dbpath = mkOption {
         default = "/var/db/rethinkdb";
-        description = lib.mdDoc "Location where RethinkDB stores its data, 1 data directory per instance.";
+        description = lib.mdDoc
+          "Location where RethinkDB stores its data, 1 data directory per instance.";
       };
 
       pidpath = mkOption {
         default = "/run/rethinkdb";
-        description = lib.mdDoc "Location where each instance's pid file is located.";
+        description =
+          lib.mdDoc "Location where each instance's pid file is located.";
       };
 
       #cfgpath = mkOption {
@@ -58,7 +54,9 @@ in
       #  default = {};
       #  description = "List of named RethinkDB instances in our cluster.";
       #};
+
     };
+
   };
 
   ###### implementation
@@ -102,6 +100,9 @@ in
       isSystemUser = true;
     };
 
-    users.groups = optionalAttrs (cfg.group == "rethinkdb") (singleton { name = "rethinkdb"; });
+    users.groups = optionalAttrs (cfg.group == "rethinkdb")
+      (singleton { name = "rethinkdb"; });
+
   };
+
 }

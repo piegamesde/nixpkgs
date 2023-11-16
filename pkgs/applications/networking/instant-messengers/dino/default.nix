@@ -1,40 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  vala,
-  cmake,
-  ninja,
-  wrapGAppsHook,
-  pkg-config,
-  gettext,
-  gobject-introspection,
-  glib,
-  gdk-pixbuf,
-  gtk4,
-  glib-networking,
-  libadwaita,
-  libnotify,
-  libsoup,
-  libgee,
-  libsignal-protocol-c,
-  libgcrypt,
-  sqlite,
-  gpgme,
-  pcre2,
-  qrencode,
-  icu,
-  gspell,
-  srtp,
-  libnice,
-  gnutls,
-  gstreamer,
-  gst-plugins-base,
-  gst-plugins-good,
-  gst-plugins-bad,
-  gst-vaapi,
-  webrtc-audio-processing,
-}:
+{ lib, stdenv, fetchFromGitHub, vala, cmake, ninja, wrapGAppsHook, pkg-config
+, gettext, gobject-introspection, glib, gdk-pixbuf, gtk4, glib-networking
+, libadwaita, libnotify, libsoup, libgee, libsignal-protocol-c, libgcrypt
+, sqlite, gpgme, pcre2, qrencode, icu, gspell, srtp, libnice, gnutls, gstreamer
+, gst-plugins-base, gst-plugins-good, gst-plugins-bad, gst-vaapi
+, webrtc-audio-processing }:
 
 stdenv.mkDerivation rec {
   pname = "dino";
@@ -133,9 +102,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dino/dino";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [
-      qyliss
-      tomfitzhenry
-    ];
+    maintainers = with maintainers; [ qyliss tomfitzhenry ];
   };
 }

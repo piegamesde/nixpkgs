@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  cargo,
-  pkg-config,
-  meson,
-  ninja,
-  glib,
-  gtk4,
-  libadwaita,
-  rustc,
-  wrapGAppsHook4,
-  appstream-glib,
-  desktop-file-utils,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, cargo, pkg-config, meson, ninja
+, glib, gtk4, libadwaita, rustc, wrapGAppsHook4, appstream-glib
+, desktop-file-utils }:
 
 stdenv.mkDerivation rec {
   pname = "eyedropper";
@@ -45,11 +31,7 @@ stdenv.mkDerivation rec {
     rustPlatform.cargoSetupHook
   ];
 
-  buildInputs = [
-    glib
-    gtk4
-    libadwaita
-  ];
+  buildInputs = [ glib gtk4 libadwaita ];
 
   meta = with lib; {
     description = "A powerful color picker and formatter";

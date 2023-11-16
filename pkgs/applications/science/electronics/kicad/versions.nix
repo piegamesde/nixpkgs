@@ -15,11 +15,14 @@
         symbols.rev = "22b3e34e9221d2fa165b6b5cccf5f162f070de01";
         symbols.sha256 = "15100z8g4x28sxz8097ay1vxfxz2c4a1nvvzyx5vjfmhydwqwk49";
         templates.rev = "33cda687a1af1e1907a9fcb916010436df9ab1ae";
-        templates.sha256 = "1qi20mrsfn4fxmr1fyphmil2i9p2nzmwk5rlfchc5aq2194nj3lq";
+        templates.sha256 =
+          "1qi20mrsfn4fxmr1fyphmil2i9p2nzmwk5rlfchc5aq2194nj3lq";
         footprints.rev = "208252e63ade41c127b362c4cc676fd123dfeeb2";
-        footprints.sha256 = "11d3mwmivi6rc778a2x118a5mk11d9mr8miadxmy1mbc41jbx2dh";
+        footprints.sha256 =
+          "11d3mwmivi6rc778a2x118a5mk11d9mr8miadxmy1mbc41jbx2dh";
         packages3d.rev = "b7f731784124742a692008b3150662188ebc6193";
-        packages3d.sha256 = "1bzb6b7llzwabjkdd0xsyan0x8kihccap4gwvipzydfg7gm5fjxm";
+        packages3d.sha256 =
+          "1bzb6b7llzwabjkdd0xsyan0x8kihccap4gwvipzydfg7gm5fjxm";
       };
     };
   };
@@ -37,11 +40,14 @@
         symbols.rev = "38d4e7e1ab6a9b5d9eee85f687e60467753b2135";
         symbols.sha256 = "0df6fx9b19v6sxrfyggbisw72y66kiwqi05k8mldsgiw6q55gbkc";
         templates.rev = "867eef383a0f61015cb69677d5c632d78a2ea01a";
-        templates.sha256 = "1qi20mrsfn4fxmr1fyphmil2i9p2nzmwk5rlfchc5aq2194nj3lq";
+        templates.sha256 =
+          "1qi20mrsfn4fxmr1fyphmil2i9p2nzmwk5rlfchc5aq2194nj3lq";
         footprints.rev = "4da055a2d572ff87e7ecea97cf358ed8c1d46dfc";
-        footprints.sha256 = "1xb84284dmcb7mbvzlrxb4v4km3ih7gq856h8cglf9jn8wzlnvrk";
+        footprints.sha256 =
+          "1xb84284dmcb7mbvzlrxb4v4km3ih7gq856h8cglf9jn8wzlnvrk";
         packages3d.rev = "0f43a0962437feb53bd2083e9f39efffb5a5dd90";
-        packages3d.sha256 = "1nkk4325jh89vh52ykfnf9pz1k3jk5017gz6r2cia2v4b3jadi31";
+        packages3d.sha256 =
+          "1nkk4325jh89vh52ykfnf9pz1k3jk5017gz6r2cia2v4b3jadi31";
       };
     };
   };

@@ -54,12 +54,12 @@ rec {
        pad 3 "1.2.3.4"
        => "1.2.3"
   */
-  pad =
-    n: version:
+  pad = n: version:
     let
       numericVersion = lib.head (lib.splitString "-" version);
       versionSuffix = lib.removePrefix numericVersion version;
-    in
-    lib.concatStringsSep "." (lib.take n (lib.splitVersion numericVersion ++ lib.genList (_: "0") n))
+    in lib.concatStringsSep "."
+    (lib.take n (lib.splitVersion numericVersion ++ lib.genList (_: "0") n))
     + versionSuffix;
+
 }

@@ -1,11 +1,8 @@
-{ pkgs, lib, ... }:
-{
+{ pkgs, lib, ... }: {
   name = "aaaaxy";
   meta.maintainers = with lib.maintainers; [ Luflosi ];
 
-  nodes.machine = {
-    imports = [ ./common/x11.nix ];
-  };
+  nodes.machine = { imports = [ ./common/x11.nix ]; };
 
   # This starts the game from a known state, feeds it a prerecorded set of button presses
   # and then checks if the final game state is identical to the expected state.

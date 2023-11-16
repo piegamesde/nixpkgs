@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  libgamemode32,
-  meson,
-  ninja,
-  pkg-config,
-  dbus,
-  inih,
-  systemd,
-  appstream,
-  makeWrapper,
-  findutils,
-  gawk,
-  procps,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, libgamemode32, meson, ninja
+, pkg-config, dbus, inih, systemd, appstream, makeWrapper, findutils, gawk
+, procps }:
 
 stdenv.mkDerivation rec {
   pname = "gamemode";
@@ -28,13 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DIFcmWFkoZOklo1keYcCl6n2GJgzWKC8usHFcJmfarU=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-    "man"
-    "static"
-  ];
+  outputs = [ "out" "dev" "lib" "man" "static" ];
 
   patches = [
     # Add @libraryPath@ template variable to fix loading the PRELOAD library
@@ -44,7 +23,8 @@ stdenv.mkDerivation rec {
 
     # fix build with glibc >=2.36 (declaration of pidfd_open)
     (fetchpatch {
-      url = "https://github.com/FeralInteractive/gamemode/commit/4934191b1928ef695c3e8af21e75781f8591745f.patch";
+      url =
+        "https://github.com/FeralInteractive/gamemode/commit/4934191b1928ef695c3e8af21e75781f8591745f.patch";
       sha256 = "sha256-pWf2NGbd3gEJFwVP/EIJRbTD29V7keTQHy388enktsY=";
     })
   ];
@@ -52,30 +32,17 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace data/gamemoderun \
       --subst-var-by libraryPath ${
-        lib.makeLibraryPath (
-          [ (placeholder "lib") ]
-          ++
-            lib.optionals (stdenv.hostPlatform.system == "x86_64-linux")
-              [
-                # Support wrapping 32bit applications on a 64bit linux system
-                libgamemode32
-              ]
-        )
+        lib.makeLibraryPath ([ (placeholder "lib") ]
+          ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
+            # Support wrapping 32bit applications on a 64bit linux system
+            libgamemode32
+          ])
       }
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper meson ninja pkg-config ];
 
-  buildInputs = [
-    dbus
-    inih
-    systemd
-  ];
+  buildInputs = [ dbus inih systemd ];
 
   mesonFlags = [
     # libexec is just a way to package binaries without including them
@@ -103,13 +70,7 @@ stdenv.mkDerivation rec {
     done
 
     wrapProgram "$out/bin/gamemodelist" \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          findutils
-          gawk
-          procps
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ findutils gawk procps ]}
   '';
 
   meta = with lib; {

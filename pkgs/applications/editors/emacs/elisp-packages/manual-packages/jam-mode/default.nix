@@ -1,8 +1,4 @@
-{
-  lib,
-  trivialBuild,
-  fetchurl,
-}:
+{ lib, trivialBuild, fetchurl }:
 
 trivialBuild rec {
   pname = "jam-mode";

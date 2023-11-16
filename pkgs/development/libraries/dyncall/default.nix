@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "dyncall";
@@ -32,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Highly dynamic multi-platform foreign function call interface library";
+    description =
+      "Highly dynamic multi-platform foreign function call interface library";
     homepage = "https://www.dyncall.org";
     license = licenses.isc;
     maintainers = with maintainers; [ dtzWill ];

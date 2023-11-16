@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitLab,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, pytestCheckHook }:
 
 buildPythonPackage {
   pname = "trampoline";
@@ -23,7 +18,8 @@ buildPythonPackage {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Simple and tiny yield-based trampoline implementation for python";
+    description =
+      "Simple and tiny yield-based trampoline implementation for python";
     homepage = "https://gitlab.com/ferreum/trampoline";
     license = licenses.mit;
     maintainers = teams.tts.members;

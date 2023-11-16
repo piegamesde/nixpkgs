@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  which,
-  pkg-config,
-  mono,
-  glib,
-  gtk-sharp-2_0,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, which, pkg-config, mono
+, glib, gtk-sharp-2_0 }:
 
 stdenv.mkDerivation rec {
   pname = "gio-sharp";
@@ -23,17 +13,8 @@ stdenv.mkDerivation rec {
     sha256 = "13pc529pjabj7lq23dbndc26ssmg5wkhc7lfvwapm87j711m0zig";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-    automake
-    which
-  ];
-  buildInputs = [
-    mono
-    glib
-    gtk-sharp-2_0
-  ];
+  nativeBuildInputs = [ pkg-config autoconf automake which ];
+  buildInputs = [ mono glib gtk-sharp-2_0 ];
 
   dontStrip = true;
 

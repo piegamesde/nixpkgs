@@ -1,20 +1,16 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  cleanPackaging,
-}:
+{ stdenv, lib, fetchurl, cleanPackaging }:
 
 let
   version = "0.3.4";
   sha256 = "00xbkp99x9v07r34w7m2p8gak5hdsdbka36n7a733rdrrkgf5z7r";
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "nettee";
   inherit version;
 
   src = fetchurl {
-    url = "http://saf.bio.caltech.edu/pub/software/linux_or_unix_tools/beta-nettee-${version}.tar.gz";
+    url =
+      "http://saf.bio.caltech.edu/pub/software/linux_or_unix_tools/beta-nettee-${version}.tar.gz";
     inherit sha256;
   };
 
@@ -26,12 +22,7 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
   };
 
-  outputs = [
-    "bin"
-    "man"
-    "doc"
-    "out"
-  ];
+  outputs = [ "bin" "man" "doc" "out" ];
 
   patchPhase = ''
     # h_addr field was removed
@@ -60,11 +51,7 @@ stdenv.mkDerivation {
           "beowulf.master"
           "topology_info"
         ];
-        noiseFiles = [
-          "*.c"
-          "*.h"
-          "nettee"
-        ];
+        noiseFiles = [ "*.c" "*.h" "nettee" ];
       }
     } $doc/share/doc/nettee
 
@@ -76,4 +63,5 @@ stdenv.mkDerivation {
   postFixup = ''
     ${cleanPackaging.checkForRemainingFiles}
   '';
+
 }

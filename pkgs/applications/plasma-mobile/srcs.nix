@@ -70,7 +70,8 @@
   khealthcertificate = {
     version = "23.01.0";
     src = fetchurl {
-      url = "${mirror}/stable/plasma-mobile/23.01.0/khealthcertificate-23.01.0.tar.xz";
+      url =
+        "${mirror}/stable/plasma-mobile/23.01.0/khealthcertificate-23.01.0.tar.xz";
       sha256 = "193agd3jg029vcq1h5hdg3gw6zgqcmszl6ffcrid0ajbbiic4pbm";
       name = "khealthcertificate-23.01.0.tar.xz";
     };
@@ -126,7 +127,8 @@
   plasma-dialer = {
     version = "23.01.0";
     src = fetchurl {
-      url = "${mirror}/stable/plasma-mobile/23.01.0/plasma-dialer-23.01.0.tar.xz";
+      url =
+        "${mirror}/stable/plasma-mobile/23.01.0/plasma-dialer-23.01.0.tar.xz";
       sha256 = "0n9g3jf71lpcwlwr1ia1i6kh0kiv2vizssni1df3cwskd7hivn7h";
       name = "plasma-dialer-23.01.0.tar.xz";
     };
@@ -134,7 +136,8 @@
   plasma-phonebook = {
     version = "23.01.0";
     src = fetchurl {
-      url = "${mirror}/stable/plasma-mobile/23.01.0/plasma-phonebook-23.01.0.tar.xz";
+      url =
+        "${mirror}/stable/plasma-mobile/23.01.0/plasma-phonebook-23.01.0.tar.xz";
       sha256 = "0pprfgims9h6g1xw48w66bqkmqp7qp7gkc7k4zbj3lgmmnwh6z9i";
       name = "plasma-phonebook-23.01.0.tar.xz";
     };
@@ -142,7 +145,8 @@
   plasma-settings = {
     version = "23.01.0";
     src = fetchurl {
-      url = "${mirror}/stable/plasma-mobile/23.01.0/plasma-settings-23.01.0.tar.xz";
+      url =
+        "${mirror}/stable/plasma-mobile/23.01.0/plasma-settings-23.01.0.tar.xz";
       sha256 = "0fz0zjyh15ma6kv79pm0gc92iz6gikxyr4afkyzabzk9559dv1p7";
       name = "plasma-settings-23.01.0.tar.xz";
     };

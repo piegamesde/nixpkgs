@@ -1,20 +1,5 @@
-{
-  lib,
-  fetchurl,
-  stdenv,
-  gettext,
-  pkg-config,
-  glib,
-  gtk2,
-  libX11,
-  libSM,
-  libICE,
-  which,
-  IOKit,
-  copyDesktopItems,
-  makeDesktopItem,
-  wrapGAppsHook,
-}:
+{ lib, fetchurl, stdenv, gettext, pkg-config, glib, gtk2, libX11, libSM, libICE
+, which, IOKit, copyDesktopItems, makeDesktopItem, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gkrellm";
@@ -25,20 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "01lccz4fga40isv09j8rjgr0qy10rff9vj042n6gi6gdv4z69q0y";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    pkg-config
-    which
-    wrapGAppsHook
-  ];
-  buildInputs = [
-    gettext
-    glib
-    gtk2
-    libX11
-    libSM
-    libICE
-  ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
+  nativeBuildInputs = [ copyDesktopItems pkg-config which wrapGAppsHook ];
+  buildInputs = [ gettext glib gtk2 libX11 libSM libICE ]
+    ++ lib.optionals stdenv.isDarwin [ IOKit ];
 
   hardeningDisable = [ "format" ];
 
@@ -68,10 +42,7 @@ stdenv.mkDerivation rec {
       desktopName = "GKrellM";
       genericName = "System monitor";
       comment = "The GNU Krell Monitors";
-      categories = [
-        "System"
-        "Monitor"
-      ];
+      categories = [ "System" "Monitor" ];
     })
   ];
 

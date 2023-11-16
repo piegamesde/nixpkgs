@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  makeWrapper,
-  perlPackages,
-  libminc,
-  EBTKS,
+{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, perlPackages, libminc, EBTKS
 }:
 
 stdenv.mkDerivation rec {
@@ -20,29 +12,14 @@ stdenv.mkDerivation rec {
     sha256 = "1ahqv5q0ljvji99a5q8azjkdf6bgp6nr8lwivkqwqs3jm0k5clq7";
   };
 
-  patches = [
-    ./lgmask-interp.patch
-    ./nu_correct_norm-interp.patch
-  ];
+  patches = [ ./lgmask-interp.patch ./nu_correct_norm-interp.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
-  buildInputs = [
-    libminc
-    EBTKS
-  ];
-  propagatedBuildInputs = with perlPackages; [
-    perl
-    GetoptTabular
-    MNI-Perllib
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
+  buildInputs = [ libminc EBTKS ];
+  propagatedBuildInputs = with perlPackages; [ perl GetoptTabular MNI-Perllib ];
 
-  cmakeFlags = [
-    "-DLIBMINC_DIR=${libminc}/lib/cmake"
-    "-DEBTKS_DIR=${EBTKS}/lib/"
-  ];
+  cmakeFlags =
+    [ "-DLIBMINC_DIR=${libminc}/lib/cmake" "-DEBTKS_DIR=${EBTKS}/lib/" ];
 
   postFixup = ''
     for p in $out/bin/*; do

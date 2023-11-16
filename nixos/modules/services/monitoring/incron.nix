@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.incron;
-in
 
-{
+in {
   options = {
 
     services.incron = {
@@ -60,16 +54,18 @@ in
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "[ pkgs.rsync ]";
-        description = lib.mdDoc "Extra packages available to the system incrontab.";
+        description =
+          lib.mdDoc "Extra packages available to the system incrontab.";
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
 
-    warnings =
-      optional (cfg.allow != null && cfg.deny != null)
-        "If `services.incron.allow` is set then `services.incron.deny` will be ignored.";
+    warnings = optional (cfg.allow != null && cfg.deny != null)
+      "If `services.incron.allow` is set then `services.incron.deny` will be ignored.";
 
     environment.systemPackages = [ pkgs.incron ];
 
@@ -85,18 +81,20 @@ in
       mode = "0444";
       text = cfg.systab;
     };
-    environment.etc."incron.allow" = mkIf (cfg.allow != null) {
-      text = concatStringsSep "\n" cfg.allow;
-    };
-    environment.etc."incron.deny" = mkIf (cfg.deny != null) { text = concatStringsSep "\n" cfg.deny; };
+    environment.etc."incron.allow" =
+      mkIf (cfg.allow != null) { text = concatStringsSep "\n" cfg.allow; };
+    environment.etc."incron.deny" =
+      mkIf (cfg.deny != null) { text = concatStringsSep "\n" cfg.deny; };
 
     systemd.services.incron = {
       description = "File System Events Scheduler";
       wantedBy = [ "multi-user.target" ];
       path = cfg.extraPackages;
       serviceConfig.PIDFile = "/run/incrond.pid";
-      serviceConfig.ExecStartPre = "${pkgs.coreutils}/bin/mkdir -m 710 -p /var/spool/incron";
+      serviceConfig.ExecStartPre =
+        "${pkgs.coreutils}/bin/mkdir -m 710 -p /var/spool/incron";
       serviceConfig.ExecStart = "${pkgs.incron}/bin/incrond --foreground";
     };
   };
+
 }

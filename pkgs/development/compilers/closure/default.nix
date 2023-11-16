@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "closure-compiler";
   version = "20230502";
 
   src = fetchurl {
-    url = "mirror://maven/com/google/javascript/closure-compiler/v${version}/closure-compiler-v${version}.jar";
+    url =
+      "mirror://maven/com/google/javascript/closure-compiler/v${version}/closure-compiler-v${version}.jar";
     sha256 = "sha256-h/kKVX49KuivQwrG9KQr7PG0U0heiQmZd3pSyQvanSI=";
   };
 

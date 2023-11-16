@@ -1,15 +1,5 @@
-{
-  bison,
-  cacert,
-  fetchFromGitHub,
-  flex,
-  php,
-  lib,
-  stdenv,
-  installShellFiles,
-  which,
-  python3,
-}:
+{ bison, cacert, fetchFromGitHub, flex, php, lib, stdenv, installShellFiles
+, which, python3 }:
 
 # Make a custom wrapper. If `wrapProgram` is used, arcanist thinks .arc-wrapped is being
 # invoked and complains about it being an unknown toolset. We could use `makeWrapper`, but
@@ -24,8 +14,8 @@ let
     WRAPPER
     chmod +x $out/bin/${toolset}
   '';
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "arcanist";
   version = "20230530";
 
@@ -36,21 +26,12 @@ stdenv.mkDerivation {
     hash = "sha256-u+HRsaCuAAyLrEihrZtLrdZ6NTVjPshieJATK3t5Fo4=";
   };
 
-  patches = [
-    ./dont-require-python3-in-path.patch
-    ./shellcomplete-strlen-null.patch
-  ];
+  patches =
+    [ ./dont-require-python3-in-path.patch ./shellcomplete-strlen-null.patch ];
 
-  buildInputs = [
-    php
-    python3
-  ];
+  buildInputs = [ php python3 ];
 
-  nativeBuildInputs = [
-    bison
-    flex
-    installShellFiles
-  ];
+  nativeBuildInputs = [ bison flex installShellFiles ];
 
   postPatch = lib.optionalString stdenv.isAarch64 ''
     substituteInPlace support/xhpast/Makefile \

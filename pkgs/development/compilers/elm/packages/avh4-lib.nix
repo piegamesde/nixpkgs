@@ -1,22 +1,6 @@
-{
-  mkDerivation,
-  array,
-  base,
-  bytestring,
-  directory,
-  fetchgit,
-  filepath,
-  lib,
-  mtl,
-  pooled-io,
-  process,
-  relude,
-  tasty,
-  tasty-discover,
-  tasty-hspec,
-  tasty-hunit,
-  text,
-}:
+{ mkDerivation, array, base, bytestring, directory, fetchgit, filepath, lib, mtl
+, pooled-io, process, relude, tasty, tasty-discover, tasty-hspec, tasty-hunit
+, text }:
 mkDerivation {
   pname = "avh4-lib";
   version = "0.0.0.1";

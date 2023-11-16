@@ -1,19 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  libosmo-netif,
-  libosmoabis,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore
+, libosmo-netif, libosmoabis }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-mgw";
   version = "1.11.1";
 
@@ -28,21 +18,15 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libosmocore
-    libosmo-netif
-    libosmoabis
-  ];
+  buildInputs = [ libosmocore libosmo-netif libosmoabis ];
 
   enableParallelBuilding = true;
 
   meta = {
-    description = "Osmocom Media Gateway (MGW). speaks RTP and E1 as well as MGCP";
+    description =
+      "Osmocom Media Gateway (MGW). speaks RTP and E1 as well as MGCP";
     homepage = "https://osmocom.org/projects/osmo-mgw";
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ janik ];

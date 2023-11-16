@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cython,
-  jq,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cython, jq, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "jq";
@@ -18,11 +11,10 @@ buildPythonPackage rec {
     hash = "sha256-1EQm5ShjFHbO1IO5QD42fsGHFGDBrJulLrcl+WeU7wo=";
   };
 
-  patches =
-    [
-      # Removes vendoring
-      ./jq-py-setup.patch
-    ];
+  patches = [
+    # Removes vendoring
+    ./jq-py-setup.patch
+  ];
 
   nativeBuildInputs = [ cython ];
 

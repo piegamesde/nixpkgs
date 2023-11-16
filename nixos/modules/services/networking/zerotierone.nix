@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.zerotierone;
-in
-{
-  options.services.zerotierone.enable = mkEnableOption (lib.mdDoc "ZeroTierOne");
+let cfg = config.services.zerotierone;
+in {
+  options.services.zerotierone.enable =
+    mkEnableOption (lib.mdDoc "ZeroTierOne");
 
   options.services.zerotierone.joinNetworks = mkOption {
     default = [ ];
@@ -49,18 +43,13 @@ in
 
       path = [ cfg.package ];
 
-      preStart =
-        ''
-          mkdir -p /var/lib/zerotier-one/networks.d
-          chmod 700 /var/lib/zerotier-one
-          chown -R root:root /var/lib/zerotier-one
-        ''
-        + (concatMapStrings
-          (netId: ''
-            touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
-          '')
-          cfg.joinNetworks
-        );
+      preStart = ''
+        mkdir -p /var/lib/zerotier-one/networks.d
+        chmod 700 /var/lib/zerotier-one
+        chown -R root:root /var/lib/zerotier-one
+      '' + (concatMapStrings (netId: ''
+        touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
+      '') cfg.joinNetworks);
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/zerotier-one -p${toString cfg.port}";
         Restart = "always";
@@ -79,9 +68,7 @@ in
 
     # Prevent systemd from potentially changing the MAC address
     systemd.network.links."50-zerotier" = {
-      matchConfig = {
-        OriginalName = "zt*";
-      };
+      matchConfig = { OriginalName = "zt*"; };
       linkConfig = {
         AutoNegotiation = false;
         MACAddressPolicy = "none";

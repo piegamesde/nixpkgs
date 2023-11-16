@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  stdenv,
-  curl,
-  libgit2,
-  libssh2,
-  openssl,
-  zlib,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, stdenv, curl, libgit2, libssh2
+, openssl, zlib }:
 
 rustPlatform.buildRustPackage {
   pname = "git-series";
@@ -22,18 +12,12 @@ rustPlatform.buildRustPackage {
     sha256 = "1i0m2b7ma6xvkg95k57gaj1wpc1rfvka6h8jr5hglxmqqbz6cb6w";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ curl ];
 
-  buildInputs = [
-    libgit2
-    libssh2
-    openssl
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [ curl ];
+  buildInputs = [ libgit2 libssh2 openssl zlib ]
+    ++ lib.optionals stdenv.isDarwin [ curl ];
 
   LIBGIT2_SYS_USE_PKG_CONFIG = true;
   LIBSSH2_SYS_USE_PKG_CONFIG = true;
@@ -48,7 +32,8 @@ rustPlatform.buildRustPackage {
   '';
 
   meta = with lib; {
-    description = "A tool to help with formatting git patches for review on mailing lists";
+    description =
+      "A tool to help with formatting git patches for review on mailing lists";
     longDescription = ''
       git series tracks changes to a patch series over time. git
       series also tracks a cover letter for the patch series,
@@ -57,9 +42,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/git-series/git-series";
 
     license = licenses.mit;
-    maintainers = with maintainers; [
-      edef
-      vmandela
-    ];
+    maintainers = with maintainers; [ edef vmandela ];
   };
 }

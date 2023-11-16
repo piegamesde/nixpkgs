@@ -1,11 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, pytestCheckHook, pythonOlder
+, requests }:
 
 buildPythonPackage {
   pname = "python-tado";
@@ -27,7 +21,8 @@ buildPythonPackage {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Python binding for Tado web API. Pythonize your central heating!";
+    description =
+      "Python binding for Tado web API. Pythonize your central heating!";
     homepage = "https://github.com/wmalgadey/PyTado";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ jamiemagee ];

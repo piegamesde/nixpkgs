@@ -10,7 +10,8 @@ stdenv.mkDerivation {
 
   patchPhase = "cat ${./sitecustomize.py} > sitecustomize.py";
 
-  buildPhase = "${python.pythonForBuild}/bin/${python.pythonForBuild.executable} -m compileall .";
+  buildPhase =
+    "${python.pythonForBuild}/bin/${python.pythonForBuild.executable} -m compileall .";
 
   installPhase = ''
     dst=$out/lib/${python.libPrefix}/site-packages
@@ -19,6 +20,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Enable recursive processing of pth files anywhere in sys.path";
+    description =
+      "Enable recursive processing of pth files anywhere in sys.path";
   };
 }

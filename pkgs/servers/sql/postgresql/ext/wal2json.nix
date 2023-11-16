@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "wal2json";
@@ -28,7 +23,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "PostgreSQL JSON output plugin for changeset extraction";
     homepage = "https://github.com/eulerto/wal2json";
-    changelog = "https://github.com/eulerto/wal2json/releases/tag/wal2json_${version}";
+    changelog =
+      "https://github.com/eulerto/wal2json/releases/tag/wal2json_${version}";
     maintainers = with maintainers; [ euank ];
     platforms = postgresql.meta.platforms;
     license = licenses.bsd3;

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,15 +9,14 @@ let
   settingsFormat = pkgs.formats.ini { };
   configFile = settingsFormat.generate "custom.conf" cfg.gdm.settings;
 
-  xSessionWrapper =
-    if (cfg.setupCommands == "") then
-      null
-    else
-      pkgs.writeScript "gdm-x-session-wrapper" ''
-        #!${pkgs.bash}/bin/bash
-        ${cfg.setupCommands}
-        exec "$@"
-      '';
+  xSessionWrapper = if (cfg.setupCommands == "") then
+    null
+  else
+    pkgs.writeScript "gdm-x-session-wrapper" ''
+      #!${pkgs.bash}/bin/bash
+      ${cfg.setupCommands}
+      exec "$@"
+    '';
 
   # Solves problems like:
   # https://wiki.archlinux.org/index.php/Talk:Bluetooth_headset#GDMs_pulseaudio_instance_captures_bluetooth_headset
@@ -43,60 +37,36 @@ let
   defaultSessionName = config.services.xserver.displayManager.defaultSession;
 
   setSessionScript = pkgs.callPackage ./account-service-util.nix { };
-in
 
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "gdm"
-        "autoLogin"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "enable"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "gdm"
-        "autoLogin"
-        "user"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "user"
-      ]
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "gdm"
+      "autoLogin"
+      "enable"
+    ] [ "services" "xserver" "displayManager" "autoLogin" "enable" ])
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "gdm"
+      "autoLogin"
+      "user"
+    ] [ "services" "xserver" "displayManager" "autoLogin" "user" ])
 
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "gdm"
-        "nvidiaWayland"
-      ]
-      "We defer to GDM whether Wayland should be enabled."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "gdm"
+      "nvidiaWayland"
+    ] "We defer to GDM whether Wayland should be enabled.")
   ];
 
-  meta = {
-    maintainers = teams.gnome.members;
-  };
+  meta = { maintainers = teams.gnome.members; };
 
   ###### interface
 
@@ -137,15 +107,15 @@ in
       settings = mkOption {
         type = settingsFormat.type;
         default = { };
-        example = {
-          debug.enable = true;
-        };
+        example = { debug.enable = true; };
         description = lib.mdDoc ''
           Options passed to the gdm daemon.
           See [here](https://help.gnome.org/admin/gdm/stable/configuration.html.en#daemonconfig) for supported options.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -170,23 +140,22 @@ in
     services.xserver.verbose = null;
 
     services.xserver.displayManager.job = {
-      environment =
-        {
-          GDM_X_SERVER_EXTRA_ARGS = toString (filter (arg: arg != "-terminate") cfg.xserverArgs);
-          XDG_DATA_DIRS = lib.makeSearchPath "share" [
-            gdm # for gnome-login.session
-            cfg.sessionData.desktops
-            pkgs.gnome.gnome-control-center # for accessibility icon
-            pkgs.gnome.adwaita-icon-theme
-            pkgs.hicolor-icon-theme # empty icon theme as a base
-          ];
-        }
-        // optionalAttrs (xSessionWrapper != null) {
-          # Make GDM use this wrapper before running the session, which runs the
-          # configured setupCommands. This relies on a patched GDM which supports
-          # this environment variable.
-          GDM_X_SESSION_WRAPPER = "${xSessionWrapper}";
-        };
+      environment = {
+        GDM_X_SERVER_EXTRA_ARGS =
+          toString (filter (arg: arg != "-terminate") cfg.xserverArgs);
+        XDG_DATA_DIRS = lib.makeSearchPath "share" [
+          gdm # for gnome-login.session
+          cfg.sessionData.desktops
+          pkgs.gnome.gnome-control-center # for accessibility icon
+          pkgs.gnome.adwaita-icon-theme
+          pkgs.hicolor-icon-theme # empty icon theme as a base
+        ];
+      } // optionalAttrs (xSessionWrapper != null) {
+        # Make GDM use this wrapper before running the session, which runs the
+        # configured setupCommands. This relies on a patched GDM which supports
+        # this environment variable.
+        GDM_X_SESSION_WRAPPER = "${xSessionWrapper}";
+      };
       execCmd = "exec ${gdm}/bin/gdm";
       preStart = optionalString (defaultSessionName != null) ''
         # Set default session in session chooser to a specified values – basically ignore session history.
@@ -194,25 +163,17 @@ in
       '';
     };
 
-    systemd.tmpfiles.rules =
-      [ "d /run/gdm/.config 0711 gdm gdm" ]
+    systemd.tmpfiles.rules = [ "d /run/gdm/.config 0711 gdm gdm" ]
       ++ optionals config.hardware.pulseaudio.enable [
         "d /run/gdm/.config/pulse 0711 gdm gdm"
         "L+ /run/gdm/.config/pulse/${pulseConfig.name} - - - - ${pulseConfig}"
-      ]
-      ++
-        optionals config.services.gnome.gnome-initial-setup.enable
-          [
-            # Create stamp file for gnome-initial-setup to prevent it starting in GDM.
-            "f /run/gdm/.config/gnome-initial-setup-done 0711 gdm gdm - yes"
-          ];
+      ] ++ optionals config.services.gnome.gnome-initial-setup.enable [
+        # Create stamp file for gnome-initial-setup to prevent it starting in GDM.
+        "f /run/gdm/.config/gnome-initial-setup-done 0711 gdm gdm - yes"
+      ];
 
     # Otherwise GDM will not be able to start correctly and display Wayland sessions
-    systemd.packages = with pkgs.gnome; [
-      gdm
-      gnome-session
-      gnome-shell
-    ];
+    systemd.packages = with pkgs.gnome; [ gdm gnome-session gnome-shell ];
     environment.systemPackages = [ pkgs.gnome.adwaita-icon-theme ];
 
     # We dont use the upstream gdm service
@@ -235,10 +196,8 @@ in
       "plymouth-quit.service"
       "plymouth-start.service"
     ];
-    systemd.services.display-manager.conflicts = [
-      "getty@tty${gdm.initialVT}.service"
-      "plymouth-quit.service"
-    ];
+    systemd.services.display-manager.conflicts =
+      [ "getty@tty${gdm.initialVT}.service" "plymouth-quit.service" ];
     systemd.services.display-manager.onFailure = [ "plymouth-quit.service" ];
 
     # Prevent nixos-rebuild switch from bringing down the graphical
@@ -268,48 +227,48 @@ in
 
     systemd.user.services.dbus.wantedBy = [ "default.target" ];
 
-    programs.dconf.profiles.gdm =
-      let
-        customDconf = pkgs.writeTextFile {
-          name = "gdm-dconf";
-          destination = "/dconf/gdm-custom";
-          text = ''
-            ${optionalString (!cfg.gdm.autoSuspend) ''
-              [org/gnome/settings-daemon/plugins/power]
-              sleep-inactive-ac-type='nothing'
-              sleep-inactive-battery-type='nothing'
-              sleep-inactive-ac-timeout=0
-              sleep-inactive-battery-timeout=0
-            ''}
-          '';
-        };
-
-        customDconfDb = pkgs.stdenv.mkDerivation {
-          name = "gdm-dconf-db";
-          buildCommand = ''
-            ${pkgs.dconf}/bin/dconf compile $out ${customDconf}/dconf
-          '';
-        };
-      in
-      pkgs.stdenv.mkDerivation {
-        name = "dconf-gdm-profile";
-        buildCommand = ''
-          # Check that the GDM profile starts with what we expect.
-          if [ $(head -n 1 ${gdm}/share/dconf/profile/gdm) != "user-db:user" ]; then
-            echo "GDM dconf profile changed, please update gdm.nix"
-            exit 1
-          fi
-          # Insert our custom DB behind it.
-          sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
+    programs.dconf.profiles.gdm = let
+      customDconf = pkgs.writeTextFile {
+        name = "gdm-dconf";
+        destination = "/dconf/gdm-custom";
+        text = ''
+          ${optionalString (!cfg.gdm.autoSuspend) ''
+            [org/gnome/settings-daemon/plugins/power]
+            sleep-inactive-ac-type='nothing'
+            sleep-inactive-battery-type='nothing'
+            sleep-inactive-ac-timeout=0
+            sleep-inactive-battery-timeout=0
+          ''}
         '';
       };
+
+      customDconfDb = pkgs.stdenv.mkDerivation {
+        name = "gdm-dconf-db";
+        buildCommand = ''
+          ${pkgs.dconf}/bin/dconf compile $out ${customDconf}/dconf
+        '';
+      };
+    in pkgs.stdenv.mkDerivation {
+      name = "dconf-gdm-profile";
+      buildCommand = ''
+        # Check that the GDM profile starts with what we expect.
+        if [ $(head -n 1 ${gdm}/share/dconf/profile/gdm) != "user-db:user" ]; then
+          echo "GDM dconf profile changed, please update gdm.nix"
+          exit 1
+        fi
+        # Insert our custom DB behind it.
+        sed '2ifile-db:${customDconfDb}' ${gdm}/share/dconf/profile/gdm > $out
+      '';
+    };
 
     # Use AutomaticLogin if delay is zero, because it's immediate.
     # Otherwise with TimedLogin with zero seconds the prompt is still
     # presented and there's a little delay.
     services.xserver.displayManager.gdm.settings = {
       daemon = mkMerge [
-        { WaylandEnable = cfg.gdm.wayland; }
+        {
+          WaylandEnable = cfg.gdm.wayland;
+        }
         # nested if else didn't work
         (mkIf (cfg.autoLogin.enable && cfg.gdm.autoLogin.delay != 0) {
           TimedLoginEnable = true;
@@ -326,7 +285,8 @@ in
 
     environment.etc."gdm/custom.conf".source = configFile;
 
-    environment.etc."gdm/Xsession".source = config.services.xserver.displayManager.sessionData.wrapper;
+    environment.etc."gdm/Xsession".source =
+      config.services.xserver.displayManager.sessionData.wrapper;
 
     # GDM LFS PAM modules, adapted somehow to NixOS
     security.pam.services = {
@@ -366,6 +326,9 @@ in
         session   optional      pam_keyinit.so revoke
         session   include       login
       '';
+
     };
+
   };
+
 }

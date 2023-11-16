@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  importlib-metadata,
-  sphinx,
-  pyenchant,
-  pbr,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, importlib-metadata, sphinx
+, pyenchant, pbr }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-spelling";
@@ -23,10 +15,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    sphinx
-    pyenchant
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ sphinx pyenchant ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # No tests included
   doCheck = false;
@@ -36,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Sphinx spelling extension";
     homepage = "https://github.com/sphinx-contrib/spelling";
-    changelog = "https://github.com/sphinx-contrib/spelling/blob/${version}/docs/source/history.rst";
+    changelog =
+      "https://github.com/sphinx-contrib/spelling/blob/${version}/docs/source/history.rst";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];
   };

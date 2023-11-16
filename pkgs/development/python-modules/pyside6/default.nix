@@ -1,21 +1,13 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  ninja,
-  qt6,
-  python,
-  moveBuildTree,
-  shiboken6,
-  libxcrypt,
-}:
+{ lib, stdenv, cmake, ninja, qt6, python, moveBuildTree, shiboken6, libxcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "pyside6";
 
   inherit (shiboken6) version src;
 
-  sourceRoot = "pyside-setup-everywhere-src-${lib.versions.majorMinor version}/sources/${pname}";
+  sourceRoot = "pyside-setup-everywhere-src-${
+      lib.versions.majorMinor version
+    }/sources/${pname}";
 
   # FIXME: cmake/Macros/PySideModules.cmake supposes that all Qt frameworks on macOS
   # reside in the same directory as QtCore.framework, which is not true for Nix.
@@ -27,19 +19,14 @@ stdenv.mkDerivation rec {
         'set (found_basepath 0)'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python
-  ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
+  nativeBuildInputs = [ cmake ninja python ]
+    ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
 
-  buildInputs =
-    with qt6;
+  buildInputs = with qt6;
     [
       # required
       qtbase
-    ]
-    ++ lib.optionals stdenv.isLinux [
+    ] ++ lib.optionals stdenv.isLinux [
       # optional
       qt3d
       qtcharts
@@ -69,16 +56,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Python bindings for Qt";
-    license = with licenses; [
-      lgpl3Only
-      gpl2Only
-      gpl3Only
-    ];
+    license = with licenses; [ lgpl3Only gpl2Only gpl3Only ];
     homepage = "https://wiki.qt.io/Qt_for_Python";
-    maintainers = with maintainers; [
-      gebner
-      Enzime
-    ];
+    maintainers = with maintainers; [ gebner Enzime ];
     platforms = platforms.all;
   };
 }

@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "dexador";
   version = "20211209-git";
 
@@ -39,7 +38,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/dexador/2021-12-09/dexador-20211209-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/dexador/2021-12-09/dexador-20211209-git.tgz";
     sha256 = "0cknpgz9cbqnaa0wafs7nfqlis8cikfxi11gd5r9md8zm0iw3gi7";
   };
 

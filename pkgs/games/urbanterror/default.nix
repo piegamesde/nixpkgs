@@ -1,15 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  SDL,
-  libGLU,
-  libGL,
-  openal,
-  curl,
-  libXxf86vm,
-}:
+{ lib, stdenv, fetchurl, unzip, SDL, libGLU, libGL, openal, curl, libXxf86vm }:
 
 stdenv.mkDerivation rec {
   pname = "urbanterror";
@@ -17,24 +6,19 @@ stdenv.mkDerivation rec {
 
   srcs = [
     (fetchurl {
-      url = "http://cdn.urbanterror.info/urt/43/releases/zips/UrbanTerror434_full.zip";
+      url =
+        "http://cdn.urbanterror.info/urt/43/releases/zips/UrbanTerror434_full.zip";
       sha256 = "1rx4nnndsk88nvd7k4p35cw6znclkkzm2bl5j6vn6mjjdk66jrki";
     })
     (fetchurl {
-      url = "https://github.com/FrozenSand/ioq3-for-UrbanTerror-4/archive/release-${version}.zip";
+      url =
+        "https://github.com/FrozenSand/ioq3-for-UrbanTerror-4/archive/release-${version}.zip";
       sha256 = "1s9pmw7rbnzwzl1llcs0kr2krf4daf8hhnz1j89qk4bq9a9qfp71";
     })
   ];
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [
-    SDL
-    libGL
-    libGLU
-    openal
-    curl
-    libXxf86vm
-  ];
+  buildInputs = [ SDL libGL libGLU openal curl libXxf86vm ];
   sourceRoot = "ioq3-for-UrbanTerror-4-release-${version}";
 
   configurePhase = ''

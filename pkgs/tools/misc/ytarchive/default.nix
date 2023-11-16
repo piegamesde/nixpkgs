@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchpatch,
-  makeBinaryWrapper,
-  ffmpeg,
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch, makeBinaryWrapper, ffmpeg }:
 
 buildGoModule rec {
   pname = "ytarchive";
@@ -22,11 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Commit=-${src.rev}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Commit=-${src.rev}" ];
 
   postInstall = ''
     wrapProgram $out/bin/ytarchive --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}

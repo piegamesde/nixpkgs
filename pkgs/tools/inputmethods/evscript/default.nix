@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitea,
-}:
+{ lib, rustPlatform, fetchFromGitea }:
 
 rustPlatform.buildRustPackage rec {
   pname = "evscript";
@@ -25,7 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://codeberg.org/valpackett/evscript";
-    description = "A tiny sandboxed Dyon scripting environment for evdev input devices";
+    description =
+      "A tiny sandboxed Dyon scripting environment for evdev input devices";
     license = licenses.unlicense;
     maintainers = with maintainers; [ milesbreslin ];
     platforms = platforms.linux;

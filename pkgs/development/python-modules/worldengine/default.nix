@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  gdal,
-  h5py,
-  noise,
-  numpy,
-  protobuf,
-  purepng,
-  pyplatec,
-  six,
-  isPy27,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, gdal, h5py, noise, numpy, protobuf
+, purepng, pyplatec, six, isPy27, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "worldengine";
@@ -36,16 +23,8 @@ buildPythonPackage rec {
     ln -s ${src-data} worldengine-data
   '';
 
-  propagatedBuildInputs = [
-    gdal
-    h5py
-    noise
-    numpy
-    protobuf
-    purepng
-    pyplatec
-    six
-  ];
+  propagatedBuildInputs =
+    [ gdal h5py noise numpy protobuf purepng pyplatec six ];
 
   prePatch = ''
     substituteInPlace setup.py \
@@ -68,7 +47,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "http://world-engine.org";
-    description = "World generator using simulation of plates, rain shadow, erosion, etc";
+    description =
+      "World generator using simulation of plates, rain shadow, erosion, etc";
     license = licenses.mit;
     maintainers = with maintainers; [ rardiol ];
   };

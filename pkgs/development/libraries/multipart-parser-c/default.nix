@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "multipart-parser-c";
@@ -32,4 +28,5 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/iafonov/multipart-parser-c";
     license = [ lib.licenses.mit ];
   };
+
 }

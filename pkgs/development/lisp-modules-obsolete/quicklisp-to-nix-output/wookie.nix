@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "wookie";
   version = "20191130-git";
 
@@ -39,7 +38,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/wookie/2019-11-30/wookie-20191130-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/wookie/2019-11-30/wookie-20191130-git.tgz";
     sha256 = "13f9fi7yv28lag79z03jrnm7aih2x5zwvh4hw9cadw75956975d2";
   };
 

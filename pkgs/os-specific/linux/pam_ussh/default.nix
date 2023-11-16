@@ -1,10 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  pam,
-  lib,
-  nixosTests,
-}:
+{ buildGoModule, fetchFromGitHub, pam, lib, nixosTests }:
 
 buildGoModule rec {
   pname = "pam_ussh";
@@ -52,9 +46,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) pam-ussh;
-  };
+  passthru.tests = { inherit (nixosTests) pam-ussh; };
 
   meta = with lib; {
     homepage = "https://github.com/uber/pam-ussh";

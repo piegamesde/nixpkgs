@@ -1,27 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  glibmm,
-  libgda,
-  libxml2,
-  gnome,
-  mysqlSupport ? false,
-  postgresSupport ? false,
-}:
+{ lib, stdenv, fetchurl, pkg-config, glibmm, libgda, libxml2, gnome
+, mysqlSupport ? false, postgresSupport ? false }:
 
-let
-  gda = libgda.override { inherit mysqlSupport postgresSupport; };
-in
-stdenv.mkDerivation rec {
+let gda = libgda.override { inherit mysqlSupport postgresSupport; };
+in stdenv.mkDerivation rec {
   pname = "libgdamm";
   version = "4.99.11";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -31,10 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    glibmm
-    libxml2
-  ];
+  buildInputs = [ glibmm libxml2 ];
   propagatedBuildInputs = [ gda ];
 
   enableParallelBuilding = true;
@@ -42,7 +24,8 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript = gnome.updateScript {
       packageName = pname;
-      versionPolicy = "none"; # Should be odd-unstable but stable version has not been released yet.
+      versionPolicy =
+        "none"; # Should be odd-unstable but stable version has not been released yet.
     };
   };
 

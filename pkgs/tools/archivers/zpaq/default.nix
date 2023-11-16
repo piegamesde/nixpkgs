@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, perl }:
 
 stdenv.mkDerivation rec {
   pname = "zpaq";
@@ -20,11 +15,9 @@ stdenv.mkDerivation rec {
     perl # for pod2man
   ];
 
-  CPPFLAGS = [ "-Dunix" ] ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT";
-  CXXFLAGS = [
-    "-O3"
-    "-DNDEBUG"
-  ];
+  CPPFLAGS = [ "-Dunix" ]
+    ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT";
+  CXXFLAGS = [ "-O3" "-DNDEBUG" ];
 
   enableParallelBuilding = true;
 

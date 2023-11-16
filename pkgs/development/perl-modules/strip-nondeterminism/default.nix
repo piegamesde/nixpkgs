@@ -1,23 +1,11 @@
-{
-  lib,
-  stdenv,
-  file,
-  fetchFromGitLab,
-  buildPerlPackage,
-  ArchiveZip,
-  ArchiveCpio,
-  SubOverride,
-  shortenPerlShebang,
-}:
+{ lib, stdenv, file, fetchFromGitLab, buildPerlPackage, ArchiveZip, ArchiveCpio
+, SubOverride, shortenPerlShebang }:
 
 buildPerlPackage rec {
   pname = "strip-nondeterminism";
   version = "1.13.1";
 
-  outputs = [
-    "out"
-    "dev"
-  ]; # no "devdoc"
+  outputs = [ "out" "dev" ]; # no "devdoc"
 
   src = fetchFromGitLab {
     owner = "reproducible-builds";
@@ -29,11 +17,7 @@ buildPerlPackage rec {
 
   strictDeps = true;
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
-  buildInputs = [
-    ArchiveZip
-    ArchiveCpio
-    SubOverride
-  ];
+  buildInputs = [ ArchiveZip ArchiveCpio SubOverride ];
 
   postPatch = ''
     substituteInPlace lib/File/StripNondeterminism.pm \
@@ -44,15 +28,13 @@ buildPerlPackage rec {
     patchShebangs ./bin
   '';
 
-  postInstall =
-    ''
-      # we don’t need the debhelper script
-      rm $out/bin/dh_strip_nondeterminism
-      rm $out/share/man/man1/dh_strip_nondeterminism.1
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      shortenPerlShebang $out/bin/strip-nondeterminism
-    '';
+  postInstall = ''
+    # we don’t need the debhelper script
+    rm $out/bin/dh_strip_nondeterminism
+    rm $out/share/man/man1/dh_strip_nondeterminism.1
+  '' + lib.optionalString stdenv.isDarwin ''
+    shortenPerlShebang $out/bin/strip-nondeterminism
+  '';
 
   installCheckPhase = ''
     runHook preInstallCheck
@@ -65,12 +47,10 @@ buildPerlPackage rec {
   doInstallCheck = true;
 
   meta = with lib; {
-    description = "A Perl module for stripping bits of non-deterministic information";
+    description =
+      "A Perl module for stripping bits of non-deterministic information";
     homepage = "https://reproducible-builds.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      pSub
-      artturin
-    ];
+    maintainers = with maintainers; [ pSub artturin ];
   };
 }

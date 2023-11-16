@@ -1,12 +1,5 @@
-{
-  lib,
-  async-timeout,
-  buildPythonPackage,
-  fetchFromGitHub,
-  webcolors,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, async-timeout, buildPythonPackage, fetchFromGitHub, webcolors
+, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flux-led";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-3SlgYENtyv0JdUwGFpT3lWUDOciAKThYGz/RV8z+tac=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    webcolors
-  ];
+  propagatedBuildInputs = [ async-timeout webcolors ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -41,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to communicate with the flux_led smart bulbs";
     homepage = "https://github.com/Danielhiversen/flux_led";
-    changelog = "https://github.com/Danielhiversen/flux_led/releases/tag/${version}";
+    changelog =
+      "https://github.com/Danielhiversen/flux_led/releases/tag/${version}";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ colemickens ];
     platforms = platforms.linux;

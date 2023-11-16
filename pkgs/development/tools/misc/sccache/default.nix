@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  stdenv,
-  Security,
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, openssl, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   version = "0.5.3";
@@ -32,10 +24,7 @@ rustPlatform.buildRustPackage rec {
     description = "Ccache with Cloud Storage";
     homepage = "https://github.com/mozilla/sccache";
     changelog = "https://github.com/mozilla/sccache/releases/tag/v${version}";
-    maintainers = with maintainers; [
-      doronbehar
-      figsoda
-    ];
+    maintainers = with maintainers; [ doronbehar figsoda ];
     license = licenses.asl20;
   };
 }

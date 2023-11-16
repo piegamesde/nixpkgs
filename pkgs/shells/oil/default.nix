@@ -1,22 +1,11 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  symlinkJoin,
-  withReadline ? true,
-  readline,
-}:
+{ stdenv, lib, fetchurl, symlinkJoin, withReadline ? true, readline }:
 
 let
   readline-all = symlinkJoin {
     name = "readline-all";
-    paths = [
-      readline
-      readline.dev
-    ];
+    paths = [ readline readline.dev ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "oil";
   version = "0.16.0";
 
@@ -38,8 +27,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   buildInputs = lib.optional withReadline readline;
-  configureFlags =
-    [ "--datarootdir=${placeholder "out"}" ]
+  configureFlags = [ "--datarootdir=${placeholder "out"}" ]
     ++ lib.optionals withReadline [
       "--with-readline"
       "--readline=${readline-all}"
@@ -58,14 +46,9 @@ stdenv.mkDerivation rec {
     ];
 
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [
-      lheckemann
-      alva
-    ];
+    maintainers = with lib.maintainers; [ lheckemann alva ];
     changelog = "https://www.oilshell.org/release/${version}/changelog.html";
   };
 
-  passthru = {
-    shellPath = "/bin/osh";
-  };
+  passthru = { shellPath = "/bin/osh"; };
 }

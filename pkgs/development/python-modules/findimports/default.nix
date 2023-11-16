@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "findimports";
@@ -34,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for the analysis of Python import statements";
     homepage = "https://github.com/mgedmin/findimports";
-    changelog = "https://github.com/mgedmin/findimports/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/mgedmin/findimports/blob/${version}/CHANGES.rst";
     license = with licenses; [
       gpl2Only # or
       gpl3Only

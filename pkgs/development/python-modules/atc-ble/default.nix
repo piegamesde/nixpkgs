@@ -1,14 +1,5 @@
-{
-  lib,
-  bluetooth-sensor-state-data,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pycryptodomex,
-  pytestCheckHook,
-  pythonOlder,
-  sensor-state-data,
-}:
+{ lib, bluetooth-sensor-state-data, buildPythonPackage, fetchFromGitHub
+, poetry-core, pycryptodomex, pytestCheckHook, pythonOlder, sensor-state-data }:
 
 buildPythonPackage rec {
   pname = "atc-ble";
@@ -31,11 +22,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    bluetooth-sensor-state-data
-    pycryptodomex
-    sensor-state-data
-  ];
+  propagatedBuildInputs =
+    [ bluetooth-sensor-state-data pycryptodomex sensor-state-data ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -44,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for ATC devices with custom firmware";
     homepage = "https://github.com/Bluetooth-Devices/atc-ble";
-    changelog = "https://github.com/Bluetooth-Devices/atc-ble/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Bluetooth-Devices/atc-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

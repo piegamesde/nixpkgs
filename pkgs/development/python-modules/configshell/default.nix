@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pyparsing,
-  six,
-  urwid,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pyparsing, six, urwid }:
 
 buildPythonPackage rec {
   pname = "configshell";
@@ -18,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-7iWmYVCodwncoPdpw85zrNsZSEq+ume412lyiiJqRPc=";
   };
 
-  propagatedBuildInputs = [
-    pyparsing
-    six
-    urwid
-  ];
+  propagatedBuildInputs = [ pyparsing six urwid ];
 
   # Module has no tests
   doCheck = false;

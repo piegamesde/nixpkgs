@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  libv4l,
-}:
+{ stdenv, lib, fetchFromGitHub, libv4l }:
 stdenv.mkDerivation rec {
   pname = "openimajgrabber";
   version = "1.3.10";
@@ -32,13 +27,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A collection of libraries and tools for multimedia (images, text, video, audio, etc.) content analysis and content generation. This package only builds the OpenIMAJGrabber for Linux.";
+    description =
+      "A collection of libraries and tools for multimedia (images, text, video, audio, etc.) content analysis and content generation. This package only builds the OpenIMAJGrabber for Linux.";
     homepage = "http://www.openimaj.org";
     license = licenses.bsd0;
-    maintainers = with maintainers; [
-      emmanuelrosa
-      _1000101
-    ];
+    maintainers = with maintainers; [ emmanuelrosa _1000101 ];
     platforms = platforms.linux;
   };
 }

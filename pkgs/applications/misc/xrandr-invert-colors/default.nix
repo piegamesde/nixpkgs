@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libXrandr,
-}:
+{ lib, stdenv, fetchFromGitHub, libXrandr }:
 
 stdenv.mkDerivation rec {
   pname = "xrandr-invert-colors";

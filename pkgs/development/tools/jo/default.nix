@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pandoc,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pandoc, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "jo";
@@ -20,11 +13,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pandoc
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pandoc pkg-config ];
 
   meta = with lib; {
     description = "A small utility to create JSON objects";

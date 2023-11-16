@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libbsd,
-  libevent,
-  libjpeg,
-}:
+{ lib, stdenv, fetchFromGitHub, libbsd, libevent, libjpeg }:
 
 stdenv.mkDerivation rec {
   pname = "ustreamer";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pc1Pf8KnjGPb74GbcmHaj/XCD0wjgiglaAKjnZUa6Ag=";
   };
 
-  buildInputs = [
-    libbsd
-    libevent
-    libjpeg
-  ];
+  buildInputs = [ libbsd libevent libjpeg ];
 
   enableParallelBuilding = true;
 

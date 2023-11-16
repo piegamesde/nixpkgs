@@ -1,9 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  ruby,
-  beta ? false,
-}:
+{ lib, bundlerApp, ruby, beta ? false }:
 
 bundlerApp {
   inherit ruby;
@@ -21,10 +16,7 @@ bundlerApp {
     homepage = "https://github.com/CocoaPods/CocoaPods";
     license = licenses.mit;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [
-      peterromfeldhk
-      lilyball
-    ];
+    maintainers = with maintainers; [ peterromfeldhk lilyball ];
     mainProgram = "pod";
   };
 }

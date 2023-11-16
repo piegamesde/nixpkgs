@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fontforge,
-}:
+{ lib, stdenv, fetchFromGitHub, fontforge }:
 
 stdenv.mkDerivation rec {
   pname = "inconsolata-lgc";
@@ -25,7 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Fork of Inconsolata font, with proper support of Cyrillic and Greek";
+    description =
+      "Fork of Inconsolata font, with proper support of Cyrillic and Greek";
     longDescription = ''
       Inconsolata is one of the most suitable font for programmers created by Raph
       Levien. Since the original Inconsolata does not contain Cyrillic alphabet,
@@ -52,9 +48,6 @@ stdenv.mkDerivation rec {
     # See `License.txt' for details.
     license = licenses.ofl;
     homepage = "https://github.com/MihailJP/Inconsolata-LGC";
-    maintainers = with maintainers; [
-      avnik
-      rht
-    ];
+    maintainers = with maintainers; [ avnik rht ];
   };
 }

@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-guppy";
@@ -23,16 +15,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  cargoBuildFlags = [
-    "-p"
-    "cargo-guppy"
-  ];
-  cargoTestFlags = [
-    "-p"
-    "cargo-guppy"
-  ];
+  cargoBuildFlags = [ "-p" "cargo-guppy" ];
+  cargoTestFlags = [ "-p" "cargo-guppy" ];
 
   meta = with lib; {
     description = "A command-line frontend for guppy";

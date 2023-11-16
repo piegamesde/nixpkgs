@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchurl,
-  appimageTools,
-}:
+{ lib, fetchurl, appimageTools, }:
 
 let
   pname = "ytmdesktop";
@@ -10,13 +6,13 @@ let
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://github.com/ytmdesktop/ytmdesktop/releases/download/v${version}/YouTube-Music-Desktop-App-${version}.AppImage";
+    url =
+      "https://github.com/ytmdesktop/ytmdesktop/releases/download/v${version}/YouTube-Music-Desktop-App-${version}.AppImage";
     sha256 = "0f5l7hra3m3q9zd0ngc9dj4mh1lk0rgicvh9idpd27wr808vy28v";
   };
 
   appimageContents = appimageTools.extract { inherit name src; };
-in
-appimageTools.wrapType2 rec {
+in appimageTools.wrapType2 rec {
   inherit name src;
 
   extraInstallCommands = ''

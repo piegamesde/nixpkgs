@@ -1,15 +1,5 @@
-{
-  lib,
-  astroid,
-  buildPythonPackage,
-  fetchFromGitHub,
-  packaging,
-  poetry-core,
-  poetry-semver,
-  pytestCheckHook,
-  pythonOlder,
-  toml,
-}:
+{ lib, astroid, buildPythonPackage, fetchFromGitHub, packaging, poetry-core
+, poetry-semver, pytestCheckHook, pythonOlder, toml }:
 
 buildPythonPackage rec {
   pname = "requirements-detector";
@@ -27,19 +17,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    astroid
-    packaging
-    poetry-semver
-    toml
-  ];
+  propagatedBuildInputs = [ astroid packaging poetry-semver toml ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "requirements_detector" ];
 
   meta = with lib; {
-    description = "Python tool to find and list requirements of a Python project";
+    description =
+      "Python tool to find and list requirements of a Python project";
     homepage = "https://github.com/landscapeio/requirements-detector";
     license = licenses.mit;
     maintainers = with maintainers; [ kamadorueda ];

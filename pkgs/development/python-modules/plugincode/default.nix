@@ -1,15 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  setuptools-scm,
-  click,
-  commoncode,
-  pluggy,
-  pytestCheckHook,
-  pytest-xdist,
-  pythonOlder,
-}:
+{ lib, fetchPypi, buildPythonPackage, setuptools-scm, click, commoncode, pluggy
+, pytestCheckHook, pytest-xdist, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "plugincode";
@@ -27,29 +17,23 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    click
-    commoncode
-    pluggy
-  ];
+  propagatedBuildInputs = [ click commoncode pluggy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-xdist ];
 
   pythonImportsCheck = [ "plugincode" ];
 
-  disabledTests =
-    [
-      # We don't want black as an input
-      "test_skeleton_codestyle"
-    ];
+  disabledTests = [
+    # We don't want black as an input
+    "test_skeleton_codestyle"
+  ];
 
   meta = with lib; {
-    description = "Library that provides plugin functionality for ScanCode toolkit";
+    description =
+      "Library that provides plugin functionality for ScanCode toolkit";
     homepage = "https://github.com/nexB/plugincode";
-    changelog = "https://github.com/nexB/plugincode/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/nexB/plugincode/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
     maintainers = [ ];
   };

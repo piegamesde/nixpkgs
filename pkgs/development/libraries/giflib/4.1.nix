@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "giflib";
@@ -22,3 +18,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
+

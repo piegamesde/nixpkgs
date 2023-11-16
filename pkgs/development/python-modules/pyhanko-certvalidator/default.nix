@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  aiohttp,
-  asn1crypto,
-  cryptography,
-  freezegun,
-  oscrypto,
-  requests,
-  uritools,
-  openssl,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, aiohttp, asn1crypto
+, cryptography, freezegun, oscrypto, requests, uritools, openssl, pytest-asyncio
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyhanko-certvalidator";
@@ -30,26 +17,15 @@ buildPythonPackage rec {
     hash = "sha256-0RSveoSZb7R6d4cMlF1mIrDfnTx2DYNwfTMMtmg+RpM=";
   };
 
-  propagatedBuildInputs = [
-    asn1crypto
-    cryptography
-    oscrypto
-    requests
-    uritools
-  ];
+  propagatedBuildInputs =
+    [ asn1crypto cryptography oscrypto requests uritools ];
 
-  nativeCheckInputs = [
-    aiohttp
-    freezegun
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aiohttp freezegun pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Requests
-      "tests/test_crl_client.py"
-    ];
+  disabledTestPaths = [
+    # Requests
+    "tests/test_crl_client.py"
+  ];
 
   disabledTests = [
     # Look for nonexisting certificates

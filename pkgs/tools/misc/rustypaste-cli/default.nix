@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustypaste-cli";
@@ -19,12 +13,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-hICwrgzNpyYmNW1gEKgTsSjWyqCaOHc4X37O0R2oSzY=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = with lib; {
     description = "A CLI tool for rustypaste";
     homepage = "https://github.com/orhun/rustypaste-cli";
-    changelog = "https://github.com/orhun/rustypaste-cli/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/orhun/rustypaste-cli/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
     mainProgram = "rpaste";

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  nix-update-script,
-  nwjs,
-}:
+{ lib, stdenv, fetchFromGitLab, nix-update-script, nwjs }:
 
 stdenv.mkDerivation rec {
   pname = "gridtracker";
@@ -27,10 +21,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/gridtracker/gridview.png" "$out/share/gridtracker/gridview.png"
   '';
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "NO_DIST_INSTALL=1"
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "NO_DIST_INSTALL=1" ];
 
   passthru.updateScript = nix-update-script { };
 

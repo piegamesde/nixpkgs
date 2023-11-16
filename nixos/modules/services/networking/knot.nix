@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,7 +7,8 @@ let
 
   configFile = pkgs.writeTextFile {
     name = "knot.conf";
-    text = (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles) + "\n" + cfg.extraConfig;
+    text = (concatMapStringsSep "\n" (file: "include: ${file}") cfg.keyFiles)
+      + "\n" + cfg.extraConfig;
     checkPhase = lib.optionalString (cfg.keyFiles == [ ]) ''
       ${cfg.package}/bin/knotc --config=$out conf-check
     '';
@@ -38,8 +34,7 @@ let
       ln -s '${cfg.package}/share/man' "$out/share/"
     '';
   };
-in
-{
+in {
   options = {
     services.knot = {
       enable = mkEnableOption (lib.mdDoc "Knot authoritative-only DNS server");
@@ -93,7 +88,8 @@ in
     };
 
     systemd.services.knot = {
-      unitConfig.Documentation = "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
+      unitConfig.Documentation =
+        "man:knotd(8) man:knot.conf(5) man:knotc(8) https://www.knot-dns.cz/docs/${cfg.package.version}/html/";
       description = cfg.package.meta.description;
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
@@ -101,7 +97,8 @@ in
 
       serviceConfig = {
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${
+        ExecStart =
+          "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${
             concatStringsSep " " cfg.extraArgs
           }";
         ExecReload = "${knot-cli-wrappers}/bin/knotc reload";
@@ -130,11 +127,7 @@ in
         ProtectSystem = "strict";
         RemoveIPC = true;
         Restart = "on-abort";
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -142,10 +135,7 @@ in
         StateDirectory = "knot";
         StateDirectoryMode = "0700";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
         UMask = "0077";
       };
     };

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  bluepy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, bluepy }:
 
 buildPythonPackage rec {
   pname = "avea";

@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  gitUpdater,
-  icu,
-  libkiwix,
-  meson,
-  ninja,
-  pkg-config,
-  stdenv,
-}:
+{ lib, fetchFromGitHub, gitUpdater, icu, libkiwix, meson, ninja, pkg-config
+, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "kiwix-tools";
@@ -21,16 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bOxi51H28LhA+5caX6kllIY5B3Q1FoGVFadFIhYRkG0=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    icu
-    libkiwix
-  ];
+  buildInputs = [ icu libkiwix ];
 
   passthru.updateScript = gitUpdater { };
 
@@ -42,3 +26,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ colinsane ];
   };
 }
+

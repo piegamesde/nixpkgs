@@ -1,10 +1,4 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchPypi,
-  six,
-  requests,
-}:
+{ buildPythonPackage, lib, fetchPypi, six, requests }:
 
 buildPythonPackage rec {
   version = "3.2.0";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     sha256 = "4f77cc558fecffac04377ba758ac4e23f076dc1c54e2cf2515f85bc15cbde5c6";
   };
 
-  propagatedBuildInputs = [
-    six
-    requests
-  ];
+  propagatedBuildInputs = [ six requests ];
 
   pythonNamespaces = [ "azure" ];
 

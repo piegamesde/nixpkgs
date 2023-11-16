@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "coverage";

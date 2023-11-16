@@ -1,21 +1,6 @@
-{
-  stdenv,
-  fetchzip,
-  fetchurl,
-  fetchFromGitHub,
-  lib,
-  gradle_7,
-  perl,
-  makeWrapper,
-  openjdk17,
-  unzip,
-  makeDesktopItem,
-  autoPatchelfHook,
-  icoutils,
-  xcbuild,
-  protobuf,
-  libredirect,
-}:
+{ stdenv, fetchzip, fetchurl, fetchFromGitHub, lib, gradle_7, perl, makeWrapper
+, openjdk17, unzip, makeDesktopItem, autoPatchelfHook, icoutils, xcbuild
+, protobuf, libredirect }:
 
 let
   pkg_path = "$out/lib/ghidra";
@@ -92,10 +77,7 @@ let
     patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
     postPatch = fixProtoc + addResolveStep;
 
-    nativeBuildInputs = [
-      gradle
-      perl
-    ] ++ lib.optional stdenv.isDarwin xcbuild;
+    nativeBuildInputs = [ gradle perl ] ++ lib.optional stdenv.isDarwin xcbuild;
     buildPhase = ''
       export HOME="$NIX_BUILD_TOP/home"
       mkdir -p "$HOME"
@@ -119,16 +101,12 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-HveS3f8XHpJqefc4djYmnYfd01H2OBFK5PLNOsHAqlc=";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    gradle
-    unzip
-    makeWrapper
-    icoutils
-  ] ++ lib.optional stdenv.isDarwin xcbuild;
+  nativeBuildInputs = [ gradle unzip makeWrapper icoutils ]
+    ++ lib.optional stdenv.isDarwin xcbuild;
 
   dontStrip = true;
 
@@ -176,13 +154,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
+    description =
+      "A software reverse engineering (SRE) suite of tools developed by NSA's Research Directorate in support of the Cybersecurity mission";
     homepage = "https://ghidra-sre.org/";
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryBytecode # deps
@@ -191,4 +166,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ roblabla ];
     broken = stdenv.isDarwin;
   };
+
 }

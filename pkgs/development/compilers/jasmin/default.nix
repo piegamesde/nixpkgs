@@ -1,19 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  jdk8,
-  ant,
-  makeWrapper,
-  callPackage,
-}:
+{ lib, stdenv, fetchurl, unzip, jdk8, ant, makeWrapper, callPackage }:
 
 let
   jre = jdk8.jre;
   jdk = jdk8;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "jasmin";
   version = "2.4";
 
@@ -22,12 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "17a41vr96glcdrdbk88805wwvv1r6w8wg7if23yhd0n6rrl0r8ga";
   };
 
-  nativeBuildInputs = [
-    unzip
-    jdk
-    ant
-    makeWrapper
-  ];
+  nativeBuildInputs = [ unzip jdk ant makeWrapper ];
 
   buildPhase = "ant all";
   installPhase = ''
@@ -44,9 +29,11 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An assembler for the Java Virtual Machine";
     homepage = "https://jasmin.sourceforge.net/";
-    downloadPage = "https://sourceforge.net/projects/jasmin/files/latest/download";
+    downloadPage =
+      "https://sourceforge.net/projects/jasmin/files/latest/download";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fgaz ];
     platforms = platforms.all;
   };
 }
+

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  timer,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, timer }:
 
 buildGoModule rec {
   pname = "timer";
@@ -19,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-j7Xik0te6GdjfhXHT7DRf+MwM+aKjfgTGvroxnlD3MM=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   passthru.tests.version = testers.testVersion { package = timer; };
 
@@ -31,9 +21,6 @@ buildGoModule rec {
     description = "A `sleep` with progress";
     homepage = "https://github.com/caarlos0/timer";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      zowoq
-      caarlos0
-    ];
+    maintainers = with maintainers; [ zowoq caarlos0 ];
   };
 }

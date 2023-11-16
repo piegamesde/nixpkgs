@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cargo,
-  cmake,
-  pkg-config,
-  rustPlatform,
-  rustc,
-  wrapQtAppsHook,
-  ibus,
-  qtbase,
-  zstd,
-}:
+{ lib, stdenv, fetchFromGitHub, cargo, cmake, pkg-config, rustPlatform, rustc
+, wrapQtAppsHook, ibus, qtbase, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "openbangla-keyboard";
@@ -25,20 +13,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    cargo
-    rustc
-    rustPlatform.cargoSetupHook
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs =
+    [ cmake pkg-config cargo rustc rustPlatform.cargoSetupHook wrapQtAppsHook ];
 
-  buildInputs = [
-    ibus
-    qtbase
-    zstd
-  ];
+  buildInputs = [ ibus qtbase zstd ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

@@ -1,17 +1,9 @@
-{
-  lib,
-  stdenv,
-  perl,
-  fetchFromGitHub,
-  autoreconfHook,
-  nixosTests,
-}:
+{ lib, stdenv, perl, fetchFromGitHub, autoreconfHook, nixosTests }:
 
 let
   dataDir = "/var/lib/sympa";
   runtimeDir = "/run/sympa";
-  perlEnv = perl.withPackages (
-    p:
+  perlEnv = perl.withPackages (p:
     with p; [
       ArchiveZip
       CGI
@@ -66,10 +58,8 @@ let
       perlldap
       libnet
       SOAPLite
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+    ]);
+in stdenv.mkDerivation rec {
   pname = "sympa";
   version = "6.2.70";
 
@@ -114,18 +104,13 @@ stdenv.mkDerivation rec {
     rm -rf "$TMP/bin"
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) sympa;
-  };
+  passthru.tests = { inherit (nixosTests) sympa; };
 
   meta = with lib; {
     description = "Open source mailing list manager";
     homepage = "https://www.sympa.org";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-      sorki
-      mmilata
-    ];
+    maintainers = with maintainers; [ sorki mmilata ];
     platforms = platforms.all;
   };
 }

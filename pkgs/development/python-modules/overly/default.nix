@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  h11,
-  sansio-multipart,
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchPypi, h11, sansio-multipart
 }:
 
 buildPythonPackage rec {
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     sha256 = "20a99526c7859acc859e87afd97b5c4916405e7477834f727b49210e478370cb";
   };
 
-  propagatedBuildInputs = [
-    h11
-    sansio-multipart
-  ];
+  propagatedBuildInputs = [ h11 sansio-multipart ];
 
   # upstream has no tests
   doCheck = false;

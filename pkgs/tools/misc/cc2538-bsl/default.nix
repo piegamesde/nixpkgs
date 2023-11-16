@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonPackage rec {
   pname = "cc2538-bsl";
@@ -32,8 +28,10 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/JelmerT/cc2538-bsl";
-    description = "Flash TI SimpleLink chips (CC2538, CC13xx, CC26xx) over serial";
+    description =
+      "Flash TI SimpleLink chips (CC2538, CC13xx, CC26xx) over serial";
     license = licenses.bsd3;
     maintainers = with maintainers; [ lorenz ];
   };
 }
+

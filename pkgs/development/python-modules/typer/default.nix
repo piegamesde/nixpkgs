@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  click,
-  colorama,
-  coverage,
-  fetchpatch,
-  fetchPypi,
-  flit-core,
-  pytest-sugar,
-  pytest-xdist,
-  pytestCheckHook,
-  pythonOlder,
-  rich,
-  shellingham,
-  typing-extensions,
-}:
+{ lib, stdenv, buildPythonPackage, click, colorama, coverage, fetchpatch
+, fetchPypi, flit-core, pytest-sugar, pytest-xdist, pytestCheckHook, pythonOlder
+, rich, shellingham, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "typer";
@@ -31,18 +16,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    click
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ click typing-extensions ];
 
-  passthru.optional-dependencies = {
-    all = [
-      colorama
-      shellingham
-      rich
-    ];
-  };
+  passthru.optional-dependencies = { all = [ colorama shellingham rich ]; };
 
   nativeCheckInputs = [
     coverage # execs coverage in tests
@@ -55,14 +31,12 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests =
-    [ "test_scripts" ]
-    ++ lib.optionals stdenv.isDarwin [
-      # likely related to https://github.com/sarugaku/shellingham/issues/35
-      "test_show_completion"
-      "test_install_completion"
-    ]
-    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "test_install_completion" ];
+  disabledTests = [ "test_scripts" ] ++ lib.optionals stdenv.isDarwin [
+    # likely related to https://github.com/sarugaku/shellingham/issues/35
+    "test_show_completion"
+    "test_install_completion"
+  ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64)
+    [ "test_install_completion" ];
 
   pythonImportsCheck = [ "typer" ];
 

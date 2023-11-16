@@ -1,16 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  pkg-config,
-  wrapGAppsHook,
-  gobject-introspection,
-  gtk-layer-shell,
-  gtk3,
-  pango,
-  gdk-pixbuf,
-  atk,
-}:
+{ lib, fetchFromGitHub, buildGoModule, pkg-config, wrapGAppsHook
+, gobject-introspection, gtk-layer-shell, gtk3, pango, gdk-pixbuf, atk }:
 
 buildGoModule rec {
   pname = "nwg-menu";
@@ -27,18 +16,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  buildInputs = [
-    atk
-    gtk3
-    gdk-pixbuf
-    gtk-layer-shell
-    pango
-  ];
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  buildInputs = [ atk gtk3 gdk-pixbuf gtk-layer-shell pango ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook gobject-introspection ];
 
   prePatch = ''
     for file in main.go tools.go; do

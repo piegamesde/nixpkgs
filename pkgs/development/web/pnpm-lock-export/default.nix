@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub }:
 buildNpmPackage rec {
   pname = "pnpm-lock-export";
   version = "0.4.0";
@@ -22,12 +18,11 @@ buildNpmPackage rec {
     substituteInPlace package.json --replace "@cvent/pnpm-lock-export" "pnpm-lock-export"
   '';
 
-  passthru = {
-    updateScript = ./update.sh;
-  };
+  passthru = { updateScript = ./update.sh; };
 
   meta = with lib; {
-    description = "A utility for converting pnpm-lock.yaml to other lockfile formats";
+    description =
+      "A utility for converting pnpm-lock.yaml to other lockfile formats";
     homepage = "https://github.com/cvent/pnpm-lock-export";
     license = licenses.mit;
     maintainers = with maintainers; [ ambroisie ];

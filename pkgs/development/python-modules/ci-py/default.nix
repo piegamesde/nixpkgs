@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ci-py";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for working with Continuous Integration services";
     homepage = "https://github.com/grantmcconnaughey/ci.py";
-    changelog = "https://github.com/grantmcconnaughey/ci.py/blob/master/CHANGELOG.md";
+    changelog =
+      "https://github.com/grantmcconnaughey/ci.py/blob/master/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

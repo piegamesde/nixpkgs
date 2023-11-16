@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   keysDirectory = "/var/keys";
@@ -13,9 +8,8 @@ let
   keyType = "ed25519";
 
   cfg = config.virtualisation.darwin-builder;
-in
 
-{
+in {
   imports = [
     ../virtualisation/qemu-vm.nix
 
@@ -116,10 +110,7 @@ in
 
       max-free = cfg.max-free;
 
-      trusted-users = [
-        "root"
-        user
-      ];
+      trusted-users = [ "root" user ];
     };
 
     services = {
@@ -132,36 +123,30 @@ in
       };
     };
 
-    system.build.macos-builder-installer =
-      let
-        privateKey = "/etc/nix/${user}_${keyType}";
+    system.build.macos-builder-installer = let
+      privateKey = "/etc/nix/${user}_${keyType}";
 
-        publicKey = "${privateKey}.pub";
+      publicKey = "${privateKey}.pub";
 
-        # This installCredentials script is written so that it's as easy as
-        # possible for a user to audit before confirming the `sudo`
-        installCredentials = hostPkgs.writeShellScript "install-credentials" ''
-          KEYS="''${1}"
-          INSTALL=${hostPkgs.coreutils}/bin/install
-          "''${INSTALL}" -g nixbld -m 600 "''${KEYS}/${user}_${keyType}" ${privateKey}
-          "''${INSTALL}" -g nixbld -m 644 "''${KEYS}/${user}_${keyType}.pub" ${publicKey}
-        '';
+      # This installCredentials script is written so that it's as easy as
+      # possible for a user to audit before confirming the `sudo`
+      installCredentials = hostPkgs.writeShellScript "install-credentials" ''
+        KEYS="''${1}"
+        INSTALL=${hostPkgs.coreutils}/bin/install
+        "''${INSTALL}" -g nixbld -m 600 "''${KEYS}/${user}_${keyType}" ${privateKey}
+        "''${INSTALL}" -g nixbld -m 644 "''${KEYS}/${user}_${keyType}.pub" ${publicKey}
+      '';
 
-        hostPkgs = config.virtualisation.host.pkgs;
+      hostPkgs = config.virtualisation.host.pkgs;
 
-        script = hostPkgs.writeShellScriptBin "create-builder" (
-          # When running as non-interactively as part of a DarwinConfiguration the working directory
-          # must be set to a writeable directory.
-          (
-            if cfg.workingDirectory != "." then
-              ''
-                ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
-                cd "${cfg.workingDirectory}"
-              ''
-            else
-              ""
-          )
-          + ''
+      script = hostPkgs.writeShellScriptBin "create-builder" (
+        # When running as non-interactively as part of a DarwinConfiguration the working directory
+        # must be set to a writeable directory.
+        (if cfg.workingDirectory != "." then ''
+          ${hostPkgs.coreutils}/bin/mkdir --parent "${cfg.workingDirectory}"
+          cd "${cfg.workingDirectory}"
+        '' else
+          "") + ''
             KEYS="''${KEYS:-./keys}"
             ${hostPkgs.coreutils}/bin/mkdir --parent "''${KEYS}"
             PRIVATE_KEY="''${KEYS}/${user}_${keyType}"
@@ -174,36 +159,27 @@ in
               (set -x; sudo --reset-timestamp ${installCredentials} "''${KEYS}")
             fi
             KEYS="$(${hostPkgs.nix}/bin/nix-store --add "$KEYS")" ${config.system.build.vm}/bin/run-nixos-vm
-          ''
-        );
-      in
-      script.overrideAttrs (
-        old: {
-          meta = (old.meta or { }) // {
-            platforms = lib.platforms.darwin;
-          };
-        }
-      );
+          '');
+
+    in script.overrideAttrs (old: {
+      meta = (old.meta or { }) // { platforms = lib.platforms.darwin; };
+    });
 
     system = {
       # To prevent gratuitous rebuilds on each change to Nixpkgs
       nixos.revision = null;
 
-      stateVersion = lib.mkDefault (
-        throw ''
-          The macOS linux builder should not need a stateVersion to be set, but a module
-          has accessed stateVersion nonetheless.
-          Please inspect the trace of the following command to figure out which module
-          has a dependency on stateVersion.
+      stateVersion = lib.mkDefault (throw ''
+        The macOS linux builder should not need a stateVersion to be set, but a module
+        has accessed stateVersion nonetheless.
+        Please inspect the trace of the following command to figure out which module
+        has a dependency on stateVersion.
 
-            nix-instantiate --attr darwin.builder --show-trace
-        ''
-      );
+          nix-instantiate --attr darwin.builder --show-trace
+      '');
     };
 
-    users.users."${user}" = {
-      isNormalUser = true;
-    };
+    users.users."${user}" = { isNormalUser = true; };
 
     security.polkit.enable = true;
 
@@ -222,13 +198,11 @@ in
 
       memorySize = cfg.memorySize;
 
-      forwardPorts = [
-        {
-          from = "host";
-          guest.port = 22;
-          host.port = cfg.hostPort;
-        }
-      ];
+      forwardPorts = [{
+        from = "host";
+        guest.port = 22;
+        host.port = cfg.hostPort;
+      }];
 
       # Disable graphics for the builder since users will likely want to run it
       # non-interactively in the background.

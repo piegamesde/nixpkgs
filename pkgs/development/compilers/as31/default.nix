@@ -1,25 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bison,
-}:
+{ lib, stdenv, fetchurl, bison }:
 
 stdenv.mkDerivation rec {
   pname = "as31";
   version = "2.3.1";
 
   src = fetchurl {
-    url = "http://wiki.erazor-zone.de/_media/wiki:projects:linux:as31:${pname}-${version}.tar.gz";
+    url =
+      "http://wiki.erazor-zone.de/_media/wiki:projects:linux:as31:${pname}-${version}.tar.gz";
     name = "${pname}-${version}.tar.gz";
     hash = "sha256-zSEyWHFon5nyq717Mpmdv1XZ5Hz0e8ZABqsP8M83c1U=";
   };
 
-  patches =
-    [
-      # Check return value of getline in run.c
-      ./0000-getline-break.patch
-    ];
+  patches = [
+    # Check return value of getline in run.c
+    ./0000-getline-break.patch
+  ];
 
   postPatch = ''
     # parser.c is generated from parser.y; it is better to generate it via bison

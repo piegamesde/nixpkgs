@@ -1,8 +1,4 @@
-{
-  build-idris-package,
-  fetchFromGitHub,
-  lib,
-}:
+{ build-idris-package, fetchFromGitHub, lib }:
 build-idris-package {
   pname = "coda";
   version = "2018-01-25";
@@ -17,7 +13,8 @@ build-idris-package {
   };
 
   meta = {
-    description = "Some Idris libraries including nodejs bindings and ISO8601 Date and Time";
+    description =
+      "Some Idris libraries including nodejs bindings and ISO8601 Date and Time";
     homepage = "https://github.com/ostera/idris-coda";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.brainrape ];

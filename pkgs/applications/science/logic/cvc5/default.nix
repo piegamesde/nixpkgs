@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cmake,
-  flex,
-  cadical,
-  symfpu,
-  gmp,
-  python3,
-  gtest,
-  libantlr3c,
-  antlr3_4,
-  boost,
-  jdk,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, flex, cadical, symfpu, gmp
+, python3, gtest, libantlr3c, antlr3_4, boost, jdk }:
 
 stdenv.mkDerivation rec {
   pname = "cvc5";
@@ -27,11 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-l+L59QLLrAEVkAZjhxICJpa+j+jr1k/7B61JlapXGRI=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    flex
-  ];
+  nativeBuildInputs = [ pkg-config cmake flex ];
   buildInputs = [
     cadical.dev
     symfpu
@@ -41,13 +22,7 @@ stdenv.mkDerivation rec {
     antlr3_4
     boost
     jdk
-    (python3.withPackages (
-      ps:
-      with ps; [
-        pyparsing
-        toml
-      ]
-    ))
+    (python3.withPackages (ps: with ps; [ pyparsing toml ]))
   ];
 
   preConfigure = ''

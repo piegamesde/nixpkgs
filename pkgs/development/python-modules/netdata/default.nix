@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  httpx,
-  pytest-asyncio,
-  pytest-httpx,
-  pytestCheckHook,
-  yarl,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, httpx
+, pytest-asyncio, pytest-httpx, pytestCheckHook, yarl }:
 
 buildPythonPackage rec {
   pname = "netdata";
@@ -27,23 +17,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    httpx
-    yarl
-  ];
+  propagatedBuildInputs = [ httpx yarl ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-httpx
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-httpx pytestCheckHook ];
 
   pythonImportsCheck = [ "netdata" ];
 
   meta = with lib; {
     description = "Python API for interacting with Netdata";
     homepage = "https://github.com/home-assistant-ecosystem/python-netdata";
-    changelog = "https://github.com/home-assistant-ecosystem/python-netdata/releases/tag/${version}";
+    changelog =
+      "https://github.com/home-assistant-ecosystem/python-netdata/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

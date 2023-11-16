@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  runCommand,
-}:
+{ lib, fetchFromGitHub, rustPlatform, runCommand }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dupe-krill";

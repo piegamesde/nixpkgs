@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  tokenize-rt,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, tokenize-rt }:
 
 buildPythonPackage rec {
   pname = "add-trailing-comma";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "A tool (and pre-commit hook) to automatically add trailing commas to calls and literals";
+    description =
+      "A tool (and pre-commit hook) to automatically add trailing commas to calls and literals";
     homepage = "https://github.com/asottile/add-trailing-comma";
     license = licenses.mit;
     maintainers = with maintainers; [ gador ];

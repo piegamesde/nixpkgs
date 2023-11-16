@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "access";
   version = "20210124-git";
 
@@ -24,7 +23,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/access/2021-01-24/access-20210124-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/access/2021-01-24/access-20210124-git.tgz";
     sha256 = "1n4j15v1ikspchcbb0bn15kk3lh78f6bxk56cs4arimm8bisyqlq";
   };
 

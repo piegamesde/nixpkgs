@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  openjdk17,
-  wget,
-  which,
-  gnused,
-  gawk,
-  coreutils,
-  buildFHSEnv,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, openjdk17, wget, which, gnused, gawk
+, coreutils, buildFHSEnv }:
 
 let
   nextflow = stdenv.mkDerivation rec {
@@ -18,19 +7,13 @@ let
     version = "22.10.6";
 
     src = fetchurl {
-      url = "https://github.com/nextflow-io/nextflow/releases/download/v${version}/nextflow-${version}-all";
+      url =
+        "https://github.com/nextflow-io/nextflow/releases/download/v${version}/nextflow-${version}-all";
       hash = "sha256-zeYsKxWRnzr0W6CD+yjoAXwCN/AbN5P4HhH1oftnrjY=";
     };
 
-    nativeBuildInputs = [
-      makeWrapper
-      openjdk17
-      wget
-      which
-      gnused
-      gawk
-      coreutils
-    ];
+    nativeBuildInputs =
+      [ makeWrapper openjdk17 wget which gnused gawk coreutils ];
 
     dontUnpack = true;
 
@@ -66,8 +49,7 @@ let
       platforms = platforms.unix;
     };
   };
-in
-if stdenv.isLinux then
+in if stdenv.isLinux then
   buildFHSEnv {
     name = "nextflow";
     targetPkgs = pkgs: [ nextflow ];

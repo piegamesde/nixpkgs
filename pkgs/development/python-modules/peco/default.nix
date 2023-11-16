@@ -1,11 +1,4 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchPypi,
-  pydantic,
-  pythonOlder,
-  setuptools,
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pydantic, pythonOlder, setuptools
 }:
 
 buildPythonPackage rec {
@@ -22,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic ];
 
   # Module has no tests
   doCheck = false;

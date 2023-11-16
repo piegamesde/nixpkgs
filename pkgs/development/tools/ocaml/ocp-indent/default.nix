@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  cmdliner,
-  findlib,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, cmdliner, findlib }:
 
 buildDunePackage rec {
   version = "1.8.2";

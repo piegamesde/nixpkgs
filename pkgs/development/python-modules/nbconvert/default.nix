@@ -1,30 +1,8 @@
-{
-  beautifulsoup4,
-  bleach,
-  buildPythonPackage,
-  defusedxml,
-  fetchPypi,
-  fetchpatch,
-  fetchurl,
-  hatchling,
-  importlib-metadata,
-  ipywidgets,
-  jinja2,
-  jupyter-core,
-  jupyterlab-pygments,
-  lib,
-  markupsafe,
-  mistune,
-  nbclient,
-  packaging,
-  pandocfilters,
-  pygments,
-  pyppeteer,
-  pytestCheckHook,
-  pythonOlder,
-  tinycss2,
-  traitlets,
-}:
+{ beautifulsoup4, bleach, buildPythonPackage, defusedxml, fetchPypi, fetchpatch
+, fetchurl, hatchling, importlib-metadata, ipywidgets, jinja2, jupyter-core
+, jupyterlab-pygments, lib, markupsafe, mistune, nbclient, packaging
+, pandocfilters, pygments, pyppeteer, pytestCheckHook, pythonOlder, tinycss2
+, traitlets }:
 
 let
   # see https://github.com/jupyter/nbconvert/issues/1896
@@ -32,8 +10,7 @@ let
     url = "https://cdn.jupyter.org/notebook/5.4.0/style/style.min.css";
     hash = "sha256-WGWmCfRDewRkvBIc1We2GQdOVAoFFaO4LyIvdk61HgE=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "nbconvert";
   version = "7.2.5";
 
@@ -80,11 +57,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = [
-    ipywidgets
-    pyppeteer
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ ipywidgets pyppeteer pytestCheckHook ];
 
   disabledTests = [
     # Attempts network access (Failed to establish a new connection: [Errno -3] Temporary failure in name resolution)

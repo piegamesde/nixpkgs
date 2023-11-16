@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  msgpack,
-  greenlet,
-  pythonOlder,
-  isPyPy,
-}:
+{ lib, buildPythonPackage, fetchPypi, msgpack, greenlet, pythonOlder, isPyPy }:
 
 buildPythonPackage rec {
   pname = "pynvim";

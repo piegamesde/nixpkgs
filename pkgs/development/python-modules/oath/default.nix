@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "oath";
@@ -19,7 +14,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "oath" ];
 
   meta = with lib; {
-    description = "Python implementation of the three main OATH specifications: HOTP, TOTP and OCRA";
+    description =
+      "Python implementation of the three main OATH specifications: HOTP, TOTP and OCRA";
     homepage = "https://github.com/bdauvergne/python-oath";
     license = licenses.bsd3;
     maintainers = with maintainers; [ aw ];

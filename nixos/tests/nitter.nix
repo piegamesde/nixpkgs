@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "nitter";
@@ -16,5 +15,4 @@ import ./make-test-python.nix (
       machine.wait_for_open_port(80)
       machine.succeed("curl --fail http://localhost:80/")
     '';
-  }
-)
+  })

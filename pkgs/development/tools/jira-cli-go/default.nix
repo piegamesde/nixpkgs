@@ -1,14 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  less,
-  more,
-  installShellFiles,
-  testers,
-  jira-cli-go,
-  nix-update-script,
-}:
+{ lib, buildGoModule, fetchFromGitHub, less, more, installShellFiles, testers
+, jira-cli-go, nix-update-script }:
 
 buildGoModule rec {
   pname = "jira-cli-go";
@@ -33,10 +24,7 @@ buildGoModule rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    less
-    more
-  ]; # Tests expect a pager in $PATH
+  nativeCheckInputs = [ less more ]; # Tests expect a pager in $PATH
 
   passthru = {
     tests.version = testers.testVersion {
@@ -60,12 +48,10 @@ buildGoModule rec {
   meta = with lib; {
     description = "Feature-rich interactive Jira command line";
     homepage = "https://github.com/ankitpokhrel/jira-cli";
-    changelog = "https://github.com/ankitpokhrel/jira-cli/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ankitpokhrel/jira-cli/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      bryanasdev000
-      anthonyroussel
-    ];
+    maintainers = with maintainers; [ bryanasdev000 anthonyroussel ];
     mainProgram = "jira";
   };
 }

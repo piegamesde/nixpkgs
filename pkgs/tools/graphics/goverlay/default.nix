@@ -1,29 +1,7 @@
-{
-  lib,
-  writeScriptBin,
-  bash,
-  stdenv,
-  fetchFromGitHub,
-  fpc,
-  lazarus-qt,
-  wrapQtAppsHook,
-  breeze-qt5,
-  libGL,
-  libGLU,
-  libqt5pas,
-  libX11,
-  coreutils,
-  git,
-  gnugrep,
-  libnotify,
-  polkit,
-  procps,
-  systemd,
-  util-linux,
-  vulkan-tools,
-  which,
-  nix-update-script,
-}:
+{ lib, writeScriptBin, bash, stdenv, fetchFromGitHub, fpc, lazarus-qt
+, wrapQtAppsHook, breeze-qt5, libGL, libGLU, libqt5pas, libX11, coreutils, git
+, gnugrep, libnotify, polkit, procps, systemd, util-linux, vulkan-tools, which
+, nix-update-script }:
 
 let
   # Finds data files using the XDG Base Directory Specification
@@ -37,8 +15,7 @@ let
       fi
     done
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "goverlay";
   version = "0.7.1";
 
@@ -49,16 +26,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oXkGrMHjs8uui0pzGYW8jnttet/5IX0r8eat0n5saFk=";
   };
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
-  patches =
-    [
-      # Find MangoHud & vkBasalt Vulkan layers using the XDG Base Directory Specification
-      ./find-xdg-data-files.patch
-    ];
+  patches = [
+    # Find MangoHud & vkBasalt Vulkan layers using the XDG Base Directory Specification
+    ./find-xdg-data-files.patch
+  ];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -68,19 +41,9 @@ stdenv.mkDerivation rec {
       --replace '/usr/share/icons/hicolor/128x128/apps/goverlay.png' "$out/share/icons/hicolor/128x128/apps/goverlay.png"
   '';
 
-  nativeBuildInputs = [
-    fpc
-    lazarus-qt
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ fpc lazarus-qt wrapQtAppsHook ];
 
-  buildInputs = [
-    breeze-qt5
-    libGL
-    libGLU
-    libqt5pas
-    libX11
-  ];
+  buildInputs = [ breeze-qt5 libGL libGLU libqt5pas libX11 ];
 
   NIX_LDFLAGS = "-lGLU -rpath ${lib.makeLibraryPath buildInputs}";
 
@@ -116,7 +79,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "An opensource project that aims to create a Graphical UI to help manage Linux overlays";
+    description =
+      "An opensource project that aims to create a Graphical UI to help manage Linux overlays";
     homepage = "https://github.com/benjamimgois/goverlay";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];

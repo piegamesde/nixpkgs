@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  libtool,
-  automake,
-  pkg-config,
-  git,
-  bison,
-  flex,
-  postgresql,
-  ripgrep,
-  libunwind,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, libtool, automake, pkg-config, git
+, bison, flex, postgresql, ripgrep, libunwind }:
 
 stdenv.mkDerivation rec {
   pname = "stellar-core";
@@ -26,22 +13,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    automake
-    autoconf
-    git
-    libtool
-    pkg-config
-    ripgrep
-  ];
+  nativeBuildInputs = [ automake autoconf git libtool pkg-config ripgrep ];
 
   buildInputs = [ libunwind ];
 
-  propagatedBuildInputs = [
-    bison
-    flex
-    postgresql
-  ];
+  propagatedBuildInputs = [ bison flex postgresql ];
 
   enableParallelBuilding = true;
 
@@ -59,7 +35,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Implements the Stellar Consensus Protocol, a federated consensus protocol";
+    description =
+      "Implements the Stellar Consensus Protocol, a federated consensus protocol";
     longDescription = ''
       Stellar-core is the backbone of the Stellar network. It maintains a
       local copy of the ledger, communicating and staying in sync with other

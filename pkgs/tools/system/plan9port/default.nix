@@ -1,22 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fontconfig,
-  freetype,
-  libX11,
-  libXext,
-  libXt,
-  xorgproto,
-  perl, # For building web manuals
-  which,
-  ed,
-  Carbon,
-  Cocoa,
-  IOKit,
-  Metal,
-  QuartzCore,
-  DarwinTools, # For building on Darwin
+{ lib, stdenv, fetchFromGitHub, fontconfig, freetype, libX11, libXext, libXt
+, xorgproto, perl # For building web manuals
+, which, ed, Carbon, Cocoa, IOKit, Metal, QuartzCore
+, DarwinTools # For building on Darwin
 }:
 
 stdenv.mkDerivation rec {
@@ -49,31 +34,21 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ ed ];
-  buildInputs =
-    [
-      perl
-      which
-    ]
-    ++ (
-      if !stdenv.isDarwin then
-        [
-          fontconfig
-          freetype # fontsrv uses these
-          libX11
-          libXext
-          libXt
-          xorgproto
-        ]
-      else
-        [
-          Carbon
-          Cocoa
-          IOKit
-          Metal
-          QuartzCore
-          DarwinTools
-        ]
-    );
+  buildInputs = [ perl which ] ++ (if !stdenv.isDarwin then [
+    fontconfig
+    freetype # fontsrv uses these
+    libX11
+    libXext
+    libXt
+    xorgproto
+  ] else [
+    Carbon
+    Cocoa
+    IOKit
+    Metal
+    QuartzCore
+    DarwinTools
+  ]);
 
   configurePhase = ''
     runHook preConfigure

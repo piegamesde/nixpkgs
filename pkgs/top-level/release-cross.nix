@@ -12,25 +12,21 @@
    $ nix-build --expr 'with import ./pkgs/top-level/release-cross.nix {supportedSystems = [builtins.currentSystem];}; builtins.mapAttrs (k: v: v.build) bootstrapTools'
 */
 
-{
-  # The platforms *from* which we cross compile.
-  supportedSystems ? [
-    "x86_64-linux"
-    "x86_64-darwin"
-    "aarch64-linux"
-  ],
-  # Strip most of attributes when evaluating to spare memory usage
-  scrubJobs ? true,
-  # Attributes passed to nixpkgs. Don't build packages marked as unfree.
-  nixpkgsArgs ? {
-    config = {
-      allowUnfree = false;
-      inHydra = true;
-    };
-  },
-}:
+{ # The platforms *from* which we cross compile.
+supportedSystems ? [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" ]
+, # Strip most of attributes when evaluating to spare memory usage
+scrubJobs ? true
+, # Attributes passed to nixpkgs. Don't build packages marked as unfree.
+nixpkgsArgs ? {
+  config = {
+    allowUnfree = false;
+    inHydra = true;
+  };
+} }:
 
-with import ./release-lib.nix { inherit supportedSystems scrubJobs nixpkgsArgs; };
+with import ./release-lib.nix {
+  inherit supportedSystems scrubJobs nixpkgsArgs;
+};
 
 let
   nativePlatforms = all;
@@ -87,9 +83,7 @@ let
     zlib = nativePlatforms;
   };
 
-  darwinCommon = {
-    buildPackages.binutils = darwin;
-  };
+  darwinCommon = { buildPackages.binutils = darwin; };
 
   rpiCommon = linuxCommon // {
     vim = nativePlatforms;
@@ -110,58 +104,54 @@ let
   nixCrossStatic = {
     nixStatic = linux; # no need for buildPlatform=*-darwin
   };
-in
 
-{
+in {
   # These derivations from a cross package set's `buildPackages` should be
   # identical to their vanilla equivalents --- none of these package should
   # observe the target platform which is the only difference between those
   # package sets.
-  ensureUnaffected =
-    let
-      # Absurd values are fine here, as we are not building anything. In fact,
-      # there probably a good idea to try to be "more parametric" --- i.e. avoid
-      # any special casing.
-      crossSystem = {
-        config = "mips64el-apple-windows-gnu";
-        libc = "glibc";
-      };
-
-      # Converting to a string (drv path) before checking equality is probably a
-      # good idea lest there be some irrelevant pass-through debug attrs that
-      # cause false negatives.
-      testEqualOne =
-        path: system:
-        let
-          f =
-            path: crossSystem: system:
-            builtins.toString (lib.getAttrFromPath path (pkgsForCross crossSystem system));
-        in
-        assertTrue (f path null system == f ([ "buildPackages" ] ++ path) crossSystem system);
-
-      testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
-
-      mapTestEqual = lib.mapAttrsRecursive testEqual;
-    in
-    mapTestEqual {
-      boehmgc = nativePlatforms;
-      libffi = nativePlatforms;
-      libiconv = nativePlatforms;
-      libtool = nativePlatforms;
-      zlib = nativePlatforms;
-      readline = nativePlatforms;
-      libxml2 = nativePlatforms;
-      guile = nativePlatforms;
+  ensureUnaffected = let
+    # Absurd values are fine here, as we are not building anything. In fact,
+    # there probably a good idea to try to be "more parametric" --- i.e. avoid
+    # any special casing.
+    crossSystem = {
+      config = "mips64el-apple-windows-gnu";
+      libc = "glibc";
     };
+
+    # Converting to a string (drv path) before checking equality is probably a
+    # good idea lest there be some irrelevant pass-through debug attrs that
+    # cause false negatives.
+    testEqualOne = path: system:
+      let
+        f = path: crossSystem: system:
+          builtins.toString
+          (lib.getAttrFromPath path (pkgsForCross crossSystem system));
+      in assertTrue (f path null system
+        == f ([ "buildPackages" ] ++ path) crossSystem system);
+
+    testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
+
+    mapTestEqual = lib.mapAttrsRecursive testEqual;
+
+  in mapTestEqual {
+    boehmgc = nativePlatforms;
+    libffi = nativePlatforms;
+    libiconv = nativePlatforms;
+    libtool = nativePlatforms;
+    zlib = nativePlatforms;
+    readline = nativePlatforms;
+    libxml2 = nativePlatforms;
+    guile = nativePlatforms;
+  };
 
   crossIphone64 = mapTestOnCross lib.systems.examples.iphone64 darwinCommon;
 
   crossIphone32 = mapTestOnCross lib.systems.examples.iphone32 darwinCommon;
 
   # Test some cross builds to the Sheevaplug
-  crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug (
-    linuxCommon // { ubootSheevaplug = nativePlatforms; }
-  );
+  crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug
+    (linuxCommon // { ubootSheevaplug = nativePlatforms; });
 
   # Test some cross builds on 32 bit mingw-w64
   crossMingw32 = mapTestOnCross lib.systems.examples.mingw32 windowsCommon;
@@ -189,20 +179,24 @@ in
   remarkable2 = mapTestOnCross lib.systems.examples.remarkable2 linuxCommon;
 
   # Linux on armv7l-hf
-  armv7l-hf = mapTestOnCross lib.systems.examples.armv7l-hf-multiplatform linuxCommon;
+  armv7l-hf =
+    mapTestOnCross lib.systems.examples.armv7l-hf-multiplatform linuxCommon;
 
   pogoplug4 = mapTestOnCross lib.systems.examples.pogoplug4 linuxCommon;
 
   # Linux on aarch64
-  aarch64 = mapTestOnCross lib.systems.examples.aarch64-multiplatform linuxCommon;
-  aarch64-musl = mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl linuxCommon;
+  aarch64 =
+    mapTestOnCross lib.systems.examples.aarch64-multiplatform linuxCommon;
+  aarch64-musl =
+    mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl linuxCommon;
 
   # Linux on RISCV
   riscv64 = mapTestOnCross lib.systems.examples.riscv64 linuxCommon;
   riscv32 = mapTestOnCross lib.systems.examples.riscv32 linuxCommon;
 
   # Linux on LoongArch
-  loongarch64-linux = mapTestOnCross lib.systems.examples.loongarch64-linux linuxCommon;
+  loongarch64-linux =
+    mapTestOnCross lib.systems.examples.loongarch64-linux linuxCommon;
 
   m68k = mapTestOnCross lib.systems.examples.m68k linuxCommon;
   s390x = mapTestOnCross lib.systems.examples.s390x linuxCommon;
@@ -216,8 +210,10 @@ in
   ppc64le = mapTestOnCross lib.systems.examples.powernv linuxCommon;
   ppc64le-musl = mapTestOnCross lib.systems.examples.musl-power linuxCommon;
 
-  android64 = mapTestOnCross lib.systems.examples.aarch64-android-prebuilt linuxCommon;
-  android32 = mapTestOnCross lib.systems.examples.armv7a-android-prebuilt linuxCommon;
+  android64 =
+    mapTestOnCross lib.systems.examples.aarch64-android-prebuilt linuxCommon;
+  android32 =
+    mapTestOnCross lib.systems.examples.armv7a-android-prebuilt linuxCommon;
 
   wasi32 = mapTestOnCross lib.systems.examples.wasi32 wasiCommon;
 
@@ -228,14 +224,20 @@ in
   avr = mapTestOnCross lib.systems.examples.avr embedded;
   arm-embedded = mapTestOnCross lib.systems.examples.arm-embedded embedded;
   armhf-embedded = mapTestOnCross lib.systems.examples.armhf-embedded embedded;
-  aarch64-embedded = mapTestOnCross lib.systems.examples.aarch64-embedded embedded;
-  aarch64be-embedded = mapTestOnCross lib.systems.examples.aarch64be-embedded embedded;
+  aarch64-embedded =
+    mapTestOnCross lib.systems.examples.aarch64-embedded embedded;
+  aarch64be-embedded =
+    mapTestOnCross lib.systems.examples.aarch64be-embedded embedded;
   powerpc-embedded = mapTestOnCross lib.systems.examples.ppc-embedded embedded;
-  powerpcle-embedded = mapTestOnCross lib.systems.examples.ppcle-embedded embedded;
+  powerpcle-embedded =
+    mapTestOnCross lib.systems.examples.ppcle-embedded embedded;
   i686-embedded = mapTestOnCross lib.systems.examples.i686-embedded embedded;
-  x86_64-embedded = mapTestOnCross lib.systems.examples.x86_64-embedded embedded;
-  riscv64-embedded = mapTestOnCross lib.systems.examples.riscv64-embedded embedded;
-  riscv32-embedded = mapTestOnCross lib.systems.examples.riscv32-embedded embedded;
+  x86_64-embedded =
+    mapTestOnCross lib.systems.examples.x86_64-embedded embedded;
+  riscv64-embedded =
+    mapTestOnCross lib.systems.examples.riscv64-embedded embedded;
+  riscv32-embedded =
+    mapTestOnCross lib.systems.examples.riscv32-embedded embedded;
   rx-embedded = mapTestOnCross lib.systems.examples.rx-embedded embedded;
 
   x86_64-freebsd = mapTestOnCross lib.systems.examples.x86_64-freebsd common;
@@ -243,41 +245,33 @@ in
 
   # we test `embedded` instead of `linuxCommon` because very few packages
   # successfully cross-compile to Redox so far
-  x86_64-redox = mapTestOnCross lib.systems.examples.x86_64-unknown-redox embedded;
+  x86_64-redox =
+    mapTestOnCross lib.systems.examples.x86_64-unknown-redox embedded;
 
   # Cross-built bootstrap tools for every supported platform
-  bootstrapTools =
-    let
-      tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix { system = "x86_64-linux"; };
-      maintainers = [ lib.maintainers.dezgeg ];
-      mkBootstrapToolsJob =
-        drv:
-        assert lib.elem drv.system supportedSystems;
-        hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv);
-    in
-    lib.mapAttrsRecursiveCond (as: !lib.isDerivation as) (name: mkBootstrapToolsJob)
-      # The `bootstrapTools.${platform}.bootstrapTools` derivation
-      # *unpacks* the bootstrap-files using their own `busybox` binary,
-      # so it will fail unless buildPlatform.canExecute hostPlatform.
-      # Unfortunately `bootstrapTools` also clobbers its own `system`
-      # attribute, so there is no way to detect this -- we must add it
-      # as a special case.  We filter the "test" attribute (only from
-      # *cross*-built bootstrapTools) for the same reason.
-      (
-        builtins.mapAttrs
-          (
-            _: v:
-            builtins.removeAttrs v [
-              "bootstrapTools"
-              "test"
-            ]
-          )
-          tools
-      );
+  bootstrapTools = let
+    tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix {
+      system = "x86_64-linux";
+    };
+    maintainers = [ lib.maintainers.dezgeg ];
+    mkBootstrapToolsJob = drv:
+      assert lib.elem drv.system supportedSystems;
+      hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv);
+  in lib.mapAttrsRecursiveCond (as: !lib.isDerivation as)
+  (name: mkBootstrapToolsJob)
+  # The `bootstrapTools.${platform}.bootstrapTools` derivation
+  # *unpacks* the bootstrap-files using their own `busybox` binary,
+  # so it will fail unless buildPlatform.canExecute hostPlatform.
+  # Unfortunately `bootstrapTools` also clobbers its own `system`
+  # attribute, so there is no way to detect this -- we must add it
+  # as a special case.  We filter the "test" attribute (only from
+  # *cross*-built bootstrapTools) for the same reason.
+  (builtins.mapAttrs (_: v: builtins.removeAttrs v [ "bootstrapTools" "test" ])
+    tools);
 
   # Cross-built nixStatic for platforms for enabled-but-unsupported platforms
   mips64el-nixCrossStatic =
-    mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64
-      nixCrossStatic;
-  powerpc64le-nixCrossStatic = mapTestOnCross lib.systems.examples.powernv nixCrossStatic;
+    mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64 nixCrossStatic;
+  powerpc64le-nixCrossStatic =
+    mapTestOnCross lib.systems.examples.powernv nixCrossStatic;
 }

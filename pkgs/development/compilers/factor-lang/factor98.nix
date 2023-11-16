@@ -1,36 +1,7 @@
-{
-  lib,
-  stdenv,
-  cairo,
-  curl,
-  fetchurl,
-  freealut,
-  gdk-pixbuf,
-  git,
-  glib,
-  gnome2,
-  graphviz,
-  gtk2-x11,
-  interpreter,
-  libGL,
-  libGLU,
-  libogg,
-  librsvg,
-  libvorbis,
-  makeWrapper,
-  ncurses,
-  openal,
-  openssl,
-  pango,
-  pcre,
-  runCommand,
-  runtimeShell,
-  tzdata,
-  udis86,
-  unzip,
-  writeScriptBin,
-  zlib,
-}:
+{ lib, stdenv, cairo, curl, fetchurl, freealut, gdk-pixbuf, git, glib, gnome2
+, graphviz, gtk2-x11, interpreter, libGL, libGLU, libogg, librsvg, libvorbis
+, makeWrapper, ncurses, openal, openssl, pango, pcre, runCommand, runtimeShell
+, tzdata, udis86, unzip, writeScriptBin, zlib }:
 let
   runtimeLibs = [
     cairo
@@ -52,40 +23,31 @@ let
     zlib
   ];
 
-  wrapFactorScript =
-    {
-      from,
-      to ? false,
-      runtimeLibs,
-    }:
-    ''
-      # Set Gdk pixbuf loaders file to the one from the build dependencies here
-      unset GDK_PIXBUF_MODULE_FILE
-      # Defined in gdk-pixbuf setup hook
-      findGdkPixbufLoaders "${librsvg}"
+  wrapFactorScript = { from, to ? false, runtimeLibs }: ''
+    # Set Gdk pixbuf loaders file to the one from the build dependencies here
+    unset GDK_PIXBUF_MODULE_FILE
+    # Defined in gdk-pixbuf setup hook
+    findGdkPixbufLoaders "${librsvg}"
 
-      ${if to then "makeWrapper ${from} ${to}" else "wrapProgram ${from}"} \
-        --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
-        --argv0 factor \
-        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${lib.makeLibraryPath runtimeLibs} \
-        --prefix PATH : ${lib.makeBinPath [ graphviz ]}
-    '';
+    ${if to then "makeWrapper ${from} ${to}" else "wrapProgram ${from}"} \
+      --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
+      --argv0 factor \
+      --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${
+        lib.makeLibraryPath runtimeLibs
+      } \
+      --prefix PATH : ${lib.makeBinPath [ graphviz ]}
+  '';
 
-  wrapFactor =
-    runtimeLibs:
-    runCommand (lib.appendToName "with-libs" interpreter).name
-      {
-        nativeBuildInputs = [ makeWrapper ];
-        buildInputs = [ gdk-pixbuf ];
-        passthru.runtimeLibs = runtimeLibs ++ interpreter.runtimeLibs;
-      }
-      (
-        wrapFactorScript {
-          from = "${interpreter}/lib/factor/.factor.wrapped";
-          to = "$out/bin/factor";
-          runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
-        }
-      );
+  wrapFactor = runtimeLibs:
+    runCommand (lib.appendToName "with-libs" interpreter).name {
+      nativeBuildInputs = [ makeWrapper ];
+      buildInputs = [ gdk-pixbuf ];
+      passthru.runtimeLibs = runtimeLibs ++ interpreter.runtimeLibs;
+    } (wrapFactorScript {
+      from = "${interpreter}/lib/factor/.factor.wrapped";
+      to = "$out/bin/factor";
+      runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
+    });
 
   # Development helper for use in nix shell
   wrapLocalFactor = writeScriptBin "wrapFactor" ''
@@ -98,13 +60,14 @@ let
   '';
   rev = "7999e72aecc3c5bc4019d43dc4697f49678cc3b4";
   version = "0.98";
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "factor-lang";
   inherit version;
 
   src = fetchurl {
-    url = "https://downloads.factorcode.org/releases/${version}/factor-src-${version}.zip";
+    url =
+      "https://downloads.factorcode.org/releases/${version}/factor-src-${version}.zip";
     sha256 = "01ip9mbnar4sv60d2wcwfz62qaamdvbykxw3gbhzqa25z36vi3ri";
   };
 
@@ -114,13 +77,7 @@ stdenv.mkDerivation {
     ./adjust-paths-in-unit-tests.patch
   ];
 
-  nativeBuildInputs = [
-    git
-    makeWrapper
-    curl
-    unzip
-    wrapLocalFactor
-  ];
+  nativeBuildInputs = [ git makeWrapper curl unzip wrapLocalFactor ];
   buildInputs = runtimeLibs;
 
   postPatch = ''
@@ -161,7 +118,9 @@ stdenv.mkDerivation {
     # out of known libraries. The side effect is that find-lib
     # will work only on the known libraries. There does not seem
     # to be a generic solution here.
-    find $(echo ${lib.makeLibraryPath runtimeLibs} | sed -e 's#:# #g') -name \*.so.\* > $TMPDIR/so.lst
+    find $(echo ${
+      lib.makeLibraryPath runtimeLibs
+    } | sed -e 's#:# #g') -name \*.so.\* > $TMPDIR/so.lst
     (echo $(cat $TMPDIR/so.lst | wc -l) "libs found in cache \`/etc/ld.so.cache'";
       for l in $(<$TMPDIR/so.lst); do
         echo " $(basename $l) (libc6,x86-64) => $l";
@@ -238,10 +197,7 @@ stdenv.mkDerivation {
       under a BSD license.
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [
-      vrthra
-      spacefrogg
-    ];
+    maintainers = with maintainers; [ vrthra spacefrogg ];
     platforms = lib.intersectLists platforms.x86_64 platforms.linux;
     mainProgram = "factor";
   };

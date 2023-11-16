@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  ffmpeg,
-  installShellFiles,
-  scdoc,
-}:
+{ lib, fetchFromGitHub, python3Packages, ffmpeg, installShellFiles, scdoc }:
 
 python3Packages.buildPythonApplication rec {
   pname = "twitch-dl";
@@ -20,22 +13,15 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-uxIBt/mGmld8bxUWQvAspaX39EVfguX5qDgJ/ecz3hM=";
   };
 
-  nativeCheckInputs = [
-    installShellFiles
-    python3Packages.pytestCheckHook
-    scdoc
-  ];
+  nativeCheckInputs =
+    [ installShellFiles python3Packages.pytestCheckHook scdoc ];
 
-  propagatedBuildInputs = with python3Packages; [
-    httpx
-    m3u8
-  ];
+  propagatedBuildInputs = with python3Packages; [ httpx m3u8 ];
 
-  disabledTestPaths =
-    [
-      # Requires network access
-      "tests/test_api.py"
-    ];
+  disabledTestPaths = [
+    # Requires network access
+    "tests/test_api.py"
+  ];
 
   pythonImportsCheck = [ "twitchdl" ];
 
@@ -47,7 +33,8 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "CLI tool for downloading videos from Twitch";
     homepage = "https://github.com/ihabunek/twitch-dl";
-    changelog = "https://github.com/ihabunek/twitch-dl/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ihabunek/twitch-dl/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ marsam ];
   };

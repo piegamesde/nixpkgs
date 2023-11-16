@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "pg_hll";
@@ -29,7 +24,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "HyperLogLog for PostgreSQL";
     homepage = "https://github.com/citusdata/postgresql-hll";
-    changelog = "https://github.com/citusdata/postgresql-hll/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/citusdata/postgresql-hll/raw/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ thoughtpolice ];
     platforms = postgresql.meta.platforms;
     license = licenses.asl20;

@@ -3,19 +3,15 @@
 # WebKitGTK (via Midori). The test checks that certificates issued by a custom
 # trusted CA are accepted but those from an unknown CA are rejected.
 
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 
 let
   inherit (pkgs) lib;
 
-  makeCert =
-    { caName, domain }:
+  makeCert = { caName, domain }:
     pkgs.runCommand "example-cert" { buildInputs = [ pkgs.gnutls ]; } ''
       mkdir $out
 
@@ -77,10 +73,7 @@ let
   };
 
   webserverConfig = {
-    networking.hosts."127.0.0.1" = [
-      "good.example.com"
-      "bad.example.com"
-    ];
+    networking.hosts."127.0.0.1" = [ "good.example.com" "bad.example.com" ];
     security.pki.certificateFiles = [ "${example-good-cert}/ca.crt" ];
 
     services.nginx.enable = true;
@@ -119,34 +112,25 @@ let
     '';
   };
 
-  mkBrowserTest =
-    browser: testParams:
+  mkBrowserTest = browser: testParams:
     makeTest {
       name = "custom-ca-${browser}";
       meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 
       enableOCR = true;
 
-      nodes.machine =
-        { pkgs, ... }:
-        {
-          imports = [
-            ./common/user-account.nix
-            ./common/x11.nix
-            webserverConfig
-          ];
+      nodes.machine = { pkgs, ... }: {
+        imports =
+          [ ./common/user-account.nix ./common/x11.nix webserverConfig ];
 
-          # chromium-based browsers refuse to run as root
-          test-support.displayManager.auto.user = "alice";
+        # chromium-based browsers refuse to run as root
+        test-support.displayManager.auto.user = "alice";
 
-          # browsers may hang with the default memory
-          virtualisation.memorySize = 600;
+        # browsers may hang with the default memory
+        virtualisation.memorySize = 600;
 
-          environment.systemPackages = [
-            pkgs.xdotool
-            pkgs.${browser}
-          ];
-        };
+        environment.systemPackages = [ pkgs.xdotool pkgs.${browser} ];
+      };
 
       testScript = ''
         from typing import Tuple
@@ -193,18 +177,12 @@ let
             machine.screenshot("bad${browser}")
       '';
     };
-in
 
-{
+in {
   curl = curlTest;
-}
-// pkgs.lib.mapAttrs mkBrowserTest {
-  firefox = {
-    error = "Security Risk";
-  };
-  chromium = {
-    error = "not private";
-  };
+} // pkgs.lib.mapAttrs mkBrowserTest {
+  firefox = { error = "Security Risk"; };
+  chromium = { error = "not private"; };
   qutebrowser = {
     args = "-T";
     error = "Certificate error";

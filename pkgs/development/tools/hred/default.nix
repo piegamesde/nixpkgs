@@ -1,11 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-  runCommand,
-  hred,
-  jq,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, runCommand, hred, jq }:
 
 buildNpmPackage rec {
   pname = "hred";

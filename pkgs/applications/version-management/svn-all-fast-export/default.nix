@@ -1,18 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qmake,
-  qtbase,
-  qttools,
-  subversion,
-  apr,
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, qtbase, qttools, subversion, apr }:
 
-let
-  version = "1.0.18";
-in
-stdenv.mkDerivation {
+let version = "1.0.18";
+in stdenv.mkDerivation {
   pname = "svn-all-fast-export";
   inherit version;
 
@@ -23,15 +12,8 @@ stdenv.mkDerivation {
     sha256 = "1b5yx2316hbyvw3v30vn1ljma9yd21nd59wis1gi34g92lgvqcd6";
   };
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-  ];
-  buildInputs = [
-    apr.dev
-    subversion.dev
-    qtbase
-  ];
+  nativeBuildInputs = [ qmake qttools ];
+  buildInputs = [ apr.dev subversion.dev qtbase ];
 
   qmakeFlags = [
     "VERSION=${version}"

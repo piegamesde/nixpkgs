@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  packaging,
-  poetry-core,
-  pyparsing,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  pyyaml,
-  requests,
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, packaging, poetry-core
+, pyparsing, pytestCheckHook, pythonOlder, pythonRelaxDepsHook, pyyaml, requests
 }:
 
 buildPythonPackage rec {
@@ -27,19 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-lbpx5THSegZK09jREH15RpokmdfOng2vX4tClsc/x/A=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [ "packaging" ];
 
-  propagatedBuildInputs = [
-    packaging
-    pyparsing
-    pyyaml
-    requests
-  ];
+  propagatedBuildInputs = [ packaging pyparsing pyyaml requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

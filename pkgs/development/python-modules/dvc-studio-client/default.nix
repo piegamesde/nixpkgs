@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  dulwich,
-  fetchFromGitHub,
-  gitpython,
-  pythonOlder,
-  requests,
-  setuptools-scm,
-  voluptuous,
-}:
+{ lib, buildPythonPackage, dulwich, fetchFromGitHub, gitpython, pythonOlder
+, requests, setuptools-scm, voluptuous }:
 
 buildPythonPackage rec {
   pname = "dvc-studio-client";
@@ -28,12 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dulwich
-    gitpython
-    requests
-    voluptuous
-  ];
+  propagatedBuildInputs = [ dulwich gitpython requests voluptuous ];
 
   pythonImportsCheck = [ "dvc_studio_client" ];
 
@@ -43,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to post data from DVC/DVCLive to Iterative Studio";
     homepage = "https://github.com/iterative/dvc-studio-client";
-    changelog = "https://github.com/iterative/dvc-studio-client/releases/tag/${version}";
+    changelog =
+      "https://github.com/iterative/dvc-studio-client/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ melling ];
   };

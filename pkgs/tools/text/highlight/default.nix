@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  getopt,
-  lua,
-  boost,
-  libxcrypt,
-  pkg-config,
-  swig,
-  perl,
-  gcc,
-}:
+{ lib, stdenv, fetchFromGitLab, getopt, lua, boost, libxcrypt, pkg-config, swig
+, perl, gcc }:
 
 let
   self = stdenv.mkDerivation rec {
@@ -26,30 +15,20 @@ let
 
     enableParallelBuilding = true;
 
-    nativeBuildInputs = [
-      pkg-config
-      swig
-      perl
-    ] ++ lib.optional stdenv.isDarwin gcc;
+    nativeBuildInputs = [ pkg-config swig perl ]
+      ++ lib.optional stdenv.isDarwin gcc;
 
-    buildInputs = [
-      getopt
-      lua
-      boost
-      libxcrypt
-    ];
+    buildInputs = [ getopt lua boost libxcrypt ];
 
-    postPatch =
-      ''
-        substituteInPlace src/makefile \
-          --replace "shell pkg-config" "shell $PKG_CONFIG"
-        substituteInPlace makefile \
-          --replace 'gzip' 'gzip -n'
-      ''
-      + lib.optionalString stdenv.cc.isClang ''
-        substituteInPlace src/makefile \
-            --replace 'CXX=g++' 'CXX=clang++'
-      '';
+    postPatch = ''
+      substituteInPlace src/makefile \
+        --replace "shell pkg-config" "shell $PKG_CONFIG"
+      substituteInPlace makefile \
+        --replace 'gzip' 'gzip -n'
+    '' + lib.optionalString stdenv.cc.isClang ''
+      substituteInPlace src/makefile \
+          --replace 'CXX=g++' 'CXX=clang++'
+    '';
 
     preConfigure = ''
       makeFlags="PREFIX=$out conf_dir=$out/etc/highlight/ CXX=$CXX AR=$AR"
@@ -78,5 +57,5 @@ let
       maintainers = with maintainers; [ willibutz ];
     };
   };
-in
-if stdenv.isDarwin then self else perl.pkgs.toPerlModule self
+
+in if stdenv.isDarwin then self else perl.pkgs.toPerlModule self

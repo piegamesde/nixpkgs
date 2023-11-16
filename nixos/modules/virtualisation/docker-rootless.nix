@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,10 +7,10 @@ let
   cfg = config.virtualisation.docker.rootless;
   proxy_env = config.networking.proxy.envVars;
   settingsFormat = pkgs.formats.json { };
-  daemonSettingsFile = settingsFormat.generate "daemon.json" cfg.daemon.settings;
-in
+  daemonSettingsFile =
+    settingsFormat.generate "daemon.json" cfg.daemon.settings;
 
-{
+in {
   ###### interface
 
   options.virtualisation.docker.rootless = {
@@ -86,7 +81,8 @@ in
       };
       serviceConfig = {
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/dockerd-rootless --config-file=${daemonSettingsFile}";
+        ExecStart =
+          "${cfg.package}/bin/dockerd-rootless --config-file=${daemonSettingsFile}";
         ExecReload = "${pkgs.procps}/bin/kill -s HUP $MAINPID";
         TimeoutSec = 0;
         RestartSec = 2;
@@ -101,4 +97,5 @@ in
       };
     };
   };
+
 }

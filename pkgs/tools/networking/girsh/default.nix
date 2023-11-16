@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "girsh";
@@ -17,17 +13,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-8NPFohguMX/X1khEPF+noLBNe/MUoPpXS2PN6SiotL8=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     mv $out/bin/src $out/bin/$pname
   '';
 
   meta = with lib; {
-    description = "Automatically spawn a reverse shell fully interactive for Linux or Windows victim";
+    description =
+      "Automatically spawn a reverse shell fully interactive for Linux or Windows victim";
     homepage = "https://github.com/nodauf/Girsh";
     changelog = "https://github.com/nodauf/Girsh/releases/tag/v${version}";
     license = licenses.gpl2Only;

@@ -10,10 +10,7 @@
     version = "0.8.2";
   };
   completely = {
-    dependencies = [
-      "colsole"
-      "mister_bin"
-    ];
+    dependencies = [ "colsole" "mister_bin" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -34,10 +31,7 @@
     version = "0.6.1";
   };
   mister_bin = {
-    dependencies = [
-      "colsole"
-      "docopt"
-    ];
+    dependencies = [ "colsole" "docopt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

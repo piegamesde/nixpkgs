@@ -1,23 +1,11 @@
-{
-  lib,
-  stdenv,
-  python3,
-  libffi,
-  git,
-  cmake,
-  zlib,
-  fetchgit,
-  fetchFromGitHub,
-  makeWrapper,
-  runCommand,
-  llvmPackages_9,
-  glibc,
-  ncurses,
-}:
+{ lib, stdenv, python3, libffi, git, cmake, zlib, fetchgit, fetchFromGitHub
+, makeWrapper, runCommand, llvmPackages_9, glibc, ncurses }:
 
 let
   # The LLVM 9 headers have a couple bugs we need to patch
-  fixedLlvmDev = runCommand "llvm-dev-${llvmPackages_9.llvm.version}" { buildInputs = [ git ]; } ''
+  fixedLlvmDev = runCommand "llvm-dev-${llvmPackages_9.llvm.version}" {
+    buildInputs = [ git ];
+  } ''
     mkdir $out
     cp -r ${llvmPackages_9.llvm.dev}/include $out
     cd $out
@@ -58,16 +46,8 @@ let
       ./force-install-cling-targets.patch
     ];
 
-    nativeBuildInputs = [
-      python3
-      git
-      cmake
-    ];
-    buildInputs = [
-      libffi
-      zlib
-      ncurses
-    ];
+    nativeBuildInputs = [ python3 git cmake ];
+    buildInputs = [ libffi zlib ncurses ];
 
     strictDeps = true;
 
@@ -98,10 +78,7 @@ let
     meta = with lib; {
       description = "The Interactive C++ Interpreter";
       homepage = "https://root.cern/cling/";
-      license = with licenses; [
-        lgpl21
-        ncsa
-      ];
+      license = with licenses; [ lgpl21 ncsa ];
       maintainers = with maintainers; [ thomasjm ];
       platforms = platforms.unix;
     };
@@ -139,16 +116,13 @@ let
     sed -e 's/^/-isystem /' -i tmp
     tr '\n' ' ' < tmp > $out
   '';
-in
 
-runCommand "cling-${unwrapped.version}"
-  {
-    nativeBuildInputs = [ makeWrapper ];
-    inherit unwrapped flags compilerIncludeFlags;
-    inherit (unwrapped) meta;
-  }
-  ''
-    makeWrapper $unwrapped/bin/cling $out/bin/cling \
-      --add-flags "$(cat "$compilerIncludeFlags")" \
-      --add-flags "$flags"
-  ''
+in runCommand "cling-${unwrapped.version}" {
+  nativeBuildInputs = [ makeWrapper ];
+  inherit unwrapped flags compilerIncludeFlags;
+  inherit (unwrapped) meta;
+} ''
+  makeWrapper $unwrapped/bin/cling $out/bin/cling \
+    --add-flags "$(cat "$compilerIncludeFlags")" \
+    --add-flags "$flags"
+''

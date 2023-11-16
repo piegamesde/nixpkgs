@@ -1,9 +1,4 @@
-{
-  buildDunePackage,
-  fetchFromGitHub,
-  lib,
-  reason,
-}:
+{ buildDunePackage, fetchFromGitHub, lib, reason }:
 
 buildDunePackage rec {
   pname = "flex";
@@ -19,7 +14,8 @@ buildDunePackage rec {
   nativeBuildInputs = [ reason ];
 
   meta = with lib; {
-    description = "Native Reason implementation of CSS Flexbox layout. An Yoga project port";
+    description =
+      "Native Reason implementation of CSS Flexbox layout. An Yoga project port";
     homepage = "https://github.com/jordwalke/flex";
     maintainers = with maintainers; [ ];
     license = licenses.mit;

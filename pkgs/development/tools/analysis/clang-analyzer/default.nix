@@ -1,25 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  clang,
-  llvmPackages,
-  perl,
-  makeWrapper,
-  python3,
-}:
+{ lib, stdenv, fetchurl, clang, llvmPackages, perl, makeWrapper, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "clang-analyzer";
   inherit (llvmPackages.clang-unwrapped) src version;
 
   patches = [ ./0001-Fix-scan-build-to-use-NIX_CFLAGS_COMPILE.patch ];
-  buildInputs = [
-    clang
-    llvmPackages.clang
-    perl
-    python3
-  ];
+  buildInputs = [ clang llvmPackages.clang perl python3 ];
   nativeBuildInputs = [ makeWrapper ];
 
   dontBuild = true;

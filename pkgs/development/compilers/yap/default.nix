@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  readline,
-  gmp,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, readline, gmp, zlib }:
 
 stdenv.mkDerivation rec {
   version = "6.3.3";
@@ -16,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0y7sjwimadqsvgx9daz28c9mxcx9n1znxklih9xg16k6n54v9qxf";
   };
 
-  buildInputs = [
-    readline
-    gmp
-    zlib
-  ];
+  buildInputs = [ readline gmp zlib ];
 
   configureFlags = [ "--enable-tabling=yes" ];
 

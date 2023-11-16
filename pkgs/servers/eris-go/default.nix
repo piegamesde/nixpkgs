@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitea,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitea }:
 
 buildGoModule rec {
   pname = "eris-go";

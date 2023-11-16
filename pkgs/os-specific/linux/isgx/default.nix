@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  kernel,
-  kernelAtLeast,
-}:
+{ stdenv, lib, fetchFromGitHub, kernel, kernelAtLeast }:
 
 stdenv.mkDerivation rec {
   name = "isgx-${version}-${kernel.version}";
@@ -21,7 +15,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
+  makeFlags =
+    [ "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   installPhase = ''
     runHook preInstall

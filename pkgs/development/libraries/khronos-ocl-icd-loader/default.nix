@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  opencl-headers,
-  cmake,
-  withTracing ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, opencl-headers, cmake, withTracing ? false }:
 
 stdenv.mkDerivation rec {
   pname = "khronos-ocl-icd-loader";

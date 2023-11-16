@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  xen,
-}:
+{ lib, stdenv, fetchFromGitHub, xen }:
 
 stdenv.mkDerivation rec {
   pname = "qubes-core-vchan-xen";
@@ -27,10 +22,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Libraries required for the higher-level Qubes daemons and tools";
+    description =
+      "Libraries required for the higher-level Qubes daemons and tools";
     homepage = "https://qubes-os.org";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ _0x4A6F ];
     platforms = platforms.linux;
   };
+
 }

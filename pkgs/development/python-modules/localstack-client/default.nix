@@ -1,13 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  boto3,
-  pytestCheckHook,
+{ lib, buildPythonPackage, fetchFromGitHub, boto3, pytestCheckHook
 
-  # downstream dependencies
-  localstack,
-}:
+# downstream dependencies
+, localstack }:
 
 buildPythonPackage rec {
   pname = "localstack-client";
@@ -29,18 +23,15 @@ buildPythonPackage rec {
   doCheck = false;
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Has trouble creating a socket
-      "test_session"
-    ];
+  disabledTests = [
+    # Has trouble creating a socket
+    "test_session"
+  ];
 
   # For tests
   __darwinAllowLocalNetworking = true;
 
-  passthru.tests = {
-    inherit localstack;
-  };
+  passthru.tests = { inherit localstack; };
 
   meta = with lib; {
     description = "A lightweight Python client for LocalStack";

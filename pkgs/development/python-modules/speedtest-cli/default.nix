@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 # cannot be built as pythonApplication because the library functions are
 # required for home-assistant
@@ -19,12 +15,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Command line interface for testing internet bandwidth using speedtest.net";
+    description =
+      "Command line interface for testing internet bandwidth using speedtest.net";
     homepage = "https://github.com/sivel/speedtest-cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      makefu
-      domenkozar
-    ];
+    maintainers = with maintainers; [ makefu domenkozar ];
   };
 }

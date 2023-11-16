@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  fetchFromGitHub,
-  gnutls,
-  libmnl,
-  libusb1,
-  lksctp-tools,
-  pcsclite,
-  pkg-config,
-  python3,
-  talloc,
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, gnutls, libmnl, libusb1
+, lksctp-tools, pcsclite, pkg-config, python3, talloc }:
 
 stdenv.mkDerivation rec {
   pname = "libosmocore";
@@ -28,23 +16,11 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  propagatedBuildInputs = [
-    talloc
-    libmnl
-  ];
+  propagatedBuildInputs = [ talloc libmnl ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config python3 ];
 
-  buildInputs = [
-    gnutls
-    libusb1
-    lksctp-tools
-    pcsclite
-  ];
+  buildInputs = [ gnutls libusb1 lksctp-tools pcsclite ];
 
   enableParallelBuilding = true;
 
@@ -53,9 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/osmocom/libosmocore";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      mog
-      janik
-    ];
+    maintainers = with maintainers; [ mog janik ];
   };
 }

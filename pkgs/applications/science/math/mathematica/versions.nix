@@ -133,26 +133,16 @@ let
       installer = "Mathematica_10.0.2_LINUX.sh";
     }
   ];
-in
 
-lib.flip map versions (
-  {
-    version,
-    lang,
-    language,
-    sha256,
-    installer,
-  }:
-  {
-    inherit version lang;
-    src = requireFile {
-      name = installer;
-      message = ''
-        This nix expression requires that ${installer} is
-        already part of the store. Find the file on your Mathematica CD
-        and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
-      '';
-      inherit sha256;
-    };
-  }
-)
+in lib.flip map versions ({ version, lang, language, sha256, installer }: {
+  inherit version lang;
+  src = requireFile {
+    name = installer;
+    message = ''
+      This nix expression requires that ${installer} is
+      already part of the store. Find the file on your Mathematica CD
+      and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
+    '';
+    inherit sha256;
+  };
+})

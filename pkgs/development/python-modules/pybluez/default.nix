@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  bluez,
-  gattlib,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, bluez, gattlib }:
 
 buildPythonPackage rec {
   pname = "pybluez";
@@ -26,10 +19,7 @@ buildPythonPackage rec {
   # there are no tests
   doCheck = false;
 
-  pythonImportsCheck = [
-    "bluetooth"
-    "bluetooth.ble"
-  ];
+  pythonImportsCheck = [ "bluetooth" "bluetooth.ble" ];
 
   meta = with lib; {
     description = "Bluetooth Python extension module";
@@ -38,4 +28,5 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ leenaars ];
     broken = stdenv.isDarwin; # requires pyobjc-core, pyobjc-framework-Cocoa
   };
+
 }

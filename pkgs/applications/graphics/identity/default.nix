@@ -1,22 +1,6 @@
-{
-  appstream-glib,
-  blueprint-compiler,
-  desktop-file-utils,
-  fetchFromGitLab,
-  gst_all_1,
-  gtk4,
-  lib,
-  libadwaita,
-  cargo,
-  meson,
-  ninja,
-  nix-update-script,
-  pkg-config,
-  rustPlatform,
-  rustc,
-  stdenv,
-  wrapGAppsHook4,
-}:
+{ appstream-glib, blueprint-compiler, desktop-file-utils, fetchFromGitLab
+, gst_all_1, gtk4, lib, libadwaita, cargo, meson, ninja, nix-update-script
+, pkg-config, rustPlatform, rustc, stdenv, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "identity";
@@ -62,7 +46,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "A program for comparing multiple versions of an image or video";
+    description =
+      "A program for comparing multiple versions of an image or video";
     homepage = "https://gitlab.gnome.org/YaLTeR/identity";
     maintainers = [ lib.maintainers.paveloom ];
     license = lib.licenses.gpl3Plus;

@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "iterate";
   version = "release-b0f9a9c6-git";
 
@@ -11,7 +10,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/iterate/2021-05-31/iterate-release-b0f9a9c6-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/iterate/2021-05-31/iterate-release-b0f9a9c6-git.tgz";
     sha256 = "1fqk0iaqg7xjwhdr8q05birlpwh4zvmlranmsmfps3wmldccc4ck";
   };
 

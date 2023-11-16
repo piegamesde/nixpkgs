@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  makeWrapper,
-  aria,
-  libnotify,
-  pulseaudio,
-  psutil,
-  pyqt5,
-  requests,
-  setproctitle,
-  setuptools,
-  sound-theme-freedesktop,
-  wrapQtAppsHook,
-  youtube-dl,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, makeWrapper, aria, libnotify
+, pulseaudio, psutil, pyqt5, requests, setproctitle, setuptools
+, sound-theme-freedesktop, wrapQtAppsHook, youtube-dl }:
 
 buildPythonApplication rec {
   pname = "persepolis";
@@ -50,12 +36,7 @@ buildPythonApplication rec {
 
   # feed args to wrapPythonApp
   makeWrapperArgs = [
-    "--prefix PATH : ${
-      lib.makeBinPath [
-        aria
-        libnotify
-      ]
-    }"
+    "--prefix PATH : ${lib.makeBinPath [ aria libnotify ]}"
     "\${qtWrapperArgs[@]}"
   ];
 

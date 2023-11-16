@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pcre,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchurl, pcre, libxcrypt }:
 
 stdenv.mkDerivation {
   pname = "leafnode";
   version = "2.0.0.alpha20121101a.12";
 
   src = fetchurl {
-    url = "http://home.pages.de/~mandree/leafnode/beta/leafnode-2.0.0.alpha20121101a.tar.bz2";
+    url =
+      "http://home.pages.de/~mandree/leafnode/beta/leafnode-2.0.0.alpha20121101a.tar.bz2";
     sha256 = "096w4gxj08m3vwmyv4sxpmbl8dn6mzqfmrhc32jgyca6qzlrdin8";
   };
 
@@ -33,10 +28,7 @@ stdenv.mkDerivation {
     sed -i validatefqdn.c -e 's/int is_validfqdn(const char \*f) {/int is_validfqdn(const char *f) { return 1;/;'
   '';
 
-  buildInputs = [
-    pcre
-    libxcrypt
-  ];
+  buildInputs = [ pcre libxcrypt ];
 
   meta = {
     homepage = "http://leafnode.sourceforge.net/";

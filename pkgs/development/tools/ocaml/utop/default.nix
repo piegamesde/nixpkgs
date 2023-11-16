@@ -1,83 +1,60 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ocaml,
-  findlib,
-  lambda-term,
-  cppo,
-  makeWrapper,
-  buildDunePackage,
-  zed,
-  logs,
-  lwt,
-  react,
-  lwt_react,
-}:
+{ lib, stdenv, fetchurl, ocaml, findlib, lambda-term, cppo, makeWrapper
+, buildDunePackage, zed, logs, lwt, react, lwt_react }:
 
 buildDunePackage rec {
   pname = "utop";
 
   version = "2.12.1";
-  propagatedBuildInputs = [
-    findlib
-    lambda-term
-    zed
-    logs
-  ];
+  propagatedBuildInputs = [ findlib lambda-term zed logs ];
 
   minimalOCamlVersion = "4.08";
 
   src = fetchurl {
-    url = "https://github.com/ocaml-community/utop/releases/download/${version}/utop-${version}.tbz";
+    url =
+      "https://github.com/ocaml-community/utop/releases/download/${version}/utop-${version}.tbz";
     sha256 = "sha256-Z6S3pUE4RY5Q7keRUVSQuzkikewWgM+sRLgcR+8bIlM=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    cppo
-  ];
+  nativeBuildInputs = [ makeWrapper cppo ];
 
-  postFixup =
-    let
-      path = "etc/utop/env";
+  postFixup = let
+    path = "etc/utop/env";
 
-      # derivation of just runtime deps so env vars created by
-      # setup-hooks can be saved for use at runtime
-      runtime = stdenv.mkDerivation {
-        pname = "utop-runtime-env";
-        inherit version;
+    # derivation of just runtime deps so env vars created by
+    # setup-hooks can be saved for use at runtime
+    runtime = stdenv.mkDerivation {
+      pname = "utop-runtime-env";
+      inherit version;
 
-        buildInputs = [ findlib ] ++ propagatedBuildInputs;
+      buildInputs = [ findlib ] ++ propagatedBuildInputs;
 
-        dontUnpack = true;
+      dontUnpack = true;
 
-        installPhase = ''
-          mkdir -p "$out"/${path}
-          for e in OCAMLPATH CAML_LD_LIBRARY_PATH; do
-            [[ -v "$e" ]] || continue
-            printf %s "''${!e}" > "$out"/${path}/$e
-          done
-        '';
-      };
+      installPhase = ''
+        mkdir -p "$out"/${path}
+        for e in OCAMLPATH CAML_LD_LIBRARY_PATH; do
+          [[ -v "$e" ]] || continue
+          printf %s "''${!e}" > "$out"/${path}/$e
+        done
+      '';
+    };
 
-      get = key: ''$(cat "${runtime}/${path}/${key}")'';
-    in
-    ''
-      for prog in "$out"/bin/*
-      do
+    get = key: ''$(cat "${runtime}/${path}/${key}")'';
+  in ''
+    for prog in "$out"/bin/*
+    do
 
-       # Note: wrapProgram by default calls 'exec -a $0 ...', but this
-       # breaks utop on Linux with OCaml 4.04, and is disabled with
-       # '--argv0 ""' flag. See https://github.com/NixOS/nixpkgs/issues/24496
-       wrapProgram "$prog" \
-         --argv0 "" \
-         --prefix CAML_LD_LIBRARY_PATH ":" "${get "CAML_LD_LIBRARY_PATH"}" \
-         --prefix OCAMLPATH ":" "${get "OCAMLPATH"}" \
-         --prefix OCAMLPATH ":" $(unset OCAMLPATH; addOCamlPath "$out"; printf %s "$OCAMLPATH") \
-         --add-flags "-I ${findlib}/lib/ocaml/${lib.getVersion ocaml}/site-lib"
-      done
-    '';
+     # Note: wrapProgram by default calls 'exec -a $0 ...', but this
+     # breaks utop on Linux with OCaml 4.04, and is disabled with
+     # '--argv0 ""' flag. See https://github.com/NixOS/nixpkgs/issues/24496
+     wrapProgram "$prog" \
+       --argv0 "" \
+       --prefix CAML_LD_LIBRARY_PATH ":" "${get "CAML_LD_LIBRARY_PATH"}" \
+       --prefix OCAMLPATH ":" "${get "OCAMLPATH"}" \
+       --prefix OCAMLPATH ":" $(unset OCAMLPATH; addOCamlPath "$out"; printf %s "$OCAMLPATH") \
+       --add-flags "-I ${findlib}/lib/ocaml/${lib.getVersion ocaml}/site-lib"
+    done
+  '';
 
   meta = {
     description = "Universal toplevel for OCaml";

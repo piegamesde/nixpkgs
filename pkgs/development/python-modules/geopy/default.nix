@@ -1,14 +1,5 @@
-{
-  lib,
-  async_generator,
-  buildPythonPackage,
-  docutils,
-  fetchFromGitHub,
-  geographiclib,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-}:
+{ lib, async_generator, buildPythonPackage, docutils, fetchFromGitHub
+, geographiclib, pytestCheckHook, pythonOlder, pytz }:
 
 buildPythonPackage rec {
   pname = "geopy";
@@ -25,18 +16,12 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ geographiclib ];
 
-  nativeCheckInputs = [
-    async_generator
-    docutils
-    pytestCheckHook
-    pytz
-  ];
+  nativeCheckInputs = [ async_generator docutils pytestCheckHook pytz ];
 
-  disabledTests =
-    [
-      # ignore --skip-tests-requiring-internet flag
-      "test_user_agent_default"
-    ];
+  disabledTests = [
+    # ignore --skip-tests-requiring-internet flag
+    "test_user_agent_default"
+  ];
 
   pytestFlagsArray = [ "--skip-tests-requiring-internet" ];
 

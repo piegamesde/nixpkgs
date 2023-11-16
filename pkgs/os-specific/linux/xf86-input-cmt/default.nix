@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  xorgserver,
-  xorgproto,
-  utilmacros,
-  libgestures,
-  libevdevc,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, xorgserver, xorgproto, utilmacros
+, libgestures, libevdevc }:
 
 stdenv.mkDerivation rec {
   pname = "xf86-input-cmt";
@@ -26,13 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    xorgserver
-    xorgproto
-    utilmacros
-    libgestures
-    libevdevc
-  ];
+  buildInputs = [ xorgserver xorgproto utilmacros libgestures libevdevc ];
 
   configureFlags = [ "--with-sdkdir=${placeholder "out"}" ];
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "protoscope";
@@ -17,13 +13,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-mK8eGo6oembs4nofvROn4g0+oO5E5/zQrmPKMe3xXik=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Simple, human-editable language for representing and emitting the Protobuf wire format";
+    description =
+      "Simple, human-editable language for representing and emitting the Protobuf wire format";
     homepage = "https://github.com/protocolbuffers/protoscope";
     license = licenses.asl20;
     maintainers = with maintainers; [ aaronjheng ];

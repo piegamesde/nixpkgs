@@ -1,21 +1,13 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-  version ? "3.300",
-}:
+{ lib, stdenvNoCC, fetchzip, version ? "3.300" }:
 
 let
   new = lib.versionAtLeast version "3.000";
-  hash =
-    {
-      "2.100" = "sha256-d2UyOOOnmE1afCwyIrM1bL3lQC7XRwh03hzetk/4V30=";
-      "3.300" = "sha256-LaaA6DWAE2dcwVVX4go9cJaiuwI6efYbPk82ym3W3IY=";
-    }
-    ."${version}";
+  hash = {
+    "2.100" = "sha256-d2UyOOOnmE1afCwyIrM1bL3lQC7XRwh03hzetk/4V30=";
+    "3.300" = "sha256-LaaA6DWAE2dcwVVX4go9cJaiuwI6efYbPk82ym3W3IY=";
+  }."${version}";
   pname = "scheherazade${lib.optionalString new "-new"}";
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   inherit pname version;
 
   src = fetchzip {
@@ -37,13 +29,16 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/scheherazade/";
-    description = "A font designed in a similar style to traditional Naskh typefaces";
+    description =
+      "A font designed in a similar style to traditional Naskh typefaces";
     longDescription = ''
 
       Scheherazade${lib.optionalString new " New"}, named after the heroine of
       the classic Arabian Nights tale, is designed in a similar style to
       traditional typefaces such as Monotype Naskh, extended to cover the
-      Unicode Arabic repertoire through Unicode ${if new then "14.0" else "8.0"}.
+      Unicode Arabic repertoire through Unicode ${
+        if new then "14.0" else "8.0"
+      }.
 
       Scheherazade provides a “simplified” rendering of Arabic script, using
       basic connecting glyphs but not including a wide variety of additional

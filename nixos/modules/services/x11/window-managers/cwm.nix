@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.cwm;
-in
-{
+let cfg = config.services.xserver.windowManager.cwm;
+in {
   options = {
-    services.xserver.windowManager.cwm.enable = mkEnableOption (lib.mdDoc "cwm");
+    services.xserver.windowManager.cwm.enable =
+      mkEnableOption (lib.mdDoc "cwm");
   };
   config = mkIf cfg.enable {
     services.xserver.windowManager.session = singleton {

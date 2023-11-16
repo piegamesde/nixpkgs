@@ -1,22 +1,6 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  blessed,
-  browser-cookie3,
-  keyring,
-  keyrings-alt,
-  lxml,
-  measurement,
-  python-dateutil,
-  requests,
-  rich,
-  typing-extensions,
-  pytestCheckHook,
-  mock,
-  nose,
-  pythonOlder,
-}:
+{ lib, fetchPypi, buildPythonPackage, blessed, browser-cookie3, keyring
+, keyrings-alt, lxml, measurement, python-dateutil, requests, rich
+, typing-extensions, pytestCheckHook, mock, nose, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "myfitnesspal";
@@ -43,27 +27,23 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    mock
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock nose pytestCheckHook ];
 
   postPatch = ''
     # Remove overly restrictive version constraints
     sed -i -e "s/>=.*//" requirements.txt
   '';
 
-  disabledTests =
-    [
-      # Integration tests require an account to be set
-      "test_integration"
-    ];
+  disabledTests = [
+    # Integration tests require an account to be set
+    "test_integration"
+  ];
 
   pythonImportsCheck = [ "myfitnesspal" ];
 
   meta = with lib; {
-    description = "Python module to access meal tracking data stored in MyFitnessPal";
+    description =
+      "Python module to access meal tracking data stored in MyFitnessPal";
     homepage = "https://github.com/coddingtonbear/python-myfitnesspal";
     license = licenses.mit;
     maintainers = with maintainers; [ bhipple ];

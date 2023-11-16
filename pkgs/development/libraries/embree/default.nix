@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  pkg-config,
-  ispc,
-  tbb,
-  glfw,
-  openimageio,
-  libjpeg,
-  libpng,
-  libpthreadstubs,
-  libX11,
-  glib,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, ispc, tbb, glfw
+, openimageio, libjpeg, libpng, libpthreadstubs, libX11, glib }:
 
 stdenv.mkDerivation rec {
   pname = "embree";
@@ -29,8 +14,10 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      name = "fixed-compilation-issues-for-arm-aarch64-processor-under-linux.patch";
-      url = "https://github.com/embree/embree/commit/82ca6b5ccb7abe0403a658a0e079926478f04cb1.patch";
+      name =
+        "fixed-compilation-issues-for-arm-aarch64-processor-under-linux.patch";
+      url =
+        "https://github.com/embree/embree/commit/82ca6b5ccb7abe0403a658a0e079926478f04cb1.patch";
       hash = "sha256-l9S4PBk+yQUypQ22l05daD0ruouZKE4VHkGvzKxkH4o=";
     })
   ];
@@ -51,28 +38,14 @@ stdenv.mkDerivation rec {
     "-DTBB_INCLUDE_DIR=${tbb.dev}/include"
   ];
 
-  nativeBuildInputs = [
-    ispc
-    pkg-config
-    cmake
-  ];
-  buildInputs = [
-    tbb
-    glfw
-    openimageio
-    libjpeg
-    libpng
-    libX11
-    libpthreadstubs
-  ] ++ lib.optionals stdenv.isDarwin [ glib ];
+  nativeBuildInputs = [ ispc pkg-config cmake ];
+  buildInputs = [ tbb glfw openimageio libjpeg libpng libX11 libpthreadstubs ]
+    ++ lib.optionals stdenv.isDarwin [ glib ];
 
   meta = with lib; {
     description = "High performance ray tracing kernels from Intel";
     homepage = "https://embree.github.io/";
-    maintainers = with maintainers; [
-      hodapp
-      gebner
-    ];
+    maintainers = with maintainers; [ hodapp gebner ];
     license = licenses.asl20;
     platforms = platforms.unix;
   };

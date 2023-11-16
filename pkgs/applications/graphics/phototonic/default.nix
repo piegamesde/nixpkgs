@@ -1,11 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  qtbase,
-  qmake,
-  exiv2,
-}:
+{ mkDerivation, lib, fetchFromGitHub, qtbase, qmake, exiv2 }:
 
 mkDerivation rec {
   pname = "phototonic";
@@ -18,10 +11,7 @@ mkDerivation rec {
     sha256 = "0csidmxl1sfmn6gq81vn9f9jckb4swz3sgngnwqa4f75lr6604h7";
   };
 
-  buildInputs = [
-    qtbase
-    exiv2
-  ];
+  buildInputs = [ qtbase exiv2 ];
   nativeBuildInputs = [ qmake ];
 
   preConfigure = ''

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  python3Packages,
-}:
+{ lib, fetchFromGitLab, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "hash-identifier";
@@ -22,7 +18,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Software to identify the different types of hashes used to encrypt data and especially passwords.";
+    description =
+      "Software to identify the different types of hashes used to encrypt data and especially passwords.";
     homepage = "https://github.com/blackploit/hash-identifier";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

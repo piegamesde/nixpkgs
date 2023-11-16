@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "crc";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     changelog = "https://github.com/Nicoretti/crc/releases/tag/${version}";
-    description = "Python module for calculating and verifying predefined & custom CRC's";
+    description =
+      "Python module for calculating and verifying predefined & custom CRC's";
     homepage = "https://nicoretti.github.io/crc/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ jleightcap ];

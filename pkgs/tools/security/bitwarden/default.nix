@@ -1,24 +1,6 @@
-{
-  lib,
-  applyPatches,
-  buildNpmPackage,
-  dbus,
-  electron_24,
-  fetchFromGitHub,
-  glib,
-  gnome,
-  gtk3,
-  jq,
-  libsecret,
-  makeDesktopItem,
-  makeWrapper,
-  moreutils,
-  nodejs_18,
-  pkg-config,
-  python3,
-  rustPlatform,
-  wrapGAppsHook,
-}:
+{ lib, applyPatches, buildNpmPackage, dbus, electron_24, fetchFromGitHub, glib
+, gnome, gtk3, jq, libsecret, makeDesktopItem, makeWrapper, moreutils, nodejs_18
+, pkg-config, python3, rustPlatform, wrapGAppsHook }:
 
 let
   description = "A secure and free password manager for all of your devices";
@@ -45,21 +27,12 @@ let
     sourceRoot = "source-patched/apps/desktop/desktop_native";
     cargoSha256 = "sha256-SeK8Nbgenof9vXI2v7tJ5oHiX60kBoR+UNOSJTRHdzk=";
 
-    nativeBuildInputs = [
-      pkg-config
-      wrapGAppsHook
-    ];
+    nativeBuildInputs = [ pkg-config wrapGAppsHook ];
 
-    buildInputs = [
-      glib
-      gtk3
-      libsecret
-    ];
+    buildInputs = [ glib gtk3 libsecret ];
 
-    nativeCheckInputs = [
-      dbus
-      (gnome.gnome-keyring.override { useWrappedDaemon = false; })
-    ];
+    nativeCheckInputs =
+      [ dbus (gnome.gnome-keyring.override { useWrappedDaemon = false; }) ];
 
     checkFlags = [ "--skip=password::password::tests::test" ];
 
@@ -83,9 +56,8 @@ let
     desktopName = "Bitwarden";
     categories = [ "Utility" ];
   };
-in
 
-buildNpmPackage' {
+in buildNpmPackage' {
   pname = "bitwarden";
   inherit src version;
 
@@ -95,12 +67,7 @@ buildNpmPackage' {
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  nativeBuildInputs = [
-    jq
-    makeWrapper
-    moreutils
-    python3
-  ];
+  nativeBuildInputs = [ jq makeWrapper moreutils python3 ];
 
   preBuild = ''
     if [[ $(jq --raw-output '.devDependencies.electron' < package.json | grep -E --only-matching '^[0-9]+') != ${
@@ -156,10 +123,7 @@ buildNpmPackage' {
     inherit description;
     homepage = "https://bitwarden.com";
     license = lib.licenses.gpl3;
-    maintainers = with maintainers; [
-      amarshall
-      kiwi
-    ];
+    maintainers = with maintainers; [ amarshall kiwi ];
     platforms = [ "x86_64-linux" ];
   };
 }

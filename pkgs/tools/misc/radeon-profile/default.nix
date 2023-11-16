@@ -1,12 +1,4 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qtbase,
-  qtcharts,
-  qmake,
-  libXrandr,
-  libdrm,
+{ lib, mkDerivation, fetchFromGitHub, qtbase, qtcharts, qmake, libXrandr, libdrm
 }:
 
 mkDerivation rec {
@@ -15,21 +7,14 @@ mkDerivation rec {
   version = "20200824";
 
   nativeBuildInputs = [ qmake ];
-  buildInputs = [
-    qtbase
-    qtcharts
-    libXrandr
-    libdrm
-  ];
+  buildInputs = [ qtbase qtcharts libXrandr libdrm ];
 
-  src =
-    (fetchFromGitHub {
-      owner = "marazmista";
-      repo = "radeon-profile";
-      rev = version;
-      sha256 = "0z6a9w79s5wiy8cvwcdp5wmgf6702d0wzw95f6176yhp4cwy4cq2";
-    })
-    + "/radeon-profile";
+  src = (fetchFromGitHub {
+    owner = "marazmista";
+    repo = "radeon-profile";
+    rev = version;
+    sha256 = "0z6a9w79s5wiy8cvwcdp5wmgf6702d0wzw95f6176yhp4cwy4cq2";
+  }) + "/radeon-profile";
 
   preConfigure = ''
     substituteInPlace radeon-profile.pro \
@@ -42,4 +27,5 @@ mkDerivation rec {
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };
+
 }

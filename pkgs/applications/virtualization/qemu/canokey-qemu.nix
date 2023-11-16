@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, }:
 stdenv.mkDerivation rec {
   pname = "canokey-qemu";
   version = "unstable-2022-06-23";
@@ -22,10 +17,7 @@ stdenv.mkDerivation rec {
       --replace "COMMAND git describe --always --tags --long --abbrev=8 --dirty >>" "COMMAND echo '$rev' >>"
   '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ cmake ];
 

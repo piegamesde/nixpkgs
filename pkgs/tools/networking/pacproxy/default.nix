@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pacproxy";
@@ -18,9 +14,11 @@ buildGoModule rec {
   vendorHash = "sha256-0Go+xwzaT1qt+cJfcPkC8ft3eB/OZCvOi2Pnn/A/rtQ=";
 
   meta = with lib; {
-    description = "A no-frills local HTTP proxy server powered by a proxy auto-config (PAC) file";
+    description =
+      "A no-frills local HTTP proxy server powered by a proxy auto-config (PAC) file";
     homepage = "https://github.com/williambailey/pacproxy";
-    changelog = "https://github.com/williambailey/pacproxy/releases/tag/v${version}";
+    changelog =
+      "https://github.com/williambailey/pacproxy/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ terlar ];
   };

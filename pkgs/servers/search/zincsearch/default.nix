@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  buildNpmPackage,
-}:
+{ lib, buildGoModule, fetchFromGitHub, buildNpmPackage }:
 
 let
   version = "0.4.5";
@@ -31,9 +26,8 @@ let
       mv dist $out/share/zinc-ui
     '';
   };
-in
 
-buildGoModule rec {
+in buildGoModule rec {
   pname = "zincsearch";
   inherit src version;
 
@@ -51,7 +45,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "A lightweight alternative to elasticsearch that requires minimal resources, written in Go";
+    description =
+      "A lightweight alternative to elasticsearch that requires minimal resources, written in Go";
     homepage = "https://zinc.dev";
     license = licenses.asl20;
     maintainers = with maintainers; [ dit7ya ];

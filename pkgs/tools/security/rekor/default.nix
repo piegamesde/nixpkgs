@@ -1,17 +1,7 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 let
-  generic =
-    {
-      pname,
-      packageToBuild,
-      description,
-    }:
+  generic = { pname, packageToBuild, description }:
     buildGoModule rec {
       inherit pname;
       version = "1.2.1";
@@ -62,17 +52,13 @@ let
       meta = with lib; {
         inherit description;
         homepage = "https://github.com/sigstore/rekor";
-        changelog = "https://github.com/sigstore/rekor/releases/tag/v${version}";
+        changelog =
+          "https://github.com/sigstore/rekor/releases/tag/v${version}";
         license = licenses.asl20;
-        maintainers = with maintainers; [
-          lesuisse
-          jk
-          developer-guy
-        ];
+        maintainers = with maintainers; [ lesuisse jk developer-guy ];
       };
     };
-in
-{
+in {
   rekor-cli = generic {
     pname = "rekor-cli";
     packageToBuild = "cmd/rekor-cli";

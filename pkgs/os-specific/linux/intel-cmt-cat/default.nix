@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   version = "4.6.0";
@@ -17,13 +13,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "NOLDCONFIG=y"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "NOLDCONFIG=y" ];
 
   meta = with lib; {
-    description = "User space software for Intel(R) Resource Director Technology";
+    description =
+      "User space software for Intel(R) Resource Director Technology";
     homepage = "https://github.com/intel/intel-cmt-cat";
     license = licenses.bsd3;
     maintainers = with maintainers; [ arkivm ];

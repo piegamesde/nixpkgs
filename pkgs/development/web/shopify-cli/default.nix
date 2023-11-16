@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  bundlerEnv,
-  bundlerUpdateScript,
-  makeWrapper,
-  ruby,
-}:
+{ stdenv, lib, bundlerEnv, bundlerUpdateScript, makeWrapper, ruby }:
 
 let
   rubyEnv = bundlerEnv {
@@ -13,8 +6,7 @@ let
     gemdir = ./.;
     ruby = ruby;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "shopify-cli";
   version = (import ./gemset.nix).shopify-cli.version;
 
@@ -32,7 +24,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = bundlerUpdateScript "shopify-cli";
 
   meta = with lib; {
-    description = "CLI which helps you build against the Shopify platform faster";
+    description =
+      "CLI which helps you build against the Shopify platform faster";
     homepage = "https://github.com/Shopify/shopify-cli";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
@@ -40,3 +33,4 @@ stdenv.mkDerivation rec {
     platforms = ruby.meta.platforms;
   };
 }
+

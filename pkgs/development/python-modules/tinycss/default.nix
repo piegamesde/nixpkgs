@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cssutils,
-  cython,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cssutils, cython, fetchPypi, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tinycss";

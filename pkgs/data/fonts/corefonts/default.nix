@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cabextract,
-}:
+{ lib, stdenv, fetchurl, cabextract }:
 
 let
   fonts = [
@@ -61,21 +56,15 @@ let
     url = "https://corefonts.sourceforge.net/eula.htm";
     sha256 = "1aqbcnl032g2hd7iy56cs022g47scb0jxxp3mm206x1yqc90vs1c";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "corefonts";
   version = "1";
 
-  exes =
-    map
-      (
-        { name, sha256 }:
-        fetchurl {
-          url = "mirror://sourceforge/corefonts/${name}32.exe";
-          inherit sha256;
-        }
-      )
-      fonts;
+  exes = map ({ name, sha256 }:
+    fetchurl {
+      url = "mirror://sourceforge/corefonts/${name}32.exe";
+      inherit sha256;
+    }) fonts;
 
   nativeBuildInputs = [ cabextract ];
 

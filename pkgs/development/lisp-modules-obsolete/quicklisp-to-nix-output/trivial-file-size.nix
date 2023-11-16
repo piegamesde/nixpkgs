@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "trivial-file-size";
   version = "20200427-git";
 
@@ -8,13 +7,11 @@ rec {
 
   description = "Stat a file's size.";
 
-  deps = [
-    args."fiveam"
-    args."uiop"
-  ];
+  deps = [ args."fiveam" args."uiop" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/trivial-file-size/2020-04-27/trivial-file-size-20200427-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/trivial-file-size/2020-04-27/trivial-file-size-20200427-git.tgz";
     sha256 = "1vspkgygrldbjb4gdm1fsn04j50rwil41x0fvvm4fxm84rwrscsa";
   };
 

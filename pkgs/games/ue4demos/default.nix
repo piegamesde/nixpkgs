@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  patchelf,
-  xorg,
-  openal,
-}:
+{ lib, stdenv, fetchurl, unzip, patchelf, xorg, openal }:
 
 let
   urls = file: [
@@ -15,23 +7,13 @@ let
     "https://web.archive.org/web/20140824192039/http://ue4linux.raxxy.com/${file}"
   ];
 
-  buildDemo =
-    { name, src }:
+  buildDemo = { name, src }:
     stdenv.mkDerivation rec {
       inherit name src;
 
-      nativeBuildInputs = [
-        unzip
-        patchelf
-      ];
+      nativeBuildInputs = [ unzip patchelf ];
 
-      rtdeps =
-        lib.makeLibraryPath [
-          xorg.libXxf86vm
-          xorg.libXext
-          openal
-        ]
-        + ":"
+      rtdeps = lib.makeLibraryPath [ xorg.libXxf86vm xorg.libXext openal ] + ":"
         + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
 
       buildCommand = ''
@@ -70,8 +52,8 @@ let
         license = lib.licenses.unfree;
       };
     };
-in
-{
+
+in {
   tappy_chicken = buildDemo {
     name = "ue4demos-tappy_chicken";
     src = fetchurl {

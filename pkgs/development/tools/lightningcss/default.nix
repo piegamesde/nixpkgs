@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "lightningcss";
@@ -20,17 +15,16 @@ rustPlatform.buildRustPackage rec {
 
   buildFeatures = [ "cli" ];
 
-  cargoBuildFlags = [
-    "--lib"
-    "--bin=lightningcss"
-  ];
+  cargoBuildFlags = [ "--lib" "--bin=lightningcss" ];
 
   cargoTestFlags = [ "--lib" ];
 
   meta = with lib; {
-    description = "Extremely fast CSS parser, transformer, and minifier written in Rust";
+    description =
+      "Extremely fast CSS parser, transformer, and minifier written in Rust";
     homepage = "https://lightningcss.dev/";
-    changelog = "https://github.com/parcel-bundler/lightningcss/releases/tag/v${version}";
+    changelog =
+      "https://github.com/parcel-bundler/lightningcss/releases/tag/v${version}";
     license = licenses.mpl20;
     maintainers = with maintainers; [ toastal ];
     # never built on aarch64-linux since first introduction in nixpkgs

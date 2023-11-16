@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libtool,
-}:
+{ lib, stdenv, fetchurl, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "libtommath";
   version = "1.2.0";
 
   src = fetchurl {
-    url = "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz";
+    url =
+      "https://github.com/libtom/libtommath/releases/download/v${version}/ltm-${version}.tar.xz";
     sha256 = "1c8q1qy88cjhdjlk3g24mra94h34c1ldvkjz0n2988c0yvn5xixp";
   };
 
@@ -31,17 +27,14 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
-      "-DTARGET_OS_IPHONE=0";
+    "-DTARGET_OS_IPHONE=0";
 
   enableParallelBuilding = true;
 
   meta = with lib; {
     homepage = "https://www.libtom.net/LibTomMath/";
     description = "A library for integer-based number-theoretic applications";
-    license = with licenses; [
-      publicDomain
-      wtfpl
-    ];
+    license = with licenses; [ publicDomain wtfpl ];
     platforms = platforms.unix;
   };
 }

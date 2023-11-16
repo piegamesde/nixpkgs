@@ -1,45 +1,37 @@
 import ./make-test-python.nix {
   name = "mailman";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = with pkgs; [ mailutils ];
+  nodes.machine = { pkgs, ... }: {
+    environment.systemPackages = with pkgs; [ mailutils ];
 
-      services.mailman.enable = true;
-      services.mailman.serve.enable = true;
-      services.mailman.siteOwner = "postmaster@example.com";
-      services.mailman.webHosts = [ "example.com" ];
+    services.mailman.enable = true;
+    services.mailman.serve.enable = true;
+    services.mailman.siteOwner = "postmaster@example.com";
+    services.mailman.webHosts = [ "example.com" ];
 
-      services.postfix.enable = true;
-      services.postfix.destination = [
-        "example.com"
-        "example.net"
-      ];
-      services.postfix.relayDomains = [ "hash:/var/lib/mailman/data/postfix_domains" ];
-      services.postfix.config.local_recipient_maps = [
-        "hash:/var/lib/mailman/data/postfix_lmtp"
-        "proxy:unix:passwd.byname"
-      ];
-      services.postfix.config.transport_maps = [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
+    services.postfix.enable = true;
+    services.postfix.destination = [ "example.com" "example.net" ];
+    services.postfix.relayDomains =
+      [ "hash:/var/lib/mailman/data/postfix_domains" ];
+    services.postfix.config.local_recipient_maps =
+      [ "hash:/var/lib/mailman/data/postfix_lmtp" "proxy:unix:passwd.byname" ];
+    services.postfix.config.transport_maps =
+      [ "hash:/var/lib/mailman/data/postfix_lmtp" ];
 
-      users.users.user = {
-        isNormalUser = true;
-      };
+    users.users.user = { isNormalUser = true; };
 
-      virtualisation.memorySize = 2048;
+    virtualisation.memorySize = 2048;
 
-      specialisation.restApiPassFileSystem.configuration = {
-        services.mailman.restApiPassFile = "/var/lib/mailman/pass";
-      };
+    specialisation.restApiPassFileSystem.configuration = {
+      services.mailman.restApiPassFile = "/var/lib/mailman/pass";
     };
+  };
 
-  testScript =
-    { nodes, ... }:
+  testScript = { nodes, ... }:
     let
-      restApiPassFileSystem = "${nodes.machine.system.build.toplevel}/specialisation/restApiPassFileSystem";
-    in
-    ''
+      restApiPassFileSystem =
+        "${nodes.machine.system.build.toplevel}/specialisation/restApiPassFileSystem";
+    in ''
       def check_mail(_) -> bool:
           status, _ = machine.execute("grep -q hello /var/spool/mail/user/new/*")
           return status == 0

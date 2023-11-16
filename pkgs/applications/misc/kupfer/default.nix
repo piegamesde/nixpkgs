@@ -1,20 +1,6 @@
-{
-  lib,
-  fetchurl,
-  intltool,
-  python3Packages,
-  gobject-introspection,
-  gtk3,
-  itstool,
-  libwnck,
-  keybinder3,
-  desktop-file-utils,
-  shared-mime-info,
-  wrapGAppsHook,
-  wafHook,
-  bash,
-  dbus,
-}:
+{ lib, fetchurl, intltool, python3Packages, gobject-introspection, gtk3, itstool
+, libwnck, keybinder3, desktop-file-utils, shared-mime-info, wrapGAppsHook
+, wafHook, bash, dbus }:
 
 with python3Packages;
 
@@ -25,7 +11,8 @@ buildPythonApplication rec {
   format = "other";
 
   src = fetchurl {
-    url = "https://github.com/kupferlauncher/kupfer/releases/download/v${version}/kupfer-v${version}.tar.bz2";
+    url =
+      "https://github.com/kupferlauncher/kupfer/releases/download/v${version}/kupfer-v${version}.tar.bz2";
     sha256 = "0nagjp63gxkvsgzrpjk78cbqx9a7rbnjivj1avzb2fkhrlxa90c7";
   };
 
@@ -41,18 +28,8 @@ buildPythonApplication rec {
     docutils # for rst2man
     dbus # for detection of dbus-send during build
   ];
-  buildInputs = [
-    libwnck
-    keybinder3
-    bash
-  ];
-  propagatedBuildInputs = [
-    pygobject3
-    gtk3
-    pyxdg
-    dbus-python
-    pycairo
-  ];
+  buildInputs = [ libwnck keybinder3 bash ];
+  propagatedBuildInputs = [ pygobject3 gtk3 pyxdg dbus-python pycairo ];
 
   postInstall = ''
     gappsWrapperArgs+=(

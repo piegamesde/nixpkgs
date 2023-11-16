@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  pygments,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, pygments, isPy3k }:
 
 buildPythonPackage rec {
   version = "0.10.0";
@@ -26,4 +19,5 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ timbertson ];
     license = licenses.gpl3;
   };
+
 }

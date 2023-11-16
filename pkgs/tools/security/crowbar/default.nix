@@ -1,12 +1,4 @@
-{
-  fetchFromGitHub,
-  freerdp,
-  nmap,
-  openvpn,
-  python3Packages,
-  lib,
-  tigervnc,
-}:
+{ fetchFromGitHub, freerdp, nmap, openvpn, python3Packages, lib, tigervnc }:
 
 python3Packages.buildPythonApplication rec {
   pname = "crowbar";
@@ -36,7 +28,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/galkan/crowbar";
-    description = "A brute forcing tool that can be used during penetration tests";
+    description =
+      "A brute forcing tool that can be used during penetration tests";
     license = licenses.mit;
     maintainers = with maintainers; [ pamplemousse ];
   };

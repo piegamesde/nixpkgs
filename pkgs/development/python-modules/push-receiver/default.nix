@@ -1,12 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lib,
-  appdirs,
-  http-ece,
-  oscrypto,
-  protobuf,
-}:
+{ buildPythonPackage, fetchPypi, lib, appdirs, http-ece, oscrypto, protobuf }:
 
 buildPythonPackage rec {
   pname = "push-receiver";

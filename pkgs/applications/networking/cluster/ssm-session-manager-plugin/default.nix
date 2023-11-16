@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  buildGo120Package,
-}:
+{ stdenv, lib, fetchFromGitHub, buildGo120Package }:
 
 buildGo120Package rec {
   pname = "ssm-session-manager-plugin";
@@ -35,7 +30,9 @@ buildGo120Package rec {
   checkFlags = [ "-skip=TestSetSessionHandlers" ];
 
   preCheck = ''
-    if ! [[ $(go/bin/sessionmanagerplugin-main --version) = ${lib.escapeShellArg version} ]]; then
+    if ! [[ $(go/bin/sessionmanagerplugin-main --version) = ${
+      lib.escapeShellArg version
+    } ]]; then
       echo 'wrong version'
       exit 1
     fi
@@ -48,12 +45,10 @@ buildGo120Package rec {
   '';
 
   meta = with lib; {
-    homepage = "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html";
+    homepage =
+      "https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html";
     description = "Amazon SSM Session Manager Plugin";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      amarshall
-      mbaillie
-    ];
+    maintainers = with maintainers; [ amarshall mbaillie ];
   };
 }

@@ -1,19 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  async-modbus,
-  async-timeout,
-  buildPythonPackage,
-  construct,
-  exceptiongroup,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-  tenacity,
-}:
+{ lib, aiohttp, aresponses, async-modbus, async-timeout, buildPythonPackage
+, construct, exceptiongroup, fetchFromGitHub, pytest-asyncio, pytestCheckHook
+, pythonOlder, setuptools, tenacity }:
 
 buildPythonPackage rec {
   pname = "nibe";
@@ -31,19 +18,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    async-modbus
-    async-timeout
-    construct
-    exceptiongroup
-    tenacity
-  ];
+  propagatedBuildInputs =
+    [ async-modbus async-timeout construct exceptiongroup tenacity ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "nibe" ];
 

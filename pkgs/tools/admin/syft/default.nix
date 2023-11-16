@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "syft";
@@ -74,16 +68,14 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/anchore/syft";
     changelog = "https://github.com/anchore/syft/releases/tag/v${version}";
-    description = "CLI tool and library for generating a Software Bill of Materials from container images and filesystems";
+    description =
+      "CLI tool and library for generating a Software Bill of Materials from container images and filesystems";
     longDescription = ''
       A CLI tool and Go library for generating a Software Bill of Materials
       (SBOM) from container images and filesystems. Exceptional for
       vulnerability detection when used with a scanner tool like Grype.
     '';
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [
-      jk
-      developer-guy
-    ];
+    maintainers = with maintainers; [ jk developer-guy ];
   };
 }

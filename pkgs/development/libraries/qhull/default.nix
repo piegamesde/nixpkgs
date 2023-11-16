@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  fixDarwinDylibNames,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, fixDarwinDylibNames }:
 
 stdenv.mkDerivation rec {
   pname = "qhull";
@@ -17,11 +11,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-djUO3qzY8ch29AuhY3Bn1ajxWZ4/W70icWVrxWRAxRc=";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [ cmake ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   meta = with lib; {
     homepage = "http://www.qhull.org/";
-    description = "Compute the convex hull, Delaunay triangulation, Voronoi diagram and more";
+    description =
+      "Compute the convex hull, Delaunay triangulation, Voronoi diagram and more";
     license = licenses.qhull;
     platforms = platforms.unix;
     maintainers = with maintainers; [ orivej ];

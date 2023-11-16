@@ -1,20 +1,13 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub
 
-  # build-system
-  rustPlatform,
+# build-system
+, rustPlatform
 
-  # native darwin dependencies
-  libiconv,
-  Security,
+# native darwin dependencies
+, libiconv, Security
 
-  # tests
-  pytestCheckHook,
-  hypothesis,
-}:
+# tests
+, pytestCheckHook, hypothesis }:
 
 buildPythonPackage rec {
   pname = "css-inline";
@@ -43,27 +36,20 @@ buildPythonPackage rec {
     hash = "sha256-9oLVMcrAB3JX9XSN5uBvrazFFG6J6s6V3HnEfz/qj2E=";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    rustPlatform.maturinBuildHook
-  ];
+  nativeBuildInputs =
+    [ rustPlatform.cargoSetupHook rustPlatform.maturinBuildHook ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   pythonImportsCheck = [ "css_inline" ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytestCheckHook ];
 
   meta = with lib; {
     description = "Inline CSS into style attributes";
     homepage = "https://github.com/Stranger6667/css-inline";
-    changelog = "https://github.com/Stranger6667/css-inline/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Stranger6667/css-inline/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

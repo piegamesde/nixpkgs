@@ -1,8 +1,4 @@
-{
-  lib,
-  mkDiscoursePlugin,
-  fetchFromGitHub,
-}:
+{ lib, mkDiscoursePlugin, fetchFromGitHub }:
 
 mkDiscoursePlugin {
   name = "discourse-github";
@@ -19,4 +15,5 @@ mkDiscoursePlugin {
     license = licenses.mit;
     description = "Adds GitHub badges and linkback functionality";
   };
+
 }

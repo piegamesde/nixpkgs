@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, which }:
 
 stdenv.mkDerivation rec {
   pname = "libpg_query";
@@ -18,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ which ];
 
-  makeFlags = [
-    "build"
-    "build_shared"
-  ];
+  makeFlags = [ "build" "build_shared" ];
 
   installPhase = ''
     install -Dm644 -t $out/lib libpg_query.a
@@ -34,8 +26,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/pganalyze/libpg_query";
-    description = "C library for accessing the PostgreSQL parser outside of the server environment";
-    changelog = "https://github.com/pganalyze/libpg_query/raw/${version}/CHANGELOG.md";
+    description =
+      "C library for accessing the PostgreSQL parser outside of the server environment";
+    changelog =
+      "https://github.com/pganalyze/libpg_query/raw/${version}/CHANGELOG.md";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = [ maintainers.marsam ];

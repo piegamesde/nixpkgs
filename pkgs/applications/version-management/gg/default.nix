@@ -1,20 +1,10 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  makeWrapper,
-  bash,
-  coreutils,
-  git,
-  pandoc,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper, bash
+, coreutils, git, pandoc }:
 
 let
   version = "1.3.0";
   commit = "5bfe79b3632f15c442e8dc51ec206ab76354487f";
-in
-buildGoModule {
+in buildGoModule {
   pname = "gg-scm";
   inherit version;
 
@@ -38,22 +28,12 @@ buildGoModule {
     "main.buildCommit=${commit}"
   ];
 
-  vendorSha256 = "214dc073dad7b323ea449acf24c5b578d573432eeaa1506cf5761a2d7f5ce405";
+  vendorSha256 =
+    "214dc073dad7b323ea449acf24c5b578d573432eeaa1506cf5761a2d7f5ce405";
 
-  nativeBuildInputs = [
-    pandoc
-    installShellFiles
-    makeWrapper
-  ];
-  nativeCheckInputs = [
-    bash
-    coreutils
-    git
-  ];
-  buildInputs = [
-    bash
-    git
-  ];
+  nativeBuildInputs = [ pandoc installShellFiles makeWrapper ];
+  nativeCheckInputs = [ bash coreutils git ];
+  buildInputs = [ bash git ];
 
   postInstall = ''
     wrapProgram $out/bin/gg --suffix PATH : ${git}/bin

@@ -1,10 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  qtbase,
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, qtbase }:
 
 mkDerivation rec {
   pname = "qgit";
@@ -25,10 +19,7 @@ mkDerivation rec {
     license = licenses.gpl2Only;
     homepage = "https://github.com/tibirna/qgit";
     description = "Graphical front-end to Git";
-    maintainers = with maintainers; [
-      peterhoeg
-      markuskowa
-    ];
+    maintainers = with maintainers; [ peterhoeg markuskowa ];
     inherit (qtbase.meta) platforms;
   };
 }

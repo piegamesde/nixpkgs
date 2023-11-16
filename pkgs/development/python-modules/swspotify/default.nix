@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  dbus-python,
-  fetchFromGitHub,
-  flask,
-  flask-cors,
-  poetry-core,
-  pythonOlder,
-  requests,
-}:
+{ lib, stdenv, buildPythonPackage, dbus-python, fetchFromGitHub, flask
+, flask-cors, poetry-core, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "swspotify";
@@ -27,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    dbus-python
-    flask
-    flask-cors
-    requests
-  ];
+  propagatedBuildInputs = [ dbus-python flask flask-cors requests ];
 
   # Tests want to use Dbus
   doCheck = false;
@@ -40,7 +25,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "SwSpotify" ];
 
   meta = with lib; {
-    description = "Library to get the currently playing song and artist from Spotify";
+    description =
+      "Library to get the currently playing song and artist from Spotify";
     homepage = "https://github.com/SwagLyrics/SwSpotify";
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];

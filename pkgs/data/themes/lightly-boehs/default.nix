@@ -1,14 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  kdecoration,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  plasma-workspace,
-  qtbase,
-  qt5,
-}:
+{ mkDerivation, lib, kdecoration, fetchFromGitHub, cmake, extra-cmake-modules
+, plasma-workspace, qtbase, qt5 }:
 
 mkDerivation rec {
   pname = "lightly-boehs";
@@ -21,20 +12,13 @@ mkDerivation rec {
     sha256 = "Icw+xVmuCB59ltyZJKyIeHI/yGfM2SbPrVzTVLqHWd4=";
   };
 
-  buildInputs = [
-    kdecoration
-    plasma-workspace
-    qtbase
-    qt5.qtx11extras
-  ];
+  buildInputs = [ kdecoration plasma-workspace qtbase qt5.qtx11extras ];
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   meta = with lib; {
-    description = "A fork of the Lightly breeze theme style that aims to be visually modern and minimalistic";
+    description =
+      "A fork of the Lightly breeze theme style that aims to be visually modern and minimalistic";
     homepage = "https://github.com/boehs/Lightly";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.hikari ];

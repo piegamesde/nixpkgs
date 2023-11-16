@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiohttp,
-  async-timeout,
-  orjson,
-  pythonOlder,
-  requests,
-  websocket-client,
-  websockets,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, async-timeout, orjson
+, pythonOlder, requests, websocket-client, websockets }:
 
 buildPythonPackage rec {
   pname = "sense-energy";
@@ -30,14 +20,8 @@ buildPythonPackage rec {
       --replace "{{VERSION_PLACEHOLDER}}" "${version}"
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    orjson
-    requests
-    websocket-client
-    websockets
-  ];
+  propagatedBuildInputs =
+    [ aiohttp async-timeout orjson requests websocket-client websockets ];
 
   # no tests implemented
   doCheck = false;

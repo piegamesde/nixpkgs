@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  bridge-utils,
-  iproute2,
-  lxc,
-  openvswitch,
-  docker,
-  busybox,
-  dhcpcd,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, bridge-utils, iproute2, lxc
+, openvswitch, docker, busybox, dhcpcd }:
 
 stdenv.mkDerivation {
   pname = "pipework";

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPyPy,
-  zope_interface,
-  zope_exceptions,
-  zope_location,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPyPy, zope_interface, zope_exceptions
+, zope_location }:
 
 buildPythonPackage rec {
   pname = "zope.testing";
@@ -19,11 +12,7 @@ buildPythonPackage rec {
 
   doCheck = !isPyPy;
 
-  propagatedBuildInputs = [
-    zope_interface
-    zope_exceptions
-    zope_location
-  ];
+  propagatedBuildInputs = [ zope_interface zope_exceptions zope_location ];
 
   meta = with lib; {
     description = "Zope testing helpers";
@@ -31,4 +20,5 @@ buildPythonPackage rec {
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };
+
 }

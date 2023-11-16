@@ -20,10 +20,7 @@
     version = "1.436.0";
   };
   aws-sdk-autoscaling = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -34,10 +31,7 @@
     version = "1.59.0";
   };
   aws-sdk-cloudwatch = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -48,12 +42,8 @@
     version = "1.50.0";
   };
   aws-sdk-core = {
-    dependencies = [
-      "aws-eventstream"
-      "aws-partitions"
-      "aws-sigv4"
-      "jmespath"
-    ];
+    dependencies =
+      [ "aws-eventstream" "aws-partitions" "aws-sigv4" "jmespath" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -64,10 +54,7 @@
     version = "3.113.0";
   };
   aws-sdk-dynamodb = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -78,10 +65,7 @@
     version = "1.60.0";
   };
   aws-sdk-ec2 = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -92,10 +76,7 @@
     version = "1.230.0";
   };
   aws-sdk-efs = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -106,10 +87,7 @@
     version = "1.39.0";
   };
   aws-sdk-elasticache = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -120,10 +98,7 @@
     version = "1.54.0";
   };
   aws-sdk-elasticloadbalancing = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -134,10 +109,7 @@
     version = "1.31.0";
   };
   aws-sdk-elasticloadbalancingv2 = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -148,10 +120,7 @@
     version = "1.61.0";
   };
   aws-sdk-iam = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -162,10 +131,7 @@
     version = "1.51.0";
   };
   aws-sdk-kms = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -176,10 +142,7 @@
     version = "1.43.0";
   };
   aws-sdk-rds = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -190,10 +153,7 @@
     version = "1.117.0";
   };
   aws-sdk-redshift = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -204,10 +164,7 @@
     version = "1.58.0";
   };
   aws-sdk-route53 = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -218,11 +175,7 @@
     version = "1.48.0";
   };
   aws-sdk-s3 = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sdk-kms"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sdk-kms" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -233,10 +186,7 @@
     version = "1.93.0";
   };
   aws-sdk-sns = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -247,10 +197,7 @@
     version = "1.39.0";
   };
   aws-sdk-sqs = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "mno16";
   version = "1.0";
 
   src = fetchzip {
-    url = "https://github.com/sevmeyer/${pname}/releases/download/${version}/${pname}-${version}.zip";
+    url =
+      "https://github.com/sevmeyer/${pname}/releases/download/${version}/${pname}-${version}.zip";
     stripRoot = false;
     hash = "sha256-xJQ9V7GlGUTEeYhqYFl/SemS6iqV0eW85YOn/tLgA+M=";
   };

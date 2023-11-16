@@ -1,20 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  autoreconfHook,
-  pkg-config,
-  dbus,
-}:
+{ lib, stdenv, fetchgit, autoreconfHook, pkg-config, dbus }:
 
 stdenv.mkDerivation rec {
   pname = "ell";
   version = "0.57";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/libs/ell/ell.git";
@@ -22,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9d9WMCByQ1TKWpzWe5msts1LG+BKKqwCgaMBbD74/+4=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
   nativeCheckInputs = [ dbus ];
 
@@ -40,13 +27,10 @@ stdenv.mkDerivation rec {
     longDescription = ''
       The Embedded Linux* Library (ELL) provides core, low-level functionality for system daemons. It typically has no dependencies other than the Linux kernel, C standard library, and libdl (for dynamic linking). While ELL is designed to be efficient and compact enough for use on embedded Linux platforms, it is not limited to resource-constrained systems.
     '';
-    changelog = "https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ChangeLog?h=${version}";
+    changelog =
+      "https://git.kernel.org/pub/scm/libs/ell/ell.git/tree/ChangeLog?h=${version}";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      mic92
-      dtzWill
-      maxeaubrey
-    ];
+    maintainers = with maintainers; [ mic92 dtzWill maxeaubrey ];
   };
 }

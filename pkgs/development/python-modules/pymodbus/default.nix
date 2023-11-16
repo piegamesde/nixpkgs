@@ -1,23 +1,6 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  mock,
-  prompt-toolkit,
-  pygments,
-  pyserial,
-  pyserial-asyncio,
-  pytest-asyncio,
-  pytest-rerunfailures,
-  pytest-xdist,
-  pytestCheckHook,
-  redis,
-  sqlalchemy,
-  tornado,
-  twisted,
-}:
+{ lib, aiohttp, buildPythonPackage, click, fetchFromGitHub, mock, prompt-toolkit
+, pygments, pyserial, pyserial-asyncio, pytest-asyncio, pytest-rerunfailures
+, pytest-xdist, pytestCheckHook, redis, sqlalchemy, tornado, twisted }:
 
 buildPythonPackage rec {
   pname = "pymodbus";
@@ -32,15 +15,8 @@ buildPythonPackage rec {
   };
 
   # Twisted asynchronous version is not supported due to a missing dependency
-  propagatedBuildInputs = [
-    aiohttp
-    click
-    prompt-toolkit
-    pygments
-    pyserial
-    pyserial-asyncio
-    tornado
-  ];
+  propagatedBuildInputs =
+    [ aiohttp click prompt-toolkit pygments pyserial pyserial-asyncio tornado ];
 
   nativeCheckInputs = [
     mock
@@ -69,7 +45,8 @@ buildPythonPackage rec {
       lightweight project is needed.
     '';
     homepage = "https://github.com/pymodbus-dev/pymodbus";
-    changelog = "https://github.com/pymodbus-dev/pymodbus/releases/tag/v${version}";
+    changelog =
+      "https://github.com/pymodbus-dev/pymodbus/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  Foundation,
-}:
+{ lib, stdenv, fetchFromGitHub, Foundation }:
 
 stdenv.mkDerivation rec {
   pname = "cctz";
@@ -20,8 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional stdenv.isDarwin Foundation;
 
-  installTargets =
-    [ "install_hdrs" ]
+  installTargets = [ "install_hdrs" ]
     ++ lib.optional (!stdenv.targetPlatform.isStatic) "install_shared_lib"
     ++ lib.optional stdenv.targetPlatform.isStatic "install_lib";
 
@@ -33,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/google/cctz";
-    description = "C++ library for translating between absolute and civil times";
+    description =
+      "C++ library for translating between absolute and civil times";
     license = licenses.asl20;
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.all;

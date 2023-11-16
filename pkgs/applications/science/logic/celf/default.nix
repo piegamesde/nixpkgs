@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  smlnj,
-}:
+{ lib, stdenv, fetchFromGitHub, smlnj }:
 
 stdenv.mkDerivation rec {
   pname = "celf";

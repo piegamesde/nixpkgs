@@ -5,9 +5,8 @@ with lib;
 let
 
   cfg = config.powerManagement;
-in
 
-{
+in {
 
   ###### interface
 
@@ -27,7 +26,8 @@ in
       resumeCommands = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Commands executed after the system resumes from suspend-to-RAM.";
+        description = lib.mdDoc
+          "Commands executed after the system resumes from suspend-to-RAM.";
       };
 
       powerUpCommands = mkOption {
@@ -55,7 +55,9 @@ in
           it goes to suspend or hibernation.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -96,5 +98,7 @@ in
       '';
       serviceConfig.Type = "oneshot";
     };
+
   };
+
 }

@@ -1,12 +1,5 @@
-{
-  lib,
-  babel,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pygments,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, babel, buildPythonPackage, fetchFromGitHub, pygments, pythonOlder
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "colout";
@@ -26,10 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    babel
-    pygments
-  ];
+  propagatedBuildInputs = [ babel pygments ];
 
   pythonImportsCheck = [ "colout" ];
 

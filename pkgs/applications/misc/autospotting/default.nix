@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "autospotting";
@@ -19,13 +15,11 @@ buildGoModule rec {
 
   excludedPackages = [ "scripts" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Automatically convert your existing AutoScaling groups to up to 90% cheaper spot instances with minimal configuration changes";
+    description =
+      "Automatically convert your existing AutoScaling groups to up to 90% cheaper spot instances with minimal configuration changes";
     homepage = "https://github.com/cloudutil/AutoSpotting";
     license = licenses.osl3;
     maintainers = with maintainers; [ costrouc ];

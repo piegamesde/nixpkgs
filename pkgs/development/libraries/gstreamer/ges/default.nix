@@ -1,60 +1,29 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  bash-completion,
-  gst-plugins-base,
-  gst-plugins-bad,
-  gst-devtools,
-  libxml2,
-  flex,
-  gettext,
-  gobject-introspection,
-  # Checks meson.is_cross_build(), so even canExecute isn't enough.
-  enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform,
-  hotdoc,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, python3, bash-completion
+, gst-plugins-base, gst-plugins-bad, gst-devtools, libxml2, flex, gettext
+, gobject-introspection
+# Checks meson.is_cross_build(), so even canExecute isn't enough.
+, enableDocumentation ? stdenv.hostPlatform == stdenv.buildPlatform, hotdoc }:
 
 stdenv.mkDerivation rec {
   pname = "gst-editing-services";
   version = "1.22.3";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
-    url = "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://gstreamer.freedesktop.org/src/${pname}/${pname}-${version}.tar.xz";
     hash = "sha256-FaW85iUJseEl6FoJ7EHzIcD1SSZLUETACV/PstXAzqI=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    gobject-introspection
-    python3
-    flex
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  nativeBuildInputs =
+    [ meson ninja pkg-config gettext gobject-introspection python3 flex ]
+    ++ lib.optionals enableDocumentation [ hotdoc ];
 
-  buildInputs = [
-    bash-completion
-    libxml2
-    gobject-introspection
-    gst-devtools
-    python3
-  ];
+  buildInputs =
+    [ bash-completion libxml2 gobject-introspection gst-devtools python3 ];
 
-  propagatedBuildInputs = [
-    gst-plugins-base
-    gst-plugins-bad
-  ];
+  propagatedBuildInputs = [ gst-plugins-base gst-plugins-bad ];
 
   mesonFlags = [ (lib.mesonEnable "doc" enableDocumentation) ];
 

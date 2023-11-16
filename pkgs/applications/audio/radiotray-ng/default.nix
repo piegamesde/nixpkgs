@@ -1,37 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  # Transport
-  curl,
-  # Libraries
-  boost,
-  jsoncpp,
-  libbsd,
-  pcre,
-  # GUI/Desktop
-  dbus,
-  glibmm,
-  gsettings-desktop-schemas,
-  hicolor-icon-theme,
-  libappindicator-gtk3,
-  libnotify,
-  libxdg_basedir,
-  wxGTK,
-  # GStreamer
-  gst_all_1,
-  # User-agent info
-  lsb-release,
-  # rt2rtng
-  python3,
-  # Testing
-  gtest,
-  # Fixup
-  wrapGAppsHook,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config
+# Transport
+, curl
+# Libraries
+, boost, jsoncpp, libbsd, pcre
+# GUI/Desktop
+, dbus, glibmm, gsettings-desktop-schemas, hicolor-icon-theme
+, libappindicator-gtk3, libnotify, libxdg_basedir, wxGTK
+# GStreamer
+, gst_all_1
+# User-agent info
+, lsb-release
+# rt2rtng
+, python3
+# Testing
+, gtest
+# Fixup
+, wrapGAppsHook, makeWrapper }:
 
 let
   gstInputs = with gst_all_1; [
@@ -43,12 +27,8 @@ let
     gst-libav
   ];
   # For the rt2rtng utility for converting bookmark file to -ng format
-  pythonInputs = with python3.pkgs; [
-    python
-    lxml
-  ];
-in
-stdenv.mkDerivation rec {
+  pythonInputs = with python3.pkgs; [ python lxml ];
+in stdenv.mkDerivation rec {
   pname = "radiotray-ng";
   version = "0.2.8";
 
@@ -59,12 +39,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/0GlQdSsIPKGrDT9CgxvaH8TpAbqxFduwL2A2+BSrEI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook makeWrapper ];
 
   buildInputs = [
     curl

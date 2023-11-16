@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "python-ctags3";

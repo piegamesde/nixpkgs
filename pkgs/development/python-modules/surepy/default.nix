@@ -1,21 +1,6 @@
-{
-  lib,
-  aiodns,
-  aiohttp,
-  async-timeout,
-  attrs,
-  brotlipy,
-  buildPythonPackage,
-  faust-cchardet,
-  click,
-  colorama,
-  fetchFromGitHub,
-  halo,
-  poetry-core,
-  pythonOlder,
-  requests,
-  rich,
-}:
+{ lib, aiodns, aiohttp, async-timeout, attrs, brotlipy, buildPythonPackage
+, faust-cchardet, click, colorama, fetchFromGitHub, halo, poetry-core
+, pythonOlder, requests, rich }:
 
 buildPythonPackage rec {
   pname = "surepy";

@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  matplotlib,
-  niapy,
-  numpy,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  scikit-learn,
-  toml-adapt,
-  torch,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, niapy, numpy
+, poetry-core, pytestCheckHook, pythonOlder, scikit-learn, toml-adapt, torch }:
 
 buildPythonPackage rec {
   pname = "nianet";
@@ -27,17 +15,9 @@ buildPythonPackage rec {
     sha256 = "sha256-FZipl6Z9AfiL6WH0kvUn8bVxt8JLdDVlmTSqnyxe0nY=";
   };
 
-  nativeBuildInputs = [
-    toml-adapt
-    poetry-core
-  ];
+  nativeBuildInputs = [ toml-adapt poetry-core ];
 
-  propagatedBuildInputs = [
-    niapy
-    numpy
-    scikit-learn
-    torch
-  ];
+  propagatedBuildInputs = [ niapy numpy scikit-learn torch ];
 
   # create niapy and torch dep version consistent
   preBuild = ''
@@ -50,7 +30,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nianet" ];
 
   meta = with lib; {
-    description = "Designing and constructing neural network topologies using nature-inspired algorithms";
+    description =
+      "Designing and constructing neural network topologies using nature-inspired algorithms";
     homepage = "https://github.com/SasoPavlic/NiaNet";
     changelog = "https://github.com/SasoPavlic/NiaNet/releases/tag/v${version}";
     license = licenses.mit;

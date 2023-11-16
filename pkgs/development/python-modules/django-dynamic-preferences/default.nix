@@ -1,18 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # dependencies
-  django,
-  persisting-theory,
-  six,
+# dependencies
+, django, persisting-theory, six
 
-  # tests
-  djangorestframework,
-  pytest-django,
-  pytestCheckHook,
-}:
+# tests
+, djangorestframework, pytest-django, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-dynamic-preferences";
@@ -28,23 +20,18 @@ buildPythonPackage rec {
 
   buildInputs = [ django ];
 
-  propagatedBuildInputs = [
-    six
-    persisting-theory
-  ];
+  propagatedBuildInputs = [ six persisting-theory ];
 
-  nativeCheckInputs = [
-    djangorestframework
-    pytestCheckHook
-    pytest-django
-  ];
+  nativeCheckInputs = [ djangorestframework pytestCheckHook pytest-django ];
 
   env.DJANGO_SETTINGS = "tests.settings";
 
   meta = with lib; {
-    changelog = "https://github.com/agateblue/django-dynamic-preferences/blob/${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/agateblue/django-dynamic-preferences/blob/${version}/HISTORY.rst";
     homepage = "https://github.com/EliotBerriot/django-dynamic-preferences";
-    description = "Dynamic global and instance settings for your django project";
+    description =
+      "Dynamic global and instance settings for your django project";
     license = licenses.bsd3;
     maintainers = with maintainers; [ mmai ];
   };

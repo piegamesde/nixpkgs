@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  buildDunePackage,
-  dune-configurator,
-  gtk3,
-  cairo2,
-  camlp-streams,
-}:
+{ lib, fetchFromGitHub, pkg-config, buildDunePackage, dune-configurator, gtk3
+, cairo2, camlp-streams }:
 
 buildDunePackage rec {
   version = "3.1.3";
@@ -23,14 +15,8 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    dune-configurator
-    camlp-streams
-  ];
-  propagatedBuildInputs = [
-    gtk3
-    cairo2
-  ];
+  buildInputs = [ dune-configurator camlp-streams ];
+  propagatedBuildInputs = [ gtk3 cairo2 ];
 
   meta = {
     description = "OCaml interface to GTK 3";

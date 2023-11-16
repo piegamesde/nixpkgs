@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "ptex";
@@ -17,12 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PR1ld9rXmL6BK4llznAsD5PNvi3anFMz2i9NDsG95DQ=";
   };
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "lib"
-  ];
+  outputs = [ "bin" "dev" "out" "lib" ];
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ zlib ];

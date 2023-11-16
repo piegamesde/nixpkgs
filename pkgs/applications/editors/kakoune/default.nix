@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "kakoune-unwrapped";
@@ -13,10 +9,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-vmzGaGl0KSjseSD/s6DXxvMUTmAle+Iv/ZP9llaFnXk=";
   };
-  makeFlags = [
-    "debug=no"
-    "PREFIX=${placeholder "out"}"
-  ];
+  makeFlags = [ "debug=no" "PREFIX=${placeholder "out"}" ];
 
   preConfigure = ''
     export version="v${version}"
@@ -43,10 +36,7 @@ stdenv.mkDerivation rec {
     description = "A vim inspired text editor";
     license = licenses.publicDomain;
     mainProgram = "kak";
-    maintainers = with maintainers; [
-      vrthra
-      srapenne
-    ];
+    maintainers = with maintainers; [ vrthra srapenne ];
     platforms = platforms.unix;
   };
 }

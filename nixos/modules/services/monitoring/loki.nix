@@ -1,28 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
-  inherit (lib)
-    escapeShellArgs
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-  ;
+  inherit (lib) escapeShellArgs mkEnableOption mkIf mkOption types;
 
   cfg = config.services.loki;
 
-  prettyJSON =
-    conf:
+  prettyJSON = conf:
     pkgs.runCommand "loki-config.json" { } ''
       echo '${builtins.toJSON conf}' | ${pkgs.jq}/bin/jq 'del(._module)' > $out
     '';
-in
-{
+
+in {
   options.services.loki = {
     enable = mkEnableOption (lib.mdDoc "loki");
 
@@ -80,20 +68,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion =
-          (
-            (cfg.configuration == { } -> cfg.configFile != null)
-            && (cfg.configFile != null -> cfg.configuration == { })
-          );
-        message = ''
-          Please specify either
-          'services.loki.configuration' or
-          'services.loki.configFile'.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = ((cfg.configuration == { } -> cfg.configFile != null)
+        && (cfg.configFile != null -> cfg.configuration == { }));
+      message = ''
+        Please specify either
+        'services.loki.configuration' or
+        'services.loki.configFile'.
+      '';
+    }];
 
     environment.systemPackages = [ cfg.package ]; # logcli
 
@@ -110,21 +93,24 @@ in
       description = "Loki Service Daemon";
       wantedBy = [ "multi-user.target" ];
 
-      serviceConfig =
-        let
-          conf = if cfg.configFile == null then prettyJSON cfg.configuration else cfg.configFile;
-        in
-        {
-          ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${escapeShellArgs cfg.extraFlags}";
-          User = cfg.user;
-          Restart = "always";
-          PrivateTmp = true;
-          ProtectHome = true;
-          ProtectSystem = "full";
-          DevicePolicy = "closed";
-          NoNewPrivileges = true;
-          WorkingDirectory = cfg.dataDir;
-        };
+      serviceConfig = let
+        conf = if cfg.configFile == null then
+          prettyJSON cfg.configuration
+        else
+          cfg.configFile;
+      in {
+        ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${
+            escapeShellArgs cfg.extraFlags
+          }";
+        User = cfg.user;
+        Restart = "always";
+        PrivateTmp = true;
+        ProtectHome = true;
+        ProtectSystem = "full";
+        DevicePolicy = "closed";
+        NoNewPrivileges = true;
+        WorkingDirectory = cfg.dataDir;
+      };
     };
   };
 }

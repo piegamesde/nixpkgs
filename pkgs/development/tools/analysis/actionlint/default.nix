@@ -1,13 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  makeWrapper,
-  python3Packages,
-  ronn,
-  shellcheck,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, makeWrapper
+, python3Packages, ronn, shellcheck }:
 
 buildGoModule rec {
   pname = "actionlint";
@@ -24,34 +16,22 @@ buildGoModule rec {
 
   vendorHash = "sha256-GtnTzFL6nuUmHAFChIjI6dxzsva/3Ob96DS2iCinlKE=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    ronn
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper ronn installShellFiles ];
 
   postInstall = ''
     ronn --roff man/actionlint.1.ronn
     installManPage man/actionlint.1
     wrapProgram "$out/bin/actionlint" \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          python3Packages.pyflakes
-          shellcheck
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ python3Packages.pyflakes shellcheck ]}
   '';
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/rhysd/actionlint.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X github.com/rhysd/actionlint.version=${version}" ];
 
   meta = with lib; {
     homepage = "https://rhysd.github.io/actionlint/";
     description = "Static checker for GitHub Actions workflow files";
-    changelog = "https://github.com/rhysd/actionlint/raw/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/rhysd/actionlint/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];
     mainProgram = "actionlint";

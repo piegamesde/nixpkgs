@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  hmmer,
-  perl,
-}:
+{ lib, stdenv, fetchurl, hmmer, perl }:
 
 stdenv.mkDerivation rec {
   version = "1.1.1";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lrmy2n3ax7f208k0k8l3yz0j5cpz05hv4hx1nnxzn0c51z1pc31";
   };
 
-  buildInputs = [
-    hmmer
-    perl
-  ];
+  buildInputs = [ hmmer perl ];
 
   buildPhase = ''
     sed -e "s,profileDB = .*,profileDB = \"$out/share/ITSx_db/HMMs\";," -i ITSx
@@ -34,7 +25,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Improved software detection and extraction of ITS1 and ITS2 from ribosomal ITS sequences of fungi and other eukaryotes for use in environmental sequencing";
+    description =
+      "Improved software detection and extraction of ITS1 and ITS2 from ribosomal ITS sequences of fungi and other eukaryotes for use in environmental sequencing";
     homepage = "https://microbiology.se/software/itsx/";
     license = licenses.gpl3;
     maintainers = [ maintainers.bzizou ];

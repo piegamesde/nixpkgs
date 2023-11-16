@@ -31,57 +31,39 @@ let
 
      escapeShellArgs' : [ShellArg] -> String
   */
-  escapeShellArgs' = lib.concatMapStringsSep " " (
-    arg: if arg ? __rawShell then arg.__rawShell else lib.escapeShellArg arg
-  );
+  escapeShellArgs' = lib.concatMapStringsSep " "
+    (arg: if arg ? __rawShell then arg.__rawShell else lib.escapeShellArg arg);
 
   /* processArg : { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] } → (String|FilePath) → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
      Helper reducer function for building a command arguments where file paths are replaced with argv[x] reference.
   */
-  processArg =
-    {
-      maxArgIndex,
-      args,
-      paths,
-    }:
+  processArg = { maxArgIndex, args, paths }:
     arg:
-    if builtins.isPath arg then
-      {
-        args = args ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
-        maxArgIndex = maxArgIndex + 1;
-        paths = paths ++ [ arg ];
-      }
-    else
-      {
-        args = args ++ [ arg ];
-        inherit maxArgIndex paths;
-      };
+    if builtins.isPath arg then {
+      args = args
+        ++ [{ __rawShell = ''"''$${builtins.toString maxArgIndex}"''; }];
+      maxArgIndex = maxArgIndex + 1;
+      paths = paths ++ [ arg ];
+    } else {
+      args = args ++ [ arg ];
+      inherit maxArgIndex paths;
+    };
   /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
      Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
   */
-  extractPaths =
-    maxArgIndex: command:
-    builtins.foldl' processArg
-      {
-        inherit maxArgIndex;
-        args = [ ];
-        paths = [ ];
-      }
-      command;
+  extractPaths = maxArgIndex: command:
+    builtins.foldl' processArg {
+      inherit maxArgIndex;
+      args = [ ];
+      paths = [ ];
+    } command;
   /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper reducer function for extracting file paths from individual commands.
   */
-  processCommand =
-    {
-      maxArgIndex,
-      commands,
-      paths,
-    }:
+  processCommand = { maxArgIndex, commands, paths }:
     command:
-    let
-      new = extractPaths maxArgIndex command;
-    in
-    {
+    let new = extractPaths maxArgIndex command;
+    in {
       commands = commands ++ [ new.args ];
       paths = paths ++ new.paths;
       maxArgIndex = new.maxArgIndex;
@@ -89,88 +71,65 @@ let
   /* extractCommands : Int → [[ (String|FilePath) ]] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper function for extracting file paths from a list of commands and replacing them with argv[x] references.
   */
-  extractCommands =
-    maxArgIndex: commands:
-    builtins.foldl' processCommand
-      {
-        inherit maxArgIndex;
-        commands = [ ];
-        paths = [ ];
-      }
-      commands;
+  extractCommands = maxArgIndex: commands:
+    builtins.foldl' processCommand {
+      inherit maxArgIndex;
+      commands = [ ];
+      paths = [ ];
+    } commands;
 
   /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
      Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
   */
-  commandsToShellInvocation =
-    commands:
-    let
-      extracted = extractCommands 0 commands;
-    in
-    [
+  commandsToShellInvocation = commands:
+    let extracted = extractCommands 0 commands;
+    in [
       "sh"
       "-c"
       (lib.concatMapStringsSep ";" escapeShellArgs' extracted.commands)
       # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
       # rather than a store path.
-    ]
-    ++ extracted.paths;
-in
-rec {
+    ] ++ extracted.paths;
+in rec {
   /* normalize : UpdateScript → UpdateScript
      EXPERIMENTAL! Converts a basic update script to the experimental attribute set form.
   */
-  normalize =
-    updateScript:
+  normalize = updateScript:
     {
       command = lib.toList (updateScript.command or updateScript);
       supportedFeatures = updateScript.supportedFeatures or [ ];
-    }
-    // lib.optionalAttrs (updateScript ? attrPath) { inherit (updateScript) attrPath; };
+    } // lib.optionalAttrs (updateScript ? attrPath) {
+      inherit (updateScript) attrPath;
+    };
 
   /* sequence : [UpdateScript] → UpdateScript
      EXPERIMENTAL! Combines multiple update scripts to run in sequence.
   */
-  sequence =
-    scripts:
+  sequence = scripts:
 
-    let
-      scriptsNormalized = builtins.map normalize scripts;
-    in
-    let
+    let scriptsNormalized = builtins.map normalize scripts;
+    in let
       scripts = scriptsNormalized;
-      hasCommitSupport =
-        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null null scripts
-        != null;
-      validateFeatures =
-        if hasCommitSupport then
-          ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ] || supportedFeatures == [ "silent" ])
-        else
-          ({ supportedFeatures, ... }: supportedFeatures == [ ]);
-    in
+      hasCommitSupport = lib.findSingle
+        ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null
+        null scripts != null;
+      validateFeatures = if hasCommitSupport then
+        ({ supportedFeatures, ... }:
+          supportedFeatures == [ "commit" ] || supportedFeatures
+          == [ "silent" ])
+      else
+        ({ supportedFeatures, ... }: supportedFeatures == [ ]);
 
-    assert lib.assertMsg (lib.all validateFeatures scripts)
-        "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
-    assert lib.assertMsg
-        (
-          builtins.length (
-            lib.unique (
-              builtins.map
-                (
-                  {
-                    attrPath ? null,
-                    ...
-                  }:
-                  attrPath
-                )
-                scripts
-            )
-          ) == 1
-        )
-        "Combining update scripts with different attr paths is currently unsupported.";
+    in assert lib.assertMsg (lib.all validateFeatures scripts)
+      "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
+    assert lib.assertMsg (builtins.length
+      (lib.unique (builtins.map ({ attrPath ? null, ... }: attrPath) scripts))
+      == 1)
+      "Combining update scripts with different attr paths is currently unsupported.";
 
     {
-      command = commandsToShellInvocation (builtins.map ({ command, ... }: command) scripts);
+      command = commandsToShellInvocation
+        (builtins.map ({ command, ... }: command) scripts);
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     };
 
@@ -188,4 +147,5 @@ rec {
       ];
       supportedFeatures = [ "silent" ];
     };
+
 }

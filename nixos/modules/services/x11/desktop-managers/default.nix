@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -15,9 +10,8 @@ let
   # If desktop manager `d' isn't capable of setting a background and
   # the xserver is enabled, `feh' or `xsetroot' are used as a fallback.
   needBGCond = d: !(d ? bgSupport && d.bgSupport) && xcfg.enable;
-in
 
-{
+in {
   # Note: the order in which desktop manager modules are imported here
   # determines the default: later modules (if enabled) are preferred.
   # E.g., if Plasma 5 is enabled, it supersedes xterm.
@@ -48,13 +42,7 @@ in
 
       wallpaper = {
         mode = mkOption {
-          type = types.enum [
-            "center"
-            "fill"
-            "max"
-            "scale"
-            "tile"
-          ];
+          type = types.enum [ "center" "fill" "max" "scale" "tile" ];
           default = "scale";
           example = "fill";
           description = lib.mdDoc ''
@@ -93,13 +81,10 @@ in
           scripts before forwarding the value to the
           `displayManager`.
         '';
-        apply = map (
-          d:
-          d
-          // {
+        apply = map (d:
+          d // {
             manage = "desktop";
-            start =
-              d.start
+            start = d.start
               # literal newline to ensure d.start's last line is not appended to
               + optionalString (needBGCond d) ''
 
@@ -109,8 +94,7 @@ in
                   } $HOME/.background-image
                 fi
               '';
-          }
-        );
+          });
       };
 
       default = mkOption {
@@ -123,7 +107,9 @@ in
           Default desktop manager loaded if none have been chosen.
         '';
       };
+
     };
+
   };
 
   config.services.xserver.displayManager.session = cfg.session;

@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
-  ncurses,
-  texinfo,
-  writeScript,
-  common-updater-scripts,
-  git,
-  nix,
-  nixfmt,
-  coreutils,
-  gnused,
-  callPackage,
-  gettext ? null,
-  enableNls ? true,
-  enableTiny ? false,
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, ncurses, texinfo, writeScript
+, common-updater-scripts, git, nix, nixfmt, coreutils, gnused, callPackage
+, gettext ? null, enableNls ? true, enableTiny ? false }:
 
 assert enableNls -> (gettext != null);
 
@@ -27,8 +11,8 @@ let
     rev = "bf8d898efaa10dce3f7972ff765b58c353b4b4ab";
     sha256 = "0773s5iz8aw9npgyasb0r2ybp6gvy2s9sq51az8w7h52bzn5blnn";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "nano";
   version = "7.2";
 
@@ -40,10 +24,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ texinfo ] ++ lib.optional enableNls gettext;
   buildInputs = [ ncurses ];
 
-  outputs = [
-    "out"
-    "info"
-  ];
+  outputs = [ "out" "info" ];
 
   configureFlags = [
     "--sysconfdir=/etc"
@@ -58,9 +39,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    tests = {
-      expect = callPackage ./test-with-expect.nix { };
-    };
+    tests = { expect = callPackage ./test-with-expect.nix { }; };
 
     updateScript = writeScript "update.sh" ''
       #!${stdenv.shell}
@@ -94,10 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nano-editor.org/";
     description = "A small, user-friendly console text editor";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      joachifm
-      nequissimus
-    ];
+    maintainers = with maintainers; [ joachifm nequissimus ];
     platforms = platforms.all;
   };
 }

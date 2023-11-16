@@ -1,20 +1,12 @@
 {
-  # Plumbing tools:
-  closureInfo,
-  runCommand,
-  writeText,
-  buildEnv,
-  # Actual dependencies to propagate:
-  bash,
-  coreutils,
-}:
+# Plumbing tools:
+closureInfo, runCommand, writeText, buildEnv
+, # Actual dependencies to propagate:
+bash, coreutils }:
 let
   tools = buildEnv {
     name = "lorri-runtime-tools";
-    paths = [
-      coreutils
-      bash
-    ];
+    paths = [ coreutils bash ];
   };
 
   runtimeClosureInfo = closureInfo { rootPaths = [ tools ]; };
@@ -27,14 +19,10 @@ let
     ) > $out
   '';
 
-  runtimeClosureInfoAsNix =
-    runCommand "runtime-closure.nix"
-      {
-        runtime_closure_list = closureToNix;
-        tools_build_host = tools;
-      }
-      ''
-        substituteAll ${./runtime-closure.nix.template} $out
-      '';
-in
-runtimeClosureInfoAsNix
+  runtimeClosureInfoAsNix = runCommand "runtime-closure.nix" {
+    runtime_closure_list = closureToNix;
+    tools_build_host = tools;
+  } ''
+    substituteAll ${./runtime-closure.nix.template} $out
+  '';
+in runtimeClosureInfoAsNix

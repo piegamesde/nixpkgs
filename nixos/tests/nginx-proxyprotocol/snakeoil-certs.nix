@@ -1,8 +1,7 @@
 let
   domain = "*.test.nix";
   domainSanitized = "_.test.nix";
-in
-{
+in {
   inherit domain;
   ca = {
     cert = ./ca.cert.pem;

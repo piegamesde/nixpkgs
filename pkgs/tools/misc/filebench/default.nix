@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  bison,
-  flex,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, bison, flex }:
 
 stdenv.mkDerivation rec {
   pname = "filebench";
@@ -16,14 +9,11 @@ stdenv.mkDerivation rec {
     sha256 = "13hmx67lsz367sn8lrvz1780mfczlbiz8v80gig9kpkpf009yksc";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex ];
 
   meta = with lib; {
-    description = "File system and storage benchmark that can generate both micro and macro workloads";
+    description =
+      "File system and storage benchmark that can generate both micro and macro workloads";
     homepage = "https://sourceforge.net/projects/filebench/";
     license = licenses.cddl;
     maintainers = [ maintainers.dezgeg ];

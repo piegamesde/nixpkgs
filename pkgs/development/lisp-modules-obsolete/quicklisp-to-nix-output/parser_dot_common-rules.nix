@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "parser_dot_common-rules";
   version = "20200715-git";
 
   parasites = [ "parser.common-rules/test" ];
 
-  description = "Provides common parsing rules that are useful in many grammars.";
+  description =
+    "Provides common parsing rules that are useful in many grammars.";
 
   deps = [
     args."alexandria"
@@ -19,7 +19,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/parser.common-rules/2020-07-15/parser.common-rules-20200715-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/parser.common-rules/2020-07-15/parser.common-rules-20200715-git.tgz";
     sha256 = "17nw0shhb8079b26ldwpfxggkzs6ysfqm4s4nr1rfhba9mkvxdxy";
   };
 

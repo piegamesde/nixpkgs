@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  xorgserver,
-  pytest,
-  pytest-xvfb,
-  i3,
-  xlib,
-  xdpyinfo,
-  makeFontsConf,
-  coreutils,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, xorgserver, pytest, pytest-xvfb, i3
+, xlib, xdpyinfo, makeFontsConf, coreutils }:
 
 buildPythonPackage rec {
   pname = "i3ipc";
@@ -25,14 +14,9 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ xlib ];
 
   fontsConf = makeFontsConf { fontDirectories = [ ]; };
-  FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
-  nativeCheckInputs = [
-    pytest
-    xdpyinfo
-    pytest-xvfb
-    xorgserver
-    i3
-  ];
+  FONTCONFIG_FILE =
+    fontsConf; # Fontconfig error: Cannot load default config file
+  nativeCheckInputs = [ pytest xdpyinfo pytest-xvfb xorgserver i3 ];
 
   postPatch = ''
     substituteInPlace test/i3.config \

@@ -1,22 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.knot;
-in
-{
+let cfg = config.services.prometheus.exporters.knot;
+in {
   port = 9433;
   extraOpts = {
     knotLibraryPath = mkOption {
       type = types.str;
       default = "${pkgs.knot-dns.out}/lib/libknot.so";
-      defaultText = literalExpression ''"''${pkgs.knot-dns.out}/lib/libknot.so"'';
+      defaultText =
+        literalExpression ''"''${pkgs.knot-dns.out}/lib/libknot.so"'';
       description = lib.mdDoc ''
         Path to the library of `knot-dns`.
       '';
@@ -50,11 +44,10 @@ in
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
       SupplementaryGroups = [ "knot" ];
-      RestrictAddressFamilies =
-        [
-          # Need AF_UNIX to collect data
-          "AF_UNIX"
-        ];
+      RestrictAddressFamilies = [
+        # Need AF_UNIX to collect data
+        "AF_UNIX"
+      ];
     };
   };
 }

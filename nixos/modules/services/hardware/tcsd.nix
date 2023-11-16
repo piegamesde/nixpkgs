@@ -1,12 +1,6 @@
 # tcsd daemon.
 
-{
-  config,
-  options,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, options, pkgs, lib, ... }:
 
 with lib;
 let
@@ -33,8 +27,8 @@ let
     #host_platform_class = server_12
     #all_platform_classes = pc_11,pc_12,mobile_12
   '';
-in
-{
+
+in {
 
   ###### interface
 
@@ -78,18 +72,21 @@ in
       firmwarePCRs = mkOption {
         default = "0,1,2,3,4,5,6,7";
         type = types.str;
-        description = lib.mdDoc "PCR indices used in the TPM for firmware measurements.";
+        description =
+          lib.mdDoc "PCR indices used in the TPM for firmware measurements.";
       };
 
       kernelPCRs = mkOption {
         default = "8,9,10,11,12";
         type = types.str;
-        description = lib.mdDoc "PCR indices used in the TPM for kernel measurements.";
+        description =
+          lib.mdDoc "PCR indices used in the TPM for kernel measurements.";
       };
 
       platformCred = mkOption {
         default = "${cfg.stateDir}/platform.cert";
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/platform.cert"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/platform.cert"'';
         type = types.path;
         description = lib.mdDoc ''
           Path to the platform credential for your TPM. Your TPM
@@ -103,7 +100,8 @@ in
 
       conformanceCred = mkOption {
         default = "${cfg.stateDir}/conformance.cert";
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/conformance.cert"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/conformance.cert"'';
         type = types.path;
         description = lib.mdDoc ''
           Path to the conformance credential for your TPM.
@@ -112,13 +110,15 @@ in
 
       endorsementCred = mkOption {
         default = "${cfg.stateDir}/endorsement.cert";
-        defaultText = literalExpression ''"''${config.${opt.stateDir}}/endorsement.cert"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.stateDir}}/endorsement.cert"'';
         type = types.path;
         description = lib.mdDoc ''
           Path to the endorsement credential for your TPM.
           See also the platformCred option'';
       };
     };
+
   };
 
   ###### implementation
@@ -134,11 +134,10 @@ in
       ACTION=="add", KERNEL=="tpm[0-9]*", TAG+="systemd"
     '';
 
-    systemd.tmpfiles.rules =
-      [
-        # Initialise the state directory
-        "d ${cfg.stateDir} 0770 ${cfg.user} ${cfg.group} - -"
-      ];
+    systemd.tmpfiles.rules = [
+      # Initialise the state directory
+      "d ${cfg.stateDir} 0770 ${cfg.user} ${cfg.group} - -"
+    ];
 
     systemd.services.tcsd = {
       description = "Manager for Trusted Computing resources";

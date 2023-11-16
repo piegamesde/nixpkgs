@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pytest-mypy,
-  pythonOlder,
-  redis,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pytest-mypy, pythonOlder
+, redis }:
 
 buildPythonPackage rec {
   pname = "portalocker";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ redis ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mypy
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mypy ];
 
   disabledTests = [
     "test_combined" # no longer compatible with setuptools>=58

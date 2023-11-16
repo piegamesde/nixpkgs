@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  djangorestframework,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, django, djangorestframework, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "djangorestframework-recursive";
@@ -17,10 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-Q/6yxpz3c402sMZudAeFIht9+5GmTRlzM51AMAx5muY=";
   };
 
-  propagatedBuildInputs = [
-    django
-    djangorestframework
-  ];
+  propagatedBuildInputs = [ django djangorestframework ];
 
   # incompatible with newer django versions
   doCheck = false;

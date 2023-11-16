@@ -1,20 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  file,
-}:
+{ lib, stdenv, fetchurl, file }:
 
 stdenv.mkDerivation rec {
   pname = "openpa";
   version = "1.0.4";
 
   src = fetchurl {
-    url = "https://trac.mpich.org/projects/${pname}/raw-attachment/wiki/Downloads/${pname}-${version}.tar.gz";
+    url =
+      "https://trac.mpich.org/projects/${pname}/raw-attachment/wiki/Downloads/${pname}-${version}.tar.gz";
     sha256 = "0flyi596hm6fv7xyw2iykx3s65p748s62bf15624xcnwpfrh8ncy";
   };
 
-  prePatch = "substituteInPlace configure --replace /usr/bin/file ${file}/bin/file";
+  prePatch =
+    "substituteInPlace configure --replace /usr/bin/file ${file}/bin/file";
 
   doCheck = true;
 

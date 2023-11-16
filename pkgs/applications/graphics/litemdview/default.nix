@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitea,
-  gtkmm3,
-  autoreconfHook,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitea, gtkmm3, autoreconfHook, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "litemdview";
@@ -22,10 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gtkmm3 ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   meta = with lib; {
     homepage = "https://notabug.org/g0tsu/litemdview";

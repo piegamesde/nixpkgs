@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  python3,
-}:
-let
-  pythonEnv = python3.withPackages (
-    p:
-    with p; [
-      dbus-python
-      pygobject3
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchFromGitLab, python3 }:
+let pythonEnv = python3.withPackages (p: with p; [ dbus-python pygobject3 ]);
+in stdenv.mkDerivation rec {
   pname = "krunner-ssh";
   version = "1.0";
 
@@ -43,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A simple backend for KRunner providing SSH hosts from your .ssh/known_hosts file as search results";
+    description =
+      "A simple backend for KRunner providing SSH hosts from your .ssh/known_hosts file as search results";
     homepage = "https://selfcoders.com/projects/krunner-ssh";
     license = licenses.mit;
     maintainers = with maintainers; [ aanderse ];

@@ -1,64 +1,41 @@
-{
-  stdenv,
-  lib,
-  autoPatchelfHook,
-  fetchzip,
-  xz,
-  ncurses5,
-  readline,
-  gmp,
-  mpfr,
-  expat,
-  libipt,
-  zlib,
-  dejagnu,
-  sourceHighlight,
-  python3,
-  elfutils,
-  guile,
-  glibc,
-  majorVersion,
-}:
+{ stdenv, lib, autoPatchelfHook, fetchzip, xz, ncurses5, readline, gmp, mpfr
+, expat, libipt, zlib, dejagnu, sourceHighlight, python3, elfutils, guile, glibc
+, majorVersion }:
 
 let
-  throwUnsupportedSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
+  throwUnsupportedSystem =
+    throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   versionMap = rec {
-    "11" =
-      {
-        gccVersion = "11.2.0";
-        alireRevision = "4";
-      }
-      // {
-        x86_64-darwin = {
-          hash = "sha256-FmBgD20PPQlX/ddhJliCTb/PRmKxe9z7TFPa2/SK4GY=";
-          upstreamTriplet = "x86_64-apple-darwin19.6.0";
-        };
-        x86_64-linux = {
-          hash = "sha256-8fMBJp6igH+Md5jE4LMubDmC4GLt4A+bZG/Xcz2LAJQ=";
-          upstreamTriplet = "x86_64-pc-linux-gnu";
-        };
-      }
-      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
-    "12" =
-      {
-        gccVersion = "12.1.0";
-        alireRevision = "2";
-      }
-      // {
-        x86_64-darwin = {
-          hash = "sha256-zrcVFvFZMlGUtkG0p1wST6kGInRI64Icdsvkcf25yVs=";
-          upstreamTriplet = "x86_64-apple-darwin19.6.0";
-        };
-        x86_64-linux = {
-          hash = "sha256-EPDPOOjWJnJsUM7GGxj20/PXumjfLoMIEFX1EDtvWVY=";
-          upstreamTriplet = "x86_64-pc-linux-gnu";
-        };
-      }
-      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
+    "11" = {
+      gccVersion = "11.2.0";
+      alireRevision = "4";
+    } // {
+      x86_64-darwin = {
+        hash = "sha256-FmBgD20PPQlX/ddhJliCTb/PRmKxe9z7TFPa2/SK4GY=";
+        upstreamTriplet = "x86_64-apple-darwin19.6.0";
+      };
+      x86_64-linux = {
+        hash = "sha256-8fMBJp6igH+Md5jE4LMubDmC4GLt4A+bZG/Xcz2LAJQ=";
+        upstreamTriplet = "x86_64-pc-linux-gnu";
+      };
+    }.${stdenv.hostPlatform.system} or throwUnsupportedSystem;
+    "12" = {
+      gccVersion = "12.1.0";
+      alireRevision = "2";
+    } // {
+      x86_64-darwin = {
+        hash = "sha256-zrcVFvFZMlGUtkG0p1wST6kGInRI64Icdsvkcf25yVs=";
+        upstreamTriplet = "x86_64-apple-darwin19.6.0";
+      };
+      x86_64-linux = {
+        hash = "sha256-EPDPOOjWJnJsUM7GGxj20/PXumjfLoMIEFX1EDtvWVY=";
+        upstreamTriplet = "x86_64-pc-linux-gnu";
+      };
+    }.${stdenv.hostPlatform.system} or throwUnsupportedSystem;
   };
-in
-with versionMap.${majorVersion};
+
+in with versionMap.${majorVersion};
 
 stdenv.mkDerivation rec {
   pname = "gnat-bootstrap";
@@ -67,36 +44,34 @@ stdenv.mkDerivation rec {
   version = "${gccVersion}-${alireRevision}";
 
   src = fetchzip {
-    url = "https://github.com/alire-project/GNAT-FSF-builds/releases/download/gnat-${version}/gnat-${stdenv.hostPlatform.system}-${version}.tar.gz";
+    url =
+      "https://github.com/alire-project/GNAT-FSF-builds/releases/download/gnat-${version}/gnat-${stdenv.hostPlatform.system}-${version}.tar.gz";
     inherit hash;
   };
 
-  nativeBuildInputs =
-    [
-      dejagnu
-      expat
-      gmp
-      guile
-      libipt
-      mpfr
-      ncurses5
-      python3
-      readline
-      sourceHighlight
-      xz
-      zlib
-    ]
-    ++ lib.optionals stdenv.buildPlatform.isLinux [
-      autoPatchelfHook
-      elfutils
-      glibc
-    ];
+  nativeBuildInputs = [
+    dejagnu
+    expat
+    gmp
+    guile
+    libipt
+    mpfr
+    ncurses5
+    python3
+    readline
+    sourceHighlight
+    xz
+    zlib
+  ] ++ lib.optionals stdenv.buildPlatform.isLinux [
+    autoPatchelfHook
+    elfutils
+    glibc
+  ];
 
-  postPatch =
-    lib.optionalString (stdenv.hostPlatform.isDarwin) ''
-      substituteInPlace lib/gcc/${upstreamTriplet}/${gccVersion}/install-tools/mkheaders.conf \
-        --replace "SYSTEM_HEADER_DIR=\"/usr/include\"" "SYSTEM_HEADER_DIR=\"/include\""
-    ''
+  postPatch = lib.optionalString (stdenv.hostPlatform.isDarwin) ''
+    substituteInPlace lib/gcc/${upstreamTriplet}/${gccVersion}/install-tools/mkheaders.conf \
+      --replace "SYSTEM_HEADER_DIR=\"/usr/include\"" "SYSTEM_HEADER_DIR=\"/include\""
+  ''
     # The included fixincl binary that is called during header fixup has a
     # hardcoded execvp("/usr/bin/sed", ...) call, but /usr/bin/sed isn't
     # available in the Nix Darwin stdenv.  Fortunately, execvp() will search the
@@ -107,11 +82,10 @@ stdenv.mkDerivation rec {
       sed -i "s,/usr/bin/sed,sed\x00\x00\x00\x00\x00\x00\x00\x00\x00," libexec/gcc/${upstreamTriplet}/${gccVersion}/install-tools/fixincl
     '';
 
-  installPhase =
-    ''
-      mkdir -p $out
-      cp -ar * $out/
-    ''
+  installPhase = ''
+    mkdir -p $out
+    cp -ar * $out/
+  ''
 
     # So far with the Darwin gnat-bootstrap binary packages, there have been two
     # types of dylib path references to other dylibs that need fixups:
@@ -166,10 +140,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/gnat";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ethindp ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }

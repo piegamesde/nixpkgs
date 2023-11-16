@@ -1,18 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # dependencies
-  ftfy,
-  regex,
-  tqdm,
-  torch,
-  torchvision,
+# dependencies
+, ftfy, regex, tqdm, torch, torchvision
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "clip-anytorch";
@@ -26,13 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-EqVkpMQHawoCFHNupf49NrvLdGCq35wnYBpdP81Ztd4=";
   };
 
-  propagatedBuildInputs = [
-    ftfy
-    regex
-    tqdm
-    torch
-    torchvision
-  ];
+  propagatedBuildInputs = [ ftfy regex tqdm torch torchvision ];
 
   pythonImportsCheck = [ "clip" ];
 

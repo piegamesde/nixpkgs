@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  wrapGAppsHook,
-  CoreServices,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, wrapGAppsHook
+, CoreServices }:
 
 rustPlatform.buildRustPackage rec {
   pname = "muso";
@@ -19,10 +12,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-09DWUER0ZWQuwfE3sjov2GjJNI7coE3D3E5iUy9mlSE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
   buildInputs = lib.optional stdenv.isDarwin CoreServices;
 
   preConfigure = ''

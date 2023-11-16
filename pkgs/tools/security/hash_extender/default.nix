@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, openssl }:
 
 stdenv.mkDerivation {
   pname = "hash_extender";

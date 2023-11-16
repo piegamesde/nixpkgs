@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libpng,
-  libsndfile,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libpng, libsndfile }:
 
 stdenv.mkDerivation rec {
   pname = "aptdec";
@@ -20,14 +12,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    libpng
-    libsndfile
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ libpng libsndfile ];
 
   meta = with lib; {
     description = "NOAA APT satellite imagery decoding library";

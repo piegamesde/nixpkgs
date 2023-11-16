@@ -1,14 +1,6 @@
 { version, sha256 }:
 
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  liburcu,
-  numactl,
-  python3,
-}:
+{ lib, stdenv, fetchurl, pkg-config, liburcu, numactl, python3 }:
 
 # NOTE:
 #   ./configure ...
@@ -30,18 +22,10 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "bin" "out" "dev" "devdoc" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    numactl
-    python3
-  ];
+  buildInputs = [ numactl python3 ];
 
   preConfigure = ''
     patchShebangs .
@@ -56,12 +40,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "LTTng Userspace Tracer libraries";
     homepage = "https://lttng.org/";
-    license = with licenses; [
-      lgpl21Only
-      gpl2Only
-      mit
-    ];
+    license = with licenses; [ lgpl21Only gpl2Only mit ];
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
   };
+
 }

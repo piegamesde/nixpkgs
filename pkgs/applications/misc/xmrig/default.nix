@@ -1,20 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  libuv,
-  libmicrohttpd,
-  openssl,
-  hwloc,
-  donateLevel ? 0,
-  darwin,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, openssl, hwloc
+, donateLevel ? 0, darwin }:
 
-let
-  inherit (darwin.apple_sdk_11_0.frameworks) Carbon CoreServices OpenCL;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk_11_0.frameworks) Carbon CoreServices OpenCL;
+in stdenv.mkDerivation rec {
   pname = "xmrig";
   version = "6.19.3";
 
@@ -35,18 +23,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      libuv
-      libmicrohttpd
-      openssl
-      hwloc
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      CoreServices
-      OpenCL
-    ];
+  buildInputs = [ libuv libmicrohttpd openssl hwloc ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon CoreServices OpenCL ];
 
   inherit donateLevel;
 

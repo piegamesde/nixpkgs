@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "quattrocento";
   version = "1.1";
 
   src = fetchzip {
-    url = "https://web.archive.org/web/20170707001804/http://www.impallari.com/media/releases/quattrocento-v${version}.zip";
+    url =
+      "https://web.archive.org/web/20170707001804/http://www.impallari.com/media/releases/quattrocento-v${version}.zip";
     hash = "sha256-ntY6Wl6TI8F7SShMyD8mdOxVg4oz9kvJ7vKTyGdPLtE=";
   };
 

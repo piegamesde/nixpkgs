@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  protobuf,
-  protobufc,
-  libsodium,
-  openssl,
+{ lib, stdenv, fetchFromGitHub, cmake, protobuf, protobufc, libsodium, openssl
 }:
 
 stdenv.mkDerivation rec {
@@ -21,18 +13,10 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    libsodium
-    openssl
-    protobuf
-    protobufc
-  ];
+  buildInputs = [ libsodium openssl protobuf protobufc ];
 
   separateDebugInfo = true;
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   # https://github.com/nats-io/nats.c/issues/542
   postPatch = ''

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  php,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, php }:
 
 let
   versions = {
@@ -20,19 +14,14 @@ let
       hash = "sha256-WGyGoTugxHgB2by1F57PQhyqQRjoKBCvwFBZvpsHwZg=";
     };
   };
-  common =
-    pname:
-    {
-      version,
-      hash,
-      beta ? null,
-    }:
+  common = pname:
+    { version, hash, beta ? null }:
     let
-      fullVersion = version + lib.optionalString (beta != null) "-${toString beta}";
+      fullVersion = version
+        + lib.optionalString (beta != null) "-${toString beta}";
       name = "${pname}-${fullVersion}";
-    in
 
-    stdenv.mkDerivation rec {
+    in stdenv.mkDerivation rec {
       inherit name;
       version = fullVersion;
 
@@ -129,5 +118,4 @@ let
         ];
       };
     };
-in
-lib.mapAttrs common versions
+in lib.mapAttrs common versions

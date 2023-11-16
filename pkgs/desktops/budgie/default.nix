@@ -1,7 +1,6 @@
 { lib, pkgs }:
 
-lib.makeScope pkgs.newScope (
-  self:
+lib.makeScope pkgs.newScope (self:
   with self; {
     budgie-backgrounds = callPackage ./budgie-backgrounds { };
     budgie-control-center = callPackage ./budgie-control-center { };
@@ -10,5 +9,4 @@ lib.makeScope pkgs.newScope (
     budgie-desktop-with-plugins = callPackage ./budgie-desktop/wrapper.nix { };
     budgie-gsettings-overrides = callPackage ./budgie-gsettings-overrides { };
     budgie-screensaver = callPackage ./budgie-screensaver { };
-  }
-)
+  })

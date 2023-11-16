@@ -1,12 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-  nixosTests,
-  systemd,
-  withSystemdSupport ? true,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, nixosTests, systemd
+, withSystemdSupport ? true }:
 
 buildGoModule rec {
   pname = "postfix_exporter";
@@ -21,10 +14,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-a4Lk4wh4mvXEjLgFksZIVVtbp+zTUyjtLVuk7vuot2k=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeBuildInputs = lib.optionals withSystemdSupport [ makeWrapper ];
   buildInputs = lib.optionals withSystemdSupport [ systemd ];
@@ -35,17 +25,12 @@ buildGoModule rec {
       --prefix LD_LIBRARY_PATH : "${lib.getLib systemd}/lib"
   '';
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) postfix;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) postfix; };
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "A Prometheus exporter for Postfix";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      willibutz
-      globin
-    ];
+    maintainers = with maintainers; [ willibutz globin ];
   };
 }

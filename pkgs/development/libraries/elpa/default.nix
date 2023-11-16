@@ -1,27 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  gfortran,
-  perl,
-  mpi,
-  blas,
-  lapack,
-  scalapack,
-  openssh,
-  # CPU optimizations
-  avxSupport ? stdenv.hostPlatform.avxSupport,
-  avx2Support ? stdenv.hostPlatform.avx2Support,
-  avx512Support ? stdenv.hostPlatform.avx512Support,
+{ lib, stdenv, fetchurl, autoreconfHook, gfortran, perl, mpi, blas, lapack
+, scalapack, openssh
+# CPU optimizations
+, avxSupport ? stdenv.hostPlatform.avxSupport
+, avx2Support ? stdenv.hostPlatform.avx2Support, avx512Support ?
+  stdenv.hostPlatform.avx512Support
   # Enable NIVIA GPU support
   # Note, that this needs to be built on a system with a GPU
   # present for the tests to succeed.
-  enableCuda ? false,
+, enableCuda ? false
   # type of GPU architecture
-  nvidiaArch ? "sm_60",
-  cudatoolkit,
-}:
+, nvidiaArch ? "sm_60", cudatoolkit }:
 
 assert blas.isILP64 == lapack.isILP64;
 assert blas.isILP64 == scalapack.isILP64;
@@ -30,20 +18,18 @@ stdenv.mkDerivation rec {
   pname = "elpa";
   version = "2022.11.001";
 
-  passthru = {
-    inherit (blas) isILP64;
-  };
+  passthru = { inherit (blas) isILP64; };
 
   src = fetchurl {
-    url = "https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/${version}/elpa-${version}.tar.gz";
+    url =
+      "https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/${version}/elpa-${version}.tar.gz";
     sha256 = "sha256-NeOX18CvlbtDvHvvf/8pQlwdpAD6DNhq6NO9L/L52Zk=";
   };
 
-  patches =
-    [
-      # Use a plain name for the pkg-config file
-      ./pkg-config.patch
-    ];
+  patches = [
+    # Use a plain name for the pkg-config file
+    ./pkg-config.patch
+  ];
 
   postPatch = ''
     patchShebangs ./fdep/fortran_dependencies.pl
@@ -53,18 +39,10 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile.am --replace '#!/bin/bash' '#!${stdenv.shell}'
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    perl
-    openssh
-  ];
+  nativeBuildInputs = [ autoreconfHook perl openssh ];
 
-  buildInputs = [
-    mpi
-    blas
-    lapack
-    scalapack
-  ] ++ lib.optional enableCuda cudatoolkit;
+  buildInputs = [ mpi blas lapack scalapack ]
+    ++ lib.optional enableCuda cudatoolkit;
 
   preConfigure = ''
     export FC="mpifort"
@@ -83,13 +61,11 @@ stdenv.mkDerivation rec {
     export CFLAGS=$FCFLAGS
   '';
 
-  configureFlags =
-    [
-      "--with-mpi"
-      "--enable-openmp"
-      "--without-threading-support-check-during-build"
-    ]
-    ++ lib.optional blas.isILP64 "--enable-64bit-integer-math-support"
+  configureFlags = [
+    "--with-mpi"
+    "--enable-openmp"
+    "--without-threading-support-check-during-build"
+  ] ++ lib.optional blas.isILP64 "--enable-64bit-integer-math-support"
     ++ lib.optional (!avxSupport) "--disable-avx"
     ++ lib.optional (!avx2Support) "--disable-avx2"
     ++ lib.optional (!avx512Support) "--disable-avx512"

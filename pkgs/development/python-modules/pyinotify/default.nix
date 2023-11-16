@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "pyinotify";
@@ -22,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     platforms = platforms.linux;
   };
+
 }

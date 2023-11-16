@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ant,
-  jdk8,
-}:
+{ stdenv, lib, fetchFromGitHub, ant, jdk8 }:
 
 stdenv.mkDerivation rec {
   pname = "jna";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EIOVmzQcnbL1NmxAaUVCMDvs9wpKqhP5iHAPoBVs3ho=";
   };
 
-  nativeBuildInputs = [
-    ant
-    jdk8
-  ];
+  nativeBuildInputs = [ ant jdk8 ];
 
   buildPhase = ''
     runHook preBuild
@@ -38,12 +29,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Java Native Access";
-    license = with licenses; [
-      lgpl21
-      asl20
-    ];
+    license = with licenses; [ lgpl21 asl20 ];
     maintainers = with maintainers; [ nagy ];
     platforms = platforms.linux;
-    changelog = "https://github.com/java-native-access/jna/blob/${version}/CHANGES.md";
+    changelog =
+      "https://github.com/java-native-access/jna/blob/${version}/CHANGES.md";
   };
 }

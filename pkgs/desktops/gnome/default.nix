@@ -1,17 +1,13 @@
-{
-  config,
-  pkgs,
-  lib,
-}:
+{ config, pkgs, lib }:
 
-lib.makeScope pkgs.newScope (
-  self:
+lib.makeScope pkgs.newScope (self:
   with self; {
     updateScript = callPackage ./update.nix { };
 
     # Temporary helper until gdk-pixbuf supports multiple cache files.
     # This will go away, do not use outside Nixpkgs.
-    _gdkPixbufCacheBuilder_DO_NOT_USE = callPackage ./gdk-pixbuf-cache-builder.nix { };
+    _gdkPixbufCacheBuilder_DO_NOT_USE =
+      callPackage ./gdk-pixbuf-cache-builder.nix { };
 
     libsoup = pkgs.libsoup.override { gnomeSupport = true; };
     libchamplain = pkgs.libchamplain.override { libsoup = libsoup; };
@@ -31,7 +27,8 @@ lib.makeScope pkgs.newScope (
 
     epiphany = callPackage ./core/epiphany { };
 
-    evince = callPackage ./core/evince { }; # ToDo: dbus would prevent compilation, enable tests
+    evince = callPackage ./core/evince
+      { }; # ToDo: dbus would prevent compilation, enable tests
 
     evolution-data-server = callPackage ./core/evolution-data-server { };
 
@@ -107,17 +104,23 @@ lib.makeScope pkgs.newScope (
 
     nautilus = callPackage ./core/nautilus { };
 
-    networkmanager-openvpn = pkgs.networkmanager-openvpn.override { withGnome = true; };
+    networkmanager-openvpn =
+      pkgs.networkmanager-openvpn.override { withGnome = true; };
 
-    networkmanager-vpnc = pkgs.networkmanager-vpnc.override { withGnome = true; };
+    networkmanager-vpnc =
+      pkgs.networkmanager-vpnc.override { withGnome = true; };
 
-    networkmanager-openconnect = pkgs.networkmanager-openconnect.override { withGnome = true; };
+    networkmanager-openconnect =
+      pkgs.networkmanager-openconnect.override { withGnome = true; };
 
-    networkmanager-fortisslvpn = pkgs.networkmanager-fortisslvpn.override { withGnome = true; };
+    networkmanager-fortisslvpn =
+      pkgs.networkmanager-fortisslvpn.override { withGnome = true; };
 
-    networkmanager-l2tp = pkgs.networkmanager-l2tp.override { withGnome = true; };
+    networkmanager-l2tp =
+      pkgs.networkmanager-l2tp.override { withGnome = true; };
 
-    networkmanager-iodine = pkgs.networkmanager-iodine.override { withGnome = true; };
+    networkmanager-iodine =
+      pkgs.networkmanager-iodine.override { withGnome = true; };
 
     nixos-gsettings-overrides = callPackage ./nixos/gsettings-overrides { };
 
@@ -233,7 +236,9 @@ lib.makeScope pkgs.newScope (
 
     gnome-flashback = callPackage ./misc/gnome-flashback { };
 
-    gnome-panel = callPackage ./misc/gnome-panel { autoreconfHook = pkgs.autoreconfHook269; };
+    gnome-panel = callPackage ./misc/gnome-panel {
+      autoreconfHook = pkgs.autoreconfHook269;
+    };
 
     gnome-tweaks = callPackage ./misc/gnome-tweaks { };
 
@@ -250,38 +255,30 @@ lib.makeScope pkgs.newScope (
     gnome-autoar = callPackage ./misc/gnome-autoar { };
 
     gnome-packagekit = callPackage ./misc/gnome-packagekit { };
-  }
-)
-// lib.optionalAttrs config.allowAliases {
-  #### Legacy aliases. They need to be outside the scope or they will shadow the attributes from parent scope.
+  }) // lib.optionalAttrs config.allowAliases {
+    #### Legacy aliases. They need to be outside the scope or they will shadow the attributes from parent scope.
 
-  empathy =
-    throw
+    empathy = throw
       "The ‘gnome.empathy’ package was removed as it is unmaintained and no longer launches due to libsoup3 migration."; # added 2023-01-20
-  gnome-desktop =
-    throw
+    gnome-desktop = throw
       "The ‘gnome.gnome-desktop’ alias was removed. Please use ‘pkgs.gnome-desktop’ directly."; # converted to throw on 2022-10-26
-  gnome-todo = pkgs.endeavour; # added 2022-07-30
-  libgnome-games-support =
-    throw
+    gnome-todo = pkgs.endeavour; # added 2022-07-30
+    libgnome-games-support = throw
       "The ‘gnome.libgnome-games-support’ alias was removed. Please use ‘pkgs.libgnome-games-support’ directly."; # converted to throw on 2022-10-26
 
-  gnome-books = throw "The ‘gnome.gnome-books’ package was removed as it is broken and abandoned."; # added 2022-10-26
-  gnome-documents =
-    throw
+    gnome-books = throw
+      "The ‘gnome.gnome-books’ package was removed as it is broken and abandoned."; # added 2022-10-26
+    gnome-documents = throw
       "The ‘gnome.gnome-documents’ package was removed as it is broken and abandoned."; # added 2022-10-26
-  gnome-devel-docs =
-    throw
+    gnome-devel-docs = throw
       "The ‘gnome.gnome-devel-docs’ package was removed as it is outdated and no longer relevant."; # added 2022-10-26
 
-  mutter338 =
-    throw
+    mutter338 = throw
       "The ‘gnome.mutter338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
-  mutter42 = throw "The ‘gnome.mutter42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
-  gnome-settings-daemon338 =
-    throw
+    mutter42 = throw
+      "The ‘gnome.mutter42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
+    gnome-settings-daemon338 = throw
       "The ‘gnome.gnome-settings-daemon338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
-  gnome-settings-daemon42 =
-    throw
+    gnome-settings-daemon42 = throw
       "The ‘gnome.gnome-settings-daemon42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
-}
+  }

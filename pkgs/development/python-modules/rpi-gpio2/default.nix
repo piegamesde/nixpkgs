@@ -1,9 +1,4 @@
-{
-  lib,
-  libgpiod,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, libgpiod, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "rpi-gpio2";

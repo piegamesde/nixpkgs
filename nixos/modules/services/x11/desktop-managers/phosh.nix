@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -15,10 +10,7 @@ let
     name = "sm.puri.OSK0";
     desktopName = "On-screen keyboard";
     exec = "${pkgs.squeekboard}/bin/squeekboard";
-    categories = [
-      "GNOME"
-      "Core"
-    ];
+    categories = [ "GNOME" "Core" ];
     onlyShowIn = [ "GNOME" ];
     noDisplay = true;
     extraConfig = {
@@ -37,11 +29,7 @@ let
 
           To start XWayland immediately, use `immediate`.
         '';
-        type = types.enum [
-          "true"
-          "false"
-          "immediate"
-        ];
+        type = types.enum [ "true" "false" "immediate" ];
         default = "false";
       };
       cursorTheme = mkOption {
@@ -56,11 +44,7 @@ let
           Output configurations.
         '';
         type = types.attrsOf phocOutputType;
-        default = {
-          DSI-1 = {
-            scale = 2;
-          };
-        };
+        default = { DSI-1 = { scale = 2; }; };
       };
     };
   };
@@ -90,9 +74,10 @@ let
         description = lib.mdDoc ''
           Display scaling factor.
         '';
-        type = types.nullOr (types.addCheck (types.either types.int types.float) (x: x > 0)) // {
-          description = "null or positive integer or float";
-        };
+        type = types.nullOr
+          (types.addCheck (types.either types.int types.float) (x: x > 0)) // {
+            description = "null or positive integer or float";
+          };
         default = null;
         example = 2;
       };
@@ -117,13 +102,14 @@ let
 
   optionalKV = k: v: if v == null then "" else "${k} = ${builtins.toString v}";
 
-  renderPhocOutput =
-    name: output:
+  renderPhocOutput = name: output:
     let
-      modelines = if builtins.isList output.modeline then output.modeline else [ output.modeline ];
+      modelines = if builtins.isList output.modeline then
+        output.modeline
+      else
+        [ output.modeline ];
       renderModeline = l: "modeline = ${l}";
-    in
-    ''
+    in ''
       [output:${name}]
       ${concatStringsSep "\n" (map renderModeline modelines)}
       ${optionalKV "mode" output.mode}
@@ -131,21 +117,17 @@ let
       ${optionalKV "rotate" output.rotate}
     '';
 
-  renderPhocConfig =
-    phoc:
-    let
-      outputs = mapAttrsToList renderPhocOutput phoc.outputs;
-    in
-    ''
+  renderPhocConfig = phoc:
+    let outputs = mapAttrsToList renderPhocOutput phoc.outputs;
+    in ''
       [core]
       xwayland = ${phoc.xwayland}
       ${concatStringsSep "\n" outputs}
       [cursor]
       theme = ${phoc.cursorTheme}
     '';
-in
 
-{
+in {
   options = {
     services.xserver.desktopManager.phosh = {
       enable = mkOption {
@@ -180,11 +162,7 @@ in
         description = lib.mdDoc ''
           Configurations for the Phoc compositor.
         '';
-        type = types.oneOf [
-          types.lines
-          types.path
-          phocConfigType
-        ];
+        type = types.oneOf [ types.lines types.path phocConfigType ];
         default = { };
       };
     };
@@ -219,12 +197,8 @@ in
       };
     };
 
-    environment.systemPackages = [
-      pkgs.phoc
-      cfg.package
-      pkgs.squeekboard
-      oskItem
-    ];
+    environment.systemPackages =
+      [ pkgs.phoc cfg.package pkgs.squeekboard oskItem ];
 
     systemd.packages = [ cfg.package ];
 

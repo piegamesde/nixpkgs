@@ -1,19 +1,5 @@
-{
-  lib,
-  writeShellScript,
-  buildFHSEnv,
-  stdenvNoCC,
-  fetchurl,
-  autoPatchelfHook,
-  dpkg,
-  nss,
-  libvorbis,
-  libdrm,
-  libGL,
-  wayland,
-  xkeyboard_config,
-  libthai,
-}:
+{ lib, writeShellScript, buildFHSEnv, stdenvNoCC, fetchurl, autoPatchelfHook
+, dpkg, nss, libvorbis, libdrm, libGL, wayland, xkeyboard_config, libthai }:
 
 let
   pname = "insync";
@@ -45,23 +31,14 @@ let
 
     src = fetchurl {
       # Find a binary from https://www.insynchq.com/downloads/linux#ubuntu.
-      url = "https://cdn.insynchq.com/builds/linux/${pname}_${version}-lunar_amd64.deb";
+      url =
+        "https://cdn.insynchq.com/builds/linux/${pname}_${version}-lunar_amd64.deb";
       sha256 = "sha256-BxTFtQ1rAsOuhKnH5vsl3zkM7WOd+vjA4LKZGxl4jk0=";
     };
 
-    buildInputs = [
-      nss
-      libvorbis
-      libdrm
-      libGL
-      wayland
-      libthai
-    ];
+    buildInputs = [ nss libvorbis libdrm libGL wayland libthai ];
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      dpkg
-    ];
+    nativeBuildInputs = [ autoPatchelfHook dpkg ];
 
     unpackPhase = ''
       dpkg-deb --fsys-tarfile $src | tar -x --no-same-permissions --no-same-owner
@@ -93,12 +70,7 @@ let
     # for including insync's xdg data dirs
     extraOutputsToInstall = [ "share" ];
 
-    targetPkgs =
-      pkgs:
-      with pkgs; [
-        insync-pkg
-        libudev0-shim
-      ];
+    targetPkgs = pkgs: with pkgs; [ insync-pkg libudev0-shim ];
 
     runScript = writeShellScript "insync-wrapper.sh" ''
       # QT_STYLE_OVERRIDE was used to suppress a QT warning, it should have no actual effect for this binary.
@@ -111,8 +83,8 @@ let
     # "insync start" command starts a daemon.
     dieWithParent = false;
   };
-in
-stdenvNoCC.mkDerivation {
+
+in stdenvNoCC.mkDerivation {
   inherit pname version meta;
 
   dontUnpack = true;

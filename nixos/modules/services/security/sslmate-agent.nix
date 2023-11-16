@@ -1,23 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.sslmate-agent;
-in
-{
+let cfg = config.services.sslmate-agent;
+
+in {
   meta.maintainers = with maintainers; [ wolfangaukang ];
 
   options = {
     services.sslmate-agent = {
-      enable = mkEnableOption (
-        lib.mdDoc "sslmate-agent, a daemon for managing SSL/TLS certificates on a server"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "sslmate-agent, a daemon for managing SSL/TLS certificates on a server");
     };
   };
 

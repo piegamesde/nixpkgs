@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hypothesis,
-  poetry-core,
-  pytestCheckHook,
-  pytz,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, hypothesis, poetry-core, pytestCheckHook
+, pytz, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "iso8601";

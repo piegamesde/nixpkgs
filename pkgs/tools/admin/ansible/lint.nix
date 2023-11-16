@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  ansible,
-}:
+{ lib, python3, fetchPypi, ansible }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ansible-lint";
@@ -21,10 +16,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "sys.exit(1)" ""
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = with python3.pkgs; [ setuptools setuptools-scm ];
 
   propagatedBuildInputs = with python3.pkgs; [
     # https://github.com/ansible/ansible-lint/blob/master/.config/requirements.in
@@ -45,11 +37,7 @@ python3.pkgs.buildPythonApplication rec {
   # tests can't be easily run without installing things from ansible-galaxy
   doCheck = false;
 
-  nativeCheckInputs = with python3.pkgs; [
-    flaky
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ flaky pytest-xdist pytestCheckHook ];
 
   preCheck = ''
     # ansible wants to write to $HOME and crashes if it can't
@@ -85,7 +73,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Best practices checker for Ansible";
     homepage = "https://github.com/ansible/ansible-lint";
-    changelog = "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
+    changelog =
+      "https://github.com/ansible/ansible-lint/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ sengaya ];
   };

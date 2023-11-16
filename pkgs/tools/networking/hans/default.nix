@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nettools,
-}:
+{ lib, stdenv, fetchFromGitHub, nettools }:
 
 stdenv.mkDerivation rec {
   pname = "hans";

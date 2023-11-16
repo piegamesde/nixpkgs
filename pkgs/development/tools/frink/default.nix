@@ -1,19 +1,12 @@
-{
-  fetchurl,
-  frink,
-  jdk,
-  lib,
-  rlwrap,
-  stdenv,
-  testers,
-}:
+{ fetchurl, frink, jdk, lib, rlwrap, stdenv, testers }:
 stdenv.mkDerivation rec {
   pname = "frink";
   version = "2023-05-22";
 
   src = fetchurl {
     # Upstream does not provide versioned download links
-    url = "https://web.archive.org/web/20230526123219/https://frinklang.org/frinkjar/frink.jar";
+    url =
+      "https://web.archive.org/web/20230526123219/https://frinklang.org/frinkjar/frink.jar";
     sha256 = "sha256-IgINJvt9G5f1HELKhV5BHIu9NoA8STDqNg/dVTFzK0Y=";
   };
 
@@ -21,10 +14,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ jdk ];
 
-  buildInputs = [
-    jdk
-    rlwrap
-  ];
+  buildInputs = [ jdk rlwrap ];
 
   installPhase = ''
     runHook preInstall

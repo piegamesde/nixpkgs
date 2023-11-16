@@ -1,19 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  rpmextract,
-  autoreconfHook,
-  file,
-  libjpeg,
-  cups,
-}:
+{ lib, stdenv, fetchurl, rpmextract, autoreconfHook, file, libjpeg, cups }:
 
 let
   version = "1.0.1";
   filterVersion = "1.0.0";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
 
   pname = "epson-201106w";
   inherit version;
@@ -28,16 +18,9 @@ stdenv.mkDerivation {
     sha256 = "1yig1xrh1ikblbp7sx706n5nnc237wy4mbch23ymy6akbgqg4aig";
   };
 
-  nativeBuildInputs = [
-    rpmextract
-    autoreconfHook
-    file
-  ];
+  nativeBuildInputs = [ rpmextract autoreconfHook file ];
 
-  buildInputs = [
-    libjpeg
-    cups
-  ];
+  buildInputs = [ libjpeg cups ];
 
   unpackPhase = ''
     rpmextract $src
@@ -66,7 +49,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.openprinting.org/driver/epson-201106w";
-    description = "Epson printer driver (BX535WD, BX630FW, BX635FWD, ME940FW, NX530, NX635, NX635, SX535WD, WorkForce 545, WorkForce 645";
+    description =
+      "Epson printer driver (BX535WD, BX630FW, BX635FWD, ME940FW, NX530, NX635, NX635, SX535WD, WorkForce 545, WorkForce 645";
     longDescription = ''
       This software is a filter program used with the Common UNIX Printing
       System (CUPS) under Linux. It supplies high quality printing with
@@ -86,10 +70,7 @@ stdenv.mkDerivation {
           drivers = [ pkgs.epson-201106w ];
         };
     '';
-    license = with licenses; [
-      lgpl21
-      epson
-    ];
+    license = with licenses; [ lgpl21 epson ];
     platforms = platforms.linux;
     maintainers = [ maintainers.nphilou ];
   };

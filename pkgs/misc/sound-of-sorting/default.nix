@@ -1,17 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  SDL2,
-  wxGTK32,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, SDL2, wxGTK32, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) Cocoa;
-in
-stdenv.mkDerivation {
+let inherit (darwin.apple_sdk.frameworks) Cocoa;
+in stdenv.mkDerivation {
   pname = "sound-of-sorting";
   version = "unstable-2022-10-12";
 
@@ -24,10 +14,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    wxGTK32
-    SDL2
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [ wxGTK32 SDL2 ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   meta = with lib; {
     description = "Audibilization and Visualization of Sorting Algorithms";

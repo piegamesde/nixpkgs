@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  graphviz,
-  stdlib-list,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  toml,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, graphviz, stdlib-list
+, pytestCheckHook, pythonOlder, pyyaml, toml }:
 
 buildPythonPackage rec {
   pname = "pydeps";
@@ -26,16 +17,9 @@ buildPythonPackage rec {
 
   buildInputs = [ graphviz ];
 
-  propagatedBuildInputs = [
-    graphviz
-    stdlib-list
-  ];
+  propagatedBuildInputs = [ graphviz stdlib-list ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-    toml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml toml ];
 
   postPatch = ''
     # Path is hard-coded
@@ -43,11 +27,10 @@ buildPythonPackage rec {
       --replace "dot -Gstart=1" "${lib.makeBinPath [ graphviz ]}/dot -Gstart=1"
   '';
 
-  disabledTests =
-    [
-      # Would require to have additional modules available
-      "test_find_package_names"
-    ];
+  disabledTests = [
+    # Would require to have additional modules available
+    "test_find_package_names"
+  ];
 
   pythonImportsCheck = [ "pydeps" ];
 

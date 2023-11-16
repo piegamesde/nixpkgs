@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  nimPackages,
-}:
+{ lib, stdenv, fetchurl, nimPackages }:
 
 stdenv.mkDerivation rec {
   pname = "tkrzw";

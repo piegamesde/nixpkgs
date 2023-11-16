@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fonttools,
-  setuptools-scm,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, fonttools, setuptools-scm, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fontmath";
@@ -29,7 +22,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "A collection of objects that implement fast font, glyph, etc. math";
+    description =
+      "A collection of objects that implement fast font, glyph, etc. math";
     homepage = "https://github.com/robotools/fontMath/";
     changelog = "https://github.com/robotools/fontMath/releases/tag/${version}";
     license = licenses.mit;

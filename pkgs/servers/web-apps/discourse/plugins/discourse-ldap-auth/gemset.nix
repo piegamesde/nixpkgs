@@ -20,10 +20,7 @@
     version = "0.17.1";
   };
   omniauth = {
-    dependencies = [
-      "hashie"
-      "rack"
-    ];
+    dependencies = [ "hashie" "rack" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -34,12 +31,7 @@
     version = "1.9.2";
   };
   omniauth-ldap = {
-    dependencies = [
-      "net-ldap"
-      "omniauth"
-      "pyu-ruby-sasl"
-      "rubyntlm"
-    ];
+    dependencies = [ "net-ldap" "omniauth" "pyu-ruby-sasl" "rubyntlm" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

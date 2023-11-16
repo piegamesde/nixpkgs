@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  packaging,
-  paramiko,
-  pytestCheckHook,
-  requests,
-  setuptools-scm,
-  urllib3,
-  websocket-client,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, packaging, paramiko
+, pytestCheckHook, requests, setuptools-scm, urllib3, websocket-client }:
 
 buildPythonPackage rec {
   pname = "docker";
@@ -27,18 +15,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    packaging
-    requests
-    urllib3
-    websocket-client
-  ];
+  propagatedBuildInputs = [ packaging requests urllib3 websocket-client ];
 
   passthru.optional-dependencies.ssh = [ paramiko ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pytestFlagsArray = [ "tests/unit" ];
 

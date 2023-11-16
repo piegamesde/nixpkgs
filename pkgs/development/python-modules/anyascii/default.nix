@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "anyascii";
@@ -20,7 +14,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    changelog = "https://github.com/anyascii/anyascii/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/anyascii/anyascii/blob/${version}/CHANGELOG.md";
     description = "Unicode to ASCII transliteration";
     homepage = "https://github.com/anyascii/anyascii";
     license = licenses.isc;

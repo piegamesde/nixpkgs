@@ -1,9 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-  nixosTests,
-}:
+{ lib, bundlerApp, bundlerUpdateScript, nixosTests }:
 
 bundlerApp rec {
   pname = "gemstash";
@@ -12,9 +7,7 @@ bundlerApp rec {
 
   passthru = {
     updateScript = bundlerUpdateScript pname;
-    tests = {
-      inherit (nixosTests) gemstash;
-    };
+    tests = { inherit (nixosTests) gemstash; };
   };
 
   meta = with lib; {

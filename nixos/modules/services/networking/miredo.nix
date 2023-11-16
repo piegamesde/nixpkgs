@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,8 +11,7 @@ let
     ${optionalString (cfg.bindAddress != null) "BindAddress ${cfg.bindAddress}"}
     ${optionalString (cfg.bindPort != null) "BindPort ${cfg.bindPort}"}
   '';
-in
-{
+in {
 
   ###### interface
 
@@ -86,9 +80,12 @@ in
       serviceConfig = {
         Restart = "always";
         RestartSec = "5s";
-        ExecStart = "${cfg.package}/bin/miredo -c ${miredoConf} -p ${pidFile} -f";
+        ExecStart =
+          "${cfg.package}/bin/miredo -c ${miredoConf} -p ${pidFile} -f";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };
+
   };
+
 }

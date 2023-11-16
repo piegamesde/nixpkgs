@@ -1,25 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cmake,
-  curl,
-  zlib,
-  ffmpeg,
-  glew,
-  pcre,
-  rtmpdump,
-  cairo,
-  boost,
-  SDL2,
-  libjpeg,
-  pango,
-  xz,
-  nasm,
-  llvm,
-  glibmm,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, curl, zlib, ffmpeg, glew
+, pcre, rtmpdump, cairo, boost, SDL2, libjpeg, pango, xz, nasm, llvm, glibmm }:
 
 stdenv.mkDerivation rec {
   pname = "lightspark";
@@ -36,10 +16,7 @@ stdenv.mkDerivation rec {
     sed -i 's/SET(ETCDIR "\/etc")/SET(ETCDIR "etc")/g' CMakeLists.txt
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
   buildInputs = [
     curl

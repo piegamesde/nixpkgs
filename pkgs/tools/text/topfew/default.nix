@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "topfew";
@@ -20,17 +15,15 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     installManPage doc/tf.1
   '';
 
   meta = with lib; {
-    description = "Finds the fields (or combinations of fields) which appear most often in a stream of records";
+    description =
+      "Finds the fields (or combinations of fields) which appear most often in a stream of records";
     homepage = "https://github.com/timbray/topfew";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ figsoda ];

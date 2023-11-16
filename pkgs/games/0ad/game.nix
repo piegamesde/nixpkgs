@@ -1,40 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchpatch,
-  perl,
-  fetchurl,
-  python3,
-  fmt,
-  libidn,
-  pkg-config,
-  spidermonkey_78,
-  boost,
-  icu,
-  libxml2,
-  libpng,
-  libsodium,
-  libjpeg,
-  zlib,
-  curl,
-  libogg,
-  libvorbis,
-  enet,
-  miniupnpc,
-  openal,
-  libGLU,
-  libGL,
-  xorgproto,
-  libX11,
-  libXcursor,
-  nspr,
-  SDL2,
-  gloox,
-  nvidia-texture-tools,
-  freetype,
-  withEditor ? true,
-  wxGTK,
-}:
+{ stdenv, lib, fetchpatch, perl, fetchurl, python3, fmt, libidn, pkg-config
+, spidermonkey_78, boost, icu, libxml2, libpng, libsodium, libjpeg, zlib, curl
+, libogg, libvorbis, enet, miniupnpc, openal, libGLU, libGL, xorgproto, libX11
+, libXcursor, nspr, SDL2, gloox, nvidia-texture-tools, freetype
+, withEditor ? true, wxGTK }:
 
 # You can find more instructions on how to build 0ad here:
 #    https://trac.wildfiregames.com/wiki/BuildInstructions
@@ -43,31 +11,26 @@ let
   # the game requires a special version 78.6.0 of spidermonkey, otherwise
   # we get compilation errors. We override the src attribute of spidermonkey_78
   # in order to reuse that declartion, while giving it a different source input.
-  spidermonkey_78_6 = spidermonkey_78.overrideAttrs (
-    old: rec {
-      version = "78.6.0";
-      src = fetchurl {
-        url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
-        sha256 = "0lyg65v380j8i2lrylwz8a5ya80822l8vcnlx3dfqpd3s6zzjsay";
-      };
-      patches = (old.patches or [ ]) ++ [ ./spidermonkey-cargo-toml.patch ];
-    }
-  );
-in
-stdenv.mkDerivation rec {
+  spidermonkey_78_6 = spidermonkey_78.overrideAttrs (old: rec {
+    version = "78.6.0";
+    src = fetchurl {
+      url =
+        "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
+      sha256 = "0lyg65v380j8i2lrylwz8a5ya80822l8vcnlx3dfqpd3s6zzjsay";
+    };
+    patches = (old.patches or [ ]) ++ [ ./spidermonkey-cargo-toml.patch ];
+  });
+in stdenv.mkDerivation rec {
   pname = "0ad";
   version = "0.0.26";
 
   src = fetchurl {
-    url = "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz";
+    url =
+      "http://releases.wildfiregames.com/0ad-${version}-alpha-unix-build.tar.xz";
     sha256 = "Lhxt9+MxLnfF+CeIZkz/w6eNO/YGBsAAOSdeHRPA7ks=";
   };
 
-  nativeBuildInputs = [
-    python3
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ python3 perl pkg-config ];
 
   buildInputs = [
     spidermonkey_78_6

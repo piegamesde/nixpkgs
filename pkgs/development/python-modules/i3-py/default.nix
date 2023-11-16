@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   version = "0.6.4";
@@ -22,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.gpl3;
     platforms = platforms.unix;
   };
+
 }

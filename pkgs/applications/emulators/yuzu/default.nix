@@ -1,20 +1,13 @@
-{
-  branch ? "mainline",
-  qt6Packages,
-  fetchFromGitHub,
-  fetchgit,
-  fetchurl,
-  fetchzip,
-  runCommand,
-  gnutar,
-}:
+{ branch ? "mainline", qt6Packages, fetchFromGitHub, fetchgit, fetchurl
+, fetchzip, runCommand, gnutar }:
 
 let
   sources = import ./sources.nix;
 
   compat-list = fetchurl {
     name = "yuzu-compat-list";
-    url = "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/${sources.compatList.rev}/compatibility_list.json";
+    url =
+      "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/${sources.compatList.rev}/compatibility_list.json";
     hash = sources.compatList.hash;
   };
 
@@ -33,28 +26,26 @@ let
   # for the Windows download and one for the full repo with submodules.
   eaZip = fetchzip {
     name = "yuzu-ea-windows-dist";
-    url = "https://github.com/pineappleEA/pineapple-src/releases/download/EA-${sources.ea.version}/Windows-Yuzu-EA-${sources.ea.version}.zip";
+    url =
+      "https://github.com/pineappleEA/pineapple-src/releases/download/EA-${sources.ea.version}/Windows-Yuzu-EA-${sources.ea.version}.zip";
     hash = sources.ea.distHash;
   };
 
-  eaGitSrc =
-    runCommand "yuzu-ea-dist-unpacked"
-      {
-        src = eaZip;
-        nativeBuildInputs = [ gnutar ];
-      }
-      ''
-        mkdir $out
-        tar xf $src/*.tar.xz --directory=$out --strip-components=1
-      '';
+  eaGitSrc = runCommand "yuzu-ea-dist-unpacked" {
+    src = eaZip;
+    nativeBuildInputs = [ gnutar ];
+  } ''
+    mkdir $out
+    tar xf $src/*.tar.xz --directory=$out --strip-components=1
+  '';
 
   eaSrcRehydrated = fetchgit {
     url = eaGitSrc;
     fetchSubmodules = true;
     hash = sources.ea.fullHash;
   };
-in
-{
+
+in {
   mainline = qt6Packages.callPackage ./generic.nix {
     branch = "mainline";
     version = sources.mainline.version;
@@ -68,5 +59,4 @@ in
     src = eaSrcRehydrated;
     inherit compat-list;
   };
-}
-.${branch}
+}.${branch}

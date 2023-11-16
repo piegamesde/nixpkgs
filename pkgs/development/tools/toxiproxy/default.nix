@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "toxiproxy";
@@ -19,11 +15,8 @@ buildGoModule rec {
 
   excludedPackages = [ "test/e2e" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/Shopify/toxiproxy/v2.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/Shopify/toxiproxy/v2.Version=${version}" ];
 
   # Fixes tests on Darwin
   __darwinAllowLocalNetworking = true;

@@ -1,22 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  asgiref,
-  click,
-  importlib-metadata,
-  itsdangerous,
-  jinja2,
-  python-dotenv,
-  werkzeug,
-  pytestCheckHook,
-  pythonOlder,
-  # used in passthru.tests
-  flask-limiter,
-  flask-restful,
-  flask-restx,
-  moto,
-}:
+{ lib, buildPythonPackage, fetchPypi, asgiref, click, importlib-metadata
+, itsdangerous, jinja2, python-dotenv, werkzeug, pytestCheckHook, pythonOlder
+# used in passthru.tests
+, flask-limiter, flask-restful, flask-restx, moto }:
 
 buildPythonPackage rec {
   pname = "flask";
@@ -28,23 +13,12 @@ buildPythonPackage rec {
     hash = "sha256-7e6bCn/yZiG9WowQ/0hK4oc3okENmbC7mmhQx/uXeqA=";
   };
 
-  propagatedBuildInputs = [
-    click
-    itsdangerous
-    jinja2
-    werkzeug
-  ] ++ lib.optional (pythonOlder "3.10") importlib-metadata;
+  propagatedBuildInputs = [ click itsdangerous jinja2 werkzeug ]
+    ++ lib.optional (pythonOlder "3.10") importlib-metadata;
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  passthru.tests = {
-    inherit
-      flask-limiter
-      flask-restful
-      flask-restx
-      moto
-    ;
-  };
+  passthru.tests = { inherit flask-limiter flask-restful flask-restx moto; };
   passthru.optional-dependencies = {
     dotenv = [ python-dotenv ];
     async = [ asgiref ];

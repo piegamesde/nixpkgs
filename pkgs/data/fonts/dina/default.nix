@@ -1,20 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  fontforge,
-  bdftopcf,
-  xorg,
-}:
+{ lib, stdenv, fetchzip, fontforge, bdftopcf, xorg }:
 
 stdenv.mkDerivation {
   pname = "dina-font";
   version = "2.92";
 
-  outputs = [
-    "out"
-    "bdf"
-  ];
+  outputs = [ "out" "bdf" ];
 
   src = fetchzip {
     url = "https://www.dcmembers.com/jibsen/download/61/?wpdmdl=61";
@@ -23,12 +13,7 @@ stdenv.mkDerivation {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    fontforge
-    bdftopcf
-    xorg.mkfontscale
-    xorg.fonttosfnt
-  ];
+  nativeBuildInputs = [ fontforge bdftopcf xorg.mkfontscale xorg.fonttosfnt ];
 
   buildPhase = ''
     runHook preBuild
@@ -85,9 +70,6 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.dcmembers.com/jibsen/download/61/";
     license = licenses.free;
-    maintainers = with maintainers; [
-      prikhi
-      ncfavier
-    ];
+    maintainers = with maintainers; [ prikhi ncfavier ];
   };
 }

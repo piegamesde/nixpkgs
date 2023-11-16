@@ -1,13 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  yosys,
-  readline,
-  zlib,
-  ghdl,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, yosys, readline, zlib, ghdl }:
 
 stdenv.mkDerivation {
   pname = "yosys-ghdl";
@@ -22,12 +13,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-tT2+DXUtbJIBzBUBcyG2sz+3G+dTkciLVIczcRPr0Jw=";
   };
 
-  buildInputs = [
-    yosys
-    readline
-    zlib
-    ghdl
-  ];
+  buildInputs = [ yosys readline zlib ghdl ];
   nativeBuildInputs = [ pkg-config ];
 
   doCheck = true;

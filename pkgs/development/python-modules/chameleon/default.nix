@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "Chameleon";
@@ -24,4 +20,5 @@ buildPythonPackage rec {
     license = licenses.bsd0;
     maintainers = with maintainers; [ domenkozar ];
   };
+
 }

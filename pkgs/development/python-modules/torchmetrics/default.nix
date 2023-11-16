@@ -1,24 +1,11 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cloudpickle,
-  scikit-learn,
-  scikit-image,
-  packaging,
-  psutil,
-  py-deprecate,
-  torch,
-  pytestCheckHook,
-  torchmetrics,
-  pytorch-lightning,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cloudpickle, scikit-learn
+, scikit-image, packaging, psutil, py-deprecate, torch, pytestCheckHook
+, torchmetrics, pytorch-lightning }:
 
 let
   pname = "torchmetrics";
   version = "0.11.4";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -28,10 +15,7 @@ buildPythonPackage {
     hash = "sha256-K8QLdDpnS4N8s3zXsifFloRXW/QXEm36mJXXKEBEJBs=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-    py-deprecate
-  ];
+  propagatedBuildInputs = [ packaging py-deprecate ];
 
   # Let the user bring their own instance
   buildInputs = [ torch ];
@@ -47,7 +31,8 @@ buildPythonPackage {
 
   # A cyclic dependency in: integrations/test_lightning.py
   doCheck = false;
-  passthru.tests.check = torchmetrics.overridePythonAttrs (_: { doCheck = true; });
+  passthru.tests.check =
+    torchmetrics.overridePythonAttrs (_: { doCheck = true; });
 
   disabledTestPaths = [
     # These require too many "leftpad-level" dependencies
@@ -62,9 +47,11 @@ buildPythonPackage {
   pythonImportsCheck = [ "torchmetrics" ];
 
   meta = with lib; {
-    description = "Machine learning metrics for distributed, scalable PyTorch applications (used in pytorch-lightning)";
+    description =
+      "Machine learning metrics for distributed, scalable PyTorch applications (used in pytorch-lightning)";
     homepage = "https://torchmetrics.readthedocs.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ SomeoneSerge ];
   };
 }
+

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  opencflite,
-  clang,
-  libcxx,
-}:
+{ lib, stdenv, fetchFromGitHub, opencflite, clang, libcxx }:
 
 stdenv.mkDerivation {
   pname = "maloader";
@@ -26,14 +19,8 @@ stdenv.mkDerivation {
   '';
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev libcxx}/include/c++/v1";
-  buildInputs = [
-    clang
-    libcxx
-  ];
-  buildFlags = [
-    "USE_LIBCXX=1"
-    "release"
-  ];
+  buildInputs = [ clang libcxx ];
+  buildFlags = [ "USE_LIBCXX=1" "release" ];
 
   installPhase = ''
     install -vD libmac.so "$out/lib/libmac.so"

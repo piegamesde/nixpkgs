@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeDesktopItem,
-  copyDesktopItems,
-  imagemagick,
-  autoreconfHook,
-  SDL,
-  SDL_mixer,
-  SDL_image,
-  SDL_gfx,
-  libvorbis,
-  libjpeg,
-  libpng,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, makeDesktopItem, copyDesktopItems, imagemagick
+, autoreconfHook, SDL, SDL_mixer, SDL_image, SDL_gfx, libvorbis, libjpeg, libpng
+, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "freedroid";
@@ -27,21 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "027wns25nyyc8afyhyp5a8wn13x9nlzmnqzqyyma1055xjy5imis";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    imagemagick
-    autoreconfHook
-  ];
-  buildInputs = [
-    SDL
-    SDL_image
-    SDL_gfx
-    SDL_mixer
-    libjpeg
-    libpng
-    libvorbis
-    zlib
-  ];
+  nativeBuildInputs = [ copyDesktopItems imagemagick autoreconfHook ];
+  buildInputs =
+    [ SDL SDL_image SDL_gfx SDL_mixer libjpeg libpng libvorbis zlib ];
 
   postPatch = ''
     touch NEWS
@@ -59,10 +33,7 @@ stdenv.mkDerivation rec {
       icon = pname;
       desktopName = "Freedroid Classic";
       comment = "A clone of the classic game 'Paradroid' on Commodore 64";
-      categories = [
-        "Game"
-        "ArcadeGame"
-      ];
+      categories = [ "Game" "ArcadeGame" ];
     })
   ];
 

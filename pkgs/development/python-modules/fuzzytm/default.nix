@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  gensim,
-  numpy,
-  pandas,
-  pyfume,
-  scipy,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, gensim, numpy, pandas, pyfume, scipy
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fuzzytm";
@@ -23,13 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-IELkjd3/yc2lBYsLP6mms9LEcXOfVtNNooEKCMf9BtU=";
   };
 
-  propagatedBuildInputs = [
-    gensim
-    numpy
-    pandas
-    pyfume
-    scipy
-  ];
+  propagatedBuildInputs = [ gensim numpy pandas pyfume scipy ];
 
   # Module has no tests
   doCheck = false;

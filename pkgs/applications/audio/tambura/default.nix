@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  faust2jaqt,
-  faust2lv2,
-}:
+{ lib, stdenv, fetchFromGitHub, faust2jaqt, faust2lv2 }:
 stdenv.mkDerivation rec {
   pname = "Tambura";
   version = "1.0";
@@ -16,10 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "1w80cmiyzca1wirf5gypg3hcix1ky777id8wnd3k92mn1jf4a24y";
   };
 
-  buildInputs = [
-    faust2jaqt
-    faust2lv2
-  ];
+  buildInputs = [ faust2jaqt faust2lv2 ];
 
   dontWrapQtApps = true;
 
@@ -38,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A FAUST patch inspired by the Indian Tambura/Tanpura - a four string drone instrument, known for its unique rich harmonic timbre";
+    description =
+      "A FAUST patch inspired by the Indian Tambura/Tanpura - a four string drone instrument, known for its unique rich harmonic timbre";
     homepage = "https://github.com/olilarkin/Tambura";
     license = licenses.gpl2;
     maintainers = [ maintainers.magnetophon ];

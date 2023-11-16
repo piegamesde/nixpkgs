@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.ympd;
-in
-{
+let cfg = config.services.ympd;
+in {
 
   ###### interface
 
@@ -23,7 +16,8 @@ in
       webPort = mkOption {
         type = types.either types.str types.port; # string for backwards compat
         default = "8080";
-        description = lib.mdDoc "The port where ympd's web interface will be available.";
+        description =
+          lib.mdDoc "The port where ympd's web interface will be available.";
         example = "ssl://8080:/path/to/ssl-private-key.pem";
       };
 
@@ -42,7 +36,9 @@ in
           example = 6600;
         };
       };
+
     };
+
   };
 
   ###### implementation
@@ -81,19 +77,14 @@ in
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
 
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 
-        SystemCallFilter = [
-          "@system-service"
-          "~@process"
-          "~@setuid"
-        ];
+        SystemCallFilter = [ "@system-service" "~@process" "~@setuid" ];
       };
     };
+
   };
+
 }

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -11,8 +6,7 @@ let
   keydir = "/var/lib/dkimproxy-out";
   privkey = "${keydir}/private.key";
   pubkey = "${keydir}/public.key";
-in
-{
+in {
   ##### interface
   options = {
     services.dkimproxy-out = {
@@ -36,15 +30,13 @@ in
       relay = mkOption {
         type = types.str;
         example = "127.0.0.1:10028";
-        description = lib.mdDoc "Address:port DKIMproxy should forward mail to.";
+        description =
+          lib.mdDoc "Address:port DKIMproxy should forward mail to.";
       };
 
       domains = mkOption {
         type = with types; listOf str;
-        example = [
-          "example.org"
-          "example.com"
-        ];
+        example = [ "example.org" "example.com" ];
         description = lib.mdDoc "List of domains DKIMproxy can sign for.";
       };
 
@@ -77,49 +69,49 @@ in
   };
 
   ##### implementation
-  config =
-    let
-      configfile = pkgs.writeText "dkimproxy_out.conf" ''
-        listen ${cfg.listen}
-        relay ${cfg.relay}
+  config = let
+    configfile = pkgs.writeText "dkimproxy_out.conf" ''
+      listen ${cfg.listen}
+      relay ${cfg.relay}
 
-        domain ${concatStringsSep "," cfg.domains}
-        selector ${cfg.selector}
+      domain ${concatStringsSep "," cfg.domains}
+      selector ${cfg.selector}
 
-        signature dkim(c=relaxed/relaxed)
+      signature dkim(c=relaxed/relaxed)
 
-        keyfile ${privkey}
+      keyfile ${privkey}
+    '';
+  in mkIf cfg.enable {
+    users.groups.dkimproxy-out = { };
+    users.users.dkimproxy-out = {
+      description = "DKIMproxy_out daemon";
+      group = "dkimproxy-out";
+      isSystemUser = true;
+    };
+
+    systemd.services.dkimproxy-out = {
+      description = "DKIMproxy_out";
+      wantedBy = [ "multi-user.target" ];
+      preStart = ''
+        if [ ! -d "${keydir}" ]; then
+          mkdir -p "${keydir}"
+          chmod 0700 "${keydir}"
+          ${pkgs.openssl}/bin/openssl genrsa -out "${privkey}" ${
+            toString cfg.keySize
+          }
+          ${pkgs.openssl}/bin/openssl rsa -in "${privkey}" -pubout -out "${pubkey}"
+          chown -R dkimproxy-out:dkimproxy-out "${keydir}"
+        fi
       '';
-    in
-    mkIf cfg.enable {
-      users.groups.dkimproxy-out = { };
-      users.users.dkimproxy-out = {
-        description = "DKIMproxy_out daemon";
-        group = "dkimproxy-out";
-        isSystemUser = true;
-      };
-
-      systemd.services.dkimproxy-out = {
-        description = "DKIMproxy_out";
-        wantedBy = [ "multi-user.target" ];
-        preStart = ''
-          if [ ! -d "${keydir}" ]; then
-            mkdir -p "${keydir}"
-            chmod 0700 "${keydir}"
-            ${pkgs.openssl}/bin/openssl genrsa -out "${privkey}" ${toString cfg.keySize}
-            ${pkgs.openssl}/bin/openssl rsa -in "${privkey}" -pubout -out "${pubkey}"
-            chown -R dkimproxy-out:dkimproxy-out "${keydir}"
-          fi
-        '';
-        script = ''
-          exec ${pkgs.dkimproxy}/bin/dkimproxy.out --conf_file=${configfile}
-        '';
-        serviceConfig = {
-          User = "dkimproxy-out";
-          PermissionsStartOnly = true;
-        };
+      script = ''
+        exec ${pkgs.dkimproxy}/bin/dkimproxy.out --conf_file=${configfile}
+      '';
+      serviceConfig = {
+        User = "dkimproxy-out";
+        PermissionsStartOnly = true;
       };
     };
+  };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

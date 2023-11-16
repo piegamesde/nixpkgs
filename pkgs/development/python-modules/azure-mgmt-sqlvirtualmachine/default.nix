@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  azure-common,
-  azure-mgmt-core,
-  msrest,
-  msrestazure,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, azure-common, azure-mgmt-core
+, msrest, msrestazure }:
 
 buildPythonPackage rec {
   version = "0.5.0";
@@ -20,23 +12,16 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-core
-    msrest
-    msrestazure
-  ];
+  propagatedBuildInputs = [ azure-common azure-mgmt-core msrest msrestazure ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.common"
-    "azure.mgmt.sqlvirtualmachine"
-  ];
+  pythonImportsCheck = [ "azure.common" "azure.mgmt.sqlvirtualmachine" ];
 
   meta = with lib; {
-    description = "Microsoft Azure SQL Virtual Machine Management Client Library for Python";
+    description =
+      "Microsoft Azure SQL Virtual Machine Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
     maintainers = with maintainers; [ jonringer ];

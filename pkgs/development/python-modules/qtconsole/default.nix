@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ipykernel,
-  jupyter-core,
-  jupyter-client,
-  pygments,
-  pyqt5,
-  pytestCheckHook,
-  pythonOlder,
-  pyzmq,
-  qtpy,
-  traitlets,
-}:
+{ lib, buildPythonPackage, fetchPypi, ipykernel, jupyter-core, jupyter-client
+, pygments, pyqt5, pytestCheckHook, pythonOlder, pyzmq, qtpy, traitlets }:
 
 buildPythonPackage rec {
   pname = "qtconsole";

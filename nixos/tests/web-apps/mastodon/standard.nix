@@ -1,8 +1,6 @@
-import ../../make-test-python.nix (
-  { pkgs, ... }:
+import ../../make-test-python.nix ({ pkgs, ... }:
   let
-    cert =
-      pkgs:
+    cert = pkgs:
       pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
         openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=mastodon.local' -days 36500
         mkdir -p $out
@@ -12,91 +10,70 @@ import ../../make-test-python.nix (
     hosts = ''
       192.168.2.101 mastodon.local
     '';
-  in
-  {
+
+  in {
     name = "mastodon-standard";
-    meta.maintainers = with pkgs.lib.maintainers; [
-      erictapen
-      izorkin
-      turion
-    ];
+    meta.maintainers = with pkgs.lib.maintainers; [ erictapen izorkin turion ];
 
     nodes = {
-      server =
-        { pkgs, ... }:
-        {
+      server = { pkgs, ... }: {
 
-          virtualisation.memorySize = 2048;
+        virtualisation.memorySize = 2048;
 
-          networking = {
-            interfaces.eth1 = {
-              ipv4.addresses = [
-                {
-                  address = "192.168.2.101";
-                  prefixLength = 24;
-                }
-              ];
-            };
-            extraHosts = hosts;
-            firewall.allowedTCPPorts = [
-              80
-              443
-            ];
+        networking = {
+          interfaces.eth1 = {
+            ipv4.addresses = [{
+              address = "192.168.2.101";
+              prefixLength = 24;
+            }];
           };
-
-          security = {
-            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
-          };
-
-          services.redis.servers.mastodon = {
-            enable = true;
-            bind = "127.0.0.1";
-            port = 31637;
-          };
-
-          services.mastodon = {
-            enable = true;
-            configureNginx = true;
-            localDomain = "mastodon.local";
-            enableUnixSocket = false;
-            smtp = {
-              createLocally = false;
-              fromAddress = "mastodon@mastodon.local";
-            };
-            extraConfig = {
-              EMAIL_DOMAIN_ALLOWLIST = "example.com";
-            };
-          };
-
-          services.nginx = {
-            virtualHosts."mastodon.local" = {
-              enableACME = pkgs.lib.mkForce false;
-              sslCertificate = "${cert pkgs}/cert.pem";
-              sslCertificateKey = "${cert pkgs}/key.pem";
-            };
-          };
+          extraHosts = hosts;
+          firewall.allowedTCPPorts = [ 80 443 ];
         };
 
-      client =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.jq ];
-          networking = {
-            interfaces.eth1 = {
-              ipv4.addresses = [
-                {
-                  address = "192.168.2.102";
-                  prefixLength = 24;
-                }
-              ];
-            };
-            extraHosts = hosts;
-          };
+        security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
 
-          security = {
-            pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+        services.redis.servers.mastodon = {
+          enable = true;
+          bind = "127.0.0.1";
+          port = 31637;
+        };
+
+        services.mastodon = {
+          enable = true;
+          configureNginx = true;
+          localDomain = "mastodon.local";
+          enableUnixSocket = false;
+          smtp = {
+            createLocally = false;
+            fromAddress = "mastodon@mastodon.local";
+          };
+          extraConfig = { EMAIL_DOMAIN_ALLOWLIST = "example.com"; };
+        };
+
+        services.nginx = {
+          virtualHosts."mastodon.local" = {
+            enableACME = pkgs.lib.mkForce false;
+            sslCertificate = "${cert pkgs}/cert.pem";
+            sslCertificateKey = "${cert pkgs}/key.pem";
           };
         };
+      };
+
+      client = { pkgs, ... }: {
+        environment.systemPackages = [ pkgs.jq ];
+        networking = {
+          interfaces.eth1 = {
+            ipv4.addresses = [{
+              address = "192.168.2.102";
+              prefixLength = 24;
+            }];
+          };
+          extraHosts = hosts;
+        };
+
+        security = { pki.certificateFiles = [ "${cert pkgs}/cert.pem" ]; };
+      };
     };
 
     testScript = import ./script.nix {
@@ -108,5 +85,4 @@ import ../../make-test-python.nix (
         server.wait_for_open_port(5432)
       '';
     };
-  }
-)
+  })

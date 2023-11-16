@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  testtools,
-  testresources,
-  pbr,
-  subunit,
-  fixtures,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, testtools, testresources, pbr, subunit
+, fixtures, python }:
 
 buildPythonPackage rec {
   pname = "testrepository";
@@ -21,19 +12,17 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ testresources ];
   buildInputs = [ pbr ];
-  propagatedBuildInputs = [
-    fixtures
-    subunit
-    testtools
-  ];
+  propagatedBuildInputs = [ fixtures subunit testtools ];
 
   checkPhase = ''
     ${python.interpreter} ./testr
   '';
 
   meta = with lib; {
-    description = "A database of test results which can be used as part of developer workflow";
+    description =
+      "A database of test results which can be used as part of developer workflow";
     homepage = "https://pypi.python.org/pypi/testrepository";
     license = licenses.bsd2;
   };
+
 }

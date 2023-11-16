@@ -1,12 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  kcoreaddons,
-  kwindowsystem,
-  plasma-framework,
-  systemsettings,
-}:
+{ lib, mkDerivation, fetchFromGitHub, kcoreaddons, kwindowsystem
+, plasma-framework, systemsettings }:
 
 mkDerivation rec {
   pname = "kzones";
@@ -19,12 +12,7 @@ mkDerivation rec {
     sha256 = "sha256-E5pi2ttar6bAt7s0m/NCw66Qgg5fL5p5QpXROWuUTvM=";
   };
 
-  buildInputs = [
-    kcoreaddons
-    kwindowsystem
-    plasma-framework
-    systemsettings
-  ];
+  buildInputs = [ kcoreaddons kwindowsystem plasma-framework systemsettings ];
 
   dontBuild = true;
 
@@ -47,3 +35,4 @@ mkDerivation rec {
     inherit (kwindowsystem.meta) platforms;
   };
 }
+

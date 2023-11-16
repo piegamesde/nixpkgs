@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-}:
+{ lib, stdenv, fetchurl, unzip }:
 
 stdenv.mkDerivation {
   pname = "lkproof";
@@ -16,7 +11,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ unzip ];
 
-  installPhase = "\n    mkdir -p $out/share/texmf-nix/tex/generic/lkproof\n    cp -prd *.sty $out/share/texmf-nix/tex/generic/lkproof\n  ";
+  installPhase =
+    "\n    mkdir -p $out/share/texmf-nix/tex/generic/lkproof\n    cp -prd *.sty $out/share/texmf-nix/tex/generic/lkproof\n  ";
 
   meta = with lib; {
     platforms = platforms.unix;

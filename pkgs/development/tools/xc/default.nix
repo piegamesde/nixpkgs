@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "xc";
@@ -17,20 +13,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-hCdIO377LiXFKz0GfCmAADTPfoatk8YWzki7lVP3yLw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
   meta = with lib; {
     description = "Markdown defined task runner";
     homepage = "https://xcfile.dev/";
     changelog = "https://github.com/joerdav/xc/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      figsoda
-      joerdav
-    ];
+    maintainers = with maintainers; [ figsoda joerdav ];
   };
 }

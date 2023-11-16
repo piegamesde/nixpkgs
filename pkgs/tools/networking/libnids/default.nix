@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  libpcap,
-  glib,
-  pkg-config,
-  libnet,
-}:
+{ lib, stdenv, fetchzip, libpcap, glib, pkg-config, libnet }:
 stdenv.mkDerivation {
   pname = "libnids";
   version = "1.24";
@@ -15,11 +7,7 @@ stdenv.mkDerivation {
     sha256 = "1cblklfdfxcmy0an6xyyzx4l877xdawhjd28daqfsvrh81mb07k1";
   };
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libpcap
-    glib
-    libnet
-  ];
+  buildInputs = [ libpcap glib libnet ];
 
   /* Quoting the documentation of glib: g_thread_init has been deprecated since
      version 2.32 and should not be used in newly-written code.  This function is
@@ -32,7 +20,8 @@ stdenv.mkDerivation {
   env.NIX_CFLAGS_COMPILE = "-Dg_thread_init= ";
 
   meta = with lib; {
-    description = "An E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x";
+    description =
+      "An E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x";
     homepage = "https://libnids.sourceforge.net/";
     license = licenses.gpl2;
     maintainers = [ maintainers.symphorien ];

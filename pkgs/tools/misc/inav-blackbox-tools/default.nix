@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cairo,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cairo }:
 
 stdenv.mkDerivation rec {
   pname = "inav-blackbox-tools";
@@ -36,6 +30,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ expipiplus1 ];
     platforms = platforms.all;
-    broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/inav-blackbox-tools.x86_64-darwin
+    broken =
+      stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/inav-blackbox-tools.x86_64-darwin
   };
 }

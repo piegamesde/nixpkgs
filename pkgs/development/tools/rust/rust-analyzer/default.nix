@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  fetchFromGitHub,
-  rustPlatform,
-  CoreServices,
-  cmake,
-  libiconv,
-  useMimalloc ? false,
-  doCheck ? true,
-  nix-update-script,
-}:
+{ lib, stdenv, callPackage, fetchFromGitHub, rustPlatform, CoreServices, cmake
+, libiconv, useMimalloc ? false, doCheck ? true, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rust-analyzer-unwrapped";
@@ -24,18 +13,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-IHfvZ8cbn/rgueO7ZvFUHWPPvXEM/rrK1YATwucHVbM=";
   };
 
-  cargoBuildFlags = [
-    "--bin"
-    "rust-analyzer"
-    "--bin"
-    "rust-analyzer-proc-macro-srv"
-  ];
-  cargoTestFlags = [
-    "--package"
-    "rust-analyzer"
-    "--package"
-    "proc-macro-srv-cli"
-  ];
+  cargoBuildFlags =
+    [ "--bin" "rust-analyzer" "--bin" "rust-analyzer-proc-macro-srv" ];
+  cargoTestFlags =
+    [ "--package" "rust-analyzer" "--package" "proc-macro-srv-cli" ];
 
   # Code format check requires more dependencies but don't really matter for packaging.
   # So just ignore it.
@@ -43,10 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optional useMimalloc cmake;
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    CoreServices
-    libiconv
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices libiconv ];
 
   buildFeatures = lib.optional useMimalloc "mimalloc";
 
@@ -75,10 +53,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A modular compiler frontend for the Rust language";
     homepage = "https://rust-analyzer.github.io";
-    license = with licenses; [
-      mit
-      asl20
-    ];
+    license = with licenses; [ mit asl20 ];
     maintainers = with maintainers; [ oxalica ];
     mainProgram = "rust-analyzer";
   };

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  ipython,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  setuptools,
-  tornado,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, ipython, pytestCheckHook
+, pythonOlder, requests, setuptools, tornado }:
 
 buildPythonPackage rec {
   pname = "snakeviz";
@@ -28,11 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ tornado ];
 
-  nativeCheckInputs = [
-    ipython
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ ipython pytestCheckHook requests ];
 
   pythonImportsCheck = [ "snakeviz" ];
 
@@ -43,7 +30,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Browser based viewer for profiling data";
     homepage = "https://jiffyclub.github.io/snakeviz";
-    changelog = "https://github.com/jiffyclub/snakeviz/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/jiffyclub/snakeviz/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nixy ];
   };

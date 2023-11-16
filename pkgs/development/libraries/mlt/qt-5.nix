@@ -1,33 +1,8 @@
-{
-  config,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  SDL,
-  ffmpeg,
-  frei0r,
-  libjack2,
-  libdv,
-  libsamplerate,
-  libvorbis,
-  libxml2,
-  movit,
-  pkg-config,
-  sox,
-  qtbase,
-  qtsvg,
-  fftw,
-  vid-stab,
-  opencv4,
-  ladspa-sdk,
-  gitUpdater,
-  ladspaPlugins,
-  rubberband,
-  mkDerivation,
-  which,
-  cudaSupport ? config.cudaSupport or false,
-  cudaPackages ? { },
-}:
+{ config, lib, fetchFromGitHub, cmake, SDL, ffmpeg, frei0r, libjack2, libdv
+, libsamplerate, libvorbis, libxml2, movit, pkg-config, sox, qtbase, qtsvg, fftw
+, vid-stab, opencv4, ladspa-sdk, gitUpdater, ladspaPlugins, rubberband
+, mkDerivation, which, cudaSupport ? config.cudaSupport or false
+, cudaPackages ? { } }:
 
 mkDerivation rec {
   pname = "mlt";
@@ -61,16 +36,10 @@ mkDerivation rec {
     rubberband
   ] ++ lib.optionals cudaSupport (with cudaPackages; [ cuda_cudart ]);
 
-  nativeBuildInputs = [
-    cmake
-    which
-    pkg-config
-  ] ++ lib.optionals cudaSupport (with cudaPackages; [ cuda_nvcc ]);
+  nativeBuildInputs = [ cmake which pkg-config ]
+    ++ lib.optionals cudaSupport (with cudaPackages; [ cuda_nvcc ]);
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   cmakeFlags = [
     # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
@@ -88,14 +57,13 @@ mkDerivation rec {
       --replace '=''${prefix}//' '=/'
   '';
 
-  passthru = {
-    inherit ffmpeg;
-  };
+  passthru = { inherit ffmpeg; };
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = with lib; {
-    description = "Open source multimedia framework, designed for television broadcasting";
+    description =
+      "Open source multimedia framework, designed for television broadcasting";
     homepage = "https://www.mltframework.org/";
     license = licenses.gpl3;
     maintainers = [ maintainers.goibhniu ];

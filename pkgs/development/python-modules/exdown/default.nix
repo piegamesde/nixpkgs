@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  isPy27,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-  importlib-metadata,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, isPy27, fetchPypi, pythonOlder, setuptools
+, importlib-metadata, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "exdown";
@@ -23,7 +15,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

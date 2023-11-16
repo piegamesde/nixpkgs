@@ -1,19 +1,5 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  blas,
-  libcint,
-  libxc,
-  xcfun,
-  cppe,
-  h5py,
-  numpy,
-  scipy,
-  nose,
-  nose-exclude,
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, cmake, blas, libcint, libxc, xcfun
+, cppe, h5py, numpy, scipy, nose, nose-exclude }:
 
 buildPythonPackage rec {
   pname = "pyscf";
@@ -34,24 +20,11 @@ buildPythonPackage rec {
     PYSCF_INC_DIR="${libcint}:${libxc}:${xcfun}";
   '';
 
-  buildInputs = [
-    blas
-    libcint
-    libxc
-    xcfun
-  ];
+  buildInputs = [ blas libcint libxc xcfun ];
 
-  propagatedBuildInputs = [
-    cppe
-    h5py
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ cppe h5py numpy scipy ];
 
-  nativeCheckInputs = [
-    nose
-    nose-exclude
-  ];
+  nativeCheckInputs = [ nose nose-exclude ];
 
   pythonImportsCheck = [ "pyscf" ];
   preCheck = ''
@@ -109,10 +82,7 @@ buildPythonPackage rec {
     description = "Python-based simulations of chemistry framework";
     homepage = "https://github.com/pyscf/pyscf";
     license = licenses.asl20;
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     maintainers = [ maintainers.sheepforce ];
   };
 }

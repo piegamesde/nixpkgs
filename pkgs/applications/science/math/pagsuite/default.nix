@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  unzip,
-  gmp,
-  scalp,
-}:
+{ lib, stdenv, fetchurl, cmake, unzip, gmp, scalp }:
 
 stdenv.mkDerivation rec {
   pname = "pagsuite";
@@ -21,15 +13,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "pagsuite_${lib.replaceStrings [ "." ] [ "_" ] version}";
 
-  nativeBuildInputs = [
-    cmake
-    unzip
-  ];
+  nativeBuildInputs = [ cmake unzip ];
 
-  buildInputs = [
-    gmp
-    scalp
-  ];
+  buildInputs = [ gmp scalp ];
 
   meta = with lib; {
     description = "Optimization tools for the (P)MCM problem";

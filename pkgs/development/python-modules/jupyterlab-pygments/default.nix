@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pygments,
-  jupyter-packaging,
-}:
+{ lib, buildPythonPackage, fetchPypi, pygments, jupyter-packaging }:
 
 buildPythonPackage rec {
   pname = "jupyterlab_pygments";

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  buildPackages,
-  ncurses,
-  tcl,
-  openssl,
-  pam,
-  libkrb5,
-  openldap,
-  libxcrypt,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchgit, buildPackages, ncurses, tcl, openssl, pam, libkrb5
+, openldap, libxcrypt, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "alpine";
@@ -25,15 +13,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = [
-    ncurses
-    tcl
-    openssl
-    pam
-    libkrb5
-    openldap
-    libxcrypt
-  ];
+  buildInputs = [ ncurses tcl openssl pam libkrb5 openldap libxcrypt ];
 
   hardeningDisable = [ "format" ];
 
@@ -48,10 +28,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Console mail reader";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      raskin
-      rhendric
-    ];
+    maintainers = with maintainers; [ raskin rhendric ];
     platforms = platforms.linux;
     homepage = "https://alpineapp.email/";
   };

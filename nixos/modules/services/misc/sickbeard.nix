@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -15,8 +9,8 @@ let
   cfg = config.services.sickbeard;
   opt = options.services.sickbeard;
   sickbeard = cfg.package;
-in
-{
+
+in {
 
   ###### interface
 
@@ -45,7 +39,8 @@ in
       configFile = mkOption {
         type = types.path;
         default = "${cfg.dataDir}/config.ini";
-        defaultText = literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
+        defaultText =
+          literalExpression ''"''${config.${opt.dataDir}}/config.ini"'';
         description = lib.mdDoc "Path to config file.";
       };
       port = mkOption {
@@ -80,7 +75,9 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == name) { ${name}.gid = config.ids.gids.sickbeard; };
+    users.groups = optionalAttrs (cfg.group == name) {
+      ${name}.gid = config.ids.gids.sickbeard;
+    };
 
     systemd.services.sickbeard = {
       description = "Sickbeard Server";
@@ -90,7 +87,8 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${sickbeard}/bin/${sickbeard.pname} --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${
+        ExecStart =
+          "${sickbeard}/bin/${sickbeard.pname} --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${
             toString cfg.port
           }";
       };

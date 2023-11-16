@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flit-core,
-  pytestCheckHook,
-  cerberus,
-  django,
-  djangorestframework,
-  marshmallow,
-  pyschemes,
-  wtforms,
-  email-validator,
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, pytestCheckHook, cerberus
+, django, djangorestframework, marshmallow, pyschemes, wtforms, email-validator
 }:
 
 buildPythonPackage rec {
@@ -47,7 +36,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "vaa" ];
 
   meta = with lib; {
-    description = "VAlidators Adapter makes validation by any existing validator with the same interface";
+    description =
+      "VAlidators Adapter makes validation by any existing validator with the same interface";
     homepage = "https://github.com/life4/vaa";
     license = licenses.mit;
     maintainers = with maintainers; [ gador ];

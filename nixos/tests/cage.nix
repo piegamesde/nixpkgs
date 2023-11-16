@@ -1,12 +1,10 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "cage";
     meta = with pkgs.lib.maintainers; { maintainers = [ matthewbauer ]; };
 
-    nodes.machine =
-      { ... }:
+    nodes.machine = { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -25,18 +23,16 @@ import ./make-test-python.nix (
 
     enableOCR = true;
 
-    testScript =
-      { nodes, ... }:
-      let
-        user = nodes.machine.config.users.users.alice;
-      in
-      ''
+    testScript = { nodes, ... }:
+      let user = nodes.machine.config.users.users.alice;
+      in ''
         with subtest("Wait for cage to boot up"):
             start_all()
-            machine.wait_for_file("/run/user/${toString user.uid}/wayland-0.lock")
+            machine.wait_for_file("/run/user/${
+              toString user.uid
+            }/wayland-0.lock")
             machine.wait_until_succeeds("pgrep xterm")
             machine.wait_for_text("alice@machine")
             machine.screenshot("screen")
       '';
-  }
-)
+  })

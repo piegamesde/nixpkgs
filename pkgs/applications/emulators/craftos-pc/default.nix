@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  patchelf,
-  unzip,
-  poco,
-  openssl,
-  SDL2,
-  SDL2_mixer,
-  ncurses,
-  libpng,
-  pngpp,
-  libwebp,
-}:
+{ lib, stdenv, fetchFromGitHub, patchelf, unzip, poco, openssl, SDL2, SDL2_mixer
+, ncurses, libpng, pngpp, libwebp }:
 
 let
   version = "2.7.4";
@@ -28,9 +15,8 @@ let
     rev = "v${version}";
     sha256 = "sha256-BXTsBMlsymQHABWQCiv22Ia5jm2xv1jNy7Unwymtyp0=";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "craftos-pc";
   inherit version;
 
@@ -41,17 +27,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9XMc7zmtPxlt3WgS93lUJNMFtUJ/llG9SFGtgdFqZEA=";
   };
 
-  buildInputs = [
-    patchelf
-    poco
-    openssl
-    SDL2
-    SDL2_mixer
-    ncurses
-    libpng
-    pngpp
-    libwebp
-  ];
+  buildInputs =
+    [ patchelf poco openssl SDL2 SDL2_mixer ncurses libpng pngpp libwebp ];
 
   preBuild = ''
     cp -R ${craftos2-lua}/* ./craftos2-lua/
@@ -71,17 +48,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An implementation of the CraftOS-PC API written in C++ using SDL";
+    description =
+      "An implementation of the CraftOS-PC API written in C++ using SDL";
     homepage = "https://www.craftos-pc.cc";
-    license = with licenses; [
-      mit
-      free
-    ];
+    license = with licenses; [ mit free ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      siraben
-      tomodachi94
-    ];
+    maintainers = with maintainers; [ siraben tomodachi94 ];
     mainProgram = "craftos";
   };
 }

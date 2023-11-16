@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flit-core,
-  dufte,
-  matplotlib,
-  numpy,
-  pipdate,
-  tqdm,
-  rich,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flit-core, dufte, matplotlib, numpy
+, pipdate, tqdm, rich, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "perfplot";
@@ -28,14 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    dufte
-    matplotlib
-    numpy
-    pipdate
-    rich
-    tqdm
-  ];
+  propagatedBuildInputs = [ dufte matplotlib numpy pipdate rich tqdm ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

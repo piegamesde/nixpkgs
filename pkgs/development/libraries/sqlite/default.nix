@@ -1,84 +1,61 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  readline,
-  ncurses,
+{ lib, stdenv, fetchurl, zlib, readline, ncurses
 
-  # for tests
-  python3Packages,
-  sqldiff,
-  sqlite-analyzer,
-  tracker,
+# for tests
+, python3Packages, sqldiff, sqlite-analyzer, tracker
 
-  # uses readline & ncurses for a better interactive experience if set to true
-  interactive ? false,
+# uses readline & ncurses for a better interactive experience if set to true
+, interactive ? false
   # TODO: can be removed since 3.36 since it is the default now.
-  enableDeserialize ? false,
-}:
+, enableDeserialize ? false }:
 
-let
-  archiveVersion = import ./archive-version.nix lib;
-in
+let archiveVersion = import ./archive-version.nix lib;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sqlite${lib.optionalString interactive "-interactive"}";
   version = "3.42.0";
 
   # nixpkgs-update: no auto update
   # NB! Make sure to update ./tools.nix src (in the same directory).
   src = fetchurl {
-    url = "https://sqlite.org/2023/sqlite-autoconf-${archiveVersion version}.tar.gz";
+    url = "https://sqlite.org/2023/sqlite-autoconf-${
+        archiveVersion version
+      }.tar.gz";
     hash = "sha256-erz9FhxuJ0LKXGwIldH4U8lA8gMwSgtJ2k4eyl0IjKY=";
   };
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "out" ];
   separateDebugInfo = stdenv.isLinux;
 
-  buildInputs =
-    [ zlib ]
-    ++ lib.optionals interactive [
-      readline
-      ncurses
-    ];
+  buildInputs = [ zlib ] ++ lib.optionals interactive [ readline ncurses ];
 
   # required for aarch64 but applied for all arches for simplicity
   preConfigure = ''
     patchShebangs configure
   '';
 
-  configureFlags = [ "--enable-threadsafe" ] ++ lib.optional interactive "--enable-readline";
+  configureFlags = [ "--enable-threadsafe" ]
+    ++ lib.optional interactive "--enable-readline";
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    [
-      "-DSQLITE_ENABLE_COLUMN_METADATA"
-      "-DSQLITE_ENABLE_DBSTAT_VTAB"
-      "-DSQLITE_ENABLE_JSON1"
-      "-DSQLITE_ENABLE_FTS3"
-      "-DSQLITE_ENABLE_FTS3_PARENTHESIS"
-      "-DSQLITE_ENABLE_FTS3_TOKENIZER"
-      "-DSQLITE_ENABLE_FTS4"
-      "-DSQLITE_ENABLE_FTS5"
-      "-DSQLITE_ENABLE_RTREE"
-      "-DSQLITE_ENABLE_STMT_SCANSTATUS"
-      "-DSQLITE_ENABLE_UNLOCK_NOTIFY"
-      "-DSQLITE_SOUNDEX"
-      "-DSQLITE_SECURE_DELETE"
-      "-DSQLITE_MAX_VARIABLE_NUMBER=250000"
-      "-DSQLITE_MAX_EXPR_DEPTH=10000"
-    ]
-    ++
-      lib.optionals enableDeserialize
-        [
-          # Can be removed in v3.36+, as this will become the default
-          "-DSQLITE_ENABLE_DESERIALIZE"
-        ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString ([
+    "-DSQLITE_ENABLE_COLUMN_METADATA"
+    "-DSQLITE_ENABLE_DBSTAT_VTAB"
+    "-DSQLITE_ENABLE_JSON1"
+    "-DSQLITE_ENABLE_FTS3"
+    "-DSQLITE_ENABLE_FTS3_PARENTHESIS"
+    "-DSQLITE_ENABLE_FTS3_TOKENIZER"
+    "-DSQLITE_ENABLE_FTS4"
+    "-DSQLITE_ENABLE_FTS5"
+    "-DSQLITE_ENABLE_RTREE"
+    "-DSQLITE_ENABLE_STMT_SCANSTATUS"
+    "-DSQLITE_ENABLE_UNLOCK_NOTIFY"
+    "-DSQLITE_SOUNDEX"
+    "-DSQLITE_SECURE_DELETE"
+    "-DSQLITE_MAX_VARIABLE_NUMBER=250000"
+    "-DSQLITE_MAX_EXPR_DEPTH=10000"
+  ] ++ lib.optionals enableDeserialize [
+    # Can be removed in v3.36+, as this will become the default
+    "-DSQLITE_ENABLE_DESERIALIZE"
+  ]);
 
   # Test for features which may not be available at compile time
   preBuild = ''
@@ -116,16 +93,16 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    changelog = "https://www.sqlite.org/releaselog/${lib.replaceStrings [ "." ] [ "_" ] version}.html";
-    description = "A self-contained, serverless, zero-configuration, transactional SQL database engine";
+    changelog = "https://www.sqlite.org/releaselog/${
+        lib.replaceStrings [ "." ] [ "_" ] version
+      }.html";
+    description =
+      "A self-contained, serverless, zero-configuration, transactional SQL database engine";
     downloadPage = "https://sqlite.org/download.html";
     homepage = "https://www.sqlite.org/";
     license = licenses.publicDomain;
     mainProgram = "sqlite3";
-    maintainers = with maintainers; [
-      eelco
-      np
-    ];
+    maintainers = with maintainers; [ eelco np ];
     platforms = platforms.unix ++ platforms.windows;
   };
 }

@@ -1,28 +1,17 @@
-{
-  pkgs,
-  lib,
-  stdenv,
-  fetchzip,
-}:
+{ pkgs, lib, stdenv, fetchzip }:
 
 let
 
-  buildGnomeExtension =
-    {
-      # Every gnome extension has a UUID. It's the name of the extension folder once unpacked
-      # and can always be found in the metadata.json of every extension.
-      uuid,
-      name,
-      pname,
-      description,
-      # extensions.gnome.org extension URL
-      link,
-      # Extension version numbers are integers
-      version,
-      sha256,
-      # Hex-encoded string of JSON bytes
-      metadata,
-    }:
+  buildGnomeExtension = {
+    # Every gnome extension has a UUID. It's the name of the extension folder once unpacked
+    # and can always be found in the metadata.json of every extension.
+    uuid, name, pname, description,
+    # extensions.gnome.org extension URL
+    link,
+    # Extension version numbers are integers
+    version, sha256,
+    # Hex-encoded string of JSON bytes
+    metadata, }:
 
     stdenv.mkDerivation {
       pname = "gnome-shell-extension-${pname}";
@@ -60,7 +49,8 @@ let
         description = builtins.head (lib.splitString "\n" description);
         longDescription = description;
         homepage = link;
-        license = lib.licenses.gpl2Plus; # https://wiki.gnome.org/Projects/GnomeShell/Extensions/Review#Licensing
+        license =
+          lib.licenses.gpl2Plus; # https://wiki.gnome.org/Projects/GnomeShell/Extensions/Review#Licensing
         maintainers = with lib.maintainers; [ piegames ];
       };
       passthru = {
@@ -69,5 +59,4 @@ let
         extensionUuid = uuid;
       };
     };
-in
-lib.makeOverridable buildGnomeExtension
+in lib.makeOverridable buildGnomeExtension

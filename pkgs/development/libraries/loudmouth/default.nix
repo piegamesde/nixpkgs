@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-  libidn,
-  glib,
-  pkg-config,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, openssl, libidn, glib, pkg-config, zlib }:
 
 stdenv.mkDerivation rec {
   version = "1.5.3";
@@ -22,12 +13,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--with-ssl=openssl" ];
 
-  propagatedBuildInputs = [
-    openssl
-    libidn
-    glib
-    zlib
-  ];
+  propagatedBuildInputs = [ openssl libidn glib zlib ];
 
   nativeBuildInputs = [ pkg-config ];
 

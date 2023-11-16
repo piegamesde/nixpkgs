@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-i18n-helpers";
@@ -21,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Helpers for a mdbook i18n workflow based on Gettext";
     homepage = "https://github.com/google/mdbook-i18n-helpers";
-    changelog = "https://github.com/google/mdbook-i18n-helpers/releases/tag/${version}";
+    changelog =
+      "https://github.com/google/mdbook-i18n-helpers/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ teutat3s ];
   };

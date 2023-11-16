@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fuse,
-}:
+{ lib, stdenv, fetchFromGitHub, fuse }:
 
 stdenv.mkDerivation {
   pname = "9pfs";
@@ -41,9 +36,6 @@ stdenv.mkDerivation {
     description = "FUSE-based client of the 9P network filesystem protocol";
     maintainers = [ lib.maintainers.eelco ];
     platforms = lib.platforms.unix;
-    license = with lib.licenses; [
-      lpl-102
-      bsd2
-    ];
+    license = with lib.licenses; [ lpl-102 bsd2 ];
   };
 }

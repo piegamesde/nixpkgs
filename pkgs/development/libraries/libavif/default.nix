@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libaom,
-  cmake,
-  pkg-config,
-  zlib,
-  libpng,
-  libjpeg,
-  dav1d,
-  libyuv,
-}:
+{ lib, stdenv, fetchFromGitHub, libaom, cmake, pkg-config, zlib, libpng, libjpeg
+, dav1d, libyuv }:
 
 stdenv.mkDerivation rec {
   pname = "libavif";
@@ -33,19 +22,9 @@ stdenv.mkDerivation rec {
     "-DAVIF_BUILD_APPS=ON"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libaom
-    zlib
-    libpng
-    libjpeg
-    dav1d
-    libyuv
-  ];
+  buildInputs = [ libaom zlib libpng libjpeg dav1d libyuv ];
 
   meta = with lib; {
     description = "C implementation of the AV1 Image File Format";
@@ -57,7 +36,8 @@ stdenv.mkDerivation rec {
       (avifenc/avifdec).
     '';
     homepage = "https://github.com/AOMediaCodec/libavif";
-    changelog = "https://github.com/AOMediaCodec/libavif/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/AOMediaCodec/libavif/blob/v${version}/CHANGELOG.md";
     maintainers = with maintainers; [ mkg20001 ];
     platforms = platforms.all;
     license = licenses.bsd2;

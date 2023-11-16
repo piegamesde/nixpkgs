@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libsndfile,
-  portaudio,
-  gtk2,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libsndfile, portaudio, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "gnaural";
@@ -18,11 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gtk2
-    libsndfile
-    portaudio
-  ];
+  buildInputs = [ gtk2 libsndfile portaudio ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: src/net/../gnauralnet.h:233: multiple definition of `GN_ScheduleFingerprint';

@@ -1,39 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  gobject-introspection,
-  vala,
-  gi-docgen,
-  glib,
-  gsettings-desktop-schemas,
-  gtk3,
-  enableGlade ? false,
-  glade,
-  xvfb-run,
-  gdk-pixbuf,
-  librsvg,
-  libxml2,
-  hicolor-icon-theme,
-  at-spi2-atk,
-  at-spi2-core,
-  gnome,
-  libhandy,
-  runCommand,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gobject-introspection, vala
+, gi-docgen, glib, gsettings-desktop-schemas, gtk3, enableGlade ? false, glade
+, xvfb-run, gdk-pixbuf, librsvg, libxml2, hicolor-icon-theme, at-spi2-atk
+, at-spi2-core, gnome, libhandy, runCommand }:
 
 stdenv.mkDerivation rec {
   pname = "libhandy";
   version = "1.8.2";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ] ++ lib.optionals enableGlade [ "glade" ];
+  outputs = [ "out" "dev" "devdoc" ] ++ lib.optionals enableGlade [ "glade" ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -46,30 +20,15 @@ stdenv.mkDerivation rec {
   depsBuildBuild = [ pkg-config ];
 
   nativeBuildInputs =
-    [
-      gobject-introspection
-      gi-docgen
-      meson
-      ninja
-      pkg-config
-      vala
-    ]
+    [ gobject-introspection gi-docgen meson ninja pkg-config vala ]
     ++ lib.optionals enableGlade [
       libxml2 # for xmllint
     ];
 
-  buildInputs = [
-    gdk-pixbuf
-    gtk3
-  ] ++ lib.optionals enableGlade [ glade ];
+  buildInputs = [ gdk-pixbuf gtk3 ] ++ lib.optionals enableGlade [ glade ];
 
-  nativeCheckInputs = [
-    xvfb-run
-    at-spi2-atk
-    at-spi2-core
-    librsvg
-    hicolor-icon-theme
-  ];
+  nativeCheckInputs =
+    [ xvfb-run at-spi2-atk at-spi2-core librsvg hicolor-icon-theme ];
 
   mesonFlags = [
     "-Dgtk_doc=true"
@@ -78,7 +37,8 @@ stdenv.mkDerivation rec {
 
   # Uses define_variable in pkg-config, but we still need it to use the glade output
   PKG_CONFIG_GLADEUI_2_0_MODULEDIR = "${placeholder "glade"}/lib/glade/modules";
-  PKG_CONFIG_GLADEUI_2_0_CATALOGDIR = "${placeholder "glade"}/share/glade/catalogs";
+  PKG_CONFIG_GLADEUI_2_0_CATALOGDIR =
+    "${placeholder "glade"}/share/glade/catalogs";
 
   doCheck = !stdenv.isDarwin;
 
@@ -112,24 +72,19 @@ stdenv.mkDerivation rec {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru =
-    {
-      updateScript = gnome.updateScript {
-        packageName = pname;
-        versionPolicy = "odd-unstable";
-      };
-    }
-    // lib.optionalAttrs (!enableGlade) {
-      glade =
-        let
-          libhandyWithGlade = libhandy.override { enableGlade = true; };
-        in
-        runCommand "${libhandy.name}-glade" { } ''
-          cp -r "${libhandyWithGlade.glade}" "$out"
-          chmod -R +w "$out"
-          sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
-        '';
+  passthru = {
+    updateScript = gnome.updateScript {
+      packageName = pname;
+      versionPolicy = "odd-unstable";
     };
+  } // lib.optionalAttrs (!enableGlade) {
+    glade = let libhandyWithGlade = libhandy.override { enableGlade = true; };
+    in runCommand "${libhandy.name}-glade" { } ''
+      cp -r "${libhandyWithGlade.glade}" "$out"
+      chmod -R +w "$out"
+      sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
+    '';
+  };
 
   meta = with lib; {
     changelog = "https://gitlab.gnome.org/GNOME/libhandy/-/tags/${version}";

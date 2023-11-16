@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  numpy,
-  libsndfile,
-  cffi,
-  isPyPy,
-  stdenv,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, numpy, libsndfile, cffi
+, isPyPy, stdenv }:
 
 buildPythonPackage rec {
   pname = "soundfile";
@@ -28,11 +19,7 @@ buildPythonPackage rec {
   '';
 
   nativeCheckInputs = [ pytestCheckHook ];
-  propagatedBuildInputs = [
-    numpy
-    libsndfile
-    cffi
-  ];
+  propagatedBuildInputs = [ numpy libsndfile cffi ];
   propagatedNativeBuildInputs = [ cffi ];
 
   meta = {

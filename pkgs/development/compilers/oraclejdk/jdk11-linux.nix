@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  requireFile,
-  xorg,
-  zlib,
-  freetype,
-  alsa-lib,
-  setJavaClassPath,
-}:
+{ lib, stdenv, requireFile, xorg, zlib, freetype, alsa-lib, setJavaClassPath }:
 
 let
   result = stdenv.mkDerivation rec {
@@ -16,8 +7,10 @@ let
 
     src = requireFile {
       name = "jdk-${version}_linux-x64_bin.tar.gz";
-      url = "https://www.oracle.com/java/technologies/javase-jdk11-downloads.html";
-      sha256 = "94bd34f85ee38d3ef59e5289ec7450b9443b924c55625661fffe66b03f2c8de2";
+      url =
+        "https://www.oracle.com/java/technologies/javase-jdk11-downloads.html";
+      sha256 =
+        "94bd34f85ee38d3ef59e5289ec7450b9443b924c55625661fffe66b03f2c8de2";
     };
 
     installPhase = ''
@@ -66,5 +59,4 @@ let
       platforms = [ "x86_64-linux" ];
     };
   };
-in
-result
+in result

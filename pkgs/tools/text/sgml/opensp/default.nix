@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  xmlto,
-  docbook_xml_dtd_412,
-  libxslt,
-  docbook_xsl,
-  autoconf,
-  automake,
-  gettext,
-  libiconv,
-  libtool,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, xmlto, docbook_xml_dtd_412, libxslt
+, docbook_xsl, autoconf, automake, gettext, libiconv, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "opensp";
@@ -30,7 +17,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-text/opensp/files/opensp-1.5.2-c11-using.patch?id=688d9675782dfc162d4e6cff04c668f7516118d0";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/app-text/opensp/files/opensp-1.5.2-c11-using.patch?id=688d9675782dfc162d4e6cff04c668f7516118d0";
       sha256 = "04q14s8qsad0bkjmj067dn831i0r6v7742rafdlnbfm5y249m2q6";
     })
   ];
@@ -49,17 +37,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [
-      xmlto
-      docbook_xml_dtd_412
-      docbook_xsl
-    ]
-    ++ lib.optionals stdenv.isCygwin [
-      autoconf
-      automake
-      libtool
-    ];
+  nativeBuildInputs = [ xmlto docbook_xml_dtd_412 docbook_xsl ]
+    ++ lib.optionals stdenv.isCygwin [ autoconf automake libtool ];
 
   doCheck = false; # fails
 

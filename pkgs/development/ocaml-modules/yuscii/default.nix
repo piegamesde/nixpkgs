@@ -1,13 +1,4 @@
-{
-  alcotest,
-  buildDunePackage,
-  ocaml,
-  fetchzip,
-  gcc,
-  fmt,
-  lib,
-  uutf,
-}:
+{ alcotest, buildDunePackage, ocaml, fetchzip, gcc, fmt, lib, uutf }:
 
 buildDunePackage rec {
   pname = "yuscii";
@@ -17,16 +8,13 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchzip {
-    url = "https://github.com/mirage/yuscii/releases/download/v${version}/yuscii-v${version}.tbz";
+    url =
+      "https://github.com/mirage/yuscii/releases/download/v${version}/yuscii-v${version}.tbz";
     sha256 = "0idywlkw0fbakrxv65swnr5bj7f2vns9kpay7q03gzlv82p670hy";
   };
 
   nativeCheckInputs = [ gcc ];
-  checkInputs = [
-    alcotest
-    fmt
-    uutf
-  ];
+  checkInputs = [ alcotest fmt uutf ];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
   meta = {

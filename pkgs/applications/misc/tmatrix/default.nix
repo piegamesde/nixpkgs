@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  installShellFiles,
-  ncurses,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, installShellFiles, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "tmatrix";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G3dg0SWfBjCA66TTxkVAcVrFNJOWE9+GJXYKzCUX34w=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    installShellFiles
-  ];
+  nativeBuildInputs = [ cmake installShellFiles ];
   buildInputs = [ ncurses ];
 
   postInstall = ''
@@ -39,9 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/M4444/TMatrix";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      infinisil
-      Br1ght0ne
-    ];
+    maintainers = with maintainers; [ infinisil Br1ght0ne ];
   };
 }

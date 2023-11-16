@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  cython,
-  fetchFromGitHub,
-  libiconv,
-  pandas,
-  python,
-  pythonOlder,
-  readstat,
-  zlib,
-}:
+{ lib, stdenv, buildPythonPackage, cython, fetchFromGitHub, libiconv, pandas
+, python, pythonOlder, readstat, zlib }:
 
 buildPythonPackage rec {
   pname = "pyreadstat";
@@ -30,10 +19,7 @@ buildPythonPackage rec {
 
   buildInputs = [ zlib ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
-  propagatedBuildInputs = [
-    readstat
-    pandas
-  ];
+  propagatedBuildInputs = [ readstat pandas ];
 
   pythonImportsCheck = [ "pyreadstat" ];
 
@@ -50,9 +36,11 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Module to read SAS, SPSS and Stata files into pandas data frames";
+    description =
+      "Module to read SAS, SPSS and Stata files into pandas data frames";
     homepage = "https://github.com/Roche/pyreadstat";
-    changelog = "https://github.com/Roche/pyreadstat/blob/v${version}/change_log.md";
+    changelog =
+      "https://github.com/Roche/pyreadstat/blob/v${version}/change_log.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ swflint ];
   };

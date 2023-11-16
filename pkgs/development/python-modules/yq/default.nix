@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  substituteAll,
-  argcomplete,
-  pyyaml,
-  toml,
-  xmltodict,
-  jq,
-  setuptools-scm,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, substituteAll, argcomplete, pyyaml, toml
+, xmltodict, jq, setuptools-scm, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "yq";
@@ -30,12 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    pyyaml
-    xmltodict
-    toml
-    argcomplete
-  ];
+  propagatedBuildInputs = [ pyyaml xmltodict toml argcomplete ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -44,12 +28,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "yq" ];
 
   meta = with lib; {
-    description = "Command-line YAML/XML/TOML processor - jq wrapper for YAML, XML, TOML documents";
+    description =
+      "Command-line YAML/XML/TOML processor - jq wrapper for YAML, XML, TOML documents";
     homepage = "https://github.com/kislyuk/yq";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      womfoo
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ womfoo SuperSandro2000 ];
   };
 }

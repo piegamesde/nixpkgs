@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  mpir,
-  gmp,
-  mpfr,
-  flint,
-}:
+{ lib, stdenv, fetchFromGitHub, mpir, gmp, mpfr, flint }:
 
 stdenv.mkDerivation rec {
   pname = "arb";
@@ -19,12 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dt9PZ3Xfn60rhmnxYo7CEzNTEUN/wMVAXe8U5PzUO9U=";
   };
 
-  buildInputs = [
-    mpir
-    gmp
-    mpfr
-    flint
-  ];
+  buildInputs = [ mpir gmp mpfr flint ];
 
   configureFlags = [
     "--with-gmp=${gmp}"

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  tcl,
-  tk,
-  libX11,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, tcl, tk, libX11, zlib }:
 
 tcl.mkTclDerivation rec {
   pname = "scid";
@@ -27,16 +18,9 @@ tcl.mkTclDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  buildInputs = [
-    tk
-    libX11
-    zlib
-  ];
+  buildInputs = [ tk libX11 zlib ];
 
-  configureFlags = [
-    "BINDIR=$(out)/bin"
-    "SHAREDIR=$(out)/share"
-  ];
+  configureFlags = [ "BINDIR=$(out)/bin" "SHAREDIR=$(out)/share" ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

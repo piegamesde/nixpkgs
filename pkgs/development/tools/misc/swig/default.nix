@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  boost,
-  tcl,
-}:
+{ lib, stdenv, fetchurl, boost, tcl }:
 
 stdenv.mkDerivation rec {
   pname = "swig";
@@ -17,15 +11,13 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isCygwin;
   # 'make check' uses boost and tcl
-  buildInputs = lib.optionals doCheck [
-    boost
-    tcl
-  ];
+  buildInputs = lib.optionals doCheck [ boost tcl ];
 
   configureFlags = [ "--disable-ccache" ];
 
   meta = with lib; {
-    description = "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
+    description =
+      "SWIG, an interface compiler that connects C/C++ code to higher-level languages";
     homepage = "https://swig.org/";
     # Different types of licenses available: http://www.swig.org/Release/LICENSE .
     license = licenses.gpl3Plus;

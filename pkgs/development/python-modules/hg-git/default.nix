@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  dulwich,
-  mercurial,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, dulwich, mercurial
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "hg-git";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dulwich
-    mercurial
-  ];
+  propagatedBuildInputs = [ dulwich mercurial ];
 
   pythonImportsCheck = [ "hggit" ];
 

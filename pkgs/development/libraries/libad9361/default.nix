@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libiio,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libiio }:
 
 stdenv.mkDerivation rec {
   pname = "libad9361";
@@ -30,7 +24,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "IIO AD9361 library for filter design and handling, multi-chip sync, etc";
+    description =
+      "IIO AD9361 library for filter design and handling, multi-chip sync, etc";
     homepage = "http://analogdevicesinc.github.io/libad9361-iio/";
     license = licenses.lgpl21Plus;
     maintainers = with maintainers; [ sikmir ];

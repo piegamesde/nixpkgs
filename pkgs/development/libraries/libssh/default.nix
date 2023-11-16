@@ -1,25 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  cmake,
-  zlib,
-  openssl,
-  libsodium,
+{ lib, stdenv, fetchurl, pkg-config, cmake, zlib, openssl, libsodium
 
-  # for passthru.tests
-  ffmpeg,
-  sshping,
-  wireshark,
-}:
+# for passthru.tests
+, ffmpeg, sshping, wireshark }:
 
 stdenv.mkDerivation rec {
   pname = "libssh";
   version = "0.10.5";
 
   src = fetchurl {
-    url = "https://www.libssh.org/files/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
+    url = "https://www.libssh.org/files/${
+        lib.versions.majorMinor version
+      }/${pname}-${version}.tar.xz";
     sha256 = "sha256-tg4v9/Nnue7itWNNOmMwPd/t4OahjfyojESodw5+QjQ=";
   };
 
@@ -41,20 +32,11 @@ stdenv.mkDerivation rec {
   # single output, otherwise cmake and .pc files point to the wrong directory
   # outputs = [ "out" "dev" ];
 
-  buildInputs = [
-    zlib
-    openssl
-    libsodium
-  ];
+  buildInputs = [ zlib openssl libsodium ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  passthru.tests = {
-    inherit ffmpeg sshping wireshark;
-  };
+  passthru.tests = { inherit ffmpeg sshping wireshark; };
 
   meta = with lib; {
     description = "SSH client library";

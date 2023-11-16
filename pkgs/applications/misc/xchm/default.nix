@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  wxGTK32,
-  chmlib,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK32, chmlib }:
 
 stdenv.mkDerivation rec {
   pname = "xchm";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    wxGTK32
-    chmlib
-  ];
+  buildInputs = [ wxGTK32 chmlib ];
 
   configureFlags = [ "--with-wx-prefix=${wxGTK32}" ];
 

@@ -1,10 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  lightwalletd,
-  testers,
-}:
+{ buildGoModule, fetchFromGitHub, lib, lightwalletd, testers }:
 
 buildGoModule rec {
   pname = "lightwalletd";
@@ -28,11 +22,7 @@ buildGoModule rec {
     "-X github.com/zcash/lightwalletd/common.BuildUser=nixbld"
   ];
 
-  excludedPackages = [
-    "genblocks"
-    "testclient"
-    "zap"
-  ];
+  excludedPackages = [ "genblocks" "testclient" "zap" ];
 
   passthru.tests.version = testers.testVersion {
     package = lightwalletd;
@@ -41,7 +31,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "A backend service that provides a bandwidth-efficient interface to the Zcash blockchain";
+    description =
+      "A backend service that provides a bandwidth-efficient interface to the Zcash blockchain";
     homepage = "https://github.com/zcash/lightwalletd";
     maintainers = with maintainers; [ centromere ];
     license = licenses.mit;

@@ -1,13 +1,6 @@
-{
-  lib,
-  fetchFromGitLab,
-  git,
-  buildGoModule,
-}:
-let
-  data = lib.importJSON ../data.json;
-in
-buildGoModule rec {
+{ lib, fetchFromGitLab, git, buildGoModule }:
+let data = lib.importJSON ../data.json;
+in buildGoModule rec {
   pname = "gitlab-workhorse";
 
   version = "16.0.4";
@@ -29,11 +22,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "http://www.gitlab.com/";
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      globin
-      talyz
-      yayayayaka
-    ];
+    maintainers = with maintainers; [ globin talyz yayayayaka ];
     license = licenses.mit;
   };
 }

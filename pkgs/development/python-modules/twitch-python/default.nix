@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  rx,
-  pytestCheckHook,
-  responses,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, rx, pytestCheckHook, responses
+, isPy3k }:
 
 buildPythonPackage rec {
   pname = "twitch-python";
@@ -24,15 +16,9 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "'pipenv'," ""
   '';
 
-  propagatedBuildInputs = [
-    requests
-    rx
-  ];
+  propagatedBuildInputs = [ requests rx ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   pythonImportsCheck = [ "twitch" ];
 

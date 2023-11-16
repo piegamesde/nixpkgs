@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  flit,
-  pytestCheckHook,
-  numpy,
-  scipy,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, flit, pytestCheckHook
+, numpy, scipy }:
 
 buildPythonPackage rec {
   pname = "threadpoolctl";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-/qt7cgFbvpc1BLZC7a4S0RToqSggKXAqF1Xr6xOqzw8=";
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    numpy
-    scipy
-  ];
+  nativeCheckInputs = [ pytestCheckHook numpy scipy ];
 
   disabledTests = [
     # accepts a limited set of cpu models based on project
@@ -52,4 +40,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ bcdarwin ];
   };
+
 }

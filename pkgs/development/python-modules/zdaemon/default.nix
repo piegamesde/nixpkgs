@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  zconfig,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, zconfig }:
 
 buildPythonPackage rec {
   pname = "zdaemon";
@@ -26,9 +20,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "zdaemon" ];
 
   meta = with lib; {
-    description = "A daemon process control library and tools for Unix-based systems";
+    description =
+      "A daemon process control library and tools for Unix-based systems";
     homepage = "https://pypi.python.org/pypi/zdaemon";
-    changelog = "https://github.com/zopefoundation/zdaemon/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/zopefoundation/zdaemon/blob/${version}/CHANGES.rst";
     license = licenses.zpl20;
     maintainers = with maintainers; [ goibhniu ];
   };

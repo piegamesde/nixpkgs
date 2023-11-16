@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  defusedxml,
-  fetchFromGitHub,
-  httpretty,
-  lxml,
-  oauthlib,
-  pyjwt,
-  pytestCheckHook,
-  python-jose,
-  python3-openid,
-  python3-saml,
-  pythonOlder,
-  requests,
-  requests-oauthlib,
-}:
+{ lib, buildPythonPackage, cryptography, defusedxml, fetchFromGitHub, httpretty
+, lxml, oauthlib, pyjwt, pytestCheckHook, python-jose, python3-openid
+, python3-saml, pythonOlder, requests, requests-oauthlib }:
 
 buildPythonPackage rec {
   pname = "social-auth-core";
@@ -43,17 +28,12 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     openidconnect = [ python-jose ];
-    saml = [
-      lxml
-      python3-saml
-    ];
+    saml = [ lxml python3-saml ];
     azuread = [ cryptography ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    httpretty
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook httpretty ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   # Disable checking the code coverage
   prePatch = ''

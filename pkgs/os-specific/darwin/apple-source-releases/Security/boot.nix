@@ -1,8 +1,4 @@
-{
-  appleDerivation',
-  stdenv,
-  darwin-stubs,
-}:
+{ appleDerivation', stdenv, darwin-stubs }:
 
 appleDerivation' stdenv {
   __propagatedImpureHostDeps = [

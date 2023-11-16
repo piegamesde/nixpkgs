@@ -1,12 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchgit,
-  installShellFiles,
-  testers,
-  scorecard,
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchgit, installShellFiles, testers
+, scorecard }:
 
 buildGoModule rec {
   pname = "scorecard";
@@ -86,9 +79,6 @@ buildGoModule rec {
     changelog = "https://github.com/ossf/scorecard/releases/tag/v${version}";
     description = "Security health metrics for Open Source";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      jk
-      developer-guy
-    ];
+    maintainers = with maintainers; [ jk developer-guy ];
   };
 }

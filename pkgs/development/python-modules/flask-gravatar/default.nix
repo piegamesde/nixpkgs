@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-  pytestCheckHook,
-  pygments,
-}:
+{ lib, buildPythonPackage, fetchPypi, flask, pytestCheckHook, pygments }:
 
 buildPythonPackage rec {
   pname = "flask-gravatar";
@@ -30,10 +23,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flask ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pygments
-  ];
+  nativeCheckInputs = [ pytestCheckHook pygments ];
 
   pythonImportsCheck = [ "flask_gravatar" ];
 

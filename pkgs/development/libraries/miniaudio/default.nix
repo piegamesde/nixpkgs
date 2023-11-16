@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 stdenv.mkDerivation rec {
   pname = "miniaudio";
   version = "0.11.16";
@@ -20,9 +16,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Single header audio playback and capture library written in C";
+    description =
+      "Single header audio playback and capture library written in C";
     homepage = "https://github.com/mackron/miniaudio";
-    changelog = "https://github.com/mackron/miniaudio/blob/${src.rev}/CHANGES.md";
+    changelog =
+      "https://github.com/mackron/miniaudio/blob/${src.rev}/CHANGES.md";
     license = with licenses; [
       unlicense # or
       mit0

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  pcre,
-  zlib,
-  xz,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, pcre, zlib, xz }:
 
 stdenv.mkDerivation rec {
   pname = "silver-searcher";
@@ -30,15 +21,8 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = "-fcommon";
   NIX_LDFLAGS = lib.optionalString stdenv.isLinux "-lgcc_s";
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    pcre
-    zlib
-    xz
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ pcre zlib xz ];
 
   meta = with lib; {
     homepage = "https://github.com/ggreer/the_silver_searcher/";

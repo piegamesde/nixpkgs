@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  gnome,
-  gtk-doc,
-  gtk3,
-  libX11,
-  libXext,
-  libXrender,
-  gobject-introspection,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, gnome
+, gtk-doc, gtk3, libX11, libXext, libXrender, gobject-introspection }:
 
 stdenv.mkDerivation rec {
   pname = "keybinder3";
@@ -36,12 +22,7 @@ stdenv.mkDerivation rec {
     gtk-doc
     gobject-introspection
   ];
-  buildInputs = [
-    gtk3
-    libX11
-    libXext
-    libXrender
-  ];
+  buildInputs = [ gtk3 libX11 libXext libXrender ];
 
   preConfigure = ''
     # NOCONFIGURE fixes 'If you meant to cross compile, use `--host'.'

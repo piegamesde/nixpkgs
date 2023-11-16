@@ -1,10 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  installShellFiles,
-  sg3_utils,
-}:
+{ lib, python3Packages, fetchFromGitHub, installShellFiles, sg3_utils }:
 
 python3Packages.buildPythonApplication rec {
   pname = "sasutils";
@@ -27,7 +21,8 @@ python3Packages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/stanford-rc/sasutils";
-    description = "A set of command-line tools to ease the administration of Serial Attached SCSI (SAS) fabrics";
+    description =
+      "A set of command-line tools to ease the administration of Serial Attached SCSI (SAS) fabrics";
     license = licenses.asl20;
     maintainers = with maintainers; [ aij ];
   };

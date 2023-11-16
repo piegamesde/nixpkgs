@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytest,
-  pytestCheckHook,
-  pexpect,
-  pytest-cov,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytestCheckHook, pexpect
+, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "pytest-timeout";
@@ -20,11 +13,7 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pexpect
-    pytest-cov
-  ];
+  nativeCheckInputs = [ pytestCheckHook pexpect pytest-cov ];
 
   disabledTests = [
     "test_suppresses_timeout_when_pdb_is_entered"
@@ -41,9 +30,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytest-dev/pytest-timeout/";
     changelog = "https://github.com/pytest-dev/pytest-timeout/#changelog";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      makefu
-      costrouc
-    ];
+    maintainers = with maintainers; [ makefu costrouc ];
   };
 }

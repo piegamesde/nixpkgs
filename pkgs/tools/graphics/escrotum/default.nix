@@ -1,12 +1,5 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  gtk3,
-  pango,
-  gobject-introspection,
-  wrapGAppsHook,
-}:
+{ lib, python3Packages, fetchFromGitHub, gtk3, pango, gobject-introspection
+, wrapGAppsHook }:
 
 with python3Packages;
 buildPythonApplication {
@@ -20,30 +13,16 @@ buildPythonApplication {
     sha256 = "sha256-z0AyTbOEE60j/883X17mxgoaVlryNtn0dfEB0C18G2s=";
   };
 
-  buildInputs = [
-    gtk3
-    pango
-  ];
+  buildInputs = [ gtk3 pango ];
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
-  propagatedBuildInputs = [
-    pygobject3
-    xcffib
-    pycairo
-    numpy
-  ];
+  propagatedBuildInputs = [ pygobject3 xcffib pycairo numpy ];
 
   # Cannot find pango without strictDeps = false
   strictDeps = false;
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   postInstall = ''
     mkdir -p $man/share/man/man1

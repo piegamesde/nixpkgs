@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  python,
-  fetchFromGitHub,
-  hatchling,
-  beautifulsoup4,
-  lxml,
-  jinja2,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, python, fetchFromGitHub, hatchling, beautifulsoup4
+, lxml, jinja2, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "reqif";
@@ -34,11 +24,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    lxml
-    jinja2
-  ];
+  propagatedBuildInputs = [ beautifulsoup4 lxml jinja2 ];
 
   pythonImportsCheck = [ "reqif" ];
 
@@ -47,7 +33,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library for ReqIF format";
     homepage = "https://github.com/strictdoc-project/reqif";
-    changelog = "https://github.com/strictdoc-project/reqif/releases/tag/${version}";
+    changelog =
+      "https://github.com/strictdoc-project/reqif/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ yuu ];
   };

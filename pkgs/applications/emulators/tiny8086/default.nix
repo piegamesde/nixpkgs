@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  localBios ? true,
-  nasm,
-  sdlSupport ? true,
-  SDL,
+{ lib, stdenv, fetchFromGitHub, localBios ? true, nasm, sdlSupport ? true, SDL
 }:
 
 stdenv.mkDerivation rec {

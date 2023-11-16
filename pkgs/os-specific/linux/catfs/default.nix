@@ -1,11 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  fetchpatch,
-  fuse,
-  pkg-config,
-}:
+{ lib, rustPlatform, fetchFromGitHub, fetchpatch, fuse, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "catfs";
@@ -18,11 +11,10 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-OvmtU2jpewP5EqPwEFAf67t8UCI1WuzUO2QQj4cH1Ak=";
   };
 
-  patches =
-    [
-      # monitor https://github.com/kahing/catfs/issues/71
-      ./fix-for-rust-1.65.diff
-    ];
+  patches = [
+    # monitor https://github.com/kahing/catfs/issues/71
+    ./fix-for-rust-1.65.diff
+  ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;

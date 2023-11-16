@@ -1,7 +1,8 @@
 { callPackage }:
 
 {
-  autocomplete-all-the-things = callPackage ./urxvt-autocomplete-all-the-things { };
+  autocomplete-all-the-things =
+    callPackage ./urxvt-autocomplete-all-the-things { };
 
   bidi = callPackage ./urxvt-bidi { };
 
@@ -18,4 +19,5 @@
   theme-switch = callPackage ./urxvt-theme-switch { };
 
   vtwheel = callPackage ./urxvt-vtwheel { };
+
 }

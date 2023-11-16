@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python3Packages }:
 
 buildPythonPackage rec {
   pname = "thinkpad-scripts";
@@ -19,7 +14,8 @@ buildPythonPackage rec {
   propagatedBuildInputs = with python3Packages; [ setuptools ];
 
   meta = {
-    description = "Screen rotation, docking and other scripts for ThinkPad® X220 and X230 Tablet";
+    description =
+      "Screen rotation, docking and other scripts for ThinkPad® X220 and X230 Tablet";
     homepage = "https://github.com/martin-ueding/thinkpad-scripts";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ dawidsowa ];

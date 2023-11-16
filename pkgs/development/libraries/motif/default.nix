@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  pkg-config,
-  libtool,
-  xbitmaps,
-  libXext,
-  libXft,
-  libXrender,
-  libXmu,
-  libXt,
-  expat,
-  libjpeg,
-  libpng,
-  libiconv,
-  flex,
-  libXp,
-  libXau,
-  demoSupport ? false,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, libtool, xbitmaps, libXext
+, libXft, libXrender, libXmu, libXt, expat, libjpeg, libpng, libiconv, flex
+, libXp, libXau, demoSupport ? false }:
 # refer to the gentoo package
 
 stdenv.mkDerivation rec {
@@ -45,15 +26,9 @@ stdenv.mkDerivation rec {
     libiconv
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    flex
-  ];
+  nativeBuildInputs = [ pkg-config flex ];
 
-  propagatedBuildInputs = [
-    libXp
-    libXau
-  ];
+  propagatedBuildInputs = [ libXp libXau ];
 
   prePatch = lib.optionalString (!demoSupport) ''
     sed '/^SUBDIRS =,^$/s/\<demos\>//' -i Makefile.{am,in}
@@ -64,7 +39,8 @@ stdenv.mkDerivation rec {
     ./Add-X.Org-to-bindings-file.patch
     (fetchpatch rec {
       name = "fix-format-security.patch";
-      url = "https://raw.githubusercontent.com/void-linux/void-packages/b9a1110dabb01c052dadc1abae1413bd4afe3652/srcpkgs/motif/patches/02-${name}";
+      url =
+        "https://raw.githubusercontent.com/void-linux/void-packages/b9a1110dabb01c052dadc1abae1413bd4afe3652/srcpkgs/motif/patches/02-${name}";
       sha256 = "13vzpf8yxvhf4gl7q0yzlr6ak1yzx382fsqsrv5lc8jbbg4nwrrq";
     })
   ];

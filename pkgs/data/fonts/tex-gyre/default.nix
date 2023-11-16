@@ -1,24 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-}:
+{ lib, stdenv, fetchzip }:
 
 let
-  mkVariant =
-    variant:
-    {
-      version,
-      abbreviation,
-      sha256,
-      outputHash,
-    }:
+  mkVariant = variant:
+    { version, abbreviation, sha256, outputHash }:
     stdenv.mkDerivation {
       name = "tex-gyre-${variant}-${version}";
       inherit version;
 
       src = fetchzip {
-        url = "http://www.gust.org.pl/projects/e-foundry/tex-gyre/${variant}/${abbreviation}${version}otf.zip";
+        url =
+          "http://www.gust.org.pl/projects/e-foundry/tex-gyre/${variant}/${abbreviation}${version}otf.zip";
         stripRoot = false;
         inherit sha256;
       };
@@ -44,8 +35,7 @@ let
         platforms = platforms.all;
       };
     };
-in
-lib.mapAttrs mkVariant {
+in lib.mapAttrs mkVariant {
   adventor = {
     version = "2_501";
     sha256 = "0qjg3x0adfppyx3x33cm07ww9i9sl88xaq07m7wfip8rmyp567fn";

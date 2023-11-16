@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage {
   pname = "python-unshare";
@@ -24,4 +20,5 @@ buildPythonPackage {
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];
   };
+
 }

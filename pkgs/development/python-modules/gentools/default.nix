@@ -1,12 +1,5 @@
-{
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
-  pytest,
-  typing ? null,
-  funcsigs ? null,
-  pythonOlder,
-}:
+{ buildPythonPackage, lib, fetchFromGitHub, pytest, typing ? null
+, funcsigs ? null, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gentools";
@@ -20,17 +13,18 @@ buildPythonPackage rec {
     sha256 = "1sm6cqi7fv2k3pc68r7wvvjjz8y6cjmz8bvxgqfa4v4wxibwnwrl";
   };
 
-  propagatedBuildInputs =
-    lib.optionals (pythonOlder "3.5") [ typing ]
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.5") [ typing ]
     ++ lib.optionals (pythonOlder "3.4") [ funcsigs ];
 
   nativeCheckInputs = [ pytest ];
   checkPhase = "pytest";
 
   meta = with lib; {
-    description = "Tools for generators, generator functions, and generator-based coroutines";
+    description =
+      "Tools for generators, generator functions, and generator-based coroutines";
     license = licenses.mit;
     homepage = "https://gentools.readthedocs.io/";
     maintainers = with maintainers; [ mredaelli ];
   };
+
 }

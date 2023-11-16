@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  bundlerEnv,
-  ruby,
-  bundlerUpdateScript,
-}:
+{ lib, stdenv, bundlerEnv, ruby, bundlerUpdateScript }:
 
 let
   papertrail-env = bundlerEnv {
@@ -14,8 +8,7 @@ let
     lockfile = ./Gemfile.lock;
     gemset = ./gemset.nix;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "papertrail";
   version = (import ./gemset.nix).papertrail.version;
 

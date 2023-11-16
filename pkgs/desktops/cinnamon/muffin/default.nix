@@ -1,48 +1,15 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  substituteAll,
-  cairo,
-  cinnamon-desktop,
-  dbus,
-  desktop-file-utils,
-  glib,
-  gnome,
-  gobject-introspection,
-  graphene,
-  gtk3,
-  json-glib,
-  libcanberra,
-  libdrm,
-  libgnomekbd,
-  libgudev,
-  libinput,
-  libstartup_notification,
-  libwacom,
-  libXdamage,
-  libxkbcommon,
-  libXtst,
-  mesa,
-  meson,
-  ninja,
-  pipewire,
-  pkg-config,
-  python3,
-  udev,
-  wrapGAppsHook,
-  xorgserver,
+{ stdenv, lib, fetchFromGitHub, substituteAll, cairo, cinnamon-desktop, dbus
+, desktop-file-utils, glib, gnome, gobject-introspection, graphene, gtk3
+, json-glib, libcanberra, libdrm, libgnomekbd, libgudev, libinput
+, libstartup_notification, libwacom, libXdamage, libxkbcommon, libXtst, mesa
+, meson, ninja, pipewire, pkg-config, python3, udev, wrapGAppsHook, xorgserver
 }:
 
 stdenv.mkDerivation rec {
   pname = "muffin";
   version = "5.6.4";
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
   src = fetchFromGitHub {
     owner = "linuxmint";
@@ -102,7 +69,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/muffin";
-    description = "The window management library for the Cinnamon desktop (libmuffin) and its sample WM binary (muffin)";
+    description =
+      "The window management library for the Cinnamon desktop (libmuffin) and its sample WM binary (muffin)";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     maintainers = teams.cinnamon.members;

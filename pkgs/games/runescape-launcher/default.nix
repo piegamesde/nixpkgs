@@ -1,30 +1,7 @@
-{
-  stdenv,
-  lib,
-  autoPatchelfHook,
-  buildFHSEnv,
-  cairo,
-  dpkg,
-  fetchurl,
-  gcc-unwrapped,
-  glib,
-  glibc,
-  gnome2,
-  gtk2-x11,
-  libGL,
-  libpulseaudio,
-  libSM,
-  libXxf86vm,
-  libX11,
-  openssl_1_1,
-  pango,
-  SDL2,
-  wrapGAppsHook,
-  xdg-utils,
-  xorg,
-  xorg_sys_opengl,
-  zlib,
-}:
+{ stdenv, lib, autoPatchelfHook, buildFHSEnv, cairo, dpkg, fetchurl
+, gcc-unwrapped, glib, glibc, gnome2, gtk2-x11, libGL, libpulseaudio, libSM
+, libXxf86vm, libX11, openssl_1_1, pango, SDL2, wrapGAppsHook, xdg-utils, xorg
+, xorg_sys_opengl, zlib }:
 let
 
   runescape = stdenv.mkDerivation rec {
@@ -34,15 +11,12 @@ let
     # Packages: https://content.runescape.com/downloads/ubuntu/dists/trusty/non-free/binary-amd64/Packages
     # upstream is https://content.runescape.com/downloads/ubuntu/pool/non-free/r/${pname}/${pname}_${version}_amd64.deb
     src = fetchurl {
-      url = "https://archive.org/download/${pname}_${version}_amd64/${pname}_${version}_amd64.deb";
+      url =
+        "https://archive.org/download/${pname}_${version}_amd64/${pname}_${version}_amd64.deb";
       sha256 = "1v96vjiblphhbqhpp3m7wbvdvcnp76ncdlf4pdcr2z1dz8nh6shg";
     };
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      dpkg
-      wrapGAppsHook
-    ];
+    nativeBuildInputs = [ autoPatchelfHook dpkg wrapGAppsHook ];
 
     buildInputs = [
       cairo
@@ -104,12 +78,11 @@ let
       platforms = [ "x86_64-linux" ];
     };
   };
-in
 
-# We can patch the runescape launcher, but it downloads a client at runtime and checks it for changes.
-# For that we need use a buildFHSEnv.
-# FHS simulates a classic linux shell
-buildFHSEnv {
+  # We can patch the runescape launcher, but it downloads a client at runtime and checks it for changes.
+  # For that we need use a buildFHSEnv.
+  # FHS simulates a classic linux shell
+in buildFHSEnv {
   name = "RuneScape";
   targetPkgs = pkgs: [
     runescape

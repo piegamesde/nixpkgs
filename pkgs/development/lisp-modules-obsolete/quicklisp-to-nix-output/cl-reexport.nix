@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-reexport";
   version = "20210228-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."alexandria" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-reexport/2021-02-28/cl-reexport-20210228-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-reexport/2021-02-28/cl-reexport-20210228-git.tgz";
     sha256 = "1ay0ng5nnbq200g4wxs0h7byx24za4yk208nhfsmksahk5qj1qra";
   };
 

@@ -1,25 +1,9 @@
-testModuleArgs@{
-  config,
-  lib,
-  hostPkgs,
-  nodes,
-  ...
-}:
+testModuleArgs@{ config, lib, hostPkgs, nodes, ... }:
 
 let
   inherit (lib)
-    literalExpression
-    literalMD
-    mapAttrs
-    mdDoc
-    mkDefault
-    mkIf
-    mkOption
-    mkForce
-    optional
-    optionalAttrs
-    types
-  ;
+    literalExpression literalMD mapAttrs mdDoc mkDefault mkIf mkOption mkForce
+    optional optionalAttrs types;
 
   baseOS = import ../eval-config.nix {
     system = null; # use modularly defined system
@@ -31,7 +15,9 @@ let
         key = "nodes";
         _module.args.nodes = config.nodesCompat;
       }
-      ({ config, ... }: { virtualisation.qemu.package = testModuleArgs.config.qemu.package; })
+      ({ config, ... }: {
+        virtualisation.qemu.package = testModuleArgs.config.qemu.package;
+      })
       (optionalAttrs (!config.node.pkgsReadOnly) {
         key = "nodes.nix-pkgs";
         config = {
@@ -45,9 +31,8 @@ let
       testModuleArgs.config.extraBaseModules
     ];
   };
-in
 
-{
+in {
 
   options = {
     node.type = mkOption {
@@ -132,19 +117,12 @@ in
 
   config = {
     _module.args.nodes = config.nodesCompat;
-    nodesCompat =
-      mapAttrs
-        (
-          name: config:
-          config
-          // {
-            config =
-              lib.warnIf (lib.isInOldestRelease 2211)
-                "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
-                config;
-          }
-        )
-        config.nodes;
+    nodesCompat = mapAttrs (name: config:
+      config // {
+        config = lib.warnIf (lib.isInOldestRelease 2211)
+          "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
+          config;
+      }) config.nodes;
 
     passthru.nodes = config.nodesCompat;
 
@@ -152,5 +130,6 @@ in
       nixpkgs.pkgs = config.node.pkgs;
       imports = [ ../../modules/misc/nixpkgs/read-only.nix ];
     };
+
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "smug";
@@ -22,11 +17,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
   postInstall = ''
     installManPage ./man/man1/smug.1

@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitea,
-}:
+{ lib, rustPlatform, fetchFromGitea }:
 
 rustPlatform.buildRustPackage rec {
   pname = "sanctity";

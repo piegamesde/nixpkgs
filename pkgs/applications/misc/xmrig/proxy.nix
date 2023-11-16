@@ -1,18 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  libuv,
-  libmicrohttpd,
-  openssl,
-  darwin,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libuv, libmicrohttpd, openssl, darwin }:
 
-let
-  inherit (darwin.apple_sdk_11_0.frameworks) CoreServices IOKit;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk_11_0.frameworks) CoreServices IOKit;
+in stdenv.mkDerivation rec {
   pname = "xmrig-proxy";
   version = "6.19.2";
 
@@ -33,16 +22,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      libuv
-      libmicrohttpd
-      openssl
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      CoreServices
-      IOKit
-    ];
+  buildInputs = [ libuv libmicrohttpd openssl ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices IOKit ];
 
   installPhase = ''
     runHook preInstall

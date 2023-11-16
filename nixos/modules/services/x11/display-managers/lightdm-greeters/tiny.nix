@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +7,8 @@ let
   dmcfg = config.services.xserver.displayManager;
   ldmcfg = dmcfg.lightdm;
   cfg = ldmcfg.greeters.tiny;
-in
-{
+
+in {
   options = {
 
     services.xserver.displayManager.lightdm.greeters.tiny = {
@@ -55,36 +50,35 @@ in
           Section to describe style and ui.
         '';
       };
+
     };
+
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
 
     services.xserver.displayManager.lightdm.greeters.gtk.enable = false;
 
-    nixpkgs.config.lightdm-tiny-greeter.conf =
-      let
-        configHeader = ''
-          #include <gtk/gtk.h>
-          static const char *user_text = "${cfg.label.user}";
-          static const char *pass_text = "${cfg.label.pass}";
-          static const char *session = "${dmcfg.defaultSession}";
-        '';
-      in
-      optionalString (cfg.extraConfig != "") (configHeader + cfg.extraConfig);
+    nixpkgs.config.lightdm-tiny-greeter.conf = let
+      configHeader = ''
+        #include <gtk/gtk.h>
+        static const char *user_text = "${cfg.label.user}";
+        static const char *pass_text = "${cfg.label.pass}";
+        static const char *session = "${dmcfg.defaultSession}";
+      '';
+    in optionalString (cfg.extraConfig != "") (configHeader + cfg.extraConfig);
 
     services.xserver.displayManager.lightdm.greeter = mkDefault {
       package = pkgs.lightdm-tiny-greeter.xgreeters;
       name = "lightdm-tiny-greeter";
     };
 
-    assertions = [
-      {
-        assertion = dmcfg.defaultSession != null;
-        message = ''
-          Please set: services.xserver.displayManager.defaultSession
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = dmcfg.defaultSession != null;
+      message = ''
+        Please set: services.xserver.displayManager.defaultSession
+      '';
+    }];
+
   };
 }

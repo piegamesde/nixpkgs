@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "pcimem";
@@ -15,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zlbvcl5q4hgna11p3w00px1p8qgn8ga79lh6a2m7d597g86kbq3";
   };
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   makeFlags = [ "CFLAGS=-Wno-maybe-uninitialized" ];
 
@@ -28,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple method of reading and writing to memory registers on a PCI card";
+    description =
+      "Simple method of reading and writing to memory registers on a PCI card";
     homepage = "https://github.com/billfarrow/pcimem";
     license = licenses.gpl2Only;
     platforms = platforms.linux;

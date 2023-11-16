@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 
 let
@@ -15,12 +10,9 @@ let
 
     ${cfg.config}
   '';
-in
 
-{
-  meta = {
-    maintainers = with maintainers; [ arobyn ];
-  };
+in {
+  meta = { maintainers = with maintainers; [ arobyn ]; };
 
   options = {
     services.dante = {
@@ -37,12 +29,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.config != "";
-        message = "please provide Dante configuration file contents";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.config != "";
+      message = "please provide Dante configuration file contents";
+    }];
 
     users.users.dante = {
       description = "Dante SOCKS proxy daemon user";

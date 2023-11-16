@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.hardware.pommed;
   defaultConf = "${pkgs.pommed_light}/etc/pommed.conf.mactel";
-in
-{
+in {
 
   options = {
 
@@ -39,13 +33,11 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      pkgs.polkit
-      pkgs.pommed_light
-    ];
+    environment.systemPackages = [ pkgs.polkit pkgs.pommed_light ];
 
     environment.etc."pommed.conf".source =
       if cfg.configFile == null then defaultConf else cfg.configFile;

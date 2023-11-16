@@ -11,10 +11,7 @@
     version = "7.0.4.3";
   };
   activerecord = {
-    dependencies = [
-      "activemodel"
-      "activesupport"
-    ];
+    dependencies = [ "activemodel" "activesupport" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -25,12 +22,7 @@
     version = "7.0.4.3";
   };
   activesupport = {
-    dependencies = [
-      "concurrent-ruby"
-      "i18n"
-      "minitest"
-      "tzinfo"
-    ];
+    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -52,11 +44,7 @@
     version = "2.8.2";
   };
   async = {
-    dependencies = [
-      "console"
-      "io-event"
-      "timers"
-    ];
+    dependencies = [ "console" "io-event" "timers" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -338,10 +326,7 @@
     version = "4.0.2";
   };
   nokogiri = {
-    dependencies = [
-      "mini_portile2"
-      "racc"
-    ];
+    dependencies = [ "mini_portile2" "racc" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -352,10 +337,7 @@
     version = "1.14.2";
   };
   nokogiri-diff = {
-    dependencies = [
-      "nokogiri"
-      "tdiff"
-    ];
+    dependencies = [ "nokogiri" "tdiff" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -428,10 +410,7 @@
     version = "3.0.5";
   };
   rack-user_agent = {
-    dependencies = [
-      "rack"
-      "woothee"
-    ];
+    dependencies = [ "rack" "woothee" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -502,11 +481,7 @@
     version = "2.0.0";
   };
   ronin-core = {
-    dependencies = [
-      "command_kit"
-      "irb"
-      "reline"
-    ];
+    dependencies = [ "command_kit" "irb" "reline" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -517,12 +492,8 @@
     version = "0.1.1";
   };
   ronin-db = {
-    dependencies = [
-      "ronin-core"
-      "ronin-db-activerecord"
-      "ronin-support"
-      "sqlite3"
-    ];
+    dependencies =
+      [ "ronin-core" "ronin-db-activerecord" "ronin-support" "sqlite3" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -533,10 +504,7 @@
     version = "0.1.0";
   };
   ronin-db-activerecord = {
-    dependencies = [
-      "activerecord"
-      "uri-query_params"
-    ];
+    dependencies = [ "activerecord" "uri-query_params" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -567,11 +535,7 @@
     version = "1.0.1";
   };
   ronin-fuzzer = {
-    dependencies = [
-      "combinatorics"
-      "ronin-core"
-      "ronin-support"
-    ];
+    dependencies = [ "combinatorics" "ronin-core" "ronin-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -599,11 +563,7 @@
     version = "0.1.1";
   };
   ronin-post_ex = {
-    dependencies = [
-      "fake_io"
-      "hexdump"
-      "ronin-core"
-    ];
+    dependencies = [ "fake_io" "hexdump" "ronin-core" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -625,13 +585,8 @@
     version = "0.1.0";
   };
   ronin-support = {
-    dependencies = [
-      "addressable"
-      "chars"
-      "combinatorics"
-      "hexdump"
-      "uri-query_params"
-    ];
+    dependencies =
+      [ "addressable" "chars" "combinatorics" "hexdump" "uri-query_params" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -642,10 +597,7 @@
     version = "1.0.1";
   };
   ronin-vulns = {
-    dependencies = [
-      "ronin-core"
-      "ronin-support"
-    ];
+    dependencies = [ "ronin-core" "ronin-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -678,13 +630,8 @@
     version = "1.0.1";
   };
   ronin-web-server = {
-    dependencies = [
-      "rack"
-      "rack-user_agent"
-      "ronin-support"
-      "sinatra"
-      "webrick"
-    ];
+    dependencies =
+      [ "rack" "rack-user_agent" "ronin-support" "sinatra" "webrick" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -695,10 +642,7 @@
     version = "0.1.1";
   };
   ronin-web-spider = {
-    dependencies = [
-      "ronin-support"
-      "spidr"
-    ];
+    dependencies = [ "ronin-support" "spidr" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -760,12 +704,7 @@
     version = "0.6.3";
   };
   sinatra = {
-    dependencies = [
-      "mustermann"
-      "rack"
-      "rack-protection"
-      "tilt"
-    ];
+    dependencies = [ "mustermann" "rack" "rack-protection" "tilt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

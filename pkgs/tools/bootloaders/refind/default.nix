@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  gnu-efi,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, gnu-efi, nixosTests }:
 
 let
   archids = {
@@ -23,21 +16,17 @@ let
     };
   };
 
-  inherit
-    (archids.${stdenv.hostPlatform.system}
-      or (throw "unsupported system: ${stdenv.hostPlatform.system}")
-    )
-    hostarch
-    efiPlatform
-  ;
-in
+  inherit (archids.${stdenv.hostPlatform.system} or (throw
+    "unsupported system: ${stdenv.hostPlatform.system}"))
+    hostarch efiPlatform;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "refind";
   version = "0.13.3.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/refind/${version}/${pname}-src-${version}.tar.gz";
     sha256 = "1lfgqqiyl6isy25wrxzyi3s334ii057g88714igyjjmxh47kygks";
   };
 
@@ -48,7 +37,8 @@ stdenv.mkDerivation rec {
     # Fixes issue with null dereference in ReadHiddenTags
     # Upstream: https://sourceforge.net/p/refind/code/merge-requests/45/
     (fetchpatch {
-      url = "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch";
+      url =
+        "https://github.com/samueldr/rEFInd/commit/29cd79dedabf84d5ddfe686f5692278cae6cc4d6.patch";
       sha256 = "sha256-/jAmOwvMmFWazyukN+ru1tQDiIBtgGk/e/pczsl1Xc8=";
     })
   ];
@@ -67,10 +57,7 @@ stdenv.mkDerivation rec {
     "ARCH=${hostarch}"
   ];
 
-  buildFlags = [
-    "gnuefi"
-    "fs_gnuefi"
-  ];
+  buildFlags = [ "gnuefi" "fs_gnuefi" ];
 
   installPhase = ''
     runHook preInstall
@@ -137,9 +124,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests = {
-    uefiCdrom = nixosTests.boot.uefiCdrom;
-  };
+  passthru.tests = { uefiCdrom = nixosTests.boot.uefiCdrom; };
 
   meta = with lib; {
     description = "A graphical {,U}EFI boot manager";
@@ -159,15 +144,9 @@ stdenv.mkDerivation rec {
       Linux kernels that provide EFI stub support.
     '';
     homepage = "http://refind.sourceforge.net/";
-    maintainers = with maintainers; [
-      AndersonTorres
-      samueldr
-    ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    maintainers = with maintainers; [ AndersonTorres samueldr ];
+    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
     license = licenses.gpl3Plus;
   };
+
 }

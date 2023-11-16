@@ -1,38 +1,30 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  fetchPypi,
-  groff,
-  less,
-}:
+{ lib, python3, fetchFromGitHub, fetchPypi, groff, less }:
 let
   py = python3.override {
     packageOverrides = self: super: {
-      pyyaml = super.pyyaml.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "5.4.1";
-          src = fetchFromGitHub {
-            owner = "yaml";
-            repo = "pyyaml";
-            rev = version;
-            hash = "sha256-VUqnlOF/8zSOqh6JoEYOsfQ0P4g+eYqxyFTywgCS7gM=";
-          };
-          checkPhase = ''
-            runHook preCheck
-            PYTHONPATH="tests/lib3:$PYTHONPATH" ${self.python.interpreter} -m test_all
-            runHook postCheck
-          '';
-        }
-      );
+      pyyaml = super.pyyaml.overridePythonAttrs (oldAttrs: rec {
+        version = "5.4.1";
+        src = fetchFromGitHub {
+          owner = "yaml";
+          repo = "pyyaml";
+          rev = version;
+          hash = "sha256-VUqnlOF/8zSOqh6JoEYOsfQ0P4g+eYqxyFTywgCS7gM=";
+        };
+        checkPhase = ''
+          runHook preCheck
+          PYTHONPATH="tests/lib3:$PYTHONPATH" ${self.python.interpreter} -m test_all
+          runHook postCheck
+        '';
+      });
     };
     self = py;
   };
-in
-with py.pkgs;
+
+in with py.pkgs;
 buildPythonApplication rec {
   pname = "awscli";
-  version = "1.27.79"; # N.B: if you change this, change botocore and boto3 to a matching version too
+  version =
+    "1.27.79"; # N.B: if you change this, change botocore and boto3 to a matching version too
 
   src = fetchPypi {
     inherit pname version;
@@ -47,18 +39,8 @@ buildPythonApplication rec {
       --replace "rsa>=3.1.2,<4.8" "rsa<5,>=3.1.2"
   '';
 
-  propagatedBuildInputs = [
-    botocore
-    bcdoc
-    s3transfer
-    six
-    colorama
-    docutils
-    rsa
-    pyyaml
-    groff
-    less
-  ];
+  propagatedBuildInputs =
+    [ botocore bcdoc s3transfer six colorama docutils rsa pyyaml groff less ];
 
   postInstall = ''
     mkdir -p $out/share/bash-completion/completions

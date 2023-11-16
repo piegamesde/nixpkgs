@@ -1,17 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python27,
-  htslib,
-  zlib,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, python27, htslib, zlib, makeWrapper }:
 
-let
-  python = python27.withPackages (ps: with ps; [ cython ]);
-in
-stdenv.mkDerivation {
+let python = python27.withPackages (ps: with ps; [ cython ]);
+
+in stdenv.mkDerivation {
   pname = "platypus-unstable";
   version = "2018-07-22";
 
@@ -23,11 +14,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    htslib
-    python
-    zlib
-  ];
+  buildInputs = [ htslib python zlib ];
 
   buildPhase = ''
     patchShebangs .

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  scsh,
-  feh,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, scsh, feh, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "deco";

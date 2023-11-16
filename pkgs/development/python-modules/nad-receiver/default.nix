@@ -1,10 +1,4 @@
-{
-  lib,
-  pyserial,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, pyserial, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "nad-receiver";

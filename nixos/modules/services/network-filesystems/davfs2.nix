@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,8 +9,7 @@ let
     dav_group ${cfg.davGroup}
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options.services.davfs2 = {
     enable = mkOption {
       type = types.bool;
@@ -62,7 +56,9 @@ in
     environment.systemPackages = [ pkgs.davfs2 ];
     environment.etc."davfs2/davfs2.conf".source = cfgFile;
 
-    users.groups = optionalAttrs (cfg.davGroup == "davfs2") { davfs2.gid = config.ids.gids.davfs2; };
+    users.groups = optionalAttrs (cfg.davGroup == "davfs2") {
+      davfs2.gid = config.ids.gids.davfs2;
+    };
 
     users.users = optionalAttrs (cfg.davUser == "davfs2") {
       davfs2 = {
@@ -90,5 +86,7 @@ in
       setuid = true;
       permissions = "u+rx,g+x";
     };
+
   };
+
 }

@@ -1,17 +1,9 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  fontconfig,
-  freetype,
-}:
+{ lib, fetchFromGitHub, rustPlatform, pkg-config, fontconfig, freetype }:
 let
   inherit (rustPlatform) buildRustPackage bindgenHook;
 
   version = "0.2.7";
-in
-buildRustPackage {
+in buildRustPackage {
   pname = "figma-agent";
   inherit version;
 
@@ -24,15 +16,9 @@ buildRustPackage {
 
   cargoSha256 = "sha256-Gc94Uk/Ikxjnb541flQL7AeblgU/yS6zQ/187ZGRYco=";
 
-  nativeBuildInputs = [
-    pkg-config
-    bindgenHook
-  ];
+  nativeBuildInputs = [ pkg-config bindgenHook ];
 
-  buildInputs = [
-    fontconfig
-    freetype
-  ];
+  buildInputs = [ fontconfig freetype ];
 
   doCheck = true;
 

@@ -1,15 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  # darwin dependencies
-  darwin,
-  libiconv,
-  curl,
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, pkg-config, openssl
+# darwin dependencies
+, darwin, libiconv, curl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-geiger";
@@ -23,19 +14,17 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-B6Ka35y2fJEDVd891P60TNppr5HGFnzVjLhhfoFCYUA=";
 
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
-        CoreFoundation
-        Security
-        libiconv
-        curl
-      ]
-    );
-  nativeBuildInputs =
-    [ pkg-config ]
-    # curl-sys wants to run curl-config on darwin
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [
+      CoreFoundation
+      Security
+      libiconv
+      curl
+    ]);
+  nativeBuildInputs = [
+    pkg-config
+  ]
+  # curl-sys wants to run curl-config on darwin
     ++ lib.optionals stdenv.isDarwin [ curl.dev ];
 
   # skip tests with networking or other failures
@@ -55,8 +44,10 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/rust-secure-code/cargo-geiger";
-    changelog = "https://github.com/rust-secure-code/cargo-geiger/blob/${pname}-${version}/CHANGELOG.md";
-    description = "Detects usage of unsafe Rust in a Rust crate and its dependencies";
+    changelog =
+      "https://github.com/rust-secure-code/cargo-geiger/blob/${pname}-${version}/CHANGELOG.md";
+    description =
+      "Detects usage of unsafe Rust in a Rust crate and its dependencies";
     longDescription = ''
       A cargo plugin that detects the usage of unsafe Rust in a Rust crate and
       its dependencies. It provides information to aid auditing and guide
@@ -67,9 +58,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [
-      evanjs
-      jk
-    ];
+    maintainers = with maintainers; [ evanjs jk ];
   };
 }

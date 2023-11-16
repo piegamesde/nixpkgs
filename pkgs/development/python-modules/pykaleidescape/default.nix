@@ -1,13 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  dnspython,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, buildPythonPackage, dnspython, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pykaleidescape";
@@ -23,28 +15,22 @@ buildPythonPackage rec {
     hash = "sha256-h5G7wV4Z+sf8Qq4GNFsp8DVDSgQgS0dLGf+DzK/egYM=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    dnspython
-  ];
+  propagatedBuildInputs = [ aiohttp dnspython ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "kaleidescape" ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_resolve_succeeds"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_resolve_succeeds"
+  ];
 
   meta = with lib; {
     description = "Module for controlling Kaleidescape devices";
     homepage = "https://github.com/SteveEasley/pykaleidescape";
-    changelog = "https://github.com/SteveEasley/pykaleidescape/releases/tag/v${version}";
+    changelog =
+      "https://github.com/SteveEasley/pykaleidescape/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

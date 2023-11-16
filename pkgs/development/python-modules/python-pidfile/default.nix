@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  psutil,
-}:
+{ lib, buildPythonPackage, fetchPypi, psutil }:
 
 buildPythonPackage rec {
   pname = "python-pidfile";

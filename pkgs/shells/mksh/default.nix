@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchurl, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "mksh";
@@ -46,21 +41,12 @@ stdenv.mkDerivation rec {
       also to be readily available under other UNIX(R)-like operating
       systems.
     '';
-    license = with licenses; [
-      miros
-      isc
-      unicode-dfs-2016
-    ];
-    maintainers = with maintainers; [
-      AndersonTorres
-      joachifm
-    ];
+    license = with licenses; [ miros isc unicode-dfs-2016 ];
+    maintainers = with maintainers; [ AndersonTorres joachifm ];
     platforms = platforms.unix;
   };
 
-  passthru = {
-    shellPath = "/bin/mksh";
-  };
+  passthru = { shellPath = "/bin/mksh"; };
 }
 # TODO [ AndersonTorres ]: lksh
 # TODO [ AndersonTorres ]: a more accurate licensing info

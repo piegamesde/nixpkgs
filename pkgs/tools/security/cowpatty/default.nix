@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  clang,
-  fetchFromGitHub,
-  installShellFiles,
-  openssl,
-  libpcap,
-}:
+{ lib, stdenv, clang, fetchFromGitHub, installShellFiles, openssl, libpcap }:
 
 stdenv.mkDerivation rec {
   pname = "cowpatty";
@@ -19,20 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "0fvwwghhd7wsx0lw2dj9rdsjnirawnq3c6silzvhi0yfnzn5fs0s";
   };
 
-  nativeBuildInputs = [
-    clang
-    installShellFiles
-  ];
+  nativeBuildInputs = [ clang installShellFiles ];
 
-  buildInputs = [
-    openssl
-    libpcap
-  ];
+  buildInputs = [ openssl libpcap ];
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "BINDIR=/bin"
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "BINDIR=/bin" ];
 
   postInstall = ''
     installManPage cowpatty.1
@@ -43,10 +26,7 @@ stdenv.mkDerivation rec {
     description = "Offline dictionary attack against WPA/WPA2 networks";
     homepage = "https://github.com/joswr1ght/cowpatty";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      nico202
-      fab
-    ];
+    maintainers = with maintainers; [ nico202 fab ];
     platforms = platforms.linux;
   };
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libpcap,
-  perl,
-}:
+{ lib, stdenv, fetchurl, libpcap, perl }:
 
 stdenv.mkDerivation rec {
   pname = "tcpdump";
@@ -23,7 +17,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libpcap ];
 
-  configureFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "ac_cv_linux_vers=2";
+  configureFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    "ac_cv_linux_vers=2";
 
   meta = with lib; {
     description = "Network sniffer";

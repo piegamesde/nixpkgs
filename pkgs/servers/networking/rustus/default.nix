@@ -1,19 +1,10 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  nix-update-script,
-  pkg-config,
-  openssl,
-  Security,
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, nix-update-script, pkg-config
+, openssl, Security }:
 
 let
   pname = "rustus";
   version = "0.7.3";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {

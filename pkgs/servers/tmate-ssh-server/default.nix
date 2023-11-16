@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  cmake,
-  libtool,
-  pkg-config,
-  zlib,
-  openssl,
-  libevent,
-  ncurses,
-  ruby,
-  msgpack,
-  libssh,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, cmake, libtool, pkg-config, zlib
+, openssl, libevent, ncurses, ruby, msgpack, libssh, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "tmate-ssh-server";
@@ -29,21 +14,8 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [
-    libtool
-    zlib
-    openssl
-    libevent
-    ncurses
-    ruby
-    msgpack
-    libssh
-  ];
-  nativeBuildInputs = [
-    autoreconfHook
-    cmake
-    pkg-config
-  ];
+  buildInputs = [ libtool zlib openssl libevent ncurses ruby msgpack libssh ];
+  nativeBuildInputs = [ autoreconfHook cmake pkg-config ];
 
   passthru.tests.tmate-ssh-server = nixosTests.tmate-ssh-server;
 

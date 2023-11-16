@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3Packages,
-  pciutils,
-}:
+{ lib, stdenv, fetchFromGitHub, python3Packages, pciutils }:
 
 stdenv.mkDerivation rec {
   pname = "throttled";
@@ -19,11 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ python3Packages.wrapPython ];
 
-  pythonPath = with python3Packages; [
-    configparser
-    dbus-python
-    pygobject3
-  ];
+  pythonPath = with python3Packages; [ configparser dbus-python pygobject3 ];
 
   # The upstream unit both assumes the install location, and tries to run in a virtualenv
   postPatch = ''

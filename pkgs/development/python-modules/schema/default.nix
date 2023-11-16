@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, mock, pytestCheckHook, pythonOlder
+, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "schema";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   pythonRemoveDeps = [ "contextlib2" ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "schema" ];
 

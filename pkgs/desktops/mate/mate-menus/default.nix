@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  glib,
-  gobject-introspection,
-  python3,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, glib, gobject-introspection
+, python3, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-menus";
@@ -21,16 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "RY1ZmuW2UMfSF0D5/pVMSoOL5F7WKrQOIOMG+vXdHYw=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ pkg-config gettext gobject-introspection ];
 
-  buildInputs = [
-    glib
-    python3
-  ];
+  buildInputs = [ glib python3 ];
 
   makeFlags = [
     "INTROSPECTION_GIRDIR=$(out)/share/gir-1.0/"
@@ -45,10 +29,7 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin;
     description = "Menu system for MATE";
     homepage = "https://github.com/mate-desktop/mate-menus";
-    license = with licenses; [
-      gpl2Plus
-      lgpl2Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl2Plus ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

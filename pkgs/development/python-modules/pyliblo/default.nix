@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchurl,
-  isPyPy,
-  pythonAtLeast,
-  liblo,
-  cython,
-}:
+{ lib, buildPythonPackage, fetchurl, isPyPy, pythonAtLeast, liblo, cython }:
 
 buildPythonPackage rec {
   pname = "pyliblo";
@@ -18,14 +10,12 @@ buildPythonPackage rec {
     sha256 = "13vry6xhxm7adnbyj28w1kpwrh0kf7nw83cz1yq74wl21faz2rzw";
   };
 
-  buildInputs = [
-    liblo
-    cython
-  ];
+  buildInputs = [ liblo cython ];
 
   meta = with lib; {
     homepage = "https://das.nasophon.de/pyliblo/";
     description = "Python wrapper for the liblo OSC library";
     license = licenses.lgpl21;
   };
+
 }

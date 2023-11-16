@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  copyDesktopItems,
-  makeDesktopItem,
-  imagemagick,
-  SDL,
-  isStereo ? false,
-}:
+{ lib, stdenv, fetchurl, unzip, copyDesktopItems, makeDesktopItem, imagemagick
+, SDL, isStereo ? false }:
 
 let
   pname = "goattracker" + lib.optionalString isStereo "-stereo";
@@ -18,41 +9,29 @@ let
     genericName = "Music Tracker";
     exec = if isStereo then "gt2stereo" else "goattrk2";
     icon = "goattracker";
-    categories = [
-      "AudioVideo"
-      "AudioVideoEditing"
-    ];
-    keywords = [
-      "tracker"
-      "music"
-    ];
+    categories = [ "AudioVideo" "AudioVideoEditing" ];
+    keywords = [ "tracker" "music" ];
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   inherit pname;
-  version =
-    if isStereo then
-      "2.77" # stereo
-    else
-      "2.76"; # normal
+  version = if isStereo then
+    "2.77" # stereo
+  else
+    "2.76"; # normal
 
   src = fetchurl {
     url = "mirror://sourceforge/goattracker2/GoatTracker_${version}${
         lib.optionalString isStereo "_Stereo"
       }.zip";
-    sha256 =
-      if isStereo then
-        "1hiig2d152sv9kazwz33i56x1c54h5sh21ipkqnp6qlnwj8x1ksy" # stereo
-      else
-        "0d7a3han4jw4bwiba3j87racswaajgl3pj4sb5lawdqdxicv3dn1"; # normal
+    sha256 = if isStereo then
+      "1hiig2d152sv9kazwz33i56x1c54h5sh21ipkqnp6qlnwj8x1ksy" # stereo
+    else
+      "0d7a3han4jw4bwiba3j87racswaajgl3pj4sb5lawdqdxicv3dn1"; # normal
   };
   sourceRoot = "src";
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    unzip
-    imagemagick
-  ];
+  nativeBuildInputs = [ copyDesktopItems unzip imagemagick ];
   buildInputs = [ SDL ];
 
   # PREFIX gets treated as BINDIR.

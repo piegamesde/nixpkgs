@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  jq,
-  makeWrapper,
-}:
+{ lib, buildGoModule, fetchFromGitHub, jq, makeWrapper }:
 
 buildGoModule rec {
   pname = "jiq";
@@ -31,7 +25,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/fiatjaf/jiq";
     license = licenses.mit;
-    description = "jid on jq - interactive JSON query tool using jq expressions";
+    description =
+      "jid on jq - interactive JSON query tool using jq expressions";
     maintainers = with maintainers; [ ];
   };
 }

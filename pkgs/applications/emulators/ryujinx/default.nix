@@ -1,36 +1,12 @@
-{
-  lib,
-  buildDotnetModule,
-  dotnetCorePackages,
-  stdenvNoCC,
-  fetchFromGitHub,
-  wrapGAppsHook,
-  libX11,
-  libgdiplus,
-  ffmpeg,
-  openal,
-  libsoundio,
-  sndio,
-  pulseaudio,
-  gtk3,
-  gdk-pixbuf,
-  vulkan-loader,
-  libICE,
-  libSM,
-  libXi,
-  libXcursor,
-  libXext,
-  libXrandr,
-  fontconfig,
-  glew,
-  libGL,
-  SDL2,
-  SDL2_mixer,
-}:
+{ lib, buildDotnetModule, dotnetCorePackages, stdenvNoCC, fetchFromGitHub
+, wrapGAppsHook, libX11, libgdiplus, ffmpeg, openal, libsoundio, sndio
+, pulseaudio, gtk3, gdk-pixbuf, vulkan-loader, libICE, libSM, libXi, libXcursor
+, libXext, libXrandr, fontconfig, glew, libGL, SDL2, SDL2_mixer }:
 
 buildDotnetModule rec {
   pname = "ryujinx";
-  version = "1.1.826"; # Based off of the official github actions builds: https://github.com/Ryujinx/Ryujinx/actions/workflows/release.yml
+  version =
+    "1.1.826"; # Based off of the official github actions builds: https://github.com/Ryujinx/Ryujinx/actions/workflows/release.yml
 
   src = fetchFromGitHub {
     owner = "Ryujinx";
@@ -46,10 +22,7 @@ buildDotnetModule rec {
 
   nativeBuildInputs = [ wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    gdk-pixbuf
-  ];
+  buildInputs = [ gtk3 gdk-pixbuf ];
 
   runtimeDeps = [
     gtk3
@@ -82,13 +55,10 @@ buildDotnetModule rec {
   testProjectFile = "src/Ryujinx.Tests/Ryujinx.Tests.csproj";
   doCheck = true;
 
-  dotnetFlags = [ "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR" ];
+  dotnetFlags =
+    [ "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR" ];
 
-  executables = [
-    "Ryujinx.Headless.SDL2"
-    "Ryujinx.Ava"
-    "Ryujinx"
-  ];
+  executables = [ "Ryujinx.Headless.SDL2" "Ryujinx.Ava" "Ryujinx" ];
 
   makeWrapperArgs = [
     # Without this Ryujinx fails to start on wayland. See https://github.com/Ryujinx/Ryujinx/issues/2714
@@ -132,10 +102,7 @@ buildDotnetModule rec {
       2017.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [
-      ivar
-      jk
-    ];
+    maintainers = with maintainers; [ ivar jk ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "Ryujinx";
   };

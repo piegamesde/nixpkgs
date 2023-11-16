@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-  perlPackages,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, perl, perlPackages, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "lcov";
@@ -33,7 +26,9 @@ stdenv.mkDerivation rec {
         perlPackages.JSON
       ]
     }
-    wrapProgram $out/bin/genpng --set PERL5LIB ${perlPackages.makeFullPerlPath [ perlPackages.GD ]}
+    wrapProgram $out/bin/genpng --set PERL5LIB ${
+      perlPackages.makeFullPerlPath [ perlPackages.GD ]
+    }
   '';
 
   meta = with lib; {

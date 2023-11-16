@@ -1,24 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  substituteAll,
-  openfortivpn,
-  autoreconfHook,
-  gettext,
-  pkg-config,
-  file,
-  glib,
-  gtk3,
-  gtk4,
-  networkmanager,
-  ppp,
-  libsecret,
-  withGnome ? true,
-  gnome,
-  libnma,
-  libnma-gtk4,
-}:
+{ stdenv, lib, fetchurl, substituteAll, openfortivpn, autoreconfHook, gettext
+, pkg-config, file, glib, gtk3, gtk4, networkmanager, ppp, libsecret
+, withGnome ? true, gnome, libnma, libnma-gtk4 }:
 
 stdenv.mkDerivation rec {
   pname = "NetworkManager-fortisslvpn";
@@ -40,27 +22,10 @@ stdenv.mkDerivation rec {
     ./support-ppp-2.5.0.patch
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    pkg-config
-    file
-  ];
+  nativeBuildInputs = [ autoreconfHook gettext pkg-config file ];
 
-  buildInputs =
-    [
-      openfortivpn
-      networkmanager
-      ppp
-      glib
-    ]
-    ++ lib.optionals withGnome [
-      gtk3
-      gtk4
-      libsecret
-      libnma
-      libnma-gtk4
-    ];
+  buildInputs = [ openfortivpn networkmanager ppp glib ]
+    ++ lib.optionals withGnome [ gtk3 gtk4 libsecret libnma libnma-gtk4 ];
 
   configureFlags = [
     "--with-gnome=${if withGnome then "yes" else "no"}"
@@ -69,12 +34,11 @@ stdenv.mkDerivation rec {
     "--enable-absolute-paths"
   ];
 
-  installFlags =
-    [
-      # the installer only creates an empty directory in localstatedir, so
-      # we can drop it
-      "localstatedir=."
-    ];
+  installFlags = [
+    # the installer only creates an empty directory in localstatedir, so
+    # we can drop it
+    "localstatedir=."
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

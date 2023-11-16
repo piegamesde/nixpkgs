@@ -1,39 +1,32 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  appimageTools,
-  tor,
-  trezord,
-}:
+{ lib, stdenv, fetchurl, appimageTools, tor, trezord }:
 
 let
   pname = "trezor-suite";
   version = "23.4.2";
   name = "${pname}-${version}";
 
-  suffix =
-    {
-      aarch64-linux = "linux-arm64";
-      x86_64-linux = "linux-x86_64";
-    }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  suffix = {
+    aarch64-linux = "linux-arm64";
+    x86_64-linux = "linux-x86_64";
+  }.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
-    url = "https://github.com/trezor/${pname}/releases/download/v${version}/Trezor-Suite-${version}-${suffix}.AppImage";
+    url =
+      "https://github.com/trezor/${pname}/releases/download/v${version}/Trezor-Suite-${version}-${suffix}.AppImage";
     sha512 =
-      {
-        # curl -Lfs https://github.com/trezor/trezor-suite/releases/latest/download/latest-linux{-arm64,}.yml | grep ^sha512 | sed 's/: /-/'
-        aarch64-linux = "sha512-+dcogzj0mENWSAVKqUG/xyF+TD/nKpA3UiNyI2M7iiCaW+tpwO5Y0uUmzb1rFRtDsKMflDPZNWe8qMJmrtaIrA==";
-        x86_64-linux = "sha512-8UyPa3hDmALiYGao451ZBQLxv9H9OLbzzHiANp4zgvjBLGNhZnPFBIYM6KGyKkgRJJiTcgd7VHCgEhPpfm0qzg==";
-      }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      { # curl -Lfs https://github.com/trezor/trezor-suite/releases/latest/download/latest-linux{-arm64,}.yml | grep ^sha512 | sed 's/: /-/'
+        aarch64-linux =
+          "sha512-+dcogzj0mENWSAVKqUG/xyF+TD/nKpA3UiNyI2M7iiCaW+tpwO5Y0uUmzb1rFRtDsKMflDPZNWe8qMJmrtaIrA==";
+        x86_64-linux =
+          "sha512-8UyPa3hDmALiYGao451ZBQLxv9H9OLbzzHiANp4zgvjBLGNhZnPFBIYM6KGyKkgRJJiTcgd7VHCgEhPpfm0qzg==";
+      }.${stdenv.hostPlatform.system} or (throw
+        "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
-in
 
-appimageTools.wrapType2 rec {
+in appimageTools.wrapType2 rec {
   inherit name src;
 
   extraInstallCommands = ''
@@ -58,12 +51,10 @@ appimageTools.wrapType2 rec {
   meta = with lib; {
     description = "Trezor Suite - Desktop App for managing crypto";
     homepage = "https://suite.trezor.io";
-    changelog = "https://github.com/trezor/trezor-suite/releases/tag/v${version}";
+    changelog =
+      "https://github.com/trezor/trezor-suite/releases/tag/v${version}";
     license = licenses.unfree;
     maintainers = with maintainers; [ prusnak ];
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "aarch64-linux" "x86_64-linux" ];
   };
 }

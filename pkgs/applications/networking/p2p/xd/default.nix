@@ -1,10 +1,4 @@
-{
-  pkgs,
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  perl,
-}:
+{ pkgs, buildGoModule, fetchFromGitHub, lib, perl }:
 
 buildGoModule rec {
   pname = "XD";

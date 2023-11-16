@@ -1,16 +1,8 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  python3,
-  makeWrapper,
-  unstableGitUpdater,
-  nixosTests,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, python3, makeWrapper, unstableGitUpdater
+, nixosTests }:
 
 let
-  pythonEnv = python3.withPackages (
-    packages:
+  pythonEnv = python3.withPackages (packages:
     with packages; [
       tornado
       pyserial-asyncio
@@ -27,10 +19,8 @@ let
       jinja2
       dbus-next
       apprise
-    ]
-  );
-in
-stdenvNoCC.mkDerivation rec {
+    ]);
+in stdenvNoCC.mkDerivation rec {
   pname = "moonraker";
   version = "unstable-2022-11-18";
 

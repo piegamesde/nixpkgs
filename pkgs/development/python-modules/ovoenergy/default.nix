@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  incremental,
-  pydantic,
-  pythonOlder,
-  typer,
-}:
+{ lib, aiohttp, buildPythonPackage, click, fetchFromGitHub, incremental
+, pydantic, pythonOlder, typer }:
 
 buildPythonPackage rec {
   pname = "ovoenergy";
@@ -31,12 +22,7 @@ buildPythonPackage rec {
       --replace "typer==0.6.1" "typer"
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    click
-    pydantic
-    typer
-  ];
+  propagatedBuildInputs = [ aiohttp click pydantic typer ];
 
   # Project has no tests
   doCheck = false;

@@ -1,11 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  flex,
-  bison,
-  sendmailPath ? "/run/wrappers/bin/sendmail",
-}:
+{ lib, stdenv, fetchurl, flex, bison
+, sendmailPath ? "/run/wrappers/bin/sendmail" }:
 
 stdenv.mkDerivation rec {
   pname = "petidomo";
@@ -16,10 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "0x4dbxc4fcfg1rw5ywpcypvylnzn3y4rh0m6fz4h4cdnzb8p1lvm";
   };
 
-  buildInputs = [
-    flex
-    bison
-  ];
+  buildInputs = [ flex bison ];
 
   configureFlags = [ "--with-mta=${sendmailPath}" ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  colorama,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonApplication, colorama, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonApplication rec {
   pname = "yasi";
@@ -30,9 +24,11 @@ buildPythonApplication rec {
   pythonImportsCheck = [ "yasi" ];
 
   meta = with lib; {
-    description = "A dialect-aware s-expression indenter written in Python and newLISP";
+    description =
+      "A dialect-aware s-expression indenter written in Python and newLISP";
     homepage = "https://github.com/nkmathew/yasi-sexp-indenter";
-    changelog = "https://github.com/nkmathew/yasi-sexp-indenter/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/nkmathew/yasi-sexp-indenter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ kranzes ];
   };

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  runCommand,
-  yq-go,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, runCommand, yq-go }:
 
 buildGoModule rec {
   pname = "yq-go";
@@ -39,12 +32,10 @@ buildGoModule rec {
   meta = with lib; {
     description = "Portable command-line YAML processor";
     homepage = "https://mikefarah.gitbook.io/yq/";
-    changelog = "https://github.com/mikefarah/yq/raw/v${version}/release_notes.txt";
+    changelog =
+      "https://github.com/mikefarah/yq/raw/v${version}/release_notes.txt";
     mainProgram = "yq";
     license = [ licenses.mit ];
-    maintainers = with maintainers; [
-      lewo
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ lewo SuperSandro2000 ];
   };
 }

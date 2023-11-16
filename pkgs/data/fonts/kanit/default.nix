@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "kanit";
@@ -30,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://cadsondemak.github.io/kanit/";
-    description = "A loopless Thai and sans serif Latin typeface for contemporary and futuristic uses";
+    description =
+      "A loopless Thai and sans serif Latin typeface for contemporary and futuristic uses";
     longDescription = ''
       Kanit means mathematics in Thai, and the Kanit typeface family is a formal
       Loopless Thai and Sans Latin design. It is a combination of concepts,

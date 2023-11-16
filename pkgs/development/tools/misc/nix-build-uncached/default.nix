@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper }:
 
 buildGoModule rec {
   pname = "nix-build-uncached";

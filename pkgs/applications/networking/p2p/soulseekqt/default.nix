@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchzip,
-  mkDerivation,
-  appimageTools,
-  autoPatchelfHook,
-  desktop-file-utils,
-  imagemagick,
-  qtmultimedia,
-}:
+{ stdenv, lib, fetchzip, mkDerivation, appimageTools, autoPatchelfHook
+, desktop-file-utils, imagemagick, qtmultimedia }:
 
 mkDerivation rec {
   pname = "soulseekqt";
@@ -16,7 +7,8 @@ mkDerivation rec {
   name = "${pname}-${version}";
 
   src = fetchzip {
-    url = "https://www.slsknet.org/SoulseekQt/Linux/SoulseekQt-${version}-64bit-appimage.tgz";
+    url =
+      "https://www.slsknet.org/SoulseekQt/Linux/SoulseekQt-${version}-64bit-appimage.tgz";
     sha256 = "16ncnvv8h33f161mgy7qc0wjvvqahsbwvby65qhgfh9pbbgb4xgg";
   };
 
@@ -28,15 +20,8 @@ mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
 
-  nativeBuildInputs = [
-    imagemagick
-    autoPatchelfHook
-    desktop-file-utils
-  ];
-  buildInputs = [
-    qtmultimedia
-    stdenv.cc.cc
-  ];
+  nativeBuildInputs = [ imagemagick autoPatchelfHook desktop-file-utils ];
+  buildInputs = [ qtmultimedia stdenv.cc.cc ];
 
   installPhase = ''
     # directory in /nix/store so readonly

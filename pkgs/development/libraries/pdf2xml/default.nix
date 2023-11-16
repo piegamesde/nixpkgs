@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libxpdf,
-  libxml2,
-}:
+{ lib, stdenv, fetchurl, libxpdf, libxml2 }:
 
 stdenv.mkDerivation {
   name = "pdf2xml";
@@ -15,10 +9,7 @@ stdenv.mkDerivation {
   };
   sourceRoot = "pdf2xml/pdf2xml";
 
-  buildInputs = [
-    libxml2
-    libxpdf
-  ];
+  buildInputs = [ libxml2 libxpdf ];
 
   patches = [ ./pdf2xml.patch ];
 

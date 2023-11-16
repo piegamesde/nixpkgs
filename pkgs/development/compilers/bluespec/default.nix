@@ -1,43 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  autoconf,
-  automake,
-  fontconfig,
-  libX11,
-  perl,
-  flex,
-  bison,
-  pkg-config,
-  tcl,
-  tk,
-  xorg,
-  yices,
-  zlib,
-  ghc,
-  gmp-static,
-  verilog,
-  asciidoctor,
-  tex,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, autoconf, automake, fontconfig, libX11
+, perl, flex, bison, pkg-config, tcl, tk, xorg, yices, zlib, ghc, gmp-static
+, verilog, asciidoctor, tex, which }:
 
 let
-  ghcWithPackages = ghc.withPackages (
-    g:
-    (
-      with g; [
-        old-time
-        regex-compat
-        syb
-        split
-      ]
-    )
-  );
-in
-stdenv.mkDerivation rec {
+  ghcWithPackages =
+    ghc.withPackages (g: (with g; [ old-time regex-compat syb split ]));
+
+in stdenv.mkDerivation rec {
   pname = "bluespec";
   version = "2023.01";
 
@@ -49,16 +18,14 @@ stdenv.mkDerivation rec {
   };
 
   yices-src = fetchurl {
-    url = "https://github.com/B-Lang-org/bsc/releases/download/${version}/yices-src-for-bsc-${version}.tar.gz";
+    url =
+      "https://github.com/B-Lang-org/bsc/releases/download/${version}/yices-src-for-bsc-${version}.tar.gz";
     sha256 = "sha256-pyEdCJvmgwOYPMZEtw7aro76tSn/Y/2GcKTyARmIh4E=";
   };
 
   enableParallelBuilding = true;
 
-  outputs = [
-    "out"
-    "doc"
-  ];
+  outputs = [ "out" "doc" ];
 
   # https://github.com/B-Lang-org/bsc/pull/278
   patches = [ ./libstp_stub_makefile.patch ];
@@ -115,10 +82,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    gmp-static
-    verilog
-  ];
+  nativeCheckInputs = [ gmp-static verilog ];
 
   checkTarget = "check-smoke";
 
@@ -142,9 +106,6 @@ stdenv.mkDerivation rec {
     mainProgram = "bsc";
     # darwin fails at https://github.com/B-Lang-org/bsc/pull/35#issuecomment-583731562
     # aarch64 fails, as GHC fails with "ghc: could not execute: opt"
-    maintainers = with lib.maintainers; [
-      jcumming
-      thoughtpolice
-    ];
+    maintainers = with lib.maintainers; [ jcumming thoughtpolice ];
   };
 }

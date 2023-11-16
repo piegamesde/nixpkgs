@@ -1,16 +1,5 @@
-{
-  lib,
-  config,
-  stdenv,
-  fetchurl,
-  cairo,
-  cmake,
-  opencv,
-  pcre,
-  pkg-config,
-  cudaSupport ? config.cudaSupport or false,
-  cudaPackages,
-}:
+{ lib, config, stdenv, fetchurl, cairo, cmake, opencv, pcre, pkg-config
+, cudaSupport ? config.cudaSupport or false, cudaPackages }:
 
 stdenv.mkDerivation rec {
   pname = "frei0r-plugins";
@@ -21,20 +10,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-RaKGVcrwVyJ7RCuADKOJnpNJBRXIHiEtIZ/fSnYT9cQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ cairo opencv pcre ] ++ lib.optionals cudaSupport [
+    cudaPackages.cuda_cudart
+    cudaPackages.cuda_nvcc
   ];
-  buildInputs =
-    [
-      cairo
-      opencv
-      pcre
-    ]
-    ++ lib.optionals cudaSupport [
-      cudaPackages.cuda_cudart
-      cudaPackages.cuda_nvcc
-    ];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     for f in $out/lib/frei0r-1/*.so* ; do

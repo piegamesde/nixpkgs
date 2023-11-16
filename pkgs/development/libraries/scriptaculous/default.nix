@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  ...
-}:
+{ lib, stdenv, fetchurl, unzip, ... }:
 
 stdenv.mkDerivation rec {
   pname = "scriptaculous";
@@ -23,7 +17,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A set of JavaScript libraries to enhance the user interface of web sites";
+    description =
+      "A set of JavaScript libraries to enhance the user interface of web sites";
     longDescription = ''
       script.aculo.us provides you with
       easy-to-use, cross-browser user

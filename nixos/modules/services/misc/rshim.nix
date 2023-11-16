@@ -1,36 +1,23 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.rshim;
 
-  rshimCommand =
-    [ "${cfg.package}/bin/rshim" ]
+  rshimCommand = [ "${cfg.package}/bin/rshim" ]
     ++ lib.optionals (cfg.backend != null) [ "--backend ${cfg.backend}" ]
     ++ lib.optionals (cfg.device != null) [ "--device ${cfg.device}" ]
-    ++ lib.optionals (cfg.index != null) [ "--index ${builtins.toString cfg.index}" ]
+    ++ lib.optionals (cfg.index != null)
+    [ "--index ${builtins.toString cfg.index}" ]
     ++ [ "--log-level ${builtins.toString cfg.log-level}" ];
-in
-{
+in {
   options.services.rshim = {
-    enable = lib.mkEnableOption (lib.mdDoc "User-space rshim driver for the BlueField SoC");
+    enable = lib.mkEnableOption
+      (lib.mdDoc "User-space rshim driver for the BlueField SoC");
 
     package = lib.mkPackageOptionMD pkgs "rshim-user-space" { };
 
     backend = lib.mkOption {
-      type =
-        with lib.types;
-        nullOr (
-          enum [
-            "usb"
-            "pcie"
-            "pcie_lf"
-          ]
-        );
+      type = with lib.types; nullOr (enum [ "usb" "pcie" "pcie_lf" ]);
       description = lib.mdDoc ''
         Specify the backend to attach. If not specified, the driver will scan
         all rshim backends unless the `device` option is given with a device
@@ -71,14 +58,7 @@ in
     };
 
     config = lib.mkOption {
-      type =
-        with lib.types;
-        attrsOf (
-          oneOf [
-            int
-            str
-          ]
-        );
+      type = with lib.types; attrsOf (oneOf [ int str ]);
       description = lib.mdDoc ''
         Structural setting for the rshim configuration file
         (`/etc/rshim.conf`). It can be used to specify the static mapping
@@ -96,9 +76,9 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.etc = lib.mkIf (cfg.config != { }) {
-      "rshim.conf".text =
-        lib.generators.toKeyValue { mkKeyValue = lib.generators.mkKeyValueDefault { } " "; }
-          cfg.config;
+      "rshim.conf".text = lib.generators.toKeyValue {
+        mkKeyValue = lib.generators.mkKeyValueDefault { } " ";
+      } cfg.config;
     };
 
     systemd.services.rshim = {

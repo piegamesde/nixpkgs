@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  fetchurl,
-  jre,
-}:
+{ lib, stdenv, makeWrapper, fetchurl, jre }:
 
 stdenv.mkDerivation rec {
   pname = "cfr";

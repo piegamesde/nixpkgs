@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cmake,
-  alsa-lib,
-  boost,
-  glib,
-  lash,
-  libjack2,
-  libarchive,
-  libsndfile,
-  lrdf,
-  qt4,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, alsa-lib, boost, glib, lash
+, libjack2, libarchive, libsndfile, lrdf, qt4 }:
 
 stdenv.mkDerivation rec {
   version = "0.9.7";
@@ -26,21 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6ycNUcumtAEl/6XbIpW6JglGv4nNOdMrOJ1nvJg3z/c=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
-  buildInputs = [
-    alsa-lib
-    boost
-    glib
-    lash
-    libjack2
-    libarchive
-    libsndfile
-    lrdf
-    qt4
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
+  buildInputs =
+    [ alsa-lib boost glib lash libjack2 libarchive libsndfile lrdf qt4 ];
 
   meta = with lib; {
     description = "Advanced drum machine";

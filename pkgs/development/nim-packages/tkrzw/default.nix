@@ -1,10 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromSourcehut,
-  pkg-config,
-  tkrzw,
-}:
+{ lib, buildNimPackage, fetchFromSourcehut, pkg-config, tkrzw }:
 
 buildNimPackage rec {
   pname = "tkrzw";
@@ -18,10 +12,8 @@ buildNimPackage rec {
   propagatedNativeBuildInputs = [ pkg-config ];
   propagatedBuildInputs = [ tkrzw ];
   doCheck = true;
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "Nim wrappers over some of the Tkrzw C++ library";
       license = lib.licenses.apsl20;
       maintainers = with lib.maintainers; [ ehmry ];

@@ -1,14 +1,5 @@
-{
-  fetchFromGitHub,
-  glib,
-  gtk3,
-  openssl,
-  pkg-config,
-  python3,
-  rustPlatform,
-  lib,
-  wrapGAppsHook,
-}:
+{ fetchFromGitHub, glib, gtk3, openssl, pkg-config, python3, rustPlatform, lib
+, wrapGAppsHook }:
 
 rustPlatform.buildRustPackage rec {
   pname = "break-time";
@@ -21,9 +12,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-q79JXaBwd/oKtJPvK2+72pY2YvaR3of2CMC8cF6wwQ8=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [
     pkg-config
@@ -31,11 +20,7 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    openssl
-  ];
+  buildInputs = [ glib gtk3 openssl ];
 
   # update Cargo.lock to work with openssl
   postPatch = ''
@@ -50,3 +35,4 @@ rustPlatform.buildRustPackage rec {
     platforms = platforms.linux;
   };
 }
+

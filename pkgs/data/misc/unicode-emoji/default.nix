@@ -1,21 +1,16 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  symlinkJoin,
-}:
+{ lib, stdenvNoCC, fetchurl, symlinkJoin }:
 
 let
   version = "15.0";
 
-  fetchData =
-    { suffix, hash }:
+  fetchData = { suffix, hash }:
     stdenvNoCC.mkDerivation {
       pname = "unicode-emoji-${suffix}";
       inherit version;
 
       src = fetchurl {
-        url = "https://www.unicode.org/Public/emoji/${version}/emoji-${suffix}.txt";
+        url =
+          "https://www.unicode.org/Public/emoji/${version}/emoji-${suffix}.txt";
         inherit hash;
       };
 
@@ -46,9 +41,8 @@ let
       hash = "sha256-/jV/kRe3dGZ2Bjdl1YcTft+bJZA6eSvVSTW/CFZ5EYI=";
     };
   };
-in
 
-symlinkJoin rec {
+in symlinkJoin rec {
   name = "unicode-emoji-${version}";
 
   paths = lib.attrValues srcs;

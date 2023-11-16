@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ocamlbuild,
-}:
+{ stdenv, lib, fetchFromGitHub, ocaml, findlib, ocamlbuild }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-process";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0m1ldah5r9gcq09d9jh8lhvr77910dygx5m309k1jm60ah9mdcab";
   };
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-  ];
+  nativeBuildInputs = [ ocaml findlib ocamlbuild ];
   strictDeps = true;
 
   createFindlibDestdir = true;

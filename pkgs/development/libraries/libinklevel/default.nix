@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libusb1,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "libinklevel";
@@ -18,11 +12,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ libusb1 ];
 
-  outputs = [
-    "out"
-    "dev"
-    "doc"
-  ];
+  outputs = [ "out" "dev" "doc" ];
 
   meta = with lib; {
     description = "A library for checking the ink level of your printer";

@@ -10,7 +10,8 @@ rec {
   # its unique status as a trusted binary seed.
   hex0-seed = import <nix/fetchurl.nix> {
     name = "hex0-seed-${version}";
-    url = "https://github.com/oriansj/bootstrap-seeds/raw/b1263ff14a17835f4d12539226208c426ced4fba/POSIX/x86/hex0-seed";
+    url =
+      "https://github.com/oriansj/bootstrap-seeds/raw/b1263ff14a17835f4d12539226208c426ced4fba/POSIX/x86/hex0-seed";
     hash = "sha256-QU3RPGy51W7M2xnfFY1IqruKzusrSLU+L190ztN6JW8=";
     executable = true;
   };
@@ -27,7 +28,8 @@ rec {
   # To build see `make-bootstrap-sources.nix`
   src = import <nix/fetchurl.nix> {
     inherit name;
-    url = "https://github.com/emilytrau/bootstrap-tools-nar-mirror/releases/download/2023-05-02/${name}.nar.xz";
+    url =
+      "https://github.com/emilytrau/bootstrap-tools-nar-mirror/releases/download/2023-05-02/${name}.nar.xz";
     hash = "sha256-ZRG0k49MxL1UTZhuMTvPoEprdSpJRNVy8QhLE6k+etg=";
     unpack = true;
   };

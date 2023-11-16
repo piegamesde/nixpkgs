@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "helmfile";
@@ -22,11 +17,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X go.szostok.io/version.version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X go.szostok.io/version.version=v${version}" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -45,9 +36,6 @@ buildGoModule rec {
     '';
     homepage = "https://helmfile.readthedocs.io/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      pneumaticat
-      yurrriq
-    ];
+    maintainers = with lib.maintainers; [ pneumaticat yurrriq ];
   };
 }

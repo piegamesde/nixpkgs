@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  flex,
-}:
+{ lib, stdenv, fetchurl, flex }:
 
 stdenv.mkDerivation rec {
   pname = "wcslib";
   version = "7.12";
 
   src = fetchurl {
-    url = "ftp://ftp.atnf.csiro.au/pub/software/wcslib/${pname}-${version}.tar.bz2";
+    url =
+      "ftp://ftp.atnf.csiro.au/pub/software/wcslib/${pname}-${version}.tar.bz2";
     sha256 = "sha256-nPjeUOEJqX+gRRHUER6NFL0KRAdxMqz3PmzwAp/pa9Q=";
   };
 
@@ -18,10 +14,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   meta = with lib; {
     homepage = "https://www.atnf.csiro.au/people/mcalabre/WCS/";

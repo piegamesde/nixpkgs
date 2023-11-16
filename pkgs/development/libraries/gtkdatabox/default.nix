@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gtk3,
-  pango,
-  cairo,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gtk3, pango, cairo }:
 
 stdenv.mkDerivation rec {
   pname = "gtkdatabox";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs = [
-    gtk3
-    pango
-    cairo
-  ];
+  propagatedBuildInputs = [ gtk3 pango cairo ];
 
   meta = {
     description = "GTK widget for displaying large amounts of numerical data";

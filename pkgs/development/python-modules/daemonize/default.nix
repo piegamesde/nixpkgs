@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "daemonize";
@@ -14,8 +10,10 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "Library to enable your code run as a daemon process on Unix-like systems";
+    description =
+      "Library to enable your code run as a daemon process on Unix-like systems";
     homepage = "https://github.com/thesharp/daemonize";
     license = licenses.mit;
   };
+
 }

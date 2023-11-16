@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  coreutils,
-  binutils-unwrapped,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, binutils-unwrapped }:
 
 stdenv.mkDerivation rec {
   pname = "spectre-meltdown-checker";
@@ -36,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Spectre & Meltdown vulnerability/mitigation checker for Linux";
+    description =
+      "Spectre & Meltdown vulnerability/mitigation checker for Linux";
     homepage = "https://github.com/speed47/spectre-meltdown-checker";
     license = licenses.gpl3;
     maintainers = with maintainers; [ dotlambda ];

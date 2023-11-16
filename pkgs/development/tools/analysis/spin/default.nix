@@ -1,25 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  bison,
-  gcc,
-  tk,
-  swarm,
-  graphviz,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, bison, gcc, tk, swarm, graphviz }:
 
-let
-  binPath = lib.makeBinPath [
-    gcc
-    graphviz
-    tk
-    swarm
-  ];
-in
+let binPath = lib.makeBinPath [ gcc graphviz tk swarm ];
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "spin";
   version = "6.5.2";
 
@@ -57,9 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://spinroot.com/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      pSub
-      siraben
-    ];
+    maintainers = with maintainers; [ pSub siraben ];
   };
 }

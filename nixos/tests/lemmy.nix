@@ -1,11 +1,9 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     uiPort = 1234;
     backendPort = 5678;
     lemmyNodeName = "server";
-  in
-  {
+  in {
     name = "lemmy";
     meta = with lib.maintainers; { maintainers = [ mightyiam ]; };
 
@@ -44,7 +42,9 @@ import ./make-test-python.nix (
       with subtest("the backend starts and responds"):
           server.wait_for_unit("lemmy.service")
           server.wait_for_open_port(${toString backendPort})
-          server.succeed("curl --fail localhost:${toString backendPort}/api/v3/site")
+          server.succeed("curl --fail localhost:${
+            toString backendPort
+          }/api/v3/site")
 
       with subtest("the UI starts and responds"):
           server.wait_for_unit("lemmy-ui.service")
@@ -87,5 +87,4 @@ import ./make-test-python.nix (
           assert_http_code("${lemmyNodeName}/some-other-path", 404, "-H 'Accept: application/activity+json'")
           assert_http_code("${lemmyNodeName}/some-other-path", 404, "-H 'Accept: application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"'")
     '';
-  }
-)
+  })

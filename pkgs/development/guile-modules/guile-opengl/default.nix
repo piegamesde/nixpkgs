@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  guile,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, guile, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "guile-opengl";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-uPCH7CiCPQmfuELDupQQS7BPqecIFmSHpHGYnhwXbGU=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    guile
-  ];
+  nativeBuildInputs = [ pkg-config guile ];
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/guile-opengl/";

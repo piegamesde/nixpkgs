@@ -1,80 +1,67 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gitUpdater,
-  gtk3,
-  hicolor-icon-theme,
-  jdupes,
-  colorVariants ? [ ] # default: all
-  ,
+{ lib, stdenvNoCC, fetchFromGitHub, gitUpdater, gtk3, hicolor-icon-theme, jdupes
+, colorVariants ? [ ] # default: all
 }:
 
-let
-  pname = "vimix-icon-theme";
-in
-lib.checkListOfEnum "${pname}: color variants"
-  [
-    "standard"
-    "Amethyst"
-    "Beryl"
-    "Doder"
-    "Ruby"
-    "Jade"
-    "Black"
-    "White"
-  ]
-  colorVariants
+let pname = "vimix-icon-theme";
 
-  stdenvNoCC.mkDerivation
-  rec {
-    inherit pname;
-    version = "2023-01-18";
+in lib.checkListOfEnum "${pname}: color variants" [
+  "standard"
+  "Amethyst"
+  "Beryl"
+  "Doder"
+  "Ruby"
+  "Jade"
+  "Black"
+  "White"
+] colorVariants
 
-    src = fetchFromGitHub {
-      owner = "vinceliuice";
-      repo = pname;
-      rev = version;
-      sha256 = "5EgTWF6qu12VYVi7w5BOp7IleN4IevLZR0hH9x/qbGo=";
-    };
+stdenvNoCC.mkDerivation rec {
+  inherit pname;
+  version = "2023-01-18";
 
-    nativeBuildInputs = [
-      gtk3
-      jdupes
-    ];
+  src = fetchFromGitHub {
+    owner = "vinceliuice";
+    repo = pname;
+    rev = version;
+    sha256 = "5EgTWF6qu12VYVi7w5BOp7IleN4IevLZR0hH9x/qbGo=";
+  };
 
-    propagatedBuildInputs = [ hicolor-icon-theme ];
+  nativeBuildInputs = [ gtk3 jdupes ];
 
-    dontDropIconThemeCache = true;
+  propagatedBuildInputs = [ hicolor-icon-theme ];
 
-    # These fixup steps are slow and unnecessary for this package
-    dontPatchELF = true;
-    dontRewriteSymlinks = true;
+  dontDropIconThemeCache = true;
 
-    postPatch = ''
-      patchShebangs install.sh
-    '';
+  # These fixup steps are slow and unnecessary for this package
+  dontPatchELF = true;
+  dontRewriteSymlinks = true;
 
-    installPhase = ''
-      runHook preInstall
+  postPatch = ''
+    patchShebangs install.sh
+  '';
 
-      ./install.sh \
-        ${if colorVariants != [ ] then builtins.toString colorVariants else "-a"} \
-        -d $out/share/icons
+  installPhase = ''
+    runHook preInstall
 
-      # replace duplicate files with symlinks
-      jdupes --quiet --link-soft --recurse $out/share
+    ./install.sh \
+      ${
+        if colorVariants != [ ] then builtins.toString colorVariants else "-a"
+      } \
+      -d $out/share/icons
 
-      runHook postInstall
-    '';
+    # replace duplicate files with symlinks
+    jdupes --quiet --link-soft --recurse $out/share
 
-    passthru.updateScript = gitUpdater { };
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      description = "A Material Design icon theme based on Paper icon theme";
-      homepage = "https://github.com/vinceliuice/vimix-icon-theme";
-      license = with licenses; [ cc-by-sa-40 ];
-      platforms = platforms.linux;
-      maintainers = with maintainers; [ romildo ];
-    };
-  }
+  passthru.updateScript = gitUpdater { };
+
+  meta = with lib; {
+    description = "A Material Design icon theme based on Paper icon theme";
+    homepage = "https://github.com/vinceliuice/vimix-icon-theme";
+    license = with licenses; [ cc-by-sa-40 ];
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ romildo ];
+  };
+}

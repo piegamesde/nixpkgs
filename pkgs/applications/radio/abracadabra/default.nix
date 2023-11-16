@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  wrapQtAppsHook,
-  qtbase,
-  qtmultimedia,
-  qttools,
-  faad2,
-  mpg123,
-  portaudio,
-  libusb1,
-  rtl-sdr,
-  airspy,
-  soapysdr-with-plugins,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, wrapQtAppsHook, qtbase, qtmultimedia
+, qttools, faad2, mpg123, portaudio, libusb1, rtl-sdr, airspy
+, soapysdr-with-plugins }:
 
 stdenv.mkDerivation rec {
   pname = "abracadabra";
@@ -27,11 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pjcao8KTEmgE54dUBxLLnStszR32LryfciMKScBOGdc=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-    qttools
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook qttools ];
 
   buildInputs = [
     qtbase
@@ -45,10 +27,7 @@ stdenv.mkDerivation rec {
     soapysdr-with-plugins
   ];
 
-  cmakeFlags = [
-    "-DAIRSPY=ON"
-    "-DSOAPYSDR=ON"
-  ];
+  cmakeFlags = [ "-DAIRSPY=ON" "-DSOAPYSDR=ON" ];
 
   meta = with lib; {
     description = "DAB/DAB+ radio application";
@@ -59,3 +38,4 @@ stdenv.mkDerivation rec {
     mainProgram = "AbracaDABra";
   };
 }
+

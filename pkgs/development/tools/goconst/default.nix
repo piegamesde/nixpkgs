@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "goconst";
@@ -19,13 +15,11 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
-    description = "Find in Go repeated strings that could be replaced by a constant";
+    description =
+      "Find in Go repeated strings that could be replaced by a constant";
     homepage = "https://github.com/jgautheron/goconst";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "coredns";
@@ -21,24 +15,19 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
-  postPatch =
-    ''
-      substituteInPlace test/file_cname_proxy_test.go \
-        --replace "TestZoneExternalCNAMELookupWithProxy" \
-                  "SkipZoneExternalCNAMELookupWithProxy"
+  postPatch = ''
+    substituteInPlace test/file_cname_proxy_test.go \
+      --replace "TestZoneExternalCNAMELookupWithProxy" \
+                "SkipZoneExternalCNAMELookupWithProxy"
 
-      substituteInPlace test/readme_test.go \
-        --replace "TestReadme" "SkipReadme"
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # loopback interface is lo0 on macos
-      sed -E -i 's/\blo\b/lo0/' plugin/bind/setup_test.go
-    '';
+    substituteInPlace test/readme_test.go \
+      --replace "TestReadme" "SkipReadme"
+  '' + lib.optionalString stdenv.isDarwin ''
+    # loopback interface is lo0 on macos
+    sed -E -i 's/\blo\b/lo0/' plugin/bind/setup_test.go
+  '';
 
   postInstall = ''
     installManPage man/*
@@ -48,10 +37,6 @@ buildGoModule rec {
     homepage = "https://coredns.io";
     description = "A DNS server that runs middleware";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      rushmorem
-      rtreffer
-      deltaevo
-    ];
+    maintainers = with maintainers; [ rushmorem rtreffer deltaevo ];
   };
 }

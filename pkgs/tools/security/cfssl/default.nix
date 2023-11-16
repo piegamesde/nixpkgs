@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "cfssl";
@@ -37,9 +32,7 @@ buildGoModule rec {
     "-X github.com/cloudflare/cfssl/cli/version.version=v${version}"
   ];
 
-  passthru.tests = {
-    inherit (nixosTests) cfssl;
-  };
+  passthru.tests = { inherit (nixosTests) cfssl; };
 
   meta = with lib; {
     homepage = "https://cfssl.org/";

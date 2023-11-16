@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, xorg }:
 
 stdenv.mkDerivation {
   pname = "spectrwm";
@@ -28,11 +22,8 @@ stdenv.mkDerivation {
     xcbutilwm
   ];
 
-  prePatch =
-    let
-      subdir = if stdenv.isDarwin then "osx" else "linux";
-    in
-    "cd ${subdir}";
+  prePatch = let subdir = if stdenv.isDarwin then "osx" else "linux";
+  in "cd ${subdir}";
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
@@ -52,4 +43,5 @@ stdenv.mkDerivation {
       strives to be small, compact and fast.
     '';
   };
+
 }

@@ -1,11 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  qtbase,
-  qtserialport,
-  qmake,
-}:
+{ mkDerivation, lib, fetchFromGitHub, qtbase, qtserialport, qmake }:
 
 mkDerivation rec {
   pname = "candle";
@@ -28,13 +21,11 @@ mkDerivation rec {
     runHook postInstall
   '';
 
-  buildInputs = [
-    qtbase
-    qtserialport
-  ];
+  buildInputs = [ qtbase qtserialport ];
 
   meta = with lib; {
-    description = "GRBL controller application with G-Code visualizer written in Qt";
+    description =
+      "GRBL controller application with G-Code visualizer written in Qt";
     homepage = "https://github.com/Denvi/Candle";
     license = licenses.gpl3;
     maintainers = with maintainers; [ matti-kariluoma ];

@@ -1,20 +1,15 @@
-{
-  branch,
-  qt6Packages,
-  fetchFromGitHub,
-  fetchurl,
-}:
+{ branch, qt6Packages, fetchFromGitHub, fetchurl }:
 
 let
   # Fetched from https://api.citra-emu.org/gamedb
   # Please make sure to update this when updating citra!
   compat-list = fetchurl {
     name = "citra-compat-list";
-    url = "https://web.archive.org/web/20230512234055/https://api.citra-emu.org/gamedb/";
+    url =
+      "https://web.archive.org/web/20230512234055/https://api.citra-emu.org/gamedb/";
     hash = "sha256-J+zqtWde5NgK2QROvGewtXGRAWUTNSKHNMG6iu9m1fU=";
   };
-in
-{
+in {
   nightly = qt6Packages.callPackage ./generic.nix rec {
     pname = "citra-nightly";
     version = "1907";
@@ -44,5 +39,4 @@ in
 
     inherit branch compat-list;
   };
-}
-.${branch}
+}.${branch}

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "tipa";
@@ -30,3 +26,4 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lppl13c;
   };
 }
+

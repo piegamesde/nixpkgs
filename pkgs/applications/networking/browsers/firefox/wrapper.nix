@@ -1,79 +1,37 @@
-{
-  stdenv,
-  lib,
-  makeDesktopItem,
-  makeWrapper,
-  makeBinaryWrapper,
-  lndir,
-  config,
-  buildPackages,
-  jq,
-  xdg-utils,
-  writeText,
+{ stdenv, lib, makeDesktopItem, makeWrapper, makeBinaryWrapper, lndir, config
+, buildPackages, jq, xdg-utils, writeText
 
-  ## various stuff that can be plugged in
-  ffmpeg_5,
-  xorg,
-  alsa-lib,
-  libpulseaudio,
-  libcanberra-gtk3,
-  libglvnd,
-  libnotify,
-  opensc,
-  gnome, # .gnome-shell
-  browserpass,
-  gnome-browser-connector,
-  uget-integrator,
-  plasma5Packages,
-  bukubrow,
-  web-eid-app,
-  pipewire,
-  tridactyl-native,
-  fx_cast_bridge,
-  udev,
-  libkrb5,
-  libva,
-  mesa, # firefox wants gbm for drm+dmabuf
-  cups,
-  pciutils,
-  sndio,
-  libjack2,
-  speechd,
-}:
+## various stuff that can be plugged in
+, ffmpeg_5, xorg, alsa-lib, libpulseaudio, libcanberra-gtk3, libglvnd, libnotify
+, opensc, gnome # .gnome-shell
+, browserpass, gnome-browser-connector, uget-integrator, plasma5Packages
+, bukubrow, web-eid-app, pipewire, tridactyl-native, fx_cast_bridge, udev
+, libkrb5, libva, mesa # firefox wants gbm for drm+dmabuf
+, cups, pciutils, sndio, libjack2, speechd }:
 
 ## configurability of the wrapper itself
 
 browser:
 
 let
-  wrapper =
-    {
-      applicationName ? browser.binaryName or (lib.getName browser),
-      pname ? applicationName,
-      version ? lib.getVersion browser,
-      desktopName ? # applicationName with first letter capitalized
-        (lib.toUpper (lib.substring 0 1 applicationName) + lib.substring 1 (-1) applicationName),
-      nameSuffix ? "",
-      icon ? applicationName,
-      wmClass ? applicationName,
-      extraNativeMessagingHosts ? [ ],
-      pkcs11Modules ? [ ],
-      useGlvnd ? true,
-      cfg ? config.${applicationName} or { },
+  wrapper = { applicationName ? browser.binaryName or (lib.getName browser)
+    , pname ? applicationName, version ? lib.getVersion browser
+    , desktopName ? # applicationName with first letter capitalized
+      (lib.toUpper (lib.substring 0 1 applicationName)
+        + lib.substring 1 (-1) applicationName), nameSuffix ? ""
+    , icon ? applicationName, wmClass ? applicationName
+    , extraNativeMessagingHosts ? [ ], pkcs11Modules ? [ ], useGlvnd ? true
+    , cfg ? config.${applicationName} or { }
 
       ## Following options are needed for extra prefs & policies
       # For more information about anti tracking (german website)
       # visit https://wiki.kairaven.de/open/app/firefox
-      extraPrefs ? "",
-      extraPrefsFiles ? [ ],
+    , extraPrefs ? "", extraPrefsFiles ? [ ]
       # For more information about policies visit
       # https://github.com/mozilla/policy-templates#enterprisepoliciesenabled
-      extraPolicies ? { },
-      extraPoliciesFiles ? [ ],
-      libName ? browser.libName or "firefox" # Important for tor package or the like
-      ,
-      nixExtensions ? null,
-    }:
+    , extraPolicies ? { }, extraPoliciesFiles ? [ ], libName ?
+      browser.libName or "firefox" # Important for tor package or the like
+    , nixExtensions ? null }:
 
     let
       ffmpegSupport = browser.ffmpegSupport or false;
@@ -85,48 +43,41 @@ let
       # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
       smartcardSupport = cfg.smartcardSupport or false;
 
-      nativeMessagingHosts =
-        [ ]
-        ++ lib.optional (cfg.enableBrowserpass or false) (lib.getBin browserpass)
+      nativeMessagingHosts = [ ]
+        ++ lib.optional (cfg.enableBrowserpass or false)
+        (lib.getBin browserpass)
         ++ lib.optional (cfg.enableBukubrow or false) bukubrow
         ++ lib.optional (cfg.enableEUWebID or false) web-eid-app
         ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
-        ++ lib.optional (cfg.enableGnomeExtensions or false) gnome-browser-connector
+        ++ lib.optional (cfg.enableGnomeExtensions or false)
+        gnome-browser-connector
         ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
-        ++
-          lib.optional (cfg.enablePlasmaBrowserIntegration or false)
-            plasma5Packages.plasma-browser-integration
+        ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false)
+        plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
         ++ extraNativeMessagingHosts;
-      libs =
-        lib.optionals stdenv.isLinux [
-          udev
-          libva
-          mesa
-          libnotify
-          xorg.libXScrnSaver
-          cups
-          pciutils
-        ]
-        ++ lib.optional pipewireSupport pipewire
+      libs = lib.optionals stdenv.isLinux [
+        udev
+        libva
+        mesa
+        libnotify
+        xorg.libXScrnSaver
+        cups
+        pciutils
+      ] ++ lib.optional pipewireSupport pipewire
         ++ lib.optional ffmpegSupport ffmpeg_5
-        ++ lib.optional gssSupport libkrb5
-        ++ lib.optional useGlvnd libglvnd
-        ++ lib.optionals (cfg.enableQuakeLive or false) (
-          with xorg; [
-            stdenv.cc
-            libX11
-            libXxf86dga
-            libXxf86vm
-            libXext
-            libXt
-            alsa-lib
-            zlib
-          ]
-        )
-        ++ lib.optional (config.pulseaudio or true) libpulseaudio
-        ++ lib.optional alsaSupport alsa-lib
-        ++ lib.optional sndioSupport sndio
+        ++ lib.optional gssSupport libkrb5 ++ lib.optional useGlvnd libglvnd
+        ++ lib.optionals (cfg.enableQuakeLive or false) (with xorg; [
+          stdenv.cc
+          libX11
+          libXxf86dga
+          libXxf86vm
+          libXext
+          libXt
+          alsa-lib
+          zlib
+        ]) ++ lib.optional (config.pulseaudio or true) libpulseaudio
+        ++ lib.optional alsaSupport alsa-lib ++ lib.optional sndioSupport sndio
         ++ lib.optional jackSupport libjack2
         ++ lib.optional smartcardSupport opensc
         ++ lib.optional (cfg.speechSynthesisSupport or false) speechd
@@ -140,68 +91,55 @@ let
       #   EXTRA PREF CHANGES  #
       #                       #
       #########################
-      policiesJson = writeText "policies.json" (builtins.toJSON enterprisePolicies);
+      policiesJson =
+        writeText "policies.json" (builtins.toJSON enterprisePolicies);
 
       usesNixExtensions = nixExtensions != null;
 
-      nameArray = builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions);
+      nameArray = builtins.map (a: a.name)
+        (lib.optionals usesNixExtensions nixExtensions);
 
-      requiresSigning = browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING != "";
+      requiresSigning = browser ? MOZ_REQUIRE_SIGNING
+        -> toString browser.MOZ_REQUIRE_SIGNING != "";
 
       # Check that every extension has a unqiue .name attribute
       # and an extid attribute
-      extensions =
-        if nameArray != (lib.unique nameArray) then
-          throw "Firefox addon name needs to be unique"
-        else if requiresSigning && !lib.hasSuffix "esr" browser.name then
-          throw "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
-        else
-          builtins.map
-            (
-              a:
-              if !(builtins.hasAttr "extid" a) then
-                throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
-              else
-                a
-            )
-            (lib.optionals usesNixExtensions nixExtensions);
+      extensions = if nameArray != (lib.unique nameArray) then
+        throw "Firefox addon name needs to be unique"
+      else if requiresSigning && !lib.hasSuffix "esr" browser.name then
+        throw
+        "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
+      else
+        builtins.map (a:
+          if !(builtins.hasAttr "extid" a) then
+            throw
+            "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
+          else
+            a) (lib.optionals usesNixExtensions nixExtensions);
 
       enterprisePolicies = {
-        policies =
-          {
-            DisableAppUpdate = true;
-          }
-          // lib.optionalAttrs usesNixExtensions {
-            ExtensionSettings =
-              {
-                "*" = {
-                  blocked_install_message = "You can't have manual extension mixed with nix extensions";
-                  installation_mode = "blocked";
-                };
-              }
-              // lib.foldr
-                (
-                  e: ret:
-                  ret
-                  // {
-                    "${e.extid}" = {
-                      installation_mode = "allowed";
-                    };
-                  }
-                )
-                { }
-                extensions;
+        policies = {
+          DisableAppUpdate = true;
+        } // lib.optionalAttrs usesNixExtensions {
+          ExtensionSettings = {
+            "*" = {
+              blocked_install_message =
+                "You can't have manual extension mixed with nix extensions";
+              installation_mode = "blocked";
+            };
+          } // lib.foldr (e: ret:
+            ret // {
+              "${e.extid}" = { installation_mode = "allowed"; };
+            }) { } extensions;
 
-            Extensions = {
-              Install = lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ] extensions;
-            };
-          }
-          // lib.optionalAttrs smartcardSupport {
-            SecurityDevices = {
-              "OpenSC PKCS#11 Module" = "opensc-pkcs11.so";
-            };
-          }
-          // extraPolicies;
+          Extensions = {
+            Install =
+              lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ]
+              extensions;
+          };
+        } // lib.optionalAttrs smartcardSupport {
+          SecurityDevices = { "OpenSC PKCS#11 Module" = "opensc-pkcs11.so"; };
+        } // extraPolicies;
       };
 
       mozillaCfg = ''
@@ -211,102 +149,85 @@ let
         // to be able to install addons that do not have an extid
         // Security is maintained because only user whitelisted addons
         // with a checksum can be installed
-        ${lib.optionalString usesNixExtensions ''lockPref("xpinstall.signatures.required", false)''};
+        ${
+          lib.optionalString usesNixExtensions
+          ''lockPref("xpinstall.signatures.required", false)''
+        };
       '';
-    in
-    #############################
-    #                           #
-    #   END EXTRA PREF CHANGES  #
-    #                           #
-    #############################
-    stdenv.mkDerivation {
+
+      #############################
+      #                           #
+      #   END EXTRA PREF CHANGES  #
+      #                           #
+      #############################
+
+    in stdenv.mkDerivation {
       inherit pname version;
 
-      desktopItem = makeDesktopItem (
-        {
-          name = launcherName;
-          exec = "${launcherName} --name ${wmClass} %U";
-          inherit icon;
-          inherit desktopName;
-          startupNotify = true;
-          startupWMClass = wmClass;
-          terminal = false;
-        }
-        // (
-          if libName == "thunderbird" then
-            {
-              genericName = "Email Client";
-              comment = "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
-              categories = [
-                "Network"
-                "Chat"
-                "Email"
-                "Feed"
-                "GTK"
-                "News"
-              ];
-              keywords = [
-                "mail"
-                "email"
-                "e-mail"
-                "messages"
-                "rss"
-                "calendar"
-                "address book"
-                "addressbook"
-                "chat"
-              ];
-              mimeTypes = [
-                "message/rfc822"
-                "x-scheme-handler/mailto"
-                "text/calendar"
-                "text/x-vcard"
-              ];
-              actions = {
-                profile-manager-window = {
-                  name = "Profile Manager";
-                  exec = "${launcherName} --ProfileManager";
-                };
-              };
-            }
-          else
-            {
-              genericName = "Web Browser";
-              categories = [
-                "Network"
-                "WebBrowser"
-              ];
-              mimeTypes = [
-                "text/html"
-                "text/xml"
-                "application/xhtml+xml"
-                "application/vnd.mozilla.xul+xml"
-                "x-scheme-handler/http"
-                "x-scheme-handler/https"
-              ];
-              actions = {
-                new-window = {
-                  name = "New Window";
-                  exec = "${launcherName} --new-window %U";
-                };
-                new-private-window = {
-                  name = "New Private Window";
-                  exec = "${launcherName} --private-window %U";
-                };
-                profile-manager-window = {
-                  name = "Profile Manager";
-                  exec = "${launcherName} --ProfileManager";
-                };
-              };
-            }
-        )
-      );
+      desktopItem = makeDesktopItem ({
+        name = launcherName;
+        exec = "${launcherName} --name ${wmClass} %U";
+        inherit icon;
+        inherit desktopName;
+        startupNotify = true;
+        startupWMClass = wmClass;
+        terminal = false;
+      } // (if libName == "thunderbird" then {
+        genericName = "Email Client";
+        comment =
+          "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
+        categories = [ "Network" "Chat" "Email" "Feed" "GTK" "News" ];
+        keywords = [
+          "mail"
+          "email"
+          "e-mail"
+          "messages"
+          "rss"
+          "calendar"
+          "address book"
+          "addressbook"
+          "chat"
+        ];
+        mimeTypes = [
+          "message/rfc822"
+          "x-scheme-handler/mailto"
+          "text/calendar"
+          "text/x-vcard"
+        ];
+        actions = {
+          profile-manager-window = {
+            name = "Profile Manager";
+            exec = "${launcherName} --ProfileManager";
+          };
+        };
+      } else {
+        genericName = "Web Browser";
+        categories = [ "Network" "WebBrowser" ];
+        mimeTypes = [
+          "text/html"
+          "text/xml"
+          "application/xhtml+xml"
+          "application/vnd.mozilla.xul+xml"
+          "x-scheme-handler/http"
+          "x-scheme-handler/https"
+        ];
+        actions = {
+          new-window = {
+            name = "New Window";
+            exec = "${launcherName} --new-window %U";
+          };
+          new-private-window = {
+            name = "New Private Window";
+            exec = "${launcherName} --private-window %U";
+          };
+          profile-manager-window = {
+            name = "Profile Manager";
+            exec = "${launcherName} --ProfileManager";
+          };
+        };
+      }));
 
-      nativeBuildInputs = [
-        makeWrapper
-        lndir
-        jq
-      ];
+      nativeBuildInputs = [ makeWrapper lndir jq ];
       buildInputs = [ browser.gtk3 ];
 
       buildCommand = ''
@@ -474,20 +395,19 @@ let
 
       preferLocalBuild = true;
 
-      libs = lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
+      libs = lib.makeLibraryPath libs + ":"
+        + lib.makeSearchPathOutput "lib" "lib64" libs;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
-      passthru = {
-        unwrapped = browser;
-      };
+      passthru = { unwrapped = browser; };
 
       disallowedRequisites = [ stdenv.cc ];
 
       meta = browser.meta // {
         inherit (browser.meta) description;
         hydraPlatforms = [ ];
-        priority = (browser.meta.priority or 0) - 1; # prefer wrapper over the package
+        priority = (browser.meta.priority or 0)
+          - 1; # prefer wrapper over the package
       };
     };
-in
-lib.makeOverridable wrapper
+in lib.makeOverridable wrapper

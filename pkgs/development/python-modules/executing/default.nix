@@ -1,15 +1,5 @@
-{
-  lib,
-  asttokens,
-  buildPythonPackage,
-  fetchFromGitHub,
-  littleutils,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-  rich,
-  setuptools-scm,
-}:
+{ lib, asttokens, buildPythonPackage, fetchFromGitHub, littleutils
+, pytestCheckHook, pythonAtLeast, pythonOlder, rich, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "executing";
@@ -29,16 +19,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    asttokens
-    littleutils
-    pytestCheckHook
-  ] ++ lib.optionals (pythonAtLeast "3.11") [ rich ];
+  nativeCheckInputs = [ asttokens littleutils pytestCheckHook ]
+    ++ lib.optionals (pythonAtLeast "3.11") [ rich ];
 
   pythonImportsCheck = [ "executing" ];
 
   meta = with lib; {
-    description = "Get information about what a frame is currently doing, particularly the AST node being executed";
+    description =
+      "Get information about what a frame is currently doing, particularly the AST node being executed";
     homepage = "https://github.com/alexmojaki/executing";
     license = licenses.mit;
     maintainers = with maintainers; [ renatoGarcia ];

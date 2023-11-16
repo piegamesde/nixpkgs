@@ -2,36 +2,23 @@
 # Licensed under: MIT
 # Slightly modified
 
-{
-  lib,
-  pkgs,
-  newScope,
-  apps,
-}:
+{ lib, pkgs, newScope, apps }:
 
 let
-  packages =
-    self:
-    let
-      generatedJson = {
-        inherit apps;
-      };
-    in
-    {
+  packages = self:
+    let generatedJson = { inherit apps; };
+
+    in {
       # Create a derivation from the official Nextcloud apps.
       # This takes the data generated from the go tool.
-      mkNextcloudDerivation =
-        self.callPackage ({ }: { data }: pkgs.fetchNextcloudApp { inherit (data) url sha256; })
-          { };
-    }
-    //
-      lib.mapAttrs
-        (
-          type: pkgs:
-          lib.makeExtensible (
-            _: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs
-          )
-        )
-        generatedJson;
-in
-(lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfNC: superNC: { })
+      mkNextcloudDerivation = self.callPackage
+        ({ }: { data }: pkgs.fetchNextcloudApp { inherit (data) url sha256; })
+        { };
+
+    } // lib.mapAttrs (type: pkgs:
+      lib.makeExtensible (_:
+        lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; })
+        pkgs)) generatedJson;
+
+in (lib.makeExtensible (_: (lib.makeScope newScope packages))).extend
+(selfNC: superNC: { })

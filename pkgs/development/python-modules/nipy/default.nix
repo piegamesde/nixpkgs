@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  cython,
-  nose,
-  matplotlib,
-  nibabel,
-  numpy,
-  scipy,
-  sympy,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, cython, nose, matplotlib
+, nibabel, numpy, scipy, sympy, python }:
 
 buildPythonPackage rec {
   version = "0.5.0";
@@ -25,13 +13,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
   buildInputs = lib.optionals doCheck [ nose ];
-  propagatedBuildInputs = [
-    matplotlib
-    nibabel
-    numpy
-    scipy
-    sympy
-  ];
+  propagatedBuildInputs = [ matplotlib nibabel numpy scipy sympy ];
 
   preBuild = ''
     make recythonize
@@ -56,7 +38,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://nipy.org/nipy";
-    description = "Software for structural and functional neuroimaging analysis";
+    description =
+      "Software for structural and functional neuroimaging analysis";
     license = licenses.bsd3;
   };
+
 }

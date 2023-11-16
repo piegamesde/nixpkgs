@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  clang,
-}:
+{ lib, stdenv, fetchurl, cmake, clang }:
 
 stdenv.mkDerivation rec {
   pname = "alglib3";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ag8dvcxzzp9riqvk4lhcbwhvh0lq54lbdnsbyr107rjfi2p1vlq";
   };
 
-  nativeBuildInputs = [
-    cmake
-    clang
-  ];
+  nativeBuildInputs = [ cmake clang ];
 
   patches = [ ./patch-alglib-CMakeLists.patch ];
 

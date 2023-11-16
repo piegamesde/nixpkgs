@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, mock, pytestCheckHook, pythonOlder
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "supervisor";
@@ -27,17 +19,15 @@ buildPythonPackage rec {
   # nixbld user on hydra
   doCheck = !stdenv.isDarwin;
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "supervisor" ];
 
   meta = with lib; {
     description = "A system for controlling process state under UNIX";
     homepage = "http://supervisord.org/";
-    changelog = "https://github.com/Supervisor/supervisor/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/Supervisor/supervisor/blob/${version}/CHANGES.rst";
     license = licenses.free; # http://www.repoze.org/LICENSE.txt
     maintainers = with maintainers; [ zimbatm ];
   };

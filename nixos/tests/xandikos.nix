@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   {
     name = "xandikos";
@@ -13,10 +12,7 @@ import ./make-test-python.nix (
         services.xandikos.enable = true;
       };
       xandikos_proxy = {
-        networking.firewall.allowedTCPPorts = [
-          80
-          8080
-        ];
+        networking.firewall.allowedTCPPorts = [ 80 8080 ];
         services.xandikos.enable = true;
         services.xandikos.address = "localhost";
         services.xandikos.port = 8080;
@@ -67,5 +63,4 @@ import ./make-test-python.nix (
               "curl -s --fail -u xandikos:snakeOilPassword -H 'Host: xandikos.local' http://xandikos_proxy/xandikos/user/ | grep -i Xandikos"
           )
     '';
-  }
-)
+  })

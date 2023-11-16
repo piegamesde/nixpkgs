@@ -1,12 +1,5 @@
-{
-  lib,
-  anytree,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  poetry-core,
-  pythonOlder,
-}:
+{ lib, anytree, buildPythonPackage, fetchPypi, pytestCheckHook, poetry-core
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyebus";

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pytestCheckHook,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, pytestCheckHook, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "crossplane";

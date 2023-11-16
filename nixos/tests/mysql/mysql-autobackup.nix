@@ -1,20 +1,13 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
-  lib ? pkgs.lib,
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../../.. { inherit system config; }, lib ? pkgs.lib }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
+  inherit (import ./common.nix { inherit pkgs lib; })
+    mkTestName mariadbPackages;
 
   makeTest = import ./../make-test-python.nix;
 
-  makeAutobackupTest =
-    {
-      package,
-      name ? mkTestName package,
-    }:
+  makeAutobackupTest = { package, name ? mkTestName package, }:
     makeTest {
       name = "${name}-automysqlbackup";
       meta.maintainers = [ lib.maintainers.aanderse ];
@@ -23,12 +16,10 @@ let
         services.mysql = {
           inherit package;
           enable = true;
-          initialDatabases = [
-            {
-              name = "testdb";
-              schema = ./testdb.sql;
-            }
-          ];
+          initialDatabases = [{
+            name = "testdb";
+            schema = ./testdb.sql;
+          }];
         };
 
         services.automysqlbackup.enable = true;
@@ -56,5 +47,5 @@ let
             )
       '';
     };
-in
-lib.mapAttrs (_: package: makeAutobackupTest { inherit package; }) mariadbPackages
+in lib.mapAttrs (_: package: makeAutobackupTest { inherit package; })
+mariadbPackages

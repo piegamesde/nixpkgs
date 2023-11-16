@@ -1,28 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
+{ lib, stdenv, fetchFromGitLab
 
-  cmake,
-  ninja,
-  mbedtls_2,
-  libxcrypt,
+, cmake, ninja, mbedtls_2, libxcrypt
 
-  enableCache ? true # Internal cache support.
-  ,
-  enableIpV6 ? true,
-  enableTls ? true,
-  enableMonitor ? false # Support for the Hiawatha Monitor.
-  ,
-  enableRproxy ? true # Reverse proxy support.
-  ,
-  enableTomahawk ? false # Tomahawk, the Hiawatha command shell.
-  ,
-  enableXslt ? true,
-  libxml2 ? null,
-  libxslt ? null,
-  enableToolkit ? true # The URL Toolkit.
-  ,
+, enableCache ? true # Internal cache support.
+, enableIpV6 ? true, enableTls ? true
+, enableMonitor ? false # Support for the Hiawatha Monitor.
+, enableRproxy ? true # Reverse proxy support.
+, enableTomahawk ? false # Tomahawk, the Hiawatha command shell.
+, enableXslt ? true, libxml2 ? null, libxslt ? null
+, enableToolkit ? true # The URL Toolkit.
 }:
 
 stdenv.mkDerivation rec {
@@ -36,19 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "10a7dqj37zrbmgnhwsw0mqm5x25kasl8p95g01rzakviwxkdrkid";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
-  buildInputs =
-    [
-      mbedtls_2
-      libxcrypt
-    ]
-    ++ lib.optionals enableXslt [
-      libxslt
-      libxml2
-    ];
+  nativeBuildInputs = [ cmake ninja ];
+  buildInputs = [ mbedtls_2 libxcrypt ]
+    ++ lib.optionals enableXslt [ libxslt libxml2 ];
 
   prePatch = ''
     substituteInPlace CMakeLists.txt --replace SETUID ""
@@ -70,7 +46,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hiawatha-webserver.org";
     description = "An advanced and secure webserver";
     license = licenses.gpl2;
-    platforms = platforms.unix; # "Hiawatha runs perfectly on Linux, BSD and MacOS X"
+    platforms =
+      platforms.unix; # "Hiawatha runs perfectly on Linux, BSD and MacOS X"
     maintainers = [ ];
   };
+
 }

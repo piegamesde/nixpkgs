@@ -1,38 +1,8 @@
-{
-  lib,
-  config,
-  fetchFromGitHub,
-  fetchFromGitLab,
-  fetchhg,
-  fetchpatch,
-  runCommand,
+{ lib, config, fetchFromGitHub, fetchFromGitLab, fetchhg, fetchpatch, runCommand
 
-  arpa2common,
-  brotli,
-  curl,
-  expat,
-  fdk_aac,
-  ffmpeg,
-  geoip,
-  libbsd,
-  libiconv,
-  libkrb5,
-  libmaxminddb,
-  libmodsecurity,
-  libuuid,
-  libxml2,
-  lmdb,
-  luajit,
-  msgpuck,
-  openssl,
-  opentracing-cpp,
-  pam,
-  psol,
-  which,
-  yajl,
-  zlib,
-  zstd,
-}:
+, arpa2common, brotli, curl, expat, fdk_aac, ffmpeg, geoip, libbsd, libiconv
+, libkrb5, libmaxminddb, libmodsecurity, libuuid, libxml2, lmdb, luajit, msgpuck
+, openssl, opentracing-cpp, pam, psol, which, yajl, zlib, zstd }:
 
 let
 
@@ -55,9 +25,8 @@ let
       maintainers = with maintainers; [ ];
     };
   };
-in
 
-let
+in let
   self = {
     akamai-token-validate = {
       name = "akamai-token-validate";
@@ -73,7 +42,8 @@ let
 
       meta = with lib; {
         description = "Validates Akamai v2 query string tokens";
-        homepage = "https://github.com/kaltura/nginx-akamai-token-validate-module";
+        homepage =
+          "https://github.com/kaltura/nginx-akamai-token-validate-module";
         license = with licenses; [ agpl3 ];
         maintainers = with maintainers; [ ];
       };
@@ -90,18 +60,16 @@ let
       };
 
       inputs = [
-        (arpa2common.overrideAttrs (
-          old: rec {
-            version = "0.7.1";
+        (arpa2common.overrideAttrs (old: rec {
+          version = "0.7.1";
 
-            src = fetchFromGitLab {
-              owner = "arpa2";
-              repo = "arpa2common";
-              rev = "v${version}";
-              sha256 = "sha256-8zVsAlGtmya9EK4OkGUMu2FKJRn2Q3bg2QWGjqcii64=";
-            };
-          }
-        ))
+          src = fetchFromGitLab {
+            owner = "arpa2";
+            repo = "arpa2common";
+            rev = "v${version}";
+            sha256 = "sha256-8zVsAlGtmya9EK4OkGUMu2FKJRn2Q3bg2QWGjqcii64=";
+          };
+        }))
       ];
 
       meta = with lib; {
@@ -132,21 +100,19 @@ let
 
     brotli = {
       name = "brotli";
-      src =
-        let
-          src' = fetchFromGitHub {
-            name = "brotli";
-            owner = "google";
-            repo = "ngx_brotli";
-            rev = "6e975bcb015f62e1f303054897783355e2a877dc";
-            sha256 = "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=";
-          };
-        in
-        runCommand "brotli" { } ''
-          cp -a ${src'} $out
-          substituteInPlace $out/filter/config \
-            --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
-        '';
+      src = let
+        src' = fetchFromGitHub {
+          name = "brotli";
+          owner = "google";
+          repo = "ngx_brotli";
+          rev = "6e975bcb015f62e1f303054897783355e2a877dc";
+          sha256 = "sha256-G0IDYlvaQzzJ6cNTSGbfuOuSXFp3RsEwIJLGapTbDgo=";
+        };
+      in runCommand "brotli" { } ''
+        cp -a ${src'} $out
+        substituteInPlace $out/filter/config \
+          --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
+      '';
 
       inputs = [ brotli ];
 
@@ -169,7 +135,8 @@ let
       };
 
       meta = with lib; {
-        description = "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches";
+        description =
+          "Adds ability to purge content from FastCGI, proxy, SCGI and uWSGI caches";
         homepage = "https://github.com/nginx-modules/ngx_cache_purge";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -225,7 +192,8 @@ let
       };
 
       meta = with lib; {
-        description = "Adds additional generic tools that module developers can use in their own modules";
+        description =
+          "Adds additional generic tools that module developers can use in their own modules";
         homepage = "https://github.com/vision5/ngx_devel_kit";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -243,7 +211,8 @@ let
       };
 
       meta = with lib; {
-        description = "Brings echo, sleep, time, exec and more shell-style goodies to Nginx";
+        description =
+          "Brings echo, sleep, time, exec and more shell-style goodies to Nginx";
         homepage = "https://github.com/openresty/echo-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -299,32 +268,37 @@ let
       inputs = [ libmaxminddb ];
 
       meta = with lib; {
-        description = "Creates variables with values from the maxmind geoip2 databases";
+        description =
+          "Creates variables with values from the maxmind geoip2 databases";
         homepage = "https://github.com/leev/ngx_http_geoip2_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ pinpox ];
       };
     };
 
-    http_proxy_connect_module_v18 = http_proxy_connect_module_generic "proxy_connect_rewrite_1018" // {
-      supports = with lib.versions; version: major version == "1" && minor version == "18";
-    };
+    http_proxy_connect_module_v18 =
+      http_proxy_connect_module_generic "proxy_connect_rewrite_1018" // {
+        supports = with lib.versions;
+          version:
+          major version == "1" && minor version == "18";
+      };
 
-    http_proxy_connect_module_v19 = http_proxy_connect_module_generic "proxy_connect_rewrite_1018" // {
-      supports = with lib.versions; version: major version == "1" && minor version == "19";
-    };
+    http_proxy_connect_module_v19 =
+      http_proxy_connect_module_generic "proxy_connect_rewrite_1018" // {
+        supports = with lib.versions;
+          version:
+          major version == "1" && minor version == "19";
+      };
 
     ipscrub = {
       name = "ipscrub";
-      src =
-        fetchFromGitHub {
-          name = "ipscrub";
-          owner = "masonicboom";
-          repo = "ipscrub";
-          rev = "v1.0.1";
-          sha256 = "0qcx15c8wbsmyz2hkmyy5yd7qn1n84kx9amaxnfxkpqi05vzm1zz";
-        }
-        + "/ipscrub";
+      src = fetchFromGitHub {
+        name = "ipscrub";
+        owner = "masonicboom";
+        repo = "ipscrub";
+        rev = "v1.0.1";
+        sha256 = "0qcx15c8wbsmyz2hkmyy5yd7qn1n84kx9amaxnfxkpqi05vzm1zz";
+      } + "/ipscrub";
 
       inputs = [ libbsd ];
 
@@ -384,26 +358,25 @@ let
 
       inputs = [ luajit ];
 
-      preConfigure =
-        let
-          # fix compilation against nginx 1.23.0
-          nginx-1-23-patch = fetchpatch {
-            url = "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch";
-            sha256 = "sha256-l7GHFNZXg+RG2SIBjYJO1JHdGUtthWnzLIqEORJUNr4=";
-          };
-        in
-        ''
-          export LUAJIT_LIB="${luajit}/lib"
-          export LUAJIT_INC="$(realpath ${luajit}/include/luajit-*)"
+      preConfigure = let
+        # fix compilation against nginx 1.23.0
+        nginx-1-23-patch = fetchpatch {
+          url =
+            "https://github.com/openresty/lua-nginx-module/commit/b6d167cf1a93c0c885c28db5a439f2404874cb26.patch";
+          sha256 = "sha256-l7GHFNZXg+RG2SIBjYJO1JHdGUtthWnzLIqEORJUNr4=";
+        };
+      in ''
+        export LUAJIT_LIB="${luajit}/lib"
+        export LUAJIT_INC="$(realpath ${luajit}/include/luajit-*)"
 
-          # make source directory writable to allow generating src/ngx_http_lua_autoconf.h
-          lua_src=$TMPDIR/lua-src
-          cp -r "${src}/" "$lua_src"
-          chmod -R +w "$lua_src"
-          patch -p1 -d $lua_src -i ${nginx-1-23-patch}
-          export configureFlags="''${configureFlags//"${src}"/"$lua_src"}"
-          unset lua_src
-        '';
+        # make source directory writable to allow generating src/ngx_http_lua_autoconf.h
+        lua_src=$TMPDIR/lua-src
+        cp -r "${src}/" "$lua_src"
+        chmod -R +w "$lua_src"
+        patch -p1 -d $lua_src -i ${nginx-1-23-patch}
+        export configureFlags="''${configureFlags//"${src}"/"$lua_src"}"
+        unset lua_src
+      '';
 
       allowMemoryWriteExecute = true;
 
@@ -446,18 +419,12 @@ let
         sha256 = "sha256-xp0/eqi5PJlzb9NaUbNnzEqNcxDPyjyNwZOwmlv1+ag=";
       };
 
-      inputs = [
-        curl
-        geoip
-        libmodsecurity
-        libxml2
-        lmdb
-        yajl
-      ];
+      inputs = [ curl geoip libmodsecurity libxml2 lmdb yajl ];
       disableIPC = true;
 
       meta = with lib; {
-        description = "Open source, cross platform web application firewall (WAF)";
+        description =
+          "Open source, cross platform web application firewall (WAF)";
         homepage = "https://github.com/SpiderLabs/ModSecurity";
         license = with licenses; [ asl20 ];
         maintainers = with maintainers; [ ];
@@ -502,18 +469,17 @@ let
 
     naxsi = {
       name = "naxsi";
-      src =
-        fetchFromGitHub {
-          name = "naxsi";
-          owner = "nbs-system";
-          repo = "naxsi";
-          rev = "95ac520eed2ea04098a76305fd0ad7e9158840b7";
-          sha256 = "0b5pnqkgg18kbw5rf2ifiq7lsx5rqmpqsql6hx5ycxjzxj6acfb3";
-        }
-        + "/naxsi_src";
+      src = fetchFromGitHub {
+        name = "naxsi";
+        owner = "nbs-system";
+        repo = "naxsi";
+        rev = "95ac520eed2ea04098a76305fd0ad7e9158840b7";
+        sha256 = "0b5pnqkgg18kbw5rf2ifiq7lsx5rqmpqsql6hx5ycxjzxj6acfb3";
+      } + "/naxsi_src";
 
       meta = with lib; {
-        description = "Open-source, high performance, low rules maintenance WAF";
+        description =
+          "Open-source, high performance, low rules maintenance WAF";
         homepage = "https://github.com/nbs-system/naxsi";
         license = with licenses; [ gpl3 ];
         maintainers = with maintainers; [ ];
@@ -543,7 +509,8 @@ let
       inputs = [ which ];
 
       meta = with lib; {
-        description = "Subset of the JavaScript language that allows extending nginx functionality";
+        description =
+          "Subset of the JavaScript language that allows extending nginx functionality";
         homepage = "https://nginx.org/en/docs/njs/";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -552,22 +519,21 @@ let
 
     opentracing = {
       name = "opentracing";
-      src =
-        let
-          src' = fetchFromGitHub {
-            name = "opentracing";
-            owner = "opentracing-contrib";
-            repo = "nginx-opentracing";
-            rev = "v0.10.0";
-            sha256 = "1q234s3p55xv820207dnh4fcxkqikjcq5rs02ai31ylpmfsf0kkb";
-          };
-        in
-        "${src'}/opentracing";
+      src = let
+        src' = fetchFromGitHub {
+          name = "opentracing";
+          owner = "opentracing-contrib";
+          repo = "nginx-opentracing";
+          rev = "v0.10.0";
+          sha256 = "1q234s3p55xv820207dnh4fcxkqikjcq5rs02ai31ylpmfsf0kkb";
+        };
+      in "${src'}/opentracing";
 
       inputs = [ opentracing-cpp ];
 
       meta = with lib; {
-        description = "Enable requests served by nginx for distributed tracing via The OpenTracing Project";
+        description =
+          "Enable requests served by nginx for distributed tracing via The OpenTracing Project";
         homepage = "https://github.com/opentracing-contrib/nginx-opentracing";
         license = with licenses; [ asl20 ];
         maintainers = with maintainers; [ ];
@@ -576,34 +542,27 @@ let
 
     pagespeed = {
       name = "pagespeed";
-      src =
-        let
-          moduleSrc = fetchFromGitHub {
-            name = "pagespeed";
-            owner = "apache";
-            repo = "incubator-pagespeed-ngx";
-            rev = "v${psol.version}-stable";
-            sha256 = "0ry7vmkb2bx0sspl1kgjlrzzz6lbz07313ks2lr80rrdm2zb16wp";
-          };
-        in
-        runCommand "ngx_pagespeed"
-          {
-            meta = {
-              description = "PageSpeed module for Nginx";
-              homepage = "https://developers.google.com/speed/pagespeed/module/";
-              license = lib.licenses.asl20;
-            };
-          }
-          ''
-            cp -r "${moduleSrc}" "$out"
-            chmod -R +w "$out"
-            ln -s "${psol}" "$out/psol"
-          '';
+      src = let
+        moduleSrc = fetchFromGitHub {
+          name = "pagespeed";
+          owner = "apache";
+          repo = "incubator-pagespeed-ngx";
+          rev = "v${psol.version}-stable";
+          sha256 = "0ry7vmkb2bx0sspl1kgjlrzzz6lbz07313ks2lr80rrdm2zb16wp";
+        };
+      in runCommand "ngx_pagespeed" {
+        meta = {
+          description = "PageSpeed module for Nginx";
+          homepage = "https://developers.google.com/speed/pagespeed/module/";
+          license = lib.licenses.asl20;
+        };
+      } ''
+        cp -r "${moduleSrc}" "$out"
+        chmod -R +w "$out"
+        ln -s "${psol}" "$out/psol"
+      '';
 
-      inputs = [
-        zlib
-        libuuid
-      ]; # psol deps
+      inputs = [ zlib libuuid ]; # psol deps
       allowMemoryWriteExecute = true;
 
       meta = with lib; {
@@ -702,7 +661,8 @@ let
       inputs = [ openssl ];
 
       meta = with lib; {
-        description = "Generates CDN tokens, either as a cookie or as a query string parameter";
+        description =
+          "Generates CDN tokens, either as a cookie or as a query string parameter";
         homepage = "https://github.com/kaltura/nginx-secure-token-module";
         license = with licenses; [ agpl3 ];
         maintainers = with maintainers; [ ];
@@ -720,7 +680,8 @@ let
       };
 
       meta = with lib; {
-        description = "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)";
+        description =
+          "Various set_xxx directives added to the rewrite module (md5/sha1, sql/json quoting and many more)";
         homepage = "https://github.com/openresty/set-misc-nginx-module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -756,7 +717,8 @@ let
       };
 
       meta = with lib; {
-        description = "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time";
+        description =
+          "Implements a collection of augmented statistics based on HTTP-codes and upstreams response time";
         homepage = "https://github.com/goldenclone/nginx-sla";
         license = with licenses; [ unfree ]; # no license in repo
         maintainers = with maintainers; [ ];
@@ -793,7 +755,8 @@ let
 
       meta = with lib; {
         description = "Expose querystring parameters sorted in a variable";
-        homepage = "https://github.com/wandenberg/nginx-sorted-querystring-module";
+        homepage =
+          "https://github.com/wandenberg/nginx-sorted-querystring-module";
         license = with licenses; [ mit ];
         maintainers = with maintainers; [ ];
       };
@@ -884,8 +847,10 @@ let
       };
 
       meta = with lib; {
-        description = "Filter module which can do both regular expression and fixed string substitutions";
-        homepage = "https://github.com/yaoweibin/ngx_http_substitutions_filter_module";
+        description =
+          "Filter module which can do both regular expression and fixed string substitutions";
+        homepage =
+          "https://github.com/yaoweibin/ngx_http_substitutions_filter_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
       };
@@ -920,7 +885,8 @@ let
       };
 
       meta = with lib; {
-        description = "Handle file uploads using multipart/form-data encoding and resumable uploads";
+        description =
+          "Handle file uploads using multipart/form-data encoding and resumable uploads";
         homepage = "https://github.com/fdintino/nginx-upload-module";
         license = with licenses; [ bsd3 ];
         maintainers = with maintainers; [ ];
@@ -955,13 +921,11 @@ let
         sha256 = "0ya4330in7zjzqw57djv4icpk0n1j98nvf0f8v296yi9rjy054br";
       };
 
-      inputs = [
-        msgpuck.dev
-        yajl
-      ];
+      inputs = [ msgpuck.dev yajl ];
 
       meta = with lib; {
-        description = "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)";
+        description =
+          "Tarantool NginX upstream module (REST, JSON API, websockets, load balancing)";
         homepage = "https://github.com/tarantool/nginx_upstream_module";
         license = with licenses; [ bsd2 ];
         maintainers = with maintainers; [ ];
@@ -1000,7 +964,8 @@ let
 
       meta = with lib; {
         description = "Extract thumbs from a video file";
-        homepage = "https://github.com/wandenberg/nginx-video-thumbextractor-module";
+        homepage =
+          "https://github.com/wandenberg/nginx-video-thumbextractor-module";
         license = with licenses; [ gpl3 ];
         maintainers = with maintainers; [ ];
       };
@@ -1016,13 +981,7 @@ let
         hash = "sha256-ZpeO8QWQ+fGkz08u/zFOq7vj4aHcodzSHNrc1SgGUyc=";
       };
 
-      inputs = [
-        ffmpeg
-        fdk_aac
-        openssl
-        libxml2
-        libiconv
-      ];
+      inputs = [ ffmpeg fdk_aac openssl libxml2 libiconv ];
 
       meta = with lib; {
         description = "VOD packager";
@@ -1070,9 +1029,7 @@ let
       };
     };
   };
-in
-self
-// lib.optionalAttrs config.allowAliases {
+in self // lib.optionalAttrs config.allowAliases {
   # deprecated or renamed packages
   modsecurity-nginx = self.modsecurity;
   fastcgi-cache-purge = throw "fastcgi-cache-purge was renamed to cache-purge";

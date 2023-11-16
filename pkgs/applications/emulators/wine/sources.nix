@@ -1,6 +1,4 @@
-{
-  pkgs ? import <nixpkgs> { },
-}:
+{ pkgs ? import <nixpkgs> { } }:
 ## we default to importing <nixpkgs> here, so that you can use
 ## a simple shell command to insert new hashes into this file
 ## e.g. with emacs C-u M-x shell-command
@@ -9,43 +7,12 @@
 
 # here we wrap fetchurl and fetchFromGitHub, in order to be able to pass additional args around it
 let
-  fetchurl = args@{ url, hash, ... }: pkgs.fetchurl { inherit url hash; } // args;
-  fetchFromGitHub =
-    args@{
-      owner,
-      repo,
-      rev,
-      hash,
-      ...
-    }:
-    pkgs.fetchFromGitHub {
-      inherit
-        owner
-        repo
-        rev
-        hash
-      ;
-    }
-    // args;
-  fetchFromGitLab =
-    args@{
-      domain,
-      owner,
-      repo,
-      rev,
-      hash,
-      ...
-    }:
-    pkgs.fetchFromGitLab {
-      inherit
-        domain
-        owner
-        repo
-        rev
-        hash
-      ;
-    }
-    // args;
+  fetchurl = args@{ url, hash, ... }:
+    pkgs.fetchurl { inherit url hash; } // args;
+  fetchFromGitHub = args@{ owner, repo, rev, hash, ... }:
+    pkgs.fetchFromGitHub { inherit owner repo rev hash; } // args;
+  fetchFromGitLab = args@{ domain, owner, repo, rev, hash, ... }:
+    pkgs.fetchFromGitLab { inherit domain owner repo rev hash; } // args;
 
   updateScriptPreamble = ''
     set -eou pipefail
@@ -66,8 +33,7 @@ let
   '';
 
   inherit (pkgs) writeShellScript;
-in
-rec {
+in rec {
 
   stable = fetchurl rec {
     version = "8.0.1";
@@ -77,27 +43,29 @@ rec {
     ## see http://wiki.winehq.org/Gecko
     gecko32 = fetchurl rec {
       version = "2.47.3";
-      url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
       hash = "sha256-5bmwbTzjVWRqjS5y4ETjfh4MjRhGTrGYWtzRh6f0jgE=";
     };
     gecko64 = fetchurl rec {
       version = "2.47.3";
-      url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
       hash = "sha256-pT7pVDkrbR/j1oVF9uTiqXr7yNyLA6i0QzSVRc4TlnU=";
     };
 
     ## see http://wiki.winehq.org/Mono
     mono = fetchurl rec {
       version = "7.4.0";
-      url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
       hash = "sha256-ZBP/Mo679+x2icZI/rNUbYEC3thlB50fvwMxsUs6sOw=";
     };
 
-    patches =
-      [
-        # Also look for root certificates at $NIX_SSL_CERT_FILE
-        ./cert-path.patch
-      ];
+    patches = [
+      # Also look for root certificates at $NIX_SSL_CERT_FILE
+      ./cert-path.patch
+    ];
 
     updateScript = writeShellScript "update-wine-stable" (''
       ${updateScriptPreamble}
@@ -124,19 +92,22 @@ rec {
     ## see http://wiki.winehq.org/Gecko
     gecko32 = fetchurl rec {
       version = "2.47.4";
-      url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.msi";
       hash = "sha256-Js7MR3BrCRkI9/gUvdsHTGG+uAYzGOnvxaf3iYV3k9Y=";
     };
     gecko64 = fetchurl rec {
       version = "2.47.4";
-      url = "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86_64.msi";
       hash = "sha256-5ZC32YijLWqkzx2Ko6o9M3Zv3Uz0yJwtzCCV7LKNBm8=";
     };
 
     ## see http://wiki.winehq.org/Mono
     mono = fetchurl rec {
       version = "8.0.0";
-      url = "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
+      url =
+        "https://dl.winehq.org/wine/wine-mono/${version}/wine-mono-${version}-x86.msi";
       hash = "sha256-dbP0XcodyJhX/p6TLaeHEPZMxtSe8asMcjoXcIW0cRs=";
     };
 

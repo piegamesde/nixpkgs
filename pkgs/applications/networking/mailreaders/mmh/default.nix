@@ -1,16 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  ncurses,
-  autoreconfHook,
-  flex,
-}:
-let
-  rev = "b17ea39dc17e5514f33b3f5c34ede92bd16e208c";
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchurl, fetchpatch, ncurses, autoreconfHook, flex }:
+let rev = "b17ea39dc17e5514f33b3f5c34ede92bd16e208c";
+in stdenv.mkDerivation rec {
   pname = "mmh";
   version = "unstable-2020-08-21";
 
@@ -26,10 +16,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = [ ncurses ];
-  nativeBuildInputs = [
-    autoreconfHook
-    flex
-  ];
+  nativeBuildInputs = [ autoreconfHook flex ];
 
   meta = with lib; {
     description = "Set of electronic mail handling programs";

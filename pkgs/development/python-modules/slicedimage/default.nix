@@ -1,19 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  boto3,
-  diskcache,
-  enum34,
-  packaging,
-  pathlib,
-  numpy,
-  requests,
-  scikit-image,
-  six,
-  pytestCheckHook,
-  isPy27,
-  tifffile,
+{ lib, buildPythonPackage, fetchFromGitHub, boto3, diskcache, enum34, packaging
+, pathlib, numpy, requests, scikit-image, six, pytestCheckHook, isPy27, tifffile
 }:
 
 buildPythonPackage rec {
@@ -28,20 +14,8 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [
-      boto3
-      diskcache
-      packaging
-      numpy
-      requests
-      scikit-image
-      six
-      tifffile
-    ]
-    ++ lib.optionals isPy27 [
-      pathlib
-      enum34
-    ];
+    [ boto3 diskcache packaging numpy requests scikit-image six tifffile ]
+    ++ lib.optionals isPy27 [ pathlib enum34 ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose }:
 
 buildPythonPackage rec {
   pname = "pid";
@@ -24,4 +19,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/trbs/pid/";
     license = licenses.asl20;
   };
+
 }

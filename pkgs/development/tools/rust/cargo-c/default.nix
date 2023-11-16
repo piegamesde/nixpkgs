@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  pkg-config,
-  curl,
-  openssl,
-  stdenv,
-  CoreFoundation,
-  libiconv,
-  Security,
-}:
+{ lib, rustPlatform, fetchCrate, pkg-config, curl, openssl, stdenv
+, CoreFoundation, libiconv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-c";
@@ -24,20 +14,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-JrlEWgKbTqQG/JYFqBR53eB58fa29c/+vIdSNGoS5Y0=";
 
-  nativeBuildInputs = [
-    pkg-config
-    (lib.getDev curl)
-  ];
-  buildInputs =
-    [
-      openssl
-      curl
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      CoreFoundation
-      libiconv
-      Security
-    ];
+  nativeBuildInputs = [ pkg-config (lib.getDev curl) ];
+  buildInputs = [ openssl curl ]
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation libiconv Security ];
 
   # Ensure that we are avoiding build of the curl vendored in curl-sys
   doInstallCheck = stdenv.hostPlatform.libc == "glibc";
@@ -50,7 +29,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A cargo subcommand to build and install C-ABI compatible dynamic and static libraries";
+    description =
+      "A cargo subcommand to build and install C-ABI compatible dynamic and static libraries";
     longDescription = ''
       Cargo C-ABI helpers. A cargo applet that produces and installs a correct
       pkg-config file, a static library and a dynamic library, and a C header

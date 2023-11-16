@@ -9,12 +9,7 @@ buildPackage {
 
   description = "A set of general-purpose C programming libraries";
 
-  outputs = [
-    "lib"
-    "dev"
-    "doc"
-    "out"
-  ];
+  outputs = [ "lib" "dev" "doc" "out" ];
 
   configureFlags = [
     # assume /dev/random works
@@ -40,4 +35,5 @@ buildPackage {
     # and might break if skalibs gets an breaking update.
     fdtools = pkgs.fdtools;
   };
+
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "lf";
@@ -21,11 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.gVersion=r${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.gVersion=r${version}" ];
 
   # Force the use of the pure-go implementation of the os/user library.
   # Relevant issue: https://github.com/gokcehan/lf/issues/191
@@ -38,7 +28,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A terminal file manager written in Go and heavily inspired by ranger";
+    description =
+      "A terminal file manager written in Go and heavily inspired by ranger";
     longDescription = ''
       lf (as in "list files") is a terminal file manager written in Go. It is
       heavily inspired by ranger with some missing and extra features. Some of

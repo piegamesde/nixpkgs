@@ -1,45 +1,38 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 with lib;
 let
   cfg = config.services.lemmy;
   settingsFormat = pkgs.formats.json { };
-in
-{
+in {
   meta.maintainers = with maintainers; [ happysalada ];
   meta.doc = ./lemmy.md;
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "lemmy"
-        "jwtSecretPath"
-      ]
-      "As of v0.13.0, Lemmy auto-generates the JWT secret."
-    )
+    (mkRemovedOptionModule [ "services" "lemmy" "jwtSecretPath" ]
+      "As of v0.13.0, Lemmy auto-generates the JWT secret.")
   ];
 
   options.services.lemmy = {
 
-    enable = mkEnableOption (lib.mdDoc "lemmy a federated alternative to reddit in rust");
+    enable = mkEnableOption
+      (lib.mdDoc "lemmy a federated alternative to reddit in rust");
 
     ui = {
       port = mkOption {
         type = types.port;
         default = 1234;
-        description = lib.mdDoc "Port where lemmy-ui should listen for incoming requests.";
+        description =
+          lib.mdDoc "Port where lemmy-ui should listen for incoming requests.";
       };
     };
 
-    caddy.enable = mkEnableOption (lib.mdDoc "exposing lemmy with the caddy reverse proxy");
-    nginx.enable = mkEnableOption (lib.mdDoc "exposing lemmy with the nginx reverse proxy");
+    caddy.enable =
+      mkEnableOption (lib.mdDoc "exposing lemmy with the caddy reverse proxy");
+    nginx.enable =
+      mkEnableOption (lib.mdDoc "exposing lemmy with the nginx reverse proxy");
 
-    database.createLocally = mkEnableOption (lib.mdDoc "creation of database on the instance");
+    database.createLocally =
+      mkEnableOption (lib.mdDoc "creation of database on the instance");
 
     settings = mkOption {
       default = { };
@@ -51,13 +44,15 @@ in
         options.hostname = mkOption {
           type = types.str;
           default = null;
-          description = lib.mdDoc "The domain name of your instance (eg 'lemmy.ml').";
+          description =
+            lib.mdDoc "The domain name of your instance (eg 'lemmy.ml').";
         };
 
         options.port = mkOption {
           type = types.port;
           default = 8536;
-          description = lib.mdDoc "Port where lemmy should listen for incoming requests.";
+          description =
+            lib.mdDoc "Port where lemmy should listen for incoming requests.";
         };
 
         options.federation = {
@@ -71,57 +66,50 @@ in
             description = lib.mdDoc "Enable Captcha.";
           };
           difficulty = mkOption {
-            type = types.enum [
-              "easy"
-              "medium"
-              "hard"
-            ];
+            type = types.enum [ "easy" "medium" "hard" ];
             default = "medium";
             description = lib.mdDoc "The difficultly of the captcha to solve.";
           };
         };
       };
     };
+
   };
 
   config = lib.mkIf cfg.enable {
-    services.lemmy.settings =
-      (
-        mapAttrs (name: mkDefault) {
-          bind = "127.0.0.1";
-          tls_enabled = true;
-          pictrs_url = with config.services.pict-rs; "http://${address}:${toString port}";
-          actor_name_max_length = 20;
+    services.lemmy.settings = (mapAttrs (name: mkDefault) {
+      bind = "127.0.0.1";
+      tls_enabled = true;
+      pictrs_url = with config.services.pict-rs;
+        "http://${address}:${toString port}";
+      actor_name_max_length = 20;
 
-          rate_limit.message = 180;
-          rate_limit.message_per_second = 60;
-          rate_limit.post = 6;
-          rate_limit.post_per_second = 600;
-          rate_limit.register = 3;
-          rate_limit.register_per_second = 3600;
-          rate_limit.image = 6;
-          rate_limit.image_per_second = 3600;
-        }
-        // {
-          database = mapAttrs (name: mkDefault) {
-            user = "lemmy";
-            host = "/run/postgresql";
-            port = 5432;
-            database = "lemmy";
-            pool_size = 5;
-          };
-        }
-      );
+      rate_limit.message = 180;
+      rate_limit.message_per_second = 60;
+      rate_limit.post = 6;
+      rate_limit.post_per_second = 600;
+      rate_limit.register = 3;
+      rate_limit.register_per_second = 3600;
+      rate_limit.image = 6;
+      rate_limit.image_per_second = 3600;
+    } // {
+      database = mapAttrs (name: mkDefault) {
+        user = "lemmy";
+        host = "/run/postgresql";
+        port = 5432;
+        database = "lemmy";
+        pool_size = 5;
+      };
+    });
 
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
       ensureDatabases = [ cfg.settings.database.database ];
-      ensureUsers = [
-        {
-          name = cfg.settings.database.user;
-          ensurePermissions."DATABASE ${cfg.settings.database.database}" = "ALL PRIVILEGES";
-        }
-      ];
+      ensureUsers = [{
+        name = cfg.settings.database.user;
+        ensurePermissions."DATABASE ${cfg.settings.database.database}" =
+          "ALL PRIVILEGES";
+      }];
     };
 
     services.pict-rs.enable = true;
@@ -162,49 +150,45 @@ in
 
     services.nginx = mkIf cfg.nginx.enable {
       enable = mkDefault true;
-      virtualHosts."${cfg.settings.hostname}".locations =
-        let
-          ui = "http://127.0.0.1:${toString cfg.ui.port}";
-          backend = "http://127.0.0.1:${toString cfg.settings.port}";
-        in
-        {
-          "~ ^/(api|pictrs|feeds|nodeinfo|.well-known)" = {
-            # backend requests
-            proxyPass = backend;
-            proxyWebsockets = true;
-            recommendedProxySettings = true;
-          };
-          "/" = {
-            # mixed frontend and backend requests, based on the request headers
-            proxyPass = "$proxpass";
-            recommendedProxySettings = true;
-            extraConfig = ''
-              set $proxpass "${ui}";
-              if ($http_accept = "application/activity+json") {
-                set $proxpass "${backend}";
-              }
-              if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
-                set $proxpass "${backend}";
-              }
-              if ($request_method = POST) {
-                set $proxpass "${backend}";
-              }
-
-              # Cuts off the trailing slash on URLs to make them valid
-              rewrite ^(.+)/+$ $1 permanent;
-            '';
-          };
+      virtualHosts."${cfg.settings.hostname}".locations = let
+        ui = "http://127.0.0.1:${toString cfg.ui.port}";
+        backend = "http://127.0.0.1:${toString cfg.settings.port}";
+      in {
+        "~ ^/(api|pictrs|feeds|nodeinfo|.well-known)" = {
+          # backend requests
+          proxyPass = backend;
+          proxyWebsockets = true;
+          recommendedProxySettings = true;
         };
+        "/" = {
+          # mixed frontend and backend requests, based on the request headers
+          proxyPass = "$proxpass";
+          recommendedProxySettings = true;
+          extraConfig = ''
+            set $proxpass "${ui}";
+            if ($http_accept = "application/activity+json") {
+              set $proxpass "${backend}";
+            }
+            if ($http_accept = "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"") {
+              set $proxpass "${backend}";
+            }
+            if ($request_method = POST) {
+              set $proxpass "${backend}";
+            }
+
+            # Cuts off the trailing slash on URLs to make them valid
+            rewrite ^(.+)/+$ $1 permanent;
+          '';
+        };
+      };
     };
 
-    assertions = [
-      {
-        assertion =
-          cfg.database.createLocally
-          -> cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
-        message = "if you want to create the database locally, you need to use a local database";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.database.createLocally -> cfg.settings.database.host
+        == "localhost" || cfg.settings.database.host == "/run/postgresql";
+      message =
+        "if you want to create the database locally, you need to use a local database";
+    }];
 
     systemd.services.lemmy = {
       description = "Lemmy server";
@@ -213,7 +197,8 @@ in
         LEMMY_CONFIG_LOCATION = "/run/lemmy/config.hjson";
 
         # Verify how this is used, and don't put the password in the nix store
-        LEMMY_DATABASE_URL = with cfg.settings.database; "postgres:///${database}?host=${host}";
+        LEMMY_DATABASE_URL = with cfg.settings.database;
+          "postgres:///${database}?host=${host}";
       };
 
       documentation = [
@@ -223,9 +208,11 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-      after = [ "pict-rs.service" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      after = [ "pict-rs.service" ]
+        ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
-      requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      requires =
+        lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
       serviceConfig = {
         DynamicUser = true;
@@ -261,8 +248,10 @@ in
       serviceConfig = {
         DynamicUser = true;
         WorkingDirectory = "${pkgs.lemmy-ui}";
-        ExecStart = "${pkgs.nodejs}/bin/node ${pkgs.lemmy-ui}/dist/js/server.js";
+        ExecStart =
+          "${pkgs.nodejs}/bin/node ${pkgs.lemmy-ui}/dist/js/server.js";
       };
     };
   };
+
 }

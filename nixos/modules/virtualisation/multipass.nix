@@ -1,30 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.virtualisation.multipass;
-in
-{
+let cfg = config.virtualisation.multipass;
+in {
   options = {
     virtualisation.multipass = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc ''
-          Multipass, a simple manager for virtualised Ubuntu instances.
-        ''
-      );
+      enable = lib.mkEnableOption (lib.mdDoc ''
+        Multipass, a simple manager for virtualised Ubuntu instances.
+      '');
 
       logLevel = lib.mkOption {
-        type = lib.types.enum [
-          "error"
-          "warning"
-          "info"
-          "debug"
-          "trace"
-        ];
+        type = lib.types.enum [ "error" "warning" "info" "debug" "trace" ];
         default = "debug";
         description = lib.mdDoc ''
           The logging verbosity of the multipassd binary.
@@ -52,7 +37,8 @@ in
       };
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/multipassd --logger platform --verbosity ${cfg.logLevel}";
+        ExecStart =
+          "${cfg.package}/bin/multipassd --logger platform --verbosity ${cfg.logLevel}";
         SyslogIdentifier = "multipassd";
         Restart = "on-failure";
         TimeoutStopSec = 300;

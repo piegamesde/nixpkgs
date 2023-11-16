@@ -1,10 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  bison,
-  flex,
-  lib,
-}:
+{ stdenv, fetchFromGitHub, bison, flex, lib }:
 
 stdenv.mkDerivation rec {
   pname = "om4";
@@ -18,22 +12,14 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    bison
-    flex
-  ];
+  nativeBuildInputs = [ bison flex ];
 
   configureFlags = [ "--enable-m4" ];
 
   meta = with lib; {
     description = "Portable OpenBSD m4 macro processor";
     homepage = "https://github.com/ibara/m4";
-    license = with licenses; [
-      bsd2
-      bsd3
-      isc
-      publicDomain
-    ];
+    license = with licenses; [ bsd2 bsd3 isc publicDomain ];
     mainProgram = "m4";
     platforms = platforms.unix;
     maintainers = [ ];

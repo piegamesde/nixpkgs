@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  clipnotify,
-  coreutils,
-  dmenu,
-  gawk,
-  util-linux,
-  xdotool,
-  xsel,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, clipnotify, coreutils, dmenu, gawk
+, util-linux, xdotool, xsel }:
 stdenv.mkDerivation rec {
   pname = "clipmenu";
   version = "6.2.0";
@@ -28,11 +17,7 @@ stdenv.mkDerivation rec {
   '';
 
   makeFlags = [ "PREFIX=$(out)" ];
-  nativeBuildInputs = [
-    makeWrapper
-    xsel
-    clipnotify
-  ];
+  nativeBuildInputs = [ makeWrapper xsel clipnotify ];
 
   postFixup = ''
     sed -i "$out/bin/clipctl" -e 's,clipmenud\$,\.clipmenud-wrapped\$,'
@@ -42,14 +27,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/clipmenud" \
       --set PATH "${
-        lib.makeBinPath [
-          clipnotify
-          coreutils
-          gawk
-          util-linux
-          xdotool
-          xsel
-        ]
+        lib.makeBinPath [ clipnotify coreutils gawk util-linux xdotool xsel ]
       }"
   '';
 

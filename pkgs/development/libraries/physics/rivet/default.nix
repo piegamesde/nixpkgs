@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  fastjet,
-  fastjet-contrib,
-  ghostscript,
-  hepmc,
-  imagemagick,
-  less,
-  python3,
-  rsync,
-  texlive,
-  yoda,
-  which,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, fastjet, fastjet-contrib, ghostscript
+, hepmc, imagemagick, less, python3, rsync, texlive, yoda, which, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "rivet";
@@ -28,38 +12,14 @@ stdenv.mkDerivation rec {
 
   latex = texlive.combine {
     inherit (texlive)
-      scheme-basic
-      collection-pstricks
-      collection-fontsrecommended
-      l3kernel
-      l3packages
-      mathastext
-      pgf
-      relsize
-      sansmath
-      sfmath
-      siunitx
-      xcolor
-      xkeyval
-      xstring
-    ;
+      scheme-basic collection-pstricks collection-fontsrecommended l3kernel
+      l3packages mathastext pgf relsize sansmath sfmath siunitx xcolor xkeyval
+      xstring;
   };
 
-  nativeBuildInputs = [
-    rsync
-    makeWrapper
-  ];
-  buildInputs = [
-    hepmc
-    imagemagick
-    python3
-    latex
-    python3.pkgs.yoda
-  ];
-  propagatedBuildInputs = [
-    fastjet
-    fastjet-contrib
-  ];
+  nativeBuildInputs = [ rsync makeWrapper ];
+  buildInputs = [ hepmc imagemagick python3 latex python3.pkgs.yoda ];
+  propagatedBuildInputs = [ fastjet fastjet-contrib ];
 
   preConfigure = ''
     substituteInPlace bin/rivet-build.in \
@@ -88,17 +48,11 @@ stdenv.mkDerivation rec {
       --replace 'ch_cmd = [sys.executable, os.path.join(os.path.dirname(__file__),' 'ch_cmd = [('
   '';
 
-  configureFlags =
-    [
-      "--with-fastjet=${fastjet}"
-      "--with-yoda=${yoda}"
-    ]
-    ++ (
-      if lib.versions.major hepmc.version == "3" then
-        [ "--with-hepmc3=${hepmc}" ]
-      else
-        [ "--with-hepmc=${hepmc}" ]
-    );
+  configureFlags = [ "--with-fastjet=${fastjet}" "--with-yoda=${yoda}" ]
+    ++ (if lib.versions.major hepmc.version == "3" then
+      [ "--with-hepmc3=${hepmc}" ]
+    else
+      [ "--with-hepmc=${hepmc}" ]);
 
   enableParallelBuilding = true;
 
@@ -109,7 +63,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A framework for comparison of experimental measurements from high-energy particle colliders to theory predictions";
+    description =
+      "A framework for comparison of experimental measurements from high-energy particle colliders to theory predictions";
     license = licenses.gpl3;
     homepage = "https://rivet.hepforge.org";
     platforms = platforms.unix;

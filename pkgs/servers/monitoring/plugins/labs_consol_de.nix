@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  autoreconfHook,
-  makeWrapper,
-  perlPackages,
-  coreutils,
-  gnused,
-  gnugrep,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, autoreconfHook, makeWrapper
+, perlPackages, coreutils, gnused, gnugrep }:
 
 let
   glplugin = fetchFromGitHub {
@@ -19,29 +9,19 @@ let
     sha256 = "047fwrycsl2vmpi4wl46fs6f8y191d6qc9ms5rvmrj1dm2r828ws";
   };
 
-  generic =
-    {
-      pname,
-      version,
-      sha256,
-      description,
-      buildInputs,
-      ...
-    }:
+  generic = { pname, version, sha256, description, buildInputs, ... }:
     stdenv.mkDerivation {
       inherit pname version;
 
       src = fetchurl {
-        url = "https://labs.consol.de/assets/downloads/nagios/${pname}-${version}.tar.gz";
+        url =
+          "https://labs.consol.de/assets/downloads/nagios/${pname}-${version}.tar.gz";
         inherit sha256;
       };
 
       buildInputs = [ perlPackages.perl ] ++ buildInputs;
 
-      nativeBuildInputs = [
-        autoreconfHook
-        makeWrapper
-      ];
+      nativeBuildInputs = [ autoreconfHook makeWrapper ];
 
       prePatch = with lib; ''
         rm -rf GLPlugin
@@ -70,8 +50,8 @@ let
         inherit description;
       };
     };
-in
-{
+
+in {
   check-mssql-health = generic {
     pname = "check_mssql_health";
     version = "2.6.4.15";

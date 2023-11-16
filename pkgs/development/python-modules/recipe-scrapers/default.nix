@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  beautifulsoup4,
-  extruct,
-  language-tags,
-  regex,
-  requests,
-  pytestCheckHook,
-  responses,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, beautifulsoup4, extruct
+, language-tags, regex, requests, pytestCheckHook, responses, setuptools }:
 
 buildPythonPackage rec {
   pname = "recipe-scrapers";
@@ -26,24 +15,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    extruct
-    language-tags
-    regex
-    requests
-  ];
+  propagatedBuildInputs =
+    [ beautifulsoup4 extruct language-tags regex requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
-  disabledTestPaths =
-    [
-      # This is not actual code, just some pre-written boiler-plate template
-      "templates/test_scraper.py"
-    ];
+  disabledTestPaths = [
+    # This is not actual code, just some pre-written boiler-plate template
+    "templates/test_scraper.py"
+  ];
 
   pythonImportsCheck = [ "recipe_scrapers" ];
 

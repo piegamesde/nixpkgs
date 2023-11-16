@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  scdoc,
-  wayland-scanner,
-  aml,
-  jansson,
-  libxkbcommon,
-  mesa,
-  neatvnc,
-  pam,
-  pixman,
-  wayland,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, scdoc, wayland-scanner
+, aml, jansson, libxkbcommon, mesa, neatvnc, pam, pixman, wayland }:
 
 stdenv.mkDerivation rec {
   pname = "wayvnc";
@@ -32,24 +16,9 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    scdoc
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config scdoc wayland-scanner ];
 
-  buildInputs = [
-    aml
-    jansson
-    libxkbcommon
-    mesa
-    neatvnc
-    pam
-    pixman
-    wayland
-  ];
+  buildInputs = [ aml jansson libxkbcommon mesa neatvnc pam pixman wayland ];
 
   mesonFlags = [ (lib.mesonBool "tests" true) ];
 

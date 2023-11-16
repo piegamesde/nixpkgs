@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "nextinspace";
@@ -18,11 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ poetry-core ];
 
-  pythonPath = with python3.pkgs; [
-    requests
-    tzlocal
-    colorama
-  ];
+  pythonPath = with python3.pkgs; [ requests tzlocal colorama ];
 
   nativeCheckInputs = with python3.pkgs; [
     pytest-lazy-fixture

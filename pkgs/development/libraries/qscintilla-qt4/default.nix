@@ -1,18 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  unzip,
-  qt4,
-  qmake4Hook,
-}:
+{ stdenv, lib, fetchurl, unzip, qt4, qmake4Hook }:
 
 stdenv.mkDerivation rec {
   pname = "qscintilla-qt4";
   version = "2.11.6";
 
   src = fetchurl {
-    url = "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla-${version}.tar.gz";
+    url =
+      "https://www.riverbankcomputing.com/static/Downloads/QScintilla/${version}/QScintilla-${version}.tar.gz";
     sha256 = "5zRgV9tH0vs4RGf6/M/LE6oHQTc8XVk7xytVsvDdIKc=";
   };
 
@@ -20,10 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qt4 ];
 
-  nativeBuildInputs = [
-    unzip
-    qmake4Hook
-  ];
+  nativeBuildInputs = [ unzip qmake4Hook ];
 
   patches = [ ./fix-qt4-build.patch ];
 

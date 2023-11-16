@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libusb1,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libusb1 }:
 
 stdenv.mkDerivation rec {
   pname = "airspyhf";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-RKTMEDPeKcerJZtXTn8eAShxDcZUMgeQg/+7pEpMyVg=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ libusb1 ];
 

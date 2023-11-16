@@ -1,12 +1,7 @@
 # This module defines global configuration for the Bash shell, in
 # particular /etc/bashrc and /etc/profile.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -16,24 +11,12 @@ let
 
   cfg = config.programs.bash;
 
-  bashAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}") (
-      filterAttrs (k: v: v != null) cfg.shellAliases
-    )
-  );
-in
+  bashAliases = concatStringsSep "\n"
+    (mapAttrsFlatten (k: v: "alias -- ${k}=${escapeShellArg v}")
+      (filterAttrs (k: v: v != null) cfg.shellAliases));
 
-{
-  imports = [
-    (mkRemovedOptionModule
-      [
-        "programs"
-        "bash"
-        "enable"
-      ]
-      ""
-    )
-  ];
+in {
+  imports = [ (mkRemovedOptionModule [ "programs" "bash" "enable" ] "") ];
 
   options = {
 
@@ -117,7 +100,9 @@ in
         type = types.lines;
         internal = true;
       };
+
     };
+
   };
 
   config = # mkIf cfg.enable
@@ -150,6 +135,7 @@ in
 
           ${cfge.interactiveShellInit}
         '';
+
       };
 
       environment.etc.profile.text = ''
@@ -218,5 +204,7 @@ in
         "${pkgs.bashInteractive}/bin/bash"
         "${pkgs.bashInteractive}/bin/sh"
       ];
+
     };
+
 }

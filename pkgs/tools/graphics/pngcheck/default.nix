@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlib,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchurl, zlib, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "pngcheck";

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-  stockfish,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, stockfish }:
 
 buildGoModule rec {
   pname = "uchess";

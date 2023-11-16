@@ -1,19 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  writeScript,
-  cdrtools,
-  dvdauthor,
-  ffmpeg,
-  imagemagick,
-  lame,
-  mjpegtools,
-  sox,
-  transcode,
-  vorbis-tools,
-  runtimeShell,
-}:
+{ stdenv, lib, fetchurl, writeScript, cdrtools, dvdauthor, ffmpeg, imagemagick
+, lame, mjpegtools, sox, transcode, vorbis-tools, runtimeShell }:
 
 let
   binPath = lib.makeBinPath [
@@ -51,8 +37,8 @@ let
         ;;
     esac
   '';
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "dvd-slideshow";
   version = "0.8.4-2";
 
@@ -88,7 +74,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Suite of command line programs that creates a slideshow-style video from groups of pictures";
+    description =
+      "Suite of command line programs that creates a slideshow-style video from groups of pictures";
     homepage = "https://dvd-slideshow.sourceforge.net/wiki/Main_Page";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;

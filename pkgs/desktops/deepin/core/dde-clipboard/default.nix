@@ -1,20 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  dtkwidget,
-  qt5integration,
-  qt5platform-plugins,
-  dde-qt-dbus-factory,
-  gio-qt,
-  cmake,
-  qttools,
-  kwayland,
-  pkg-config,
-  wrapQtAppsHook,
-  glibmm,
-  gtest,
-}:
+{ stdenv, lib, fetchFromGitHub, dtkwidget, qt5integration, qt5platform-plugins
+, dde-qt-dbus-factory, gio-qt, cmake, qttools, kwayland, pkg-config
+, wrapQtAppsHook, glibmm, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "dde-clipboard";
@@ -42,12 +28,7 @@ stdenv.mkDerivation rec {
     patchShebangs translate_generation.sh generate_gtest_report.sh
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget

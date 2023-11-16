@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, python3, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "flet";
@@ -35,7 +30,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flet" ];
 
   meta = {
-    description = "A framework that enables you to easily build realtime web, mobile, and desktop apps in Python";
+    description =
+      "A framework that enables you to easily build realtime web, mobile, and desktop apps in Python";
     homepage = "https://flet.dev/";
     changelog = "https://github.com/flet-dev/flet/releases/tag/v${version}";
     license = lib.licenses.asl20;

@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pydicom,
-  pyfakefs,
-  pytestCheckHook,
-  sqlalchemy,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pydicom, pyfakefs
+, pytestCheckHook, sqlalchemy, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pynetdicom";
@@ -26,11 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pydicom ];
 
-  nativeCheckInputs = [
-    pyfakefs
-    pytestCheckHook
-    sqlalchemy
-  ];
+  nativeCheckInputs = [ pyfakefs pytestCheckHook sqlalchemy ];
 
   disabledTests = [
     # Some tests needs network capabilities
@@ -59,11 +46,10 @@ buildPythonPackage rec {
     "TestStoreSCUCLI"
   ];
 
-  disabledTestPaths =
-    [
-      # Ignore apps tests
-      "pynetdicom/apps/tests/"
-    ];
+  disabledTestPaths = [
+    # Ignore apps tests
+    "pynetdicom/apps/tests/"
+  ];
 
   pythonImportsCheck = [ "pynetdicom" ];
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "wireproxy";
@@ -15,11 +11,7 @@ buildGoModule rec {
     hash = "sha256-Sy8jApnU3dpsXi5vWyEY6D250xpG73aByNZ/pSg90l0=";
   };
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=v${version}" ];
 
   vendorHash = "sha256-LBLEb2oVi5ILNtoOtmJZ7NC7hMvLZcexYAxwmb4iUBo=";
 

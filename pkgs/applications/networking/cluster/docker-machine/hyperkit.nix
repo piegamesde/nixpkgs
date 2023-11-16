@@ -1,18 +1,8 @@
-{
-  lib,
-  buildGoModule,
-  minikube,
-}:
+{ lib, buildGoModule, minikube }:
 
 buildGoModule rec {
   inherit (minikube)
-    version
-    src
-    nativeBuildInputs
-    buildInputs
-    vendorHash
-    doCheck
-  ;
+    version src nativeBuildInputs buildInputs vendorHash doCheck;
 
   pname = "docker-machine-hyperkit";
 

@@ -1,12 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  wayland,
-}:
-let
-  version = "0.4.0";
-in
-{
+{ lib, fetchFromGitHub, wayland }:
+let version = "0.4.0";
+in {
   inherit version;
 
   src = fetchFromGitHub {

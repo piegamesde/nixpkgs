@@ -1,8 +1,4 @@
-{
-  buildGoPackage,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoPackage, fetchFromGitHub, lib }:
 
 buildGoPackage rec {
   pname = "allmark";

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  autoreconfHook,
-  pkg-config,
-  utilmacros,
-  libX11,
-  libXaw,
-  libXmu,
-  libXt,
-}:
+{ lib, stdenv, fetchFromGitLab, autoreconfHook, pkg-config, utilmacros, libX11
+, libXaw, libXmu, libXt }:
 
 stdenv.mkDerivation rec {
   pname = "xedit";
@@ -30,17 +20,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    utilmacros
-  ];
-  buildInputs = [
-    libX11
-    libXaw
-    libXmu
-    libXt
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config utilmacros ];
+  buildInputs = [ libX11 libXaw libXmu libXt ];
 
   configureFlags = [
     "--with-lispdir=$out/share/X11/xedit/lisp"

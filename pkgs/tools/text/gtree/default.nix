@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  gtree,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, gtree }:
 
 buildGoModule rec {
   pname = "gtree";
@@ -21,12 +15,8 @@ buildGoModule rec {
 
   subPackages = [ "cmd/gtree" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.Version=${version}"
-    "-X=main.Revision=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X=main.Version=${version}" "-X=main.Revision=${src.rev}" ];
 
   passthru.tests = {
     version = testers.testVersion {
@@ -36,7 +26,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Generate directory trees and directories using Markdown or programmatically";
+    description =
+      "Generate directory trees and directories using Markdown or programmatically";
     homepage = "https://github.com/ddddddO/gtree";
     changelog = "https://github.com/ddddddO/gtree/releases/tag/${src.rev}";
     license = licenses.bsd2;

@@ -1,35 +1,29 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  matomoTest =
-    package:
+  matomoTest = package:
     makeTest {
       name = "matomo";
 
-      nodes.machine =
-        { config, pkgs, ... }:
-        {
-          services.matomo = {
-            package = package;
-            enable = true;
-            nginx = {
-              forceSSL = false;
-              enableACME = false;
-            };
+      nodes.machine = { config, pkgs, ... }: {
+        services.matomo = {
+          package = package;
+          enable = true;
+          nginx = {
+            forceSSL = false;
+            enableACME = false;
           };
-          services.mysql = {
-            enable = true;
-            package = pkgs.mariadb;
-          };
-          services.nginx.enable = true;
         };
+        services.mysql = {
+          enable = true;
+          package = pkgs.mariadb;
+        };
+        services.nginx.enable = true;
+      };
 
       testScript = ''
         start_all()
@@ -44,8 +38,7 @@ let
             )
       '';
     };
-in
-{
+in {
   matomo = matomoTest pkgs.matomo // {
     name = "matomo";
     meta.maintainers = with maintainers; [

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -33,7 +27,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Token Bucket Implementation for Python Web Apps";
     homepage = "https://github.com/falconry/token-bucket";
-    changelog = "https://github.com/falconry/token-bucket/releases/tag/${version}";
+    changelog =
+      "https://github.com/falconry/token-bucket/releases/tag/${version}";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];
   };

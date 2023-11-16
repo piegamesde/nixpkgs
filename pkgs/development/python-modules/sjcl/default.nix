@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pycryptodome,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pycryptodome
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "sjcl";

@@ -1,11 +1,6 @@
 # This module adds a scripted iPXE entry to the GRUB boot menu.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -20,14 +15,13 @@ let
 
   '';
 
-  scriptFile =
-    name:
-    let
-      value = builtins.getAttr name config.boot.loader.grub.ipxe;
-    in
-    if builtins.typeOf value == "path" then value else builtins.toFile "${name}.ipxe" value;
-in
-{
+  scriptFile = name:
+    let value = builtins.getAttr name config.boot.loader.grub.ipxe;
+    in if builtins.typeOf value == "path" then
+      value
+    else
+      builtins.toFile "${name}.ipxe" value;
+in {
   options = {
     boot.loader.grub.ipxe = mkOption {
       type = types.attrsOf (types.either types.path types.str);
@@ -51,17 +45,12 @@ in
 
     boot.loader.grub.extraEntries = toString (map grubEntry scripts);
 
-    boot.loader.grub.extraFiles =
-      {
-        "ipxe.lkrn" = "${pkgs.ipxe}/ipxe.lkrn";
-      }
-      // builtins.listToAttrs (
-        map
-          (name: {
-            name = name + ".ipxe";
-            value = scriptFile name;
-          })
-          scripts
-      );
+    boot.loader.grub.extraFiles = {
+      "ipxe.lkrn" = "${pkgs.ipxe}/ipxe.lkrn";
+    } // builtins.listToAttrs (map (name: {
+      name = name + ".ipxe";
+      value = scriptFile name;
+    }) scripts);
   };
+
 }

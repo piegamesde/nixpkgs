@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  lark,
-  nose,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, lark, nose, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bc-python-hcl2";

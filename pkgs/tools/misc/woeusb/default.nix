@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  makeWrapper,
-  coreutils,
-  dosfstools,
-  findutils,
-  gawk,
-  gnugrep,
-  grub2_light,
-  ncurses,
-  ntfs3g,
-  parted,
-  p7zip,
-  util-linux,
-  wimlib,
-  wget,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, makeWrapper, coreutils
+, dosfstools, findutils, gawk, gnugrep, grub2_light, ncurses, ntfs3g, parted
+, p7zip, util-linux, wimlib, wget }:
 
 stdenv.mkDerivation rec {
   version = "5.2.4";
@@ -30,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HB1E7rP/U58dyL3j6YnhF5AOGAcHqmA/ZZ5JNBDibco=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ];
+  nativeBuildInputs = [ installShellFiles makeWrapper ];
 
   postPatch = ''
     # Emulate version smudge filter (see .gitattributes, .gitconfig).

@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  patchelf,
-  coreutils,
-  pcsclite,
-  zlib,
-  glib,
-  gdk-pixbuf,
-  gtk2,
-  cairo,
-  pango,
-  libX11,
-  atk,
-  openssl,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, patchelf, coreutils, pcsclite, zlib, glib, gdk-pixbuf
+, gtk2, cairo, pango, libX11, atk, openssl, runtimeShell }:
 
 let
   libPath = lib.makeLibraryPath [
@@ -32,34 +16,29 @@ let
   ];
 
   src_i686 = {
-    url = "http://www.matrica.com/download/distribution/moneyplex_16_install32_22424.tar.gz";
+    url =
+      "http://www.matrica.com/download/distribution/moneyplex_16_install32_22424.tar.gz";
     sha256 = "0yfpc6s85r08g796dycl378kagkma865vp7j72npia3hjc4vwamr";
   };
 
   src_x86_64 = {
-    url = "http://www.matrica.com/download/distribution/moneyplex_16_install64_22424.tar.gz";
+    url =
+      "http://www.matrica.com/download/distribution/moneyplex_16_install64_22424.tar.gz";
     sha256 = "03vxbg1yp8qyvcn6bw2a5s134nxzq9cn0vqbmlld7hh4knbsfqzw";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "moneyplex";
   version = "16.0.22424";
 
-  src = fetchurl (
-    if stdenv.hostPlatform.system == "i686-linux" then
-      src_i686
-    else if stdenv.hostPlatform.system == "x86_64-linux" then
-      src_x86_64
-    else
-      throw "moneyplex requires i686-linux or x86_64-linux"
-  );
+  src = fetchurl (if stdenv.hostPlatform.system == "i686-linux" then
+    src_i686
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    src_x86_64
+  else
+    throw "moneyplex requires i686-linux or x86_64-linux");
 
-  phases = [
-    "unpackPhase"
-    "installPhase"
-    "postInstall"
-  ];
+  phases = [ "unpackPhase" "installPhase" "postInstall" ];
 
   buildInputs = [ ];
 
@@ -153,4 +132,5 @@ stdenv.mkDerivation {
     license = licenses.unfree;
     downloadPage = "http://matrica.de/download/download.html";
   };
+
 }

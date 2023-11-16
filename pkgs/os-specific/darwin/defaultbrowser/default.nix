@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  Foundation,
-}:
+{ lib, stdenv, fetchFromGitHub, Foundation }:
 
 stdenv.mkDerivation rec {
   pname = "defaultbrowser";
@@ -16,16 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SelUQXoKtShcDjq8uKg3wM0kG2opREa2DGQCDd6IsOQ=";
   };
 
-  makeFlags = [
-    "CC=cc"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "CC=cc" "PREFIX=$(out)" ];
 
   buildInputs = [ Foundation ];
 
   meta = with lib; {
     mainProgram = "defaultbrowser";
-    description = "Command line tool for getting and setting a default browser (HTTP handler) in Mac OS X";
+    description =
+      "Command line tool for getting and setting a default browser (HTTP handler) in Mac OS X";
     homepage = "https://github.com/kerma/defaultbrowser";
     platforms = platforms.darwin;
     maintainers = with maintainers; [ Enzime ];

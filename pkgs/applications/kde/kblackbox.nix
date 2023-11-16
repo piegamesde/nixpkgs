@@ -1,12 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  ki18n,
-  kio,
-  libkdegames,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, kio, libkdegames }:
 
 mkDerivation {
   pname = "kblackbox";
@@ -18,10 +10,5 @@ mkDerivation {
     platforms = platforms.linux;
   };
   nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [
-    libkdegames
-    kdoctools
-    ki18n
-    kio
-  ];
+  buildInputs = [ libkdegames kdoctools ki18n kio ];
 }

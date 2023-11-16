@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  lua5,
-  curl,
-  quvi_scripts,
-  libproxy,
-  libgcrypt,
-  glib,
-}:
+{ lib, stdenv, fetchurl, pkg-config, lua5, curl, quvi_scripts, libproxy
+, libgcrypt, glib }:
 
 stdenv.mkDerivation rec {
   pname = "libquvi";
@@ -21,14 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    lua5
-    curl
-    quvi_scripts
-    libproxy
-    libgcrypt
-    glib
-  ];
+  buildInputs = [ lua5 curl quvi_scripts libproxy libgcrypt glib ];
 
   meta = {
     description = "Web video downloader";

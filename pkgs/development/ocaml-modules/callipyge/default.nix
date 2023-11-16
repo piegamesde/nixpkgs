@@ -1,18 +1,12 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-  alcotest,
-  eqaf,
-  fmt,
-}:
+{ lib, buildDunePackage, fetchurl, alcotest, eqaf, fmt }:
 
 buildDunePackage rec {
   pname = "callipyge";
   version = "0.2";
 
   src = fetchurl {
-    url = "https://github.com/oklm-wsh/Callipyge/releases/download/v${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/oklm-wsh/Callipyge/releases/download/v${version}/${pname}-${version}.tbz";
     hash = "sha256-T/94a88xvK51TggjXecdKc9kyTE9aIyueIt5T24sZB0=";
   };
 
@@ -20,10 +14,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [
-    fmt
-    eqaf
-  ];
+  propagatedBuildInputs = [ fmt eqaf ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

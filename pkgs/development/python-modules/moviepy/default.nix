@@ -1,24 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  numpy,
-  decorator,
-  imageio,
-  imageio-ffmpeg,
-  proglog,
-  requests,
-  tqdm,
-  # Advanced image processing (triples size of output)
-  advancedProcessing ? false,
-  opencv3,
-  scikit-image,
-  scikit-learn,
-  scipy,
-  matplotlib,
-  youtube-dl,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, numpy, decorator, imageio
+, imageio-ffmpeg, proglog, requests, tqdm
+# Advanced image processing (triples size of output)
+, advancedProcessing ? false, opencv3, scikit-image, scikit-learn, scipy
+, matplotlib, youtube-dl }:
 
 buildPythonPackage rec {
   pname = "moviepy";
@@ -40,15 +24,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   propagatedBuildInputs =
-    [
-      numpy
-      decorator
-      imageio
-      imageio-ffmpeg
-      tqdm
-      requests
-      proglog
-    ]
+    [ numpy decorator imageio imageio-ffmpeg tqdm requests proglog ]
     ++ lib.optionals advancedProcessing [
       opencv3
       scikit-image

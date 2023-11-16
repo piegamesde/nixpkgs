@@ -1,12 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  mbstrdecoder,
-  typepy,
-  pytestCheckHook,
-  termcolor,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, mbstrdecoder, typepy
+, pytestCheckHook, termcolor }:
 
 buildPythonPackage rec {
   pname = "dataproperty";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-ODSrKZ8M/ni9r2gkVIKWaKkdr+3AVi4INkEKJ+cmb44=";
   };
 
-  propagatedBuildInputs = [
-    mbstrdecoder
-    typepy
-  ];
+  propagatedBuildInputs = [ mbstrdecoder typepy ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   checkInputs = [ termcolor ];

@@ -1,14 +1,5 @@
-{
-  lib,
-  aioconsole,
-  bleak,
-  buildPythonPackage,
-  dbus-next,
-  fetchFromGitHub,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aioconsole, bleak, buildPythonPackage, dbus-next, fetchFromGitHub, numpy
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bless";
@@ -24,21 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-+rnMLqNfhIJASCKkIfOKpVil3S/d8BcMxnLHmdOcRIY=";
   };
 
-  propagatedBuildInputs = [
-    bleak
-    dbus-next
-  ];
+  propagatedBuildInputs = [ bleak dbus-next ];
 
-  nativeCheckInputs = [
-    aioconsole
-    numpy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioconsole numpy pytestCheckHook ];
 
   pythonImportsCheck = [ "bless" ];
 
   meta = with lib; {
-    description = "Library for creating a BLE Generic Attribute Profile (GATT) server";
+    description =
+      "Library for creating a BLE Generic Attribute Profile (GATT) server";
     homepage = "https://github.com/kevincar/bless";
     changelog = "https://github.com/kevincar/bless/releases/tag/v${version}";
     license = licenses.mit;

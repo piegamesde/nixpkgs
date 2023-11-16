@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-}:
+{ lib, python3Packages, fetchPypi }:
 
 python3Packages.buildPythonApplication rec {
   pname = "lesscpy";
@@ -15,12 +11,10 @@ python3Packages.buildPythonApplication rec {
 
   checkInputs = with python3Packages; [ pytestCheckHook ];
   pythonImportsCheck = [ "lesscpy" ];
-  propagatedBuildInputs = with python3Packages; [
-    ply
-    six
-  ];
+  propagatedBuildInputs = with python3Packages; [ ply six ];
 
-  doCheck = false; # Really weird test failures (`nix-build-python2.css not found`)
+  doCheck =
+    false; # Really weird test failures (`nix-build-python2.css not found`)
 
   meta = with lib; {
     description = "Python LESS Compiler";

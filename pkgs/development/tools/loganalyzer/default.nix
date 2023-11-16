@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qtbase,
-  qtsvg,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, qtbase, qtsvg, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "loganalyzer";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-k9hOGI/TmiftwhSHQEh3ZVV8kkMSs1yKejqHelFSQJ4=";
   };
 
-  buildInputs = [
-    qtbase
-    qtsvg
-  ];
+  buildInputs = [ qtbase qtsvg ];
 
   nativeBuildInputs = [ wrapQtAppsHook ];
 
@@ -44,10 +34,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Tool that helps you to analyze your log files by reducing the content with patterns you define";
+    description =
+      "Tool that helps you to analyze your log files by reducing the content with patterns you define";
     homepage = "https://github.com/pbek/loganalyzer";
     changelog = "https://github.com/pbek/loganalyzer/blob/develop/CHANGELOG.md";
-    downloadPage = "https://github.com/pbek/loganalyzer/releases/tag/v${version}";
+    downloadPage =
+      "https://github.com/pbek/loganalyzer/releases/tag/v${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ pbek ];
     platforms = platforms.unix;

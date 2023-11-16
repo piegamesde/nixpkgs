@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  aiodns,
-  aiohttp,
-  awesomeversion,
-  backoff,
-  cachetools,
-  pycountry,
-  pydantic,
-  yarl,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, aiodns
+, aiohttp, awesomeversion, backoff, cachetools, pycountry, pydantic, yarl
+, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "radios";
@@ -50,10 +36,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "radios" ];
 

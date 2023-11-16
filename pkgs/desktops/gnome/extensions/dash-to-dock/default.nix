@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  glib,
-  gettext,
-  sassc,
-  gitUpdater,
-}:
+{ stdenv, lib, fetchFromGitHub, glib, gettext, sassc, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-dash-to-dock";
@@ -20,13 +12,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b9XdLd4tcgp+B8HDlJZXjpJI3x5KE/YwckKd9+VA2Sk=";
   };
 
-  nativeBuildInputs = [
-    glib
-    gettext
-    sassc
-  ];
+  nativeBuildInputs = [ glib gettext sassc ];
 
-  makeFlags = [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
+  makeFlags =
+    [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
 
   passthru = {
     extensionUuid = "dash-to-dock@micxgx.gmail.com";
@@ -39,10 +28,6 @@ stdenv.mkDerivation rec {
     description = "A dock for the Gnome Shell";
     homepage = "https://micheleg.github.io/dash-to-dock/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      eperuffo
-      jtojnar
-      rhoriguchi
-    ];
+    maintainers = with maintainers; [ eperuffo jtojnar rhoriguchi ];
   };
 }

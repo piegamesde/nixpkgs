@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "simplotask";
@@ -20,10 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [
-    "-s -w"
-    "-X main.revision=v${version}"
-  ];
+  ldflags = [ "-s -w" "-X main.revision=v${version}" ];
 
   doCheck = false;
 
@@ -33,7 +25,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A tool for effortless deployment and configuration management";
+    description =
+      "A tool for effortless deployment and configuration management";
     homepage = "https://simplotask.com/";
     maintainers = with maintainers; [ sikmir ];
     license = licenses.mit;

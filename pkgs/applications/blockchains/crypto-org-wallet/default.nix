@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchurl,
-  appimageTools,
-  imagemagick,
-}:
+{ lib, fetchurl, appimageTools, imagemagick }:
 
 let
   pname = "chain-desktop-wallet";
@@ -11,13 +6,13 @@ let
   name = "${pname}-${version}";
 
   src = fetchurl {
-    url = "https://github.com/crypto-com/${pname}/releases/download/v${version}/${name}-x86_64.AppImage";
+    url =
+      "https://github.com/crypto-com/${pname}/releases/download/v${version}/${name}-x86_64.AppImage";
     sha256 = "12076hf8dlz0hg1pb2ixwlslrh8gi6s1iawnvhnn6vz4jmjvq356";
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
-in
-appimageTools.wrapType2 rec {
+in appimageTools.wrapType2 rec {
   inherit name src;
 
   extraInstallCommands = ''

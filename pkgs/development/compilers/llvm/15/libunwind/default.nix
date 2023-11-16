@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  llvm_meta,
-  version,
-  monorepoSrc,
-  runCommand,
-  cmake,
-  ninja,
-  python3,
-  enableShared ? !stdenv.hostPlatform.isStatic,
-}:
+{ lib, stdenv, llvm_meta, version, monorepoSrc, runCommand, cmake, ninja
+, python3, enableShared ? !stdenv.hostPlatform.isStatic }:
 
 stdenv.mkDerivation rec {
   pname = "libunwind";
@@ -43,20 +33,12 @@ stdenv.mkDerivation rec {
     cd ../runtimes
   '';
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python3
-  ];
+  nativeBuildInputs = [ cmake ninja python3 ];
 
-  cmakeFlags = [
-    "-DLLVM_ENABLE_RUNTIMES=libunwind"
-  ] ++ lib.optional (!enableShared) "-DLIBUNWIND_ENABLE_SHARED=OFF";
+  cmakeFlags = [ "-DLLVM_ENABLE_RUNTIMES=libunwind" ]
+    ++ lib.optional (!enableShared) "-DLIBUNWIND_ENABLE_SHARED=OFF";
 
   meta = llvm_meta // {
     # Details: https://github.com/llvm/llvm-project/blob/main/libunwind/docs/index.rst

@@ -1,40 +1,31 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
-  useHostResolvConf = config.networking.resolvconf.enable && config.networking.useHostResolvConf;
+  useHostResolvConf = config.networking.resolvconf.enable
+    && config.networking.useHostResolvConf;
 
   bootStage2 = pkgs.substituteAll {
     src = ./stage-2-init.sh;
     shellDebug = "${pkgs.bashInteractive}/bin/bash";
     shell = "${pkgs.bash}/bin/bash";
-    inherit (config.boot) readOnlyNixStore systemdExecutable extraSystemdUnitPaths;
+    inherit (config.boot)
+      readOnlyNixStore systemdExecutable extraSystemdUnitPaths;
     inherit (config.system.nixos) distroName;
     isExecutable = true;
     inherit useHostResolvConf;
     inherit (config.system.build) earlyMountScript;
-    path = lib.makeBinPath (
-      [
-        pkgs.coreutils
-        pkgs.util-linux
-      ]
-      ++ lib.optional useHostResolvConf pkgs.openresolv
-    );
+    path = lib.makeBinPath ([ pkgs.coreutils pkgs.util-linux ]
+      ++ lib.optional useHostResolvConf pkgs.openresolv);
     postBootCommands = pkgs.writeText "local-cmds" ''
       ${config.boot.postBootCommands}
       ${config.powerManagement.powerUpCommands}
     '';
   };
-in
 
-{
+in {
   options = {
 
     boot = {
@@ -76,10 +67,12 @@ in
         '';
       };
     };
+
   };
 
   config = {
 
     system.build.bootStage2 = bootStage2;
+
   };
 }

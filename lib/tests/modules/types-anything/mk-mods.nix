@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
 
   options.value = lib.mkOption { type = lib.types.anything; };
 
@@ -18,11 +17,10 @@
         }
         (lib.mkIf true {
           foo = lib.mkIf true (lib.mkForce 1);
-          bar = {
-            baz = lib.mkDefault "baz";
-          };
+          bar = { baz = lib.mkDefault "baz"; };
         })
       ];
     }
   ];
+
 }

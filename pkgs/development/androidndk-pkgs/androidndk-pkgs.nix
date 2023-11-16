@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  makeWrapper,
-  runCommand,
-  wrapBintoolsWith,
-  wrapCCWith,
-  autoPatchelfHook,
-  buildAndroidndk,
-  androidndk,
-  targetAndroidndkPkgs,
-}:
+{ lib, stdenv, makeWrapper, runCommand, wrapBintoolsWith, wrapCCWith
+, autoPatchelfHook, buildAndroidndk, androidndk, targetAndroidndkPkgs }:
 
 let
   # Mapping from a platform to information needed to unpack NDK stuff for that
@@ -21,15 +11,10 @@ let
   #
   # FIXME:
   # There's some dragons here. Build host and target concepts are being mixed up.
-  ndkInfoFun =
-    { config, ... }:
+  ndkInfoFun = { config, ... }:
     {
-      x86_64-apple-darwin = {
-        double = "darwin-x86_64";
-      };
-      x86_64-unknown-linux-gnu = {
-        double = "linux-x86_64";
-      };
+      x86_64-apple-darwin = { double = "darwin-x86_64"; };
+      x86_64-unknown-linux-gnu = { double = "linux-x86_64"; };
       i686-unknown-linux-android = {
         triple = "i686-linux-android";
         arch = "x86";
@@ -46,8 +31,8 @@ let
         arch = "arm64";
         triple = "aarch64-linux-android";
       };
-    }
-    .${config} or (throw "Android NDK doesn't support ${config}, as far as we know");
+    }.${config} or (throw
+      "Android NDK doesn't support ${config}, as far as we know");
 
   buildInfo = ndkInfoFun stdenv.buildPlatform;
   hostInfo = ndkInfoFun stdenv.hostPlatform;
@@ -55,34 +40,21 @@ let
 
   inherit (stdenv.targetPlatform) sdkVer;
   suffixSalt =
-    lib.replaceStrings
-      [
-        "-"
-        "."
-      ]
-      [
-        "_"
-        "_"
-      ]
-      stdenv.targetPlatform.config;
+    lib.replaceStrings [ "-" "." ] [ "_" "_" ] stdenv.targetPlatform.config;
 
   # targetInfo.triple is what Google thinks the toolchain should be, this is a little
   # different from what we use. We make it four parts to conform with the existing
   # standard more properly.
-  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
-    stdenv.targetPlatform.config + "-"
-  );
-in
+  targetPrefix =
+    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
+    (stdenv.targetPlatform.config + "-");
 
-rec {
+in rec {
   # Misc tools
   binaries = stdenv.mkDerivation {
     pname = "${targetPrefix}ndk-toolchain";
     inherit (androidndk) version;
-    nativeBuildInputs = [
-      makeWrapper
-      autoPatchelfHook
-    ];
+    nativeBuildInputs = [ makeWrapper autoPatchelfHook ];
     propagatedBuildInputs = [ androidndk ];
     passthru = {
       inherit targetPrefix;

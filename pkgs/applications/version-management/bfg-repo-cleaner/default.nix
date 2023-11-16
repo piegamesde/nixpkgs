@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "bfg-repo-cleaner";
@@ -32,7 +26,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://rtyley.github.io/bfg-repo-cleaner/";
     # Descriptions taken with minor modification from the homepage of bfg-repo-cleaner
-    description = "Removes large or troublesome blobs in a git repository like git-filter-branch does, but faster";
+    description =
+      "Removes large or troublesome blobs in a git repository like git-filter-branch does, but faster";
     longDescription = ''
       The BFG is a simpler, faster alternative to git-filter-branch for
       cleansing bad data out of your Git repository history, in particular removing
@@ -48,6 +43,8 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.changlinli ];
     mainProgram = "bfg";
     platforms = platforms.unix;
-    downloadPage = "https://mvnrepository.com/artifact/com.madgag/bfg/${version}";
+    downloadPage =
+      "https://mvnrepository.com/artifact/com.madgag/bfg/${version}";
   };
+
 }

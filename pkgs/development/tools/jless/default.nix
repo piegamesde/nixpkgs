@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  stdenv,
-  python3,
-  AppKit,
-  libxcb,
-}:
+{ lib, fetchFromGitHub, rustPlatform, stdenv, python3, AppKit, libxcb }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jless";
@@ -23,8 +15,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ python3 ];
 
-  buildInputs =
-    [ ] ++ lib.optionals stdenv.isDarwin [ AppKit ] ++ lib.optionals stdenv.isLinux [ libxcb ];
+  buildInputs = [ ] ++ lib.optionals stdenv.isDarwin [ AppKit ]
+    ++ lib.optionals stdenv.isLinux [ libxcb ];
 
   meta = with lib; {
     description = "A command-line pager for JSON data";

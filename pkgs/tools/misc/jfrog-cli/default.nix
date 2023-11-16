@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkgs,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkgs }:
 
 buildGoModule rec {
   pname = "jfrog-cli";
@@ -28,7 +23,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/jfrog/jfrog-cli";
-    description = "Client for accessing to JFrog's Artifactory and Mission Control through their respective REST APIs";
+    description =
+      "Client for accessing to JFrog's Artifactory and Mission Control through their respective REST APIs";
     changelog = "https://github.com/jfrog/jfrog-cli/releases/tag/v${version}";
     license = licenses.asl20;
     mainProgram = "jf";

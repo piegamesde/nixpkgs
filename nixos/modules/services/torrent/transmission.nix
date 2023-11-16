@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-  ...
-}:
+{ config, lib, pkgs, options, ... }:
 
 with lib;
 
@@ -20,34 +14,19 @@ let
   watchDir = "watchdir";
   settingsFormat = pkgs.formats.json { };
   settingsFile = settingsFormat.generate "settings.json" cfg.settings;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "transmission"
-        "port"
-      ]
-      [
-        "services"
-        "transmission"
-        "settings"
-        "rpc-port"
-      ]
-    )
-    (mkAliasOptionModuleMD
-      [
-        "services"
-        "transmission"
-        "openFirewall"
-      ]
-      [
-        "services"
-        "transmission"
-        "openPeerPorts"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "transmission" "port" ] [
+      "services"
+      "transmission"
+      "settings"
+      "rpc-port"
+    ])
+    (mkAliasOptionModuleMD [ "services" "transmission" "openFirewall" ] [
+      "services"
+      "transmission"
+      "openPeerPorts"
+    ])
   ];
   options = {
     services.transmission = {
@@ -79,13 +58,15 @@ in
           options.download-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${downloadsDir}";
-            defaultText = literalExpression ''"''${config.${opt.home}}/${downloadsDir}"'';
+            defaultText =
+              literalExpression ''"''${config.${opt.home}}/${downloadsDir}"'';
             description = lib.mdDoc "Directory where to download torrents.";
           };
           options.incomplete-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${incompleteDir}";
-            defaultText = literalExpression ''"''${config.${opt.home}}/${incompleteDir}"'';
+            defaultText =
+              literalExpression ''"''${config.${opt.home}}/${incompleteDir}"'';
             description = lib.mdDoc ''
               When enabled with
               services.transmission.home
@@ -108,7 +89,8 @@ in
           options.peer-port = mkOption {
             type = types.port;
             default = 51413;
-            description = lib.mdDoc "The peer port to listen for incoming connections.";
+            description =
+              lib.mdDoc "The peer port to listen for incoming connections.";
           };
           options.peer-port-random-high = mkOption {
             type = types.port;
@@ -157,7 +139,8 @@ in
           options.script-torrent-done-filename = mkOption {
             type = types.nullOr types.path;
             default = null;
-            description = lib.mdDoc "Executable to be run at torrent completion.";
+            description =
+              lib.mdDoc "Executable to be run at torrent completion.";
           };
           options.umask = mkOption {
             type = types.int;
@@ -181,8 +164,10 @@ in
           options.watch-dir = mkOption {
             type = types.path;
             default = "${cfg.home}/${watchDir}";
-            defaultText = literalExpression ''"''${config.${opt.home}}/${watchDir}"'';
-            description = lib.mdDoc "Watch a directory for torrent files and add them to transmission.";
+            defaultText =
+              literalExpression ''"''${config.${opt.home}}/${watchDir}"'';
+            description = lib.mdDoc
+              "Watch a directory for torrent files and add them to transmission.";
           };
           options.watch-dir-enabled = mkOption {
             type = types.bool;
@@ -264,22 +249,25 @@ in
         '';
       };
 
-      openPeerPorts = mkEnableOption (lib.mdDoc "opening of the peer port(s) in the firewall");
+      openPeerPorts = mkEnableOption
+        (lib.mdDoc "opening of the peer port(s) in the firewall");
 
-      openRPCPort = mkEnableOption (lib.mdDoc "opening of the RPC port in the firewall");
+      openRPCPort =
+        mkEnableOption (lib.mdDoc "opening of the RPC port in the firewall");
 
-      performanceNetParameters = mkEnableOption (lib.mdDoc "performance tweaks") // {
-        description = lib.mdDoc ''
-          Whether to enable tweaking of kernel parameters
-          to open many more connections at the same time.
+      performanceNetParameters = mkEnableOption (lib.mdDoc "performance tweaks")
+        // {
+          description = lib.mdDoc ''
+            Whether to enable tweaking of kernel parameters
+            to open many more connections at the same time.
 
-          Note that you may also want to increase
-          `peer-limit-global`.
-          And be aware that these settings are quite aggressive
-          and might not suite your regular desktop use.
-          For instance, SSH sessions may time out more easily.
-        '';
-      };
+            Note that you may also want to increase
+            `peer-limit-global`.
+            And be aware that these settings are quite aggressive
+            and might not suite your regular desktop use.
+            For instance, SSH sessions may time out more easily.
+          '';
+        };
     };
   };
 
@@ -292,23 +280,21 @@ in
     # Note also that using an ExecStartPre= wouldn't work either
     # because BindPaths= needs these directories before.
     system.activationScripts = mkIf (cfg.downloadDirPermissions != null) {
-      transmission-daemon =
-        ''
-          install -d -m 700 '${cfg.home}/${settingsDir}'
-          chown -R '${cfg.user}:${cfg.group}' ${cfg.home}/${settingsDir}
-          install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.download-dir}'
-        ''
-        + optionalString cfg.settings.incomplete-dir-enabled ''
-          install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.incomplete-dir}'
-        ''
-        + optionalString cfg.settings.watch-dir-enabled ''
-          install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.watch-dir}'
-        '';
+      transmission-daemon = ''
+        install -d -m 700 '${cfg.home}/${settingsDir}'
+        chown -R '${cfg.user}:${cfg.group}' ${cfg.home}/${settingsDir}
+        install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.download-dir}'
+      '' + optionalString cfg.settings.incomplete-dir-enabled ''
+        install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.incomplete-dir}'
+      '' + optionalString cfg.settings.watch-dir-enabled ''
+        install -d -m '${cfg.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${cfg.settings.watch-dir}'
+      '';
     };
 
     systemd.services.transmission = {
       description = "Transmission BitTorrent Service";
-      after = [ "network.target" ] ++ optional apparmor.enable "apparmor.service";
+      after = [ "network.target" ]
+        ++ optional apparmor.enable "apparmor.service";
       requires = optional apparmor.enable "apparmor.service";
       wantedBy = [ "multi-user.target" ];
       environment.CURL_CA_BUNDLE = etc."ssl/certs/ca-certificates.crt".source;
@@ -316,17 +302,15 @@ in
       serviceConfig = {
         # Use "+" because credentialsFile may not be accessible to User= or Group=.
         ExecStartPre = [
-          (
-            "+"
-            + pkgs.writeShellScript "transmission-prestart" ''
-              set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
-              ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
-              install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
-               '${cfg.home}/${settingsDir}/settings.json'
-            ''
-          )
+          ("+" + pkgs.writeShellScript "transmission-prestart" ''
+            set -eu${lib.optionalString (cfg.settings.message-level >= 3) "x"}
+            ${pkgs.jq}/bin/jq --slurp add ${settingsFile} '${cfg.credentialsFile}' |
+            install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' /dev/stdin \
+             '${cfg.home}/${settingsDir}/settings.json'
+          '')
         ];
-        ExecStart = "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
+        ExecStart =
+          "${cfg.package}/bin/transmission-daemon -f -g ${cfg.home}/${settingsDir} ${
             escapeShellArgs cfg.extraFlags
           }";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -350,29 +334,24 @@ in
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
         MountAPIVFS = true;
-        BindPaths =
-          [
-            "${cfg.home}/${settingsDir}"
-            cfg.settings.download-dir
-          ]
-          ++ optional cfg.settings.incomplete-dir-enabled cfg.settings.incomplete-dir
-          ++
-            optional (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir;
-        BindReadOnlyPaths =
-          [
-            # No confinement done of /nix/store here like in systemd-confinement.nix,
-            # an AppArmor profile is provided to get a confinement based upon paths and rights.
-            builtins.storeDir
-            "/etc"
-            "/run"
-          ]
-          ++ optional
-            (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
-            cfg.settings.script-torrent-done-filename
-          ++
-            optional (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir;
+        BindPaths = [ "${cfg.home}/${settingsDir}" cfg.settings.download-dir ]
+          ++ optional cfg.settings.incomplete-dir-enabled
+          cfg.settings.incomplete-dir ++ optional
+          (cfg.settings.watch-dir-enabled
+            && cfg.settings.trash-original-torrent-files)
+          cfg.settings.watch-dir;
+        BindReadOnlyPaths = [
+          # No confinement done of /nix/store here like in systemd-confinement.nix,
+          # an AppArmor profile is provided to get a confinement based upon paths and rights.
+          builtins.storeDir
+          "/etc"
+          "/run"
+        ] ++ optional (cfg.settings.script-torrent-done-enabled
+          && cfg.settings.script-torrent-done-filename != null)
+          cfg.settings.script-torrent-done-filename ++ optional
+          (cfg.settings.watch-dir-enabled
+            && !cfg.settings.trash-original-torrent-files)
+          cfg.settings.watch-dir;
         StateDirectory = [
           "transmission"
           "transmission/.config/transmission-daemon"
@@ -411,11 +390,7 @@ in
         RemoveIPC = true;
         # AF_UNIX may become usable one day:
         # https://github.com/transmission/transmission/issues/441
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -451,34 +426,23 @@ in
     });
 
     users.groups = optionalAttrs (cfg.group == "transmission") ({
-      transmission = {
-        gid = config.ids.gids.transmission;
-      };
+      transmission = { gid = config.ids.gids.transmission; };
     });
 
     networking.firewall = mkMerge [
-      (mkIf cfg.openPeerPorts (
-        if cfg.settings.peer-port-random-on-start then
-          {
-            allowedTCPPortRanges = [
-              {
-                from = cfg.settings.peer-port-random-low;
-                to = cfg.settings.peer-port-random-high;
-              }
-            ];
-            allowedUDPPortRanges = [
-              {
-                from = cfg.settings.peer-port-random-low;
-                to = cfg.settings.peer-port-random-high;
-              }
-            ];
-          }
-        else
-          {
-            allowedTCPPorts = [ cfg.settings.peer-port ];
-            allowedUDPPorts = [ cfg.settings.peer-port ];
-          }
-      ))
+      (mkIf cfg.openPeerPorts (if cfg.settings.peer-port-random-on-start then {
+        allowedTCPPortRanges = [{
+          from = cfg.settings.peer-port-random-low;
+          to = cfg.settings.peer-port-random-high;
+        }];
+        allowedUDPPortRanges = [{
+          from = cfg.settings.peer-port-random-low;
+          to = cfg.settings.peer-port-random-high;
+        }];
+      } else {
+        allowedTCPPorts = [ cfg.settings.peer-port ];
+        allowedUDPPorts = [ cfg.settings.peer-port ];
+      }))
       (mkIf cfg.openRPCPort { allowedTCPPorts = [ cfg.settings.rpc-port ]; })
     ];
 
@@ -525,7 +489,9 @@ in
         rw ${cfg.settings.incomplete-dir}/**,
       ''}
       ${optionalString cfg.settings.watch-dir-enabled ''
-        r${optionalString cfg.settings.trash-original-torrent-files "w"} ${cfg.settings.watch-dir}/**,
+        r${
+          optionalString cfg.settings.trash-original-torrent-files "w"
+        } ${cfg.settings.watch-dir}/**,
       ''}
       profile dirs {
         rw ${cfg.settings.download-dir}/**,
@@ -536,14 +502,15 @@ in
         }
         ${
           optionalString cfg.settings.watch-dir-enabled ''
-            r${optionalString cfg.settings.trash-original-torrent-files "w"} ${cfg.settings.watch-dir}/**,
+            r${
+              optionalString cfg.settings.trash-original-torrent-files "w"
+            } ${cfg.settings.watch-dir}/**,
           ''
         }
       }
 
-      ${optionalString
-        (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
-        ''
+      ${optionalString (cfg.settings.script-torrent-done-enabled
+        && cfg.settings.script-torrent-done-filename != null) ''
           # Stack transmission_directories profile on top of
           # any existing profile for script-torrent-done-filename
           # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=

@@ -1,21 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildNpmPackage,
-  nixosTests,
-  gettext,
-  python3,
-  ghostscript,
-  imagemagickBig,
-  jbig2enc,
-  optipng,
-  pngquant,
-  qpdf,
-  tesseract5,
-  unpaper,
-  poppler_utils,
-  liberation_ttf,
-}:
+{ lib, fetchFromGitHub, buildNpmPackage, nixosTests, gettext, python3
+, ghostscript, imagemagickBig, jbig2enc, optipng, pngquant, qpdf, tesseract5
+, unpaper, poppler_utils, liberation_ttf }:
 
 let
   version = "1.14.4";
@@ -32,43 +17,39 @@ let
     packageOverrides = self: super: {
       django = super.django_4;
 
-      aioredis = super.aioredis.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.3.1";
-          src = oldAttrs.src.override {
-            inherit version;
-            sha256 = "0fi7jd5hlx8cnv1m97kv9hc4ih4l8v15wzkqwsp73is4n0qazy0m";
-          };
-        }
-      );
+      aioredis = super.aioredis.overridePythonAttrs (oldAttrs: rec {
+        version = "1.3.1";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "0fi7jd5hlx8cnv1m97kv9hc4ih4l8v15wzkqwsp73is4n0qazy0m";
+        };
+      });
 
-      channels = super.channels.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "3.0.5";
-          pname = "channels";
-          src = fetchFromGitHub {
-            owner = "django";
-            repo = pname;
-            rev = version;
-            sha256 = "sha256-bKrPLbD9zG7DwIYBst1cb+zkDsM8B02wh3D80iortpw=";
-          };
-          propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.daphne ];
-          pytestFlagsArray = [ "--asyncio-mode=auto" ];
-        }
-      );
+      channels = super.channels.overridePythonAttrs (oldAttrs: rec {
+        version = "3.0.5";
+        pname = "channels";
+        src = fetchFromGitHub {
+          owner = "django";
+          repo = pname;
+          rev = version;
+          sha256 = "sha256-bKrPLbD9zG7DwIYBst1cb+zkDsM8B02wh3D80iortpw=";
+        };
+        propagatedBuildInputs = oldAttrs.propagatedBuildInputs
+          ++ [ self.daphne ];
+        pytestFlagsArray = [ "--asyncio-mode=auto" ];
+      });
 
-      daphne = super.daphne.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "3.0.2";
-          pname = "daphne";
-          src = fetchFromGitHub {
-            owner = "django";
-            repo = pname;
-            rev = version;
-            hash = "sha256-KWkMV4L7bA2Eo/u4GGif6lmDNrZAzvYyDiyzyWt9LeI=";
-          };
-        }
-      );
+      daphne = super.daphne.overridePythonAttrs (oldAttrs: rec {
+        version = "3.0.2";
+        pname = "daphne";
+        src = fetchFromGitHub {
+          owner = "django";
+          repo = pname;
+          rev = version;
+          hash = "sha256-KWkMV4L7bA2Eo/u4GGif6lmDNrZAzvYyDiyzyWt9LeI=";
+        };
+      });
+
     };
   };
 
@@ -99,11 +80,7 @@ let
     CYPRESS_INSTALL_BINARY = "0";
     NG_CLI_ANALYTICS = "false";
 
-    npmBuildFlags = [
-      "--"
-      "--configuration"
-      "production"
-    ];
+    npmBuildFlags = [ "--" "--configuration" "production" ];
 
     installPhase = ''
       runHook preInstall
@@ -112,8 +89,7 @@ let
       runHook postInstall
     '';
   };
-in
-python.pkgs.buildPythonApplication rec {
+in python.pkgs.buildPythonApplication rec {
   pname = "paperless-ngx";
   format = "other";
 
@@ -121,8 +97,7 @@ python.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ gettext ];
 
-  propagatedBuildInputs =
-    with python.pkgs;
+  propagatedBuildInputs = with python.pkgs;
     [
       aioredis
       amqp
@@ -236,8 +211,7 @@ python.pkgs.buildPythonApplication rec {
       zipp
       zope_interface
       zxing_cpp
-    ]
-    ++ redis.optional-dependencies.hiredis
+    ] ++ redis.optional-dependencies.hiredis
     ++ twisted.optional-dependencies.tls
     ++ uvicorn.optional-dependencies.standard;
 
@@ -310,20 +284,16 @@ python.pkgs.buildPythonApplication rec {
 
   passthru = {
     inherit python path frontend;
-    tests = {
-      inherit (nixosTests) paperless;
-    };
+    tests = { inherit (nixosTests) paperless; };
   };
 
   meta = with lib; {
-    description = "Tool to scan, index, and archive all of your physical documents";
+    description =
+      "Tool to scan, index, and archive all of your physical documents";
     homepage = "https://docs.paperless-ngx.com/";
-    changelog = "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
+    changelog =
+      "https://github.com/paperless-ngx/paperless-ngx/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      lukegb
-      gador
-      erikarvstedt
-    ];
+    maintainers = with maintainers; [ lukegb gador erikarvstedt ];
   };
 }

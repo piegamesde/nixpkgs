@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   version = "1.4.3";
@@ -26,7 +21,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/jlblancoc/nanoflann";
     license = lib.licenses.bsd2;
-    description = "Header only C++ library for approximate nearest neighbor search";
+    description =
+      "Header only C++ library for approximate nearest neighbor search";
     platforms = lib.platforms.unix;
   };
 }

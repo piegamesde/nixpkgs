@@ -1,19 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-ansi-text";
   version = "20211020-git";
 
   description = "ANSI control string characters, focused on color";
 
-  deps = [
-    args."alexandria"
-    args."cl-colors2"
-    args."cl-ppcre"
-  ];
+  deps = [ args."alexandria" args."cl-colors2" args."cl-ppcre" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-ansi-text/2021-10-20/cl-ansi-text-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-ansi-text/2021-10-20/cl-ansi-text-20211020-git.tgz";
     sha256 = "1lmxmdf4sm7apkczp0y07rlsayc5adyv2i85r6p7s60w6sianjr6";
   };
 

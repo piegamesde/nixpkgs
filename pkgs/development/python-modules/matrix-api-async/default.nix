@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  matrix-client,
-}:
+{ lib, buildPythonPackage, fetchPypi, matrix-client }:
 
 buildPythonPackage rec {
   pname = "matrix_api_async";

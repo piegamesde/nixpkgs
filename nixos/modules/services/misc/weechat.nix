@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.weechat;
-in
+let cfg = config.services.weechat;
 
-{
+in {
   options.services.weechat = {
     enable = mkEnableOption (lib.mdDoc "weechat");
     root = mkOption {
@@ -51,7 +44,8 @@ in
         Group = "weechat";
         RemainAfterExit = "yes";
       };
-      script = "exec ${config.security.wrapperDir}/screen -Dm -S ${cfg.sessionName} ${cfg.binary}";
+      script =
+        "exec ${config.security.wrapperDir}/screen -Dm -S ${cfg.sessionName} ${cfg.binary}";
       wantedBy = [ "multi-user.target" ];
       wants = [ "network.target" ];
     };

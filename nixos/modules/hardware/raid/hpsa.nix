@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -42,19 +37,20 @@ let
 
     meta = with lib; {
       description = "HP Smart Array CLI";
-      homepage = "https://downloads.linux.hpe.com/SDR/downloads/MCP/Ubuntu/pool/non-free/";
+      homepage =
+        "https://downloads.linux.hpe.com/SDR/downloads/MCP/Ubuntu/pool/non-free/";
       license = licenses.unfreeRedistributable;
       platforms = [ "x86_64-linux" ];
       maintainers = with maintainers; [ ];
     };
   };
-in
-{
+in {
   ###### interface
 
   options = {
     hardware.raid.HPSmartArray = {
-      enable = mkEnableOption (lib.mdDoc "HP Smart Array kernel modules and CLI utility");
+      enable = mkEnableOption
+        (lib.mdDoc "HP Smart Array kernel modules and CLI utility");
     };
   };
 

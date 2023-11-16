@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cogapp,
-  fetchPypi,
-  mock,
-  nose,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-  virtualenv,
-}:
+{ lib, buildPythonPackage, cogapp, fetchPypi, mock, nose, pytestCheckHook
+, pythonOlder, six, virtualenv }:
 
 buildPythonPackage rec {
   pname = "paver";
@@ -26,21 +16,14 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  checkInputs = [
-    cogapp
-    mock
-    nose
-    pytestCheckHook
-    virtualenv
-  ];
+  checkInputs = [ cogapp mock nose pytestCheckHook virtualenv ];
 
   pythonImportsCheck = [ "paver" ];
 
-  disabledTestPaths =
-    [
-      # Test depends on distutils
-      "paver/tests/test_setuputils.py"
-    ];
+  disabledTestPaths = [
+    # Test depends on distutils
+    "paver/tests/test_setuputils.py"
+  ];
 
   meta = with lib; {
     description = "A Python-based build/distribution/deployment scripting tool";

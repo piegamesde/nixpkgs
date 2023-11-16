@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "untie";
@@ -22,8 +18,6 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateInfo = {
-      downloadPage = "http://guichaz.free.fr/untie";
-    };
+    updateInfo = { downloadPage = "http://guichaz.free.fr/untie"; };
   };
 }

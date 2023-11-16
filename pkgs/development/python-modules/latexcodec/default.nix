@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchPypi, six, pytest }:
 
 buildPythonPackage rec {
   pname = "latexcodec";
@@ -28,4 +22,5 @@ buildPythonPackage rec {
     description = "Lexer and codec to work with LaTeX code in Python";
     license = licenses.mit;
   };
+
 }

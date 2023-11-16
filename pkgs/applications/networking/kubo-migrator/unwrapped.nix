@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubo-migrator";
@@ -30,10 +26,7 @@ buildGoModule rec {
     description = "Migrations for the filesystem repository of Kubo clients";
     homepage = "https://github.com/ipfs/fs-repo-migrations";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      Luflosi
-      elitak
-    ];
+    maintainers = with maintainers; [ Luflosi elitak ];
     mainProgram = "fs-repo-migrations";
   };
 }

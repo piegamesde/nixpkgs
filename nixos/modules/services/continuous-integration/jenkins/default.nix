@@ -1,15 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.jenkins;
   jenkinsUrl = "http://${cfg.listenAddress}:${toString cfg.port}${cfg.prefix}";
-in
-{
+in {
   options = {
     services.jenkins = {
       enable = mkOption {
@@ -40,10 +34,7 @@ in
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "wheel"
-          "dialout"
-        ];
+        example = [ "wheel" "dialout" ];
         description = lib.mdDoc ''
           List of extra groups that the "jenkins" user should be a part of.
         '';
@@ -103,9 +94,8 @@ in
           config.programs.ssh.package
           pkgs.nix
         ];
-        defaultText =
-          literalExpression
-            "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]";
+        defaultText = literalExpression
+          "[ pkgs.stdenv pkgs.git pkgs.jdk17 config.programs.ssh.package pkgs.nix ]";
         type = types.listOf types.package;
         description = lib.mdDoc ''
           Packages to add to PATH for the jenkins process.
@@ -177,17 +167,18 @@ in
   config = mkIf cfg.enable {
     environment = {
       # server references the dejavu fonts
-      systemPackages = [ pkgs.dejavu_fonts ] ++ optional cfg.withCLI cfg.package;
+      systemPackages = [ pkgs.dejavu_fonts ]
+        ++ optional cfg.withCLI cfg.package;
 
-      variables =
-        { }
-        // optionalAttrs cfg.withCLI {
-          # Make it more convenient to use the `jenkins-cli`.
-          JENKINS_URL = jenkinsUrl;
-        };
+      variables = { } // optionalAttrs cfg.withCLI {
+        # Make it more convenient to use the `jenkins-cli`.
+        JENKINS_URL = jenkinsUrl;
+      };
     };
 
-    users.groups = optionalAttrs (cfg.group == "jenkins") { jenkins.gid = config.ids.gids.jenkins; };
+    users.groups = optionalAttrs (cfg.group == "jenkins") {
+      jenkins.gid = config.ids.gids.jenkins;
+    };
 
     users.users = optionalAttrs (cfg.user == "jenkins") {
       jenkins = {
@@ -206,52 +197,50 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      environment =
-        let
-          selectedSessionVars =
-            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
-              config.environment.sessionVariables;
-        in
-        selectedSessionVars
-        // {
-          JENKINS_HOME = cfg.home;
-          NIX_REMOTE = "daemon";
-        }
-        // cfg.environment;
+      environment = let
+        selectedSessionVars =
+          lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+          config.environment.sessionVariables;
+      in selectedSessionVars // {
+        JENKINS_HOME = cfg.home;
+        NIX_REMOTE = "daemon";
+      } // cfg.environment;
 
       path = cfg.packages;
 
       # Force .war (re)extraction, or else we might run stale Jenkins.
 
-      preStart =
-        let
-          replacePlugins =
-            if cfg.plugins == null then
-              ""
-            else
-              let
-                pluginCmds = lib.attrsets.mapAttrsToList (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
-              in
-              ''
-                rm -r ${cfg.home}/plugins || true
-                mkdir -p ${cfg.home}/plugins
-                ${lib.strings.concatStringsSep "\n" pluginCmds}
-              '';
-        in
-        ''
-          rm -rf ${cfg.home}/war
-          ${replacePlugins}
-        '';
+      preStart = let
+        replacePlugins = if cfg.plugins == null then
+          ""
+        else
+          let
+            pluginCmds = lib.attrsets.mapAttrsToList
+              (n: v: "cp ${v} ${cfg.home}/plugins/${n}.jpi") cfg.plugins;
+          in ''
+            rm -r ${cfg.home}/plugins || true
+            mkdir -p ${cfg.home}/plugins
+            ${lib.strings.concatStringsSep "\n" pluginCmds}
+          '';
+      in ''
+        rm -rf ${cfg.home}/war
+        ${replacePlugins}
+      '';
 
       # For reference: https://wiki.jenkins.io/display/JENKINS/JenkinsLinuxStartupScript
       script = ''
         ${pkgs.jdk17}/bin/java ${
           concatStringsSep " " cfg.extraJavaOptions
         } -jar ${cfg.package}/webapps/jenkins.war --httpListenAddress=${cfg.listenAddress} \
-                                                  --httpPort=${toString cfg.port} \
+                                                  --httpPort=${
+                                                    toString cfg.port
+                                                  } \
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
-                                                  ${concatStringsSep " " cfg.extraOptions}
+                                                  ${
+                                                    concatStringsSep " "
+                                                    cfg.extraOptions
+                                                  }
       '';
 
       postStart = ''
@@ -260,9 +249,7 @@ in
         done
       '';
 
-      serviceConfig = {
-        User = cfg.user;
-      };
+      serviceConfig = { User = cfg.user; };
     };
   };
 }

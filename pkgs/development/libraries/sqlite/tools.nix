@@ -1,32 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  sqlite,
-  tcl,
-  Foundation,
-}:
+{ lib, stdenv, fetchurl, unzip, sqlite, tcl, Foundation }:
 
 let
   archiveVersion = import ./archive-version.nix lib;
-  mkTool =
-    {
-      pname,
-      makeTarget,
-      description,
-      homepage,
-      mainProgram,
-    }:
+  mkTool = { pname, makeTarget, description, homepage, mainProgram }:
     stdenv.mkDerivation rec {
       inherit pname;
       version = "3.42.0";
 
       # nixpkgs-update: no auto update
-      src =
-        assert version == sqlite.version;
+      src = assert version == sqlite.version;
         fetchurl {
-          url = "https://sqlite.org/2023/sqlite-src-${archiveVersion version}.zip";
+          url =
+            "https://sqlite.org/2023/sqlite-src-${archiveVersion version}.zip";
           hash = "sha256-OMpWoxe+N/sAvZK8KA2bkgm9QAiyl9SDxB7B9geb+20=";
         };
 
@@ -45,12 +30,12 @@ let
         platforms = platforms.unix;
       };
     };
-in
-{
+in {
   sqldiff = mkTool {
     pname = "sqldiff";
     makeTarget = "sqldiff";
-    description = "A tool that displays the differences between SQLite databases";
+    description =
+      "A tool that displays the differences between SQLite databases";
     homepage = "https://www.sqlite.org/sqldiff.html";
     mainProgram = "sqldiff";
   };

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +7,7 @@ let
 
   settingsFormat = pkgs.formats.toml { };
   configFile = settingsFormat.generate "config.toml" cfg.extraConfig;
-in
-{
+in {
   ###### interface
   options = {
     services.telegraf = {
@@ -58,36 +52,33 @@ in
 
   ###### implementation
   config = mkIf config.services.telegraf.enable {
-    systemd.services.telegraf =
-      let
-        finalConfigFile =
-          if config.services.telegraf.environmentFiles == [ ] then
-            configFile
-          else
-            "/var/run/telegraf/config.toml";
-      in
-      {
-        description = "Telegraf Agent";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        serviceConfig = {
-          EnvironmentFile = config.services.telegraf.environmentFiles;
-          ExecStartPre = lib.optional (config.services.telegraf.environmentFiles != [ ]) (
-            pkgs.writeShellScript "pre-start" ''
-              umask 077
-              ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
-            ''
-          );
-          ExecStart = "${cfg.package}/bin/telegraf -config ${finalConfigFile}";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          RuntimeDirectory = "telegraf";
-          User = "telegraf";
-          Group = "telegraf";
-          Restart = "on-failure";
-          # for ping probes
-          AmbientCapabilities = [ "CAP_NET_RAW" ];
-        };
+    systemd.services.telegraf = let
+      finalConfigFile = if config.services.telegraf.environmentFiles == [ ] then
+        configFile
+      else
+        "/var/run/telegraf/config.toml";
+    in {
+      description = "Telegraf Agent";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network-online.target" ];
+      serviceConfig = {
+        EnvironmentFile = config.services.telegraf.environmentFiles;
+        ExecStartPre =
+          lib.optional (config.services.telegraf.environmentFiles != [ ])
+          (pkgs.writeShellScript "pre-start" ''
+            umask 077
+            ${pkgs.envsubst}/bin/envsubst -i "${configFile}" > /var/run/telegraf/config.toml
+          '');
+        ExecStart = "${cfg.package}/bin/telegraf -config ${finalConfigFile}";
+        ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+        RuntimeDirectory = "telegraf";
+        User = "telegraf";
+        Group = "telegraf";
+        Restart = "on-failure";
+        # for ping probes
+        AmbientCapabilities = [ "CAP_NET_RAW" ];
       };
+    };
 
     users.users.telegraf = {
       uid = config.ids.uids.telegraf;

@@ -1,11 +1,6 @@
 # GNOME Initial Setup.
 
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -44,30 +39,19 @@ let
       X-GNOME-Autostart-Phase=EarlyInitialization
     '';
   };
-in
 
-{
+in {
 
-  meta = {
-    maintainers = teams.gnome.members;
-  };
+  meta = { maintainers = teams.gnome.members; };
 
   # Added 2021-05-07
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "gnome3"
-        "gnome-initial-setup"
-        "enable"
-      ]
-      [
-        "services"
-        "gnome"
-        "gnome-initial-setup"
-        "enable"
-      ]
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "gnome3"
+      "gnome-initial-setup"
+      "enable"
+    ] [ "services" "gnome" "gnome-initial-setup" "enable" ])
   ];
 
   ###### interface
@@ -76,19 +60,20 @@ in
 
     services.gnome.gnome-initial-setup = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system");
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf config.services.gnome.gnome-initial-setup.enable {
 
-    environment.systemPackages = [
-      pkgs.gnome.gnome-initial-setup
-    ] ++ optional (versionOlder config.system.stateVersion "20.03") createGisStampFilesAutostart;
+    environment.systemPackages = [ pkgs.gnome.gnome-initial-setup ]
+      ++ optional (versionOlder config.system.stateVersion "20.03")
+      createGisStampFilesAutostart;
 
     systemd.packages = [ pkgs.gnome.gnome-initial-setup ];
 
@@ -98,6 +83,9 @@ in
       "gnome-welcome-tour.service"
     ];
 
-    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [ "gnome-initial-setup.service" ];
+    systemd.user.targets."gnome-session@gnome-initial-setup".wants =
+      [ "gnome-initial-setup.service" ];
+
   };
+
 }

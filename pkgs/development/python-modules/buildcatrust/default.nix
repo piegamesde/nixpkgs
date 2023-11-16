@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "buildcatrust";
@@ -15,16 +10,12 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytestCheckHook ];
-  disabledTestPaths =
-    [
-      # Non-hermetic, needs internet access (e.g. attempts to retrieve NSS store).
-      "buildcatrust/tests/test_nonhermetic.py"
-    ];
-
-  pythonImportsCheck = [
-    "buildcatrust"
-    "buildcatrust.cli"
+  disabledTestPaths = [
+    # Non-hermetic, needs internet access (e.g. attempts to retrieve NSS store).
+    "buildcatrust/tests/test_nonhermetic.py"
   ];
+
+  pythonImportsCheck = [ "buildcatrust" "buildcatrust.cli" ];
 
   meta = with lib; {
     description = "Build SSL/TLS trust stores";

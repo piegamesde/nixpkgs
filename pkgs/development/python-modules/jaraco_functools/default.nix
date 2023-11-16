@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  more-itertools,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, more-itertools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "jaraco.functools";

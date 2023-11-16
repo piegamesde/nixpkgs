@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "imagesize";
@@ -18,4 +14,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/shibukawa/imagesize_py";
     license = with licenses; [ mit ];
   };
+
 }

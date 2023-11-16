@@ -1,8 +1,5 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 makeTest {
@@ -10,24 +7,20 @@ makeTest {
   meta = with pkgs.lib.maintainers; { maintainers = [ lheckemann ]; };
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          tigervnc # for Xvnc
-          xorg.xwininfo
-          imagemagickBig # for display with working label: support
-        ];
-        networking.firewall.allowedTCPPorts = [ 5901 ];
-      };
+    server = { pkgs, ... }: {
+      environment.systemPackages = with pkgs; [
+        tigervnc # for Xvnc
+        xorg.xwininfo
+        imagemagickBig # for display with working label: support
+      ];
+      networking.firewall.allowedTCPPorts = [ 5901 ];
+    };
 
-    client =
-      { pkgs, ... }:
-      {
-        imports = [ ./common/x11.nix ];
-        # for vncviewer
-        environment.systemPackages = [ pkgs.tigervnc ];
-      };
+    client = { pkgs, ... }: {
+      imports = [ ./common/x11.nix ];
+      # for vncviewer
+      environment.systemPackages = [ pkgs.tigervnc ];
+    };
   };
 
   enableOCR = true;

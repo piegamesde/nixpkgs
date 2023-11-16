@@ -1,15 +1,10 @@
-{
-  config,
-  lib,
-  pkg,
-  ...
-}:
+{ config, lib, pkg, ... }:
 let
   inherit (lib) mkOption types;
 
   cfg = config.virtualisation.podman.networkSocket;
-in
-{
+
+in {
   options.virtualisation.podman.networkSocket = {
     server = mkOption { type = types.enum [ "ghostunnel" ]; };
   };
@@ -25,7 +20,9 @@ in
         allowAll = lib.mkDefault true;
       };
     };
-    systemd.services.ghostunnel-server-podman-socket.serviceConfig.SupplementaryGroups = [ "podman" ];
+    systemd.services.ghostunnel-server-podman-socket.serviceConfig.SupplementaryGroups =
+      [ "podman" ];
+
   };
 
   meta.maintainers = lib.teams.podman.members ++ [ lib.maintainers.roberth ];

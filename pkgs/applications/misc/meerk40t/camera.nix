@@ -1,13 +1,7 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
-let
-  inherit (python3.pkgs) buildPythonPackage;
-in
-buildPythonPackage rec {
+let inherit (python3.pkgs) buildPythonPackage;
+in buildPythonPackage rec {
   pname = "meerk40t-camera";
   version = "0.1.9";
   format = "setuptools";

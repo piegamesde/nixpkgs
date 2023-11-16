@@ -1,14 +1,8 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
+{ lib, config, pkgs, ... }:
 let
   cfg = config.services.sitespeed-io;
   format = pkgs.formats.json { };
-in
-{
+in {
   options.services.sitespeed-io = {
     enable = lib.mkEnableOption (lib.mdDoc "Sitespeed.io");
 
@@ -46,41 +40,39 @@ in
         for every run listed here. This lets you examine different websites
         with different sitespeed-io settings.
       '';
-      type = lib.types.listOf (
-        lib.types.submodule {
-          options = {
-            urls = lib.mkOption {
-              type = with lib.types; listOf str;
-              default = [ ];
-              description = lib.mdDoc ''
-                URLs the service should monitor.
-              '';
-            };
-
-            settings = lib.mkOption {
-              type = lib.types.submodule {
-                freeformType = format.type;
-                options = { };
-              };
-              default = { };
-              description = lib.mdDoc ''
-                Configuration for sitespeed-io, see
-                <https://www.sitespeed.io/documentation/sitespeed.io/configuration/>
-                for available options. The value here will be directly transformed to
-                JSON and passed as `--config` to the program.
-              '';
-            };
-
-            extraArgs = lib.mkOption {
-              type = with lib.types; listOf str;
-              default = [ ];
-              description = lib.mdDoc ''
-                Extra command line arguments to pass to the program.
-              '';
-            };
+      type = lib.types.listOf (lib.types.submodule {
+        options = {
+          urls = lib.mkOption {
+            type = with lib.types; listOf str;
+            default = [ ];
+            description = lib.mdDoc ''
+              URLs the service should monitor.
+            '';
           };
-        }
-      );
+
+          settings = lib.mkOption {
+            type = lib.types.submodule {
+              freeformType = format.type;
+              options = { };
+            };
+            default = { };
+            description = lib.mdDoc ''
+              Configuration for sitespeed-io, see
+              <https://www.sitespeed.io/documentation/sitespeed.io/configuration/>
+              for available options. The value here will be directly transformed to
+              JSON and passed as `--config` to the program.
+            '';
+          };
+
+          extraArgs = lib.mkOption {
+            type = with lib.types; listOf str;
+            default = [ ];
+            description = lib.mdDoc ''
+              Extra command line arguments to pass to the program.
+            '';
+          };
+        };
+      });
     };
   };
 
@@ -104,19 +96,14 @@ in
         User = cfg.user;
       };
       preStart = "chmod u+w -R ${cfg.dataDir}"; # Make sure things are writable
-      script =
-        (lib.concatMapStrings
-          (run: ''
-            ${lib.getExe cfg.package} \
-              --config ${format.generate "sitespeed.json" run.settings} \
-              ${lib.escapeShellArgs run.extraArgs} \
-              ${builtins.toFile "urls.txt" (lib.concatLines run.urls)} &
-          '')
-          cfg.runs
-        )
-        + ''
-          wait
-        '';
+      script = (lib.concatMapStrings (run: ''
+        ${lib.getExe cfg.package} \
+          --config ${format.generate "sitespeed.json" run.settings} \
+          ${lib.escapeShellArgs run.extraArgs} \
+          ${builtins.toFile "urls.txt" (lib.concatLines run.urls)} &
+      '') cfg.runs) + ''
+        wait
+      '';
     };
 
     users = {

@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cssselect,
-  fetchPypi,
-  lxml,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  webob,
-  webtest,
-}:
+{ lib, buildPythonPackage, cssselect, fetchPypi, lxml, pytestCheckHook
+, pythonOlder, requests, webob, webtest }:
 
 buildPythonPackage rec {
   pname = "pyquery";
@@ -29,10 +19,7 @@ buildPythonPackage rec {
       --replace test_selector_html skip_test_selector_html
   '';
 
-  propagatedBuildInputs = [
-    cssselect
-    lxml
-  ];
+  propagatedBuildInputs = [ cssselect lxml ];
 
   pythonImportsCheck = [ "pyquery" ];
 
@@ -40,19 +27,16 @@ buildPythonPackage rec {
     pytestCheckHook
     requests
     webob
-    (webtest.overridePythonAttrs (
-      _: {
-        # circular dependency
-        doCheck = false;
-      }
-    ))
+    (webtest.overridePythonAttrs (_: {
+      # circular dependency
+      doCheck = false;
+    }))
   ];
 
-  pytestFlagsArray =
-    [
-      # requires network
-      "--deselect=tests/test_pyquery.py::TestWebScrappingEncoding::test_get"
-    ];
+  pytestFlagsArray = [
+    # requires network
+    "--deselect=tests/test_pyquery.py::TestWebScrappingEncoding::test_get"
+  ];
 
   meta = with lib; {
     description = "A jquery-like library for Python";

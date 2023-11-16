@@ -1,9 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  lib,
-}:
+{ stdenv, fetchFromGitHub, cmake, lib }:
 
 stdenv.mkDerivation rec {
   pname = "libversion";

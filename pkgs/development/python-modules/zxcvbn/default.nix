@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "zxcvbn";
@@ -21,7 +16,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Python implementation of Dropbox's realistic password strength estimator";
+    description =
+      "Python implementation of Dropbox's realistic password strength estimator";
     homepage = "https://github.com/dwolfhub/zxcvbn-python";
     license = licenses.mit;
     maintainers = [ maintainers.marsam ];

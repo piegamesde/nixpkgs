@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  check,
-  cppunit,
-  perl,
-  python3Packages,
-}:
+{ lib, stdenv, fetchurl, pkg-config, check, cppunit, perl, python3Packages }:
 
 # NOTE: for subunit python library see pkgs/top-level/python-packages.nix
 
@@ -16,22 +7,15 @@ stdenv.mkDerivation rec {
   version = "1.4.2";
 
   src = fetchurl {
-    url = "https://launchpad.net/subunit/trunk/${version}/+download/${pname}-${version}.tar.gz";
+    url =
+      "https://launchpad.net/subunit/trunk/${version}/+download/${pname}-${version}.tar.gz";
     hash = "sha256-hlOOv6kIC97w7ICVsuXeWrsUbVu3tCSzEVKUHXYG2dI=";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    check
-    cppunit
-    perl
-    python3Packages.wrapPython
-  ];
+  buildInputs = [ check cppunit perl python3Packages.wrapPython ];
 
-  propagatedBuildInputs = with python3Packages; [
-    testtools
-    testscenarios
-  ];
+  propagatedBuildInputs = with python3Packages; [ testtools testscenarios ];
 
   postFixup = "wrapPythonPrograms";
 

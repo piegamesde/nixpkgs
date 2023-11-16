@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  gbenchmark,
-  gtest,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, gbenchmark, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "ethash";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  nativeCheckInputs = [
-    gbenchmark
-    gtest
-  ];
+  nativeCheckInputs = [ gbenchmark gtest ];
 
   #preConfigure = ''
   #  sed -i 's/GTest::main//' test/unittests/CMakeLists.txt

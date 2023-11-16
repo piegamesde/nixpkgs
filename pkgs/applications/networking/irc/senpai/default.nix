@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromSourcehut,
-  installShellFiles,
-  scdoc,
-}:
+{ lib, buildGoModule, fetchFromSourcehut, installShellFiles, scdoc }:
 
 buildGoModule rec {
   pname = "senpai";
@@ -21,10 +15,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/senpai" ];
 
-  nativeBuildInputs = [
-    scdoc
-    installShellFiles
-  ];
+  nativeBuildInputs = [ scdoc installShellFiles ];
 
   postInstall = ''
     scdoc < doc/senpai.1.scd > doc/senpai.1

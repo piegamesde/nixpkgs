@@ -1,11 +1,6 @@
 # Module for the IPv6 Router Advertisement Daemon.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,9 +9,8 @@ let
   cfg = config.services.radvd;
 
   confFile = pkgs.writeText "radvd.conf" cfg.config;
-in
 
-{
+in {
 
   ###### interface
 
@@ -56,6 +50,7 @@ in
         The contents of the radvd configuration file.
       '';
     };
+
   };
 
   ###### implementation
@@ -74,9 +69,12 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
-        ExecStart = "@${cfg.package}/bin/radvd radvd -n -u radvd -C ${confFile}";
+        ExecStart =
+          "@${cfg.package}/bin/radvd radvd -n -u radvd -C ${confFile}";
         Restart = "always";
       };
     };
+
   };
+
 }

@@ -1,26 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gsl,
-  dieharder,
-  testers,
-}:
+{ lib, stdenv, fetchurl, gsl, dieharder, testers }:
 
 stdenv.mkDerivation rec {
   pname = "dieharder";
   version = "3.31.1";
 
   src = fetchurl {
-    url = "http://webhome.phy.duke.edu/~rgb/General/dieharder/dieharder-${version}.tgz";
+    url =
+      "http://webhome.phy.duke.edu/~rgb/General/dieharder/dieharder-${version}.tgz";
     hash = "sha256-bP8P+DlMVTVJrHQzNZzPyVX7JnlCYDFGIN+l5M1Lcn8=";
   };
 
-  patches =
-    [
-      # Include missing stdint.h header
-      ./stdint.patch
-    ];
+  patches = [
+    # Include missing stdint.h header
+    ./stdint.patch
+  ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: include/dieharder/parse.h:21: multiple definition of `splitbuf';
@@ -29,9 +22,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gsl ];
 
-  passthru = {
-    tests.version = testers.testVersion { package = dieharder; };
-  };
+  passthru = { tests.version = testers.testVersion { package = dieharder; }; };
 
   meta = with lib; {
     description = "A Random Number Generator test suite";

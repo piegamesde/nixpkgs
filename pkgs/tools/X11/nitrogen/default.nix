@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  glib,
-  gtkmm2,
-}:
+{ lib, stdenv, fetchurl, pkg-config, glib, gtkmm2 }:
 
 stdenv.mkDerivation rec {
   pname = "nitrogen";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    glib
-    gtkmm2
-  ];
+  buildInputs = [ glib gtkmm2 ];
 
   patchPhase = ''
     patchShebangs data/icon-theme-installer

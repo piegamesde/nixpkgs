@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  runtimeShell,
-  makeWrapper,
-  oraclejre,
-  antialiasFont ? true,
-}:
+{ lib, stdenv, fetchurl, runtimeShell, makeWrapper, oraclejre
+, antialiasFont ? true }:
 
 stdenv.mkDerivation {
   pname = "docear";
@@ -30,7 +23,8 @@ stdenv.mkDerivation {
     # The wrapper ensures oraclejre is used
     makeWrapper ${runtimeShell} $out/bin/docear \
       --set _JAVA_OPTIONS "${
-        lib.optionalString antialiasFont "-Dswing.aatext=TRUE -Dawt.useSystemAAFontSettings=on"
+        lib.optionalString antialiasFont
+        "-Dswing.aatext=TRUE -Dawt.useSystemAAFontSettings=on"
       }" \
       --set JAVA_HOME ${oraclejre.home} \
       --add-flags "$out/share/docear.sh"

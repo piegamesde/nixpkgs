@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  wrapGAppsHook,
-  libX11,
-  libzip,
-  glfw,
-  libpng,
-  xorg,
-  gnome,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, wrapGAppsHook, libX11, libzip, glfw
+, libpng, xorg, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "tev";
@@ -24,27 +13,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NtnnZV/+8aUm8BkUz8Xm3aeSbOI2gNUPNfvYlwUl01Y=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapGAppsHook
-  ];
-  buildInputs =
-    [
-      libX11
-      libzip
-      glfw
-      libpng
-    ]
-    ++ (
-      with xorg; [
-        libXrandr
-        libXinerama
-        libXcursor
-        libXi
-        libXxf86vm
-        libXext
-      ]
-    );
+  nativeBuildInputs = [ cmake wrapGAppsHook ];
+  buildInputs = [ libX11 libzip glfw libpng ] ++ (with xorg; [
+    libXrandr
+    libXinerama
+    libXcursor
+    libXi
+    libXxf86vm
+    libXext
+  ]);
 
   dontWrapGApps = true; # We also need zenity (see below)
 

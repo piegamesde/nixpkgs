@@ -1,9 +1,4 @@
-{
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ stdenv, buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "moq";
@@ -20,11 +15,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
 
   meta = with lib; {
     homepage = "https://github.com/matryer/moq";

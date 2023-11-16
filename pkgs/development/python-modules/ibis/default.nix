@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ibis";

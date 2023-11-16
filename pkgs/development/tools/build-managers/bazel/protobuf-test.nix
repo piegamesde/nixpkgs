@@ -1,19 +1,5 @@
-{
-  bazel,
-  bazelTest,
-  fetchFromGitHub,
-  fetchurl,
-  stdenv,
-  darwin,
-  lib,
-  openjdk8,
-  jdk11_headless,
-  runLocal,
-  runtimeShell,
-  writeScript,
-  writeText,
-  distDir,
-}:
+{ bazel, bazelTest, fetchFromGitHub, fetchurl, stdenv, darwin, lib, openjdk8
+, jdk11_headless, runLocal, runtimeShell, writeScript, writeText, distDir }:
 
 let
   com_google_protobuf = fetchFromGitHub {
@@ -145,50 +131,47 @@ let
     exec "$BAZEL_REAL" "$@"
   '';
 
-  workspaceDir = runLocal "our_workspace" { } (
-    ''
-      mkdir $out
-      cp ${WORKSPACE} $out/WORKSPACE
-      touch $out/BUILD.bazel
-      cp ${protoSupport} $out/proto-support.bzl
-      mkdir $out/person
-      cp ${personProto} $out/person/person.proto
-      cp ${personBUILD} $out/person/BUILD.bazel
-    ''
-    + (lib.optionalString stdenv.isDarwin ''
-      mkdir $out/tools
-      cp ${toolsBazel} $out/tools/bazel
-    '')
-  );
+  workspaceDir = runLocal "our_workspace" { } (''
+    mkdir $out
+    cp ${WORKSPACE} $out/WORKSPACE
+    touch $out/BUILD.bazel
+    cp ${protoSupport} $out/proto-support.bzl
+    mkdir $out/person
+    cp ${personProto} $out/person/person.proto
+    cp ${personBUILD} $out/person/BUILD.bazel
+  '' + (lib.optionalString stdenv.isDarwin ''
+    mkdir $out/tools
+    cp ${toolsBazel} $out/tools/bazel
+  ''));
 
   testBazel = bazelTest {
     name = "bazel-test-protocol-buffers";
     inherit workspaceDir;
     bazelPkg = bazel;
     buildInputs = [
-      (if lib.strings.versionOlder bazel.version "5.0.0" then openjdk8 else jdk11_headless)
+      (if lib.strings.versionOlder bazel.version "5.0.0" then
+        openjdk8
+      else
+        jdk11_headless)
     ];
-    bazelScript =
-      ''
-        ${bazel}/bin/bazel \
-          build \
-          --distdir=${distDir} \
-          --verbose_failures \
-          --curses=no \
-          --sandbox_debug \
-          --strict_java_deps=off \
-          --strict_proto_deps=off \
-          //... \
-      ''
-      + lib.optionalString (lib.strings.versionOlder bazel.version "5.0.0") ''
-        --host_javabase='@local_jdk//:jdk' \
-        --java_toolchain='@bazel_tools//tools/jdk:toolchain_hostjdk8' \
-        --javabase='@local_jdk//:jdk' \
-      ''
-      + lib.optionalString (stdenv.isDarwin) ''
-        --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
-        --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
-      '';
+    bazelScript = ''
+      ${bazel}/bin/bazel \
+        build \
+        --distdir=${distDir} \
+        --verbose_failures \
+        --curses=no \
+        --sandbox_debug \
+        --strict_java_deps=off \
+        --strict_proto_deps=off \
+        //... \
+    '' + lib.optionalString (lib.strings.versionOlder bazel.version "5.0.0") ''
+      --host_javabase='@local_jdk//:jdk' \
+      --java_toolchain='@bazel_tools//tools/jdk:toolchain_hostjdk8' \
+      --javabase='@local_jdk//:jdk' \
+    '' + lib.optionalString (stdenv.isDarwin) ''
+      --cxxopt=-x --cxxopt=c++ --host_cxxopt=-x --host_cxxopt=c++ \
+      --linkopt=-stdlib=libc++ --host_linkopt=-stdlib=libc++ \
+    '';
   };
-in
-testBazel
+
+in testBazel

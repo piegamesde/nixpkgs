@@ -1,13 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
-let
-  pname = "aquosctl";
-in
-stdenv.mkDerivation {
+let pname = "aquosctl";
+in stdenv.mkDerivation {
   inherit pname;
   version = "unstable-2014-04-06";
 
@@ -32,3 +26,4 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
   };
 }
+

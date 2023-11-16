@@ -1,39 +1,9 @@
-{
-  productVersion,
-  patchVersion,
-  sha256,
-  jceName,
-  sha256JCE,
-}:
+{ productVersion, patchVersion, sha256, jceName, sha256JCE }:
 
-{
-  swingSupport ? true,
-  lib,
-  stdenv,
-  requireFile,
-  makeWrapper,
-  unzip,
-  file,
-  xorg ? null,
-  installjdk ? true,
-  pluginSupport ? true,
-  installjce ? false,
-  config,
-  glib,
-  libxml2,
-  ffmpeg,
-  libxslt,
-  libGL,
-  freetype,
-  fontconfig,
-  gtk2,
-  pango,
-  cairo,
-  alsa-lib,
-  atk,
-  gdk-pixbuf,
-  setJavaClassPath,
-}:
+{ swingSupport ? true, lib, stdenv, requireFile, makeWrapper, unzip, file
+, xorg ? null, installjdk ? true, pluginSupport ? true, installjce ? false
+, config, glib, libxml2, ffmpeg, libxslt, libGL, freetype, fontconfig, gtk2
+, pango, cairo, alsa-lib, atk, gdk-pixbuf, setJavaClassPath }:
 
 assert swingSupport -> xorg != null;
 
@@ -41,24 +11,23 @@ let
 
   #
   # The JRE libraries are in directories that depend on the CPU.
-  architecture =
-    {
-      i686-linux = "i386";
-      x86_64-linux = "amd64";
-      armv7l-linux = "arm";
-      aarch64-linux = "aarch64";
-    }
-    .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
+  architecture = {
+    i686-linux = "i386";
+    x86_64-linux = "amd64";
+    armv7l-linux = "arm";
+    aarch64-linux = "aarch64";
+  }.${stdenv.hostPlatform.system} or (throw
+    "unsupported system ${stdenv.hostPlatform.system}");
 
-  jce =
-    if installjce then
-      requireFile {
-        name = jceName;
-        url = "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html";
-        sha256 = sha256JCE;
-      }
-    else
-      "";
+  jce = if installjce then
+    requireFile {
+      name = jceName;
+      url =
+        "http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html";
+      sha256 = sha256JCE;
+    }
+  else
+    "";
 
   rSubPaths = [
     "lib/${architecture}/jli"
@@ -66,35 +35,31 @@ let
     "lib/${architecture}/xawt"
     "lib/${architecture}"
   ];
-in
 
-let
+in let
   result = stdenv.mkDerivation rec {
-    pname =
-      if installjdk then "oraclejdk" else "oraclejre" + lib.optionalString pluginSupport "-with-plugin";
+    pname = if installjdk then
+      "oraclejdk"
+    else
+      "oraclejre" + lib.optionalString pluginSupport "-with-plugin";
     version = "${productVersion}u${patchVersion}";
 
-    src =
-      let
-        platformName =
-          {
-            i686-linux = "linux-i586";
-            x86_64-linux = "linux-x64";
-            armv7l-linux = "linux-arm32-vfp-hflt";
-            aarch64-linux = "linux-aarch64";
-          }
-          .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
-      in
-      requireFile {
-        name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
-        url = "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
-        sha256 = sha256.${stdenv.hostPlatform.system};
-      };
+    src = let
+      platformName = {
+        i686-linux = "linux-i586";
+        x86_64-linux = "linux-x64";
+        armv7l-linux = "linux-arm32-vfp-hflt";
+        aarch64-linux = "linux-aarch64";
+      }.${stdenv.hostPlatform.system} or (throw
+        "unsupported system ${stdenv.hostPlatform.system}");
+    in requireFile {
+      name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
+      url =
+        "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
+      sha256 = sha256.${stdenv.hostPlatform.system};
+    };
 
-    nativeBuildInputs = [
-      file
-      makeWrapper
-    ] ++ lib.optional installjce unzip;
+    nativeBuildInputs = [ file makeWrapper ] ++ lib.optional installjce unzip;
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -156,7 +121,9 @@ let
     '';
 
     postFixup = ''
-      rpath+="''${rpath:+:}${lib.concatStringsSep ":" (map (a: "$jrePath/${a}") rSubPaths)}"
+      rpath+="''${rpath:+:}${
+        lib.concatStringsSep ":" (map (a: "$jrePath/${a}") rSubPaths)
+      }"
 
       # set all the dynamic linkers
       find $out -type f -perm -0100 \
@@ -176,41 +143,42 @@ let
 
     #
     # libXt is only needed on amd64
-    libraries =
-      [
-        stdenv.cc.libc
-        glib
-        libxml2
-        ffmpeg
-        libxslt
-        libGL
-        xorg.libXxf86vm
-        alsa-lib
-        fontconfig
-        freetype
-        pango
-        gtk2
-        cairo
-        gdk-pixbuf
-        atk
-      ]
-      ++ lib.optionals swingSupport [
-        xorg.libX11
-        xorg.libXext
-        xorg.libXtst
-        xorg.libXi
-        xorg.libXp
-        xorg.libXt
-        xorg.libXrender
-        stdenv.cc.cc
-      ];
+    libraries = [
+      stdenv.cc.libc
+      glib
+      libxml2
+      ffmpeg
+      libxslt
+      libGL
+      xorg.libXxf86vm
+      alsa-lib
+      fontconfig
+      freetype
+      pango
+      gtk2
+      cairo
+      gdk-pixbuf
+      atk
+    ] ++ lib.optionals swingSupport [
+      xorg.libX11
+      xorg.libXext
+      xorg.libXtst
+      xorg.libXi
+      xorg.libXp
+      xorg.libXt
+      xorg.libXrender
+      stdenv.cc.cc
+    ];
 
     rpath = lib.strings.makeLibraryPath libraries;
 
-    passthru.mozillaPlugin =
-      if installjdk then "/jre/lib/${architecture}/plugins" else "/lib/${architecture}/plugins";
+    passthru.mozillaPlugin = if installjdk then
+      "/jre/lib/${architecture}/plugins"
+    else
+      "/lib/${architecture}/plugins";
 
-    passthru.jre = result; # FIXME: use multiple outputs or return actual JRE package
+    passthru.jre =
+      result; # FIXME: use multiple outputs or return actual JRE package
 
     passthru.home = result;
 
@@ -226,6 +194,6 @@ let
       ]; # some inherit jre.meta.platforms
       mainProgram = "java";
     };
+
   };
-in
-result
+in result

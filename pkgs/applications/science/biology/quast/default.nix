@@ -1,32 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  python3Packages,
-  zlib,
-  bash,
-}:
+{ lib, stdenv, fetchurl, python3Packages, zlib, bash }:
 
 let
   pythonPackages = python3Packages;
   inherit (pythonPackages) python;
-in
 
-pythonPackages.buildPythonApplication rec {
+in pythonPackages.buildPythonApplication rec {
   pname = "quast";
   version = "5.0.2";
 
   src = fetchurl {
-    url = "https://github.com/ablab/quast/releases/download/${pname}_${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/ablab/quast/releases/download/${pname}_${version}/${pname}-${version}.tar.gz";
     sha256 = "13ml8qywbb4cc7wf2x7z5mz1rjqg51ab8wkizwcg4f6c40zgif6d";
   };
 
-  pythonPath = with pythonPackages; [
-    simplejson
-    joblib
-    setuptools
-    matplotlib
-  ];
+  pythonPath = with pythonPackages; [ simplejson joblib setuptools matplotlib ];
 
   buildInputs = [ zlib ] ++ pythonPath;
 

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -38,14 +33,14 @@ let
     name = "action.yaml";
     text = cfg.actionYAML;
   };
-in
-{
+in {
 
   options.services.elasticsearch-curator = {
 
     enable = mkEnableOption (lib.mdDoc "elasticsearch curator");
     interval = mkOption {
-      description = lib.mdDoc "The frequency to run curator, a systemd.time such as 'hourly'";
+      description = lib.mdDoc
+        "The frequency to run curator, a systemd.time such as 'hourly'";
       default = "hourly";
       type = types.str;
     };
@@ -60,9 +55,8 @@ in
       default = 9200;
     };
     actionYAML = mkOption {
-      description =
-        lib.mdDoc
-          "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command";
+      description = lib.mdDoc
+        "curator action.yaml file contents, alternatively use curator-cli which takes a simple action command";
       type = types.lines;
       example = ''
         ---
@@ -94,8 +88,8 @@ in
     systemd.services.elasticsearch-curator = {
       startAt = cfg.interval;
       serviceConfig = {
-        ExecStart =
-          "${pkgs.elasticsearch-curator}/bin/curator" + " --config ${curatorConfig} ${curatorAction}";
+        ExecStart = "${pkgs.elasticsearch-curator}/bin/curator"
+          + " --config ${curatorConfig} ${curatorAction}";
       };
     };
   };

@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchPypi,
-  python,
-  pythonOlder,
-  buildPythonPackage,
-  cython,
-  gfortran,
-  meson-python,
-  pkg-config,
-  pythran,
-  wheel,
-  nose,
-  pytest,
-  pytest-xdist,
-  numpy,
-  pybind11,
-  pooch,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchPypi, python, pythonOlder, buildPythonPackage, cython
+, gfortran, meson-python, pkg-config, pythran, wheel, nose, pytest, pytest-xdist
+, numpy, pybind11, pooch, libxcrypt }:
 
 buildPythonPackage rec {
   pname = "scipy";
@@ -30,36 +12,21 @@ buildPythonPackage rec {
     hash = "sha256-LPnfuAp7RYm6TEDOdYiYbW1c68VFfK0sKID2vC1C86U=";
   };
 
-  patches =
-    [
-      # These tests require internet connection, currently impossible to disable
-      # them otherwise, see:
-      # https://github.com/scipy/scipy/pull/17965
-      ./disable-datasets-tests.patch
-    ];
-
-  nativeBuildInputs = [
-    cython
-    gfortran
-    meson-python
-    pythran
-    pkg-config
-    wheel
+  patches = [
+    # These tests require internet connection, currently impossible to disable
+    # them otherwise, see:
+    # https://github.com/scipy/scipy/pull/17965
+    ./disable-datasets-tests.patch
   ];
 
-  buildInputs = [
-    numpy.blas
-    pybind11
-    pooch
-  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  nativeBuildInputs = [ cython gfortran meson-python pythran pkg-config wheel ];
+
+  buildInputs = [ numpy.blas pybind11 pooch ]
+    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    nose
-    pytest
-    pytest-xdist
-  ];
+  nativeCheckInputs = [ nose pytest pytest-xdist ];
 
   doCheck = !(stdenv.isx86_64 && stdenv.isDarwin);
 
@@ -76,7 +43,8 @@ buildPythonPackage rec {
   #
   #         ldr     x0, [x0, ___stack_chk_guard];momd
   #
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+  hardeningDisable =
+    lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
 
   checkPhase = ''
     runHook preCheck
@@ -89,16 +57,15 @@ buildPythonPackage rec {
 
   requiredSystemFeatures = [ "big-parallel" ]; # the tests need lots of CPU time
 
-  passthru = {
-    blas = numpy.blas;
-  };
+  passthru = { blas = numpy.blas; };
 
   setupPyBuildFlags = [ "--fcompiler='gnu95'" ];
 
   SCIPY_USE_G77_ABI_WRAPPER = 1;
 
   meta = with lib; {
-    description = "SciPy (pronounced 'Sigh Pie') is open-source software for mathematics, science, and engineering";
+    description =
+      "SciPy (pronounced 'Sigh Pie') is open-source software for mathematics, science, and engineering";
     homepage = "https://www.scipy.org/";
     license = licenses.bsd3;
     maintainers = [ maintainers.fridh ];

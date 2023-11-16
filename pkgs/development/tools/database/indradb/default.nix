@@ -1,11 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-  rustfmt,
-  protobuf,
-}:
+{ stdenv, fetchFromGitHub, lib, rustPlatform, rustfmt, protobuf }:
 let
   src = fetchFromGitHub {
     owner = "indradb";
@@ -21,8 +14,7 @@ let
     maintainers = with maintainers; [ happysalada ];
     platforms = platforms.unix;
   };
-in
-{
+in {
   indradb-server = rustPlatform.buildRustPackage {
     pname = "indradb-server";
     version = "unstable-2021-01-05";
@@ -34,10 +26,7 @@ in
 
     PROTOC = "${protobuf}/bin/protoc";
 
-    nativeBuildInputs = [
-      rustfmt
-      rustPlatform.bindgenHook
-    ];
+    nativeBuildInputs = [ rustfmt rustPlatform.bindgenHook ];
 
     # test rely on libindradb and it can't be found
     # failure at https://github.com/indradb/indradb/blob/master/server/tests/plugins.rs#L63
@@ -53,10 +42,7 @@ in
 
     PROTOC = "${protobuf}/bin/protoc";
 
-    nativeBuildInputs = [
-      rustfmt
-      rustPlatform.bindgenHook
-    ];
+    nativeBuildInputs = [ rustfmt rustPlatform.bindgenHook ];
 
     buildAndTestSubdir = "client";
   };

@@ -1,14 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  bluetooth-data-tools,
-  bluetooth-sensor-state-data,
-  home-assistant-bluetooth,
-  sensor-state-data,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, bluetooth-data-tools
+, bluetooth-sensor-state-data, home-assistant-bluetooth, sensor-state-data
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "sensirion-ble";

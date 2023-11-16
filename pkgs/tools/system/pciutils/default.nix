@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  zlib,
-  kmod,
-  which,
-  hwdata,
-  static ? stdenv.hostPlatform.isStatic,
-  IOKit,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchurl, pkg-config, zlib, kmod, which, hwdata
+, static ? stdenv.hostPlatform.isStatic, IOKit, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "pciutils";
@@ -22,11 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      which
-      zlib
-    ]
+  buildInputs = [ which zlib ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ IOKit ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [ kmod ];
 
@@ -43,10 +28,7 @@ stdenv.mkDerivation rec {
     "DNS=yes"
   ];
 
-  installTargets = [
-    "install"
-    "install-lib"
-  ];
+  installTargets = [ "install" "install-lib" ];
 
   postInstall = ''
     # Remove update-pciids as it won't work on nixos
@@ -66,9 +48,11 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://mj.ucw.cz/sw/pciutils/";
-    description = "A collection of programs for inspecting and manipulating configuration of PCI devices";
+    description =
+      "A collection of programs for inspecting and manipulating configuration of PCI devices";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.vcunat ]; # not really, but someone should watch it
+    maintainers =
+      [ maintainers.vcunat ]; # not really, but someone should watch it
   };
 }

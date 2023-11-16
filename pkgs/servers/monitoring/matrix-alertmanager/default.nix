@@ -1,11 +1,4 @@
-{
-  lib,
-  callPackage,
-  mkYarnPackage,
-  fetchYarnDeps,
-  fetchFromGitHub,
-  nodejs,
-}:
+{ lib, callPackage, mkYarnPackage, fetchYarnDeps, fetchFromGitHub, nodejs }:
 
 mkYarnPackage rec {
   pname = "matrix-alertmanager";
@@ -37,7 +30,8 @@ mkYarnPackage rec {
   passthru.updateScript = callPackage ./update.nix { };
 
   meta = with lib; {
-    description = "Bot to receive Alertmanager webhook events and forward them to chosen rooms";
+    description =
+      "Bot to receive Alertmanager webhook events and forward them to chosen rooms";
     homepage = "https://github.com/jaywink/matrix-alertmanager";
     license = licenses.mit;
     maintainers = with maintainers; [ yuka ];

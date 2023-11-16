@@ -1,46 +1,31 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libX11,
-  libXt,
+{ lib, stdenv, fetchurl, libX11, libXt
 
-  libjpeg ? null,
-  libpng ? null,
-  libtiff ? null,
+, libjpeg ? null, libpng ? null, libtiff ? null
 
-  withJpegSupport ? true,
-  withPngSupport ? true,
-  withTiffSupport ? true,
-}:
+, withJpegSupport ? true, withPngSupport ? true, withTiffSupport ? true }:
 
 assert withJpegSupport -> libjpeg != null;
 assert withPngSupport -> libpng != null;
 assert withTiffSupport -> libtiff != null;
 
-let
-  deb_patch = "25";
-in
-stdenv.mkDerivation rec {
+let deb_patch = "25";
+in stdenv.mkDerivation rec {
   version = "4.1";
   pname = "xloadimage";
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz";
+    url =
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}.orig.tar.gz";
     sha256 = "1i7miyvk5ydhi6yi8593vapavhwxcwciir8wg9d2dcyg9pccf2s0";
   };
 
   patches = fetchurl {
-    url = "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz";
+    url =
+      "mirror://debian/pool/main/x/xloadimage/xloadimage_${version}-${deb_patch}.debian.tar.xz";
     sha256 = "17k518vrdrya5c9dqhpmm4g0h2vlkq1iy87sg2ngzygypbli1xvn";
   };
 
-  buildInputs =
-    [
-      libX11
-      libXt
-    ]
-    ++ lib.optionals withJpegSupport [ libjpeg ]
+  buildInputs = [ libX11 libXt ] ++ lib.optionals withJpegSupport [ libjpeg ]
     ++ lib.optionals withPngSupport [ libpng ]
     ++ lib.optionals withTiffSupport [ libtiff ];
 

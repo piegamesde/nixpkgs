@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  ply,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, ply, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "slimit";

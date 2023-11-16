@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  glibcLocales,
-}:
+{ lib, buildPythonPackage, fetchPypi, glibcLocales }:
 
 buildPythonPackage rec {
   pname = "nameparser";
@@ -18,8 +13,10 @@ buildPythonPackage rec {
   buildInputs = [ glibcLocales ];
 
   meta = with lib; {
-    description = "A simple Python module for parsing human names into their individual components";
+    description =
+      "A simple Python module for parsing human names into their individual components";
     homepage = "https://github.com/derek73/python-nameparser";
     license = licenses.lgpl21Plus;
   };
+
 }

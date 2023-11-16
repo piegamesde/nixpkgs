@@ -1,10 +1,4 @@
-{
-  lib,
-  pkgs,
-  melpaBuild,
-  haskellPackages,
-  writeText,
-}:
+{ lib, pkgs, melpaBuild, haskellPackages, writeText }:
 
 melpaBuild {
   pname = "ghc";
@@ -22,7 +16,8 @@ melpaBuild {
   fileSpecs = [ "elisp/*.el" ];
 
   meta = {
-    description = "An extension of haskell-mode that provides completion of symbols and documentation browsing";
+    description =
+      "An extension of haskell-mode that provides completion of symbols and documentation browsing";
     license = lib.licenses.bsd3;
   };
 }

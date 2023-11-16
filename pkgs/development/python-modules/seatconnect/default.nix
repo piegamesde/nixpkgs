@@ -1,16 +1,5 @@
-{
-  lib,
-  aiohttp,
-  beautifulsoup4,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  lxml,
-  pyjwt,
-  pythonOlder,
-  setuptools-scm,
-  xmltodict,
-}:
+{ lib, aiohttp, beautifulsoup4, buildPythonPackage, cryptography
+, fetchFromGitHub, lxml, pyjwt, pythonOlder, setuptools-scm, xmltodict }:
 
 buildPythonPackage rec {
   pname = "seatconnect";
@@ -30,14 +19,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    beautifulsoup4
-    cryptography
-    lxml
-    pyjwt
-    xmltodict
-  ];
+  propagatedBuildInputs =
+    [ aiohttp beautifulsoup4 cryptography lxml pyjwt xmltodict ];
 
   postPatch = ''
     substituteInPlace setup.py \

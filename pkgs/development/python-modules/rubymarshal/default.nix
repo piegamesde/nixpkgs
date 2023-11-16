@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hypothesis,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, hypothesis, isPy3k }:
 
 buildPythonPackage rec {
   pname = "rubymarshal";

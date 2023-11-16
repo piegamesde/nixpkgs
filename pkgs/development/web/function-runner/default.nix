@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-}:
+{ lib, fetchFromGitHub, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "function-runner";
@@ -18,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-sUIbPW9lWirJUxy2AHENbPXYTQ1lkCtH4LyQ2pD4yXI=";
 
   meta = with lib; {
-    description = "A CLI tool which allows you to run Wasm Functions intended for the Shopify Functions infrastructure";
+    description =
+      "A CLI tool which allows you to run Wasm Functions intended for the Shopify Functions infrastructure";
     homepage = "https://github.com/Shopify/function-runner";
     license = licenses.asl20;
     maintainers = with maintainers; [ nintron ];

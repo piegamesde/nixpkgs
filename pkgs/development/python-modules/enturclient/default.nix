@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  async-timeout,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-}:
+{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub, poetry-core
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "enturclient";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "dnsmasq_exporter";
@@ -20,17 +15,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) dnsmasq;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) dnsmasq; };
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "A dnsmasq exporter for Prometheus";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      willibutz
-      globin
-    ];
+    maintainers = with maintainers; [ willibutz globin ];
   };
 }

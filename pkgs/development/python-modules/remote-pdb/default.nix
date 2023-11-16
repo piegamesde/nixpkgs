@@ -1,8 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib }:
 buildPythonPackage rec {
   pname = "remote-pdb";
   version = "2.1.0";

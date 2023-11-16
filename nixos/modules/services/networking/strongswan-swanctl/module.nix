@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 with (import ./param-lib.nix lib);
@@ -11,8 +6,7 @@ with (import ./param-lib.nix lib);
 let
   cfg = config.services.strongswan-swanctl;
   swanctlParams = import ./swanctl-params.nix lib;
-in
-{
+in {
   options.services.strongswan-swanctl = {
     enable = mkEnableOption (lib.mdDoc "strongswan-swanctl service");
 
@@ -38,14 +32,14 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = !config.services.strongswan.enable;
-        message = "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
-      }
-    ];
+    assertions = [{
+      assertion = !config.services.strongswan.enable;
+      message =
+        "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
+    }];
 
-    environment.etc."swanctl/swanctl.conf".text = paramsToConf cfg.swanctl swanctlParams;
+    environment.etc."swanctl/swanctl.conf".text =
+      paramsToConf cfg.swanctl swanctlParams;
 
     # The swanctl command complains when the following directories don't exist:
     # See: https://wiki.strongswan.org/projects/strongswan/wiki/Swanctldirectory
@@ -69,12 +63,7 @@ in
       description = "strongSwan IPsec IKEv1/IKEv2 daemon using swanctl";
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
-      path = with pkgs; [
-        kmod
-        iproute2
-        iptables
-        util-linux
-      ];
+      path = with pkgs; [ kmod iproute2 iptables util-linux ];
       environment = {
         STRONGSWAN_CONF = pkgs.writeTextFile {
           name = "strongswan.conf";
@@ -82,7 +71,8 @@ in
         };
         SWANCTL_DIR = "/etc/swanctl";
       };
-      restartTriggers = [ config.environment.etc."swanctl/swanctl.conf".source ];
+      restartTriggers =
+        [ config.environment.etc."swanctl/swanctl.conf".source ];
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/charon-systemd";
         Type = "notify";

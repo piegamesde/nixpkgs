@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  semver,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, pythonOlder
+, pythonRelaxDepsHook, semver }:
 
 buildPythonPackage rec {
   pname = "pkutils";

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pgmetrics";
@@ -19,15 +15,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   meta = with lib; {
     homepage = "https://pgmetrics.io/";
-    description = "Collect and display information and stats from a running PostgreSQL server";
+    description =
+      "Collect and display information and stats from a running PostgreSQL server";
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];
   };

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   version = "1.0.1";
@@ -23,11 +19,7 @@ python3Packages.buildPythonApplication rec {
       --replace "'scripts': []" "'scripts': { '${pname}.py' }"
   '';
 
-  propagatedBuildInputs = with python3Packages; [
-    pycares
-    urllib3
-    requests
-  ];
+  propagatedBuildInputs = with python3Packages; [ pycares urllib3 requests ];
 
   meta = with lib; {
     description = "Extract, defang, resolve names and IPs from text";

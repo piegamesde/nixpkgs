@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "fset";
   version = "20200925-git";
 
@@ -11,14 +10,11 @@ rec {
     See: http://www.ergy.com/FSet.html
   '';
 
-  deps = [
-    args."misc-extensions"
-    args."mt19937"
-    args."named-readtables"
-  ];
+  deps = [ args."misc-extensions" args."mt19937" args."named-readtables" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/fset/2020-09-25/fset-20200925-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/fset/2020-09-25/fset-20200925-git.tgz";
     sha256 = "19fr6ds1a493b0kbsligpn7i771r1yfshbbkdp0hxs4l792l05wv";
   };
 

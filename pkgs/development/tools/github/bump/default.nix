@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "bump";
@@ -28,7 +24,8 @@ buildGoModule rec {
   meta = with lib; {
     license = licenses.mit;
     homepage = "https://github.com/mroth/bump";
-    description = "CLI tool to draft a GitHub Release for the next semantic version";
+    description =
+      "CLI tool to draft a GitHub Release for the next semantic version";
     maintainers = with maintainers; [ doronbehar ];
   };
 }

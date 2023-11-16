@@ -1,41 +1,10 @@
-{
-  lib,
-  stdenv,
-  substituteAll,
-  fetchFromGitHub,
-  fetchpatch,
-  autoreconfHook,
-  gettext,
-  makeWrapper,
-  pkg-config,
-  vala,
-  wrapGAppsHook,
-  dbus,
-  systemd,
-  dconf ? null,
-  glib,
-  gdk-pixbuf,
-  gobject-introspection,
-  gtk2,
-  gtk3,
-  gtk4,
-  gtk-doc,
-  runCommand,
-  isocodes,
-  cldr-annotations,
-  unicode-character-database,
-  unicode-emoji,
-  python3,
-  json-glib,
-  libnotify ? null,
-  enableUI ? true,
-  withWayland ? false,
-  libxkbcommon,
-  wayland,
-  buildPackages,
-  runtimeShell,
-  nixosTests,
-}:
+{ lib, stdenv, substituteAll, fetchFromGitHub, fetchpatch, autoreconfHook
+, gettext, makeWrapper, pkg-config, vala, wrapGAppsHook, dbus, systemd
+, dconf ? null, glib, gdk-pixbuf, gobject-introspection, gtk2, gtk3, gtk4
+, gtk-doc, runCommand, isocodes, cldr-annotations, unicode-character-database
+, unicode-emoji, python3, json-glib, libnotify ? null, enableUI ? true
+, withWayland ? false, libxkbcommon, wayland, buildPackages, runtimeShell
+, nixosTests }:
 
 let
   python3Runtime = python3.withPackages (ps: with ps; [ pygobject3 ]);
@@ -49,13 +18,13 @@ let
   };
   # make-dconf-override-db.sh needs to execute dbus-launch in the sandbox,
   # it will fail to read /etc/dbus-1/session.conf unless we add this flag
-  dbus-launch = runCommand "sandbox-dbus-launch" { nativeBuildInputs = [ makeWrapper ]; } ''
-    makeWrapper ${dbus}/bin/dbus-launch $out/bin/dbus-launch \
-      --add-flags --config-file=${dbus}/share/dbus-1/session.conf
-  '';
-in
+  dbus-launch =
+    runCommand "sandbox-dbus-launch" { nativeBuildInputs = [ makeWrapper ]; } ''
+      makeWrapper ${dbus}/bin/dbus-launch $out/bin/dbus-launch \
+        --add-flags --config-file=${dbus}/share/dbus-1/session.conf
+    '';
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ibus";
   version = "1.5.28";
 
@@ -76,16 +45,13 @@ stdenv.mkDerivation rec {
     # unicode and emoji input are broken before 1.5.29
     # https://github.com/NixOS/nixpkgs/issues/226526
     (fetchpatch {
-      url = "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch";
+      url =
+        "https://github.com/ibus/ibus/commit/7c8abbe89403c2fcb08e3fda42049a97187e53ab.patch";
       hash = "sha256-59HzAdLq8ahrF7K+tFGLjTodwIiTkJGEkFe8quqIkhU=";
     })
   ];
 
-  outputs = [
-    "out"
-    "dev"
-    "installedTests"
-  ];
+  outputs = [ "out" "dev" "installedTests" ];
 
   postPatch = ''
     patchShebangs --build data/dconf/make-dconf-override-db.sh
@@ -134,25 +100,20 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  buildInputs =
-    [
-      dbus
-      systemd
-      dconf
-      gdk-pixbuf
-      gobject-introspection
-      python3.pkgs.pygobject3 # for pygobject overrides
-      gtk2
-      gtk3
-      gtk4
-      isocodes
-      json-glib
-      libnotify
-    ]
-    ++ lib.optionals withWayland [
-      libxkbcommon
-      wayland
-    ];
+  buildInputs = [
+    dbus
+    systemd
+    dconf
+    gdk-pixbuf
+    gobject-introspection
+    python3.pkgs.pygobject3 # for pygobject overrides
+    gtk2
+    gtk3
+    gtk4
+    isocodes
+    json-glib
+    libnotify
+  ] ++ lib.optionals withWayland [ libxkbcommon wayland ];
 
   enableParallelBuilding = true;
 
@@ -176,9 +137,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = {
-      installed-tests = nixosTests.installed-tests.ibus;
-    };
+    tests = { installed-tests = nixosTests.installed-tests.ibus; };
   };
 
   meta = with lib; {
@@ -186,9 +145,6 @@ stdenv.mkDerivation rec {
     description = "Intelligent Input Bus, input method framework";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      ttuegel
-      yana
-    ];
+    maintainers = with maintainers; [ ttuegel yana ];
   };
 }

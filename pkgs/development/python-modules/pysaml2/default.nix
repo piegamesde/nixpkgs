@@ -1,40 +1,18 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  defusedxml,
-  fetchFromGitHub,
-  fetchPypi,
-  importlib-resources,
-  poetry-core,
-  pyasn1,
-  pymongo,
-  pyopenssl,
-  pytestCheckHook,
-  python-dateutil,
-  pythonOlder,
-  pytz,
-  requests,
-  responses,
-  setuptools,
-  substituteAll,
-  xmlschema,
-  xmlsec,
-}:
+{ lib, buildPythonPackage, cryptography, defusedxml, fetchFromGitHub, fetchPypi
+, importlib-resources, poetry-core, pyasn1, pymongo, pyopenssl, pytestCheckHook
+, python-dateutil, pythonOlder, pytz, requests, responses, setuptools
+, substituteAll, xmlschema, xmlsec }:
 
 let
-  pymongo3 = pymongo.overridePythonAttrs (
-    old: rec {
-      version = "3.12.3";
-      src = fetchPypi {
-        pname = "pymongo";
-        inherit version;
-        hash = "sha256-ConK3ABipeU2ZN3gQ/bAlxcrjBxfAJRJAJUoL/mZWl8=";
-      };
-    }
-  );
-in
-buildPythonPackage rec {
+  pymongo3 = pymongo.overridePythonAttrs (old: rec {
+    version = "3.12.3";
+    src = fetchPypi {
+      pname = "pymongo";
+      inherit version;
+      hash = "sha256-ConK3ABipeU2ZN3gQ/bAlxcrjBxfAJRJAJUoL/mZWl8=";
+    };
+  });
+in buildPythonPackage rec {
   pname = "pysaml2";
   version = "7.4.1";
   format = "pyproject";
@@ -61,12 +39,7 @@ buildPythonPackage rec {
     xmlschema
   ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
-  nativeCheckInputs = [
-    pyasn1
-    pymongo3
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pyasn1 pymongo3 pytestCheckHook responses ];
 
   patches = [
     (substituteAll {

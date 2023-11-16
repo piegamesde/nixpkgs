@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  testers,
-  ocm,
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, stdenv, testers, ocm
 }:
 
 buildGoModule rec {
@@ -22,10 +15,7 @@ buildGoModule rec {
   vendorHash = "sha256-yY/X0LVIH1ULegx8MIZyUxD1wPNxxISSCBxj9aY2wtA=";
 
   # Strip the final binary.
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeBuildInputs = [ installShellFiles ];
 

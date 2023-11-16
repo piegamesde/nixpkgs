@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "curaengine";
@@ -25,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Engine for processing 3D models into 3D printing instructions";
+    description =
+      "Engine for processing 3D models into 3D printing instructions";
     homepage = "https://github.com/Ultimaker/CuraEngine";
     license = licenses.agpl3;
     platforms = platforms.linux;

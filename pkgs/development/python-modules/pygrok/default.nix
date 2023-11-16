@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  regex,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, regex, pytest }:
 
 buildPythonPackage rec {
   pname = "pygrok";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     maintainers = with maintainers; [ winpat ];
-    description = "A python implementation of jordansissel's grok regular expression library";
+    description =
+      "A python implementation of jordansissel's grok regular expression library";
     homepage = "https://github.com/garyelephant/pygrok";
     license = licenses.mit;
     platforms = platforms.linux;

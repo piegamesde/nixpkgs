@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonAtLeast,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "python-crfsuite";

@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  autoreconfHook,
-  libunwind,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchpatch, autoreconfHook, libunwind }:
 
 stdenv.mkDerivation rec {
   pname = "gperftools";
@@ -18,26 +11,27 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lUX9T31cYZEi+0DgF52EDSL9yiSHa8ToMxhpQFKHOGk=";
   };
 
-  patches =
-    [
-      # Add the --disable-general-dynamic-tls configure option:
-      # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
-      (fetchpatch {
-        url = "https://src.fedoraproject.org/rpms/gperftools/raw/f62d87a34f56f64fb8eb86727e34fbc2d3f5294a/f/gperftools-2.7.90-disable-generic-dynamic-tls.patch";
-        sha256 = "02falhpaqkl27hl1dib4yvmhwsddmgbw0krb46w31fyf3awb2ydv";
-      })
-    ];
+  patches = [
+    # Add the --disable-general-dynamic-tls configure option:
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
+    (fetchpatch {
+      url =
+        "https://src.fedoraproject.org/rpms/gperftools/raw/f62d87a34f56f64fb8eb86727e34fbc2d3f5294a/f/gperftools-2.7.90-disable-generic-dynamic-tls.patch";
+      sha256 = "02falhpaqkl27hl1dib4yvmhwsddmgbw0krb46w31fyf3awb2ydv";
+    })
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 
   # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
-  buildInputs =
-    lib.optional (stdenv.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic))
-      libunwind;
+  buildInputs = lib.optional (stdenv.isLinux
+    && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic))
+    libunwind;
 
   # Disable general dynamic TLS on AArch to support dlopen()'ing the library:
   # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
-  configureFlags = lib.optional stdenv.hostPlatform.isAarch "--disable-general-dynamic-tls";
+  configureFlags =
+    lib.optional stdenv.hostPlatform.isAarch "--disable-general-dynamic-tls";
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.am --replace stdc++ c++
@@ -53,7 +47,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/gperftools/gperftools";
-    description = "Fast, multi-threaded malloc() and nifty performance analysis tools";
+    description =
+      "Fast, multi-threaded malloc() and nifty performance analysis tools";
     platforms = platforms.all;
     license = licenses.bsd3;
     maintainers = with maintainers; [ vcunat ];

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  webob,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, webob, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "wsgiproxy2";

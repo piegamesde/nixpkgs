@@ -1,17 +1,13 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "gentium-book-basic";
   version = "1.102";
 
   src = fetchzip {
-    url = "http://software.sil.org/downloads/r/gentium/GentiumBasic_${lib.versions.major version}${
-        lib.versions.minor version
-      }.zip";
+    url = "http://software.sil.org/downloads/r/gentium/GentiumBasic_${
+        lib.versions.major version
+      }${lib.versions.minor version}.zip";
     hash = "sha256-oCmpl95MJRfCV25cg/4cf8AwQWnoymXasSss1ziOPoE=";
   };
 
@@ -26,7 +22,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/gentium/";
-    description = "A high-quality typeface family for Latin, Cyrillic, and Greek";
+    description =
+      "A high-quality typeface family for Latin, Cyrillic, and Greek";
     maintainers = with maintainers; [ ];
     license = licenses.ofl;
     platforms = platforms.all;

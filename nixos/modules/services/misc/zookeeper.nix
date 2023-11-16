@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -25,8 +20,8 @@ let
       (pkgs.writeTextDir "log4j.properties" cfg.logging)
     ];
   };
-in
-{
+
+in {
 
   options.services.zookeeper = {
     enable = mkEnableOption (lib.mdDoc "Zookeeper");
@@ -94,7 +89,8 @@ in
     };
 
     extraCmdLineOptions = mkOption {
-      description = lib.mdDoc "Extra command line options for the Zookeeper launcher.";
+      description =
+        lib.mdDoc "Extra command line options for the Zookeeper launcher.";
       default = [
         "-Dcom.sun.management.jmxremote"
         "-Dcom.sun.management.jmxremote.local.only=true"

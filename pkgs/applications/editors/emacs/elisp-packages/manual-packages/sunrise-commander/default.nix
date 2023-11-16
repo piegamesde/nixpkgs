@@ -1,9 +1,4 @@
-{
-  lib,
-  trivialBuild,
-  fetchFromGitHub,
-  emacs,
-}:
+{ lib, trivialBuild, fetchFromGitHub, emacs }:
 
 trivialBuild {
   pname = "sunrise-commander";

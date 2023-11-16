@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  cargo,
-  cffi,
-  fetchPypi,
-  glean-parser,
-  iso8601,
-  lmdb,
-  pkg-config,
-  pytest-localserver,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-  rustc,
-  rustPlatform,
-  semver,
-  setuptools-rust,
-}:
+{ stdenv, lib, buildPythonPackage, cargo, cffi, fetchPypi, glean-parser, iso8601
+, lmdb, pkg-config, pytest-localserver, pytestCheckHook, python, pythonOlder
+, rustc, rustPlatform, semver, setuptools-rust }:
 
 buildPythonPackage rec {
   pname = "glean-sdk";
@@ -36,27 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-5TlgWcLmjklxhtDbB0aRF71iIRTJwetFj1Jii1DGdvU=";
   };
 
-  nativeBuildInputs = [
-    cargo
-    pkg-config
-    rustc
-    rustPlatform.cargoSetupHook
-    setuptools-rust
-  ];
+  nativeBuildInputs =
+    [ cargo pkg-config rustc rustPlatform.cargoSetupHook setuptools-rust ];
 
   buildInputs = [ lmdb ];
 
-  propagatedBuildInputs = [
-    cffi
-    glean-parser
-    iso8601
-    semver
-  ];
+  propagatedBuildInputs = [ cffi glean-parser iso8601 semver ];
 
-  nativeCheckInputs = [
-    pytest-localserver
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-localserver pytestCheckHook ];
 
   disabledTests = [
     # RuntimeError: No ping received.
@@ -64,10 +34,9 @@ buildPythonPackage rec {
     "test_flipping_upload_enabled_respects_order_of_events"
   ];
 
-  postInstallCheck =
-    lib.optionalString
-      (stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf)
-      ''
+  postInstallCheck = lib.optionalString
+    (stdenv.hostPlatform.parsed.kernel.execFormat
+      == lib.systems.parse.execFormats.elf) ''
         readelf -a $out/${python.sitePackages}/glean/libglean_ffi.so | grep -F 'Shared library: [liblmdb.so'
       '';
 
@@ -75,7 +44,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "Telemetry client libraries and are a part of the Glean project";
+    description =
+      "Telemetry client libraries and are a part of the Glean project";
     homepage = "https://mozilla.github.io/glean/book/index.html";
     license = licenses.mpl20;
     maintainers = with maintainers; [ melling ];

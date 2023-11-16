@@ -1,21 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jdk8_headless,
-  jdk11_headless,
-  nixosTests,
+{ lib, stdenv, fetchurl, makeWrapper, jdk8_headless, jdk11_headless, nixosTests
 }:
 
 let
-  common =
-    {
-      version,
-      hash,
-      jdk ? jdk11_headless,
-      tests,
-    }:
+  common = { version, hash, jdk ? jdk11_headless, tests }:
     stdenv.mkDerivation rec {
       pname = "hbase";
       inherit version;
@@ -34,9 +21,7 @@ let
           --set-default HBASE_CONF_DIR "$out/conf/"
       '';
 
-      passthru = {
-        inherit tests;
-      };
+      passthru = { inherit tests; };
 
       meta = with lib; {
         description = "A distributed, scalable, big data store";
@@ -46,8 +31,7 @@ let
         platforms = lib.platforms.linux;
       };
     };
-in
-{
+in {
   hbase_2_4 = common {
     version = "2.4.17";
     hash = "sha256-1JT57kpp+dqoXY5ZZig1nHDtSqvfLjEWviu73J7hKj0=";

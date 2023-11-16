@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  libtool,
-  pkg-config,
-  re2,
-  texinfo,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libtool, pkg-config, re2
+, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "cre2";
@@ -20,15 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1h9jwn6z8kjf4agla85b5xf7gfkdwncp0mfd8zwk98jkm8y2qx9q";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    libtool
-    pkg-config
-  ];
-  buildInputs = [
-    re2
-    texinfo
-  ];
+  nativeBuildInputs = [ autoreconfHook libtool pkg-config ];
+  buildInputs = [ re2 texinfo ];
 
   NIX_LDFLAGS = "-lre2 -lpthread";
 

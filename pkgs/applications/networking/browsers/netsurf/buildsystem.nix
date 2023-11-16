@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "netsurf-${libname}";
@@ -10,7 +6,8 @@ stdenv.mkDerivation rec {
   version = "1.9";
 
   src = fetchurl {
-    url = "http://download.netsurf-browser.org/libs/releases/${libname}-${version}.tar.gz";
+    url =
+      "http://download.netsurf-browser.org/libs/releases/${libname}-${version}.tar.gz";
     sha256 = "sha256-k4QeMUpoggmiC4dF8GU5PzqQ8Bvmj0Xpa8jS9KKqmio=";
   };
 
@@ -20,10 +17,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netsurf-browser.org/";
     description = "NetSurf browser shared build system";
     license = licenses.mit;
-    maintainers = [
-      maintainers.vrthra
-      maintainers.AndersonTorres
-    ];
+    maintainers = [ maintainers.vrthra maintainers.AndersonTorres ];
     platforms = platforms.unix;
   };
 }

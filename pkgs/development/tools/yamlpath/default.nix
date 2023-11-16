@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  hiera-eyaml,
-  python3,
-}:
+{ lib, fetchFromGitHub, hiera-eyaml, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "yamlpath";
@@ -17,10 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-6N2s/LWFa3mgMQ88rt3IaWk+b2PTWfT7z1mi+ioQEyU=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [
-    python-dateutil
-    ruamel-yaml
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ python-dateutil ruamel-yaml ];
 
   nativeCheckInputs = with python3.pkgs; [
     hiera-eyaml
@@ -38,7 +30,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Command-line processors for YAML/JSON/Compatible data";
     homepage = "https://github.com/wwkimball/yamlpath";
-    changelog = "https://github.com/wwkimball/yamlpath/releases/tag/v${version}";
+    changelog =
+      "https://github.com/wwkimball/yamlpath/releases/tag/v${version}";
     longDescription = ''
       Command-line get/set/merge/validate/scan/convert/diff processors for YAML/JSON/Compatible data
       using powerful, intuitive, command-line friendly syntax

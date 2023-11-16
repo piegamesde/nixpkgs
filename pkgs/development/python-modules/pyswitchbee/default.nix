@@ -1,13 +1,5 @@
-{
-  lib,
-  awesomeversion,
-  buildPythonPackage,
-  aiohttp,
-  fetchFromGitHub,
-  setuptools,
-  pythonOlder,
-  packaging,
-}:
+{ lib, awesomeversion, buildPythonPackage, aiohttp, fetchFromGitHub, setuptools
+, pythonOlder, packaging }:
 
 buildPythonPackage rec {
   pname = "pyswitchbee";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    awesomeversion
-    packaging
-  ];
+  propagatedBuildInputs = [ aiohttp awesomeversion packaging ];
 
   # Module doesn't have tests
   doCheck = false;
@@ -39,7 +27,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to control SwitchBee smart home device";
     homepage = "https://github.com/jafar-atili/pySwitchbee/";
-    changelog = "https://github.com/jafar-atili/pySwitchbee/releases/tag/${version}";
+    changelog =
+      "https://github.com/jafar-atili/pySwitchbee/releases/tag/${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,25 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  coreutils,
-  python3,
-  duplicity,
-  gawk,
-  gnupg,
-  bash,
-  gnugrep,
-  txt2man,
-  makeWrapper,
-  which,
-}:
+{ lib, stdenv, fetchurl, coreutils, python3, duplicity, gawk, gnupg, bash
+, gnugrep, txt2man, makeWrapper, which }:
 
 stdenv.mkDerivation rec {
   pname = "duply";
   version = "2.4";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/ftplicity/duply%20%28simple%20duplicity%29/2.4.x/duply_${version}.tgz";
+    url =
+      "mirror://sourceforge/project/ftplicity/duply%20%28simple%20duplicity%29/2.4.x/duply_${version}.tgz";
     hash = "sha256-DCrp3o/ukzkfnVaLbIK84bmYnXvqKsvlkGn3GJY3iNg=";
   };
 

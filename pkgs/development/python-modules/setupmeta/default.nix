@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  git,
-  mock,
-  pep440,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  six,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, git, mock, pep440, pytestCheckHook
+, pythonOlder, setuptools-scm, six }:
 
 buildPythonPackage rec {
   pname = "setupmeta";
@@ -31,13 +21,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    git
-    mock
-    pep440
-    pytestCheckHook
-    six
-  ];
+  nativeCheckInputs = [ git mock pep440 pytestCheckHook six ];
 
   preCheck = ''
     unset PYGRADLE_PROJECT_VERSION

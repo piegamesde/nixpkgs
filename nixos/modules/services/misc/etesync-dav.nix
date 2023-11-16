@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.etesync-dav;
-in
-{
+let cfg = config.services.etesync-dav;
+in {
   options.services.etesync-dav = {
     enable = mkEnableOption (lib.mdDoc "etesync-dav");
 
@@ -35,7 +28,8 @@ in
     openFirewall = mkOption {
       default = false;
       type = types.bool;
-      description = lib.mdDoc "Whether to open the firewall for the specified port.";
+      description =
+        lib.mdDoc "Whether to open the firewall for the specified port.";
     };
 
     sslCertificate = mkOption {
@@ -79,16 +73,16 @@ in
         DynamicUser = true;
         StateDirectory = "etesync-dav";
         ExecStart = "${pkgs.etesync-dav}/bin/etesync-dav";
-        ExecStartPre = mkIf (cfg.sslCertificate != null || cfg.sslCertificateKey != null) (
-          pkgs.writers.writeBash "etesync-dav-copy-keys" ''
+        ExecStartPre =
+          mkIf (cfg.sslCertificate != null || cfg.sslCertificateKey != null)
+          (pkgs.writers.writeBash "etesync-dav-copy-keys" ''
             ${optionalString (cfg.sslCertificate != null) ''
               cp ${toString cfg.sslCertificate} $STATE_DIRECTORY/etesync.crt
             ''}
             ${optionalString (cfg.sslCertificateKey != null) ''
               cp ${toString cfg.sslCertificateKey} $STATE_DIRECTORY/etesync.key
             ''}
-          ''
-        );
+          '');
         Restart = "on-failure";
         RestartSec = "30min 1s";
       };

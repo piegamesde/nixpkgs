@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.xserver.windowManager.fvwm3;
   inherit (pkgs) fvwm3;
-in
 
-{
+in {
 
   ###### interface
 

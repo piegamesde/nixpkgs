@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyflakes";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/PyCQA/pyflakes";
     changelog = "https://github.com/PyCQA/pyflakes/blob/${version}/NEWS.rst";
-    description = "A simple program which checks Python source files for errors";
+    description =
+      "A simple program which checks Python source files for errors";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];
   };

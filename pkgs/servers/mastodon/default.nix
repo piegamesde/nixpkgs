@@ -1,28 +1,10 @@
-{
-  lib,
-  stdenv,
-  nodejs-slim,
-  mkYarnPackage,
-  fetchFromGitHub,
-  bundlerEnv,
-  nixosTests,
-  yarn,
-  callPackage,
-  imagemagick,
-  ffmpeg,
-  file,
-  ruby_3_0,
-  writeShellScript,
-  fetchYarnDeps,
-  fixup_yarn_lock,
-  brotli,
+{ lib, stdenv, nodejs-slim, mkYarnPackage, fetchFromGitHub, bundlerEnv
+, nixosTests, yarn, callPackage, imagemagick, ffmpeg, file, ruby_3_0
+, writeShellScript, fetchYarnDeps, fixup_yarn_lock, brotli
 
-  # Allow building a fork or custom version of Mastodon:
-  pname ? "mastodon",
-  version ? import ./version.nix,
-  srcOverride ? null,
-  dependenciesDir ? ./. # Should contain gemset.nix, yarn.nix and package.json.
-  ,
+# Allow building a fork or custom version of Mastodon:
+, pname ? "mastodon", version ? import ./version.nix, srcOverride ? null
+, dependenciesDir ? ./. # Should contain gemset.nix, yarn.nix and package.json.
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +12,8 @@ stdenv.mkDerivation rec {
 
   # Using overrideAttrs on src does not build the gems and modules with the overridden src.
   # Putting the callPackage up in the arguments list also does not work.
-  src = if srcOverride != null then srcOverride else callPackage ./source.nix { };
+  src =
+    if srcOverride != null then srcOverride else callPackage ./source.nix { };
 
   mastodonGems = bundlerEnv {
     name = "${pname}-gems-${version}";
@@ -111,16 +94,8 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  propagatedBuildInputs = [
-    imagemagick
-    ffmpeg
-    file
-    mastodonGems.wrappedRuby
-  ];
-  buildInputs = [
-    mastodonGems
-    nodejs-slim
-  ];
+  propagatedBuildInputs = [ imagemagick ffmpeg file mastodonGems.wrappedRuby ];
+  buildInputs = [ mastodonGems nodejs-slim ];
 
   buildPhase = ''
     ln -s $mastodonModules/node_modules node_modules
@@ -157,18 +132,16 @@ stdenv.mkDerivation rec {
     ln -s /tmp tmp
   '';
 
-  installPhase =
-    let
-      run-streaming = writeShellScript "run-streaming.sh" ''
-        # NixOS helper script to consistently use the same NodeJS version the package was built with.
-        ${nodejs-slim}/bin/node ./streaming
-      '';
-    in
-    ''
-      mkdir -p $out
-      cp -r * $out/
-      ln -s ${run-streaming} $out/run-streaming.sh
+  installPhase = let
+    run-streaming = writeShellScript "run-streaming.sh" ''
+      # NixOS helper script to consistently use the same NodeJS version the package was built with.
+      ${nodejs-slim}/bin/node ./streaming
     '';
+  in ''
+    mkdir -p $out
+    cp -r * $out/
+    ln -s ${run-streaming} $out/run-streaming.sh
+  '';
 
   passthru = {
     tests.mastodon = nixosTests.mastodon;
@@ -176,19 +149,11 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Self-hosted, globally interconnected microblogging software based on ActivityPub";
+    description =
+      "Self-hosted, globally interconnected microblogging software based on ActivityPub";
     homepage = "https://joinmastodon.org";
     license = licenses.agpl3Plus;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-      "aarch64-linux"
-    ];
-    maintainers = with maintainers; [
-      happy-river
-      erictapen
-      izorkin
-      ghuntley
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [ happy-river erictapen izorkin ghuntley ];
   };
 }

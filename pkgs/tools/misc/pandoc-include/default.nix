@@ -1,11 +1,4 @@
-{
-  buildPythonApplication,
-  fetchFromGitHub,
-  lib,
-  natsort,
-  panflute,
-  setuptools,
-}:
+{ buildPythonApplication, fetchFromGitHub, lib, natsort, panflute, setuptools }:
 
 buildPythonApplication rec {
   pname = "pandoc-include";
@@ -21,10 +14,7 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    natsort
-    panflute
-  ];
+  propagatedBuildInputs = [ natsort panflute ];
 
   pythonImportsCheck = [ "pandoc_include.main" ];
 

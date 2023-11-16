@@ -1,17 +1,9 @@
-{
-  re,
-  reason,
-  pastel,
-  ...
-}:
+{ re, reason, pastel, ... }:
 
 {
   pname = "cli";
 
   nativeBuildInputs = [ reason ];
 
-  buildInputs = [
-    re
-    pastel
-  ];
+  buildInputs = [ re pastel ];
 }

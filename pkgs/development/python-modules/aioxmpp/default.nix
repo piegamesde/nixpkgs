@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiosasl,
-  aioopenssl,
-  babel,
-  dnspython,
-  lxml,
-  multidict,
-  pyasn1,
-  pyasn1-modules,
-  pyopenssl,
-  pytz,
-  sortedcollections,
-  tzlocal,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiosasl, aioopenssl, babel
+, dnspython, lxml, multidict, pyasn1, pyasn1-modules, pyopenssl, pytz
+, sortedcollections, tzlocal, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aioxmpp";
@@ -58,7 +43,8 @@ buildPythonPackage rec {
   disabledTestPaths = [ "benchmarks" ];
 
   meta = {
-    changelog = "https://github.com/horazont/aioxmpp/blob/${src.rev}/docs/api/changelog.rst";
+    changelog =
+      "https://github.com/horazont/aioxmpp/blob/${src.rev}/docs/api/changelog.rst";
     description = "Pure-python XMPP library for asyncio";
     homepage = "https://github.com/horazont/aioxmpp";
     license = lib.licenses.lgpl3Plus;

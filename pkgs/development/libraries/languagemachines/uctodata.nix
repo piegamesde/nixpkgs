@@ -1,34 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  automake,
-  autoconf,
-  libtool,
-  pkg-config,
-  autoconf-archive,
-}:
+{ lib, stdenv, fetchurl, automake, autoconf, libtool, pkg-config
+, autoconf-archive }:
 
-let
-  release = lib.importJSON ./release-info/LanguageMachines-uctodata.json;
-in
+let release = lib.importJSON ./release-info/LanguageMachines-uctodata.json;
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "uctodata";
   version = release.version;
   src = fetchurl {
     inherit (release) url sha256;
     name = "uctodata-${release.version}.tar.gz";
   };
-  nativeBuildInputs = [
-    pkg-config
-    automake
-    autoconf
-  ];
-  buildInputs = [
-    libtool
-    autoconf-archive
-  ];
+  nativeBuildInputs = [ pkg-config automake autoconf ];
+  buildInputs = [ libtool autoconf-archive ];
   preConfigure = "sh bootstrap.sh";
 
   meta = with lib; {
@@ -44,4 +27,5 @@ stdenv.mkDerivation {
       Ucto comes with tokenisation rules for several languages and can be easily extended to suit other languages. It has been incorporated for tokenizing Dutch text in Frog, a Dutch morpho-syntactic processor.
     '';
   };
+
 }

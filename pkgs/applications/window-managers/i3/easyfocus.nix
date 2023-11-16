@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  xorgproto,
-  libxcb,
-  xcbutilkeysyms,
-  xorg,
-  i3ipc-glib,
-  glib,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, xorgproto, libxcb, xcbutilkeysyms
+, xorg, i3ipc-glib, glib }:
 
 stdenv.mkDerivation {
   pname = "i3easyfocus";
@@ -23,14 +13,8 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libxcb
-    xcbutilkeysyms
-    xorgproto
-    xorg.libX11.dev
-    i3ipc-glib
-    glib.dev
-  ];
+  buildInputs =
+    [ libxcb xcbutilkeysyms xorgproto xorg.libX11.dev i3ipc-glib glib.dev ];
 
   # Makefile has no rule for 'install'
   installPhase = ''

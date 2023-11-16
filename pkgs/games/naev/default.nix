@@ -1,29 +1,6 @@
-{
-  lib,
-  SDL2,
-  SDL2_image,
-  enet,
-  fetchFromGitHub,
-  freetype,
-  glpk,
-  intltool,
-  libpng,
-  libunibreak,
-  libvorbis,
-  libwebp,
-  libxml2,
-  luajit,
-  meson,
-  ninja,
-  openal,
-  openblas,
-  pcre2,
-  physfs,
-  pkg-config,
-  python3,
-  stdenv,
-  suitesparse,
-}:
+{ lib, SDL2, SDL2_image, enet, fetchFromGitHub, freetype, glpk, intltool, libpng
+, libunibreak, libvorbis, libwebp, libxml2, luajit, meson, ninja, openal
+, openblas, pcre2, physfs, pkg-config, python3, stdenv, suitesparse }:
 
 stdenv.mkDerivation rec {
   pname = "naev";
@@ -57,24 +34,14 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [
-    (python3.withPackages (
-      ps:
-      with ps; [
-        pyyaml
-        mutagen
-      ]
-    ))
+    (python3.withPackages (ps: with ps; [ pyyaml mutagen ]))
     meson
     ninja
     pkg-config
     intltool
   ];
 
-  mesonFlags = [
-    "-Ddocs_c=disabled"
-    "-Ddocs_lua=disabled"
-    "-Dluajit=enabled"
-  ];
+  mesonFlags = [ "-Ddocs_c=disabled" "-Ddocs_lua=disabled" "-Dluajit=enabled" ];
 
   postPatch = ''
     patchShebangs --build dat/outfits/bioship/generate.py utils/build/*.py utils/*.py

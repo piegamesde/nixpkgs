@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  knightos-scas,
-  readline,
-  SDL2,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, knightos-scas, readline, SDL2 }:
 
 stdenv.mkDerivation rec {
   pname = "z80e";
@@ -21,11 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [
-    readline
-    SDL2
-    knightos-scas
-  ];
+  buildInputs = [ readline SDL2 knightos-scas ];
 
   cmakeFlags = [ "-Denable-sdl=YES" ];
 

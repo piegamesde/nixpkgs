@@ -1,45 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  meson,
-  gettext,
-  gobject-introspection,
-  glib,
-  gnome,
-  gtksourceview4,
-  gjs,
-  libsoup_3,
-  webkitgtk_4_1,
-  icu,
-  wrapGAppsHook,
-  gst_all_1,
-  gdk-pixbuf,
-  librsvg,
-  gtk3,
-  harfbuzz,
-  ninja,
-  libepoxy,
-}:
+{ lib, stdenv, fetchurl, pkg-config, meson, gettext, gobject-introspection, glib
+, gnome, gtksourceview4, gjs, libsoup_3, webkitgtk_4_1, icu, wrapGAppsHook
+, gst_all_1, gdk-pixbuf, librsvg, gtk3, harfbuzz, ninja, libepoxy }:
 
 stdenv.mkDerivation rec {
   pname = "sushi";
   version = "44.2";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/sushi/${lib.versions.major version}/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/sushi/${
+        lib.versions.major version
+      }/${pname}-${version}.tar.xz";
     sha256 = "bAAv4K6hkCe6RIta7JTVzXU8l1L5lu4DMVJChzjqQ+k=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gettext
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja gettext gobject-introspection wrapGAppsHook ];
 
   buildInputs = [
     glib

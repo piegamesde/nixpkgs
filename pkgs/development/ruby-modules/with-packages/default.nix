@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildEnv,
-  buildRubyGem,
-  ruby,
-  gemConfig,
-  makeBinaryWrapper,
-}:
+{ stdenv, lib, buildEnv, buildRubyGem, ruby, gemConfig, makeBinaryWrapper }:
 
 /* Example usage:
    nix-shell -E "(import <nixpkgs> {}).ruby.withPackages (pkgs: with pkgs; [ pry nokogiri ])"
@@ -23,44 +15,29 @@
 let
   functions = import ../bundled-common/functions.nix { inherit lib gemConfig; };
 
-  buildGems =
-    gemset:
+  buildGems = gemset:
     let
       realGemset = if builtins.isAttrs gemset then gemset else import gemset;
-      builtGems =
-        lib.mapAttrs
-          (
-            name: initialAttrs:
-            let
-              attrs = functions.applyGemConfigs (
-                {
-                  inherit ruby;
-                  gemName = name;
-                }
-                // initialAttrs
-              );
-            in
-            buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
-          )
-          realGemset;
-    in
-    builtGems;
+      builtGems = lib.mapAttrs (name: initialAttrs:
+        let
+          attrs = functions.applyGemConfigs ({
+            inherit ruby;
+            gemName = name;
+          } // initialAttrs);
+        in buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs))
+        realGemset;
+    in builtGems;
 
   gems = buildGems (import ../../../top-level/ruby-packages.nix);
 
-  withPackages =
-    selector:
+  withPackages = selector:
     let
       selected = selector gems;
 
       gemEnv = buildEnv {
         name = "ruby-gems";
         paths = selected;
-        pathsToLink = [
-          "/lib"
-          "/bin"
-          "/nix-support"
-        ];
+        pathsToLink = [ "/lib" "/bin" "/nix-support" ];
       };
 
       wrappedRuby = stdenv.mkDerivation {
@@ -73,14 +50,11 @@ let
           done
         '';
       };
-    in
-    stdenv.mkDerivation {
+
+    in stdenv.mkDerivation {
       name = "${ruby.name}-with-packages";
       nativeBuildInputs = [ makeBinaryWrapper ];
-      buildInputs = [
-        selected
-        ruby
-      ];
+      buildInputs = [ selected ruby ];
 
       dontUnpack = true;
 
@@ -98,7 +72,5 @@ let
         gems = selected;
       };
     };
-in
-{
-  inherit withPackages gems buildGems;
-}
+
+in { inherit withPackages gems buildGems; }

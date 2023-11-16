@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cmake,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, cmake, numpy, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -31,10 +24,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/scikit-hep/iminuit";
     description = "Python interface for the Minuit2 C++ library";
-    license = with licenses; [
-      mit
-      lgpl2Only
-    ];
+    license = with licenses; [ mit lgpl2Only ];
     maintainers = with maintainers; [ veprbl ];
   };
 }

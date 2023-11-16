@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  ocaml,
-  findlib,
-  camlp4,
-}:
+{ stdenv, lib, fetchurl, ocaml, findlib, camlp4 }:
 
 if lib.versionAtLeast ocaml.version "4.05" then
   throw "camomile-0.8.2 is not available for OCaml ${ocaml.version}"
@@ -20,11 +13,7 @@ else
       sha256 = "0x43pjxx70kgip86mmdn08s97k4qzdqc8i79xfyyx28smy1bsa00";
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      camlp4
-    ];
+    nativeBuildInputs = [ ocaml findlib camlp4 ];
 
     strictDeps = true;
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  coreutils,
-}:
+{ lib, fetchFromGitHub, rustPlatform, coreutils }:
 
 rustPlatform.buildRustPackage rec {
   pname = "heatseeker";

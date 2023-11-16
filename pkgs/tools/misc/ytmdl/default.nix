@@ -1,10 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-  yt-dlp,
-  ffmpeg,
-}:
+{ lib, python3Packages, fetchPypi, yt-dlp, ffmpeg }:
 
 python3Packages.buildPythonApplication rec {
   pname = "ytmdl";
@@ -43,12 +37,7 @@ python3Packages.buildPythonApplication rec {
     spotipy
   ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [ ffmpeg ])
-  ];
+  makeWrapperArgs = [ "--prefix" "PATH" ":" (lib.makeBinPath [ ffmpeg ]) ];
 
   # This application has no tests
   doCheck = false;

@@ -1,30 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  fcitx5,
-  gobject-introspection,
-  glib,
-  gtk2,
-  gtk3,
-  gtk4,
-  fmt,
-  pcre,
-  libuuid,
-  libselinux,
-  libsepol,
-  libthai,
-  libdatrie,
-  libXdmcp,
-  libxkbcommon,
-  libepoxy,
-  dbus,
-  at-spi2-core,
-  libXtst,
-  withGTK2 ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, fcitx5
+, gobject-introspection, glib, gtk2, gtk3, gtk4, fmt, pcre, libuuid, libselinux
+, libsepol, libthai, libdatrie, libXdmcp, libxkbcommon, libepoxy, dbus
+, at-spi2-core, libXtst, withGTK2 ? false }:
 
 stdenv.mkDerivation rec {
   pname = "fcitx5-gtk";
@@ -63,10 +40,7 @@ stdenv.mkDerivation rec {
     libXtst
   ] ++ lib.optional withGTK2 gtk2;
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   meta = with lib; {
     description = "Fcitx5 gtk im module and glib based dbus client library";

@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  setuptools,
-  cachetools,
-  decorator,
-  fetchFromGitHub,
-  future,
-  pysmt,
-  pythonOlder,
-  pytestCheckHook,
-  z3,
-}:
+{ lib, buildPythonPackage, setuptools, cachetools, decorator, fetchFromGitHub
+, future, pysmt, pythonOlder, pytestCheckHook, z3 }:
 
 buildPythonPackage rec {
   pname = "claripy";
@@ -28,13 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    cachetools
-    decorator
-    future
-    pysmt
-    z3
-  ];
+  propagatedBuildInputs = [ cachetools decorator future pysmt z3 ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

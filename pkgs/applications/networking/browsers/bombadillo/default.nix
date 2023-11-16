@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchgit,
-  buildGoModule,
-  installShellFiles,
-}:
+{ lib, fetchgit, buildGoModule, installShellFiles }:
 
 buildGoModule rec {
   pname = "bombadillo";
@@ -19,17 +14,15 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   postInstall = ''
     installManPage bombadillo.1
   '';
 
   meta = with lib; {
-    description = "Non-web client for the terminal, supporting Gopher, Gemini and more";
+    description =
+      "Non-web client for the terminal, supporting Gopher, Gemini and more";
     homepage = "https://bombadillo.colorfield.space/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ehmry ];

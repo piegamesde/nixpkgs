@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  gobject-introspection,
-  gtk3,
-  gtksourceview4,
-  webkitgtk,
-  wrapGAppsHook,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, gobject-introspection, gtk3, gtksourceview4, webkitgtk
+, wrapGAppsHook, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "skytemple";
@@ -30,13 +22,9 @@ python3Packages.buildPythonApplication rec {
     webkitgtk
   ];
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       cairosvg
       natsort
@@ -55,18 +43,15 @@ python3Packages.buildPythonApplication rec {
       skytemple-icons
       skytemple-ssb-debugger
       tilequant
-    ]
-    ++ skytemple-files.optional-dependencies.spritecollab;
+    ] ++ skytemple-files.optional-dependencies.spritecollab;
 
   doCheck = false; # there are no tests
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/skytemple";
-    description = "ROM hacking tool for Pokémon Mystery Dungeon Explorers of Sky";
+    description =
+      "ROM hacking tool for Pokémon Mystery Dungeon Explorers of Sky";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      xfix
-      marius851000
-    ];
+    maintainers = with maintainers; [ xfix marius851000 ];
   };
 }

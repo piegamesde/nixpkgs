@@ -1,17 +1,5 @@
-{
-  buildPythonPackage,
-  embedding-reader,
-  faiss,
-  fetchFromGitHub,
-  fire,
-  fsspec,
-  lib,
-  numpy,
-  pyarrow,
-  pytestCheckHook,
-  pythonRelaxDepsHook,
-  pythonOlder,
-}:
+{ buildPythonPackage, embedding-reader, faiss, fetchFromGitHub, fire, fsspec
+, lib, numpy, pyarrow, pytestCheckHook, pythonRelaxDepsHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "autofaiss";
@@ -46,14 +34,7 @@ buildPythonPackage rec {
     "pyarrow"
   ];
 
-  propagatedBuildInputs = [
-    embedding-reader
-    fsspec
-    numpy
-    faiss
-    fire
-    pyarrow
-  ];
+  propagatedBuildInputs = [ embedding-reader fsspec numpy faiss fire pyarrow ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -67,9 +48,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Automatically create Faiss knn indices with the most optimal similarity search parameters";
+    description =
+      "Automatically create Faiss knn indices with the most optimal similarity search parameters";
     homepage = "https://github.com/criteo/autofaiss";
-    changelog = "https://github.com/criteo/autofaiss/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/criteo/autofaiss/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ samuela ];
   };

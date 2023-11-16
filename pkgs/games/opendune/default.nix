@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  alsa-lib,
-  libpulseaudio,
-  SDL2,
-  SDL2_image,
-  SDL2_mixer,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, alsa-lib, libpulseaudio, SDL2
+, SDL2_image, SDL2_mixer }:
 
 # - set the opendune configuration at ~/.config/opendune/opendune.ini:
 #     [opendune]
@@ -33,13 +24,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    alsa-lib
-    libpulseaudio
-    SDL2
-    SDL2_image
-    SDL2_mixer
-  ];
+  buildInputs = [ alsa-lib libpulseaudio SDL2 SDL2_image SDL2_mixer ];
 
   enableParallelBuilding = true;
 

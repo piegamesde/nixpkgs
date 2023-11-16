@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pythonPackages,
-  wrapGAppsNoGuiHook,
-  gst_all_1,
-  glib-networking,
-  gobject-introspection,
-}:
+{ lib, stdenv, fetchFromGitHub, pythonPackages, wrapGAppsNoGuiHook, gst_all_1
+, glib-networking, gobject-introspection }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy";
@@ -31,20 +23,9 @@ pythonPackages.buildPythonApplication rec {
     gst-plugins-rs
   ];
 
-  propagatedBuildInputs =
-    [ gobject-introspection ]
-    ++ (
-      with pythonPackages;
-      [
-        gst-python
-        pygobject3
-        pykka
-        requests
-        setuptools
-        tornado
-      ]
-      ++ lib.optional (!stdenv.isDarwin) dbus-python
-    );
+  propagatedBuildInputs = [ gobject-introspection ] ++ (with pythonPackages;
+    [ gst-python pygobject3 pykka requests setuptools tornado ]
+    ++ lib.optional (!stdenv.isDarwin) dbus-python);
 
   propagatedNativeBuildInputs = [ gobject-introspection ];
 
@@ -53,7 +34,8 @@ pythonPackages.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://www.mopidy.com/";
-    description = "An extensible music server that plays music from local disk, Spotify, SoundCloud, and more";
+    description =
+      "An extensible music server that plays music from local disk, Spotify, SoundCloud, and more";
     license = licenses.asl20;
     maintainers = [ maintainers.fpletz ];
     hydraPlatforms = [ ];

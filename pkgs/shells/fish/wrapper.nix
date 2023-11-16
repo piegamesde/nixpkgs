@@ -1,25 +1,13 @@
-{
-  lib,
-  writeShellApplication,
-  fish,
-  writeTextFile,
-}:
+{ lib, writeShellApplication, fish, writeTextFile }:
 
-lib.makeOverridable (
-  {
-    completionDirs ? [ ],
-    functionDirs ? [ ],
-    confDirs ? [ ],
-    pluginPkgs ? [ ],
-    localConfig ? "",
-    shellAliases ? { },
-    runtimeInputs ? [ ],
+lib.makeOverridable ({ completionDirs ? [ ], functionDirs ? [ ], confDirs ? [ ]
+  , pluginPkgs ? [ ], localConfig ? "", shellAliases ? { }, runtimeInputs ? [ ]
   }:
 
   let
-    aliasesStr = builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "alias ${k} ${lib.escapeShellArg v}") shellAliases
-    );
+    aliasesStr = builtins.concatStringsSep "\n"
+      (lib.mapAttrsToList (k: v: "alias ${k} ${lib.escapeShellArg v}")
+        shellAliases);
 
     shellAliasesFishConfig = writeTextFile {
       name = "wrapfish.aliases.fish";
@@ -41,15 +29,10 @@ lib.makeOverridable (
     vendorDir = kind: plugin: "${plugin}/share/fish/vendor_${kind}.d";
     complPath = completionDirs ++ map (vendorDir "completions") pluginPkgs;
     funcPath = functionDirs ++ map (vendorDir "functions") pluginPkgs;
-    confPath =
-      confDirs
-      ++ (map (vendorDir "conf") pluginPkgs)
-      ++ (map (vendorDir "conf") [
-        localFishConfig
-        shellAliasesFishConfig
-      ]);
-  in
-  writeShellApplication {
+    confPath = confDirs ++ (map (vendorDir "conf") pluginPkgs)
+      ++ (map (vendorDir "conf") [ localFishConfig shellAliasesFishConfig ]);
+
+  in writeShellApplication {
     inherit runtimeInputs;
     name = "fish";
     text = ''
@@ -60,5 +43,4 @@ lib.makeOverridable (
         for c in \$fish_conf_source_path/*; source \$c; end
       " "$@"
     '';
-  }
-)
+  })

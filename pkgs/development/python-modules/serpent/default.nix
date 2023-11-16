@@ -1,13 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-  isPy27,
-  enum34,
-  attrs,
-  pytz,
-}:
+{ lib, buildPythonPackage, fetchPypi, python, isPy27, enum34, attrs, pytz }:
 
 buildPythonPackage rec {
   pname = "serpent";
@@ -20,10 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optionals isPy27 [ enum34 ];
 
-  nativeCheckInputs = [
-    attrs
-    pytz
-  ];
+  nativeCheckInputs = [ attrs pytz ];
   checkPhase = ''
     ${python.interpreter} setup.py test
   '';

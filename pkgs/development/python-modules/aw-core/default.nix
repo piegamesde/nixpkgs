@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  poetry-core,
-  jsonschema,
-  peewee,
-  appdirs,
-  iso8601,
-  rfc3339-validator,
-  takethetime,
-  strict-rfc3339,
-  tomlkit,
-  deprecation,
-  timeslot,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core, jsonschema
+, peewee, appdirs, iso8601, rfc3339-validator, takethetime, strict-rfc3339
+, tomlkit, deprecation, timeslot, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aw-core";

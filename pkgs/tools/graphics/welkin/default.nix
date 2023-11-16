@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchsvn,
-  jre,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchsvn, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "welkin";

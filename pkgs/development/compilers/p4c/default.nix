@@ -1,32 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boehmgc,
-  bison,
-  flex,
-  protobuf,
-  gmp,
-  boost,
-  python3,
-  doxygen,
-  graphviz,
-  libbpf,
-  libllvm,
-  enableDocumentation ? true,
-  enableBPF ? true,
-  enableDPDK ? true,
-  enableBMV2 ? true,
-  enableGraphBackend ? true,
-  enableP4Tests ? true,
-  enableGTests ? true,
-  enableMultithreading ? false,
-}:
-let
-  toCMakeBoolean = v: if v then "ON" else "OFF";
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchFromGitHub, cmake, boehmgc, bison, flex, protobuf, gmp
+, boost, python3, doxygen, graphviz, libbpf, libllvm, enableDocumentation ? true
+, enableBPF ? true, enableDPDK ? true, enableBMV2 ? true
+, enableGraphBackend ? true, enableP4Tests ? true, enableGTests ? true
+, enableMultithreading ? false }:
+let toCMakeBoolean = v: if v then "ON" else "OFF";
+in stdenv.mkDerivation rec {
   pname = "p4c";
   version = "1.2.3.9";
 
@@ -62,39 +40,18 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [
-      bison
-      flex
-      cmake
-    ]
-    ++ lib.optionals enableDocumentation [
-      doxygen
-      graphviz
-    ]
-    ++ lib.optionals enableBPF [
-      libllvm
-      libbpf
-    ];
+  nativeBuildInputs = [ bison flex cmake ]
+    ++ lib.optionals enableDocumentation [ doxygen graphviz ]
+    ++ lib.optionals enableBPF [ libllvm libbpf ];
 
-  buildInputs = [
-    protobuf
-    boost
-    boehmgc
-    gmp
-    flex
-    python3
-  ];
+  buildInputs = [ protobuf boost boehmgc gmp flex python3 ];
 
   meta = with lib; {
     homepage = "https://github.com/p4lang/p4c";
     changelog = "https://github.com/p4lang/p4c/releases";
     description = "Reference compiler for the P4 programming language";
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      raitobezarius
-      govanify
-    ];
+    maintainers = with maintainers; [ raitobezarius govanify ];
     license = licenses.asl20;
   };
 }

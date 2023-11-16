@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  idna,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, idna, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "rfc3986";

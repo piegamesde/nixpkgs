@@ -1,13 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  flit-core,
-  jinja2,
-  pytestCheckHook,
-  railroad-diagrams,
-  pyparsing,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, flit-core, jinja2, pytestCheckHook
+, railroad-diagrams, pyparsing }:
 
 buildPythonPackage rec {
   pname = "pyparsing";
@@ -25,11 +17,7 @@ buildPythonPackage rec {
 
   # circular dependencies with pytest if enabled by default
   doCheck = false;
-  nativeCheckInputs = [
-    jinja2
-    pytestCheckHook
-    railroad-diagrams
-  ];
+  nativeCheckInputs = [ jinja2 pytestCheckHook railroad-diagrams ];
 
   pythonImportsCheck = [ "pyparsing" ];
 

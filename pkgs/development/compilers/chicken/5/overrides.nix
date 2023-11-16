@@ -1,48 +1,36 @@
-{
-  stdenv,
-  pkgs,
-  lib,
-  chickenEggs,
-}:
+{ stdenv, pkgs, lib, chickenEggs }:
 let
   inherit (lib) addMetaAttrs;
-  addToBuildInputs = pkg: old: { buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg; };
-  addToPropagatedBuildInputs = pkg: old: {
-    propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
+  addToBuildInputs = pkg: old: {
+    buildInputs = (old.buildInputs or [ ]) ++ lib.toList pkg;
   };
-  addPkgConfig = old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ]; };
-  addToBuildInputsWithPkgConfig = pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
-  addToPropagatedBuildInputsWithPkgConfig =
-    pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
+  addToPropagatedBuildInputs = pkg: old: {
+    propagatedBuildInputs = (old.propagatedBuildInputs or [ ])
+      ++ lib.toList pkg;
+  };
+  addPkgConfig = old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+  };
+  addToBuildInputsWithPkgConfig = pkg: old:
+    (addPkgConfig old) // (addToBuildInputs pkg old);
+  addToPropagatedBuildInputsWithPkgConfig = pkg: old:
+    (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
   broken = addMetaAttrs { broken = true; };
   brokenOnDarwin = addMetaAttrs { broken = stdenv.isDarwin; };
   addToCscOptions = opt: old: {
-    CSC_OPTIONS = lib.concatStringsSep " " ([ old.CSC_OPTIONS or "" ] ++ lib.toList opt);
+    CSC_OPTIONS =
+      lib.concatStringsSep " " ([ old.CSC_OPTIONS or "" ] ++ lib.toList opt);
   };
-in
-{
-  allegro = addToBuildInputsWithPkgConfig (
-    [
-      pkgs.allegro5
-      pkgs.libglvnd
-    ]
-    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]
-  );
+in {
+  allegro = addToBuildInputsWithPkgConfig ([ pkgs.allegro5 pkgs.libglvnd ]
+    ++ lib.optionals stdenv.isDarwin
+    [ pkgs.darwin.apple_sdk.frameworks.OpenGL ]);
   breadline = addToBuildInputs pkgs.readline;
   blas = addToBuildInputsWithPkgConfig pkgs.blas;
   blosc = addToBuildInputs pkgs.c-blosc;
-  cairo =
-    old:
+  cairo = old:
     (addToBuildInputsWithPkgConfig pkgs.cairo old)
-    // (addToPropagatedBuildInputs
-      (
-        with chickenEggs; [
-          srfi-1
-          srfi-13
-        ]
-      )
-      old
-    );
+    // (addToPropagatedBuildInputs (with chickenEggs; [ srfi-1 srfi-13 ]) old);
   cmark = addToBuildInputs pkgs.cmark;
   dbus = addToBuildInputsWithPkgConfig pkgs.dbus;
   epoxy = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
@@ -58,8 +46,7 @@ in
   iconv = addToBuildInputs (lib.optional stdenv.isDarwin pkgs.libiconv);
   icu = addToBuildInputsWithPkgConfig pkgs.icu;
   imlib2 = addToBuildInputsWithPkgConfig pkgs.imlib2;
-  inotify =
-    old:
+  inotify = old:
     (addToBuildInputs (lib.optional stdenv.isDarwin pkgs.libinotify-kqueue) old)
     // lib.optionalAttrs stdenv.isDarwin (addToCscOptions "-L -linotify" old);
   leveldb = addToBuildInputs pkgs.leveldb;
@@ -67,13 +54,9 @@ in
   mdh = addToBuildInputs pkgs.pcre;
   nanomsg = addToBuildInputs pkgs.nanomsg;
   ncurses = addToBuildInputsWithPkgConfig [ pkgs.ncurses ];
-  opencl = addToBuildInputs (
-    [
-      pkgs.opencl-headers
-      pkgs.ocl-icd
-    ]
-    ++ lib.optionals stdenv.isDarwin [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]
-  );
+  opencl = addToBuildInputs ([ pkgs.opencl-headers pkgs.ocl-icd ]
+    ++ lib.optionals stdenv.isDarwin
+    [ pkgs.darwin.apple_sdk.frameworks.OpenCL ]);
   openssl = addToBuildInputs pkgs.openssl;
   plot = addToBuildInputs pkgs.plotutils;
   postgresql = addToBuildInputsWithPkgConfig pkgs.postgresql;
@@ -85,21 +68,13 @@ in
   sdl2-ttf = addToBuildInputs pkgs.SDL2_ttf;
   soil = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
   sqlite3 = addToBuildInputs pkgs.sqlite;
-  stemmer = old: (addToBuildInputs pkgs.libstemmer old) // (addToCscOptions "-L -lstemmer" old);
-  stfl =
-    old:
-    (addToBuildInputs
-      [
-        pkgs.ncurses
-        pkgs.stfl
-      ]
-      old
-    )
+  stemmer = old:
+    (addToBuildInputs pkgs.libstemmer old)
+    // (addToCscOptions "-L -lstemmer" old);
+  stfl = old:
+    (addToBuildInputs [ pkgs.ncurses pkgs.stfl ] old)
     // (addToCscOptions "-L -lncurses" old);
-  taglib = addToBuildInputs [
-    pkgs.zlib
-    pkgs.taglib
-  ];
+  taglib = addToBuildInputs [ pkgs.zlib pkgs.taglib ];
   uuid-lib = addToBuildInputs pkgs.libuuid;
   ws-client = addToBuildInputs pkgs.zlib;
   xlib = addToPropagatedBuildInputs pkgs.xorg.libX11;
@@ -109,45 +84,32 @@ in
   zstd = addToBuildInputs pkgs.zstd;
 
   # less trivial fixes, should be upstreamed
-  git =
-    old:
-    (addToBuildInputsWithPkgConfig pkgs.libgit2 old)
-    // {
+  git = old:
+    (addToBuildInputsWithPkgConfig pkgs.libgit2 old) // {
       postPatch = ''
         substituteInPlace libgit2.scm \
           --replace "asize" "reserved"
       '';
     };
-  lazy-ffi =
-    old:
-    (addToBuildInputs pkgs.libffi old)
-    // {
+  lazy-ffi = old:
+    (addToBuildInputs pkgs.libffi old) // {
       postPatch = ''
         substituteInPlace lazy-ffi.scm \
           --replace "ffi/ffi.h" "ffi.h"
       '';
     };
-  opengl =
-    old:
+  opengl = old:
     (addToBuildInputsWithPkgConfig
-      (
-        lib.optionals (!stdenv.isDarwin) [
-          pkgs.libGL
-          pkgs.libGLU
-        ]
+      (lib.optionals (!stdenv.isDarwin) [ pkgs.libGL pkgs.libGLU ]
         ++ lib.optionals stdenv.isDarwin [
           pkgs.darwin.apple_sdk.frameworks.Foundation
           pkgs.darwin.apple_sdk.frameworks.OpenGL
-        ]
-      )
-      old
-    )
-    // {
-      postPatch = ''
-        substituteInPlace opengl.egg \
-          --replace 'framework ' 'framework" "'
-      '';
-    };
+        ]) old) // {
+          postPatch = ''
+            substituteInPlace opengl.egg \
+              --replace 'framework ' 'framework" "'
+          '';
+        };
   posix-shm = old: {
     postPatch = lib.optionalString stdenv.isDarwin ''
       substituteInPlace build.scm \

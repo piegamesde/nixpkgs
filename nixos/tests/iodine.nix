@@ -1,14 +1,11 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
   let
     domain = "whatever.example.com";
     password = "false;foo;exit;withspecialcharacters";
-  in
-  {
+  in {
     name = "iodine";
     nodes = {
-      server =
-        { ... }:
+      server = { ... }:
 
         {
           networking.firewall = {
@@ -34,18 +31,17 @@ import ./make-test-python.nix (
           };
         };
 
-      client =
-        { ... }:
-        {
-          services.iodine.clients.testClient = {
-            # test that ProtectHome is "read-only"
-            passwordFile = "/root/pw";
-            relay = "server";
-            server = domain;
-          };
-          systemd.tmpfiles.rules = [ "f /root/pw 0666 root root - ${password}" ];
-          environment.systemPackages = [ pkgs.nagiosPluginsOfficial ];
+      client = { ... }: {
+        services.iodine.clients.testClient = {
+          # test that ProtectHome is "read-only"
+          passwordFile = "/root/pw";
+          relay = "server";
+          server = domain;
         };
+        systemd.tmpfiles.rules = [ "f /root/pw 0666 root root - ${password}" ];
+        environment.systemPackages = [ pkgs.nagiosPluginsOfficial ];
+      };
+
     };
 
     testScript = ''
@@ -57,5 +53,4 @@ import ./make-test-python.nix (
 
       client.succeed("check_ssh -H 10.53.53.1")
     '';
-  }
-)
+  })

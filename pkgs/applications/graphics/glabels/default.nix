@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  barcode,
-  gnome,
-  autoreconfHook,
-  gtk3,
-  gtk-doc,
-  libxml2,
-  librsvg,
-  libtool,
-  libe-book,
-  gsettings-desktop-schemas,
-  intltool,
-  itstool,
-  makeWrapper,
-  pkg-config,
-  yelp-tools,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, barcode, gnome, autoreconfHook, gtk3
+, gtk-doc, libxml2, librsvg, libtool, libe-book, gsettings-desktop-schemas
+, intltool, itstool, makeWrapper, pkg-config, yelp-tools }:
 
 stdenv.mkDerivation rec {
   pname = "glabels";
@@ -31,23 +13,18 @@ stdenv.mkDerivation rec {
     sha256 = "0f2rki8i27pkd9r0gz03cdl1g4vnmvp0j49nhxqn275vi8lmgr0q";
   };
 
-  patches =
-    [
-      # Pull patch pending upstream inclusion for -fno-common toolchain support:
-      #   https://github.com/jimevins/glabels/pull/76
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/jimevins/glabels/commit/f64e3f34e3631330fff2fb48ab271ff9c6160229.patch";
-        sha256 = "13q6g4bxzvzwjnvzkvijds2b6yvc4xqbdwgqnwmj65ln6ngxz8sa";
-      })
-    ];
-
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    makeWrapper
-    intltool
+  patches = [
+    # Pull patch pending upstream inclusion for -fno-common toolchain support:
+    #   https://github.com/jimevins/glabels/pull/76
+    (fetchpatch {
+      name = "fno-common.patch";
+      url =
+        "https://github.com/jimevins/glabels/commit/f64e3f34e3631330fff2fb48ab271ff9c6160229.patch";
+      sha256 = "13q6g4bxzvzwjnvzkvijds2b6yvc4xqbdwgqnwmj65ln6ngxz8sa";
+    })
   ];
+
+  nativeBuildInputs = [ autoreconfHook pkg-config makeWrapper intltool ];
   buildInputs = [
     barcode
     gtk3
@@ -77,10 +54,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Create labels and business cards";
     homepage = "https://github.com/jimevins/glabels";
-    license = with licenses; [
-      gpl3Plus
-      lgpl3Plus
-    ];
+    license = with licenses; [ gpl3Plus lgpl3Plus ];
     platforms = platforms.unix;
     maintainers = [ maintainers.nico202 ];
   };

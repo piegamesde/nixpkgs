@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  pkg-config,
-  cmake,
-  catch2,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, pkg-config, cmake, catch2 }:
 
 stdenv.mkDerivation rec {
   pname = "grip-search";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bkqarylgzhis6fpj48qbifcd6a26cgnq8784hgnm707rq9kb0rx";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    catch2
-  ];
+  nativeBuildInputs = [ pkg-config cmake catch2 ];
 
   doCheck = true;
 

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  cmake,
-  libssh,
-  openssl,
-}:
+{ lib, fetchFromGitHub, stdenv, cmake, libssh, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "rtrlib";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    libssh
-    openssl
-  ];
+  buildInputs = [ libssh openssl ];
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/rtrlib.pc \
@@ -30,7 +20,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An open-source C implementation of the RPKI/Router Protocol client";
+    description =
+      "An open-source C implementation of the RPKI/Router Protocol client";
     homepage = "https://github.com/rtrlib/rtrlib";
     license = licenses.mit;
     maintainers = with maintainers; [ Anillc ];

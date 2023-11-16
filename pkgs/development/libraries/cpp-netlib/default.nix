@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  boost,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, boost, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "cpp-netlib";
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    boost
-    openssl
-  ];
+  buildInputs = [ boost openssl ];
 
   cmakeFlags = [
     "-DCPP-NETLIB_BUILD_SHARED_LIBS=ON"
@@ -36,7 +26,8 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Collection of open-source libraries for high level network programming";
+    description =
+      "Collection of open-source libraries for high level network programming";
     homepage = "https://cpp-netlib.org";
     license = licenses.boost;
     platforms = platforms.all;

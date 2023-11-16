@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libxml2,
-  gtk3-x11,
-  libXt,
-  libXpm,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libxml2, gtk3-x11, libXt, libXpm }:
 
 stdenv.mkDerivation rec {
   pname = "xsnow";
@@ -19,19 +10,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gtk3-x11
-    libxml2
-    libXt
-    libXpm
-  ];
+  buildInputs = [ gtk3-x11 libxml2 libXt libXpm ];
 
   makeFlags = [ "gamesdir=$(out)/bin" ];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "An X-windows application that will let it snow on the root, in between and on windows";
+    description =
+      "An X-windows application that will let it snow on the root, in between and on windows";
     homepage = "https://ratrabbit.nl/ratrabbit/xsnow/";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ robberer ];

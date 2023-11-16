@@ -1,19 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  nix-update-script,
-  autoreconfHook,
-  pkg-config,
-  perl,
-  unittest-cpp,
-  xa,
-  libgcrypt,
-  libexsid,
-  docSupport ? true,
-  doxygen,
-  graphviz,
-}:
+{ stdenv, lib, fetchFromGitHub, nix-update-script, autoreconfHook, pkg-config
+, perl, unittest-cpp, xa, libgcrypt, libexsid, docSupport ? true, doxygen
+, graphviz }:
 
 stdenv.mkDerivation rec {
   pname = "libsidplayfp";
@@ -31,22 +18,10 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      pkg-config
-      perl
-      xa
-    ]
-    ++ lib.optionals docSupport [
-      doxygen
-      graphviz
-    ];
+  nativeBuildInputs = [ autoreconfHook pkg-config perl xa ]
+    ++ lib.optionals docSupport [ doxygen graphviz ];
 
-  buildInputs = [
-    libgcrypt
-    libexsid
-  ];
+  buildInputs = [ libgcrypt libexsid ];
 
   doCheck = true;
 
@@ -58,23 +33,19 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optionals docSupport [ "doc" ];
 
-  configureFlags = [
-    "--enable-hardsid"
-    "--with-gcrypt"
-    "--with-exsid"
-  ] ++ lib.optional doCheck "--enable-tests";
+  configureFlags = [ "--enable-hardsid" "--with-gcrypt" "--with-exsid" ]
+    ++ lib.optional doCheck "--enable-tests";
 
   postInstall = lib.optionalString docSupport ''
     mkdir -p $doc/share/doc/libsidplayfp
     mv docs/html $doc/share/doc/libsidplayfp/
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "A library to play Commodore 64 music derived from libsidplay2";
+    description =
+      "A library to play Commodore 64 music derived from libsidplay2";
     longDescription = ''
       libsidplayfp is a C64 music player library which integrates
       the reSID SID chip emulation into a cycle-based emulator
@@ -83,10 +54,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/libsidplayfp/libsidplayfp";
     license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [
-      ramkromberg
-      OPNA2608
-    ];
+    maintainers = with maintainers; [ ramkromberg OPNA2608 ];
     platforms = platforms.all;
   };
 }

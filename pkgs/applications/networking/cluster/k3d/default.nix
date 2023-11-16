@@ -1,20 +1,15 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  k3sVersion ? null,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, k3sVersion ? null }:
 
 let
   hasVPrefix = ver: (builtins.elemAt (lib.stringToCharacters ver) 0) == "v";
-  k3sVersionSet =
-    if k3sVersion != null then
-      if hasVPrefix k3sVersion then throw "k3sVersion should not have a v prefix" else true
+  k3sVersionSet = if k3sVersion != null then
+    if hasVPrefix k3sVersion then
+      throw "k3sVersion should not have a v prefix"
     else
-      false;
-in
-buildGoModule rec {
+      true
+  else
+    false;
+in buildGoModule rec {
   pname = "k3d";
   version = "5.4.4";
 
@@ -28,20 +23,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  excludedPackages = [
-    "tools"
-    "docgen"
-  ];
+  excludedPackages = [ "tools" "docgen" ];
 
   ldflags =
-    let
-      t = "github.com/k3d-io/k3d/v${lib.versions.major version}/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=v${version}"
-    ]
+    let t = "github.com/k3d-io/k3d/v${lib.versions.major version}/version";
+    in [ "-s" "-w" "-X ${t}.Version=v${version}" ]
     ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
 
   preCheck = ''
@@ -70,7 +56,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/k3d-io/k3d/";
     changelog = "https://github.com/k3d-io/k3d/blob/v${version}/CHANGELOG.md";
-    description = "A helper to run k3s (Lightweight Kubernetes. 5 less than k8s) in a docker container";
+    description =
+      "A helper to run k3s (Lightweight Kubernetes. 5 less than k8s) in a docker container";
     longDescription = ''
       k3s is the lightweight Kubernetes distribution by Rancher: rancher/k3s
 

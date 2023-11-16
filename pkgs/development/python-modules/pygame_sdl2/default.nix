@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchurl,
-  isPy27,
-  renpy,
-  cython,
-  SDL2,
-  SDL2_image,
-  SDL2_ttf,
-  SDL2_mixer,
-  libjpeg,
-  libpng,
-}:
+{ lib, buildPythonPackage, fetchurl, isPy27, renpy, cython, SDL2, SDL2_image
+, SDL2_ttf, SDL2_mixer, libjpeg, libpng }:
 
 buildPythonPackage rec {
   pname = "pygame_sdl2";
@@ -20,7 +8,8 @@ buildPythonPackage rec {
   name = "${pname}-${version}-${renpy_version}";
 
   src = fetchurl {
-    url = "https://www.renpy.org/dl/${renpy_version}/pygame_sdl2-${version}-for-renpy-${renpy_version}.tar.gz";
+    url =
+      "https://www.renpy.org/dl/${renpy_version}/pygame_sdl2-${version}-for-renpy-${renpy_version}.tar.gz";
     hash = "sha256-smJsOVavMvy0aO3C5PC050LlOy5bsG45uWSMbbFMQ+I=";
   };
 
@@ -34,19 +23,9 @@ buildPythonPackage rec {
     sed -i '2d' setup.cfg
   '';
 
-  nativeBuildInputs = [
-    SDL2.dev
-    cython
-  ];
+  nativeBuildInputs = [ SDL2.dev cython ];
 
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_ttf
-    SDL2_mixer
-    libjpeg
-    libpng
-  ];
+  buildInputs = [ SDL2 SDL2_image SDL2_ttf SDL2_mixer libjpeg libpng ];
 
   doCheck = isPy27; # python3 tests are non-functional
 

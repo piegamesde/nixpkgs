@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  mullvad,
-}:
+{ lib, buildGoModule, fetchFromGitHub, mullvad }:
 buildGoModule {
   pname = "libwg";
 
@@ -18,11 +13,7 @@ buildGoModule {
   # (this doesn't get communicated everywhere in the chain, apparently, so
   # `go` complains that it can't find an `a.out` file).
   GOBIN = "${placeholder "out"}/lib";
-  ldflags = [
-    "-s"
-    "-w"
-    "-buildmode=c-archive"
-  ];
+  ldflags = [ "-s" "-w" "-buildmode=c-archive" ];
 
   postInstall = ''
     mv $out/lib/libwg{,.a}
@@ -30,7 +21,8 @@ buildGoModule {
 
   meta = with lib; {
     description = "A tiny wrapper around wireguard-go";
-    homepage = "https://github.com/mullvad/mullvadvpn-app/tree/master/wireguard/libwg";
+    homepage =
+      "https://github.com/mullvad/mullvadvpn-app/tree/master/wireguard/libwg";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ cole-h ];
   };

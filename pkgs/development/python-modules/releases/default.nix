@@ -1,10 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  semantic-version,
-  sphinx,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, semantic-version, sphinx }:
 
 buildPythonPackage rec {
   pname = "releases";
@@ -22,10 +16,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "semantic_version<2.7" "semantic_version"
   '';
 
-  propagatedBuildInputs = [
-    semantic-version
-    sphinx
-  ];
+  propagatedBuildInputs = [ semantic-version sphinx ];
 
   # Test suite doesn't run. See https://github.com/bitprophet/releases/issues/95.
   doCheck = false;

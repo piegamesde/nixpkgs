@@ -1,14 +1,6 @@
-{
-  lib,
-  stdenvNoCC,
-  coreutils,
-}:
+{ lib, stdenvNoCC, coreutils }:
 
-{
-  version,
-  src,
-  patches ? [ ],
-}:
+{ version, src, patches ? [ ] }:
 
 stdenvNoCC.mkDerivation {
   inherit patches src version;

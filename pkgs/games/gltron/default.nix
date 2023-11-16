@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  SDL,
-  libGLU,
-  libGL,
-  zlib,
-  libpng,
-  libvorbis,
-  libmikmod,
-  SDL_sound,
-}:
+{ lib, stdenv, fetchurl, SDL, libGLU, libGL, zlib, libpng, libvorbis, libmikmod
+, SDL_sound }:
 
 stdenv.mkDerivation rec {
   pname = "gltron";
@@ -30,16 +19,7 @@ stdenv.mkDerivation rec {
   # The build fails, unless we disable the default -Wall -Werror
   configureFlags = [ "--disable-warn" ];
 
-  buildInputs = [
-    SDL
-    libGLU
-    libGL
-    zlib
-    libpng
-    libvorbis
-    libmikmod
-    SDL_sound
-  ];
+  buildInputs = [ SDL libGLU libGL zlib libpng libvorbis libmikmod SDL_sound ];
 
   meta = {
     homepage = "http://www.gltron.org/";

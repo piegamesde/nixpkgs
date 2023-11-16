@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  zeroconf,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, zeroconf }:
 
 buildPythonPackage rec {
   pname = "envoy-utils";

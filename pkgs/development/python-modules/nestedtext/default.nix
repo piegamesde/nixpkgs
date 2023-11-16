@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  docopt,
-  fetchFromGitHub,
-  flitBuildHook,
-  hypothesis,
-  inform,
-  nestedtext,
-  pytestCheckHook,
-  pythonOlder,
-  quantiphy,
-  voluptuous,
-}:
+{ lib, buildPythonPackage, docopt, fetchFromGitHub, flitBuildHook, hypothesis
+, inform, nestedtext, pytestCheckHook, pythonOlder, quantiphy, voluptuous }:
 
 buildPythonPackage rec {
   pname = "nestedtext";
@@ -31,29 +19,22 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ inform ];
 
-  nativeCheckInputs = [
-    docopt
-    hypothesis
-    quantiphy
-    pytestCheckHook
-    voluptuous
-  ];
+  nativeCheckInputs =
+    [ docopt hypothesis quantiphy pytestCheckHook voluptuous ];
 
   # Tests depend on quantiphy. To avoid infinite recursion, tests are only
   # enabled when building passthru.tests.
   doCheck = false;
 
-  pytestFlagsArray =
-    [
-      # Avoids an ImportMismatchError.
-      "--ignore=build"
-    ];
+  pytestFlagsArray = [
+    # Avoids an ImportMismatchError.
+    "--ignore=build"
+  ];
 
-  disabledTestPaths =
-    [
-      # Examples are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Examples are prefixed with test_
+    "examples/"
+  ];
 
   passthru.tests = {
     runTests = nestedtext.overrideAttrs (_: { doCheck = true; });
@@ -75,7 +56,8 @@ buildPythonPackage rec {
       non-programmers.
     '';
     homepage = "https://nestedtext.org";
-    changelog = "https://github.com/KenKundert/nestedtext/blob/v${version}/doc/releases.rst";
+    changelog =
+      "https://github.com/KenKundert/nestedtext/blob/v${version}/doc/releases.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ jeremyschlatter ];
   };

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "appthreat-depscan";
@@ -33,18 +29,19 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests =
-    [
-      # Assertion Error
-      "test_query_metadata2"
-    ];
+  disabledTests = [
+    # Assertion Error
+    "test_query_metadata2"
+  ];
 
   pythonImportsCheck = [ "depscan" ];
 
   meta = with lib; {
-    description = "Tool to audit dependencies based on known vulnerabilities and advisories";
+    description =
+      "Tool to audit dependencies based on known vulnerabilities and advisories";
     homepage = "https://github.com/AppThreat/dep-scan";
-    changelog = "https://github.com/AppThreat/dep-scan/releases/tag/v${version}";
+    changelog =
+      "https://github.com/AppThreat/dep-scan/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

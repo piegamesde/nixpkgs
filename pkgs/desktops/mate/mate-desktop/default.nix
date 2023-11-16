@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  isocodes,
-  gnome,
-  gtk3,
-  dconf,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, isocodes, gnome, gtk3, dconf
+, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-desktop";
@@ -23,17 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "EtFmiiesGr1gk1OB0/OYIbuAhGenuKz570WIXXyAohE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
 
-  buildInputs = [
-    dconf
-    gtk3
-    isocodes
-  ];
+  buildInputs = [ dconf gtk3 isocodes ];
 
   enableParallelBuilding = true;
 

@@ -1,23 +1,6 @@
-{
-  lib,
-  attrs,
-  buildPythonPackage,
-  fetchFromGitHub,
-  exceptiongroup,
-  hypothesis,
-  immutables,
-  motor,
-  msgpack,
-  orjson,
-  poetry-core,
-  pytest-xdist,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  tomlkit,
-  typing-extensions,
-  ujson,
-}:
+{ lib, attrs, buildPythonPackage, fetchFromGitHub, exceptiongroup, hypothesis
+, immutables, motor, msgpack, orjson, poetry-core, pytest-xdist, pytestCheckHook
+, pythonOlder, pyyaml, tomlkit, typing-extensions, ujson }:
 
 buildPythonPackage rec {
   pname = "cattrs";
@@ -35,8 +18,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [ attrs ]
+  propagatedBuildInputs = [ attrs ]
     ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
     ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
 

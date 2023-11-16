@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  astropy,
-  dask,
-  numpy,
-  setuptools-scm,
-}:
+{ lib, fetchPypi, buildPythonPackage, astropy, dask, numpy, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "casa-formats-io";
@@ -20,11 +12,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    astropy
-    dask
-    numpy
-  ];
+  propagatedBuildInputs = [ astropy dask numpy ];
 
   # Tests require a large (800 Mb) dataset
   doCheck = false;

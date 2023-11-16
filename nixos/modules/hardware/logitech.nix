@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,35 +8,21 @@ let
   vendor = "046d";
 
   daemon = "g15daemon";
-in
-{
+
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "logitech"
-        "enable"
-      ]
-      [
-        "hardware"
-        "logitech"
-        "wireless"
-        "enable"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "logitech"
-        "enableGraphical"
-      ]
-      [
-        "hardware"
-        "logitech"
-        "wireless"
-        "enableGraphical"
-      ]
-    )
+    (mkRenamedOptionModule [ "hardware" "logitech" "enable" ] [
+      "hardware"
+      "logitech"
+      "wireless"
+      "enable"
+    ])
+    (mkRenamedOptionModule [ "hardware" "logitech" "enableGraphical" ] [
+      "hardware"
+      "logitech"
+      "wireless"
+      "enableGraphical"
+    ])
   ];
 
   options.hardware.logitech = {
@@ -59,13 +40,7 @@ in
 
       devices = mkOption {
         type = types.listOf types.str;
-        default = [
-          "0a07"
-          "c222"
-          "c225"
-          "c227"
-          "c251"
-        ];
+        default = [ "0a07" "c222" "c225" "c227" "c251" ];
         description = lib.mdDoc ''
           List of USB device ids supported by g15daemon.
 
@@ -86,8 +61,7 @@ in
   };
 
   config = lib.mkIf (cfg.wireless.enable || cfg.lcd.enable) {
-    environment.systemPackages =
-      [ ]
+    environment.systemPackages = [ ]
       ++ lib.optional cfg.wireless.enable pkgs.ltunify
       ++ lib.optional cfg.wireless.enableGraphical pkgs.solaar;
 
@@ -95,23 +69,16 @@ in
       # ltunifi and solaar both provide udev rules but the most up-to-date have been split
       # out into a dedicated derivation
 
-      packages =
-        [ ]
+      packages = [ ]
         ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules
         ++ lib.optional cfg.lcd.enable pkgs.g15daemon;
 
-      extraRules =
+      extraRules = ''
+        # nixos: hardware.logitech.lcd
+      '' + lib.concatMapStringsSep "\n" (dev:
         ''
-          # nixos: hardware.logitech.lcd
-        ''
-        +
-          lib.concatMapStringsSep "\n"
-            (
-              dev:
-              ''
-                ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"''
-            )
-            cfg.lcd.devices;
+          ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${vendor}", ATTRS{idProduct}=="${dev}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="${daemon}.service"'')
+        cfg.lcd.devices;
     };
 
     systemd.services."${daemon}" = lib.mkIf cfg.lcd.enable {

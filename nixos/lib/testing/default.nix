@@ -1,21 +1,16 @@
 { lib }:
 let
 
-  evalTest =
-    module:
+  evalTest = module:
     lib.evalModules {
       modules = testModules ++ [ module ];
       class = "nixosTest";
     };
-  runTest =
-    module:
-    (evalTest (
-      { config, ... }:
-      {
-        imports = [ module ];
-        result = config.test;
-      }
-    )).config.result;
+  runTest = module:
+    (evalTest ({ config, ... }: {
+      imports = [ module ];
+      result = config.test;
+    })).config.result;
 
   testModules = [
     ./call-test.nix
@@ -30,7 +25,5 @@ let
     ./run.nix
     ./testScript.nix
   ];
-in
-{
-  inherit evalTest runTest testModules;
-}
+
+in { inherit evalTest runTest testModules; }

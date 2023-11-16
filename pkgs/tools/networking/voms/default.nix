@@ -1,22 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  # Native build inputs
-  autoreconfHook,
-  bison,
-  flex,
-  pkg-config,
-  # Build inputs
-  expat,
-  gsoap,
-  openssl,
-  zlib,
-  # Configuration overridable with .override
-  # If not null, the builder will
-  # move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
-  externalEtc ? "/etc",
-}:
+{ lib, stdenv, fetchFromGitHub
+# Native build inputs
+, autoreconfHook, bison, flex, pkg-config
+# Build inputs
+, expat, gsoap, openssl, zlib
+# Configuration overridable with .override
+# If not null, the builder will
+# move "$out/etc" to "$out/etc.orig" and symlink "$out/etc" to externalEtc.
+, externalEtc ? "/etc" }:
 
 stdenv.mkDerivation rec {
   pname = "voms-unstable";
@@ -29,30 +19,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-FG4fHO2lsQ3t/ZaKT9xY+xqdQHfdtzi5ULtxLhdPnss=";
   };
 
-  passthru = {
-    inherit externalEtc;
-  };
+  passthru = { inherit externalEtc; };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook bison flex pkg-config ];
 
-  buildInputs = [
-    expat
-    gsoap
-    openssl
-    zlib
-  ];
+  buildInputs = [ expat gsoap openssl zlib ];
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "bin" "out" "dev" "man" ];
 
   preAutoreconf = ''
     mkdir -p aux src/autogen

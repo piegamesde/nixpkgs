@@ -1,33 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  coloredlogs,
-  deprecation,
-  fetchFromGitHub,
-  ghostscript,
-  hypothesis,
-  img2pdf,
-  importlib-resources,
-  jbig2enc,
-  packaging,
-  pdfminer-six,
-  pikepdf,
-  pillow,
-  pluggy,
-  pngquant,
-  pytest-xdist,
-  pytestCheckHook,
-  pythonOlder,
-  reportlab,
-  setuptools,
-  setuptools-scm,
-  substituteAll,
-  tesseract,
-  tqdm,
-  typing-extensions,
-  unpaper,
-  installShellFiles,
-}:
+{ lib, buildPythonPackage, coloredlogs, deprecation, fetchFromGitHub
+, ghostscript, hypothesis, img2pdf, importlib-resources, jbig2enc, packaging
+, pdfminer-six, pikepdf, pillow, pluggy, pngquant, pytest-xdist, pytestCheckHook
+, pythonOlder, reportlab, setuptools, setuptools-scm, substituteAll, tesseract
+, tqdm, typing-extensions, unpaper, installShellFiles }:
 
 buildPythonPackage rec {
   pname = "ocrmypdf";
@@ -63,33 +38,23 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-    installShellFiles
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm installShellFiles ];
 
-  propagatedBuildInputs =
-    [
-      coloredlogs
-      deprecation
-      img2pdf
-      packaging
-      pdfminer-six
-      pikepdf
-      pillow
-      pluggy
-      reportlab
-      tqdm
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+  propagatedBuildInputs = [
+    coloredlogs
+    deprecation
+    img2pdf
+    packaging
+    pdfminer-six
+    pikepdf
+    pillow
+    pluggy
+    reportlab
+    tqdm
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    hypothesis
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis pytest-xdist pytestCheckHook ];
 
   pythonImportsCheck = [ "ocrmypdf" ];
 
@@ -101,15 +66,11 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/ocrmypdf/OCRmyPDF";
-    description = "Adds an OCR text layer to scanned PDF files, allowing them to be searched";
-    license = with licenses; [
-      mpl20
-      mit
-    ];
-    maintainers = with maintainers; [
-      kiwi
-      dotlambda
-    ];
-    changelog = "https://github.com/ocrmypdf/OCRmyPDF/blob/${src.rev}/docs/release_notes.rst";
+    description =
+      "Adds an OCR text layer to scanned PDF files, allowing them to be searched";
+    license = with licenses; [ mpl20 mit ];
+    maintainers = with maintainers; [ kiwi dotlambda ];
+    changelog =
+      "https://github.com/ocrmypdf/OCRmyPDF/blob/${src.rev}/docs/release_notes.rst";
   };
 }

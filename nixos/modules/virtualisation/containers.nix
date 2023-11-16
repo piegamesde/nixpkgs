@@ -1,20 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.virtualisation.containers;
 
   inherit (lib) literalExpression mkOption types;
 
   toml = pkgs.formats.toml { };
-in
-{
-  meta = {
-    maintainers = [ ] ++ lib.teams.podman.members;
-  };
+in {
+  meta = { maintainers = [ ] ++ lib.teams.podman.members; };
 
   options.virtualisation.containers = {
 
@@ -70,10 +62,7 @@ in
     registries = {
       search = mkOption {
         type = types.listOf types.str;
-        default = [
-          "docker.io"
-          "quay.io"
-        ];
+        default = [ "docker.io" "quay.io" ];
         description = lib.mdDoc ''
           List of repositories to search.
         '';
@@ -115,6 +104,7 @@ in
         `skopeo` will be used.
       '';
     };
+
   };
 
   config = lib.mkIf cfg.enable {
@@ -122,32 +112,30 @@ in
     virtualisation.containers.containersConf.cniPlugins = [ pkgs.cni-plugins ];
 
     virtualisation.containers.containersConf.settings = {
-      network.cni_plugin_dirs = map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
-      engine =
-        {
-          init_path = "${pkgs.catatonit}/bin/catatonit";
-        }
-        // lib.optionalAttrs cfg.ociSeccompBpfHook.enable {
-          hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ];
-        };
+      network.cni_plugin_dirs =
+        map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
+      engine = {
+        init_path = "${pkgs.catatonit}/bin/catatonit";
+      } // lib.optionalAttrs cfg.ociSeccompBpfHook.enable {
+        hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ];
+      };
     };
 
     environment.etc."containers/containers.conf".source =
-      toml.generate "containers.conf"
-        cfg.containersConf.settings;
+      toml.generate "containers.conf" cfg.containersConf.settings;
 
     environment.etc."containers/storage.conf".source =
-      toml.generate "storage.conf"
-        cfg.storage.settings;
+      toml.generate "storage.conf" cfg.storage.settings;
 
-    environment.etc."containers/registries.conf".source = toml.generate "registries.conf" {
-      registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
-    };
+    environment.etc."containers/registries.conf".source =
+      toml.generate "registries.conf" {
+        registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
+      };
 
-    environment.etc."containers/policy.json".source =
-      if cfg.policy != { } then
-        pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
-      else
-        "${pkgs.skopeo.policy}/default-policy.json";
+    environment.etc."containers/policy.json".source = if cfg.policy != { } then
+      pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
+    else
+      "${pkgs.skopeo.policy}/default-policy.json";
   };
+
 }

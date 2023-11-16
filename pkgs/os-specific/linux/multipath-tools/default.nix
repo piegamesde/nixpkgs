@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  coreutils,
-  pkg-config,
-  perl,
-  lvm2,
-  libaio,
-  readline,
-  systemd,
-  liburcu,
-  json_c,
-  linuxHeaders,
-  cmocka,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, coreutils, pkg-config, perl, lvm2, libaio
+, readline, systemd, liburcu, json_c, linuxHeaders, cmocka, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "multipath-tools";
@@ -45,19 +30,8 @@ stdenv.mkDerivation rec {
     sed '1i#include <assert.h>' -i tests/{util,vpd}.c
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    perl
-  ];
-  buildInputs = [
-    systemd
-    lvm2
-    libaio
-    readline
-    liburcu
-    json_c
-    linuxHeaders
-  ];
+  nativeBuildInputs = [ pkg-config perl ];
+  buildInputs = [ systemd lvm2 libaio readline liburcu json_c linuxHeaders ];
 
   makeFlags = [
     "LIB=lib"
@@ -76,9 +50,7 @@ stdenv.mkDerivation rec {
   '';
   nativeCheckInputs = [ cmocka ];
 
-  passthru.tests = {
-    inherit (nixosTests) iscsi-multipath-root;
-  };
+  passthru.tests = { inherit (nixosTests) iscsi-multipath-root; };
 
   meta = with lib; {
     description = "Tools for the Linux multipathing storage driver";

@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "lightning-pool";
@@ -17,18 +13,12 @@ buildGoModule rec {
 
   vendorSha256 = "09yxaa74814l1rp0arqhqpplr2j0p8dj81zqcbxlwp5ckjv9r2za";
 
-  subPackages = [
-    "cmd/pool"
-    "cmd/poold"
-  ];
+  subPackages = [ "cmd/pool" "cmd/poold" ];
 
   meta = with lib; {
     description = "Lightning Pool Client";
     homepage = "https://github.com/lightninglabs/pool";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      proofofkeags
-      prusnak
-    ];
+    maintainers = with maintainers; [ proofofkeags prusnak ];
   };
 }

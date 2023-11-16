@@ -1,8 +1,4 @@
-{
-  fetchFromGitLab,
-  lib,
-  rustPlatform,
-}:
+{ fetchFromGitLab, lib, rustPlatform, }:
 
 rustPlatform.buildRustPackage {
   pname = "ograc";
@@ -22,3 +18,4 @@ rustPlatform.buildRustPackage {
     maintainers = with maintainers; [ sciencentistguy ];
   };
 }
+

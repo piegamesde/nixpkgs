@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  paho-mqtt,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, paho-mqtt, pytestCheckHook
+, pythonOlder, requests, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "adafruit-io";
@@ -27,10 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    paho-mqtt
-    requests
-  ];
+  propagatedBuildInputs = [ paho-mqtt requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

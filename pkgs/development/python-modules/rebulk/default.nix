@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  regex,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, regex }:
 
 buildPythonPackage rec {
   pname = "rebulk";
@@ -28,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Advanced string matching from simple patterns";
     homepage = "https://github.com/Toilal/rebulk/";
-    changelog = "https://github.com/Toilal/rebulk/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/Toilal/rebulk/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

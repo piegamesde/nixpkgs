@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  glib,
-  itstool,
-  libxml2,
-  mate-panel,
-  libnotify,
-  libcanberra-gtk3,
-  libsecret,
-  dbus-glib,
-  upower,
-  gtk3,
-  libtool,
-  polkit,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, glib, itstool, libxml2, mate-panel
+, libnotify, libcanberra-gtk3, libsecret, dbus-glib, upower, gtk3, libtool
+, polkit, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-power-manager";
@@ -31,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "IM2dIu0Eur+Yu1DnGg7F14qKR2KHcjJ4+H2nbKv7EEI=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    libtool
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config gettext libtool wrapGAppsHook ];
 
   buildInputs = [
     glib
@@ -61,10 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The MATE Power Manager";
     homepage = "https://mate-desktop.org";
-    license = with licenses; [
-      gpl2Plus
-      fdl11Plus
-    ];
+    license = with licenses; [ gpl2Plus fdl11Plus ];
     platforms = platforms.unix;
     maintainers = teams.mate.members ++ (with maintainers; [ chpatrick ]);
   };

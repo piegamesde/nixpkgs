@@ -1,14 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib; {
-  meta = {
-    maintainers = teams.freedesktop.members;
-  };
+  meta = { maintainers = teams.freedesktop.members; };
 
   options = {
     xdg.sounds.enable = mkOption {
@@ -26,4 +19,5 @@ with lib; {
 
     environment.pathsToLink = [ "/share/sounds" ];
   };
+
 }

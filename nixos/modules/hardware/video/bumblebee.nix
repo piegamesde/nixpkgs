@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -18,12 +13,12 @@ let
     useDisplayDevice = cfg.connectDisplay;
   };
 
-  useBbswitch = cfg.pmMethod == "bbswitch" || cfg.pmMethod == "auto" && useNvidia;
+  useBbswitch = cfg.pmMethod == "bbswitch" || cfg.pmMethod == "auto"
+    && useNvidia;
 
   primus = pkgs.primus.override { inherit useNvidia; };
-in
 
-{
+in {
 
   options = {
     hardware.bumblebee = {
@@ -59,10 +54,7 @@ in
 
       driver = mkOption {
         default = "nvidia";
-        type = types.enum [
-          "nvidia"
-          "nouveau"
-        ];
+        type = types.enum [ "nvidia" "nouveau" ];
         description = lib.mdDoc ''
           Set driver used by bumblebeed. Supported are nouveau and nvidia.
         '';
@@ -70,41 +62,30 @@ in
 
       pmMethod = mkOption {
         default = "auto";
-        type = types.enum [
-          "auto"
-          "bbswitch"
-          "switcheroo"
-          "none"
-        ];
+        type = types.enum [ "auto" "bbswitch" "switcheroo" "none" ];
         description = lib.mdDoc ''
           Set preferred power management method for unused card.
         '';
       };
+
     };
   };
 
   config = mkIf cfg.enable {
-    boot.blacklistedKernelModules = [
-      "nvidia-drm"
-      "nvidia"
-      "nouveau"
-    ];
+    boot.blacklistedKernelModules = [ "nvidia-drm" "nvidia" "nouveau" ];
     boot.kernelModules = optional useBbswitch "bbswitch";
-    boot.extraModulePackages =
-      optional useBbswitch kernel.bbswitch
+    boot.extraModulePackages = optional useBbswitch kernel.bbswitch
       ++ optional useNvidia kernel.nvidia_x11.bin;
 
-    environment.systemPackages = [
-      bumblebee
-      primus
-    ];
+    environment.systemPackages = [ bumblebee primus ];
 
     systemd.services.bumblebeed = {
       description = "Bumblebee Hybrid Graphics Switcher";
       wantedBy = [ "multi-user.target" ];
       before = [ "display-manager.service" ];
       serviceConfig = {
-        ExecStart = "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}";
+        ExecStart =
+          "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}";
       };
     };
   };

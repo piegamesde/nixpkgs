@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  qmake,
-  wrapQtAppsHook,
-  qtbase,
-  xorg,
-}:
+{ lib, stdenv, fetchgit, qmake, wrapQtAppsHook, qtbase, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "qremotecontrol-server";
@@ -20,15 +12,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./0001-fix-qt5-build-include-QDataStream.patch ];
 
-  nativeBuildInputs = [
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    xorg.libXtst
-  ];
+  buildInputs = [ qtbase xorg.libXtst ];
 
   postPatch = ''
     substituteInPlace QRemoteControl-Server.pro \

@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  autoconf,
-  automake,
-  bash,
-  curl,
-  fetchFromGitHub,
-  fetchMavenArtifact,
-  fetchurl,
-  fetchpatch,
-  git,
-  jdk8,
-  makeWrapper,
-  nettools,
-  python3,
-}:
+{ lib, stdenv, autoconf, automake, bash, curl, fetchFromGitHub
+, fetchMavenArtifact, fetchurl, fetchpatch, git, jdk8, makeWrapper, nettools
+, python3 }:
 
 let
   jdk = jdk8;
@@ -58,7 +44,8 @@ let
     ];
     hamcrest = [
       (fetchMavenArtifact {
-        url = "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar";
+        url =
+          "https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar";
         groupId = "org.hamcrest";
         artifactId = "hamcrest-core";
         version = "1.3";
@@ -267,8 +254,7 @@ let
       })
     ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "opentsdb";
   version = "2.4.1";
 
@@ -282,54 +268,51 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "bump-deps.0.patch";
-      url = "https://github.com/OpenTSDB/opentsdb/commit/2f4bbfba2f9a32f9295123e8b90adba022c11ece.patch";
+      url =
+        "https://github.com/OpenTSDB/opentsdb/commit/2f4bbfba2f9a32f9295123e8b90adba022c11ece.patch";
       hash = "sha256-4LpR4O8mNiJZQ7PUmAzFdkZAaF8i9/ZM5NhQ+8AJgSw=";
     })
     (fetchpatch {
       name = "bump-deps.1.patch";
-      url = "https://github.com/OpenTSDB/opentsdb/commit/8c6a86ddbc367c7e4e2877973b70f77c105c6158.patch";
+      url =
+        "https://github.com/OpenTSDB/opentsdb/commit/8c6a86ddbc367c7e4e2877973b70f77c105c6158.patch";
       hash = "sha256-LZHqDOhwO/Gfgu870hJ6/uxnmigv7RP8OFe2a7Ug5SM=";
     })
     (fetchpatch {
       name = "bump-deps.2.patch";
-      url = "https://github.com/OpenTSDB/opentsdb/commit/9b62442ba5c006376f57ef250fb7debe1047c3bf.patch";
+      url =
+        "https://github.com/OpenTSDB/opentsdb/commit/9b62442ba5c006376f57ef250fb7debe1047c3bf.patch";
       hash = "sha256-2VjI9EkirKj4h7xhUtWdnKxJG0Noz3Hk5njm3pYEU1g=";
     })
     (fetchpatch {
       name = "CVE-2023-25826.prerequisite.0.patch";
-      url = "https://github.com/OpenTSDB/opentsdb/commit/a82a4f85f0fc1af554a104f28cc495451b26b1f6.patch";
+      url =
+        "https://github.com/OpenTSDB/opentsdb/commit/a82a4f85f0fc1af554a104f28cc495451b26b1f6.patch";
       hash = "sha256-GgoRZUGdKthK+ZwMpgSQQ4V2oHyqi8SwWGZT571gltQ=";
     })
     (fetchpatch {
       name = "CVE-2023-25826.prerequisite.1.patch";
-      url = "https://github.com/OpenTSDB/opentsdb/commit/22b27ea30a859a6dbdcd65fcdf61190d46e1b677.patch";
+      url =
+        "https://github.com/OpenTSDB/opentsdb/commit/22b27ea30a859a6dbdcd65fcdf61190d46e1b677.patch";
       hash = "sha256-pXo6U7d4iy2squAiFvV2iDAQcNDdrl0pIOQEXfkJ3a8=";
     })
     (fetchpatch {
       name = "CVE-2023-25826.patch";
-      url = "https://github.com/OpenTSDB/opentsdb/commit/07c4641471c6f5c2ab5aab615969e97211eb50d9.patch";
+      url =
+        "https://github.com/OpenTSDB/opentsdb/commit/07c4641471c6f5c2ab5aab615969e97211eb50d9.patch";
       hash = "sha256-88gIOhAhLCQC/UesIdYtjf0UgKNfnO0W2icyoMmiC3U=";
     })
     (fetchpatch {
       name = "CVE-2023-25827.patch";
-      url = "https://github.com/OpenTSDB/opentsdb/commit/fa88d3e4b5369f9fb73da384fab0b23e246309ba.patch";
+      url =
+        "https://github.com/OpenTSDB/opentsdb/commit/fa88d3e4b5369f9fb73da384fab0b23e246309ba.patch";
       hash = "sha256-FJHUiEmGhBIHoyOwNZtUWA36ENbrqDkUT8HfccmMSe8=";
     })
   ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoconf automake makeWrapper ];
 
-  buildInputs = [
-    curl
-    jdk
-    nettools
-    python3
-    git
-  ];
+  buildInputs = [ curl jdk nettools python3 git ];
 
   preConfigure = ''
     chmod +x build-aux/fetchdep.sh.in
@@ -337,18 +320,10 @@ stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  preBuild = lib.concatStrings (
-    lib.mapAttrsToList
-      (
-        dir:
-        lib.concatMapStrings (
-          artifact: ''
-            cp ${artifact}/share/java/* third_party/${dir}
-          ''
-        )
-      )
-      artifacts
-  );
+  preBuild = lib.concatStrings (lib.mapAttrsToList (dir:
+    lib.concatMapStrings (artifact: ''
+      cp ${artifact}/share/java/* third_party/${dir}
+    '')) artifacts);
 
   postInstall = ''
     wrapProgram $out/bin/tsdb \

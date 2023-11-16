@@ -1,12 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  stdenv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rucredstash";
@@ -19,9 +11,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1jwsj2y890nxpgmlfbr9hms2raspp5h89ykzsh014mf7lb3yxzwg";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
@@ -36,7 +26,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Rust port for credstash. Manages credentials securely in AWS cloud";
+    description =
+      "Rust port for credstash. Manages credentials securely in AWS cloud";
     homepage = "https://github.com/psibi/rucredstash";
     license = licenses.mit;
     maintainers = with maintainers; [ psibi ];

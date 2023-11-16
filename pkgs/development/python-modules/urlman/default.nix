@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "urlman";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Django URL pattern helpers";
     homepage = "https://github.com/andrewgodwin/urlman";
-    changelog = "https://github.com/andrewgodwin/urlman/blob/${src.rev}/CHANGELOG";
+    changelog =
+      "https://github.com/andrewgodwin/urlman/blob/${src.rev}/CHANGELOG";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];
   };

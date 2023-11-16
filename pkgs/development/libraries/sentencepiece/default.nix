@@ -1,12 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  cmake,
-  gperftools,
+{ lib, fetchFromGitHub, stdenv, cmake, gperftools
 
-  withGPerfTools ? true,
-}:
+, withGPerfTools ? true }:
 
 stdenv.mkDerivation rec {
   pname = "sentencepiece";
@@ -23,11 +17,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals withGPerfTools [ gperftools ];
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "out" ];
 
   # https://github.com/google/sentencepiece/issues/754
   postPatch = ''
@@ -38,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/google/sentencepiece";
-    description = "Unsupervised text tokenizer for Neural Network-based text generation";
+    description =
+      "Unsupervised text tokenizer for Neural Network-based text generation";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ pashashocky ];

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pidgin,
-}:
+{ lib, stdenv, fetchFromGitHub, pidgin }:
 
 stdenv.mkDerivation rec {
   pname = "pidgin-msn-pecan";

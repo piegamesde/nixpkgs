@@ -4,13 +4,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-{
-  lib,
-  fetchurl,
-  callPackage,
-  kaem,
-  tinycc-bootstrappable,
-}:
+{ lib, fetchurl, callPackage, kaem, tinycc-bootstrappable }:
 let
   inherit (callPackage ./common.nix { }) buildTinyccMes;
 
@@ -21,19 +15,17 @@ let
     url = "https://repo.or.cz/tinycc.git/snapshot/${rev}.tar.gz";
     sha256 = "11idrvbwfgj1d03crv994mpbbbyg63j1k64lw1gjy7mkiifw2xap";
   };
-  src =
-    (kaem.runCommand "tinycc-${version}-source" { } ''
-      ungz --file ${tarball} --output tinycc.tar
-      mkdir -p ''${out}
-      cd ''${out}
-      untar --file ''${NIX_BUILD_TOP}/tinycc.tar
+  src = (kaem.runCommand "tinycc-${version}-source" { } ''
+    ungz --file ${tarball} --output tinycc.tar
+    mkdir -p ''${out}
+    cd ''${out}
+    untar --file ''${NIX_BUILD_TOP}/tinycc.tar
 
-      # Patch
-      cd tinycc-${builtins.substring 0 7 rev}
-      # Static link by default
-      replace --file libtcc.c --output libtcc.c --match-on "s->ms_extensions = 1;" --replace-with "s->ms_extensions = 1; s->static_link = 1;"
-    '')
-    + "/tinycc-${builtins.substring 0 7 rev}";
+    # Patch
+    cd tinycc-${builtins.substring 0 7 rev}
+    # Static link by default
+    replace --file libtcc.c --output libtcc.c --match-on "s->ms_extensions = 1;" --replace-with "s->ms_extensions = 1; s->static_link = 1;"
+  '') + "/tinycc-${builtins.substring 0 7 rev}";
 
   meta = with lib; {
     description = "Small, fast, and embeddable C compiler and interpreter";
@@ -74,8 +66,7 @@ let
       "-D CONFIG_TCC_SEMLOCK=0"
     ];
   };
-in
-buildTinyccMes {
+in buildTinyccMes {
   pname = "tinycc-mes";
   inherit src version meta;
   prev = tinycc-mes-boot;

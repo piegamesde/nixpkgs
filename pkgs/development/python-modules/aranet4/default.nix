@@ -1,12 +1,5 @@
-{
-  lib,
-  bleak,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-}:
+{ lib, bleak, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "aranet4";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-5q4eOC9iuN8pUmDsiQ7OwEXkxi4KdL+bhGVjlQlTBAg=";
   };
 
-  propagatedBuildInputs = [
-    bleak
-    requests
-  ];
+  propagatedBuildInputs = [ bleak requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

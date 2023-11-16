@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-  makeWrapper,
-  git,
-}:
+{ lib, buildGoPackage, fetchFromGitHub, makeWrapper, git }:
 
 buildGoPackage rec {
   pname = "fac";
@@ -38,3 +32,4 @@ buildGoPackage rec {
     maintainers = with maintainers; [ dtzWill ];
   };
 }
+

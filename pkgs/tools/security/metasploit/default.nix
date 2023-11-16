@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  ruby,
-  bundlerEnv,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, ruby, bundlerEnv, python3 }:
 
 let
   env = bundlerEnv {
@@ -14,8 +6,7 @@ let
     name = "metasploit-bundler-env";
     gemdir = ./.;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "metasploit-framework";
   version = "6.3.19";
 
@@ -61,10 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://docs.metasploit.com/";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      fab
-      makefu
-    ];
+    maintainers = with maintainers; [ fab makefu ];
     mainProgram = "msfconsole";
   };
 }

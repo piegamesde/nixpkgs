@@ -1,26 +1,6 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  pkg-config,
-  qtbase,
-  qtmultimedia,
-  qtsvg,
-  qttools,
-  krdc,
-  libvncserver,
-  libvirt,
-  pcre,
-  pixman,
-  qtermwidget,
-  spice-gtk,
-  spice-protocol,
-  libselinux,
-  libsepol,
-  util-linux,
-}:
+{ mkDerivation, lib, fetchFromGitHub, fetchpatch, cmake, pkg-config, qtbase
+, qtmultimedia, qtsvg, qttools, krdc, libvncserver, libvirt, pcre, pixman
+, qtermwidget, spice-gtk, spice-protocol, libselinux, libsepol, util-linux }:
 
 mkDerivation rec {
   pname = "virt-manager-qt";
@@ -41,7 +21,8 @@ mkDerivation rec {
   patches = [
     (fetchpatch {
       # drop with next update
-      url = "https://github.com/F1ash/qt-virt-manager/commit/0d338b037ef58c376d468c1cd4521a34ea181edd.patch";
+      url =
+        "https://github.com/F1ash/qt-virt-manager/commit/0d338b037ef58c376d468c1cd4521a34ea181edd.patch";
       sha256 = "1wjqyc5wsnxfwwjzgqjr9hcqhd867amwhjd712qyvpvz8x7p2s24";
     })
   ];
@@ -63,11 +44,7 @@ mkDerivation rec {
     util-linux
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools ];
 
   meta = with lib; {
     homepage = "https://f1ash.github.io/qt-virt-manager";

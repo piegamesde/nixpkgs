@@ -1,19 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  coreutils,
-  ocaml-ng,
-  zlib,
-  pcre,
-  neko,
-  mbedtls_2,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, coreutils, ocaml-ng, zlib, pcre, neko, mbedtls_2
+, Security }:
 
 let
-  ocamlDependencies =
-    version:
+  ocamlDependencies = version:
     if lib.versionAtLeast version "4.2" then
       with ocaml-ng.ocamlPackages_4_12; [
         ocaml
@@ -46,25 +35,15 @@ let
       --replace '"neko"' '"${neko}/bin/neko"'
   '';
 
-  generic =
-    {
-      sha256,
-      version,
-      prePatch ? defaultPatch,
-    }:
+  generic = { sha256, version, prePatch ? defaultPatch }:
     stdenv.mkDerivation {
       pname = "haxe";
       inherit version;
 
-      buildInputs =
-        [
-          zlib
-          pcre
-          neko
-        ]
+      buildInputs = [ zlib pcre neko ]
         ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2
-        ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin) Security
-        ++ ocamlDependencies version;
+        ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin)
+        Security ++ ocamlDependencies version;
 
       src = fetchFromGitHub {
         owner = "HaxeFoundation";
@@ -76,10 +55,7 @@ let
 
       inherit prePatch;
 
-      buildFlags = [
-        "all"
-        "tools"
-      ];
+      buildFlags = [ "all" "tools" ];
 
       installPhase = ''
         install -vd "$out/bin" "$out/lib/haxe/std"
@@ -135,22 +111,16 @@ let
       '';
 
       meta = with lib; {
-        description = "Programming language targeting JavaScript, Flash, NekoVM, PHP, C++";
+        description =
+          "Programming language targeting JavaScript, Flash, NekoVM, PHP, C++";
         homepage = "https://haxe.org";
-        license = with licenses; [
-          gpl2Plus
-          mit
-        ]; # based on upstream opam file
-        maintainers = [
-          maintainers.marcweber
-          maintainers.locallycompact
-          maintainers.logo
-        ];
+        license = with licenses; [ gpl2Plus mit ]; # based on upstream opam file
+        maintainers =
+          [ maintainers.marcweber maintainers.locallycompact maintainers.logo ];
         platforms = platforms.linux ++ platforms.darwin;
       };
     };
-in
-{
+in {
   haxe_4_0 = generic {
     version = "4.0.5";
     sha256 = "0f534pchdx0m057ixnk07ab4s518ica958pvpd0vfjsrxg5yjkqa";

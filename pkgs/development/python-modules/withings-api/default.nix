@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  arrow,
-  requests-oauthlib,
-  typing-extensions,
-  pydantic,
-  responses,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, arrow
+, requests-oauthlib, typing-extensions, pydantic, responses, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "withings-api";
@@ -34,17 +23,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    arrow
-    requests-oauthlib
-    typing-extensions
-    pydantic
-  ];
+  propagatedBuildInputs =
+    [ arrow requests-oauthlib typing-extensions pydantic ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   meta = with lib; {
     description = "Library for the Withings Health API";

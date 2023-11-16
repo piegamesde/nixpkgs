@@ -1,12 +1,10 @@
 import ./make-test-python.nix {
   name = "ntfy-sh";
 
-  nodes.machine =
-    { ... }:
-    {
-      services.ntfy-sh.enable = true;
-      services.ntfy-sh.settings.base-url = "http://localhost:2586";
-    };
+  nodes.machine = { ... }: {
+    services.ntfy-sh.enable = true;
+    services.ntfy-sh.settings.base-url = "http://localhost:2586";
+  };
 
   testScript = ''
     import json

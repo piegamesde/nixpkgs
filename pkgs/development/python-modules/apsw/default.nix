@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  sqlite,
-  isPyPy,
-  python,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, sqlite, isPyPy, python }:
 
 buildPythonPackage rec {
   pname = "apsw";
@@ -33,7 +26,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "apsw" ];
 
   meta = with lib; {
-    description = "A Python wrapper for the SQLite embedded relational database engine";
+    description =
+      "A Python wrapper for the SQLite embedded relational database engine";
     homepage = "https://github.com/rogerbinns/apsw";
     license = licenses.zlib;
     maintainers = with maintainers; [ gador ];

@@ -1,8 +1,4 @@
-{
-  buildNpmPackage,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildNpmPackage, fetchFromGitHub, lib }:
 
 buildNpmPackage rec {
   pname = "nest-cli";

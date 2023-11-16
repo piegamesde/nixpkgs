@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  typing-extensions,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytest-asyncio
+, pytestCheckHook, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   version = "3.6.0";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-asyncio ];
 
   disabledTests = lib.optionals stdenv.isDarwin [ "test_multiprocessing" ];
 
@@ -37,7 +26,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "asgiref" ];
 
   meta = with lib; {
-    changelog = "https://github.com/django/asgiref/blob/${src.rev}/CHANGELOG.txt";
+    changelog =
+      "https://github.com/django/asgiref/blob/${src.rev}/CHANGELOG.txt";
     description = "Reference ASGI adapters and channel layers";
     homepage = "https://github.com/django/asgiref";
     license = licenses.bsd3;

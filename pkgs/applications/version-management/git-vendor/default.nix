@@ -1,16 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeShellScriptBin,
-  skawarePackages,
-}:
+{ lib, stdenv, fetchFromGitHub, writeShellScriptBin, skawarePackages }:
 
 let
   version = "1.3.0";
   sha256 = "sha256-CFv9gZQHeEiZctJFyB6PJ1dVNkrQ7PlVtgZuteQQTJ0=";
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   pname = "git-vendor";
   inherit version;
 
@@ -21,30 +15,21 @@ stdenv.mkDerivation {
     inherit sha256;
   };
 
-  outputs = [
-    "bin"
-    "man"
-    "doc"
-    "out"
-  ];
+  outputs = [ "bin" "man" "doc" "out" ];
 
   PREFIX = (placeholder "out");
   BINPREFIX = "${placeholder "bin"}/bin";
   MANPREFIX = "${placeholder "man"}/share/man/man1";
 
-  buildInputs =
-    [
-      # stubbing out a `git config` check that `make install` tries to do
-      (writeShellScriptBin "git" "")
-    ];
+  buildInputs = [
+    # stubbing out a `git config` check that `make install` tries to do
+    (writeShellScriptBin "git" "")
+  ];
 
   postInstall = ''
     ${
       skawarePackages.cleanPackaging.commonFileActions {
-        docFiles = [
-          "LICENSE"
-          "README.md"
-        ];
+        docFiles = [ "LICENSE" "README.md" ];
         noiseFiles = [
           "bin/git-vendor"
           "Makefile"
@@ -75,4 +60,5 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.Profpatsch ];
     platforms = lib.platforms.all;
   };
+
 }

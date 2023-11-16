@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  freetype,
-  SDL,
-  libX11,
-}:
+{ lib, stdenv, fetchurl, autoconf, automake, libtool, pkg-config, freetype, SDL
+, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "agg";
@@ -18,16 +8,8 @@ stdenv.mkDerivation rec {
     url = "https://www.antigrain.com/${pname}-${version}.tar.gz";
     sha256 = "07wii4i824vy9qsvjsgqxppgqmfdxq0xa87i5yk53fijriadq7mb";
   };
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-    automake
-    libtool
-  ];
-  buildInputs = [
-    freetype
-    SDL
-  ] ++ lib.optionals stdenv.isLinux [ libX11 ];
+  nativeBuildInputs = [ pkg-config autoconf automake libtool ];
+  buildInputs = [ freetype SDL ] ++ lib.optionals stdenv.isLinux [ libX11 ];
 
   postPatch = ''
     substituteInPlace include/agg_renderer_outline_aa.h \
@@ -40,15 +22,13 @@ stdenv.mkDerivation rec {
     sh autogen.sh
   '';
 
-  configureFlags =
-    [
-      (lib.strings.enableFeature stdenv.isLinux "platform")
-      "--enable-examples=no"
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      "--x-includes=${lib.getDev libX11}/include"
-      "--x-libraries=${lib.getLib libX11}/lib"
-    ];
+  configureFlags = [
+    (lib.strings.enableFeature stdenv.isLinux "platform")
+    "--enable-examples=no"
+  ] ++ lib.optionals stdenv.isLinux [
+    "--x-includes=${lib.getDev libX11}/include"
+    "--x-libraries=${lib.getLib libX11}/lib"
+  ];
 
   # libtool --tag=CXX --mode=link g++ -g -O2 libexamples.la ../src/platform/X11/libaggplatformX11.la ../src/libagg.la -o alpha_mask2 alpha_mask2.o
   # libtool: error: cannot find the library 'libexamples.la'

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest,
-  future,
-  pyparsing,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, future, pyparsing }:
 
 buildPythonPackage {
   pname = "kinparse";
@@ -23,10 +16,7 @@ buildPythonPackage {
 
   nativeCheckInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    future
-    pyparsing
-  ];
+  propagatedBuildInputs = [ future pyparsing ];
 
   meta = with lib; {
     description = "A Parser for KiCad EESCHEMA netlists";

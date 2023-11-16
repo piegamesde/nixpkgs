@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,60 +8,29 @@ let
 
   ircdService = pkgs.stdenv.mkDerivation rec {
     name = "ircd-hybrid-service";
-    scripts = [
-      "=>/bin"
-      ./control.in
-    ];
-    substFiles = [
-      "=>/conf"
-      ./ircd.conf
-    ];
-    inherit (pkgs)
-      ircdHybrid
-      coreutils
-      su
-      iproute2
-      gnugrep
-      procps
-    ;
+    scripts = [ "=>/bin" ./control.in ];
+    substFiles = [ "=>/conf" ./ircd.conf ];
+    inherit (pkgs) ircdHybrid coreutils su iproute2 gnugrep procps;
 
     ipv6Enabled = boolToString config.networking.enableIPv6;
 
-    inherit (cfg)
-      serverName
-      sid
-      description
-      adminEmail
-      extraPort
-    ;
+    inherit (cfg) serverName sid description adminEmail extraPort;
 
-    cryptoSettings =
-      (optionalString (cfg.rsaKey != null) ''
-        rsa_private_key_file = "${cfg.rsaKey}";
-      '')
-      + (optionalString (cfg.certificate != null) ''
-        ssl_certificate_file = "${cfg.certificate}";
-      '');
+    cryptoSettings = (optionalString (cfg.rsaKey != null) ''
+      rsa_private_key_file = "${cfg.rsaKey}";
+    '') + (optionalString (cfg.certificate != null) ''
+      ssl_certificate_file = "${cfg.certificate}";
+    '');
 
-    extraListen =
-      map
-        (
-          ip:
-          ''host = "''
-          + ip
-          + ''
-            ";
-            port = 6665 .. 6669, ''
-          + extraPort
-          + "; "
-        )
-        cfg.extraIPs;
+    extraListen = map (ip:
+      ''host = "'' + ip + ''
+        ";
+        port = 6665 .. 6669, '' + extraPort + "; ") cfg.extraIPs;
 
     builder = ./builder.sh;
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -143,7 +107,9 @@ in
           Extra port to avoid filtering.
         '';
       };
+
     };
+
   };
 
   ###### implementation

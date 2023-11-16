@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "galatia-sil";
   version = "2.1";
 
   src = fetchzip {
-    url = "https://software.sil.org/downloads/r/galatia/GalatiaSIL-${version}.zip";
+    url =
+      "https://software.sil.org/downloads/r/galatia/GalatiaSIL-${version}.zip";
     hash = "sha256-7kXnTC5vpUOjcT40oNW6e32zFGejlWJq1J+p+5DiAos=";
   };
 

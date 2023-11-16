@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  ply,
-  poetry-core,
-  requests,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, ply, poetry-core
+, requests }:
 
 buildPythonPackage rec {
   pname = "pysnmp-pysmi";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    ply
-    requests
-  ];
+  propagatedBuildInputs = [ ply requests ];
 
   # Circular dependency with pysnmplib
   doCheck = false;

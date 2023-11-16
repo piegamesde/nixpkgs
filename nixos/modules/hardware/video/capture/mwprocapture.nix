@@ -7,13 +7,11 @@ let
   cfg = config.hardware.mwProCapture;
 
   kernelPackages = config.boot.kernelPackages;
-in
 
-{
+in {
 
-  options.hardware.mwProCapture.enable = mkEnableOption (
-    lib.mdDoc "Magewell Pro Capture family kernel module"
-  );
+  options.hardware.mwProCapture.enable =
+    mkEnableOption (lib.mdDoc "Magewell Pro Capture family kernel module");
 
   config = mkIf cfg.enable {
 
@@ -51,5 +49,7 @@ in
       # Parameters for internal usage
       #options ProCapture internal_params=""
     '';
+
   };
+
 }

@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.saslauthd;
-in
 
-{
+in {
 
   ###### interface
 
@@ -20,7 +14,8 @@ in
 
     services.saslauthd = {
 
-      enable = mkEnableOption (lib.mdDoc "saslauthd, the Cyrus SASL authentication daemon");
+      enable = mkEnableOption
+        (lib.mdDoc "saslauthd, the Cyrus SASL authentication daemon");
 
       package = mkOption {
         default = pkgs.cyrus_sasl.bin;
@@ -38,9 +33,12 @@ in
       config = mkOption {
         type = types.lines;
         default = "";
-        description = lib.mdDoc "Configuration to use for Cyrus SASL authentication daemon.";
+        description = lib.mdDoc
+          "Configuration to use for Cyrus SASL authentication daemon.";
       };
+
     };
+
   };
 
   ###### implementation
@@ -53,7 +51,8 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "@${cfg.package}/sbin/saslauthd saslauthd -a ${cfg.mechanism} -O ${
+        ExecStart =
+          "@${cfg.package}/sbin/saslauthd saslauthd -a ${cfg.mechanism} -O ${
             pkgs.writeText "saslauthd.conf" cfg.config
           }";
         Type = "forking";

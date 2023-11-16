@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  ffmpeg_4,
-  future,
-  pytest-mock,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-  substituteAll,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, ffmpeg_4, future, pytest-mock
+, pytestCheckHook, pythonAtLeast, pythonOlder, substituteAll }:
 
 buildPythonPackage rec {
   pname = "ffmpeg-python";
@@ -27,10 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ future ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock ];
 
   patches = [
     (substituteAll {
@@ -46,7 +33,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ffmpeg" ];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [ "test__output__video_size" ];
+  disabledTests =
+    lib.optionals (pythonAtLeast "3.10") [ "test__output__video_size" ];
 
   meta = with lib; {
     description = "Python bindings for FFmpeg - with complex filtering support";

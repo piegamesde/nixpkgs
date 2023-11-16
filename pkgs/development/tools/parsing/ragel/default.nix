@@ -1,22 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fig2dev,
-  tex,
-  ghostscript,
-  colm,
-  build-manual ? false,
+{ lib, stdenv, fetchurl, fig2dev, tex, ghostscript, colm, build-manual ? false
 }:
 
 let
-  generic =
-    {
-      version,
-      sha256,
-      broken ? false,
-      license,
-    }:
+  generic = { version, sha256, broken ? false, license }:
     stdenv.mkDerivation rec {
       pname = "ragel";
       inherit version;
@@ -26,11 +12,7 @@ let
         inherit sha256;
       };
 
-      buildInputs = lib.optionals build-manual [
-        fig2dev
-        ghostscript
-        tex
-      ];
+      buildInputs = lib.optionals build-manual [ fig2dev ghostscript tex ];
 
       preConfigure = lib.optionalString build-manual ''
         sed -i "s/build_manual=no/build_manual=yes/g" DIST
@@ -38,7 +20,8 @@ let
 
       configureFlags = [ "--with-colm=${colm}" ];
 
-      env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isGNU "-std=gnu++98";
+      env.NIX_CFLAGS_COMPILE =
+        lib.optionalString stdenv.cc.isGNU "-std=gnu++98";
 
       doCheck = true;
 
@@ -50,9 +33,8 @@ let
         maintainers = with maintainers; [ pSub ];
       };
     };
-in
 
-{
+in {
   ragelStable = generic {
     version = "6.10";
     sha256 = "0gvcsl62gh6sg73nwaxav4a5ja23zcnyxncdcdnqa2yjcpdnw5az";

@@ -1,14 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.xserver.imwheel;
-in
-{
+let cfg = config.services.xserver.imwheel;
+in {
   options = {
     services.xserver.imwheel = {
       enable = mkEnableOption (lib.mdDoc "IMWheel service");
@@ -52,30 +45,18 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.imwheel ];
 
-    environment.etc."X11/imwheel/imwheelrc".source = pkgs.writeText "imwheelrc" (
-      concatStringsSep "\n\n" (
-        mapAttrsToList
-          (rule: conf: ''
-            "${rule}"
-            ${conf}'')
-          cfg.rules
-      )
-    );
+    environment.etc."X11/imwheel/imwheelrc".source = pkgs.writeText "imwheelrc"
+      (concatStringsSep "\n\n" (mapAttrsToList (rule: conf: ''
+        "${rule}"
+        ${conf}'') cfg.rules));
 
     systemd.user.services.imwheel = {
       description = "imwheel service";
       wantedBy = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
       serviceConfig = {
-        ExecStart =
-          "${pkgs.imwheel}/bin/imwheel "
-          + escapeShellArgs (
-            [
-              "--detach"
-              "--kill"
-            ]
-            ++ cfg.extraOptions
-          );
+        ExecStart = "${pkgs.imwheel}/bin/imwheel "
+          + escapeShellArgs ([ "--detach" "--kill" ] ++ cfg.extraOptions);
         ExecStop = "${pkgs.procps}/bin/pkill imwheel";
         RestartSec = 3;
         Restart = "always";

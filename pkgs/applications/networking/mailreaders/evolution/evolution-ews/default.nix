@@ -1,25 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  gnome,
-  cmake,
-  gettext,
-  intltool,
-  pkg-config,
-  evolution-data-server,
-  evolution,
-  gtk3,
-  libsoup_3,
-  libical,
-  json-glib,
-  libmspack,
-  webkitgtk_4_1,
-  substituteAll,
-  _experimental-update-script-combinators,
-  glib,
-  makeHardcodeGsettingsPatch,
-}:
+{ stdenv, lib, fetchurl, gnome, cmake, gettext, intltool, pkg-config
+, evolution-data-server, evolution, gtk3, libsoup_3, libical, json-glib
+, libmspack, webkitgtk_4_1, substituteAll
+, _experimental-update-script-combinators, glib, makeHardcodeGsettingsPatch }:
 
 stdenv.mkDerivation rec {
   pname = "evolution-ews";
@@ -32,24 +14,18 @@ stdenv.mkDerivation rec {
     sha256 = "UE2YAPW6vMXBcO9QxUZOTrwSAOQZAs2mn+j6v/L7cMA=";
   };
 
-  patches =
-    [
-      # evolution-ews contains .so files loaded by evolution-data-server refering
-      # schemas from evolution. evolution-data-server is not wrapped with
-      # evolution's schemas because it would be a circular dependency with
-      # evolution.
-      (substituteAll {
-        src = ./hardcode-gsettings.patch;
-        evo = glib.makeSchemaPath evolution evolution.name;
-      })
-    ];
-
-  nativeBuildInputs = [
-    cmake
-    gettext
-    intltool
-    pkg-config
+  patches = [
+    # evolution-ews contains .so files loaded by evolution-data-server refering
+    # schemas from evolution. evolution-data-server is not wrapped with
+    # evolution's schemas because it would be a circular dependency with
+    # evolution.
+    (substituteAll {
+      src = ./hardcode-gsettings.patch;
+      evo = glib.makeSchemaPath evolution evolution.name;
+    })
   ];
+
+  nativeBuildInputs = [ cmake gettext intltool pkg-config ];
 
   buildInputs = [
     evolution-data-server
@@ -63,11 +39,10 @@ stdenv.mkDerivation rec {
     webkitgtk_4_1
   ];
 
-  cmakeFlags =
-    [
-      # don't try to install into ${evolution}
-      "-DFORCE_INSTALL_PREFIX=ON"
-    ];
+  cmakeFlags = [
+    # don't try to install into ${evolution}
+    "-DFORCE_INSTALL_PREFIX=ON"
+  ];
 
   passthru = {
     hardcodeGsettingsPatch = makeHardcodeGsettingsPatch {
@@ -78,26 +53,24 @@ stdenv.mkDerivation rec {
       };
     };
 
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "evolution-ews";
-          versionPolicy = "odd-unstable";
-        };
-        updatePatch =
-          _experimental-update-script-combinators.copyAttrOutputToFile "evolution-ews.hardcodeGsettingsPatch"
-            ./hardcode-gsettings.patch;
-      in
-      _experimental-update-script-combinators.sequence [
-        updateSource
-        updatePatch
-      ];
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "evolution-ews";
+        versionPolicy = "odd-unstable";
+      };
+      updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile
+        "evolution-ews.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+    in _experimental-update-script-combinators.sequence [
+      updateSource
+      updatePatch
+    ];
   };
 
   meta = with lib; {
     description = "Evolution connector for Microsoft Exchange Server protocols";
     homepage = "https://gitlab.gnome.org/GNOME/evolution-ews";
-    license = licenses.lgpl21Plus; # https://gitlab.gnome.org/GNOME/evolution-ews/issues/111
+    license =
+      licenses.lgpl21Plus; # https://gitlab.gnome.org/GNOME/evolution-ews/issues/111
     maintainers = [ maintainers.dasj19 ];
     platforms = platforms.linux;
   };

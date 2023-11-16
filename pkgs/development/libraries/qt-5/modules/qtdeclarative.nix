@@ -1,23 +1,10 @@
-{
-  qtModule,
-  lib,
-  python3,
-  qtbase,
-  qtsvg,
-}:
+{ qtModule, lib, python3, qtbase, qtsvg }:
 
 qtModule {
   pname = "qtdeclarative";
-  qtInputs = [
-    qtbase
-    qtsvg
-  ];
+  qtInputs = [ qtbase qtsvg ];
   nativeBuildInputs = [ python3 ];
-  outputs = [
-    "out"
-    "dev"
-    "bin"
-  ];
+  outputs = [ "out" "dev" "bin" ];
   preConfigure = ''
     NIX_CFLAGS_COMPILE+=" -DNIXPKGS_QML2_IMPORT_PREFIX=\"$qtQmlPrefix\""
   '';

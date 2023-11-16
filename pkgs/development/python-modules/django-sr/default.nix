@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-  nose,
-}:
+{ lib, buildPythonPackage, fetchPypi, django, nose }:
 
 buildPythonPackage rec {
   pname = "django-sr";
@@ -21,9 +15,6 @@ buildPythonPackage rec {
     sha256 = "0d3yqppi1q3crcn9nxx58wzm4yw61d5m7435g6rb9wcamr9bi1im";
   };
 
-  buildInputs = [
-    django
-    nose
-  ];
+  buildInputs = [ django nose ];
   propagatedBuildInputs = [ django ];
 }

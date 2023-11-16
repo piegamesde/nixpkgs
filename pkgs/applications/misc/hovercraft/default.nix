@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  isPy3k,
-  fetchFromGitHub,
-  manuel,
-  setuptools,
-  docutils,
-  lxml,
-  svg-path,
-  pygments,
-  watchdog,
-}:
+{ lib, buildPythonApplication, isPy3k, fetchFromGitHub, manuel, setuptools
+, docutils, lxml, svg-path, pygments, watchdog }:
 
 buildPythonApplication rec {
   pname = "hovercraft";
@@ -25,22 +14,13 @@ buildPythonApplication rec {
   };
 
   nativeCheckInputs = [ manuel ];
-  propagatedBuildInputs = [
-    setuptools
-    docutils
-    lxml
-    svg-path
-    pygments
-    watchdog
-  ];
+  propagatedBuildInputs =
+    [ setuptools docutils lxml svg-path pygments watchdog ];
 
   meta = with lib; {
     description = "Makes impress.js presentations from reStructuredText";
     homepage = "https://github.com/regebro/hovercraft";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      goibhniu
-      makefu
-    ];
+    maintainers = with maintainers; [ goibhniu makefu ];
   };
 }

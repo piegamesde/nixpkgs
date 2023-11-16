@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "goflow2";
@@ -15,11 +11,7 @@ buildGoModule rec {
     hash = "sha256-0E3iSO+ObaPhIUerF4y5UygJMSMJNTJwI6RqHunqrZ0=";
   };
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
   vendorHash = "sha256-tNrCsCKBoUsrCOlbI1FUoksWoI4jUiYLF+A8Fjfe9Qk=";
 

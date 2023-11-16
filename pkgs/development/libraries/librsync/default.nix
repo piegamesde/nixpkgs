@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  perl,
-  zlib,
-  bzip2,
-  popt,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, perl, zlib, bzip2, popt }:
 
 stdenv.mkDerivation rec {
   pname = "librsync";
@@ -21,12 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    perl
-    zlib
-    bzip2
-    popt
-  ];
+  buildInputs = [ perl zlib bzip2 popt ];
 
   dontStrip = stdenv.hostPlatform != stdenv.buildPlatform;
 

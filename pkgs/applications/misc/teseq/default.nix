@@ -1,13 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
-let
-  version = "1.1.1";
-in
-stdenv.mkDerivation {
+let version = "1.1.1";
+in stdenv.mkDerivation {
   pname = "teseq";
   inherit version;
 

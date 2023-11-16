@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  libgit2,
-}:
+{ lib, stdenv, fetchgit, libgit2 }:
 
 stdenv.mkDerivation rec {
   pname = "l2md";
@@ -29,7 +24,8 @@ stdenv.mkDerivation rec {
       to export them in maildir format or through a pipe, and to keep them
       periodically synced.
     '';
-    homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/dborkman/l2md.git";
+    homepage =
+      "https://git.kernel.org/pub/scm/linux/kernel/git/dborkman/l2md.git";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ yoctocell ];
     platforms = platforms.unix;

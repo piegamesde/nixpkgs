@@ -1,17 +1,10 @@
-{
-  buildPythonPackage,
-  fetchurl,
-  isPyPy,
-  gmp,
-  pythonAtLeast,
-}:
+{ buildPythonPackage, fetchurl, isPyPy, gmp, pythonAtLeast }:
 
 let
   pname = "gmpy";
   version = "1.17";
-in
 
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
 
   # Python 3.11 has finally made changes to its C API for which gmpy 1.17,

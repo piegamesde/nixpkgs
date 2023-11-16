@@ -1,27 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cargo,
-  meson,
-  ninja,
-  pkg-config,
-  gnome,
-  gnome-desktop,
-  glib,
-  gtk3,
-  wayland,
-  wayland-protocols,
-  libbsd,
-  libxml2,
-  libxkbcommon,
-  rustPlatform,
-  rustc,
-  feedbackd,
-  wrapGAppsHook,
-  fetchpatch,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitLab, cargo, meson, ninja, pkg-config, gnome
+, gnome-desktop, glib, gtk3, wayland, wayland-protocols, libbsd, libxml2
+, libxkbcommon, rustPlatform, rustc, feedbackd, wrapGAppsHook, fetchpatch
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "squeekboard";
@@ -77,10 +57,7 @@ stdenv.mkDerivation rec {
     description = "A virtual keyboard supporting Wayland";
     homepage = "https://source.puri.sm/Librem5/squeekboard";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      artturin
-      tomfitzhenry
-    ];
+    maintainers = with maintainers; [ artturin tomfitzhenry ];
     platforms = platforms.linux;
   };
 }

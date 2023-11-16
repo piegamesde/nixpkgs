@@ -1,14 +1,10 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 let
   py = python3.override {
     packageOverrides = self: super: {
-      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (
-        oldAttrs: rec {
+      cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs
+        (oldAttrs: rec {
           version = "2.7.1";
           src = fetchFromGitHub {
             owner = "CycloneDX";
@@ -16,12 +12,10 @@ let
             rev = "v${version}";
             hash = "sha256-c/KhoJOa121/h0n0GUazjUFChnUo05ThD+fuZXc5/Pk=";
           };
-        }
-      );
+        });
     };
   };
-in
-with py.pkgs;
+in with py.pkgs;
 
 buildPythonApplication rec {
   pname = "checkov";
@@ -46,10 +40,7 @@ buildPythonApplication rec {
     "pycep-parser"
   ];
 
-  nativeBuildInputs = [
-    pythonRelaxDepsHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ pythonRelaxDepsHook setuptools-scm ];
 
   propagatedBuildInputs = [
     aiodns
@@ -160,15 +151,13 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Static code analysis tool for infrastructure-as-code";
     homepage = "https://github.com/bridgecrewio/checkov";
-    changelog = "https://github.com/bridgecrewio/checkov/releases/tag/${version}";
+    changelog =
+      "https://github.com/bridgecrewio/checkov/releases/tag/${version}";
     longDescription = ''
       Prevent cloud misconfigurations during build-time for Terraform, Cloudformation,
       Kubernetes, Serverless framework and other infrastructure-as-code-languages.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      anhdle14
-      fab
-    ];
+    maintainers = with maintainers; [ anhdle14 fab ];
   };
 }

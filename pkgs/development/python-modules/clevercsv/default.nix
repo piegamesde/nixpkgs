@@ -1,23 +1,14 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # propagates
-  chardet,
-  regex,
-  packaging,
+# propagates
+, chardet, regex, packaging
 
-  # optionals
-  faust-cchardet,
-  pandas,
-  tabview,
-  # TODO: , wilderness
+# optionals
+, faust-cchardet, pandas, tabview
+# TODO: , wilderness
 
-  # tests
-  python,
-  pytestCheckHook,
-}:
+# tests
+, python, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "clevercsv";
@@ -31,11 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-/JveB6fpIJvR5byGcmO9XBuCbUw7yNTpSoDs68Wffmo=";
   };
 
-  propagatedBuildInputs = [
-    chardet
-    regex
-    packaging
-  ];
+  propagatedBuildInputs = [ chardet regex packaging ];
 
   passthru.optional-dependencies = {
     full = [
@@ -46,12 +33,10 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ passthru.optional-dependencies.full;
 
-  pythonImportsCheck = [
-    "clevercsv"
-    "clevercsv.cparser"
-  ];
+  pythonImportsCheck = [ "clevercsv" "clevercsv.cparser" ];
 
   preCheck = ''
     # by linking the installed version the tests also have access to compiled native libraries
@@ -62,11 +47,10 @@ buildPythonPackage rec {
   # their ci only runs unit tests, there are also integration and fuzzing tests
   pytestFlagsArray = [ "./tests/test_unit" ];
 
-  disabledTestPaths =
-    [
-      # ModuleNotFoundError: No module named 'wilderness'
-      "tests/test_unit/test_console.py"
-    ];
+  disabledTestPaths = [
+    # ModuleNotFoundError: No module named 'wilderness'
+    "tests/test_unit/test_console.py"
+  ];
 
   meta = with lib; {
     description = "CleverCSV is a Python package for handling messy CSV files";
@@ -77,7 +61,8 @@ buildPythonPackage rec {
       with CSV files.
     '';
     homepage = "https://github.com/alan-turing-institute/CleverCSV";
-    changelog = "https://github.com/alan-turing-institute/CleverCSV/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/alan-turing-institute/CleverCSV/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

@@ -1,33 +1,10 @@
-{
-  lib,
-  fetchurl,
-  buildDotnetPackage,
-  substituteAll,
-  makeWrapper,
-  makeDesktopItem,
-  unzip,
-  icoutils,
-  gtk2,
-  xorg,
-  xdotool,
-  xsel,
-  coreutils,
-  unixtools,
-  glib,
-  plugins ? [ ],
-}:
+{ lib, fetchurl, buildDotnetPackage, substituteAll, makeWrapper, makeDesktopItem
+, unzip, icoutils, gtk2, xorg, xdotool, xsel, coreutils, unixtools, glib
+, plugins ? [ ] }:
 let
   inherit (builtins)
-    add
-    length
-    readFile
-    replaceStrings
-    unsafeDiscardStringContext
-    toString
-    map
-  ;
-in
-buildDotnetPackage rec {
+    add length readFile replaceStrings unsafeDiscardStringContext toString map;
+in buildDotnetPackage rec {
   pname = "keepass";
   version = "2.53.1";
 
@@ -38,10 +15,7 @@ buildDotnetPackage rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper unzip ];
   buildInputs = [ icoutils ];
 
   patches = [
@@ -62,26 +36,15 @@ buildDotnetPackage rec {
   #
   # This derivation patches KeePass to search for plugins in specified
   # plugin derivations in the Nix store and nowhere else.
-  pluginLoadPathsPatch =
-    let
-      outputLc = toString (add 7 (length plugins));
-      patchTemplate = readFile ./keepass-plugins.patch;
-      loadTemplate = readFile ./keepass-plugins-load.patch;
-      loads = lib.concatStrings (
-        map (p: replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ] loadTemplate)
-          plugins
-      );
-    in
-    replaceStrings
-      [
-        "$OUTPUT_LC$"
-        "$DO_LOADS$"
-      ]
-      [
-        outputLc
-        loads
-      ]
-      patchTemplate;
+  pluginLoadPathsPatch = let
+    outputLc = toString (add 7 (length plugins));
+    patchTemplate = readFile ./keepass-plugins.patch;
+    loadTemplate = readFile ./keepass-plugins-load.patch;
+    loads = lib.concatStrings (map (p:
+      replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ]
+      loadTemplate) plugins);
+  in replaceStrings [ "$OUTPUT_LC$" "$DO_LOADS$" ] [ outputLc loads ]
+  patchTemplate;
 
   passAsFile = [ "pluginLoadPathsPatch" ];
   postPatch = ''
@@ -129,10 +92,8 @@ buildDotnetPackage rec {
   dynlibPath = lib.makeLibraryPath [ gtk2 ];
 
   postInstall =
-    let
-      extractFDeskIcons = ./extractWinRscIconsToStdFreeDesktopDir.sh;
-    in
-    ''
+    let extractFDeskIcons = ./extractWinRscIconsToStdFreeDesktopDir.sh;
+    in ''
       mkdir -p "$out/share/applications"
       cp ${desktopItem}/share/applications/* $out/share/applications
       wrapProgram $out/bin/keepass \
@@ -152,10 +113,7 @@ buildDotnetPackage rec {
   meta = {
     description = "GUI password manager with strong cryptography";
     homepage = "http://www.keepass.info/";
-    maintainers = with lib.maintainers; [
-      amorsillo
-      obadz
-    ];
+    maintainers = with lib.maintainers; [ amorsillo obadz ];
     platforms = with lib.platforms; all;
     license = lib.licenses.gpl2;
   };

@@ -1,19 +1,13 @@
 # Module for MiniDLNA, a simple DLNA server.
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 
 let
   cfg = config.services.minidlna;
   settingsFormat = pkgs.formats.keyValue { listsAsDuplicateKeys = true; };
   settingsFile = settingsFormat.generate "minidlna.conf" cfg.settings;
-in
 
-{
+in {
   ###### interface
   options.services.minidlna.enable = mkOption {
     type = types.bool;
@@ -46,10 +40,7 @@ in
       options.media_dir = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "/data/media"
-          "V,/home/alice/video"
-        ];
+        example = [ "/data/media" "V,/home/alice/video" ];
         description = lib.mdDoc ''
           Directories to be scanned for media files.
           The `A,` `V,` `P,` prefixes restrict a directory to audio, video or image files.
@@ -70,155 +61,99 @@ in
       options.port = mkOption {
         type = types.port;
         default = 8200;
-        description = lib.mdDoc "Port number for HTTP traffic (descriptions, SOAP, media transfer).";
+        description = lib.mdDoc
+          "Port number for HTTP traffic (descriptions, SOAP, media transfer).";
       };
       options.db_dir = mkOption {
         type = types.path;
         default = "/var/cache/minidlna";
         example = "/tmp/minidlna";
-        description =
-          lib.mdDoc
-            "Specify the directory where you want MiniDLNA to store its database and album art cache.";
+        description = lib.mdDoc
+          "Specify the directory where you want MiniDLNA to store its database and album art cache.";
       };
       options.friendly_name = mkOption {
         type = types.str;
         default = config.networking.hostName;
         defaultText = literalExpression "config.networking.hostName";
         example = "rpi3";
-        description = lib.mdDoc "Name that the DLNA server presents to clients.";
+        description =
+          lib.mdDoc "Name that the DLNA server presents to clients.";
       };
       options.root_container = mkOption {
         type = types.str;
         default = "B";
         example = ".";
-        description =
-          lib.mdDoc
-            "Use a different container as the root of the directory tree presented to clients.";
+        description = lib.mdDoc
+          "Use a different container as the root of the directory tree presented to clients.";
       };
       options.log_level = mkOption {
         type = types.str;
         default = "warn";
-        example = "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
-        description =
-          lib.mdDoc
-            "Defines the type of messages that should be logged and down to which level of importance.";
+        example =
+          "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
+        description = lib.mdDoc
+          "Defines the type of messages that should be logged and down to which level of importance.";
       };
       options.inotify = mkOption {
-        type = types.enum [
-          "yes"
-          "no"
-        ];
+        type = types.enum [ "yes" "no" ];
         default = "no";
-        description = lib.mdDoc "Whether to enable inotify monitoring to automatically discover new files.";
+        description = lib.mdDoc
+          "Whether to enable inotify monitoring to automatically discover new files.";
       };
       options.enable_tivo = mkOption {
-        type = types.enum [
-          "yes"
-          "no"
-        ];
+        type = types.enum [ "yes" "no" ];
         default = "no";
-        description = lib.mdDoc "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
+        description = lib.mdDoc
+          "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
       };
       options.wide_links = mkOption {
-        type = types.enum [
-          "yes"
-          "no"
-        ];
+        type = types.enum [ "yes" "no" ];
         default = "no";
-        description =
-          lib.mdDoc
-            "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
+        description = lib.mdDoc
+          "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
       };
     };
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "minidlna"
-        "config"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "minidlna"
-        "extraConfig"
-      ]
-      ""
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "loglevel"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "log_level"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "rootContainer"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "root_container"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "mediaDirs"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "media_dir"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "friendlyName"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "friendly_name"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "minidlna"
-        "announceInterval"
-      ]
-      [
-        "services"
-        "minidlna"
-        "settings"
-        "notify_interval"
-      ]
-    )
+    (mkRemovedOptionModule [ "services" "minidlna" "config" ] "")
+    (mkRemovedOptionModule [ "services" "minidlna" "extraConfig" ] "")
+    (mkRenamedOptionModule [ "services" "minidlna" "loglevel" ] [
+      "services"
+      "minidlna"
+      "settings"
+      "log_level"
+    ])
+    (mkRenamedOptionModule [ "services" "minidlna" "rootContainer" ] [
+      "services"
+      "minidlna"
+      "settings"
+      "root_container"
+    ])
+    (mkRenamedOptionModule [ "services" "minidlna" "mediaDirs" ] [
+      "services"
+      "minidlna"
+      "settings"
+      "media_dir"
+    ])
+    (mkRenamedOptionModule [ "services" "minidlna" "friendlyName" ] [
+      "services"
+      "minidlna"
+      "settings"
+      "friendly_name"
+    ])
+    (mkRenamedOptionModule [ "services" "minidlna" "announceInterval" ] [
+      "services"
+      "minidlna"
+      "settings"
+      "notify_interval"
+    ])
   ];
 
   ###### implementation
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts =
+      mkIf cfg.openFirewall [ cfg.settings.port ];
     networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 1900 ];
 
     users.users.minidlna = {
@@ -240,7 +175,8 @@ in
         CacheDirectory = "minidlna";
         RuntimeDirectory = "minidlna";
         PIDFile = "/run/minidlna/pid";
-        ExecStart = "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}";
+        ExecStart =
+          "${pkgs.minidlna}/sbin/minidlnad -S -P /run/minidlna/pid -f ${settingsFile}";
       };
     };
   };

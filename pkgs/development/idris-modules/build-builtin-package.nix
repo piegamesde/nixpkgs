@@ -3,10 +3,8 @@
 # deps: The dependencies of the package
 { idris, build-idris-package }:
 pname: deps:
-let
-  inherit (builtins.parseDrvName idris.name) version;
-in
-build-idris-package {
+let inherit (builtins.parseDrvName idris.name) version;
+in build-idris-package {
 
   inherit pname version;
   inherit (idris) src;
@@ -20,7 +18,5 @@ build-idris-package {
     sourceRoot=$sourceRoot/libs/${pname}
   '';
 
-  meta = idris.meta // {
-    description = "${pname} builtin Idris library";
-  };
+  meta = idris.meta // { description = "${pname} builtin Idris library"; };
 }

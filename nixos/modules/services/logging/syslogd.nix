@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,7 +7,8 @@ let
   cfg = config.services.syslogd;
 
   syslogConf = pkgs.writeText "syslog.conf" ''
-    ${optionalString (cfg.tty != "") "kern.warning;*.err;authpriv.none /dev/${cfg.tty}"}
+    ${optionalString (cfg.tty != "")
+    "kern.warning;*.err;authpriv.none /dev/${cfg.tty}"}
     ${cfg.defaultConfig}
     ${cfg.extraConfig}
   '';
@@ -31,9 +27,8 @@ let
 
     *.*;mail.none;local1.none    -/var/log/messages
   '';
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -94,19 +89,19 @@ in
           Additional parameters passed to {command}`syslogd`.
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = !config.services.rsyslogd.enable;
-        message = "rsyslogd conflicts with syslogd";
-      }
-    ];
+    assertions = [{
+      assertion = !config.services.rsyslogd.enable;
+      message = "rsyslogd conflicts with syslogd";
+    }];
 
     environment.systemPackages = [ pkgs.sysklogd ];
 
@@ -121,10 +116,14 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${toString cfg.extraParams} -f ${syslogConf} -n";
+        ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${
+            toString cfg.extraParams
+          } -f ${syslogConf} -n";
         # Prevent syslogd output looping back through journald.
         StandardOutput = "null";
       };
     };
+
   };
+
 }

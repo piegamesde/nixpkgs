@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  pytest,
-  mock,
-  sphinx,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, pytest, mock, sphinx }:
 
 buildPythonPackage rec {
   pname = "readthedocs-sphinx-ext";
@@ -19,11 +11,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytest
-    mock
-    sphinx
-  ];
+  nativeCheckInputs = [ pytest mock sphinx ];
 
   checkPhase = ''
     py.test

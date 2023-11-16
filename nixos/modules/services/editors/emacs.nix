@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -38,8 +33,8 @@ let
       Keywords=Text;Editor;
     '';
   };
-in
-{
+
+in {
 
   options.services.emacs = {
     enable = mkOption {
@@ -91,21 +86,18 @@ in
 
       serviceConfig = {
         Type = "forking";
-        ExecStart = "${pkgs.bash}/bin/bash -c 'source ${config.system.build.setEnvironment}; exec ${cfg.package}/bin/emacs --daemon'";
+        ExecStart =
+          "${pkgs.bash}/bin/bash -c 'source ${config.system.build.setEnvironment}; exec ${cfg.package}/bin/emacs --daemon'";
         ExecStop = "${cfg.package}/bin/emacsclient --eval (kill-emacs)";
         Restart = "always";
       };
     } // optionalAttrs cfg.enable { wantedBy = [ "default.target" ]; };
 
-    environment.systemPackages = [
-      cfg.package
-      editorScript
-      desktopApplicationFile
-    ];
+    environment.systemPackages =
+      [ cfg.package editorScript desktopApplicationFile ];
 
-    environment.variables.EDITOR = mkIf cfg.defaultEditor (
-      mkOverride 900 "${editorScript}/bin/emacseditor"
-    );
+    environment.variables.EDITOR =
+      mkIf cfg.defaultEditor (mkOverride 900 "${editorScript}/bin/emacseditor");
   };
 
   meta.doc = ./emacs.md;

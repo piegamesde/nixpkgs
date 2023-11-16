@@ -1,23 +1,7 @@
-{
-  stdenv,
-  fetchFromGitLab,
-  fetchpatch,
-  lib,
-  darwin,
-  git,
-  nettle,
-  nix-update-script,
-  cargo,
-  rustc,
-  rustPlatform,
-  pkg-config,
-  openssl,
-  sqlite,
-  capnproto,
-  ensureNewerSourcesForZipFilesHook,
-  pythonSupport ? true,
-  pythonPackages ? null,
-}:
+{ stdenv, fetchFromGitLab, fetchpatch, lib, darwin, git, nettle
+, nix-update-script, cargo, rustc, rustPlatform, pkg-config, openssl, sqlite
+, capnproto, ensureNewerSourcesForZipFilesHook, pythonSupport ? true
+, pythonPackages ? null }:
 
 assert pythonSupport -> pythonPackages != null;
 
@@ -38,7 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   patches = [
     (fetchpatch {
-      url = "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
+      url =
+        "https://gitlab.com/sequoia-pgp/sequoia/-/commit/4dc6e624c2394936dc447f18aedb4a4810bb2ddb.patch";
       hash = "sha256-T6hh7U1gvKvyn/OCuJBvLM7TG1VFnpvpAiWS72m3P6I=";
     })
   ];
@@ -58,16 +43,8 @@ rustPlatform.buildRustPackage rec {
     pythonPackages.pytest-runner
   ];
 
-  buildInputs =
-    [
-      openssl
-      sqlite
-      nettle
-    ]
-    ++ lib.optionals pythonSupport [
-      pythonPackages.python
-      pythonPackages.cffi
-    ]
+  buildInputs = [ openssl sqlite nettle ]
+    ++ lib.optionals pythonSupport [ pythonPackages.python pythonPackages.cffi ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   makeFlags = [
@@ -85,13 +62,11 @@ rustPlatform.buildRustPackage rec {
     "--skip=macros::time_it"
   ];
 
-  preInstall =
-    lib.optionalString pythonSupport ''
-      export installFlags="PYTHONPATH=$PYTHONPATH:$out/${pythonPackages.python.sitePackages}"
-    ''
-    + lib.optionalString (!pythonSupport) ''
-      export makeFlags="PYTHON=disable"
-    '';
+  preInstall = lib.optionalString pythonSupport ''
+    export installFlags="PYTHONPATH=$PYTHONPATH:$out/${pythonPackages.python.sitePackages}"
+  '' + lib.optionalString (!pythonSupport) ''
+    export makeFlags="PYTHON=disable"
+  '';
 
   # Don't use buildRustPackage phases, only use it for rust deps setup
   configurePhase = null;
@@ -106,10 +81,7 @@ rustPlatform.buildRustPackage rec {
     description = "A cool new OpenPGP implementation";
     homepage = "https://sequoia-pgp.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      minijackson
-      doronbehar
-    ];
+    maintainers = with maintainers; [ minijackson doronbehar ];
     mainProgram = "sq";
   };
 }

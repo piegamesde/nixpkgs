@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.readarr;
-in
-{
+let cfg = config.services.readarr;
+in {
   options = {
     services.readarr = {
       enable = mkEnableOption (lib.mdDoc "Readarr");
@@ -18,7 +11,8 @@ in
       dataDir = mkOption {
         type = types.str;
         default = "/var/lib/readarr/";
-        description = lib.mdDoc "The directory where Readarr stores its data files.";
+        description =
+          lib.mdDoc "The directory where Readarr stores its data files.";
       };
 
       package = mkOption {
@@ -55,7 +49,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.readarr = {
       description = "Readarr";
@@ -66,7 +61,8 @@ in
         Type = "simple";
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/Readarr -nobrowser -data='${cfg.dataDir}'";
+        ExecStart =
+          "${cfg.package}/bin/Readarr -nobrowser -data='${cfg.dataDir}'";
         Restart = "on-failure";
       };
     };

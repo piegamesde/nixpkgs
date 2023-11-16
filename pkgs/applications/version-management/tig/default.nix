@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-  asciidoc,
-  xmlto,
-  docbook_xsl,
-  docbook_xml_dtd_45,
-  readline,
-  makeWrapper,
-  git,
-  libiconv,
-  autoreconfHook,
-  findXMLCatalogs,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses, asciidoc, xmlto, docbook_xsl
+, docbook_xml_dtd_45, readline, makeWrapper, git, libiconv, autoreconfHook
+, findXMLCatalogs, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "tig";
@@ -38,17 +24,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  autoreconfFlags = [
-    "-I"
-    "tools"
-    "-v"
-  ];
+  autoreconfFlags = [ "-I" "tools" "-v" ];
 
-  buildInputs = [
-    ncurses
-    readline
-    git
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = [ ncurses readline git ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   # those files are inherently impure, we'll handle the corresponding dependencies.
   postPatch = ''

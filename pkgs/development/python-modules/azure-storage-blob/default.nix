@@ -1,16 +1,5 @@
-{
-  lib,
-  azure-common,
-  azure-core,
-  azure-storage-common,
-  buildPythonPackage,
-  cryptography,
-  fetchPypi,
-  isodate,
-  msrest,
-  pythonOlder,
-  typing-extensions,
-}:
+{ lib, azure-common, azure-core, azure-storage-common, buildPythonPackage
+, cryptography, fetchPypi, isodate, msrest, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "azure-storage-blob";
@@ -39,13 +28,12 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Client library for Microsoft Azure Storage services containing the blob service APIs";
+    description =
+      "Client library for Microsoft Azure Storage services containing the blob service APIs";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
-    changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-storage-blob_${version}/sdk/storage/azure-storage-blob/CHANGELOG.md";
+    changelog =
+      "https://github.com/Azure/azure-sdk-for-python/blob/azure-storage-blob_${version}/sdk/storage/azure-storage-blob/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      cmcdragonkai
-      maxwilson
-    ];
+    maintainers = with maintainers; [ cmcdragonkai maxwilson ];
   };
 }

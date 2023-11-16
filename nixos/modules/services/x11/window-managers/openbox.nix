@@ -1,28 +1,20 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 
 with lib;
-let
-  cfg = config.services.xserver.windowManager.openbox;
-in
+let cfg = config.services.xserver.windowManager.openbox;
 
-{
+in {
   options = {
-    services.xserver.windowManager.openbox.enable = mkEnableOption (lib.mdDoc "openbox");
+    services.xserver.windowManager.openbox.enable =
+      mkEnableOption (lib.mdDoc "openbox");
   };
 
   config = mkIf cfg.enable {
     services.xserver.windowManager = {
-      session = [
-        {
-          name = "openbox";
-          start = "\n          ${pkgs.openbox}/bin/openbox-session\n        ";
-        }
-      ];
+      session = [{
+        name = "openbox";
+        start = "\n          ${pkgs.openbox}/bin/openbox-session\n        ";
+      }];
     };
     environment.systemPackages = [ pkgs.openbox ];
   };

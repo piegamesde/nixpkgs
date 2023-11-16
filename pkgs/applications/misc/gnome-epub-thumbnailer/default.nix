@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  wrapGAppsNoGuiHook,
-  meson,
-  ninja,
-  pkg-config,
-  gnome,
-  gdk-pixbuf,
-  glib,
-  libarchive,
-  librsvg,
-  libxml2,
-}:
+{ stdenv, lib, fetchurl, wrapGAppsNoGuiHook, meson, ninja, pkg-config, gnome
+, gdk-pixbuf, glib, libarchive, librsvg, libxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-epub-thumbnailer";
@@ -25,23 +12,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-S7Ah++RCgNuY3xTBH6XkMgsWe4GpG9e6WGvqDE+il1I=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsNoGuiHook
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ wrapGAppsNoGuiHook meson ninja pkg-config ];
 
-  buildInputs = [
-    gdk-pixbuf
-    glib
-    libarchive
-    librsvg
-    libxml2
-  ];
+  buildInputs = [ gdk-pixbuf glib libarchive librsvg libxml2 ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-epub-thumbnailer"; };
+    updateScript =
+      gnome.updateScript { packageName = "gnome-epub-thumbnailer"; };
   };
 
   meta = with lib; {

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pydantic,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pydantic, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pydantic-scim";

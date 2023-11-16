@@ -1,23 +1,14 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  wrapGAppsHook,
-  gobject-introspection,
-  gtk-layer-shell,
-  pango,
-  gdk-pixbuf,
-  atk
-  # Extra packages called by various internal nwg-panel modules
-  ,
-  sway, # swaylock, swaymsg
-  systemd, # systemctl
-  wlr-randr, # wlr-randr
-  nwg-menu, # nwg-menu
-  light, # light
-  pamixer, # pamixer
-  pulseaudio, # pactl
-  libdbusmenu-gtk3, # tray
+{ lib, fetchFromGitHub, python3Packages, wrapGAppsHook, gobject-introspection
+, gtk-layer-shell, pango, gdk-pixbuf, atk
+# Extra packages called by various internal nwg-panel modules
+, sway # swaylock, swaymsg
+, systemd # systemctl
+, wlr-randr # wlr-randr
+, nwg-menu # nwg-menu
+, light # light
+, pamixer # pamixer
+, pulseaudio # pactl
+, libdbusmenu-gtk3 # tray
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -38,30 +29,19 @@ python3Packages.buildPythonApplication rec {
   strictDeps = false;
   dontWrapGApps = true;
 
-  buildInputs = [
-    atk
-    gdk-pixbuf
-    gtk-layer-shell
-    pango
-  ];
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gobject-introspection
-  ];
-  propagatedBuildInputs =
-    (
-      with python3Packages; [
-        i3ipc
-        netifaces
-        psutil
-        pybluez
-        pygobject3
-        requests
-        dasbus
-        setuptools
-      ]
-    )
-    # Run-time GTK dependency required by the Tray module
+  buildInputs = [ atk gdk-pixbuf gtk-layer-shell pango ];
+  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+  propagatedBuildInputs = (with python3Packages; [
+    i3ipc
+    netifaces
+    psutil
+    pybluez
+    pygobject3
+    requests
+    dasbus
+    setuptools
+  ])
+  # Run-time GTK dependency required by the Tray module
     ++ [ libdbusmenu-gtk3 ];
 
   postInstall = ''

@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildDunePackage,
-  ff-sig,
-  zarith,
-}:
+{ lib, fetchFromGitLab, buildDunePackage, ff-sig, zarith }:
 
 buildDunePackage rec {
   pname = "bls12-381-gen";
@@ -21,10 +15,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [
-    ff-sig
-    zarith
-  ];
+  propagatedBuildInputs = [ ff-sig zarith ];
 
   doCheck = true;
 

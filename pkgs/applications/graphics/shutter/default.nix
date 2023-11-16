@@ -1,18 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perlPackages,
-  wrapGAppsHook,
-  imagemagick,
-  gdk-pixbuf,
-  librsvg,
-  hicolor-icon-theme,
-  procps,
-  libwnck,
-  libappindicator-gtk3,
-  xdg-utils,
-}:
+{ lib, stdenv, fetchFromGitHub, perlPackages, wrapGAppsHook, imagemagick
+, gdk-pixbuf, librsvg, hicolor-icon-theme, procps, libwnck, libappindicator-gtk3
+, xdg-utils }:
 
 let
   perlModules = with perlPackages; [
@@ -63,8 +51,7 @@ let
     commonsense
     TypesSerialiser
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "shutter";
   version = "0.99.2";
 

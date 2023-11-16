@@ -1,23 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitea,
-  pkg-config,
-  meson,
-  ninja,
-  pixman,
-  tllist,
-  wayland,
-  wayland-scanner,
-  wayland-protocols,
-  enablePNG ? true,
-  enableJPEG ? true,
-  enableWebp ? true,
+{ stdenv, lib, fetchFromGitea, pkg-config, meson, ninja, pixman, tllist, wayland
+, wayland-scanner, wayland-protocols, enablePNG ? true, enableJPEG ? true
+, enableWebp ? true
   # Optional dependencies
-  libpng,
-  libjpeg,
-  libwebp,
-}:
+, libpng, libjpeg, libwebp }:
 
 stdenv.mkDerivation rec {
   pname = "wbg";
@@ -31,22 +16,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JJIIqSc0qHgjtpGKai8p6vihXg16unsO7vW91pioAmc=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    wayland-scanner
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja wayland-scanner ];
 
-  buildInputs =
-    [
-      pixman
-      tllist
-      wayland
-      wayland-protocols
-    ]
-    ++ lib.optional enablePNG libpng
-    ++ lib.optional enableJPEG libjpeg
+  buildInputs = [ pixman tllist wayland wayland-protocols ]
+    ++ lib.optional enablePNG libpng ++ lib.optional enableJPEG libjpeg
     ++ lib.optional enableWebp libwebp;
 
   mesonBuildType = "release";

@@ -1,20 +1,5 @@
-{
-  bash,
-  gawk,
-  git,
-  gnugrep,
-  fetchFromGitHub,
-  installShellFiles,
-  lib,
-  makeWrapper,
-  stdenv,
-  unixtools,
-  unzip,
-  wget,
-  xdotool,
-  xorg,
-  yad,
-}:
+{ bash, gawk, git, gnugrep, fetchFromGitHub, installShellFiles, lib, makeWrapper
+, stdenv, unixtools, unzip, wget, xdotool, xorg, yad }:
 
 stdenv.mkDerivation rec {
   pname = "steamtinkerlaunch";
@@ -56,7 +41,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Linux wrapper tool for use with the Steam client for custom launch options and 3rd party programs";
+    description =
+      "Linux wrapper tool for use with the Steam client for custom launch options and 3rd party programs";
     homepage = "https://github.com/sonic2kk/steamtinkerlaunch";
     license = licenses.gpl3;
     maintainers = with maintainers; [ urandom ];

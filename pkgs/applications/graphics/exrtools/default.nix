@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  openexr,
-  libpng12,
-  libjpeg,
-}:
+{ lib, stdenv, fetchurl, pkg-config, openexr, libpng12, libjpeg }:
 
 stdenv.mkDerivation rec {
   pname = "exrtools";
@@ -18,11 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    openexr
-    libpng12
-    libjpeg
-  ];
+  buildInputs = [ openexr libpng12 libjpeg ];
 
   meta = with lib; {
     description = "Collection of utilities for manipulating OpenEXR images";
@@ -32,3 +20,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.juliendehos ];
   };
 }
+

@@ -1,10 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitLab,
-  cmake,
-  qtbase,
-}:
+{ mkDerivation, lib, fetchFromGitLab, cmake, qtbase }:
 
 mkDerivation rec {
   pname = "enyo-launcher";

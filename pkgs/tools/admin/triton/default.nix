@@ -1,11 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  triton,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, installShellFiles, testers, triton }:
 
 buildNpmPackage rec {
   pname = "triton";
@@ -30,9 +23,7 @@ buildNpmPackage rec {
     sed -i '/Bash completion generated.*/d' $out/share/bash-completion/completions/triton.bash
   '';
 
-  passthru = {
-    tests.version = testers.testVersion { package = triton; };
-  };
+  passthru = { tests.version = testers.testVersion { package = triton; }; };
 
   meta = with lib; {
     description = "TritonDataCenter Client CLI and Node.js SDK";

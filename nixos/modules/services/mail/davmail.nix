@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,47 +6,33 @@ let
 
   cfg = config.services.davmail;
 
-  configType =
-    with types;
-    oneOf [
-      (attrsOf configType)
-      str
-      int
-      bool
-    ]
-    // {
-      description = "davmail config type (str, int, bool or attribute set thereof)";
+  configType = with types;
+    oneOf [ (attrsOf configType) str int bool ] // {
+      description =
+        "davmail config type (str, int, bool or attribute set thereof)";
     };
 
   toStr = val: if isBool val then boolToString val else toString val;
 
-  linesForAttrs =
-    attrs:
-    concatMap
-      (
-        name:
-        let
-          value = attrs.${name};
-        in
-        if isAttrs value then
-          map (line: name + "." + line) (linesForAttrs value)
-        else
-          [ "${name}=${toStr value}" ]
-      )
-      (attrNames attrs);
+  linesForAttrs = attrs:
+    concatMap (name:
+      let value = attrs.${name};
+      in if isAttrs value then
+        map (line: name + "." + line) (linesForAttrs value)
+      else
+        [ "${name}=${toStr value}" ]) (attrNames attrs);
 
-  configFile = pkgs.writeText "davmail.properties" (concatStringsSep "\n" (linesForAttrs cfg.config));
-in
+  configFile = pkgs.writeText "davmail.properties"
+    (concatStringsSep "\n" (linesForAttrs cfg.config));
 
-{
+in {
   options.services.davmail = {
     enable = mkEnableOption (lib.mdDoc "davmail, an MS Exchange gateway");
 
     url = mkOption {
       type = types.str;
-      description =
-        lib.mdDoc
-          "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL.";
+      description = lib.mdDoc
+        "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL.";
       example = "https://outlook.office365.com/EWS/Exchange.asmx";
     };
 

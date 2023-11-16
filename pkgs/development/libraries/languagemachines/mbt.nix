@@ -1,34 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  automake,
-  autoconf,
-  bzip2,
-  libtar,
-  libtool,
-  pkg-config,
-  autoconf-archive,
-  libxml2,
-  languageMachines,
-}:
+{ lib, stdenv, fetchurl, automake, autoconf, bzip2, libtar, libtool, pkg-config
+, autoconf-archive, libxml2, languageMachines }:
 
-let
-  release = lib.importJSON ./release-info/LanguageMachines-mbt.json;
-in
+let release = lib.importJSON ./release-info/LanguageMachines-mbt.json;
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "mbt";
   version = release.version;
   src = fetchurl {
     inherit (release) url sha256;
     name = "mbt-${release.version}.tar.gz";
   };
-  nativeBuildInputs = [
-    pkg-config
-    automake
-    autoconf
-  ];
+  nativeBuildInputs = [ pkg-config automake autoconf ];
   buildInputs = [
     bzip2
     libtar
@@ -56,4 +38,5 @@ stdenv.mkDerivation {
       Mbt is used by Frog for Dutch tagging.
     '';
   };
+
 }

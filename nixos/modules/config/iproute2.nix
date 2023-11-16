@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.networking.iproute2;
-in
-{
+let cfg = config.networking.iproute2;
+in {
   options.networking.iproute2 = {
     enable = mkEnableOption (lib.mdDoc "copy IP route configuration files");
     rttablesExtraConfig = mkOption {
@@ -57,8 +50,7 @@ in
     };
     environment.etc."iproute2/rt_tables" = {
       mode = "0644";
-      text =
-        (fileContents "${pkgs.iproute2}/etc/iproute2/rt_tables")
+      text = (fileContents "${pkgs.iproute2}/etc/iproute2/rt_tables")
         + (optionalString (cfg.rttablesExtraConfig != "") ''
 
 

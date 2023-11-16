@@ -1,29 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  scons,
-  pkg-config,
-  udev,
-  libX11,
-  libXcursor,
-  libXinerama,
-  libXrandr,
-  libXrender,
-  libpulseaudio,
-  libXi,
-  libXext,
-  libXfixes,
-  freetype,
-  openssl,
-  alsa-lib,
-  alsa-plugins,
-  makeWrapper,
-  libGLU,
-  zlib,
-  yasm,
-  withUdev ? true,
-}:
+{ stdenv, lib, fetchFromGitHub, scons, pkg-config, udev, libX11, libXcursor
+, libXinerama, libXrandr, libXrender, libpulseaudio, libXi, libXext, libXfixes
+, freetype, openssl, alsa-lib, alsa-plugins, makeWrapper, libGLU, zlib, yasm
+, withUdev ? true }:
 
 let
   options = {
@@ -31,8 +9,7 @@ let
     pulseaudio = false;
     udev = withUdev;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "godot";
   version = "3.5.2";
 
@@ -43,10 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-C+1J5N0ETL1qKust+2xP9uB4x9NwrMqIm8aFAivVYQw=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
   buildInputs = [
     scons
     udev
@@ -67,28 +41,19 @@ stdenv.mkDerivation rec {
     yasm
   ];
 
-  patches = [
-    ./pkg_config_additions.patch
-    ./dont_clobber_environment.patch
-  ];
+  patches = [ ./pkg_config_additions.patch ./dont_clobber_environment.patch ];
 
   enableParallelBuilding = true;
 
-  sconsFlags = [
-    "target=release_debug"
-    "platform=x11"
-  ];
+  sconsFlags = [ "target=release_debug" "platform=x11" ];
   preConfigure = ''
     sconsFlags+=" ${
-      lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
+      lib.concatStringsSep " "
+      (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
     }"
   '';
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "dev" "man" ];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -116,11 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://godotengine.org";
     description = "Free and Open Source 2D and 3D game engine";
     license = licenses.mit;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" "aarch64-linux" ];
     maintainers = with maintainers; [ twey ];
   };
 }

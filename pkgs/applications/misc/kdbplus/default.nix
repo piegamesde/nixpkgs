@@ -1,23 +1,9 @@
-{
-  lib,
-  stdenv,
-  requireFile,
-  unzip,
-  rlwrap,
-  bash,
-  zlib,
-}:
+{ lib, stdenv, requireFile, unzip, rlwrap, bash, zlib }:
 
 assert (stdenv.hostPlatform.system == "i686-linux");
 
-let
-  libPath = lib.makeLibraryPath [
-    stdenv.cc.libc
-    stdenv.cc.cc
-    zlib
-  ];
-in
-stdenv.mkDerivation rec {
+let libPath = lib.makeLibraryPath [ stdenv.cc.libc stdenv.cc.cc zlib ];
+in stdenv.mkDerivation rec {
   pname = "kdbplus";
   version = "3.6";
 
@@ -36,7 +22,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ];
 
   phases = "unpackPhase installPhase";
-  unpackPhase = "mkdir ${pname}-${version} && cd ${pname}-${version} && unzip -qq ${src}";
+  unpackPhase =
+    "mkdir ${pname}-${version} && cd ${pname}-${version} && unzip -qq ${src}";
   installPhase = ''
     mkdir -p $out/bin $out/libexec
 

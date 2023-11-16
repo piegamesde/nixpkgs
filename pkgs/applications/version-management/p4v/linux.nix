@@ -1,37 +1,9 @@
-{
-  stdenv,
-  autoPatchelfHook,
-  cups,
-  dbus,
-  fontconfig,
-  gccForLibs,
-  libX11,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXi,
-  libXrandr,
-  libXrender,
-  libXtst,
-  libinput,
-  libxcb,
-  libxkbcommon,
-  nss,
-  qttools,
-  qtwebengine,
-  xcbutilimage,
-  xcbutilkeysyms,
-  xcbutilrenderutil,
-  xcbutilwm,
-}:
+{ stdenv, autoPatchelfHook, cups, dbus, fontconfig, gccForLibs, libX11
+, libXcomposite, libXcursor, libXdamage, libXext, libXi, libXrandr, libXrender
+, libXtst, libinput, libxcb, libxkbcommon, nss, qttools, qtwebengine
+, xcbutilimage, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm }:
 
-{
-  pname,
-  version,
-  src,
-  meta,
-}:
+{ pname, version, src, meta }:
 let
   unwrapped = stdenv.mkDerivation {
     pname = "${pname}-unwrapped";
@@ -75,8 +47,7 @@ let
       addAutoPatchelfSearchPath $out/lib
     '';
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   # Build a "clean" version of the package so that we don't add extra ".bin" or

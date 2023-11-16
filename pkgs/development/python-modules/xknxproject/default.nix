@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  pyzipper,
-  setuptools,
-}:
+{ lib, buildPythonPackage, cryptography, fetchFromGitHub, pytestCheckHook
+, pythonOlder, pyzipper, setuptools }:
 
 buildPythonPackage rec {
   pname = "xknxproject";
@@ -25,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    cryptography
-    pyzipper
-  ];
+  propagatedBuildInputs = [ cryptography pyzipper ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

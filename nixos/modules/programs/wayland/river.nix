@@ -1,16 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 with lib;
-let
-  cfg = config.programs.river;
-in
-{
+let cfg = config.programs.river;
+in {
   options.programs.river = {
-    enable = mkEnableOption (lib.mdDoc "river, a dynamic tiling Wayland compositor");
+    enable =
+      mkEnableOption (lib.mdDoc "river, a dynamic tiling Wayland compositor");
 
     package = mkOption {
       type = with types; nullOr package;
@@ -25,11 +19,7 @@ in
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = with pkgs; [
-        swaylock
-        foot
-        dmenu
-      ];
+      default = with pkgs; [ swaylock foot dmenu ];
       defaultText = literalExpression ''
         with pkgs; [ swaylock foot dmenu ];
       '';
@@ -46,17 +36,17 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
-        environment.systemPackages = optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
+  config = mkIf cfg.enable (mkMerge [
+    {
+      environment.systemPackages = optional (cfg.package != null) cfg.package
+        ++ cfg.extraPackages;
 
-        # To make a river session available if a display manager like SDDM is enabled:
-        services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [ cfg.package ];
-      }
-      (import ./wayland-session.nix { inherit lib pkgs; })
-    ]
-  );
+      # To make a river session available if a display manager like SDDM is enabled:
+      services.xserver.displayManager.sessionPackages =
+        optionals (cfg.package != null) [ cfg.package ];
+    }
+    (import ./wayland-session.nix { inherit lib pkgs; })
+  ]);
 
   meta.maintainers = with lib.maintainers; [ GaetanLepage ];
 }

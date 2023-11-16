@@ -1,28 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoconf,
-  automake,
-  libtool,
-}:
+{ lib, stdenv, fetchurl, autoconf, automake, libtool }:
 
 stdenv.mkDerivation rec {
   pname = "libHX";
   version = "3.22";
 
   src = fetchurl {
-    url = "mirror://sourceforge/libhx/libHX/${version}/${pname}-${version}.tar.xz";
+    url =
+      "mirror://sourceforge/libhx/libHX/${version}/${pname}-${version}.tar.xz";
     sha256 = "18w39j528lyg2026dr11f2xxxphy91cg870nx182wbd8cjlqf86c";
   };
 
   patches = [ ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-  ];
+  nativeBuildInputs = [ autoconf automake libtool ];
 
   preConfigure = ''
     sh autogen.sh
@@ -37,10 +27,6 @@ stdenv.mkDerivation rec {
     '';
     maintainers = [ ];
     platforms = platforms.linux;
-    license = with licenses; [
-      gpl3
-      lgpl21Plus
-      wtfpl
-    ];
+    license = with licenses; [ gpl3 lgpl21Plus wtfpl ];
   };
 }

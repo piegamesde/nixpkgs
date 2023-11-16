@@ -1,24 +1,6 @@
-{
-  stdenv,
-  cmake,
-  lib,
-  fetchFromGitHub,
-  wrapQtAppsHook,
-  qtbase,
-  qtcharts,
-  fftw,
-  libtorch-bin,
-  portaudio,
-  eigen,
-  xorg,
-  pkg-config,
-  autoPatchelfHook,
-  soxr,
-  freetype,
-  libsamplerate,
-  armadillo,
-  tomlplusplus,
-}:
+{ stdenv, cmake, lib, fetchFromGitHub, wrapQtAppsHook, qtbase, qtcharts, fftw
+, libtorch-bin, portaudio, eigen, xorg, pkg-config, autoPatchelfHook, soxr
+, freetype, libsamplerate, armadillo, tomlplusplus }:
 
 stdenv.mkDerivation rec {
   pname = "in-formant";
@@ -32,19 +14,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Ignore the freetype sources bundled as a submodule:
-      # /nix/store/…-harfbuzz-7.0.0/lib/libharfbuzz.so.0: undefined reference to `FT_Get_Transform'
-      ./0001-Avoid-using-vendored-dependencies-we-have-in-nixpkgs.patch
-    ];
-
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-    autoPatchelfHook
+  patches = [
+    # Ignore the freetype sources bundled as a submodule:
+    # /nix/store/…-harfbuzz-7.0.0/lib/libharfbuzz.so.0: undefined reference to `FT_Get_Transform'
+    ./0001-Avoid-using-vendored-dependencies-we-have-in-nixpkgs.patch
   ];
+
+  nativeBuildInputs = [ cmake pkg-config wrapQtAppsHook autoPatchelfHook ];
 
   buildInputs = [
     qtbase

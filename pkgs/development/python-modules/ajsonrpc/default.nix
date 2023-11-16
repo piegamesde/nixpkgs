@@ -1,10 +1,4 @@
-{
-  lib,
-  pythonOlder,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ajsonrpc";

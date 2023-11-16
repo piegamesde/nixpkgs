@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  emacs,
-  texlive,
-  ghostscript,
-}:
+{ lib, stdenv, fetchurl, emacs, texlive, ghostscript }:
 
 let
   auctex = stdenv.mkDerivation (rec {
@@ -15,10 +8,7 @@ let
     version = "12.3";
     tlType = "run";
 
-    outputs = [
-      "out"
-      "tex"
-    ];
+    outputs = [ "out" "tex" ];
 
     src = fetchurl {
       url = "mirror://gnu/${pname}/${pname}-${version}.tar.gz";
@@ -42,10 +32,11 @@ let
 
     meta = with lib; {
       homepage = "https://www.gnu.org/software/auctex";
-      description = "Extensible package for writing and formatting TeX files in GNU Emacs and XEmacs";
+      description =
+        "Extensible package for writing and formatting TeX files in GNU Emacs and XEmacs";
       license = licenses.gpl3Plus;
       platforms = platforms.unix;
     };
   });
-in
-auctex // { pkgs = [ auctex.tex ]; }
+
+in auctex // { pkgs = [ auctex.tex ]; }

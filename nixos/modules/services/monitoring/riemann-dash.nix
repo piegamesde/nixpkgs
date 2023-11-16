@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with pkgs;
 with lib;
@@ -22,8 +17,8 @@ let
     #!/bin/sh
     exec ${pkgs.riemann-dash}/bin/riemann-dash ${conf}
   '';
-in
-{
+
+in {
 
   options = {
 
@@ -51,6 +46,7 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -63,7 +59,8 @@ in
       group = "riemanndash";
     };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - riemanndash riemanndash - -" ];
+    systemd.tmpfiles.rules =
+      [ "d '${cfg.dataDir}' - riemanndash riemanndash - -" ];
 
     systemd.services.riemann-dash = {
       wantedBy = [ "multi-user.target" ];
@@ -77,5 +74,7 @@ in
         ExecStart = "${launcher}/bin/riemann-dash";
       };
     };
+
   };
+
 }

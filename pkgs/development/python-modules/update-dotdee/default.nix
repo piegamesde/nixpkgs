@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  coloredlogs,
-  executor,
-  fetchFromGitHub,
-  humanfriendly,
-  naturalsort,
-  property-manager,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-}:
+{ lib, buildPythonPackage, coloredlogs, executor, fetchFromGitHub, humanfriendly
+, naturalsort, property-manager, pytestCheckHook, pythonOlder, six }:
 
 buildPythonPackage rec {
   pname = "update-dotdee";
@@ -26,14 +15,8 @@ buildPythonPackage rec {
     hash = "sha256-2k7FdgWM0ESHQb2za87yhXGaR/rbMYLVcv10QexUH1A=";
   };
 
-  propagatedBuildInputs = [
-    coloredlogs
-    executor
-    humanfriendly
-    naturalsort
-    property-manager
-    six
-  ];
+  propagatedBuildInputs =
+    [ coloredlogs executor humanfriendly naturalsort property-manager six ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -44,11 +27,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "update_dotdee" ];
 
-  disabledTests =
-    [
-      # TypeError: %o format: an integer is required, not str
-      "test_executable"
-    ];
+  disabledTests = [
+    # TypeError: %o format: an integer is required, not str
+    "test_executable"
+  ];
 
   meta = with lib; {
     description = "Generic modularized configuration file manager";

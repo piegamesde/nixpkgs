@@ -1,16 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  aresponses,
-  backoff,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aioresponses, aresponses, backoff, buildPythonPackage
+, fetchFromGitHub, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "tesla-wall-connector";
@@ -28,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    backoff
-  ];
+  propagatedBuildInputs = [ aiohttp backoff ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "tesla_wall_connector" ];
 

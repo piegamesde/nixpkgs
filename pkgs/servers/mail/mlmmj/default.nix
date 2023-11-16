@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
 
@@ -39,4 +35,5 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     license = licenses.mit;
   };
+
 }

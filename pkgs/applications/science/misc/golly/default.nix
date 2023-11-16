@@ -1,15 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  wxGTK,
-  perl,
-  python3,
-  zlib,
-  libGLU,
-  libGL,
-  libX11,
-  SDL2,
+{ lib, stdenv, fetchurl, wxGTK, perl, python3, zlib, libGLU, libGL, libX11, SDL2
 }:
 stdenv.mkDerivation rec {
   pname = "golly";
@@ -17,19 +6,11 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     sha256 = "1j30dpzy6wh8fv1j2750hzc6wb0nhk83knl9fapccxgxw9n5lrbc";
-    url = "mirror://sourceforge/project/golly/golly/golly-${version}/golly-${version}-src.tar.gz";
+    url =
+      "mirror://sourceforge/project/golly/golly/golly-${version}/golly-${version}-src.tar.gz";
   };
 
-  buildInputs = [
-    wxGTK
-    perl
-    python3
-    zlib
-    libGLU
-    libGL
-    libX11
-    SDL2
-  ];
+  buildInputs = [ wxGTK perl python3 zlib libGLU libGL libX11 SDL2 ];
 
   setSourceRoot = ''
     sourceRoot=$(echo */gui-wx/)
@@ -47,12 +28,7 @@ stdenv.mkDerivation rec {
     grep /libperl wxprefs.cpp
   '';
 
-  makeFlags = [
-    "-f"
-    "makefile-gtk"
-    "ENABLE_SOUND=1"
-    "ENABLE_PERL=1"
-  ];
+  makeFlags = [ "-f" "makefile-gtk" "ENABLE_SOUND=1" "ENABLE_PERL=1" ];
 
   installPhase = ''
     mkdir -p "$out/bin"

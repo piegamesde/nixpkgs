@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  libxcb,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, libxcb }:
 
 rustPlatform.buildRustPackage rec {
   pname = "kmon";
@@ -35,9 +29,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/orhun/kmon/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      figsoda
-      misuzu
-    ];
+    maintainers = with maintainers; [ figsoda misuzu ];
   };
 }

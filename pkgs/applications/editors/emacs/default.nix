@@ -1,12 +1,10 @@
 { lib, pkgs }:
 
-lib.makeScope pkgs.newScope (
-  self:
+lib.makeScope pkgs.newScope (self:
   let
     gconf = pkgs.gnome2.GConf;
     inherit (self) callPackage;
-  in
-  {
+  in {
     sources = import ./sources.nix {
       inherit lib;
       inherit (pkgs) fetchFromBitbucket fetchFromSavannah;
@@ -17,18 +15,8 @@ lib.makeScope pkgs.newScope (
 
       inherit (pkgs.darwin) sigtool;
       inherit (pkgs.darwin.apple_sdk.frameworks)
-        AppKit
-        Carbon
-        Cocoa
-        GSS
-        ImageCaptureCore
-        ImageIO
-        IOKit
-        OSAKit
-        Quartz
-        QuartzCore
-        WebKit
-      ;
+        AppKit Carbon Cocoa GSS ImageCaptureCore ImageIO IOKit OSAKit Quartz
+        QuartzCore WebKit;
     };
 
     emacs28-gtk2 = self.emacs28.override { withGTK2 = true; };
@@ -42,18 +30,8 @@ lib.makeScope pkgs.newScope (
 
       inherit (pkgs.darwin) sigtool;
       inherit (pkgs.darwin.apple_sdk.frameworks)
-        AppKit
-        Carbon
-        Cocoa
-        GSS
-        ImageCaptureCore
-        ImageIO
-        IOKit
-        OSAKit
-        Quartz
-        QuartzCore
-        WebKit
-      ;
+        AppKit Carbon Cocoa GSS ImageCaptureCore ImageIO IOKit OSAKit Quartz
+        QuartzCore WebKit;
     };
 
     emacs29-gtk3 = self.emacs29.override { withGTK3 = true; };
@@ -67,18 +45,7 @@ lib.makeScope pkgs.newScope (
 
       inherit (pkgs.darwin) sigtool;
       inherit (pkgs.darwin.apple_sdk.frameworks)
-        AppKit
-        Carbon
-        Cocoa
-        GSS
-        ImageCaptureCore
-        ImageIO
-        IOKit
-        OSAKit
-        Quartz
-        QuartzCore
-        WebKit
-      ;
+        AppKit Carbon Cocoa GSS ImageCaptureCore ImageIO IOKit OSAKit Quartz
+        QuartzCore WebKit;
     };
-  }
-)
+  })

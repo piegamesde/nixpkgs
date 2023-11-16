@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ronn,
-  shocco,
-}:
+{ lib, stdenv, fetchFromGitHub, ronn, shocco }:
 
 stdenv.mkDerivation rec {
   pname = "roundup";
@@ -24,15 +18,9 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "{1..9}" "1 5"
   '';
 
-  nativeBuildInputs = [
-    ronn
-    shocco
-  ];
+  nativeBuildInputs = [ ronn shocco ];
 
-  installTargets = [
-    "install"
-    "install-man"
-  ];
+  installTargets = [ "install" "install-man" ];
 
   preInstall = ''
     for i in 1 5; do
@@ -41,7 +29,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A unit testing tool for running test plans which are written in any POSIX shell";
+    description =
+      "A unit testing tool for running test plans which are written in any POSIX shell";
     homepage = "http://bmizerany.github.io/roundup/";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

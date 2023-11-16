@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  simplejson,
-  fake-useragent,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, simplejson, fake-useragent
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyatome";
@@ -21,11 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-DGkgW6emh/esZa/alUjBbpLXlU4EVIPkysn9a0LgcJ4=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    simplejson
-    fake-useragent
-  ];
+  propagatedBuildInputs = [ requests simplejson fake-useragent ];
 
   # No tests in PyPI tarballs
   doCheck = false;

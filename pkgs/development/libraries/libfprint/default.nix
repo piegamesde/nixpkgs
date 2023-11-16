@@ -1,31 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  pkg-config,
-  meson,
-  python3,
-  ninja,
-  gusb,
-  pixman,
-  glib,
-  nss,
-  gobject-introspection,
-  coreutils,
-  cairo,
-  libgudev,
-  gtk-doc,
-  docbook-xsl-nons,
-  docbook_xml_dtd_43,
-}:
+{ lib, stdenv, fetchFromGitLab, pkg-config, meson, python3, ninja, gusb, pixman
+, glib, nss, gobject-introspection, coreutils, cairo, libgudev, gtk-doc
+, docbook-xsl-nons, docbook_xml_dtd_43 }:
 
 stdenv.mkDerivation rec {
   pname = "libfprint";
   version = "1.94.5";
-  outputs = [
-    "out"
-    "devdoc"
-  ];
+  outputs = [ "out" "devdoc" ];
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -54,14 +34,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gusb
-    pixman
-    glib
-    nss
-    cairo
-    libgudev
-  ];
+  buildInputs = [ gusb pixman glib nss cairo libgudev ];
 
   mesonFlags = [
     "-Dudev_rules_dir=${placeholder "out"}/lib/udev/rules.d"
@@ -70,7 +43,8 @@ stdenv.mkDerivation rec {
     "-Dudev_hwdb_dir=${placeholder "out"}/lib/udev/hwdb.d"
   ];
 
-  nativeInstallCheckInputs = [ (python3.withPackages (p: with p; [ pygobject3 ])) ];
+  nativeInstallCheckInputs =
+    [ (python3.withPackages (p: with p; [ pygobject3 ])) ];
 
   # We need to run tests _after_ install so all the paths that get loaded are in
   # the right place.
@@ -88,7 +62,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://fprint.freedesktop.org/";
-    description = "A library designed to make it easy to add support for consumer fingerprint readers";
+    description =
+      "A library designed to make it easy to add support for consumer fingerprint readers";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ abbradar ];

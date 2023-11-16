@@ -1,18 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build-system
-  setuptools,
+# build-system
+, setuptools
 
-  # dependencies
-  beautifulsoup4,
+# dependencies
+, beautifulsoup4
 
-  # tests
-  django,
-  python,
-}:
+# tests
+, django, python }:
 
 buildPythonPackage rec {
   pname = "django-bootstrap4";
@@ -43,7 +38,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Bootstrap 4 integration with Django";
     homepage = "https://github.com/zostera/django-bootstrap4";
-    changelog = "https://github.com/zostera/django-bootstrap4/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/zostera/django-bootstrap4/blob/${src.rev}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ hexa ];
   };

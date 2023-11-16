@@ -1,49 +1,24 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 
-  # extras: babel
-  babel,
-  flask-babel,
+# extras: babel
+, babel, flask-babel
 
-  # extras: common
-  bcrypt,
-  bleach,
-  flask-mailman,
-  qrcode,
+# extras: common
+, bcrypt, bleach, flask-mailman, qrcode
 
-  # extras: fsqla
-  flask-sqlalchemy,
-  sqlalchemy,
-  sqlalchemy-utils,
+# extras: fsqla
+, flask-sqlalchemy, sqlalchemy, sqlalchemy-utils
 
-  # extras: mfa
-  cryptography,
-  phonenumbers,
+# extras: mfa
+, cryptography, phonenumbers
 
-  # propagates
-  blinker,
-  email-validator,
-  flask,
-  flask-login,
-  flask_principal,
-  flask-wtf,
-  itsdangerous,
-  passlib,
+# propagates
+, blinker, email-validator, flask, flask-login, flask_principal, flask-wtf
+, itsdangerous, passlib
 
-  # tests
-  argon2-cffi,
-  flask-mongoengine,
-  mongoengine,
-  mongomock,
-  peewee,
-  pony,
-  pytestCheckHook,
-  python-dateutil,
-  zxcvbn,
-}:
+# tests
+, argon2-cffi, flask-mongoengine, mongoengine, mongomock, peewee, pony
+, pytestCheckHook, python-dateutil, zxcvbn }:
 
 buildPythonPackage rec {
   pname = "flask-security-too";
@@ -70,40 +45,23 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    babel = [
-      babel
-      flask-babel
-    ];
-    common = [
-      bcrypt
-      bleach
-      flask-mailman
-      qrcode
-    ];
-    fsqla = [
-      flask-sqlalchemy
-      sqlalchemy
-      sqlalchemy-utils
-    ];
-    mfa = [
-      cryptography
-      phonenumbers
-    ];
+    babel = [ babel flask-babel ];
+    common = [ bcrypt bleach flask-mailman qrcode ];
+    fsqla = [ flask-sqlalchemy sqlalchemy sqlalchemy-utils ];
+    mfa = [ cryptography phonenumbers ];
   };
 
-  nativeCheckInputs =
-    [
-      argon2-cffi
-      flask-mongoengine
-      mongoengine
-      mongomock
-      peewee
-      pony
-      pytestCheckHook
-      python-dateutil
-      zxcvbn
-    ]
-    ++ passthru.optional-dependencies.babel
+  nativeCheckInputs = [
+    argon2-cffi
+    flask-mongoengine
+    mongoengine
+    mongomock
+    peewee
+    pony
+    pytestCheckHook
+    python-dateutil
+    zxcvbn
+  ] ++ passthru.optional-dependencies.babel
     ++ passthru.optional-dependencies.common
     ++ passthru.optional-dependencies.fsqla
     ++ passthru.optional-dependencies.mfa;
@@ -111,7 +69,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flask_security" ];
 
   meta = with lib; {
-    changelog = "https://github.com/Flask-Middleware/flask-security/blob/${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/Flask-Middleware/flask-security/blob/${version}/CHANGES.rst";
     homepage = "https://github.com/Flask-Middleware/flask-security";
     description = "Simple security for Flask apps (fork)";
     license = licenses.mit;

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  caddy,
-  asciidoctor,
-  file,
-  lessc,
-  sass,
-  multimarkdown,
-  linkchecker,
-  perlPackages,
-  python3Packages,
-}:
+{ lib, stdenv, fetchFromGitHub, caddy, asciidoctor, file, lessc, sass
+, multimarkdown, linkchecker, perlPackages, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "styx";
@@ -29,11 +17,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ asciidoctor ];
 
-  outputs = [
-    "out"
-    "lib"
-    "themes"
-  ];
+  outputs = [ "out" "lib" "themes" ];
 
   propagatedBuildInputs = [
     file

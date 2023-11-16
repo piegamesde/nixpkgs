@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "datamash";
@@ -14,13 +10,12 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A command-line program which performs basic numeric,textual and statistical operations on input textual data files";
+    description =
+      "A command-line program which performs basic numeric,textual and statistical operations on input textual data files";
     homepage = "https://www.gnu.org/software/datamash/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      pSub
-      vrthra
-    ];
+    maintainers = with maintainers; [ pSub vrthra ];
   };
+
 }

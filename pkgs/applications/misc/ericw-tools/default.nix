@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gtest,
-  fmt,
-  cmake,
-  ninja,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, gtest, fmt, cmake, ninja, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "ericw-tools";
@@ -26,17 +17,9 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    installShellFiles
-  ];
+  nativeBuildInputs = [ cmake ninja installShellFiles ];
 
-  outputs = [
-    "out"
-    "doc"
-    "man"
-  ];
+  outputs = [ "out" "doc" "man" ];
   installPhase = ''
     runHook preInstall
 

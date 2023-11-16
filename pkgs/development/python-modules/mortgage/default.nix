@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mortgage";
@@ -25,4 +19,5 @@ buildPythonPackage rec {
     description = "Mortgage calculator";
     license = lib.licenses.mit;
   };
+
 }

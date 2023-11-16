@@ -1,13 +1,5 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  nix-update-source,
-  lib,
-  python3,
-  which,
-  runtimeShell,
-  pychecker ? null,
-}:
+{ stdenv, fetchFromGitHub, nix-update-source, lib, python3, which, runtimeShell
+, pychecker ? null }:
 stdenv.mkDerivation rec {
   version = "0.8.4";
   src = fetchFromGitHub {
@@ -17,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "0b8q9mrr7b9silwc4mp733j1z18g4lp6ppdi8p2rxzgb2fb4bkvp";
   };
   pname = "gup";
-  nativeBuildInputs = [
-    python3
-    which
-    pychecker
-  ];
+  nativeBuildInputs = [ python3 which pychecker ];
   buildInputs = [ python3 ];
   strictDeps = true;
   SKIP_PYCHECKER = pychecker == null;

@@ -1,15 +1,5 @@
-{
-  lib,
-  ascii-magic,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pillow,
-  pytest-httpserver,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  oauthlib,
-}:
+{ lib, ascii-magic, buildPythonPackage, fetchFromGitHub, pillow
+, pytest-httpserver, pytestCheckHook, pythonOlder, requests, oauthlib }:
 
 buildPythonPackage rec {
   pname = "weconnect";
@@ -25,22 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-+ISWPrpY/urpZZZrn6+Ii8gbrwkQMLL6gXhydXd8HqI=";
   };
 
-  propagatedBuildInputs = [
-    oauthlib
-    requests
-  ];
+  propagatedBuildInputs = [ oauthlib requests ];
 
-  passthru.optional-dependencies = {
-    Images = [
-      ascii-magic
-      pillow
-    ];
-  };
+  passthru.optional-dependencies = { Images = [ ascii-magic pillow ]; };
 
-  nativeCheckInputs = [
-    pytest-httpserver
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-httpserver pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace weconnect/__version.py \
@@ -61,7 +40,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for the Volkswagen WeConnect Services";
     homepage = "https://github.com/tillsteinbach/WeConnect-python";
-    changelog = "https://github.com/tillsteinbach/WeConnect-python/releases/tag/v${version}";
+    changelog =
+      "https://github.com/tillsteinbach/WeConnect-python/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

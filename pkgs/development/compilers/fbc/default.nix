@@ -1,17 +1,5 @@
-{
-  stdenv,
-  buildPackages,
-  lib,
-  fetchzip,
-  gpm,
-  libffi,
-  libGL,
-  libX11,
-  libXext,
-  libXpm,
-  libXrandr,
-  ncurses,
-}:
+{ stdenv, buildPackages, lib, fetchzip, gpm, libffi, libGL, libX11, libXext
+, libXpm, libXrandr, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "fbc";
@@ -19,7 +7,8 @@ stdenv.mkDerivation rec {
 
   src = fetchzip {
     # Bootstrap tarball has sources pretranslated from FreeBASIC to C
-    url = "https://github.com/freebasic/fbc/releases/download/${version}/FreeBASIC-${version}-source-bootstrap.tar.xz";
+    url =
+      "https://github.com/freebasic/fbc/releases/download/${version}/FreeBASIC-${version}-source-bootstrap.tar.xz";
     hash = "sha256-7FmyEfykOAgHaL2AG8zIgftzOszhwVzNKEqskiLGpfk=";
   };
 
@@ -29,17 +18,10 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-    buildPackages.ncurses
-    buildPackages.libffi
-  ];
+  depsBuildBuild =
+    [ buildPackages.stdenv.cc buildPackages.ncurses buildPackages.libffi ];
 
-  buildInputs =
-    [
-      ncurses
-      libffi
-    ]
+  buildInputs = [ ncurses libffi ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       gpm
       libGL
@@ -53,9 +35,8 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = [ "format" ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "TARGET=${stdenv.hostPlatform.config}"
-  ];
+  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
+    [ "TARGET=${stdenv.hostPlatform.config}" ];
 
   preBuild = ''
     export buildJobs=$NIX_BUILD_CORES
@@ -84,7 +65,7 @@ stdenv.mkDerivation rec {
     make install-compiler prefix=$PWD/patched-fbc
     make install-rtlib prefix=$PWD/patched-fbc ${
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-        "TARGET=${stdenv.hostPlatform.config}"
+      "TARGET=${stdenv.hostPlatform.config}"
     }
     make clean
 
@@ -132,7 +113,8 @@ stdenv.mkDerivation rec {
       such as pointers, object orientation, unsigned data types, inline assembly,
       and many others.
     '';
-    license = licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
+    license =
+      licenses.gpl2Plus; # runtime & graphics libraries are LGPLv2+ w/ static linking exception
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = with platforms; windows ++ linux;
   };

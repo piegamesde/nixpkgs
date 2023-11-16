@@ -1,50 +1,18 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  coreutils,
-  gawk,
-  procps,
-  gnused,
-  bc,
-  findutils,
-  xdpyinfo,
-  xprop,
-  gnugrep,
-  ncurses,
-  pciutils,
-  darwin,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, coreutils, gawk, procps, gnused, bc
+, findutils, xdpyinfo, xprop, gnugrep, ncurses, pciutils, darwin }:
 
 let
-  path = lib.makeBinPath (
-    [
-      coreutils
-      gawk
-      gnused
-      findutils
-      gnugrep
-      ncurses
-      bc
-      pciutils
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      procps
-      xdpyinfo
-      xprop
-    ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin; [
+  path = lib.makeBinPath
+    ([ coreutils gawk gnused findutils gnugrep ncurses bc pciutils ]
+      ++ lib.optionals stdenv.isLinux [ procps xdpyinfo xprop ]
+      ++ lib.optionals stdenv.isDarwin (with darwin; [
         adv_cmds
         DarwinTools
         system_cmds
         "/usr" # some commands like defaults is not available to us
-      ]
-    )
-  );
-in
-stdenv.mkDerivation rec {
+      ]));
+
+in stdenv.mkDerivation rec {
   pname = "screenfetch";
   version = "3.9.1";
 
@@ -69,7 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Fetches system/theme information in terminal for Linux desktop screenshots";
+    description =
+      "Fetches system/theme information in terminal for Linux desktop screenshots";
     longDescription = ''
       screenFetch is a "Bash Screenshot Information Tool". This handy Bash
       script can be used to generate one of those nifty terminal theme

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  six,
-  pbr,
-}:
+{ lib, buildPythonPackage, fetchPypi, six, pbr }:
 
 buildPythonPackage rec {
   pname = "munch";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     sha256 = "2d735f6f24d4dba3417fa448cae40c6e896ec1fdab6cdb5e6510999758a4dbd2";
   };
 
-  propagatedBuildInputs = [
-    six
-    pbr
-  ];
+  propagatedBuildInputs = [ six pbr ];
 
   # No tests in archive
   doCheck = false;
@@ -28,4 +19,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     homepage = "https://github.com/Infinidat/munch";
   };
+
 }

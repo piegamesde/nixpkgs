@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  jre,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, stdenv, fetchurl, unzip, jre, makeDesktopItem, copyDesktopItems }:
 
 let
   desktopItem = makeDesktopItem {
@@ -16,8 +8,7 @@ let
     exec = "jdiskreport";
     name = "jdiskreport";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "jdiskreport";
   version = "1.4.1";
 
@@ -28,10 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0d5mzkwsbh9s9b1vyvpaawqc09b0q41l2a7pmwf7386b1fsx6d58";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    unzip
-  ];
+  nativeBuildInputs = [ copyDesktopItems unzip ];
   inherit jre;
 
   installPhase = ''
@@ -61,10 +49,7 @@ stdenv.mkDerivation rec {
     description = "A graphical utility to visualize disk usage";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfreeRedistributable; # TODO freedist, libs under BSD-3
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     maintainers = with maintainers; [ kylesferrazza ];
   };
 }

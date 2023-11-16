@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-}:
+{ lib, buildDunePackage, fetchFromGitHub }:
 
 buildDunePackage rec {
   pname = "qcheck-core";
@@ -26,4 +22,5 @@ buildDunePackage rec {
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.vbgl ];
   };
+
 }

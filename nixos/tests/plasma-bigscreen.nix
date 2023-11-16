@@ -1,17 +1,10 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "plasma-bigscreen";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        ttuegel
-        k900
-      ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel k900 ]; };
 
-    nodes.machine =
-      { ... }:
+    nodes.machine = { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -27,13 +20,11 @@ import ./make-test-python.nix (
         users.users.alice.extraGroups = [ "uinput" ];
       };
 
-    testScript =
-      { nodes, ... }:
+    testScript = { nodes, ... }:
       let
         user = nodes.machine.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";
-      in
-      ''
+      in ''
         with subtest("Wait for login"):
             start_all()
             machine.wait_for_file("${user.home}/.Xauthority")
@@ -43,5 +34,4 @@ import ./make-test-python.nix (
             machine.wait_until_succeeds("pgrep plasmashell")
             machine.wait_for_window("Plasma Big Screen")
       '';
-  }
-)
+  })

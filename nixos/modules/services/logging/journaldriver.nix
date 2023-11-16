@@ -9,18 +9,11 @@
 # For further information please consult the documentation in the
 # upstream repository at: https://github.com/tazjin/journaldriver/
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.journaldriver;
-in
-{
+let cfg = config.services.journaldriver;
+in {
   options.services.journaldriver = {
     enable = mkOption {
       type = types.bool;

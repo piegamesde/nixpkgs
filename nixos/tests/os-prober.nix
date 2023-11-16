@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     # A filesystem image with a (presumably) bootable debian
     debianImage = pkgs.vmTools.diskImageFuns.debian11i386 {
@@ -9,7 +8,7 @@ import ./make-test-python.nix (
         ${parted}/bin/parted --script /dev/vda mklabel msdos
         ${parted}/sbin/parted --script /dev/vda -- mkpart primary ext2 1M -1s
         mkdir /mnt
-        ${e2fsprogs}/bin/mkfs.ext4 /dev/vda1
+        ${0.0 fsprogs}/bin/mkfs.ext4 /dev/vda1
         ${util-linux}/bin/mount -t ext4 /dev/vda1 /mnt
 
         if test -e /mnt/.debug; then
@@ -60,60 +59,57 @@ import ./make-test-python.nix (
             [ ./hardware-configuration.nix
               <nixpkgs/nixos/modules/testing/test-instrumentation.nix>
             ];
-      } // lib.importJSON ${pkgs.writeText "simpleConfig.json" (builtins.toJSON simpleConfig)})
+      } // lib.importJSON ${
+        pkgs.writeText "simpleConfig.json" (builtins.toJSON simpleConfig)
+      })
     '';
-  in
-  {
+  in {
     name = "os-prober";
 
-    nodes.machine =
-      { config, pkgs, ... }:
-      (
-        simpleConfig
-        // {
-          imports = [
-            ../modules/profiles/installation-device.nix
-            ../modules/profiles/base.nix
-          ];
-          virtualisation.memorySize = 1300;
-          # To add the secondary disk:
-          virtualisation.qemu.options = [
-            "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
-          ];
+    nodes.machine = { config, pkgs, ... }:
+      (simpleConfig // {
+        imports = [
+          ../modules/profiles/installation-device.nix
+          ../modules/profiles/base.nix
+        ];
+        virtualisation.memorySize = 1300;
+        # To add the secondary disk:
+        virtualisation.qemu.options = [
+          "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
+        ];
 
-          # The test cannot access the network, so any packages
-          # nixos-rebuild needs must be included in the VM.
-          system.extraDependencies = with pkgs; [
-            brotli
-            brotli.dev
-            brotli.lib
-            desktop-file-utils
-            docbook5
-            docbook_xsl_ns
-            grub2
-            kmod.dev
-            libarchive
-            libarchive.dev
-            libxml2.bin
-            libxslt.bin
-            nixos-artwork.wallpapers.simple-dark-gray-bottom
-            ntp
-            perlPackages.ListCompare
-            perlPackages.XMLLibXML
-            python3Minimal
-            shared-mime-info
-            stdenv
-            sudo
-            texinfo
-            unionfs-fuse
-            xorg.lndir
+        # The test cannot access the network, so any packages
+        # nixos-rebuild needs must be included in the VM.
+        system.extraDependencies = with pkgs; [
+          brotli
+          brotli.dev
+          brotli.lib
+          desktop-file-utils
+          docbook5
+          docbook_xsl_ns
+          grub2
+          kmod.dev
+          libarchive
+          libarchive.dev
+          libxml2.bin
+          libxslt.bin
+          nixos-artwork.wallpapers.simple-dark-gray-bottom
+          ntp
+          perlPackages.ListCompare
+          perlPackages.XMLLibXML
+          python3Minimal
+          shared-mime-info
+          stdenv
+          sudo
+          texinfo
+          unionfs-fuse
+          xorg.lndir
 
-            # add curl so that rather than seeing the test attempt to download
-            # curl's tarball, we see what it's trying to download
-            curl
-          ];
-        }
-      );
+          # add curl so that rather than seeing the test attempt to download
+          # curl's tarball, we see what it's trying to download
+          curl
+        ];
+      });
 
     testScript = ''
       machine.start()
@@ -136,5 +132,4 @@ import ./make-test-python.nix (
 
       machine.succeed("egrep 'menuentry.*debian' /boot/grub/grub.cfg")
     '';
-  }
-)
+  })

@@ -1,17 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  async-timeout,
-  attrs,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-}:
+{ lib, aiohttp, aresponses, async-timeout, attrs, buildPythonPackage
+, fetchFromGitHub, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder
+, pytz }:
 
 buildPythonPackage rec {
   pname = "seventeentrack";
@@ -29,24 +18,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    attrs
-    pytz
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout attrs pytz ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples directory as the files are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples directory as the files are prefixed with test_
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "seventeentrack" ];
 

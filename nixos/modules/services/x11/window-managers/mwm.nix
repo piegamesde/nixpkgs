@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.mwm;
-in
-{
+let cfg = config.services.xserver.windowManager.mwm;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.mwm.enable = mkEnableOption (lib.mdDoc "mwm");
+    services.xserver.windowManager.mwm.enable =
+      mkEnableOption (lib.mdDoc "mwm");
   };
 
   ###### implementation

@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  gccStdenv,
-  autoreconfHook,
-  pkg-config,
-  fetchurl,
-  fetchFromGitHub,
-  openal,
-  libtool,
-  enet,
-  SDL2,
-  curl,
-  gettext,
-  libiconv,
-}:
+{ lib, stdenv, gccStdenv, autoreconfHook, pkg-config, fetchurl, fetchFromGitHub
+, openal, libtool, enet, SDL2, curl, gettext, libiconv }:
 
 let
   pname = "7kaa";
@@ -24,7 +10,9 @@ let
     version = lib.versions.majorMinor version;
 
     src = fetchurl {
-      url = "https://www.7kfans.com/downloads/7kaa-music-${lib.versions.majorMinor version}.tar.bz2";
+      url = "https://www.7kfans.com/downloads/7kaa-music-${
+          lib.versions.majorMinor version
+        }.tar.bz2";
       sha256 = "sha256-sNdntuJXGaFPXzSpN0SoAi17wkr2YnW+5U38eIaVwcM=";
     };
 
@@ -34,10 +22,10 @@ let
     '';
 
     meta.license = lib.licenses.unfree;
-  };
-in
 
-gccStdenv.mkDerivation rec {
+  };
+
+in gccStdenv.mkDerivation rec {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -47,24 +35,15 @@ gccStdenv.mkDerivation rec {
     sha256 = "sha256-OAKaRuPP0/n8pO3wIUvGKs6n+U+EmZXUTywXYDAan1o=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    openal
-    enet
-    SDL2
-    curl
-    gettext
-    libiconv
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ openal enet SDL2 curl gettext libiconv ];
 
   preAutoreconf = ''
     autoupdate
   '';
 
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+  hardeningDisable =
+    lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
 
   postInstall = ''
     mkdir $out/share/7kaa/MUSIC
@@ -77,7 +56,8 @@ gccStdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.7kfans.com";
-    description = "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
+    description =
+      "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
     license = licenses.gpl2Only;
     platforms = platforms.x86_64 ++ platforms.aarch64;
     maintainers = with maintainers; [ _1000101 ];

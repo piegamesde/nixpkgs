@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "asitop";
@@ -19,10 +15,7 @@ python3.pkgs.buildPythonApplication rec {
   # has no tests
   doCheck = false;
 
-  propagatedBuildInputs = with python3.pkgs; [
-    dashing
-    psutil
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ dashing psutil ];
 
   meta = with lib; {
     homepage = "https://github.com/tlkh/asitop";

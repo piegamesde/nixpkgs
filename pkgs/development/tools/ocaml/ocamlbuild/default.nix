@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, findlib }:
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-ocamlbuild";
   version = "0.14.2";
@@ -18,10 +12,7 @@ stdenv.mkDerivation rec {
 
   createFindlibDestdir = true;
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-  ];
+  nativeBuildInputs = [ ocaml findlib ];
   strictDeps = true;
 
   # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
@@ -40,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A build system with builtin rules to easily build most OCaml projects";
+    description =
+      "A build system with builtin rules to easily build most OCaml projects";
     homepage = "https://github.com/ocaml/ocamlbuild/";
     license = licenses.lgpl2;
     maintainers = with maintainers; [ vbgl ];

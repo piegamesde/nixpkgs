@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pillow,
-  toml,
-  numpy,
-  python,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, pillow, toml
+, numpy, python, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "clickgen";
@@ -25,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-qDaSfIeKCbyl3C2iKz9DYQc1oNwTe5xDlGg/yYhakSw=";
   };
 
-  propagatedBuildInputs = [
-    pillow
-    toml
-    numpy
-  ];
+  propagatedBuildInputs = [ pillow toml numpy ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

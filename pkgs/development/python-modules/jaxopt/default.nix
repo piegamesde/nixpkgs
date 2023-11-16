@@ -1,19 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  pytestCheckHook,
-  absl-py,
-  cvxpy,
-  jax,
-  jaxlib,
-  matplotlib,
-  numpy,
-  optax,
-  scipy,
-  scikit-learn,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, pytestCheckHook
+, absl-py, cvxpy, jax, jaxlib, matplotlib, numpy, optax, scipy, scikit-learn }:
 
 buildPythonPackage rec {
   pname = "jaxopt";
@@ -29,21 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-WOsr/Dvguu9/qX6+LMlAKM3EANtYPtDu8Uo2157+bs0=";
   };
 
-  propagatedBuildInputs = [
-    absl-py
-    jax
-    jaxlib
-    matplotlib
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ absl-py jax jaxlib matplotlib numpy scipy ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    cvxpy
-    optax
-    scikit-learn
-  ];
+  nativeCheckInputs = [ pytestCheckHook cvxpy optax scikit-learn ];
 
   pythonImportsCheck = [
     "jaxopt"
@@ -53,15 +27,15 @@ buildPythonPackage rec {
     "jaxopt.tree_util"
   ];
 
-  disabledTests =
-    [
-      # Stack frame issue
-      "test_bisect"
-    ];
+  disabledTests = [
+    # Stack frame issue
+    "test_bisect"
+  ];
 
   meta = with lib; {
     homepage = "https://jaxopt.github.io";
-    description = "Hardware accelerated, batchable and differentiable optimizers in JAX";
+    description =
+      "Hardware accelerated, batchable and differentiable optimizers in JAX";
     license = licenses.asl20;
     maintainers = with maintainers; [ bcdarwin ];
   };

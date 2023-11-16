@@ -1,66 +1,19 @@
-{
-  lib,
-  writeScript,
-  stdenv,
-  fetchurl,
-  alsa-lib,
-  at-spi2-atk,
-  at-spi2-core,
-  atk,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  harfbuzz,
-  libdrm,
-  libgcrypt,
-  libglvnd,
-  libkrb5,
-  libpulseaudio,
-  libsecret,
-  udev,
-  libxcb,
-  libxkbcommon,
-  libxcrypt-legacy,
-  lshw,
-  mesa,
-  nspr,
-  nss,
-  pango,
-  zlib,
-  libX11,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
-  libXrandr,
-  libXrender,
-  libXtst,
-  libxshmfence,
-  xcbutil,
-  xcbutilimage,
-  xcbutilkeysyms,
-  xcbutilrenderutil,
-  xcbutilwm,
-  p7zip,
-  tbb,
-  wayland,
-  libXScrnSaver,
-}:
+{ lib, writeScript, stdenv, fetchurl, alsa-lib, at-spi2-atk, at-spi2-core, atk
+, cairo, cups, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, gtk3
+, harfbuzz, libdrm, libgcrypt, libglvnd, libkrb5, libpulseaudio, libsecret, udev
+, libxcb, libxkbcommon, libxcrypt-legacy, lshw, mesa, nspr, nss, pango, zlib
+, libX11, libXcomposite, libXcursor, libXdamage, libXext, libXfixes, libXi
+, libXrandr, libXrender, libXtst, libxshmfence, xcbutil, xcbutilimage
+, xcbutilkeysyms, xcbutilrenderutil, xcbutilwm, p7zip, tbb, wayland
+, libXScrnSaver }:
 
 stdenv.mkDerivation rec {
   pname = "webex";
   version = "43.5.0.26155";
 
   src = fetchurl {
-    url = "https://binaries.webex.com/WebexDesktop-Ubuntu-Gold/20230508235734/Webex_ubuntu.7z";
+    url =
+      "https://binaries.webex.com/WebexDesktop-Ubuntu-Gold/20230508235734/Webex_ubuntu.7z";
     sha256 = "94ddd66be3a44eeb6f854d0e02feec2e010d494ff9fcc81663f30fca37da4774";
   };
 
@@ -118,7 +71,8 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  libPath = "$out/opt/Webex/lib:$out/opt/Webex/bin:${lib.makeLibraryPath buildInputs}";
+  libPath =
+    "$out/opt/Webex/lib:$out/opt/Webex/bin:${lib.makeLibraryPath buildInputs}";
 
   unpackPhase = ''
     7z x $src
@@ -171,7 +125,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "The all-in-one app to call, meet, message, and get work done";
+    description =
+      "The all-in-one app to call, meet, message, and get work done";
     homepage = "https://webex.com/";
     downloadPage = "https://www.webex.com/downloads.html";
     license = licenses.unfree;

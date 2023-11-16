@@ -1,28 +1,15 @@
-{
-  lib,
-  stdenv,
-  runCommand,
-  fetchFromGitHub,
-  fetchYarnDeps,
-  writeText,
-  jq,
-  yarn,
-  fixup_yarn_lock,
-  nodejs,
-  jitsi-meet,
-}:
+{ lib, stdenv, runCommand, fetchFromGitHub, fetchYarnDeps, writeText, jq, yarn
+, fixup_yarn_lock, nodejs, jitsi-meet }:
 
 let
   pinData = import ./pin.nix;
   inherit (pinData.hashes) webSrcHash webYarnHash;
   noPhoningHome = {
-    disable_guests = true; # disable automatic guest account registration at matrix.org
+    disable_guests =
+      true; # disable automatic guest account registration at matrix.org
   };
-in
-stdenv.mkDerivation (
-  finalAttrs:
-  builtins.removeAttrs pinData [ "hashes" ]
-  // {
+in stdenv.mkDerivation (finalAttrs:
+  builtins.removeAttrs pinData [ "hashes" ] // {
     pname = "element-web";
 
     src = fetchFromGitHub {
@@ -37,12 +24,7 @@ stdenv.mkDerivation (
       sha256 = webYarnHash;
     };
 
-    nativeBuildInputs = [
-      yarn
-      fixup_yarn_lock
-      jq
-      nodejs
-    ];
+    nativeBuildInputs = [ yarn fixup_yarn_lock jq nodejs ];
 
     configurePhase = ''
       runHook preConfigure
@@ -90,10 +72,10 @@ stdenv.mkDerivation (
     meta = {
       description = "A glossy Matrix collaboration client for the web";
       homepage = "https://element.io/";
-      changelog = "https://github.com/vector-im/element-web/blob/v${finalAttrs.version}/CHANGELOG.md";
+      changelog =
+        "https://github.com/vector-im/element-web/blob/v${finalAttrs.version}/CHANGELOG.md";
       maintainers = lib.teams.matrix.members;
       license = lib.licenses.asl20;
       platforms = lib.platforms.all;
     };
-  }
-)
+  })

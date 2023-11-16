@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  installShellFiles,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, installShellFiles, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "trash-cli";
@@ -16,20 +11,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-TJEi7HKIrfOdb+LLRt2DN5gWdFzUeo6isb59lFLK4bQ=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    psutil
-    six
-  ];
+  propagatedBuildInputs = with python3Packages; [ psutil six ];
 
-  nativeBuildInputs = with python3Packages; [
-    installShellFiles
-    shtab
-  ];
+  nativeBuildInputs = with python3Packages; [ installShellFiles shtab ];
 
-  nativeCheckInputs = with python3Packages; [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3Packages; [ mock pytestCheckHook ];
 
   postPatch = ''
     sed -i '/typing/d' setup.cfg

@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libX11,
-  libXmu,
-  libXpm,
-  gtk2,
-  libpng,
-  libjpeg,
-  libtiff,
-  librsvg,
-  gdk-pixbuf,
-  gdk-pixbuf-xlib,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libX11, libXmu, libXpm, gtk2, libpng
+, libjpeg, libtiff, librsvg, gdk-pixbuf, gdk-pixbuf-xlib }:
 
 stdenv.mkDerivation rec {
   pname = "fbpanel";
@@ -56,9 +42,5 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
   };
 
-  passthru = {
-    updateInfo = {
-      downloadPage = "fbpanel.sourceforge.net";
-    };
-  };
+  passthru = { updateInfo = { downloadPage = "fbpanel.sourceforge.net"; }; };
 }

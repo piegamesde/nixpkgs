@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pip,
-  pretend,
-  pytestCheckHook,
-  pythonOlder,
-  virtualenv,
-}:
+{ lib, buildPythonPackage, fetchPypi, pip, pretend, pytestCheckHook, pythonOlder
+, virtualenv }:
 
 buildPythonPackage rec {
   pname = "pip-api";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ pip ];
 
-  nativeCheckInputs = [
-    pretend
-    pytestCheckHook
-    virtualenv
-  ];
+  nativeCheckInputs = [ pretend pytestCheckHook virtualenv ];
 
   pythonImportsCheck = [ "pip_api" ];
 

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  nimPackages,
-  libX11,
-  libXft,
-  libXinerama,
-}:
+{ lib, fetchFromGitHub, nimPackages, libX11, libXft, libXinerama }:
 nimPackages.buildNimPackage rec {
   pname = "nimdow";
   version = "0.7.36";
@@ -37,10 +30,8 @@ nimPackages.buildNimPackage rec {
 
   doCheck = true;
 
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "Nim based tiling window manager";
       license = [ licenses.gpl2 ];
       maintainers = [ maintainers.marcusramberg ];

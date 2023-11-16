@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bdftopcf,
-  mkfontdir,
-  mkfontscale,
-}:
+{ lib, stdenv, fetchurl, bdftopcf, mkfontdir, mkfontscale }:
 
 stdenv.mkDerivation rec {
   pname = "dosemu-fonts";

@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  numpy,
-  cython,
-  scipy,
-  scikit-learn,
-  matplotlib,
-  pytestCheckHook,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, numpy, cython, scipy, scikit-learn
+, matplotlib, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "scikit-learn-extra";
@@ -21,19 +12,9 @@ buildPythonPackage rec {
     sha256 = "sha256-dHOwo6NIuhcvIehpuJQ621JEg5O3mnXycAhpTZKaxns=";
   };
 
-  nativeBuildInputs = [
-    numpy
-    cython
-  ];
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    scikit-learn
-  ];
-  nativeCheckInputs = [
-    matplotlib
-    pytestCheckHook
-  ];
+  nativeBuildInputs = [ numpy cython ];
+  propagatedBuildInputs = [ numpy scipy scikit-learn ];
+  nativeCheckInputs = [ matplotlib pytestCheckHook ];
 
   preCheck = ''
     # Remove the package in the build dir, because Python defaults to it and
@@ -42,11 +23,7 @@ buildPythonPackage rec {
   '';
 
   pytestFlagsArray = [ "--pyargs sklearn_extra" ];
-  disabledTestPaths = [
-    "benchmarks"
-    "examples"
-    "doc"
-  ];
+  disabledTestPaths = [ "benchmarks" "examples" "doc" ];
   disabledTests = [
     "build" # needs network connection
     "test_all_estimators" # sklearn.exceptions.NotFittedError: Estimator fails to pass `check_is_fitted` even though it has been fit.

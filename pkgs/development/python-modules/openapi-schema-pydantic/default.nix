@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pydantic,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pydantic, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "openapi-schema-pydantic";
@@ -34,7 +27,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "OpenAPI (v3) specification schema as pydantic class";
     homepage = "https://github.com/kuimono/openapi-schema-pydantic";
-    changelog = "https://github.com/kuimono/openapi-schema-pydantic/releases/tag/v${version}";
+    changelog =
+      "https://github.com/kuimono/openapi-schema-pydantic/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ natsukium ];
   };

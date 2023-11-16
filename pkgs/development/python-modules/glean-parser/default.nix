@@ -1,18 +1,5 @@
-{
-  lib,
-  appdirs,
-  buildPythonPackage,
-  click,
-  diskcache,
-  fetchPypi,
-  jinja2,
-  jsonschema,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  setuptools-scm,
-  yamllint,
-}:
+{ lib, appdirs, buildPythonPackage, click, diskcache, fetchPypi, jinja2
+, jsonschema, pytestCheckHook, pythonOlder, pyyaml, setuptools-scm, yamllint }:
 
 buildPythonPackage rec {
   pname = "glean-parser";
@@ -35,15 +22,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    appdirs
-    click
-    diskcache
-    jinja2
-    jsonschema
-    pyyaml
-    yamllint
-  ];
+  propagatedBuildInputs =
+    [ appdirs click diskcache jinja2 jsonschema pyyaml yamllint ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -61,9 +41,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "glean_parser" ];
 
   meta = with lib; {
-    description = "Tools for parsing the metadata for Mozilla's glean telemetry SDK";
+    description =
+      "Tools for parsing the metadata for Mozilla's glean telemetry SDK";
     homepage = "https://github.com/mozilla/glean_parser";
-    changelog = "https://github.com/mozilla/glean_parser/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mozilla/glean_parser/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ ];
   };

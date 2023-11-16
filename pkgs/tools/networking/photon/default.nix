@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "photon";
@@ -19,11 +15,7 @@ python3Packages.buildPythonApplication rec {
   dontBuild = true;
   doCheck = false;
 
-  propagatedBuildInputs = with python3Packages; [
-    requests
-    urllib3
-    tld
-  ];
+  propagatedBuildInputs = with python3Packages; [ requests urllib3 tld ];
 
   installPhase = ''
     mkdir -p "$out"/{bin,share/photon}
@@ -35,7 +27,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "a lightning fast web crawler which extracts URLs, files, intel & endpoints from a target";
+    description =
+      "a lightning fast web crawler which extracts URLs, files, intel & endpoints from a target";
     homepage = "https://github.com/s0md3v/Photon";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];

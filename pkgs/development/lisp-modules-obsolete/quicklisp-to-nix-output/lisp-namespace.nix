@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "lisp-namespace";
   version = "20211020-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."alexandria" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/lisp-namespace/2021-10-20/lisp-namespace-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/lisp-namespace/2021-10-20/lisp-namespace-20211020-git.tgz";
     sha256 = "1vw7zxzhlxqjnas3cxk0f58hxvlvki78vbqsabj6f3n1rq6yx7b7";
   };
 

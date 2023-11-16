@@ -1,17 +1,5 @@
-{
-  lib,
-  asciidoc,
-  fetchFromGitHub,
-  gobject-introspection,
-  gtk3,
-  installShellFiles,
-  libappindicator-gtk3,
-  libnotify,
-  librsvg,
-  python3,
-  udisks2,
-  wrapGAppsHook,
-}:
+{ lib, asciidoc, fetchFromGitHub, gobject-introspection, gtk3, installShellFiles
+, libappindicator-gtk3, libnotify, librsvg, python3, udisks2, wrapGAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "udiskie";
@@ -72,7 +60,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/coldfix/udiskie";
-    changelog = "https://github.com/coldfix/udiskie/blob/${src.rev}/CHANGES.rst";
+    changelog =
+      "https://github.com/coldfix/udiskie/blob/${src.rev}/CHANGES.rst";
     description = "Removable disk automounter for udisks";
     longDescription = ''
       udiskie is a udisks2 front-end that allows to manage removeable media such
@@ -89,9 +78,6 @@ python3.pkgs.buildPythonApplication rec {
       - password caching (requires python keyutils 0.3)
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [
-      AndersonTorres
-      dotlambda
-    ];
+    maintainers = with maintainers; [ AndersonTorres dotlambda ];
   };
 }

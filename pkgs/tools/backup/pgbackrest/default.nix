@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  postgresql,
-  openssl,
-  lz4,
-  bzip2,
-  libxml2,
-  zlib,
-  zstd,
-  libyaml,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, postgresql, openssl, lz4, bzip2
+, libxml2, zlib, zstd, libyaml }:
 stdenv.mkDerivation rec {
   pname = "pgbackrest";
   version = "2.46";
@@ -24,16 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    postgresql
-    openssl
-    lz4
-    bzip2
-    libxml2
-    zlib
-    zstd
-    libyaml
-  ];
+  buildInputs = [ postgresql openssl lz4 bzip2 libxml2 zlib zstd libyaml ];
 
   postUnpack = ''
     sourceRoot+=/src

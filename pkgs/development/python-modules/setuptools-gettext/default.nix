@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "setuptools-gettext";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "setuptools_gettext" ];
 
   meta = with lib; {
-    changelog = "https://github.com/breezy-team/setuptools-gettext/releases/tag/v${version}";
+    changelog =
+      "https://github.com/breezy-team/setuptools-gettext/releases/tag/v${version}";
     description = "setuptools plugin for building mo files";
     homepage = "https://github.com/breezy-team/setuptools-gettext";
     license = licenses.gpl2Plus;

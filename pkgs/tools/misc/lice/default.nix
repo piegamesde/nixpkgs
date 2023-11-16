@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "lice";
@@ -25,4 +19,5 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ swflint ];
     platforms = platforms.unix;
   };
+
 }

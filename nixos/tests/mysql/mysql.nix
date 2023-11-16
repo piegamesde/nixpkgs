@@ -1,104 +1,74 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
-  lib ? pkgs.lib,
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../../.. { inherit system config; }, lib ? pkgs.lib }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages mysqlPackages;
+  inherit (import ./common.nix { inherit pkgs lib; })
+    mkTestName mariadbPackages mysqlPackages;
 
   makeTest = import ./../make-test-python.nix;
   # Setup common users
-  makeMySQLTest =
-    {
-      package,
-      name ? mkTestName package,
-      useSocketAuth ? true,
-      hasMroonga ? true,
-      hasRocksDB ? pkgs.stdenv.hostPlatform.is64bit,
-    }:
+  makeMySQLTest = { package, name ? mkTestName package, useSocketAuth ? true
+    , hasMroonga ? true, hasRocksDB ? pkgs.stdenv.hostPlatform.is64bit }:
     makeTest {
       inherit name;
-      meta = with lib.maintainers; {
-        maintainers = [
-          ajs124
-          das_j
-        ];
-      };
+      meta = with lib.maintainers; { maintainers = [ ajs124 das_j ]; };
 
       nodes = {
-        ${name} =
-          { pkgs, ... }:
-          {
+        ${name} = { pkgs, ... }: {
 
-            users = {
-              groups.testusers = { };
+          users = {
+            groups.testusers = { };
 
-              users.testuser = {
-                isSystemUser = true;
-                group = "testusers";
-              };
-
-              users.testuser2 = {
-                isSystemUser = true;
-                group = "testusers";
-              };
+            users.testuser = {
+              isSystemUser = true;
+              group = "testusers";
             };
 
-            services.mysql = {
-              enable = true;
-              initialDatabases = [
-                {
-                  name = "testdb3";
-                  schema = ./testdb.sql;
-                }
-              ];
-              # note that using pkgs.writeText here is generally not a good idea,
-              # as it will store the password in world-readable /nix/store ;)
-              initialScript = pkgs.writeText "mysql-init.sql" (
-                if (!useSocketAuth) then
-                  ''
-                    CREATE USER 'testuser3'@'localhost' IDENTIFIED BY 'secure';
-                    GRANT ALL PRIVILEGES ON testdb3.* TO 'testuser3'@'localhost';
-                  ''
-                else
-                  ''
-                    ALTER USER root@localhost IDENTIFIED WITH unix_socket;
-                    DELETE FROM mysql.user WHERE password = ''' AND plugin = ''';
-                    DELETE FROM mysql.user WHERE user = ''';
-                    FLUSH PRIVILEGES;
-                  ''
-              );
+            users.testuser2 = {
+              isSystemUser = true;
+              group = "testusers";
+            };
+          };
 
-              ensureDatabases = [
-                "testdb"
-                "testdb2"
-              ];
-              ensureUsers = [
-                {
-                  name = "testuser";
-                  ensurePermissions = {
-                    "testdb.*" = "ALL PRIVILEGES";
-                  };
-                }
-                {
-                  name = "testuser2";
-                  ensurePermissions = {
-                    "testdb2.*" = "ALL PRIVILEGES";
-                  };
-                }
-              ];
-              package = package;
-              settings = {
-                mysqld = {
-                  plugin-load-add =
-                    lib.optional hasMroonga "ha_mroonga.so"
-                    ++ lib.optional hasRocksDB "ha_rocksdb.so";
-                };
+          services.mysql = {
+            enable = true;
+            initialDatabases = [{
+              name = "testdb3";
+              schema = ./testdb.sql;
+            }];
+            # note that using pkgs.writeText here is generally not a good idea,
+            # as it will store the password in world-readable /nix/store ;)
+            initialScript = pkgs.writeText "mysql-init.sql"
+              (if (!useSocketAuth) then ''
+                CREATE USER 'testuser3'@'localhost' IDENTIFIED BY 'secure';
+                GRANT ALL PRIVILEGES ON testdb3.* TO 'testuser3'@'localhost';
+              '' else ''
+                ALTER USER root@localhost IDENTIFIED WITH unix_socket;
+                DELETE FROM mysql.user WHERE password = ''' AND plugin = ''';
+                DELETE FROM mysql.user WHERE user = ''';
+                FLUSH PRIVILEGES;
+              '');
+
+            ensureDatabases = [ "testdb" "testdb2" ];
+            ensureUsers = [
+              {
+                name = "testuser";
+                ensurePermissions = { "testdb.*" = "ALL PRIVILEGES"; };
+              }
+              {
+                name = "testuser2";
+                ensurePermissions = { "testdb2.*" = "ALL PRIVILEGES"; };
+              }
+            ];
+            package = package;
+            settings = {
+              mysqld = {
+                plugin-load-add = lib.optional hasMroonga "ha_mroonga.so"
+                  ++ lib.optional hasRocksDB "ha_rocksdb.so";
               };
             };
           };
+        };
 
         mariadb = { };
       };
@@ -159,16 +129,12 @@ let
         ''}
       '';
     };
-in
-lib.mapAttrs
-  (
-    _: package:
-    makeMySQLTest {
-      inherit package;
-      hasRocksDB = false;
-      hasMroonga = false;
-      useSocketAuth = false;
-    }
-  )
-  mysqlPackages
-// (lib.mapAttrs (_: package: makeMySQLTest { inherit package; }) mariadbPackages)
+in lib.mapAttrs (_: package:
+  makeMySQLTest {
+    inherit package;
+    hasRocksDB = false;
+    hasMroonga = false;
+    useSocketAuth = false;
+  }) mysqlPackages
+// (lib.mapAttrs (_: package: makeMySQLTest { inherit package; })
+  mariadbPackages)

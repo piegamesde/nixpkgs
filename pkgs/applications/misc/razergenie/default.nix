@@ -1,22 +1,11 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  meson,
-  ninja,
-  pkg-config,
-  qtbase,
-  qttools,
-  wrapQtAppsHook,
-  enableExperimental ? false,
-  includeMatrixDiscovery ? false,
-}:
+{ stdenv, fetchFromGitHub, lib, meson, ninja, pkg-config, qtbase, qttools
+, wrapQtAppsHook, enableExperimental ? false, includeMatrixDiscovery ? false }:
 
 let
   version = "0.9.0";
   pname = "razergenie";
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -26,17 +15,9 @@ stdenv.mkDerivation {
     sha256 = "17xlv26q8sdbav00wdm043449pg2424l3yaf8fvkc9rrlqkv13a4";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    qttools
-  ];
+  buildInputs = [ qtbase qttools ];
 
   mesonFlags = [
     "-Denable_experimental=${lib.boolToString enableExperimental}"
@@ -45,12 +26,10 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/z3ntu/RazerGenie";
-    description = "Qt application for configuring your Razer devices under GNU/Linux";
+    description =
+      "Qt application for configuring your Razer devices under GNU/Linux";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      f4814n
-      Mogria
-    ];
+    maintainers = with maintainers; [ f4814n Mogria ];
     platforms = platforms.linux;
   };
 }

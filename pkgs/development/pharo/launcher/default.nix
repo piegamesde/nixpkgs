@@ -1,18 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bash,
-  pharo,
-  unzip,
-  makeDesktopItem,
-}:
+{ lib, stdenv, fetchurl, bash, pharo, unzip, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   version = "2017.02.28";
   pname = "pharo-launcher";
   src = fetchurl {
-    url = "http://files.pharo.org/platform/launcher/PharoLauncher-user-stable-${version}.zip";
+    url =
+      "http://files.pharo.org/platform/launcher/PharoLauncher-user-stable-${version}.zip";
     sha256 = "1hfwjyx0c47s6ivc1zr2sf5mk1xw2zspsv0ns8mj3kcaglzqwiq0";
   };
 
@@ -32,10 +25,7 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [
-    bash
-    pharo
-  ];
+  buildInputs = [ bash pharo ];
 
   installPhase = ''
     mkdir -p $prefix/share/pharo-launcher

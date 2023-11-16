@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  intltool,
-  file,
-  desktop-file-utils,
-  enchant,
-  gtk3,
-  gtkmm3,
-  gst_all_1,
-  hicolor-icon-theme,
-  libsigcxx,
-  libxmlxx,
-  xdg-utils,
-  isocodes,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, intltool, file
+, desktop-file-utils, enchant, gtk3, gtkmm3, gst_all_1, hicolor-icon-theme
+, libsigcxx, libxmlxx, xdg-utils, isocodes, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "subtitleeditor";
@@ -30,13 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1Q1nd3GJ6iDGQv4SM2S1ehVW6kPdbqTn8KTtTb0obiQ=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    intltool
-    file
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config intltool file wrapGAppsHook ];
 
   buildInputs = [
     desktop-file-utils
@@ -59,7 +36,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  preConfigure = "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
+  preConfigure =
+    "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
 
   configureFlags = [ "--disable-debug" ];
 

@@ -2,91 +2,62 @@
 # If you just want a subset of plug-ins, you can specify them explicitly:
 # `gimp-with-plugins.override { plugins = with gimpPlugins; [ gap ]; }`.
 
-{
-  config,
-  lib,
-  pkgs,
-}:
+{ config, lib, pkgs }:
 
 let
   inherit (pkgs)
-    stdenv
-    fetchurl
-    fetchpatch
-    pkg-config
-    intltool
-    glib
-    fetchFromGitHub
-  ;
-in
+    stdenv fetchurl fetchpatch pkg-config intltool glib fetchFromGitHub;
 
-lib.makeScope pkgs.newScope (
-  self:
+in lib.makeScope pkgs.newScope (self:
 
   let
     # Use GIMP from the scope.
     inherit (self) gimp;
 
-    pluginDerivation =
-      attrs:
-      let
-        name = attrs.name or "${attrs.pname}-${attrs.version}";
-      in
-      stdenv.mkDerivation (
-        {
-          prePhases = "extraLib";
-          extraLib = ''
-            installScripts(){
-              mkdir -p $out/${gimp.targetScriptDir}/${name};
-              for p in "$@"; do cp "$p" -r $out/${gimp.targetScriptDir}/${name}; done
-            }
-            installPlugin() {
-              # The base name of the first argument is the plug-in name and the main executable.
-              # GIMP only allows a single plug-in per directory:
-              # https://gitlab.gnome.org/GNOME/gimp/-/commit/efae55a73e98389e38fa0e59ebebcda0abe3ee96
-              pluginDir=$out/${gimp.targetPluginDir}/$(basename "$1")
-              install -Dt "$pluginDir" "$@"
-            }
-          '';
-        }
-        // attrs
-        // {
-          name = "${gimp.pname}-plugin-${name}";
-          buildInputs = [
-            gimp
-            gimp.gtk
-            glib
-          ] ++ (attrs.buildInputs or [ ]);
+    pluginDerivation = attrs:
+      let name = attrs.name or "${attrs.pname}-${attrs.version}";
+      in stdenv.mkDerivation ({
+        prePhases = "extraLib";
+        extraLib = ''
+          installScripts(){
+            mkdir -p $out/${gimp.targetScriptDir}/${name};
+            for p in "$@"; do cp "$p" -r $out/${gimp.targetScriptDir}/${name}; done
+          }
+          installPlugin() {
+            # The base name of the first argument is the plug-in name and the main executable.
+            # GIMP only allows a single plug-in per directory:
+            # https://gitlab.gnome.org/GNOME/gimp/-/commit/efae55a73e98389e38fa0e59ebebcda0abe3ee96
+            pluginDir=$out/${gimp.targetPluginDir}/$(basename "$1")
+            install -Dt "$pluginDir" "$@"
+          }
+        '';
+      } // attrs // {
+        name = "${gimp.pname}-plugin-${name}";
+        buildInputs = [ gimp gimp.gtk glib ] ++ (attrs.buildInputs or [ ]);
 
-          nativeBuildInputs = [
-            pkg-config
-            intltool
-          ] ++ (attrs.nativeBuildInputs or [ ]);
+        nativeBuildInputs = [ pkg-config intltool ]
+          ++ (attrs.nativeBuildInputs or [ ]);
 
-          # Override installation paths.
-          env = {
-            PKG_CONFIG_GIMP_2_0_GIMPLIBDIR = "${placeholder "out"}/${gimp.targetLibDir}";
-            PKG_CONFIG_GIMP_2_0_GIMPDATADIR = "${placeholder "out"}/${gimp.targetDataDir}";
-          } // attrs.env or { };
-        }
-      );
+        # Override installation paths.
+        env = {
+          PKG_CONFIG_GIMP_2_0_GIMPLIBDIR =
+            "${placeholder "out"}/${gimp.targetLibDir}";
+          PKG_CONFIG_GIMP_2_0_GIMPDATADIR =
+            "${placeholder "out"}/${gimp.targetDataDir}";
+        } // attrs.env or { };
+      });
 
-    scriptDerivation =
-      { src, ... }@attrs:
-      pluginDerivation (
-        {
-          prePhases = "extraLib";
-          dontUnpack = true;
-          installPhase = ''
-            runHook preInstall
-            installScripts ${src}
-            runHook postInstall
-          '';
-        }
-        // attrs
-      );
-  in
-  {
+    scriptDerivation = { src, ... }@attrs:
+      pluginDerivation ({
+        prePhases = "extraLib";
+        dontUnpack = true;
+        installPhase = ''
+          runHook preInstall
+          installScripts ${src}
+          runHook postInstall
+        '';
+      } // attrs);
+  in {
     # Allow overriding GIMP package in the scope.
     inherit (pkgs) gimp;
 
@@ -104,19 +75,21 @@ lib.makeScope pkgs.newScope (
         hash = "sha256-IJ3+/9UwxJTRo0hUdzlOndOHwso1wGv7Q4UuhbsFkco=";
       };
 
-      patches =
-        [
-          # Allow overriding installation path
-          # https://github.com/alessandrofrancesconi/gimp-plugin-bimp/pull/311
-          (fetchpatch {
-            url = "https://github.com/alessandrofrancesconi/gimp-plugin-bimp/commit/098edb5f70a151a3f377478fd6e0d08ed56b8ef7.patch";
-            sha256 = "2Afx9fmdn6ztbsll2f2j7mfffMWYWyr4BuBy9ySV6vM=";
-          })
-        ];
+      patches = [
+        # Allow overriding installation path
+        # https://github.com/alessandrofrancesconi/gimp-plugin-bimp/pull/311
+        (fetchpatch {
+          url =
+            "https://github.com/alessandrofrancesconi/gimp-plugin-bimp/commit/098edb5f70a151a3f377478fd6e0d08ed56b8ef7.patch";
+          sha256 = "2Afx9fmdn6ztbsll2f2j7mfffMWYWyr4BuBy9ySV6vM=";
+        })
+      ];
 
       nativeBuildInputs = with pkgs; [ which ];
 
-      installFlags = [ "SYSTEM_INSTALL_DIR=${placeholder "out"}/${gimp.targetPluginDir}/bimp" ];
+      installFlags = [
+        "SYSTEM_INSTALL_DIR=${placeholder "out"}/${gimp.targetPluginDir}/bimp"
+      ];
 
       installTargets = [ "install-admin" ];
 
@@ -136,25 +109,21 @@ lib.makeScope pkgs.newScope (
       version = "2.6.0";
 
       src = fetchurl {
-        url = "https://ftp.gimp.org/pub/gimp/plug-ins/v2.6/gap/gimp-gap-2.6.0.tar.bz2";
+        url =
+          "https://ftp.gimp.org/pub/gimp/plug-ins/v2.6/gap/gimp-gap-2.6.0.tar.bz2";
         sha256 = "1jic7ixcmsn4kx2cn32nc5087rk6g8xsrz022xy11yfmgvhzb0ql";
       };
 
       hardeningDisable = [ "format" ];
 
-      env = {
-        NIX_LDFLAGS = "-lm";
-      };
+      env = { NIX_LDFLAGS = "-lm"; };
 
       meta = with lib; {
         description = "The GIMP Animation Package";
         homepage = "https://www.gimp.org";
         # The main code is given in GPLv3, but it has ffmpeg in it, and I think ffmpeg license
         # falls inside "free".
-        license = with licenses; [
-          gpl3
-          free
-        ];
+        license = with licenses; [ gpl3 free ];
       };
     };
 
@@ -190,7 +159,8 @@ lib.makeScope pkgs.newScope (
       version = "0.4.3";
 
       src = fetchurl {
-        url = "https://www.lprp.fr/files/old-web/soft/gimp/${pname}-${version}.tar.gz";
+        url =
+          "https://www.lprp.fr/files/old-web/soft/gimp/${pname}-${version}.tar.gz";
         sha256 = "0mf7f8vaqs2madx832x3kcxw3hv3w3wampvzvaps1mkf2kvrjbsn";
       };
 
@@ -213,7 +183,8 @@ lib.makeScope pkgs.newScope (
 
       meta = with lib; {
         description = "GIMP plug-in to do the fourier transform";
-        homepage = "https://people.via.ecp.fr/~remi/soft/gimp/gimp_plugin_en.php3#fourier";
+        homepage =
+          "https://people.via.ecp.fr/~remi/soft/gimp/gimp_plugin_en.php3#fourier";
         license = with licenses; [ gpl3Plus ];
       };
     };
@@ -240,9 +211,7 @@ lib.makeScope pkgs.newScope (
         sha256 = "1jwc8bhhm21xhrgw56nzbma6fwg59gc8anlmyns7jdiw83y0zx3j";
       };
 
-      meta = {
-        broken = !gimp.python2Support;
-      };
+      meta = { broken = !gimp.python2Support; };
     };
 
     texturize = pluginDerivation {
@@ -254,11 +223,7 @@ lib.makeScope pkgs.newScope (
         rev = "9ceff0d411cda018108e5477320669b8d00d811e";
         sha256 = "haYS0K3oAPlHtHB8phOCX5/gtWq9uiVQhG5ZhAFX0t0=";
       };
-      nativeBuildInputs = with pkgs; [
-        meson
-        ninja
-        gettext
-      ];
+      nativeBuildInputs = with pkgs; [ meson ninja gettext ];
     };
 
     waveletSharpen = pluginDerivation {
@@ -269,7 +234,8 @@ lib.makeScope pkgs.newScope (
       version = "0.1.2";
 
       src = fetchurl {
-        url = "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/wavelet-sharpen-0.1.2.tar.gz";
+        url =
+          "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/wavelet-sharpen-0.1.2.tar.gz";
         sha256 = "0vql1k67i21g5ivaa1jh56rg427m0icrkpryrhg75nscpirfxxqw";
       };
 
@@ -281,7 +247,8 @@ lib.makeScope pkgs.newScope (
         NIX_LDFLAGS = "-lm";
       };
 
-      installPhase = "installPlugin src/wavelet-sharpen"; # TODO translations are not copied .. How to do this on nix?
+      installPhase =
+        "installPlugin src/wavelet-sharpen"; # TODO translations are not copied .. How to do this on nix?
     };
 
     lqrPlugin = pluginDerivation rec {
@@ -297,16 +264,16 @@ lib.makeScope pkgs.newScope (
         rev = "v${version}";
         sha256 = "81ajdZ2zQi/THxnBlSeT36tVTEzrS1YqLGpHMhFTKAo=";
       };
-      patches =
-        [
-          # Pull upstream fix for -fno-common toolchain support:
-          #   https://github.com/carlobaldassi/gimp-lqr-plugin/pull/6
-          (fetchpatch {
-            name = "fno-common.patch";
-            url = "https://github.com/carlobaldassi/gimp-lqr-plugin/commit/ae3464a82e1395fc577cc94999bdc7c4a7bb35f1.patch";
-            sha256 = "EdjZWM6U1bhUmsOnLA8iJ4SFKuAXHIfNPzxZqel+JrY=";
-          })
-        ];
+      patches = [
+        # Pull upstream fix for -fno-common toolchain support:
+        #   https://github.com/carlobaldassi/gimp-lqr-plugin/pull/6
+        (fetchpatch {
+          name = "fno-common.patch";
+          url =
+            "https://github.com/carlobaldassi/gimp-lqr-plugin/commit/ae3464a82e1395fc577cc94999bdc7c4a7bb35f1.patch";
+          sha256 = "EdjZWM6U1bhUmsOnLA8iJ4SFKuAXHIfNPzxZqel+JrY=";
+        })
+      ];
     };
 
     gmic = pkgs.gmic-qt.override { variant = "gimp"; };
@@ -322,15 +289,13 @@ lib.makeScope pkgs.newScope (
         sha256 = "1jj3n7spkjc63aipwdqsvq9gi07w13bb1v8iqzvxwzld2kxa3c8w";
       };
 
-      buildInputs = with pkgs; [
-        lensfun
-        gexiv2
-      ];
+      buildInputs = with pkgs; [ lensfun gexiv2 ];
 
       installPhase = "\n      installPlugin gimp-lensfun\n    ";
 
       meta = {
-        description = "GIMP plugin to correct lens distortion using the lensfun library and database";
+        description =
+          "GIMP plugin to correct lens distortion using the lensfun library and database";
 
         homepage = "http://lensfun.sebastiankraft.net/";
 
@@ -355,9 +320,10 @@ lib.makeScope pkgs.newScope (
     lightning = scriptDerivation {
       name = "Lightning";
       src = fetchurl {
-        url = "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/Lightning.scm";
-        sha256 = "c14a8f4f709695ede3f77348728a25b3f3ded420da60f3f8de3944b7eae98a49";
+        url =
+          "https://github.com/pixlsus/registry.gimp.org_static/raw/master/registry.gimp.org/files/Lightning.scm";
+        sha256 =
+          "c14a8f4f709695ede3f77348728a25b3f3ded420da60f3f8de3944b7eae98a49";
       };
     };
-  }
-)
+  })

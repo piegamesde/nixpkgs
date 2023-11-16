@@ -1,46 +1,9 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  fetchpatch,
-  which,
-  qtbase,
-  qtwebkit,
-  qtscript,
-  libpulseaudio,
-  fftwSinglePrec,
-  lame,
-  zlib,
-  libGLU,
-  libGL,
-  alsa-lib,
-  freetype,
-  perl,
-  pkg-config,
-  libsamplerate,
-  libbluray,
-  lzo,
-  libX11,
-  libXv,
-  libXrandr,
-  libXvMC,
-  libXinerama,
-  libXxf86vm,
-  libXmu,
-  yasm,
-  libuuid,
-  taglib,
-  libtool,
-  autoconf,
-  automake,
-  file,
-  exiv2,
-  linuxHeaders,
-  soundtouch,
-  libzip,
-  libhdhomerun,
-  withWebKit ? false,
-}:
+{ lib, mkDerivation, fetchFromGitHub, fetchpatch, which, qtbase, qtwebkit
+, qtscript, libpulseaudio, fftwSinglePrec, lame, zlib, libGLU, libGL, alsa-lib
+, freetype, perl, pkg-config, libsamplerate, libbluray, lzo, libX11, libXv
+, libXrandr, libXvMC, libXinerama, libXxf86vm, libXmu, yasm, libuuid, taglib
+, libtool, autoconf, automake, file, exiv2, linuxHeaders, soundtouch, libzip
+, libhdhomerun, withWebKit ? false }:
 
 mkDerivation rec {
   pname = "mythtv";
@@ -60,7 +23,8 @@ mkDerivation rec {
     # Fix QMake variable substitution syntax - MythTV/mythtv#550
     (fetchpatch {
       name = "fix-qmake-var-syntax.patch";
-      url = "https://github.com/MythTV/mythtv/commit/a8da7f7e7ec069164adbef65a8104adc9bb52e36.patch";
+      url =
+        "https://github.com/MythTV/mythtv/commit/a8da7f7e7ec069164adbef65a8104adc9bb52e36.patch";
       stripLen = 1;
       hash = "sha256-JfRME00YNNjl6SKs1HBa0wBa/lR/Rt3zbQtWhsC36JM=";
     })
@@ -98,15 +62,7 @@ mkDerivation rec {
     libzip
     libhdhomerun
   ] ++ lib.optional withWebKit qtwebkit;
-  nativeBuildInputs = [
-    pkg-config
-    which
-    yasm
-    libtool
-    autoconf
-    automake
-    file
-  ];
+  nativeBuildInputs = [ pkg-config which yasm libtool autoconf automake file ];
 
   configureFlags = [ "--dvb-path=${linuxHeaders}/include" ];
 

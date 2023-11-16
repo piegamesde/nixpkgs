@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.safeeyes;
-in
 
-{
+in {
 
   ###### interface
 
@@ -21,7 +15,9 @@ in
     services.safeeyes = {
 
       enable = mkEnableOption (lib.mdDoc "the safeeyes OSGi service");
+
     };
+
   };
 
   ###### implementation
@@ -46,5 +42,6 @@ in
         RestartSec = 3;
       };
     };
+
   };
 }

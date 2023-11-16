@@ -1,11 +1,6 @@
-{
-  pkgs ? (import ./.. { }),
-  nixpkgs ? { },
-}:
-let
-  doc-support = import ./doc-support { inherit pkgs nixpkgs; };
-in
-pkgs.stdenv.mkDerivation {
+{ pkgs ? (import ./.. { }), nixpkgs ? { } }:
+let doc-support = import ./doc-support { inherit pkgs nixpkgs; };
+in pkgs.stdenv.mkDerivation {
   name = "nixpkgs-manual";
 
   nativeBuildInputs = with pkgs; [
@@ -69,5 +64,6 @@ pkgs.stdenv.mkDerivation {
 
   # Environment variables
   PANDOC_LUA_FILTERS_DIR = "${pkgs.pandoc-lua-filters}/share/pandoc/filters";
-  PANDOC_LINK_MANPAGES_FILTER = import build-aux/pandoc-filters/link-manpages.nix { inherit pkgs; };
+  PANDOC_LINK_MANPAGES_FILTER =
+    import build-aux/pandoc-filters/link-manpages.nix { inherit pkgs; };
 }

@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gettext,
-  gnome,
-  libgtop,
-  gtk4,
-  libadwaita,
-  pcre2,
-  vte-gtk4,
-  desktop-file-utils,
-  meson,
-  ninja,
-  pkg-config,
-  wrapGAppsHook4,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, gettext, gnome, libgtop, gtk4, libadwaita, pcre2
+, vte-gtk4, desktop-file-utils, meson, ninja, pkg-config, wrapGAppsHook4
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-console";
@@ -28,22 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "0cGv1eyNK9+Eo9sCmwSiQy7Me80kLCp0X+mYakKJiEQ=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    gettext
-    meson
-    ninja
-    pkg-config
-    wrapGAppsHook4
-  ];
+  nativeBuildInputs =
+    [ desktop-file-utils gettext meson ninja pkg-config wrapGAppsHook4 ];
 
-  buildInputs = [
-    libgtop
-    gtk4
-    libadwaita
-    pcre2
-    vte-gtk4
-  ];
+  buildInputs = [ libgtop gtk4 libadwaita pcre2 vte-gtk4 ];
 
   passthru = {
     updateScript = gnome.updateScript { packageName = "gnome-console"; };
@@ -52,7 +25,8 @@ stdenv.mkDerivation rec {
   passthru.tests.test = nixosTests.terminal-emulators.kgx;
 
   meta = with lib; {
-    description = "Simple user-friendly terminal emulator for the GNOME desktop";
+    description =
+      "Simple user-friendly terminal emulator for the GNOME desktop";
     homepage = "https://gitlab.gnome.org/GNOME/console";
     license = licenses.gpl3Plus;
     maintainers = teams.gnome.members ++ (with maintainers; [ zhaofengli ]);

@@ -1,42 +1,15 @@
-{
-  stdenv,
-  lib,
-  autoreconfHook,
-  fetchurl,
-  gettext,
-  glib,
-  gnome-bluetooth,
-  gnome-desktop,
-  gnome-panel,
-  gnome-session,
-  gnome,
-  gsettings-desktop-schemas,
-  gtk3,
-  ibus,
-  libcanberra-gtk3,
-  libpulseaudio,
-  libxkbfile,
-  libxml2,
-  pkg-config,
-  polkit,
-  gdm,
-  systemd,
-  upower,
-  pam,
-  wrapGAppsHook,
-  writeTextFile,
-  xkeyboard_config,
-  xorg,
-  runCommand,
-  buildEnv,
-}:
+{ stdenv, lib, autoreconfHook, fetchurl, gettext, glib, gnome-bluetooth
+, gnome-desktop, gnome-panel, gnome-session, gnome, gsettings-desktop-schemas
+, gtk3, ibus, libcanberra-gtk3, libpulseaudio, libxkbfile, libxml2, pkg-config
+, polkit, gdm, systemd, upower, pam, wrapGAppsHook, writeTextFile
+, xkeyboard_config, xorg, runCommand, buildEnv }:
 let
   pname = "gnome-flashback";
   version = "3.46.0";
 
   # From data/sessions/Makefile.am
-  requiredComponentsCommon =
-    enableGnomePanel: [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
+  requiredComponentsCommon = enableGnomePanel:
+    [ "gnome-flashback" ] ++ lib.optional enableGnomePanel "gnome-panel";
   requiredComponentsGsd = [
     "org.gnome.SettingsDaemon.A11ySettings"
     "org.gnome.SettingsDaemon.Color"
@@ -55,19 +28,19 @@ let
     "org.gnome.SettingsDaemon.Wacom"
     "org.gnome.SettingsDaemon.XSettings"
   ];
-  requiredComponents =
-    wmName: enableGnomePanel:
+  requiredComponents = wmName: enableGnomePanel:
     "RequiredComponents=${
-      lib.concatStringsSep ";" (
-        [ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd
-      )
+      lib.concatStringsSep ";" ([ wmName ]
+        ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd)
     };";
 
   gnome-flashback = stdenv.mkDerivation rec {
     name = "${pname}-${version}";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${name}.tar.xz";
+      url = "mirror://gnome/sources/${pname}/${
+          lib.versions.majorMinor version
+        }/${name}.tar.xz";
       sha256 = "sha256-eo1cAzEOTfrdGKZeAKN3QQMq/upUGN1oBKl1xLCYAEU=";
     };
 
@@ -93,13 +66,8 @@ let
       rm $out/libexec/gnome-flashback-metacity
     '';
 
-    nativeBuildInputs = [
-      autoreconfHook
-      gettext
-      libxml2
-      pkg-config
-      wrapGAppsHook
-    ];
+    nativeBuildInputs =
+      [ autoreconfHook gettext libxml2 pkg-config wrapGAppsHook ];
 
     buildInputs = [
       glib
@@ -125,8 +93,10 @@ let
 
     enableParallelBuilding = true;
 
-    PKG_CONFIG_LIBGNOME_PANEL_LAYOUTSDIR = "${placeholder "out"}/share/gnome-panel/layouts";
-    PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR = "${placeholder "out"}/lib/gnome-panel/modules";
+    PKG_CONFIG_LIBGNOME_PANEL_LAYOUTSDIR =
+      "${placeholder "out"}/share/gnome-panel/layouts";
+    PKG_CONFIG_LIBGNOME_PANEL_MODULESDIR =
+      "${placeholder "out"}/lib/gnome-panel/modules";
 
     passthru = {
       updateScript = gnome.updateScript {
@@ -136,13 +106,7 @@ let
       };
 
       mkSessionForWm =
-        {
-          wmName,
-          wmLabel,
-          wmCommand,
-          enableGnomePanel,
-          panelModulePackages,
-        }:
+        { wmName, wmLabel, wmCommand, enableGnomePanel, panelModulePackages }:
         let
           wmApplication = writeTextFile {
             name = "gnome-flashback-${wmName}-wm";
@@ -163,7 +127,8 @@ let
 
           gnomeSession = writeTextFile {
             name = "gnome-flashback-${wmName}-gnome-session";
-            destination = "/share/gnome-session/sessions/gnome-flashback-${wmName}.session";
+            destination =
+              "/share/gnome-session/sessions/gnome-flashback-${wmName}.session";
             text = ''
               [GNOME Session]
               Name=GNOME Flashback (${wmLabel})
@@ -175,22 +140,15 @@ let
           panelModulesEnv = buildEnv {
             name = "gnome-panel-modules-env";
             # We always want to find the built-in panel applets.
-            paths = [
-              gnome-panel
-              gnome-flashback
-            ] ++ panelModulePackages;
+            paths = [ gnome-panel gnome-flashback ] ++ panelModulePackages;
             pathsToLink = [ "/lib/gnome-panel/modules" ];
           };
 
           executable = stdenv.mkDerivation {
             name = "gnome-flashback-${wmName}";
-            nativeBuildInputs = [
-              glib
-              wrapGAppsHook
-            ];
-            buildInputs = [
-              gnome-flashback
-            ] ++ lib.optionals enableGnomePanel ([ gnome-panel ] ++ panelModulePackages);
+            nativeBuildInputs = [ glib wrapGAppsHook ];
+            buildInputs = [ gnome-flashback ] ++ lib.optionals enableGnomePanel
+              ([ gnome-panel ] ++ panelModulePackages);
 
             # We want to use the wrapGAppsHook mechanism to wrap gnome-session
             # with the environment that gnome-flashback and gnome-panel need to
@@ -210,24 +168,19 @@ let
                 --add-flags "--session=gnome-flashback-${wmName} --builtin" \
                 --set-default XDG_CURRENT_DESKTOP 'GNOME-Flashback:GNOME' \
                 --prefix XDG_DATA_DIRS : '${
-                  lib.makeSearchPath "share" (
-                    [
-                      wmApplication
-                      gnomeSession
-                      gnome-flashback
-                    ]
-                    ++ lib.optional enableGnomePanel gnome-panel
-                  )
+                  lib.makeSearchPath "share"
+                  ([ wmApplication gnomeSession gnome-flashback ]
+                    ++ lib.optional enableGnomePanel gnome-panel)
                 }' \
                 "''${gappsWrapperArgs[@]}" \
                 ${
                   lib.optionalString enableGnomePanel
-                    "--set NIX_GNOME_PANEL_MODULESDIR '${panelModulesEnv}/lib/gnome-panel/modules'"
+                  "--set NIX_GNOME_PANEL_MODULESDIR '${panelModulesEnv}/lib/gnome-panel/modules'"
                 }
             '';
           };
-        in
-        writeTextFile {
+
+        in writeTextFile {
           name = "gnome-flashback-${wmName}-xsession";
           destination = "/share/xsessions/gnome-flashback-${wmName}.desktop";
           text = ''
@@ -239,18 +192,11 @@ let
             Type=Application
             DesktopNames=GNOME-Flashback;GNOME;
           '';
-        }
-        // {
+        } // {
           providedSessions = [ "gnome-flashback-${wmName}" ];
         };
 
-      mkSystemdTargetForWm =
-        {
-          wmName,
-          wmLabel,
-          wmCommand,
-          enableGnomePanel,
-        }:
+      mkSystemdTargetForWm = { wmName, wmLabel, wmCommand, enableGnomePanel }:
         runCommand "gnome-flashback-${wmName}.target" { } ''
           mkdir -p $out/lib/systemd/user
           cp -r "${gnome-flashback}/lib/systemd/user/gnome-session@gnome-flashback-metacity.target.d" \
@@ -266,5 +212,4 @@ let
       platforms = platforms.linux;
     };
   };
-in
-gnome-flashback
+in gnome-flashback

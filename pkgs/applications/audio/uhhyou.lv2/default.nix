@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  python3,
-  fftw,
-  libGL,
-  libX11,
-  libjack2,
-  liblo,
-  lv2,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, python3, fftw, libGL, libX11
+, libjack2, liblo, lv2 }:
 
 stdenv.mkDerivation rec {
   # this is what upstream calls the package, see:
@@ -26,19 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "1a23av35cw26zgq93yzmmw35084hsj29cb7sb04j2silv5qisila";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config python3 ];
 
-  buildInputs = [
-    fftw
-    libGL
-    libX11
-    libjack2
-    liblo
-    lv2
-  ];
+  buildInputs = [ fftw libGL libX11 libjack2 liblo lv2 ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

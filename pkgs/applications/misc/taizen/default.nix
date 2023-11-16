@@ -1,13 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  ncurses,
-  openssl,
-  stdenv,
-  darwin,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, ncurses, openssl, stdenv
+, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "taizen";
@@ -20,16 +12,12 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-cMykIh5EDGYZMJ5EPTU6G8YDXxfUzzfRfEICWmDUdrA=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    ncurses
-    openssl
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [ ncurses openssl ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   # update Cargo.lock to work with openssl 3
   postPatch = ''

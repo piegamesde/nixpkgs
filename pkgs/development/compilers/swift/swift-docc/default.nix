@@ -1,20 +1,9 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  swift,
-  swiftpm,
-  swiftpm2nix,
-  Foundation,
-  XCTest,
-  CryptoKit,
-  LocalAuthentication,
-}:
+{ lib, stdenv, callPackage, swift, swiftpm, swiftpm2nix, Foundation, XCTest
+, CryptoKit, LocalAuthentication }:
 let
   sources = callPackage ../sources.nix { };
   generated = swiftpm2nix.helpers ./generated;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "swift-docc";
 
   inherit (sources) version;
@@ -23,19 +12,9 @@ stdenv.mkDerivation {
   # repository is not tagged.
   renderArtifact = sources.swift-docc-render-artifact;
 
-  nativeBuildInputs = [
-    swift
-    swiftpm
-  ];
-  buildInputs =
-    [
-      Foundation
-      XCTest
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      CryptoKit
-      LocalAuthentication
-    ];
+  nativeBuildInputs = [ swift swiftpm ];
+  buildInputs = [ Foundation XCTest ]
+    ++ lib.optionals stdenv.isDarwin [ CryptoKit LocalAuthentication ];
 
   configurePhase = generated.configure;
 

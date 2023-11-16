@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  ginkgo,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, ginkgo }:
 
 buildGoModule rec {
   pname = "ginkgo";
@@ -20,10 +14,7 @@ buildGoModule rec {
 
   # integration tests expect more file changes
   # types tests are missing CodeLocation
-  excludedPackages = [
-    "integration"
-    "types"
-  ];
+  excludedPackages = [ "integration" "types" ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -48,9 +39,6 @@ buildGoModule rec {
       integration tests, acceptance test, performance tests, etc.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [
-      saschagrunert
-      jk
-    ];
+    maintainers = with maintainers; [ saschagrunert jk ];
   };
 }

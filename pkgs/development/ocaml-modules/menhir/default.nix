@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  buildDunePackage,
-  menhirLib,
-  menhirSdk,
-}:
+{ lib, fetchFromGitLab, buildDunePackage, menhirLib, menhirSdk }:
 
 buildDunePackage rec {
   pname = "menhir";
@@ -13,10 +7,7 @@ buildDunePackage rec {
 
   inherit (menhirLib) version src;
 
-  buildInputs = [
-    menhirLib
-    menhirSdk
-  ];
+  buildInputs = [ menhirLib menhirSdk ];
 
   meta = menhirSdk.meta // {
     description = "A LR(1) parser generator for OCaml";

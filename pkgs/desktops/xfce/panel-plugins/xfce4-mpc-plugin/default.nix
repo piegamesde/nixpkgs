@@ -1,22 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  libxfce4util,
-  xfce4-panel,
-  libxfce4ui,
-  glib,
-  gtk3,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, libxfce4util, xfce4-panel
+, libxfce4ui, glib, gtk3, gitUpdater }:
 
-let
-  category = "panel-plugins";
-in
+let category = "panel-plugins";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "xfce4-mpc-plugin";
   version = "0.5.3";
 
@@ -27,18 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BGf7TRrNmC08PguJy0EBmUaFBST/Ge0PZYqNVse3Zk0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
 
-  buildInputs = [
-    libxfce4util
-    libxfce4ui
-    xfce4-panel
-    glib
-    gtk3
-  ];
+  buildInputs = [ libxfce4util libxfce4ui xfce4-panel glib gtk3 ];
 
   passthru.updateScript = gitUpdater {
     url = "https://gitlab.xfce.org/panel-plugins/${pname}";

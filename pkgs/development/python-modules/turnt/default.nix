@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  click,
-  tomli,
-}:
+{ lib, buildPythonPackage, fetchPypi, click, tomli }:
 
 buildPythonPackage rec {
   pname = "turnt";
@@ -16,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-pwUNmUvyUYxke39orGkziL3DVRWoJY5AQLz/pTyf3M8=";
   };
 
-  propagatedBuildInputs = [
-    click
-    tomli
-  ];
+  propagatedBuildInputs = [ click tomli ];
 
   doCheck = true;
 

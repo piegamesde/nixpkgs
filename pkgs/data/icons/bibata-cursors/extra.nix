@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  fetchurl,
-  clickgen,
-  unzip,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, fetchurl, clickgen, unzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-extra-cursors";
@@ -19,7 +12,8 @@ stdenvNoCC.mkDerivation rec {
   };
 
   bitmaps = fetchurl {
-    url = "https://github.com/ful1e5/Bibata_Extra_Cursor/releases/download/v${version}/bitmaps.zip";
+    url =
+      "https://github.com/ful1e5/Bibata_Extra_Cursor/releases/download/v${version}/bitmaps.zip";
     sha256 = "0vf14ln53wigaq3dkqdk5avarqplsq751nlv72da04ms6gqjfhdl";
   };
 
@@ -50,10 +44,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ful1e5/Bibata_Extra_Cursor";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      dtzWill
-      AdsonCicilioti
-    ];
+    maintainers = with maintainers; [ dtzWill AdsonCicilioti ];
     # unmaintained as of Nov 9, 2022. unable to be build with clickgen version 2.x
     broken = true;
   };

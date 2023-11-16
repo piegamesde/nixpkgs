@@ -1,19 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  expat,
-  libpng,
-  udunits,
-  netcdf,
-  xorg,
-}:
+{ lib, stdenv, fetchurl, expat, libpng, udunits, netcdf, xorg }:
 
 let
   pname = "ncview";
   version = "2.1.8";
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   name = "${pname}-${version}";
 
   src = fetchurl {

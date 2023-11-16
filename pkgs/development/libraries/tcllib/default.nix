@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchurl,
-  tcl,
-}:
+{ lib, fetchurl, tcl }:
 
 tcl.mkTclDerivation rec {
   pname = "tcllib";

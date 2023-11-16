@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  dune-configurator,
-  ctypes,
-  lilv,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, dune-configurator, ctypes, lilv }:
 
 buildDunePackage rec {
   pname = "lilv";
@@ -21,10 +14,7 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03.0";
 
   buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [
-    ctypes
-    lilv
-  ];
+  propagatedBuildInputs = [ ctypes lilv ];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-lilv";

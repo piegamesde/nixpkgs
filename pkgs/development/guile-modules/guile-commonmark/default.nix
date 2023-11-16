@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  guile,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, guile, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "guile-commonmark";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-qYDcIiObKOU8lmcfk327LMPx/2Px9ecI3QLrSWWLxMo=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ guile ];
 
   # https://github.com/OrangeShark/guile-commonmark/issues/20

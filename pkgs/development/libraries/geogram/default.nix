@@ -1,14 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
+{ lib, stdenv, fetchurl, fetchFromGitHub
 
-  cmake,
-  doxygen,
-  zlib,
-  python3Packages,
-}:
+, cmake, doxygen, zlib, python3Packages }:
 
 let
   testdata = fetchFromGitHub {
@@ -17,23 +9,17 @@ let
     rev = "8fd071a560bd6859508f1710981386d0b2ba01b1";
     hash = "sha256-jMUGX6/uYIZMVwXxTAAGUaOXqF+NrFQqgmIPCD58cwM=";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "geogram";
   version = "1.8.3";
 
   src = fetchurl {
-    url = "https://github.com/BrunoLevy/geogram/releases/download/v${version}/geogram_${version}.tar.gz";
+    url =
+      "https://github.com/BrunoLevy/geogram/releases/download/v${version}/geogram_${version}.tar.gz";
     hash = "sha256-91q0M/4kAr0UoWXOQIEYS1VbgEQ/F4EBOfJE9Vr1bnw=";
   };
 
-  outputs = [
-    "bin"
-    "lib"
-    "dev"
-    "doc"
-    "out"
-  ];
+  outputs = [ "bin" "lib" "dev" "doc" "out" ];
 
   cmakeFlags = [
     # Triangle is unfree
@@ -56,10 +42,7 @@ stdenv.mkDerivation rec {
     "-DGEOGRAM_INSTALL_PKGCONFIG_DIR=${placeholder "dev"}/lib/pkgconfig"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-  ];
+  nativeBuildInputs = [ cmake doxygen ];
 
   buildInputs = [ zlib ];
 
@@ -86,30 +69,31 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  checkPhase =
-    let
-      skippedTests = [
-        # Failing tests as of version 1.8.3
-        "FileConvert"
-        "Reconstruct"
-        "Remesh"
+  checkPhase = let
+    skippedTests = [
+      # Failing tests as of version 1.8.3
+      "FileConvert"
+      "Reconstruct"
+      "Remesh"
 
-        # Skip slow RVD test
-        "RVD"
-      ];
-    in
-    ''
-      runHook preCheck
+      # Skip slow RVD test
+      "RVD"
+    ];
+  in ''
+    runHook preCheck
 
-      ln -s ${testdata} ../tests/data
+    ln -s ${testdata} ../tests/data
 
-      source tests/testenv.sh
-      robot \
-        ${lib.concatMapStringsSep " " (t: lib.escapeShellArg "--skip=${t}") skippedTests} \
-        ../tests
+    source tests/testenv.sh
+    robot \
+      ${
+        lib.concatMapStringsSep " " (t: lib.escapeShellArg "--skip=${t}")
+        skippedTests
+      } \
+      ../tests
 
-      runHook postCheck
-    '';
+    runHook postCheck
+  '';
 
   meta = with lib; {
     description = "Programming Library with Geometric Algorithms";
@@ -125,12 +109,8 @@ stdenv.mkDerivation rec {
     # See https://github.com/BrunoLevy/geogram/issues/74
     broken = stdenv.isLinux && stdenv.isAarch64;
 
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
+    platforms =
+      [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
     maintainers = with maintainers; [ tmarkus ];
   };
 }

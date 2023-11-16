@@ -1,37 +1,25 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.prometheus.xmpp-alerts;
   settingsFormat = pkgs.formats.yaml { };
-  configFile = settingsFormat.generate "prometheus-xmpp-alerts.yml" cfg.settings;
-in
-{
+  configFile =
+    settingsFormat.generate "prometheus-xmpp-alerts.yml" cfg.settings;
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "prometheus"
-        "xmpp-alerts"
-        "configuration"
-      ]
-      [
-        "services"
-        "prometheus"
-        "xmpp-alerts"
-        "settings"
-      ]
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "prometheus"
+      "xmpp-alerts"
+      "configuration"
+    ] [ "services" "prometheus" "xmpp-alerts" "settings" ])
   ];
 
   options.services.prometheus.xmpp-alerts = {
-    enable = mkEnableOption (lib.mdDoc "XMPP Web hook service for Alertmanager");
+    enable =
+      mkEnableOption (lib.mdDoc "XMPP Web hook service for Alertmanager");
 
     settings = mkOption {
       type = settingsFormat.type;
@@ -51,7 +39,8 @@ in
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.prometheus-xmpp-alerts}/bin/prometheus-xmpp-alerts --config ${configFile}";
+        ExecStart =
+          "${pkgs.prometheus-xmpp-alerts}/bin/prometheus-xmpp-alerts --config ${configFile}";
         Restart = "on-failure";
         DynamicUser = true;
         PrivateTmp = true;
@@ -63,10 +52,7 @@ in
         ProtectControlGroups = true;
         NoNewPrivileges = true;
         SystemCallArchitectures = "native";
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         SystemCallFilter = [ "@system-service" ];
       };
     };

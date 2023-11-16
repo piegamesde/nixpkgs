@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  pytestCheckHook,
-  pytz,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook, pytz }:
 
 buildPythonPackage rec {
   pname = "ciso8601";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytz ];
 
   pytestFlagsArray = [ "tests/tests.py" ];
 

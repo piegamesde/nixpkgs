@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  isPy3k,
-  fetchFromGitHub,
-  appdirs,
-  consonance,
-  protobuf,
-  python-axolotl,
-  six,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, isPy3k, fetchFromGitHub, appdirs, consonance
+, protobuf, python-axolotl, six, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "yowsup";
@@ -34,13 +24,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    appdirs
-    consonance
-    protobuf
-    python-axolotl
-    six
-  ];
+  propagatedBuildInputs = [ appdirs consonance protobuf python-axolotl six ];
 
   meta = with lib; {
     homepage = "https://github.com/tgalal/yowsup";

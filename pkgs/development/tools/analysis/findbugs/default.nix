@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "findbugs";
@@ -40,7 +36,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A static analysis tool to find bugs in Java programs automatically";
+    description =
+      "A static analysis tool to find bugs in Java programs automatically";
     homepage = "https://findbugs.sourceforge.net/";
     maintainers = with maintainers; [ pSub ];
     platforms = with platforms; unix;

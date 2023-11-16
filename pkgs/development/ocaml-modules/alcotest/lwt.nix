@@ -1,13 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  alcotest,
-  logs,
-  lwt,
-  fmt,
-  re,
-  cmdliner,
-}:
+{ lib, buildDunePackage, alcotest, logs, lwt, fmt, re, cmdliner }:
 
 buildDunePackage {
   pname = "alcotest-lwt";
@@ -16,20 +7,11 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [
-    alcotest
-    logs
-    lwt
-    fmt
-  ];
+  propagatedBuildInputs = [ alcotest logs lwt fmt ];
 
   doCheck = true;
-  checkInputs = [
-    re
-    cmdliner
-  ];
+  checkInputs = [ re cmdliner ];
 
-  meta = alcotest.meta // {
-    description = "Lwt-based helpers for Alcotest";
-  };
+  meta = alcotest.meta // { description = "Lwt-based helpers for Alcotest"; };
+
 }

@@ -1,18 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libsndfile,
-  ApplicationServices,
-  Carbon,
-  CoreServices,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libsndfile, ApplicationServices, Carbon
+, CoreServices }:
 
-let
-  inherit (lib) optionals optionalString;
-in
-stdenv.mkDerivation rec {
+let inherit (lib) optionals optionalString;
+
+in stdenv.mkDerivation rec {
   pname = "libsamplerate";
   version = "0.1.9";
 
@@ -22,20 +13,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ libsndfile ]
-    ++ optionals stdenv.isDarwin [
-      ApplicationServices
-      CoreServices
-    ];
+  buildInputs = [ libsndfile ]
+    ++ optionals stdenv.isDarwin [ ApplicationServices CoreServices ];
 
   configureFlags = [ "--disable-fftw" ];
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "out" ];
 
   postConfigure = optionalString stdenv.isDarwin ''
     # need headers from the Carbon.framework in /System/Library/Frameworks to

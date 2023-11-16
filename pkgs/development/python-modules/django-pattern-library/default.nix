@@ -1,14 +1,5 @@
-{
-  beautifulsoup4,
-  buildPythonPackage,
-  django,
-  fetchFromGitHub,
-  lib,
-  markdown,
-  poetry-core,
-  python,
-  pyyaml,
-}:
+{ beautifulsoup4, buildPythonPackage, django, fetchFromGitHub, lib, markdown
+, poetry-core, python, pyyaml }:
 
 buildPythonPackage rec {
   pname = "django-pattern-library";
@@ -22,11 +13,7 @@ buildPythonPackage rec {
     sha256 = "sha256-V299HpbfNLa9cpVhBfzD41oe95xqh+ktQVMMVvm5Xao=";
   };
 
-  propagatedBuildInputs = [
-    django
-    pyyaml
-    markdown
-  ];
+  propagatedBuildInputs = [ django pyyaml markdown ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -47,7 +34,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "UI pattern libraries for Django templates";
     homepage = "https://github.com/torchbox/django-pattern-library/";
-    changelog = "https://github.com/torchbox/django-pattern-library/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/torchbox/django-pattern-library/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ sephi ];
   };

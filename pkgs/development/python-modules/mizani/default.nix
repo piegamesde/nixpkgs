@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  matplotlib,
-  palettable,
-  pandas,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, palettable, pandas
+, pytestCheckHook, pythonOlder, scipy, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "mizani";
@@ -27,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    palettable
-    pandas
-    scipy
-  ];
+  propagatedBuildInputs = [ matplotlib palettable pandas scipy ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

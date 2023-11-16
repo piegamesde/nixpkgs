@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  jre,
-  makeWrapper,
-  unzip,
-}:
+{ stdenv, lib, fetchurl, jre, makeWrapper, unzip }:
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   pname = "dex2jar";
@@ -16,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "1g3mrbyl8sdw1nhp17z23qbfzqpa0w2yxrywgphvd04jdr6yn1vr";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper unzip ];
 
   postPatch = ''
     rm *.bat

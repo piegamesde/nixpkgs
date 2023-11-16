@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  posix-base,
-}:
+{ lib, buildDunePackage, posix-base }:
 
 buildDunePackage {
   pname = "posix-socket";
@@ -15,7 +11,6 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = posix-base.meta // {
-    description = "Bindings for posix sockets";
-  };
+  meta = posix-base.meta // { description = "Bindings for posix sockets"; };
+
 }

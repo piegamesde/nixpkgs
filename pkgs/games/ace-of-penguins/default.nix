@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  copyDesktopItems,
-  libX11,
-  libXpm,
-  libpng,
-  makeDesktopItem,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, copyDesktopItems, libX11, libXpm, libpng
+, makeDesktopItem, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "ace-of-penguins";
@@ -19,46 +10,38 @@ stdenv.mkDerivation rec {
     hash = "sha256-H+47BTOSGkKHPAYj8z2HOgZ7HuxY8scMAUSRRueaTM4=";
   };
 
-  patches =
-    [
-      # Fixes a bunch of miscompilations in modern environments
-      ./fixup-miscompilations.patch
-    ];
+  patches = [
+    # Fixes a bunch of miscompilations in modern environments
+    ./fixup-miscompilations.patch
+  ];
 
   nativeBuildInputs = [ copyDesktopItems ];
 
-  buildInputs = [
-    libX11
-    libXpm
-    libpng
-    zlib
-  ];
+  buildInputs = [ libX11 libXpm libpng zlib ];
 
-  desktopItems =
-    let
-      generateItem = gameName: {
-        name = "${pname}-${gameName}";
-        exec = "${placeholder "out"}/bin/${gameName}";
-        comment = "Ace of Penguins ${gameName} Card Game";
-        desktopName = gameName;
-        genericName = gameName;
-      };
-    in
-    map (x: makeDesktopItem (generateItem x)) [
-      "canfield"
-      "freecell"
-      "golf"
-      "mastermind"
-      "merlin"
-      "minesweeper"
-      "pegged"
-      "penguins"
-      "solitaire"
-      "spider"
-      "taipedit"
-      "taipei"
-      "thornq"
-    ];
+  desktopItems = let
+    generateItem = gameName: {
+      name = "${pname}-${gameName}";
+      exec = "${placeholder "out"}/bin/${gameName}";
+      comment = "Ace of Penguins ${gameName} Card Game";
+      desktopName = gameName;
+      genericName = gameName;
+    };
+  in map (x: makeDesktopItem (generateItem x)) [
+    "canfield"
+    "freecell"
+    "golf"
+    "mastermind"
+    "merlin"
+    "minesweeper"
+    "pegged"
+    "penguins"
+    "solitaire"
+    "spider"
+    "taipedit"
+    "taipei"
+    "thornq"
+  ];
 
   meta = with lib; {
     homepage = "http://www.delorie.com/store/ace/";

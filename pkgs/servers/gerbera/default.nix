@@ -1,53 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  nixosTests,
-  # required
-  libiconv,
-  libupnp,
-  libuuid,
-  pugixml,
-  spdlog,
-  sqlite,
-  zlib,
-  # options
-  enableMysql ? false,
-  libmysqlclient,
-  enableDuktape ? true,
-  duktape,
-  enableCurl ? true,
-  curl,
-  enableTaglib ? true,
-  taglib,
-  enableLibmagic ? true,
-  file,
-  enableLibmatroska ? true,
-  libmatroska,
-  libebml,
-  enableAvcodec ? false,
-  ffmpeg,
-  enableLibexif ? true,
-  libexif,
-  enableExiv2 ? false,
-  exiv2,
-  enableFFmpegThumbnailer ? false,
-  ffmpegthumbnailer,
-  enableInotifyTools ? true,
-  inotify-tools,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, nixosTests
+# required
+, libiconv, libupnp, libuuid, pugixml, spdlog, sqlite, zlib
+# options
+, enableMysql ? false, libmysqlclient, enableDuktape ? true, duktape
+, enableCurl ? true, curl, enableTaglib ? true, taglib, enableLibmagic ? true
+, file, enableLibmatroska ? true, libmatroska, libebml, enableAvcodec ? false
+, ffmpeg, enableLibexif ? true, libexif, enableExiv2 ? false, exiv2
+, enableFFmpegThumbnailer ? false, ffmpegthumbnailer, enableInotifyTools ? true
+, inotify-tools }:
 
 let
-  libupnp' = libupnp.overrideAttrs (
-    super: rec {
-      cmakeFlags = super.cmakeFlags or [ ] ++ [
-        "-Dblocking_tcp_connections=OFF"
-        "-Dreuseaddr=ON"
-      ];
-    }
-  );
+  libupnp' = libupnp.overrideAttrs (super: rec {
+    cmakeFlags = super.cmakeFlags or [ ]
+      ++ [ "-Dblocking_tcp_connections=OFF" "-Dreuseaddr=ON" ];
+  });
 
   options = [
     {
@@ -93,10 +59,7 @@ let
     {
       name = "MATROSKA";
       enable = enableLibmatroska;
-      packages = [
-        libmatroska
-        libebml
-      ];
+      packages = [ libmatroska libebml ];
     }
     {
       name = "MYSQL";
@@ -111,8 +74,8 @@ let
   ];
 
   inherit (lib) flatten optionals;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "gerbera";
   version = "1.12.1";
 
@@ -125,35 +88,24 @@ stdenv.mkDerivation rec {
 
   postPatch = lib.optionalString enableMysql ''
     substituteInPlace cmake/FindMySQL.cmake \
-      --replace /usr/include/mysql ${lib.getDev libmysqlclient}/include/mariadb \
+      --replace /usr/include/mysql ${
+        lib.getDev libmysqlclient
+      }/include/mariadb \
       --replace /usr/lib/mysql     ${lib.getLib libmysqlclient}/lib/mariadb
   '';
 
-  cmakeFlags =
-    [
-      # systemd service will be generated alongside the service
-      "-DWITH_SYSTEMD=OFF"
-    ]
-    ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options;
+  cmakeFlags = [
+    # systemd service will be generated alongside the service
+    "-DWITH_SYSTEMD=OFF"
+  ] ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
-  buildInputs = [
-    libiconv
-    libupnp'
-    libuuid
-    pugixml
-    spdlog
-    sqlite
-    zlib
-  ] ++ flatten (builtins.catAttrs "packages" (builtins.filter (e: e.enable) options));
+  buildInputs = [ libiconv libupnp' libuuid pugixml spdlog sqlite zlib ]
+    ++ flatten
+    (builtins.catAttrs "packages" (builtins.filter (e: e.enable) options));
 
-  passthru.tests = {
-    inherit (nixosTests) mediatomb;
-  };
+  passthru.tests = { inherit (nixosTests) mediatomb; };
 
   meta = with lib; {
     homepage = "https://docs.gerbera.io/";

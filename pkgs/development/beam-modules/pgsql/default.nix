@@ -1,20 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildRebar3,
-}:
+{ lib, stdenv, fetchFromGitHub, buildRebar3 }:
 
 let
-  shell =
-    drv:
+  shell = drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
     };
 
-  pkg =
-    self:
+  pkg = self:
     buildRebar3 {
       name = "pgsql";
       version = "25+beta.2";
@@ -35,9 +28,7 @@ let
         maintainers = with lib.maintainers; [ ericbmerritt ];
       };
 
-      passthru = {
-        env = shell self;
-      };
+      passthru = { env = shell self; };
+
     };
-in
-lib.fix pkg
+in lib.fix pkg

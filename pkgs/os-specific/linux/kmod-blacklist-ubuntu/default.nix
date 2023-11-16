@@ -1,18 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
-let
-  version = "28-1ubuntu4"; # impish 2021-06-24
-in
-stdenv.mkDerivation {
+let version = "28-1ubuntu4"; # impish 2021-06-24
+
+in stdenv.mkDerivation {
   pname = "kmod-blacklist";
   inherit version;
 
   src = fetchurl {
-    url = "https://launchpad.net/ubuntu/+archive/primary/+files/kmod_${version}.debian.tar.xz";
+    url =
+      "https://launchpad.net/ubuntu/+archive/primary/+files/kmod_${version}.debian.tar.xz";
     sha256 = "sha256-K8tWpaLmCm3Jcxw3OZ+D7Koiug7epooRn1YMfqjGAiw=";
   };
 
@@ -42,9 +38,6 @@ stdenv.mkDerivation {
     homepage = "https://launchpad.net/ubuntu/+source/kmod";
     description = "Linux kernel module blacklists from Ubuntu";
     platforms = platforms.linux;
-    license = with licenses; [
-      gpl2Plus
-      lgpl21Plus
-    ];
+    license = with licenses; [ gpl2Plus lgpl21Plus ];
   };
 }

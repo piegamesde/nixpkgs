@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  nix-update-script,
-}:
+{ lib, python3, fetchPypi, nix-update-script }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "shell_gpt";
@@ -30,12 +25,7 @@ python3.pkgs.buildPythonApplication rec {
     hatchling
   ];
 
-  pythonRelaxDeps = [
-    "requests"
-    "rich"
-    "distro"
-    "typer"
-  ];
+  pythonRelaxDeps = [ "requests" "rich" "distro" "typer" ];
 
   passthru.updateScript = nix-update-script { };
 

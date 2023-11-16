@@ -1,34 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  dpkg,
-  alsa-lib,
-  atk,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  pango,
-  nspr,
-  nss,
-  gtk3,
-  mesa,
-  libGL,
-  wayland,
-  xorg,
-  autoPatchelfHook,
-  systemd,
-  libnotify,
-  libappindicator,
-  makeWrapper,
-  coreutils,
-  gnugrep,
-}:
+{ stdenv, lib, fetchurl, dpkg, alsa-lib, atk, cairo, cups, dbus, expat
+, fontconfig, freetype, gdk-pixbuf, glib, pango, nspr, nss, gtk3, mesa, libGL
+, wayland, xorg, autoPatchelfHook, systemd, libnotify, libappindicator
+, makeWrapper, coreutils, gnugrep }:
 
 let
   deps = [
@@ -64,22 +37,18 @@ let
     nss
     systemd
   ];
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "mullvad-vpn";
   version = "2023.3";
 
   src = fetchurl {
-    url = "https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb";
+    url =
+      "https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb";
     sha256 = "sha256-+XK9xUeSs93egmtsQ7qATug/n9taeQkmc4ZgObPYvn4=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    dpkg
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook dpkg makeWrapper ];
 
   buildInputs = deps;
 
@@ -88,13 +57,8 @@ stdenv.mkDerivation rec {
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  runtimeDependencies = [
-    (lib.getLib systemd)
-    libGL
-    libnotify
-    libappindicator
-    wayland
-  ];
+  runtimeDependencies =
+    [ (lib.getLib systemd) libGL libnotify libappindicator wayland ];
 
   installPhase = ''
     runHook preInstall
@@ -110,12 +74,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/mullvad-vpn \
       --set MULLVAD_DISABLE_UPDATE_NOTIFICATION 1 \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ coreutils gnugrep ]}
 
     wrapProgram $out/bin/mullvad-daemon \
         --set-default MULLVAD_RESOURCE_DIR "$out/share/mullvad/resources"
@@ -128,14 +87,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/mullvad/mullvadvpn-app";
     description = "Client for Mullvad VPN";
-    changelog = "https://github.com/mullvad/mullvadvpn-app/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mullvad/mullvadvpn-app/blob/${version}/CHANGELOG.md";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      Br1ght0ne
-      ymarkus
-      ataraxiasjel
-    ];
+    maintainers = with maintainers; [ Br1ght0ne ymarkus ataraxiasjel ];
   };
+
 }

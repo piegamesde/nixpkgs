@@ -1,23 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  gitUpdater,
-  appstream-glib,
-  desktop-file-utils,
-  fwupd,
-  gettext,
-  glib,
-  gtk4,
-  libadwaita,
-  libxmlb,
-  meson,
-  ninja,
-  pkg-config,
-  systemd,
-  help2man,
-  wrapGAppsHook4,
-}:
+{ stdenv, lib, fetchFromGitLab, gitUpdater, appstream-glib, desktop-file-utils
+, fwupd, gettext, glib, gtk4, libadwaita, libxmlb, meson, ninja, pkg-config
+, systemd, help2man, wrapGAppsHook4 }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-firmware";
@@ -42,14 +25,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [
-    fwupd
-    glib
-    gtk4
-    libadwaita
-    libxmlb
-    systemd
-  ];
+  buildInputs = [ fwupd glib gtk4 libadwaita libxmlb systemd ];
 
   mesonFlags = [ "-Dconsolekit=false" ];
 

@@ -1,19 +1,14 @@
 { lib, ocamlPackages }:
 
-let
-  inherit (ocamlPackages) buildDunePackage csv uutf;
-in
+let inherit (ocamlPackages) buildDunePackage csv uutf;
 
-buildDunePackage {
+in buildDunePackage {
   pname = "csvtool";
   inherit (csv) src version;
 
   duneVersion = "3";
 
-  buildInputs = [
-    csv
-    uutf
-  ];
+  buildInputs = [ csv uutf ];
 
   doCheck = true;
 

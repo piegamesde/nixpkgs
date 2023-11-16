@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  bash,
-  openssh,
-  pytestCheckHook,
-  pythonOlder,
-  stdenv,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, bash, openssh
+, pytestCheckHook, pythonOlder, stdenv }:
 
 buildPythonPackage rec {
   pname = "deploykit";
@@ -26,11 +17,7 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    bash
-    openssh
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ bash openssh pytestCheckHook ];
 
   disabledTests = lib.optionals stdenv.isDarwin [ "test_ssh" ];
 
@@ -40,14 +27,12 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "deploykit" ];
 
   meta = with lib; {
-    description = "Execute commands remote via ssh and locally in parallel with python";
+    description =
+      "Execute commands remote via ssh and locally in parallel with python";
     homepage = "https://github.com/numtide/deploykit";
     changelog = "https://github.com/numtide/deploykit/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      mic92
-      zowoq
-    ];
+    maintainers = with maintainers; [ mic92 zowoq ];
     platforms = platforms.unix;
   };
 }

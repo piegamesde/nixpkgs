@@ -4,38 +4,28 @@
 # additional configuration provided, and the namePrefix to use (based on the
 # pname and version of Octave), the octave package, etc.
 
-{
-  lib,
-  stdenv,
-  config,
-  octave,
-  texinfo,
-  computeRequiredOctavePackages,
-  writeRequiredOctavePackagesHook,
-}:
+{ lib, stdenv, config, octave, texinfo, computeRequiredOctavePackages
+, writeRequiredOctavePackagesHook }:
 
 # The inner function contains information required to build the individual
 # libraries.
-{
-  fullLibName ? "${attrs.pname}-${attrs.version}",
+{ fullLibName ? "${attrs.pname}-${attrs.version}"
 
-  src,
+, src
 
-  dontPatch ? false,
-  patches ? [ ],
-  patchPhase ? "",
+, dontPatch ? false, patches ? [ ], patchPhase ? ""
 
-  enableParallelBuilding ? true,
+, enableParallelBuilding ? true
   # Build-time dependencies for the package, which were compiled for the system compiling this.
-  nativeBuildInputs ? [ ],
+, nativeBuildInputs ? [ ]
 
   # Build-time dependencies for the package, which may not have been compiled for the system compiling this.
-  buildInputs ? [ ],
+, buildInputs ? [ ]
 
   # Propagate build dependencies so in case we have A -> B -> C,
   # C can import package A propagated by B
   # Run-time dependencies for the package.
-  propagatedBuildInputs ? [ ],
+, propagatedBuildInputs ? [ ]
 
   # Octave packages that are required at runtime for this one.
   # These behave similarly to propagatedBuildInputs, where if
@@ -43,27 +33,24 @@
   # The main difference between these and propagatedBuildInputs is
   # during the package's installation into octave, where all
   # requiredOctavePackages are ALSO installed into octave.
-  requiredOctavePackages ? [ ],
+, requiredOctavePackages ? [ ]
 
-  preBuild ? "",
+, preBuild ? ""
 
-  meta ? { },
+, meta ? { }
 
-  passthru ? { }
+, passthru ? { }
 
-  ,
-  ...
-}@attrs:
+, ... }@attrs:
 
 let
-  requiredOctavePackages' = computeRequiredOctavePackages requiredOctavePackages;
+  requiredOctavePackages' =
+    computeRequiredOctavePackages requiredOctavePackages;
 
   # Must use attrs.nativeBuildInputs before they are removed by the removeAttrs
   # below, or everything fails.
-  nativeBuildInputs' = [
-    octave
-    writeRequiredOctavePackagesHook
-  ] ++ nativeBuildInputs;
+  nativeBuildInputs' = [ octave writeRequiredOctavePackagesHook ]
+    ++ nativeBuildInputs;
 
   passthru' = {
     updateScript = [
@@ -78,67 +65,58 @@ let
   # This used to mean that if a package defined extra nativeBuildInputs, it
   # would override the ones for building an Octave package (the hook and Octave
   # itself, causing everything to fail.
-  attrs' = builtins.removeAttrs attrs [
-    "nativeBuildInputs"
-    "passthru"
-  ];
-in
-stdenv.mkDerivation (
-  {
-    packageName = "${fullLibName}";
-    # The name of the octave package ends up being
-    # "octave-version-package-version"
-    name = "${octave.pname}-${octave.version}-${fullLibName}";
+  attrs' = builtins.removeAttrs attrs [ "nativeBuildInputs" "passthru" ];
 
-    # This states that any package built with the function that this returns
-    # will be an octave package. This is used for ensuring other octave
-    # packages are installed into octave during the environment building phase.
-    isOctavePackage = true;
+in stdenv.mkDerivation ({
+  packageName = "${fullLibName}";
+  # The name of the octave package ends up being
+  # "octave-version-package-version"
+  name = "${octave.pname}-${octave.version}-${fullLibName}";
 
-    OCTAVE_HISTFILE = "/dev/null";
+  # This states that any package built with the function that this returns
+  # will be an octave package. This is used for ensuring other octave
+  # packages are installed into octave during the environment building phase.
+  isOctavePackage = true;
 
-    inherit src;
+  OCTAVE_HISTFILE = "/dev/null";
 
-    inherit dontPatch patches patchPhase;
+  inherit src;
 
-    dontConfigure = true;
+  inherit dontPatch patches patchPhase;
 
-    enableParallelBuilding = enableParallelBuilding;
+  dontConfigure = true;
 
-    requiredOctavePackages = requiredOctavePackages';
+  enableParallelBuilding = enableParallelBuilding;
 
-    nativeBuildInputs = nativeBuildInputs';
+  requiredOctavePackages = requiredOctavePackages';
 
-    buildInputs = buildInputs ++ requiredOctavePackages';
+  nativeBuildInputs = nativeBuildInputs';
 
-    propagatedBuildInputs = propagatedBuildInputs ++ [ texinfo ];
+  buildInputs = buildInputs ++ requiredOctavePackages';
 
-    preBuild =
-      if preBuild == "" then
-        ''
-          # This trickery is needed because Octave expects a single directory inside
-          # at the top-most level of the tarball.
-          tar --transform 's,^,${fullLibName}/,' -cz * -f ${fullLibName}.tar.gz
-        ''
-      else
-        preBuild;
+  propagatedBuildInputs = propagatedBuildInputs ++ [ texinfo ];
 
-    buildPhase = ''
-      runHook preBuild
+  preBuild = if preBuild == "" then ''
+    # This trickery is needed because Octave expects a single directory inside
+    # at the top-most level of the tarball.
+    tar --transform 's,^,${fullLibName}/,' -cz * -f ${fullLibName}.tar.gz
+  '' else
+    preBuild;
 
-      mkdir -p $out
-      octave-cli --eval "pkg build $out ${fullLibName}.tar.gz"
+  buildPhase = ''
+    runHook preBuild
 
-      runHook postBuild
-    '';
+    mkdir -p $out
+    octave-cli --eval "pkg build $out ${fullLibName}.tar.gz"
 
-    # We don't install here, because that's handled when we build the environment
-    # together with Octave.
-    dontInstall = true;
+    runHook postBuild
+  '';
 
-    passthru = passthru';
+  # We don't install here, because that's handled when we build the environment
+  # together with Octave.
+  dontInstall = true;
 
-    inherit meta;
-  }
-  // attrs'
-)
+  passthru = passthru';
+
+  inherit meta;
+} // attrs')

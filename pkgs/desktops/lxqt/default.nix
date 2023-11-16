@@ -1,12 +1,6 @@
-{
-  pkgs,
-  makeScope,
-  libsForQt5,
-  qt5,
-}:
+{ pkgs, makeScope, libsForQt5, qt5 }:
 let
-  packages =
-    self:
+  packages = self:
     with self; {
 
       # For compiling information, see:
@@ -108,6 +102,6 @@ let
         ### Screen saver
         pkgs.xscreensaver
       ];
+
     };
-in
-makeScope libsForQt5.newScope packages
+in makeScope libsForQt5.newScope packages

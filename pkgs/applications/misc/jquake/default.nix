@@ -1,27 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  copyDesktopItems,
-  makeDesktopItem,
-  unzip,
-  jre8,
-  logOutput ? false,
-}:
+{ lib, stdenv, fetchurl, copyDesktopItems, makeDesktopItem, unzip, jre8
+, logOutput ? false }:
 
 stdenv.mkDerivation rec {
   pname = "jquake";
   version = "1.8.4";
 
   src = fetchurl {
-    url = "https://github.com/fleneindre/fleneindre.github.io/raw/master/downloads/JQuake_${version}_linux.zip";
+    url =
+      "https://github.com/fleneindre/fleneindre.github.io/raw/master/downloads/JQuake_${version}_linux.zip";
     sha256 = "sha256-oIYkYmI8uG4zjnm1Jq1mzIcSwRlKbWJqvACygQyp9sA=";
   };
 
-  nativeBuildInputs = [
-    unzip
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ unzip copyDesktopItems ];
 
   sourceRoot = ".";
 

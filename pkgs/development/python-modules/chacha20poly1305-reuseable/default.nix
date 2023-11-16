@@ -1,27 +1,19 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
-  # build-system
-  cython,
-  poetry-core,
-  setuptools,
+# build-system
+, cython, poetry-core, setuptools
 
-  # propagates
-  cryptography,
+# propagates
+, cryptography
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 let
   pname = "chacha20poly1305-reuseable";
   version = "0.2.5";
-in
 
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -34,11 +26,7 @@ buildPythonPackage {
     hash = "sha256-T5mmHUMNbdvexeSaIDZIm/3yQcDKnWdor9IK63FE0no=";
   };
 
-  nativeBuildInputs = [
-    cython
-    poetry-core
-    setuptools
-  ];
+  nativeBuildInputs = [ cython poetry-core setuptools ];
 
   propagatedBuildInputs = [ cryptography ];
 
@@ -54,7 +42,8 @@ buildPythonPackage {
   meta = with lib; {
     description = "ChaCha20Poly1305 that is reuseable for asyncio";
     homepage = "https://github.com/bdraco/chacha20poly1305-reuseable";
-    changelog = "https://github.com/bdraco/chacha20poly1305-reuseable/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/bdraco/chacha20poly1305-reuseable/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];
   };

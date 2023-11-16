@@ -1,23 +1,6 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  zlib,
-  boost,
-  libunwind,
-  elfutils,
-  sparsehash,
-  zstd,
-  qtbase,
-  kio,
-  kitemmodels,
-  threadweaver,
-  kconfigwidgets,
-  kcoreaddons,
-  kdiagram,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, zlib, boost
+, libunwind, elfutils, sparsehash, zstd, qtbase, kio, kitemmodels, threadweaver
+, kconfigwidgets, kcoreaddons, kdiagram }:
 
 mkDerivation rec {
   pname = "heaptrack";
@@ -30,10 +13,7 @@ mkDerivation rec {
     sha256 = "sha256-AzHQnPYhmCHGco7JoKal57PC6NKUoMTeflHtFsBxQpA=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
   buildInputs = [
     zlib
     boost

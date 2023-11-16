@@ -1,8 +1,4 @@
-{
-  appimageTools,
-  lib,
-  fetchurl,
-}:
+{ appimageTools, lib, fetchurl }:
 let
   pname = "electronplayer";
   version = "2.0.8";
@@ -10,13 +6,13 @@ let
 
   #TODO: remove the -rc4 from the tag in the url when possible
   src = fetchurl {
-    url = "https://github.com/oscartbeaumont/ElectronPlayer/releases/download/v${version}-rc4/${name}.AppImage";
+    url =
+      "https://github.com/oscartbeaumont/ElectronPlayer/releases/download/v${version}-rc4/${name}.AppImage";
     sha256 = "wAsmSFdbRPnYnDyWQSbtyj+GLJLN7ibksUE7cegfkhI=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit name src; };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit name src;
 
   extraInstallCommands = ''

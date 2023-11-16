@@ -1,11 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "defusedcsv";
@@ -24,7 +20,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Python library to protect your users from Excel injections in CSV-format exports, drop-in replacement for standard library's csv module";
+    description =
+      "Python library to protect your users from Excel injections in CSV-format exports, drop-in replacement for standard library's csv module";
     homepage = "https://github.com/raphaelm/defusedcsv";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

@@ -1,24 +1,17 @@
 # Test UniFi controller
 
-{
-  system ? builtins.currentSystem,
-  config ? { allowUnfree = true; },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { allowUnfree = true; }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
 
 let
-  makeAppTest =
-    unifi:
+  makeAppTest = unifi:
     makeTest {
       name = "unifi-controller-${unifi.version}";
       meta = with pkgs.lib.maintainers; {
-        maintainers = [
-          patryk27
-          zhaofengli
-        ];
+        maintainers = [ patryk27 zhaofengli ];
       };
 
       nodes.server = {
@@ -36,8 +29,7 @@ let
         server.wait_until_succeeds("curl -Lk https://localhost:8443 >&2", timeout=300)
       '';
     };
-in
-with pkgs; {
+in with pkgs; {
   unifiLTS = makeAppTest unifiLTS;
   unifi5 = makeAppTest unifi5;
   unifi6 = makeAppTest unifi6;

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -19,8 +14,7 @@ let
     # user configuration
     ${cfg.configText}
   '';
-in
-{
+in {
 
   options.services.lighttpd.cgit = {
 
@@ -60,6 +54,7 @@ in
         http://git.zx2c4.com/cgit/tree/cgitrc.5.txt
       '';
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -68,11 +63,7 @@ in
     environment.systemPackages = [ pkgs.cgit ];
 
     # declare module dependencies
-    services.lighttpd.enableModules = [
-      "mod_cgi"
-      "mod_alias"
-      "mod_setenv"
-    ];
+    services.lighttpd.enableModules = [ "mod_cgi" "mod_alias" "mod_setenv" ];
 
     services.lighttpd.extraConfig = ''
       $HTTP["url"] =~ "^/${cfg.subdir}" {
@@ -94,5 +85,7 @@ in
       mkdir -p /var/cache/cgit
       chown lighttpd:lighttpd /var/cache/cgit
     '';
+
   };
+
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  tornado,
-}:
+{ lib, buildPythonPackage, fetchPypi, tornado }:
 
 buildPythonPackage rec {
   pname = "sockjs-tornado";
@@ -18,7 +13,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/mrjoes/sockjs-tornado/";
-    description = "SockJS python server implementation on top of Tornado framework";
+    description =
+      "SockJS python server implementation on top of Tornado framework";
     license = licenses.mit;
     maintainers = with maintainers; [ abbradar ];
   };

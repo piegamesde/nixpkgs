@@ -1,17 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.programs.mosh;
-in
-{
+
+in {
   options.programs.mosh = {
     enable = mkOption {
       description = lib.mdDoc ''
@@ -33,12 +28,10 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ mosh ];
-    networking.firewall.allowedUDPPortRanges = [
-      {
-        from = 60000;
-        to = 61000;
-      }
-    ];
+    networking.firewall.allowedUDPPortRanges = [{
+      from = 60000;
+      to = 61000;
+    }];
     security.wrappers = mkIf cfg.withUtempter {
       utempter = {
         source = "${pkgs.libutempter}/lib/utempter/utempter";

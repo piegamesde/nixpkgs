@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-  perl,
-  perlPackages,
-  wget,
-  autoconf,
-  automake,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl, perl, perlPackages, wget, autoconf
+, automake, autoreconfHook }:
 
 let
   # when upgrade znapzend, check versions of Perl libs here: https://github.com/oetiker/znapzend/blob/master/cpanfile
@@ -29,23 +19,15 @@ let
       url = "mirror://cpan/authors/id/J/JB/JBERGER/${pname}-${version}.tar.gz";
       sha256 = "19pih5x0ayxs2m8j29qwdpi6ky3w4ghv6vrmax3ix9r59hj6569b";
     };
-    propagatedBuildInputs = [
-      perlPackages.IOPipely
-      Mojolicious'
-    ];
+    propagatedBuildInputs = [ perlPackages.IOPipely Mojolicious' ];
   };
 
-  perl' = perl.withPackages (
-    p: [
-      MojoIOLoopForkCall'
-      p.TAPParserSourceHandlerpgTAP
-    ]
-  );
+  perl' = perl.withPackages
+    (p: [ MojoIOLoopForkCall' p.TAPParserSourceHandlerpgTAP ]);
 
   version = "0.21.0";
   sha256 = "1lg46rf2ahlclan29zx8ag5k4fjp28sc9l02z76f0pvdlj4qnihl";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "znapzend";
   inherit version;
 
@@ -56,16 +38,9 @@ stdenv.mkDerivation {
     inherit sha256;
   };
 
-  buildInputs = [
-    wget
-    perl'
-  ];
+  buildInputs = [ wget perl' ];
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ autoconf automake autoreconfHook ];
 
   preConfigure = ''
     sed -i 's/^SUBDIRS =.*$/SUBDIRS = lib/' Makefile.am
@@ -82,7 +57,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "High performance open source ZFS backup with mbuffer and ssh support";
+    description =
+      "High performance open source ZFS backup with mbuffer and ssh support";
     homepage = "https://www.znapzend.org";
     license = licenses.gpl3;
     maintainers = with maintainers; [ otwieracz ];

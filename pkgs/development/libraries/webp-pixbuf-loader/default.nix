@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  makeWrapper,
-  gdk-pixbuf,
-  libwebp,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, makeWrapper
+, gdk-pixbuf, libwebp }:
 
 let
   inherit (gdk-pixbuf) moduleDir;
@@ -16,8 +7,7 @@ let
   # turning lib/gdk-pixbuf-#.#/#.#.#/loaders into lib/gdk-pixbuf-#.#/#.#.#/loaders.cache
   # removeSuffix is just in case moduleDir gets a trailing slash
   loadersPath = (lib.strings.removeSuffix "/" gdk-pixbuf.moduleDir) + ".cache";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "webp-pixbuf-loader";
   version = "0.2.2";
 
@@ -28,18 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TdZK2OTwetLVmmhN7RZlq2NV6EukH1Wk5Iwer2W/aHc=";
   };
 
-  nativeBuildInputs = [
-    gdk-pixbuf.dev
-    meson
-    ninja
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ gdk-pixbuf.dev meson ninja pkg-config makeWrapper ];
 
-  buildInputs = [
-    gdk-pixbuf
-    libwebp
-  ];
+  buildInputs = [ gdk-pixbuf libwebp ];
 
   mesonFlags = [ "-Dgdk_pixbuf_moduledir=${placeholder "out"}/${moduleDir}" ];
 

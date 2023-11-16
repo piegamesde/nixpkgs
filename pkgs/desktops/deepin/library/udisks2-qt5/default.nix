@@ -1,12 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  qmake,
-  pkg-config,
-  wrapQtAppsHook,
-  udisks,
-}:
+{ stdenv, lib, fetchFromGitHub, qmake, pkg-config, wrapQtAppsHook, udisks }:
 
 stdenv.mkDerivation rec {
   pname = "udisks2-qt5";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WS4fmqEYXi5dkn8RvyJBzy3+r+UgFcGDFFpQlbblLu4=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake pkg-config wrapQtAppsHook ];
 
   buildInputs = [ udisks ];
 

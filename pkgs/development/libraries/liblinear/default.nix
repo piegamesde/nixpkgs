@@ -1,13 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
-let
-  soVersion = "5";
-in
-stdenv.mkDerivation rec {
+let soVersion = "5";
+in stdenv.mkDerivation rec {
   pname = "liblinear";
   version = "2.46";
 
@@ -23,29 +17,18 @@ stdenv.mkDerivation rec {
     "RANLIB=${stdenv.cc.targetPrefix}ranlib"
   ];
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "out" ];
 
-  buildFlags = [
-    "lib"
-    "predict"
-    "train"
-  ];
+  buildFlags = [ "lib" "predict" "train" ];
 
   installPhase = ''
-    ${if stdenv.isDarwin then
-      ''
-        install -D liblinear.so.${soVersion} $out/lib/liblinear.${soVersion}.dylib
-        ln -s $out/lib/liblinear.${soVersion}.dylib $out/lib/liblinear.dylib
-      ''
-    else
-      ''
-        install -Dt $out/lib liblinear.so.${soVersion}
-        ln -s $out/lib/liblinear.so.${soVersion} $out/lib/liblinear.so
-      ''}
+    ${if stdenv.isDarwin then ''
+      install -D liblinear.so.${soVersion} $out/lib/liblinear.${soVersion}.dylib
+      ln -s $out/lib/liblinear.${soVersion}.dylib $out/lib/liblinear.dylib
+    '' else ''
+      install -Dt $out/lib liblinear.so.${soVersion}
+      ln -s $out/lib/liblinear.so.${soVersion} $out/lib/liblinear.so
+    ''}
     install -D train $bin/bin/liblinear-train
     install -D predict $bin/bin/liblinear-predict
     install -Dm444 -t $dev/include linear.h

@@ -1,23 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  generators,
-  ...
-}:
+{ lib, pkgs, config, generators, ... }:
 with lib;
 let
   cfg = config.services.grafana-agent;
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "grafana-agent.yaml" cfg.settings;
-in
-{
-  meta = {
-    maintainers = with maintainers; [
-      flokli
-      zimbatm
-    ];
-  };
+in {
+  meta = { maintainers = with maintainers; [ flokli zimbatm ]; };
 
   options.services.grafana-agent = {
     enable = mkEnableOption (lib.mdDoc "grafana-agent");
@@ -32,22 +20,24 @@ in
       default = { };
 
       example = {
-        logs_remote_write_password = "/run/keys/grafana_agent_logs_remote_write_password";
+        logs_remote_write_password =
+          "/run/keys/grafana_agent_logs_remote_write_password";
         LOGS_REMOTE_WRITE_URL = "/run/keys/grafana_agent_logs_remote_write_url";
-        LOGS_REMOTE_WRITE_USERNAME = "/run/keys/grafana_agent_logs_remote_write_username";
-        metrics_remote_write_password = "/run/keys/grafana_agent_metrics_remote_write_password";
-        METRICS_REMOTE_WRITE_URL = "/run/keys/grafana_agent_metrics_remote_write_url";
-        METRICS_REMOTE_WRITE_USERNAME = "/run/keys/grafana_agent_metrics_remote_write_username";
+        LOGS_REMOTE_WRITE_USERNAME =
+          "/run/keys/grafana_agent_logs_remote_write_username";
+        metrics_remote_write_password =
+          "/run/keys/grafana_agent_metrics_remote_write_password";
+        METRICS_REMOTE_WRITE_URL =
+          "/run/keys/grafana_agent_metrics_remote_write_url";
+        METRICS_REMOTE_WRITE_USERNAME =
+          "/run/keys/grafana_agent_metrics_remote_write_username";
       };
     };
 
     extraFlags = mkOption {
       type = with types; listOf str;
       default = [ ];
-      example = [
-        "-enable-features=integrations-next"
-        "-disable-reporting"
-      ];
+      example = [ "-enable-features=integrations-next" "-disable-reporting" ];
       description = lib.mdDoc ''
         Extra command-line flags passed to {command}`grafana-agent`.
 
@@ -79,49 +69,43 @@ in
         }
       '';
       example = {
-        metrics.global.remote_write = [
-          {
-            url = "\${METRICS_REMOTE_WRITE_URL}";
-            basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
-            basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
-          }
-        ];
-        logs.configs = [
-          {
-            name = "default";
-            scrape_configs = [
+        metrics.global.remote_write = [{
+          url = "\${METRICS_REMOTE_WRITE_URL}";
+          basic_auth.username = "\${METRICS_REMOTE_WRITE_USERNAME}";
+          basic_auth.password_file =
+            "\${CREDENTIALS_DIRECTORY}/metrics_remote_write_password";
+        }];
+        logs.configs = [{
+          name = "default";
+          scrape_configs = [{
+            job_name = "journal";
+            journal = {
+              max_age = "12h";
+              labels.job = "systemd-journal";
+            };
+            relabel_configs = [
               {
-                job_name = "journal";
-                journal = {
-                  max_age = "12h";
-                  labels.job = "systemd-journal";
-                };
-                relabel_configs = [
-                  {
-                    source_labels = [ "__journal__systemd_unit" ];
-                    target_label = "systemd_unit";
-                  }
-                  {
-                    source_labels = [ "__journal__hostname" ];
-                    target_label = "nodename";
-                  }
-                  {
-                    source_labels = [ "__journal_syslog_identifier" ];
-                    target_label = "syslog_identifier";
-                  }
-                ];
+                source_labels = [ "__journal__systemd_unit" ];
+                target_label = "systemd_unit";
+              }
+              {
+                source_labels = [ "__journal__hostname" ];
+                target_label = "nodename";
+              }
+              {
+                source_labels = [ "__journal_syslog_identifier" ];
+                target_label = "syslog_identifier";
               }
             ];
-            positions.filename = "\${STATE_DIRECTORY}/loki_positions.yaml";
-            clients = [
-              {
-                url = "\${LOGS_REMOTE_WRITE_URL}";
-                basic_auth.username = "\${LOGS_REMOTE_WRITE_USERNAME}";
-                basic_auth.password_file = "\${CREDENTIALS_DIRECTORY}/logs_remote_write_password";
-              }
-            ];
-          }
-        ];
+          }];
+          positions.filename = "\${STATE_DIRECTORY}/loki_positions.yaml";
+          clients = [{
+            url = "\${LOGS_REMOTE_WRITE_URL}";
+            basic_auth.username = "\${LOGS_REMOTE_WRITE_USERNAME}";
+            basic_auth.password_file =
+              "\${CREDENTIALS_DIRECTORY}/logs_remote_write_password";
+          }];
+        }];
       };
     };
   };
@@ -160,7 +144,9 @@ in
         # We can't use Environment=HOSTNAME=%H, as it doesn't include the domain part.
         export HOSTNAME=$(< /proc/sys/kernel/hostname)
 
-        exec ${lib.getExe cfg.package} -config.expand-env -config.file ${configFile} ${
+        exec ${
+          lib.getExe cfg.package
+        } -config.expand-env -config.file ${configFile} ${
           escapeShellArgs cfg.extraFlags
         }
       '';
@@ -168,13 +154,13 @@ in
         Restart = "always";
         DynamicUser = true;
         RestartSec = 2;
-        SupplementaryGroups =
-          [
-            # allow to read the systemd journal for loki log forwarding
-            "systemd-journal"
-          ];
+        SupplementaryGroups = [
+          # allow to read the systemd journal for loki log forwarding
+          "systemd-journal"
+        ];
         StateDirectory = "grafana-agent";
-        LoadCredential = lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
+        LoadCredential =
+          lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
         Type = "simple";
       };
     };

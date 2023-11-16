@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  coreutils,
-  makeWrapper,
-}:
+{ fetchurl, lib, stdenv, coreutils, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "ant";

@@ -1,26 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  pkg-config,
-  qtbase,
-  qtimageformats,
-  qtwebengine,
-  qtx11extras ? null # qt5 only
-  ,
-  libarchive,
-  libXdmcp,
-  libpthreadstubs,
-  wrapQtAppsHook,
-  xcbutilkeysyms,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, extra-cmake-modules, pkg-config, qtbase
+, qtimageformats, qtwebengine, qtx11extras ? null # qt5 only
+, libarchive, libXdmcp, libpthreadstubs, wrapQtAppsHook, xcbutilkeysyms }:
 
-let
-  isQt5 = lib.versions.major qtbase.version == "5";
-in
-stdenv.mkDerivation rec {
+let isQt5 = lib.versions.major qtbase.version == "5";
+
+in stdenv.mkDerivation rec {
   pname = "zeal";
   version = "0.6.1.20230320";
 
@@ -35,22 +19,15 @@ stdenv.mkDerivation rec {
   # could also match on the "VERSION x.y.z" bit but then it would have to be
   # updated based on whatever is the latest release, so instead just rewrite the
   # line.
-  postPatch =
-    ''
-      sed -i CMakeLists.txt \
-        -e 's@^project.*@project(Zeal VERSION ${version})@'
-    ''
-    + lib.optionalString (!isQt5) ''
-      substituteInPlace src/app/CMakeLists.txt \
-        --replace "COMPONENTS Widgets" "COMPONENTS Widgets QmlIntegration"
-    '';
+  postPatch = ''
+    sed -i CMakeLists.txt \
+      -e 's@^project.*@project(Zeal VERSION ${version})@'
+  '' + lib.optionalString (!isQt5) ''
+    substituteInPlace src/app/CMakeLists.txt \
+      --replace "COMPONENTS Widgets" "COMPONENTS Widgets QmlIntegration"
+  '';
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     qtbase
@@ -70,10 +47,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://zealdocs.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      skeidel
-      peterhoeg
-    ];
+    maintainers = with maintainers; [ skeidel peterhoeg ];
     platforms = platforms.linux;
   };
 }

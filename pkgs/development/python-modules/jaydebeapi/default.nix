@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  jpype1,
-}:
+{ lib, buildPythonPackage, fetchPypi, jpype1 }:
 
 buildPythonPackage rec {
   pname = "jaydebeapi";
@@ -20,6 +15,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/baztian/jaydebeapi";
     license = licenses.lgpl2;
-    description = "Use JDBC database drivers from Python 2/3 or Jython with a DB-API";
+    description =
+      "Use JDBC database drivers from Python 2/3 or Jython with a DB-API";
   };
 }

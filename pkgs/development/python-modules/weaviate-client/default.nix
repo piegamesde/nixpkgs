@@ -1,13 +1,5 @@
-{
-  lib,
-  authlib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools-scm,
-  tqdm,
-  validators,
-}:
+{ lib, authlib, buildPythonPackage, fetchPypi, pythonOlder, setuptools-scm, tqdm
+, validators }:
 
 buildPythonPackage rec {
   pname = "weaviate-client";
@@ -31,20 +23,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    authlib
-    tqdm
-    validators
-  ];
+  propagatedBuildInputs = [ authlib tqdm validators ];
 
   doCheck = false;
 
   pythonImportsCheck = [ "weaviate" ];
 
   meta = with lib; {
-    description = "Python native client for easy interaction with a Weaviate instance";
+    description =
+      "Python native client for easy interaction with a Weaviate instance";
     homepage = "https://github.com/weaviate/weaviate-python-client";
-    changelog = "https://github.com/weaviate/weaviate-python-client/releases/tag/v${version}";
+    changelog =
+      "https://github.com/weaviate/weaviate-python-client/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.i3;
-in
+let cfg = config.services.xserver.windowManager.i3;
 
-{
+in {
   options.services.xserver.windowManager.i3 = {
     enable = mkEnableOption (lib.mdDoc "i3 window manager");
 
@@ -43,11 +36,7 @@ in
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = with pkgs; [
-        dmenu
-        i3status
-        i3lock
-      ];
+      default = with pkgs; [ dmenu i3status i3lock ];
       defaultText = literalExpression ''
         with pkgs; [
           dmenu
@@ -62,31 +51,30 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.windowManager.session = [
-      {
-        name = "i3";
-        start = ''
-          ${cfg.extraSessionCommands}
+    services.xserver.windowManager.session = [{
+      name = "i3";
+      start = ''
+        ${cfg.extraSessionCommands}
 
-          ${cfg.package}/bin/i3 ${optionalString (cfg.configFile != null) "-c /etc/i3/config"} &
-          waitPID=$!
-        '';
-      }
-    ];
+        ${cfg.package}/bin/i3 ${
+          optionalString (cfg.configFile != null) "-c /etc/i3/config"
+        } &
+        waitPID=$!
+      '';
+    }];
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
-    environment.etc."i3/config" = mkIf (cfg.configFile != null) { source = cfg.configFile; };
+    environment.etc."i3/config" =
+      mkIf (cfg.configFile != null) { source = cfg.configFile; };
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "windowManager"
-        "i3-gaps"
-        "enable"
-      ]
-      "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "windowManager"
+      "i3-gaps"
+      "enable"
+    ]
+      "i3-gaps was merged into i3. Use services.xserver.windowManager.i3.enable instead.")
   ];
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "uptimed";
@@ -33,10 +28,7 @@ stdenv.mkDerivation rec {
       which can also easily be used to show your records on a web page.
     '';
     homepage = "https://github.com/rpodgorny/uptimed/";
-    license = with licenses; [
-      gpl2Only
-      lgpl21Plus
-    ];
+    license = with licenses; [ gpl2Only lgpl21Plus ];
     maintainers = with maintainers; [ ];
     platforms = platforms.linux;
   };

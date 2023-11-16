@@ -1,21 +1,9 @@
-{
-  lib,
-  derivationWithMeta,
-  kaem-unwrapped,
-  mescc-tools,
-  src,
-  version,
-}:
+{ lib, derivationWithMeta, kaem-unwrapped, mescc-tools, src, version }:
 derivationWithMeta {
   inherit version src mescc-tools;
   pname = "mescc-tools-extra";
   builder = kaem-unwrapped;
-  args = [
-    "--verbose"
-    "--strict"
-    "--file"
-    ./build.kaem
-  ];
+  args = [ "--verbose" "--strict" "--file" ./build.kaem ];
 
   ARCH = "x86";
   OPERATING_SYSTEM = "linux";

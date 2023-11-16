@@ -1,37 +1,16 @@
-{
-  lib,
-  pkgs,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-  nodejs,
-  debianutils,
-  mkdocs,
-  python3,
-  python3Packages,
-  pkg-config,
-  pixman,
-  cairo,
-  pango,
-}:
+{ lib, pkgs, stdenv, buildGoModule, fetchFromGitHub, nixosTests, nodejs
+, debianutils, mkdocs, python3, python3Packages, pkg-config, pixman, cairo
+, pango }:
 
 let
-  nodeDependencies =
-    (import ./node-composition.nix {
-      inherit pkgs nodejs;
-      inherit (stdenv.hostPlatform) system;
-    }).nodeDependencies.override
-      {
-        nativeBuildInputs = [ pkg-config ];
-        buildInputs = [
-          pixman
-          cairo
-          pango
-        ];
-      };
-in
-buildGoModule rec {
+  nodeDependencies = (import ./node-composition.nix {
+    inherit pkgs nodejs;
+    inherit (stdenv.hostPlatform) system;
+  }).nodeDependencies.override {
+    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [ pixman cairo pango ];
+  };
+in buildGoModule rec {
   pname = "ntfy-sh";
   version = "2.5.0";
 
@@ -46,11 +25,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   nativeBuildInputs = [
     debianutils
@@ -77,12 +52,10 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Send push notifications to your phone or desktop via PUT/POST";
+    description =
+      "Send push notifications to your phone or desktop via PUT/POST";
     homepage = "https://ntfy.sh";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      arjan-s
-      fpletz
-    ];
+    maintainers = with maintainers; [ arjan-s fpletz ];
   };
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "go-outline";
@@ -18,12 +14,10 @@ buildGoModule rec {
   vendorSha256 = "sha256-jYYtSXdJd2eUc80UfwRRMPcX6tFiXE3LbxV3NAdKVKE=";
 
   meta = with lib; {
-    description = "Utility to extract JSON representation of declarations from a Go source file";
+    description =
+      "Utility to extract JSON representation of declarations from a Go source file";
     homepage = "https://github.com/ramya-rao-a/go-outline";
-    maintainers = with maintainers; [
-      SuperSandro2000
-      vdemeester
-    ];
+    maintainers = with maintainers; [ SuperSandro2000 vdemeester ];
     license = licenses.mit;
   };
 }

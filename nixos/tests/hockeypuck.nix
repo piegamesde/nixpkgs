@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+import ./make-test-python.nix ({ lib, pkgs, ... }:
   let
     gpgKeyring =
       (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
@@ -22,30 +21,25 @@ import ./make-test-python.nix (
         gpg --batch --generate-key foo
         rm $out/S.gpg-agent $out/S.gpg-agent.*
       '');
-  in
-  {
+  in {
     name = "hockeypuck";
     meta.maintainers = with lib.maintainers; [ etu ];
 
-    nodes.machine =
-      { ... }:
-      {
-        # Used for test
-        environment.systemPackages = [ pkgs.gnupg ];
+    nodes.machine = { ... }: {
+      # Used for test
+      environment.systemPackages = [ pkgs.gnupg ];
 
-        services.hockeypuck.enable = true;
+      services.hockeypuck.enable = true;
 
-        services.postgresql = {
-          enable = true;
-          ensureDatabases = [ "hockeypuck" ];
-          ensureUsers = [
-            {
-              name = "hockeypuck";
-              ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
-            }
-          ];
-        };
+      services.postgresql = {
+        enable = true;
+        ensureDatabases = [ "hockeypuck" ];
+        ensureUsers = [{
+          name = "hockeypuck";
+          ensurePermissions."DATABASE hockeypuck" = "ALL PRIVILEGES";
+        }];
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("hockeypuck.service")
@@ -67,5 +61,4 @@ import ./make-test-python.nix (
       # Receive the key from our local keyserver to a separate directory
       machine.succeed("GNUPGHOME=$(mktemp -d) gpg --keyserver hkp://127.0.0.1:11371 --recv-keys " + keyId)
     '';
-  }
-)
+  })

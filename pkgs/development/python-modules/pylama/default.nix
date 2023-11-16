@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  substituteAll,
-  git,
-  eradicate,
-  mccabe,
-  mypy,
-  pycodestyle,
-  pydocstyle,
-  pyflakes,
-  vulture,
-  setuptools,
-  isort,
-  pylint,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, substituteAll, git, eradicate
+, mccabe, mypy, pycodestyle, pydocstyle, pyflakes, vulture, setuptools, isort
+, pylint, pytestCheckHook }:
 
 let
   pylama = buildPythonPackage rec {
@@ -53,10 +38,7 @@ let
     # escape infinite recursion pylint -> isort -> pylama
     doCheck = false;
 
-    nativeCheckInputs = [
-      pylint
-      pytestCheckHook
-    ];
+    nativeCheckInputs = [ pylint pytestCheckHook ];
 
     preCheck = ''
       export HOME=$TEMP
@@ -81,5 +63,4 @@ let
       maintainers = with maintainers; [ dotlambda ];
     };
   };
-in
-pylama
+in pylama

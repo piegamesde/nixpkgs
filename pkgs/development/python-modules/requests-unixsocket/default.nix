@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pbr,
-  requests,
-  pytestCheckHook,
-  waitress,
+{ lib, buildPythonPackage, fetchPypi, pbr, requests, pytestCheckHook, waitress
 }:
 
 buildPythonPackage rec {
@@ -22,10 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    waitress
-  ];
+  nativeCheckInputs = [ pytestCheckHook waitress ];
 
   pythonImportsCheck = [ "requests_unixsocket" ];
 

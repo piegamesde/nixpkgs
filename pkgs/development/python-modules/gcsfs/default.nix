@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  google-auth,
-  google-auth-oauthlib,
-  google-cloud-storage,
-  requests,
-  decorator,
-  fsspec,
-  ujson,
-  aiohttp,
-  crcmod,
-  pytest-timeout,
-  pytest-vcr,
-  vcrpy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, google-auth, google-auth-oauthlib, google-cloud-storage, requests, decorator
+, fsspec, ujson, aiohttp, crcmod, pytest-timeout, pytest-vcr, vcrpy }:
 
 buildPythonPackage rec {
   pname = "gcsfs";
@@ -44,12 +28,7 @@ buildPythonPackage rec {
     ujson
   ];
 
-  nativeCheckInputs = [
-    pytest-vcr
-    pytest-timeout
-    pytestCheckHook
-    vcrpy
-  ];
+  nativeCheckInputs = [ pytest-vcr pytest-timeout pytestCheckHook vcrpy ];
 
   disabledTestPaths = [
     # Tests require a running Docker instance
@@ -65,7 +44,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Convenient Filesystem interface over GCS";
     homepage = "https://github.com/fsspec/gcsfs";
-    changelog = "https://github.com/fsspec/gcsfs/raw/${version}/docs/source/changelog.rst";
+    changelog =
+      "https://github.com/fsspec/gcsfs/raw/${version}/docs/source/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ nbren12 ];
   };

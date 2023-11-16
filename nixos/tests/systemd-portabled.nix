@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     demo-program = pkgs.writeShellScriptBin "demo" ''
       while ${pkgs.coreutils}/bin/sleep 3; do
@@ -35,14 +34,11 @@ import ./make-test-python.nix (
     demo-portable = pkgs.portableService {
       pname = "demo";
       version = "1.0";
-      description = ''A demo "Portable Service" for a shell program built with nix'';
-      units = [
-        demo-service
-        demo-socket
-      ];
+      description =
+        ''A demo "Portable Service" for a shell program built with nix'';
+      units = [ demo-service demo-socket ];
     };
-  in
-  {
+  in {
 
     name = "systemd-portabled";
     nodes.machine = { };
@@ -54,5 +50,4 @@ import ./make-test-python.nix (
       machine.succeed("portablectl detach --now --runtime demo_1.0")
       machine.fail("systemctl status demo.service")
     '';
-  }
-)
+  })

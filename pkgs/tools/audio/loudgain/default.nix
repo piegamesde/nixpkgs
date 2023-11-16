@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  ffmpeg_4,
-  libebur128,
-  libresample,
-  taglib,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, ffmpeg_4, libebur128
+, libresample, taglib, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "loudgain";
@@ -22,17 +12,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-XLj+n0GlY/GAkJlW2JVMd0jxMzgdv/YeSTuF6QUIGwU=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    ffmpeg_4
-    libebur128
-    libresample
-    taglib
-    zlib
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ ffmpeg_4 libebur128 libresample taglib zlib ];
 
   postInstall = ''
     sed -e "1aPATH=$out/bin:\$PATH" -i "$out/bin/rgbpm"

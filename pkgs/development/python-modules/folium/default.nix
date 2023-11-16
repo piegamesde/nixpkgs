@@ -1,21 +1,6 @@
-{
-  lib,
-  branca,
-  buildPythonPackage,
-  fetchFromGitHub,
-  geopandas,
-  jinja2,
-  nbconvert,
-  numpy,
-  pandas,
-  pillow,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  selenium,
-  setuptools-scm,
-  xyzservices,
-}:
+{ lib, branca, buildPythonPackage, fetchFromGitHub, geopandas, jinja2, nbconvert
+, numpy, pandas, pillow, pytestCheckHook, pythonOlder, requests, selenium
+, setuptools-scm, xyzservices }:
 
 buildPythonPackage rec {
   pname = "folium";
@@ -35,22 +20,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    branca
-    jinja2
-    numpy
-    requests
-  ];
+  propagatedBuildInputs = [ branca jinja2 numpy requests ];
 
-  nativeCheckInputs = [
-    geopandas
-    nbconvert
-    pandas
-    pillow
-    pytestCheckHook
-    selenium
-    xyzservices
-  ];
+  nativeCheckInputs =
+    [ geopandas nbconvert pandas pillow pytestCheckHook selenium xyzservices ];
 
   disabledTests = [
     # Tests require internet connection
@@ -68,7 +41,8 @@ buildPythonPackage rec {
   meta = {
     description = "Make beautiful maps with Leaflet.js & Python";
     homepage = "https://github.com/python-visualization/folium";
-    changelog = "https://github.com/python-visualization/folium/blob/v${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/python-visualization/folium/blob/v${version}/CHANGES.txt";
     license = with lib.licenses; [ mit ];
     maintainers = with lib.maintainers; [ fridh ];
   };

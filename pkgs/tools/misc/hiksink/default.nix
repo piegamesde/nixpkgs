@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  pkg-config,
-  Security,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, pkg-config, Security, openssl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "hiksink";

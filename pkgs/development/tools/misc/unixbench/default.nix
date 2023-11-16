@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  pandoc,
-  installShellFiles,
-  perl,
-  xorg,
-  libGL,
-  coreutils,
-  unixtools,
-  targetPackages,
-  gnugrep,
-  gawk,
-  withGL ? true,
-  withX11perf ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, pandoc, installShellFiles, perl
+, xorg, libGL, coreutils, unixtools, targetPackages, gnugrep, gawk
+, withGL ? true, withX11perf ? true }:
 
 stdenv.mkDerivation rec {
   pname = "unixbench";
@@ -39,19 +24,10 @@ stdenv.mkDerivation rec {
       --replace "-Wa,-q" ""
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    pandoc
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper pandoc installShellFiles ];
 
-  buildInputs =
-    [ perl ]
-    ++ lib.optionals withGL [
-      xorg.libX11
-      xorg.libXext
-      libGL
-    ];
+  buildInputs = [ perl ]
+    ++ lib.optionals withGL [ xorg.libX11 xorg.libXext libGL ];
 
   runtimeDependencies = [
     coreutils
@@ -62,9 +38,8 @@ stdenv.mkDerivation rec {
     gawk
   ] ++ lib.optionals withX11perf [ xorg.x11perf ];
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ] ++ lib.optionals withGL [ "GRAPHIC_TESTS=defined" ];
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ]
+    ++ lib.optionals withGL [ "GRAPHIC_TESTS=defined" ];
 
   installPhase = ''
     runHook preInstall

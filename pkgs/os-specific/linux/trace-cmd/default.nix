@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  pkg-config,
-  asciidoc,
-  xmlto,
-  docbook_xsl,
-  docbook_xml_dtd_45,
-  libxslt,
-  libtraceevent,
-  libtracefs,
-  zstd,
-  sourceHighlight,
+{ lib, stdenv, fetchgit, pkg-config, asciidoc, xmlto, docbook_xsl
+, docbook_xml_dtd_45, libxslt, libtraceevent, libtracefs, zstd, sourceHighlight
 }:
 stdenv.mkDerivation rec {
   pname = "trace-cmd";
@@ -40,29 +28,19 @@ stdenv.mkDerivation rec {
     sourceHighlight
   ];
 
-  buildInputs = [
-    libtraceevent
-    libtracefs
-    zstd
-  ];
+  buildInputs = [ libtraceevent libtracefs zstd ];
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "man"
-  ];
+  outputs = [ "out" "lib" "dev" "man" ];
 
   MANPAGE_DOCBOOK_XSL = "${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl";
 
   dontConfigure = true;
 
   enableParallelBuilding = true;
-  makeFlags =
-    [
-      # The following values appear in the generated .pc file
-      "prefix=${placeholder "lib"}"
-    ];
+  makeFlags = [
+    # The following values appear in the generated .pc file
+    "prefix=${placeholder "lib"}"
+  ];
 
   # We do not mention targets (like "doc") explicitly in makeFlags
   # because the Makefile would not print warnings about too old
@@ -71,11 +49,7 @@ stdenv.mkDerivation rec {
     make libs doc -j$NIX_BUILD_CORES
   '';
 
-  installTargets = [
-    "install_cmd"
-    "install_libs"
-    "install_doc"
-  ];
+  installTargets = [ "install_cmd" "install_libs" "install_doc" ];
   installFlags = [
     "LDCONFIG=false"
     "bindir=${placeholder "out"}/bin"
@@ -89,14 +63,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "User-space tools for the Linux kernel ftrace subsystem";
     homepage = "https://www.trace-cmd.org/";
-    license = with licenses; [
-      lgpl21Only
-      gpl2Only
-    ];
+    license = with licenses; [ lgpl21Only gpl2Only ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      thoughtpolice
-      basvandijk
-    ];
+    maintainers = with maintainers; [ thoughtpolice basvandijk ];
   };
 }

@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  ninja,
-  installCompatHeader ? false,
-  installLegacyHeaders ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, ninja
+, installCompatHeader ? false, installLegacyHeaders ? false }:
 
 stdenv.mkDerivation rec {
   pname = "gsl-lite";
@@ -23,23 +15,20 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "type-limits-cast-fix.patch";
-      url = "https://github.com/gsl-lite/gsl-lite/commit/13475be0e5bf5f464c398f4a07ef5c7684bc57c5.patch";
+      url =
+        "https://github.com/gsl-lite/gsl-lite/commit/13475be0e5bf5f464c398f4a07ef5c7684bc57c5.patch";
       hash = "sha256-rSz7OBmgQ3KcQ971tS3Z3QNC+U4XmrPjgmuOyG7J6Bo=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  nativeBuildInputs = [ cmake ninja ];
 
-  cmakeFlags =
-    lib.mapAttrsToList (name: value: "-DGSL_LITE_OPT_${name}:BOOL=${if value then "ON" else "OFF"}")
-      {
-        INSTALL_COMPAT_HEADER = installCompatHeader;
-        INSTALL_LEGACY_HEADERS = installLegacyHeaders;
-        BUILD_TESTS = doCheck;
-      };
+  cmakeFlags = lib.mapAttrsToList (name: value:
+    "-DGSL_LITE_OPT_${name}:BOOL=${if value then "ON" else "OFF"}") {
+      INSTALL_COMPAT_HEADER = installCompatHeader;
+      INSTALL_LEGACY_HEADERS = installLegacyHeaders;
+      BUILD_TESTS = doCheck;
+    };
 
   # Building tests is broken on Darwin.
   doCheck = !stdenv.isDarwin;
@@ -56,7 +45,8 @@ stdenv.mkDerivation rec {
       C++20.
     '';
     homepage = "https://github.com/gsl-lite/gsl-lite";
-    changelog = "https://github.com/gsl-lite/gsl-lite/blob/${src.rev}/CHANGES.txt";
+    changelog =
+      "https://github.com/gsl-lite/gsl-lite/blob/${src.rev}/CHANGES.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ azahi ];
     platforms = platforms.all;

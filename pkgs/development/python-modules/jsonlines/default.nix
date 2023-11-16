@@ -1,10 +1,4 @@
-{
-  lib,
-  attrs,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, attrs, fetchFromGitHub, buildPythonPackage, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "jsonlines" ];
 
   meta = with lib; {
-    description = "Python library to simplify working with jsonlines and ndjson data";
+    description =
+      "Python library to simplify working with jsonlines and ndjson data";
     homepage = "https://github.com/wbolster/jsonlines";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];

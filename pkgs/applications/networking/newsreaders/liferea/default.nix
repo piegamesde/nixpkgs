@@ -1,75 +1,44 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  python3Packages,
-  wrapGAppsHook,
-  glib,
-  libxml2,
-  libxslt,
-  sqlite,
-  libsoup,
-  webkitgtk,
-  json-glib,
-  gst_all_1,
-  libnotify,
-  gtk3,
-  gsettings-desktop-schemas,
-  libpeas,
-  libsecret,
-  gobject-introspection,
-  glib-networking,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, python3Packages, wrapGAppsHook
+, glib, libxml2, libxslt, sqlite, libsoup, webkitgtk, json-glib, gst_all_1
+, libnotify, gtk3, gsettings-desktop-schemas, libpeas, libsecret
+, gobject-introspection, glib-networking, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "liferea";
   version = "1.15.0";
 
   src = fetchurl {
-    url = "https://github.com/lwindolf/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
+    url =
+      "https://github.com/lwindolf/${pname}/releases/download/v${version}/${pname}-${version}.tar.bz2";
     sha256 = "1a7dlwuUOHeCsB+ofAOPlbyuh/QAB8kf50MsocMNz70=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    python3Packages.wrapPython
-    intltool
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ wrapGAppsHook python3Packages.wrapPython intltool pkg-config ];
 
-  buildInputs =
-    [
-      glib
-      gtk3
-      webkitgtk
-      libxml2
-      libxslt
-      sqlite
-      libsoup
-      libpeas
-      gsettings-desktop-schemas
-      json-glib
-      gobject-introspection
-      libsecret
-      glib-networking
-      libnotify
-    ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-      ]
-    );
+  buildInputs = [
+    glib
+    gtk3
+    webkitgtk
+    libxml2
+    libxslt
+    sqlite
+    libsoup
+    libpeas
+    gsettings-desktop-schemas
+    json-glib
+    gobject-introspection
+    libsecret
+    glib-networking
+    libnotify
+  ] ++ (with gst_all_1; [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-good
+    gst-plugins-bad
+  ]);
 
-  pythonPath = with python3Packages; [
-    pygobject3
-    pycairo
-  ];
+  pythonPath = with python3Packages; [ pygobject3 pycairo ];
 
   preFixup = ''
     buildPythonPath "$out $pythonPath"

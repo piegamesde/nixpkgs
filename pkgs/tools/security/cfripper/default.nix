@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "cfripper";
@@ -26,10 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    moto
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ moto pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.py \

@@ -1,35 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  gtk3,
-  ncurses,
-  libcpuid,
-  pciutils,
-  procps,
-  wrapGAppsHook,
-  nasm,
-  makeWrapper,
-  opencl-headers,
-  ocl-icd,
-  vulkan-headers,
-  vulkan-loader,
-  glfw,
-  libXdmcp,
-  pcre,
-  util-linux,
-  libselinux,
-  libsepol,
-  libthai,
-  libdatrie,
-  libxkbcommon,
-  libepoxy,
-  dbus,
-  at-spi2-core,
-  libXtst,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, gtk3, ncurses, libcpuid
+, pciutils, procps, wrapGAppsHook, nasm, makeWrapper, opencl-headers, ocl-icd
+, vulkan-headers, vulkan-loader, glfw, libXdmcp, pcre, util-linux, libselinux
+, libsepol, libthai, libdatrie, libxkbcommon, libepoxy, dbus, at-spi2-core
+, libXtst }:
 
 # Known issues:
 # - The daemon can't be started from the GUI, because pkexec requires a shell
@@ -47,13 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-o48NkOPabfnwsu+nyXJOstW6g0JSUgIrEFx1nNCR7XE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-    nasm
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook nasm makeWrapper ];
   buildInputs = [
     gtk3
     ncurses
@@ -86,7 +53,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Free software that gathers information on CPU, motherboard and more";
+    description =
+      "Free software that gathers information on CPU, motherboard and more";
     homepage = "https://thetumultuousunicornofdarkness.github.io/CPU-X";
     license = licenses.gpl3Plus;
     platforms = [ "x86_64-linux" ];

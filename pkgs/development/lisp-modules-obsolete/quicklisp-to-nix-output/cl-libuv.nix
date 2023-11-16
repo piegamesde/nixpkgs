@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-libuv";
   version = "20200610-git";
 
@@ -16,7 +15,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-libuv/2020-06-10/cl-libuv-20200610-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-libuv/2020-06-10/cl-libuv-20200610-git.tgz";
     sha256 = "1ywk1z1ibyk3z0irg5azjrjk3x08ixv30fx4qa0p500fmbfhha19";
   };
 

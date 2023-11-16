@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gamin,
-}:
+{ lib, stdenv, fetchurl, gamin }:
 
 stdenv.mkDerivation rec {
   pname = "fileschanged";
@@ -22,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://www.nongnu.org/fileschanged/";
-    description = "A command-line utility that reports when files have been altered";
+    description =
+      "A command-line utility that reports when files have been altered";
     license = lib.licenses.gpl3Plus;
 
     longDescription = ''

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fuse,
-  icu66,
-  pkg-config,
-  libxml2,
-  libuuid,
-}:
+{ lib, stdenv, fetchFromGitHub, fuse, icu66, pkg-config, libxml2, libuuid }:
 
 stdenv.mkDerivation rec {
   version = "3.4.2_Z7550-02501";
@@ -29,16 +20,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    fuse
-    icu66
-    libxml2
-    libuuid
-  ];
+  buildInputs = [ fuse icu66 libxml2 libuuid ];
 
   meta = with lib; {
-    description = "HPE's implementation of the open-source tape filesystem standard ltfs";
-    homepage = "https://support.hpe.com/hpesc/public/km/product/1009214665/Product";
+    description =
+      "HPE's implementation of the open-source tape filesystem standard ltfs";
+    homepage =
+      "https://support.hpe.com/hpesc/public/km/product/1009214665/Product";
     license = licenses.lgpl21;
     maintainers = [ maintainers.redvers ];
     platforms = platforms.linux;

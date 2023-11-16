@@ -1,8 +1,4 @@
-{
-  lib,
-  appimageTools,
-  fetchurl,
-}:
+{ lib, appimageTools, fetchurl }:
 
 let
   version = "1.6.4";
@@ -14,8 +10,8 @@ let
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in
-appimageTools.wrapType2 rec {
+
+in appimageTools.wrapType2 rec {
   inherit pname version src;
 
   extraInstallCommands = ''
@@ -26,7 +22,8 @@ appimageTools.wrapType2 rec {
   '';
 
   meta = with lib; {
-    description = "An all-in-one encrypted todo list, notebook, habit and mood tracker, pomodoro timer, and journaling app";
+    description =
+      "An all-in-one encrypted todo list, notebook, habit and mood tracker, pomodoro timer, and journaling app";
     longDescription = ''
       Lunatask is an all-in-one encrypted todo list, notebook, habit and mood tracker, pomodoro timer, and journaling app. It remembers stuff for you and keeps track of your mental health.
     '';

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  cohttp,
-}:
+{ lib, buildDunePackage, cohttp }:
 
 buildDunePackage {
   pname = "cohttp-top";

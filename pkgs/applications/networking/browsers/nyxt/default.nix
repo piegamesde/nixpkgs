@@ -1,22 +1,6 @@
-{
-  stdenv,
-  lib,
-  sbclPackages,
-  makeWrapper,
-  wrapGAppsHook,
-  gst_all_1,
-  glib,
-  gdk-pixbuf,
-  cairo,
-  mailcap,
-  pango,
-  gtk3,
-  glib-networking,
-  gsettings-desktop-schemas,
-  xclip,
-  notify-osd,
-  enchant,
-}:
+{ stdenv, lib, sbclPackages, makeWrapper, wrapGAppsHook, gst_all_1, glib
+, gdk-pixbuf, cairo, mailcap, pango, gtk3, glib-networking
+, gsettings-desktop-schemas, xclip, notify-osd, enchant }:
 
 stdenv.mkDerivation rec {
   pname = "nyxt";
@@ -24,10 +8,7 @@ stdenv.mkDerivation rec {
 
   src = sbclPackages.nyxt;
 
-  nativeBuildInputs = [
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
   gstBuildInputs = with gst_all_1; [
     gstreamer
     gst-libav
@@ -49,7 +30,8 @@ stdenv.mkDerivation rec {
     enchant
   ] ++ gstBuildInputs;
 
-  GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gstBuildInputs;
+  GST_PLUGIN_SYSTEM_PATH_1_0 =
+    lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gstBuildInputs;
 
   # The executable is already built in sbclPackages.nyxt, buildPhase tries to build using the makefile which we ignore
   dontBuild = true;
@@ -75,13 +57,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Infinitely extensible web-browser (with Lisp development files using WebKitGTK platform port)";
+    description =
+      "Infinitely extensible web-browser (with Lisp development files using WebKitGTK platform port)";
     homepage = "https://nyxt.atlas.engineer";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      lewo
-      dariof4
-    ];
+    maintainers = with maintainers; [ lewo dariof4 ];
     platforms = platforms.all;
   };
 }

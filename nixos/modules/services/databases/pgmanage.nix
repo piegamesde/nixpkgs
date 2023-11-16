@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, config, ... }:
 
 with lib;
 
@@ -21,7 +16,8 @@ let
 
       super_only = ${builtins.toJSON cfg.superOnly}
 
-      ${optionalString (cfg.loginGroup != null) "login_group = ${cfg.loginGroup}"}
+      ${optionalString (cfg.loginGroup != null)
+      "login_group = ${cfg.loginGroup}"}
 
       login_timeout = ${toString cfg.loginTimeout}
 
@@ -40,12 +36,13 @@ let
 
   pgmanageConnectionsFile = pkgs.writeTextFile {
     name = "pgmanage-connections.conf";
-    text = concatStringsSep "\n" (mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections);
+    text = concatStringsSep "\n"
+      (mapAttrsToList (name: conn: "${name}: ${conn}") cfg.connections);
   };
 
   pgmanage = "pgmanage";
-in
-{
+
+in {
 
   options.services.pgmanage = {
     enable = mkEnableOption (lib.mdDoc "PostgreSQL Administration for the web");
@@ -64,7 +61,8 @@ in
       default = { };
       example = {
         nuc-server = "hostaddr=192.168.0.100 port=5432 dbname=postgres";
-        mini-server = "hostaddr=127.0.0.1 port=5432 dbname=postgres sslmode=require";
+        mini-server =
+          "hostaddr=127.0.0.1 port=5432 dbname=postgres sslmode=require";
       };
       description = lib.mdDoc ''
         pgmanage requires at least one PostgreSQL server be defined.
@@ -147,20 +145,18 @@ in
     };
 
     tls = mkOption {
-      type = types.nullOr (
-        types.submodule {
-          options = {
-            cert = mkOption {
-              type = types.str;
-              description = lib.mdDoc "TLS certificate";
-            };
-            key = mkOption {
-              type = types.str;
-              description = lib.mdDoc "TLS key";
-            };
+      type = types.nullOr (types.submodule {
+        options = {
+          cert = mkOption {
+            type = types.str;
+            description = lib.mdDoc "TLS certificate";
           };
-        }
-      );
+          key = mkOption {
+            type = types.str;
+            description = lib.mdDoc "TLS key";
+          };
+        };
+      });
       default = null;
       description = lib.mdDoc ''
         These options tell pgmanage where the TLS Certificate and Key files
@@ -176,12 +172,7 @@ in
     };
 
     logLevel = mkOption {
-      type = types.enum [
-        "error"
-        "warn"
-        "notice"
-        "info"
-      ];
+      type = types.enum [ "error" "warn" "notice" "info" ];
       default = "error";
       description = lib.mdDoc ''
         Verbosity of logs
@@ -198,8 +189,8 @@ in
       serviceConfig = {
         User = pgmanage;
         Group = pgmanage;
-        ExecStart =
-          "${pkgs.pgmanage}/sbin/pgmanage -c ${confFile}" + optionalString cfg.localOnly " --local-only=true";
+        ExecStart = "${pkgs.pgmanage}/sbin/pgmanage -c ${confFile}"
+          + optionalString cfg.localOnly " --local-only=true";
       };
     };
     users = {
@@ -210,9 +201,7 @@ in
         createHome = true;
         isSystemUser = true;
       };
-      groups.${pgmanage} = {
-        name = pgmanage;
-      };
+      groups.${pgmanage} = { name = pgmanage; };
     };
   };
 }

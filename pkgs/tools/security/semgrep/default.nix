@@ -1,36 +1,21 @@
-{
-  lib,
-  fetchFromGitHub,
-  callPackage,
-  semgrep-core,
-  buildPythonApplication,
-  pythonPackages,
-  pythonRelaxDepsHook,
+{ lib, fetchFromGitHub, callPackage, semgrep-core, buildPythonApplication
+, pythonPackages, pythonRelaxDepsHook
 
-  pytestCheckHook,
-  git,
-}:
+, pytestCheckHook, git }:
 
-let
-  common = callPackage ./common.nix { };
-in
-buildPythonApplication rec {
+let common = callPackage ./common.nix { };
+in buildPythonApplication rec {
   pname = "semgrep";
   inherit (common) src version;
 
-  postPatch =
-    (lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (path: submodule: ''
-          # substitute ${path}
-          # remove git submodule placeholder
-          rm -r ${path}
-          # link submodule
-          ln -s ${submodule}/ ${path}
-        '')
-        common.submodules
-    ))
-    + ''
+  postPatch = (lib.concatStringsSep "\n" (lib.mapAttrsToList
+    (path: submodule: ''
+      # substitute ${path}
+      # remove git submodule placeholder
+      rm -r ${path}
+      # link submodule
+      ln -s ${submodule}/ ${path}
+    '') common.submodules)) + ''
       cd cli
     '';
 
@@ -40,10 +25,7 @@ buildPythonApplication rec {
   # copies the binary but doesn't retain the executable bit
   SEMGREP_SKIP_BIN = true;
 
-  pythonRelaxDeps = [
-    "boltons"
-    "glom"
-  ];
+  pythonRelaxDeps = [ "boltons" "glom" ];
 
   propagatedBuildInputs = with pythonPackages; [
     attrs
@@ -68,19 +50,12 @@ buildPythonApplication rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs =
-    [
-      git
-      pytestCheckHook
-    ]
-    ++ (
-      with pythonPackages; [
-        pytest-snapshot
-        pytest-mock
-        pytest-freezegun
-        types-freezegun
-      ]
-    );
+  nativeCheckInputs = [ git pytestCheckHook ] ++ (with pythonPackages; [
+    pytest-snapshot
+    pytest-mock
+    pytest-freezegun
+    types-freezegun
+  ]);
   disabledTests = [
     # requires networking
     "test_send"
@@ -110,7 +85,5 @@ buildPythonApplication rec {
     updateScript = ./update.sh;
   };
 
-  meta = common.meta // {
-    description = common.meta.description + " - cli";
-  };
+  meta = common.meta // { description = common.meta.description + " - cli"; };
 }

@@ -1,19 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build
-  setuptools,
+# build
+, setuptools
 
-  # runtime
-  packaging,
-  typing-extensions,
+# runtime
+, packaging, typing-extensions
 
-  # tests
-  pytest-timeout,
-  pytestCheckHook,
-}:
+# tests
+, pytest-timeout, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "lightning-utilities";
@@ -29,17 +23,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    packaging
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ packaging typing-extensions ];
 
   pythonImportsCheck = [ "lightning_utilities" ];
 
-  nativeCheckInputs = [
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-timeout pytestCheckHook ];
 
   disabledTests = [
     "lightning_utilities.core.enums.StrEnum"
@@ -65,8 +53,10 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/Lightning-AI/utilities/releases/tag/v${version}";
-    description = "Common Python utilities and GitHub Actions in Lightning Ecosystem";
+    changelog =
+      "https://github.com/Lightning-AI/utilities/releases/tag/v${version}";
+    description =
+      "Common Python utilities and GitHub Actions in Lightning Ecosystem";
     homepage = "https://github.com/Lightning-AI/utilities";
     license = licenses.asl20;
     maintainers = with maintainers; [ hexa ];

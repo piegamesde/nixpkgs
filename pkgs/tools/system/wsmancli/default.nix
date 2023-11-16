@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  openssl,
-  openwsman,
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, openssl, openwsman
 }:
 
 stdenv.mkDerivation rec {
@@ -19,15 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-A2PVhQuKVTZ/nDKyy+vZVBNLB/3xujBYBzUEWcTIYYg=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    openwsman
-    openssl
-  ];
+  buildInputs = [ openwsman openssl ];
 
   postPatch = ''
     touch AUTHORS NEWS README
@@ -43,11 +30,6 @@ stdenv.mkDerivation rec {
       WS-Management specification and Testing.
     '';
     downloadPage = "https://github.com/Openwsman/wsmancli/releases";
-    inherit (openwsman.meta)
-      homepage
-      license
-      maintainers
-      platforms
-    ;
+    inherit (openwsman.meta) homepage license maintainers platforms;
   };
 }

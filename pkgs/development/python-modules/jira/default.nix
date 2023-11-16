@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  defusedxml,
-  flaky,
-  keyring,
-  requests-mock,
-  requests-oauthlib,
-  requests-toolbelt,
-  setuptools-scm,
-  setuptools-scm-git-archive,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, defusedxml, flaky, keyring
+, requests-mock, requests-oauthlib, requests-toolbelt, setuptools-scm
+, setuptools-scm-git-archive, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "jira";
@@ -28,25 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-n0V9FZ1agzvzqCriqls8C2IKhHKOmOAWqa8iCnXHKY4=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-    setuptools-scm-git-archive
-  ];
+  nativeBuildInputs = [ setuptools-scm setuptools-scm-git-archive ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = [
-    defusedxml
-    keyring
-    requests-oauthlib
-    requests-toolbelt
-  ];
+  propagatedBuildInputs =
+    [ defusedxml keyring requests-oauthlib requests-toolbelt ];
 
-  nativeCheckInputs = [
-    flaky
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ flaky pytestCheckHook requests-mock ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

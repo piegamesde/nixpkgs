@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,10 +13,10 @@ let
     ${pkgs.lsof}/bin/lsof | ${pkgs.gnugrep}/bin/grep $MNTPT | ${pkgs.gawk}/bin/awk '{print $2}' | ${pkgs.findutils}/bin/xargs ${pkgs.util-linux}/bin/kill -$SIGNAL
   '';
 
-  anyPamMount = any (attrByPath [ "pamMount" ] false) (attrValues config.security.pam.services);
-in
+  anyPamMount = any (attrByPath [ "pamMount" ] false)
+    (attrValues config.security.pam.services);
 
-{
+in {
   options = {
 
     security.pam.mount = {
@@ -139,64 +134,69 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf (cfg.enable || anyPamMount) {
 
     environment.systemPackages = [ pkgs.pam_mount ];
     environment.etc."security/pam_mount.conf.xml" = {
-      source =
-        let
-          extraUserVolumes =
-            filterAttrs (n: u: u.cryptHomeLuks != null || u.pamMount != { })
-              config.users.users;
-          mkAttr = k: v: ''${k}="${v}"'';
-          userVolumeEntry =
-            user:
-            let
-              attrs = {
-                user = user.name;
-                path = user.cryptHomeLuks;
-                mountpoint = user.home;
-              } // user.pamMount;
-            in
-            ''
-              <volume ${concatStringsSep " " (mapAttrsToList mkAttr attrs)} />
-            '';
-        in
-        pkgs.writeText "pam_mount.conf.xml" ''
-          <?xml version="1.0" encoding="utf-8" ?>
-          <!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
-          <!-- auto generated from Nixos: modules/config/users-groups.nix -->
-          <pam_mount>
-          <debug enable="${toString cfg.debugLevel}" />
-          <!-- if activated, requires ofl from hxtools to be present -->
-          <logout wait="${toString cfg.logoutWait}" hup="${if cfg.logoutHup then "yes" else "no"}" term="${
-            if cfg.logoutTerm then "yes" else "no"
-          }" kill="${if cfg.logoutKill then "yes" else "no"}" />
-          <!-- set PATH variable for pam_mount module -->
-          <path>${makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)}</path>
-          <!-- create mount point if not present -->
-          <mkmountpoint enable="${if cfg.createMountPoints then "1" else "0"}" remove="${
-            if cfg.removeCreatedMountPoints then "true" else "false"
-          }" />
-          <!-- specify the binaries to be called -->
-          <!-- the comma in front of the options is necessary for empty options -->
-          <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ,${
-            concatStringsSep "," (cfg.fuseMountOptions ++ [ "%(OPTIONS)" ])
-          }'</fusemount>
-          <fuseumount>${pkgs.fuse}/bin/fusermount -u %(MNTPT)</fuseumount>
-          <!-- the comma in front of the options is necessary for empty options -->
-          <cryptmount>${pkgs.pam_mount}/bin/mount.crypt -o ,${
-            concatStringsSep "," (cfg.cryptMountOptions ++ [ "%(OPTIONS)" ])
-          } %(VOLUME) %(MNTPT)</cryptmount>
-          <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>
-          <pmvarrun>${pkgs.pam_mount}/bin/pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
-          ${optionalString oflRequired "<ofl>${fake_ofl}/bin/fake_ofl %(SIGNAL) %(MNTPT)</ofl>"}
-          ${concatStrings (map userVolumeEntry (attrValues extraUserVolumes))}
-          ${concatStringsSep "\n" cfg.extraVolumes}
-          </pam_mount>
-        '';
+      source = let
+        extraUserVolumes =
+          filterAttrs (n: u: u.cryptHomeLuks != null || u.pamMount != { })
+          config.users.users;
+        mkAttr = k: v: ''${k}="${v}"'';
+        userVolumeEntry = user:
+          let
+            attrs = {
+              user = user.name;
+              path = user.cryptHomeLuks;
+              mountpoint = user.home;
+            } // user.pamMount;
+          in ''
+            <volume ${concatStringsSep " " (mapAttrsToList mkAttr attrs)} />
+          '';
+      in pkgs.writeText "pam_mount.conf.xml" ''
+        <?xml version="1.0" encoding="utf-8" ?>
+        <!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
+        <!-- auto generated from Nixos: modules/config/users-groups.nix -->
+        <pam_mount>
+        <debug enable="${toString cfg.debugLevel}" />
+        <!-- if activated, requires ofl from hxtools to be present -->
+        <logout wait="${toString cfg.logoutWait}" hup="${
+          if cfg.logoutHup then "yes" else "no"
+        }" term="${if cfg.logoutTerm then "yes" else "no"}" kill="${
+          if cfg.logoutKill then "yes" else "no"
+        }" />
+        <!-- set PATH variable for pam_mount module -->
+        <path>${
+          makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)
+        }</path>
+        <!-- create mount point if not present -->
+        <mkmountpoint enable="${
+          if cfg.createMountPoints then "1" else "0"
+        }" remove="${
+          if cfg.removeCreatedMountPoints then "true" else "false"
+        }" />
+        <!-- specify the binaries to be called -->
+        <!-- the comma in front of the options is necessary for empty options -->
+        <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ,${
+          concatStringsSep "," (cfg.fuseMountOptions ++ [ "%(OPTIONS)" ])
+        }'</fusemount>
+        <fuseumount>${pkgs.fuse}/bin/fusermount -u %(MNTPT)</fuseumount>
+        <!-- the comma in front of the options is necessary for empty options -->
+        <cryptmount>${pkgs.pam_mount}/bin/mount.crypt -o ,${
+          concatStringsSep "," (cfg.cryptMountOptions ++ [ "%(OPTIONS)" ])
+        } %(VOLUME) %(MNTPT)</cryptmount>
+        <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>
+        <pmvarrun>${pkgs.pam_mount}/bin/pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
+        ${optionalString oflRequired
+        "<ofl>${fake_ofl}/bin/fake_ofl %(SIGNAL) %(MNTPT)</ofl>"}
+        ${concatStrings (map userVolumeEntry (attrValues extraUserVolumes))}
+        ${concatStringsSep "\n" cfg.extraVolumes}
+        </pam_mount>
+      '';
     };
+
   };
 }

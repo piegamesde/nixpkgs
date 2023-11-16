@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  pythonOlder,
-  sqlitedict,
-  websockets,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, pythonOlder, sqlitedict
+, websockets }:
 
 buildPythonPackage rec {
   pname = "aiopylgtv";
@@ -20,11 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-NkWJGy5QUrhpbARoscrXy/ilCjAz01YxeVTH0I+IjNM=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    sqlitedict
-    websockets
-  ];
+  propagatedBuildInputs = [ numpy sqlitedict websockets ];
 
   # Project has no tests
   doCheck = false;

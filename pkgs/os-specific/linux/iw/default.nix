@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libnl,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libnl }:
 
 stdenv.mkDerivation rec {
   pname = "iw";
   version = "5.19";
 
   src = fetchurl {
-    url = "https://www.kernel.org/pub/software/network/${pname}/${pname}-${version}.tar.xz";
+    url =
+      "https://www.kernel.org/pub/software/network/${pname}/${pname}-${version}.tar.xz";
     sha256 = "sha256-8We76UfdU7uevAwdzvXbatc6wdYITyxvk3bFw2DMTU4=";
   };
 
@@ -30,10 +25,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://wireless.wiki.kernel.org/en/users/Documentation/iw";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [
-      viric
-      primeos
-    ];
+    maintainers = with lib.maintainers; [ viric primeos ];
     platforms = with lib.platforms; linux;
   };
 }

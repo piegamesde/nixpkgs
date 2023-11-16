@@ -1,29 +1,15 @@
-{
-  lib,
-  fetchFromGitHub,
-  pythonAtLeast,
-  pythonOlder,
-  buildPythonPackage,
+{ lib, fetchFromGitHub, pythonAtLeast, pythonOlder, buildPythonPackage
 
-  # propagated
-  django,
-  hiredis,
-  lz4,
-  msgpack,
-  redis,
+# propagated
+, django, hiredis, lz4, msgpack, redis
 
-  # testing
-  pkgs,
-  pytest-django,
-  pytest-mock,
-  pytestCheckHook,
-}:
+# testing
+, pkgs, pytest-django, pytest-mock, pytestCheckHook }:
 
 let
   pname = "django-redis";
   version = "5.2.0";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
   disabled = pythonOlder "3.6";
@@ -39,13 +25,7 @@ buildPythonPackage {
     sed -i '/-cov/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [
-    django
-    hiredis
-    lz4
-    msgpack
-    redis
-  ];
+  propagatedBuildInputs = [ django hiredis lz4 msgpack redis ];
 
   pythonImportsCheck = [ "django_redis" ];
 
@@ -60,11 +40,7 @@ buildPythonPackage {
     kill $REDIS_PID
   '';
 
-  nativeCheckInputs = [
-    pytest-django
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytest-mock pytestCheckHook ];
 
   pytestFlagsArray = lib.optionals (pythonAtLeast "3.11") [
     # DeprecationWarning: 'cgi' is deprecated and slated for removal in Python 3.13

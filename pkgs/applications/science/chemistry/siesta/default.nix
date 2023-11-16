@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  gfortran,
-  blas,
-  lapack,
-  scalapack,
-  useMpi ? false,
-  mpi,
-  fetchFromGitLab,
-}:
+{ lib, stdenv, gfortran, blas, lapack, scalapack, useMpi ? false, mpi
+, fetchFromGitLab }:
 
 stdenv.mkDerivation rec {
   version = "4.1.5";
@@ -25,21 +16,11 @@ stdenv.mkDerivation rec {
     substituteInPlace Src/siesta_init.F --replace '/bin/rm' 'rm'
   '';
 
-  passthru = {
-    inherit mpi;
-  };
+  passthru = { inherit mpi; };
 
   nativeBuildInputs = [ gfortran ];
 
-  buildInputs =
-    [
-      blas
-      lapack
-    ]
-    ++ lib.optionals useMpi [
-      mpi
-      scalapack
-    ];
+  buildInputs = [ blas lapack ] ++ lib.optionals useMpi [ mpi scalapack ];
 
   enableParallelBuilding = false; # Started making trouble with gcc-11
 
@@ -51,30 +32,23 @@ stdenv.mkDerivation rec {
     cp gfortran.make arch.make
   '';
 
-  preBuild =
-    ''
-      # See https://gitlab.com/siesta-project/siesta/-/commit/a10bf1628e7141ba263841889c3503c263de1582
-      # This may be fixed in the next release.
-      makeFlagsArray=(
-          FFLAGS="-fallow-argument-mismatch"
-      )
-    ''
-    + (
-      if useMpi then
-        ''
-          makeFlagsArray+=(
-              CC="mpicc" FC="mpifort"
-              FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
-              COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
-          );
-        ''
-      else
-        ''
-          makeFlagsArray+=(
-            COMP_LIBS="" LIBS="-lblas -llapack"
-          );
-        ''
+  preBuild = ''
+    # See https://gitlab.com/siesta-project/siesta/-/commit/a10bf1628e7141ba263841889c3503c263de1582
+    # This may be fixed in the next release.
+    makeFlagsArray=(
+        FFLAGS="-fallow-argument-mismatch"
+    )
+  '' + (if useMpi then ''
+    makeFlagsArray+=(
+        CC="mpicc" FC="mpifort"
+        FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
+        COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
     );
+  '' else ''
+    makeFlagsArray+=(
+      COMP_LIBS="" LIBS="-lblas -llapack"
+    );
+  '');
 
   installPhase = ''
     mkdir -p $out/bin

@@ -1,19 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  zlib,
-  gtest,
-  buildPackages,
-  version,
-  sha256,
-  ...
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, zlib, gtest, buildPackages
+, version, sha256, ... }:
 
 let
-  mkProtobufDerivation =
-    buildProtobuf: stdenv:
+  mkProtobufDerivation = buildProtobuf: stdenv:
     stdenv.mkDerivation {
       pname = "protobuf";
       inherit version;
@@ -26,19 +15,17 @@ let
         inherit sha256;
       };
 
-      postPatch =
-        ''
-          rm -rf gmock
-          cp -r ${gtest.src}/googlemock gmock
-          cp -r ${gtest.src}/googletest googletest
-          chmod -R a+w gmock
-          chmod -R a+w googletest
-          ln -s ../googletest gmock/gtest
-        ''
-        + lib.optionalString stdenv.isDarwin ''
-          substituteInPlace src/google/protobuf/testing/googletest.cc \
-            --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
-        '';
+      postPatch = ''
+        rm -rf gmock
+        cp -r ${gtest.src}/googlemock gmock
+        cp -r ${gtest.src}/googletest googletest
+        chmod -R a+w gmock
+        chmod -R a+w googletest
+        ln -s ../googletest gmock/gtest
+      '' + lib.optionalString stdenv.isDarwin ''
+        substituteInPlace src/google/protobuf/testing/googletest.cc \
+          --replace 'tmpnam(b)' '"'$TMPDIR'/foo"'
+      '';
 
       nativeBuildInputs = [
         autoreconfHook
@@ -48,8 +35,10 @@ let
       ];
 
       buildInputs = [ zlib ];
-      configureFlags =
-        if buildProtobuf == null then [ ] else [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
+      configureFlags = if buildProtobuf == null then
+        [ ]
+      else
+        [ "--with-protoc=${buildProtobuf}/bin/protoc" ];
 
       enableParallelBuilding = true;
 
@@ -70,12 +59,7 @@ let
         platforms = lib.platforms.unix;
       };
     };
-in
-mkProtobufDerivation
-  (
-    if (stdenv.buildPlatform != stdenv.hostPlatform) then
-      (mkProtobufDerivation null buildPackages.stdenv)
-    else
-      null
-  )
-  stdenv
+in mkProtobufDerivation (if (stdenv.buildPlatform != stdenv.hostPlatform) then
+  (mkProtobufDerivation null buildPackages.stdenv)
+else
+  null) stdenv

@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-}:
+{ lib, python3Packages, fetchFromGitHub }:
 
 python3Packages.buildPythonApplication rec {
   pname = "snallygaster";
@@ -23,11 +19,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # we are not interested in linting the project
-      "--ignore=tests/test_codingstyle.py"
-    ];
+  pytestFlagsArray = [
+    # we are not interested in linting the project
+    "--ignore=tests/test_codingstyle.py"
+  ];
 
   meta = with lib; {
     description = "Tool to scan for secret files on HTTP servers";

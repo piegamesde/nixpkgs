@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,8 +7,7 @@ let
 
   format = pkgs.formats.toml { };
   configFile = format.generate "pinnwand.toml" cfg.settings;
-in
-{
+in {
   options.services.pinnwand = {
     enable = mkEnableOption (lib.mdDoc "Pinnwand");
 
@@ -83,7 +77,8 @@ in
       unitConfig.Documentation = "https://pinnwand.readthedocs.io/en/latest/";
 
       serviceConfig = {
-        ExecStart = "${pkgs.pinnwand}/bin/pinnwand --configuration-path ${configFile} http --port ${
+        ExecStart =
+          "${pkgs.pinnwand}/bin/pinnwand --configuration-path ${configFile} http --port ${
             toString cfg.port
           }";
         User = "pinnwand";
@@ -108,18 +103,11 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
         UMask = "0077";
       };
     };

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  autoreconfHook,
-  makeWrapper,
-  perlPackages,
-  ocamlPackages,
-  libxml2,
-  libintl,
-}:
+{ lib, stdenv, fetchurl, pkg-config, autoreconfHook, makeWrapper, perlPackages
+, ocamlPackages, libxml2, libintl }:
 
 stdenv.mkDerivation rec {
   pname = "hivex";
@@ -29,26 +19,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs =
-    [
-      autoreconfHook
-      makeWrapper
-      perlPackages.perl
-      pkg-config
-    ]
-    ++ (
-      with ocamlPackages; [
-        ocaml
-        findlib
-      ]
-    );
-  buildInputs =
-    [ libxml2 ]
-    ++ (
-      with perlPackages; [
-        perl
-        IOStringy
-      ]
-    )
+    [ autoreconfHook makeWrapper perlPackages.perl pkg-config ]
+    ++ (with ocamlPackages; [ ocaml findlib ]);
+  buildInputs = [ libxml2 ] ++ (with perlPackages; [ perl IOStringy ])
     ++ lib.optionals stdenv.isDarwin [ libintl ];
 
   enableParallelBuilding = true;

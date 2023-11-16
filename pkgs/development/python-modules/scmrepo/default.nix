@@ -1,20 +1,6 @@
-{
-  lib,
-  asyncssh,
-  buildPythonPackage,
-  dulwich,
-  fetchFromGitHub,
-  fsspec,
-  funcy,
-  gitpython,
-  pathspec,
-  pygit2,
-  pygtrie,
-  pythonOlder,
-  setuptools,
-  setuptools-scm,
-  shortuuid,
-}:
+{ lib, asyncssh, buildPythonPackage, dulwich, fetchFromGitHub, fsspec, funcy
+, gitpython, pathspec, pygit2, pygtrie, pythonOlder, setuptools, setuptools-scm
+, shortuuid }:
 
 buildPythonPackage rec {
   pname = "scmrepo";
@@ -32,10 +18,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   propagatedBuildInputs = [
     asyncssh

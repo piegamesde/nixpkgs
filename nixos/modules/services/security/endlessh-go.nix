@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.endlessh-go;
-in
-{
+let cfg = config.services.endlessh-go;
+in {
   options.services.endlessh-go = {
     enable = mkEnableOption (mdDoc "endlessh-go service");
 
@@ -62,10 +55,7 @@ in
     extraOptions = mkOption {
       type = with types; listOf str;
       default = [ ];
-      example = [
-        "-conn_type=tcp4"
-        "-max_clients=8192"
-      ];
+      example = [ "-conn_type=tcp4" "-max_clients=8192" ];
       description = mdDoc ''
         Additional command line options to pass to the endlessh-go daemon.
       '';
@@ -85,77 +75,61 @@ in
       description = "SSH tarpit";
       requires = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig =
-        let
-          needsPrivileges = cfg.port < 1024 || cfg.prometheus.port < 1024;
-          capabilities = [ "" ] ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
-          rootDirectory = "/run/endlessh-go";
-        in
-        {
-          Restart = "always";
-          ExecStart =
-            with cfg;
-            concatStringsSep " " (
-              [
-                "${pkgs.endlessh-go}/bin/endlessh-go"
-                "-logtostderr"
-                "-host=${listenAddress}"
-                "-port=${toString port}"
-              ]
-              ++ optionals prometheus.enable [
-                "-enable_prometheus"
-                "-prometheus_host=${prometheus.listenAddress}"
-                "-prometheus_port=${toString prometheus.port}"
-              ]
-              ++ extraOptions
-            );
-          DynamicUser = true;
-          RootDirectory = rootDirectory;
-          BindReadOnlyPaths = [ builtins.storeDir ];
-          InaccessiblePaths = [ "-+${rootDirectory}" ];
-          RuntimeDirectory = baseNameOf rootDirectory;
-          RuntimeDirectoryMode = "700";
-          AmbientCapabilities = capabilities;
-          CapabilityBoundingSet = capabilities;
-          UMask = "0077";
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          NoNewPrivileges = true;
-          PrivateDevices = true;
-          PrivateTmp = true;
-          PrivateUsers = !needsPrivileges;
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectSystem = "strict";
-          ProtectProc = "noaccess";
-          ProcSubset = "pid";
-          RemoveIPC = true;
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-          ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-          ];
-        };
+      serviceConfig = let
+        needsPrivileges = cfg.port < 1024 || cfg.prometheus.port < 1024;
+        capabilities = [ "" ]
+          ++ optionals needsPrivileges [ "CAP_NET_BIND_SERVICE" ];
+        rootDirectory = "/run/endlessh-go";
+      in {
+        Restart = "always";
+        ExecStart = with cfg;
+          concatStringsSep " " ([
+            "${pkgs.endlessh-go}/bin/endlessh-go"
+            "-logtostderr"
+            "-host=${listenAddress}"
+            "-port=${toString port}"
+          ] ++ optionals prometheus.enable [
+            "-enable_prometheus"
+            "-prometheus_host=${prometheus.listenAddress}"
+            "-prometheus_port=${toString prometheus.port}"
+          ] ++ extraOptions);
+        DynamicUser = true;
+        RootDirectory = rootDirectory;
+        BindReadOnlyPaths = [ builtins.storeDir ];
+        InaccessiblePaths = [ "-+${rootDirectory}" ];
+        RuntimeDirectory = baseNameOf rootDirectory;
+        RuntimeDirectoryMode = "700";
+        AmbientCapabilities = capabilities;
+        CapabilityBoundingSet = capabilities;
+        UMask = "0077";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        PrivateUsers = !needsPrivileges;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectSystem = "strict";
+        ProtectProc = "noaccess";
+        ProcSubset = "pid";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
+      };
     };
 
-    networking.firewall.allowedTCPPorts =
-      with cfg;
-      optionals openFirewall [
-        port
-        prometheus.port
-      ];
+    networking.firewall.allowedTCPPorts = with cfg;
+      optionals openFirewall [ port prometheus.port ];
   };
 
   meta.maintainers = with maintainers; [ azahi ];

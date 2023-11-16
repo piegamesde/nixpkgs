@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -17,8 +12,7 @@ let
   fishInitScript = ''
     ${pkgs.thefuck}/bin/thefuck --alias ${cfg.alias} | source
   '';
-in
-{
+in {
   options = {
     programs.thefuck = {
       enable = mkEnableOption (lib.mdDoc "thefuck");
@@ -39,7 +33,8 @@ in
     environment.systemPackages = with pkgs; [ thefuck ];
 
     programs.bash.interactiveShellInit = bashAndZshInitScript;
-    programs.zsh.interactiveShellInit = mkIf prg.zsh.enable bashAndZshInitScript;
+    programs.zsh.interactiveShellInit =
+      mkIf prg.zsh.enable bashAndZshInitScript;
     programs.fish.interactiveShellInit = mkIf prg.fish.enable fishInitScript;
   };
 }

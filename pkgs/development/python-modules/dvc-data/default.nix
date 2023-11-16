@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  dictdiffer,
-  diskcache,
-  dvc-objects,
-  fetchFromGitHub,
-  funcy,
-  nanotime,
-  pygtrie,
-  pythonOlder,
-  setuptools-scm,
-  shortuuid,
-  sqltrie,
-}:
+{ lib, buildPythonPackage, dictdiffer, diskcache, dvc-objects, fetchFromGitHub
+, funcy, nanotime, pygtrie, pythonOlder, setuptools-scm, shortuuid, sqltrie }:
 
 buildPythonPackage rec {
   pname = "dvc-data";

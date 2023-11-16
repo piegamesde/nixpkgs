@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libqalculate,
-  muparser,
-  python3Packages,
-  qtbase,
-  qtscxml,
-  qtsvg,
-  wrapQtAppsHook,
-  nix-update-script,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libqalculate, muparser, python3Packages
+, qtbase, qtscxml, qtsvg, wrapQtAppsHook, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "albert";
@@ -25,25 +13,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
 
-  buildInputs =
-    [
-      libqalculate
-      muparser
-      qtbase
-      qtscxml
-      qtsvg
-    ]
-    ++ (
-      with python3Packages; [
-        python
-        pybind11
-      ]
-    );
+  buildInputs = [ libqalculate muparser qtbase qtscxml qtsvg ]
+    ++ (with python3Packages; [ python pybind11 ]);
 
   postPatch = ''
     find -type f -name CMakeLists.txt -exec sed -i {} -e '/INSTALL_RPATH/d' \;
@@ -68,12 +41,10 @@ stdenv.mkDerivation rec {
       framework.
     '';
     homepage = "https://albertlauncher.github.io";
-    changelog = "https://github.com/albertlauncher/albert/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/albertlauncher/albert/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      ericsagnes
-      synthetica
-    ];
+    maintainers = with maintainers; [ ericsagnes synthetica ];
     platforms = platforms.linux;
   };
 }

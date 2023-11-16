@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  numpy,
-  scipy,
-  cython,
-  networkx,
-  joblib,
-  pandas,
-  nose,
-  pyyaml,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, fetchpatch, numpy, scipy
+, cython, networkx, joblib, pandas, nose, pyyaml }:
 
 buildPythonPackage rec {
   pname = "pomegranate";
@@ -26,14 +13,7 @@ buildPythonPackage rec {
     sha256 = "16g49nl2bgnh6nh7bd21s393zbksdvgp9l13ww2diwhplj6hlly3";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    cython
-    networkx
-    joblib
-    pyyaml
-  ];
+  propagatedBuildInputs = [ numpy scipy cython networkx joblib pyyaml ];
 
   nativeCheckInputs = [
     pandas
@@ -42,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     broken = stdenv.isDarwin;
-    description = "Probabilistic and graphical models for Python, implemented in cython for speed";
+    description =
+      "Probabilistic and graphical models for Python, implemented in cython for speed";
     homepage = "https://github.com/jmschrei/pomegranate";
     license = licenses.mit;
     maintainers = with maintainers; [ rybern ];

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  bmake,
-  docbook_xsl,
-  libxslt,
-}:
+{ lib, stdenv, fetchFromGitHub, bmake, docbook_xsl, libxslt }:
 
 stdenv.mkDerivation rec {
   pname = "libfsm";
@@ -32,10 +25,7 @@ stdenv.mkDerivation rec {
   # if we use stdenv vs clangStdenv, we don't know which, and CC=cc in all
   # cases.) it's unclear exactly what should be done if we want those flags,
   # but the defaults work fine.
-  makeFlags = [
-    "-r"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "-r" "PREFIX=$(out)" ];
 
   # fix up multi-output install. we also have to fix the pkg-config libdir
   # file; it uses prefix=$out; libdir=${prefix}/lib, which is wrong in
@@ -54,11 +44,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
+  outputs = [ "out" "lib" "dev" ];
 
   meta = with lib; {
     description = "DFA regular expression library & friends";

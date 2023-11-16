@@ -1,13 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  cohttp,
-  lwt,
-  uri,
-  ppx_sexp_conv,
-  logs,
-  sexplib0,
-}:
+{ lib, buildDunePackage, cohttp, lwt, uri, ppx_sexp_conv, logs, sexplib0 }:
 
 buildDunePackage {
   pname = "cohttp-lwt";
@@ -17,13 +8,7 @@ buildDunePackage {
 
   buildInputs = [ ppx_sexp_conv ];
 
-  propagatedBuildInputs = [
-    cohttp
-    lwt
-    logs
-    sexplib0
-    uri
-  ];
+  propagatedBuildInputs = [ cohttp lwt logs sexplib0 uri ];
 
   meta = cohttp.meta // {
     description = "CoHTTP implementation using the Lwt concurrency library";

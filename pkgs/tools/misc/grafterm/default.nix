@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "grafterm";
@@ -17,14 +13,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-veg5B68AQhkSZg8YA/e4FbqJNG0YGwnUQFsAdscz0QI=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.Version=${version}" ];
 
   meta = with lib; {
-    description = "Command-line tool for rendering metrics dashboards inspired by Grafana";
+    description =
+      "Command-line tool for rendering metrics dashboards inspired by Grafana";
     homepage = "https://github.com/slok/grafterm";
     license = licenses.asl20;
     maintainers = with maintainers; [ arikgrahl ];

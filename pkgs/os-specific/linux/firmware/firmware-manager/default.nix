@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  cargo,
-  pkg-config,
-  rustc,
-  openssl,
-  udev,
-  gtk3,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, cargo, pkg-config, rustc, openssl
+, udev, gtk3, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "firmware-manager";
@@ -27,7 +16,8 @@ stdenv.mkDerivation rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "ecflash-0.1.0" = "sha256-W613wbW54R65/rs6oiPAH/qov2OVEjMMszpUJdX4TxI=";
-      "system76-firmware-1.0.51" = "sha256-+GPz7uKygGnFUptQEGYWkEdHgxBc65kLZqpwZqtwets=";
+      "system76-firmware-1.0.51" =
+        "sha256-+GPz7uKygGnFUptQEGYWkEdHgxBc65kLZqpwZqtwets=";
     };
   };
 
@@ -35,19 +25,10 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace '$(DESTDIR)/etc' '$(DESTDIR)$(prefix)/etc'
   '';
 
-  nativeBuildInputs = [
-    cargo
-    rustc
-    pkg-config
-    rustPlatform.cargoSetupHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ cargo rustc pkg-config rustPlatform.cargoSetupHook wrapGAppsHook ];
 
-  buildInputs = [
-    openssl
-    gtk3
-    udev
-  ];
+  buildInputs = [ openssl gtk3 udev ];
 
   makeFlags = [ "prefix=$(out)" ];
 

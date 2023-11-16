@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "gotrue";
@@ -17,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-x96+l9EBzYplGRFHsfQazSjqZs35bdXQEJv3pBuaJVo=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=github.com/netlify/gotrue/cmd.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=github.com/netlify/gotrue/cmd.Version=${version}" ];
 
   # integration tests require network access
   doCheck = false;

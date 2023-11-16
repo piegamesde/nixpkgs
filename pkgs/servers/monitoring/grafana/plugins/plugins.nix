@@ -1,12 +1,12 @@
-{ callPackage }:
-{
+{ callPackage }: {
   inherit callPackage;
 
   grafanaPlugin = callPackage ./grafana-plugin.nix { };
 
   doitintl-bigquery-datasource = callPackage ./doitintl-bigquery-datasource { };
   grafadruid-druid-datasource = callPackage ./grafadruid-druid-datasource { };
-  grafana-clickhouse-datasource = callPackage ./grafana-clickhouse-datasource { };
+  grafana-clickhouse-datasource =
+    callPackage ./grafana-clickhouse-datasource { };
   grafana-clock-panel = callPackage ./grafana-clock-panel { };
   grafana-piechart-panel = callPackage ./grafana-piechart-panel { };
   grafana-polystat-panel = callPackage ./grafana-polystat-panel { };

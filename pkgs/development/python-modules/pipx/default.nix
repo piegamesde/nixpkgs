@@ -1,17 +1,6 @@
-{
-  lib,
-  argcomplete,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  importlib-metadata,
-  packaging,
-  pip,
-  platformdirs,
-  pytestCheckHook,
-  pythonOlder,
-  userpath,
-}:
+{ lib, argcomplete, buildPythonPackage, fetchFromGitHub, hatchling
+, importlib-metadata, packaging, pip, platformdirs, pytestCheckHook, pythonOlder
+, userpath }:
 
 buildPythonPackage rec {
   pname = "pipx";
@@ -29,12 +18,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    argcomplete
-    packaging
-    platformdirs
-    userpath
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ argcomplete packaging platformdirs userpath ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -71,7 +56,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Install and run Python applications in isolated environments";
+    description =
+      "Install and run Python applications in isolated environments";
     homepage = "https://github.com/pipxproject/pipx";
     changelog = "https://github.com/pypa/pipx/blob/${version}/CHANGELOG.md";
     license = licenses.mit;

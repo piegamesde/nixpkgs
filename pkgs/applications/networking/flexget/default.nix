@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchPypi, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "flexget";
@@ -69,10 +64,7 @@ python3.pkgs.buildPythonApplication rec {
     transmission-rpc
   ];
 
-  pythonImportsCheck = [
-    "flexget"
-    "flexget.plugins.clients.transmission"
-  ];
+  pythonImportsCheck = [ "flexget" "flexget.plugins.clients.transmission" ];
 
   meta = with lib; {
     homepage = "https://flexget.com/";

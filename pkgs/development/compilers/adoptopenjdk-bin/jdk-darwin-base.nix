@@ -1,28 +1,19 @@
-{
-  sourcePerArch,
-  knownVulnerabilities ? [ ],
-}:
+{ sourcePerArch, knownVulnerabilities ? [ ] }:
 
-{
-  swingSupport ? true # not used for now
-  ,
-  lib,
-  stdenv,
-  fetchurl,
-  setJavaClassPath,
-}:
+{ swingSupport ? true # not used for now
+, lib, stdenv, fetchurl, setJavaClassPath }:
 
 assert (stdenv.isDarwin && stdenv.isx86_64);
 
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   result = stdenv.mkDerivation {
-    pname =
-      if sourcePerArch.packageType == "jdk" then
-        "adoptopenjdk-${sourcePerArch.vmType}-bin"
-      else
-        "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
-    version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
+    pname = if sourcePerArch.packageType == "jdk" then
+      "adoptopenjdk-${sourcePerArch.vmType}-bin"
+    else
+      "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
+    version =
+      sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
 
@@ -69,6 +60,6 @@ let
       inherit knownVulnerabilities;
       mainProgram = "java";
     };
+
   };
-in
-result
+in result

@@ -1,14 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitLab,
-  pkg-config,
-  gtk4,
-  libadwaita,
-  wrapGAppsHook4,
-  glib,
-  tzdata,
-}:
+{ lib, rustPlatform, fetchFromGitLab, pkg-config, gtk4, libadwaita
+, wrapGAppsHook4, glib, tzdata }:
 
 rustPlatform.buildRustPackage rec {
   pname = "karlender";
@@ -23,16 +14,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-OyyzzkoYBed2XFCesj3QBodT9e/BaapGl/z0f6+cDZA=";
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook4
-    glib
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook4 glib ];
 
-  buildInputs = [
-    gtk4
-    libadwaita
-  ];
+  buildInputs = [ gtk4 libadwaita ];
 
   postPatch = ''
     substituteInPlace src/domain/time.rs --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"

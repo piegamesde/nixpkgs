@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  pgocaml,
-  camlp4,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ocamlbuild, pgocaml, camlp4 }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-macaque";
@@ -20,16 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W9ZFaINYYtIikKy/ZqdlKeFQSA7DQT9plc3+ZhlSIJI=";
   };
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-    ocamlbuild
-    camlp4
-  ];
-  propagatedBuildInputs = [
-    pgocaml
-    camlp4
-  ];
+  nativeBuildInputs = [ ocaml findlib ocamlbuild camlp4 ];
+  propagatedBuildInputs = [ pgocaml camlp4 ];
 
   strictDeps = true;
 

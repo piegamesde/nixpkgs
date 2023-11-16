@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "zarf";
@@ -39,7 +35,8 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    description = "DevSecOps for Air Gap & Limited-Connection Systems. https://zarf.dev";
+    description =
+      "DevSecOps for Air Gap & Limited-Connection Systems. https://zarf.dev";
     homepage = "https://github.com/defenseunicorns/zarf.git";
     license = licenses.asl20;
     maintainers = with maintainers; [ ragingpastry ];

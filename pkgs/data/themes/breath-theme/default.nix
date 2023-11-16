@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  extra-cmake-modules,
-  kdecoration,
-  plasma-workspace,
-  qtbase,
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, extra-cmake-modules, kdecoration
+, plasma-workspace, qtbase }:
 
 stdenv.mkDerivation {
   pname = "breath-theme";
@@ -33,10 +25,7 @@ stdenv.mkDerivation {
 
   dontWrapQtApps = true;
 
-  cmakeFlags = [
-    "-DBUILD_PLASMA_THEMES=ON"
-    "-DBUILD_SDDM_THEME=ON"
-  ];
+  cmakeFlags = [ "-DBUILD_PLASMA_THEMES=ON" "-DBUILD_SDDM_THEME=ON" ];
 
   meta = with lib; {
     description = "Manjaro KDE default theme";

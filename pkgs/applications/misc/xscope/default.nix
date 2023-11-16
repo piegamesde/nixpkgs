@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libXt,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libXt }:
 
 stdenv.mkDerivation rec {
   pname = "xscope";
@@ -26,3 +20,4 @@ stdenv.mkDerivation rec {
     platforms = with platforms; unix;
   };
 }
+

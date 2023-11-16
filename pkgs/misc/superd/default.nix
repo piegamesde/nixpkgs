@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromSourcehut,
-  installShellFiles,
-  scdoc,
-}:
+{ lib, buildGoModule, fetchFromSourcehut, installShellFiles, scdoc }:
 
 buildGoModule rec {
   pname = "superd";
@@ -19,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Oa99U3THyWLjH+kWMQAHO5QAS2mmtY7M7leej+gnEqo=";
 
-  nativeBuildInputs = [
-    installShellFiles
-    scdoc
-  ];
+  nativeBuildInputs = [ installShellFiles scdoc ];
 
   postBuild = ''
     make doc
@@ -39,9 +30,6 @@ buildGoModule rec {
     homepage = "https://sr.ht/~craftyguy/superd/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      chuangzhu
-      wentam
-    ];
+    maintainers = with maintainers; [ chuangzhu wentam ];
   };
 }

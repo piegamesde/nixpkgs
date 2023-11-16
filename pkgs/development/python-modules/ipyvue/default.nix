@@ -1,11 +1,6 @@
-{
-  lib,
-  isPy27,
-  buildPythonPackage,
-  fetchPypi,
-  # Python Inputs
-  ipywidgets,
-}:
+{ lib, isPy27, buildPythonPackage, fetchPypi
+# Python Inputs
+, ipywidgets }:
 
 buildPythonPackage rec {
   pname = "ipyvue";

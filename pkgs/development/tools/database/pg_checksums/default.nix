@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libxslt,
-  docbook_xsl,
-  postgresql,
-}:
+{ lib, stdenv, fetchFromGitHub, libxslt, docbook_xsl, postgresql }:
 
 stdenv.mkDerivation rec {
   pname = "pg_checksums";
@@ -22,10 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ postgresql ];
 
-  buildFlags = [
-    "all"
-    "man"
-  ];
+  buildFlags = [ "all" "man" ];
 
   preConfigure = ''
     substituteInPlace doc/stylesheet-man.xsl \
@@ -38,7 +28,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Activate/deactivate/verify checksums in offline PostgreSQL clusters";
+    description =
+      "Activate/deactivate/verify checksums in offline PostgreSQL clusters";
     homepage = "https://github.com/credativ/pg_checksums";
     maintainers = [ maintainers.marsam ];
     mainProgram = "pg_checksums_ext";

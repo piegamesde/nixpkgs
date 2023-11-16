@@ -12,7 +12,10 @@ rec {
      Example:
        addMetaAttrs {description = "Bla blah";} somePkg
   */
-  addMetaAttrs = newAttrs: drv: drv // { meta = (drv.meta or { }) // newAttrs; };
+  addMetaAttrs = newAttrs: drv:
+    drv // {
+      meta = (drv.meta or { }) // newAttrs;
+    };
 
   # Disable Hydra builds of given derivation.
   dontDistribute = drv: addMetaAttrs { hydraPlatforms = [ ]; } drv;
@@ -32,19 +35,14 @@ rec {
   /* Append a suffix to the name of a package (before the version
      part).
   */
-  appendToName =
-    suffix:
-    updateName (
-      name:
-      let
-        x = builtins.parseDrvName name;
-      in
-      "${x.name}-${suffix}-${x.version}"
-    );
+  appendToName = suffix:
+    updateName (name:
+      let x = builtins.parseDrvName name;
+      in "${x.name}-${suffix}-${x.version}");
 
   # Apply a function to each derivation and only to derivations in an attrset.
-  mapDerivationAttrset =
-    f: set: lib.mapAttrs (name: pkg: if lib.isDerivation pkg then (f pkg) else pkg) set;
+  mapDerivationAttrset = f: set:
+    lib.mapAttrs (name: pkg: if lib.isDerivation pkg then (f pkg) else pkg) set;
 
   # Set the nix-env priority of the package.
   setPrio = priority: addMetaAttrs { inherit priority; };
@@ -79,18 +77,16 @@ rec {
      We can inject these into a pattern for the whole of a structured platform,
      and then match that.
   */
-  platformMatch =
-    platform: elem:
+  platformMatch = platform: elem:
     let
-      pattern =
-        if builtins.isString elem then
-          { system = elem; }
-        else if elem ? parsed then
-          elem
-        else
-          { parsed = elem; };
-    in
-    lib.matchAttrs pattern platform;
+      pattern = if builtins.isString elem then {
+        system = elem;
+      } else if elem ? parsed then
+        elem
+      else {
+        parsed = elem;
+      };
+    in lib.matchAttrs pattern platform;
 
   /* Check if a package is available on a given platform.
 
@@ -101,10 +97,11 @@ rec {
 
        2. None of `meta.badPlatforms` pattern matches the given platform.
   */
-  availableOn =
-    platform: pkg:
-    ((!pkg ? meta.platforms) || lib.any (platformMatch platform) pkg.meta.platforms)
-    && lib.all (elem: !platformMatch platform elem) (pkg.meta.badPlatforms or [ ]);
+  availableOn = platform: pkg:
+    ((!pkg ? meta.platforms)
+      || lib.any (platformMatch platform) pkg.meta.platforms)
+    && lib.all (elem: !platformMatch platform elem)
+    (pkg.meta.badPlatforms or [ ]);
 
   /* Get the corresponding attribute in lib.licenses
      from the SPDX ID.
@@ -123,17 +120,16 @@ rec {
        => trace: warning: getLicenseFromSpdxId: No license matches the given SPDX ID: MY LICENSE
        => { shortName = "MY LICENSE"; }
   */
-  getLicenseFromSpdxId =
-    let
-      spdxLicenses = lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls) (
-        lib.groupBy (l: lib.toLower l.spdxId) (lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses))
-      );
-    in
-    licstr:
-    spdxLicenses.${lib.toLower licstr}
-      or (lib.warn "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}" {
-        shortName = licstr;
-      });
+  getLicenseFromSpdxId = let
+    spdxLicenses =
+      lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls)
+      (lib.groupBy (l: lib.toLower l.spdxId)
+        (lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)));
+  in licstr:
+  spdxLicenses.${lib.toLower licstr} or (lib.warn
+    "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}" {
+      shortName = licstr;
+    });
 
   /* Get the path to the main program of a derivation with either
      meta.mainProgram or pname or name

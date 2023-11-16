@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-  click,
-  isodate,
-  progressbar2,
-  pydicom,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, click, isodate
+, progressbar2, pydicom, requests }:
 
 buildPythonPackage rec {
   pname = "xnatpy";
@@ -26,13 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    click
-    isodate
-    progressbar2
-    pydicom
-    requests
-  ];
+  propagatedBuildInputs = [ click isodate progressbar2 pydicom requests ];
 
   # tests missing in PyPI dist and require network access and Docker container
   doCheck = false;
@@ -41,8 +25,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://xnat.readthedocs.io";
-    description = "A new XNAT client (distinct from pyxnat) that exposes XNAT objects/functions as Python objects/functions";
-    changelog = "https://gitlab.com/radiology/infrastructure/xnatpy/-/blob/${version}/CHANGELOG?ref_type=tags";
+    description =
+      "A new XNAT client (distinct from pyxnat) that exposes XNAT objects/functions as Python objects/functions";
+    changelog =
+      "https://gitlab.com/radiology/infrastructure/xnatpy/-/blob/${version}/CHANGELOG?ref_type=tags";
     license = licenses.asl20;
     maintainers = with maintainers; [ bcdarwin ];
     mainProgram = "xnat";

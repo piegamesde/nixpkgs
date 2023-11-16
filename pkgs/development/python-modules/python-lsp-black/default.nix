@@ -1,13 +1,5 @@
-{
-  lib,
-  pythonOlder,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  black,
-  python-lsp-server,
-  toml,
-}:
+{ lib, pythonOlder, buildPythonPackage, fetchFromGitHub, pytestCheckHook, black
+, python-lsp-server, toml }:
 
 buildPythonPackage rec {
   pname = "python-lsp-black";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    black
-    python-lsp-server
-    toml
-  ];
+  propagatedBuildInputs = [ black python-lsp-server toml ];
 
   meta = with lib; {
     homepage = "https://github.com/python-lsp/python-lsp-black";

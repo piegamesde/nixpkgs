@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  coreutils,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, coreutils }:
 
 stdenv.mkDerivation {
   version = "4.0.4";

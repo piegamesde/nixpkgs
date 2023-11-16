@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  freezegun,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, freezegun, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "ftputil";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-aInbhkndINm21ApsXw+EzPNAp9rB4L/A8AJAkPwq+zM=";
   };
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytestCheckHook ];
 
   disabledTests = [
     # Tests require network access
@@ -36,7 +26,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ftputil" ];
 
   meta = with lib; {
-    description = "High-level FTP client library (virtual file system and more)";
+    description =
+      "High-level FTP client library (virtual file system and more)";
     homepage = "https://ftputil.sschwarzer.net/";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];

@@ -1,10 +1,4 @@
-{
-  darwin,
-  fetchFromGitHub,
-  rustPlatform,
-  lib,
-  stdenv,
-}:
+{ darwin, fetchFromGitHub, rustPlatform, lib, stdenv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "click";
@@ -19,16 +13,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "16r5rwdbqyb5xrjc55i30xb20crpyjc75zn10xxjkicmvrpwydp6";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   meta = with lib; {
     description = ''The "Command Line Interactive Controller for Kubernetes"'';
     homepage = "https://github.com/databricks/click";
     license = [ licenses.asl20 ];
     maintainers = [ maintainers.mbode ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
 }

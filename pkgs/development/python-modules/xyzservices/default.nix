@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchPypi,
-  mercantile,
-  pytestCheckHook,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchPypi, mercantile
+, pytestCheckHook, requests }:
 
 buildPythonPackage rec {
   pname = "xyzservices";
@@ -18,22 +11,18 @@ buildPythonPackage rec {
     hash = "sha256-M0K7pBDXlBKQ7tDlii5arbD3uXhj7EKDsoPEBu5yOig=";
   };
 
-  disabledTests =
-    [
-      # requires network connections
-      "test_free_providers"
-    ];
+  disabledTests = [
+    # requires network connections
+    "test_free_providers"
+  ];
 
   pythonImportsCheck = [ "xyzservices.providers" ];
 
-  nativeCheckInputs = [
-    mercantile
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ mercantile pytestCheckHook requests ];
 
   meta = with lib; {
-    changelog = "https://github.com/geopandas/xyzservices/releases/tag/${version}";
+    changelog =
+      "https://github.com/geopandas/xyzservices/releases/tag/${version}";
     description = "Source of XYZ tiles providers";
     homepage = "https://github.com/geopandas/xyzservices";
     license = licenses.bsd3;

@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  beartype,
-  invoke,
-  mypy,
-  numpy,
-  pandas,
-  feedparser,
-  typeguard,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook
+, beartype, invoke, mypy, numpy, pandas, feedparser, typeguard }:
 
 buildPythonPackage rec {
   pname = "nptyping";
@@ -29,21 +17,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    beartype
-    feedparser
-    invoke
-    mypy
-    pandas
-    pytestCheckHook
-    typeguard
-  ];
+  nativeCheckInputs =
+    [ beartype feedparser invoke mypy pandas pytestCheckHook typeguard ];
 
-  disabledTests =
-    [
-      # tries to download data
-      "test_pandas_stubs_fork_is_synchronized"
-    ];
+  disabledTests = [
+    # tries to download data
+    "test_pandas_stubs_fork_is_synchronized"
+  ];
 
   disabledTestPaths = [
     # missing pyright import:
@@ -60,7 +40,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Type hints for numpy";
     homepage = "https://github.com/ramonhagenaars/nptyping";
-    changelog = "https://github.com/ramonhagenaars/nptyping/blob/v${version}/HISTORY.md";
+    changelog =
+      "https://github.com/ramonhagenaars/nptyping/blob/v${version}/HISTORY.md";
     license = licenses.mit;
     maintainers = with maintainers; [ bcdarwin ];
   };

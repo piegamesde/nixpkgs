@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "xlrd";
@@ -21,7 +16,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://www.python-excel.org/";
-    description = "Library for developers to extract data from Microsoft Excel (tm) spreadsheet files";
+    description =
+      "Library for developers to extract data from Microsoft Excel (tm) spreadsheet files";
     license = licenses.bsd0;
   };
+
 }

@@ -1,31 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nixosTests,
+{ lib, stdenv, fetchFromGitHub, nixosTests
 
-  # Dependencies
-  bzip2,
-  cmake,
-  freetype,
-  libGL,
-  libjpeg_turbo,
-  makeWrapper,
-  mesa, # for built-in 3D software rendering using swrast
-  openjdk, # for the client with Java GUI
-  openjdk_headless, # for the server
-  openssh,
-  openssl,
-  pam,
-  perl,
-  python3,
-  which,
-  xkbcomp,
-  xkeyboard_config,
-  xorg,
-  xterm,
-  zlib,
-}:
+# Dependencies
+, bzip2, cmake, freetype, libGL, libjpeg_turbo, makeWrapper
+, mesa # for built-in 3D software rendering using swrast
+, openjdk # for the client with Java GUI
+, openjdk_headless # for the server
+, openssh, openssl, pam, perl, python3, which, xkbcomp, xkeyboard_config, xorg
+, xterm, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "turbovnc";
@@ -50,41 +31,32 @@ stdenv.mkDerivation rec {
   #   so that the server can be built without openjdk dependency.
   # * Perhaps allow to build the client on non-Linux platforms.
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    openjdk_headless
-    python3
-  ];
+  nativeBuildInputs = [ cmake makeWrapper openjdk_headless python3 ];
 
-  buildInputs =
-    [
-      bzip2
-      freetype
-      libGL # for -DTVNC_SYSTEMX11=1
-      libjpeg_turbo
-      openssl
-      pam
-      perl
-      zlib
-    ]
-    ++ (
-      with xorg; [
-        libfontenc # for -DTVNC_SYSTEMX11=1
-        libSM
-        libX11
-        libXdamage # for -DTVNC_SYSTEMX11=1
-        libXdmcp # for -DTVNC_SYSTEMX11=1
-        libXext
-        libXfont2 # for -DTVNC_SYSTEMX11=1
-        libxkbfile # for -DTVNC_SYSTEMX11=1
-        libXi
-        mesa # for -DTVNC_SYSTEMX11=1
-        pixman # for -DTVNC_SYSTEMX11=1
-        xorgproto
-        xtrans # for -DTVNC_SYSTEMX11=1
-      ]
-    );
+  buildInputs = [
+    bzip2
+    freetype
+    libGL # for -DTVNC_SYSTEMX11=1
+    libjpeg_turbo
+    openssl
+    pam
+    perl
+    zlib
+  ] ++ (with xorg; [
+    libfontenc # for -DTVNC_SYSTEMX11=1
+    libSM
+    libX11
+    libXdamage # for -DTVNC_SYSTEMX11=1
+    libXdmcp # for -DTVNC_SYSTEMX11=1
+    libXext
+    libXfont2 # for -DTVNC_SYSTEMX11=1
+    libxkbfile # for -DTVNC_SYSTEMX11=1
+    libXi
+    mesa # for -DTVNC_SYSTEMX11=1
+    pixman # for -DTVNC_SYSTEMX11=1
+    xorgproto
+    xtrans # for -DTVNC_SYSTEMX11=1
+  ]);
 
   postPatch = ''
     substituteInPlace unix/Xvnc/CMakeLists.txt --replace 'string(REGEX REPLACE "X11" "Xfont2" X11_Xfont2_LIB' 'set(X11_Xfont2_LIB ${xorg.libXfont2}/lib/libXfont2.so)  #'
@@ -121,14 +93,7 @@ stdenv.mkDerivation rec {
     # It checks for it using `which twm`.
     # vncserver needs also needs `xauth` and we add in `xterm` for convenience
     wrapProgram $out/bin/vncserver \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          which
-          xorg.twm
-          xorg.xauth
-          xterm
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ which xorg.twm xorg.xauth xterm ]}
 
     # Patch /usr/bin/perl
     patchShebangs $out/bin/vncserver
@@ -149,6 +114,7 @@ stdenv.mkDerivation rec {
     description = "High-speed version of VNC derived from TightVNC";
     maintainers = with lib.maintainers; [ nh2 ];
     platforms = with lib.platforms; linux;
-    changelog = "https://github.com/TurboVNC/turbovnc/blob/${version}/ChangeLog.md";
+    changelog =
+      "https://github.com/TurboVNC/turbovnc/blob/${version}/ChangeLog.md";
   };
 }

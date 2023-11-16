@@ -1,31 +1,13 @@
-{
-  lib,
-  callPackage,
-  stdenvNoCC,
-  makeWrapper,
-  llvmPackages_13,
-  cacert,
-  flutter,
-  jq,
-}:
+{ lib, callPackage, stdenvNoCC, makeWrapper, llvmPackages_13, cacert, flutter
+, jq }:
 
 # absolutely no mac support for now
 
-{
-  pubGetScript ? "flutter pub get",
-  flutterBuildFlags ? [ ],
-  runtimeDependencies ? [ ],
-  customPackageOverrides ? { },
-  autoDepsList ? false,
-  depsListFile ? null,
-  vendorHash ? "",
-  pubspecLockFile ? null,
-  nativeBuildInputs ? [ ],
-  preUnpack ? "",
-  postFixup ? "",
-  extraWrapProgramArgs ? "",
-  ...
-}@args:
+{ pubGetScript ? "flutter pub get", flutterBuildFlags ? [ ]
+, runtimeDependencies ? [ ], customPackageOverrides ? { }, autoDepsList ? false
+, depsListFile ? null, vendorHash ? "", pubspecLockFile ? null
+, nativeBuildInputs ? [ ], preUnpack ? "", postFixup ? ""
+, extraWrapProgramArgs ? "", ... }@args:
 let
   flutterSetupScript = ''
     export HOME="$NIX_BUILD_TOP"
@@ -39,29 +21,19 @@ let
     buildDrvArgs = args;
   };
 
-  baseDerivation = llvmPackages_13.stdenv.mkDerivation (
-    finalAttrs:
-    args
-    // {
+  baseDerivation = llvmPackages_13.stdenv.mkDerivation (finalAttrs:
+    args // {
       inherit flutterBuildFlags runtimeDependencies;
 
-      outputs = [
-        "out"
-        "debug"
-      ];
+      outputs = [ "out" "debug" ];
 
-      nativeBuildInputs = [
-        makeWrapper
-        deps
-        flutter
-        jq
-      ] ++ nativeBuildInputs;
+      nativeBuildInputs = [ makeWrapper deps flutter jq ] ++ nativeBuildInputs;
 
       preUnpack = ''
         ${lib.optionalString (!autoDepsList) ''
           if ! { [ '${lib.boolToString (depsListFile != null)}' = 'true' ] ${
             lib.optionalString (depsListFile != null)
-              "&& cmp -s <(jq -Sc . '${depsListFile}') <(jq -Sc . '${finalAttrs.passthru.depsListFile}')"
+            "&& cmp -s <(jq -Sc . '${depsListFile}') <(jq -Sc . '${finalAttrs.passthru.depsListFile}')"
           }; }; then
             echo 1>&2 -e '\nThe dependency list file was either not given or differs from the expected result.' \
                         '\nPlease choose one of the following solutions:' \
@@ -90,7 +62,8 @@ let
 
         doPubGet flutter pub get --offline -v
         flutter build linux -v --release --split-debug-info="$debug" ${
-          builtins.concatStringsSep " " (map (flag: ''"${flag}"'') finalAttrs.flutterBuildFlags)
+          builtins.concatStringsSep " "
+          (map (flag: ''"${flag}"'') finalAttrs.flutterBuildFlags)
         }
 
         runHook postBuild
@@ -135,47 +108,32 @@ let
         # which is not what application authors expect.
         for f in "$out"/bin/*; do
           wrapProgram "$f" \
-            --suffix LD_LIBRARY_PATH : '${lib.makeLibraryPath finalAttrs.runtimeDependencies}' \
+            --suffix LD_LIBRARY_PATH : '${
+              lib.makeLibraryPath finalAttrs.runtimeDependencies
+            }' \
             ${extraWrapProgramArgs}
         done
 
         ${postFixup}
       '';
 
-      passthru = {
-        inherit (deps) depsListFile;
-      };
-    }
-  );
+      passthru = { inherit (deps) depsListFile; };
+    });
 
   packageOverrideRepository =
-    (callPackage ../../development/compilers/flutter/package-overrides { }) // customPackageOverrides;
-  productPackages = builtins.filter (package: package.kind != "dev") (
-    if autoDepsList then
+    (callPackage ../../development/compilers/flutter/package-overrides { })
+    // customPackageOverrides;
+  productPackages = builtins.filter (package: package.kind != "dev")
+    (if autoDepsList then
       lib.importJSON deps.depsListFile
     else if depsListFile == null then
       [ ]
     else
-      lib.importJSON depsListFile
-  );
-in
-builtins.foldl'
-  (
-    prev: package:
-    if packageOverrideRepository ? ${package.name} then
-      prev.overrideAttrs (
-        packageOverrideRepository.${package.name} {
-          inherit (package)
-            name
-            version
-            kind
-            source
-            dependencies
-          ;
-        }
-      )
-    else
-      prev
-  )
-  baseDerivation
-  productPackages
+      lib.importJSON depsListFile);
+in builtins.foldl' (prev: package:
+  if packageOverrideRepository ? ${package.name} then
+    prev.overrideAttrs (packageOverrideRepository.${package.name} {
+      inherit (package) name version kind source dependencies;
+    })
+  else
+    prev) baseDerivation productPackages

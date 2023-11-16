@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, lib, options, pkgs, utils, ... }:
 with lib;
 let
   cfg = config.services.unifi-video;
@@ -95,8 +88,8 @@ let
   };
 
   stateDir = "/var/lib/unifi-video";
-in
-{
+
+in {
 
   options.services.unifi-video = {
 
@@ -171,16 +164,18 @@ in
     pidFile = mkOption {
       type = types.path;
       default = "${cfg.dataDir}/unifi-video.pid";
-      defaultText = literalExpression ''"''${config.${opt.dataDir}}/unifi-video.pid"'';
+      defaultText =
+        literalExpression ''"''${config.${opt.dataDir}}/unifi-video.pid"'';
       description = lib.mdDoc "Location of unifi-video pid file.";
     };
+
   };
 
   config = mkIf cfg.enable {
 
-    warnings =
-      optional (options.services.unifi-video.openFirewall.highestPrio >= (mkOptionDefault null).priority)
-        "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning.";
+    warnings = optional (options.services.unifi-video.openFirewall.highestPrio
+      >= (mkOptionDefault null).priority)
+      "The current services.unifi-video.openFirewall = true default is deprecated and will change to false in 22.11. Set it explicitly to silence this warning.";
 
     users.users.unifi-video = {
       description = "UniFi Video controller daemon user";
@@ -253,10 +248,7 @@ in
       after = [ "network.target" ];
       unitConfig.RequiresMountsFor = stateDir;
       # Make sure package upgrades trigger a service restart
-      restartTriggers = [
-        cfg.unifiVideoPackage
-        cfg.mongodbPackage
-      ];
+      restartTriggers = [ cfg.unifiVideoPackage cfg.mongodbPackage ];
       path = with pkgs; [
         gawk
         coreutils
@@ -280,18 +272,11 @@ in
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "unifi-video"
-        "openPorts"
-      ]
-      [
-        "services"
-        "unifi-video"
-        "openFirewall"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "unifi-video" "openPorts" ] [
+      "services"
+      "unifi-video"
+      "openFirewall"
+    ])
   ];
 
   meta.maintainers = with lib.maintainers; [ rsynnest ];

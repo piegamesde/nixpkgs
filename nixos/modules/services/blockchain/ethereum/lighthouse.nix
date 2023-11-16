@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
 
   cfg = config.services.lighthouse;
-in
-{
+in {
 
   options = {
     services.lighthouse = {
@@ -109,7 +103,8 @@ in
             };
 
             metrics = {
-              enable = lib.mkEnableOption (lib.mdDoc "Beacon node prometheus metrics");
+              enable =
+                lib.mkEnableOption (lib.mdDoc "Beacon node prometheus metrics");
               address = mkOption {
                 type = types.str;
                 default = "127.0.0.1";
@@ -167,7 +162,8 @@ in
             };
 
             metrics = {
-              enable = lib.mkEnableOption (lib.mdDoc "Validator node prometheus metrics");
+              enable = lib.mkEnableOption
+                (lib.mdDoc "Validator node prometheus metrics");
               address = mkOption {
                 type = types.str;
                 default = "127.0.0.1";
@@ -234,7 +230,8 @@ in
     };
 
     systemd.services.lighthouse-beacon = mkIf cfg.beacon.enable {
-      description = "Lighthouse beacon node (connect to P2P nodes and verify blocks)";
+      description =
+        "Lighthouse beacon node (connect to P2P nodes and verify blocks)";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
@@ -244,7 +241,10 @@ in
 
         ${pkgs.lighthouse}/bin/lighthouse beacon_node \
           --disable-upnp \
-          ${lib.optionalString cfg.beacon.disableDepositContractSync "--disable-deposit-contract-sync"} \
+          ${
+            lib.optionalString cfg.beacon.disableDepositContractSync
+            "--disable-deposit-contract-sync"
+          } \
           --port ${toString cfg.beacon.port} \
           --listen-address ${cfg.beacon.address} \
           --network ${cfg.network} \
@@ -255,13 +255,15 @@ in
           --execution-jwt ''${CREDENTIALS_DIRECTORY}/LIGHTHOUSE_JWT \
           ${
             lib.optionalString cfg.beacon.http.enable
-              "--http --http-address ${cfg.beacon.http.address} --http-port ${toString cfg.beacon.http.port}"
+            "--http --http-address ${cfg.beacon.http.address} --http-port ${
+              toString cfg.beacon.http.port
+            }"
           } \
           ${
             lib.optionalString cfg.beacon.metrics.enable
-              "--metrics --metrics-address ${cfg.beacon.metrics.address} --metrics-port ${
-                toString cfg.beacon.metrics.port
-              }"
+            "--metrics --metrics-address ${cfg.beacon.metrics.address} --metrics-port ${
+              toString cfg.beacon.metrics.port
+            }"
           } \
           ${cfg.extraArgs} ${cfg.beacon.extraArgs}
       '';
@@ -287,15 +289,13 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
       };
     };
 
     systemd.services.lighthouse-validator = mkIf cfg.validator.enable {
-      description = "Lighthouse validtor node (manages validators, using data obtained from the beacon node via a HTTP API)";
+      description =
+        "Lighthouse validtor node (manages validators, using data obtained from the beacon node via a HTTP API)";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
@@ -309,9 +309,9 @@ in
           --datadir ${cfg.validator.dataDir}/${cfg.network} \
           ${
             optionalString cfg.validator.metrics.enable
-              "--metrics --metrics-address ${cfg.validator.metrics.address} --metrics-port ${
-                toString cfg.validator.metrics.port
-              }"
+            "--metrics --metrics-address ${cfg.validator.metrics.address} --metrics-port ${
+              toString cfg.validator.metrics.port
+            }"
           } \
           ${cfg.extraArgs} ${cfg.validator.extraArgs}
       '';
@@ -338,14 +338,8 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
       };
     };
   };

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  qtbase,
-  qttools,
-  CoreFoundation,
-  Security,
-  libsecret,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, qtbase, qttools
+, CoreFoundation, Security, libsecret }:
 
 stdenv.mkDerivation rec {
   pname = "qtkeychain";
@@ -25,23 +15,19 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   cmakeFlags = [
-    "-DBUILD_WITH_QT6=${if lib.versions.major qtbase.version == "6" then "ON" else "OFF"}"
+    "-DBUILD_WITH_QT6=${
+      if lib.versions.major qtbase.version == "6" then "ON" else "OFF"
+    }"
     "-DQT_TRANSLATIONS_DIR=share/qt/translations"
   ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
+  nativeBuildInputs = [ cmake ]
+    ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
   ;
 
-  buildInputs =
-    lib.optionals (!stdenv.isDarwin) [ libsecret ]
-    ++ [
-      qtbase
-      qttools
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      CoreFoundation
-      Security
-    ];
+  buildInputs = lib.optionals (!stdenv.isDarwin) [ libsecret ]
+    ++ [ qtbase qttools ]
+    ++ lib.optionals stdenv.isDarwin [ CoreFoundation Security ];
 
   doInstallCheck = true;
 

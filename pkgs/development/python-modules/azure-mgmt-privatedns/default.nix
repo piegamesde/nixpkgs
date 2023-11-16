@@ -1,14 +1,5 @@
-{
-  lib,
-  azure-common,
-  azure-mgmt-core,
-  buildPythonPackage,
-  fetchPypi,
-  isodate,
-  msrest,
-  pythonOlder,
-  typing-extensions,
-}:
+{ lib, azure-common, azure-mgmt-core, buildPythonPackage, fetchPypi, isodate
+, msrest, pythonOlder, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "azure-mgmt-privatedns";
@@ -23,20 +14,13 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  propagatedBuildInputs = [
-    azure-common
-    azure-mgmt-core
-    isodate
-    msrest
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [ azure-common azure-mgmt-core isodate msrest ]
+    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   # no tests included
   doCheck = false;
 
-  pythonImportsCheck = [
-    "azure.common"
-    "azure.mgmt.privatedns"
-  ];
+  pythonImportsCheck = [ "azure.common" "azure.mgmt.privatedns" ];
 
   meta = with lib; {
     description = "Microsoft Azure DNS Private Zones Client Library for Python";

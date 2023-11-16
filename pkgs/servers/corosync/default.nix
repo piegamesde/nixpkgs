@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  pkg-config,
-  kronosnet,
-  nss,
-  nspr,
-  libqb,
-  systemd,
-  dbus,
-  rdma-core,
-  libstatgrab,
-  net-snmp,
-  enableDbus ? false,
-  enableInfiniBandRdma ? false,
-  enableMonitoring ? false,
-  enableSnmp ? false,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, pkg-config, kronosnet, nss, nspr, libqb
+, systemd, dbus, rdma-core, libstatgrab, net-snmp, enableDbus ? false
+, enableInfiniBandRdma ? false, enableMonitoring ? false, enableSnmp ? false }:
 
 with lib;
 
@@ -26,39 +9,26 @@ stdenv.mkDerivation rec {
   version = "3.1.7";
 
   src = fetchurl {
-    url = "http://build.clusterlabs.org/corosync/releases/${pname}-${version}.tar.gz";
+    url =
+      "http://build.clusterlabs.org/corosync/releases/${pname}-${version}.tar.gz";
     sha256 = "sha256-5lVrOjhZZfITMLk4Pc0XkPKKT3ngk5grQOouwj4KKfo=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper pkg-config ];
 
-  buildInputs =
-    [
-      kronosnet
-      nss
-      nspr
-      libqb
-      systemd.dev
-    ]
-    ++ optional enableDbus dbus
-    ++ optional enableInfiniBandRdma rdma-core
-    ++ optional enableMonitoring libstatgrab
-    ++ optional enableSnmp net-snmp;
+  buildInputs = [ kronosnet nss nspr libqb systemd.dev ]
+    ++ optional enableDbus dbus ++ optional enableInfiniBandRdma rdma-core
+    ++ optional enableMonitoring libstatgrab ++ optional enableSnmp net-snmp;
 
-  configureFlags =
-    [
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-      "--with-logdir=/var/log/corosync"
-      "--enable-watchdog"
-      "--enable-qdevices"
-      # allows Type=notify in the systemd service
-      "--enable-systemd"
-    ]
-    ++ optional enableDbus "--enable-dbus"
+  configureFlags = [
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--with-logdir=/var/log/corosync"
+    "--enable-watchdog"
+    "--enable-qdevices"
+    # allows Type=notify in the systemd service
+    "--enable-systemd"
+  ] ++ optional enableDbus "--enable-dbus"
     ++ optional enableInfiniBandRdma "--enable-rdma"
     ++ optional enableMonitoring "--enable-monitoring"
     ++ optional enableSnmp "--enable-snmp";
@@ -89,18 +59,14 @@ stdenv.mkDerivation rec {
       --prefix PATH ":" "$out/sbin:${libqb}/sbin"
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) pacemaker;
-  };
+  passthru.tests = { inherit (nixosTests) pacemaker; };
 
   meta = {
     homepage = "http://corosync.org/";
-    description = "A Group Communication System with features for implementing high availability within applications";
+    description =
+      "A Group Communication System with features for implementing high availability within applications";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      montag451
-      ryantm
-    ];
+    maintainers = with maintainers; [ montag451 ryantm ];
   };
 }

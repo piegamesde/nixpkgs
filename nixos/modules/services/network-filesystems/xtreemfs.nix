@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -15,8 +10,7 @@ let
 
   home = cfg.homeDir;
 
-  startupScript =
-    class: configPath:
+  startupScript = class: configPath:
     pkgs.writeScript "xtreemfs-osd.sh" ''
       #! ${pkgs.runtimeShell}
       JAVA_HOME="${pkgs.jdk}"
@@ -25,46 +19,56 @@ let
       $JAVA_CALL ${class} ${configPath}
     '';
 
-  dirReplicationConfig = pkgs.writeText "xtreemfs-dir-replication-plugin.properties" ''
-    babudb.repl.backupDir = ${home}/server-repl-dir
-    plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
-    babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
+  dirReplicationConfig =
+    pkgs.writeText "xtreemfs-dir-replication-plugin.properties" ''
+      babudb.repl.backupDir = ${home}/server-repl-dir
+      plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
+      babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
 
-    ${cfg.dir.replication.extraConfig}
-  '';
+      ${cfg.dir.replication.extraConfig}
+    '';
 
   dirConfig = pkgs.writeText "xtreemfs-dir-config.properties" ''
     uuid = ${cfg.dir.uuid}
     listen.port = ${toString cfg.dir.port}
-    ${optionalString (cfg.dir.address != "") "listen.address = ${cfg.dir.address}"}
+    ${optionalString (cfg.dir.address != "")
+    "listen.address = ${cfg.dir.address}"}
     http_port = ${toString cfg.dir.httpPort}
     babudb.baseDir = ${home}/dir/database
     babudb.logDir = ${home}/dir/db-log
-    babudb.sync = ${if cfg.dir.replication.enable then "FDATASYNC" else cfg.dir.syncMode}
+    babudb.sync = ${
+      if cfg.dir.replication.enable then "FDATASYNC" else cfg.dir.syncMode
+    }
 
-    ${optionalString cfg.dir.replication.enable "babudb.plugin.0 = ${dirReplicationConfig}"}
+    ${optionalString cfg.dir.replication.enable
+    "babudb.plugin.0 = ${dirReplicationConfig}"}
 
     ${cfg.dir.extraConfig}
   '';
 
-  mrcReplicationConfig = pkgs.writeText "xtreemfs-mrc-replication-plugin.properties" ''
-    babudb.repl.backupDir = ${home}/server-repl-mrc
-    plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
-    babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
+  mrcReplicationConfig =
+    pkgs.writeText "xtreemfs-mrc-replication-plugin.properties" ''
+      babudb.repl.backupDir = ${home}/server-repl-mrc
+      plugin.jar = ${xtreemfs}/share/java/BabuDB_replication_plugin.jar
+      babudb.repl.dependency.0 = ${xtreemfs}/share/java/Flease.jar
 
-    ${cfg.mrc.replication.extraConfig}
-  '';
+      ${cfg.mrc.replication.extraConfig}
+    '';
 
   mrcConfig = pkgs.writeText "xtreemfs-mrc-config.properties" ''
     uuid = ${cfg.mrc.uuid}
     listen.port = ${toString cfg.mrc.port}
-    ${optionalString (cfg.mrc.address != "") "listen.address = ${cfg.mrc.address}"}
+    ${optionalString (cfg.mrc.address != "")
+    "listen.address = ${cfg.mrc.address}"}
     http_port = ${toString cfg.mrc.httpPort}
     babudb.baseDir = ${home}/mrc/database
     babudb.logDir = ${home}/mrc/db-log
-    babudb.sync = ${if cfg.mrc.replication.enable then "FDATASYNC" else cfg.mrc.syncMode}
+    babudb.sync = ${
+      if cfg.mrc.replication.enable then "FDATASYNC" else cfg.mrc.syncMode
+    }
 
-    ${optionalString cfg.mrc.replication.enable "babudb.plugin.0 = ${mrcReplicationConfig}"}
+    ${optionalString cfg.mrc.replication.enable
+    "babudb.plugin.0 = ${mrcReplicationConfig}"}
 
     ${cfg.mrc.extraConfig}
   '';
@@ -72,7 +76,8 @@ let
   osdConfig = pkgs.writeText "xtreemfs-osd-config.properties" ''
     uuid = ${cfg.osd.uuid}
     listen.port = ${toString cfg.osd.port}
-    ${optionalString (cfg.osd.address != "") "listen.address = ${cfg.osd.address}"}
+    ${optionalString (cfg.osd.address != "")
+    "listen.address = ${cfg.osd.address}"}
     http_port = ${toString cfg.osd.httpPort}
     object_dir = ${home}/osd/
 
@@ -85,9 +90,8 @@ let
     after = [ "network.target" ] ++ optionalDir;
     wantedBy = [ "multi-user.target" ] ++ optionalDir;
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -461,6 +465,7 @@ in
         };
       };
     };
+
   };
 
   ###### implementation
@@ -476,9 +481,7 @@ in
       home = home;
     };
 
-    users.groups.xtreemfs = {
-      gid = config.ids.gids.xtreemfs;
-    };
+    users.groups.xtreemfs = { gid = config.ids.gids.xtreemfs; };
 
     systemd.services.xtreemfs-dir = mkIf cfg.dir.enable {
       description = "XtreemFS-DIR Server";
@@ -490,26 +493,22 @@ in
       };
     };
 
-    systemd.services.xtreemfs-mrc = mkIf cfg.mrc.enable (
-      {
-        description = "XtreemFS-MRC Server";
-        serviceConfig = {
-          User = "xtreemfs";
-          ExecStart = "${startupScript "org.xtreemfs.mrc.MRC" mrcConfig}";
-        };
-      }
-      // systemdOptionalDependencies
-    );
+    systemd.services.xtreemfs-mrc = mkIf cfg.mrc.enable ({
+      description = "XtreemFS-MRC Server";
+      serviceConfig = {
+        User = "xtreemfs";
+        ExecStart = "${startupScript "org.xtreemfs.mrc.MRC" mrcConfig}";
+      };
+    } // systemdOptionalDependencies);
 
-    systemd.services.xtreemfs-osd = mkIf cfg.osd.enable (
-      {
-        description = "XtreemFS-OSD Server";
-        serviceConfig = {
-          User = "xtreemfs";
-          ExecStart = "${startupScript "org.xtreemfs.osd.OSD" osdConfig}";
-        };
-      }
-      // systemdOptionalDependencies
-    );
+    systemd.services.xtreemfs-osd = mkIf cfg.osd.enable ({
+      description = "XtreemFS-OSD Server";
+      serviceConfig = {
+        User = "xtreemfs";
+        ExecStart = "${startupScript "org.xtreemfs.osd.OSD" osdConfig}";
+      };
+    } // systemdOptionalDependencies);
+
   };
+
 }

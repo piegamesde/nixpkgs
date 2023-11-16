@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -22,11 +17,9 @@ let
   # lightdm runs with clearenv(), but we need a few things in the environment for X to startup
   xserverWrapper = writeScript "xserver-wrapper" ''
     #! ${pkgs.bash}/bin/bash
-    ${concatMapStrings
-      (n: ''
-        export ${n}="${getAttr n xEnv}"
-      '')
-      (attrNames xEnv)}
+    ${concatMapStrings (n: ''
+      export ${n}="${getAttr n xEnv}"
+    '') (attrNames xEnv)}
 
     display=$(echo "$@" | xargs -n 1 | grep -P ^:\\d\$ | head -n 1 | sed s/^://)
     if [ -z "$display" ]
@@ -74,9 +67,11 @@ let
     ''}
     ${cfg.extraSeatDefaults}
   '';
-in
-{
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+
+in {
+  meta = with lib; {
+    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+  };
 
   # Note: the order in which lightdm greeter modules are imported
   # here determines the default: later modules (if enable) are
@@ -89,40 +84,22 @@ in
     ./lightdm-greeters/tiny.nix
     ./lightdm-greeters/slick.nix
     ./lightdm-greeters/mobile.nix
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "lightdm"
-        "autoLogin"
-        "enable"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "enable"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "lightdm"
-        "autoLogin"
-        "user"
-      ]
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "autoLogin"
-        "user"
-      ]
-    )
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "lightdm"
+      "autoLogin"
+      "enable"
+    ] [ "services" "xserver" "displayManager" "autoLogin" "enable" ])
+    (mkRenamedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "lightdm"
+      "autoLogin"
+      "user"
+    ] [ "services" "xserver" "displayManager" "autoLogin" "user" ])
   ];
 
   options = {
@@ -152,6 +129,7 @@ in
             The LightDM greeter to login via. The package should be a directory
             containing a .desktop file matching the name in the 'name' option.
           '';
+
         };
         name = mkOption {
           type = types.str;
@@ -174,9 +152,8 @@ in
       background = mkOption {
         type = types.either types.path (types.strMatching "^#[0-9]{6}$");
         # Manual cannot depend on packages, we are actually setting the default in config below.
-        defaultText =
-          literalExpression
-            "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
+        defaultText = literalExpression
+          "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
         description = lib.mdDoc ''
           The background image or color to use.
         '';
@@ -188,7 +165,8 @@ in
         example = ''
           greeter-show-manual-login=true
         '';
-        description = lib.mdDoc "Extra lines to append to SeatDefaults section.";
+        description =
+          lib.mdDoc "Extra lines to append to SeatDefaults section.";
       };
 
       # Configuration for automatic login specific to LightDM
@@ -199,6 +177,7 @@ in
           Show the greeter for this many seconds before automatic login occurs.
         '';
       };
+
     };
   };
 
@@ -212,13 +191,15 @@ in
         '';
       }
       {
-        assertion = dmcfg.autoLogin.enable -> sessionData.autologinSession != null;
+        assertion = dmcfg.autoLogin.enable -> sessionData.autologinSession
+          != null;
         message = ''
           LightDM auto-login requires that services.xserver.displayManager.defaultSession is set.
         '';
       }
       {
-        assertion = !cfg.greeter.enable -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0);
+        assertion = !cfg.greeter.enable
+          -> (dmcfg.autoLogin.enable && cfg.autoLogin.timeout == 0);
         message = ''
           LightDM can only run without greeter if automatic login is enabled and the timeout for it
           is set to zero.
@@ -227,20 +208,19 @@ in
     ];
 
     # Keep in sync with the defaultText value from the option definition.
-    services.xserver.displayManager.lightdm.background =
-      mkDefault
-        pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
+    services.xserver.displayManager.lightdm.background = mkDefault
+      pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
 
     # Set default session in session chooser to a specified values – basically ignore session history.
     # Auto-login is already covered by a config value.
-    services.xserver.displayManager.job.preStart =
-      optionalString (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null)
-        ''
-          ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
-        '';
+    services.xserver.displayManager.job.preStart = optionalString
+      (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null) ''
+        ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
+      '';
 
     # setSessionScript needs session-files in XDG_DATA_DIRS
-    services.xserver.displayManager.job.environment.XDG_DATA_DIRS = "${dmcfg.sessionData.desktops}/share/";
+    services.xserver.displayManager.job.environment.XDG_DATA_DIRS =
+      "${dmcfg.sessionData.desktops}/share/";
 
     # setSessionScript wants AccountsService
     systemd.services.display-manager.wants = [ "accounts-daemon.service" ];
@@ -349,7 +329,9 @@ in
     ];
 
     users.groups.lightdm.gid = config.ids.gids.lightdm;
-    services.xserver.tty = null; # We might start multiple X servers so let the tty increment themselves..
-    services.xserver.display = null; # We specify our own display (and logfile) in xserver-wrapper up there
+    services.xserver.tty =
+      null; # We might start multiple X servers so let the tty increment themselves..
+    services.xserver.display =
+      null; # We specify our own display (and logfile) in xserver-wrapper up there
   };
 }

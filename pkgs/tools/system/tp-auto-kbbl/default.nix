@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  dbus,
-  pkg-config,
-  openssl,
-  libevdev,
-}:
+{ lib, fetchFromGitHub, rustPlatform, dbus, pkg-config, openssl, libevdev }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tp-auto-kbbl";
@@ -22,14 +14,11 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "0m1gcvshbd9cfb0v6f86kbcfjxb4p9cxynmxgi4nxkhaszfyf56c";
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    dbus
-    libevdev
-    openssl
-  ];
+  buildInputs = [ dbus libevdev openssl ];
 
   meta = with lib; {
-    description = "Auto toggle keyboard back-lighting on Thinkpads (and maybe other laptops) for Linux";
+    description =
+      "Auto toggle keyboard back-lighting on Thinkpads (and maybe other laptops) for Linux";
     homepage = "https://github.com/saibotd/tp-auto-kbbl";
     license = licenses.mit;
     maintainers = with maintainers; [ sebtm ];

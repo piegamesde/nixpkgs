@@ -1,14 +1,6 @@
-{
-  config,
-  lib,
-  moduleType,
-  hostPkgs,
-  ...
-}:
-let
-  inherit (lib) mkOption types mdDoc;
-in
-{
+{ config, lib, moduleType, hostPkgs, ... }:
+let inherit (lib) mkOption types mdDoc;
+in {
   options = {
     interactive = mkOption {
       description = mdDoc ''

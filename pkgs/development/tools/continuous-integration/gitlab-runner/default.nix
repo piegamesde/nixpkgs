@@ -1,15 +1,7 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitLab,
-  fetchurl,
-  bash,
-}:
+{ lib, buildGoModule, fetchFromGitLab, fetchurl, bash }:
 
-let
-  version = "16.0.2";
-in
-buildGoModule rec {
+let version = "16.0.2";
+in buildGoModule rec {
   inherit version;
   pname = "gitlab-runner";
 
@@ -32,10 +24,7 @@ buildGoModule rec {
     sha256 = "sha256-t1DI7AhxnnBoP5h54dUCKtJcIffxmv0c7OczVhEy3rI=";
   };
 
-  patches = [
-    ./fix-shell-path.patch
-    ./remove-bash-test.patch
-  ];
+  patches = [ ./fix-shell-path.patch ./remove-bash-test.patch ];
 
   prePatch = ''
     # Remove some tests that can't work during a nix build
@@ -69,11 +58,6 @@ buildGoModule rec {
     license = licenses.mit;
     homepage = "https://about.gitlab.com/gitlab-ci/";
     platforms = platforms.unix ++ platforms.darwin;
-    maintainers = with maintainers; [
-      bachp
-      zimbatm
-      globin
-      yayayayaka
-    ];
+    maintainers = with maintainers; [ bachp zimbatm globin yayayayaka ];
   };
 }

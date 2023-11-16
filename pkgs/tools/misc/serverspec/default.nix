@@ -1,9 +1,4 @@
-{
-  lib,
-  ruby,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, ruby, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "serverspec";
@@ -16,7 +11,8 @@ bundlerApp {
   passthru.updateScript = bundlerUpdateScript "serverspec";
 
   meta = with lib; {
-    description = "RSpec tests for your servers configured by CFEngine, Puppet, Ansible, Itamae or anything else";
+    description =
+      "RSpec tests for your servers configured by CFEngine, Puppet, Ansible, Itamae or anything else";
     homepage = "https://serverspec.org/";
     license = licenses.mit;
     maintainers = with maintainers; [ dylanmtaylor ];

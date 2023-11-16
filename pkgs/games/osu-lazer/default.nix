@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenvNoCC,
-  buildDotnetModule,
-  fetchFromGitHub,
-  makeDesktopItem,
-  copyDesktopItems,
-  ffmpeg,
-  alsa-lib,
-  SDL2,
-  lttng-ust,
-  numactl,
-  dotnetCorePackages,
-  libglvnd,
-  xorg,
-  udev,
-}:
+{ lib, stdenvNoCC, buildDotnetModule, fetchFromGitHub, makeDesktopItem
+, copyDesktopItems, ffmpeg, alsa-lib, SDL2, lttng-ust, numactl
+, dotnetCorePackages, libglvnd, xorg, udev }:
 
 buildDotnetModule rec {
   pname = "osu-lazer";
@@ -62,7 +48,9 @@ buildDotnetModule rec {
     done
 
     ln -sft $out/lib/${pname} ${SDL2}/lib/libSDL2${stdenvNoCC.hostPlatform.extensions.sharedLibrary}
-    cp -f ${./osu.runtimeconfig.json} "$out/lib/${pname}/osu!.runtimeconfig.json"
+    cp -f ${
+      ./osu.runtimeconfig.json
+    } "$out/lib/${pname}/osu!.runtimeconfig.json"
 
     runHook postFixup
   '';
@@ -80,17 +68,15 @@ buildDotnetModule rec {
   ];
 
   meta = with lib; {
-    description = "Rhythm is just a *click* away (no score submission or multiplayer, see osu-lazer-bin)";
+    description =
+      "Rhythm is just a *click* away (no score submission or multiplayer, see osu-lazer-bin)";
     homepage = "https://osu.ppy.sh";
     license = with licenses; [
       mit
       cc-by-nc-40
       unfreeRedistributable # osu-framework contains libbass.so in repository
     ];
-    maintainers = with maintainers; [
-      oxalica
-      thiagokokada
-    ];
+    maintainers = with maintainers; [ oxalica thiagokokada ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "osu!";
   };

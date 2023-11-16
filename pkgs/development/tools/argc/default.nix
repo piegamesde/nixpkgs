@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "argc";
@@ -28,7 +23,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A command-line options, arguments and sub-commands parser for bash";
+    description =
+      "A command-line options, arguments and sub-commands parser for bash";
     homepage = "https://github.com/sigoden/argc";
     changelog = "https://github.com/sigoden/argc/releases/tag/v${version}";
     license = with licenses; [

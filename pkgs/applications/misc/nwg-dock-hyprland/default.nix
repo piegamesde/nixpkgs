@@ -1,11 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  wrapGAppsHook,
-  gtk-layer-shell,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, wrapGAppsHook
+, gtk-layer-shell }:
 
 buildGoModule rec {
   pname = "nwg-dock-hyprland";
@@ -20,15 +14,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-GhcrIVnZRbiGTfeUAWvslOVWDZmoL0ZRnjgTtQgxe2Q=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
   buildInputs = [ gtk-layer-shell ];
 
   meta = with lib; {

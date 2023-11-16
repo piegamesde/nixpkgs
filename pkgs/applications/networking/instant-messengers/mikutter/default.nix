@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bundlerEnv,
-  alsa-utils,
-  atk,
-  copyDesktopItems,
-  gobject-introspection,
-  gtk2,
-  ruby,
-  libicns,
-  libnotify,
-  makeDesktopItem,
-  which,
-  wrapGAppsHook,
-  writeText,
-}:
+{ lib, stdenv, fetchurl, bundlerEnv, alsa-utils, atk, copyDesktopItems
+, gobject-introspection, gtk2, ruby, libicns, libnotify, makeDesktopItem, which
+, wrapGAppsHook, writeText }:
 
 let
   # NOTE: $out may have different values depending on context
@@ -30,10 +15,7 @@ let
   gems = bundlerEnv {
     name = "mikutter-gems"; # leave the version out to enable package reuse
     gemdir = ./deps;
-    groups = [
-      "default"
-      "plugin"
-    ];
+    groups = [ "default" "plugin" ];
     inherit ruby;
 
     # Avoid the following error:
@@ -47,8 +29,7 @@ let
     copyGemFiles = true;
   };
 
-  mkDesktopItem =
-    { description }:
+  mkDesktopItem = { description }:
     makeDesktopItem {
       name = "mikutter";
       desktopName = "mikutter";
@@ -59,25 +40,21 @@ let
       keywords = [ "Mastodon" ];
     };
 
-  mkInfoPlist =
-    { version }:
-    writeText "Info.plist" (
-      lib.generators.toPlist { } {
-        CFBundleName = "mikutter";
-        CFBundleDisplayName = "mikutter";
-        CFBundleExecutable = "mikutter";
-        CFBundleIconFile = "mikutter";
-        CFBundleIdentifier = "net.hachune.mikutter";
-        CFBundleInfoDictionaryVersion = "6.0";
-        CFBundlePackageType = "APPL";
-        CFBundleVersion = version;
-        CFBundleShortVersionString = version;
-      }
-    );
+  mkInfoPlist = { version }:
+    writeText "Info.plist" (lib.generators.toPlist { } {
+      CFBundleName = "mikutter";
+      CFBundleDisplayName = "mikutter";
+      CFBundleExecutable = "mikutter";
+      CFBundleIconFile = "mikutter";
+      CFBundleIdentifier = "net.hachune.mikutter";
+      CFBundleInfoDictionaryVersion = "6.0";
+      CFBundlePackageType = "APPL";
+      CFBundleVersion = version;
+      CFBundleShortVersionString = version;
+    });
 
   inherit (gems) wrappedRuby;
-in
-with mikutterPaths;
+in with mikutterPaths;
 stdenv.mkDerivation rec {
   pname = "mikutter";
   version = "4.1.4";
@@ -87,10 +64,8 @@ stdenv.mkDerivation rec {
     sha256 = "05253nz4i1lmnq6czj48qdab2ny4vx2mznj6nsn2l1m2z6zqkwk3";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ libicns ];
+  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook ]
+    ++ lib.optionals stdenv.isDarwin [ libicns ];
   buildInputs = [
     atk
     gtk2
@@ -100,14 +75,8 @@ stdenv.mkDerivation rec {
     wrappedRuby
   ] ++ lib.optionals stdenv.isLinux [ alsa-utils ];
 
-  scriptPath = lib.makeBinPath (
-    [
-      wrappedRuby
-      libnotify
-      which
-    ]
-    ++ lib.optionals stdenv.isLinux [ alsa-utils ]
-  );
+  scriptPath = lib.makeBinPath ([ wrappedRuby libnotify which ]
+    ++ lib.optionals stdenv.isLinux [ alsa-utils ]);
 
   postUnpack = ''
     rm -rf vendor
@@ -135,22 +104,21 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postInstall =
-    let
-      infoPlist = mkInfoPlist { inherit version; };
-    in
-    lib.optionalString stdenv.isDarwin ''
-      mkdir -p ${appBinDir} ${appResourceDir}
-      install -Dm644 ${infoPlist} ${appPrefixDir}/Info.plist
-      ln -s $out/bin/mikutter ${appBinDir}/mikutter
-      png2icns ${appResourceDir}/mikutter.icns ${iconPath}
-    '';
+  postInstall = let infoPlist = mkInfoPlist { inherit version; };
+  in lib.optionalString stdenv.isDarwin ''
+    mkdir -p ${appBinDir} ${appResourceDir}
+    install -Dm644 ${infoPlist} ${appPrefixDir}/Info.plist
+    ln -s $out/bin/mikutter ${appBinDir}/mikutter
+    png2icns ${appResourceDir}/mikutter.icns ${iconPath}
+  '';
 
   installCheckPhase = ''
     runHook preInstallCheck
 
     testDir="$(mktemp -d)"
-    install -Dm644 ${./test_plugin.rb} "$testDir/plugin/test_plugin/test_plugin.rb"
+    install -Dm644 ${
+      ./test_plugin.rb
+    } "$testDir/plugin/test_plugin/test_plugin.rb"
 
     $out/bin/mikutter --confroot="$testDir" --plugin=test_plugin --debug
 
@@ -162,11 +130,7 @@ stdenv.mkDerivation rec {
   doInstallCheck = true;
   dontWrapGApps = true; # the target is placed outside of bin/
 
-  passthru.updateScript = [
-    ./update.sh
-    version
-    (toString ./.)
-  ];
+  passthru.updateScript = [ ./update.sh version (toString ./.) ];
 
   meta = with lib; {
     description = "An extensible Mastodon client";

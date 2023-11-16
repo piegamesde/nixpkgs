@@ -1,15 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.boinc;
-  allowRemoteGuiRpcFlag = optionalString cfg.allowRemoteGuiRpc "--allow_remote_gui_rpc";
+  allowRemoteGuiRpcFlag =
+    optionalString cfg.allowRemoteGuiRpc "--allow_remote_gui_rpc";
 
   fhsEnv = pkgs.buildFHSEnv {
     name = "boinc-fhs-env";
@@ -17,8 +13,8 @@ let
     runScript = "/bin/boinc_client";
   };
   fhsEnvExecutable = "${fhsEnv}/bin/${fhsEnv.name}";
-in
-{
+
+in {
   options.services.boinc = {
     enable = mkOption {
       type = types.bool;
@@ -114,7 +110,5 @@ in
     };
   };
 
-  meta = {
-    maintainers = with lib.maintainers; [ kierdavis ];
-  };
+  meta = { maintainers = with lib.maintainers; [ kierdavis ]; };
 }

@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   configFile = ./xfs.conf;
-in
 
-{
+in {
 
   ###### interface
 
@@ -25,7 +19,9 @@ in
         default = false;
         description = lib.mdDoc "Whether to enable the X Font Server.";
       };
+
     };
+
   };
 
   ###### implementation

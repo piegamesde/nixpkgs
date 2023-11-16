@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  boost,
-  glibmm,
-  gtkmm2,
-  gerbv,
-  librsvg,
-  bash,
-}:
+{ stdenv, lib, fetchFromGitHub, autoreconfHook, pkg-config, boost, glibmm
+, gtkmm2, gerbv, librsvg, bash }:
 
 stdenv.mkDerivation rec {
   pname = "pcb2gcode";
@@ -23,18 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-c5YabBqZn6ilIkF3lifTsYyLZMsZN21jDj1hNu0PRAc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    boost
-    glibmm
-    gtkmm2
-    gerbv
-    librsvg
-  ];
+  buildInputs = [ boost glibmm gtkmm2 gerbv librsvg ];
 
   postPatch = ''
     substituteInPlace ./Makefile.am \
@@ -42,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Command-line tool for isolation, routing and drilling of PCBs ";
+    description =
+      "Command-line tool for isolation, routing and drilling of PCBs ";
     longDescription = ''
       pcb2gcode is a command-line software for the isolation, routing and drilling of PCBs.
       It takes Gerber files as input and it outputs gcode files, suitable for the milling of PCBs.

@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  elfutils,
-  xorg,
-  patchelf,
-  libxcb,
-  libxshmfence,
-  perl,
-  zlib,
-  expat,
-  libffi,
-  libselinux,
-  libdrm,
-  udev,
-  kernel ? null,
-}:
+{ lib, stdenv, fetchurl, elfutils, xorg, patchelf, libxcb, libxshmfence, perl
+, zlib, expat, libffi, libselinux, libdrm, udev, kernel ? null }:
 
 with lib;
 
@@ -23,24 +7,25 @@ let
 
   bitness = if stdenv.is64bit then "64" else "32";
 
-  libArch =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      "i386-linux-gnu"
-    else if stdenv.hostPlatform.system == "x86_64-linux" then
-      "x86_64-linux-gnu"
-    else
-      throw "amdgpu-pro is Linux only. Sorry.";
-in
-stdenv.mkDerivation rec {
+  libArch = if stdenv.hostPlatform.system == "i686-linux" then
+    "i386-linux-gnu"
+  else if stdenv.hostPlatform.system == "x86_64-linux" then
+    "x86_64-linux-gnu"
+  else
+    throw "amdgpu-pro is Linux only. Sorry.";
+
+in stdenv.mkDerivation rec {
 
   version = "21.30";
   pname = "amdgpu-pro";
   build = "${version}-1290604";
 
   src = fetchurl {
-    url = "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz";
+    url =
+      "https://drivers.amd.com/drivers/linux/amdgpu-pro-${build}-ubuntu-20.04.tar.xz";
     sha256 = "sha256-WECqxjo2WLP3kMWeVyJgYufkvHTzwGaj57yeMGXiQ4I=";
-    curlOpts = "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30";
+    curlOpts =
+      "--referer https://www.amd.com/en/support/kb/release-notes/rn-amdgpu-unified-linux-21-30";
   };
 
   postUnpack = ''
@@ -81,9 +66,8 @@ stdenv.mkDerivation rec {
         popd
       '';
 
-      makeFlags =
-        optionalString (kernel != null)
-          "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules";
+      makeFlags = optionalString (kernel != null)
+        "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules";
 
       installPhase = ''
         runHook preInstall
@@ -114,10 +98,7 @@ stdenv.mkDerivation rec {
     };
   };
 
-  outputs = [
-    "out"
-    "vulkan"
-  ];
+  outputs = [ "out" "vulkan" ];
 
   depLibPath = makeLibraryPath [
     stdenv.cc.cc.lib
@@ -137,83 +118,72 @@ stdenv.mkDerivation rec {
     xorg.libXxf86vm
   ];
 
-  installPhase =
-    ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out
+    mkdir -p $out
 
-      cp -r usr/lib/${libArch} $out/lib
-      cp -r usr/share $out/share
+    cp -r usr/lib/${libArch} $out/lib
+    cp -r usr/share $out/share
 
-      mkdir -p $out/opt/amdgpu{,-pro}
-      cp -r opt/amdgpu-pro/lib/${libArch} $out/opt/amdgpu-pro/lib
-      cp -r opt/amdgpu/lib/${libArch} $out/opt/amdgpu/lib
+    mkdir -p $out/opt/amdgpu{,-pro}
+    cp -r opt/amdgpu-pro/lib/${libArch} $out/opt/amdgpu-pro/lib
+    cp -r opt/amdgpu/lib/${libArch} $out/opt/amdgpu/lib
 
-      pushd $out/lib
-      ln -s ../opt/amdgpu-pro/lib/libGL.so* .
-      ln -s ../opt/amdgpu-pro/lib/libEGL.so* .
-      popd
+    pushd $out/lib
+    ln -s ../opt/amdgpu-pro/lib/libGL.so* .
+    ln -s ../opt/amdgpu-pro/lib/libEGL.so* .
+    popd
 
-      # short name to allow replacement below
-      ln -s lib/dri $out/dri
+    # short name to allow replacement below
+    ln -s lib/dri $out/dri
 
-    ''
-    + optionalString (stdenv.is64bit) ''
-      mkdir -p $out/etc
-      pushd etc
-      cp -r modprobe.d udev amd $out/etc
-      popd
+  '' + optionalString (stdenv.is64bit) ''
+    mkdir -p $out/etc
+    pushd etc
+    cp -r modprobe.d udev amd $out/etc
+    popd
 
-      cp -r lib/udev/rules.d/* $out/etc/udev/rules.d
-      cp -r opt/amdgpu/lib/xorg $out/lib/xorg
-      cp -r opt/amdgpu-pro/lib/xorg/* $out/lib/xorg
-      cp -r opt/amdgpu/share $out/opt/amdgpu/share
-    ''
-    + ''
+    cp -r lib/udev/rules.d/* $out/etc/udev/rules.d
+    cp -r opt/amdgpu/lib/xorg $out/lib/xorg
+    cp -r opt/amdgpu-pro/lib/xorg/* $out/lib/xorg
+    cp -r opt/amdgpu/share $out/opt/amdgpu/share
+  '' + ''
 
-      mkdir -p $vulkan/share/vulkan/icd.d
-      install opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd${bitness}.json $vulkan/share/vulkan/icd.d
+    mkdir -p $vulkan/share/vulkan/icd.d
+    install opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd${bitness}.json $vulkan/share/vulkan/icd.d
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-  preFixup =
-    (
-      if
-        stdenv.is64bit
-      # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
-      # set in the user session and for Xorg
-      then
-        ''
-          expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
-          expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
-          perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
-        ''
-      else
-        ''
-          expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
-          # we replace a different path on 32-bit because it's the only one long
-          # enough to fit the target path :(
-          expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
-        ''
-    )
-    + ''
-      perl -pi -e "$expr1" \
-        $out/opt/amdgpu/lib/libEGL.so.1.0.0 \
-        $out/opt/amdgpu/lib/libgbm.so.1.0.0 \
-        $out/opt/amdgpu/lib/libGL.so.1.2.0
+  preFixup = (if stdenv.is64bit
+  # this could also be done with LIBGL_DRIVERS_PATH, but it would need to be
+  # set in the user session and for Xorg
+  then ''
+    expr1='s:/opt/amdgpu/lib/x86_64-linux-gnu/dri\0:/run/opengl-driver/lib/dri\0\0\0\0\0\0\0\0\0\0\0:g'
+    expr2='s:/usr/lib/x86_64-linux-gnu/dri[\0\:]:/run/opengl-driver/lib/dri\0\0\0\0:g'
+    perl -pi -e "$expr2" $out/lib/xorg/modules/extensions/libglx.so
+  '' else ''
+    expr1='s:/opt/amdgpu/lib/i386-linux-gnu/dri\0:/run/opengl-driver-32/lib/dri\0\0\0\0\0\0:g'
+    # we replace a different path on 32-bit because it's the only one long
+    # enough to fit the target path :(
+    expr2='s:/usr/lib/i386-linux-gnu/dri[\0\:]:/run/opengl-driver-32/dri\0\0\0:g'
+  '') + ''
+    perl -pi -e "$expr1" \
+      $out/opt/amdgpu/lib/libEGL.so.1.0.0 \
+      $out/opt/amdgpu/lib/libgbm.so.1.0.0 \
+      $out/opt/amdgpu/lib/libGL.so.1.2.0
 
-      perl -pi -e "$expr2" \
-        $out/opt/amdgpu-pro/lib/libEGL.so.1 \
-        $out/opt/amdgpu-pro/lib/libGL.so.1.2 \
-        $out/opt/amdgpu-pro/lib/libGLX_amd.so.0
+    perl -pi -e "$expr2" \
+      $out/opt/amdgpu-pro/lib/libEGL.so.1 \
+      $out/opt/amdgpu-pro/lib/libGL.so.1.2 \
+      $out/opt/amdgpu-pro/lib/libGLX_amd.so.0
 
-      find $out -type f -exec perl -pi -e 's:/opt/amdgpu-pro/:/run/amdgpu-pro/:g' {} \;
-      find $out -type f -exec perl -pi -e 's:/opt/amdgpu/:/run/amdgpu/:g' {} \;
+    find $out -type f -exec perl -pi -e 's:/opt/amdgpu-pro/:/run/amdgpu-pro/:g' {} \;
+    find $out -type f -exec perl -pi -e 's:/opt/amdgpu/:/run/amdgpu/:g' {} \;
 
-      substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
-    '';
+    substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
+  '';
 
   # doing this in post because shrinking breaks things that dynamically load
   postFixup = ''
@@ -221,11 +191,7 @@ stdenv.mkDerivation rec {
     find "$out" -name '*.so*' -type f -exec patchelf --set-rpath "$libPath" {} \;
   '';
 
-  buildInputs = [
-    libdrm
-    patchelf
-    perl
-  ];
+  buildInputs = [ libdrm patchelf perl ];
 
   enableParallelBuilding = true;
 

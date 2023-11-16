@@ -1,18 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  libjpeg_turbo,
-  libpng,
-  ninja,
-  numpy,
-  pillow,
-  pytest,
-  scipy,
-  symlinkJoin,
-  torch,
-  which,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, libjpeg_turbo, libpng, ninja, numpy
+, pillow, pytest, scipy, symlinkJoin, torch, which }:
 
 let
   inherit (torch) cudaCapabilities cudaPackages cudaSupport;
@@ -29,13 +16,11 @@ let
 
   cuda-native-redist = symlinkJoin {
     name = "cuda-native-redist-${cudaVersion}";
-    paths =
-      with cudaPackages;
+    paths = with cudaPackages;
       [
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
-      ]
-      ++ cuda-common-redist;
+      ] ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -45,8 +30,7 @@ let
 
   pname = "torchvision";
   version = "0.15.2";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -56,29 +40,18 @@ buildPythonPackage {
     hash = "sha256-KNbOgd6PCINZqZ24c/Ev+ODux3ik5iUlzem9uUfQArM=";
   };
 
-  nativeBuildInputs = [
-    libpng
-    ninja
-    which
-  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs = [ libpng ninja which ]
+    ++ lib.optionals cudaSupport [ cuda-native-redist ];
 
-  buildInputs = [
-    libjpeg_turbo
-    libpng
-  ] ++ lib.optionals cudaSupport [ cuda-redist ];
+  buildInputs = [ libjpeg_turbo libpng ]
+    ++ lib.optionals cudaSupport [ cuda-redist ];
 
-  propagatedBuildInputs = [
-    numpy
-    pillow
-    torch
-    scipy
-  ];
+  propagatedBuildInputs = [ numpy pillow torch scipy ];
 
-  preConfigure =
-    ''
-      export TORCHVISION_INCLUDE="${libjpeg_turbo.dev}/include/"
-      export TORCHVISION_LIBRARY="${libjpeg_turbo}/lib/"
-    ''
+  preConfigure = ''
+    export TORCHVISION_INCLUDE="${libjpeg_turbo.dev}/include/"
+    export TORCHVISION_LIBRARY="${libjpeg_turbo}/lib/"
+  ''
     # NOTE: We essentially override the compilers provided by stdenv because we don't have a hook
     #   for cudaPackages to swap in compilers supported by NVCC.
     + lib.optionalString cudaSupport ''

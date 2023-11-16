@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "node-semver";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nodesemver" ];
 
   meta = with lib; {
-    changelog = "https://github.com/podhmo/python-node-semver/blob/${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/podhmo/python-node-semver/blob/${version}/CHANGES.txt";
     description = "A port of node-semver";
     homepage = "https://github.com/podhmo/python-semver";
     license = licenses.mit;

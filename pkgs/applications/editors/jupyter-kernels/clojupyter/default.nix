@@ -1,13 +1,5 @@
-{
-  pkgs,
-  stdenv,
-  lib,
-  jre,
-  fetchFromGitHub,
-  writeShellScript,
-  runCommand,
-  imagemagick,
-}:
+{ pkgs, stdenv, lib, jre, fetchFromGitHub, writeShellScript, runCommand
+, imagemagick }:
 
 # To test:
 # $(nix-build --no-out-link -E 'with import <nixpkgs> {}; jupyter.override { definitions = { clojure = clojupyter.definition; }; }')/bin/jupyter-notebook
@@ -32,8 +24,7 @@ let
     platforms = jre.meta.platforms;
   };
 
-  sizedLogo =
-    size:
+  sizedLogo = size:
     stdenv.mkDerivation {
       name = "clojupyter-logo-${size}x${size}.png";
 
@@ -55,30 +46,17 @@ let
 
       inherit meta;
     };
-in
 
-rec {
+in rec {
   launcher =
-    runCommand "clojupyter"
-      {
-        inherit
-          pname
-          version
-          meta
-          shellScript
-        ;
-      }
-      ''
-        mkdir -p $out/bin
-        ln -s $shellScript $out/bin/clojupyter
-      '';
+    runCommand "clojupyter" { inherit pname version meta shellScript; } ''
+      mkdir -p $out/bin
+      ln -s $shellScript $out/bin/clojupyter
+    '';
 
   definition = {
     displayName = "Clojure";
-    argv = [
-      "${launcher}/bin/clojupyter"
-      "{connection_file}"
-    ];
+    argv = [ "${launcher}/bin/clojupyter" "{connection_file}" ];
     language = "clojure";
     logo32 = sizedLogo "32";
     logo64 = sizedLogo "64";

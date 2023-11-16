@@ -1,14 +1,5 @@
-{
-  lib,
-  isPy27,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  importlib-metadata,
-  typing ? null,
-  pythonOlder,
-  unittestCheckHook,
-}:
+{ lib, isPy27, buildPythonPackage, fetchPypi, setuptools-scm, importlib-metadata
+, typing ? null, pythonOlder, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "importlib-resources";
@@ -24,7 +15,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [ importlib-metadata ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs = [ importlib-metadata ]
+    ++ lib.optionals (pythonOlder "3.5") [ typing ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  callPackage,
-}:
+{ lib, buildGoModule, fetchFromGitHub, callPackage }:
 
 buildGoModule rec {
   pname = "croc";
@@ -21,12 +16,11 @@ buildGoModule rec {
   subPackages = [ "." ];
 
   passthru = {
-    tests = {
-      local-relay = callPackage ./test-local-relay.nix { };
-    };
+    tests = { local-relay = callPackage ./test-local-relay.nix { }; };
   };
   meta = with lib; {
-    description = "Easily and securely send things from one computer to another";
+    description =
+      "Easily and securely send things from one computer to another";
     longDescription = ''
       Croc is a command line tool written in Go that allows any two computers to
       simply and securely transfer files and folders.
@@ -41,10 +35,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/schollz/croc";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      hugoreeves
-      equirosa
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ hugoreeves equirosa SuperSandro2000 ];
   };
 }

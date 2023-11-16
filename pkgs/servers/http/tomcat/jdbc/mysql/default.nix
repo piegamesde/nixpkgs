@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  mysql_jdbc,
-}:
+{ lib, stdenv, mysql_jdbc }:
 
 stdenv.mkDerivation {
   pname = "tomcat-mysql-jdbc";
@@ -19,7 +15,5 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = {
-    platforms = lib.platforms.unix;
-  };
+  meta = { platforms = lib.platforms.unix; };
 }

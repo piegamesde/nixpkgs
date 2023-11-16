@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildNpmPackage,
-  nix-update-script,
-}:
+{ lib, stdenv, fetchFromGitHub, buildNpmPackage, nix-update-script }:
 
 buildNpmPackage rec {
   pname = "ariang";

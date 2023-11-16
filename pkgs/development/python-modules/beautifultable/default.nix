@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  wcwidth,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, wcwidth, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "beautifultable";

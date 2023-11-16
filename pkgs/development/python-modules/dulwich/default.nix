@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  certifi,
-  fastimport,
-  fetchPypi,
-  gevent,
-  geventhttpclient,
-  git,
-  glibcLocales,
-  gnupg,
-  gpgme,
-  paramiko,
-  pytestCheckHook,
-  pythonOlder,
-  urllib3,
-}:
+{ lib, stdenv, buildPythonPackage, certifi, fastimport, fetchPypi, gevent
+, geventhttpclient, git, glibcLocales, gnupg, gpgme, paramiko, pytestCheckHook
+, pythonOlder, urllib3 }:
 
 buildPythonPackage rec {
   version = "0.21.5";
@@ -31,28 +16,16 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  propagatedBuildInputs = [
-    certifi
-    urllib3
-  ];
+  propagatedBuildInputs = [ certifi urllib3 ];
 
   passthru.optional-dependencies = {
     fastimport = [ fastimport ];
-    pgp = [
-      gpgme
-      gnupg
-    ];
+    pgp = [ gpgme gnupg ];
     paramiko = [ paramiko ];
   };
 
   nativeCheckInputs =
-    [
-      gevent
-      geventhttpclient
-      git
-      glibcLocales
-      pytestCheckHook
-    ]
+    [ gevent geventhttpclient git glibcLocales pytestCheckHook ]
     ++ passthru.optional-dependencies.fastimport
     ++ passthru.optional-dependencies.pgp
     ++ passthru.optional-dependencies.paramiko;
@@ -68,11 +41,10 @@ buildPythonPackage rec {
     "test_commit_no_encode_decode"
   ];
 
-  disabledTestPaths =
-    [
-      # missing test inputs
-      "dulwich/contrib/test_swift_smoke.py"
-    ];
+  disabledTestPaths = [
+    # missing test inputs
+    "dulwich/contrib/test_swift_smoke.py"
+  ];
 
   pythonImportsCheck = [ "dulwich" ];
 
@@ -83,11 +55,9 @@ buildPythonPackage rec {
       does not depend on Git itself. All functionality is available in pure Python.
     '';
     homepage = "https://www.dulwich.io/";
-    changelog = "https://github.com/dulwich/dulwich/blob/dulwich-${version}/NEWS";
-    license = with licenses; [
-      asl20
-      gpl2Plus
-    ];
+    changelog =
+      "https://github.com/dulwich/dulwich/blob/dulwich-${version}/NEWS";
+    license = with licenses; [ asl20 gpl2Plus ];
     maintainers = with maintainers; [ koral ];
   };
 }

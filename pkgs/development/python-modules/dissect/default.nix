@@ -1,35 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  dissect-cim,
-  dissect-clfs,
-  dissect-cobaltstrike,
-  dissect-cstruct,
-  dissect-esedb,
-  dissect-etl,
-  dissect-eventlog,
-  dissect-evidence,
-  dissect-extfs,
-  dissect-fat,
-  dissect-ffs,
-  dissect-executable,
-  dissect-hypervisor,
-  dissect-ntfs,
-  dissect-ole,
-  dissect-regf,
-  dissect-shellitem,
-  dissect-sql,
-  dissect-squashfs,
-  dissect-target,
-  dissect-util,
-  dissect-vmfs,
-  dissect-volume,
-  dissect-xfs,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, dissect-cim, dissect-clfs, dissect-cobaltstrike
+, dissect-cstruct, dissect-esedb, dissect-etl, dissect-eventlog
+, dissect-evidence, dissect-extfs, dissect-fat, dissect-ffs, dissect-executable
+, dissect-hypervisor, dissect-ntfs, dissect-ole, dissect-regf, dissect-shellitem
+, dissect-sql, dissect-squashfs, dissect-target, dissect-util, dissect-vmfs
+, dissect-volume, dissect-xfs, fetchFromGitHub, pythonOlder, setuptools
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dissect";
@@ -47,10 +22,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
   propagatedBuildInputs = [
     dissect-cim

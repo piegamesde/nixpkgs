@@ -1,30 +1,17 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.create_ap;
-  configFile = pkgs.writeText "create_ap.conf" (generators.toKeyValue { } cfg.settings);
-in
-{
+  configFile =
+    pkgs.writeText "create_ap.conf" (generators.toKeyValue { } cfg.settings);
+in {
   options = {
     services.create_ap = {
       enable = mkEnableOption (lib.mdDoc "setup wifi hotspots using create_ap");
       settings = mkOption {
-        type =
-          with types;
-          attrsOf (
-            oneOf [
-              int
-              bool
-              str
-            ]
-          );
+        type = with types; attrsOf (oneOf [ int bool str ]);
         default = { };
         description = lib.mdDoc ''
           Configuration for `create_ap`.
@@ -50,13 +37,16 @@ in
         after = [ "network.target" ];
         restartTriggers = [ configFile ];
         serviceConfig = {
-          ExecStart = "${pkgs.linux-wifi-hotspot}/bin/create_ap --config ${configFile}";
+          ExecStart =
+            "${pkgs.linux-wifi-hotspot}/bin/create_ap --config ${configFile}";
           KillSignal = "SIGINT";
           Restart = "on-failure";
         };
       };
     };
+
   };
 
   meta.maintainers = with lib.maintainers; [ onny ];
+
 }

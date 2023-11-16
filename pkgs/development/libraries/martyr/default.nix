@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ant,
-  jdk,
-}:
+{ lib, stdenv, fetchurl, ant, jdk }:
 
 stdenv.mkDerivation rec {
   pname = "martyr";
@@ -14,10 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ks8j413bcby345kmq1i7av8kwjvz5vxdn1zpv0p7ywxq54i4z59";
   };
 
-  buildInputs = [
-    ant
-    jdk
-  ];
+  buildInputs = [ ant jdk ];
 
   buildPhase = "ant";
 
@@ -27,7 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Java framework around the IRC protocol to allow application writers easy manipulation of the protocol and client state";
+    description =
+      "Java framework around the IRC protocol to allow application writers easy manipulation of the protocol and client state";
     homepage = "https://martyr.sourceforge.net/";
     license = lib.licenses.lgpl21;
   };

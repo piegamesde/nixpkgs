@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -18,8 +13,8 @@ let
     "twoGbMaxExtentFlat"
     "streamOptimized"
   ];
-in
-{
+
+in {
   options = {
     vmware = {
       baseImageSize = mkOption {
@@ -32,14 +27,16 @@ in
       };
       vmDerivationName = mkOption {
         type = types.str;
-        default = "nixos-vmware-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
+        default =
+          "nixos-vmware-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}";
         description = lib.mdDoc ''
           The name of the derivation for the VMWare appliance.
         '';
       };
       vmFileName = mkOption {
         type = types.str;
-        default = "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vmdk";
+        default =
+          "nixos-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.vmdk";
         description = lib.mdDoc ''
           The file name of the VMWare appliance.
         '';
@@ -53,7 +50,8 @@ in
         type = types.bool;
         default = false;
         example = true;
-        description = lib.mdDoc "Create a VMDK version 6 image (instead of version 4).";
+        description =
+          lib.mdDoc "Create a VMDK version 6 image (instead of version 4).";
       };
     };
   };

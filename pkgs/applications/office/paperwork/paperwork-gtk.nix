@@ -1,24 +1,6 @@
-{
-  lib,
-  python3Packages,
-  gtk3,
-  cairo,
-  gnome,
-  librsvg,
-  xvfb-run,
-  dbus,
-  libnotify,
-  wrapGAppsHook,
-  fetchFromGitLab,
-  which,
-  gettext,
-  gobject-introspection,
-  gdk-pixbuf,
-  texlive,
-  imagemagick,
-  perlPackages,
-  writeScript,
-}:
+{ lib, python3Packages, gtk3, cairo, gnome, librsvg, xvfb-run, dbus, libnotify
+, wrapGAppsHook, fetchFromGitLab, which, gettext, gobject-introspection
+, gdk-pixbuf, texlive, imagemagick, perlPackages, writeScript }:
 
 let
   documentation_deps = [
@@ -27,10 +9,10 @@ let
     imagemagick
     perlPackages.Po4a
   ];
-  inherit (import ./src.nix { inherit fetchFromGitLab; }) version src sample_documents;
-in
+  inherit (import ./src.nix { inherit fetchFromGitLab; })
+    version src sample_documents;
 
-python3Packages.buildPythonApplication rec {
+in python3Packages.buildPythonApplication rec {
   inherit src version;
   pname = "paperwork";
 
@@ -97,13 +79,7 @@ python3Packages.buildPythonApplication rec {
     gdk-pixbuf # for the setup hook
   ] ++ documentation_deps;
 
-  buildInputs = [
-    gnome.adwaita-icon-theme
-    libnotify
-    librsvg
-    gtk3
-    cairo
-  ];
+  buildInputs = [ gnome.adwaita-icon-theme libnotify librsvg gtk3 cairo ];
 
   dontWrapGApps = true;
 
@@ -155,10 +131,7 @@ python3Packages.buildPythonApplication rec {
     description = "A personal document manager for scanned documents";
     homepage = "https://openpaper.work/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      aszlig
-      symphorien
-    ];
+    maintainers = with lib.maintainers; [ aszlig symphorien ];
     platforms = lib.platforms.linux;
   };
 }

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  nodejs,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, nodejs }:
 
 stdenv.mkDerivation rec {
   pname = "napi-rs-cli";

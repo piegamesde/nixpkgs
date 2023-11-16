@@ -1,24 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  boost,
-  sqlite,
-}:
+{ lib, stdenv, fetchurl, boost, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "vsqlite";
   version = "0.3.13";
 
   src = fetchurl {
-    url = "https://evilissimo.fedorapeople.org/releases/vsqlite--/0.3.13/vsqlite++-${version}.tar.gz";
+    url =
+      "https://evilissimo.fedorapeople.org/releases/vsqlite--/0.3.13/vsqlite++-${version}.tar.gz";
     sha256 = "17fkj0d2jh0xkjpcayhs1xvbnh1d69f026i7vs1zqnbiwbkpz237";
   };
 
-  buildInputs = [
-    boost
-    sqlite
-  ];
+  buildInputs = [ boost sqlite ];
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace Makefile.in \

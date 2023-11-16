@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  callPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, buildPythonPackage, callPackage, fetchPypi, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -35,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Implementation of some concepts from category theory";
     homepage = "https://gitlab.com/danielhones/pycategories";
-    changelog = "https://gitlab.com/danielhones/pycategories/-/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://gitlab.com/danielhones/pycategories/-/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ dmvianna ];
   };

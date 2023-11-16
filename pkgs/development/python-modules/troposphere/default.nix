@@ -1,15 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  python,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, python
 
-  # python dependencies
-  awacs,
-  cfn-flip,
-  typing-extensions,
-}:
+# python dependencies
+, awacs, cfn-flip, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "troposphere";
@@ -25,15 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-8vIpwZBUdU9gD1Ya0+L1phMDMcAABtuyRx4quDfQWGA=";
   };
 
-  propagatedBuildInputs = [
-    cfn-flip
-  ] ++ lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [ cfn-flip ]
+    ++ lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   nativeCheckInputs = [ awacs ];
 
-  passthru.optional-dependencies = {
-    policy = [ awacs ];
-  };
+  passthru.optional-dependencies = { policy = [ awacs ]; };
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover
@@ -46,6 +35,7 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ jlesquembre ];
     license = licenses.bsd2;
     homepage = "https://github.com/cloudtools/troposphere";
-    changelog = "https://github.com/cloudtools/troposphere/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/cloudtools/troposphere/blob/${version}/CHANGELOG.rst";
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  localSystem,
-  crossSystem,
-  config,
-  overlays,
-  crossOverlays ? [ ],
-}:
+{ lib, localSystem, crossSystem, config, overlays, crossOverlays ? [ ] }:
 
 assert crossSystem == localSystem;
 let
@@ -180,77 +173,53 @@ let
     ];
   };
   bashExe = "${bash}/bin/bash";
-in
-[
+in [
 
-  (
-    { }:
-    {
-      __raw = true;
+  ({ }: {
+    __raw = true;
 
-      bootstrapTools = derivation (
-        {
-          inherit system;
-          inherit
-            make
-            bash
-            coreutils
-            findutils
-            diffutils
-            grep
-            patch
-            gawk
-            cpio
-            sed
-            curl
-          ;
+    bootstrapTools = derivation ({
+      inherit system;
+      inherit make bash coreutils findutils diffutils grep patch gawk cpio sed
+        curl;
 
-          name = "trivial-bootstrap-tools";
-          builder = bashExe;
-          args = [ ./trivial-bootstrap.sh ];
-          buildInputs = [ make ];
-          mkdir = "/bin/mkdir";
-          ln = "/bin/ln";
-        }
-        // lib.optionalAttrs config.contentAddressedByDefault {
-          __contentAddressed = true;
-          outputHashAlgo = "sha256";
-          outputHashMode = "recursive";
-        }
-      );
-    }
-  )
+      name = "trivial-bootstrap-tools";
+      builder = bashExe;
+      args = [ ./trivial-bootstrap.sh ];
+      buildInputs = [ make ];
+      mkdir = "/bin/mkdir";
+      ln = "/bin/ln";
+    } // lib.optionalAttrs config.contentAddressedByDefault {
+      __contentAddressed = true;
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
+    });
+  })
 
-  (
-    { bootstrapTools, ... }:
-    rec {
-      __raw = true;
+  ({ bootstrapTools, ... }: rec {
+    __raw = true;
 
-      inherit bootstrapTools;
+    inherit bootstrapTools;
 
-      fetchurl = import ../../build-support/fetchurl {
-        inherit lib;
-        stdenvNoCC = stdenv;
-        curl = bootstrapTools;
-      };
+    fetchurl = import ../../build-support/fetchurl {
+      inherit lib;
+      stdenvNoCC = stdenv;
+      curl = bootstrapTools;
+    };
 
-      stdenv = import ../generic {
-        name = "stdenv-freebsd-boot-1";
-        buildPlatform = localSystem;
-        hostPlatform = localSystem;
-        targetPlatform = localSystem;
-        inherit config;
-        initialPath = [
-          "/"
-          "/usr"
-        ];
-        shell = "${bootstrapTools}/bin/bash";
-        fetchurlBoot = null;
-        cc = null;
-        overrides = self: super: { };
-      };
-    }
-  )
+    stdenv = import ../generic {
+      name = "stdenv-freebsd-boot-1";
+      buildPlatform = localSystem;
+      hostPlatform = localSystem;
+      targetPlatform = localSystem;
+      inherit config;
+      initialPath = [ "/" "/usr" ];
+      shell = "${bootstrapTools}/bin/bash";
+      fetchurlBoot = null;
+      cc = null;
+      overrides = self: super: { };
+    };
+  })
 
   (prevStage: {
     __raw = true;
@@ -262,11 +231,7 @@ in
       inherit config;
       initialPath = [ prevStage.bootstrapTools ];
       inherit (prevStage.stdenv)
-        buildPlatform
-        hostPlatform
-        targetPlatform
-        shell
-      ;
+        buildPlatform hostPlatform targetPlatform shell;
       fetchurlBoot = prevStage.fetchurl;
       cc = null;
     };
@@ -279,13 +244,8 @@ in
       inherit config;
 
       inherit (prevStage.stdenv)
-        buildPlatform
-        hostPlatform
-        targetPlatform
-        initialPath
-        shell
-        fetchurlBoot
-      ;
+        buildPlatform hostPlatform targetPlatform initialPath shell
+        fetchurlBoot;
 
       cc = lib.makeOverridable (import ../../build-support/cc-wrapper) {
         inherit lib;
@@ -293,9 +253,7 @@ in
         nativePrefix = "/usr";
         nativeLibc = true;
         stdenvNoCC = prevStage.stdenv;
-        buildPackages = {
-          inherit (prevStage) stdenv;
-        };
+        buildPackages = { inherit (prevStage) stdenv; };
         cc = {
           name = "clang-9.9.9";
           cc = "/usr";
@@ -319,4 +277,5 @@ in
       preHook = "export NIX_NO_SELF_RPATH=1";
     };
   })
+
 ]

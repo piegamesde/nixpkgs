@@ -1,22 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchFromGitHub,
-  php,
-  which,
-  makeWrapper,
-  bash,
-  coreutils,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, fetchFromGitHub, php, which, makeWrapper, bash
+, coreutils, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "drush";
   version = "8.4.12";
 
   src = fetchurl {
-    url = "https://github.com/drush-ops/drush/releases/download/${version}/drush.phar";
+    url =
+      "https://github.com/drush-ops/drush/releases/download/${version}/drush.phar";
     sha256 = "sha256-YtD9lD621LJJAM/ieL4KWvY4o4Uqo3+FWgjGYGdQQaw=";
   };
 
@@ -29,15 +20,7 @@ stdenv.mkDerivation rec {
     install -D $src $out/libexec/drush/drush.phar
     makeWrapper ${php}/bin/php $out/bin/drush \
       --add-flags "$out/libexec/drush/drush.phar" \
-      --prefix PATH : "${
-        lib.makeBinPath [
-          which
-          php
-          bash
-          coreutils
-          ncurses
-        ]
-      }"
+      --prefix PATH : "${lib.makeBinPath [ which php bash coreutils ncurses ]}"
   '';
 
   meta = with lib; {

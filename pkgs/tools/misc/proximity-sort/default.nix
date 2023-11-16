@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "proximity-sort";
@@ -18,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-0hP6qa8d5CaqtBHCWBJ8UjtVJc6Z0GmL8DvdTWDMM8g=";
 
   meta = with lib; {
-    description = "Simple command-line utility for sorting inputs by proximity to a path argument";
+    description =
+      "Simple command-line utility for sorting inputs by proximity to a path argument";
     homepage = "https://github.com/jonhoo/proximity-sort";
     license = with licenses; [
       mit # or

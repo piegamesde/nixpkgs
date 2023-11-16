@@ -1,14 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 {
-  options.security.auditd.enable = mkEnableOption (lib.mdDoc "the Linux Audit daemon");
+  options.security.auditd.enable =
+    mkEnableOption (lib.mdDoc "the Linux Audit daemon");
 
   config = mkIf config.security.auditd.enable {
     boot.kernelParams = [ "audit=1" ];

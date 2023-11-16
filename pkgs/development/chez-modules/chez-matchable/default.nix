@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  chez,
-}:
+{ stdenv, lib, fetchFromGitHub, chez }:
 
 stdenv.mkDerivation rec {
   pname = "chez-matchable";
@@ -29,9 +24,11 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "This is a Library for ChezScheme providing the portable hygenic pattern matcher by Alex Shinn";
+    description =
+      "This is a Library for ChezScheme providing the portable hygenic pattern matcher by Alex Shinn";
     homepage = "https://github.com/fedeinthemix/chez-matchable/";
     maintainers = [ maintainers.jitwit ];
     license = licenses.publicDomain;
   };
+
 }

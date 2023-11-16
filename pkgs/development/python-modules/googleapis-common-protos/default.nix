@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  grpc,
-  protobuf,
-}:
+{ lib, buildPythonPackage, fetchPypi, grpc, protobuf }:
 
 buildPythonPackage rec {
   pname = "googleapis-common-protos";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-xyclHsAllH1UUYS6F+NXiED8OiSgUWoCBHntq2YEV98=";
   };
 
-  propagatedBuildInputs = [
-    grpc
-    protobuf
-  ];
+  propagatedBuildInputs = [ grpc protobuf ];
 
   # does not contain tests
   doCheck = false;

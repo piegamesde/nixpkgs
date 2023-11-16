@@ -1,18 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  gdk-pixbuf,
-  gobject-introspection,
-  gtk3,
-  libnotify,
-  pango,
-  python3Packages,
-  wrapGAppsHook,
-  youtube-dl,
-  glib,
-  ffmpeg,
-  aria,
-}:
+{ lib, fetchFromGitHub, gdk-pixbuf, gobject-introspection, gtk3, libnotify
+, pango, python3Packages, wrapGAppsHook, youtube-dl, glib, ffmpeg, aria }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tartube";
@@ -25,10 +12,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-A5p4olnXak22410DOKIPpZ6MQGR5aS2ARWO+083bSuQ=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
   strictDeps = false;
 
@@ -44,13 +28,7 @@ python3Packages.buildPythonApplication rec {
     aria
   ];
 
-  buildInputs = [
-    gdk-pixbuf
-    gtk3
-    glib
-    libnotify
-    pango
-  ];
+  buildInputs = [ gdk-pixbuf gtk3 glib libnotify pango ];
 
   postPatch = ''
     sed -i "/^\s*'pgi',$/d" setup.py
@@ -71,10 +49,7 @@ python3Packages.buildPythonApplication rec {
     description = "A GUI front-end for youtube-dl";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      mkg20001
-      luc65r
-    ];
+    maintainers = with maintainers; [ mkg20001 luc65r ];
     homepage = "https://tartube.sourceforge.io/";
   };
 }

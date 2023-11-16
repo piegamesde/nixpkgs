@@ -1,27 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  cookiecutter,
-  filelock,
-  huggingface-hub,
-  importlib-metadata,
-  regex,
-  requests,
-  numpy,
-  packaging,
-  tensorflow,
-  sagemaker,
-  ftfy,
-  protobuf,
-  scikit-learn,
-  pillow,
-  pyyaml,
-  torch,
-  tokenizers,
-  tqdm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, cookiecutter, filelock
+, huggingface-hub, importlib-metadata, regex, requests, numpy, packaging
+, tensorflow, sagemaker, ftfy, protobuf, scikit-learn, pillow, pyyaml, torch
+, tokenizers, tqdm }:
 
 buildPythonPackage rec {
   pname = "transformers";
@@ -51,13 +31,12 @@ buildPythonPackage rec {
   ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
-    ja =
-      [
-        # fugashi
-        # ipadic
-        # unidic_lite
-        # unidic
-      ];
+    ja = [
+      # fugashi
+      # ipadic
+      # unidic_lite
+      # unidic
+    ];
     sklearn = [ scikit-learn ];
     tf = [
       tensorflow
@@ -69,11 +48,10 @@ buildPythonPackage rec {
     modelcreation = [ cookiecutter ];
     sagemaker = [ sagemaker ];
     ftfy = [ ftfy ];
-    onnx =
-      [
-        # onnxconverter-common
-        # tf2onnx
-      ];
+    onnx = [
+      # onnxconverter-common
+      # tf2onnx
+    ];
     vision = [ pillow ];
   };
 
@@ -85,7 +63,8 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/huggingface/transformers";
     description = "Natural Language Processing for TensorFlow 2.0 and PyTorch";
-    changelog = "https://github.com/huggingface/transformers/releases/tag/v${version}";
+    changelog =
+      "https://github.com/huggingface/transformers/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [ pashashocky ];

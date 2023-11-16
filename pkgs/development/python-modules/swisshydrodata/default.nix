@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  requests,
-  requests-mock,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, requests
+, requests-mock }:
 
 buildPythonPackage rec {
   pname = "swisshydrodata";
@@ -20,15 +14,13 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   pythonImportsCheck = [ "swisshydrodata" ];
 
   meta = with lib; {
-    description = "Python client to get data from the Swiss federal Office for Environment FEON";
+    description =
+      "Python client to get data from the Swiss federal Office for Environment FEON";
     homepage = "https://github.com/bouni/swisshydrodata";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

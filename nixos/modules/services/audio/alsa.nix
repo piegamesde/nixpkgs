@@ -1,10 +1,5 @@
 # ALSA sound support.
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,21 +8,14 @@ let
   inherit (pkgs) alsa-utils;
 
   pulseaudioEnabled = config.hardware.pulseaudio.enable;
-in
 
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "sound"
-        "enableMediaKeys"
-      ]
-      [
-        "sound"
-        "mediaKeys"
-        "enable"
-      ]
-    )
+    (mkRenamedOptionModule [ "sound" "enableMediaKeys" ] [
+      "sound"
+      "mediaKeys"
+      "enable"
+    ])
   ];
 
   ###### interface
@@ -90,8 +78,11 @@ in
             See amixer(1) for allowed values.
           '';
         };
+
       };
+
     };
+
   };
 
   ###### implementation
@@ -100,9 +91,10 @@ in
 
     environment.systemPackages = [ alsa-utils ];
 
-    environment.etc = mkIf (!pulseaudioEnabled && config.sound.extraConfig != "") {
-      "asound.conf".text = config.sound.extraConfig;
-    };
+    environment.etc =
+      mkIf (!pulseaudioEnabled && config.sound.extraConfig != "") {
+        "asound.conf".text = config.sound.extraConfig;
+      };
 
     # ALSA provides a udev rule for restoring volume settings.
     services.udev.packages = [ alsa-utils ];
@@ -135,21 +127,17 @@ in
         # "Lower Volume" media key
         {
           keys = [ 114 ];
-          events = [
-            "key"
-            "rep"
-          ];
-          command = "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}- unmute";
+          events = [ "key" "rep" ];
+          command =
+            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}- unmute";
         }
 
         # "Raise Volume" media key
         {
           keys = [ 115 ];
-          events = [
-            "key"
-            "rep"
-          ];
-          command = "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute";
+          events = [ "key" "rep" ];
+          command =
+            "${alsa-utils}/bin/amixer -q set Master ${config.sound.mediaKeys.volumeStep}+ unmute";
         }
 
         # "Mic Mute" media key
@@ -160,5 +148,7 @@ in
         }
       ];
     };
+
   };
+
 }

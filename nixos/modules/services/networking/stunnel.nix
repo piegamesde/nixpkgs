@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,36 +9,32 @@ let
 
   verifyRequiredField = type: field: n: c: {
     assertion = hasAttr field c;
-    message = ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
+    message =
+      ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
   };
 
   verifyChainPathAssert = n: c: {
-    assertion = (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
-    message =
-      ''stunnel: "${n}" client configuration - hostname verification ''
+    assertion = (c.verifyHostname or null) == null
+      || (c.verifyChain || c.verifyPeer);
+    message = ''stunnel: "${n}" client configuration - hostname verification ''
       + "is not possible without either verifyChain or verifyPeer enabled";
   };
 
   removeNulls = mapAttrs (_: filterAttrs (_: v: v != null));
-  mkValueString =
-    v:
+  mkValueString = v:
     if v == true then
       "yes"
     else if v == false then
       "no"
     else
       generators.mkValueStringDefault { } v;
-  generateConfig =
-    c:
-    generators.toINI
-      {
-        mkSectionName = id;
-        mkKeyValue = k: v: "${k} = ${mkValueString v}";
-      }
-      (removeNulls c);
-in
+  generateConfig = c:
+    generators.toINI {
+      mkSectionName = id;
+      mkKeyValue = k: v: "${k} = ${mkValueString v}";
+    } (removeNulls c);
 
-{
+in {
 
   ###### interface
 
@@ -54,7 +45,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the stunnel TLS tunneling service.";
+        description =
+          lib.mdDoc "Whether to enable the stunnel TLS tunneling service.";
       };
 
       user = mkOption {
@@ -87,13 +79,15 @@ in
       fipsMode = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Enable FIPS 140-2 mode required for compliance.";
+        description =
+          lib.mdDoc "Enable FIPS 140-2 mode required for compliance.";
       };
 
       enableInsecureSSLv3 = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Enable support for the insecure SSLv3 protocol.";
+        description =
+          lib.mdDoc "Enable support for the insecure SSLv3 protocol.";
       };
 
       servers = mkOption {
@@ -102,19 +96,7 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type =
-          with types;
-          attrsOf (
-            attrsOf (
-              nullOr (
-                oneOf [
-                  bool
-                  int
-                  str
-                ]
-              )
-            )
-          );
+        type = with types; attrsOf (attrsOf (nullOr (oneOf [ bool int str ])));
         example = {
           fancyWebserver = {
             accept = 443;
@@ -133,42 +115,25 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type =
-          with types;
-          attrsOf (
-            attrsOf (
-              nullOr (
-                oneOf [
-                  bool
-                  int
-                  str
-                ]
-              )
-            )
-          );
+        type = with types; attrsOf (attrsOf (nullOr (oneOf [ bool int str ])));
 
-        apply =
-          let
-            applyDefaults =
-              c:
-              {
-                CAFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-                OCSPaia = true;
-                verifyChain = true;
-              }
-              // c;
-            setCheckHostFromVerifyHostname =
-              c:
-              # To preserve backward-compatibility with the old NixOS stunnel module
-              # definition, allow "verifyHostname" as an alias for "checkHost".
-              c
-              // {
-                checkHost = c.checkHost or c.verifyHostname or null;
-                verifyHostname = null; # Not a real stunnel configuration setting
-              };
-            forceClient = c: c // { client = true; };
-          in
-          mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
+        apply = let
+          applyDefaults = c:
+            {
+              CAFile = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+              OCSPaia = true;
+              verifyChain = true;
+            } // c;
+          setCheckHostFromVerifyHostname = c:
+            # To preserve backward-compatibility with the old NixOS stunnel module
+            # definition, allow "verifyHostname" as an alias for "checkHost".
+            c // {
+              checkHost = c.checkHost or c.verifyHostname or null;
+              verifyHostname = null; # Not a real stunnel configuration setting
+            };
+          forceClient = c: c // { client = true; };
+        in mapAttrs
+        (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
 
         example = {
           foobar = {
@@ -188,8 +153,10 @@ in
 
     assertions = concatLists [
       (singleton {
-        assertion = (length (attrValues cfg.servers) != 0) || ((length (attrValues cfg.clients)) != 0);
-        message = "stunnel: At least one server- or client-configuration has to be present.";
+        assertion = (length (attrValues cfg.servers) != 0)
+          || ((length (attrValues cfg.clients)) != 0);
+        message =
+          "stunnel: At least one server- or client-configuration has to be present.";
       })
 
       (mapAttrsToList verifyChainPathAssert cfg.clients)
@@ -225,7 +192,9 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
       serviceConfig = {
-        ExecStart = "${pkgs.stunnel}/bin/stunnel ${config.environment.etc."stunnel.cfg".source}";
+        ExecStart = "${pkgs.stunnel}/bin/stunnel ${
+            config.environment.etc."stunnel.cfg".source
+          }";
         Type = "forking";
       };
     };
@@ -237,4 +206,5 @@ in
       das_j
     ];
   };
+
 }

@@ -1,24 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-  libX11,
-}:
+{ lib, stdenv, fetchurl, perl, libX11 }:
 
 stdenv.mkDerivation rec {
   pname = "xkbset";
   version = "0.6";
 
   src = fetchurl {
-    url = "http://faculty.missouri.edu/~stephen/software/xkbset/xkbset-${version}.tar.gz";
+    url =
+      "http://faculty.missouri.edu/~stephen/software/xkbset/xkbset-${version}.tar.gz";
     sha256 = "sha256-rAMv7EnExPDyMY0/RhiXDFFBkbFC4GxRpmH+I0KlNaU=";
   };
 
-  buildInputs = [
-    perl
-    libX11
-  ];
+  buildInputs = [ perl libX11 ];
 
   postPatch = ''
     sed "s:^X11PREFIX=.*:X11PREFIX=$out:" -i Makefile

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  mono,
-  buildDotnetModule,
-  dotnetCorePackages,
-  unzip,
-}:
+{ lib, fetchFromGitHub, mono, buildDotnetModule, dotnetCorePackages, unzip }:
 
 buildDotnetModule rec {
   pname = "roslyn";

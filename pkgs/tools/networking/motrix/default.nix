@@ -1,20 +1,16 @@
-{
-  lib,
-  appimageTools,
-  fetchurl,
-}:
+{ lib, appimageTools, fetchurl }:
 let
   pname = "motrix";
   version = "1.8.19";
 
   src = fetchurl {
-    url = "https://github.com/agalwood/Motrix/releases/download/v${version}/Motrix-${version}.AppImage";
+    url =
+      "https://github.com/agalwood/Motrix/releases/download/v${version}/Motrix-${version}.AppImage";
     hash = "sha256-oSO+VH3bZcjnXjECqZgOmsvlOONbfgOq50qVLvHdKfo=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''

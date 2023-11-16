@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-  requests,
-  websocket-client,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pythonOlder, requests
+, websocket-client }:
 
 buildPythonPackage rec {
   pname = "zwave-me-ws";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    requests
-    websocket-client
-  ];
+  propagatedBuildInputs = [ requests websocket-client ];
 
   # Module has no tests
   doCheck = false;
@@ -37,7 +27,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to connect to a ZWave-Me instance";
     homepage = "https://github.com/Z-Wave-Me/zwave-me-ws";
-    changelog = "https://github.com/Z-Wave-Me/zwave-me-ws/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Z-Wave-Me/zwave-me-ws/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

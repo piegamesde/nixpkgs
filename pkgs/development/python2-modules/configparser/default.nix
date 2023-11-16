@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "configparser";

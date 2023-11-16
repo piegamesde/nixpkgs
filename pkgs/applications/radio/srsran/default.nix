@@ -1,20 +1,6 @@
-{
-  stdenv,
-  lib,
-  cmake,
-  fetchFromGitHub,
-  pkg-config,
-  fftwFloat,
-  mbedtls,
-  boost,
-  lksctp-tools,
-  libconfig,
-  pcsclite,
-  uhd,
-  soapysdr-with-plugins,
-  libbladeRF,
-  zeromq,
-}:
+{ stdenv, lib, cmake, fetchFromGitHub, pkg-config, fftwFloat, mbedtls, boost
+, lksctp-tools, libconfig, pcsclite, uhd, soapysdr-with-plugins, libbladeRF
+, zeromq }:
 
 stdenv.mkDerivation rec {
   pname = "srsran";
@@ -27,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k2KUejn2eBFGknVQCHeYuZd4UUC2Jv0WEI9le9fYoFE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     fftwFloat

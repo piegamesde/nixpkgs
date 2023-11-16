@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  windows,
-}:
+{ lib, stdenv, fetchFromGitLab, windows }:
 
 stdenv.mkDerivation rec {
   pname = "lmdb";
@@ -19,27 +14,19 @@ stdenv.mkDerivation rec {
 
   postUnpack = "sourceRoot=\${sourceRoot}/libraries/liblmdb";
 
-  patches = [
-    ./hardcoded-compiler.patch
-    ./bin-ext.patch
-  ];
+  patches = [ ./hardcoded-compiler.patch ./bin-ext.patch ];
   patchFlags = [ "-p3" ];
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ];
+  outputs = [ "bin" "out" "dev" ];
 
   buildInputs = lib.optional stdenv.hostPlatform.isWindows windows.pthreads;
 
-  makeFlags =
-    [
-      "prefix=$(out)"
-      "CC=${stdenv.cc.targetPrefix}cc"
-      "AR=${stdenv.cc.targetPrefix}ar"
-    ]
-    ++ lib.optional stdenv.isDarwin "LDFLAGS=-Wl,-install_name,$(out)/lib/liblmdb.so"
+  makeFlags = [
+    "prefix=$(out)"
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "AR=${stdenv.cc.targetPrefix}ar"
+  ] ++ lib.optional stdenv.isDarwin
+    "LDFLAGS=-Wl,-install_name,$(out)/lib/liblmdb.so"
     ++ lib.optionals stdenv.hostPlatform.isWindows [
       "SOEXT=.dll"
       "BINEXT=.exe"
@@ -48,10 +35,9 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "test";
 
-  postInstall =
-    ''
-      moveToOutput bin "$bin"
-    ''
+  postInstall = ''
+    moveToOutput bin "$bin"
+  ''
     # add lmdb.pc (dynamic only)
     + ''
       mkdir -p "$dev/lib/pkgconfig"
@@ -78,10 +64,7 @@ stdenv.mkDerivation rec {
       limited to the size of the virtual address space.
     '';
     homepage = "https://symas.com/lmdb/";
-    maintainers = with maintainers; [
-      jb55
-      vcunat
-    ];
+    maintainers = with maintainers; [ jb55 vcunat ];
     license = licenses.openldap;
     platforms = platforms.all;
   };

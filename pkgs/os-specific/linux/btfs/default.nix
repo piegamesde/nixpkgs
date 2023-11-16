@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  python3,
-  boost,
-  fuse,
-  libtorrent-rasterbar,
-  curl,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, python3, boost, fuse
+, libtorrent-rasterbar, curl }:
 
 stdenv.mkDerivation rec {
   pname = "btfs";
@@ -22,17 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fkS0U/MqFRQNi+n7NE4e1cnNICvfST2IQ9FMoJUyj6w=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    boost
-    fuse
-    libtorrent-rasterbar
-    curl
-    python3
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ boost fuse libtorrent-rasterbar curl python3 ];
 
   meta = with lib; {
     description = "A bittorrent filesystem based on FUSE";

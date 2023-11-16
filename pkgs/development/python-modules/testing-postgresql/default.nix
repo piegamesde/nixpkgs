@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pg8000,
-  postgresql,
-  psycopg2,
-  pytestCheckHook,
-  pythonOlder,
-  sqlalchemy,
-  testing-common-database,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pg8000, postgresql, psycopg2
+, pytestCheckHook, pythonOlder, sqlalchemy, testing-common-database }:
 
 buildPythonPackage rec {
   pname = "testing-postgresql";
@@ -26,16 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-A4tahAaa98X66ZYa3QxIQDZkwAwVB6ZDRObEhkbUWKs=";
   };
 
-  propagatedBuildInputs = [
-    testing-common-database
-    pg8000
-  ];
+  propagatedBuildInputs = [ testing-common-database pg8000 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    psycopg2
-    sqlalchemy
-  ];
+  nativeCheckInputs = [ pytestCheckHook psycopg2 sqlalchemy ];
 
   # Add PostgreSQL to search path
   prePatch = ''

@@ -1,9 +1,4 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kio,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kio }:
 
 mkDerivation {
   pname = "kdegraphics-mobipocket";
@@ -13,8 +8,5 @@ mkDerivation {
   };
   nativeBuildInputs = [ extra-cmake-modules ];
   buildInputs = [ kio ];
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 }

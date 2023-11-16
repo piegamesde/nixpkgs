@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fpc,
-  zip,
-  makeWrapper,
-  SDL2,
-  freetype,
-  physfs,
-  openal,
-  gamenetworkingsockets,
-  xorg,
-  autoPatchelfHook,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, fpc, zip, makeWrapper, SDL2, freetype, physfs
+, openal, gamenetworkingsockets, xorg, autoPatchelfHook, cmake }:
 
 let
   base = stdenv.mkDerivation rec {
@@ -46,9 +32,8 @@ let
       inherit (src.meta) homepage;
     };
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "opensoldat";
   version = "unstable-2022-07-02";
 
@@ -60,25 +45,14 @@ stdenv.mkDerivation rec {
     sha256 = "0kyxzikd4ngx3nshjw0411x61zqq1b7l01lxw41rlcy4nad3r0vi";
   };
 
-  nativeBuildInputs = [
-    fpc
-    makeWrapper
-    autoPatchelfHook
-    cmake
-  ];
+  nativeBuildInputs = [ fpc makeWrapper autoPatchelfHook cmake ];
 
   cmakeFlags = [
     "-DADD_ASSETS=OFF" # We provide base's smods via nix
     "-DBUILD_GNS=OFF" # Don't build GameNetworkingSockets as an ExternalProject
   ];
 
-  buildInputs = [
-    SDL2
-    freetype
-    physfs
-    openal
-    gamenetworkingsockets
-  ];
+  buildInputs = [ SDL2 freetype physfs openal gamenetworkingsockets ];
   # TODO(@sternenseemann): set proper rpath via cmake, so we don't need autoPatchelfHook
   runtimeDependencies = [ xorg.libX11 ];
 
@@ -100,17 +74,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Opensoldat is a unique 2D (side-view) multiplayer action game";
-    license = [
-      licenses.mit
-      base.meta.license
-    ];
+    description =
+      "Opensoldat is a unique 2D (side-view) multiplayer action game";
+    license = [ licenses.mit base.meta.license ];
     inherit (src.meta) homepage;
     maintainers = [ maintainers.sternenseemann ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
     # portability currently mainly limited by fpc
     # in nixpkgs which doesn't work on darwin,
     # aarch64 and arm support should be possible:

@@ -1,34 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeFontsConf,
-  cacert,
-  cairo,
-  coreutils,
-  fontconfig,
-  freefont_ttf,
-  glib,
-  gmp,
-  gtk3,
-  libedit,
-  libffi,
-  libiconv,
-  libGL,
-  libGLU,
-  libjpeg,
-  libpng,
-  libtool,
-  mpfr,
-  openssl,
-  pango,
-  poppler,
-  readline,
-  sqlite,
-  disableDocs ? false,
-  CoreFoundation,
-  gsettings-desktop-schemas,
-  wrapGAppsHook,
+{ lib, stdenv, fetchurl, makeFontsConf, cacert, cairo, coreutils, fontconfig
+, freefont_ttf, glib, gmp, gtk3, libedit, libffi, libiconv, libGL, libGLU
+, libjpeg, libpng, libtool, mpfr, openssl, pango, poppler, readline, sqlite
+, disableDocs ? false, CoreFoundation, gsettings-desktop-schemas, wrapGAppsHook
 }:
 
 let
@@ -54,24 +27,20 @@ let
     readline
     sqlite
   ];
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "racket";
   version = "7.9"; # always change at once with ./minimal.nix
 
-  src =
-    (lib.makeOverridable (
-      { name, sha256 }:
-      fetchurl {
-        url = "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
-        inherit sha256;
-      }
-    ))
-      {
-        name = "${pname}-${version}";
-        sha256 = "0gmp2ahmfd97nn9bwpfx9lznjmjkd042slnrrbdmyh59cqh98y2m";
-      };
+  src = (lib.makeOverridable ({ name, sha256 }:
+    fetchurl {
+      url =
+        "https://mirror.racket-lang.org/installers/${version}/${name}-src.tgz";
+      inherit sha256;
+    })) {
+      name = "${pname}-${version}";
+      sha256 = "0gmp2ahmfd97nn9bwpfx9lznjmjkd042slnrrbdmyh59cqh98y2m";
+    };
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
@@ -80,24 +49,11 @@ stdenv.mkDerivation rec {
     (lib.optionalString stdenv.isDarwin "-framework CoreFoundation")
   ];
 
-  nativeBuildInputs = [
-    cacert
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cacert wrapGAppsHook ];
 
   buildInputs =
-    [
-      fontconfig
-      libffi
-      libtool
-      sqlite
-      gsettings-desktop-schemas
-      gtk3
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      libiconv
-      CoreFoundation
-    ];
+    [ fontconfig libffi libtool sqlite gsettings-desktop-schemas gtk3 ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv CoreFoundation ];
 
   preConfigure = ''
     unset AR
@@ -111,11 +67,7 @@ stdenv.mkDerivation rec {
   '';
 
   shared = if stdenv.isDarwin then "dylib" else "shared";
-  configureFlags =
-    [
-      "--enable-${shared}"
-      "--enable-lt=${libtool}/bin/libtool"
-    ]
+  configureFlags = [ "--enable-${shared}" "--enable-lt=${libtool}/bin/libtool" ]
     ++ lib.optionals disableDocs [ "--disable-docs" ]
     ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
 
@@ -139,15 +91,8 @@ stdenv.mkDerivation rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [
-      henrytill
-      vrthra
-    ];
-    platforms = [
-      "x86_64-darwin"
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    maintainers = with maintainers; [ henrytill vrthra ];
+    platforms = [ "x86_64-darwin" "x86_64-linux" "aarch64-linux" ];
     broken = stdenv.isDarwin; # No support yet for setting FFI lookup path
   };
 }

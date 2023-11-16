@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  autoreconfHook,
-  neon,
-  procps,
-  substituteAll,
-  zlib,
-  wrapperDir ? "/run/wrappers/bin",
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, neon, procps, substituteAll
+, zlib, wrapperDir ? "/run/wrappers/bin" }:
 
 stdenv.mkDerivation rec {
   pname = "davfs2";
@@ -22,10 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [
-    neon
-    zlib
-  ];
+  buildInputs = [ neon zlib ];
 
   patches = [
     ./fix-sysconfdir.patch

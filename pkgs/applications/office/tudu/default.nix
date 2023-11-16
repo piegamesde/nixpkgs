@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "tudu";
@@ -22,7 +17,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "ncurses-based hierarchical todo list manager with vim-like keybindings";
+    description =
+      "ncurses-based hierarchical todo list manager with vim-like keybindings";
     homepage = "https://code.meskio.net/tudu/";
     license = licenses.gpl3;
     platforms = platforms.unix;

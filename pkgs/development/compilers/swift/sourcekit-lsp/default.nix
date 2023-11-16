@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  pkg-config,
-  swift,
-  swiftpm,
-  swiftpm2nix,
-  Foundation,
-  XCTest,
-  sqlite,
-  ncurses,
-  CryptoKit,
-  LocalAuthentication,
-}:
+{ lib, stdenv, callPackage, pkg-config, swift, swiftpm, swiftpm2nix, Foundation
+, XCTest, sqlite, ncurses, CryptoKit, LocalAuthentication }:
 let
   sources = callPackage ../sources.nix { };
   generated = swiftpm2nix.helpers ./generated;
@@ -22,44 +9,30 @@ let
   # mixing and errors.
   # TODO: Find a better way to prevent this conflict.
   ncursesInput = if stdenv.isDarwin then ncurses.out else ncurses;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "sourcekit-lsp";
 
   inherit (sources) version;
   src = sources.sourcekit-lsp;
 
-  nativeBuildInputs = [
-    pkg-config
-    swift
-    swiftpm
-  ];
-  buildInputs =
-    [
-      Foundation
-      XCTest
-      sqlite
-      ncursesInput
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      CryptoKit
-      LocalAuthentication
-    ];
+  nativeBuildInputs = [ pkg-config swift swiftpm ];
+  buildInputs = [ Foundation XCTest sqlite ncursesInput ]
+    ++ lib.optionals stdenv.isDarwin [ CryptoKit LocalAuthentication ];
 
-  configurePhase =
-    generated.configure
-    + ''
-      swiftpmMakeMutable indexstore-db
-      patch -p1 -d .build/checkouts/indexstore-db -i ${./patches/indexstore-db-macos-target.patch}
+  configurePhase = generated.configure + ''
+    swiftpmMakeMutable indexstore-db
+    patch -p1 -d .build/checkouts/indexstore-db -i ${
+      ./patches/indexstore-db-macos-target.patch
+    }
 
-      # This toggles a section specific to Xcode XCTest, which doesn't work on
-      # Darwin, where we also use swift-corelibs-xctest.
-      substituteInPlace Sources/LSPTestSupport/PerfTestCase.swift \
-        --replace '#if os(macOS)' '#if false'
+    # This toggles a section specific to Xcode XCTest, which doesn't work on
+    # Darwin, where we also use swift-corelibs-xctest.
+    substituteInPlace Sources/LSPTestSupport/PerfTestCase.swift \
+      --replace '#if os(macOS)' '#if false'
 
-      # Required to link with swift-corelibs-xctest on Darwin.
-      export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
-    '';
+    # Required to link with swift-corelibs-xctest on Darwin.
+    export SWIFTTSC_MACOS_DEPLOYMENT_TARGET=10.12
+  '';
 
   # TODO: BuildServerBuildSystemTests fails
   #doCheck = true;
@@ -75,7 +48,8 @@ stdenv.mkDerivation {
   disallowedRequisites = [ swift.swift ];
 
   meta = {
-    description = "Language Server Protocol implementation for Swift and C-based languages";
+    description =
+      "Language Server Protocol implementation for Swift and C-based languages";
     homepage = "https://github.com/apple/sourcekit-lsp";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;

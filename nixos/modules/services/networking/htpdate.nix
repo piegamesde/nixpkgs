@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,9 +6,8 @@ let
   inherit (pkgs) htpdate;
 
   cfg = config.services.htpdate;
-in
 
-{
+in {
 
   ###### interface
 
@@ -53,7 +47,9 @@ in
           HTTP proxy used for requests.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -77,5 +73,7 @@ in
         ];
       };
     };
+
   };
+
 }

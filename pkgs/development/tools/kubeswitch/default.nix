@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  kubeswitch,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, kubeswitch }:
 
 buildGoModule rec {
   pname = "kubeswitch";
@@ -26,6 +20,7 @@ buildGoModule rec {
     "-w"
     "-X github.com/danielfoehrkn/kubeswitch/cmd/switcher.version=${version}"
     "-X github.com/danielfoehrkn/kubeswitch/cmd/switcher.buildDate=1970-01-01"
+
   ];
 
   passthru.tests.version = testers.testVersion { package = kubeswitch; };

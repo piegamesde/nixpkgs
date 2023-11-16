@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  aiohttp,
-  requests,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, aiohttp, requests
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "brunt";
@@ -25,10 +18,7 @@ buildPythonPackage rec {
     sed -i '/--cov/d' setup.cfg
   '';
 
-  propagatedBuildInputs = [
-    aiohttp
-    requests
-  ];
+  propagatedBuildInputs = [ aiohttp requests ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

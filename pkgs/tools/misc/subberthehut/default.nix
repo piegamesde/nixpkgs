@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  xmlrpc_c,
-  glib,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, xmlrpc_c, glib, zlib }:
 stdenv.mkDerivation rec {
   pname = "subberthehut";
   version = "20";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    xmlrpc_c
-    glib
-    zlib
-  ];
+  buildInputs = [ xmlrpc_c glib zlib ];
 
   installPhase = ''
     install -Dm755 subberthehut $out/bin/subberthehut

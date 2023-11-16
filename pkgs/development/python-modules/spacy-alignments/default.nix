@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  cargo,
-  fetchPypi,
-  fetchpatch,
-  buildPythonPackage,
-  isPy3k,
-  rustPlatform,
-  rustc,
-  setuptools-rust,
-  libiconv,
-}:
+{ lib, stdenv, cargo, fetchPypi, fetchpatch, buildPythonPackage, isPy3k
+, rustPlatform, rustc, setuptools-rust, libiconv }:
 
 buildPythonPackage rec {
   pname = "spacy-alignments";
@@ -29,12 +18,8 @@ buildPythonPackage rec {
     hash = "sha256-oFSruBnoodv6/0/OrmJ/2SVoWm3u3FGtzVJ9xgp0+Cg=";
   };
 
-  nativeBuildInputs = [
-    setuptools-rust
-    rustPlatform.cargoSetupHook
-    cargo
-    rustc
-  ];
+  nativeBuildInputs =
+    [ setuptools-rust rustPlatform.cargoSetupHook cargo rustc ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

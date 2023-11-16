@@ -1,8 +1,4 @@
-{
-  pkgs,
-  extraInit ? "",
-  extraShutdown ? "",
-}:
+{ pkgs, extraInit ? "", extraShutdown ? "" }:
 
 ''
   start_all()

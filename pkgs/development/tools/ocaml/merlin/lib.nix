@@ -1,9 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  merlin,
-  csexp,
-}:
+{ lib, buildDunePackage, merlin, csexp }:
 
 buildDunePackage {
   pname = "merlin-lib";
@@ -13,7 +8,5 @@ buildDunePackage {
 
   propagatedBuildInputs = [ csexp ];
 
-  meta = merlin.meta // {
-    description = "Merlin’s libraries";
-  };
+  meta = merlin.meta // { description = "Merlin’s libraries"; };
 }

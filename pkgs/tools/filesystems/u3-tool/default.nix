@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "u3-tool";
@@ -16,7 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "Tool for controlling the special features of a 'U3 smart drive' USB Flash disk";
+    description =
+      "Tool for controlling the special features of a 'U3 smart drive' USB Flash disk";
     homepage = "https://sourceforge.net/projects/u3-tool/";
     license = licenses.gpl2;
     platforms = with platforms; linux;

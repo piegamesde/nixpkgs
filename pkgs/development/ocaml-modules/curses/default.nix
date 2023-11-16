@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocaml,
-  findlib,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, ocaml, findlib, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "ocaml-curses";
@@ -22,10 +15,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ ncurses ];
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-  ];
+  nativeBuildInputs = [ ocaml findlib ];
 
   # Fix build for recent ncurses versions
   env.NIX_CFLAGS_COMPILE = "-DNCURSES_INTERNALS=1";

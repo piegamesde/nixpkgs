@@ -1,15 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.virtualisation.azureImage;
-in
-{
+let cfg = config.virtualisation.azureImage;
+in {
   imports = [ ./azure-common.nix ];
 
   options = {
@@ -41,14 +34,8 @@ in
     systemd.services.fetch-ssh-keys = {
       description = "Fetch host keys and authorized_keys for root user";
 
-      wantedBy = [
-        "sshd.service"
-        "waagent.service"
-      ];
-      before = [
-        "sshd.service"
-        "waagent.service"
-      ];
+      wantedBy = [ "sshd.service" "waagent.service" ];
+      before = [ "sshd.service" "waagent.service" ];
 
       path = [ pkgs.coreutils ];
       script = ''

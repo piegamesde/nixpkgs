@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  qt4,
-  cmake,
-}:
+{ lib, stdenv, fetchurl, qt4, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "grantlee";

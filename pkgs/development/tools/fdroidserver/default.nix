@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  python,
-  apksigner,
-}:
+{ lib, fetchFromGitLab, python, apksigner }:
 
 python.pkgs.buildPythonApplication rec {
   pname = "fdroidserver";
@@ -17,10 +12,7 @@ python.pkgs.buildPythonApplication rec {
     sha256 = "sha256-+Y1YTgELsX834WIrhx/NX34yLMHdkKM+YUNvnHPiC/s=";
   };
 
-  pythonRelaxDeps = [
-    "pyasn1"
-    "pyasn1-modules"
-  ];
+  pythonRelaxDeps = [ "pyasn1" "pyasn1-modules" ];
 
   postPatch = ''
     substituteInPlace fdroidserver/common.py \
@@ -59,12 +51,8 @@ python.pkgs.buildPythonApplication rec {
     yamllint
   ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    "${lib.makeBinPath [ apksigner ]}"
-  ];
+  makeWrapperArgs =
+    [ "--prefix" "PATH" ":" "${lib.makeBinPath [ apksigner ]}" ];
 
   # no tests
   doCheck = false;
@@ -73,9 +61,12 @@ python.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/f-droid/fdroidserver";
-    changelog = "https://github.com/f-droid/fdroidserver/blob/${version}/CHANGELOG.md";
-    description = "Server and tools for F-Droid, the Free Software repository system for Android";
+    changelog =
+      "https://github.com/f-droid/fdroidserver/blob/${version}/CHANGELOG.md";
+    description =
+      "Server and tools for F-Droid, the Free Software repository system for Android";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ obfusk ];
   };
+
 }

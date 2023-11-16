@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   pname = "web-cache";
@@ -22,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "web_cache" ];
 
   meta = with lib; {
-    description = "Simple Python key-value storage backed up by sqlite3 database";
+    description =
+      "Simple Python key-value storage backed up by sqlite3 database";
     homepage = "https://github.com/desbma/web_cache";
     license = licenses.lgpl2Plus;
     maintainers = with maintainers; [ fortuneteller2k ];

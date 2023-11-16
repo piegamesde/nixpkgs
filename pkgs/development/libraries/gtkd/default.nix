@@ -1,29 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  atk,
-  cairo,
-  dcompiler,
-  gdk-pixbuf,
-  gnome,
-  gst_all_1,
-  librsvg,
-  glib,
-  gtk3,
-  gtksourceview4,
-  libgda,
-  libpeas,
-  pango,
-  pkg-config,
-  which,
-  vte,
-}:
+{ lib, stdenv, fetchzip, atk, cairo, dcompiler, gdk-pixbuf, gnome, gst_all_1
+, librsvg, glib, gtk3, gtksourceview4, libgda, libpeas, pango, pkg-config, which
+, vte }:
 
-let
-  inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-bad;
-in
-stdenv.mkDerivation rec {
+let inherit (gst_all_1) gstreamer gst-plugins-base gst-plugins-bad;
+in stdenv.mkDerivation rec {
   pname = "gtkd";
   version = "3.10.0";
 
@@ -33,11 +13,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [
-    dcompiler
-    pkg-config
-    which
-  ];
+  nativeBuildInputs = [ dcompiler pkg-config which ];
   propagatedBuildInputs = [
     atk
     cairo
@@ -154,9 +130,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru = {
-    inherit dcompiler;
-  };
+  passthru = { inherit dcompiler; };
 
   meta = with lib; {
     description = "D binding and OO wrapper for GTK";

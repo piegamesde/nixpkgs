@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -15,8 +10,8 @@ let
     name = "hoogle";
     paths = [ (cfg.haskellPackages.ghcWithHoogle cfg.packages) ];
   };
-in
-{
+
+in {
 
   options.services.hoogle = {
     enable = mkEnableOption (lib.mdDoc "Haskell documentation server");
@@ -84,4 +79,5 @@ in
       };
     };
   };
+
 }

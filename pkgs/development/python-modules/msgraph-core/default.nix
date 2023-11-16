@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  flit-core,
-  requests,
-  pytestCheckHook,
-  responses,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, flit-core, requests
+, pytestCheckHook, responses }:
 
 buildPythonPackage rec {
   pname = "msgraph-core";
@@ -28,10 +20,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   disabledTestPaths = [ "tests/integration" ];
 

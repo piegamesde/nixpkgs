@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  rclone,
-  makeWrapper,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, rclone, makeWrapper }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "git-annex-remote-rclone";

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openldap,
-}:
+{ lib, stdenv, fetchurl, openldap }:
 
 stdenv.mkDerivation rec {
   pname = "adtool";
@@ -42,6 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gp2x.org/adtool";
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
-    broken = true; # does not link against recent libldap versions and unmaintained since 2017
+    broken =
+      true; # does not link against recent libldap versions and unmaintained since 2017
   };
 }

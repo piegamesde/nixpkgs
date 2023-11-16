@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  certifi,
-  numpy,
-  sgp4,
-  jplephem,
-  pandas,
-  ipython,
-  matplotlib,
-  assay,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, certifi, numpy, sgp4
+, jplephem, pandas, ipython, matplotlib, assay }:
 
 buildPythonPackage rec {
   pname = "skyfield";
@@ -31,19 +19,9 @@ buildPythonPackage rec {
       --replace "if IS_32_BIT" "if True"
   '';
 
-  propagatedBuildInputs = [
-    certifi
-    numpy
-    sgp4
-    jplephem
-  ];
+  propagatedBuildInputs = [ certifi numpy sgp4 jplephem ];
 
-  nativeCheckInputs = [
-    pandas
-    ipython
-    matplotlib
-    assay
-  ];
+  nativeCheckInputs = [ pandas ipython matplotlib assay ];
 
   # assay is broken on Python >= 3.11
   # https://github.com/brandon-rhodes/assay/issues/15

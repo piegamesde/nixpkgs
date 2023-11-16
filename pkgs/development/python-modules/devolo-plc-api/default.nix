@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  httpx,
-  protobuf,
-  pytest-asyncio,
-  pytest-httpx,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  syrupy,
-  zeroconf,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, httpx, protobuf, pytest-asyncio
+, pytest-httpx, pytest-mock, pytestCheckHook, pythonOlder, setuptools-scm
+, syrupy, zeroconf }:
 
 buildPythonPackage rec {
   pname = "devolo-plc-api";
@@ -37,26 +25,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    httpx
-    protobuf
-    zeroconf
-  ];
+  propagatedBuildInputs = [ httpx protobuf zeroconf ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-httpx
-    pytest-mock
-    pytestCheckHook
-    syrupy
-  ];
+  nativeCheckInputs =
+    [ pytest-asyncio pytest-httpx pytest-mock pytestCheckHook syrupy ];
 
   pythonImportsCheck = [ "devolo_plc_api" ];
 
   meta = with lib; {
     description = "Module to interact with Devolo PLC devices";
     homepage = "https://github.com/2Fake/devolo_plc_api";
-    changelog = "https://github.com/2Fake/devolo_plc_api/releases/tag/v${version}";
+    changelog =
+      "https://github.com/2Fake/devolo_plc_api/releases/tag/v${version}";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

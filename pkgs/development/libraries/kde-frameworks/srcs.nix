@@ -38,7 +38,8 @@
   extra-cmake-modules = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/extra-cmake-modules-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/extra-cmake-modules-5.107.0.tar.xz";
       sha256 = "1v9klrfi7m1228zysr1m6r5qrn8h6nkzgai6x40mjshydpasls9r";
       name = "extra-cmake-modules-5.107.0.tar.xz";
     };
@@ -46,7 +47,8 @@
   frameworkintegration = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/frameworkintegration-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/frameworkintegration-5.107.0.tar.xz";
       sha256 = "0j5aa4j4v5dix8r80n49ihkp6f0mmgx420h4adq9sb80hsm1c67q";
       name = "frameworkintegration-5.107.0.tar.xz";
     };
@@ -62,7 +64,8 @@
   kactivities-stats = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/kactivities-stats-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/kactivities-stats-5.107.0.tar.xz";
       sha256 = "1hp1ckmrjhmzx9ll2v974bf7hsccbpf76vlvxc47jl7b5x5l5337";
       name = "kactivities-stats-5.107.0.tar.xz";
     };
@@ -206,7 +209,8 @@
   kdelibs4support = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/kdelibs4support-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/kdelibs4support-5.107.0.tar.xz";
       sha256 = "13qccs1f26ap4q1naiyknvp0p746zw4439yj4m3p6c3jd25md57g";
       name = "kdelibs4support-5.107.0.tar.xz";
     };
@@ -214,7 +218,8 @@
   kdesignerplugin = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/kdesignerplugin-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/kdesignerplugin-5.107.0.tar.xz";
       sha256 = "0lxyfyyfs7ykdz201zlycphnpr9lf3qr61a1914a5rkxqczc93b8";
       name = "kdesignerplugin-5.107.0.tar.xz";
     };
@@ -230,7 +235,8 @@
   kdewebkit = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/kdewebkit-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/kdewebkit-5.107.0.tar.xz";
       sha256 = "0dxnshx629az0dgpiy126by079x3gpxbhhg01z65c06dnlcjhl35";
       name = "kdewebkit-5.107.0.tar.xz";
     };
@@ -294,7 +300,8 @@
   khtml = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/khtml-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/khtml-5.107.0.tar.xz";
       sha256 = "1zcms5h78nc0c69ah60lmjxq6ymb3213ya41hfx7q998dzd9fi9v";
       name = "khtml-5.107.0.tar.xz";
     };
@@ -390,7 +397,8 @@
   kjsembed = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/kjsembed-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/kjsembed-5.107.0.tar.xz";
       sha256 = "1aridyby0aiakqsn58575hajhh8il5w48n41dh4ng6ax86d4jvkj";
       name = "kjsembed-5.107.0.tar.xz";
     };
@@ -398,7 +406,8 @@
   kmediaplayer = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/kmediaplayer-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/kmediaplayer-5.107.0.tar.xz";
       sha256 = "1m0iik73qia33yvpkirn3f8vpmwxyz69gaddxm2ac0n0xjznxrmj";
       name = "kmediaplayer-5.107.0.tar.xz";
     };
@@ -478,7 +487,8 @@
   kross = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/kross-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/kross-5.107.0.tar.xz";
       sha256 = "13myij7bx0id6vrwnrimfgjq3dwjw5rnpdpg09iawbzjx9yaq3iz";
       name = "kross-5.107.0.tar.xz";
     };
@@ -566,7 +576,8 @@
   kxmlrpcclient = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/portingAids/kxmlrpcclient-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/portingAids/kxmlrpcclient-5.107.0.tar.xz";
       sha256 = "0yfbbqkwbrfsanwf0kph5d81xyply17swxmnz5w5qwasdhk19chc";
       name = "kxmlrpcclient-5.107.0.tar.xz";
     };
@@ -582,7 +593,8 @@
   networkmanager-qt = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/networkmanager-qt-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/networkmanager-qt-5.107.0.tar.xz";
       sha256 = "0zqrsgq68n5wdw06sq75sgk63by41lr24dink6gkh8r0yqzgspv9";
       name = "networkmanager-qt-5.107.0.tar.xz";
     };
@@ -622,7 +634,8 @@
   qqc2-desktop-style = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/qqc2-desktop-style-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/qqc2-desktop-style-5.107.0.tar.xz";
       sha256 = "0hpjy5w72hzihc7famdjj5arac8fw0d149iqpywldyzhk6bnrfaw";
       name = "qqc2-desktop-style-5.107.0.tar.xz";
     };
@@ -654,7 +667,8 @@
   syntax-highlighting = {
     version = "5.107.0";
     src = fetchurl {
-      url = "${mirror}/stable/frameworks/5.107/syntax-highlighting-5.107.0.tar.xz";
+      url =
+        "${mirror}/stable/frameworks/5.107/syntax-highlighting-5.107.0.tar.xz";
       sha256 = "1narmiqlmgnhzxbwmcm4si8w684q3fdp4zh25w0kvwdvxvlx2bk7";
       name = "syntax-highlighting-5.107.0.tar.xz";
     };

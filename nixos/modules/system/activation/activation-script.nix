@@ -1,19 +1,12 @@
 # generate the script used to activate the configuration.
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
-  addAttributeName = mapAttrs (
-    a: v:
-    v
-    // {
+  addAttributeName = mapAttrs (a: v:
+    v // {
       text = ''
         #### Activation script snippet ${a}:
         _localstatus=0
@@ -23,15 +16,15 @@ let
           printf "Activation script snippet '%s' failed (%s)\n" "${a}" "$_localstatus"
         fi
       '';
-    }
-  );
+    });
 
-  systemActivationScript =
-    set: onlyDry:
+  systemActivationScript = set: onlyDry:
     let
-      set' =
-        mapAttrs (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
-          set;
+      set' = mapAttrs (_: v:
+        if isString v then
+          (noDepEntry v) // { supportsDryActivation = false; }
+        else
+          v) set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
       # that do not support dry mode with a comment that does nothing. Filtering these
@@ -39,18 +32,15 @@ let
       # does not work because when an activation script that supports dry mode depends on
       # an activation script that does not, the dependency cannot be resolved and the eval
       # fails.
-      withDrySnippets =
-        mapAttrs
-          (
-            a: v:
-            if onlyDry && !v.supportsDryActivation then
-              v // { text = "#### Activation script snippet ${a} does not support dry activation."; }
-            else
-              v
-          )
-          withHeadlines;
-    in
-    ''
+      withDrySnippets = mapAttrs (a: v:
+        if onlyDry && !v.supportsDryActivation then
+          v // {
+            text =
+              "#### Activation script snippet ${a} does not support dry activation.";
+          }
+        else
+          v) withHeadlines;
+    in ''
       #!${pkgs.runtimeShell}
 
       systemConfig='@out@'
@@ -68,8 +58,7 @@ let
 
       ${textClosureMap id (withDrySnippets) (attrNames withDrySnippets)}
 
-    ''
-    + optionalString (!onlyDry) ''
+    '' + optionalString (!onlyDry) ''
       # Make this configuration the current configuration.
       # The readlink is there to ensure that when $systemConfig = /system
       # (which is a symlink to the store), /run/current-system is still
@@ -83,8 +72,7 @@ let
       exit $_status
     '';
 
-  path =
-    with pkgs;
+  path = with pkgs;
     map getBin [
       coreutils
       gnugrep
@@ -96,41 +84,37 @@ let
       util-linux # needed for mount and mountpoint
     ];
 
-  scriptType =
-    withDry:
+  scriptType = withDry:
     with types;
     let
-      scriptOptions =
-        {
-          deps = mkOption {
-            type = types.listOf types.str;
-            default = [ ];
-            description = lib.mdDoc "List of dependencies. The script will run after these.";
-          };
-          text = mkOption {
-            type = types.lines;
-            description = lib.mdDoc "The content of the script.";
-          };
-        }
-        // optionalAttrs withDry {
-          supportsDryActivation = mkOption {
-            type = types.bool;
-            default = false;
-            description = lib.mdDoc ''
-              Whether this activation script supports being dry-activated.
-              These activation scripts will also be executed on dry-activate
-              activations with the environment variable
-              `NIXOS_ACTION` being set to `dry-activate`.
-              it's important that these activation scripts  don't
-              modify anything about the system when the variable is set.
-            '';
-          };
+      scriptOptions = {
+        deps = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description =
+            lib.mdDoc "List of dependencies. The script will run after these.";
         };
-    in
-    either str (submodule { options = scriptOptions; });
-in
+        text = mkOption {
+          type = types.lines;
+          description = lib.mdDoc "The content of the script.";
+        };
+      } // optionalAttrs withDry {
+        supportsDryActivation = mkOption {
+          type = types.bool;
+          default = false;
+          description = lib.mdDoc ''
+            Whether this activation script supports being dry-activated.
+            These activation scripts will also be executed on dry-activate
+            activations with the environment variable
+            `NIXOS_ACTION` being set to `dry-activate`.
+            it's important that these activation scripts  don't
+            modify anything about the system when the variable is set.
+          '';
+        };
+      };
+    in either str (submodule { options = scriptOptions; });
 
-{
+in {
 
   ###### interface
 
@@ -165,10 +149,12 @@ in
     };
 
     system.dryActivationScript = mkOption {
-      description = lib.mdDoc "The shell script that is to be run when dry-activating a system.";
+      description = lib.mdDoc
+        "The shell script that is to be run when dry-activating a system.";
       readOnly = true;
       internal = true;
-      default = systemActivationScript (removeAttrs config.system.activationScripts [ "script" ]) true;
+      default = systemActivationScript
+        (removeAttrs config.system.activationScripts [ "script" ]) true;
       defaultText = literalMD "generated activation script";
     };
 
@@ -209,12 +195,12 @@ in
           ${let
             set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
             withHeadlines = addAttributeName set';
-          in
-          textClosureMap id (withHeadlines) (attrNames withHeadlines)}
+          in textClosureMap id (withHeadlines) (attrNames withHeadlines)}
 
           exit $_status
         '';
       };
+
     };
 
     environment.usrbinenv = mkOption {
@@ -253,18 +239,15 @@ in
     '';
 
     system.activationScripts.usrbinenv =
-      if config.environment.usrbinenv != null then
-        ''
-          mkdir -p /usr/bin
-          chmod 0755 /usr/bin
-          ln -sfn ${config.environment.usrbinenv} /usr/bin/.env.tmp
-          mv /usr/bin/.env.tmp /usr/bin/env # atomically replace /usr/bin/env
-        ''
-      else
-        ''
-          rm -f /usr/bin/env
-          rmdir --ignore-fail-on-non-empty /usr/bin /usr
-        '';
+      if config.environment.usrbinenv != null then ''
+        mkdir -p /usr/bin
+        chmod 0755 /usr/bin
+        ln -sfn ${config.environment.usrbinenv} /usr/bin/.env.tmp
+        mv /usr/bin/.env.tmp /usr/bin/env # atomically replace /usr/bin/env
+      '' else ''
+        rm -f /usr/bin/env
+        rmdir --ignore-fail-on-non-empty /usr/bin /usr
+      '';
 
     system.activationScripts.specialfs = ''
       specialMount() {
@@ -294,4 +277,5 @@ in
       };
     };
   };
+
 }

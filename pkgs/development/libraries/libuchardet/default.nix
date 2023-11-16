@@ -1,23 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-}:
+{ lib, stdenv, fetchurl, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "uchardet";
   version = "0.0.8";
 
-  outputs = [
-    "bin"
-    "out"
-    "man"
-    "dev"
-  ];
+  outputs = [ "bin" "out" "man" "dev" ];
 
   src = fetchurl {
-    url = "https://www.freedesktop.org/software/${pname}/releases/${pname}-${version}.tar.xz";
+    url =
+      "https://www.freedesktop.org/software/${pname}/releases/${pname}-${version}.tar.xz";
     sha256 = "sha256-6Xpgz8AKHBR6Z0sJe7FCKr2fp4otnOPz/cwueKNKxfA=";
   };
 

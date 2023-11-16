@@ -1,16 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  pydantic,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  yarl,
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, click, fetchFromGitHub
+, pydantic, poetry-core, pytestCheckHook, pythonOlder, yarl }:
 
 buildPythonPackage rec {
   pname = "aiortm";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    click
-    pydantic
-    yarl
-  ];
+  propagatedBuildInputs = [ aiohttp click pydantic yarl ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -50,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for the Remember the Milk API";
     homepage = "https://github.com/MartinHjelmare/aiortm";
-    changelog = "https://github.com/MartinHjelmare/aiortm/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/MartinHjelmare/aiortm/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

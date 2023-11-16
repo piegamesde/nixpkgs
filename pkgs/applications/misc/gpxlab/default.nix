@@ -1,13 +1,5 @@
-{
-  stdenv,
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  substituteAll,
-  qmake,
-  qttools,
-  qttranslations,
-}:
+{ stdenv, mkDerivation, lib, fetchFromGitHub, substituteAll, qmake, qttools
+, qttranslations }:
 
 mkDerivation rec {
   pname = "gpxlab";
@@ -20,17 +12,13 @@ mkDerivation rec {
     sha256 = "080vnwcciqblfrbfyz9gjhl2lqw1hkdpbgr5qfrlyglkd4ynjd84";
   };
 
-  patches =
-    (substituteAll {
-      # See https://github.com/NixOS/nixpkgs/issues/86054
-      src = ./fix-qttranslations-path.patch;
-      inherit qttranslations;
-    });
+  patches = (substituteAll {
+    # See https://github.com/NixOS/nixpkgs/issues/86054
+    src = ./fix-qttranslations-path.patch;
+    inherit qttranslations;
+  });
 
-  nativeBuildInputs = [
-    qmake
-    qttools
-  ];
+  nativeBuildInputs = [ qmake qttools ];
 
   preConfigure = ''
     lrelease GPXLab/locale/*.ts

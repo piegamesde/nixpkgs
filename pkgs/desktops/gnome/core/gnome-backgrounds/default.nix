@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  meson,
-  ninja,
-  gnome,
-}:
+{ stdenv, lib, fetchurl, meson, ninja, gnome }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-backgrounds";
@@ -18,18 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "SoOTs4cTXypqQkoaDDrJTgdCtiuCNaCSPJKfUeBL4E4=";
   };
 
-  patches =
-    [
-      # Makes the database point to stable paths in /run/current-system/sw/share, which don't decay whenever this package's hash changes.
-      # This assumes a nixos + gnome system, where this package is installed in environment.systemPackages,
-      # and /share outputs are included in environment.pathsToLink.
-      ./stable-dir.patch
-    ];
-
-  nativeBuildInputs = [
-    meson
-    ninja
+  patches = [
+    # Makes the database point to stable paths in /run/current-system/sw/share, which don't decay whenever this package's hash changes.
+    # This assumes a nixos + gnome system, where this package is installed in environment.systemPackages,
+    # and /share outputs are included in environment.pathsToLink.
+    ./stable-dir.patch
   ];
+
+  nativeBuildInputs = [ meson ninja ];
 
   passthru = {
     updateScript = gnome.updateScript {

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  ocaml,
-  psq,
-  qcheck-alcotest,
-}:
+{ lib, fetchurl, buildDunePackage, ocaml, psq, qcheck-alcotest }:
 
 buildDunePackage rec {
   pname = "lru";
@@ -14,7 +7,8 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/pqwy/lru/releases/download/v${version}/lru-${version}.tbz";
+    url =
+      "https://github.com/pqwy/lru/releases/download/v${version}/lru-${version}.tbz";
     hash = "sha256-bL4j0np9WyRPhpwLiBQNR/cPQTpkYu81wACTJdSyNv0=";
   };
 

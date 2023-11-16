@@ -3,12 +3,7 @@
 # SQLite database that maps program names to Nix package names (e.g.,
 # "pdflatex" is mapped to "tetex").
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -20,16 +15,10 @@ let
     src = ./command-not-found.pl;
     isExecutable = true;
     inherit (cfg) dbPath;
-    perl = pkgs.perl.withPackages (
-      p: [
-        p.DBDSQLite
-        p.StringShellQuote
-      ]
-    );
+    perl = pkgs.perl.withPackages (p: [ p.DBDSQLite p.StringShellQuote ]);
   };
-in
 
-{
+in {
   options.programs.command-not-found = {
 
     enable = mkOption {
@@ -42,7 +31,8 @@ in
     };
 
     dbPath = mkOption {
-      default = "/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite";
+      default =
+        "/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite";
       description = lib.mdDoc ''
         Absolute path to programs.sqlite.
 
@@ -98,4 +88,5 @@ in
 
     environment.systemPackages = [ commandNotFound ];
   };
+
 }

@@ -1,33 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bash,
-  unzip,
-  glibc,
-  openssl,
-  libgit2,
-  libGLU,
-  libGL,
-  freetype,
-  xorg,
-  alsa-lib,
-  cairo,
-  libuuid,
-  autoreconfHook,
-  gcc48,
-  runtimeShell,
-  ...
-}:
+{ lib, stdenv, fetchurl, bash, unzip, glibc, openssl, libgit2, libGLU, libGL
+, freetype, xorg, alsa-lib, cairo, libuuid, autoreconfHook, gcc48, runtimeShell
+, ... }:
 
-{
-  name,
-  src,
-  version,
-  source-date,
-  source-url,
-  ...
-}:
+{ name, src, version, source-date, source-url, ... }:
 
 # Build the Pharo VM
 stdenv.mkDerivation rec {
@@ -42,27 +17,19 @@ stdenv.mkDerivation rec {
   vm = if stdenv.is64bit then "spur64src" else "spursrc";
 
   # Choose target platform name in the format used by the vm.
-  flavor =
-    if stdenv.isLinux && stdenv.isi686 then
-      "linux32x86"
-    else if stdenv.isLinux && stdenv.isx86_64 then
-      "linux64x64"
-    else if stdenv.isDarwin && stdenv.isi686 then
-      "macos32x86"
-    else if stdenv.isDarwin && stdenv.isx86_64 then
-      "macos64x64"
-    else
-      throw "Unsupported platform: only Linux/Darwin x86/x64 are supported.";
+  flavor = if stdenv.isLinux && stdenv.isi686 then
+    "linux32x86"
+  else if stdenv.isLinux && stdenv.isx86_64 then
+    "linux64x64"
+  else if stdenv.isDarwin && stdenv.isi686 then
+    "macos32x86"
+  else if stdenv.isDarwin && stdenv.isx86_64 then
+    "macos64x64"
+  else
+    throw "Unsupported platform: only Linux/Darwin x86/x64 are supported.";
 
   # Shared data (for the sources file)
-  pharo-share = import ./share.nix {
-    inherit
-      lib
-      stdenv
-      fetchurl
-      unzip
-    ;
-  };
+  pharo-share = import ./share.nix { inherit lib stdenv fetchurl unzip; };
 
   # Note: -fPIC causes the VM to segfault.
   hardeningDisable = [
@@ -79,10 +46,7 @@ stdenv.mkDerivation rec {
   # http://forum.world.st/OSProcess-fork-issue-with-Debian-built-VM-td4947326.html
   #
   # (stack protection is disabled above for gcc 4.8 compatibility.)
-  nativeBuildInputs = [
-    autoreconfHook
-    unzip
-  ];
+  nativeBuildInputs = [ autoreconfHook unzip ];
   buildInputs = [
     bash
     glibc
@@ -112,11 +76,8 @@ stdenv.mkDerivation rec {
 
   # Configure with options modeled on the 'mvm' build script from the vm.
   configureScript = "platforms/unix/config/configure";
-  configureFlags = [
-    "--without-npsqueak"
-    "--with-vmversion=5.0"
-    "--with-src=${vm}"
-  ];
+  configureFlags =
+    [ "--without-npsqueak" "--with-vmversion=5.0" "--with-src=${vm}" ];
 
   # -fcommon is a workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -124,7 +85,8 @@ stdenv.mkDerivation rec {
   #     vm/vm.a(gcc3x-cointerp.o):/build/source/spur64src/vm/cointerp.h:358: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  CFLAGS = "-DPharoVM -DIMMUTABILITY=1 -msse2 -D_GNU_SOURCE -DCOGMTVM=0 -g -O2 -DNDEBUG -DDEBUGVM=0";
+  CFLAGS =
+    "-DPharoVM -DIMMUTABILITY=1 -msse2 -D_GNU_SOURCE -DCOGMTVM=0 -g -O2 -DNDEBUG -DDEBUGVM=0";
   LDFLAGS = "-Wl,-z,now";
 
   # VM sources require some patching before build.
@@ -146,50 +108,48 @@ stdenv.mkDerivation rec {
 
   # (No special build phase.)
 
-  installPhase =
-    let
-      libs = [
-        cairo
-        libgit2
-        libGLU
-        libGL
-        freetype
-        openssl
-        libuuid
-        alsa-lib
-        xorg.libICE
-        xorg.libSM
-      ];
-    in
-    ''
-      # Install in working directory and then copy
-      make install-squeak install-plugins prefix=$(pwd)/products
+  installPhase = let
+    libs = [
+      cairo
+      libgit2
+      libGLU
+      libGL
+      freetype
+      openssl
+      libuuid
+      alsa-lib
+      xorg.libICE
+      xorg.libSM
+    ];
+  in ''
+    # Install in working directory and then copy
+    make install-squeak install-plugins prefix=$(pwd)/products
 
-      # Copy binaries & rename from 'squeak' to 'pharo'
-      mkdir -p "$out"
-      cp products/lib/squeak/5.0-*/squeak "$out/pharo"
-      cp -r products/lib/squeak/5.0-*/*.so "$out"
-      ln -s "${pharo-share}/lib/"*.sources "$out"
+    # Copy binaries & rename from 'squeak' to 'pharo'
+    mkdir -p "$out"
+    cp products/lib/squeak/5.0-*/squeak "$out/pharo"
+    cp -r products/lib/squeak/5.0-*/*.so "$out"
+    ln -s "${pharo-share}/lib/"*.sources "$out"
 
-      # Create a shell script to run the VM in the proper environment.
-      #
-      # These wrapper puts all relevant libraries into the
-      # LD_LIBRARY_PATH. This is important because various C code in the VM
-      # and Smalltalk code in the image will search for them there.
-      mkdir -p "$out/bin"
+    # Create a shell script to run the VM in the proper environment.
+    #
+    # These wrapper puts all relevant libraries into the
+    # LD_LIBRARY_PATH. This is important because various C code in the VM
+    # and Smalltalk code in the image will search for them there.
+    mkdir -p "$out/bin"
 
-      # Note: include ELF rpath in LD_LIBRARY_PATH for finding libc.
-      libs=$out:$(patchelf --print-rpath "$out/pharo"):${lib.makeLibraryPath libs}
+    # Note: include ELF rpath in LD_LIBRARY_PATH for finding libc.
+    libs=$out:$(patchelf --print-rpath "$out/pharo"):${lib.makeLibraryPath libs}
 
-      # Create the script
-      cat > "$out/bin/${cmd}" <<EOF
-      #!${runtimeShell}
-      set -f
-      LD_LIBRARY_PATH="\$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$libs" exec $out/pharo "\$@"
-      EOF
-      chmod +x "$out/bin/${cmd}"
-      ln -s ${libgit2}/lib/libgit2.so* "$out/"
-    '';
+    # Create the script
+    cat > "$out/bin/${cmd}" <<EOF
+    #!${runtimeShell}
+    set -f
+    LD_LIBRARY_PATH="\$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}$libs" exec $out/pharo "\$@"
+    EOF
+    chmod +x "$out/bin/${cmd}"
+    ln -s ${libgit2}/lib/libgit2.so* "$out/"
+  '';
 
   meta = with lib; {
     description = "Clean and innovative Smalltalk-inspired environment";
@@ -209,9 +169,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     maintainers = [ maintainers.lukego ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

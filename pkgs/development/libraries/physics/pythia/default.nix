@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  boost,
-  fastjet,
-  fixDarwinDylibNames,
-  hepmc,
-  lhapdf,
-  rsync,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, boost, fastjet, fixDarwinDylibNames, hepmc, lhapdf
+, rsync, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "pythia";
@@ -22,30 +12,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W9r9nyxKHEf9ik6C+58Nj8+6TeEAO44Uvk4DR0NtbDM=";
   };
 
-  nativeBuildInputs = [ rsync ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
-  buildInputs = [
-    boost
-    fastjet
-    hepmc
-    zlib
-    lhapdf
-  ];
+  nativeBuildInputs = [ rsync ]
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  buildInputs = [ boost fastjet hepmc zlib lhapdf ];
 
   preConfigure = ''
     patchShebangs ./configure
   '';
 
-  configureFlags =
-    [
-      "--enable-shared"
-      "--with-lhapdf6=${lhapdf}"
-    ]
-    ++ (
-      if lib.versions.major hepmc.version == "3" then
-        [ "--with-hepmc3=${hepmc}" ]
-      else
-        [ "--with-hepmc2=${hepmc}" ]
-    );
+  configureFlags = [ "--enable-shared" "--with-lhapdf6=${lhapdf}" ]
+    ++ (if lib.versions.major hepmc.version == "3" then
+      [ "--with-hepmc3=${hepmc}" ]
+    else
+      [ "--with-hepmc2=${hepmc}" ]);
 
   enableParallelBuilding = true;
 

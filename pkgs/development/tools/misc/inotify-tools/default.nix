@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  fetchFromGitHub,
-  nix-update-script,
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, nix-update-script }:
 
 stdenv.mkDerivation rec {
   pname = "inotify-tools";
@@ -19,18 +13,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     homepage = "https://github.com/inotify-tools/inotify-tools/wiki";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [
-      marcweber
-      pSub
-      shamilton
-    ];
+    maintainers = with maintainers; [ marcweber pSub shamilton ];
     platforms = platforms.linux;
   };
 }

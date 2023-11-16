@@ -1,28 +1,18 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
   let
 
     perlEnv = pkgs.perl.withPackages (p: [ p.NetZooKeeper ]);
-  in
-  {
+
+  in {
     name = "zookeeper";
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        nequissimus
-        ztzg
-      ];
-    };
+    meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ztzg ]; };
 
     nodes = {
-      server =
-        { ... }:
-        {
-          services.zookeeper = {
-            enable = true;
-          };
+      server = { ... }: {
+        services.zookeeper = { enable = true; };
 
-          networking.firewall.allowedTCPPorts = [ 2181 ];
-        };
+        networking.firewall.allowedTCPPorts = [ 2181 ];
+      };
     };
 
     testScript = ''
@@ -49,5 +39,4 @@ import ./make-test-python.nix (
           "${perlEnv}/bin/perl -E 'use Net::ZooKeeper qw(:acls); $z=Net::ZooKeeper->new(q(localhost:2181)); $z->get(qw(/perl)) eq qw(foo) || die $z->get_error()'"
       )
     '';
-  }
-)
+  })

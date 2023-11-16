@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub }:
 
 buildPythonPackage rec {
   pname = "tlds";
@@ -22,7 +18,8 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Automatically updated list of valid TLDs taken directly from IANA";
+    description =
+      "Automatically updated list of valid TLDs taken directly from IANA";
     homepage = "https://github.com/mweinelt/tlds";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gtk,
-  pkg-config,
-  procps,
-  makeWrapper,
-  ...
-}:
+{ lib, stdenv, fetchurl, gtk, pkg-config, procps, makeWrapper, ... }:
 
 stdenv.mkDerivation rec {
   pname = "xbindkeys-config";
@@ -17,14 +8,12 @@ stdenv.mkDerivation rec {
   # gcc-10.
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
   buildInputs = [ gtk ];
 
   src = fetchurl {
-    url = "mirror://debian/pool/main/x/xbindkeys-config/xbindkeys-config_${version}.orig.tar.gz";
+    url =
+      "mirror://debian/pool/main/x/xbindkeys-config/xbindkeys-config_${version}.orig.tar.gz";
     sha256 = "1rs3li2hyig6cdzvgqlbz0vw6x7rmgr59qd6m0cvrai8xhqqykda";
   };
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchCrate,
-  rustPlatform,
-  capnproto,
-}:
+{ lib, fetchCrate, rustPlatform, capnproto }:
 
 rustPlatform.buildRustPackage rec {
   pname = "capnproto-rust";

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation {
   pname = "jpegexiforient";
   version = "unstable-2002-02-17";

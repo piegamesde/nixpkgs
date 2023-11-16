@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  cmark,
-  darwin,
-  git,
-  libssh2,
-  lua5_4,
-  hunspell,
-  ninja,
-  openssl,
-  pkg-config,
-  qtbase,
-  qttools,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, cmark, darwin, git, libssh2, lua5_4
+, hunspell, ninja, openssl, pkg-config, qtbase, qttools, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "gittyup";
@@ -42,30 +26,11 @@ stdenv.mkDerivation rec {
     "-DENABLE_UPDATE_OVER_GUI=OFF"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config wrapQtAppsHook ];
 
-  buildInputs =
-    [
-      cmark
-      git
-      hunspell
-      libssh2
-      lua5_4
-      openssl
-      qtbase
-      qttools
-    ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
-        CoreFoundation
-        Security
-      ]
-    );
+  buildInputs = [ cmark git hunspell libssh2 lua5_4 openssl qtbase qttools ]
+    ++ lib.optionals stdenv.isDarwin
+    (with darwin.apple_sdk.frameworks; [ CoreFoundation Security ]);
 
   postInstall = ''
     # Those are not program libs, just some Qt5 libs that the build system leaks for some reason
@@ -73,7 +38,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A graphical Git client designed to help you understand and manage your source code history";
+    description =
+      "A graphical Git client designed to help you understand and manage your source code history";
     homepage = "https://murmele.github.io/Gittyup";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ thiagokokada ];

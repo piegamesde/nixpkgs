@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  certifi,
-  fetchPypi,
-  pythonOlder,
-  requests,
-  urllib3,
-  websocket-client,
-}:
+{ lib, buildPythonPackage, certifi, fetchPypi, pythonOlder, requests, urllib3
+, websocket-client }:
 
 buildPythonPackage rec {
   pname = "jellyfin-apiclient-python";
@@ -21,12 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-vMzZeoiWli3HjM8Dqr5RhNfR7gcjPqoXG3b/aNNlx2Q=";
   };
 
-  propagatedBuildInputs = [
-    certifi
-    requests
-    urllib3
-    websocket-client
-  ];
+  propagatedBuildInputs = [ certifi requests urllib3 websocket-client ];
 
   # Module has no test
   doCheck = false;

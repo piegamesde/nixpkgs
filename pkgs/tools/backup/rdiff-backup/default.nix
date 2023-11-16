@@ -1,14 +1,8 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-  librsync,
-}:
+{ lib, python3Packages, fetchPypi, librsync }:
 
-let
-  pypkgs = python3Packages;
-in
-pypkgs.buildPythonApplication rec {
+let pypkgs = python3Packages;
+
+in pypkgs.buildPythonApplication rec {
   pname = "rdiff-backup";
   version = "2.0.5";
 
@@ -31,7 +25,8 @@ pypkgs.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Backup system trying to combine best a mirror and an incremental backup system";
+    description =
+      "Backup system trying to combine best a mirror and an incremental backup system";
     homepage = "https://rdiff-backup.net";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ peterhoeg ];

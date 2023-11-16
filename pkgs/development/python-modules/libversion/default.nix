@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  libversion,
-  pkg-config,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, libversion, pkg-config
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "libversion";
@@ -41,7 +34,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "libversion" ];
 
   meta = with lib; {
-    description = "Python bindings for libversion, which provides fast, powerful and correct generic version string comparison algorithm";
+    description =
+      "Python bindings for libversion, which provides fast, powerful and correct generic version string comparison algorithm";
     homepage = "https://github.com/repology/py-libversion";
     license = licenses.mit;
     maintainers = with maintainers; [ ryantm ];

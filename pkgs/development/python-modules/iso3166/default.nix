@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "iso3166";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Self-contained ISO 3166-1 country definitions";
     homepage = "https://github.com/deactivated/python-iso3166";
-    changelog = "https://github.com/deactivated/python-iso3166/blob/v${version}/CHANGES";
+    changelog =
+      "https://github.com/deactivated/python-iso3166/blob/v${version}/CHANGES";
     license = licenses.mit;
     maintainers = with maintainers; [ zraexy ];
   };

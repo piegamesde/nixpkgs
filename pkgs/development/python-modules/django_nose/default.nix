@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  django,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, django }:
 
 buildPythonPackage rec {
   pname = "django-nose";
@@ -18,14 +12,12 @@ buildPythonPackage rec {
   # vast dependency list
   doCheck = false;
 
-  propagatedBuildInputs = [
-    django
-    nose
-  ];
+  propagatedBuildInputs = [ django nose ];
 
   meta = with lib; {
     description = "Provides all the goodness of nose in your Django tests";
     homepage = "https://github.com/django-nose/django-nose";
     license = licenses.bsd3;
   };
+
 }

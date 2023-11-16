@@ -1,11 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  cerberus,
-  pyyaml,
-  ruamel-yaml,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, cerberus, pyyaml, ruamel-yaml }:
 
 buildPythonPackage rec {
   pname = "riscv-config";
@@ -18,11 +11,7 @@ buildPythonPackage rec {
     hash = "sha256-K7W6yyqy/2c4WHyOojuvw2P/v7bND5K6WFfTujkofBw=";
   };
 
-  propagatedBuildInputs = [
-    cerberus
-    pyyaml
-    ruamel-yaml
-  ];
+  propagatedBuildInputs = [ cerberus pyyaml ruamel-yaml ];
 
   meta = with lib; {
     homepage = "https://github.com/riscv/riscv-config";

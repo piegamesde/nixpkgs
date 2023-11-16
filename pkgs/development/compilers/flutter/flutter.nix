@@ -1,116 +1,60 @@
-{
-  version,
-  engineVersion,
-  patches,
-  dart,
-  src,
-  includedEngineArtifacts ? {
-    common = [
-      "flutter_patched_sdk"
-      "flutter_patched_sdk_product"
-    ];
-    platform = { };
-  },
+{ version, engineVersion, patches, dart, src, includedEngineArtifacts ? {
+  common = [ "flutter_patched_sdk" "flutter_patched_sdk_product" ];
+  platform = { };
+}
 
-  lib,
-  callPackage,
-  stdenv,
-  runCommandLocal,
-  symlinkJoin,
-  lndir,
-  git,
-  which,
-}:
+, lib, callPackage, stdenv, runCommandLocal, symlinkJoin, lndir, git, which }:
 
 let
-  engineArtifactDirectory =
-    let
-      engineArtifacts = callPackage ./engine-artifacts { inherit engineVersion; };
-    in
-    runCommandLocal "flutter-engine-artifacts-${version}" { } (
+  engineArtifactDirectory = let
+    engineArtifacts = callPackage ./engine-artifacts { inherit engineVersion; };
+  in runCommandLocal "flutter-engine-artifacts-${version}" { } (let
+    mkCommonArtifactLinkCommand = { artifact }: ''
+      mkdir -p $out/common
+      ${lndir}/bin/lndir -silent ${artifact} $out/common
+    '';
+    mkPlatformArtifactLinkCommand =
+      { artifact, os, architecture, variant ? null }:
       let
-        mkCommonArtifactLinkCommand =
-          { artifact }:
-          ''
-            mkdir -p $out/common
-            ${lndir}/bin/lndir -silent ${artifact} $out/common
-          '';
-        mkPlatformArtifactLinkCommand =
-          {
-            artifact,
-            os,
-            architecture,
-            variant ? null,
-          }:
-          let
-            artifactDirectory = "${os}-${architecture}${lib.optionalString (variant != null) "-${variant}"}";
-          in
-          ''
-            mkdir -p $out/${artifactDirectory}
-              ${lndir}/bin/lndir -silent ${artifact} $out/${artifactDirectory}
-          '';
-      in
-      ''
-        ${builtins.concatStringsSep "\n" (
-          (map (name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }) (
-            if includedEngineArtifacts ? common then includedEngineArtifacts.common else [ ]
-          ))
-          ++ (builtins.foldl'
-            (
-              commands: os:
-              commands
-              ++ (builtins.foldl'
-                (
-                  commands: architecture:
-                  commands
-                  ++ (builtins.foldl'
-                    (
-                      commands: variant:
-                      commands
-                      ++ (map
-                        (
-                          artifact:
-                          mkPlatformArtifactLinkCommand {
-                            inherit
-                              artifact
-                              os
-                              architecture
-                              variant
-                            ;
-                          }
-                        )
-                        engineArtifacts.platform.${os}.${architecture}.variants.${variant}
-                      )
-                    )
-                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
-                      engineArtifacts.platform.${os}.${architecture}.base
-                    )
-                    includedEngineArtifacts.platform.${os}.${architecture}
-                  )
-                )
-                [ ]
-                (builtins.attrNames includedEngineArtifacts.platform.${os})
-              )
-            )
-            [ ]
-            (
-              builtins.attrNames (
-                if includedEngineArtifacts ? platform then includedEngineArtifacts.platform else { }
-              )
-            )
-          )
-        )}
-      ''
-    );
+        artifactDirectory = "${os}-${architecture}${
+            lib.optionalString (variant != null) "-${variant}"
+          }";
+      in ''
+        mkdir -p $out/${artifactDirectory}
+          ${lndir}/bin/lndir -silent ${artifact} $out/${artifactDirectory}
+      '';
+  in ''
+    ${builtins.concatStringsSep "\n" ((map (name:
+      mkCommonArtifactLinkCommand {
+        artifact = engineArtifacts.common.${name};
+      }) (if includedEngineArtifacts ? common then
+        includedEngineArtifacts.common
+      else
+        [ ])) ++ (builtins.foldl' (commands: os:
+          commands ++ (builtins.foldl' (commands: architecture:
+            commands ++ (builtins.foldl' (commands: variant:
+              commands ++ (map (artifact:
+                mkPlatformArtifactLinkCommand {
+                  inherit artifact os architecture variant;
+                })
+                engineArtifacts.platform.${os}.${architecture}.variants.${variant}))
+              (map (artifact:
+                mkPlatformArtifactLinkCommand {
+                  inherit artifact os architecture;
+                }) engineArtifacts.platform.${os}.${architecture}.base)
+              includedEngineArtifacts.platform.${os}.${architecture})) [ ]
+            (builtins.attrNames includedEngineArtifacts.platform.${os}))) [ ]
+          (builtins.attrNames (if includedEngineArtifacts ? platform then
+            includedEngineArtifacts.platform
+          else
+            { }))))}
+  '');
 
   unwrapped = stdenv.mkDerivation {
     name = "flutter-${version}-unwrapped";
     inherit src patches version;
 
-    outputs = [
-      "out"
-      "cache"
-    ];
+    outputs = [ "out" "cache" ];
 
     buildInputs = [ git ];
 
@@ -201,17 +145,15 @@ let
     };
 
     meta = with lib; {
-      description = "Flutter is Google's SDK for building mobile, web and desktop with Dart";
+      description =
+        "Flutter is Google's SDK for building mobile, web and desktop with Dart";
       longDescription = ''
         Flutter is Google’s UI toolkit for building beautiful,
         natively compiled applications for mobile, web, and desktop from a single codebase.
       '';
       homepage = "https://flutter.dev";
       license = licenses.bsd3;
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      platforms = [ "x86_64-linux" "aarch64-linux" ];
       maintainers = with maintainers; [
         babariviere
         ericdallo
@@ -221,5 +163,4 @@ let
       ];
     };
   };
-in
-unwrapped
+in unwrapped

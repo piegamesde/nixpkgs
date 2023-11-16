@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchCrate,
-  rustPlatform,
-}:
+{ lib, fetchCrate, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "twiggy";
@@ -18,10 +14,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://rustwasm.github.io/twiggy/";
     description = "A code size profiler for Wasm";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ lucperkins ];
   };
 }

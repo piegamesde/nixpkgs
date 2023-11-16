@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation {
   pname = "dancing-script";
@@ -25,7 +21,8 @@ stdenvNoCC.mkDerivation {
 
   meta = with lib; {
     description = "Dancing Script";
-    longDescription = "A lively casual script where the letters bounce and change size slightly.";
+    longDescription =
+      "A lively casual script where the letters bounce and change size slightly.";
     homepage = "https://github.com/impallari/DancingScript";
     license = licenses.ofl;
     platforms = platforms.all;

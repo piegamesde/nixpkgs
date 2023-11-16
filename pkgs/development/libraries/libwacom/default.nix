@@ -1,25 +1,11 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  glib,
-  pkg-config,
-  udev,
-  libgudev,
-  python3,
-  valgrind,
-}:
+{ stdenv, lib, fetchFromGitHub, meson, ninja, glib, pkg-config, udev, libgudev
+, python3, valgrind }:
 
 stdenv.mkDerivation rec {
   pname = "libwacom";
   version = "2.6.0";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "linuxwacom";
@@ -32,39 +18,24 @@ stdenv.mkDerivation rec {
     patchShebangs test/check-files-in-git.sh
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja python3 ];
 
-  buildInputs = [
-    glib
-    udev
-    libgudev
-  ];
+  buildInputs = [ glib udev libgudev ];
 
-  doCheck =
-    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform valgrind;
+  doCheck = stdenv.hostPlatform == stdenv.buildPlatform
+    && lib.meta.availableOn stdenv.hostPlatform valgrind;
 
   mesonFlags = [ "-Dtests=${if doCheck then "enabled" else "disabled"}" ];
 
-  nativeCheckInputs =
-    [ valgrind ]
-    ++ (
-      with python3.pkgs; [
-        libevdev
-        pytest
-        pyudev
-      ]
-    );
+  nativeCheckInputs = [ valgrind ]
+    ++ (with python3.pkgs; [ libevdev pytest pyudev ]);
 
   meta = with lib; {
     platforms = platforms.linux;
     homepage = "https://linuxwacom.github.io/";
     changelog = "https://github.com/linuxwacom/libwacom/blob/${src.rev}/NEWS";
-    description = "Libraries, configuration, and diagnostic tools for Wacom tablets running under Linux";
+    description =
+      "Libraries, configuration, and diagnostic tools for Wacom tablets running under Linux";
     maintainers = teams.freedesktop.members;
     license = licenses.mit;
   };

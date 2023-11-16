@@ -1,20 +1,6 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  awesomeversion,
-  backoff,
-  buildPythonPackage,
-  cachetools,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-asyncio,
-  pytest-freezegun,
-  pytestCheckHook,
-  pythonOlder,
-  xmltodict,
-  yarl,
-}:
+{ lib, aiohttp, aresponses, awesomeversion, backoff, buildPythonPackage
+, cachetools, fetchFromGitHub, poetry-core, pytest-asyncio, pytest-freezegun
+, pytestCheckHook, pythonOlder, xmltodict, yarl }:
 
 buildPythonPackage rec {
   pname = "rokuecp";
@@ -32,21 +18,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    backoff
-    cachetools
-    xmltodict
-    awesomeversion
-    yarl
-  ];
+  propagatedBuildInputs =
+    [ aiohttp backoff cachetools xmltodict awesomeversion yarl ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytest-freezegun
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-asyncio pytest-freezegun pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -70,7 +46,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Asynchronous Python client for Roku (ECP)";
     homepage = "https://github.com/ctalkington/python-rokuecp";
-    changelog = "https://github.com/ctalkington/python-rokuecp/releases/tag/${version}";
+    changelog =
+      "https://github.com/ctalkington/python-rokuecp/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

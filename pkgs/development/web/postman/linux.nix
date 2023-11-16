@@ -1,65 +1,25 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeDesktopItem,
-  wrapGAppsHook,
-  atk,
-  at-spi2-atk,
-  at-spi2-core,
-  alsa-lib,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  freetype,
-  fontconfig,
-  nss,
-  nspr,
-  pango,
-  udev,
-  libuuid,
-  libX11,
-  libxcb,
-  libXi,
-  libXcursor,
-  libXdamage,
-  libXrandr,
-  libXcomposite,
-  libXext,
-  libXfixes,
-  libXrender,
-  libXtst,
-  libXScrnSaver,
-  libxkbcommon,
-  libdrm,
-  mesa,
-  xorg,
-  pname,
-  version,
-  meta,
-  copyDesktopItems,
-}:
+{ lib, stdenv, fetchurl, makeDesktopItem, wrapGAppsHook, atk, at-spi2-atk
+, at-spi2-core, alsa-lib, cairo, cups, dbus, expat, gdk-pixbuf, glib, gtk3
+, freetype, fontconfig, nss, nspr, pango, udev, libuuid, libX11, libxcb, libXi
+, libXcursor, libXdamage, libXrandr, libXcomposite, libXext, libXfixes
+, libXrender, libXtst, libXScrnSaver, libxkbcommon, libdrm, mesa, xorg, pname
+, version, meta, copyDesktopItems }:
 
 let
-  dist =
-    {
-      aarch64-linux = {
-        arch = "arm64";
-        sha256 = "sha256-ciQ9LqtaOosUAtcZiwOQ+8gB5dTut8pXHAjUsoQEEB8=";
-      };
+  dist = {
+    aarch64-linux = {
+      arch = "arm64";
+      sha256 = "sha256-ciQ9LqtaOosUAtcZiwOQ+8gB5dTut8pXHAjUsoQEEB8=";
+    };
 
-      x86_64-linux = {
-        arch = "64";
-        sha256 = "sha256-QaIj+SOQGR6teUIdLB3D5klRlYrna1MoE3c6UXYEoB4=";
-      };
-    }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-in
-stdenv.mkDerivation rec {
+    x86_64-linux = {
+      arch = "64";
+      sha256 = "sha256-QaIj+SOQGR6teUIdLB3D5klRlYrna1MoE3c6UXYEoB4=";
+    };
+  }.${stdenv.hostPlatform.system} or (throw
+    "Unsupported system: ${stdenv.hostPlatform.system}");
+
+in stdenv.mkDerivation rec {
   inherit pname version meta;
 
   src = fetchurl {
@@ -120,10 +80,7 @@ stdenv.mkDerivation rec {
     xorg.libxshmfence
   ];
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    copyDesktopItems
-  ];
+  nativeBuildInputs = [ wrapGAppsHook copyDesktopItems ];
 
   installPhase = ''
     runHook preInstall

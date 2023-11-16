@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  scipy,
-  matplotlib,
-  pytestCheckHook,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, scipy, matplotlib
+, pytestCheckHook, isPy3k }:
 
 buildPythonPackage {
   pname = "filterpy";
@@ -25,11 +17,7 @@ buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    matplotlib
-  ];
+  propagatedBuildInputs = [ numpy scipy matplotlib ];
 
   meta = with lib; {
     homepage = "https://github.com/rlabbe/filterpy";

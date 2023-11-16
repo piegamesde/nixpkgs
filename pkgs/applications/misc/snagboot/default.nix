@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pythonRelaxDepsHook,
-  python3,
-  snagboot,
-  testers,
-  gitUpdater,
-}:
+{ lib, stdenv, fetchFromGitHub, pythonRelaxDepsHook, python3, snagboot, testers
+, gitUpdater }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "snagboot";
@@ -36,10 +28,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  pythonRemoveDeps = [
-    "pylibfdt"
-    "swig"
-  ];
+  pythonRemoveDeps = [ "pylibfdt" "swig" ];
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools

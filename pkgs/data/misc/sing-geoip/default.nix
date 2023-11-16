@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  buildGoModule,
-  fetchFromGitHub,
-  dbip-country-lite,
-}:
+{ lib, stdenvNoCC, buildGoModule, fetchFromGitHub, dbip-country-lite }:
 
 let
   generator = buildGoModule rec {
@@ -27,8 +21,7 @@ let
       maintainers = with maintainers; [ linsui ];
     };
   };
-in
-stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation rec {
   inherit (generator) pname;
   inherit (dbip-country-lite) version;
 
@@ -54,11 +47,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = {
-    inherit generator;
-  };
+  passthru = { inherit generator; };
 
-  meta = generator.meta // {
-    inherit (dbip-country-lite.meta) license;
-  };
+  meta = generator.meta // { inherit (dbip-country-lite.meta) license; };
 }

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -21,7 +16,8 @@ let
       MAILTO="${config.services.cron.mailto}"
     ''}
     NIX_CONF_DIR=/etc/nix
-    ${lib.concatStrings (map (job: job + "\n") config.services.cron.systemCronJobs)}
+    ${lib.concatStrings
+    (map (job: job + "\n") config.services.cron.systemCronJobs)}
   '';
 
   allowdeny = target: users: {
@@ -30,9 +26,8 @@ let
     mode = "644";
     gid = config.ids.gids.fcron;
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -43,7 +38,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to enable the {command}`fcron` daemon.";
+        description =
+          lib.mdDoc "Whether to enable the {command}`fcron` daemon.";
       };
 
       allow = mkOption {
@@ -64,13 +60,15 @@ in
       maxSerialJobs = mkOption {
         type = types.int;
         default = 1;
-        description = lib.mdDoc "Maximum number of serial jobs which can run simultaneously.";
+        description = lib.mdDoc
+          "Maximum number of serial jobs which can run simultaneously.";
       };
 
       queuelen = mkOption {
         type = types.nullOr types.int;
         default = null;
-        description = lib.mdDoc "Number of jobs the serial queue and the lavg queue can contain.";
+        description = lib.mdDoc
+          "Number of jobs the serial queue and the lavg queue can contain.";
       };
 
       systab = mkOption {
@@ -79,6 +77,7 @@ in
         description = lib.mdDoc ''The "system" crontab contents.'';
       };
     };
+
   };
 
   ###### implementation
@@ -87,39 +86,35 @@ in
 
     services.fcron.systab = systemCronJobs;
 
-    environment.etc = listToAttrs (
-      map
-        (x: {
-          name = x.target;
-          value = x;
-        })
-        [
-          (allowdeny "allow" (cfg.allow))
-          (allowdeny "deny" cfg.deny)
-          # see man 5 fcron.conf
-          {
-            source =
-              let
-                isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
-                sendmailPath =
-                  if isSendmailWrapped then "/run/wrappers/bin/sendmail" else "${config.system.path}/bin/sendmail";
-              in
-              pkgs.writeText "fcron.conf" ''
-                fcrontabs   =       /var/spool/fcron
-                pidfile     =       /run/fcron.pid
-                fifofile    =       /run/fcron.fifo
-                fcronallow  =       /etc/fcron.allow
-                fcrondeny   =       /etc/fcron.deny
-                shell       =       /bin/sh
-                sendmail    =       ${sendmailPath}
-                editor      =       ${pkgs.vim}/bin/vim
-              '';
-            target = "fcron.conf";
-            gid = config.ids.gids.fcron;
-            mode = "0644";
-          }
-        ]
-    );
+    environment.etc = listToAttrs (map (x: {
+      name = x.target;
+      value = x;
+    }) [
+      (allowdeny "allow" (cfg.allow))
+      (allowdeny "deny" cfg.deny)
+      # see man 5 fcron.conf
+      {
+        source = let
+          isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
+          sendmailPath = if isSendmailWrapped then
+            "/run/wrappers/bin/sendmail"
+          else
+            "${config.system.path}/bin/sendmail";
+        in pkgs.writeText "fcron.conf" ''
+          fcrontabs   =       /var/spool/fcron
+          pidfile     =       /run/fcron.pid
+          fifofile    =       /run/fcron.fifo
+          fcronallow  =       /etc/fcron.allow
+          fcrondeny   =       /etc/fcron.deny
+          shell       =       /bin/sh
+          sendmail    =       ${sendmailPath}
+          editor      =       ${pkgs.vim}/bin/vim
+        '';
+        target = "fcron.conf";
+        gid = config.ids.gids.fcron;
+        mode = "0644";
+      }
+    ]);
 
     environment.systemPackages = [ pkgs.fcron ];
     users.users.fcron = {
@@ -164,12 +159,16 @@ in
           --group fcron \
           --directory /var/spool/fcron
         # load system crontab file
-        /run/wrappers/bin/fcrontab -u systab - < ${pkgs.writeText "systab" cfg.systab}
+        /run/wrappers/bin/fcrontab -u systab - < ${
+          pkgs.writeText "systab" cfg.systab
+        }
       '';
 
       serviceConfig = {
         Type = "forking";
-        ExecStart = "${pkgs.fcron}/sbin/fcron -m ${toString cfg.maxSerialJobs} ${queuelen}";
+        ExecStart = "${pkgs.fcron}/sbin/fcron -m ${
+            toString cfg.maxSerialJobs
+          } ${queuelen}";
       };
     };
   };

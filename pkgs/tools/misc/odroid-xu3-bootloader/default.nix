@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  coreutils,
-  ubootOdroidXU3,
-  runtimeShell,
-}:
+{ stdenv, lib, fetchFromGitHub, coreutils, ubootOdroidXU3, runtimeShell }:
 
 stdenv.mkDerivation {
   pname = "odroid-xu3-bootloader";

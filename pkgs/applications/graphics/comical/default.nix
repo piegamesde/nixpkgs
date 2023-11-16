@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  wxGTK32,
-  util-linux,
-  zlib,
-  Cocoa,
-}:
+{ lib, stdenv, fetchurl, wxGTK32, util-linux, zlib, Cocoa }:
 
 stdenv.mkDerivation rec {
   pname = "comical";
@@ -19,11 +11,8 @@ stdenv.mkDerivation rec {
 
   patches = [ ./wxgtk-3.2.patch ];
 
-  buildInputs = [
-    wxGTK32
-    util-linux
-    zlib
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [ wxGTK32 util-linux zlib ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   makeFlags = [
     "prefix=${placeholder "out"}"
@@ -34,13 +23,11 @@ stdenv.mkDerivation rec {
   preInstall = "mkdir -pv $out/bin";
 
   meta = {
-    description = "Viewer of CBR and CBZ files, often used to store scanned comics";
+    description =
+      "Viewer of CBR and CBZ files, often used to store scanned comics";
     homepage = "https://comical.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [
-      viric
-      wegank
-    ];
+    maintainers = with lib.maintainers; [ viric wegank ];
     platforms = with lib.platforms; unix;
     mainProgram = "comical";
   };

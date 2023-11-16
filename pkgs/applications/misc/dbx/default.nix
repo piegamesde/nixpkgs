@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  git,
-  python3,
-}:
+{ lib, fetchFromGitHub, git, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "dbx";
@@ -17,17 +12,13 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-dArR1z3wkGDd3Y1WHK0sLjhuaKHAcsx6cCH2rgVdUGs=";
   };
 
-  pythonRelaxDeps = [
-    "rich"
-    "typer"
-  ];
+  pythonRelaxDeps = [ "rich" "typer" ];
 
   pythonRemoveDeps = [ "mlflow-skinny" ];
 
   nativeBuildInputs = with python3.pkgs; [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       aiohttp
       click
@@ -45,28 +36,20 @@ python3.pkgs.buildPythonApplication rec {
       tenacity
       typer
       watchdog
-    ]
-    ++ typer.optional-dependencies.all;
+    ] ++ typer.optional-dependencies.all;
 
   passthru.optional-dependencies = with python3.pkgs; {
     aws = [ boto3 ];
-    azure = [
-      azure-storage-blob
-      azure-identity
-    ];
+    azure = [ azure-storage-blob azure-identity ];
     gcp = [ google-cloud-storage ];
   };
 
-  nativeCheckInputs =
-    [ git ]
-    ++ (
-      with python3.pkgs; [
-        pytest-asyncio
-        pytest-mock
-        pytest-timeout
-        pytestCheckHook
-      ]
-    );
+  nativeCheckInputs = [ git ] ++ (with python3.pkgs; [
+    pytest-asyncio
+    pytest-mock
+    pytest-timeout
+    pytestCheckHook
+  ]);
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -88,7 +71,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "CLI tool for advanced Databricks jobs management";
     homepage = "https://github.com/databrickslabs/dbx";
-    changelog = "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/databrickslabs/dbx/blob/v${version}/CHANGELOG.md";
     license = licenses.databricks-dbx;
     maintainers = with maintainers; [ GuillaumeDesforges ];
   };

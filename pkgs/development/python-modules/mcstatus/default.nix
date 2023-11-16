@@ -1,16 +1,5 @@
-{
-  lib,
-  asyncio-dgram,
-  buildPythonPackage,
-  click,
-  dnspython,
-  fetchFromGitHub,
-  mock,
-  poetry-core,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, asyncio-dgram, buildPythonPackage, click, dnspython, fetchFromGitHub
+, mock, poetry-core, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mcstatus";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    asyncio-dgram
-    click
-    dnspython
-  ];
+  propagatedBuildInputs = [ asyncio-dgram click dnspython ];
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

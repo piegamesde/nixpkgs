@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  zlib,
-  netcdf,
-  nifticlib,
-  hdf5,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, zlib, netcdf, nifticlib, hdf5 }:
 
 stdenv.mkDerivation rec {
   pname = "libminc";
@@ -18,7 +9,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     inherit owner;
     repo = pname;
-    rev = "aa08255f0856e70fb001c5f9ee1f4e5a8c12d47d"; # new release, but no git tag
+    rev =
+      "aa08255f0856e70fb001c5f9ee1f4e5a8c12d47d"; # new release, but no git tag
     sha256 = "XMTO6/HkyrrQ0s5DzJLCmmWheye2DGMnpDbcGdP6J+A=";
   };
 
@@ -27,14 +19,8 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    zlib
-    nifticlib
-  ];
-  propagatedBuildInputs = [
-    netcdf
-    hdf5
-  ];
+  buildInputs = [ zlib nifticlib ];
+  propagatedBuildInputs = [ netcdf hdf5 ];
 
   cmakeFlags = [
     "-DLIBMINC_MINC1_SUPPORT=ON"

@@ -1,29 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  buildPythonPackage,
-  pkg-config,
-  glib,
-  gobject-introspection,
-  pycairo,
-  cairo,
-  ncurses,
-  meson,
-  ninja,
-  isPy3k,
-  gnome,
-  python,
-}:
+{ lib, stdenv, fetchurl, buildPythonPackage, pkg-config, glib
+, gobject-introspection, pycairo, cairo, ncurses, meson, ninja, isPy3k, gnome
+, python }:
 
 buildPythonPackage rec {
   pname = "pygobject";
   version = "3.44.1";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   disabled = !isPy3k;
 
@@ -38,32 +21,21 @@ buildPythonPackage rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gobject-introspection
+  nativeBuildInputs = [ pkg-config meson ninja gobject-introspection ];
+
+  buildInputs = [
+    # # .so files link to this
+    glib
+  ] ++ lib.optionals stdenv.isDarwin [ ncurses ];
+
+  propagatedBuildInputs = [ pycairo cairo ];
+
+  mesonFlags = [
+    # This is only used for figuring out what version of Python is in
+    # use, and related stuff like figuring out what the install prefix
+    # should be, but it does need to be able to execute Python code.
+    "-Dpython=${python.pythonForBuild.interpreter}"
   ];
-
-  buildInputs =
-    [
-      # # .so files link to this
-      glib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ ncurses ];
-
-  propagatedBuildInputs = [
-    pycairo
-    cairo
-  ];
-
-  mesonFlags =
-    [
-      # This is only used for figuring out what version of Python is in
-      # use, and related stuff like figuring out what the install prefix
-      # should be, but it does need to be able to execute Python code.
-      "-Dpython=${python.pythonForBuild.interpreter}"
-    ];
 
   passthru = {
     updateScript = gnome.updateScript {

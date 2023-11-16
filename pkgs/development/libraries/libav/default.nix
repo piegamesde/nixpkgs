@@ -1,59 +1,25 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  yasm,
-  bzip2,
-  zlib,
-  perl,
-  bash,
-  mp3Support ? true,
-  lame ? null,
-  speexSupport ? true,
-  speex ? null,
-  theoraSupport ? true,
-  libtheora ? null,
-  vorbisSupport ? true,
-  libvorbis ? null,
-  vpxSupport ? true,
-  libvpx ? null,
-  x264Support ? false,
-  x264 ? null,
-  xvidSupport ? true,
-  xvidcore ? null,
-  faacSupport ? false,
-  faac ? null,
-  vaapiSupport ? true,
-  libva ? null,
-  vdpauSupport ? true,
-  libvdpau ? null,
-  freetypeSupport ? true,
-  freetype ? null # it's small and almost everywhere
-  ,
-  SDL, # only for avplay in $bin, adds nontrivial closure to it
-  enableGPL ? true # ToDo: some additional default stuff may need GPL
-  ,
-  enableUnfree ? faacSupport,
-}:
+{ lib, stdenv, fetchurl, pkg-config, yasm, bzip2, zlib, perl, bash
+, mp3Support ? true, lame ? null, speexSupport ? true, speex ? null
+, theoraSupport ? true, libtheora ? null, vorbisSupport ? true, libvorbis ? null
+, vpxSupport ? true, libvpx ? null, x264Support ? false, x264 ? null
+, xvidSupport ? true, xvidcore ? null, faacSupport ? false, faac ? null
+, vaapiSupport ? true, libva ? null, vdpauSupport ? true, libvdpau ? null
+, freetypeSupport ? true, freetype ? null # it's small and almost everywhere
+, SDL # only for avplay in $bin, adds nontrivial closure to it
+, enableGPL ? true # ToDo: some additional default stuff may need GPL
+, enableUnfree ? faacSupport }:
 
 assert faacSupport -> enableUnfree;
 
 let
-  inherit (lib)
-    optional
-    optionals
-    hasPrefix
-    enableFeature
-  ;
-in
+  inherit (lib) optional optionals hasPrefix enableFeature;
 
-/* ToDo:
-    - more deps, inspiration: https://packages.ubuntu.com/raring/libav-tools
-    - maybe do some more splitting into outputs
-*/
+  /* ToDo:
+      - more deps, inspiration: https://packages.ubuntu.com/raring/libav-tools
+      - maybe do some more splitting into outputs
+  */
 
-let
+in let
   result = {
     # e.g. https://libav.org/releases/libav-11.11.tar.xz.sha1
     libav_0_8 = libavFun "0.8.21" "d858f65128dad0bac1a8c3a51e5cbb27a7c79b3f";
@@ -61,8 +27,7 @@ let
     libav_12 = libavFun "12.3" "386c18c8b857f23dfcf456ce40370716130211d9";
   };
 
-  libavFun =
-    version: sha1:
+  libavFun = version: sha1:
     stdenv.mkDerivation rec {
       pname = "libav";
       inherit version;
@@ -72,10 +37,10 @@ let
         inherit sha1; # upstream directly provides sha1 of releases over https
       };
 
-      patches =
-        [ ]
-        ++ optional (vpxSupport && hasPrefix "0.8." version) ./vpxenc-0.8.17-libvpx-1.5.patch
-        ++ optional (vpxSupport && hasPrefix "12." version) ./vpx-12.3-libvpx-1.8.patch;
+      patches = [ ] ++ optional (vpxSupport && hasPrefix "0.8." version)
+        ./vpxenc-0.8.17-libvpx-1.5.patch
+        ++ optional (vpxSupport && hasPrefix "12." version)
+        ./vpx-12.3-libvpx-1.8.patch;
 
       postPatch = ''
         patchShebangs .
@@ -84,8 +49,7 @@ let
       '';
 
       configurePlatforms = [ ];
-      configureFlags =
-        assert lib.all (x: x != null) buildInputs;
+      configureFlags = assert lib.all (x: x != null) buildInputs;
         [
           "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
           "--target_os=${stdenv.hostPlatform.parsed.kernel.name}"
@@ -110,53 +74,28 @@ let
           (enableFeature vaapiSupport "vaapi")
           (enableFeature vdpauSupport "vdpau")
           (enableFeature freetypeSupport "libfreetype")
-        ]
-        ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        ] ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
           "--cross-prefix=${stdenv.cc.targetPrefix}"
           "--enable-cross-compile"
         ];
 
-      nativeBuildInputs = [
-        pkg-config
-        perl
-      ];
-      buildInputs =
-        [
-          lame
-          yasm
-          zlib
-          bzip2
-          SDL
-          bash
-        ]
+      nativeBuildInputs = [ pkg-config perl ];
+      buildInputs = [ lame yasm zlib bzip2 SDL bash ]
         ++ [ perl ] # for install-man target
-        ++ optional mp3Support lame
-        ++ optional speexSupport speex
-        ++ optional theoraSupport libtheora
-        ++ optional vorbisSupport libvorbis
-        ++ optional vpxSupport libvpx
-        ++ optional x264Support x264
-        ++ optional xvidSupport xvidcore
-        ++ optional faacSupport faac
-        ++ optional vaapiSupport libva
-        ++ optional vdpauSupport libvdpau
+        ++ optional mp3Support lame ++ optional speexSupport speex
+        ++ optional theoraSupport libtheora ++ optional vorbisSupport libvorbis
+        ++ optional vpxSupport libvpx ++ optional x264Support x264
+        ++ optional xvidSupport xvidcore ++ optional faacSupport faac
+        ++ optional vaapiSupport libva ++ optional vdpauSupport libvdpau
         ++ optional freetypeSupport freetype;
 
       enableParallelBuilding = true;
 
-      outputs = [
-        "bin"
-        "dev"
-        "out"
-      ];
+      outputs = [ "bin" "dev" "out" ];
       setOutputFlags = false;
 
       # alltools to build smaller tools, incl. aviocat, ismindex, qt-faststart, etc.
-      buildFlags = [
-        "all"
-        "alltools"
-        "install-man"
-      ];
+      buildFlags = [ "all" "alltools" "install-man" ];
 
       postInstall = ''
         moveToOutput bin "$bin"
@@ -170,15 +109,13 @@ let
       doInstallCheck = false; # fails randomly
       installCheckTarget = "check"; # tests need to be run *after* installation
 
-      passthru = {
-        inherit vdpauSupport;
-      };
+      passthru = { inherit vdpauSupport; };
 
       meta = with lib; {
         homepage = "https://libav.org/";
-        description = "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)";
-        license =
-          with licenses;
+        description =
+          "A complete, cross-platform solution to record, convert and stream audio and video (fork of ffmpeg)";
+        license = with licenses;
           if enableUnfree then
             unfree # ToDo: redistributable or not?
           else if enableGPL then
@@ -191,12 +128,11 @@ let
           ++ lib.optionals (lib.versionOlder version "12.3") [
             "CVE-2018-5684"
             "CVE-2018-5766"
-          ]
-          ++ lib.optionals (lib.versionOlder version "12.4") [
+          ] ++ lib.optionals (lib.versionOlder version "12.4") [
             "CVE-2019-9717"
             "CVE-2019-9720"
           ];
       };
     }; # libavFun
-in
-result
+
+in result

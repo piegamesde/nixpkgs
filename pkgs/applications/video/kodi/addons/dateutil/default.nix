@@ -1,10 +1,4 @@
-{
-  lib,
-  buildKodiAddon,
-  fetchzip,
-  addonUpdateScript,
-  six,
-}:
+{ lib, buildKodiAddon, fetchzip, addonUpdateScript, six }:
 
 buildKodiAddon rec {
   pname = "dateutil";
@@ -12,7 +6,8 @@ buildKodiAddon rec {
   version = "2.8.2";
 
   src = fetchzip {
-    url = "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
+    url =
+      "https://mirrors.kodi.tv/addons/nexus/${namespace}/${namespace}-${version}.zip";
     sha256 = "sha256-iQnyS0GjYcPbnBDUxmMrmDxHOA3K8RbTVke/HF4d5u4=";
   };
 
@@ -26,10 +21,7 @@ buildKodiAddon rec {
   meta = with lib; {
     homepage = "https://dateutil.readthedocs.io/en/stable/";
     description = "Extensions to the standard Python datetime module";
-    license = with licenses; [
-      asl20
-      bsd3
-    ];
+    license = with licenses; [ asl20 bsd3 ];
     maintainers = teams.kodi.members;
   };
 }

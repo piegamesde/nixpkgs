@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  perl,
-  makeWrapper,
-}:
+{ fetchurl, lib, stdenv, perl, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "sloccount";
@@ -37,10 +31,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags = [ "PREFIX=$(out)" "CC=${stdenv.cc.targetPrefix}cc" ];
 
   doCheck = true;
   checkPhase = ''HOME="$TMPDIR" PATH="$PWD:$PATH" make test'';
@@ -59,7 +50,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Set of tools for counting physical Source Lines of Code (SLOC)";
+    description =
+      "Set of tools for counting physical Source Lines of Code (SLOC)";
 
     longDescription = ''
       This is the home page of "SLOCCount", a set of tools for

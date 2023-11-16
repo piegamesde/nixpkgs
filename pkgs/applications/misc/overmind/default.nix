@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  tmux,
-  which,
-  makeWrapper,
-}:
+{ lib, buildGoModule, fetchFromGitHub, tmux, which, makeWrapper }:
 
 buildGoModule rec {
   pname = "overmind";
@@ -15,10 +8,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram "$out/bin/overmind" --prefix PATH : "${
-      lib.makeBinPath [
-        tmux
-        which
-      ]
+      lib.makeBinPath [ tmux which ]
     }"
   '';
 

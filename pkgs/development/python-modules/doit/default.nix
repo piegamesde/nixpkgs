@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchPypi,
-  buildPythonPackage,
-  importlib-metadata,
-  isPy3k,
-  mock,
-  pytestCheckHook,
-  cloudpickle,
-  pyinotify,
-  macfsevents,
-  toml,
-  doit-py,
-  pyflakes,
-  configclass,
-  mergedict,
-}:
+{ lib, stdenv, fetchPypi, buildPythonPackage, importlib-metadata, isPy3k, mock
+, pytestCheckHook, cloudpickle, pyinotify, macfsevents, toml, doit-py, pyflakes
+, configclass, mergedict }:
 
 let
   doit = buildPythonPackage rec {
@@ -29,20 +14,12 @@ let
       hash = "sha256-cdB8zJUUyyL+WdmJmVd2ZeqrV+FvZE0EM2rgtLriNLw=";
     };
 
-    propagatedBuildInputs = [
-      cloudpickle
-      importlib-metadata
-      toml
-    ] ++ lib.optional stdenv.isLinux pyinotify ++ lib.optional stdenv.isDarwin macfsevents;
+    propagatedBuildInputs = [ cloudpickle importlib-metadata toml ]
+      ++ lib.optional stdenv.isLinux pyinotify
+      ++ lib.optional stdenv.isDarwin macfsevents;
 
-    nativeCheckInputs = [
-      configclass
-      doit-py
-      mergedict
-      mock
-      pyflakes
-      pytestCheckHook
-    ];
+    nativeCheckInputs =
+      [ configclass doit-py mergedict mock pyflakes pytestCheckHook ];
 
     # escape infinite recursion with doit-py
     doCheck = false;
@@ -67,6 +44,6 @@ let
       '';
       maintainers = with maintainers; [ pSub ];
     };
+
   };
-in
-doit
+in doit

@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 with lib;
 let
   cfg = config.virtualisation.digitalOcean;
@@ -15,13 +10,13 @@ let
       ];
     }
   '';
-in
-{
+in {
   options.virtualisation.digitalOcean.rebuildFromUserData = mkOption {
     type = types.bool;
     default = true;
     example = true;
-    description = lib.mdDoc "Whether to reconfigure the system from Digital Ocean user data";
+    description = lib.mdDoc
+      "Whether to reconfigure the system from Digital Ocean user data";
   };
   options.virtualisation.digitalOcean.defaultConfigFile = mkOption {
     type = types.path;
@@ -39,14 +34,12 @@ in
 
   config = {
     systemd.services.digitalocean-init = mkIf cfg.rebuildFromUserData {
-      description = "Reconfigure the system from Digital Ocean userdata on startup";
+      description =
+        "Reconfigure the system from Digital Ocean userdata on startup";
       wantedBy = [ "network-online.target" ];
       unitConfig = {
         ConditionPathExists = "!/etc/nixos/do-userdata.nix";
-        After = [
-          "digitalocean-metadata.service"
-          "network-online.target"
-        ];
+        After = [ "digitalocean-metadata.service" "network-online.target" ];
         Requires = [ "digitalocean-metadata.service" ];
         X-StopOnRemoval = false;
       };
@@ -107,8 +100,5 @@ in
       '';
     };
   };
-  meta.maintainers = with maintainers; [
-    arianvp
-    eamsden
-  ];
+  meta.maintainers = with maintainers; [ arianvp eamsden ];
 }

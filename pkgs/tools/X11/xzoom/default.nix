@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libX11,
-  libXext,
-  libXt,
-  imake,
-  gccmakedep,
-}:
+{ lib, stdenv, fetchurl, libX11, libXext, libXt, imake, gccmakedep }:
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -22,30 +13,18 @@ stdenv.mkDerivation rec {
   };
   patches = [
     (fetchurl {
-      url = "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patch}.diff.gz";
+      url =
+        "http://http.debian.net/debian/pool/main/x/xzoom/xzoom_${version}-${patch}.diff.gz";
       sha256 = "0zhc06whbvaz987bzzzi2bz6h9jp6rv812qs7b71drivvd820qbh";
     })
   ];
 
-  nativeBuildInputs = [
-    imake
-    gccmakedep
-  ];
-  buildInputs = [
-    libX11
-    libXext
-    libXt
-  ];
+  nativeBuildInputs = [ imake gccmakedep ];
+  buildInputs = [ libX11 libXext libXt ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-    "BINDIR=$(out)/bin"
-    "MANPATH=$(out)/share/man"
-  ];
-  installTargets = [
-    "install"
-    "install.man"
-  ];
+  makeFlags =
+    [ "PREFIX=$(out)" "BINDIR=$(out)/bin" "MANPATH=$(out)/share/man" ];
+  installTargets = [ "install" "install.man" ];
 
   meta = {
     description = "An X11 screen zoom tool";

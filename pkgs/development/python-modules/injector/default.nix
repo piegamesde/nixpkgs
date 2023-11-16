@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchPypi, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "injector";

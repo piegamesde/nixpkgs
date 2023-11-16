@@ -1,8 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-}:
+{ lib, python3Packages, fetchPypi }:
 
 python3Packages.buildPythonApplication rec {
   pname = "backblaze-b2";
@@ -50,11 +46,10 @@ python3Packages.buildPythonApplication rec {
     "test_integration"
   ];
 
-  disabledTestPaths =
-    [
-      # requires network
-      "test/integration/test_b2_command_line.py"
-    ];
+  disabledTestPaths = [
+    # requires network
+    "test/integration/test_b2_command_line.py"
+  ];
 
   postInstall = ''
     mv "$out/bin/b2" "$out/bin/backblaze-b2"
@@ -66,13 +61,10 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Command-line tool for accessing the Backblaze B2 storage service";
+    description =
+      "Command-line tool for accessing the Backblaze B2 storage service";
     homepage = "https://github.com/Backblaze/B2_Command_Line_Tool";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      hrdinka
-      kevincox
-      tomhoule
-    ];
+    maintainers = with maintainers; [ hrdinka kevincox tomhoule ];
   };
 }

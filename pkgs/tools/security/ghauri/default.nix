@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "ghauri";
@@ -29,7 +25,8 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "ghauri" ];
 
   meta = with lib; {
-    description = "Tool for detecting and exploiting SQL injection security flaws";
+    description =
+      "Tool for detecting and exploiting SQL injection security flaws";
     homepage = "https://github.com/r0oth3x49/ghauri";
     changelog = "https://github.com/r0oth3x49/ghauri/releases/tag/${version}";
     license = licenses.mit;

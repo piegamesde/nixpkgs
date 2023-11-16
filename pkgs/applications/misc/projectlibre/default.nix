@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  ant,
-  jdk,
-  makeWrapper,
-  jre,
-  coreutils,
-  which,
-}:
+{ lib, stdenv, fetchgit, ant, jdk, makeWrapper, jre, coreutils, which }:
 
 stdenv.mkDerivation rec {
   pname = "projectlibre";
@@ -16,15 +6,13 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://git.code.sf.net/p/projectlibre/code";
-    rev = "0c939507cc63e9eaeb855437189cdec79e9386c2"; # version 1.7.0 was not tagged
+    rev =
+      "0c939507cc63e9eaeb855437189cdec79e9386c2"; # version 1.7.0 was not tagged
     sha256 = "0vy5vgbp45ai957gaby2dj1hvmbxfdlfnwcanwqm9f8q16qipdbq";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    ant
-    jdk
-  ];
+  buildInputs = [ ant jdk ];
   buildPhase = ''
     export ANT_OPTS=-Dbuild.sysclasspath=ignore
     ${ant}/bin/ant -f openproj_build/build.xml

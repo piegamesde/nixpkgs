@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  nodePackages,
-}:
+{ lib, fetchFromGitHub, nodePackages }:
 
 with lib;
 
@@ -11,8 +7,7 @@ let
     generated = ./package.nix;
     self = np;
   };
-in
-nodePackages.buildNodePackage rec {
+in nodePackages.buildNodePackage rec {
   pname = "ripple-data-api";
   version = "unstable-2015-03-26";
 

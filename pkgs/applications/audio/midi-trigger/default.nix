@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  lv2,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, lv2 }:
 
 stdenv.mkDerivation rec {
   pname = "midi-trigger";
@@ -20,10 +14,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ lv2 ];
 
-  makeFlags = [
-    "CXX=cc"
-    "BUILD_DIR=."
-  ];
+  makeFlags = [ "CXX=cc" "BUILD_DIR=." ];
 
   installPhase = ''
     mkdir -p "$out/lib/lv2"
@@ -32,7 +23,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/unclechu/MIDI-Trigger";
-    description = "LV2 plugin which generates MIDI notes by detected audio signal peaks";
+    description =
+      "LV2 plugin which generates MIDI notes by detected audio signal peaks";
     maintainers = with maintainers; [ unclechu ];
     license = licenses.gpl3Only;
     platforms = platforms.unix;

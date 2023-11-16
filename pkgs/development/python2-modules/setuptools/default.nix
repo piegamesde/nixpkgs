@@ -1,13 +1,5 @@
-{
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  bootstrapped-pip,
-  lib,
-  pipInstallHook,
-  setuptoolsBuildHook,
-}:
+{ stdenv, buildPythonPackage, fetchFromGitHub, python, bootstrapped-pip, lib
+, pipInstallHook, setuptoolsBuildHook }:
 
 let
   pname = "setuptools";
@@ -42,8 +34,7 @@ let
       mv dist/${name} $out
     '';
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   inherit pname version;
   # Because of bootstrapping we don't use the setuptoolsBuildHook that comes with format="setuptools" directly.
   # Instead, we override it to remove setuptools to avoid a circular dependency.
@@ -76,10 +67,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Utilities to facilitate the installation of Python packages";
     homepage = "https://pypi.python.org/pypi/setuptools";
-    license = with licenses; [
-      psfl
-      zpl20
-    ];
+    license = with licenses; [ psfl zpl20 ];
     platforms = python.meta.platforms;
     priority = 10;
   };

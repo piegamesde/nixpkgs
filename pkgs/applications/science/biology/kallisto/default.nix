@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  cmake,
-  hdf5,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, cmake, hdf5, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "kallisto";
@@ -19,15 +11,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-r0cdR0jTRa1wu/LDKW6NdxI3XaKj6wcIVbIlct0fFvI=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    cmake
-  ];
+  nativeBuildInputs = [ autoconf cmake ];
 
-  buildInputs = [
-    hdf5
-    zlib
-  ];
+  buildInputs = [ hdf5 zlib ];
 
   cmakeFlags = [ "-DUSE_HDF5=ON" ];
 
@@ -35,7 +21,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   meta = with lib; {
-    description = "Program for quantifying abundances of transcripts from RNA-Seq data";
+    description =
+      "Program for quantifying abundances of transcripts from RNA-Seq data";
     homepage = "https://pachterlab.github.io/kallisto";
     license = licenses.bsd2;
     platforms = platforms.linux;

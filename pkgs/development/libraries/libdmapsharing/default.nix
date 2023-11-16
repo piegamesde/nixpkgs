@@ -1,34 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  autoconf,
-  automake,
-  libtool,
-  which,
-  pkg-config,
-  python3,
-  vala,
-  avahi,
-  gdk-pixbuf,
-  gst_all_1,
-  glib,
-  gtk-doc,
-  docbook-xsl-nons,
-  docbook_xml_dtd_43,
-  gobject-introspection,
-  libsoup_3,
-}:
+{ stdenv, lib, fetchFromGitLab, autoconf, automake, libtool, which, pkg-config
+, python3, vala, avahi, gdk-pixbuf, gst_all_1, glib, gtk-doc, docbook-xsl-nons
+, docbook_xml_dtd_43, gobject-introspection, libsoup_3 }:
 
 stdenv.mkDerivation rec {
   pname = "libdmapsharing";
   version = "3.9.12";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
   outputBin = "dev";
 
   src = fetchFromGitLab {
@@ -53,17 +31,10 @@ stdenv.mkDerivation rec {
     docbook_xml_dtd_43
   ];
 
-  buildInputs = [
-    avahi
-    gdk-pixbuf
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-  ];
+  buildInputs =
+    [ avahi gdk-pixbuf gst_all_1.gstreamer gst_all_1.gst-plugins-base ];
 
-  propagatedBuildInputs = [
-    glib
-    libsoup_3
-  ];
+  propagatedBuildInputs = [ glib libsoup_3 ];
 
   configureFlags = [
     "--enable-gtk-doc"

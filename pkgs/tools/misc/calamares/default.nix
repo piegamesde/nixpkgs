@@ -1,32 +1,7 @@
-{
-  lib,
-  fetchurl,
-  boost,
-  cmake,
-  extra-cmake-modules,
-  kparts,
-  kpmcore,
-  kirigami2,
-  kservice,
-  libatasmart,
-  libxcb,
-  yaml-cpp,
-  libpwquality,
-  parted,
-  polkit-qt,
-  python,
-  qtbase,
-  qtquickcontrols,
-  qtsvg,
-  qttools,
-  qtwebengine,
-  util-linux,
-  tzdata,
-  ckbcomp,
-  xkeyboard_config,
-  mkDerivation,
-  nixos-extensions ? false,
-}:
+{ lib, fetchurl, boost, cmake, extra-cmake-modules, kparts, kpmcore, kirigami2
+, kservice, libatasmart, libxcb, yaml-cpp, libpwquality, parted, polkit-qt
+, python, qtbase, qtquickcontrols, qtsvg, qttools, qtwebengine, util-linux
+, tzdata, ckbcomp, xkeyboard_config, mkDerivation, nixos-extensions ? false }:
 
 mkDerivation rec {
   pname = "calamares";
@@ -34,7 +9,8 @@ mkDerivation rec {
 
   # release including submodule
   src = fetchurl {
-    url = "https://github.com/calamares/calamares/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/calamares/calamares/releases/download/v${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-oPvOwqQ4aTdT/BdCIDVhGa1624orGcMXUYqhywJdbdA=";
   };
 
@@ -63,10 +39,7 @@ mkDerivation rec {
     ./supportedlocale.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
   buildInputs = [
     boost
     kparts.dev
@@ -132,15 +105,8 @@ mkDerivation rec {
   meta = with lib; {
     description = "Distribution-independent installer framework";
     homepage = "https://calamares.io/";
-    license = with licenses; [
-      gpl3Plus
-      bsd2
-      cc0
-    ];
-    maintainers = with maintainers; [
-      manveru
-      vlinkz
-    ];
+    license = with licenses; [ gpl3Plus bsd2 cc0 ];
+    maintainers = with maintainers; [ manveru vlinkz ];
     platforms = platforms.linux;
   };
 }

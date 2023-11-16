@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  enableAppletSymlinks ? true,
-}:
+{ lib, fetchFromGitHub, rustPlatform, enableAppletSymlinks ? true, }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rsbkb";

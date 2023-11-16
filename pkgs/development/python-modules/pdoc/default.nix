@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  setuptools,
-  jinja2,
-  pygments,
-  markupsafe,
-  astunparse,
-  pytestCheckHook,
-  hypothesis,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, setuptools
+, jinja2, pygments, markupsafe, astunparse, pytestCheckHook, hypothesis }:
 
 buildPythonPackage rec {
   pname = "pdoc";
@@ -30,22 +18,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    jinja2
-    pygments
-    markupsafe
-  ] ++ lib.optional (pythonOlder "3.9") astunparse;
+  propagatedBuildInputs = [ jinja2 pygments markupsafe ]
+    ++ lib.optional (pythonOlder "3.9") astunparse;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
+  nativeCheckInputs = [ pytestCheckHook hypothesis ];
+  disabledTestPaths = [
+    # "test_snapshots" tries to match generated output against stored snapshots.
+    # They are highly sensitive dep versions, which we unlike upstream do not pin.
+    "test/test_snapshot.py"
   ];
-  disabledTestPaths =
-    [
-      # "test_snapshots" tries to match generated output against stored snapshots.
-      # They are highly sensitive dep versions, which we unlike upstream do not pin.
-      "test/test_snapshot.py"
-    ];
 
   pytestFlagsArray = [
     ''-m "not slow"'' # skip tests marked slow
@@ -56,7 +37,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pdoc" ];
 
   meta = with lib; {
-    changelog = "https://github.com/mitmproxy/pdoc/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mitmproxy/pdoc/blob/${src.rev}/CHANGELOG.md";
     homepage = "https://pdoc.dev/";
     description = "API Documentation for Python Projects";
     license = licenses.unlicense;

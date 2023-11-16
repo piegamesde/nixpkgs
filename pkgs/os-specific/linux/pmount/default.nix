@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  intltool,
-  ntfs3g,
-  util-linux,
-  mediaDir ? "/media/",
-  lockDir ? "/var/lock/pmount",
-  whiteList ? "/etc/pmount.allow",
-}:
+{ lib, stdenv, fetchurl, intltool, ntfs3g, util-linux, mediaDir ? "/media/"
+, lockDir ? "/var/lock/pmount", whiteList ? "/etc/pmount.allow" }:
 
 # constraint mention in the configure.ac
 assert lib.hasSuffix "/" mediaDir;
@@ -22,10 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "db38fc290b710e8e9e9d442da2fb627d41e13b3ee80326c15cc2595ba00ea036";
   };
 
-  nativeBuildInputs = [
-    intltool
-    util-linux
-  ];
+  nativeBuildInputs = [ intltool util-linux ];
   buildInputs = [ util-linux ];
 
   configureFlags = [
@@ -44,7 +32,8 @@ stdenv.mkDerivation rec {
     substituteInPlace ./src/Makefile --replace '-o root -g root -m 4755 ' '-m 755 '
   '';
 
-  doCheck = false; # fails 1 out of 1 tests with "Error: could not open fstab-type file: No such file or directory"
+  doCheck =
+    false; # fails 1 out of 1 tests with "Error: could not open fstab-type file: No such file or directory"
 
   meta = {
     homepage = "https://bazaar.launchpad.net/~fourmond/pmount/main/files";

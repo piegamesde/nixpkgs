@@ -1,17 +1,5 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  patchelf,
-  cdrkit,
-  kernel,
-  which,
-  makeWrapper,
-  zlib,
-  xorg,
-  dbus,
-  virtualbox,
-}:
+{ stdenv, fetchurl, lib, patchelf, cdrkit, kernel, which, makeWrapper, zlib
+, xorg, dbus, virtualbox }:
 
 let
   version = virtualbox.version;
@@ -38,26 +26,26 @@ let
       pkg = xorg.libXrandr;
     }
   ];
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   name = "VirtualBox-GuestAdditions-${version}-${kernel.version}";
 
   src = fetchurl {
-    url = "http://download.virtualbox.org/virtualbox/${version}/VBoxGuestAdditions_${version}.iso";
+    url =
+      "http://download.virtualbox.org/virtualbox/${version}/VBoxGuestAdditions_${version}.iso";
     sha256 = "8d73e2361afbf696e6128ffa5e96d9f6a78ff32cb2cb54c727a5be7992be0b31";
   };
 
   KERN_DIR = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  KERN_INCL = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/source/include";
+  KERN_INCL =
+    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/source/include";
 
   hardeningDisable = [ "pic" ];
 
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration";
+  env.NIX_CFLAGS_COMPILE =
+    "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration";
 
-  nativeBuildInputs = [
-    patchelf
-    makeWrapper
-  ];
+  nativeBuildInputs = [ patchelf makeWrapper ];
   buildInputs = [ cdrkit ] ++ kernel.moduleBuildDependencies;
 
   prePatch = ''
@@ -65,11 +53,7 @@ stdenv.mkDerivation rec {
       --replace "<ttm/" "<drm/ttm/"
   '';
 
-  patchFlags = [
-    "-p1"
-    "-d"
-    "src/vboxguest-${version}"
-  ];
+  patchFlags = [ "-p1" "-d" "src/vboxguest-${version}" ];
 
   unpackPhase = ''
     isoinfo -J -i $src -x /VBoxLinuxAdditions.run > ./VBoxLinuxAdditions.run
@@ -80,7 +64,9 @@ stdenv.mkDerivation rec {
 
     # Unpack files
     cd install
-    tar xfvj VBoxGuestAdditions-${if stdenv.hostPlatform.is32bit then "x86" else "amd64"}.tar.bz2
+    tar xfvj VBoxGuestAdditions-${
+      if stdenv.hostPlatform.is32bit then "x86" else "amd64"
+    }.tar.bz2
   '';
 
   buildPhase = ''
@@ -176,15 +162,16 @@ stdenv.mkDerivation rec {
   dontStrip = true;
 
   # Patch RUNPATH according to dlopenLibs (see the comment there).
-  postFixup =
-    lib.concatMapStrings
-      (library: ''
-        for i in $(grep -F ${lib.escapeShellArg library.name} -l -r $out/{lib,bin}); do
-          origRpath=$(patchelf --print-rpath "$i")
-          patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ library.pkg ]}" "$i"
-        done
-      '')
-      dlopenLibs;
+  postFixup = lib.concatMapStrings (library: ''
+    for i in $(grep -F ${
+      lib.escapeShellArg library.name
+    } -l -r $out/{lib,bin}); do
+      origRpath=$(patchelf --print-rpath "$i")
+      patchelf --set-rpath "$origRpath:${
+        lib.makeLibraryPath [ library.pkg ]
+      }" "$i"
+    done
+  '') dlopenLibs;
 
   meta = {
     description = "Guest additions for VirtualBox";
@@ -196,10 +183,7 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = "GPL";
     maintainers = [ lib.maintainers.sander ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
     broken = stdenv.hostPlatform.is32bit && (kernel.kernelAtLeast "5.10");
   };
 }

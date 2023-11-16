@@ -1,22 +1,8 @@
-{
-  lib,
-  stdenv,
-  dbus-glib,
-  fetchurl,
-  glib,
-  gnome,
-  libnotify,
-  libtool,
-  libwnck,
-  makeWrapper,
-  pkg-config,
-  gsettings-desktop-schemas,
-}:
+{ lib, stdenv, dbus-glib, fetchurl, glib, gnome, libnotify, libtool, libwnck
+, makeWrapper, pkg-config, gsettings-desktop-schemas }:
 
-let
-  baseURI = "https://launchpad.net/~leolik/+archive/leolik";
-in
-stdenv.mkDerivation rec {
+let baseURI = "https://launchpad.net/~leolik/+archive/leolik";
+in stdenv.mkDerivation rec {
   pname = "notify-osd";
   version = "0.9.35+16.04.20160415";
 
@@ -28,11 +14,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "./autogen.sh --libexecdir=$(out)/bin";
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    libtool
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper libtool ];
   buildInputs = [
     glib
     libwnck

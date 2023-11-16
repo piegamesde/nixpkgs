@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildNimPackage,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, buildNimPackage, fetchFromGitHub }:
 
 buildNimPackage rec {
   pname = "vmath";
@@ -18,10 +13,8 @@ buildNimPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  meta =
-    with lib;
-    src.meta
-    // {
+  meta = with lib;
+    src.meta // {
       description = "Math vector library for graphical things";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

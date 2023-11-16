@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  rpm,
-  cpio,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, rpm, cpio, zlib }:
 
 /* usage: (sorry, its still impure but works!)
 
@@ -34,28 +27,22 @@ stdenv.mkDerivation {
   pname = "cups-gutenprint-binary";
   version = "5.0.1";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://www.openprinting.org/download/printdriver/debian/dists/lsb3.1/main/binary-amd64/gutenprint_5.0.1-1lsb3.1_amd64.deb";
-        sha256 = "0an5gba6r6v54r53s2gj2fjk8fzpl4lrksjas2333528b0k8gbbc";
-      }
-    else
-      throw "TODO"; # get from openprint.com -> drivers -> gutenprint
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://www.openprinting.org/download/printdriver/debian/dists/lsb3.1/main/binary-amd64/gutenprint_5.0.1-1lsb3.1_amd64.deb";
+      sha256 = "0an5gba6r6v54r53s2gj2fjk8fzpl4lrksjas2333528b0k8gbbc";
+    }
+  else
+    throw "TODO"; # get from openprint.com -> drivers -> gutenprint
 
-  buildInputs = [
-    rpm
-    cpio
-  ];
+  buildInputs = [ rpm cpio ];
 
   dontUnpack = true;
   dontInstall = true;
   dontFixup = true;
 
-  libPath = lib.makeLibraryPath [
-    stdenv.cc.cc
-    zlib
-  ];
+  libPath = lib.makeLibraryPath [ stdenv.cc.cc zlib ];
 
   buildPhase = ''
     ar -x $src data.tar.gz

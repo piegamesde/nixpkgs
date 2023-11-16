@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyserial,
-  pyserial-asyncio,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  zigpy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyserial, pyserial-asyncio
+, pytest-asyncio, pytestCheckHook, pythonOlder, zigpy }:
 
 buildPythonPackage rec {
   pname = "zigpy-xbee";
@@ -25,22 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-zSaT9WdA4tR8tJAShSzqL+f/nTLQJbeIZnbSBe1EOks=";
   };
 
-  buildInputs = [
-    pyserial
-    pyserial-asyncio
-    zigpy
-  ];
+  buildInputs = [ pyserial pyserial-asyncio zigpy ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
-  disabledTests =
-    [
-      # https://github.com/zigpy/zigpy-xbee/issues/126
-      "test_form_network"
-    ];
+  disabledTests = [
+    # https://github.com/zigpy/zigpy-xbee/issues/126
+    "test_form_network"
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/zigpy/zigpy-xbee/releases/tag/${version}";

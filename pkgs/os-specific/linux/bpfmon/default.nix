@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libpcap,
-  yascreen,
-}:
+{ lib, stdenv, fetchFromGitHub, libpcap, yascreen }:
 
 stdenv.mkDerivation rec {
   pname = "bpfmon";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EGRxWq94BWceYXunzcOpMQv4g7cMjVCEWMR0ULGN2Jg=";
   };
 
-  buildInputs = [
-    libpcap
-    yascreen
-  ];
+  buildInputs = [ libpcap yascreen ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cython, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "murmurhash";

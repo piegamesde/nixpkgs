@@ -1,12 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  portaudio,
-  testers,
-  catnip,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, portaudio, testers, catnip }:
 
 buildGoModule rec {
   pname = "catnip";
@@ -25,15 +17,9 @@ buildGoModule rec {
 
   buildInputs = [ portaudio ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
-  passthru.tests = {
-    version = testers.testVersion { package = catnip; };
-  };
+  passthru.tests = { version = testers.testVersion { package = catnip; }; };
 
   meta = with lib; {
     description = "Terminal audio visualizer for linux/unix/macOS/windows";

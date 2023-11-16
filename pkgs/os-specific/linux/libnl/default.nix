@@ -1,16 +1,5 @@
-{
-  stdenv,
-  file,
-  lib,
-  fetchFromGitHub,
-  autoreconfHook,
-  bison,
-  flex,
-  pkg-config,
-  pythonSupport ? false,
-  swig ? null,
-  python ? null,
-}:
+{ stdenv, file, lib, fetchFromGitHub, autoreconfHook, bison, flex, pkg-config
+, pythonSupport ? false, swig ? null, python ? null }:
 
 stdenv.mkDerivation rec {
   pname = "libnl";
@@ -23,22 +12,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ty9NdWKWB29MTRfG5OJlSE0mSTN3Wy+sR4KtuExXcB4=";
   };
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-  ] ++ lib.optional pythonSupport "py";
+  outputs = [ "bin" "dev" "out" "man" ] ++ lib.optional pythonSupport "py";
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    flex
-    pkg-config
-    file
-  ] ++ lib.optional pythonSupport swig;
+  nativeBuildInputs = [ autoreconfHook bison flex pkg-config file ]
+    ++ lib.optional pythonSupport swig;
 
   postBuild = lib.optionalString (pythonSupport) ''
     cd python
@@ -50,9 +29,7 @@ stdenv.mkDerivation rec {
     mv "pythonlib/" "$py"
   '';
 
-  passthru = {
-    inherit pythonSupport;
-  };
+  passthru = { inherit pythonSupport; };
 
   meta = with lib; {
     homepage = "http://www.infradead.org/~tgr/libnl/";

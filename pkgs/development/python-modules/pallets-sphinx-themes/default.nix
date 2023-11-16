@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  sphinx,
-  packaging,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, sphinx, packaging }:
 
 buildPythonPackage rec {
   pname = "pallets-sphinx-themes";
@@ -17,10 +11,7 @@ buildPythonPackage rec {
     sha256 = "sha256-u1sHeO0fk11+M5M0yqDcWsMJKBMeAGW+GPOgu1oniok=";
   };
 
-  propagatedBuildInputs = [
-    packaging
-    sphinx
-  ];
+  propagatedBuildInputs = [ packaging sphinx ];
 
   pythonImportsCheck = [ "pallets_sphinx_themes" ];
 

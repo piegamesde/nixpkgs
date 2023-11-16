@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   name = "kamilalisp";
   version = "0.2";
 
   src = fetchurl {
-    url = "https://github.com/kspalaiologos/kamilalisp/releases/download/v${version}o/kamilalisp-${version}.jar";
+    url =
+      "https://github.com/kspalaiologos/kamilalisp/releases/download/v${version}o/kamilalisp-${version}.jar";
     hash = "sha256-NkRkLcJpar9iHEI+OmgpkYwkwVvU1J7izeBdytwIsdU=";
   };
 

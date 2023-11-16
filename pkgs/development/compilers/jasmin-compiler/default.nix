@@ -1,18 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  ocamlPackages,
-  mpfr,
-  ppl,
-}:
+{ stdenv, lib, fetchurl, ocamlPackages, mpfr, ppl }:
 
 stdenv.mkDerivation rec {
   pname = "jasmin-compiler";
   version = "2022.09.3";
 
   src = fetchurl {
-    url = "https://github.com/jasmin-lang/jasmin/releases/download/v${version}/jasmin-compiler-v${version}.tar.bz2";
+    url =
+      "https://github.com/jasmin-lang/jasmin/releases/download/v${version}/jasmin-compiler-v${version}.tar.bz2";
     hash = "sha256-CCLUF3GDeQrWIur1ve19WveNiOR/6kRVWuU7wvmXGGg=";
   };
 
@@ -26,20 +20,8 @@ stdenv.mkDerivation rec {
     camlidl
   ];
 
-  buildInputs =
-    [
-      mpfr
-      ppl
-    ]
-    ++ (
-      with ocamlPackages; [
-        apron
-        batteries
-        menhirLib
-        yojson
-        zarith
-      ]
-    );
+  buildInputs = [ mpfr ppl ]
+    ++ (with ocamlPackages; [ apron batteries menhirLib yojson zarith ]);
 
   installPhase = ''
     runHook preInstall

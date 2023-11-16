@@ -1,17 +1,12 @@
-{
-  callPackage,
-  openssl,
-  python3,
-  enableNpm ? true,
-}:
+{ callPackage, openssl, python3, enableNpm ? true }:
 
 let
   buildNodejs = callPackage ./nodejs.nix {
     inherit openssl;
     python = python3;
   };
-in
-buildNodejs {
+
+in buildNodejs {
   inherit enableNpm;
   version = "20.3.0";
   sha256 = "sha256-G6jUlCPtOnVykGa7PqJkk+6ct9ZWjvlIWX/J70VPdDU=";

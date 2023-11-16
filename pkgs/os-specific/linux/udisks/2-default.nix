@@ -1,42 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  substituteAll,
-  fetchpatch,
-  pkg-config,
-  gnused,
-  autoreconfHook,
-  gtk-doc,
-  acl,
-  systemd,
-  glib,
-  libatasmart,
-  polkit,
-  coreutils,
-  bash,
-  which,
-  expat,
-  libxslt,
-  docbook_xsl,
-  util-linux,
-  mdadm,
-  libgudev,
-  libblockdev,
-  parted,
-  gobject-introspection,
-  docbook_xml_dtd_412,
-  docbook_xml_dtd_43,
-  xfsprogs,
-  f2fs-tools,
-  dosfstools,
-  e2fsprogs,
-  btrfs-progs,
-  exfat,
-  nilfs-utils,
-  ntfs3g,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, substituteAll, fetchpatch, pkg-config, gnused
+, autoreconfHook, gtk-doc, acl, systemd, glib, libatasmart, polkit, coreutils
+, bash, which, expat, libxslt, docbook_xsl, util-linux, mdadm, libgudev
+, libblockdev, parted, gobject-introspection, docbook_xml_dtd_412
+, docbook_xml_dtd_43, xfsprogs, f2fs-tools, dosfstools, e2fsprogs, btrfs-progs
+, exfat, nilfs-utils, ntfs3g, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "udisks";
@@ -49,11 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MYQztzIyp5kh9t1bCIlj08/gaOmZfuu/ZOwo3F+rZiw=";
   };
 
-  outputs = [
-    "out"
-    "man"
-    "dev"
-  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
+  outputs = [ "out" "man" "dev" ]
+    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
 
   patches = [
     (substituteAll {
@@ -75,7 +39,8 @@ stdenv.mkDerivation rec {
         btrfs-progs
         coreutils
         dosfstools
-        e2fsprogs
+        0.0
+        fsprogs
         exfat
         f2fs-tools
         nilfs-utils
@@ -87,7 +52,8 @@ stdenv.mkDerivation rec {
     })
     # Fix crash on exit, remove on upgrade to 2.10.
     (fetchpatch {
-      url = "https://github.com/storaged-project/udisks/commit/6464e3083c27b9e4d97848b9e69e862f265511d5.patch";
+      url =
+        "https://github.com/storaged-project/udisks/commit/6464e3083c27b9e4d97848b9e69e862f265511d5.patch";
       hash = "sha256-XGprXjJLIL8l4P5MRTHV8GOQR1hpaaFiLgexGnO9Lvg=";
     })
   ];
@@ -150,13 +116,15 @@ stdenv.mkDerivation rec {
   passthru.tests.vm = nixosTests.udisks2;
 
   meta = with lib; {
-    description = "A daemon, tools and libraries to access and manipulate disks, storage devices and technologies";
+    description =
+      "A daemon, tools and libraries to access and manipulate disks, storage devices and technologies";
     homepage = "https://www.freedesktop.org/wiki/Software/udisks/";
     license = with licenses; [
       lgpl2Plus
       gpl2Plus
     ]; # lgpl2Plus for the library, gpl2Plus for the tools & daemon
-    maintainers = teams.freedesktop.members ++ (with maintainers; [ johnazoidberg ]);
+    maintainers = teams.freedesktop.members
+      ++ (with maintainers; [ johnazoidberg ]);
     platforms = platforms.linux;
   };
 }

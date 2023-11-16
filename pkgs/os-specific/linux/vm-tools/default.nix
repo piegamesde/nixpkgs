@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  linux,
-}:
+{ lib, stdenv, linux }:
 
 stdenv.mkDerivation {
   pname = "vm-tools";

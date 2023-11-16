@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   clamavUser = "clamav";
@@ -18,38 +13,18 @@ let
     listsAsDuplicateKeys = true;
   };
 
-  clamdConfigFile = pkgs.writeText "clamd.conf" (toKeyValue cfg.daemon.settings);
-  freshclamConfigFile = pkgs.writeText "freshclam.conf" (toKeyValue cfg.updater.settings);
-in
-{
+  clamdConfigFile =
+    pkgs.writeText "clamd.conf" (toKeyValue cfg.daemon.settings);
+  freshclamConfigFile =
+    pkgs.writeText "freshclam.conf" (toKeyValue cfg.updater.settings);
+in {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "clamav"
-        "updater"
-        "config"
-      ]
-      "Use services.clamav.updater.settings instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "clamav"
-        "updater"
-        "extraConfig"
-      ]
-      "Use services.clamav.updater.settings instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "clamav"
-        "daemon"
-        "extraConfig"
-      ]
-      "Use services.clamav.daemon.settings instead."
-    )
+    (mkRemovedOptionModule [ "services" "clamav" "updater" "config" ]
+      "Use services.clamav.updater.settings instead.")
+    (mkRemovedOptionModule [ "services" "clamav" "updater" "extraConfig" ]
+      "Use services.clamav.updater.settings instead.")
+    (mkRemovedOptionModule [ "services" "clamav" "daemon" "extraConfig" ]
+      "Use services.clamav.daemon.settings instead.")
   ];
 
   options = {
@@ -58,16 +33,7 @@ in
         enable = mkEnableOption (lib.mdDoc "ClamAV clamd daemon");
 
         settings = mkOption {
-          type =
-            with types;
-            attrsOf (
-              oneOf [
-                bool
-                int
-                str
-                (listOf str)
-              ]
-            );
+          type = with types; attrsOf (oneOf [ bool int str (listOf str) ]);
           default = { };
           description = lib.mdDoc ''
             ClamAV configuration. Refer to <https://linux.die.net/man/5/clamd.conf>,
@@ -96,16 +62,7 @@ in
         };
 
         settings = mkOption {
-          type =
-            with types;
-            attrsOf (
-              oneOf [
-                bool
-                int
-                str
-                (listOf str)
-              ]
-            );
+          type = with types; attrsOf (oneOf [ bool int str (listOf str) ]);
           default = { };
           description = lib.mdDoc ''
             freshclam configuration. Refer to <https://linux.die.net/man/5/freshclam.conf>,
@@ -126,9 +83,7 @@ in
       home = stateDir;
     };
 
-    users.groups.${clamavGroup} = {
-      gid = config.ids.gids.clamav;
-    };
+    users.groups.${clamavGroup} = { gid = config.ids.gids.clamav; };
 
     services.clamav.daemon.settings = {
       DatabaseDirectory = stateDir;

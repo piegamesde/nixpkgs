@@ -1,10 +1,4 @@
-{
-  lib,
-  git,
-  gnupg1,
-  python3Packages,
-  fetchPypi,
-}:
+{ lib, git, gnupg1, python3Packages, fetchPypi }:
 
 with python3Packages;
 buildPythonApplication rec {
@@ -56,9 +50,6 @@ buildPythonApplication rec {
     description = "Release Notes Manager";
     homepage = "https://docs.openstack.org/reno/latest";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      drewrisinger
-      guillaumekoenig
-    ];
+    maintainers = with maintainers; [ drewrisinger guillaumekoenig ];
   };
 }

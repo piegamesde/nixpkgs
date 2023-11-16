@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  buildPythonPackage,
-  lib,
-}:
+{ fetchFromGitHub, buildPythonPackage, lib }:
 
 buildPythonPackage rec {
   pname = "pa-ringbuffer";

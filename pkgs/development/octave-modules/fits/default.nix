@@ -1,11 +1,4 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl,
-  cfitsio,
-  hdf5,
-  pkg-config,
-}:
+{ buildOctavePackage, lib, fetchurl, cfitsio, hdf5, pkg-config }:
 
 buildOctavePackage rec {
   pname = "fits";
@@ -31,6 +24,7 @@ buildOctavePackage rec {
     homepage = "https://octave.sourceforge.io/fits/index.html";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ KarlJoad ];
-    description = "Functions for reading, and writing FITS (Flexible Image Transport System) files using cfitsio";
+    description =
+      "Functions for reading, and writing FITS (Flexible Image Transport System) files using cfitsio";
   };
 }

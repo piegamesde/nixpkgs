@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hkdf,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchPypi, hkdf, pytest }:
 
 buildPythonPackage rec {
   pname = "spake2";

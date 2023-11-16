@@ -1,28 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  intltool,
-  openssl,
-  expat,
-  libgcrypt,
-}:
+{ lib, stdenv, fetchurl, intltool, openssl, expat, libgcrypt }:
 
 stdenv.mkDerivation rec {
   pname = "ggz-base-libs";
   version = "0.99.5";
 
   src = fetchurl {
-    url = "http://mirrors.ibiblio.org/pub/mirrors/ggzgamingzone/ggz/snapshots/ggz-base-libs-snapshot-${version}.tar.gz";
+    url =
+      "http://mirrors.ibiblio.org/pub/mirrors/ggzgamingzone/ggz/snapshots/ggz-base-libs-snapshot-${version}.tar.gz";
     sha256 = "1cw1vg0fbj36zyggnzidx9cbjwfc1yr4zqmsipxnvns7xa2awbdk";
   };
 
   nativeBuildInputs = [ intltool ];
-  buildInputs = [
-    openssl
-    expat
-    libgcrypt
-  ];
+  buildInputs = [ openssl expat libgcrypt ];
 
   patchPhase = ''
     substituteInPlace configure \

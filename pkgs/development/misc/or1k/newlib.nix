@@ -1,11 +1,4 @@
-{
-  stdenv,
-  texinfo,
-  flex,
-  bison,
-  fetchFromGitHub,
-  crossLibcStdenv,
-  buildPackages,
+{ stdenv, texinfo, flex, bison, fetchFromGitHub, crossLibcStdenv, buildPackages
 }:
 
 crossLibcStdenv.mkDerivation {
@@ -24,10 +17,7 @@ crossLibcStdenv.mkDerivation {
     export CC=cc
   '';
 
-  configurePlatforms = [
-    "build"
-    "target"
-  ];
+  configurePlatforms = [ "build" "target" ];
   configureFlags = [
     "--host=${stdenv.buildPlatform.config}"
 

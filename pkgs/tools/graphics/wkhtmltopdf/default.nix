@@ -1,21 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  qtwebkit,
-  qtsvg,
-  qtxmlpatterns,
-  fontconfig,
-  freetype,
-  libpng,
-  zlib,
-  libjpeg,
-  wrapQtAppsHook,
-  openssl,
-  libX11,
-  libXext,
-  libXrender,
-}:
+{ stdenv, lib, fetchFromGitHub, qtwebkit, qtsvg, qtxmlpatterns, fontconfig
+, freetype, libpng, zlib, libjpeg, wrapQtAppsHook, openssl, libX11, libXext
+, libXrender }:
 
 stdenv.mkDerivation rec {
   version = "0.12.6";

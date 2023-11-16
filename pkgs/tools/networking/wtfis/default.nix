@@ -1,15 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, python3 }:
 
 let
   pname = "wtfis";
   version = "0.6.1";
-in
-python3.pkgs.buildPythonApplication {
+in python3.pkgs.buildPythonApplication {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -19,11 +13,10 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-bHgv5+HoM1hFhpkqml+HxqiMDvKbMqsTH+zYtDrV7Ko=";
   };
 
-  patches =
-    [
-      # TODO: get rid of that newbie patch
-      ./000-pyproject-remove-versions.diff
-    ];
+  patches = [
+    # TODO: get rid of that newbie patch
+    ./000-pyproject-remove-versions.diff
+  ];
 
   format = "pyproject";
 

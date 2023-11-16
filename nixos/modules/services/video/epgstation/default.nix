@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 let
   cfg = config.services.epgstation;
@@ -74,45 +68,22 @@ let
   };
 
   # Deprecate top level options that are redundant.
-  deprecateTopLevelOption =
-    config:
-    lib.mkRenamedOptionModule
-      (
-        [
-          "services"
-          "epgstation"
-        ]
-        ++ config
-      )
-      (
-        [
-          "services"
-          "epgstation"
-          "settings"
-        ]
-        ++ config
-      );
+  deprecateTopLevelOption = config:
+    lib.mkRenamedOptionModule ([ "services" "epgstation" ] ++ config)
+    ([ "services" "epgstation" "settings" ] ++ config);
 
-  removeOption =
-    config: instruction:
-    lib.mkRemovedOptionModule
-      (
-        [
-          "services"
-          "epgstation"
-        ]
-        ++ config
-      )
-      instruction;
-in
-{
+  removeOption = config: instruction:
+    lib.mkRemovedOptionModule ([ "services" "epgstation" ] ++ config)
+    instruction;
+in {
   meta.maintainers = with lib.maintainers; [ midchildan ];
 
   imports = [
     (deprecateTopLevelOption [ "port" ])
     (deprecateTopLevelOption [ "socketioPort" ])
     (deprecateTopLevelOption [ "clientSocketioPort" ])
-    (removeOption [ "basicAuth" ] "Use a TLS-terminated reverse proxy with authentication instead.")
+    (removeOption [ "basicAuth" ]
+      "Use a TLS-terminated reverse proxy with authentication instead.")
   ];
 
   options.services.epgstation = {
@@ -217,7 +188,8 @@ in
         options.clientSocketioPort = lib.mkOption {
           type = lib.types.port;
           default = cfg.settings.socketioPort;
-          defaultText = lib.literalExpression "config.${opt.settings}.socketioPort";
+          defaultText =
+            lib.literalExpression "config.${opt.settings}.socketioPort";
           description = lib.mdDoc ''
             Socket.io port that the web client is going to connect to. This may
             be different from {option}`${opt.settings}.socketioPort` if
@@ -225,11 +197,11 @@ in
           '';
         };
 
-        options.mirakurunPath =
-          with mirakurun;
+        options.mirakurunPath = with mirakurun;
           lib.mkOption {
             type = lib.types.str;
-            default = "http+unix://${lib.replaceStrings [ "/" ] [ "%2F" ] sock}";
+            default =
+              "http+unix://${lib.replaceStrings [ "/" ] [ "%2F" ] sock}";
             defaultText = lib.literalExpression ''
               "http+unix://''${lib.replaceStrings ["/"] ["%2F"] config.${option}}"
             '';
@@ -258,13 +230,11 @@ in
         options.encode = lib.mkOption {
           type = with lib.types; listOf attrs;
           description = lib.mdDoc "Encoding presets for recorded videos.";
-          default = [
-            {
-              name = "H.264";
-              cmd = "%NODE% ${cfg.package}/libexec/enc.js";
-              suffix = ".mp4";
-            }
-          ];
+          default = [{
+            name = "H.264";
+            cmd = "%NODE% ${cfg.package}/libexec/enc.js";
+            suffix = ".mp4";
+          }];
           defaultText = lib.literalExpression ''
             [
               {
@@ -280,15 +250,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = !(lib.hasAttr "readOnlyOnce" cfg.settings);
-        message = ''
-          The option config.${opt.settings}.readOnlyOnce can no longer be used
-          since it's been removed. No replacements are available.
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = !(lib.hasAttr "readOnlyOnce" cfg.settings);
+      message = ''
+        The option config.${opt.settings}.readOnlyOnce can no longer be used
+        since it's been removed. No replacements are available.
+      '';
+    }];
 
     environment.etc = {
       "epgstation/epgUpdaterLogConfig.yml".source = logConfig;
@@ -297,10 +265,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = with cfg.settings; [
-        port
-        socketioPort
-      ];
+      allowedTCPPorts = with cfg.settings; [ port socketioPort ];
     };
 
     users.users.epgstation = {
@@ -329,28 +294,26 @@ in
       # } ];
     };
 
-    services.epgstation.settings =
-      let
-        defaultSettings = {
-          dbtype = lib.mkDefault "mysql";
-          mysql = {
-            socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
-            user = username;
-            password = lib.mkDefault "@dbPassword@";
-            database = cfg.database.name;
-          };
-
-          ffmpeg = lib.mkDefault "${cfg.ffmpeg}/bin/ffmpeg";
-          ffprobe = lib.mkDefault "${cfg.ffmpeg}/bin/ffprobe";
-
-          # for disambiguation with TypeScript files
-          recordedFileExtension = lib.mkDefault ".m2ts";
+    services.epgstation.settings = let
+      defaultSettings = {
+        dbtype = lib.mkDefault "mysql";
+        mysql = {
+          socketPath = lib.mkDefault "/run/mysqld/mysqld.sock";
+          user = username;
+          password = lib.mkDefault "@dbPassword@";
+          database = cfg.database.name;
         };
-      in
-      lib.mkMerge [
-        defaultSettings
-        (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
-      ];
+
+        ffmpeg = lib.mkDefault "${cfg.ffmpeg}/bin/ffmpeg";
+        ffprobe = lib.mkDefault "${cfg.ffmpeg}/bin/ffprobe";
+
+        # for disambiguation with TypeScript files
+        recordedFileExtension = lib.mkDefault ".m2ts";
+      };
+    in lib.mkMerge [
+      defaultSettings
+      (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
+    ];
 
     systemd.tmpfiles.rules = [
       "d '/var/lib/epgstation/key' - ${username} ${groupname} - -"
@@ -368,8 +331,7 @@ in
       inherit description;
 
       wantedBy = [ "multi-user.target" ];
-      after =
-        [ "network.target" ]
+      after = [ "network.target" ]
         ++ lib.optional config.services.mirakurun.enable "mirakurun.service"
         ++ lib.optional config.services.mysql.enable "mysql.service";
 

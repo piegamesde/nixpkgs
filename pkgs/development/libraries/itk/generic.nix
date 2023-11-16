@@ -1,22 +1,7 @@
-{
-  version,
-  rev,
-  sourceSha256,
-}:
+{ version, rev, sourceSha256 }:
 
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  makeWrapper,
-  pkg-config,
-  libX11,
-  libuuid,
-  xz,
-  vtk,
-  Cocoa,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, makeWrapper, pkg-config, libX11, libuuid
+, xz, vtk, Cocoa }:
 
 let
   itkGenericLabelInterpolatorSrc = fetchFromGitHub {
@@ -39,9 +24,8 @@ let
     rev = "bb896868fc6480835495d0da4356d5db009592a6";
     hash = "sha256-MfaIA0xxA/pzUBSwnAevr17iR23Bo5iQO2cSyknS3o4=";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "itk";
   inherit version;
 
@@ -78,16 +62,9 @@ stdenv.mkDerivation {
     "-DModule_GenericLabelInterpolator=ON"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    xz
-    makeWrapper
-  ];
-  buildInputs = [
-    libX11
-    libuuid
-    vtk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  nativeBuildInputs = [ cmake xz makeWrapper ];
+  buildInputs = [ libX11 libuuid vtk ]
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
   # Due to ITKVtkGlue=ON and the additional dependencies needed to configure VTK 9
   # (specifically libGL and libX11 on Linux),
   # it's now seemingly necessary for packages that configure ITK to

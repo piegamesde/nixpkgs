@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pkgs,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, pkgs, six }:
 
 buildPythonPackage rec {
   pname = "ecdsa";
@@ -24,4 +18,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/warner/python-ecdsa";
     license = licenses.mit;
   };
+
 }

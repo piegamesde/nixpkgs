@@ -1,13 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-containers";
   version = "20200427-git";
 
-  parasites = [
-    "cl-containers/with-moptilities"
-    "cl-containers/with-utilities"
-  ];
+  parasites =
+    [ "cl-containers/with-moptilities" "cl-containers/with-utilities" ];
 
   description = "A generic container library for Common Lisp";
 
@@ -18,7 +15,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-containers/2020-04-27/cl-containers-20200427-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-containers/2020-04-27/cl-containers-20200427-git.tgz";
     sha256 = "0llaymnlss0dhwyqgr2s38w1hjb2as1x1nn57qcvdphnm7qs50fy";
   };
 

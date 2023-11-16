@@ -1,20 +1,6 @@
-{
-  lib,
-  mkDerivation,
-  fetchgit,
-  qtbase,
-  cmake,
-  asciidoc,
-  docbook_xsl,
-  json_c,
-  mesa_glu,
-  freeglut,
-  trace-cmd,
-  pkg-config,
-  libtraceevent,
-  libtracefs,
-  freefont_ttf,
-}:
+{ lib, mkDerivation, fetchgit, qtbase, cmake, asciidoc, docbook_xsl, json_c
+, mesa_glu, freeglut, trace-cmd, pkg-config, libtraceevent, libtracefs
+, freefont_ttf }:
 
 mkDerivation rec {
   pname = "kernelshark";
@@ -28,20 +14,10 @@ mkDerivation rec {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
-  buildInputs = [
-    qtbase
-    json_c
-    mesa_glu
-    freeglut
-    libtraceevent
-    libtracefs
-    trace-cmd
-  ];
+  buildInputs =
+    [ qtbase json_c mesa_glu freeglut libtraceevent libtracefs trace-cmd ];
 
   cmakeFlags = [
     "-D_INSTALL_PREFIX=${placeholder "out"}"
@@ -51,7 +27,8 @@ mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "GUI for trace-cmd which is an interface for the Linux kernel ftrace subsystem";
+    description =
+      "GUI for trace-cmd which is an interface for the Linux kernel ftrace subsystem";
     homepage = "https://kernelshark.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;

@@ -1,22 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  meson,
-  ninja,
-  pkg-config,
-  scdoc,
-  systemd,
-}:
+{ lib, stdenv, fetchFromSourcehut, meson, ninja, pkg-config, scdoc, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "poweralertd";
   version = "0.2.0";
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   src = fetchFromSourcehut {
     owner = "~kennylevinsen";
@@ -33,16 +21,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ systemd ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  depsBuildBuild = [
-    scdoc
-    pkg-config
-  ];
+  depsBuildBuild = [ scdoc pkg-config ];
 
   meta = with lib; {
     description = "UPower-powered power alerter";

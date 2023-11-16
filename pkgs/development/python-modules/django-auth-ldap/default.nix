@@ -1,20 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
+{ lib, buildPythonPackage, fetchPypi, isPy27
 
-  # buildtime
-  setuptools-scm,
+# buildtime
+, setuptools-scm
 
-  # runtime
-  django,
-  python-ldap,
+# runtime
+, django, python-ldap
 
-  # tests
-  python,
-  pkgs,
-}:
+# tests
+, python, pkgs }:
 
 buildPythonPackage rec {
   pname = "django-auth-ldap";
@@ -30,10 +23,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    django
-    python-ldap
-  ];
+  propagatedBuildInputs = [ django python-ldap ];
 
   # ValueError: SCHEMADIR is None, ldap schemas are missing.
   doCheck = false;
@@ -48,7 +38,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "django_auth_ldap" ];
 
   meta = with lib; {
-    description = "Django authentication backend that authenticates against an LDAP service";
+    description =
+      "Django authentication backend that authenticates against an LDAP service";
     homepage = "https://github.com/django-auth-ldap/django-auth-ldap";
     license = licenses.bsd2;
     maintainers = with maintainers; [ mmai ];

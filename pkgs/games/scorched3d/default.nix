@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libGLU,
-  libGL,
-  glew,
-  pkg-config,
-  openalSoft,
-  freealut,
-  wxGTK32,
-  libogg,
-  freetype,
-  libvorbis,
-  fftwSinglePrec,
-  SDL,
-  SDL_net,
-  expat,
-  libjpeg,
-  libpng,
-}:
+{ lib, stdenv, fetchurl, libGLU, libGL, glew, pkg-config, openalSoft, freealut
+, wxGTK32, libogg, freetype, libvorbis, fftwSinglePrec, SDL, SDL_net, expat
+, libjpeg, libpng }:
 
 stdenv.mkDerivation rec {
   version = "44";
@@ -51,11 +33,13 @@ stdenv.mkDerivation rec {
   patches = [
     ./file-existence.patch
     (fetchurl {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/games-strategy/scorched3d/files/scorched3d-44-fix-c++14.patch?id=1bbcfc9ae3dfdfcbdd35151cb7b6050776215e4d";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/games-strategy/scorched3d/files/scorched3d-44-fix-c++14.patch?id=1bbcfc9ae3dfdfcbdd35151cb7b6050776215e4d";
       sha256 = "1farmjxbc2wm4scsdbdnvh29fipnb6mp6z85hxz4bx6n9kbc8y7n";
     })
     (fetchurl {
-      url = "https://sources.debian.org/data/main/s/scorched3d/44%2Bdfsg-7/debian/patches/wx3.0-compat.patch";
+      url =
+        "https://sources.debian.org/data/main/s/scorched3d/44%2Bdfsg-7/debian/patches/wx3.0-compat.patch";
       sha256 = "sha256-Y5U5yYNT5iMqhdRaDMFtZ4K7aD+pugFZP0jLh7rdDp8=";
     })
   ];

@@ -1,11 +1,6 @@
-{
-  lib,
-  newScope,
-  wayfirePlugins,
-}:
+{ lib, newScope, wayfirePlugins }:
 
-lib.makeExtensible (
-  self:
+lib.makeExtensible (self:
   with self; {
     inherit wayfirePlugins;
 
@@ -17,12 +12,9 @@ lib.makeExtensible (
 
     wrapWayfireApplication = callPackage ./wrapper.nix { };
 
-    withPlugins =
-      selector:
-      self
-      // {
+    withPlugins = selector:
+      self // {
         wayfire = wrapWayfireApplication wayfire selector;
         wcm = wrapWayfireApplication wcm selector;
       };
-  }
-)
+  })

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   version = "1.7.0";
@@ -30,6 +26,7 @@ buildGoModule rec {
     mainProgram = "drone";
     maintainers = with maintainers; [ techknowlogick ];
     license = licenses.asl20;
-    description = "Command line client for the Drone continuous integration server";
+    description =
+      "Command line client for the Drone continuous integration server";
   };
 }

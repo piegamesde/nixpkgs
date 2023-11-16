@@ -1,31 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libevent,
-  openssl,
-  nixosTests,
-  bind8Stats ? false,
-  checking ? false,
-  ipv6 ? true,
-  mmap ? false,
-  minimalResponses ? true,
-  nsec3 ? true,
-  ratelimit ? false,
-  recvmmsg ? false,
-  rootServer ? false,
-  rrtypes ? false,
-  zoneStats ? false,
+{ lib, stdenv, fetchurl, libevent, openssl, nixosTests, bind8Stats ? false
+, checking ? false, ipv6 ? true, mmap ? false, minimalResponses ? true
+, nsec3 ? true, ratelimit ? false, recvmmsg ? false, rootServer ? false
+, rrtypes ? false, zoneStats ? false
 
-  configFile ? "/etc/nsd/nsd.conf",
-}:
+, configFile ? "/etc/nsd/nsd.conf" }:
 
 stdenv.mkDerivation rec {
   pname = "nsd";
   version = "4.7.0";
 
   src = fetchurl {
-    url = "https://www.nlnetlabs.nl/downloads/${pname}/${pname}-${version}.tar.gz";
+    url =
+      "https://www.nlnetlabs.nl/downloads/${pname}/${pname}-${version}.tar.gz";
     sha256 = "sha256-j6ykTima0pFfoACIerFjJjHqaHCcYs418RC/5yHs8hQ=";
   };
 
@@ -33,27 +19,16 @@ stdenv.mkDerivation rec {
     substituteInPlace nsd-control-setup.sh.in --replace openssl ${openssl}/bin/openssl
   '';
 
-  buildInputs = [
-    libevent
-    openssl
-  ];
+  buildInputs = [ libevent openssl ];
 
   configureFlags =
-    let
-      edf = c: o: if c then [ "--enable-${o}" ] else [ "--disable-${o}" ];
-    in
-    edf bind8Stats "bind8-stats"
-    ++ edf checking "checking"
-    ++ edf ipv6 "ipv6"
-    ++ edf mmap "mmap"
-    ++ edf minimalResponses "minimal-responses"
-    ++ edf nsec3 "nsec3"
-    ++ edf ratelimit "ratelimit"
-    ++ edf recvmmsg "recvmmsg"
-    ++ edf rootServer "root-server"
-    ++ edf rrtypes "draft-rrtypes"
-    ++ edf zoneStats "zone-stats"
-    ++ [
+    let edf = c: o: if c then [ "--enable-${o}" ] else [ "--disable-${o}" ];
+    in edf bind8Stats "bind8-stats" ++ edf checking "checking"
+    ++ edf ipv6 "ipv6" ++ edf mmap "mmap"
+    ++ edf minimalResponses "minimal-responses" ++ edf nsec3 "nsec3"
+    ++ edf ratelimit "ratelimit" ++ edf recvmmsg "recvmmsg"
+    ++ edf rootServer "root-server" ++ edf rrtypes "draft-rrtypes"
+    ++ edf zoneStats "zone-stats" ++ [
       "--with-ssl=${openssl.dev}"
       "--with-libevent=${libevent.dev}"
       "--with-nsd_conf_file=${configFile}"
@@ -64,13 +39,12 @@ stdenv.mkDerivation rec {
     sed 's@$(INSTALL_DATA) nsd.conf.sample $(DESTDIR)$(nsdconfigfile).sample@@g' -i Makefile.in
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) nsd;
-  };
+  passthru.tests = { inherit (nixosTests) nsd; };
 
   meta = with lib; {
     homepage = "http://www.nlnetlabs.nl";
-    description = "Authoritative only, high performance, simple and open source name server";
+    description =
+      "Authoritative only, high performance, simple and open source name server";
     license = licenses.bsd3;
     platforms = platforms.unix;
     maintainers = [ maintainers.hrdinka ];

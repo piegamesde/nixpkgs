@@ -1,11 +1,7 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   options = {
     tls = lib.mkOption {
-      type = lib.types.enum [
-        "tls"
-        "no-tls"
-      ];
+      type = lib.types.enum [ "tls" "no-tls" ];
       default = "tls";
       description = lib.mdDoc ''
         Enable or disable TLS. If true (enabled) the key and

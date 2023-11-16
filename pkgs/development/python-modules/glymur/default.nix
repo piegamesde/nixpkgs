@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  lxml,
-  numpy,
-  openjpeg,
-  pytestCheckHook,
-  pythonOlder,
-  scikit-image,
-  setuptools,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, lxml, numpy, openjpeg
+, pytestCheckHook, pythonOlder, scikit-image, setuptools }:
 
 buildPythonPackage rec {
   pname = "glymur";
@@ -30,11 +19,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  nativeCheckInputs = [
-    lxml
-    pytestCheckHook
-    scikit-image
-  ];
+  nativeCheckInputs = [ lxml pytestCheckHook scikit-image ];
 
   postConfigure = ''
     substituteInPlace glymur/config.py \
@@ -56,7 +41,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Tools for accessing JPEG2000 files";
     homepage = "https://github.com/quintusdias/glymur";
-    changelog = "https://github.com/quintusdias/glymur/blob/v${version}/CHANGES.txt";
+    changelog =
+      "https://github.com/quintusdias/glymur/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

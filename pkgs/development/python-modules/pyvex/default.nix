@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  archinfo,
-  bitstring,
-  buildPythonPackage,
-  cffi,
-  fetchPypi,
-  future,
-  pycparser,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, stdenv, archinfo, bitstring, buildPythonPackage, cffi, fetchPypi, future
+, pycparser, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "pyvex";
@@ -26,23 +15,14 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    archinfo
-    bitstring
-    cffi
-    future
-    pycparser
-  ];
+  propagatedBuildInputs = [ archinfo bitstring cffi future pycparser ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace vex/Makefile-gcc \
       --replace '/usr/bin/ar' 'ar'
   '';
 
-  setupPyBuildFlags = lib.optionals stdenv.isLinux [
-    "--plat-name"
-    "linux"
-  ];
+  setupPyBuildFlags = lib.optionals stdenv.isLinux [ "--plat-name" "linux" ];
 
   preBuild = ''
     export CC=${stdenv.cc.targetPrefix}cc
@@ -59,11 +39,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python interface to libVEX and VEX IR";
     homepage = "https://github.com/angr/pyvex";
-    license = with licenses; [
-      bsd2
-      gpl3Plus
-      lgpl3Plus
-    ];
+    license = with licenses; [ bsd2 gpl3Plus lgpl3Plus ];
     maintainers = with maintainers; [ fab ];
   };
 }

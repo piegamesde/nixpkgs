@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "cshatag";
@@ -17,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-QTnwltsoyUbH4vob5go1KBrb9gwxaaPNW3S4sxVls3k=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   postInstall = ''
     # Install man page

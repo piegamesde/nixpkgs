@@ -12,7 +12,8 @@
   "apps-menu@gnome-shell-extensions.gcampax.github.com" = "applications-menu";
   "Applications_Menu@rmy.pobox.com" = "frippery-applications-menu";
 
-  "workspace-indicator@gnome-shell-extensions.gcampax.github.com" = "workspace-indicator";
+  "workspace-indicator@gnome-shell-extensions.gcampax.github.com" =
+    "workspace-indicator";
   "horizontal-workspace-indicator@tty2.io" = "workspace-indicator-2";
 
   "PersianCalendar@oxygenws.com" = "persian-calendar";
@@ -84,17 +85,20 @@
 
   # ####### GNOME 40 #######
 
-  "system-monitor@paradoxxx.zero.gmail.com" = "system-monitor"; # manually packaged
+  "system-monitor@paradoxxx.zero.gmail.com" =
+    "system-monitor"; # manually packaged
   "System_Monitor@bghome.gmail.com" = "system-monitor-2";
 
   "Hide_Activities@shay.shayel.org" = "hide-activities-button";
-  "hide-activities-button@nmingori.gnome-shell-extensions.org" = "hide-activities-button-2";
+  "hide-activities-button@nmingori.gnome-shell-extensions.org" =
+    "hide-activities-button-2";
 
   "SomaFm-Radio@alireza6677.gmail.com" = "somafm-internet-radio";
   "SomaFm-Radio@cajhne.gmail.com" = "somafm-internet-radio-2";
 
   "extension-list@tu.berry" = "extension-list";
-  "screen-lock@garciabaameiro.com" = "screen-lock"; # Don't know why they got 'extension-list' as slug
+  "screen-lock@garciabaameiro.com" =
+    "screen-lock"; # Don't know why they got 'extension-list' as slug
 
   # ####### GNOME 3.38 #######
 
@@ -117,15 +121,21 @@
   # being replaced by automatic packaging where possible.
   #
   # The manually packaged ones:
-  "EasyScreenCast@iacopodeenosee.gmail.com" = "easyScreenCast"; # extensionPortalSlug is "easyscreencast"
-  "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" = "fuzzy-app-search"; # extensionPortalSlug is "gnome-fuzzy-app-search"
+  "EasyScreenCast@iacopodeenosee.gmail.com" =
+    "easyScreenCast"; # extensionPortalSlug is "easyscreencast"
+  "gnome-fuzzy-app-search@gnome-shell-extensions.Czarlie.gitlab.com" =
+    "fuzzy-app-search"; # extensionPortalSlug is "gnome-fuzzy-app-search"
   "TopIcons@phocean.net" = "topicons-plus"; # extensionPortalSlug is "topicons"
   "paperwm@hedning:matrix.org" = "paperwm"; # is not on extensions.gnome.org
-  "no-title-bar@jonaspoehler.de" = "no-title-bar"; # extensionPortalSlug is "no-title-bar-forked"
+  "no-title-bar@jonaspoehler.de" =
+    "no-title-bar"; # extensionPortalSlug is "no-title-bar-forked"
   # These extensions are automatically packaged at the moment. We preserve the old attribute name
   # for backwards compatibility.
-  "appindicatorsupport@rgcjonas.gmail.com" = "appindicator"; # extensionPortalSlug is "appindicator-support"
-  "drawOnYourScreen@abakkk.framagit.org" = "draw-on-your-screen"; # extensionPortalSlug is "draw-on-you-screen"
+  "appindicatorsupport@rgcjonas.gmail.com" =
+    "appindicator"; # extensionPortalSlug is "appindicator-support"
+  "drawOnYourScreen@abakkk.framagit.org" =
+    "draw-on-your-screen"; # extensionPortalSlug is "draw-on-you-screen"
   "timepp@zagortenay333" = "timepp"; # extensionPortalSlug is "time"
-  "windowIsReady_Remover@nunofarruca@gmail.com" = "window-is-ready-remover"; # extensionPortalSlug is "window-is-ready-notification-remover"
+  "windowIsReady_Remover@nunofarruca@gmail.com" =
+    "window-is-ready-remover"; # extensionPortalSlug is "window-is-ready-notification-remover"
 }

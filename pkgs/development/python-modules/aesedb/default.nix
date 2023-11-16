@@ -1,15 +1,5 @@
-{
-  lib,
-  aiowinreg,
-  buildPythonPackage,
-  colorama,
-  fetchFromGitHub,
-  pycryptodomex,
-  pythonOlder,
-  setuptools,
-  tqdm,
-  unicrypto,
-}:
+{ lib, aiowinreg, buildPythonPackage, colorama, fetchFromGitHub, pycryptodomex
+, pythonOlder, setuptools, tqdm, unicrypto }:
 
 buildPythonPackage rec {
   pname = "aesedb";
@@ -27,13 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    aiowinreg
-    colorama
-    pycryptodomex
-    tqdm
-    unicrypto
-  ];
+  propagatedBuildInputs = [ aiowinreg colorama pycryptodomex tqdm unicrypto ];
 
   # Module has no tests
   doCheck = false;

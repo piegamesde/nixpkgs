@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  docutils,
-  jinja2,
-  nbconvert,
-  nbformat,
-  sphinx,
-  traitlets,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, docutils, jinja2, nbconvert, nbformat
+, sphinx, traitlets, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "nbsphinx";
@@ -23,14 +13,8 @@ buildPythonPackage rec {
     hash = "sha256-VA239AZjR/I9BlDEro59hTNMaa33SeAwr2TBLplv+I4=";
   };
 
-  propagatedBuildInputs = [
-    docutils
-    jinja2
-    nbconvert
-    nbformat
-    sphinx
-    traitlets
-  ];
+  propagatedBuildInputs =
+    [ docutils jinja2 nbconvert nbformat sphinx traitlets ];
 
   # The package has not tests
   doCheck = false;
@@ -42,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Jupyter Notebook Tools for Sphinx";
     homepage = "https://nbsphinx.readthedocs.io/";
-    changelog = "https://github.com/spatialaudio/nbsphinx/blob/${version}/NEWS.rst";
+    changelog =
+      "https://github.com/spatialaudio/nbsphinx/blob/${version}/NEWS.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

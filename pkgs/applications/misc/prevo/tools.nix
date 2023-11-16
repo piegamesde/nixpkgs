@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  glib,
-  expat,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, glib, expat
+, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "prevo-tools";
@@ -20,22 +12,16 @@ stdenv.mkDerivation rec {
     sha256 = "1fyrc4g9qdq04nxs4g8x0krxfani5xady6v9m0qfqpbh4xk2ry2d";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    installShellFiles
-  ];
-  buildInputs = [
-    glib
-    expat
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config installShellFiles ];
+  buildInputs = [ glib expat ];
 
   postInstall = ''
     installShellCompletion --bash src/prevo-completion
   '';
 
   meta = with lib; {
-    description = "CLI tools for the offline version of the Esperanto dictionary Reta Vortaro";
+    description =
+      "CLI tools for the offline version of the Esperanto dictionary Reta Vortaro";
     longDescription = ''
       PReVo is the "portable" ReVo, i.e., the offline version
       of the Esperanto dictionary Reta Vortaro.

@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-lock";
@@ -20,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Self-contained Cargo.lock parser with graph analysis";
     homepage = "https://github.com/rustsec/rustsec/tree/main/cargo-lock";
-    changelog = "https://github.com/rustsec/rustsec/blob/cargo-lock/v${version}/cargo-lock/CHANGELOG.md";
+    changelog =
+      "https://github.com/rustsec/rustsec/blob/cargo-lock/v${version}/cargo-lock/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

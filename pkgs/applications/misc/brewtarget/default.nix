@@ -1,15 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  bash,
-  cmake,
-  qtbase,
-  qttools,
-  qtmultimedia,
-  qtwebkit,
-  qtsvg,
-}:
+{ lib, mkDerivation, fetchFromGitHub, bash, cmake, qtbase, qttools, qtmultimedia
+, qtwebkit, qtsvg }:
 
 mkDerivation rec {
   pname = "brewtarget";
@@ -23,13 +13,7 @@ mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    qtbase
-    qttools
-    qtmultimedia
-    qtwebkit
-    qtsvg
-  ];
+  buildInputs = [ qtbase qttools qtmultimedia qtwebkit qtsvg ];
 
   preConfigure = ''
     chmod +x configure

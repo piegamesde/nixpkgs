@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  zlib,
-  util-linux,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, zlib, util-linux }:
 
 stdenv.mkDerivation rec {
   pname = "pigz";
@@ -18,14 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RYp3vRwlI6S/lcib+3t7qLYFWv11GUnj1Cmxm9eaVro=";
   };
 
-  patches =
-    [
-      # needed to build the pigzn test binary
-      (fetchpatch {
-        url = "https://github.com/madler/pigz/commit/67fd6e436f4f479aead529a719e24d6864cf1dfa.patch";
-        sha256 = "sha256-FkzLYob/WIVIB7eh03cdzpLy6SzoHLqEMsWyHdMTjbU=";
-      })
-    ];
+  patches = [
+    # needed to build the pigzn test binary
+    (fetchpatch {
+      url =
+        "https://github.com/madler/pigz/commit/67fd6e436f4f479aead529a719e24d6864cf1dfa.patch";
+      sha256 = "sha256-FkzLYob/WIVIB7eh03cdzpLy6SzoHLqEMsWyHdMTjbU=";
+    })
+  ];
 
   enableParallelBuilding = true;
 

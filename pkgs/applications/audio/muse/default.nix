@@ -1,30 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  qttools,
-  wrapQtAppsHook,
-  alsa-lib,
-  dssi,
-  fluidsynth,
-  ladspaH,
-  lash,
-  libinstpatch,
-  libjack2,
-  liblo,
-  libsamplerate,
-  libsndfile,
-  lilv,
-  lrdf,
-  lv2,
-  qtsvg,
-  rtaudio,
-  rubberband,
-  sord,
-  serd,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, qttools, wrapQtAppsHook
+, alsa-lib, dssi, fluidsynth, ladspaH, lash, libinstpatch, libjack2, liblo
+, libsamplerate, libsndfile, lilv, lrdf, lv2, qtsvg, rtaudio, rubberband, sord
+, serd }:
 
 stdenv.mkDerivation rec {
   pname = "muse-sequencer";
@@ -41,12 +18,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-parallel-building.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools wrapQtAppsHook ];
 
   buildInputs = [
     alsa-lib
@@ -72,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://muse-sequencer.github.io/";
-    description = "MIDI/Audio sequencer with recording and editing capabilities";
+    description =
+      "MIDI/Audio sequencer with recording and editing capabilities";
     longDescription = ''
       MusE is a MIDI/Audio sequencer with recording and editing capabilities
       written originally by Werner Schweer now developed and maintained

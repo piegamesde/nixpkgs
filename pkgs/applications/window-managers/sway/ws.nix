@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitLab,
-  rustPlatform,
-}:
+{ lib, fetchFromGitLab, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "swayws";
@@ -23,7 +19,8 @@ rustPlatform.buildRustPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A sway workspace tool which allows easy moving of workspaces to and from outputs";
+    description =
+      "A sway workspace tool which allows easy moving of workspaces to and from outputs";
     homepage = "https://gitlab.com/w0lff/swayws";
     license = licenses.mit;
     maintainers = [ maintainers.atila ];

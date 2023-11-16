@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.zoneminder;
@@ -13,12 +8,10 @@ let
   dirName = pkg.dirName;
 
   user = "zoneminder";
-  group =
-    {
-      nginx = config.services.nginx.group;
-      none = user;
-    }
-    .${cfg.webserver};
+  group = {
+    nginx = config.services.nginx.group;
+    none = user;
+  }.${cfg.webserver};
 
   useNginx = cfg.webserver == "nginx";
 
@@ -32,15 +25,11 @@ let
   dirs = dirList: [ dirName ] ++ map (e: "${dirName}/${e}") dirList;
 
   cacheDirs = [ "swap" ];
-  libDirs = [
-    "events"
-    "exports"
-    "images"
-    "sounds"
-  ];
+  libDirs = [ "events" "exports" "images" "sounds" ];
 
-  dirStanzas =
-    baseDir: lib.concatStringsSep "\n" (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
+  dirStanzas = baseDir:
+    lib.concatStringsSep "\n"
+    (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
     # 01-system-paths.conf
@@ -72,28 +61,23 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
   options = {
     services.zoneminder = with lib; {
-      enable = lib.mkEnableOption (
-        lib.mdDoc ''
-          ZoneMinder
+      enable = lib.mkEnableOption (lib.mdDoc ''
+        ZoneMinder
 
-          If you intend to run the database locally, you should set
-          `config.services.zoneminder.database.createLocally` to true. Otherwise,
-          when set to `false` (the default), you will have to create the database
-          and database user as well as populate the database yourself.
-          Additionally, you will need to run `zmupdate.pl` yourself when
-          upgrading to a newer version.
-        ''
-      );
+        If you intend to run the database locally, you should set
+        `config.services.zoneminder.database.createLocally` to true. Otherwise,
+        when set to `false` (the default), you will have to create the database
+        and database user as well as populate the database yourself.
+        Additionally, you will need to run `zmupdate.pl` yourself when
+        upgrading to a newer version.
+      '');
 
       webserver = mkOption {
-        type = types.enum [
-          "nginx"
-          "none"
-        ];
+        type = types.enum [ "nginx" "none" ];
         default = "nginx";
         description = lib.mdDoc ''
           The webserver to configure for the PHP frontend.
@@ -200,12 +184,11 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = cfg.database.createLocally -> cfg.database.username == user;
-        message = "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.database.createLocally -> cfg.database.username == user;
+      message =
+        "services.zoneminder.database.username must be set to ${user} if services.zoneminder.database.createLocally is set true";
+    }];
 
     environment.etc = {
       "zoneminder/60-defaults.conf".source = defaultsFile;
@@ -228,14 +211,10 @@ in
         enable = true;
         package = lib.mkDefault pkgs.mariadb;
         ensureDatabases = [ cfg.database.name ];
-        ensureUsers = [
-          {
-            name = cfg.database.username;
-            ensurePermissions = {
-              "${cfg.database.name}.*" = "ALL PRIVILEGES";
-            };
-          }
-        ];
+        ensureUsers = [{
+          name = cfg.database.username;
+          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        }];
       };
 
       nginx = lib.mkIf useNginx {
@@ -244,65 +223,60 @@ in
           ${cfg.hostname} = {
             default = true;
             root = "${pkg}/share/zoneminder/www";
-            listen = [
-              {
-                addr = "0.0.0.0";
-                inherit (cfg) port;
-              }
-            ];
-            extraConfig =
-              let
-                fcgi = config.services.fcgiwrap;
-              in
-              ''
-                index index.php;
+            listen = [{
+              addr = "0.0.0.0";
+              inherit (cfg) port;
+            }];
+            extraConfig = let fcgi = config.services.fcgiwrap;
+            in ''
+              index index.php;
 
-                location / {
-                  try_files $uri $uri/ /index.php?$args =404;
+              location / {
+                try_files $uri $uri/ /index.php?$args =404;
 
-                  rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
+                rewrite ^/skins/.*/css/fonts/(.*)$ /fonts/$1 permanent;
 
-                  location ~ /api/(css|img|ico) {
-                    rewrite ^/api(.+)$ /api/app/webroot/$1 break;
-                    try_files $uri $uri/ =404;
-                  }
-
-                  location ~ \.(gif|ico|jpg|jpeg|png)$ {
-                    access_log off;
-                    expires 30d;
-                  }
-
-                  location /api {
-                    rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
-                  }
-
-                  location /cgi-bin {
-                    gzip off;
-
-                    include ${config.services.nginx.package}/conf/fastcgi_params;
-                    fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
-                    fastcgi_param HTTP_PROXY "";
-                    fastcgi_intercept_errors on;
-
-                    fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
-                  }
-
-                  location /cache/ {
-                    alias /var/cache/${dirName}/;
-                  }
-
-                  location ~ \.php$ {
-                    try_files $uri =404;
-                    fastcgi_index index.php;
-
-                    include ${config.services.nginx.package}/conf/fastcgi_params;
-                    fastcgi_param SCRIPT_FILENAME $request_filename;
-                    fastcgi_param HTTP_PROXY "";
-
-                    fastcgi_pass unix:${fpm.socket};
-                  }
+                location ~ /api/(css|img|ico) {
+                  rewrite ^/api(.+)$ /api/app/webroot/$1 break;
+                  try_files $uri $uri/ =404;
                 }
-              '';
+
+                location ~ \.(gif|ico|jpg|jpeg|png)$ {
+                  access_log off;
+                  expires 30d;
+                }
+
+                location /api {
+                  rewrite ^/api(.+)$ /api/app/webroot/index.php?p=$1 last;
+                }
+
+                location /cgi-bin {
+                  gzip off;
+
+                  include ${config.services.nginx.package}/conf/fastcgi_params;
+                  fastcgi_param SCRIPT_FILENAME ${pkg}/libexec/zoneminder/${zms};
+                  fastcgi_param HTTP_PROXY "";
+                  fastcgi_intercept_errors on;
+
+                  fastcgi_pass ${fcgi.socketType}:${fcgi.socketAddress};
+                }
+
+                location /cache/ {
+                  alias /var/cache/${dirName}/;
+                }
+
+                location ~ \.php$ {
+                  try_files $uri =404;
+                  fastcgi_index index.php;
+
+                  include ${config.services.nginx.package}/conf/fastcgi_params;
+                  fastcgi_param SCRIPT_FILENAME $request_filename;
+                  fastcgi_param HTTP_PROXY "";
+
+                  fastcgi_pass unix:${fpm.socket};
+                }
+              }
+            '';
           };
         };
       };
@@ -310,14 +284,8 @@ in
       phpfpm = lib.mkIf useNginx {
         pools.zoneminder = {
           inherit user group;
-          phpPackage = pkgs.php.withExtensions (
-            { enabled, all }:
-            enabled
-            ++ [
-              all.apcu
-              all.sysvsem
-            ]
-          );
+          phpPackage = pkgs.php.withExtensions
+            ({ enabled, all }: enabled ++ [ all.apcu all.sysvsem ]);
           phpOptions = ''
             date.timezone = "${config.time.timeZone}"
           '';
@@ -343,38 +311,32 @@ in
       zoneminder = with pkgs; {
         inherit (zoneminder.meta) description;
         documentation = [ "https://zoneminder.readthedocs.org/en/latest/" ];
-        path = [
-          coreutils
-          procps
-          psmisc
-        ];
-        after = [ "nginx.service" ] ++ lib.optional cfg.database.createLocally "mysql.service";
+        path = [ coreutils procps psmisc ];
+        after = [ "nginx.service" ]
+          ++ lib.optional cfg.database.createLocally "mysql.service";
         wantedBy = [ "multi-user.target" ];
-        restartTriggers = [
-          defaultsFile
-          configFile
-        ];
-        preStart =
-          lib.optionalString useCustomDir ''
-            install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${lib.concatStringsSep "," libDirs}}
-          ''
-          + lib.optionalString cfg.database.createLocally ''
-            if ! test -e "/var/lib/${dirName}/db-created"; then
-              ${config.services.mysql.package}/bin/mysql < ${pkg}/share/zoneminder/db/zm_create.sql
-              touch "/var/lib/${dirName}/db-created"
-            fi
+        restartTriggers = [ defaultsFile configFile ];
+        preStart = lib.optionalString useCustomDir ''
+          install -dm775 -o ${user} -g ${group} ${cfg.storageDir}/{${
+            lib.concatStringsSep "," libDirs
+          }}
+        '' + lib.optionalString cfg.database.createLocally ''
+          if ! test -e "/var/lib/${dirName}/db-created"; then
+            ${config.services.mysql.package}/bin/mysql < ${pkg}/share/zoneminder/db/zm_create.sql
+            touch "/var/lib/${dirName}/db-created"
+          fi
 
-            ${zoneminder}/bin/zmupdate.pl -nointeractive
-            ${zoneminder}/bin/zmupdate.pl --nointeractive -f
+          ${zoneminder}/bin/zmupdate.pl -nointeractive
+          ${zoneminder}/bin/zmupdate.pl --nointeractive -f
 
-            # Update ZM's Nix store path in the configuration table. Do nothing if the config doesn't
-            # contain ZM's Nix store path.
-            ${config.services.mysql.package}/bin/mysql -u zoneminder zm << EOF
-              UPDATE Config
-                SET Value = REGEXP_REPLACE(Value, "^/nix/store/[^-/]+-zoneminder-[^/]+", "${pkgs.zoneminder}")
-                WHERE Name = "ZM_FONT_FILE_LOCATION";
-            EOF
-          '';
+          # Update ZM's Nix store path in the configuration table. Do nothing if the config doesn't
+          # contain ZM's Nix store path.
+          ${config.services.mysql.package}/bin/mysql -u zoneminder zm << EOF
+            UPDATE Config
+              SET Value = REGEXP_REPLACE(Value, "^/nix/store/[^-/]+-zoneminder-[^/]+", "${pkgs.zoneminder}")
+              WHERE Name = "ZM_FONT_FILE_LOCATION";
+          EOF
+        '';
         serviceConfig = {
           User = user;
           Group = group;
@@ -400,9 +362,7 @@ in
       };
     };
 
-    users.groups.${user} = {
-      gid = config.ids.gids.zoneminder;
-    };
+    users.groups.${user} = { gid = config.ids.gids.zoneminder; };
 
     users.users.${user} = {
       uid = config.ids.uids.zoneminder;

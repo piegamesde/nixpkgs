@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  oset,
-  pybtex,
-  pybtex-docutils,
-  sphinx,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, oset, pybtex, pybtex-docutils
+, sphinx }:
 
 buildPythonPackage rec {
   pname = "sphinxcontrib-bibtex";
@@ -20,12 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-cbQuXbDi4oTyQ4dTJr+ZNqqadjKCJ311BIgm/vWwDqo=";
   };
 
-  propagatedBuildInputs = [
-    oset
-    pybtex
-    pybtex-docutils
-    sphinx
-  ];
+  propagatedBuildInputs = [ oset pybtex pybtex-docutils sphinx ];
 
   doCheck = false;
 

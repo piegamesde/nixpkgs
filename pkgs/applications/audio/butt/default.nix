@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  fltk13,
-  portaudio,
-  lame,
-  libvorbis,
-  libogg,
-  flac,
-  libopus,
-  libsamplerate,
-  fdk_aac,
-  dbus,
-  openssl,
-  curl,
-}:
+{ lib, stdenv, fetchurl, pkg-config, fltk13, portaudio, lame, libvorbis, libogg
+, flac, libopus, libsamplerate, fdk_aac, dbus, openssl, curl }:
 
 stdenv.mkDerivation rec {
   pname = "butt";
@@ -54,7 +38,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "butt (broadcast using this tool) is an easy to use, multi OS streaming tool";
+    description =
+      "butt (broadcast using this tool) is an easy to use, multi OS streaming tool";
     homepage = "https://danielnoethen.de/butt/";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ ehmry ];

@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  gdal,
-  openssl,
-  Security,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, gdal, openssl
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "t-rex";
@@ -24,15 +16,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gdal
-    openssl
-  ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ gdal openssl ] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     description = "Vector tile server specialized on publishing MVT tiles";
     homepage = "https://t-rex.tileserver.ch/";
-    changelog = "https://github.com/t-rex-tileserver/t-rex/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/t-rex-tileserver/t-rex/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ sikmir ];
     mainProgram = "t_rex";

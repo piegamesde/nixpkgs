@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.morty;
-in
 
-{
+in {
 
   ###### interface
 
@@ -20,7 +14,8 @@ in
 
     services.morty = {
 
-      enable = mkEnableOption (lib.mdDoc "Morty proxy server. See https://github.com/asciimoo/morty");
+      enable = mkEnableOption
+        (lib.mdDoc "Morty proxy server. See https://github.com/asciimoo/morty");
 
       ipv6 = mkOption {
         type = types.bool;
@@ -63,7 +58,9 @@ in
         default = "127.0.0.1";
         description = lib.mdDoc "The address on which the service listens";
       };
+
     };
+
   };
 
   ###### Service definition
@@ -94,5 +91,6 @@ in
       };
     };
     environment.systemPackages = [ cfg.package ];
+
   };
 }

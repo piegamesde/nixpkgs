@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyvesync";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "pyvesync" ];
 
   meta = with lib; {
-    description = "Python library to manage Etekcity Devices and Levoit Air Purifier";
+    description =
+      "Python library to manage Etekcity Devices and Levoit Air Purifier";
     homepage = "https://github.com/webdjoe/pyvesync";
     changelog = "https://github.com/webdjoe/pyvesync/releases/tag/${version}";
     license = with licenses; [ mit ];

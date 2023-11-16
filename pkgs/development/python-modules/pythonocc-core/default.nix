@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  python,
-  fetchFromGitHub,
-  cmake,
-  Cocoa,
-  fontconfig,
-  freetype,
-  libGL,
-  libGLU,
-  libX11,
-  libXext,
-  libXi,
-  libXmu,
-  opencascade-occt,
-  rapidjson,
-  smesh,
-  swig4,
-}:
+{ lib, stdenv, python, fetchFromGitHub, cmake, Cocoa, fontconfig, freetype
+, libGL, libGLU, libX11, libXext, libXi, libXmu, opencascade-occt, rapidjson
+, smesh, swig4 }:
 
 stdenv.mkDerivation rec {
   pname = "pythonocc-core";
@@ -36,10 +19,7 @@ stdenv.mkDerivation rec {
     --replace "/usr/X11R6/lib/libGLU.dylib" "${libGLU}/lib/libGLU.dylib"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    swig4
-  ];
+  nativeBuildInputs = [ cmake swig4 ];
   buildInputs = [
     python
     opencascade-occt
@@ -57,7 +37,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-Wno-dev"
-    "-DPYTHONOCC_INSTALL_DIRECTORY=${placeholder "out"}/${python.sitePackages}/OCC"
+    "-DPYTHONOCC_INSTALL_DIRECTORY=${
+      placeholder "out"
+    }/${python.sitePackages}/OCC"
 
     "-DSMESH_INCLUDE_PATH=${smesh}/include/smesh"
     "-DSMESH_LIB_PATH=${smesh}/lib"

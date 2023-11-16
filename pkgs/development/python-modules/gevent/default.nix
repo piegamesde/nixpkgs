@@ -1,16 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  isPyPy,
-  python,
-  libev,
-  greenlet,
-  setuptools,
-  zope_event,
-  zope_interface,
-  pythonOlder,
-}:
+{ lib, fetchPypi, buildPythonPackage, isPyPy, python, libev, greenlet
+, setuptools, zope_event, zope_interface, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gevent";
@@ -28,10 +17,8 @@ buildPythonPackage rec {
 
   buildInputs = [ libev ];
 
-  propagatedBuildInputs = [
-    zope_event
-    zope_interface
-  ] ++ lib.optionals (!isPyPy) [ greenlet ];
+  propagatedBuildInputs = [ zope_event zope_interface ]
+    ++ lib.optionals (!isPyPy) [ greenlet ];
 
   # Bunch of failures.
   doCheck = false;

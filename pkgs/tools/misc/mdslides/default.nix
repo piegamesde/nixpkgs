@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "mdslides";
@@ -18,7 +14,8 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    longDescription = "Using markdown, write simple but beautiful presentations with math, animations and media, which can be visualized in a web browser or exported to PDF.";
+    longDescription =
+      "Using markdown, write simple but beautiful presentations with math, animations and media, which can be visualized in a web browser or exported to PDF.";
     homepage = "https://github.com/dadoomer/markdown-slides";
     license = licenses.mit;
     maintainers = [ maintainers.qjoly ];

@@ -1,34 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  pkg-config,
-  glib,
-  sqlite,
-  gobject-introspection,
-  vala,
-  autoconf,
-  automake,
-  libtool,
-  gettext,
-  dbus,
-  gtk3,
-  json-glib,
-  librdf_raptor2,
-  pythonSupport ? true,
-  python3,
-}:
+{ stdenv, lib, fetchFromGitLab, pkg-config, glib, sqlite, gobject-introspection
+, vala, autoconf, automake, libtool, gettext, dbus, gtk3, json-glib
+, librdf_raptor2, pythonSupport ? true, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "zeitgeist";
   version = "1.0.4";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-    "man"
-  ] ++ lib.optional pythonSupport "py";
+  outputs = [ "out" "lib" "dev" "man" ] ++ lib.optional pythonSupport "py";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -49,15 +27,8 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [
-    glib
-    sqlite
-    dbus
-    gtk3
-    json-glib
-    librdf_raptor2
-    python3.pkgs.rdflib
-  ];
+  buildInputs =
+    [ glib sqlite dbus gtk3 json-glib librdf_raptor2 python3.pkgs.rdflib ];
 
   configureFlags = [ "--disable-telepathy" ];
 

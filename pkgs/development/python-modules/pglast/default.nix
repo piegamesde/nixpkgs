@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, pytest }:
 
 buildPythonPackage rec {
   pname = "pglast";

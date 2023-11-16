@@ -1,13 +1,7 @@
 # This module contains the basic configuration for building a NixOS
 # installation CD.
 
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -25,7 +19,8 @@ with lib;
   console.packages = options.console.packages.default ++ [ pkgs.terminus_font ];
 
   # ISO naming.
-  isoImage.isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+  isoImage.isoName =
+    "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
 
   # EFI booting
   isoImage.makeEfiBootable = true;

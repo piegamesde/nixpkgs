@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  httpie,
-}:
+{ lib, fetchFromGitHub, python3Packages, httpie }:
 
 python3Packages.buildPythonApplication rec {
   pname = "http-prompt";
@@ -20,7 +15,8 @@ python3Packages.buildPythonApplication rec {
     click
     httpie
     parsimonious
-    (python.pkgs.callPackage ../../../development/python-modules/prompt-toolkit/1.nix { })
+    (python.pkgs.callPackage
+      ../../../development/python-modules/prompt-toolkit/1.nix { })
     pygments
     six
     pyyaml
@@ -31,7 +27,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "An interactive command-line HTTP client featuring autocomplete and syntax highlighting";
+    description =
+      "An interactive command-line HTTP client featuring autocomplete and syntax highlighting";
     homepage = "https://github.com/eliangcs/http-prompt";
     license = licenses.mit;
     maintainers = with maintainers; [ matthiasbeyer ];

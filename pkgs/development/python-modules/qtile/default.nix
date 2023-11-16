@@ -1,31 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cairocffi,
-  dbus-next,
-  dbus-python,
-  glib,
-  libinput,
-  libxkbcommon,
-  mpd2,
-  mypy,
-  pango,
-  pkg-config,
-  psutil,
-  pulseaudio,
-  pygobject3,
-  python-dateutil,
-  pywayland,
-  pywlroots,
-  pyxdg,
-  setuptools,
-  setuptools-scm,
-  wayland,
-  wlroots,
-  xcbutilcursor,
-  xcffib,
-  xkbcommon,
+{ lib, buildPythonPackage, fetchFromGitHub, cairocffi, dbus-next, dbus-python
+, glib, libinput, libxkbcommon, mpd2, mypy, pango, pkg-config, psutil
+, pulseaudio, pygobject3, python-dateutil, pywayland, pywlroots, pyxdg
+, setuptools, setuptools-scm, wayland, wlroots, xcbutilcursor, xcffib, xkbcommon
 }:
 
 buildPythonPackage rec {
@@ -54,11 +30,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    pkg-config
-    setuptools-scm
-    setuptools
-  ];
+  nativeBuildInputs = [ pkg-config setuptools-scm setuptools ];
 
   propagatedBuildInputs = [
     xcffib
@@ -76,26 +48,20 @@ buildPythonPackage rec {
     pulseaudio
   ];
 
-  buildInputs = [
-    libinput
-    wayland
-    wlroots
-    libxkbcommon
-  ];
+  buildInputs = [ libinput wayland wlroots libxkbcommon ];
 
   # for `qtile check`, needs `stubtest` and `mypy` commands
   makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
 
-  doCheck = false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
+  doCheck =
+    false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
 
   meta = with lib; {
     homepage = "http://www.qtile.org/";
     license = licenses.mit;
-    description = "A small, flexible, scriptable tiling window manager written in Python";
+    description =
+      "A small, flexible, scriptable tiling window manager written in Python";
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      kamilchm
-      arjan-s
-    ];
+    maintainers = with maintainers; [ kamilchm arjan-s ];
   };
 }

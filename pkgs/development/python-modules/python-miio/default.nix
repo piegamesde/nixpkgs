@@ -1,29 +1,7 @@
-{
-  lib,
-  android-backup,
-  appdirs,
-  attrs,
-  buildPythonPackage,
-  click,
-  construct,
-  croniter,
-  cryptography,
-  defusedxml,
-  fetchPypi,
-  fetchpatch,
-  importlib-metadata,
-  micloud,
-  netifaces,
-  poetry-core,
-  pytest-asyncio,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  pyyaml,
-  tqdm,
-  zeroconf,
-}:
+{ lib, android-backup, appdirs, attrs, buildPythonPackage, click, construct
+, croniter, cryptography, defusedxml, fetchPypi, fetchpatch, importlib-metadata
+, micloud, netifaces, poetry-core, pytest-asyncio, pytest-mock, pytestCheckHook
+, pythonOlder, pytz, pyyaml, tqdm, zeroconf }:
 
 buildPythonPackage rec {
   pname = "python-miio";
@@ -42,7 +20,8 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch {
       # Fix pytest 7.2 compat
-      url = "https://github.com/rytilahti/python-miio/commit/67d9d771d04d51f5bd97f361ca1c15ae4a18c274.patch";
+      url =
+        "https://github.com/rytilahti/python-miio/commit/67d9d771d04d51f5bd97f361ca1c15ae4a18c274.patch";
       hash = "sha256-Os9vCSKyieCqHs63oX6gcLrtv1N7hbX5WvEurelEp8w=";
     })
   ];
@@ -64,11 +43,7 @@ buildPythonPackage rec {
     zeroconf
   ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytest-mock pytestCheckHook ];
 
   pythonImportsCheck = [ "miio" ];
 

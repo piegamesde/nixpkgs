@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  mock,
-  pbr,
-  pyyaml,
-  setuptools,
-  six,
-  multi_key_dict,
-  testscenarios,
-  requests,
-  requests-mock,
-  stestr,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, mock, pbr, pyyaml, setuptools, six
+, multi_key_dict, testscenarios, requests, requests-mock, stestr }:
 
 buildPythonPackage rec {
   pname = "python-jenkins";
@@ -32,20 +18,9 @@ buildPythonPackage rec {
   '';
 
   buildInputs = [ mock ];
-  propagatedBuildInputs = [
-    pbr
-    pyyaml
-    setuptools
-    six
-    multi_key_dict
-    requests
-  ];
+  propagatedBuildInputs = [ pbr pyyaml setuptools six multi_key_dict requests ];
 
-  nativeCheckInputs = [
-    stestr
-    testscenarios
-    requests-mock
-  ];
+  nativeCheckInputs = [ stestr testscenarios requests-mock ];
   checkPhase = ''
     stestr run
   '';
@@ -56,4 +31,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ gador ];
   };
+
 }

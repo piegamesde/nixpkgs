@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libxml2,
-  file,
-  p7zip,
-  unrar,
-  unzip,
-}:
+{ lib, stdenv, fetchFromGitHub, libxml2, file, p7zip, unrar, unzip }:
 
 stdenv.mkDerivation {
   pname = "rarcrack";
@@ -21,12 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ unzip ];
-  buildInputs = [
-    libxml2
-    file
-    p7zip
-    unrar
-  ];
+  buildInputs = [ libxml2 file p7zip unrar ];
   buildFlags = lib.optional stdenv.cc.isClang "CC=clang";
   installFlags = [ "PREFIX=\${out}" ];
 
@@ -51,3 +37,4 @@ stdenv.mkDerivation {
     platforms = with platforms; unix;
   };
 }
+

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -46,16 +41,18 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
   options = {
     services.xserver.desktopManager.surf-display = {
-      enable = mkEnableOption (lib.mdDoc "surf-display as a kiosk browser session");
+      enable =
+        mkEnableOption (lib.mdDoc "surf-display as a kiosk browser session");
 
       defaultWwwUri = mkOption {
         type = types.str;
         default = "${pkgs.surf-display}/share/surf-display/empty-page.html";
-        defaultText = literalExpression ''"''${pkgs.surf-display}/share/surf-display/empty-page.html"'';
+        defaultText = literalExpression
+          ''"''${pkgs.surf-display}/share/surf-display/empty-page.html"'';
         example = "https://www.example.com/";
         description = lib.mdDoc "Default URI to display.";
       };
@@ -84,7 +81,8 @@ in
 
       pointerButtonMap = mkOption {
         type = types.str;
-        default = "1 0 0 4 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
+        default =
+          "1 0 0 4 5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
         description = lib.mdDoc ''
           Disable right and middle pointer device click in browser sessions
           while keeping scrolling wheels' functionality intact. See pointer

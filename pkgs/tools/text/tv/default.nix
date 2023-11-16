@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-}:
+{ fetchFromGitHub, lib, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "tv";
@@ -20,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Format json into table view";
     homepage = "https://github.com/uzimaru0000/tv";
-    changelog = "https://github.com/uzimaru0000/tv/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/uzimaru0000/tv/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

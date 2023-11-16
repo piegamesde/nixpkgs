@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "janet";
@@ -22,10 +16,7 @@ stdenv.mkDerivation rec {
       --replace /usr/local/ $out/
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ meson ninja ];
 
   mesonFlags = [ "-Dgit_hash=release" ];
 
@@ -41,10 +32,7 @@ stdenv.mkDerivation rec {
     description = "Janet programming language";
     homepage = "https://janet-lang.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      andrewchambers
-      peterhoeg
-    ];
+    maintainers = with maintainers; [ andrewchambers peterhoeg ];
     platforms = platforms.all;
   };
 }

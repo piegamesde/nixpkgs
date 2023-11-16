@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  appimageTools,
-  fetchurl,
-  undmg,
-}:
+{ lib, stdenv, appimageTools, fetchurl, undmg }:
 
 let
   pname = "octant-desktop";
@@ -13,30 +7,22 @@ let
 
   inherit (stdenv.hostPlatform) system;
 
-  suffix =
-    {
-      x86_64-linux = "AppImage";
-      x86_64-darwin = "dmg";
-    }
-    .${system} or (throw "Unsupported system: ${system}");
+  suffix = {
+    x86_64-linux = "AppImage";
+    x86_64-darwin = "dmg";
+  }.${system} or (throw "Unsupported system: ${system}");
 
   src = fetchurl {
-    url = "https://github.com/vmware-tanzu/octant/releases/download/v${version}/Octant-${version}.${suffix}";
-    sha256 =
-      {
-        x86_64-linux = "sha256-K4z6SVCiuqy3xkWMWpm8KM7iYVXyKcnERljMG3NEFMw=";
-        x86_64-darwin = "sha256-WYra0yw/aPW/wUGrlIn5ud3kjFTkekYEi2LWZcYO5Nw=";
-      }
-      .${system};
+    url =
+      "https://github.com/vmware-tanzu/octant/releases/download/v${version}/Octant-${version}.${suffix}";
+    sha256 = {
+      x86_64-linux = "sha256-K4z6SVCiuqy3xkWMWpm8KM7iYVXyKcnERljMG3NEFMw=";
+      x86_64-darwin = "sha256-WYra0yw/aPW/wUGrlIn5ud3kjFTkekYEi2LWZcYO5Nw=";
+    }.${system};
   };
 
   linux = appimageTools.wrapType2 {
-    inherit
-      name
-      src
-      passthru
-      meta
-    ;
+    inherit name src passthru meta;
 
     profile = ''
       export LC_ALL=C.UTF-8
@@ -45,10 +31,8 @@ let
     multiPkgs = null; # no 32bit needed
     extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
     extraInstallCommands =
-      let
-        appimageContents = appimageTools.extractType2 { inherit name src; };
-      in
-      ''
+      let appimageContents = appimageTools.extractType2 { inherit name src; };
+      in ''
         mv $out/bin/{${name},${pname}}
         install -Dm444 ${appimageContents}/octant.desktop -t $out/share/applications
         substituteInPlace $out/share/applications/octant.desktop \
@@ -59,12 +43,7 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit
-      name
-      src
-      passthru
-      meta
-    ;
+    inherit name src passthru meta;
 
     nativeBuildInputs = [ undmg ];
     sourceRoot = "Octant.app";
@@ -74,14 +53,14 @@ let
     '';
   };
 
-  passthru = {
-    updateScript = ./update-desktop.sh;
-  };
+  passthru = { updateScript = ./update-desktop.sh; };
 
   meta = with lib; {
     homepage = "https://octant.dev/";
-    changelog = "https://github.com/vmware-tanzu/octant/blob/v${version}/CHANGELOG.md";
-    description = "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters";
+    changelog =
+      "https://github.com/vmware-tanzu/octant/blob/v${version}/CHANGELOG.md";
+    description =
+      "Highly extensible platform for developers to better understand the complexity of Kubernetes clusters";
     longDescription = ''
       Octant is a tool for developers to understand how applications run on a
       Kubernetes cluster.
@@ -92,10 +71,7 @@ let
     '';
     license = licenses.asl20;
     maintainers = with maintainers; [ jk ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
-in
-if stdenv.isDarwin then darwin else linux
+
+in if stdenv.isDarwin then darwin else linux

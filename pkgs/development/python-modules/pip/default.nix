@@ -1,17 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  bootstrapped-pip,
-  fetchFromGitHub,
-  mock,
-  scripttest,
-  virtualenv,
-  pretend,
-  pytest,
+{ lib, buildPythonPackage, bootstrapped-pip, fetchFromGitHub, mock, scripttest
+, virtualenv, pretend, pytest
 
-  # coupled downsteam dependencies
-  pip-tools,
-}:
+# coupled downsteam dependencies
+, pip-tools }:
 
 buildPythonPackage rec {
   pname = "pip";
@@ -38,25 +29,19 @@ buildPythonPackage rec {
   # to force it a little.
   pipInstallFlags = [ "--ignore-installed" ];
 
-  nativeCheckInputs = [
-    mock
-    scripttest
-    virtualenv
-    pretend
-    pytest
-  ];
+  nativeCheckInputs = [ mock scripttest virtualenv pretend pytest ];
   # Pip wants pytest, but tests are not distributed
   doCheck = false;
 
-  passthru.tests = {
-    inherit pip-tools;
-  };
+  passthru.tests = { inherit pip-tools; };
 
   meta = {
     description = "The PyPA recommended tool for installing Python packages";
     license = with lib.licenses; [ mit ];
     homepage = "https://pip.pypa.io/";
-    changelog = "https://pip.pypa.io/en/stable/news/#v${lib.replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://pip.pypa.io/en/stable/news/#v${
+        lib.replaceStrings [ "." ] [ "-" ] version
+      }";
     priority = 10;
   };
 }

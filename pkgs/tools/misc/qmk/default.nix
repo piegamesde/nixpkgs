@@ -1,15 +1,5 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-  pkgsCross,
-  avrdude,
-  dfu-programmer,
-  dfu-util,
-  gcc-arm-embedded,
-  gnumake,
-  teensy-loader-cli,
-}:
+{ lib, python3, fetchPypi, pkgsCross, avrdude, dfu-programmer, dfu-util
+, gcc-arm-embedded, gnumake, teensy-loader-cli }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "qmk";
@@ -23,21 +13,9 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ setuptools ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
-    [
-      dotty-dict
-      hid
-      hjson
-      jsonschema
-      milc
-      pygments
-      pyserial
-      pyusb
-      pillow
-    ]
-    ++ [
-      # Binaries need to be in the path so this is in propagatedBuildInputs
+  propagatedBuildInputs = with python3.pkgs;
+    [ dotty-dict hid hjson jsonschema milc pygments pyserial pyusb pillow ]
+    ++ [ # Binaries need to be in the path so this is in propagatedBuildInputs
       avrdude
       dfu-programmer
       dfu-util
@@ -71,10 +49,6 @@ python3.pkgs.buildPythonApplication rec {
       - ... and many more!
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [
-      bhipple
-      babariviere
-      ekleog
-    ];
+    maintainers = with maintainers; [ bhipple babariviere ekleog ];
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchsvn,
-  tcl,
-  tcllib,
-  tk,
-  xorg,
-}:
+{ lib, fetchsvn, tcl, tcllib, tk, xorg }:
 
 tcl.mkTclDerivation rec {
   pname = "tkimg";
@@ -23,10 +16,7 @@ tcl.mkTclDerivation rec {
     "--with-tkinclude=${tk.dev}/include"
   ];
 
-  buildInputs = [
-    xorg.libX11
-    tcllib
-  ];
+  buildInputs = [ xorg.libX11 tcllib ];
 
   meta = {
     homepage = "https://sourceforge.net/projects/tkimg/";

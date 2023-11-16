@@ -1,22 +1,6 @@
-{
-  lib,
-  buildDotnetModule,
-  fetchFromGitHub,
-  fetchurl,
-  dotnetCorePackages,
-  gtk3,
-  libX11,
-  libXrandr,
-  libappindicator,
-  libevdev,
-  libnotify,
-  udev,
-  copyDesktopItems,
-  makeDesktopItem,
-  nixosTests,
-  wrapGAppsHook,
-  dpkg,
-}:
+{ lib, buildDotnetModule, fetchFromGitHub, fetchurl, dotnetCorePackages, gtk3
+, libX11, libXrandr, libappindicator, libevdev, libnotify, udev
+, copyDesktopItems, makeDesktopItem, nixosTests, wrapGAppsHook, dpkg }:
 
 buildDotnetModule rec {
   pname = "OpenTabletDriver";
@@ -30,7 +14,8 @@ buildDotnetModule rec {
   };
 
   debPkg = fetchurl {
-    url = "https://github.com/OpenTabletDriver/OpenTabletDriver/releases/download/v${version}/OpenTabletDriver.deb";
+    url =
+      "https://github.com/OpenTabletDriver/OpenTabletDriver/releases/download/v${version}/OpenTabletDriver.deb";
     sha256 = "sha256-LJqH3+JckPF7S/1uBE2X81jxWg0MF9ff92Ei8WPEA2w=";
   };
 
@@ -49,21 +34,10 @@ buildDotnetModule rec {
     "OpenTabletDriver.UX.Gtk"
   ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapGAppsHook
-    dpkg
-  ];
+  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook dpkg ];
 
-  runtimeDeps = [
-    gtk3
-    libX11
-    libXrandr
-    libappindicator
-    libevdev
-    libnotify
-    udev
-  ];
+  runtimeDeps =
+    [ gtk3 libX11 libXrandr libappindicator libevdev libnotify udev ];
 
   buildInputs = runtimeDeps;
 
@@ -114,9 +88,7 @@ buildDotnetModule rec {
 
   passthru = {
     updateScript = ./update.sh;
-    tests = {
-      otd-runs = nixosTests.opentabletdriver;
-    };
+    tests = { otd-runs = nixosTests.opentabletdriver; };
   };
 
   meta = with lib; {
@@ -124,10 +96,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/OpenTabletDriver/OpenTabletDriver";
     license = licenses.lgpl3Plus;
     maintainers = with maintainers; [ thiagokokada ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     mainProgram = "otd";
   };
 }

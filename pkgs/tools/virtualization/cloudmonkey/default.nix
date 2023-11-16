@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule rec {
   pname = "cloudmonkey";
@@ -24,4 +20,5 @@ buildGoModule rec {
     maintainers = [ maintainers.womfoo ];
     mainProgram = "cloudstack-cloudmonkey";
   };
+
 }

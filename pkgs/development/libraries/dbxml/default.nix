@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  db62,
-  xercesc,
-  xqilla,
-}:
+{ lib, stdenv, fetchurl, db62, xercesc, xqilla }:
 
 stdenv.mkDerivation rec {
   pname = "dbxml";
@@ -16,21 +9,11 @@ stdenv.mkDerivation rec {
     sha256 = "a8fc8f5e0c3b6e42741fa4dfc3b878c982ff8f5e5f14843f6a7e20d22e64251a";
   };
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "out" ];
 
-  patches = [
-    ./cxx11.patch
-    ./incorrect-optimization.patch
-  ];
+  patches = [ ./cxx11.patch ./incorrect-optimization.patch ];
 
-  buildInputs = [
-    xercesc
-    xqilla
-  ];
+  buildInputs = [ xercesc xqilla ];
 
   propagatedBuildInputs = [ db62 ];
 

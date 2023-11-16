@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchurl,
-  ipaddr,
-  macaddr,
-  cmdliner,
-}:
+{ lib, buildDunePackage, fetchurl, ipaddr, macaddr, cmdliner }:
 
 buildDunePackage rec {
   pname = "tuntap";
@@ -16,15 +9,12 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.04.2";
 
   src = fetchurl {
-    url = "https://github.com/mirage/ocaml-tuntap/releases/download/v${version}/tuntap-v${version}.tbz";
+    url =
+      "https://github.com/mirage/ocaml-tuntap/releases/download/v${version}/tuntap-v${version}.tbz";
     sha256 = "12wmls28h3jzikwyfw08d5f7ycsc9njwzbhd3qk2l8jnf5rakfsa";
   };
 
-  propagatedBuildInputs = [
-    ipaddr
-    macaddr
-    cmdliner
-  ];
+  propagatedBuildInputs = [ ipaddr macaddr cmdliner ];
 
   # tests manipulate network devices and use network
   # also depend on LWT 5

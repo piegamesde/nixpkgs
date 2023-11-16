@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchFromSourcehut,
-  rustPlatform,
-  pkg-config,
-  libxkbcommon,
-  makeWrapper,
-  slurp,
-}:
+{ lib, fetchFromSourcehut, rustPlatform, pkg-config, libxkbcommon, makeWrapper
+, slurp }:
 
 rustPlatform.buildRustPackage rec {
   pname = "shotman";
@@ -22,14 +15,12 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "smithay-client-toolkit-0.16.0" = "sha256-n+s+qH39tna0yN44D6GGlQGZHjsr9FBpp+NZItyqwaE=";
+      "smithay-client-toolkit-0.16.0" =
+        "sha256-n+s+qH39tna0yN44D6GGlQGZHjsr9FBpp+NZItyqwaE=";
     };
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
   buildInputs = [ libxkbcommon ];
 

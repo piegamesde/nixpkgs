@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  pytestCheckHook,
-  cython,
-  pythonImportsCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pytestCheckHook, cython
+, pythonImportsCheckHook }:
 
 buildPythonPackage rec {
   pname = "openstep-plist";
@@ -19,15 +12,13 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-    cython
-  ];
+  nativeBuildInputs = [ setuptools-scm cython ];
   nativeCheckInputs = [ pytestCheckHook ];
   pythonImportsCheck = [ "openstep_plist" ];
 
   meta = {
-    description = "Parser for the 'old style' OpenStep property list format also known as ASCII plist";
+    description =
+      "Parser for the 'old style' OpenStep property list format also known as ASCII plist";
     homepage = "https://github.com/fonttools/openstep-plist";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.BarinovMaxim ];

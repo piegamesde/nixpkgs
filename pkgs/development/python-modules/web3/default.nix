@@ -1,28 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiohttp,
-  eth-abi,
-  eth-account,
-  eth-hash,
-  eth-typing,
-  eth-utils,
-  eth-rlp,
-  hexbytes,
-  ipfshttpclient,
-  jsonschema,
-  lru-dict,
-  protobuf,
-  requests,
-  typing-extensions,
-  websockets,
-  # , eth-tester
-  # , py-geth
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, eth-abi, eth-account
+, eth-hash, eth-typing, eth-utils, eth-rlp, hexbytes, ipfshttpclient, jsonschema
+, lru-dict, protobuf, requests, typing-extensions, websockets
+# , eth-tester
+# , py-geth
+, pytestCheckHook, pythonOlder, pythonRelaxDepsHook }:
 
 buildPythonPackage rec {
   pname = "web3";
@@ -40,24 +21,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
 
-  propagatedBuildInputs =
-    [
-      aiohttp
-      eth-abi
-      eth-account
-      eth-hash
-      eth-rlp
-      eth-typing
-      eth-utils
-      hexbytes
-      ipfshttpclient
-      jsonschema
-      lru-dict
-      protobuf
-      requests
-      websockets
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+  propagatedBuildInputs = [
+    aiohttp
+    eth-abi
+    eth-account
+    eth-hash
+    eth-rlp
+    eth-typing
+    eth-utils
+    hexbytes
+    ipfshttpclient
+    jsonschema
+    lru-dict
+    protobuf
+    requests
+    websockets
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonRelaxDeps = true;

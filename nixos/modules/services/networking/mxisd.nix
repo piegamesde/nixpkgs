@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -23,21 +18,22 @@ let
     matrix.domain = cfg.matrix.domain;
     key.path = "${cfg.dataDir}/signing.key";
     storage = {
-      provider.sqlite.database =
-        if isMa1sd cfg.package then "${cfg.dataDir}/ma1sd.db" else "${cfg.dataDir}/mxisd.db";
+      provider.sqlite.database = if isMa1sd cfg.package then
+        "${cfg.dataDir}/ma1sd.db"
+      else
+        "${cfg.dataDir}/mxisd.db";
     };
   } // optionalAttrs (server != { }) { inherit server; };
 
   # merges baseConfig and extraConfig into a single file
   fullConfig = recursiveUpdate baseConfig cfg.extraConfig;
 
-  configFile =
-    if isMa1sd cfg.package then
-      pkgs.writeText "ma1sd-config.yaml" (builtins.toJSON fullConfig)
-    else
-      pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig);
-in
-{
+  configFile = if isMa1sd cfg.package then
+    pkgs.writeText "ma1sd-config.yaml" (builtins.toJSON fullConfig)
+  else
+    pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig);
+
+in {
   options = {
     services.mxisd = {
       enable = mkEnableOption (lib.mdDoc "matrix federated identity server");
@@ -67,7 +63,8 @@ in
       extraConfig = mkOption {
         type = types.attrs;
         default = { };
-        description = lib.mdDoc "Extra options merged into the mxisd/ma1sd configuration";
+        description =
+          lib.mdDoc "Extra options merged into the mxisd/ma1sd configuration";
       };
 
       matrix = {
@@ -78,6 +75,7 @@ in
             the domain of the matrix homeserver
           '';
         };
+
       };
 
       server = {
@@ -97,7 +95,9 @@ in
             HTTP port to listen on (unencrypted)
           '';
         };
+
       };
+
     };
   };
 
@@ -110,9 +110,7 @@ in
       uid = config.ids.uids.mxisd;
     };
 
-    users.groups.mxisd = {
-      gid = config.ids.gids.mxisd;
-    };
+    users.groups.mxisd = { gid = config.ids.gids.mxisd; };
 
     systemd.services.mxisd = {
       description = "a federated identity server for the matrix ecosystem";
@@ -120,15 +118,15 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig =
-        let
-          executable = if isMa1sd cfg.package then "ma1sd" else "mxisd";
-        in
-        {
+        let executable = if isMa1sd cfg.package then "ma1sd" else "mxisd";
+        in {
           Type = "simple";
           User = "mxisd";
           Group = "mxisd";
-          EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
-          ExecStart = "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
+          EnvironmentFile =
+            mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+          ExecStart =
+            "${cfg.package}/bin/${executable} -c ${cfg.dataDir}/mxisd-config.yaml";
           ExecStartPre = "${pkgs.writeShellScript "mxisd-substitute-secrets" ''
             umask 0077
             ${pkgs.envsubst}/bin/envsubst -o ${cfg.dataDir}/mxisd-config.yaml \

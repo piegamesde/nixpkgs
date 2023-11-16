@@ -1,16 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.programs.nano;
   LF = "\n";
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -32,7 +26,8 @@ in
       syntaxHighlight = lib.mkOption {
         type = lib.types.bool;
         default = true;
-        description = lib.mdDoc "Whether to enable syntax highlight for various languages.";
+        description =
+          lib.mdDoc "Whether to enable syntax highlight for various languages.";
       };
     };
   };
@@ -40,16 +35,15 @@ in
   ###### implementation
 
   config = lib.mkIf (cfg.nanorc != "" || cfg.syntaxHighlight) {
-    environment.etc.nanorc.text = lib.concatStringsSep LF (
-      (lib.optionals cfg.syntaxHighlight [
+    environment.etc.nanorc.text = lib.concatStringsSep LF
+      ((lib.optionals cfg.syntaxHighlight [
         "# The line below is added because value of programs.nano.syntaxHighlight is set to true"
         ''include "${pkgs.nano}/share/nano/*.nanorc"''
         ""
-      ])
-      ++ (lib.optionals (cfg.nanorc != "") [
+      ]) ++ (lib.optionals (cfg.nanorc != "") [
         "# The lines below have been set from value of programs.nano.nanorc"
         cfg.nanorc
-      ])
-    );
+      ]));
   };
+
 }

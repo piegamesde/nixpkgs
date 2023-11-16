@@ -7,12 +7,7 @@ skawarePackages.buildPackage {
 
   description = "A set of general-purpose C programming libraries";
 
-  outputs = [
-    "lib"
-    "dev"
-    "doc"
-    "out"
-  ];
+  outputs = [ "lib" "dev" "doc" "out" ];
 
   configureFlags = [
     # assume /dev/random works
@@ -32,4 +27,5 @@ skawarePackages.buildPackage {
 
     mv doc $doc/share/doc/skalibs/html
   '';
+
 }

@@ -1,18 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # bring your own
-  django,
+# bring your own
+, django
 
-  # propagates
-  python-stdnum,
+# propagates
+, python-stdnum
 
-  # tests
-  pytest-django,
-  pytestCheckHook,
-}:
+# tests
+, pytest-django, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "django-localflavor";
@@ -41,10 +36,7 @@ buildPythonPackage rec {
     "localflavor.za"
   ];
 
-  checkInputs = [
-    pytest-django
-    pytestCheckHook
-  ];
+  checkInputs = [ pytest-django pytestCheckHook ];
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 

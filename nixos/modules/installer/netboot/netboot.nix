@@ -1,12 +1,7 @@
 # This module creates netboot media containing the given NixOS
 # configuration.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -14,10 +9,8 @@ with lib;
   options = {
 
     netboot.squashfsCompression = mkOption {
-      default =
-        with pkgs.stdenv.hostPlatform;
-        "xz -Xdict-size 100% "
-        + lib.optionalString isx86 "-Xbcj x86"
+      default = with pkgs.stdenv.hostPlatform;
+        "xz -Xdict-size 100% " + lib.optionalString isx86 "-Xbcj x86"
         # Untested but should also reduce size for these platforms
         + lib.optionalString isAarch "-Xbcj arm"
         + lib.optionalString (isPower && is32bit && isBigEndian) "-Xbcj powerpc"
@@ -36,6 +29,7 @@ with lib;
         Nix store in the generated netboot image.
       '';
     };
+
   };
 
   config = {
@@ -44,17 +38,13 @@ with lib;
     boot.loader.grub.enable = false;
 
     # !!! Hack - attributes expected by other modules.
-    environment.systemPackages =
-      [ pkgs.grub2_efi ]
-      ++ (
-        if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
-          [ ]
-        else
-          [
-            pkgs.grub2
-            pkgs.syslinux
-          ]
-      );
+    environment.systemPackages = [ pkgs.grub2_efi ]
+      ++ (if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
+        [ ]
+      else [
+        pkgs.grub2
+        pkgs.syslinux
+      ]);
 
     fileSystems."/" = mkImageMediaOverride {
       fsType = "tmpfs";
@@ -85,44 +75,34 @@ with lib;
         "workdir=/nix/.rw-store/work"
       ];
 
-      depends = [
-        "/nix/.ro-store"
-        "/nix/.rw-store/store"
-        "/nix/.rw-store/work"
-      ];
+      depends =
+        [ "/nix/.ro-store" "/nix/.rw-store/store" "/nix/.rw-store/work" ];
     };
 
-    boot.initrd.availableKernelModules = [
-      "squashfs"
-      "overlay"
-    ];
+    boot.initrd.availableKernelModules = [ "squashfs" "overlay" ];
 
-    boot.initrd.kernelModules = [
-      "loop"
-      "overlay"
-    ];
+    boot.initrd.kernelModules = [ "loop" "overlay" ];
 
     # Closures to be copied to the Nix store, namely the init
     # script and the top-level system configuration directory.
     netboot.storeContents = [ config.system.build.toplevel ];
 
     # Create the squashfs image that contains the Nix store.
-    system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {
-      storeContents = config.netboot.storeContents;
-      comp = config.netboot.squashfsCompression;
-    };
+    system.build.squashfsStore =
+      pkgs.callPackage ../../../lib/make-squashfs.nix {
+        storeContents = config.netboot.storeContents;
+        comp = config.netboot.squashfsCompression;
+      };
 
     # Create the initrd
     system.build.netbootRamdisk = pkgs.makeInitrdNG {
       inherit (config.boot.initrd) compressor;
       prepend = [ "${config.system.build.initialRamdisk}/initrd" ];
 
-      contents = [
-        {
-          object = config.system.build.squashfsStore;
-          symlink = "/nix-store.squashfs";
-        }
-      ];
+      contents = [{
+        object = config.system.build.squashfsStore;
+        symlink = "/nix-store.squashfs";
+      }];
     };
 
     system.build.netbootIpxeScript = pkgs.writeTextDir "netboot.ipxe" ''
@@ -147,7 +127,9 @@ with lib;
       SCRIPT_DIR=$( cd -- "$( dirname -- "''${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
       kexec --load ''${SCRIPT_DIR}/bzImage \
         --initrd=''${SCRIPT_DIR}/initrd.gz \
-        --command-line "init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}"
+        --command-line "init=${config.system.build.toplevel}/init ${
+          toString config.boot.kernelParams
+        }"
       kexec -e
     '';
 
@@ -159,7 +141,8 @@ with lib;
       }
       {
         name = "bzImage";
-        path = "${config.system.build.kernel}/${config.system.boot.loader.kernelFile}";
+        path =
+          "${config.system.build.kernel}/${config.system.boot.loader.kernelFile}";
       }
       {
         name = "kexec-boot";
@@ -179,5 +162,7 @@ with lib;
       touch /etc/NIXOS
       ${config.nix.package}/bin/nix-env -p /nix/var/nix/profiles/system --set /run/current-system
     '';
+
   };
+
 }

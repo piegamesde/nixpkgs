@@ -1,19 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # propagates
-  django,
-  python-dateutil,
-  scim2-filter-parser,
-  gssapi,
-  python-ldap,
-  sssd,
+# propagates
+, django, python-dateutil, scim2-filter-parser, gssapi, python-ldap, sssd
 
-  # tests
-  mock,
-}:
+# tests
+, mock }:
 
 buildPythonPackage rec {
   pname = "django-scim2";
@@ -27,14 +18,8 @@ buildPythonPackage rec {
     hash = "sha256-5zdGPpjooiFoj+2OoglXhhKsPFB/KOHvrZWZd+1nZqU=";
   };
 
-  propagatedBuildInputs = [
-    django
-    python-dateutil
-    scim2-filter-parser
-    gssapi
-    python-ldap
-    sssd
-  ];
+  propagatedBuildInputs =
+    [ django python-dateutil scim2-filter-parser gssapi python-ldap sssd ];
 
   pythonImportsCheck = [ "django_scim" ];
 

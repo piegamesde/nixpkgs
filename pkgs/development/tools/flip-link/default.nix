@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  libiconv,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "flip-link";
@@ -29,16 +23,15 @@ rustPlatform.buildRustPackage rec {
   ];
 
   meta = with lib; {
-    description = "Adds zero-cost stack overflow protection to your embedded programs";
+    description =
+      "Adds zero-cost stack overflow protection to your embedded programs";
     homepage = "https://github.com/knurling-rs/flip-link";
-    changelog = "https://github.com/knurling-rs/flip-link/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/knurling-rs/flip-link/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [
-      FlorianFranzen
-      newam
-    ];
+    maintainers = with maintainers; [ FlorianFranzen newam ];
   };
 }

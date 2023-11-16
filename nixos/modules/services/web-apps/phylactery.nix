@@ -1,15 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.services.phylactery;
-in
-{
+let cfg = config.services.phylactery;
+in {
   options.services.phylactery = {
     enable = mkEnableOption (lib.mdDoc "Whether to enable Phylactery server");
 

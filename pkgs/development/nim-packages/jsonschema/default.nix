@@ -1,9 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromGitHub,
-  astpatternmatching,
-}:
+{ lib, buildNimPackage, fetchFromGitHub, astpatternmatching }:
 
 buildNimPackage rec {
   pname = "jsonschema";

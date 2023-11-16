@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildDotnetModule,
-  dotnetCorePackages,
-  autoPatchelfHook,
-  zlib,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, buildDotnetModule, dotnetCorePackages
+, autoPatchelfHook, zlib, openssl, }:
 buildDotnetModule rec {
   pname = "wasabibackend";
   version = "2.0.2.1";
@@ -16,7 +8,8 @@ buildDotnetModule rec {
     owner = "zkSNACKs";
     repo = "WalletWasabi";
     rev = "refs/tags/v${version}";
-    hash = "sha512-JuCl3SyejzwUd2n8Fy7EdxUuO4bIcGb8yMWZQOhZzsY4fvg9prFOnVZEquxahD0a41MLKHRNA1R2N3NMapcc0A==";
+    hash =
+      "sha512-JuCl3SyejzwUd2n8Fy7EdxUuO4bIcGb8yMWZQOhZzsY4fvg9prFOnVZEquxahD0a41MLKHRNA1R2N3NMapcc0A==";
   };
 
   projectFile = "WalletWasabi.Backend/WalletWasabi.Backend.csproj";
@@ -26,15 +19,9 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.aspnetcore_7_0;
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [
-    stdenv.cc.cc.lib
-    zlib
-  ];
+  buildInputs = [ stdenv.cc.cc.lib zlib ];
 
-  runtimeDeps = [
-    openssl
-    zlib
-  ];
+  runtimeDeps = [ openssl zlib ];
 
   preConfigure = ''
     makeWrapperArgs+=(

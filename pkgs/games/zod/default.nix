@@ -1,22 +1,7 @@
-{
-  lib,
-  config,
-  fetchzip,
-  stdenv,
-  SDL,
-  SDL_image,
-  SDL_ttf,
-  SDL_mixer,
-  libmysqlclient,
-  wxGTK32,
-  symlinkJoin,
-  runCommandLocal,
-  makeWrapper,
-  coreutils,
-  scalingFactor ? 2 # this is to resize the fixed-size zod_launcher window
-  ,
-  substituteAll,
-}:
+{ lib, config, fetchzip, stdenv, SDL, SDL_image, SDL_ttf, SDL_mixer
+, libmysqlclient, wxGTK32, symlinkJoin, runCommandLocal, makeWrapper, coreutils
+, scalingFactor ? 2 # this is to resize the fixed-size zod_launcher window
+, substituteAll }:
 let
   name = "zod-engine";
   version = "2011-09-06";
@@ -28,27 +13,13 @@ let
     sed '1i#include <ctime>' -i zod_src/common.cpp # gcc12
   '';
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    SDL
-    SDL_image
-    SDL_ttf
-    SDL_mixer
-    libmysqlclient
-    wxGTK32
-    coreutils
-  ];
+  buildInputs =
+    [ SDL SDL_image SDL_ttf SDL_mixer libmysqlclient wxGTK32 coreutils ];
   hardeningDisable = [ "format" ];
   NIX_LDFLAGS = "-L${libmysqlclient}/lib/mysql";
   zod_engine = stdenv.mkDerivation {
-    inherit
-      version
-      src
-      postPatch
-      nativeBuildInputs
-      buildInputs
-      hardeningDisable
-      NIX_LDFLAGS
-    ;
+    inherit version src postPatch nativeBuildInputs buildInputs hardeningDisable
+      NIX_LDFLAGS;
     pname = "${name}-engine";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";
@@ -59,15 +30,8 @@ let
     '';
   };
   zod_map_editor = stdenv.mkDerivation {
-    inherit
-      version
-      src
-      postPatch
-      nativeBuildInputs
-      buildInputs
-      hardeningDisable
-      NIX_LDFLAGS
-    ;
+    inherit version src postPatch nativeBuildInputs buildInputs hardeningDisable
+      NIX_LDFLAGS;
     pname = "${name}-map_editor";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";
@@ -79,14 +43,7 @@ let
     '';
   };
   zod_launcher = stdenv.mkDerivation {
-    inherit
-      version
-      src
-      nativeBuildInputs
-      buildInputs
-      zod_engine
-      zod_map_editor
-    ;
+    inherit version src nativeBuildInputs buildInputs zod_engine zod_map_editor;
     pname = "${name}-launcher";
     # This is necessary because the zod_launcher has terrible fixed-width window
     # the Idea is to apply the scalingFactor to all positions and sizes and I tested 1,2,3 and 4
@@ -119,15 +76,9 @@ let
       install -m644 $map $out/usr/lib/commander-zod/blank_maps
     done
   '';
-in
-symlinkJoin {
+in symlinkJoin {
   inherit name;
-  paths = [
-    zod_engine
-    zod_launcher
-    zod_map_editor
-    zod_assets
-  ];
+  paths = [ zod_engine zod_launcher zod_map_editor zod_assets ];
   meta = with lib; {
     description = "Multiplayer remake of ZED";
     homepage = "http://zod.sourceforge.net/";

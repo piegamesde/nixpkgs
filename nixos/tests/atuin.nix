@@ -1,30 +1,27 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     testPort = 8888;
     testUser = "testerman";
     testPass = "password";
     testEmail = "test.testerman@test.com";
-  in
-  {
+  in {
     name = "atuin";
     meta.maintainers = with lib.maintainers; [ devusb ];
 
     nodes = {
-      server =
-        { ... }:
-        {
-          services.atuin = {
-            enable = true;
-            port = testPort;
-            host = "0.0.0.0";
-            openFirewall = true;
-            openRegistration = true;
-          };
+      server = { ... }: {
+        services.atuin = {
+          enable = true;
+          port = testPort;
+          host = "0.0.0.0";
+          openFirewall = true;
+          openRegistration = true;
         };
+      };
 
       client = { ... }: { };
+
     };
 
     testScript = with pkgs; ''
@@ -63,5 +60,4 @@ import ./make-test-python.nix (
       # check for test record
       client.succeed("ATUIN_SESSION=$(${atuin}/bin/atuin uuid) ${atuin}/bin/atuin history list | grep shazbot")
     '';
-  }
-)
+  })

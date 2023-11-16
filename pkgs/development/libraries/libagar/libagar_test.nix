@@ -1,19 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bsdbuild,
-  libagar,
-  perl,
-  libjpeg,
-  libpng,
-  openssl,
-}:
+{ lib, stdenv, fetchurl, bsdbuild, libagar, perl, libjpeg, libpng, openssl }:
 
-let
-  srcs = import ./srcs.nix { inherit fetchurl; };
-in
-stdenv.mkDerivation {
+let srcs = import ./srcs.nix { inherit fetchurl; };
+in stdenv.mkDerivation {
   pname = "libagar-test";
   inherit (srcs) version src;
 
@@ -33,14 +21,7 @@ stdenv.mkDerivation {
 
   configureFlags = [ "--with-agar=${libagar}" ];
 
-  buildInputs = [
-    perl
-    bsdbuild
-    libagar
-    libjpeg
-    libpng
-    openssl
-  ];
+  buildInputs = [ perl bsdbuild libagar libjpeg libpng openssl ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

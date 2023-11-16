@@ -1,53 +1,42 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.bird-lg;
 
-  stringOrConcat = sep: v: if builtins.isString v then v else concatStringsSep sep v;
+  stringOrConcat = sep: v:
+    if builtins.isString v then v else concatStringsSep sep v;
 
-  frontend_args =
-    let
-      fe = cfg.frontend;
-    in
-    {
-      "--servers" = concatStringsSep "," fe.servers;
-      "--domain" = fe.domain;
-      "--listen" = fe.listenAddress;
-      "--proxy-port" = fe.proxyPort;
-      "--whois" = fe.whois;
-      "--dns-interface" = fe.dnsInterface;
-      "--bgpmap-info" = concatStringsSep "," cfg.frontend.bgpMapInfo;
-      "--title-brand" = fe.titleBrand;
-      "--navbar-brand" = fe.navbar.brand;
-      "--navbar-brand-url" = fe.navbar.brandURL;
-      "--navbar-all-servers" = fe.navbar.allServers;
-      "--navbar-all-url" = fe.navbar.allServersURL;
-      "--net-specific-mode" = fe.netSpecificMode;
-      "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
-    };
+  frontend_args = let fe = cfg.frontend;
+  in {
+    "--servers" = concatStringsSep "," fe.servers;
+    "--domain" = fe.domain;
+    "--listen" = fe.listenAddress;
+    "--proxy-port" = fe.proxyPort;
+    "--whois" = fe.whois;
+    "--dns-interface" = fe.dnsInterface;
+    "--bgpmap-info" = concatStringsSep "," cfg.frontend.bgpMapInfo;
+    "--title-brand" = fe.titleBrand;
+    "--navbar-brand" = fe.navbar.brand;
+    "--navbar-brand-url" = fe.navbar.brandURL;
+    "--navbar-all-servers" = fe.navbar.allServers;
+    "--navbar-all-url" = fe.navbar.allServersURL;
+    "--net-specific-mode" = fe.netSpecificMode;
+    "--protocol-filter" = concatStringsSep "," cfg.frontend.protocolFilter;
+  };
 
-  proxy_args =
-    let
-      px = cfg.proxy;
-    in
-    {
-      "--allowed" = concatStringsSep "," px.allowedIPs;
-      "--bird" = px.birdSocket;
-      "--listen" = px.listenAddress;
-      "--traceroute_bin" = px.traceroute.binary;
-      "--traceroute_flags" = concatStringsSep " " px.traceroute.flags;
-      "--traceroute_raw" = px.traceroute.rawOutput;
-    };
+  proxy_args = let px = cfg.proxy;
+  in {
+    "--allowed" = concatStringsSep "," px.allowedIPs;
+    "--bird" = px.birdSocket;
+    "--listen" = px.listenAddress;
+    "--traceroute_bin" = px.traceroute.binary;
+    "--traceroute_flags" = concatStringsSep " " px.traceroute.flags;
+    "--traceroute_raw" = px.traceroute.rawOutput;
+  };
 
-  mkArgValue =
-    value:
+  mkArgValue = value:
     if isString value then
       escapeShellArg value
     else if isBool value then
@@ -57,10 +46,10 @@ let
 
   filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
 
-  argsAttrToList =
-    args: mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
-in
-{
+  argsAttrToList = args:
+    mapAttrsToList (name: value: "${name} " + mkArgValue value)
+    (filterNull args);
+in {
   options = {
     services.bird-lg = {
       package = mkOption {
@@ -83,7 +72,8 @@ in
       };
 
       frontend = {
-        enable = mkEnableOption (lib.mdDoc "Bird Looking Glass Frontend Webserver");
+        enable =
+          mkEnableOption (lib.mdDoc "Bird Looking Glass Frontend Webserver");
 
         listenAddress = mkOption {
           type = types.str;
@@ -105,10 +95,7 @@ in
 
         servers = mkOption {
           type = types.listOf types.str;
-          example = [
-            "gigsgigscloud"
-            "hostdare"
-          ];
+          example = [ "gigsgigscloud" "hostdare" ];
           description = lib.mdDoc "Server name prefixes.";
         };
 
@@ -126,12 +113,7 @@ in
 
         bgpMapInfo = mkOption {
           type = types.listOf types.str;
-          default = [
-            "asn"
-            "as-name"
-            "ASName"
-            "descr"
-          ];
+          default = [ "asn" "as-name" "ASName" "descr" ];
           description = lib.mdDoc "Information displayed in bgpmap.";
         };
 
@@ -145,7 +127,8 @@ in
           type = types.str;
           default = "";
           example = "dn42";
-          description = lib.mdDoc "Apply network-specific changes for some networks.";
+          description =
+            lib.mdDoc "Apply network-specific changes for some networks.";
         };
 
         protocolFilter = mkOption {
@@ -159,7 +142,8 @@ in
           type = types.str;
           default = "";
           example = "^ospf";
-          description = lib.mdDoc "Protocol names to hide in summary tables (RE2 syntax),";
+          description =
+            lib.mdDoc "Protocol names to hide in summary tables (RE2 syntax),";
         };
 
         timeout = mkOption {
@@ -178,13 +162,15 @@ in
           brandURL = mkOption {
             type = types.str;
             default = "/";
-            description = lib.mdDoc "URL of the brand to show in the navigation bar.";
+            description =
+              lib.mdDoc "URL of the brand to show in the navigation bar.";
           };
 
           allServers = mkOption {
             type = types.str;
             default = "ALL Servers";
-            description = lib.mdDoc "Text of 'All server' button in the navigation bar.";
+            description =
+              lib.mdDoc "Text of 'All server' button in the navigation bar.";
           };
 
           allServersURL = mkOption {
@@ -219,10 +205,7 @@ in
         allowedIPs = mkOption {
           type = types.listOf types.str;
           default = [ ];
-          example = [
-            "192.168.25.52"
-            "192.168.25.53"
-          ];
+          example = [ "192.168.25.52" "192.168.25.53" ];
           description = lib.mdDoc "List of IPs to allow (default all allowed).";
         };
 
@@ -236,7 +219,8 @@ in
           binary = mkOption {
             type = types.str;
             default = "${pkgs.traceroute}/bin/traceroute";
-            defaultText = literalExpression ''"''${pkgs.traceroute}/bin/traceroute"'';
+            defaultText =
+              literalExpression ''"''${pkgs.traceroute}/bin/traceroute"'';
             description = lib.mdDoc "Traceroute's binary path.";
           };
 
@@ -272,11 +256,11 @@ in
 
   config = {
 
-    warnings =
-      lib.optional (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs) ''
+    warnings = lib.optional
+      (cfg.frontend.enable && builtins.isString cfg.frontend.extraArgs) ''
         Passing strings to `services.bird-lg.frontend.extraOptions' is deprecated. Please pass a list of strings instead.
-      ''
-      ++ lib.optional (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs) ''
+      '' ++ lib.optional
+      (cfg.proxy.enable && builtins.isString cfg.proxy.extraArgs) ''
         Passing strings to `services.bird-lg.proxy.extraOptions' is deprecated. Please pass a list of strings instead.
       '';
 
@@ -334,8 +318,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [
-    e1mo
-    tchekda
-  ];
+  meta.maintainers = with lib.maintainers; [ 0.0 mo tchekda ];
 }

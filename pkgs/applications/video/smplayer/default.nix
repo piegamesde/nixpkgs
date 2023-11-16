@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  qmake,
-  qtscript,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, qmake, qtscript, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "smplayer";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vU+M5aCCGSA+IwJXTLMYvno/Qei+5Hwck3Q/Ah7N09s=";
   };
 
-  nativeBuildInputs = [
-    qmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ qmake wrapQtAppsHook ];
 
   buildInputs = [ qtscript ];
 

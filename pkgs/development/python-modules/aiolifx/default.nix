@@ -1,14 +1,5 @@
-{
-  lib,
-  async-timeout,
-  click,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  ifaddr,
-  inquirerpy,
-  bitstring,
-}:
+{ lib, async-timeout, click, fetchPypi, buildPythonPackage, pythonOlder, ifaddr
+, inquirerpy, bitstring }:
 
 buildPythonPackage rec {
   pname = "aiolifx";
@@ -22,13 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-oK8Ih62EFwu3X5PNVFLH+Uce6ZBs7IMXet5/DHxfd5M=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    bitstring
-    click
-    ifaddr
-    inquirerpy
-  ];
+  propagatedBuildInputs = [ async-timeout bitstring click ifaddr inquirerpy ];
 
   # Module has no tests
   doCheck = false;

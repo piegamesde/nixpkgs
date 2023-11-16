@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,12 +7,12 @@ let
 
   format = pkgs.formats.ini { };
   configFile = format.generate "botamusique.ini" cfg.settings;
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [ hexa ];
 
   options.services.botamusique = {
-    enable = mkEnableOption (lib.mdDoc "botamusique, a bot to play audio streams on mumble");
+    enable = mkEnableOption
+      (lib.mdDoc "botamusique, a bot to play audio streams on mumble");
 
     package = mkOption {
       type = types.package;
@@ -27,8 +22,7 @@ in
     };
 
     settings = mkOption {
-      type =
-        with types;
+      type = with types;
         submodule {
           freeformType = format.type;
           options = {
@@ -36,13 +30,15 @@ in
               type = types.str;
               default = "localhost";
               example = "mumble.example.com";
-              description = lib.mdDoc "Hostname of the mumble server to connect to.";
+              description =
+                lib.mdDoc "Hostname of the mumble server to connect to.";
             };
 
             server.port = mkOption {
               type = types.port;
               default = 64738;
-              description = lib.mdDoc "Port of the mumble server to connect to.";
+              description =
+                lib.mdDoc "Port of the mumble server to connect to.";
             };
 
             bot.username = mkOption {
@@ -53,7 +49,8 @@ in
 
             bot.comment = mkOption {
               type = types.str;
-              default = "Hi, I'm here to play radio, local music or youtube/soundcloud music. Have fun!";
+              default =
+                "Hi, I'm here to play radio, local music or youtube/soundcloud music. Have fun!";
               description = lib.mdDoc "Comment displayed for the bot.";
             };
           };
@@ -82,10 +79,7 @@ in
         # Hardening
         CapabilityBoundingSet = [ "" ];
         DynamicUser = true;
-        IPAddressDeny = [
-          "link-local"
-          "multicast"
-        ];
+        IPAddressDeny = [ "link-local" "multicast" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         ProcSubset = "pid";
@@ -103,16 +97,10 @@ in
         ProtectSystem = "strict";
         RestrictNamespaces = true;
         RestrictRealtime = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         StateDirectory = "botamusique";
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service @resources"
-          "~@privileged"
-        ];
+        SystemCallFilter = [ "@system-service @resources" "~@privileged" ];
         UMask = "0077";
         WorkingDirectory = "/var/lib/botamusique";
       };

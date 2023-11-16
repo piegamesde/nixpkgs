@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -23,13 +18,12 @@ let
     "CAP_CHOWN"
   ];
 
-  buildCfg =
-    name: c:
+  buildCfg = name: c:
     let
       plugins' =
         if any (n: !any (m: m == n) cfg.plugins) (c.plugins or [ ]) then
           throw
-            "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
+          "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
         else
           c.plugins or cfg.plugins;
       plugins = unique plugins';
@@ -38,61 +32,53 @@ let
       hasPython2 = hasPython "2";
       hasPython3 = hasPython "3";
 
-      python =
-        if hasPython2 && hasPython3 then
-          throw "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
-        else if hasPython2 then
-          cfg.package.python2
-        else if hasPython3 then
-          cfg.package.python3
-        else
-          null;
+      python = if hasPython2 && hasPython3 then
+        throw
+        "`plugins` attribute in uWSGI configuration shouldn't contain both python2 and python3"
+      else if hasPython2 then
+        cfg.package.python2
+      else if hasPython3 then
+        cfg.package.python3
+      else
+        null;
 
       pythonEnv = python.withPackages (c.pythonPackages or (self: [ ]));
 
       uwsgiCfg = {
-        uwsgi =
-          if c.type == "normal" then
-            {
-              inherit plugins;
-            }
-            // removeAttrs c [
-              "type"
-              "pythonPackages"
-            ]
-            // optionalAttrs (python != null) {
-              pyhome = "${pythonEnv}";
-              env =
-                # Argh, uwsgi expects list of key-values there instead of a dictionary.
-                let
-                  envs = partition (hasPrefix "PATH=") (c.env or [ ]);
-                  oldPaths = map (x: substring (stringLength "PATH=") (stringLength x) x) envs.right;
-                  paths = oldPaths ++ [ "${pythonEnv}/bin" ];
-                in
-                [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;
-            }
-          else if isEmperor then
-            {
-              emperor =
-                if builtins.typeOf c.vassals != "set" then
-                  c.vassals
-                else
-                  pkgs.buildEnv {
-                    name = "vassals";
-                    paths = mapAttrsToList buildCfg c.vassals;
-                  };
-            }
-            // removeAttrs c [
-              "type"
-              "vassals"
-            ]
-          else
-            throw "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
+        uwsgi = if c.type == "normal" then
+          {
+            inherit plugins;
+          } // removeAttrs c [ "type" "pythonPackages" ]
+          // optionalAttrs (python != null) {
+            pyhome = "${pythonEnv}";
+            env =
+              # Argh, uwsgi expects list of key-values there instead of a dictionary.
+              let
+                envs = partition (hasPrefix "PATH=") (c.env or [ ]);
+                oldPaths =
+                  map (x: substring (stringLength "PATH=") (stringLength x) x)
+                  envs.right;
+                paths = oldPaths ++ [ "${pythonEnv}/bin" ];
+              in [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;
+          }
+        else if isEmperor then
+          {
+            emperor = if builtins.typeOf c.vassals != "set" then
+              c.vassals
+            else
+              pkgs.buildEnv {
+                name = "vassals";
+                paths = mapAttrsToList buildCfg c.vassals;
+              };
+          } // removeAttrs c [ "type" "vassals" ]
+        else
+          throw
+          "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
       };
-    in
-    pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg);
-in
-{
+
+    in pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg);
+
+in {
 
   options = {
     services.uwsgi = {
@@ -115,35 +101,27 @@ in
       };
 
       instance = mkOption {
-        type =
-          with types;
+        type = with types;
           let
-            valueType =
-              nullOr (
-                oneOf [
-                  bool
-                  int
-                  float
-                  str
-                  (lazyAttrsOf valueType)
-                  (listOf valueType)
-                  (mkOptionType {
-                    name = "function";
-                    description = "function";
-                    check = x: isFunction x;
-                    merge = mergeOneOption;
-                  })
-                ]
-              )
-              // {
-                description = "Json value or lambda";
-                emptyValue.value = { };
-              };
-          in
-          valueType;
-        default = {
-          type = "normal";
-        };
+            valueType = nullOr (oneOf [
+              bool
+              int
+              float
+              str
+              (lazyAttrsOf valueType)
+              (listOf valueType)
+              (mkOptionType {
+                name = "function";
+                description = "function";
+                check = x: isFunction x;
+                merge = mergeOneOption;
+              })
+            ]) // {
+              description = "Json value or lambda";
+              emptyValue.value = { };
+            };
+          in valueType;
+        default = { type = "normal"; };
         example = literalExpression ''
           {
             type = "emperor";
@@ -229,7 +207,9 @@ in
         User = cfg.user;
         Group = cfg.group;
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/uwsgi --json ${buildCfg "server" cfg.instance}/server.json";
+        ExecStart = "${cfg.package}/bin/uwsgi --json ${
+            buildCfg "server" cfg.instance
+          }/server.json";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         NotifyAccess = "main";
@@ -247,8 +227,11 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "uwsgi") { uwsgi.gid = config.ids.gids.uwsgi; };
+    users.groups = optionalAttrs (cfg.group == "uwsgi") {
+      uwsgi.gid = config.ids.gids.uwsgi;
+    };
 
-    services.uwsgi.package = pkgs.uwsgi.override { plugins = unique cfg.plugins; };
+    services.uwsgi.package =
+      pkgs.uwsgi.override { plugins = unique cfg.plugins; };
   };
 }

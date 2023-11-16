@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  setuptools-scm,
-  pytestCheckHook,
-}:
+{ lib, fetchPypi, buildPythonPackage, setuptools-scm, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "makefun";

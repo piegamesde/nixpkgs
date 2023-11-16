@@ -1,24 +1,18 @@
-{
-  fetchFromGitHub,
-  fetchurl,
-  lib,
-  python3Packages,
-  coreVersion ? "1.13.3" # the version of the binary espurna image to flash
-  ,
-  coreSize ? "1MB" # size of the binary image to flash
-  ,
-  coreSha256 ? "0pkb2nmml0blrfiqpc46xpjc2dw927i89k1lfyqx827wanhc704x",
-}:
+{ fetchFromGitHub, fetchurl, lib, python3Packages
+, coreVersion ? "1.13.3" # the version of the binary espurna image to flash
+, coreSize ? "1MB" # size of the binary image to flash
+, coreSha256 ? "0pkb2nmml0blrfiqpc46xpjc2dw927i89k1lfyqx827wanhc704x" }:
 
 with python3Packages;
 
 let
   core = fetchurl {
-    url = "https://github.com/xoseperez/espurna/releases/download/${coreVersion}/espurna-${coreVersion}-espurna-core-${coreSize}.bin";
+    url =
+      "https://github.com/xoseperez/espurna/releases/download/${coreVersion}/espurna-${coreVersion}-espurna-core-${coreSize}.bin";
     sha256 = coreSha256;
   };
-in
-buildPythonApplication rec {
+
+in buildPythonApplication rec {
   pname = "sonota-unstable";
   version = "2018-10-07";
 
@@ -37,11 +31,7 @@ buildPythonApplication rec {
 
   format = "other";
 
-  propagatedBuildInputs = [
-    httplib2
-    netifaces
-    tornado
-  ];
+  propagatedBuildInputs = [ httplib2 netifaces tornado ];
 
   installPhase = ''
     runHook preInstall
@@ -55,7 +45,8 @@ buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Flash Itead Sonoff devices with custom firmware via original OTA mechanism";
+    description =
+      "Flash Itead Sonoff devices with custom firmware via original OTA mechanism";
     homepage = src.meta.homepage;
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];

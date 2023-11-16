@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gettext,
-}:
+{ lib, stdenv, fetchurl, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "ms-sys";

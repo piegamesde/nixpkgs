@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  boost,
-  db48,
-  fetchFromGitHub,
-  libevent,
-  miniupnpc,
-  openssl,
-  pkg-config,
-  zeromq,
-  zlib,
-  unixtools,
-  python3,
-}:
+{ lib, stdenv, autoreconfHook, boost, db48, fetchFromGitHub, libevent, miniupnpc
+, openssl, pkg-config, zeromq, zlib, unixtools, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "particl-core";
@@ -26,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jrIsErKeHP9CMUWsrD42RmfmApP7J091OLA5JNY0fe0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
   buildInputs = [
     openssl
     db48
@@ -42,10 +25,8 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  configureFlags = [
-    "--disable-bench"
-    "--with-boost-libdir=${boost.out}/lib"
-  ] ++ lib.optionals (!doCheck) [ "--enable-tests=no" ];
+  configureFlags = [ "--disable-bench" "--with-boost-libdir=${boost.out}/lib" ]
+    ++ lib.optionals (!doCheck) [ "--enable-tests=no" ];
 
   # Always check during Hydra builds
   doCheck = true;
@@ -54,7 +35,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
-    description = "Privacy-Focused Marketplace & Decentralized Application Platform";
+    description =
+      "Privacy-Focused Marketplace & Decentralized Application Platform";
     longDescription = ''
       An open source, decentralized privacy platform built for global person to person eCommerce.
       RPC daemon and CLI client only.

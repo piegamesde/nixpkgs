@@ -1,12 +1,10 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "plasma5";
     meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
 
-    nodes.machine =
-      { ... }:
+    nodes.machine = { ... }:
 
       {
         imports = [ ./common/user-account.nix ];
@@ -21,16 +19,15 @@ import ./make-test-python.nix (
           enable = true;
           user = "alice";
         };
-        hardware.pulseaudio.enable = true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
+        hardware.pulseaudio.enable =
+          true; # needed for the factl test, /dev/snd/* exists without them but udev doesn't care then
       };
 
-    testScript =
-      { nodes, ... }:
+    testScript = { nodes, ... }:
       let
         user = nodes.machine.config.users.users.alice;
         xdo = "${pkgs.xdotool}/bin/xdotool";
-      in
-      ''
+      in ''
         with subtest("Wait for login"):
             start_all()
             machine.wait_for_file("${user.home}/.Xauthority")
@@ -67,5 +64,4 @@ import ./make-test-python.nix (
             )
             machine.screenshot("screen")
       '';
-  }
-)
+  })

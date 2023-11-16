@@ -1,23 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.xserver.windowManager.twm;
-in
 
-{
+in {
 
   ###### interface
 
   options = {
-    services.xserver.windowManager.twm.enable = mkEnableOption (lib.mdDoc "twm");
+    services.xserver.windowManager.twm.enable =
+      mkEnableOption (lib.mdDoc "twm");
   };
 
   ###### implementation
@@ -33,5 +28,7 @@ in
     };
 
     environment.systemPackages = [ pkgs.xorg.twm ];
+
   };
+
 }

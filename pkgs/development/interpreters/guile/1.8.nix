@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  buildPackages,
-  gawk,
-  gmp,
-  libtool,
-  makeWrapper,
-  pkg-config,
-  pkgsBuildBuild,
-  readline,
-}:
+{ lib, stdenv, fetchurl, buildPackages, gawk, gmp, libtool, makeWrapper
+, pkg-config, pkgsBuildBuild, readline }:
 
 stdenv.mkDerivation rec {
   pname = "guile";
@@ -21,31 +10,23 @@ stdenv.mkDerivation rec {
     sha256 = "0l200a0v7h8bh0cwz6v7hc13ds39cgqsmfrks55b1rbj5vniyiy3";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "info"
-  ];
+  outputs = [ "out" "dev" "info" ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
   # GCC 4.6 raises a number of set-but-unused warnings.
-  configureFlags =
-    [ "--disable-error-on-warning" ]
-    # Guile needs patching to preset results for the configure tests about
-    # pthreads, which work only in native builds.
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "--with-threads=no";
+  configureFlags = [
+    "--disable-error-on-warning"
+  ]
+  # Guile needs patching to preset results for the configure tests about
+  # pthreads, which work only in native builds.
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    "--with-threads=no";
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_1_8;
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-  ];
-  buildInputs = [
-    libtool
-    readline
-  ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    pkgsBuildBuild.guile_1_8;
+  nativeBuildInputs = [ makeWrapper pkg-config ];
+  buildInputs = [ libtool readline ];
   propagatedBuildInputs = [
     gmp
 
@@ -67,10 +48,9 @@ stdenv.mkDerivation rec {
     sed -e '/lt_dlinit/a  lt_dladdsearchdir("'$out/lib'");' -i libguile/dynl.c
   '';
 
-  postInstall =
-    ''
-      wrapProgram $out/bin/guile-snarf --prefix PATH : "${gawk}/bin"
-    ''
+  postInstall = ''
+    wrapProgram $out/bin/guile-snarf --prefix PATH : "${gawk}/bin"
+  ''
     # XXX: See http://thread.gmane.org/gmane.comp.lib.gnulib.bugs/18903 for
     # why `--with-libunistring-prefix' and similar options coming from
     # `AC_LIB_LINKFLAGS_BODY' don't work on NixOS/x86_64.

@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  perl,
-}:
+{ lib, stdenv, fetchurl, perl }:
 
 stdenv.mkDerivation rec {
   pname = "nat-traverse";
   version = "0.7";
 
   src = fetchurl {
-    url = "https://www.speicherleck.de/iblech/nat-traverse/nat-traverse-${version}.tar.bz2";
+    url =
+      "https://www.speicherleck.de/iblech/nat-traverse/nat-traverse-${version}.tar.bz2";
     sha256 = "0knwnqsjwv7sa5wjb863ghabs7s269a73qwkmxpsbngjw9s0j2ih";
   };
 

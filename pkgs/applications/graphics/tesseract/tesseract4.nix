@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  autoconf-archive,
-  pkg-config,
-  leptonica,
-  libpng,
-  libtiff,
-  icu,
-  pango,
-  opencl-headers,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, pkg-config
+, leptonica, libpng, libtiff, icu, pango, opencl-headers, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "tesseract";
@@ -33,29 +20,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    autoconf-archive
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook autoconf-archive ];
 
-  buildInputs = [
-    leptonica
-    libpng
-    libtiff
-    icu
-    pango
-    opencl-headers
-  ];
+  buildInputs = [ leptonica libpng libtiff icu pango opencl-headers ];
 
   meta = {
     description = "OCR engine";
     homepage = "https://github.com/tesseract-ocr/tesseract";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      viric
-      erikarvstedt
-    ];
+    maintainers = with lib.maintainers; [ viric erikarvstedt ];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

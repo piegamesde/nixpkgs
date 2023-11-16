@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libxslt,
-  asciidoc,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libxslt, asciidoc }:
 
 stdenv.mkDerivation rec {
   pname = "kimg";
@@ -20,17 +13,14 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    asciidoc
-    cmake
-    libxslt.bin
-  ];
+  nativeBuildInputs = [ asciidoc cmake libxslt.bin ];
 
   hardeningDisable = [ "format" ];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
-    description = "Converts image formats supported by stb_image to the KnightOS image format";
+    description =
+      "Converts image formats supported by stb_image to the KnightOS image format";
     license = licenses.mit;
     maintainers = with maintainers; [ siraben ];
     platforms = platforms.all;

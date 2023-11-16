@@ -1,19 +1,6 @@
-{
-  config,
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  gtest,
-  doCheck ? true,
-  cudaSupport ? config.cudaSupport or false,
-  ncclSupport ? false,
-  rLibrary ? false,
-  cudaPackages,
-  llvmPackages,
-  R,
-  rPackages,
-}@inputs:
+{ config, stdenv, lib, fetchFromGitHub, cmake, gtest, doCheck ? true
+, cudaSupport ? config.cudaSupport or false, ncclSupport ? false
+, rLibrary ? false, cudaPackages, llvmPackages, R, rPackages }@inputs:
 
 assert ncclSupport -> cudaSupport;
 # Disable regular tests when building the R package
@@ -29,9 +16,8 @@ let
   # #226165 rewrites cudaStdenv
   inherit (cudaPackages) backendStdenv;
   stdenv = if cudaSupport then backendStdenv else inputs.stdenv;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pnameBase = "xgboost";
   # prefix with r when building the R library
   # The R package build results in a special xgboost.so file
@@ -56,15 +42,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-IBqtyz40VVHdncibnZQAe5oDsjb5isWBYQ6pGx/zt38=";
   };
 
-  nativeBuildInputs =
-    [ cmake ]
+  nativeBuildInputs = [ cmake ]
     ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ]
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
     ++ lib.optionals rLibrary [ R ];
 
-  buildInputs =
-    [ gtest ]
-    ++ lib.optional cudaSupport cudaPackages.cudatoolkit ++ lib.optional ncclSupport cudaPackages.nccl;
+  buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit
+    ++ lib.optional ncclSupport cudaPackages.nccl;
 
   propagatedBuildInputs = lib.optionals rLibrary [
     rPackages.data_table
@@ -72,18 +56,16 @@ stdenv.mkDerivation rec {
     rPackages.Matrix
   ];
 
-  cmakeFlags =
-    lib.optionals doCheck [ "-DGOOGLE_TEST=ON" ]
+  cmakeFlags = lib.optionals doCheck [ "-DGOOGLE_TEST=ON" ]
     ++ lib.optionals cudaSupport [
       "-DUSE_CUDA=ON"
       # Their CMakeLists.txt does not respect CUDA_HOST_COMPILER, instead using the CXX compiler.
       # https://github.com/dmlc/xgboost/blob/ccf43d4ba0a94e2f0a3cc5a526197539ae46f410/CMakeLists.txt#L145
       "-DCMAKE_C_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/gcc"
       "-DCMAKE_CXX_COMPILER=${cudaPackages.cudatoolkit.cc}/bin/g++"
-    ]
-    ++ lib.optionals (cudaSupport && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0") [
-      "-DBUILD_WITH_CUDA_CUB=ON"
-    ]
+    ] ++ lib.optionals (cudaSupport
+      && lib.versionAtLeast cudaPackages.cudatoolkit.version "11.4.0")
+    [ "-DBUILD_WITH_CUDA_CUB=ON" ]
     ++ lib.optionals ncclSupport [ "-DUSE_NCCL=ON" ]
     ++ lib.optionals rLibrary [ "-DR_LIB=ON" ];
 
@@ -97,33 +79,30 @@ stdenv.mkDerivation rec {
   # By default, cmake build will run ctests with all checks enabled
   # If we're building with cuda, we run ctest manually so that we can skip the GPU tests
   checkPhase = lib.optionalString cudaSupport ''
-    ctest --force-new-ctest-process ${lib.optionalString cudaSupport "-E TestXGBoostLib"}
+    ctest --force-new-ctest-process ${
+      lib.optionalString cudaSupport "-E TestXGBoostLib"
+    }
   '';
 
   # Disable finicky tests from dmlc core that fail in Hydra. XGboost team
   # confirmed xgboost itself does not use this part of the dmlc code.
-  GTEST_FILTER =
-    let
-      # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
-      filteredTests = lib.optionals stdenv.hostPlatform.isDarwin [
-        "ThreadGroup.TimerThread"
-        "ThreadGroup.TimerThreadSimple"
-      ];
-    in
-    "-${builtins.concatStringsSep ":" filteredTests}";
+  GTEST_FILTER = let
+    # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
+    filteredTests = lib.optionals stdenv.hostPlatform.isDarwin [
+      "ThreadGroup.TimerThread"
+      "ThreadGroup.TimerThreadSimple"
+    ];
+  in "-${builtins.concatStringsSep ":" filteredTests}";
 
   installPhase =
-    let
-      libname = "libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in
-    ''
+    let libname = "libxgboost${stdenv.hostPlatform.extensions.sharedLibrary}";
+    in ''
       runHook preInstall
       mkdir -p $out
       cp -r ../include $out
       cp -r ../dmlc-core/include/dmlc $out/include
       cp -r ../rabit/include/rabit $out/include
-    ''
-    + lib.optionalString (!rLibrary) ''
+    '' + lib.optionalString (!rLibrary) ''
       install -Dm755 ../lib/${libname} $out/lib/${libname}
       install -Dm755 ../xgboost $out/bin/xgboost
     ''
@@ -133,8 +112,7 @@ stdenv.mkDerivation rec {
       mkdir $out/library
       export R_LIBS_SITE="$out/library:$R_LIBS_SITE''${R_LIBS_SITE:+:}"
       make install -l $out/library
-    ''
-    + ''
+    '' + ''
       runHook postInstall
     '';
 
@@ -145,13 +123,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library";
+    description =
+      "Scalable, Portable and Distributed Gradient Boosting (GBDT, GBRT or GBM) Library";
     homepage = "https://github.com/dmlc/xgboost";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      abbradar
-      nviets
-    ];
+    maintainers = with maintainers; [ abbradar nviets ];
   };
 }

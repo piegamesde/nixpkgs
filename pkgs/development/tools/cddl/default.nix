@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "cddl";
@@ -16,10 +12,7 @@ bundlerApp {
     description = "A parser, generator, and validator for CDDL";
     homepage = "https://rubygems.org/gems/cddl";
     license = with licenses; mit;
-    maintainers = with maintainers; [
-      fdns
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ fdns nicknovitski ];
     platforms = platforms.unix;
   };
 }

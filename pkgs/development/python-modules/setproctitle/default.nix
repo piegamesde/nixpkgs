@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "setproctitle";
@@ -23,9 +17,11 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "--ignore=tests/setproctitle_test.py" ];
 
   meta = with lib; {
-    description = "Allows a process to change its title (as displayed by system tools such as ps and top)";
+    description =
+      "Allows a process to change its title (as displayed by system tools such as ps and top)";
     homepage = "https://github.com/dvarrazzo/py-setproctitle";
     license = licenses.bsdOriginal;
     maintainers = with maintainers; [ exi ];
   };
+
 }

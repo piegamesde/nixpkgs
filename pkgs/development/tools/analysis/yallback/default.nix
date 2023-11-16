@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  coreutils,
-  bashInteractive,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, coreutils, bashInteractive }:
 
 stdenv.mkDerivation rec {
   version = "0.2.0";
@@ -17,15 +10,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-t+fdnDJMFiFqN23dSY3TnsZsIDcravtwdNKJ5MiZosE=";
   };
 
-  buildInputs = [
-    coreutils
-    bashInteractive
-  ];
+  buildInputs = [ coreutils bashInteractive ];
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
     install -Dv yallback $out/bin/yallback
-    wrapProgram $out/bin/yallback --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+    wrapProgram $out/bin/yallback --prefix PATH : ${
+      lib.makeBinPath [ coreutils ]
+    }
   '';
 
   meta = with lib; {

@@ -1,17 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.hardware.rasdaemon;
-in
-{
+
+in {
   options.hardware.rasdaemon = {
 
     enable = mkEnableOption (lib.mdDoc "RAS logging daemon");
@@ -19,15 +14,15 @@ in
     record = mkOption {
       type = types.bool;
       default = true;
-      description = lib.mdDoc "record events via sqlite3, required for ras-mc-ctl";
+      description =
+        lib.mdDoc "record events via sqlite3, required for ras-mc-ctl";
     };
 
     mainboard = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details.";
+      description = lib.mdDoc
+        "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details.";
       example = ''
         vendor = ASRock
         model = B450M Pro4
@@ -46,9 +41,8 @@ in
     labels = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels";
+      description = lib.mdDoc
+        "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels";
       example = ''
         # vendor and model may be shown by 'ras-mc-ctl --mainboard'
         vendor: ASRock
@@ -104,42 +98,31 @@ in
         text = cfg.config;
       };
     };
-    environment.systemPackages =
-      [ pkgs.rasdaemon ]
-      ++ optionals (cfg.testing) (
-        with pkgs.error-inject; [
-          edac-inject
-          mce-inject
-          aer-inject
-        ]
-      );
+    environment.systemPackages = [ pkgs.rasdaemon ] ++ optionals (cfg.testing)
+      (with pkgs.error-inject; [ edac-inject mce-inject aer-inject ]);
 
-    boot.initrd.kernelModules =
-      cfg.extraModules
-      ++ optionals (cfg.testing) [
-        # edac_core and amd64_edac should get loaded automatically
-        # i7core_edac may not be, and may not be required, but should load successfully
-        "edac_core"
-        "amd64_edac"
-        "i7core_edac"
-        "mce-inject"
-        "aer-inject"
-      ];
-
-    boot.kernelPatches = optionals (cfg.testing) [
-      {
-        name = "rasdaemon-tests";
-        patch = null;
-        extraConfig = ''
-          EDAC_DEBUG y
-          X86_MCE_INJECT y
-
-          PCIEPORTBUS y
-          PCIEAER y
-          PCIEAER_INJECT y
-        '';
-      }
+    boot.initrd.kernelModules = cfg.extraModules ++ optionals (cfg.testing) [
+      # edac_core and amd64_edac should get loaded automatically
+      # i7core_edac may not be, and may not be required, but should load successfully
+      "edac_core"
+      "amd64_edac"
+      "i7core_edac"
+      "mce-inject"
+      "aer-inject"
     ];
+
+    boot.kernelPatches = optionals (cfg.testing) [{
+      name = "rasdaemon-tests";
+      patch = null;
+      extraConfig = ''
+        EDAC_DEBUG y
+        X86_MCE_INJECT y
+
+        PCIEPORTBUS y
+        PCIEAER y
+        PCIEAER_INJECT y
+      '';
+    }];
 
     # i tried to set up a group for this
     # but rasdaemon needs higher permissions?
@@ -155,8 +138,8 @@ in
         serviceConfig = {
           StateDirectory = optionalString (cfg.record) "rasdaemon";
 
-          ExecStart =
-            "${pkgs.rasdaemon}/bin/rasdaemon --foreground" + optionalString (cfg.record) " --record";
+          ExecStart = "${pkgs.rasdaemon}/bin/rasdaemon --foreground"
+            + optionalString (cfg.record) " --record";
           ExecStop = "${pkgs.rasdaemon}/bin/rasdaemon --disable";
           Restart = "on-abort";
 
@@ -180,4 +163,5 @@ in
   };
 
   meta.maintainers = [ maintainers.evils ];
+
 }

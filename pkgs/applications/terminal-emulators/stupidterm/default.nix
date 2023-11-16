@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  vte,
-  gtk,
-  pcre2,
-  nixosTests,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, vte, gtk, pcre2, nixosTests }:
 
 stdenv.mkDerivation {
   pname = "stupidterm";
@@ -15,11 +6,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    vte
-    gtk
-    pcre2
-  ];
+  buildInputs = [ vte gtk pcre2 ];
 
   src = fetchFromGitHub {
     owner = "esmil";
@@ -45,7 +32,8 @@ stdenv.mkDerivation {
   passthru.tests.test = nixosTests.terminal-emulators.stupidterm;
 
   meta = with lib; {
-    description = "Simple wrapper around the VTE terminal emulator widget for GTK";
+    description =
+      "Simple wrapper around the VTE terminal emulator widget for GTK";
     homepage = "https://github.com/esmil/stupidterm";
     license = licenses.lgpl3Plus;
     maintainers = [ maintainers.etu ];

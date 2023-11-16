@@ -1,36 +1,7 @@
-{
-  alsa-lib,
-  at-spi2-atk,
-  at-spi2-core,
-  atk,
-  cairo,
-  cups,
-  curl,
-  dbus,
-  dpkg,
-  expat,
-  fetchurl,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  lib,
-  libdrm,
-  libnotify,
-  libsecret,
-  libuuid,
-  libxcb,
-  libxkbcommon,
-  mesa,
-  nspr,
-  nss,
-  pango,
-  stdenv,
-  systemd,
-  wrapGAppsHook,
-  xorg,
-}:
+{ alsa-lib, at-spi2-atk, at-spi2-core, atk, cairo, cups, curl, dbus, dpkg, expat
+, fetchurl, fontconfig, freetype, gdk-pixbuf, glib, gtk3, lib, libdrm, libnotify
+, libsecret, libuuid, libxcb, libxkbcommon, mesa, nspr, nss, pango, stdenv
+, systemd, wrapGAppsHook, xorg, }:
 
 let
   version = "1.37.0";
@@ -78,28 +49,24 @@ let
     (lib.getLib stdenv.cc.cc)
   ];
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
-        sha256 = "sha256-SeglhwIKsxhmhA3rNcg6paSBwlB4a4Aiq9L2DFR9/d4=";
-      }
-    else
-      throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
-in
-# NOTE While MongoDB Compass is available to darwin, I do not have resources to test it
-# Feel free to make a PR adding support if desired
-stdenv.mkDerivation {
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://downloads.mongodb.com/compass/mongodb-compass_${version}_amd64.deb";
+      sha256 = "sha256-SeglhwIKsxhmhA3rNcg6paSBwlB4a4Aiq9L2DFR9/d4=";
+    }
+  else
+    throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
+  # NOTE While MongoDB Compass is available to darwin, I do not have resources to test it
+  # Feel free to make a PR adding support if desired
+
+in stdenv.mkDerivation {
   pname = "mongodb-compass";
   inherit version;
 
   inherit src;
 
-  buildInputs = [
-    dpkg
-    wrapGAppsHook
-    gtk3
-  ];
+  buildInputs = [ dpkg wrapGAppsHook gtk3 ];
   dontUnpack = true;
 
   buildCommand = ''

@@ -1,31 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  makeDesktopItem,
-  zlib,
-  glib,
-  libpng,
-  freetype,
-  openssl,
-  xorg,
-  fontconfig,
-  qtbase,
-  qtwebengine,
-  qtwebchannel,
-  qtsvg,
-  qtwebsockets,
-  xkeyboard_config,
-  alsa-lib,
-  libpulseaudio ? null,
-  libredirect,
-  quazip,
-  which,
-  unzip,
-  llvmPackages_10,
-  writeShellScriptBin,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, makeDesktopItem, zlib, glib, libpng
+, freetype, openssl, xorg, fontconfig, qtbase, qtwebengine, qtwebchannel, qtsvg
+, qtwebsockets, xkeyboard_config, alsa-lib, libpulseaudio ? null, libredirect
+, quazip, which, unzip, llvmPackages_10, writeShellScriptBin }:
 
 let
 
@@ -73,20 +49,19 @@ let
   };
 
   fakeLess = writeShellScriptBin "less" "cat";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "teamspeak-client";
 
   version = "3.5.6";
 
   src = fetchurl {
-    url = "https://files.teamspeak-services.com/releases/client/${version}/TeamSpeak3-Client-linux_${arch}-${version}.run";
-    sha256 =
-      if stdenv.is64bit then
-        "sha256:0hjai1bd4mq3g2dlyi0zkn8s4zlgxd38skw77mb78nc4di5gvgpg"
-      else
-        "sha256:1y1c65nap91nv9xkvd96fagqbfl56p9n0rl6iac0i29bkysdmija";
+    url =
+      "https://files.teamspeak-services.com/releases/client/${version}/TeamSpeak3-Client-linux_${arch}-${version}.run";
+    sha256 = if stdenv.is64bit then
+      "sha256:0hjai1bd4mq3g2dlyi0zkn8s4zlgxd38skw77mb78nc4di5gvgpg"
+    else
+      "sha256:1y1c65nap91nv9xkvd96fagqbfl56p9n0rl6iac0i29bkysdmija";
   };
 
   # grab the plugin sdk for the desktop icon
@@ -95,12 +70,7 @@ stdenv.mkDerivation rec {
     sha256 = "1bywmdj54glzd0kffvr27r84n4dsd0pskkbmh59mllbxvj0qwy7f";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    fakeLess
-    which
-    unzip
-  ];
+  nativeBuildInputs = [ makeWrapper fakeLess which unzip ];
 
   unpackPhase = ''
     echo -e '\ny' | sh -xe $src
@@ -113,37 +83,38 @@ stdenv.mkDerivation rec {
     patchelf --replace-needed libquazip.so ${quazip}/lib/libquazip1-qt5.so ts3client
     patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-      --set-rpath ${lib.makeLibraryPath deps}:$(cat $NIX_CC/nix-support/orig-cc)/${libDir} \
+      --set-rpath ${
+        lib.makeLibraryPath deps
+      }:$(cat $NIX_CC/nix-support/orig-cc)/${libDir} \
       --force-rpath \
       ts3client
   '';
 
-  installPhase =
-    ''
-      # Delete unecessary libraries - these are provided by nixos.
-      rm *.so.* *.so
-      rm QtWebEngineProcess
-      rm qt.conf
-      rm -r platforms # contains libqxcb.so
+  installPhase = ''
+    # Delete unecessary libraries - these are provided by nixos.
+    rm *.so.* *.so
+    rm QtWebEngineProcess
+    rm qt.conf
+    rm -r platforms # contains libqxcb.so
 
-      # Install files.
-      mkdir -p $out/lib/teamspeak
-      mv * $out/lib/teamspeak/
+    # Install files.
+    mkdir -p $out/lib/teamspeak
+    mv * $out/lib/teamspeak/
 
-      # Make a desktop item
-      mkdir -p $out/share/applications/ $out/share/icons/hicolor/64x64/apps/
-      unzip ${pluginsdk}
-      cp pluginsdk/docs/client_html/images/logo.png $out/share/icons/hicolor/64x64/apps/teamspeak.png
-      cp ${desktopItem}/share/applications/* $out/share/applications/
+    # Make a desktop item
+    mkdir -p $out/share/applications/ $out/share/icons/hicolor/64x64/apps/
+    unzip ${pluginsdk}
+    cp pluginsdk/docs/client_html/images/logo.png $out/share/icons/hicolor/64x64/apps/teamspeak.png
+    cp ${desktopItem}/share/applications/* $out/share/applications/
 
-      # Make a symlink to the binary from bin.
-      mkdir -p $out/bin/
-      ln -s $out/lib/teamspeak/ts3client $out/bin/ts3client
+    # Make a symlink to the binary from bin.
+    mkdir -p $out/bin/
+    ln -s $out/lib/teamspeak/ts3client $out/bin/ts3client
 
-      wrapProgram $out/bin/ts3client \
-        --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
-        --set QT_PLUGIN_PATH "${qtbase}/${qtbase.qtPluginPrefix}" \
-    '' # wayland is currently broken, remove when TS3 fixes that
+    wrapProgram $out/bin/ts3client \
+      --set LD_PRELOAD "${libredirect}/lib/libredirect.so" \
+      --set QT_PLUGIN_PATH "${qtbase}/${qtbase.qtPluginPrefix}" \
+  '' # wayland is currently broken, remove when TS3 fixes that
     + ''
       --set QT_QPA_PLATFORM xcb \
       --set NIX_REDIRECTS /usr/share/X11/xkb=${xkeyboard_config}/share/X11/xkb
@@ -161,14 +132,8 @@ stdenv.mkDerivation rec {
       url = "https://www.teamspeak.com/en/privacy-and-terms/";
       free = false;
     };
-    maintainers = with maintainers; [
-      lhvwb
-      lukegb
-    ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    maintainers = with maintainers; [ lhvwb lukegb ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }
 

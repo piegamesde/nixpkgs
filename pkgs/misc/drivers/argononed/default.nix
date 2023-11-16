@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  dtc,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitLab, dtc, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "argononed";

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  coverage,
-  pythonOlder,
-  nose,
-  pytestCheckHook,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, coverage, pythonOlder, nose
+, pytestCheckHook, six }:
 
 buildPythonPackage rec {
   pname = "attrdict";
@@ -23,10 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ six ];
 
-  nativeCheckInputs = [
-    coverage
-    nose
-  ];
+  nativeCheckInputs = [ coverage nose ];
 
   postPatch = ''
     substituteInPlace attrdict/merge.py \

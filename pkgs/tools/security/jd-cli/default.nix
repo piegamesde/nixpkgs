@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  jre,
-  makeWrapper,
-  maven,
-}:
+{ lib, stdenv, fetchFromGitHub, jre, makeWrapper, maven }:
 
 let
   pname = "jd-cli";
@@ -41,14 +34,11 @@ let
     outputHashMode = "recursive";
     outputHash = "sha256-5d3ZLuzoEkPjh01uL/BuhJ6kevLdsm1P4PMLkEWaVUM=";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs = [
-    maven
-    makeWrapper
-  ];
+  nativeBuildInputs = [ maven makeWrapper ];
 
   buildPhase = ''
     mvn --offline -Dmaven.repo.local=${deps} package;
@@ -63,7 +53,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple command line wrapper around JD Core Java Decompiler project";
+    description =
+      "Simple command line wrapper around JD Core Java Decompiler project";
     homepage = "https://github.com/intoolswetrust/jd-cli";
     license = licenses.gpl3;
     platforms = platforms.unix;

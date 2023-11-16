@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  packaging,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, packaging, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "fastcore";
@@ -31,7 +25,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for Fast AI";
     homepage = "https://github.com/fastai/fastcore";
-    changelog = "https://github.com/fastai/fastcore/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/fastai/fastcore/blob/${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

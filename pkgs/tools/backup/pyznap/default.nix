@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchPypi,
-  setuptools,
-}:
+{ lib, buildPythonApplication, fetchPypi, setuptools }:
 
 buildPythonApplication rec {
   pname = "pyznap";

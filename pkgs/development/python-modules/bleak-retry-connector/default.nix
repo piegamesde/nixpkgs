@@ -1,16 +1,5 @@
-{
-  lib,
-  async-timeout,
-  bleak,
-  bluetooth-adapters,
-  dbus-fast,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  pytest-asyncio,
-}:
+{ lib, async-timeout, bleak, bluetooth-adapters, dbus-fast, buildPythonPackage
+, fetchFromGitHub, poetry-core, pytestCheckHook, pythonOlder, pytest-asyncio }:
 
 buildPythonPackage rec {
   pname = "bleak-retry-connector";
@@ -33,17 +22,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    async-timeout
-    bleak
-    bluetooth-adapters
-    dbus-fast
-  ];
+  propagatedBuildInputs = [ async-timeout bleak bluetooth-adapters dbus-fast ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   disabledTests = [
     # broken mocking
@@ -55,9 +36,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "bleak_retry_connector" ];
 
   meta = with lib; {
-    description = "Connector for Bleak Clients that handles transient connection failures";
+    description =
+      "Connector for Bleak Clients that handles transient connection failures";
     homepage = "https://github.com/bluetooth-devices/bleak-retry-connector";
-    changelog = "https://github.com/bluetooth-devices/bleak-retry-connector/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/bluetooth-devices/bleak-retry-connector/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

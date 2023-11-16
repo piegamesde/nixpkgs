@@ -13,30 +13,16 @@
 let
   nodeEnv = import ./node-env.nix {
     inherit (pkgs)
-      nodejs
-      stdenv
-      lib
-      python2
-      runCommand
-      writeTextFile
-      writeShellScript
-    ;
+      nodejs stdenv lib python2 runCommand writeTextFile writeShellScript;
     inherit pkgs;
     libtool = if stdenv.isDarwin then pkgs.darwin.cctools else null;
   };
   nodePackages = import ./node-packages.nix {
-    inherit (pkgs)
-      fetchurl
-      nix-gitignore
-      stdenv
-      lib
-      fetchgit
-    ;
+    inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
     inherit nodeEnv;
     globalBuildInputs = [ pkgs.avahi-compat ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "fx_cast_bridge";
   version = "0.3.1";
 
@@ -71,12 +57,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with pkgs.lib; {
-    description = "Implementation of the Chrome Sender API (Chromecast) within Firefox";
+    description =
+      "Implementation of the Chrome Sender API (Chromecast) within Firefox";
     homepage = "https://hensm.github.io/fx_cast/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      dtzWill
-      kevincox
-    ];
+    maintainers = with maintainers; [ dtzWill kevincox ];
   };
 }

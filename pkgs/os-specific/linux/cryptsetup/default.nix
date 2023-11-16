@@ -1,33 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  lvm2,
-  json_c,
-  asciidoctor,
-  openssl,
-  libuuid,
-  pkg-config,
-  popt,
-  nixosTests,
+{ lib, stdenv, fetchurl, lvm2, json_c, asciidoctor, openssl, libuuid, pkg-config
+, popt, nixosTests
 
-  # The release tarballs contain precomputed manpage files, so we don't need
-  # to run asciidoctor on the man sources. By avoiding asciidoctor, we make
-  # the bare NixOS build hash independent of changes to the ruby ecosystem,
-  # saving mass-rebuilds.
-  rebuildMan ? false,
-}:
+# The release tarballs contain precomputed manpage files, so we don't need
+# to run asciidoctor on the man sources. By avoiding asciidoctor, we make
+# the bare NixOS build hash independent of changes to the ruby ecosystem,
+# saving mass-rebuilds.
+, rebuildMan ? false }:
 
 stdenv.mkDerivation rec {
   pname = "cryptsetup";
   version = "2.6.1";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-    "man"
-  ];
+  outputs = [ "bin" "out" "dev" "man" ];
   separateDebugInfo = true;
 
   src = fetchurl {
@@ -37,11 +21,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-QQ3tZaEHKrnI5Brd7Te5cpwIf+9NLbArtO9SmtbaRpM=";
   };
 
-  patches =
-    [
-      # Allow reading tokens from a relative path, see #167994
-      ./relative-token-path.patch
-    ];
+  patches = [
+    # Allow reading tokens from a relative path, see #167994
+    ./relative-token-path.patch
+  ];
 
   postPatch = ''
     patchShebangs tests
@@ -52,15 +35,15 @@ stdenv.mkDerivation rec {
     substituteInPlace tests/unit-utils-io.c --replace "| O_DIRECT" ""
   '';
 
-  NIX_LDFLAGS = lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) "-lgcc_s";
+  NIX_LDFLAGS =
+    lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
+    "-lgcc_s";
 
-  configureFlags =
-    [
-      "--enable-cryptsetup-reencrypt"
-      "--with-crypto_backend=openssl"
-      "--disable-ssh-token"
-    ]
-    ++ lib.optionals (!rebuildMan) [ "--disable-asciidoc" ]
+  configureFlags = [
+    "--enable-cryptsetup-reencrypt"
+    "--with-crypto_backend=openssl"
+    "--disable-ssh-token"
+  ] ++ lib.optionals (!rebuildMan) [ "--disable-asciidoc" ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [
       "--disable-external-tokens"
       # We have to override this even though we're removing token
@@ -69,14 +52,9 @@ stdenv.mkDerivation rec {
       "--with-luks2-external-tokens-path=/"
     ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];
-  buildInputs = [
-    lvm2
-    json_c
-    openssl
-    libuuid
-    popt
-  ];
+  nativeBuildInputs = [ pkg-config ]
+    ++ lib.optionals rebuildMan [ asciidoctor ];
+  buildInputs = [ lvm2 json_c openssl libuuid popt ];
 
   # The test [7] header backup in compat-test fails with a mysterious
   # "out of memory" error, even though tons of memory is available.
@@ -85,18 +63,18 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = {
-      nixos = lib.optionalAttrs stdenv.hostPlatform.isLinux (
-        lib.recurseIntoAttrs (
-          lib.filterAttrs (name: _value: lib.hasPrefix "luks" name) nixosTests.installer
-        )
-      );
+      nixos = lib.optionalAttrs stdenv.hostPlatform.isLinux
+        (lib.recurseIntoAttrs
+          (lib.filterAttrs (name: _value: lib.hasPrefix "luks" name)
+            nixosTests.installer));
     };
   };
 
   meta = {
     homepage = "https://gitlab.com/cryptsetup/cryptsetup/";
     description = "LUKS for dm-crypt";
-    changelog = "https://gitlab.com/cryptsetup/cryptsetup/-/raw/v${version}/docs/v${version}-ReleaseNotes";
+    changelog =
+      "https://gitlab.com/cryptsetup/cryptsetup/-/raw/v${version}/docs/v${version}-ReleaseNotes";
     license = lib.licenses.gpl2;
     maintainers = with lib.maintainers; [ ];
     platforms = with lib.platforms; linux;

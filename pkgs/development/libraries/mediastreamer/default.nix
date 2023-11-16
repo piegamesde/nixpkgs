@@ -1,26 +1,6 @@
-{
-  bctoolbox,
-  bzrtp,
-  cmake,
-  fetchFromGitLab,
-  ffmpeg_4,
-  glew,
-  gsm,
-  lib,
-  libX11,
-  libXext,
-  libopus,
-  libpulseaudio,
-  libv4l,
-  libvpx,
-  ortp,
-  python3,
-  qtbase,
-  qtdeclarative,
-  speex,
-  srtp,
-  stdenv,
-}:
+{ bctoolbox, bzrtp, cmake, fetchFromGitLab, ffmpeg_4, glew, gsm, lib, libX11
+, libXext, libopus, libpulseaudio, libv4l, libvpx, ortp, python3, qtbase
+, qtdeclarative, speex, srtp, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "mediastreamer2";
@@ -37,22 +17,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-K4EBZC3zuLKF9Qw4i24f0hYKlOgRM7MR4Ck2ZoTYi6I=";
   };
 
-  patches =
-    [
-      # Plugins directory is normally fixed during compile time. This patch makes
-      # it possible to set the plugins directory run time with an environment
-      # variable MEDIASTREAMER_PLUGINS_DIR. This makes it possible to construct a
-      # plugin directory with desired plugins and wrap executables so that the
-      # environment variable points to that directory.
-      ./plugins_dir.patch
-    ];
-
-  nativeBuildInputs = [
-    cmake
-    python3
-    qtbase
-    qtdeclarative
+  patches = [
+    # Plugins directory is normally fixed during compile time. This patch makes
+    # it possible to set the plugins directory run time with an environment
+    # variable MEDIASTREAMER_PLUGINS_DIR. This makes it possible to construct a
+    # plugin directory with desired plugins and wrap executables so that the
+    # environment variable points to that directory.
+    ./plugins_dir.patch
   ];
+
+  nativeBuildInputs = [ cmake python3 qtbase qtdeclarative ];
 
   propagatedBuildInputs = [
     # Made by BC
@@ -88,7 +62,8 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = "-lXext";
 
   meta = with lib; {
-    description = "A powerful and lightweight streaming engine specialized for voice/video telephony applications. Part of the Linphone project";
+    description =
+      "A powerful and lightweight streaming engine specialized for voice/video telephony applications. Part of the Linphone project";
     homepage = "https://www.linphone.org/technical-corner/mediastreamer2";
     license = licenses.gpl3Only;
     platforms = platforms.linux;

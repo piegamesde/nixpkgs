@@ -1,37 +1,22 @@
-import ./make-test-python.nix (
-  { pkgs, firefoxPackage, ... }:
+import ./make-test-python.nix ({ pkgs, firefoxPackage, ... }:
   let
-    firefoxPackage' = firefoxPackage.override (
-      args: {
-        extraPrefsFiles =
-          (args.extraPrefsFiles or [ ])
-          ++ [
-            # make sure that autoplay is enabled by default for the audio test
-            (builtins.toString (
-              builtins.toFile "autoplay-pref.js" ''defaultPref("media.autoplay.default",0);''
-            ))
-          ];
-      }
-    );
-  in
-  {
-    name = firefoxPackage'.unwrapped.pname;
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        eelco
-        shlevy
+    firefoxPackage' = firefoxPackage.override (args: {
+      extraPrefsFiles = (args.extraPrefsFiles or [ ]) ++ [
+        # make sure that autoplay is enabled by default for the audio test
+        (builtins.toString (builtins.toFile "autoplay-pref.js"
+          ''defaultPref("media.autoplay.default",0);''))
       ];
-    };
+    });
 
-    nodes.machine =
-      { pkgs, ... }:
+  in {
+    name = firefoxPackage'.unwrapped.pname;
+    meta = with pkgs.lib.maintainers; { maintainers = [ eelco shlevy ]; };
+
+    nodes.machine = { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];
-        environment.systemPackages = [
-          firefoxPackage'
-          pkgs.xdotool
-        ];
+        environment.systemPackages = [ firefoxPackage' pkgs.xdotool ];
 
         # Create a virtual sound device, with mixing
         # and all, for recording audio.
@@ -64,8 +49,10 @@ import ./make-test-python.nix (
 
         systemd.services.audio-recorder = {
           description = "Record NixOS test audio to /tmp/record.wav";
-          script = "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
+          script =
+            "${pkgs.alsa-utils}/bin/arecord -D recorder -f S16_LE -r48000 /tmp/record.wav";
         };
+
       };
 
     testScript = ''
@@ -131,5 +118,5 @@ import ./make-test-python.nix (
           machine.succeed("xwininfo -root -tree | grep Valgrind")
           machine.screenshot("screen")
     '';
-  }
-)
+
+  })

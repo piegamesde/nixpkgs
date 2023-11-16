@@ -1,21 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.meilisearch;
-in
-{
+let cfg = config.services.meilisearch;
 
-  meta.maintainers = with maintainers; [
-    Br1ght0ne
-    happysalada
-  ];
+in {
+
+  meta.maintainers = with maintainers; [ Br1ght0ne happysalada ];
   meta.doc = ./meilisearch.md;
 
   ###### interface
@@ -24,9 +15,8 @@ in
     enable = mkEnableOption (lib.mdDoc "MeiliSearch - a RESTful search API");
 
     package = mkOption {
-      description =
-        lib.mdDoc
-          "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features.";
+      description = lib.mdDoc
+        "The package to use for meilisearch. Use this if you require specific features to be enabled. The default package has no features.";
       default = pkgs.meilisearch;
       defaultText = lib.literalExpression "pkgs.meilisearch";
       type = types.package;
@@ -47,10 +37,7 @@ in
     environment = mkOption {
       description = lib.mdDoc "Defines the running environment of MeiliSearch.";
       default = "development";
-      type = types.enum [
-        "development"
-        "production"
-      ];
+      type = types.enum [ "development" "production" ];
     };
 
     # TODO change this to LoadCredentials once possible
@@ -112,6 +99,7 @@ in
       default = "104857600";
       type = types.str;
     };
+
   };
 
   ###### implementation
@@ -134,7 +122,8 @@ in
         ExecStart = "${cfg.package}/bin/meilisearch";
         DynamicUser = true;
         StateDirectory = "meilisearch";
-        EnvironmentFile = mkIf (cfg.masterKeyEnvironmentFile != null) cfg.masterKeyEnvironmentFile;
+        EnvironmentFile = mkIf (cfg.masterKeyEnvironmentFile != null)
+          cfg.masterKeyEnvironmentFile;
       };
     };
   };

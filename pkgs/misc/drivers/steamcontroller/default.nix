@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-  libusb1,
-  linuxHeaders,
-}:
+{ lib, fetchFromGitHub, python3Packages, libusb1, linuxHeaders }:
 
 with python3Packages;
 
@@ -25,10 +19,7 @@ buildPythonApplication {
   '';
 
   buildInputs = [ libusb1 ];
-  propagatedBuildInputs = [
-    psutil
-    python3Packages.libusb1
-  ];
+  propagatedBuildInputs = [ psutil python3Packages.libusb1 ];
   doCheck = false;
   pythonImportsCheck = [ "steamcontroller" ];
 

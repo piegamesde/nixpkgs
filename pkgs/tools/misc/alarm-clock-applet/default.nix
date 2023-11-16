@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  pkg-config,
-  wrapGAppsHook,
-  gst_all_1,
-  libnotify,
-  libayatana-appindicator,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, wrapGAppsHook
+, gst_all_1, libnotify, libayatana-appindicator }:
 
 stdenv.mkDerivation rec {
   pname = "alarm-clock-applet";
@@ -24,32 +14,25 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/alarm-clock-applet/alarm-clock/commit/6a11003099660dfae0e3d5800f49880d3a26f5ec.patch";
+      url =
+        "https://github.com/alarm-clock-applet/alarm-clock/commit/6a11003099660dfae0e3d5800f49880d3a26f5ec.patch";
       hash = "sha256-NP1PlEw5AFWZgywvppIs2e+5EfMSPbU4Pq2tIfwODrQ=";
     })
     (fetchpatch {
-      url = "https://github.com/alarm-clock-applet/alarm-clock/commit/cbcf22fac5b45ab251ade2e7e993f422f33f926e.patch";
+      url =
+        "https://github.com/alarm-clock-applet/alarm-clock/commit/cbcf22fac5b45ab251ade2e7e993f422f33f926e.patch";
       hash = "sha256-xKaaNfXsv9Ckwy73r1n93kOWIZ01fU5GDqYSQCch1Kc=";
     })
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ];
 
-  buildInputs = [
-    gst_all_1.gstreamer
-    libnotify
-    libayatana-appindicator
-  ];
+  buildInputs = [ gst_all_1.gstreamer libnotify libayatana-appindicator ];
 
-  cmakeFlags =
-    [
-      # gconf is already deprecated
-      "-DENABLE_GCONF_MIGRATION=OFF"
-    ];
+  cmakeFlags = [
+    # gconf is already deprecated
+    "-DENABLE_GCONF_MIGRATION=OFF"
+  ];
 
   meta = with lib; {
     description = "A fully-featured alarm clock with an indicator";

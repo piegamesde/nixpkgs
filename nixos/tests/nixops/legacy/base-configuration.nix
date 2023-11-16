@@ -1,19 +1,12 @@
-{
-  lib,
-  modulesPath,
-  pkgs,
-  ...
-}:
+{ lib, modulesPath, pkgs, ... }:
 let
-  ssh-keys =
-    if builtins.pathExists ../../ssh-keys.nix then # Outside sandbox
-      ../../ssh-keys.nix
-    else # In sandbox
-      ./ssh-keys.nix;
+  ssh-keys = if builtins.pathExists ../../ssh-keys.nix then # Outside sandbox
+    ../../ssh-keys.nix
+  else # In sandbox
+    ./ssh-keys.nix;
 
   inherit (import ssh-keys pkgs) snakeOilPrivateKey snakeOilPublicKey;
-in
-{
+in {
   imports = [
     (modulesPath + "/virtualisation/qemu-vm.nix")
     (modulesPath + "/testing/test-instrumentation.nix")
@@ -27,12 +20,10 @@ in
 
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-  security.pam.services.sshd.limits = [
-    {
-      domain = "*";
-      item = "memlock";
-      type = "-";
-      value = 1024;
-    }
-  ];
+  security.pam.services.sshd.limits = [{
+    domain = "*";
+    item = "memlock";
+    type = "-";
+    value = 1024;
+  }];
 }

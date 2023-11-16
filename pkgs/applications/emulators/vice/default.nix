@@ -1,28 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bison,
-  flex,
-  perl,
-  libpng,
-  giflib,
-  libjpeg,
-  alsa-lib,
-  readline,
-  libGLU,
-  libGL,
-  libXaw,
-  pkg-config,
-  gtk2,
-  SDL,
-  SDL_image,
-  autoreconfHook,
-  makeDesktopItem,
-  dos2unix,
-  xa,
-  file,
-}:
+{ lib, stdenv, fetchurl, bison, flex, perl, libpng, giflib, libjpeg, alsa-lib
+, readline, libGLU, libGL, libXaw, pkg-config, gtk2, SDL, SDL_image
+, autoreconfHook, makeDesktopItem, dos2unix, xa, file }:
 
 let
   desktopItems = [
@@ -125,8 +103,7 @@ let
       categories = [ "System" ];
     })
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "vice";
   version = "3.6.1";
 
@@ -135,14 +112,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IN+EyFGq8vUABRCSf20xsy8mmRbTUUZcNm3Ar8ncFQw=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    bison
-    dos2unix
-    file
-    flex
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook bison dos2unix file flex pkg-config ];
 
   buildInputs = [
     alsa-lib
@@ -160,11 +130,8 @@ stdenv.mkDerivation rec {
     xa
   ];
   dontDisableStatic = true;
-  configureFlags = [
-    "--enable-fullscreen"
-    "--enable-gnomeui"
-    "--disable-pdf-docs"
-  ];
+  configureFlags =
+    [ "--enable-fullscreen" "--enable-gnomeui" "--disable-pdf-docs" ];
 
   preBuild = ''
     for i in src/resid src/resid-dtv

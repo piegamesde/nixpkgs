@@ -1,30 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  autoreconfHook,
-  gnutls,
-  freetype,
-  fluidsynth,
-  SDL,
-  SDL_gfx,
-  SDL_ttf,
-  liblo,
-  libxml2,
-  alsa-lib,
-  libjack2,
-  libvorbis,
-  libSM,
-  libsndfile,
-  libogg,
-  libtool,
-}:
-let
-  makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
-in
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, gnutls, freetype
+, fluidsynth, SDL, SDL_gfx, SDL_ttf, liblo, libxml2, alsa-lib, libjack2
+, libvorbis, libSM, libsndfile, libogg, libtool }:
+let makeSDLFlags = map (p: "-I${lib.getDev p}/include/SDL");
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "freewheeling";
   version = "0.6.6";
 
@@ -35,11 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xff5whr02cixihgd257dc70hnyf22j3zamvhsvg4lp7zq9l2in4";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    libtool
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook libtool ];
   buildInputs = [
     freetype
     fluidsynth
@@ -54,18 +29,13 @@ stdenv.mkDerivation rec {
     libsndfile
     libogg
     libSM
-    (gnutls.overrideAttrs (
-      oldAttrs: { configureFlags = oldAttrs.configureFlags ++ [ "--enable-openssl-compatibility" ]; }
-    ))
+    (gnutls.overrideAttrs (oldAttrs: {
+      configureFlags = oldAttrs.configureFlags
+        ++ [ "--enable-openssl-compatibility" ];
+    }))
   ];
-  env.NIX_CFLAGS_COMPILE = toString (
-    makeSDLFlags [
-      SDL
-      SDL_ttf
-      SDL_gfx
-    ]
-    ++ [ "-I${libxml2.dev}/include/libxml2" ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString (makeSDLFlags [ SDL SDL_ttf SDL_gfx ]
+    ++ [ "-I${libxml2.dev}/include/libxml2" ]);
 
   hardeningDisable = [ "format" ];
 

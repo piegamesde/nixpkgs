@@ -1,30 +1,19 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.virtualisation.vmware.guest;
-  open-vm-tools = if cfg.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;
+  open-vm-tools =
+    if cfg.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;
   xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "vmwareGuest"
-      ]
-      [
-        "virtualisation"
-        "vmware"
-        "guest"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "vmwareGuest" ] [
+      "virtualisation"
+      "vmware"
+      "guest"
+    ])
   ];
 
   options.virtualisation.vmware.guest = {
@@ -38,12 +27,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = pkgs.stdenv.hostPlatform.isx86;
-        message = "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}";
-      }
-    ];
+    assertions = [{
+      assertion = pkgs.stdenv.hostPlatform.isx86;
+      message =
+        "VMWare guest is not currently supported on ${pkgs.stdenv.hostPlatform.system}";
+    }];
 
     boot.initrd.availableKernelModules = [ "mptspi" ];
     boot.initrd.kernelModules = [ "vmw_pvscsi" ];
@@ -59,20 +47,18 @@ in
     };
 
     # Mount the vmblock for drag-and-drop and copy-and-paste.
-    systemd.mounts = mkIf (!cfg.headless) [
-      {
-        description = "VMware vmblock fuse mount";
-        documentation = [
-          "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt"
-        ];
-        unitConfig.ConditionVirtualization = "vmware";
-        what = "${open-vm-tools}/bin/vmware-vmblock-fuse";
-        where = "/run/vmblock-fuse";
-        type = "fuse";
-        options = "subtype=vmware-vmblock,default_permissions,allow_other";
-        wantedBy = [ "multi-user.target" ];
-      }
-    ];
+    systemd.mounts = mkIf (!cfg.headless) [{
+      description = "VMware vmblock fuse mount";
+      documentation = [
+        "https://github.com/vmware/open-vm-tools/blob/master/open-vm-tools/vmblock-fuse/design.txt"
+      ];
+      unitConfig.ConditionVirtualization = "vmware";
+      what = "${open-vm-tools}/bin/vmware-vmblock-fuse";
+      where = "/run/vmblock-fuse";
+      type = "fuse";
+      options = "subtype=vmware-vmblock,default_permissions,allow_other";
+      wantedBy = [ "multi-user.target" ];
+    }];
 
     security.wrappers.vmware-user-suid-wrapper = mkIf (!cfg.headless) {
       setuid = true;

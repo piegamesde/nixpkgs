@@ -1,13 +1,7 @@
-{
-  lib,
-  stdenv,
-  python3,
-  fetchPypi,
-  openssl,
-  # Many Salt modules require various Python modules to be installed,
-  # passing them in this array enables Salt to find them.
-  extraInputs ? [ ],
-}:
+{ lib, stdenv, python3, fetchPypi, openssl
+# Many Salt modules require various Python modules to be installed,
+# passing them in this array enables Salt to find them.
+, extraInputs ? [ ] }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "salt";
@@ -18,8 +12,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-lVh71hHepq/7aQjQ7CaGy37bhMFBRLSFF3bxJ6YOxbk=";
   };
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       distro
       jinja2
@@ -33,8 +26,7 @@ python3.pkgs.buildPythonApplication rec {
       pyyaml
       pyzmq
       requests
-    ]
-    ++ extraInputs;
+    ] ++ extraInputs;
 
   patches = [ ./fix-libcrypto-loading.patch ];
 
@@ -65,8 +57,10 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://saltproject.io/";
-    changelog = "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
-    description = "Portable, distributed, remote execution and configuration management system";
+    changelog =
+      "https://docs.saltproject.io/en/latest/topics/releases/${version}.html";
+    description =
+      "Portable, distributed, remote execution and configuration management system";
     maintainers = with maintainers; [ Flakebi ];
     license = licenses.asl20;
   };

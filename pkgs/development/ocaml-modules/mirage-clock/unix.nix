@@ -1,8 +1,4 @@
-{
-  buildDunePackage,
-  mirage-clock,
-  dune-configurator,
-}:
+{ buildDunePackage, mirage-clock, dune-configurator }:
 
 buildDunePackage {
   pname = "mirage-clock-unix";

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-  perl,
-}:
+{ lib, stdenv, fetchurl, openssl, perl }:
 
 stdenv.mkDerivation rec {
   version = "0.4";
@@ -15,17 +9,11 @@ stdenv.mkDerivation rec {
     sha256 = "1gwqp1kjwhcmwhynilakhzpzgc0c6kk8c9vkpi30gwwrwpz3cf00";
   };
 
-  buildInputs = [
-    openssl
-    perl
-  ];
+  buildInputs = [ openssl perl ];
 
   NIX_LDFLAGS = "-lgcc_s";
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -33,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "Space-efficient incremental backups of large files or block devices";
+    description =
+      "Space-efficient incremental backups of large files or block devices";
     homepage = "http://chunksync.florz.de/";
     license = lib.licenses.gpl2;
     platforms = with lib.platforms; linux;

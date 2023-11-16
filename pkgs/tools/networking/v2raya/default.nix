@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  mkYarnPackage,
-  buildGoModule,
-  makeWrapper,
-  v2ray,
-  v2ray-geoip,
-  v2ray-domain-list-community,
-  symlinkJoin,
-}:
+{ lib, fetchFromGitHub, mkYarnPackage, buildGoModule, makeWrapper, v2ray
+, v2ray-geoip, v2ray-domain-list-community, symlinkJoin }:
 let
   pname = "v2raya";
   version = "2.0.2";
@@ -38,23 +29,16 @@ let
 
   assetsDir = symlinkJoin {
     name = "assets";
-    paths = [
-      v2ray-geoip
-      v2ray-domain-list-community
-    ];
+    paths = [ v2ray-geoip v2ray-domain-list-community ];
   };
-in
-buildGoModule {
+
+in buildGoModule {
   inherit pname version;
 
   src = "${src}/service";
   vendorSha256 = "sha256-vnhqI9G/p+SLLA4sre2wfmg1RKIYZmzeL0pSTbHb+Ck=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X github.com/v2rayA/v2rayA/conf.Version=${version}" ];
 
   subPackages = [ "." ];
 
@@ -75,7 +59,8 @@ buildGoModule {
   '';
 
   meta = with lib; {
-    description = "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
+    description =
+      "A Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel";
     homepage = "https://github.com/v2rayA/v2rayA";
     mainProgram = "v2rayA";
     license = licenses.agpl3Only;

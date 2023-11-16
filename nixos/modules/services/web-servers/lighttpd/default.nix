@@ -1,11 +1,6 @@
 # NixOS module for lighttpd web server
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -68,69 +63,64 @@ let
     "mod_wstunnel" # since v1.4.46
   ];
 
-  maybeModuleString =
-    moduleName: optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
+  maybeModuleString = moduleName:
+    optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
 
-  modulesIncludeString =
-    concatStringsSep
-      ''
-        ,
-      ''
-      (filter (x: x != "") (map maybeModuleString allKnownModules));
+  modulesIncludeString = concatStringsSep ''
+    ,
+  '' (filter (x: x != "") (map maybeModuleString allKnownModules));
 
-  configFile =
-    if cfg.configText != "" then
-      pkgs.writeText "lighttpd.conf" ''
-        ${cfg.configText}
-      ''
-    else
-      pkgs.writeText "lighttpd.conf" ''
-        server.document-root = "${cfg.document-root}"
-        server.port = ${toString cfg.port}
-        server.username = "lighttpd"
-        server.groupname = "lighttpd"
+  configFile = if cfg.configText != "" then
+    pkgs.writeText "lighttpd.conf" ''
+      ${cfg.configText}
+    ''
+  else
+    pkgs.writeText "lighttpd.conf" ''
+      server.document-root = "${cfg.document-root}"
+      server.port = ${toString cfg.port}
+      server.username = "lighttpd"
+      server.groupname = "lighttpd"
 
-        # As for why all modules are loaded here, instead of having small
-        # server.modules += () entries in each sub-service extraConfig snippet,
-        # read this:
-        #
-        #   http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
-        #   http://redmine.lighttpd.net/issues/2337
-        #
-        # Basically, lighttpd doesn't want to load (or even silently ignore) a
-        # module for a second time, and there is no way to check if a module has
-        # been loaded already. So if two services were to put the same module in
-        # server.modules += (), that would break the lighttpd configuration.
-        server.modules = (
-            ${modulesIncludeString}
-        )
+      # As for why all modules are loaded here, instead of having small
+      # server.modules += () entries in each sub-service extraConfig snippet,
+      # read this:
+      #
+      #   http://redmine.lighttpd.net/projects/1/wiki/Server_modulesDetails
+      #   http://redmine.lighttpd.net/issues/2337
+      #
+      # Basically, lighttpd doesn't want to load (or even silently ignore) a
+      # module for a second time, and there is no way to check if a module has
+      # been loaded already. So if two services were to put the same module in
+      # server.modules += (), that would break the lighttpd configuration.
+      server.modules = (
+          ${modulesIncludeString}
+      )
 
-        # Logging (logs end up in systemd journal)
-        accesslog.use-syslog = "enable"
-        server.errorlog-use-syslog = "enable"
+      # Logging (logs end up in systemd journal)
+      accesslog.use-syslog = "enable"
+      server.errorlog-use-syslog = "enable"
 
-        ${lib.optionalString cfg.enableUpstreamMimeTypes ''
-          include "${pkgs.lighttpd}/share/lighttpd/doc/config/conf.d/mime.conf"
-        ''}
+      ${lib.optionalString cfg.enableUpstreamMimeTypes ''
+        include "${pkgs.lighttpd}/share/lighttpd/doc/config/conf.d/mime.conf"
+      ''}
 
-        static-file.exclude-extensions = ( ".fcgi", ".php", ".rb", "~", ".inc" )
-        index-file.names = ( "index.html" )
+      static-file.exclude-extensions = ( ".fcgi", ".php", ".rb", "~", ".inc" )
+      index-file.names = ( "index.html" )
 
-        ${optionalString cfg.mod_userdir ''
-          userdir.path = "public_html"
-        ''}
+      ${optionalString cfg.mod_userdir ''
+        userdir.path = "public_html"
+      ''}
 
-        ${optionalString cfg.mod_status ''
-          status.status-url = "/server-status"
-          status.statistics-url = "/server-statistics"
-          status.config-url = "/server-config"
-        ''}
+      ${optionalString cfg.mod_status ''
+        status.status-url = "/server-status"
+        status.statistics-url = "/server-statistics"
+        status.config-url = "/server-config"
+      ''}
 
-        ${cfg.extraConfig}
-      '';
-in
+      ${cfg.extraConfig}
+    '';
 
-{
+in {
 
   options = {
 
@@ -181,10 +171,7 @@ in
       enableModules = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "mod_cgi"
-          "mod_status"
-        ];
+        example = [ "mod_cgi" "mod_status" ];
         description = lib.mdDoc ''
           List of lighttpd modules to enable. Sub-services take care of
           enabling modules as needed, so this option is mainly for when you
@@ -233,24 +220,24 @@ in
           {option}`configText` option is used.
         '';
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = all (x: elem x allKnownModules) cfg.enableModules;
-        message = ''
-          One (or more) modules in services.lighttpd.enableModules are
-          unrecognized.
+    assertions = [{
+      assertion = all (x: elem x allKnownModules) cfg.enableModules;
+      message = ''
+        One (or more) modules in services.lighttpd.enableModules are
+        unrecognized.
 
-          Known modules: ${toString allKnownModules}
+        Known modules: ${toString allKnownModules}
 
-          services.lighttpd.enableModules: ${toString cfg.enableModules}
-        '';
-      }
-    ];
+        services.lighttpd.enableModules: ${toString cfg.enableModules}
+      '';
+    }];
 
     services.lighttpd.enableModules = mkMerge [
       (mkIf cfg.mod_status [ "mod_status" ])
@@ -263,7 +250,8 @@ in
       description = "Lighttpd Web Server";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
+      serviceConfig.ExecStart =
+        "${cfg.package}/sbin/lighttpd -D -f ${configFile}";
       # SIGINT => graceful shutdown
       serviceConfig.KillSignal = "SIGINT";
     };

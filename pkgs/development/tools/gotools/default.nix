@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "gotools";
@@ -42,9 +38,6 @@ buildGoModule rec {
     '';
     homepage = "https://go.googlesource.com/tools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      danderson
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ danderson SuperSandro2000 ];
   };
 }

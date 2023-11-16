@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gtk3,
-  gnome-icon-theme,
-  mint-x-icons,
-  hicolor-icon-theme,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk3, gnome-icon-theme, mint-x-icons
+, hicolor-icon-theme }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "iconpack-obsidian";
@@ -21,11 +14,7 @@ stdenvNoCC.mkDerivation rec {
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [
-    gnome-icon-theme
-    mint-x-icons
-    hicolor-icon-theme
-  ];
+  propagatedBuildInputs = [ gnome-icon-theme mint-x-icons hicolor-icon-theme ];
   # still missing parent themes: Ambiant-MATE, Faenza-Dark, KFaenza
 
   dontDropIconThemeCache = true;

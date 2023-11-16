@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  poetry-core,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, poetry-core
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "timeslot";
@@ -27,13 +21,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # The pyproject.toml specifies the flag `--cov=timeslot`,
-      # This causes an error when running without pytest-cov,
-      # so use this flag to override that option, as we don't need coverage.
-      "--override-ini addopts=''"
-    ];
+  pytestFlagsArray = [
+    # The pyproject.toml specifies the flag `--cov=timeslot`,
+    # This causes an error when running without pytest-cov,
+    # so use this flag to override that option, as we don't need coverage.
+    "--override-ini addopts=''"
+  ];
 
   pythonImportsCheck = [ "timeslot" ];
 

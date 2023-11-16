@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  async-timeout,
-  pysnmplib,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, async-timeout, pysnmplib, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "atenpdu";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-Of7tQJNqaLDgO8nie6rSd1saMbauXJBp8vWfXYAziEE=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    pysnmplib
-  ];
+  propagatedBuildInputs = [ async-timeout pysnmplib ];
 
   # Project has no test
   doCheck = false;

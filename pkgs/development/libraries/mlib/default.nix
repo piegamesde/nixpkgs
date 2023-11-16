@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "mlib";
@@ -15,15 +11,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-obQD3TWuGCAs5agnaiJF5Rasn8J283H/cdvKCCAzcB8=";
   };
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "PREFIX=$(out)" ];
 
   doCheck = true;
 
   meta = with lib; {
-    description = "Library of generic and type safe containers in pure C language";
+    description =
+      "Library of generic and type safe containers in pure C language";
     longDescription = ''
       M*LIB (M star lib) is a C library enabling to define and use generic and
       type safe container, aka handling generic containers in in pure C

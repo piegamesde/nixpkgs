@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  coreutils,
-}:
+{ lib, stdenv, fetchurl, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "entr";
@@ -29,9 +24,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/eradman/entr/raw/${version}/NEWS";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      pSub
-      synthetica
-    ];
+    maintainers = with maintainers; [ pSub synthetica ];
   };
 }

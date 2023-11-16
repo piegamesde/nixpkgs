@@ -1,15 +1,9 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  gtk-engine-murrine,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, gtk-engine-murrine }:
 
 let
   themeName = "Dracula";
   version = "4.0.0";
-in
-stdenvNoCC.mkDerivation {
+in stdenvNoCC.mkDerivation {
   pname = "dracula-theme";
   inherit version;
 

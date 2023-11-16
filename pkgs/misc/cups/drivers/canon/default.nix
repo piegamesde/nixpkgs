@@ -1,38 +1,15 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  autoconf,
-  automake,
-  libtool_1_5,
-  makeWrapper,
-  cups,
-  jbigkit,
-  glib,
-  gtk3,
-  gdk-pixbuf,
-  pango,
-  cairo,
-  coreutils,
-  atk,
-  pkg-config,
-  libxml2,
-  runtimeShell,
-  libredirect,
-  ghostscript,
-  pkgs,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, unzip, autoconf, automake, libtool_1_5, makeWrapper
+, cups, jbigkit, glib, gtk3, gdk-pixbuf, pango, cairo, coreutils, atk
+, pkg-config, libxml2, runtimeShell, libredirect, ghostscript, pkgs, zlib }:
 
 let
-  system =
-    if stdenv.targetPlatform.system == "x86_64-linux" then
-      "intel"
-    else if stdenv.targetPlatform.system == "aarch64-linux" then
-      "arm"
-    else
-      throw "Unsupported platform for Canon UFR2 Drivers: ${stdenv.targetPlatform.system}";
+  system = if stdenv.targetPlatform.system == "x86_64-linux" then
+    "intel"
+  else if stdenv.targetPlatform.system == "aarch64-linux" then
+    "arm"
+  else
+    throw
+    "Unsupported platform for Canon UFR2 Drivers: ${stdenv.targetPlatform.system}";
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs = pkgs: lib.makeLibraryPath buildInputs;
 
@@ -41,24 +18,14 @@ let
 
   versionNoDots = builtins.replaceStrings [ "." ] [ "" ] version;
   src_canon = fetchurl {
-    url = "http://gdlp01.c-wss.com/gds/${dl}/linux-UFRII-drv-v${versionNoDots}-m17n-11.tar.gz";
+    url =
+      "http://gdlp01.c-wss.com/gds/${dl}/linux-UFRII-drv-v${versionNoDots}-m17n-11.tar.gz";
     hash = "sha256-d5VHlPpUPAr3RWVdQRdn42YLuVekOw1IaMFLVt1Iu7o=";
   };
 
-  buildInputs = [
-    cups
-    zlib
-    jbigkit
-    glib
-    gtk3
-    libxml2
-    gdk-pixbuf
-    pango
-    cairo
-    atk
-  ];
-in
-stdenv.mkDerivation rec {
+  buildInputs =
+    [ cups zlib jbigkit glib gtk3 libxml2 gdk-pixbuf pango cairo atk ];
+in stdenv.mkDerivation rec {
   pname = "canon-cups-ufr2";
   inherit version;
   src = src_canon;
@@ -86,14 +53,8 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-    autoconf
-    automake
-    libtool_1_5
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [ makeWrapper unzip autoconf automake libtool_1_5 pkg-config ];
 
   inherit buildInputs;
 

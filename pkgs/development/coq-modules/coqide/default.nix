@@ -1,14 +1,5 @@
-{
-  lib,
-  makeDesktopItem,
-  copyDesktopItems,
-  wrapGAppsHook,
-  glib,
-  gnome,
-  mkCoqDerivation,
-  coq,
-  version ? null,
-}:
+{ lib, makeDesktopItem, copyDesktopItems, wrapGAppsHook, glib, gnome
+, mkCoqDerivation, coq, version ? null }:
 
 mkCoqDerivation rec {
   pname = "coqide";
@@ -17,7 +8,8 @@ mkCoqDerivation rec {
   inherit (coq) src;
   release."${coq.version}" = { };
 
-  defaultVersion = if lib.versions.isGe "8.14" coq.version then coq.version else null;
+  defaultVersion =
+    if lib.versions.isGe "8.14" coq.version then coq.version else null;
 
   preConfigure = ''
     patchShebangs dev/tools/
@@ -51,13 +43,7 @@ mkCoqDerivation rec {
     icon = "coq";
     desktopName = "CoqIDE";
     comment = "Graphical interface for the Coq proof assistant";
-    categories = [
-      "Development"
-      "Science"
-      "Math"
-      "IDE"
-      "GTK"
-    ];
+    categories = [ "Development" "Science" "Math" "IDE" "GTK" ];
   };
 
   meta = with lib; {

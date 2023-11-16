@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  autoreconfHook,
-  freetype,
-  harfbuzz,
-  libiconv,
-  qtbase,
-  enableGUI ? true,
-}:
+{ stdenv, lib, fetchurl, pkg-config, autoreconfHook, freetype, harfbuzz
+, libiconv, qtbase, enableGUI ? true }:
 
 stdenv.mkDerivation rec {
   version = "1.8.3";
@@ -24,18 +14,12 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace "macx-g++" "macx-clang"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook ];
 
-  buildInputs = [
-    freetype
-    harfbuzz
-    libiconv
-  ] ++ lib.optional enableGUI qtbase;
+  buildInputs = [ freetype harfbuzz libiconv ] ++ lib.optional enableGUI qtbase;
 
-  configureFlags = [ "--with-qt=${if enableGUI then "${qtbase}/lib" else "no"}" ];
+  configureFlags =
+    [ "--with-qt=${if enableGUI then "${qtbase}/lib" else "no"}" ];
 
   # workaround https://github.com/NixOS/nixpkgs/issues/155458
   preBuild = lib.optionalString stdenv.cc.isClang ''
@@ -55,8 +39,10 @@ stdenv.mkDerivation rec {
       information given by FreeType’s auto-hinting module.
     '';
     homepage = "https://www.freetype.org/ttfautohint";
-    license = licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
+    license =
+      licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
     maintainers = with maintainers; [ goibhniu ];
     platforms = platforms.unix;
   };
+
 }

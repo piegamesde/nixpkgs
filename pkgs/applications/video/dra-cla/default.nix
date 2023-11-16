@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  makeWrapper,
-  gnugrep,
-  gnused,
-  curl,
-  mpv,
-  aria2,
-  ffmpeg,
-  openssl,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, gnugrep, gnused, curl, mpv
+, aria2, ffmpeg, openssl }:
 
 stdenvNoCC.mkDerivation {
   pname = "dra-cla";
@@ -32,15 +21,7 @@ stdenvNoCC.mkDerivation {
 
     wrapProgram $out/bin/dra-cla \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gnugrep
-          gnused
-          curl
-          mpv
-          aria2
-          ffmpeg
-          openssl
-        ]
+        lib.makeBinPath [ gnugrep gnused curl mpv aria2 ffmpeg openssl ]
       }
 
     runHook postInstall

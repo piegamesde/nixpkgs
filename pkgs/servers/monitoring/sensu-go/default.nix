@@ -1,17 +1,7 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-}:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 let
-  generic =
-    {
-      subPackages,
-      pname,
-      postInstall ? "",
-      mainProgram,
-    }:
+  generic = { subPackages, pname, postInstall ? "", mainProgram }:
     buildGoModule rec {
       inherit pname;
       version = "6.9.2";
@@ -30,25 +20,22 @@ let
 
       doCheck = false;
 
-      ldflags =
-        let
-          versionPkg = "github.com/sensu/sensu-go/version";
-        in
-        [
-          "-X ${versionPkg}.Version=${version}"
-          "-X ${versionPkg}.BuildSHA=${shortRev}"
-        ];
+      ldflags = let versionPkg = "github.com/sensu/sensu-go/version";
+      in [
+        "-X ${versionPkg}.Version=${version}"
+        "-X ${versionPkg}.BuildSHA=${shortRev}"
+      ];
 
       meta = {
         inherit mainProgram;
         homepage = "https://sensu.io";
-        description = "Open source monitoring tool for ephemeral infrastructure & distributed applications";
+        description =
+          "Open source monitoring tool for ephemeral infrastructure & distributed applications";
         license = lib.licenses.mit;
         maintainers = with lib.maintainers; [ thefloweringash ];
       };
     };
-in
-{
+in {
   sensu-go-cli = generic {
     pname = "sensu-go-cli";
     subPackages = [ "cmd/sensuctl" ];

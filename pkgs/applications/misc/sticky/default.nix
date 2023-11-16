@@ -1,15 +1,5 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  wrapGAppsHook,
-  cinnamon,
-  glib,
-  gspell,
-  gtk3,
-  gobject-introspection,
-  gitUpdater,
-}:
+{ lib, python3, fetchFromGitHub, wrapGAppsHook, cinnamon, glib, gspell, gtk3
+, gobject-introspection, gitUpdater }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "sticky";
@@ -27,22 +17,11 @@ python3.pkgs.buildPythonApplication rec {
     sed -i -e "s|/usr/share|$out/share|" usr/lib/sticky/*.py
   '';
 
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
 
-  buildInputs = [
-    glib
-    gobject-introspection
-    cinnamon.xapp
-    gspell
-  ];
+  buildInputs = [ glib gobject-introspection cinnamon.xapp gspell ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    pygobject3
-    xapp
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ pygobject3 xapp ];
 
   postBuild = ''
     glib-compile-schemas usr/share/glib-2.0/schemas
@@ -75,18 +54,13 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru = {
-    updateScript = gitUpdater { ignoredVersions = "master.*"; };
-  };
+  passthru = { updateScript = gitUpdater { ignoredVersions = "master.*"; }; };
 
   meta = with lib; {
     description = "A sticky notes app for the linux desktop";
     homepage = "https://github.com/linuxmint/sticky";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      linsui
-      bobby285271
-    ];
+    maintainers = with maintainers; [ linsui bobby285271 ];
   };
 }

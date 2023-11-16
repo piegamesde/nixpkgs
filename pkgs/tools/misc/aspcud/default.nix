@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  catch2,
-  cmake,
-  clingo,
-  re2c,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, catch2, cmake, clingo, re2c }:
 
 stdenv.mkDerivation rec {
   version = "1.9.6";
@@ -25,11 +16,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    boost
-    clingo
-    re2c
-  ];
+  buildInputs = [ boost clingo re2c ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

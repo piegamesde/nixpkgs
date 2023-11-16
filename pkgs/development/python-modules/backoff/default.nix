@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  pytest-asyncio,
-  responses,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytestCheckHook
+, pytest-asyncio, responses }:
 
 buildPythonPackage rec {
   pname = "backoff";
@@ -22,11 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook responses ];
 
   pythonImportsCheck = [ "backoff" ];
 

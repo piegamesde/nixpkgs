@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-license";
@@ -19,9 +15,6 @@ rustPlatform.buildRustPackage rec {
     description = "Cargo subcommand to see license of dependencies";
     homepage = "https://github.com/onur/cargo-license";
     license = with licenses; [ mit ];
-    maintainers = with maintainers; [
-      basvandijk
-      figsoda
-    ];
+    maintainers = with maintainers; [ basvandijk figsoda ];
   };
 }

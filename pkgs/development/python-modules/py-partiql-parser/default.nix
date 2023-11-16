@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nix-update-script,
-  pytestCheckHook,
-  setuptools,
-  sure,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nix-update-script, pytestCheckHook
+, setuptools, sure }:
 
 buildPythonPackage rec {
   pname = "py-partiql-parser";
@@ -22,21 +15,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    sure
-  ];
+  nativeCheckInputs = [ pytestCheckHook sure ];
 
   pythonImportsCheck = [ "py_partiql_parser" ];
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
-    description = "A tokenizer/parser/executor for the PartiQL-language, in Python";
+    description =
+      "A tokenizer/parser/executor for the PartiQL-language, in Python";
     homepage = "https://github.com/getmoto/py-partiql-parser";
-    changelog = "https://github.com/getmoto/py-partiql-parser/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/getmoto/py-partiql-parser/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ centromere ];
   };

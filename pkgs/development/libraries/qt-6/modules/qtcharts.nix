@@ -1,13 +1,6 @@
-{
-  qtModule,
-  qtbase,
-  qtdeclarative,
-}:
+{ qtModule, qtbase, qtdeclarative }:
 
 qtModule {
   pname = "qtcharts";
-  qtInputs = [
-    qtbase
-    qtdeclarative
-  ];
+  qtInputs = [ qtbase qtdeclarative ];
 }

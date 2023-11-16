@@ -1,12 +1,4 @@
-{
-  lib,
-  rel,
-  buildKodiBinaryAddon,
-  fetchFromGitHub,
-  pkg-config,
-  glm,
-  libGL,
-}:
+{ lib, rel, buildKodiBinaryAddon, fetchFromGitHub, pkg-config, glm, libGL }:
 
 buildKodiBinaryAddon rec {
   pname = "visualization-starburst";
@@ -20,10 +12,7 @@ buildKodiBinaryAddon rec {
     hash = "sha256-FTGyQqzRywKjywtckkP56Fc8KwF07A8WUAe0LackxSM=";
   };
 
-  extraBuildInputs = [
-    pkg-config
-    libGL
-  ];
+  extraBuildInputs = [ pkg-config libGL ];
 
   propagatedBuildInputs = [ glm ];
   meta = with lib; {

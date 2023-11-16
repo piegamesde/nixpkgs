@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  autobahn,
-  mock,
-  twisted,
-}:
+{ lib, buildPythonPackage, fetchPypi, autobahn, mock, twisted }:
 
 buildPythonPackage rec {
   pname = "magic-wormhole-transit-relay";
@@ -16,15 +9,9 @@ buildPythonPackage rec {
     sha256 = "0ppsx2s1ysikns1h053x67z2zmficbn3y3kf52bzzslhd2s02j6b";
   };
 
-  propagatedBuildInputs = [
-    autobahn
-    twisted
-  ];
+  propagatedBuildInputs = [ autobahn twisted ];
 
-  nativeCheckInputs = [
-    mock
-    twisted
-  ];
+  nativeCheckInputs = [ mock twisted ];
 
   checkPhase = ''
     trial -j$NIX_BUILD_CORES wormhole_transit_relay

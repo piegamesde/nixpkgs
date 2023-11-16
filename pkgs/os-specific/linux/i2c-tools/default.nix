@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  perl,
-  read-edid,
-}:
+{ lib, stdenv, fetchgit, perl, read-edid }:
 
 stdenv.mkDerivation rec {
   pname = "i2c-tools";
@@ -28,10 +22,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   postInstall = ''
     rm -rf $out/include/linux/i2c-dev.h # conflics with kernel headers
@@ -41,10 +32,7 @@ stdenv.mkDerivation rec {
     description = "Set of I2C tools for Linux";
     homepage = "https://i2c.wiki.kernel.org/index.php/I2C_Tools";
     # library is LGPL 2.1 or later; "most tools" GPL 2 or later
-    license = with licenses; [
-      lgpl21Plus
-      gpl2Plus
-    ];
+    license = with licenses; [ lgpl21Plus gpl2Plus ];
     maintainers = [ maintainers.dezgeg ];
     platforms = platforms.linux;
   };

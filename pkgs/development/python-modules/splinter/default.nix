@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  isPy27,
-  fetchFromGitHub,
-  urllib3,
-  selenium,
-  cssselect,
-  django,
-  flask,
-  lxml,
-  pytestCheckHook,
-  zope-testbrowser,
-}:
+{ lib, buildPythonPackage, isPy27, fetchFromGitHub, urllib3, selenium, cssselect
+, django, flask, lxml, pytestCheckHook, zope-testbrowser }:
 
 buildPythonPackage rec {
   pname = "splinter";
@@ -31,27 +19,14 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ urllib3 ];
 
   passthru.optional-dependencies = {
-    "zope.testbrowser" = [
-      zope-testbrowser
-      lxml
-      cssselect
-    ];
-    django = [
-      django
-      lxml
-      cssselect
-    ];
-    flask = [
-      flask
-      lxml
-      cssselect
-    ];
+    "zope.testbrowser" = [ zope-testbrowser lxml cssselect ];
+    django = [ django lxml cssselect ];
+    flask = [ flask lxml cssselect ];
     selenium = [ selenium ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytestCheckHook ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   disabledTests = [
     # driver is present and fails with a different error during loading

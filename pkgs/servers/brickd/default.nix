@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libusb1,
-  pkg-config,
-  pmutils,
-  udev,
-}:
+{ lib, stdenv, fetchFromGitHub, libusb1, pkg-config, pmutils, udev }:
 
 let
   version = "2.1.1";
@@ -16,9 +8,8 @@ let
     rev = "brickd-${version}";
     sha256 = "sha256-0HhuC4r1S4NJa2FSJa7+fNCfcoRTBckikYbGSE+2FbE=";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "brickd";
   inherit version;
 
@@ -30,11 +21,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libusb1
-    pmutils
-    udev
-  ];
+  buildInputs = [ libusb1 pmutils udev ];
 
   # shell thing didn't work so i replaced it using nix
   prePatch = ''
@@ -66,7 +53,8 @@ stdenv.mkDerivation {
 
   meta = {
     homepage = "https://www.tinkerforge.com/";
-    description = "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
+    description =
+      "A daemon (or service on Windows) that acts as a bridge between the Bricks/Bricklets and the API bindings for the different programming languages";
     maintainers = [ lib.maintainers.qknight ];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;

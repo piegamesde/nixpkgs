@@ -1,11 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  qttools,
-  packagekit,
-}:
+{ stdenv, fetchFromGitHub, cmake, pkg-config, qttools, packagekit }:
 
 stdenv.mkDerivation rec {
   pname = "packagekit-qt";
@@ -20,11 +13,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ packagekit ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools ];
 
   dontWrapQtApps = true;
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "wad";
@@ -18,10 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ six ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = with python3.pkgs; [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "wad" ];
 
@@ -35,10 +28,7 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://github.com/CERN-CERT/WAD";
     # wad is GPLv3+, wappalyzer source is MIT
-    license = with licenses; [
-      gpl3Plus
-      mit
-    ];
+    license = with licenses; [ gpl3Plus mit ];
     maintainers = with maintainers; [ fab ];
   };
 }

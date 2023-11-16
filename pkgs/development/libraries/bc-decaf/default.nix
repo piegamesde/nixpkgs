@@ -1,10 +1,4 @@
-{
-  cmake,
-  fetchFromGitLab,
-  lib,
-  python3,
-  stdenv,
-}:
+{ cmake, fetchFromGitLab, lib, python3, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "bc-decaf";
@@ -23,13 +17,11 @@ stdenv.mkDerivation rec {
   };
 
   # Do not build static libraries and do not enable -Werror
-  cmakeFlags = [
-    "-DENABLE_STATIC=NO"
-    "-DENABLE_STRICT=NO"
-  ];
+  cmakeFlags = [ "-DENABLE_STATIC=NO" "-DENABLE_STRICT=NO" ];
 
   meta = with lib; {
-    description = "Elliptic curve library supporting Ed448-Goldilocks and Curve25519. Belledonne Communications' fork for Linphone.";
+    description =
+      "Elliptic curve library supporting Ed448-Goldilocks and Curve25519. Belledonne Communications' fork for Linphone.";
     homepage = "https://gitlab.linphone.org/BC/public/bctoolbox";
     license = licenses.mit;
     maintainers = with maintainers; [ thibaultlemaire ];

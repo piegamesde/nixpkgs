@@ -1,43 +1,27 @@
-{
-  pkgspath ? ../../..,
-  test-pkgspath ? pkgspath,
-  localSystem ? { system = builtins.currentSystem; },
-  crossSystem ? null,
-  bootstrapFiles ? null,
-}:
+{ pkgspath ? ../../.., test-pkgspath ? pkgspath
+, localSystem ? { system = builtins.currentSystem; }, crossSystem ? null
+, bootstrapFiles ? null }:
 
 let
   cross = if crossSystem != null then { inherit crossSystem; } else { };
-  custom-bootstrap =
-    if bootstrapFiles != null then
-      {
-        stdenvStages =
-          args:
-          let
-            args' = args // {
-              bootstrapFiles = bootstrapFiles;
-            };
-          in
-          (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
-      }
-    else
-      { };
-in
-with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
+  custom-bootstrap = if bootstrapFiles != null then {
+    stdenvStages = args:
+      let args' = args // { bootstrapFiles = bootstrapFiles; };
+      in (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
+  } else
+    { };
+in with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
 
 let
   llvmPackages = llvmPackages_11;
   storePrefixLen = builtins.stringLength builtins.storeDir;
-in
-rec {
-  coreutils_ = coreutils.override (
-    args: {
-      # We want coreutils without ACL support.
-      aclSupport = false;
-      # Cannot use a single binary build, or it gets dynamically linked against gmp.
-      singleBinary = false;
-    }
-  );
+in rec {
+  coreutils_ = coreutils.override (args: {
+    # We want coreutils without ACL support.
+    aclSupport = false;
+    # Cannot use a single binary build, or it gets dynamically linked against gmp.
+    singleBinary = false;
+  });
 
   cctools_ = darwin.cctools;
 
@@ -45,20 +29,15 @@ rec {
   bzip2_ = bzip2.override (args: { linkStatic = true; });
 
   # Avoid messing with libkrb5 and libnghttp2.
-  curl_ = curlMinimal.override (
-    args: {
-      gssSupport = false;
-      http2Support = false;
-    }
-  );
+  curl_ = curlMinimal.override (args: {
+    gssSupport = false;
+    http2Support = false;
+  });
 
   build = stdenv.mkDerivation {
     name = "stdenv-bootstrap-tools";
 
-    nativeBuildInputs = [
-      nukeReferences
-      dumpnar
-    ];
+    nativeBuildInputs = [ nukeReferences dumpnar ];
 
     buildCommand = ''
       mkdir -p $out/bin $out/lib $out/lib/system $out/lib/darwin
@@ -120,7 +99,9 @@ rec {
 
       cp -d ${lib.getLib llvmPackages.libcxx}/lib/libc++*.dylib $out/lib
       cp -d ${lib.getLib llvmPackages.libcxxabi}/lib/libc++abi*.dylib $out/lib
-      cp -d ${lib.getLib llvmPackages.compiler-rt}/lib/darwin/libclang_rt* $out/lib/darwin
+      cp -d ${
+        lib.getLib llvmPackages.compiler-rt
+      }/lib/darwin/libclang_rt* $out/lib/darwin
       cp -d ${lib.getLib llvmPackages.compiler-rt}/lib/libclang_rt* $out/lib
       cp -d ${lib.getLib llvmPackages.llvm.lib}/lib/libLLVM.dylib $out/lib
       cp -d ${lib.getLib libffi}/lib/libffi*.dylib $out/lib
@@ -190,15 +171,12 @@ rec {
         fi
       done
 
-      ${if stdenv.targetPlatform.isx86_64 then
-        ''
-          rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
-        ''
-      else
-        ''
-          sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
-            $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
-        ''}
+      ${if stdenv.targetPlatform.isx86_64 then ''
+        rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+      '' else ''
+        sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
+          $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
+      ''}
 
       nuke-refs $out/lib/*
       nuke-refs $out/lib/system/*
@@ -217,9 +195,7 @@ rec {
 
     allowedReferences = [ ];
 
-    meta = {
-      maintainers = [ lib.maintainers.copumpkin ];
-    };
+    meta = { maintainers = [ lib.maintainers.copumpkin ]; };
   };
 
   dist = stdenv.mkDerivation {
@@ -233,9 +209,7 @@ rec {
 
   bootstrapLlvmVersion = llvmPackages.llvm.version;
 
-  bootstrapFiles = {
-    tools = "${build}/pack";
-  };
+  bootstrapFiles = { tools = "${build}/pack"; };
 
   bootstrapTools = derivation {
     inherit system;
@@ -342,13 +316,8 @@ rec {
     # that platform.
     localSystem = if crossSystem != null then crossSystem else localSystem;
 
-    stdenvStages =
-      args:
-      let
-        args' = args // {
-          inherit bootstrapLlvmVersion bootstrapFiles;
-        };
-      in
-      (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin;
+    stdenvStages = args:
+      let args' = args // { inherit bootstrapLlvmVersion bootstrapFiles; };
+      in (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin;
   };
 }

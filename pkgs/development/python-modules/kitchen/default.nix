@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "kitchen";
@@ -25,7 +20,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Kitchen contains a cornucopia of useful code";
     homepage = "https://github.com/fedora-infra/kitchen";
-    changelog = "https://github.com/fedora-infra/kitchen/blob/${version}/NEWS.rst";
+    changelog =
+      "https://github.com/fedora-infra/kitchen/blob/${version}/NEWS.rst";
     license = licenses.lgpl2Only;
     maintainers = with maintainers; [ ];
   };

@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gst_all_1,
-  pciutils,
-  pkg-config,
-  meson,
-  ninja,
-  obs-studio,
-}:
+{ lib, stdenv, fetchFromGitHub, gst_all_1, pciutils, pkg-config, meson, ninja
+, obs-studio }:
 
 stdenv.mkDerivation rec {
   pname = "obs-vaapi";
@@ -21,11 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wrbVuqIe+DY3R+Jp3zCy2Uw3fv5ejYHtRV2Sv+y/n0w=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-  ];
+  nativeBuildInputs = [ pkg-config meson ninja ];
   buildInputs = with gst_all_1; [
     gstreamer
     gst-plugins-base
@@ -38,18 +25,18 @@ stdenv.mkDerivation rec {
   # - Without gst-plugins-bad it won't find element "vapostproc";
   # - gst-vaapi adds "VA-API" to "Encoder type";
   # Tip: "could not link appsrc to videoconvert1" can mean a lot of things, enable GST_DEBUG=2 for help.
-  passthru.obsWrapperArguments =
-    let
-      gstreamerHook =
-        package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
-    in
-    with gst_all_1;
-    builtins.map gstreamerHook [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-bad
-      gst-vaapi
-    ];
+  passthru.obsWrapperArguments = let
+    gstreamerHook = package:
+      "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${
+        lib.getLib package
+      }/lib/gstreamer-1.0";
+  in with gst_all_1;
+  builtins.map gstreamerHook [
+    gstreamer
+    gst-plugins-base
+    gst-plugins-bad
+    gst-vaapi
+  ];
 
   # Fix output directory
   postInstall = ''
@@ -60,14 +47,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS Studio VAAPI support via GStreamer";
     homepage = "https://github.com/fzwoch/obs-vaapi";
-    maintainers = with maintainers; [
-      ahuzik
-      pedrohlc
-    ];
+    maintainers = with maintainers; [ ahuzik pedrohlc ];
     license = licenses.gpl2Plus;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

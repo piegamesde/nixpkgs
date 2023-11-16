@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  qt48,
-  qmake4Hook,
-  flex,
-}:
+{ lib, stdenv, fetchgit, qt48, qmake4Hook, flex }:
 
 # At the time of committing this, the expression fails for me to cross-build in
 # both mingw32 and mingw64.
@@ -21,10 +14,7 @@ stdenv.mkDerivation {
   };
 
   buildInputs = [ qt48 ];
-  nativeBuildInputs = [
-    flex
-    qmake4Hook
-  ];
+  nativeBuildInputs = [ flex qmake4Hook ];
 
   QTDIR = qt48;
 
@@ -36,7 +26,9 @@ stdenv.mkDerivation {
 
   meta = {
     homepage = "https://qt-project.org/wiki/jom";
-    description = "Clone of nmake supporting multiple independent commands in parallel";
-    license = lib.licenses.gpl2Plus; # Explicitly, GPLv2 or GPLv3, but not later.
+    description =
+      "Clone of nmake supporting multiple independent commands in parallel";
+    license =
+      lib.licenses.gpl2Plus; # Explicitly, GPLv2 or GPLv3, but not later.
   };
 }

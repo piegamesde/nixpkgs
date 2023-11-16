@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  watchdog,
-}:
+{ lib, fetchPypi, buildPythonPackage, watchdog }:
 
 buildPythonPackage rec {
   pname = "easywatch";
@@ -27,3 +22,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fgaz ];
   };
 }
+

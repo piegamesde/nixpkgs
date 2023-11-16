@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pillow,
-  xlib,
-  six,
-  xvfb-run,
-  sphinx,
-  gobject-introspection,
-  pygobject3,
-  gtk3,
-  libayatana-appindicator,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pillow, xlib, six, xvfb-run, sphinx
+, gobject-introspection, pygobject3, gtk3, libayatana-appindicator }:
 
 buildPythonPackage rec {
   pname = "pystray";
@@ -24,18 +12,9 @@ buildPythonPackage rec {
     hash = "sha256-8B178MSe4ujlnGBmQhIu+BoAh1doP9V5cL0ermLQTvs=";
   };
 
-  nativeBuildInputs = [
-    gobject-introspection
-    sphinx
-  ];
-  propagatedBuildInputs = [
-    pillow
-    xlib
-    six
-    pygobject3
-    gtk3
-    libayatana-appindicator
-  ];
+  nativeBuildInputs = [ gobject-introspection sphinx ];
+  propagatedBuildInputs =
+    [ pillow xlib six pygobject3 gtk3 libayatana-appindicator ];
   nativeCheckInputs = [ xvfb-run ];
 
   checkPhase = ''
@@ -47,10 +26,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/moses-palmer/pystray";
     description = "This library allows you to create a system tray icon";
-    license = with licenses; [
-      gpl3Plus
-      lgpl3Plus
-    ];
+    license = with licenses; [ gpl3Plus lgpl3Plus ];
     platforms = platforms.linux;
     maintainers = with maintainers; [ jojosch ];
   };

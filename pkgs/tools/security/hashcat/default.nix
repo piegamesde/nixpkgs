@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  opencl-headers,
-  ocl-icd,
-  xxHash,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, opencl-headers, ocl-icd, xxHash }:
 
 stdenv.mkDerivation rec {
   pname = "hashcat";
@@ -18,10 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    opencl-headers
-    xxHash
-  ];
+  buildInputs = [ opencl-headers xxHash ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -48,9 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://hashcat.net/hashcat/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      kierdavis
-      zimbatm
-    ];
+    maintainers = with maintainers; [ kierdavis zimbatm ];
   };
 }

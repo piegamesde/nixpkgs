@@ -1,41 +1,17 @@
-{
-  stdenv,
-  lib,
-  ruby,
-  callPackage,
-  ...
-}:
+{ stdenv, lib, ruby, callPackage, ... }:
 let
-  mkDerivation =
-    { name, ... }@argSet:
+  mkDerivation = { name, ... }@argSet:
     derivation {
       inherit name;
-      text =
-        (builtins.toJSON (
-          lib.filterAttrs
-            (
-              n: v:
-              builtins.any (x: x == n) [
-                "name"
-                "system"
-              ]
-            )
-            argSet
-        ));
+      text = (builtins.toJSON
+        (lib.filterAttrs (n: v: builtins.any (x: x == n) [ "name" "system" ])
+          argSet));
       builder = stdenv.shell;
-      args = [
-        "-c"
-        "echo  $(<$textPath) > $out"
-      ];
+      args = [ "-c" "echo  $(<$textPath) > $out" ];
       system = stdenv.hostPlatform.system;
       passAsFile = [ "text" ];
     };
-  fetchurl =
-    {
-      url ? "",
-      urls ? [ ],
-      ...
-    }:
+  fetchurl = { url ? "", urls ? [ ], ... }:
     "fetchurl:${if urls == [ ] then url else builtins.head urls}";
 
   stdenv' = stdenv // {
@@ -46,8 +22,7 @@ let
     stdenv = stdenv';
     stubbed = true;
   };
-in
-{
+in {
   ruby = ruby';
   buildRubyGem = callPackage ../gem {
     inherit fetchurl;

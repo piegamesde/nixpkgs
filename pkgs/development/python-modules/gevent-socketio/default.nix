@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  gevent,
-  gevent-websocket,
-  mock,
-  versiontools,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, gevent, gevent-websocket, mock
+, versiontools, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gevent-socketio";

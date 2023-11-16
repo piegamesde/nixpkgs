@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  gtk3,
-  gupnp,
-  mate,
-  imagemagick,
-  wrapGAppsHook,
-  mateUpdateScript,
-  glib,
-  substituteAll,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, gupnp, mate, imagemagick
+, wrapGAppsHook, mateUpdateScript, glib, substituteAll }:
 
 stdenv.mkDerivation rec {
   pname = "caja-extensions";
@@ -25,19 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "WJwZ4/oQJC1iOaXMuVhVmENqVuvpTS6ypQtZUMzh1SA=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
 
-  buildInputs = [
-    gtk3
-    gupnp
-    mate.caja
-    mate.mate-desktop
-    imagemagick
-  ];
+  buildInputs = [ gtk3 gupnp mate.caja mate.mate-desktop imagemagick ];
 
   patches = [
     (substituteAll {

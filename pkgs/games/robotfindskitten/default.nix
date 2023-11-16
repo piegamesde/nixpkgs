@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, pkg-config, ncurses }:
 
 with lib;
 stdenv.mkDerivation rec {
@@ -13,7 +7,8 @@ stdenv.mkDerivation rec {
   version = "2.8284271.702";
 
   src = fetchurl {
-    url = "mirror://sourceforge/project/rfk/robotfindskitten-POSIX/ship_it_anyway/${pname}-${version}.tar.gz";
+    url =
+      "mirror://sourceforge/project/rfk/robotfindskitten-POSIX/ship_it_anyway/${pname}-${version}.tar.gz";
     sha256 = "1bwrkxm83r9ajpkd6x03nqvmdfpf5vz6yfy0c97pq3v3ykj74082";
   };
 

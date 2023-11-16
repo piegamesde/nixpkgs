@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchPypi,
-  mock,
-  numpy,
-  scipy,
-  smart-open,
-  testfixtures,
-  pyemd,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cython, fetchPypi, mock, numpy, scipy, smart-open
+, testfixtures, pyemd, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "gensim";
@@ -27,17 +15,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    smart-open
-    numpy
-    scipy
-  ];
+  propagatedBuildInputs = [ smart-open numpy scipy ];
 
-  nativeCheckInputs = [
-    mock
-    pyemd
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pyemd pytestCheckHook ];
 
   pythonImportsCheck = [ "gensim" ];
 
@@ -49,7 +29,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Topic-modelling library";
     homepage = "https://radimrehurek.com/gensim/";
-    changelog = "https://github.com/RaRe-Technologies/gensim/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/RaRe-Technologies/gensim/blob/${version}/CHANGELOG.md";
     license = licenses.lgpl21Only;
     maintainers = with maintainers; [ jyp ];
   };

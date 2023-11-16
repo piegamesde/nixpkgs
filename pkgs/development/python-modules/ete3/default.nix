@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  numpy,
-  six,
-  withTreeVisualization ? false,
-  lxml,
-  withXmlSupport ? false,
-  pyqt4,
-  pyqt5,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, numpy, six
+, withTreeVisualization ? false, lxml, withXmlSupport ? false, pyqt4, pyqt5 }:
 
 buildPythonPackage rec {
   pname = "ete3";
@@ -24,16 +13,13 @@ buildPythonPackage rec {
   doCheck = false; # Tests are (i) not 3.x compatible, (ii) broken under 2.7
   pythonImportsCheck = [ "ete3" ];
 
-  propagatedBuildInputs =
-    [
-      six
-      numpy
-    ]
+  propagatedBuildInputs = [ six numpy ]
     ++ lib.optional withTreeVisualization (if isPy3k then pyqt5 else pyqt4)
     ++ lib.optional withXmlSupport lxml;
 
   meta = with lib; {
-    description = "A Python framework for the analysis and visualization of trees";
+    description =
+      "A Python framework for the analysis and visualization of trees";
     homepage = "http://etetoolkit.org/";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ delehef ];

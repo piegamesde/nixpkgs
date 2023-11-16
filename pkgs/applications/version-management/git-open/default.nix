@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  git,
-  xdg-utils,
-  gnugrep,
-  fetchFromGitHub,
-  installShellFiles,
-  makeWrapper,
-  pandoc,
-}:
+{ lib, stdenv, git, xdg-utils, gnugrep, fetchFromGitHub, installShellFiles
+, makeWrapper, pandoc }:
 
 stdenv.mkDerivation rec {
   pname = "git-open";
@@ -21,11 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Bag2rI2uR7ilkg2ozjR8tPXqKz5XjiY7WAUJKTVTXd8=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-    pandoc
-  ];
+  nativeBuildInputs = [ installShellFiles makeWrapper pandoc ];
 
   buildPhase = ''
     # marked-man is broken and severly outdated.
@@ -46,7 +33,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/paulirish/git-open";
-    description = "Open the GitHub page or website for a repository in your browser";
+    description =
+      "Open the GitHub page or website for a repository in your browser";
     license = licenses.mit;
     platforms = platforms.all;
     maintainers = with maintainers; [ SuperSandro2000 ];

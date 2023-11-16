@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  relic,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, relic }:
 
 buildGoModule rec {
   pname = "relic";
@@ -19,20 +13,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-EZohpGzMDYKUbjSOIfoUbbsABNDOddrTt52pv+VQLdI=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-    "-X=main.commit=${src.rev}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X=main.version=${version}" "-X=main.commit=${src.rev}" ];
 
-  passthru.tests = {
-    version = testers.testVersion { package = relic; };
-  };
+  passthru.tests = { version = testers.testVersion { package = relic; }; };
 
   meta = with lib; {
     homepage = "https://github.com/sassoftware/relic";
-    description = "A service and a tool for adding digital signatures to operating system packages for Linux and Windows";
+    description =
+      "A service and a tool for adding digital signatures to operating system packages for Linux and Windows";
     license = licenses.asl20;
     maintainers = with maintainers; [ strager ];
   };

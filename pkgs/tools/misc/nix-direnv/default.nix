@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gnugrep,
-  nix,
-  enableFlakes ? null # deprecated
-  ,
+{ lib, stdenv, fetchFromGitHub, gnugrep, nix, enableFlakes ? null # deprecated
 }:
 stdenv.mkDerivation rec {
   pname = "nix-direnv";
@@ -36,9 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nix-community/nix-direnv";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      mic92
-      bbenne10
-    ];
+    maintainers = with maintainers; [ mic92 bbenne10 ];
   };
 }

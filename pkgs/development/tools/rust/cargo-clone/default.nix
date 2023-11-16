@@ -1,13 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  stdenv,
-  Security,
-  SystemConfiguration,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, openssl, stdenv, Security
+, SystemConfiguration }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-clone";
@@ -24,12 +16,8 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
-      Security
-      SystemConfiguration
-    ];
+  buildInputs = [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [ Security SystemConfiguration ];
 
   # requires internet access
   doCheck = false;
@@ -37,11 +25,9 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A cargo subcommand to fetch the source code of a Rust crate";
     homepage = "https://github.com/janlikar/cargo-clone";
-    changelog = "https://github.com/janlikar/cargo-clone/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    changelog =
+      "https://github.com/janlikar/cargo-clone/blob/v${version}/CHANGELOG.md";
+    license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ figsoda ];
   };
 }

@@ -1,33 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  libX11,
-  xorgproto,
-  buildEnv,
-  fetchpatch,
-  useX11 ? stdenv.hostPlatform.isx86,
-}:
+{ lib, stdenv, fetchurl, ncurses, libX11, xorgproto, buildEnv, fetchpatch
+, useX11 ? stdenv.hostPlatform.isx86 }:
 
 let
-  x11deps = [
-    libX11
-    xorgproto
-  ];
+  x11deps = [ libX11 xorgproto ];
   inherit (lib) optionals;
 
   baseOcamlBranch = "4.11";
   baseOcamlVersion = "${baseOcamlBranch}.1";
   metaocamlPatch = "111";
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ber-metaocaml";
   version = metaocamlPatch;
 
   src = fetchurl {
-    url = "https://caml.inria.fr/pub/distrib/ocaml-${baseOcamlBranch}/ocaml-${baseOcamlVersion}.tar.gz";
+    url =
+      "https://caml.inria.fr/pub/distrib/ocaml-${baseOcamlBranch}/ocaml-${baseOcamlVersion}.tar.gz";
     sha256 = "sha256-3Yi2OFvZLgrZInMuKMxoyHd4QXcOoAPCC9FS9dtEFc4=";
   };
 
@@ -49,17 +37,17 @@ stdenv.mkDerivation rec {
   dontStrip = true;
   buildInputs = [ ncurses ] ++ optionals useX11 x11deps;
 
-  patches =
-    [
-      # glibc 2.34 changed SIGSTKSZ from a #define'd integer to an
-      # expression involving a function call.  This broke all code that
-      # used SIGSTKSZ as the size of a statically-allocated array.  This
-      # patch is also applied by the ocaml/4.07.nix expression.
-      (fetchpatch {
-        url = "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
-        sha256 = "sha256-OmyovAu+8sgg3n5YD29Cytx3u/9PO2ofMsmrwiKUxks=";
-      })
-    ];
+  patches = [
+    # glibc 2.34 changed SIGSTKSZ from a #define'd integer to an
+    # expression involving a function call.  This broke all code that
+    # used SIGSTKSZ as the size of a statically-allocated array.  This
+    # patch is also applied by the ocaml/4.07.nix expression.
+    (fetchpatch {
+      url =
+        "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
+      sha256 = "sha256-OmyovAu+8sgg3n5YD29Cytx3u/9PO2ofMsmrwiKUxks=";
+    })
+  ];
 
   postConfigure = ''
     tar -xvzf $metaocaml
@@ -94,15 +82,12 @@ stdenv.mkDerivation rec {
     cd ..
   '';
 
-  passthru = {
-    nativeCompilers = true;
-  };
+  passthru = { nativeCompilers = true; };
 
   meta = with lib; {
     description = "Multi-Stage Programming extension for OCaml";
     homepage = "https://okmij.org/ftp/ML/MetaOCaml.html";
-    license = with licenses; [
-      # compiler
+    license = with licenses; [ # compiler
       qpl # library
       lgpl2
     ];

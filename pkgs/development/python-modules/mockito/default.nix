@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  funcsigs,
-  pytest,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, funcsigs, pytest, numpy }:
 
 buildPythonPackage rec {
   version = "1.4.0";
@@ -18,10 +10,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = lib.optionals (!isPy3k) [ funcsigs ];
-  nativeCheckInputs = [
-    pytest
-    numpy
-  ];
+  nativeCheckInputs = [ pytest numpy ];
 
   # tests are no longer packaged in pypi tarball
   doCheck = false;

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  factory_boy,
-  fetchFromGitHub,
-  pylint-plugin-utils,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, django, factory_boy, fetchFromGitHub
+, pylint-plugin-utils, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pylint-django";
@@ -23,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-5xEXjNMkOetRM9NDz0S4DsC6v39YQi34s2s+Fs56hYU=";
   };
 
-  propagatedBuildInputs = [
-    django
-    pylint-plugin-utils
-  ];
+  propagatedBuildInputs = [ django pylint-plugin-utils ];
 
-  nativeCheckInputs = [
-    factory_boy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ factory_boy pytestCheckHook ];
 
   disabledTests = [
     # AttributeError, AssertionError

@@ -1,24 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cython,
-  lockfile,
-  cachecontrol,
-  decorator,
-  h5py,
-  ipython,
-  matplotlib,
-  natsort,
-  numpy,
-  pandas,
-  scipy,
-  hdmedians,
-  scikit-learn,
-  coverage,
-  python,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, lockfile, cachecontrol, decorator
+, h5py, ipython, matplotlib, natsort, numpy, pandas, scipy, hdmedians
+, scikit-learn, coverage, python, isPy3k }:
 
 buildPythonPackage rec {
   version = "0.5.8";
@@ -58,12 +40,10 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "http://scikit-bio.org/";
-    description = "Data structures, algorithms and educational resources for bioinformatics";
+    description =
+      "Data structures, algorithms and educational resources for bioinformatics";
     license = licenses.bsd3;
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     maintainers = [ maintainers.costrouc ];
   };
 }

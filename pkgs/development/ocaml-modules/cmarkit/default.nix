@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  cmdliner,
-  fetchurl,
-  findlib,
-  ocaml,
-  ocamlbuild,
-  topkg,
-}:
+{ lib, stdenv, cmdliner, fetchurl, findlib, ocaml, ocamlbuild, topkg }:
 
 if lib.versionOlder ocaml.version "4.14.0" then
   throw "cmarkit is not available for OCaml ${ocaml.version}"
@@ -18,21 +9,14 @@ else
     version = "0.2.0";
 
     src = fetchurl {
-      url = "https://erratique.ch/software/cmarkit/releases/cmarkit-${version}.tbz";
+      url =
+        "https://erratique.ch/software/cmarkit/releases/cmarkit-${version}.tbz";
       hash = "sha256-86RuGB5pLbw/ThPGz9+qLaZRH7xvxbYrZWFLLIkc5Mk=";
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-      topkg
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
 
-    buildInputs = [
-      topkg
-      cmdliner
-    ];
+    buildInputs = [ topkg cmdliner ];
 
     strictDeps = true;
 
@@ -41,7 +25,8 @@ else
     meta = with lib; {
       description = "CommonMark parser and renderer for OCaml";
       homepage = "https://erratique.ch/software/cmarkit";
-      changelog = "https://github.com/dbuenzli/cmarkit/blob/v${version}/CHANGES.md";
+      changelog =
+        "https://github.com/dbuenzli/cmarkit/blob/v${version}/CHANGES.md";
       license = licenses.isc;
       maintainers = [ maintainers.marsam ];
       inherit (ocaml.meta) platforms;

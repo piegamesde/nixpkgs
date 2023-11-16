@@ -1,20 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  qttools,
-  doxygen,
-  wrapQtAppsHook,
-  qtbase,
-  gsettings-qt,
-  lshw,
-  libuchardet,
-  dtkcommon,
-  systemd,
-  withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, qttools, doxygen
+, wrapQtAppsHook, qtbase, gsettings-qt, lshw, libuchardet, dtkcommon, systemd
+, withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd }:
 
 stdenv.mkDerivation rec {
   pname = "dtkcore";
@@ -32,20 +18,10 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/deepin/distribution.info" "/etc/distribution.info" \
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    doxygen
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config qttools doxygen wrapQtAppsHook ];
 
-  buildInputs = [
-    qtbase
-    gsettings-qt
-    lshw
-    libuchardet
-  ] ++ lib.optional withSystemd systemd;
+  buildInputs = [ qtbase gsettings-qt lshw libuchardet ]
+    ++ lib.optional withSystemd systemd;
 
   propagatedBuildInputs = [ dtkcommon ];
 

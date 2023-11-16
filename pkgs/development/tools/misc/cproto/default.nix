@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  flex,
-  bison,
-}:
+{ lib, stdenv, fetchurl, flex, bison }:
 
 stdenv.mkDerivation rec {
   pname = "cproto";
@@ -22,10 +16,7 @@ stdenv.mkDerivation rec {
   # patch made by Joe Khoobyar copied from gentoo bugs
   patches = [ ./cproto.patch ];
 
-  nativeBuildInputs = [
-    flex
-    bison
-  ];
+  nativeBuildInputs = [ flex bison ];
 
   doCheck = true;
 

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  djangorestframework,
-  fetchFromGitHub,
-  python,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, django, djangorestframework, fetchFromGitHub, python
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "django-login-required-middleware";
@@ -36,7 +29,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Requires login to all requests through middleware in Django";
-    homepage = "https://github.com/CleitonDeLima/django-login-required-middleware";
+    homepage =
+      "https://github.com/CleitonDeLima/django-login-required-middleware";
     license = licenses.mit;
     maintainers = with maintainers; [ onny ];
   };

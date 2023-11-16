@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchurl,
-  SDL,
-  stdenv,
-}:
+{ lib, fetchurl, SDL, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "hhexen";

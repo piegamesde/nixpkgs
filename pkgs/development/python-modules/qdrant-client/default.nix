@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  grpcio,
-  grpcio-tools,
-  h2,
-  httpx,
-  numpy,
-  pytestCheckHook,
-  poetry-core,
-  pydantic,
-  pythonOlder,
-  typing-extensions,
-  urllib3,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, grpcio, grpcio-tools, h2, httpx
+, numpy, pytestCheckHook, poetry-core, pydantic, pythonOlder, typing-extensions
+, urllib3 }:
 
 buildPythonPackage rec {
   pname = "qdrant-client";
@@ -31,16 +18,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    numpy
-    httpx
-    grpcio
-    typing-extensions
-    grpcio-tools
-    pydantic
-    urllib3
-    h2
-  ];
+  propagatedBuildInputs =
+    [ numpy httpx grpcio typing-extensions grpcio-tools pydantic urllib3 h2 ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -60,7 +39,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python client for Qdrant vector search engine";
     homepage = "https://github.com/qdrant/qdrant-client";
-    changelog = "https://github.com/qdrant/qdrant-client/releases/tag/v${version}";
+    changelog =
+      "https://github.com/qdrant/qdrant-client/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
   };

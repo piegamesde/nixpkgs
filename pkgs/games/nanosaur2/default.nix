@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL2,
-  cmake,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL2, cmake, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "nanosaur2";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-  ];
+  nativeBuildInputs = [ cmake makeWrapper ];
   buildInputs = [ SDL2 ];
 
   cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
@@ -40,7 +30,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A port of Nanosaur2, a 2004 Macintosh game by Pangea Software, for modern operating systems";
+    description =
+      "A port of Nanosaur2, a 2004 Macintosh game by Pangea Software, for modern operating systems";
     longDescription = ''
       Nanosaur is a 2004 Macintosh game by Pangea Software.
 

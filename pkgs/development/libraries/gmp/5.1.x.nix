@@ -1,23 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  m4,
-  cxx ? true,
-  withStatic ? stdenv.hostPlatform.isStatic,
-}:
+{ lib, stdenv, fetchurl, m4, cxx ? true
+, withStatic ? stdenv.hostPlatform.isStatic }:
 
-let
-  inherit (lib) optional;
-in
+let inherit (lib) optional;
 
-let
+in let
   self = stdenv.mkDerivation rec {
     pname = "gmp";
     version = "5.1.3";
 
-    src = fetchurl {
-      # we need to use bz2, others aren't in bootstrapping stdenv
+    src = fetchurl { # we need to use bz2, others aren't in bootstrapping stdenv
       urls = [
         "mirror://gnu/gmp/gmp-${version}.tar.bz2"
         "ftp://ftp.gmplib.org/pub/gmp-${version}/gmp-${version}.tar.bz2"
@@ -28,33 +19,28 @@ let
     #outputs TODO: split $cxx due to libstdc++ dependency
     # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
     # - see #5855 for related discussion
-    outputs = [
-      "out"
-      "dev"
-      "info"
-    ];
+    outputs = [ "out" "dev" "info" ];
     passthru.static = self.out;
 
     nativeBuildInputs = [ m4 ];
 
-    patches = [ ./5.1.3-CVE-2021-43618.patch ] ++ lib.optionals stdenv.isDarwin [ ./need-size-t.patch ];
+    patches = [ ./5.1.3-CVE-2021-43618.patch ]
+      ++ lib.optionals stdenv.isDarwin [ ./need-size-t.patch ];
 
-    configureFlags =
-      [
-        "--with-pic"
-        (lib.enableFeature cxx "cxx")
-        # Build a "fat binary", with routines for several sub-architectures
-        # (x86), except on Solaris where some tests crash with "Memory fault".
-        # See <https://hydra.nixos.org/build/2760931>, for instance.
-        #
-        # no darwin because gmp uses ASM that clang doesn't like
-        (lib.enableFeature (!stdenv.isSunOS && stdenv.hostPlatform.isx86) "fat")
-        # The config.guess in GMP tries to runtime-detect various
-        # ARM optimization flags via /proc/cpuinfo (and is also
-        # broken on multicore CPUs). Avoid this impurity.
-        "--build=${stdenv.buildPlatform.config}"
-      ]
-      ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
+    configureFlags = [
+      "--with-pic"
+      (lib.enableFeature cxx "cxx")
+      # Build a "fat binary", with routines for several sub-architectures
+      # (x86), except on Solaris where some tests crash with "Memory fault".
+      # See <https://hydra.nixos.org/build/2760931>, for instance.
+      #
+      # no darwin because gmp uses ASM that clang doesn't like
+      (lib.enableFeature (!stdenv.isSunOS && stdenv.hostPlatform.isx86) "fat")
+      # The config.guess in GMP tries to runtime-detect various
+      # ARM optimization flags via /proc/cpuinfo (and is also
+      # broken on multicore CPUs). Avoid this impurity.
+      "--build=${stdenv.buildPlatform.config}"
+    ] ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
       ++ optional (stdenv.isDarwin && stdenv.is64bit) "ABI=64";
 
     doCheck = true;
@@ -96,5 +82,4 @@ let
       broken = stdenv.isDarwin && stdenv.isAarch64;
     };
   };
-in
-self
+in self

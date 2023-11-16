@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  watchman,
-}:
+{ lib, buildPythonPackage, fetchPypi, watchman }:
 
 buildPythonPackage rec {
   pname = "pywatchman";
@@ -27,4 +22,5 @@ buildPythonPackage rec {
     homepage = "https://facebook.github.io/watchman/";
     license = licenses.bsd3;
   };
+
 }

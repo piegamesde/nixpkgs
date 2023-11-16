@@ -1,8 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  coreutils,
-}:
+{ stdenv, fetchFromGitHub, coreutils }:
 
 let
   yara = fetchFromGitHub {
@@ -11,13 +7,13 @@ let
     rev = "ea101c5856941f39cad2db3012f2660d1d5c8b65";
     sha256 = "033ssx2hql5k4pv9si043s3mjq2b748ymjzif8pg6rdwh260faky";
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   # only fetches the yaracpp source patched to work with a local yara clone,
   # does not build anything
   pname = "yaracpp-src";
   version = "2018-10-09";
-  rev = "b92bde0e59e3b75bc445227e04b71105771dee8b"; # as specified in retdec/deps/yaracpp/CMakeLists.txt
+  rev =
+    "b92bde0e59e3b75bc445227e04b71105771dee8b"; # as specified in retdec/deps/yaracpp/CMakeLists.txt
 
   src = fetchFromGitHub {
     inherit rev;

@@ -1,63 +1,22 @@
-{
-  stdenv,
-  lib,
-  pythonOlder,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cargo,
-  rustPlatform,
-  rustc,
-  # Python requirements
-  dill,
-  numpy,
-  networkx,
-  ply,
-  psutil,
-  python-constraint,
-  python-dateutil,
-  rustworkx,
-  scipy,
-  scikit-quant ? null,
-  setuptools-rust,
-  stevedore,
-  symengine,
-  sympy,
-  tweedledum,
-  withVisualization ? false,
+{ stdenv, lib, pythonOlder, buildPythonPackage, fetchFromGitHub, cargo
+, rustPlatform, rustc
+# Python requirements
+, dill, numpy, networkx, ply, psutil, python-constraint, python-dateutil
+, rustworkx, scipy, scikit-quant ? null, setuptools-rust, stevedore, symengine
+, sympy, tweedledum, withVisualization ? false
   # Python visualization requirements, optional
-  ipywidgets,
-  matplotlib,
-  pillow,
-  pydot,
-  pygments,
-  pylatexenc,
-  seaborn,
-  # Crosstalk-adaptive layout pass
-  withCrosstalkPass ? false,
-  z3,
-  # test requirements
-  ddt,
-  hypothesis,
-  nbformat,
-  nbconvert,
-  pytestCheckHook,
-  python,
-}:
+, ipywidgets, matplotlib, pillow, pydot, pygments, pylatexenc, seaborn
+# Crosstalk-adaptive layout pass
+, withCrosstalkPass ? false, z3
+# test requirements
+, ddt, hypothesis, nbformat, nbconvert, pytestCheckHook, python }:
 
 let
-  visualizationPackages = [
-    ipywidgets
-    matplotlib
-    pillow
-    pydot
-    pygments
-    pylatexenc
-    seaborn
-  ];
+  visualizationPackages =
+    [ ipywidgets matplotlib pillow pydot pygments pylatexenc seaborn ];
   crosstalkPackages = [ z3 ];
-in
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "qiskit-terra";
   version = "0.21.0";
 
@@ -70,12 +29,8 @@ buildPythonPackage rec {
     hash = "sha256-imktzBpgP+lq6FsVWIUK82+t76gKTgt53kPfKOnsseQ=";
   };
 
-  nativeBuildInputs = [
-    setuptools-rust
-    rustc
-    cargo
-    rustPlatform.cargoSetupHook
-  ];
+  nativeBuildInputs =
+    [ setuptools-rust rustc cargo rustPlatform.cargoSetupHook ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -83,39 +38,29 @@ buildPythonPackage rec {
     hash = "sha256-SXC0UqWjWqLlZvKCRBylSX73r4Vale130KzS0zM8gjQ=";
   };
 
-  propagatedBuildInputs =
-    [
-      dill
-      numpy
-      networkx
-      ply
-      psutil
-      python-constraint
-      python-dateutil
-      rustworkx
-      scipy
-      scikit-quant
-      stevedore
-      symengine
-      sympy
-      tweedledum
-    ]
-    ++ lib.optionals withVisualization visualizationPackages
+  propagatedBuildInputs = [
+    dill
+    numpy
+    networkx
+    ply
+    psutil
+    python-constraint
+    python-dateutil
+    rustworkx
+    scipy
+    scikit-quant
+    stevedore
+    symengine
+    sympy
+    tweedledum
+  ] ++ lib.optionals withVisualization visualizationPackages
     ++ lib.optionals withCrosstalkPass crosstalkPackages;
 
   # *** Tests ***
-  nativeCheckInputs = [
-    pytestCheckHook
-    ddt
-    hypothesis
-    nbformat
-    nbconvert
-  ] ++ lib.optionals (!withVisualization) visualizationPackages;
+  nativeCheckInputs = [ pytestCheckHook ddt hypothesis nbformat nbconvert ]
+    ++ lib.optionals (!withVisualization) visualizationPackages;
 
-  pythonImportsCheck = [
-    "qiskit"
-    "qiskit.pulse"
-  ];
+  pythonImportsCheck = [ "qiskit" "qiskit.pulse" ];
 
   disabledTestPaths = [
     "test/randomized/test_transpiler_equivalence.py" # collection requires qiskit-aer, which would cause circular dependency
@@ -126,22 +71,22 @@ buildPythonPackage rec {
     "test/python/quantum_info/operators/test_random.py"
   ];
   pytestFlagsArray = [ "--durations=10" ];
-  disabledTests =
-    [
-      "TestUnitarySynthesisPlugin" # use unittest mocks for transpiler.run(), seems incompatible somehow w/ pytest infrastructure
-      # matplotlib tests seems to fail non-deterministically
-      "TestMatplotlibDrawer"
-      "TestGraphMatplotlibDrawer"
-      "test_copy" # assertNotIn doesn't seem to work as expected w/ pytest vs unittest
+  disabledTests = [
+    "TestUnitarySynthesisPlugin" # use unittest mocks for transpiler.run(), seems incompatible somehow w/ pytest infrastructure
+    # matplotlib tests seems to fail non-deterministically
+    "TestMatplotlibDrawer"
+    "TestGraphMatplotlibDrawer"
+    "test_copy" # assertNotIn doesn't seem to work as expected w/ pytest vs unittest
 
-      # Flaky tests
-      "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
-      "test_cx_equivalence" # Fails due to flaky test
-      "test_two_qubit_synthesis_not_pulse_optimal" # test of random circuit, seems to randomly fail depending on seed
-      "test_qv_natural" # fails due to sign error. Not sure why
-    ]
-    ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [ "test_plot_circuit_layout" ]
-    # Disabling slow tests for build constraints
+    # Flaky tests
+    "test_pulse_limits" # Fails on GitHub Actions, probably due to minor floating point arithmetic error.
+    "test_cx_equivalence" # Fails due to flaky test
+    "test_two_qubit_synthesis_not_pulse_optimal" # test of random circuit, seems to randomly fail depending on seed
+    "test_qv_natural" # fails due to sign error. Not sure why
+  ] ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [
+    "test_plot_circuit_layout"
+  ]
+  # Disabling slow tests for build constraints
     ++ [
       "test_all_examples"
       "test_controlled_random_unitary"

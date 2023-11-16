@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  meson,
-  pkg-config,
-  ninja,
-  wayland,
-  obs-studio,
-  libX11,
-}:
+{ lib, stdenv, fetchFromSourcehut, meson, pkg-config, ninja, wayland, obs-studio
+, libX11 }:
 
 stdenv.mkDerivation {
   pname = "wlrobs";
@@ -22,24 +13,14 @@ stdenv.mkDerivation {
     sha256 = "sha256-/VemJkk695BdSDsODmYIPdhPwggzIhBi/0m6P+AYfx0=";
   };
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ];
-  buildInputs = [
-    wayland
-    obs-studio
-    libX11
-  ];
+  nativeBuildInputs = [ meson pkg-config ninja ];
+  buildInputs = [ wayland obs-studio libX11 ];
 
   meta = with lib; {
-    description = "An obs-studio plugin that allows you to screen capture on wlroots based wayland compositors";
+    description =
+      "An obs-studio plugin that allows you to screen capture on wlroots based wayland compositors";
     homepage = "https://hg.sr.ht/~scoopta/wlrobs";
-    maintainers = with maintainers; [
-      grahamc
-      V
-    ];
+    maintainers = with maintainers; [ grahamc V ];
     license = licenses.gpl3Plus;
     platforms = [ "x86_64-linux" ];
   };

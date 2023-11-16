@@ -1,13 +1,7 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub
 
-  # tests
-  ffmpeg-full,
-  python,
-}:
+# tests
+, ffmpeg-full, python }:
 
 buildPythonPackage rec {
   pname = "pydub";
@@ -22,11 +16,7 @@ buildPythonPackage rec {
     sha256 = "0xskllq66wqndjfmvp58k26cv3w480sqsil6ifwp4gghir7hqc8m";
   };
 
-  pythonImportsCheck = [
-    "pydub"
-    "pydub.audio_segment"
-    "pydub.playback"
-  ];
+  pythonImportsCheck = [ "pydub" "pydub.audio_segment" "pydub.playback" ];
 
   nativeCheckInputs = [ ffmpeg-full ];
 
@@ -35,7 +25,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Manipulate audio with a simple and easy high level interface";
+    description =
+      "Manipulate audio with a simple and easy high level interface";
     homepage = "http://pydub.com";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];

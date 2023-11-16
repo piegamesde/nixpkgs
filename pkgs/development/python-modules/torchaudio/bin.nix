@@ -1,30 +1,18 @@
-{
-  lib,
-  stdenv,
-  addOpenGLRunpath,
-  autoPatchelfHook,
-  buildPythonPackage,
-  cudaPackages,
-  fetchurl,
-  ffmpeg_4,
-  pythonAtLeast,
-  pythonOlder,
-  python,
-  torch-bin,
-}:
+{ lib, stdenv, addOpenGLRunpath, autoPatchelfHook, buildPythonPackage
+, cudaPackages, fetchurl, ffmpeg_4, pythonAtLeast, pythonOlder, python
+, torch-bin }:
 
 buildPythonPackage rec {
   pname = "torchaudio";
   version = "2.0.2";
   format = "wheel";
 
-  src =
-    let
-      pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
-      unsupported = throw "Unsupported system";
-      srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
-    in
-    fetchurl srcs;
+  src = let
+    pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+    unsupported = throw "Unsupported system";
+    srcs = (import ./binary-hashes.nix
+      version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
+  in fetchurl srcs;
 
   disabled = (pythonOlder "3.8") || (pythonAtLeast "3.12");
 
@@ -40,10 +28,7 @@ buildPythonPackage rec {
     ffmpeg_4.lib
   ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    addOpenGLRunpath
-  ];
+  nativeBuildInputs = [ autoPatchelfHook addOpenGLRunpath ];
 
   propagatedBuildInputs = [ torch-bin ];
 
@@ -65,12 +50,8 @@ buildPythonPackage rec {
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     license = licenses.bsd3;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [
-      "aarch64-linux"
-      "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
+    platforms =
+      [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
     maintainers = with maintainers; [ junjihashimoto ];
   };
 }

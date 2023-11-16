@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  installShellFiles,
-  cmake,
-  git,
-  nixosTests,
-  Security,
-  Foundation,
-  Cocoa,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, installShellFiles, cmake, git
+, nixosTests, Security, Foundation, Cocoa }:
 
 rustPlatform.buildRustPackage rec {
   pname = "starship";
@@ -23,16 +12,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-aINiWzkt4sAWgcGdkHTb2KRMh2z+LiOhDdTJbzbXwR4=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    cmake
-  ];
+  nativeBuildInputs = [ installShellFiles cmake ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-    Foundation
-    Cocoa
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security Foundation Cocoa ];
 
   NIX_LDFLAGS = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
     "-framework"
@@ -54,12 +36,11 @@ rustPlatform.buildRustPackage rec {
     HOME=$TMPDIR
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) starship;
-  };
+  passthru.tests = { inherit (nixosTests) starship; };
 
   meta = with lib; {
-    description = "A minimal, blazing fast, and extremely customizable prompt for any shell";
+    description =
+      "A minimal, blazing fast, and extremely customizable prompt for any shell";
     homepage = "https://starship.rs";
     license = licenses.isc;
     maintainers = with maintainers; [

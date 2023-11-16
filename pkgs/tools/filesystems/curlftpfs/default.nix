@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  fuse,
-  curl,
-  pkg-config,
-  glib,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, fuse, curl, pkg-config, glib, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "curlftpfs";
@@ -19,24 +9,15 @@ stdenv.mkDerivation rec {
     sha256 = "0n397hmv21jsr1j7zx3m21i7ryscdhkdsyqpvvns12q7qwwlgd2f";
   };
 
-  patches =
-    [
-      # This removes AC_FUNC_MALLOC and AC_FUNC_REALLOC from configure.ac because
-      # it is known to cause problems. Search online for "rpl_malloc" and
-      # "rpl_realloc" to find out more.
-      ./fix-rpl_malloc.patch
-    ];
+  patches = [
+    # This removes AC_FUNC_MALLOC and AC_FUNC_REALLOC from configure.ac because
+    # it is known to cause problems. Search online for "rpl_malloc" and
+    # "rpl_realloc" to find out more.
+    ./fix-rpl_malloc.patch
+  ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    fuse
-    curl
-    glib
-    zlib
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ fuse curl glib zlib ];
 
   CFLAGS = lib.optionalString stdenv.isDarwin "-D__off_t=off_t";
 
@@ -51,7 +32,8 @@ stdenv.mkDerivation rec {
   doCheck = false; # fails, doesn't work well too, btw
 
   meta = with lib; {
-    description = "Filesystem for accessing FTP hosts based on FUSE and libcurl";
+    description =
+      "Filesystem for accessing FTP hosts based on FUSE and libcurl";
     homepage = "https://curlftpfs.sourceforge.net";
     license = licenses.gpl2Only;
     platforms = platforms.unix;

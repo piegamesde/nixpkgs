@@ -1,28 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  qttools,
-  pkg-config,
-  wrapQtAppsHook,
-  dtkwidget,
-  dde-dock,
-  dde-control-center,
-  dde-session-shell,
-  dde-qt-dbus-factory,
-  gsettings-qt,
-  gio-qt,
-  networkmanager-qt,
-  glib,
-  pcre,
-  util-linux,
-  libselinux,
-  libsepol,
-  dbus,
-  gtest,
-  qtbase,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, qttools, pkg-config, wrapQtAppsHook
+, dtkwidget, dde-dock, dde-control-center, dde-session-shell
+, dde-qt-dbus-factory, gsettings-qt, gio-qt, networkmanager-qt, glib, pcre
+, util-linux, libselinux, libsepol, dbus, gtest, qtbase }:
 stdenv.mkDerivation rec {
   pname = "dde-network-core";
   version = "1.1.8";
@@ -41,12 +20,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/share" "/run/current-system/sw/share"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     dtkwidget

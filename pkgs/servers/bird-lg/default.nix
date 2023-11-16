@@ -1,12 +1,6 @@
-{
-  buildGoModule,
-  fetchFromGitHub,
-  lib,
-  symlinkJoin,
-}:
+{ buildGoModule, fetchFromGitHub, lib, symlinkJoin }:
 let
-  generic =
-    { modRoot, vendorSha256 }:
+  generic = { modRoot, vendorSha256 }:
     buildGoModule rec {
       pname = "bird-lg-${modRoot}";
       version = "1.3.0";
@@ -20,17 +14,15 @@ let
 
       doDist = false;
 
-      ldflags = [
-        "-s"
-        "-w"
-      ];
+      ldflags = [ "-s" "-w" ];
 
       inherit modRoot vendorSha256;
 
       meta = with lib; {
         description = "Bird Looking Glass";
         homepage = "https://github.com/xddxdd/bird-lg-go";
-        changelog = "https://github.com/xddxdd/bird-lg-go/releases/tag/v${version}";
+        changelog =
+          "https://github.com/xddxdd/bird-lg-go/releases/tag/v${version}";
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [ tchekda ];
       };
@@ -45,14 +37,9 @@ let
     modRoot = "proxy";
     vendorSha256 = "sha256-o8F3uNGpz1fZr15HCY2PC7xRx9NakmvYrVQKe42ElOA=";
   };
-in
-symlinkJoin {
+in symlinkJoin {
   name = "bird-lg-${bird-lg-frontend.version}";
-  paths = [
-    bird-lg-frontend
-    bird-lg-proxy
-  ];
-}
-// {
+  paths = [ bird-lg-frontend bird-lg-proxy ];
+} // {
   inherit (bird-lg-frontend) version meta;
 }

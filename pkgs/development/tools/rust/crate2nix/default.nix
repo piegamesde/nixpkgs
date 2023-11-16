@@ -1,13 +1,6 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  makeWrapper,
+{ lib, rustPlatform, fetchFromGitHub, makeWrapper
 
-  cargo,
-  nix,
-  nix-prefetch-git,
-}:
+, cargo, nix, nix-prefetch-git }:
 
 rustPlatform.buildRustPackage rec {
   pname = "crate2nix";
@@ -32,13 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram $out/bin/crate2nix \
-        --suffix PATH ":" ${
-          lib.makeBinPath [
-            cargo
-            nix
-            nix-prefetch-git
-          ]
-        }
+        --suffix PATH ":" ${lib.makeBinPath [ cargo nix nix-prefetch-git ]}
   '';
 
   meta = with lib; {
@@ -49,10 +36,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/kolloch/crate2nix";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      kolloch
-      cole-h
-    ];
+    maintainers = with maintainers; [ kolloch cole-h ];
     platforms = platforms.all;
   };
 }

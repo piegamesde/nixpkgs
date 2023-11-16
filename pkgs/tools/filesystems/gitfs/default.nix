@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "gitfs";
@@ -26,11 +22,7 @@ python3Packages.buildPythonApplication rec {
       'from pygit2 import RemoteCallbacks'
   '';
 
-  nativeCheckInputs = with python3Packages; [
-    pytest
-    pytest-cov
-    mock
-  ];
+  nativeCheckInputs = with python3Packages; [ pytest pytest-cov mock ];
   propagatedBuildInputs = with python3Packages; [
     atomiclong
     fusepy

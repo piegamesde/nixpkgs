@@ -1,8 +1,4 @@
-{
-  lib,
-  bundlerApp,
-  bundlerUpdateScript,
-}:
+{ lib, bundlerApp, bundlerUpdateScript }:
 
 bundlerApp {
   pname = "sensu";
@@ -49,15 +45,11 @@ bundlerApp {
   passthru.updateScript = bundlerUpdateScript "sensu";
 
   meta = with lib; {
-    description = "A monitoring framework that aims to be simple, malleable, and scalable";
+    description =
+      "A monitoring framework that aims to be simple, malleable, and scalable";
     homepage = "https://sensuapp.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      theuni
-      peterhoeg
-      manveru
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ theuni peterhoeg manveru nicknovitski ];
     platforms = platforms.unix;
   };
 }

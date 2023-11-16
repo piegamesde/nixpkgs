@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  pytestCheckHook,
-  pythonOlder,
-  spur,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, pytestCheckHook, pythonOlder
+, spur }:
 
 buildPythonPackage rec {
   pname = "stickytape";
@@ -28,7 +21,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "stickytape" ];
 
   meta = with lib; {
-    description = "Python module to convert Python packages into a single script";
+    description =
+      "Python module to convert Python packages into a single script";
     homepage = "https://github.com/mwilliamson/stickytape";
     license = with licenses; [ bsd2 ];
     maintainers = with maintainers; [ fab ];

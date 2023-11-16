@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  bitcoin-utils-fork-minimal,
-  buildPythonPackage,
-  base58,
-  pycryptodome,
-  requests,
-  setuptools,
-  pythonOlder,
-}:
+{ lib, fetchPypi, bitcoin-utils-fork-minimal, buildPythonPackage, base58
+, pycryptodome, requests, setuptools, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "block-io";
@@ -22,13 +13,8 @@ buildPythonPackage rec {
     hash = "sha256-M7czfpagXqoWWSu4enB3Z2hc2GtAaskI6cnJzJdpC8I=";
   };
 
-  propagatedBuildInputs = [
-    base58
-    bitcoin-utils-fork-minimal
-    pycryptodome
-    requests
-    setuptools
-  ];
+  propagatedBuildInputs =
+    [ base58 bitcoin-utils-fork-minimal pycryptodome requests setuptools ];
 
   preConfigure = ''
     substituteInPlace setup.py \
@@ -42,7 +28,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "block_io" ];
 
   meta = with lib; {
-    description = "Integrate Bitcoin, Dogecoin and Litecoin in your Python applications using block.io";
+    description =
+      "Integrate Bitcoin, Dogecoin and Litecoin in your Python applications using block.io";
     homepage = "https://github.com/BlockIo/block_io-python";
     license = licenses.mit;
     maintainers = with maintainers; [ nyanloutre ];

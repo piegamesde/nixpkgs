@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ stdenv, lib, fetchFromGitHub, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "cpustat";

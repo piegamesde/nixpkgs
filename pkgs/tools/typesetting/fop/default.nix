@@ -1,25 +1,16 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  ant,
-  jdk,
-  runtimeShell,
-}:
+{ fetchurl, lib, stdenv, ant, jdk, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "fop";
   version = "2.8";
 
   src = fetchurl {
-    url = "mirror://apache/xmlgraphics/fop/source/${pname}-${version}-src.tar.gz";
+    url =
+      "mirror://apache/xmlgraphics/fop/source/${pname}-${version}-src.tar.gz";
     sha256 = "sha256-b7Av17wu6Ar/npKOiwYqzlvBFSIuXTpqTacM1sxtBvc=";
   };
 
-  buildInputs = [
-    ant
-    jdk
-  ];
+  buildInputs = [ ant jdk ];
 
   # build only the "package" target, which generates the fop command.
   buildPhase = ''

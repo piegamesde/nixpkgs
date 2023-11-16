@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.greenclip;
-in
-{
+let cfg = config.services.greenclip;
+in {
 
   options.services.greenclip = {
     enable = mkEnableOption (lib.mdDoc "Greenclip daemon");

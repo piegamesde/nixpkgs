@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  requireFile,
-  unzip,
-  makeDesktopItem,
-  SDL2,
-  SDL2_mixer,
-  libogg,
-  libvorbis,
-}:
+{ lib, stdenv, requireFile, unzip, makeDesktopItem, SDL2, SDL2_mixer, libogg
+, libvorbis }:
 
 let
   arch = if stdenv.system == "x86_64-linux" then "x86_64" else "x86";
@@ -21,9 +12,8 @@ let
     icon = "2dboy-worldofgoo";
     name = "worldofgoo";
   };
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "WorldOfGoo";
   version = "1.53";
 
@@ -82,13 +72,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://worldofgoo.com";
     license = licenses.unfree;
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
-    maintainers = with maintainers; [
-      jcumming
-      maxeaubrey
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
+    maintainers = with maintainers; [ jcumming maxeaubrey ];
   };
 }

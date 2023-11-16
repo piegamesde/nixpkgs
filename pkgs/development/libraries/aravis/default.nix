@@ -1,27 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  gi-docgen,
-  glib,
-  libxml2,
-  gobject-introspection,
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, gi-docgen, glib
+, libxml2, gobject-introspection
 
-  enableGstPlugin ? true,
-  enableViewer ? true,
-  gst_all_1,
-  gtk3,
-  wrapGAppsHook,
+, enableGstPlugin ? true, enableViewer ? true, gst_all_1, gtk3, wrapGAppsHook
 
-  enableUsb ? true,
-  libusb1,
+, enableUsb ? true, libusb1
 
-  enablePacketSocket ? true,
-  enableFastHeartbeat ? false,
-}:
+, enablePacketSocket ? true, enableFastHeartbeat ? false }:
 
 assert enableGstPlugin -> gst_all_1 != null;
 assert enableViewer -> enableGstPlugin;
@@ -39,39 +23,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QxI/+2mtX9d4UTkbFFVh5N4JqTMqygGUgz08XWxAQac=";
   };
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "lib"
-  ];
+  outputs = [ "bin" "dev" "out" "lib" ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gi-docgen
-  ] ++ lib.optional enableViewer wrapGAppsHook;
+  nativeBuildInputs = [ meson ninja pkg-config gi-docgen ]
+    ++ lib.optional enableViewer wrapGAppsHook;
 
-  buildInputs =
-    [
-      glib
-      libxml2
-      gobject-introspection
-    ]
+  buildInputs = [ glib libxml2 gobject-introspection ]
     ++ lib.optional enableUsb libusb1
-    ++ lib.optionals (enableViewer || enableGstPlugin) (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
-        gst-plugins-bad
-      ]
-    )
-    ++ lib.optionals (enableViewer) [ gtk3 ];
+    ++ lib.optionals (enableViewer || enableGstPlugin) (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-bad
+    ]) ++ lib.optionals (enableViewer) [ gtk3 ];
 
-  mesonFlags =
-    [ ]
+  mesonFlags = [ ]
     ++ lib.optional enableFastHeartbeat "-Dfast-heartbeat=enabled"
     ++ lib.optional (!enableGstPlugin) "-Dgst-plugin=disabled"
     ++ lib.optional (!enableViewer) "-Dviewer=disabled"

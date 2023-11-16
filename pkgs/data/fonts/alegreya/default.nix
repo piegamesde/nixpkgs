@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "alegreya";
@@ -23,7 +19,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "An elegant and versatile font family for comfortable reading";
+    description =
+      "An elegant and versatile font family for comfortable reading";
     longDescription = ''
       Alegreya is a typeface originally intended for literature. Among its crowning characteristics, it conveys a dynamic and varied rhythm which facilitates the reading of long texts. Also, it provides freshness to the page while referring to the calligraphic letter, not as a literal interpretation, but rather in a contemporary typographic language.
 

@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "ironclad";
   version = "v0.56";
 
@@ -99,14 +98,11 @@ rec {
 
   description = "System lacks description";
 
-  deps = [
-    args."alexandria"
-    args."bordeaux-threads"
-    args."rt"
-  ];
+  deps = [ args."alexandria" args."bordeaux-threads" args."rt" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/ironclad/2021-10-20/ironclad-v0.56.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/ironclad/2021-10-20/ironclad-v0.56.tgz";
     sha256 = "06jya7y8xlwak84akhp4qg9x6nyjrnnzqmzdigxc5a3c77mk3p6k";
   };
 

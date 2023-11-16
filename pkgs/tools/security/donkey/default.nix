@@ -1,12 +1,4 @@
-{
-  stdenv,
-  fetchFromGitLab,
-  libmd,
-  coreutils,
-  lib,
-  testers,
-  donkey,
-}:
+{ stdenv, fetchFromGitLab, libmd, coreutils, lib, testers, donkey }:
 
 stdenv.mkDerivation rec {
   pname = "donkey";

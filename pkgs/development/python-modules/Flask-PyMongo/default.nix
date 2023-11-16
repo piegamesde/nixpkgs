@@ -1,12 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-  pymongo,
-  vcversioner,
-  lib,
-  pytest,
-}:
+{ buildPythonPackage, fetchPypi, flask, pymongo, vcversioner, lib, pytest }:
 
 buildPythonPackage rec {
   pname = "flask-pymongo";
@@ -27,11 +19,7 @@ buildPythonPackage rec {
   # Tests seem to hang
   doCheck = false;
 
-  propagatedBuildInputs = [
-    flask
-    pymongo
-    vcversioner
-  ];
+  propagatedBuildInputs = [ flask pymongo vcversioner ];
 
   meta = {
     homepage = "https://flask-pymongo.readthedocs.org/";

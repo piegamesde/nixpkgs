@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libxcb,
-  libXinerama,
-  xcbutil,
-  xcbutilkeysyms,
-  xcbutilwm,
-}:
+{ lib, stdenv, fetchFromGitHub, libxcb, libXinerama, xcbutil, xcbutilkeysyms
+, xcbutilwm }:
 
 stdenv.mkDerivation rec {
   pname = "bspwm";
@@ -20,13 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "0qlv7b4c2mmjfd65y100d11x8iqyg5f6lfiws3cgmpjidhdygnxc";
   };
 
-  buildInputs = [
-    libxcb
-    libXinerama
-    xcbutil
-    xcbutilkeysyms
-    xcbutilwm
-  ];
+  buildInputs = [ libxcb libXinerama xcbutil xcbutilkeysyms xcbutilwm ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

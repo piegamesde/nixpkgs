@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 with lib;
 let
   cfg = config.services.matomo;
@@ -17,73 +11,33 @@ let
   pool = user;
   phpExecutionUnit = "phpfpm-${pool}";
   databaseService = "mysql.service";
-in
-{
+
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "piwik"
-        "enable"
-      ]
-      [
-        "services"
-        "matomo"
-        "enable"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "piwik"
-        "webServerUser"
-      ]
-      [
-        "services"
-        "matomo"
-        "webServerUser"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "piwik"
-        "phpfpmProcessManagerConfig"
-      ]
-      "Use services.phpfpm.pools.<name>.settings"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "matomo"
-        "phpfpmProcessManagerConfig"
-      ]
-      "Use services.phpfpm.pools.<name>.settings"
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "piwik"
-        "nginx"
-      ]
-      [
-        "services"
-        "matomo"
-        "nginx"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "services"
-        "matomo"
-        "periodicArchiveProcessingUrl"
-      ]
-      [
-        "services"
-        "matomo"
-        "hostname"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "piwik" "enable" ] [
+      "services"
+      "matomo"
+      "enable"
+    ])
+    (mkRenamedOptionModule [ "services" "piwik" "webServerUser" ] [
+      "services"
+      "matomo"
+      "webServerUser"
+    ])
+    (mkRemovedOptionModule [ "services" "piwik" "phpfpmProcessManagerConfig" ]
+      "Use services.phpfpm.pools.<name>.settings")
+    (mkRemovedOptionModule [ "services" "matomo" "phpfpmProcessManagerConfig" ]
+      "Use services.phpfpm.pools.<name>.settings")
+    (mkRenamedOptionModule [ "services" "piwik" "nginx" ] [
+      "services"
+      "matomo"
+      "nginx"
+    ])
+    (mkRenamedOptionModule [
+      "services"
+      "matomo"
+      "periodicArchiveProcessingUrl"
+    ] [ "services" "matomo" "hostname" ])
   ];
 
   options = {
@@ -151,16 +105,15 @@ in
       };
 
       nginx = mkOption {
-        type = types.nullOr (
-          types.submodule (
-            recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
-              # enable encryption by default,
-              # as sensitive login and Matomo data should not be transmitted in clear text.
-              options.forceSSL.default = true;
-              options.enableACME.default = true;
-            }
-          )
-        );
+        type = types.nullOr (types.submodule (recursiveUpdate
+          (import ../web-servers/nginx/vhost-options.nix {
+            inherit config lib;
+          }) {
+            # enable encryption by default,
+            # as sensitive login and Matomo data should not be transmitted in clear text.
+            options.forceSSL.default = true;
+            options.enableACME.default = true;
+          }));
         default = null;
         example = literalExpression ''
           {
@@ -189,12 +142,11 @@ in
       "If services.matomo.nginx is set, services.matomo.nginx.webServerUser is ignored and should be removed."
     ];
 
-    assertions = [
-      {
-        assertion = cfg.nginx != null || cfg.webServerUser != null;
-        message = "Either services.matomo.nginx or services.matomo.nginx.webServerUser is mandatory";
-      }
-    ];
+    assertions = [{
+      assertion = cfg.nginx != null || cfg.webServerUser != null;
+      message =
+        "Either services.matomo.nginx or services.matomo.nginx.webServerUser is mandatory";
+    }];
 
     users.users.${user} = {
       isSystemUser = true;
@@ -280,20 +232,22 @@ in
         UMask = "0007";
         CPUSchedulingPolicy = "idle";
         IOSchedulingClass = "idle";
-        ExecStart = "${cfg.package}/bin/matomo-console core:archive --url=https://${cfg.hostname}";
+        ExecStart =
+          "${cfg.package}/bin/matomo-console core:archive --url=https://${cfg.hostname}";
       };
     };
 
-    systemd.timers.matomo-archive-processing = mkIf cfg.periodicArchiveProcessing {
-      description = "Automatically archive Matomo reports every hour";
+    systemd.timers.matomo-archive-processing =
+      mkIf cfg.periodicArchiveProcessing {
+        description = "Automatically archive Matomo reports every hour";
 
-      wantedBy = [ "timers.target" ];
-      timerConfig = {
-        OnCalendar = "hourly";
-        Persistent = "yes";
-        AccuracySec = "10m";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "hourly";
+          Persistent = "yes";
+          AccuracySec = "10m";
+        };
       };
-    };
 
     systemd.services.${phpExecutionUnit} = {
       # stop phpfpm on package upgrade, do database upgrade via matomo-setup-update, and then restart
@@ -302,41 +256,38 @@ in
       serviceConfig.UMask = "0007";
     };
 
-    services.phpfpm.pools =
-      let
-        # workaround for when both are null and need to generate a string,
-        # which is illegal, but as assertions apparently are being triggered *after* config generation,
-        # we have to avoid already throwing errors at this previous stage.
-        socketOwner =
-          if (cfg.nginx != null) then
-            config.services.nginx.user
-          else if (cfg.webServerUser != null) then
-            cfg.webServerUser
-          else
-            "";
-      in
-      {
-        ${pool} = {
-          inherit user;
-          phpOptions = ''
-            error_log = 'stderr'
-            log_errors = on
-          '';
-          settings = mapAttrs (name: mkDefault) {
-            "listen.owner" = socketOwner;
-            "listen.group" = "root";
-            "listen.mode" = "0660";
-            "pm" = "dynamic";
-            "pm.max_children" = 75;
-            "pm.start_servers" = 10;
-            "pm.min_spare_servers" = 5;
-            "pm.max_spare_servers" = 20;
-            "pm.max_requests" = 500;
-            "catch_workers_output" = true;
-          };
-          phpEnv.PIWIK_USER_PATH = dataDir;
+    services.phpfpm.pools = let
+      # workaround for when both are null and need to generate a string,
+      # which is illegal, but as assertions apparently are being triggered *after* config generation,
+      # we have to avoid already throwing errors at this previous stage.
+      socketOwner = if (cfg.nginx != null) then
+        config.services.nginx.user
+      else if (cfg.webServerUser != null) then
+        cfg.webServerUser
+      else
+        "";
+    in {
+      ${pool} = {
+        inherit user;
+        phpOptions = ''
+          error_log = 'stderr'
+          log_errors = on
+        '';
+        settings = mapAttrs (name: mkDefault) {
+          "listen.owner" = socketOwner;
+          "listen.group" = "root";
+          "listen.mode" = "0660";
+          "pm" = "dynamic";
+          "pm.max_children" = 75;
+          "pm.start_servers" = 10;
+          "pm.min_spare_servers" = 5;
+          "pm.max_spare_servers" = 20;
+          "pm.max_requests" = 500;
+          "catch_workers_output" = true;
         };
+        phpEnv.PIWIK_USER_PATH = dataDir;
       };
+    };
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
       # References:
@@ -353,9 +304,7 @@ in
           # so that they can easily be extended with additional locations if required
           # without needing to redefine the Matomo ones.
           # disadvantage: not shown as default in docs.
-          locations."/" = {
-            index = "index.php";
-          };
+          locations."/" = { index = "index.php"; };
           # allow index.php for webinterface
           locations."= /index.php".extraConfig = ''
             fastcgi_pass unix:${fpm.socket};

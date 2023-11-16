@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,40 +8,36 @@ let
 
   cfg = config.programs.fish;
 
-  fishAbbrs = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "abbr -ag ${k} ${escapeShellArg v}") cfg.shellAbbrs
-  );
+  fishAbbrs = concatStringsSep "\n"
+    (mapAttrsFlatten (k: v: "abbr -ag ${k} ${escapeShellArg v}")
+      cfg.shellAbbrs);
 
-  fishAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}") (
-      filterAttrs (k: v: v != null) cfg.shellAliases
-    )
-  );
+  fishAliases = concatStringsSep "\n"
+    (mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}")
+      (filterAttrs (k: v: v != null) cfg.shellAliases));
 
   envShellInit = pkgs.writeText "shellInit" cfge.shellInit;
 
   envLoginShellInit = pkgs.writeText "loginShellInit" cfge.loginShellInit;
 
-  envInteractiveShellInit = pkgs.writeText "interactiveShellInit" cfge.interactiveShellInit;
+  envInteractiveShellInit =
+    pkgs.writeText "interactiveShellInit" cfge.interactiveShellInit;
 
-  sourceEnv =
-    file:
+  sourceEnv = file:
     if cfg.useBabelfish then
       "source /etc/fish/${file}.fish"
-    else
-      ''
-        set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $fish_function_path
-        fenv source /etc/fish/foreign-env/${file} > /dev/null
-        set -e fish_function_path[1]
-      '';
+    else ''
+      set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $fish_function_path
+      fenv source /etc/fish/foreign-env/${file} > /dev/null
+      set -e fish_function_path[1]
+    '';
 
-  babelfishTranslate =
-    path: name:
-    pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; }
-      "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
-in
+  babelfishTranslate = path: name:
+    pkgs.runCommandLocal "${name}.fish" {
+      nativeBuildInputs = [ pkgs.babelfish ];
+    } "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
 
-{
+in {
 
   options = {
 
@@ -145,7 +136,9 @@ in
         '';
         type = types.lines;
       };
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -159,43 +152,41 @@ in
       (mkIf cfg.useBabelfish {
         etc."fish/setEnvironment.fish".source =
           babelfishTranslate config.system.build.setEnvironment
-            "setEnvironment";
-        etc."fish/shellInit.fish".source = babelfishTranslate envShellInit "shellInit";
-        etc."fish/loginShellInit.fish".source = babelfishTranslate envLoginShellInit "loginShellInit";
+          "setEnvironment";
+        etc."fish/shellInit.fish".source =
+          babelfishTranslate envShellInit "shellInit";
+        etc."fish/loginShellInit.fish".source =
+          babelfishTranslate envLoginShellInit "loginShellInit";
         etc."fish/interactiveShellInit.fish".source =
-          babelfishTranslate envInteractiveShellInit
-            "interactiveShellInit";
+          babelfishTranslate envInteractiveShellInit "interactiveShellInit";
       })
 
       (mkIf (!cfg.useBabelfish) {
         etc."fish/foreign-env/shellInit".source = envShellInit;
         etc."fish/foreign-env/loginShellInit".source = envLoginShellInit;
-        etc."fish/foreign-env/interactiveShellInit".source = envInteractiveShellInit;
+        etc."fish/foreign-env/interactiveShellInit".source =
+          envInteractiveShellInit;
       })
 
       {
-        etc."fish/nixos-env-preinit.fish".text =
-          if cfg.useBabelfish then
-            ''
-              # source the NixOS environment config
-              if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
-                source /etc/fish/setEnvironment.fish
-              end
-            ''
-          else
-            ''
-              # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
-              # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
-              set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
+        etc."fish/nixos-env-preinit.fish".text = if cfg.useBabelfish then ''
+          # source the NixOS environment config
+          if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
+            source /etc/fish/setEnvironment.fish
+          end
+        '' else ''
+          # This happens before $__fish_datadir/config.fish sets fish_function_path, so it is currently
+          # unset. We set it and then completely erase it, leaving its configuration to $__fish_datadir/config.fish
+          set fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d $__fish_datadir/functions
 
-              # source the NixOS environment config
-              if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
-                fenv source ${config.system.build.setEnvironment}
-              end
+          # source the NixOS environment config
+          if [ -z "$__NIXOS_SET_ENVIRONMENT_DONE" ]
+            fenv source ${config.system.build.setEnvironment}
+          end
 
-              # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
-              set -e fish_function_path
-            '';
+          # clear fish_function_path so that it will be correctly set when we return to $__fish_datadir/config.fish
+          set -e fish_function_path
+        '';
       }
 
       {
@@ -245,66 +236,60 @@ in
       }
 
       {
-        etc."fish/generated_completions".source =
-          let
-            patchedGenerator = pkgs.stdenv.mkDerivation {
-              name = "fish_patched-completion-generator";
-              srcs = [
-                "${pkgs.fish}/share/fish/tools/create_manpage_completions.py"
-                "${pkgs.fish}/share/fish/tools/deroff.py"
-              ];
-              unpackCmd = "cp $curSrc $(basename $curSrc)";
-              sourceRoot = ".";
-              patches = [ ./fish_completion-generator.patch ]; # to prevent collisions of identical completion files
-              dontBuild = true;
-              installPhase = ''
-                mkdir -p $out
-                cp * $out/
-              '';
+        etc."fish/generated_completions".source = let
+          patchedGenerator = pkgs.stdenv.mkDerivation {
+            name = "fish_patched-completion-generator";
+            srcs = [
+              "${pkgs.fish}/share/fish/tools/create_manpage_completions.py"
+              "${pkgs.fish}/share/fish/tools/deroff.py"
+            ];
+            unpackCmd = "cp $curSrc $(basename $curSrc)";
+            sourceRoot = ".";
+            patches = [
+              ./fish_completion-generator.patch
+            ]; # to prevent collisions of identical completion files
+            dontBuild = true;
+            installPhase = ''
+              mkdir -p $out
+              cp * $out/
+            '';
+            preferLocalBuild = true;
+            allowSubstitutes = false;
+          };
+          generateCompletions = package:
+            pkgs.runCommand "${package.name}_fish-completions" ({
+              inherit package;
               preferLocalBuild = true;
               allowSubstitutes = false;
-            };
-            generateCompletions =
-              package:
-              pkgs.runCommand "${package.name}_fish-completions"
-                (
-                  {
-                    inherit package;
-                    preferLocalBuild = true;
-                    allowSubstitutes = false;
-                  }
-                  // optionalAttrs (package ? meta.priority) { meta.priority = package.meta.priority; }
-                )
-                ''
-                  mkdir -p $out
-                  if [ -d $package/share/man ]; then
-                    find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
-                  fi
-                '';
-          in
-          pkgs.buildEnv {
-            name = "system_fish-completions";
-            ignoreCollisions = true;
-            paths = map generateCompletions config.environment.systemPackages;
-          };
+            } // optionalAttrs (package ? meta.priority) {
+              meta.priority = package.meta.priority;
+            }) ''
+              mkdir -p $out
+              if [ -d $package/share/man ]; then
+                find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
+              fi
+            '';
+        in pkgs.buildEnv {
+          name = "system_fish-completions";
+          ignoreCollisions = true;
+          paths = map generateCompletions config.environment.systemPackages;
+        };
       }
 
       # include programs that bring their own completions
       {
-        pathsToLink =
-          [ ]
+        pathsToLink = [ ]
           ++ optional cfg.vendor.config.enable "/share/fish/vendor_conf.d"
-          ++ optional cfg.vendor.completions.enable "/share/fish/vendor_completions.d"
-          ++ optional cfg.vendor.functions.enable "/share/fish/vendor_functions.d";
+          ++ optional cfg.vendor.completions.enable
+          "/share/fish/vendor_completions.d"
+          ++ optional cfg.vendor.functions.enable
+          "/share/fish/vendor_functions.d";
       }
 
       { systemPackages = [ pkgs.fish ]; }
 
       {
-        shells = [
-          "/run/current-system/sw/bin/fish"
-          "${pkgs.fish}/bin/fish"
-        ];
+        shells = [ "/run/current-system/sw/bin/fish" "${pkgs.fish}/bin/fish" ];
       }
     ];
 
@@ -322,5 +307,7 @@ in
         ${pkgs.coreutils}/bin/mkdir $__fish_user_data_dir/generated_completions
       end
     '';
+
   };
+
 }

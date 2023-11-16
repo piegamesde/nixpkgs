@@ -1,25 +1,11 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, hatchling
 
-  # runtime
-  ApplicationServices,
-  anyio,
-  itsdangerous,
-  jinja2,
-  python-multipart,
-  pyyaml,
-  httpx,
-  typing-extensions,
+# runtime
+, ApplicationServices, anyio, itsdangerous, jinja2, python-multipart, pyyaml
+, httpx, typing-extensions
 
-  # tests
-  pytestCheckHook,
-  pythonOlder,
-  trio,
-}:
+# tests
+, pytestCheckHook, pythonOlder, trio }:
 
 buildPythonPackage rec {
   pname = "starlette";
@@ -43,22 +29,11 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs =
-    [
-      anyio
-      itsdangerous
-      jinja2
-      python-multipart
-      pyyaml
-      httpx
-    ]
+    [ anyio itsdangerous jinja2 python-multipart pyyaml httpx ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
     ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    trio
-    typing-extensions
-  ];
+  nativeCheckInputs = [ pytestCheckHook trio typing-extensions ];
 
   pytestFlagsArray = [
     "-W"

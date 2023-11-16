@@ -1,12 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  pkg-config,
-  cmake,
-  gtk3,
-  ayatana-ido,
-}:
+{ stdenv, fetchFromGitHub, lib, pkg-config, cmake, gtk3, ayatana-ido }:
 
 stdenv.mkDerivation rec {
   pname = "libayatana-indicator";
@@ -19,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tOZcrcuZowqDg/LRYTY6PCxKnpEd67k4xAHrIKupunI=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config cmake ];
 
   buildInputs = [ gtk3 ];
 
@@ -31,7 +20,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Ayatana Indicators Shared Library";
     homepage = "https://github.com/AyatanaIndicators/libayatana-indicator";
-    changelog = "https://github.com/AyatanaIndicators/libayatana-indicator/blob/${version}/ChangeLog";
+    changelog =
+      "https://github.com/AyatanaIndicators/libayatana-indicator/blob/${version}/ChangeLog";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.nickhu ];
     platforms = platforms.linux;

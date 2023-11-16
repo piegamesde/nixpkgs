@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-}:
+{ lib, stdenvNoCC, fetchurl }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "open-fonts";
   version = "0.7.0";
 
   src = fetchurl {
-    url = "https://github.com/kiwi0fruit/open-fonts/releases/download/${version}/open-fonts.tar.xz";
+    url =
+      "https://github.com/kiwi0fruit/open-fonts/releases/download/${version}/open-fonts.tar.xz";
     hash = "sha256-NJKbdrvgZz9G7mjAJYzN7rU/fo2xRFZA2BbQ+A56iPw=";
   };
 

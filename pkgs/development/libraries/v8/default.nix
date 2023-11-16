@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchgit,
-  fetchFromGitHub,
-  gn,
-  ninja,
-  python3,
-  glib,
-  pkg-config,
-  icu,
-  xcbuild,
-  darwin,
-  fetchpatch,
-  llvmPackages,
-  symlinkJoin,
-}:
+{ stdenv, lib, fetchgit, fetchFromGitHub, gn, ninja, python3, glib, pkg-config
+, icu, xcbuild, darwin, fetchpatch, llvmPackages, symlinkJoin }:
 
 # Use update.sh to update all checksums.
 
@@ -74,15 +59,12 @@ let
     sha256 = "1084lnyb0a1khbgjvak05fcx6jy973wqvsf77n0alxjys18sg2yk";
   };
 
-  myGn = gn.overrideAttrs (
-    oldAttrs: {
-      version = "for-v8";
-      src = gnSrc;
-    }
-  );
-in
+  myGn = gn.overrideAttrs (oldAttrs: {
+    version = "for-v8";
+    src = gnSrc;
+  });
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "v8";
   inherit version;
 
@@ -93,14 +75,10 @@ stdenv.mkDerivation rec {
   src = v8Src;
 
   postUnpack = ''
-    ${lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (n: v: ''
-          mkdir -p $sourceRoot/${n}
-          cp -r ${v}/* $sourceRoot/${n}
-        '')
-        deps
-    )}
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: ''
+      mkdir -p $sourceRoot/${n}
+      cp -r ${v}/* $sourceRoot/${n}
+    '') deps)}
     chmod u+w -R .
   '';
 
@@ -127,58 +105,41 @@ stdenv.mkDerivation rec {
 
   llvmCcAndBintools = symlinkJoin {
     name = "llvmCcAndBintools";
-    paths = [
-      stdenv.cc
-      llvmPackages.llvm
-    ];
+    paths = [ stdenv.cc llvmPackages.llvm ];
   };
 
-  gnFlags =
-    [
-      "use_custom_libcxx=false"
-      "is_clang=${lib.boolToString stdenv.cc.isClang}"
-      "use_sysroot=false"
-      # "use_system_icu=true"
-      "clang_use_chrome_plugins=false"
-      "is_component_build=false"
-      "v8_use_external_startup_data=false"
-      "v8_monolithic=true"
-      "is_debug=true"
-      "is_official_build=false"
-      "treat_warnings_as_errors=false"
-      "v8_enable_i18n_support=true"
-      "use_gold=false"
-      # ''custom_toolchain="//build/toolchain/linux/unbundle:default"''
-      ''host_toolchain="//build/toolchain/linux/unbundle:default"''
-      ''v8_snapshot_toolchain="//build/toolchain/linux/unbundle:default"''
-    ]
-    ++ lib.optional stdenv.cc.isClang ''clang_base_path="${llvmCcAndBintools}"''
+  gnFlags = [
+    "use_custom_libcxx=false"
+    "is_clang=${lib.boolToString stdenv.cc.isClang}"
+    "use_sysroot=false"
+    # "use_system_icu=true"
+    "clang_use_chrome_plugins=false"
+    "is_component_build=false"
+    "v8_use_external_startup_data=false"
+    "v8_monolithic=true"
+    "is_debug=true"
+    "is_official_build=false"
+    "treat_warnings_as_errors=false"
+    "v8_enable_i18n_support=true"
+    "use_gold=false"
+    # ''custom_toolchain="//build/toolchain/linux/unbundle:default"''
+    ''host_toolchain="//build/toolchain/linux/unbundle:default"''
+    ''v8_snapshot_toolchain="//build/toolchain/linux/unbundle:default"''
+  ] ++ lib.optional stdenv.cc.isClang ''clang_base_path="${llvmCcAndBintools}"''
     ++ lib.optional stdenv.isDarwin "use_lld=false";
 
   env.NIX_CFLAGS_COMPILE = "-O2";
   FORCE_MAC_SDK_MIN = stdenv.targetPlatform.sdkVer or "10.12";
 
-  nativeBuildInputs =
-    [
-      myGn
-      ninja
-      pkg-config
-      python3
-    ]
+  nativeBuildInputs = [ myGn ninja pkg-config python3 ]
     ++ lib.optionals stdenv.isDarwin [
       xcbuild
       llvmPackages.llvm
       python3.pkgs.setuptools
     ];
-  buildInputs = [
-    glib
-    icu
-  ];
+  buildInputs = [ glib icu ];
 
-  ninjaFlags = [
-    ":d8"
-    "v8_monolith"
-  ];
+  ninjaFlags = [ ":d8" "v8_monolith" ];
 
   enableParallelBuilding = true;
 
@@ -202,11 +163,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://v8.dev/";
     description = "Google's open source JavaScript engine";
-    maintainers = with maintainers; [
-      cstrahan
-      proglodyte
-      matthewbauer
-    ];
+    maintainers = with maintainers; [ cstrahan proglodyte matthewbauer ];
     platforms = platforms.unix;
     license = licenses.bsd3;
   };

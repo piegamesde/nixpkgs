@@ -1,17 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-ggsn";
   version = "1.10.1";
 
@@ -26,17 +17,15 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [ libosmocore ];
 
   enableParallelBuilding = true;
 
   meta = {
-    description = "Osmocom Gateway GPRS Support Node (GGSN), successor of OpenGGSN";
+    description =
+      "Osmocom Gateway GPRS Support Node (GGSN), successor of OpenGGSN";
     homepage = "https://osmocom.org/projects/openggsn";
     license = lib.licenses.gpl2Only;
     maintainers = with lib.maintainers; [ janik ];

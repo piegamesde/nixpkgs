@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, pkg-config }:
 stdenv.mkDerivation rec {
   pname = "boolstuff";
   version = "0.1.17";

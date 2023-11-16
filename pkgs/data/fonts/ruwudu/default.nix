@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "ruwudu";
@@ -25,7 +21,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/ruwudu/";
-    description = "Arabic script font for a style of writing used in Niger, West Africa";
+    description =
+      "Arabic script font for a style of writing used in Niger, West Africa";
     license = licenses.ofl;
     maintainers = [ maintainers.vbgl ];
     platforms = platforms.all;

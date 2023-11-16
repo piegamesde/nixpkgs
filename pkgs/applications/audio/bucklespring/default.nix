@@ -1,24 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
+{ lib, stdenv, fetchFromGitHub
 
-  legacy ? false,
-  libinput,
+, legacy ? false, libinput
 
-  pkg-config,
-  makeWrapper,
+, pkg-config, makeWrapper
 
-  openal,
-  alure,
-  libXtst,
-  libX11,
-}:
+, openal, alure, libXtst, libX11 }:
 
-let
-  inherit (lib) optionals;
-in
-stdenv.mkDerivation rec {
+let inherit (lib) optionals;
+in stdenv.mkDerivation rec {
   pname = "bucklespring";
   version = "1.5.1";
 
@@ -29,20 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "0prhqibivxzmz90k79zpwx3c97h8wa61rk5ihi9a5651mnc46mna";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs =
-    [
-      openal
-      alure
-    ]
-    ++ optionals (legacy) [
-      libXtst
-      libX11
-    ]
+  buildInputs = [ openal alure ] ++ optionals (legacy) [ libXtst libX11 ]
     ++ optionals (!legacy) [ libinput ];
 
   makeFlags = optionals (!legacy) [ "libinput=1" ];

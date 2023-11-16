@@ -2,14 +2,7 @@
 # at https://www.x.org/releases/individual/.
 # That is why this expression is not inside pkgs.xorg
 
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  xorg,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, xorg, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "xfontsel";
@@ -20,15 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "0700lf6hx7dg88wq1yll7zjvf9gbwh06xff20yffkxb289y0pai5";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs = [
-    xorg.libX11
-    xorg.libXaw
-  ];
+  buildInputs = [ xorg.libX11 xorg.libXaw ];
 
   # Without this, it gets Xmu as a dependency, but without rpath entry
   NIX_LDFLAGS = "-lXmu";

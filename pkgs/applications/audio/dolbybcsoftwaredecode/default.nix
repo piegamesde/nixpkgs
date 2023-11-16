@@ -1,24 +1,16 @@
-{
-  lib,
-  fetchurl,
-  stdenv,
-  unzip,
-  fpc,
-}:
+{ lib, fetchurl, stdenv, unzip, fpc }:
 
 stdenv.mkDerivation rec {
   pname = "dolbybcsoftwaredecode";
   version = "april-2018";
 
   src = fetchurl {
-    url = "mirror://sourceforge/dolbybcsoftwaredecode/April-2018/SourceCode.zip";
+    url =
+      "mirror://sourceforge/dolbybcsoftwaredecode/April-2018/SourceCode.zip";
     sha256 = "sha256-uLcsRIpwmJlstlGV8I4+/30+D9GDpUt7DOIP/GkXWp4=";
   };
 
-  nativeBuildInputs = [
-    unzip
-    fpc
-  ];
+  nativeBuildInputs = [ unzip fpc ];
   buildPhase = ''
     fpc DolbyBi64.PP
   '';

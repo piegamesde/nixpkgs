@@ -1,24 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  callPackage,
-  makeWrapper,
-  clang,
-  llvm,
-  which,
-  libcgroup,
-}:
+{ lib, stdenv, fetchFromGitHub, callPackage, makeWrapper, clang, llvm, which
+, libcgroup }:
 
 let
   afl-qemu = callPackage ./qemu.nix { inherit afl; };
-  qemu-exe-name =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "qemu-x86_64"
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      "qemu-i386"
-    else
-      throw "afl: no support for ${stdenv.hostPlatform.system}!";
+  qemu-exe-name = if stdenv.hostPlatform.system == "x86_64-linux" then
+    "qemu-x86_64"
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    "qemu-i386"
+  else
+    throw "afl: no support for ${stdenv.hostPlatform.system}!";
   afl = stdenv.mkDerivation rec {
     pname = "afl";
     version = "2.57b";
@@ -33,11 +23,7 @@ let
 
     # Note: libcgroup isn't needed for building, just for the afl-cgroup
     # script.
-    nativeBuildInputs = [
-      makeWrapper
-      which
-      llvm.dev
-    ];
+    nativeBuildInputs = [ makeWrapper which llvm.dev ];
     buildInputs = [ llvm ];
 
     makeFlags = [ "PREFIX=$(out)" ];
@@ -78,7 +64,8 @@ let
     passthru.qemu = afl-qemu;
 
     meta = {
-      description = "Powerful fuzzer via genetic algorithms and instrumentation";
+      description =
+        "Powerful fuzzer via genetic algorithms and instrumentation";
       longDescription = ''
         American fuzzy lop is a fuzzer that employs a novel type of
         compile-time instrumentation and genetic algorithms to
@@ -91,15 +78,8 @@ let
       '';
       homepage = "https://lcamtuf.coredump.cx/afl/";
       license = lib.licenses.asl20;
-      platforms = [
-        "x86_64-linux"
-        "i686-linux"
-      ];
-      maintainers = with lib.maintainers; [
-        thoughtpolice
-        ris
-      ];
+      platforms = [ "x86_64-linux" "i686-linux" ];
+      maintainers = with lib.maintainers; [ thoughtpolice ris ];
     };
   };
-in
-afl
+in afl

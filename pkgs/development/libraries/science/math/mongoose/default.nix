@@ -1,24 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  blas,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, blas }:
 
-let
-  suitesparseVersion = "7.0.1";
-in
-stdenv.mkDerivation rec {
+let suitesparseVersion = "7.0.1";
+in stdenv.mkDerivation rec {
   pname = "mongoose";
   version = "3.0.4";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ];
+  outputs = [ "bin" "out" "dev" ];
 
   src = fetchFromGitHub {
     owner = "DrTimothyAldenDavis";
@@ -33,10 +20,8 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  cmakeFlags = [
-    "-DBLAS_LIBRARIES=${blas}"
-    "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-  ];
+  cmakeFlags =
+    [ "-DBLAS_LIBRARIES=${blas}" "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON" ];
 
   buildPhase = ''
     runHook preConfigure
@@ -60,7 +45,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Graph Coarsening and Partitioning Library";
-    homepage = "https://github.com/DrTimothyAldenDavis/SuiteSparse/tree/dev/Mongoose";
+    homepage =
+      "https://github.com/DrTimothyAldenDavis/SuiteSparse/tree/dev/Mongoose";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ wegank ];
     platforms = with platforms; unix;

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  six,
-  watchdog,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, six
+, watchdog }:
 
 buildPythonPackage rec {
   pname = "ndjson";
@@ -25,18 +18,15 @@ buildPythonPackage rec {
       --replace "'pytest-runner', " ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    six
-    watchdog
-  ];
+  nativeCheckInputs = [ pytestCheckHook six watchdog ];
 
   pythonImportsCheck = [ "ndjson" ];
 
   meta = with lib; {
     description = "Module supports ndjson";
     homepage = "https://github.com/rhgrant10/ndjson";
-    changelog = "https://github.com/rhgrant10/ndjson/blob/v${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/rhgrant10/ndjson/blob/v${version}/HISTORY.rst";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ freezeboy ];
   };

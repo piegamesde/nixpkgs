@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -51,7 +46,8 @@ let
         type = types.listOf types.package;
         default = [ pkgs.OVMF.fd ];
         defaultText = literalExpression "[ pkgs.OVMF.fd ]";
-        example = literalExpression "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
+        example = literalExpression
+          "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
         description = lib.mdDoc ''
           List of OVMF packages to use. Each listed package must contain files names FV/OVMF_CODE.fd and FV/OVMF_VARS.fd or FV/AAVMF_CODE.fd and FV/AAVMF_VARS.fd
         '';
@@ -134,93 +130,44 @@ let
       };
     };
   };
-in
-{
+in {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "enableKVM"
-      ]
-      "Set the option `virtualisation.libvirtd.qemu.package' instead."
-    )
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuPackage"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "package"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuRunAsRoot"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "runAsRoot"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuVerbatimConfig"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "verbatimConfig"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuOvmf"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "ovmf"
-        "enable"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuOvmfPackage"
-      ]
-      "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead."
-    )
-    (mkRenamedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemuSwtpm"
-      ]
-      [
-        "virtualisation"
-        "libvirtd"
-        "qemu"
-        "swtpm"
-        "enable"
-      ]
-    )
+    (mkRemovedOptionModule [ "virtualisation" "libvirtd" "enableKVM" ]
+      "Set the option `virtualisation.libvirtd.qemu.package' instead.")
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuPackage" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "package"
+    ])
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuRunAsRoot" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "runAsRoot"
+    ])
+    (mkRenamedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "qemuVerbatimConfig"
+    ] [ "virtualisation" "libvirtd" "qemu" "verbatimConfig" ])
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuOvmf" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "ovmf"
+      "enable"
+    ])
+    (mkRemovedOptionModule [ "virtualisation" "libvirtd" "qemuOvmfPackage" ]
+      "If this option was set to `foo`, set the option `virtualisation.libvirtd.qemu.ovmf.packages' to `[foo.fd]` instead.")
+    (mkRenamedOptionModule [ "virtualisation" "libvirtd" "qemuSwtpm" ] [
+      "virtualisation"
+      "libvirtd"
+      "qemu"
+      "swtpm"
+      "enable"
+    ])
   ];
 
   ###### interface
@@ -266,10 +213,7 @@ in
     };
 
     onBoot = mkOption {
-      type = types.enum [
-        "start"
-        "ignore"
-      ];
+      type = types.enum [ "start" "ignore" ];
       default = "start";
       description = lib.mdDoc ''
         Specifies the action to be done to / on the guests when the host boots.
@@ -281,10 +225,7 @@ in
     };
 
     onShutdown = mkOption {
-      type = types.enum [
-        "shutdown"
-        "suspend"
-      ];
+      type = types.enum [ "shutdown" "suspend" ];
       default = "suspend";
       description = lib.mdDoc ''
         When shutting down / restarting the host what method should
@@ -336,13 +277,15 @@ in
       }
       {
         assertion = config.security.polkit.enable;
-        message = "The libvirtd module currently requires Polkit to be enabled ('security.polkit.enable = true').";
+        message =
+          "The libvirtd module currently requires Polkit to be enabled ('security.polkit.enable = true').";
       }
     ];
 
     environment = {
       # this file is expected in /etc/qemu and not sysconfdir (/var/lib)
-      etc."qemu/bridge.conf".text = lib.concatMapStringsSep "\n" (e: "allow ${e}") cfg.allowedBridges;
+      etc."qemu/bridge.conf".text =
+        lib.concatMapStringsSep "\n" (e: "allow ${e}") cfg.allowedBridges;
       systemPackages = with pkgs; [
         libressl.nc
         iptables
@@ -400,31 +343,24 @@ in
           ln -s --force ${cfg.qemu.package}/$helper /run/${dirName}/nix-helpers/
         done
 
-        ${optionalString cfg.qemu.ovmf.enable (
-          let
-            ovmfpackage = pkgs.buildEnv {
-              name = "qemu-ovmf";
-              paths = cfg.qemu.ovmf.packages;
-            };
-          in
-          ''
-            ln -s --force ${ovmfpackage}/FV/AAVMF_CODE.fd /run/${dirName}/nix-ovmf/
-            ln -s --force ${ovmfpackage}/FV/OVMF_CODE.fd /run/${dirName}/nix-ovmf/
-            ln -s --force ${ovmfpackage}/FV/AAVMF_VARS.fd /run/${dirName}/nix-ovmf/
-            ln -s --force ${ovmfpackage}/FV/OVMF_VARS.fd /run/${dirName}/nix-ovmf/
-          ''
-        )}
+        ${optionalString cfg.qemu.ovmf.enable (let
+          ovmfpackage = pkgs.buildEnv {
+            name = "qemu-ovmf";
+            paths = cfg.qemu.ovmf.packages;
+          };
+        in ''
+          ln -s --force ${ovmfpackage}/FV/AAVMF_CODE.fd /run/${dirName}/nix-ovmf/
+          ln -s --force ${ovmfpackage}/FV/OVMF_CODE.fd /run/${dirName}/nix-ovmf/
+          ln -s --force ${ovmfpackage}/FV/AAVMF_VARS.fd /run/${dirName}/nix-ovmf/
+          ln -s --force ${ovmfpackage}/FV/OVMF_VARS.fd /run/${dirName}/nix-ovmf/
+        '')}
       '';
 
       serviceConfig = {
         Type = "oneshot";
         RuntimeDirectoryPreserve = "yes";
         LogsDirectory = subDirs [ "qemu" ];
-        RuntimeDirectory = subDirs [
-          "nix-emulators"
-          "nix-helpers"
-          "nix-ovmf"
-        ];
+        RuntimeDirectory = subDirs [ "nix-emulators" "nix-helpers" "nix-ovmf" ];
         StateDirectory = subDirs [ "dnsmasq" ];
       };
     };
@@ -432,21 +368,20 @@ in
     systemd.services.libvirtd = {
       wantedBy = [ "multi-user.target" ];
       requires = [ "libvirtd-config.service" ];
-      after = [ "libvirtd-config.service" ] ++ optional vswitch.enable "ovs-vswitchd.service";
+      after = [ "libvirtd-config.service" ]
+        ++ optional vswitch.enable "ovs-vswitchd.service";
 
-      environment.LIBVIRTD_ARGS = escapeShellArgs (
-        [
-          "--config"
-          configFile
-          "--timeout"
-          "120" # from ${libvirt}/var/lib/sysconfig/libvirtd
-        ]
-        ++ cfg.extraOptions
-      );
+      environment.LIBVIRTD_ARGS = escapeShellArgs ([
+        "--config"
+        configFile
+        "--timeout"
+        "120" # from ${libvirt}/var/lib/sysconfig/libvirtd
+      ] ++ cfg.extraOptions);
 
       path =
         [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
-        ++ optional vswitch.enable vswitch.package ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
+        ++ optional vswitch.enable vswitch.package
+        ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
 
       serviceConfig = {
         Type = "notify";
@@ -456,17 +391,11 @@ in
       restartIfChanged = false;
     };
 
-    systemd.services.virtchd = {
-      path = [ pkgs.cloud-hypervisor ];
-    };
+    systemd.services.virtchd = { path = [ pkgs.cloud-hypervisor ]; };
 
     systemd.services.libvirt-guests = {
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [
-        coreutils
-        gawk
-        cfg.package
-      ];
+      path = with pkgs; [ coreutils gawk cfg.package ];
       restartIfChanged = false;
 
       environment.ON_BOOT = "${cfg.onBoot}";

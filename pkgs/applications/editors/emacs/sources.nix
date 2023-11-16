@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromBitbucket,
-  fetchFromSavannah,
-}:
+{ lib, fetchFromBitbucket, fetchFromSavannah }:
 
 {
   emacs28 = import ./generic.nix {

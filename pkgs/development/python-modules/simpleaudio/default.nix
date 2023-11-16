@@ -1,10 +1,4 @@
-{
-  alsa-lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy27,
-  lib,
-}:
+{ alsa-lib, buildPythonPackage, fetchFromGitHub, isPy27, lib }:
 
 buildPythonPackage rec {
   pname = "simpleaudio";
@@ -22,7 +16,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/hamiltron/py-simple-audio";
-    description = "A simple audio playback Python extension - cross-platform, asynchronous, dependency-free";
+    description =
+      "A simple audio playback Python extension - cross-platform, asynchronous, dependency-free";
     license = licenses.mit;
     maintainers = with maintainers; [ lucus16 ];
   };

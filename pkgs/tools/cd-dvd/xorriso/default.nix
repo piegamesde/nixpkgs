@@ -1,15 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  libcdio,
-  zlib,
-  bzip2,
-  readline,
-  acl,
-  attr,
-  libiconv,
-}:
+{ fetchurl, lib, stdenv, libcdio, zlib, bzip2, readline, acl, attr, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "xorriso";
@@ -22,20 +11,11 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs =
-    [
-      libcdio
-      zlib
-      bzip2
-      readline
-      libiconv
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      acl
-      attr
-    ];
+  buildInputs = [ libcdio zlib bzip2 readline libiconv ]
+    ++ lib.optionals stdenv.isLinux [ acl attr ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-include unistd.h";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString stdenv.isDarwin "-include unistd.h";
 
   meta = with lib; {
     description = "ISO 9660 Rock Ridge file system manipulator";

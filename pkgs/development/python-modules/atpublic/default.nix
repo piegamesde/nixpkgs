@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  pdm-pep517,
-  sybil,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, pdm-pep517
+, sybil, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "atpublic";
@@ -23,12 +15,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pdm-pep517 ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    sybil
-  ];
+  nativeCheckInputs = [ pytestCheckHook sybil ];
 
   postPatch = ''
     sed -i '/cov=public/d' pyproject.toml
@@ -37,7 +27,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "public" ];
 
   meta = with lib; {
-    description = "Python decorator and function which populates a module's __all__ and globals";
+    description =
+      "Python decorator and function which populates a module's __all__ and globals";
     homepage = "https://public.readthedocs.io/";
     longDescription = ''
       This is a very simple decorator and function which populates a module's

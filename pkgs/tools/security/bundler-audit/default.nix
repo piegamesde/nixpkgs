@@ -1,9 +1,4 @@
-{
-  bundlerEnv,
-  ruby,
-  lib,
-  bundlerUpdateScript,
-}:
+{ bundlerEnv, ruby, lib, bundlerUpdateScript }:
 
 bundlerEnv rec {
   name = "${pname}-${version}";
@@ -26,12 +21,10 @@ bundlerEnv rec {
       - Does not require a network connection.
     '';
     homepage = "https://github.com/rubysec/bundler-audit";
-    changelog = "https://github.com/rubysec/bundler-audit/blob/v${version}/ChangeLog.md";
+    changelog =
+      "https://github.com/rubysec/bundler-audit/blob/v${version}/ChangeLog.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      primeos
-      nicknovitski
-    ];
+    maintainers = with maintainers; [ primeos nicknovitski ];
     platforms = platforms.unix;
   };
 }

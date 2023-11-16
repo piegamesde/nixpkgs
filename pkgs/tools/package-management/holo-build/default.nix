@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  perl,
-  file,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, perl, file }:
 
 buildGoModule rec {
   pname = "holo-build";
@@ -22,15 +15,14 @@ buildGoModule rec {
     substituteInPlace Makefile \
       --replace 'VERSION :=' 'VERSION ?='
     substituteInPlace src/holo-build.sh \
-      --replace '/usr/lib/holo/holo-build' '${placeholder "out"}/lib/holo/holo-build'
+      --replace '/usr/lib/holo/holo-build' '${
+        placeholder "out"
+      }/lib/holo/holo-build'
   '';
 
   vendorSha256 = null;
 
-  nativeBuildInputs = [
-    installShellFiles
-    perl
-  ];
+  nativeBuildInputs = [ installShellFiles perl ];
 
   subPackages = [ "src/holo-build" ];
 

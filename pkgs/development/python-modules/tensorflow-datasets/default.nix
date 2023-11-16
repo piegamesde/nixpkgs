@@ -1,48 +1,9 @@
-{
-  apache-beam,
-  attrs,
-  beautifulsoup4,
-  buildPythonPackage,
-  click,
-  datasets,
-  dill,
-  dm-tree,
-  fetchFromGitHub,
-  ffmpeg,
-  future,
-  imagemagick,
-  importlib-resources,
-  jax,
-  jaxlib,
-  jinja2,
-  langdetect,
-  lib,
-  lxml,
-  matplotlib,
-  mwparserfromhell,
-  networkx,
-  nltk,
-  numpy,
-  opencv4,
-  pandas,
-  pillow,
-  promise,
-  protobuf,
-  psutil,
-  pycocotools,
-  pydub,
-  pytest-xdist,
-  pytestCheckHook,
-  requests,
-  scikit-image,
-  scipy,
-  six,
-  tensorflow,
-  tensorflow-metadata,
-  termcolor,
-  tifffile,
-  tqdm,
-  zarr,
+{ apache-beam, attrs, beautifulsoup4, buildPythonPackage, click, datasets, dill
+, dm-tree, fetchFromGitHub, ffmpeg, future, imagemagick, importlib-resources
+, jax, jaxlib, jinja2, langdetect, lib, lxml, matplotlib, mwparserfromhell
+, networkx, nltk, numpy, opencv4, pandas, pillow, promise, protobuf, psutil
+, pycocotools, pydub, pytest-xdist, pytestCheckHook, requests, scikit-image
+, scipy, six, tensorflow, tensorflow-metadata, termcolor, tifffile, tqdm, zarr
 }:
 
 buildPythonPackage rec {
@@ -56,11 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-FYFk53WKNQTSrnGGiA6cn9LffbMJkZtjlGuOF52Og7c=";
   };
 
-  patches =
-    [
-      # addresses https://github.com/tensorflow/datasets/issues/3673
-      ./corruptions.patch
-    ];
+  patches = [
+    # addresses https://github.com/tensorflow/datasets/issues/3673
+    ./corruptions.patch
+  ];
 
   propagatedBuildInputs = [
     attrs

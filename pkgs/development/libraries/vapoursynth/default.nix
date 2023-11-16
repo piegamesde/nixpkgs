@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  autoreconfHook,
-  makeWrapper,
-  runCommandCC,
-  runCommand,
-  vapoursynth,
-  writeText,
-  patchelf,
-  buildEnv,
-  zimg,
-  libass,
-  python3,
-  libiconv,
-  testers,
-  ApplicationServices,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, autoreconfHook, makeWrapper
+, runCommandCC, runCommand, vapoursynth, writeText, patchelf, buildEnv, zimg
+, libass, python3, libiconv, testers, ApplicationServices }:
 
 stdenv.mkDerivation rec {
   pname = "vapoursynth";
@@ -30,29 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/40+SXFLX8upGKP3K+wk8RnO1Al4YoF8GFXyoxTkKs0=";
   };
 
-  patches = [ ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch ];
+  patches =
+    [ ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config autoreconfHook makeWrapper ];
   buildInputs =
-    [
-      zimg
-      libass
-      (python3.withPackages (
-        ps:
-        with ps; [
-          sphinx
-          cython
-        ]
-      ))
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      libiconv
-      ApplicationServices
-    ];
+    [ zimg libass (python3.withPackages (ps: with ps; [ sphinx cython ])) ]
+    ++ lib.optionals stdenv.isDarwin [ libiconv ApplicationServices ];
 
   enableParallelBuilding = true;
 
@@ -64,18 +31,8 @@ stdenv.mkDerivation rec {
     inherit python3;
 
     withPlugins = import ./plugin-interface.nix {
-      inherit
-        lib
-        python3
-        buildEnv
-        writeText
-        runCommandCC
-        stdenv
-        runCommand
-        vapoursynth
-        makeWrapper
-        withPlugins
-      ;
+      inherit lib python3 buildEnv writeText runCommandCC stdenv runCommand
+        vapoursynth makeWrapper withPlugins;
     };
 
     tests.version = testers.testVersion {
@@ -95,16 +52,13 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken = stdenv.isDarwin; # see https://github.com/NixOS/nixpkgs/pull/189446 for partial fix
+    broken =
+      stdenv.isDarwin; # see https://github.com/NixOS/nixpkgs/pull/189446 for partial fix
     description = "A video processing framework with the future in mind";
     homepage = "http://www.vapoursynth.com/";
     license = licenses.lgpl21;
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [
-      rnhmjoj
-      sbruder
-      tadeokondrak
-    ];
+    maintainers = with maintainers; [ rnhmjoj sbruder tadeokondrak ];
     mainProgram = "vspipe";
   };
 }

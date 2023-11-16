@@ -1,26 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  git,
-  doxygen,
-  graphviz,
-  boost,
-  miniupnpc,
-  openssl,
-  unbound,
-  cppzmq,
-  pcsclite,
-  readline,
-  libsodium,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, git, doxygen, graphviz, boost
+, miniupnpc, openssl, unbound, cppzmq, pcsclite, readline, libsodium }:
 
-let
-  version = "0.14.2.2";
-in
-stdenv.mkDerivation {
+let version = "0.14.2.2";
+in stdenv.mkDerivation {
   pname = "aeon";
   inherit version;
 
@@ -32,24 +14,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-2MptLS12CUm9eUKm+V+yYpbLVwNyZeZ5HvAFyjEc4R4=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    git
-    doxygen
-    graphviz
-  ];
+  nativeBuildInputs = [ cmake pkg-config git doxygen graphviz ];
 
-  buildInputs = [
-    boost
-    miniupnpc
-    openssl
-    unbound
-    cppzmq
-    pcsclite
-    readline
-    libsodium
-  ];
+  buildInputs =
+    [ boost miniupnpc openssl unbound cppzmq pcsclite readline libsodium ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"

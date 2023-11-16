@@ -1,19 +1,9 @@
-{
-  lib,
-  xvfb-run,
-  tvbrowser,
-  runCommand,
-  writeShellApplication,
-  xorg,
-}:
+{ lib, xvfb-run, tvbrowser, runCommand, writeShellApplication, xorg }:
 
 let
   testScript = writeShellApplication {
     name = "tvbrowser-test-script";
-    runtimeInputs = [
-      xorg.xwininfo
-      tvbrowser
-    ];
+    runtimeInputs = [ xorg.xwininfo tvbrowser ];
     text = ''
       function find_tvbrowser_windows {
         for window_name in java tvbrowser-TVBrowser 'Setup assistant' ; do
@@ -34,8 +24,7 @@ let
       find_tvbrowser_windows window-names
     '';
   };
-in
-runCommand "tvbrowser-test" { buildInputs = [ xvfb-run ]; } ''
+in runCommand "tvbrowser-test" { buildInputs = [ xvfb-run ]; } ''
   HOME=$PWD xvfb-run ${lib.getExe testScript}
   touch ${placeholder "out"}
 ''

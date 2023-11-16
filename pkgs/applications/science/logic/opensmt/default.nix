@@ -1,16 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  libedit,
-  gmpxx,
-  bison,
-  flex,
-  enableReadline ? false,
-  readline,
-  gtest,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, libedit, gmpxx, bison, flex
+, enableReadline ? false, readline, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "opensmt";
@@ -23,15 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XwrhqxDunao4uyUyBhDgGdMjRlmetke77Zmb7za+Aes=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    bison
-    flex
-  ];
-  buildInputs = [
-    libedit
-    gmpxx
-  ] ++ lib.optional enableReadline readline;
+  nativeBuildInputs = [ cmake bison flex ];
+  buildInputs = [ libedit gmpxx ] ++ lib.optional enableReadline readline;
 
   preConfigure = ''
     substituteInPlace test/CMakeLists.txt \

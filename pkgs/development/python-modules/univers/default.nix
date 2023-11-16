@@ -1,18 +1,6 @@
-{
-  lib,
-  attrs,
-  buildPythonPackage,
-  commoncode,
-  fetchPypi,
-  packaging,
-  pyparsing,
-  pytestCheckHook,
-  pythonOlder,
-  saneyaml,
-  semantic-version,
-  semver,
-  setuptools-scm,
-}:
+{ lib, attrs, buildPythonPackage, commoncode, fetchPypi, packaging, pyparsing
+, pytestCheckHook, pythonOlder, saneyaml, semantic-version, semver
+, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "univers";
@@ -28,21 +16,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    attrs
-    packaging
-    pyparsing
-    semantic-version
-    semver
-  ];
+  propagatedBuildInputs = [ attrs packaging pyparsing semantic-version semver ];
 
-  nativeCheckInputs = [
-    commoncode
-    pytestCheckHook
-    saneyaml
-  ];
+  nativeCheckInputs = [ commoncode pytestCheckHook saneyaml ];
 
-  dontConfigure = true; # ./configure tries to setup virtualenv and downloads dependencies
+  dontConfigure =
+    true; # ./configure tries to setup virtualenv and downloads dependencies
 
   pythonImportsCheck = [ "univers" ];
 
@@ -57,15 +36,9 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for parsing version ranges and expressions";
     homepage = "https://github.com/nexB/univers";
-    changelog = "https://github.com/nexB/univers/blob/v${version}/CHANGELOG.rst";
-    license = with licenses; [
-      asl20
-      bsd3
-      mit
-    ];
-    maintainers = with maintainers; [
-      armijnhemel
-      sbruder
-    ];
+    changelog =
+      "https://github.com/nexB/univers/blob/v${version}/CHANGELOG.rst";
+    license = with licenses; [ asl20 bsd3 mit ];
+    maintainers = with maintainers; [ armijnhemel sbruder ];
   };
 }

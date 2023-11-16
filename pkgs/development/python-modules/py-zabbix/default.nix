@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchpatch, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "py-zabbix";
@@ -21,15 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-aPQc188pszfDQvNtsGYlRLHS5CG5VyqptSoe4/GJVvE=";
   };
 
-  patches =
-    [
-      # Remove Python2 comp, https://github.com/adubkov/py-zabbix/pull/154
-      (fetchpatch {
-        name = "no-more-py2.patch";
-        url = "https://github.com/adubkov/py-zabbix/commit/8deedb860f52870fbeacc54a40341520702341e2.patch";
-        hash = "sha256-Af7pnCZIObC0ZQLaamBK1pTAVAFs/Mh7+og5jAKqk4s=";
-      })
-    ];
+  patches = [
+    # Remove Python2 comp, https://github.com/adubkov/py-zabbix/pull/154
+    (fetchpatch {
+      name = "no-more-py2.patch";
+      url =
+        "https://github.com/adubkov/py-zabbix/commit/8deedb860f52870fbeacc54a40341520702341e2.patch";
+      hash = "sha256-Af7pnCZIObC0ZQLaamBK1pTAVAFs/Mh7+og5jAKqk4s=";
+    })
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

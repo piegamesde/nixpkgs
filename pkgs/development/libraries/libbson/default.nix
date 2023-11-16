@@ -1,10 +1,4 @@
-{
-  fetchFromGitHub,
-  perl,
-  lib,
-  stdenv,
-  cmake,
-}:
+{ fetchFromGitHub, perl, lib, stdenv, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "libbson";
@@ -21,7 +15,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ perl ];
 
   meta = with lib; {
-    description = "A C Library for parsing, editing, and creating BSON documents";
+    description =
+      "A C Library for parsing, editing, and creating BSON documents";
     homepage = "https://github.com/mongodb/libbson";
     license = licenses.asl20;
     platforms = platforms.all;

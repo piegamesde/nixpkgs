@@ -1,27 +1,22 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.interception-tools;
-in
-{
+let cfg = config.services.interception-tools;
+in {
   options.services.interception-tools = {
     enable = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc "Whether to enable the interception tools service.";
+      description =
+        lib.mdDoc "Whether to enable the interception tools service.";
     };
 
     plugins = mkOption {
       type = types.listOf types.package;
       default = [ pkgs.interception-tools-plugins.caps2esc ];
-      defaultText = literalExpression "[ pkgs.interception-tools-plugins.caps2esc ]";
+      defaultText =
+        literalExpression "[ pkgs.interception-tools-plugins.caps2esc ]";
       description = lib.mdDoc ''
         A list of interception tools plugins that will be made available to use
         inside the udevmon configuration.
@@ -52,10 +47,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.interception-tools = {
       description = "Interception tools";
-      path = [
-        pkgs.bash
-        pkgs.interception-tools
-      ] ++ cfg.plugins;
+      path = [ pkgs.bash pkgs.interception-tools ] ++ cfg.plugins;
       serviceConfig = {
         ExecStart = ''
           ${pkgs.interception-tools}/bin/udevmon -c \

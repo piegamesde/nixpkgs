@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "cachetools";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Extensible memoizing collections and decorators";
     homepage = "https://github.com/tkem/cachetools";
-    changelog = "https://github.com/tkem/cachetools/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/tkem/cachetools/blob/v${version}/CHANGELOG.rst";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

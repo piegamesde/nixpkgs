@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "yamlfmt";
@@ -20,7 +16,8 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "An extensible command line tool or library to format yaml files.";
+    description =
+      "An extensible command line tool or library to format yaml files.";
     homepage = "https://github.com/google/yamlfmt";
     license = licenses.asl20;
     maintainers = with maintainers; [ sno2wman ];

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "terragrunt";
@@ -19,11 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.VERSION=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.VERSION=v${version}" ];
 
   doInstallCheck = true;
 
@@ -36,12 +28,11 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://terragrunt.gruntwork.io";
-    changelog = "https://github.com/gruntwork-io/terragrunt/releases/tag/v${version}";
-    description = "A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices";
+    changelog =
+      "https://github.com/gruntwork-io/terragrunt/releases/tag/v${version}";
+    description =
+      "A thin wrapper for Terraform that supports locking for Terraform state and enforces best practices";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      jk
-      qjoly
-    ];
+    maintainers = with maintainers; [ jk qjoly ];
   };
 }

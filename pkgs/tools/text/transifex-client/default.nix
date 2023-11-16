@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchPypi,
-  python-slugify,
-  requests,
-  urllib3,
-  six,
-  setuptools,
-  gitpython,
-  pythonRelaxDepsHook,
-}:
+{ lib, buildPythonApplication, fetchPypi, python-slugify, requests, urllib3, six
+, setuptools, gitpython, pythonRelaxDepsHook }:
 
 buildPythonApplication rec {
   pname = "transifex-client";
@@ -25,14 +15,8 @@ buildPythonApplication rec {
 
   pythonRelaxDeps = [ "python-slugify" ];
 
-  propagatedBuildInputs = [
-    gitpython
-    python-slugify
-    requests
-    setuptools
-    six
-    urllib3
-  ];
+  propagatedBuildInputs =
+    [ gitpython python-slugify requests setuptools six urllib3 ];
 
   # Requires external resources
   doCheck = false;

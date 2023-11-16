@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchpatch,
-  fetchPypi,
-  flake8,
-  mock,
-  pep8,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchpatch, fetchPypi, flake8, mock, pep8
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flake8-polyfill";
@@ -20,21 +12,17 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ flake8 ];
 
-  nativeCheckInputs = [
-    mock
-    pep8
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pep8 pytestCheckHook ];
 
-  patches =
-    [
-      # Skip unnecessary tests on Flake8, https://github.com/PyCQA/pep8-naming/pull/181
-      (fetchpatch {
-        name = "skip-tests.patch";
-        url = "https://github.com/PyCQA/flake8-polyfill/commit/3cf414350e82ceb835ca2edbd5d5967d33e9ff35.patch";
-        sha256 = "mElZafodq8dF3wLO/LOqwFb7eLMsPLlEjNSu5AWqets=";
-      })
-    ];
+  patches = [
+    # Skip unnecessary tests on Flake8, https://github.com/PyCQA/pep8-naming/pull/181
+    (fetchpatch {
+      name = "skip-tests.patch";
+      url =
+        "https://github.com/PyCQA/flake8-polyfill/commit/3cf414350e82ceb835ca2edbd5d5967d33e9ff35.patch";
+      sha256 = "mElZafodq8dF3wLO/LOqwFb7eLMsPLlEjNSu5AWqets=";
+    })
+  ];
 
   postPatch = ''
     # Failed: [pytest] section in setup.cfg files is no longer supported, change to [tool:pytest] instead.

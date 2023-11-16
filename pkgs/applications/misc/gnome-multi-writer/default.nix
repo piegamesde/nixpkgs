@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  appstream-glib,
-  desktop-file-utils,
-  gettext,
-  glib,
-  gnome,
-  gtk3,
-  gusb,
-  libcanberra-gtk3,
-  libgudev,
-  meson,
-  ninja,
-  pkg-config,
-  wrapGAppsHook,
-  polkit,
-  udisks,
-}:
+{ lib, stdenv, fetchurl, appstream-glib, desktop-file-utils, gettext, glib
+, gnome, gtk3, gusb, libcanberra-gtk3, libgudev, meson, ninja, pkg-config
+, wrapGAppsHook, polkit, udisks }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-multi-writer";
@@ -40,22 +23,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [
-    glib
-    gtk3
-    gusb
-    libcanberra-gtk3
-    libgudev
-    polkit
-    udisks
-  ];
+  buildInputs = [ glib gtk3 gusb libcanberra-gtk3 libgudev polkit udisks ];
 
-  passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
-  };
+  passthru = { updateScript = gnome.updateScript { packageName = pname; }; };
 
   meta = with lib; {
-    description = "Tool for writing an ISO file to multiple USB devices at once";
+    description =
+      "Tool for writing an ISO file to multiple USB devices at once";
     homepage = "https://wiki.gnome.org/Apps/MultiWriter";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;

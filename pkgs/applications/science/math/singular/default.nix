@@ -1,35 +1,10 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  gmp,
-  bison,
-  perl,
-  ncurses,
-  readline,
-  coreutils,
-  pkg-config,
-  lib,
-  autoreconfHook,
-  buildPackages,
-  sharutils,
-  file,
-  getconf,
-  flint,
-  ntl,
-  cddlib,
-  gfan,
-  lrcalc,
-  doxygen,
-  graphviz,
-  latex2html,
-  # upstream generates docs with texinfo 4. later versions of texinfo
-  # use letters instead of numbers for post-appendix chapters, and we
-  # want it to match the upstream format because sage depends on it.
-  texinfo4,
-  texlive,
-  enableDocs ? !stdenv.isDarwin,
-  enableGfanlib ? true,
-}:
+{ stdenv, fetchFromGitHub, gmp, bison, perl, ncurses, readline, coreutils
+, pkg-config, lib, autoreconfHook, buildPackages, sharutils, file, getconf
+, flint, ntl, cddlib, gfan, lrcalc, doxygen, graphviz, latex2html
+# upstream generates docs with texinfo 4. later versions of texinfo
+# use letters instead of numbers for post-appendix chapters, and we
+# want it to match the upstream format because sage depends on it.
+, texinfo4, texlive, enableDocs ? !stdenv.isDarwin, enableGfanlib ? true }:
 
 stdenv.mkDerivation rec {
   pname = "singular";
@@ -51,11 +26,7 @@ stdenv.mkDerivation rec {
     forceFetchGit = true;
   };
 
-  configureFlags =
-    [
-      "--with-ntl=${ntl}"
-      "--disable-pyobject-module"
-    ]
+  configureFlags = [ "--with-ntl=${ntl}" "--disable-pyobject-module" ]
     ++ lib.optionals enableDocs [ "--enable-doc-build" ]
     ++ lib.optionals enableGfanlib [ "--enable-gfanlib" ];
 
@@ -81,22 +52,19 @@ stdenv.mkDerivation rec {
     gfan
   ] ++ lib.optionals enableGfanlib [ cddlib ];
 
-  nativeBuildInputs =
-    [
-      bison
-      perl
-      pkg-config
-      autoreconfHook
-      sharutils # needed for regress.cmd install checks
-    ]
-    ++ lib.optionals enableDocs [
-      doxygen
-      graphviz
-      latex2html
-      texinfo4
-      texlive.combined.scheme-small
-    ]
-    ++ lib.optionals stdenv.isDarwin [ getconf ];
+  nativeBuildInputs = [
+    bison
+    perl
+    pkg-config
+    autoreconfHook
+    sharutils # needed for regress.cmd install checks
+  ] ++ lib.optionals enableDocs [
+    doxygen
+    graphviz
+    latex2html
+    texinfo4
+    texlive.combined.scheme-small
+  ] ++ lib.optionals stdenv.isDarwin [ getconf ];
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
   preAutoreconf = ''
@@ -111,35 +79,26 @@ stdenv.mkDerivation rec {
 
   doCheck = true; # very basic checks, does not test any libraries
 
-  installPhase =
-    ''
-      make install
-    ''
-    + lib.optionalString enableDocs ''
-      # Sage uses singular.info, which is not installed by default
-      mkdir -p $out/share/info
-      cp doc/singular.info $out/share/info
-    ''
-    + ''
-      # Make sure patchelf picks up the right libraries
-      rm -rf libpolys factory resources omalloc Singular
-    '';
+  installPhase = ''
+    make install
+  '' + lib.optionalString enableDocs ''
+    # Sage uses singular.info, which is not installed by default
+    mkdir -p $out/share/info
+    cp doc/singular.info $out/share/info
+  '' + ''
+    # Make sure patchelf picks up the right libraries
+    rm -rf libpolys factory resources omalloc Singular
+  '';
 
   # singular tests are a bit complicated, see
   # https://github.com/Singular/Singular/tree/spielwiese/Tst
   # https://www.singular.uni-kl.de/forum/viewtopic.php?f=10&t=2773
   testsToRun =
-    [
-      "Old/universal.lst"
-      "Buch/buch.lst"
-      "Plural/short.lst"
-      "Old/factor.tst"
-    ]
-    ++ lib.optionals enableGfanlib
-      [
-        # tests that require gfanlib
-        "Short/ok_s.lst"
-      ];
+    [ "Old/universal.lst" "Buch/buch.lst" "Plural/short.lst" "Old/factor.tst" ]
+    ++ lib.optionals enableGfanlib [
+      # tests that require gfanlib
+      "Short/ok_s.lst"
+    ];
 
   # simple test to make sure singular starts and finds its libraries
   doInstallCheck = true;
@@ -181,7 +140,8 @@ stdenv.mkDerivation rec {
     platforms = subtractLists platforms.i686 platforms.unix;
     license = licenses.gpl3; # Or GPLv2 at your option - but not GPLv4
     homepage = "https://www.singular.uni-kl.de";
-    downloadPage = "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
+    downloadPage =
+      "http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/SOURCES/";
     mainProgram = "Singular";
   };
 }

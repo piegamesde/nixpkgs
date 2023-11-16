@@ -1,94 +1,40 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  makeWrapper,
-  gnused,
-  db,
-  openssl,
-  cyrus_sasl,
-  libnsl,
-  coreutils,
-  findutils,
-  gnugrep,
-  gawk,
-  icu,
-  pcre2,
-  m4,
-  fetchpatch,
-  buildPackages,
-  nixosTests,
-  withLDAP ? true,
-  openldap,
-  withPgSQL ? false,
-  postgresql,
-  withMySQL ? false,
-  libmysqlclient,
-  withSQLite ? false,
-  sqlite,
-}:
+{ stdenv, lib, fetchurl, makeWrapper, gnused, db, openssl, cyrus_sasl, libnsl
+, coreutils, findutils, gnugrep, gawk, icu, pcre2, m4, fetchpatch, buildPackages
+, nixosTests, withLDAP ? true, openldap, withPgSQL ? false, postgresql
+, withMySQL ? false, libmysqlclient, withSQLite ? false, sqlite }:
 
 let
-  ccargs = lib.concatStringsSep " " (
-    [
-      "-DUSE_TLS"
-      "-DUSE_SASL_AUTH"
-      "-DUSE_CYRUS_SASL"
-      "-I${cyrus_sasl.dev}/include/sasl"
-      "-DHAS_DB_BYPASS_MAKEDEFS_CHECK"
-    ]
-    ++ lib.optional withPgSQL "-DHAS_PGSQL"
-    ++ lib.optionals withMySQL [
-      "-DHAS_MYSQL"
-      "-I${libmysqlclient.dev}/include/mysql"
-      "-L${libmysqlclient}/lib/mysql"
-    ]
-    ++ lib.optional withSQLite "-DHAS_SQLITE"
-    ++ lib.optionals withLDAP [
-      "-DHAS_LDAP"
-      "-DUSE_LDAP_SASL"
-    ]
-  );
-  auxlibs = lib.concatStringsSep " " (
-    [
-      "-ldb"
-      "-lnsl"
-      "-lresolv"
-      "-lsasl2"
-      "-lcrypto"
-      "-lssl"
-    ]
-    ++ lib.optional withPgSQL "-lpq"
-    ++ lib.optional withMySQL "-lmysqlclient"
-    ++ lib.optional withSQLite "-lsqlite3"
-    ++ lib.optional withLDAP "-lldap"
-  );
-in
-stdenv.mkDerivation rec {
+  ccargs = lib.concatStringsSep " " ([
+    "-DUSE_TLS"
+    "-DUSE_SASL_AUTH"
+    "-DUSE_CYRUS_SASL"
+    "-I${cyrus_sasl.dev}/include/sasl"
+    "-DHAS_DB_BYPASS_MAKEDEFS_CHECK"
+  ] ++ lib.optional withPgSQL "-DHAS_PGSQL" ++ lib.optionals withMySQL [
+    "-DHAS_MYSQL"
+    "-I${libmysqlclient.dev}/include/mysql"
+    "-L${libmysqlclient}/lib/mysql"
+  ] ++ lib.optional withSQLite "-DHAS_SQLITE"
+    ++ lib.optionals withLDAP [ "-DHAS_LDAP" "-DUSE_LDAP_SASL" ]);
+  auxlibs = lib.concatStringsSep " "
+    ([ "-ldb" "-lnsl" "-lresolv" "-lsasl2" "-lcrypto" "-lssl" ]
+      ++ lib.optional withPgSQL "-lpq" ++ lib.optional withMySQL "-lmysqlclient"
+      ++ lib.optional withSQLite "-lsqlite3" ++ lib.optional withLDAP "-lldap");
+
+in stdenv.mkDerivation rec {
   pname = "postfix";
   version = "3.8.1";
 
   src = fetchurl {
-    url = "http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/${pname}-${version}.tar.gz";
+    url =
+      "http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/${pname}-${version}.tar.gz";
     hash = "sha256-VOG//e0wMoKKcN4iwqGpTRwJf8RRPg/b/P2/O/9rcJI=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    m4
-  ];
-  buildInputs =
-    [
-      db
-      openssl
-      cyrus_sasl
-      icu
-      libnsl
-      pcre2
-    ]
+  nativeBuildInputs = [ makeWrapper m4 ];
+  buildInputs = [ db openssl cyrus_sasl icu libnsl pcre2 ]
     ++ lib.optional withPgSQL postgresql
-    ++ lib.optional withMySQL libmysqlclient
-    ++ lib.optional withSQLite sqlite
+    ++ lib.optional withMySQL libmysqlclient ++ lib.optional withSQLite sqlite
     ++ lib.optional withLDAP openldap;
 
   hardeningDisable = [ "format" ];
@@ -102,7 +48,8 @@ stdenv.mkDerivation rec {
 
     # glibc 2.34 compat
     (fetchpatch {
-      url = "https://src.fedoraproject.org/rpms/postfix/raw/2f9d42453e67ebc43f786d98262a249037f80a77/f/postfix-3.6.2-glibc-234-build-fix.patch";
+      url =
+        "https://src.fedoraproject.org/rpms/postfix/raw/2f9d42453e67ebc43f786d98262a249037f80a77/f/postfix-3.6.2-glibc-234-build-fix.patch";
       sha256 = "sha256-xRUL5gaoIt6HagGlhsGwvwrAfYvzMgydsltYMWvl9BI=";
     })
   ];
@@ -110,8 +57,7 @@ stdenv.mkDerivation rec {
   postPatch =
     lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       sed -e 's!bin/postconf!${buildPackages.postfix}/bin/postconf!' -i postfix-install
-    ''
-    + ''
+    '' + ''
       sed -e '/^PATH=/d' -i postfix-install
       sed -e "s|@PACKAGE@|$out|" -i conf/post-install
 
@@ -150,22 +96,10 @@ stdenv.mkDerivation rec {
     cp -rv installdir/etc $out
     sed -e '/^PATH=/d' -i $out/libexec/postfix/post-install
     wrapProgram $out/libexec/postfix/post-install \
-      --prefix PATH ":" ${
-        lib.makeBinPath [
-          coreutils
-          findutils
-          gnugrep
-        ]
-      }
+      --prefix PATH ":" ${lib.makeBinPath [ coreutils findutils gnugrep ]}
     wrapProgram $out/libexec/postfix/postfix-script \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          coreutils
-          findutils
-          gnugrep
-          gawk
-          gnused
-        ]
+        lib.makeBinPath [ coreutils findutils gnugrep gawk gnused ]
       }
   '';
 
@@ -180,15 +114,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.postfix.org/";
     description = "A fast, easy to administer, and secure mail server";
-    license = with licenses; [
-      ipl10
-      epl20
-    ];
+    license = with licenses; [ ipl10 epl20 ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      globin
-      dotlambda
-      lewo
-    ];
+    maintainers = with maintainers; [ globin dotlambda lewo ];
   };
 }

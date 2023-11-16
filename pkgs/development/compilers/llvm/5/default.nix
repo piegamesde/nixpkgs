@@ -1,72 +1,40 @@
-{
-  lowPrio,
-  newScope,
-  pkgs,
-  lib,
-  stdenv,
-  cmake,
-  gccForLibs,
-  libxml2,
-  python3,
-  isl,
-  fetchurl,
-  overrideCC,
-  wrapCCWith,
-  buildLlvmTools, # tools, but from the previous stage, for cross
-  targetLlvmLibraries, # libraries, but from the next stage, for cross
-  targetLlvm,
-}:
+{ lowPrio, newScope, pkgs, lib, stdenv, cmake, gccForLibs, libxml2, python3, isl
+, fetchurl, overrideCC, wrapCCWith
+, buildLlvmTools # tools, but from the previous stage, for cross
+, targetLlvmLibraries # libraries, but from the next stage, for cross
+, targetLlvm }:
 
 let
   release_version = "5.0.2";
   version = release_version; # differentiating these is important for rc's
   targetConfig = stdenv.targetPlatform.config;
 
-  fetch =
-    name: sha256:
+  fetch = name: sha256:
     fetchurl {
-      url = "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz";
+      url =
+        "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz";
       inherit sha256;
     };
 
-  clang-tools-extra_src =
-    fetch "clang-tools-extra"
-      "018b3fiwah8f8br5i26qmzh6sjvzchpn358sn8v079m49f2jldm3";
+  clang-tools-extra_src = fetch "clang-tools-extra"
+    "018b3fiwah8f8br5i26qmzh6sjvzchpn358sn8v079m49f2jldm3";
 
   llvm_meta = {
     license = lib.licenses.ncsa;
     maintainers = lib.teams.llvm.members;
 
     # See llvm/cmake/config-ix.cmake.
-    platforms =
-      lib.platforms.aarch64
-      ++ lib.platforms.arm
-      ++ lib.platforms.mips
-      ++ lib.platforms.power
-      ++ lib.platforms.s390x
-      ++ lib.platforms.wasi
+    platforms = lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.mips
+      ++ lib.platforms.power ++ lib.platforms.s390x ++ lib.platforms.wasi
       ++ lib.platforms.x86;
   };
 
-  tools = lib.makeExtensible (
-    tools:
+  tools = lib.makeExtensible (tools:
     let
-      callPackage = newScope (
-        tools
-        // {
-          inherit
-            stdenv
-            cmake
-            libxml2
-            python3
-            isl
-            release_version
-            version
-            fetch
-            buildLlvmTools
-          ;
-        }
-      );
+      callPackage = newScope (tools // {
+        inherit stdenv cmake libxml2 python3 isl release_version version fetch
+          buildLlvmTools;
+      });
       mkExtraBuildCommands = cc: ''
         rsrc="$out/resource-root"
         mkdir "$rsrc"
@@ -74,8 +42,8 @@ let
         echo "-resource-dir=$rsrc" >> $out/nix-support/cc-cflags
         ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
       '';
-    in
-    {
+
+    in {
 
       libllvm = callPackage ./llvm { inherit llvm_meta; };
 
@@ -88,38 +56,32 @@ let
         enablePolly = true;
       };
 
-      llvm-polly = tools.libllvm-polly.lib // {
-        outputSpecified = false;
-      };
+      llvm-polly = tools.libllvm-polly.lib // { outputSpecified = false; };
 
-      libclang = callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
+      libclang =
+        callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
 
       clang-unwrapped = tools.libclang;
 
-      llvm-manpages = lowPrio (
-        tools.libllvm.override {
-          enableManpages = true;
-          python3 = pkgs.python3; # don't use python-boot
-        }
-      );
+      llvm-manpages = lowPrio (tools.libllvm.override {
+        enableManpages = true;
+        python3 = pkgs.python3; # don't use python-boot
+      });
 
-      clang-manpages = lowPrio (
-        tools.libclang.override {
-          enableManpages = true;
-          python3 = pkgs.python3; # don't use python-boot
-        }
-      );
+      clang-manpages = lowPrio (tools.libclang.override {
+        enableManpages = true;
+        python3 = pkgs.python3; # don't use python-boot
+      });
 
       # pick clang appropriate for package set we are targeting
-      clang =
-        if stdenv.targetPlatform.libc == null then
-          tools.clangNoLibc
-        else if stdenv.targetPlatform.useLLVM or false then
-          tools.clangUseLLVM
-        else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
-          tools.libstdcxxClang
-        else
-          tools.libcxxClang;
+      clang = if stdenv.targetPlatform.libc == null then
+        tools.clangNoLibc
+      else if stdenv.targetPlatform.useLLVM or false then
+        tools.clangUseLLVM
+      else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
+        tools.libstdcxxClang
+      else
+        tools.libcxxClang;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
@@ -132,40 +94,21 @@ let
       libcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
-        extraPackages = [
-          libcxx.cxxabi
-          targetLlvmLibraries.compiler-rt
-        ];
+        extraPackages = [ libcxx.cxxabi targetLlvmLibraries.compiler-rt ];
         extraBuildCommands = mkExtraBuildCommands cc;
       };
 
       lld = callPackage ./lld { inherit llvm_meta; };
 
       lldb = callPackage ./lldb { inherit llvm_meta; };
-    }
-  );
+    });
 
-  libraries = lib.makeExtensible (
-    libraries:
+  libraries = lib.makeExtensible (libraries:
     let
-      callPackage = newScope (
-        libraries
-        // buildLlvmTools
-        // {
-          inherit
-            stdenv
-            cmake
-            libxml2
-            python3
-            isl
-            release_version
-            version
-            fetch
-          ;
-        }
-      );
-    in
-    {
+      callPackage = newScope (libraries // buildLlvmTools // {
+        inherit stdenv cmake libxml2 python3 isl release_version version fetch;
+      });
+    in {
 
       compiler-rt = callPackage ./compiler-rt { inherit llvm_meta; };
 
@@ -178,7 +121,6 @@ let
       libcxxabi = callPackage ./libcxxabi { inherit llvm_meta; };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };
-    }
-  );
-in
-{ inherit tools libraries release_version; } // libraries // tools
+    });
+
+in { inherit tools libraries release_version; } // libraries // tools

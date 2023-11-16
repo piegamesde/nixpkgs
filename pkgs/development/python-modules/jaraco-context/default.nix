@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "jaraco-context";
@@ -34,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python module for context management";
     homepage = "https://github.com/jaraco/jaraco.context";
-    changelog = "https://github.com/jaraco/jaraco.context/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/jaraco/jaraco.context/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

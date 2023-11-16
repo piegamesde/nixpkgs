@@ -4,5 +4,4 @@ let
     system = "x86_64-linux";
     modules = [ ({ config, ... }: { imports = [ ./system.nix ]; }) ];
   };
-in
-machine.config.system.build.azureImage
+in machine.config.system.build.azureImage

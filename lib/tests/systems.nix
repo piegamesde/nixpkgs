@@ -11,24 +11,10 @@ let
     expr = lib.sort lib.lessThan x;
     expected = lib.sort lib.lessThan y;
   };
-in
-with lib.systems.doubles;
+in with lib.systems.doubles;
 lib.runTests {
-  testall = mseteq all (
-    linux
-    ++ darwin
-    ++ freebsd
-    ++ openbsd
-    ++ netbsd
-    ++ illumos
-    ++ wasi
-    ++ windows
-    ++ embedded
-    ++ mmix
-    ++ js
-    ++ genode
-    ++ redox
-  );
+  testall = mseteq all (linux ++ darwin ++ freebsd ++ openbsd ++ netbsd
+    ++ illumos ++ wasi ++ windows ++ embedded ++ mmix ++ js ++ genode ++ redox);
 
   testarm = mseteq arm [
     "armv5tel-linux"
@@ -83,20 +69,11 @@ lib.runTests {
     "riscv32-none"
     "riscv64-none"
   ];
-  testriscv32 = mseteq riscv32 [
-    "riscv32-linux"
-    "riscv32-netbsd"
-    "riscv32-none"
-  ];
-  testriscv64 = mseteq riscv64 [
-    "riscv64-linux"
-    "riscv64-netbsd"
-    "riscv64-none"
-  ];
-  tests390x = mseteq s390x [
-    "s390x-linux"
-    "s390x-none"
-  ];
+  testriscv32 =
+    mseteq riscv32 [ "riscv32-linux" "riscv32-netbsd" "riscv32-none" ];
+  testriscv64 =
+    mseteq riscv64 [ "riscv64-linux" "riscv64-netbsd" "riscv64-none" ];
+  tests390x = mseteq s390x [ "s390x-linux" "s390x-none" ];
   testx86_64 = mseteq x86_64 [
     "x86_64-linux"
     "x86_64-darwin"
@@ -111,28 +88,17 @@ lib.runTests {
     "x86_64-none"
   ];
 
-  testcygwin = mseteq cygwin [
-    "i686-cygwin"
-    "x86_64-cygwin"
-  ];
+  testcygwin = mseteq cygwin [ "i686-cygwin" "x86_64-cygwin" ];
   testdarwin = mseteq darwin [
     "x86_64-darwin"
     "i686-darwin"
     "aarch64-darwin"
     "armv7a-darwin"
   ];
-  testfreebsd = mseteq freebsd [
-    "i686-freebsd13"
-    "x86_64-freebsd13"
-  ];
-  testgenode = mseteq genode [
-    "aarch64-genode"
-    "i686-genode"
-    "x86_64-genode"
-  ];
+  testfreebsd = mseteq freebsd [ "i686-freebsd13" "x86_64-freebsd13" ];
+  testgenode = mseteq genode [ "aarch64-genode" "i686-genode" "x86_64-genode" ];
   testredox = mseteq redox [ "x86_64-redox" ];
-  testgnu = mseteq gnu (
-    linux # ++ kfreebsd ++ ...
+  testgnu = mseteq gnu (linux # ++ kfreebsd ++ ...
   );
   testillumos = mseteq illumos [ "x86_64-solaris" ];
   testlinux = mseteq linux [
@@ -171,17 +137,13 @@ lib.runTests {
     "riscv64-netbsd"
     "x86_64-netbsd"
   ];
-  testopenbsd = mseteq openbsd [
-    "i686-openbsd"
-    "x86_64-openbsd"
-  ];
+  testopenbsd = mseteq openbsd [ "i686-openbsd" "x86_64-openbsd" ];
   testwindows = mseteq windows [
     "i686-cygwin"
     "x86_64-cygwin"
     "i686-windows"
     "x86_64-windows"
   ];
-  testunix = mseteq unix (
-    linux ++ darwin ++ freebsd ++ openbsd ++ netbsd ++ illumos ++ cygwin ++ redox
-  );
+  testunix = mseteq unix (linux ++ darwin ++ freebsd ++ openbsd ++ netbsd
+    ++ illumos ++ cygwin ++ redox);
 }

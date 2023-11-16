@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchpatch,
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
 
 buildGoModule rec {
   pname = "ipfs-cluster";
@@ -19,12 +14,10 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Allocate, replicate, and track Pins across a cluster of IPFS daemons";
+    description =
+      "Allocate, replicate, and track Pins across a cluster of IPFS daemons";
     homepage = "https://ipfscluster.io";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      Luflosi
-      jglukasik
-    ];
+    maintainers = with maintainers; [ Luflosi jglukasik ];
   };
 }

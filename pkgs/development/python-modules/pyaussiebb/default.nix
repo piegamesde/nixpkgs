@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  loguru,
-  pydantic,
-  poetry-core,
-  pythonOlder,
-  requests,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, loguru, pydantic
+, poetry-core, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "pyaussiebb";
@@ -26,12 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    requests
-    loguru
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp requests loguru pydantic ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -46,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module for interacting with the Aussie Broadband APIs";
     homepage = "https://github.com/yaleman/aussiebb";
-    changelog = "https://github.com/yaleman/pyaussiebb/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/yaleman/pyaussiebb/blob/v${version}/CHANGELOG.md";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

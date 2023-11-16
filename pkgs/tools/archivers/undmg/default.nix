@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  zlib,
-  bzip2,
-  lzfse,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, zlib, bzip2, lzfse, pkg-config }:
 
 stdenv.mkDerivation rec {
   version = "1.1.0";
@@ -21,11 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    zlib
-    bzip2
-    lzfse
-  ];
+  buildInputs = [ zlib bzip2 lzfse ];
 
   setupHook = ./setup-hook.sh;
 
@@ -36,9 +24,6 @@ stdenv.mkDerivation rec {
     description = "Extract a DMG file";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      matthewbauer
-      lnl7
-    ];
+    maintainers = with maintainers; [ matthewbauer lnl7 ];
   };
 }

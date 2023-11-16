@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  chardet,
-  docutils,
-  fetchPypi,
-  pbr,
-  pygments,
-  pytestCheckHook,
-  pythonOlder,
-  restructuredtext_lint,
-  setuptools-scm,
-  stevedore,
+{ lib, buildPythonPackage, chardet, docutils, fetchPypi, pbr, pygments
+, pytestCheckHook, pythonOlder, restructuredtext_lint, setuptools-scm, stevedore
 }:
 
 buildPythonPackage rec {
@@ -29,13 +18,8 @@ buildPythonPackage rec {
 
   buildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    docutils
-    chardet
-    stevedore
-    restructuredtext_lint
-    pygments
-  ];
+  propagatedBuildInputs =
+    [ docutils chardet stevedore restructuredtext_lint pygments ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

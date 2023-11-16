@@ -1,44 +1,19 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  netcat,
+{ lib, stdenv, fetchurl, netcat
 
-  # Optional packages
-  systemd ? null,
-  ejabberd ? null,
-  mariadb ? null,
-  postgresql ? null,
-  subversion ? null,
-  mongodb ? null,
-  mongodb-tools ? null,
-  influxdb ? null,
-  supervisor ? null,
-  docker ? null,
-  nginx ? null,
-  s6-rc ? null,
-  xinetd ? null,
+# Optional packages
+, systemd ? null, ejabberd ? null, mariadb ? null, postgresql ? null
+, subversion ? null, mongodb ? null, mongodb-tools ? null, influxdb ? null
+, supervisor ? null, docker ? null, nginx ? null, s6-rc ? null, xinetd ? null
 
   # Configuration flags
-  enableApacheWebApplication ? false,
-  enableAxis2WebService ? false,
-  enableEjabberdDump ? false,
-  enableMySQLDatabase ? false,
-  enablePostgreSQLDatabase ? false,
-  enableSubversionRepository ? false,
-  enableTomcatWebApplication ? false,
-  enableMongoDatabase ? false,
-  enableInfluxDatabase ? false,
-  enableSupervisordProgram ? false,
-  enableDockerContainer ? false,
-  enableNginxWebApplication ? false,
-  enableXinetdService ? false,
-  enableS6RCService ? false,
-  enableLegacy ? false,
-  catalinaBaseDir ? "/var/tomcat",
-  jobTemplate ? "systemd",
-  getopt,
-}:
+, enableApacheWebApplication ? false, enableAxis2WebService ? false
+, enableEjabberdDump ? false, enableMySQLDatabase ? false
+, enablePostgreSQLDatabase ? false, enableSubversionRepository ? false
+, enableTomcatWebApplication ? false, enableMongoDatabase ? false
+, enableInfluxDatabase ? false, enableSupervisordProgram ? false
+, enableDockerContainer ? false, enableNginxWebApplication ? false
+, enableXinetdService ? false, enableS6RCService ? false, enableLegacy ? false
+, catalinaBaseDir ? "/var/tomcat", jobTemplate ? "systemd", getopt }:
 
 assert enableMySQLDatabase -> mariadb != null;
 assert enablePostgreSQLDatabase -> postgresql != null;
@@ -56,7 +31,8 @@ stdenv.mkDerivation rec {
   pname = "dysnomia";
   version = "0.10.1";
   src = fetchurl {
-    url = "https://github.com/svanderburg/dysnomia/releases/download/dysnomia-${version}/dysnomia-${version}.tar.gz";
+    url =
+      "https://github.com/svanderburg/dysnomia/releases/download/dysnomia-${version}/dysnomia-${version}.tar.gz";
     sha256 = "0w9601g8zpaxrmynx6mh8zz85ldpb8psp7cc6ls8v3srjpj1l5n3";
   };
 
@@ -65,12 +41,24 @@ stdenv.mkDerivation rec {
     (if enableAxis2WebService then "--with-axis2" else "--without-axis2")
     (if enableEjabberdDump then "--with-ejabberd" else "--without-ejabberd")
     (if enableMySQLDatabase then "--with-mysql" else "--without-mysql")
-    (if enablePostgreSQLDatabase then "--with-postgresql" else "--without-postgresql")
-    (if enableSubversionRepository then "--with-subversion" else "--without-subversion")
-    (if enableTomcatWebApplication then "--with-tomcat=${catalinaBaseDir}" else "--without-tomcat")
+    (if enablePostgreSQLDatabase then
+      "--with-postgresql"
+    else
+      "--without-postgresql")
+    (if enableSubversionRepository then
+      "--with-subversion"
+    else
+      "--without-subversion")
+    (if enableTomcatWebApplication then
+      "--with-tomcat=${catalinaBaseDir}"
+    else
+      "--without-tomcat")
     (if enableMongoDatabase then "--with-mongodb" else "--without-mongodb")
     (if enableInfluxDatabase then "--with-influxdb" else "--without-influxdb")
-    (if enableSupervisordProgram then "--with-supervisord" else "--without-supervisord")
+    (if enableSupervisordProgram then
+      "--with-supervisord"
+    else
+      "--without-supervisord")
     (if enableDockerContainer then "--with-docker" else "--without-docker")
     (if enableNginxWebApplication then "--with-nginx" else "--without-nginx")
     (if enableXinetdService then "--with-xinetd" else "--without-xinetd")
@@ -79,20 +67,12 @@ stdenv.mkDerivation rec {
     "--with-job-template=${jobTemplate}"
   ] ++ lib.optional enableLegacy "--enable-legacy";
 
-  buildInputs =
-    [
-      getopt
-      netcat
-    ]
-    ++ lib.optional stdenv.isLinux systemd
+  buildInputs = [ getopt netcat ] ++ lib.optional stdenv.isLinux systemd
     ++ lib.optional enableEjabberdDump ejabberd
     ++ lib.optional enableMySQLDatabase mariadb.out
     ++ lib.optional enablePostgreSQLDatabase postgresql
     ++ lib.optional enableSubversionRepository subversion
-    ++ lib.optionals enableMongoDatabase [
-      mongodb
-      mongodb-tools
-    ]
+    ++ lib.optionals enableMongoDatabase [ mongodb mongodb-tools ]
     ++ lib.optional enableInfluxDatabase influxdb
     ++ lib.optional enableSupervisordProgram supervisor
     ++ lib.optional enableDockerContainer docker
@@ -101,7 +81,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableXinetdService xinetd;
 
   meta = {
-    description = "Automated deployment of mutable components and services for Disnix";
+    description =
+      "Automated deployment of mutable components and services for Disnix";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sander ];
     platforms = lib.platforms.unix;

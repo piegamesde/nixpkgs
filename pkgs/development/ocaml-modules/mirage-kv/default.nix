@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  fmt,
-  lwt,
-  alcotest,
-}:
+{ lib, fetchurl, buildDunePackage, fmt, lwt, alcotest }:
 
 buildDunePackage rec {
   pname = "mirage-kv";
@@ -15,14 +8,12 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-kv/releases/download/v${version}/mirage-kv-${version}.tbz";
+    url =
+      "https://github.com/mirage/mirage-kv/releases/download/v${version}/mirage-kv-${version}.tbz";
     hash = "sha256-p6i4zUVgxtTnUiBIjb8W6u9xRTczVl4WwfFcl5tVqnE=";
   };
 
-  propagatedBuildInputs = [
-    fmt
-    lwt
-  ];
+  propagatedBuildInputs = [ fmt lwt ];
 
   doCheck = true;
   checkInputs = [ alcotest ];

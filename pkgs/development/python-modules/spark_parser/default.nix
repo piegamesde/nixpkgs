@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  nose,
-  click,
-}:
+{ lib, buildPythonPackage, fetchPypi, nose, click }:
 
 buildPythonPackage rec {
   pname = "spark_parser";
@@ -24,4 +18,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     maintainers = with maintainers; [ raskin ];
   };
+
 }

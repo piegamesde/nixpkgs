@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  gitUpdater,
-  testers,
-  mods,
-}:
+{ lib, buildGoModule, fetchFromGitHub, gitUpdater, testers, mods }:
 
 buildGoModule rec {
   pname = "mods";
@@ -20,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+0yGFCGd/9bIBjXYp8UPGqKum2di5O1ALMyDSxcVujg=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${version}" ];
 
   passthru = {
     updateScript = gitUpdater {

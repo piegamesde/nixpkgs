@@ -1,36 +1,28 @@
-{
-  lib,
-  stdenv,
-  file,
-  fetchurl,
-  makeWrapper,
-  autoPatchelfHook,
-  jsoncpp,
-  libpulseaudio,
-}:
+{ lib, stdenv, file, fetchurl, makeWrapper, autoPatchelfHook, jsoncpp
+, libpulseaudio }:
 let
   versionMajor = "8.4";
   versionMinor = "2";
   versionBuild_x86_64 = "1";
   versionBuild_i686 = "1";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "nomachine-client";
   version = "${versionMajor}.${versionMinor}";
 
-  src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      fetchurl {
-        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_x86_64}_x86_64.tar.gz";
-        sha256 = "sha256-r4yRmnMd6uNay7CqmyqYj9F6huoqD8eBby+oDNk1T34=";
-      }
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      fetchurl {
-        url = "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_i686}_i686.tar.gz";
-        sha256 = "sha256-TvEU1hDvPXQbF7fMI89I2bhap1Y0oetUoFl3yR5eTGg=";
-      }
-    else
-      throw "NoMachine client is not supported on ${stdenv.hostPlatform.system}";
+  src = if stdenv.hostPlatform.system == "x86_64-linux" then
+    fetchurl {
+      url =
+        "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_x86_64}_x86_64.tar.gz";
+      sha256 = "sha256-r4yRmnMd6uNay7CqmyqYj9F6huoqD8eBby+oDNk1T34=";
+    }
+  else if stdenv.hostPlatform.system == "i686-linux" then
+    fetchurl {
+      url =
+        "https://download.nomachine.com/download/${versionMajor}/Linux/nomachine_${version}_${versionBuild_i686}_i686.tar.gz";
+      sha256 = "sha256-TvEU1hDvPXQbF7fMI89I2bhap1Y0oetUoFl3yR5eTGg=";
+    }
+  else
+    throw "NoMachine client is not supported on ${stdenv.hostPlatform.system}";
 
   # nxusb-legacy is only needed for kernel versions < 3
   postUnpack = ''
@@ -44,15 +36,8 @@ stdenv.mkDerivation rec {
     rm NX/bin/nxusbd-legacy NX/lib/libnxusb-legacy.so
   '';
 
-  nativeBuildInputs = [
-    file
-    makeWrapper
-    autoPatchelfHook
-  ];
-  buildInputs = [
-    jsoncpp
-    libpulseaudio
-  ];
+  nativeBuildInputs = [ file makeWrapper autoPatchelfHook ];
+  buildInputs = [ jsoncpp libpulseaudio ];
 
   installPhase = ''
     rm bin/nxplayer bin/nxrunner
@@ -103,9 +88,6 @@ stdenv.mkDerivation rec {
       free = false;
     };
     maintainers = with maintainers; [ talyz ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

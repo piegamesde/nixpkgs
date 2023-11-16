@@ -1,18 +1,6 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  gettext,
-  kcoreaddons,
-  kconfig,
-  kdbusaddons,
-  kwidgetsaddons,
-  kitemviews,
-  kcompletion,
-  kxmlgui,
-  python3,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, gettext, kcoreaddons
+, kconfig, kdbusaddons, kwidgetsaddons, kitemviews, kcompletion, kxmlgui
+, python3 }:
 
 mkDerivation {
   pname = "kdebugsettings";
@@ -22,10 +10,7 @@ mkDerivation {
     license = with lib.licenses; [ gpl2 ];
     maintainers = [ ];
   };
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     gettext
     kcoreaddons

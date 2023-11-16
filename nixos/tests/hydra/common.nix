@@ -1,7 +1,5 @@
-{ system, ... }:
-{
-  baseConfig =
-    { pkgs, ... }:
+{ system, ... }: {
+  baseConfig = { pkgs, ... }:
     let
       trivialJob = pkgs.writeTextDir "trivial.nix" ''
         { trivial = builtins.derivation {
@@ -19,21 +17,19 @@
         name = "create-trivial-project";
         dontUnpack = true;
         nativeBuildInputs = [ pkgs.makeWrapper ];
-        installPhase = "install -m755 -D ${./create-trivial-project.sh} $out/bin/create-trivial-project.sh";
+        installPhase = "install -m755 -D ${
+            ./create-trivial-project.sh
+          } $out/bin/create-trivial-project.sh";
         postFixup = ''
           wrapProgram "$out/bin/create-trivial-project.sh" --prefix PATH ":" ${
             pkgs.lib.makeBinPath [ pkgs.curl ]
           } --set EXPR_PATH ${trivialJob}
         '';
       };
-    in
-    {
+    in {
       virtualisation.memorySize = 2048;
       time.timeZone = "UTC";
-      environment.systemPackages = [
-        createTrivialProject
-        pkgs.jq
-      ];
+      environment.systemPackages = [ createTrivialProject pkgs.jq ];
       services.hydra = {
         enable = true;
         # Hydra needs those settings to start up, so we add something not harmfull.
@@ -46,12 +42,10 @@
       services.postfix.enable = true;
       nix = {
         distributedBuilds = true;
-        buildMachines = [
-          {
-            hostName = "localhost";
-            systems = [ system ];
-          }
-        ];
+        buildMachines = [{
+          hostName = "localhost";
+          systems = [ system ];
+        }];
         settings.substituters = [ ];
       };
     };

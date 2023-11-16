@@ -1,62 +1,45 @@
 { pkgs }:
-let
-  inherit (pkgs) lib formats;
-in
-with lib;
+let inherit (pkgs) lib formats;
+in with lib;
 let
 
-  evalFormat =
-    format: args: def:
+  evalFormat = format: args: def:
     let
       formatSet = format args;
-      config = formatSet.type.merge [ ] (
-        imap1
-          (n: def: {
-            # We check the input values, so that
-            #  - we don't write nonsensical tests that will impede progress
-            #  - the test author has a slightly more realistic view of the
-            #    final format during development.
-            value =
-              lib.throwIfNot (formatSet.type.check def)
-                (builtins.trace def "definition does not pass the type's check function")
-                def;
-            file = "def${toString n}";
-          })
-          [ def ]
-      );
-    in
-    formatSet.generate "test-format-file" config;
+      config = formatSet.type.merge [ ] (imap1 (n: def: {
+        # We check the input values, so that
+        #  - we don't write nonsensical tests that will impede progress
+        #  - the test author has a slightly more realistic view of the
+        #    final format during development.
+        value = lib.throwIfNot (formatSet.type.check def) (builtins.trace def
+          "definition does not pass the type's check function") def;
+        file = "def${toString n}";
+      }) [ def ]);
+    in formatSet.generate "test-format-file" config;
 
-  runBuildTest =
-    name:
+  runBuildTest = name:
     { drv, expected }:
-    pkgs.runCommand name
-      {
-        passAsFile = [ "expected" ];
-        inherit expected drv;
-      }
-      ''
-        if diff -u "$expectedPath" "$drv"; then
-          touch "$out"
-        else
-          echo
-          echo "Got different values than expected; diff above."
-          exit 1
-        fi
-      '';
+    pkgs.runCommand name {
+      passAsFile = [ "expected" ];
+      inherit expected drv;
+    } ''
+      if diff -u "$expectedPath" "$drv"; then
+        touch "$out"
+      else
+        echo
+        echo "Got different values than expected; diff above."
+        exit 1
+      fi
+    '';
 
-  runBuildTests =
-    tests:
-    pkgs.linkFarm "nixpkgs-pkgs-lib-format-tests" (
-      mapAttrsToList
-        (name: value: {
-          inherit name;
-          path = runBuildTest name value;
-        })
-        (filterAttrs (name: value: value != null) tests)
-    );
-in
-runBuildTests {
+  runBuildTests = tests:
+    pkgs.linkFarm "nixpkgs-pkgs-lib-format-tests" (mapAttrsToList
+      (name: value: {
+        inherit name;
+        path = runBuildTest name value;
+      }) (filterAttrs (name: value: value != null) tests));
+
+in runBuildTests {
 
   testJsonAtoms = {
     drv = evalFormat formats.json { } {
@@ -67,10 +50,7 @@ runBuildTests {
       float = 3.141;
       str = "foo";
       attrs.foo = null;
-      list = [
-        null
-        null
-      ];
+      list = [ null null ];
       path = ./formats.nix;
     };
     expected = ''
@@ -101,10 +81,7 @@ runBuildTests {
       float = 3.141;
       str = "foo";
       attrs.foo = null;
-      list = [
-        null
-        null
-      ];
+      list = [ null null ];
       path = ./formats.nix;
     };
     expected = ''
@@ -143,13 +120,7 @@ runBuildTests {
   testIniDuplicateKeys = {
     drv = evalFormat formats.ini { listsAsDuplicateKeys = true; } {
       foo = {
-        bar = [
-          null
-          true
-          "test"
-          1.2
-          10
-        ];
+        bar = [ null true "test" 1.2 10 ];
         baz = false;
         qux = "qux";
       };
@@ -167,22 +138,16 @@ runBuildTests {
   };
 
   testIniListToValue = {
-    drv =
-      evalFormat formats.ini
-        { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
-        {
-          foo = {
-            bar = [
-              null
-              true
-              "test"
-              1.2
-              10
-            ];
-            baz = false;
-            qux = "qux";
-          };
-        };
+    drv = evalFormat formats.ini {
+      listToValue =
+        concatMapStringsSep ", " (generators.mkValueStringDefault { });
+    } {
+      foo = {
+        bar = [ null true "test" 1.2 10 ];
+        baz = false;
+        qux = "qux";
+      };
+    };
     expected = ''
       [foo]
       bar=null, true, test, 1.200000, 10
@@ -208,13 +173,7 @@ runBuildTests {
 
   testKeyValueDuplicateKeys = {
     drv = evalFormat formats.keyValue { listsAsDuplicateKeys = true; } {
-      bar = [
-        null
-        true
-        "test"
-        1.2
-        10
-      ];
+      bar = [ null true "test" 1.2 10 ];
       baz = false;
       qux = "qux";
     };
@@ -230,20 +189,14 @@ runBuildTests {
   };
 
   testKeyValueListToValue = {
-    drv =
-      evalFormat formats.keyValue
-        { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
-        {
-          bar = [
-            null
-            true
-            "test"
-            1.2
-            10
-          ];
-          baz = false;
-          qux = "qux";
-        };
+    drv = evalFormat formats.keyValue {
+      listToValue =
+        concatMapStringsSep ", " (generators.mkValueStringDefault { });
+    } {
+      bar = [ null true "test" 1.2 10 ];
+      baz = false;
+      qux = "qux";
+    };
     expected = ''
       bar=null, true, test, 1.200000, 10
       baz=false
@@ -259,10 +212,7 @@ runBuildTests {
       float = 3.141;
       str = "foo";
       attrs.foo = "foo";
-      list = [
-        1
-        2
-      ];
+      list = [ 1 2 ];
       level1.level2.level3.level4 = "deep";
     };
     expected = ''

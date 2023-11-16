@@ -1,15 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  cmake,
-  halibut,
-}:
+{ lib, stdenv, fetchgit, cmake, halibut }:
 let
   date = "20211129";
   rev = "8cd63c5";
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "agedu";
   version = "${date}.${rev}";
 
@@ -20,10 +13,7 @@ stdenv.mkDerivation {
     hash = "sha256-5wqpL7wrFwIf6lxVte+GXLsXYY0/36EIAUepVNDCnSE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    halibut
-  ];
+  nativeBuildInputs = [ cmake halibut ];
 
   meta = with lib; {
     description = "A Unix utility for tracking down wasted disk space";

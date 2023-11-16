@@ -1,24 +1,9 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  # build inputs
-  jsonref,
-  jsonschema,
-  python-dateutil,
-  pyyaml,
-  requests,
-  simplejson,
-  six,
-  swagger-spec-validator,
-  pytz,
-  msgpack,
-  # check inputs
-  pytestCheckHook,
-  mock,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pythonOlder
+# build inputs
+, jsonref, jsonschema, python-dateutil, pyyaml, requests, simplejson, six
+, swagger-spec-validator, pytz, msgpack
+# check inputs
+, pytestCheckHook, mock }:
 
 buildPythonPackage rec {
   pname = "bravado-core";
@@ -63,11 +48,9 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for adding Swagger support to clients and servers";
     homepage = "https://github.com/Yelp/bravado-core";
-    changelog = "https://github.com/Yelp/bravado-core/blob/v${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/Yelp/bravado-core/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      vanschelven
-      nickcao
-    ];
+    maintainers = with maintainers; [ vanschelven nickcao ];
   };
 }

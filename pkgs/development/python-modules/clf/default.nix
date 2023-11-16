@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  docopt,
-  requests,
-  pygments,
-}:
+{ lib, buildPythonPackage, fetchPypi, docopt, requests, pygments }:
 
 buildPythonPackage rec {
   pname = "clf";
@@ -20,11 +13,7 @@ buildPythonPackage rec {
     sed -i 's/==/>=/' requirements.txt
   '';
 
-  propagatedBuildInputs = [
-    docopt
-    requests
-    pygments
-  ];
+  propagatedBuildInputs = [ docopt requests pygments ];
 
   # Error when running tests:
   # No local packages or download links found for requests

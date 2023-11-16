@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  linuxHeaders,
-}:
+{ lib, stdenv, fetchurl, linuxHeaders }:
 
 stdenv.mkDerivation rec {
   pname = "input-utils";
@@ -20,10 +15,7 @@ stdenv.mkDerivation rec {
     substituteInPlace ./lirc.sh --replace "/usr/include/linux/" "${linuxHeaders}/include/linux/"
   '';
 
-  makeFlags = [
-    "prefix=$(out)"
-    "STRIP="
-  ];
+  makeFlags = [ "prefix=$(out)" "STRIP=" ];
 
   meta = with lib; {
     description = "Input layer utilities, includes lsinput";

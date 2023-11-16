@@ -1,21 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  libosmoabis,
-  libosmo-netif,
-  libosmo-sccp,
-  osmo-mgw,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore
+, libosmoabis, libosmo-netif, libosmo-sccp, osmo-mgw }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-bsc";
   version = "1.9.1";
 
@@ -30,18 +18,9 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libosmocore
-    libosmoabis
-    libosmo-netif
-    libosmo-sccp
-    osmo-mgw
-  ];
+  buildInputs = [ libosmocore libosmoabis libosmo-netif libosmo-sccp osmo-mgw ];
 
   enableParallelBuilding = true;
 

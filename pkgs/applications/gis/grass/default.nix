@@ -1,41 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  flex,
-  bison,
-  pkg-config,
-  zlib,
-  libtiff,
-  libpng,
-  fftw,
-  cairo,
-  readline,
-  ffmpeg,
-  makeWrapper,
-  wxGTK32,
-  libiconv,
-  netcdf,
-  blas,
-  proj,
-  gdal,
-  geos,
-  sqlite,
-  postgresql,
-  libmysqlclient,
-  python3Packages,
-  proj-datumgrid,
-  zstd,
-  pdal,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, flex, bison, pkg-config, zlib, libtiff, libpng
+, fftw, cairo, readline, ffmpeg, makeWrapper, wxGTK32, libiconv, netcdf, blas
+, proj, gdal, geos, sqlite, postgresql, libmysqlclient, python3Packages
+, proj-datumgrid, zstd, pdal, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "grass";
   version = "8.2.1";
 
-  src =
-    with lib;
+  src = with lib;
     fetchFromGitHub {
       owner = "OSGeo";
       repo = "grass";
@@ -43,26 +15,18 @@ stdenv.mkDerivation rec {
       hash = "sha256-U3PQd3u9i+9Bc7BSd0gK8Ss+iV9BT1xLBDrKydtl3Qk=";
     };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      bison
-      flex
-      makeWrapper
-      wrapGAppsHook
-      gdal # for `gdal-config`
-      geos # for `geos-config`
-      netcdf # for `nc-config`
-      libmysqlclient # for `mysql_config`
-      pdal # for `pdal-config`; remove with next version, see https://github.com/OSGeo/grass/pull/2851
-    ]
-    ++ (
-      with python3Packages; [
-        python-dateutil
-        numpy
-        wxPython_4_2
-      ]
-    );
+  nativeBuildInputs = [
+    pkg-config
+    bison
+    flex
+    makeWrapper
+    wrapGAppsHook
+    gdal # for `gdal-config`
+    geos # for `geos-config`
+    netcdf # for `nc-config`
+    libmysqlclient # for `mysql_config`
+    pdal # for `pdal-config`; remove with next version, see https://github.com/OSGeo/grass/pull/2851
+  ] ++ (with python3Packages; [ python-dateutil numpy wxPython_4_2 ]);
 
   buildInputs = [
     cairo
@@ -97,28 +61,26 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace "--libmysqld-libs" "--libs"
   '';
 
-  configureFlags =
-    [
-      "--with-proj-share=${proj}/share/proj"
-      "--with-proj-includes=${proj.dev}/include"
-      "--with-proj-libs=${proj}/lib"
-      "--without-opengl"
-      "--with-readline"
-      "--with-wxwidgets"
-      "--with-netcdf"
-      "--with-geos"
-      "--with-postgres"
-      "--with-postgres-libs=${postgresql.lib}/lib/"
-      # it complains about missing libmysqld but doesn't really seem to need it
-      "--with-mysql"
-      "--with-mysql-includes=${lib.getDev libmysqlclient}/include/mysql"
-      "--with-mysql-libs=${libmysqlclient}/lib/mysql"
-      "--with-blas"
-      "--with-zstd"
-      "--with-fftw"
-      "--with-pthread"
-    ]
-    ++ lib.optionals stdenv.isLinux [ "--with-pdal" ]
+  configureFlags = [
+    "--with-proj-share=${proj}/share/proj"
+    "--with-proj-includes=${proj.dev}/include"
+    "--with-proj-libs=${proj}/lib"
+    "--without-opengl"
+    "--with-readline"
+    "--with-wxwidgets"
+    "--with-netcdf"
+    "--with-geos"
+    "--with-postgres"
+    "--with-postgres-libs=${postgresql.lib}/lib/"
+    # it complains about missing libmysqld but doesn't really seem to need it
+    "--with-mysql"
+    "--with-mysql-includes=${lib.getDev libmysqlclient}/include/mysql"
+    "--with-mysql-libs=${libmysqlclient}/lib/mysql"
+    "--with-blas"
+    "--with-zstd"
+    "--with-fftw"
+    "--with-pthread"
+  ] ++ lib.optionals stdenv.isLinux [ "--with-pdal" ]
     ++ lib.optionals stdenv.isDarwin [
       "--without-cairo"
       "--without-freetype"
@@ -151,12 +113,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://grass.osgeo.org/";
-    description = "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization";
+    description =
+      "GIS software suite used for geospatial data management and analysis, image processing, graphics and maps production, spatial modeling, and visualization";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [
-      mpickering
-      willcohen
-    ];
+    maintainers = with lib.maintainers; [ mpickering willcohen ];
   };
 }

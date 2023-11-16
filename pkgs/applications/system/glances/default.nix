@@ -1,23 +1,8 @@
-{
-  stdenv,
-  buildPythonApplication,
-  fetchFromGitHub,
-  fetchpatch,
-  isPyPy,
-  lib,
-  defusedxml,
-  future,
-  ujson,
-  packaging,
-  psutil,
-  setuptools,
-  # Optional dependencies:
-  bottle,
-  pysnmp,
-  hddtemp,
-  netifaces, # IP module
-  py-cpuinfo,
-}:
+{ stdenv, buildPythonApplication, fetchFromGitHub, fetchpatch, isPyPy, lib
+, defusedxml, future, ujson, packaging, psutil, setuptools
+# Optional dependencies:
+, bottle, pysnmp, hddtemp, netifaces # IP module
+, py-cpuinfo }:
 
 buildPythonApplication rec {
   pname = "glances";
@@ -62,12 +47,9 @@ buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://nicolargo.github.io/glances/";
     description = "Cross-platform curses-based monitoring tool";
-    changelog = "https://github.com/nicolargo/glances/blob/v${version}/NEWS.rst";
+    changelog =
+      "https://github.com/nicolargo/glances/blob/v${version}/NEWS.rst";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [
-      jonringer
-      primeos
-      koral
-    ];
+    maintainers = with maintainers; [ jonringer primeos koral ];
   };
 }

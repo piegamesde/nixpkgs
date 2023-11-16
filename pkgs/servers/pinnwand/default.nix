@@ -1,9 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, python3, fetchFromGitHub, nixosTests }:
 
 with python3.pkgs;
 buildPythonApplication rec {
@@ -50,3 +45,4 @@ buildPythonApplication rec {
     maintainers = with maintainers; [ hexa ];
   };
 }
+

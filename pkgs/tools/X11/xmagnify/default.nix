@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  libX11,
-  xorgproto,
-}:
+{ lib, stdenv, fetchFromGitLab, libX11, xorgproto }:
 
 stdenv.mkDerivation rec {
   pname = "xmagnify";
@@ -19,10 +13,7 @@ stdenv.mkDerivation rec {
 
   prePatch = "substituteInPlace ./Makefile --replace /usr $out";
 
-  buildInputs = [
-    libX11
-    xorgproto
-  ];
+  buildInputs = [ libX11 xorgproto ];
 
   meta = with lib; {
     description = "Tiny screen magnifier for X11";

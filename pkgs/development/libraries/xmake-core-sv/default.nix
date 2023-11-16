@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "xmake-core-sv";
@@ -26,3 +21,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ rewine ];
   };
 }
+

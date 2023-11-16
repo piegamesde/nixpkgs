@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   version = "2.3.post0";
@@ -23,7 +17,8 @@ buildPythonPackage rec {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
-    description = "Python software implementation and hardware API of CRC32C checksum algorithm";
+    description =
+      "Python software implementation and hardware API of CRC32C checksum algorithm";
     homepage = "https://github.com/ICRAR/crc32c";
     license = lib.licenses.lgpl21;
     maintainers = with lib.maintainers; [ bcdarwin ];

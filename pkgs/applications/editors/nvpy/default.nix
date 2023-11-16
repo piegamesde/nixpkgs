@@ -1,13 +1,7 @@
-{
-  pkgs,
-  fetchFromGitHub,
-  python3Packages,
-}:
+{ pkgs, fetchFromGitHub, python3Packages }:
 
-let
-  pythonPackages = python3Packages;
-in
-pythonPackages.buildPythonApplication rec {
+let pythonPackages = python3Packages;
+in pythonPackages.buildPythonApplication rec {
   version = "2.2.0";
   pname = "nvpy";
 
@@ -37,7 +31,8 @@ pythonPackages.buildPythonApplication rec {
   '';
 
   meta = with pkgs.lib; {
-    description = "A simplenote-syncing note-taking tool inspired by Notational Velocity";
+    description =
+      "A simplenote-syncing note-taking tool inspired by Notational Velocity";
     homepage = "https://github.com/cpbotha/nvpy";
     platforms = platforms.linux;
     license = licenses.bsd3;

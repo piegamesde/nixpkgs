@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  chardet,
-  fetchFromGitHub,
-  karton-core,
-  pytestCheckHook,
-  python-magic,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, chardet, fetchFromGitHub, karton-core
+, pytestCheckHook, python-magic, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "karton-classifier";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-TRmAin0TAOIwR5EBMwTOJ9QaHO+mOx/eAjgqvyQZDj4=";
   };
 
-  propagatedBuildInputs = [
-    chardet
-    karton-core
-    python-magic
-  ];
+  propagatedBuildInputs = [ chardet karton-core python-magic ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -48,7 +36,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "File type classifier for the Karton framework";
     homepage = "https://github.com/CERT-Polska/karton-classifier";
-    changelog = "https://github.com/CERT-Polska/karton-classifier/releases/tag/v${version}";
+    changelog =
+      "https://github.com/CERT-Polska/karton-classifier/releases/tag/v${version}";
     license = with licenses; [ bsd3 ];
     maintainers = with maintainers; [ fab ];
   };

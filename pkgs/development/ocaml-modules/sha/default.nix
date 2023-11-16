@@ -1,18 +1,12 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  ocaml,
-  stdlib-shims,
-  ounit2,
-}:
+{ lib, fetchurl, buildDunePackage, ocaml, stdlib-shims, ounit2 }:
 
 buildDunePackage rec {
   pname = "sha";
   version = "1.15.4";
 
   src = fetchurl {
-    url = "https://github.com/djs55/ocaml-${pname}/releases/download/v${version}/${pname}-${version}.tbz";
+    url =
+      "https://github.com/djs55/ocaml-${pname}/releases/download/v${version}/${pname}-${version}.tbz";
     hash = "sha256-beWxITmxmZzp30zHiloxiGwqVHydRIvyhT+LU7zx8bE=";
   };
 

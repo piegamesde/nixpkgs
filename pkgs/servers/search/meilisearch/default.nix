@@ -1,17 +1,8 @@
-{
-  stdenv,
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  Security,
-  nixosTests,
-  nix-update-script,
-}:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, Security, nixosTests
+, nix-update-script }:
 
-let
-  version = "1.2.0";
-in
-rustPlatform.buildRustPackage {
+let version = "1.2.0";
+in rustPlatform.buildRustPackage {
   pname = "meilisearch";
   inherit version;
 
@@ -27,9 +18,11 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "actix-web-static-files-3.0.5" = "sha256-2BN0RzLhdykvN3ceRLkaKwSZtel2DBqZ+uz4Qut+nII=";
+      "actix-web-static-files-3.0.5" =
+        "sha256-2BN0RzLhdykvN3ceRLkaKwSZtel2DBqZ+uz4Qut+nII=";
       "heed-0.12.5" = "sha256-WOdpgc3sDNKBSYWB102xTxmY1SWljH9Q1+6xmj4Rb8Q=";
-      "lmdb-rkv-sys-0.15.1" = "sha256-zLHTprwF7aa+2jaD7dGYmOZpJYFijMTb4I3ODflNUII=";
+      "lmdb-rkv-sys-0.15.1" =
+        "sha256-zLHTprwF7aa+2jaD7dGYmOZpJYFijMTb4I3ODflNUII=";
       "nelson-0.1.0" = "sha256-eF672quU576wmZSisk7oDR7QiDafuKlSg0BTQkXnzqY=";
     };
   };
@@ -41,9 +34,7 @@ rustPlatform.buildRustPackage {
 
   passthru = {
     updateScript = nix-update-script { };
-    tests = {
-      meilisearch = nixosTests.meilisearch;
-    };
+    tests = { meilisearch = nixosTests.meilisearch; };
   };
 
   # Tests will try to compile with mini-dashboard features which downloads something from the internet.
@@ -52,14 +43,11 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "Powerful, fast, and an easy to use search engine";
     homepage = "https://docs.meilisearch.com/";
-    changelog = "https://github.com/meilisearch/meilisearch/releases/tag/v${version}";
+    changelog =
+      "https://github.com/meilisearch/meilisearch/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ happysalada ];
-    platforms = [
-      "aarch64-linux"
-      "aarch64-darwin"
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms =
+      [ "aarch64-linux" "aarch64-darwin" "x86_64-linux" "x86_64-darwin" ];
   };
 }

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  typing-extensions,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, typing-extensions, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "asyncstdlib";
@@ -28,9 +22,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "asyncstdlib" ];
 
   meta = with lib; {
-    description = "Python library that extends the Python asyncio standard library";
+    description =
+      "Python library that extends the Python asyncio standard library";
     homepage = "https://asyncstdlib.readthedocs.io/";
-    changelog = "https://github.com/maxfischer2781/asyncstdlib/releases/tag/v${version}";
+    changelog =
+      "https://github.com/maxfischer2781/asyncstdlib/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

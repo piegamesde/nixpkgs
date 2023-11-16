@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  unstableGitUpdater,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "rapidcheck";
@@ -30,7 +24,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
-    description = "A C++ framework for property based testing inspired by QuickCheck";
+    description =
+      "A C++ framework for property based testing inspired by QuickCheck";
     inherit (src.meta) homepage;
     maintainers = with maintainers; [ ];
     license = licenses.bsd2;

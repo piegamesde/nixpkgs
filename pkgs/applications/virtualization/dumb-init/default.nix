@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  glibc,
-}:
+{ lib, stdenv, fetchFromGitHub, glibc }:
 
 stdenv.mkDerivation rec {
   pname = "dumb-init";
@@ -20,7 +15,9 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-static" ""
   '';
 
-  buildInputs = lib.optional (stdenv.hostPlatform.isGnu && stdenv.hostPlatform.isStatic) glibc.static;
+  buildInputs =
+    lib.optional (stdenv.hostPlatform.isGnu && stdenv.hostPlatform.isStatic)
+    glibc.static;
 
   installPhase = ''
     runHook preInstall

@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  makeDesktopItem,
-  fixup_yarn_lock,
-  yarn,
-  nodejs,
-  fetchYarnDeps,
-  electron,
-  element-web,
-  sqlcipher,
-  callPackage,
-  Security,
-  AppKit,
-  CoreServices,
-  desktopToDarwinBundle,
-  useKeytar ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, makeDesktopItem, fixup_yarn_lock
+, yarn, nodejs, fetchYarnDeps, electron, element-web, sqlcipher, callPackage
+, Security, AppKit, CoreServices, desktopToDarwinBundle, useKeytar ? true }:
 
 let
   pinData = import ./pin.nix;
@@ -25,11 +8,8 @@ let
   executableName = "element-desktop";
   keytar = callPackage ./keytar { inherit Security AppKit; };
   seshat = callPackage ./seshat { inherit CoreServices; };
-in
-stdenv.mkDerivation (
-  finalAttrs:
-  builtins.removeAttrs pinData [ "hashes" ]
-  // {
+in stdenv.mkDerivation (finalAttrs:
+  builtins.removeAttrs pinData [ "hashes" ] // {
     pname = "element-desktop";
     name = "${finalAttrs.pname}-${finalAttrs.version}";
     src = fetchFromGitHub {
@@ -44,12 +24,8 @@ stdenv.mkDerivation (
       sha256 = desktopYarnHash;
     };
 
-    nativeBuildInputs = [
-      yarn
-      fixup_yarn_lock
-      nodejs
-      makeWrapper
-    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+    nativeBuildInputs = [ yarn fixup_yarn_lock nodejs makeWrapper ]
+      ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
     inherit seshat;
 
@@ -126,11 +102,7 @@ stdenv.mkDerivation (
       desktopName = "Element";
       genericName = "Matrix Client";
       comment = finalAttrs.meta.description;
-      categories = [
-        "Network"
-        "InstantMessaging"
-        "Chat"
-      ];
+      categories = [ "Network" "InstantMessaging" "Chat" ];
       startupWMClass = "element";
       mimeTypes = [ "x-scheme-handler/element" ];
     };
@@ -157,10 +129,10 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "A feature-rich client for Matrix.org";
       homepage = "https://element.io/";
-      changelog = "https://github.com/vector-im/element-desktop/blob/v${finalAttrs.version}/CHANGELOG.md";
+      changelog =
+        "https://github.com/vector-im/element-desktop/blob/v${finalAttrs.version}/CHANGELOG.md";
       license = licenses.asl20;
       maintainers = teams.matrix.members;
       inherit (electron.meta) platforms;
     };
-  }
-)
+  })

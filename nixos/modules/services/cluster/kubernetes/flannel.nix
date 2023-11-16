@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,8 +8,7 @@ let
 
   # we want flannel to use kubernetes itself as configuration backend, not direct etcd
   storageBackend = "kubernetes";
-in
-{
+in {
   ###### interface
   options.services.kubernetes.flannel = {
     enable = mkEnableOption (lib.mdDoc "flannel networking");
@@ -31,17 +25,15 @@ in
     };
 
     services.kubernetes.kubelet = {
-      cni.config = mkDefault [
-        {
-          name = "mynet";
-          type = "flannel";
-          cniVersion = "0.3.1";
-          delegate = {
-            isDefaultGateway = true;
-            bridge = "mynet";
-          };
-        }
-      ];
+      cni.config = mkDefault [{
+        name = "mynet";
+        type = "flannel";
+        cniVersion = "0.3.1";
+        delegate = {
+          isDefaultGateway = true;
+          bridge = "mynet";
+        };
+      }];
     };
 
     networking = {
@@ -49,10 +41,7 @@ in
         8285 # flannel udp
         8472 # flannel vxlan
       ];
-      dhcpcd.denyInterfaces = [
-        "mynet*"
-        "flannel*"
-      ];
+      dhcpcd.denyInterfaces = [ "mynet*" "flannel*" ];
     };
 
     services.kubernetes.pki.certs = {
@@ -64,16 +53,14 @@ in
     };
 
     # give flannel some kubernetes rbac permissions if applicable
-    services.kubernetes.addonManager.bootstrapAddons =
-      mkIf ((storageBackend == "kubernetes") && (elem "RBAC" top.apiserver.authorizationMode))
-        {
+    services.kubernetes.addonManager.bootstrapAddons = mkIf
+      ((storageBackend == "kubernetes")
+        && (elem "RBAC" top.apiserver.authorizationMode)) {
 
           flannel-cr = {
             apiVersion = "rbac.authorization.k8s.io/v1";
             kind = "ClusterRole";
-            metadata = {
-              name = "flannel";
-            };
+            metadata = { name = "flannel"; };
             rules = [
               {
                 apiGroups = [ "" ];
@@ -83,10 +70,7 @@ in
               {
                 apiGroups = [ "" ];
                 resources = [ "nodes" ];
-                verbs = [
-                  "list"
-                  "watch"
-                ];
+                verbs = [ "list" "watch" ];
               }
               {
                 apiGroups = [ "" ];
@@ -99,21 +83,18 @@ in
           flannel-crb = {
             apiVersion = "rbac.authorization.k8s.io/v1";
             kind = "ClusterRoleBinding";
-            metadata = {
-              name = "flannel";
-            };
+            metadata = { name = "flannel"; };
             roleRef = {
               apiGroup = "rbac.authorization.k8s.io";
               kind = "ClusterRole";
               name = "flannel";
             };
-            subjects = [
-              {
-                kind = "User";
-                name = "flannel-client";
-              }
-            ];
+            subjects = [{
+              kind = "User";
+              name = "flannel-client";
+            }];
           };
+
         };
   };
 

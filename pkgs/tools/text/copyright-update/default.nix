@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, perl }:
 
 stdenv.mkDerivation rec {
   pname = "copyright-update";
@@ -19,10 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ perl ];
 
-  installFlags = [
-    "INSTALL=install"
-    "prefix=$(out)"
-  ];
+  installFlags = [ "INSTALL=install" "prefix=$(out)" ];
 
   meta = with lib; {
     homepage = "https://github.com/jaalto/project--copyright-update";

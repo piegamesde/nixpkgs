@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  packaging,
-  pandas,
-  pytestCheckHook,
-  pythonOlder,
-  setuptoolsBuildHook,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, numpy, packaging, pandas, pytestCheckHook
+, pythonOlder, setuptoolsBuildHook, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "xarray";
@@ -25,16 +15,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = "${version}";
 
-  nativeBuildInputs = [
-    setuptoolsBuildHook
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptoolsBuildHook setuptools-scm ];
 
-  propagatedBuildInputs = [
-    numpy
-    packaging
-    pandas
-  ];
+  propagatedBuildInputs = [ numpy packaging pandas ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools,
-  nose,
-  mock,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools, nose, mock }:
 
 buildPythonPackage rec {
   pname = "statsd";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  nativeCheckInputs = [
-    nose
-    mock
-  ];
+  nativeCheckInputs = [ nose mock ];
 
   patchPhase = ''
     # Failing test: ERROR: statsd.tests.test_ipv6_resolution_udp
@@ -37,4 +27,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     homepage = "https://github.com/jsocol/pystatsd";
   };
+
 }

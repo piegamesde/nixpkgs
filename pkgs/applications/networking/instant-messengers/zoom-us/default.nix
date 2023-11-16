@@ -1,45 +1,11 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pipewire,
-  makeWrapper,
-  xar,
-  cpio,
-  # Dynamic libraries
-  alsa-lib,
-  atk,
-  at-spi2-atk,
-  at-spi2-core,
-  cairo,
-  cups,
-  dbus,
-  expat,
-  libdrm,
-  libGL,
-  fontconfig,
-  freetype,
-  gtk3,
-  gdk-pixbuf,
-  glib,
-  mesa,
-  nspr,
-  nss,
-  pango,
-  wayland,
-  xorg,
-  libxkbcommon,
-  udev,
-  zlib,
-  libkrb5,
-  # Runtime
-  coreutils,
-  pciutils,
-  procps,
-  util-linux,
-  pulseaudioSupport ? true,
-  libpulseaudio,
-}:
+{ stdenv, lib, fetchurl, pipewire, makeWrapper, xar, cpio
+# Dynamic libraries
+, alsa-lib, atk, at-spi2-atk, at-spi2-core, cairo, cups, dbus, expat, libdrm
+, libGL, fontconfig, freetype, gtk3, gdk-pixbuf, glib, mesa, nspr, nss, pango
+, wayland, xorg, libxkbcommon, udev, zlib, libkrb5
+# Runtime
+, coreutils, pciutils, procps, util-linux, pulseaudioSupport ? true
+, libpulseaudio }:
 
 let
   inherit (stdenv.hostPlatform) system;
@@ -55,68 +21,68 @@ let
 
   srcs = {
     aarch64-darwin = fetchurl {
-      url = "https://zoom.us/client/${versions.aarch64-darwin}/zoomusInstallerFull.pkg?archType=arm64";
+      url =
+        "https://zoom.us/client/${versions.aarch64-darwin}/zoomusInstallerFull.pkg?archType=arm64";
       name = "zoomusInstallerFull.pkg";
       hash = "sha256-8Yu/1oDjTOpL5KbS/PJlGIHTRevBxkZ7/1Rp/dgpnOw=";
     };
     x86_64-darwin = fetchurl {
-      url = "https://zoom.us/client/${versions.x86_64-darwin}/zoomusInstallerFull.pkg";
+      url =
+        "https://zoom.us/client/${versions.x86_64-darwin}/zoomusInstallerFull.pkg";
       hash = "sha256-un4tV7fitm097ES9J2Ght3U2NUJSNiyouwwKrsNXL/w=";
     };
     x86_64-linux = fetchurl {
-      url = "https://zoom.us/client/${versions.x86_64-linux}/zoom_x86_64.pkg.tar.xz";
+      url =
+        "https://zoom.us/client/${versions.x86_64-linux}/zoom_x86_64.pkg.tar.xz";
       hash = "sha256-xvJeVjzBKD1qxpr/t4sEhIWcqz3aQ4jllXoHX4pjrTU=";
     };
   };
 
-  libs = lib.makeLibraryPath (
-    [
-      # $ LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH:$PWD ldd zoom | grep 'not found'
-      alsa-lib
-      atk
-      at-spi2-atk
-      at-spi2-core
-      cairo
-      cups
-      dbus
-      expat
-      libdrm
-      libGL
-      pipewire
-      fontconfig
-      freetype
-      gtk3
-      gdk-pixbuf
-      glib
-      mesa
-      nspr
-      nss
-      pango
-      stdenv.cc.cc
-      wayland
-      xorg.libX11
-      xorg.libxcb
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      libxkbcommon
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libxshmfence
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
-      xorg.xcbutilwm
-      xorg.libXfixes
-      xorg.libXtst
-      udev
-      zlib
-      libkrb5
-    ]
-    ++ lib.optional (pulseaudioSupport) libpulseaudio
-  );
-in
-stdenv.mkDerivation rec {
+  libs = lib.makeLibraryPath ([
+    # $ LD_LIBRARY_PATH=$NIX_LD_LIBRARY_PATH:$PWD ldd zoom | grep 'not found'
+    alsa-lib
+    atk
+    at-spi2-atk
+    at-spi2-core
+    cairo
+    cups
+    dbus
+    expat
+    libdrm
+    libGL
+    pipewire
+    fontconfig
+    freetype
+    gtk3
+    gdk-pixbuf
+    glib
+    mesa
+    nspr
+    nss
+    pango
+    stdenv.cc.cc
+    wayland
+    xorg.libX11
+    xorg.libxcb
+    xorg.libXcomposite
+    xorg.libXdamage
+    xorg.libXext
+    libxkbcommon
+    xorg.libXrandr
+    xorg.libXrender
+    xorg.libxshmfence
+    xorg.xcbutilimage
+    xorg.xcbutilkeysyms
+    xorg.xcbutilrenderutil
+    xorg.xcbutilwm
+    xorg.libXfixes
+    xorg.libXtst
+    udev
+    zlib
+    libkrb5
+  ] ++ lib.optional (pulseaudioSupport) libpulseaudio);
+
+in stdenv.mkDerivation rec {
   pname = "zoom";
   version = versions.${system} or throwSystem;
 
@@ -128,12 +94,8 @@ stdenv.mkDerivation rec {
     zcat < zoomus.pkg/Payload | cpio -i
   '';
 
-  nativeBuildInputs =
-    [ makeWrapper ]
-    ++ lib.optionals stdenv.isDarwin [
-      xar
-      cpio
-    ];
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optionals stdenv.isDarwin [ xar cpio ];
 
   installPhase = ''
     runHook preInstall
@@ -149,8 +111,7 @@ stdenv.mkDerivation rec {
         tar -C $out -xf $src
         mv $out/usr/* $out/
       '';
-    }
-    .${system} or throwSystem}
+    }.${system} or throwSystem}
     runHook postInstall
   '';
 
@@ -180,13 +141,7 @@ stdenv.mkDerivation rec {
       --unset QT_PLUGIN_PATH \
       --unset QT_SCREEN_SCALE_FACTORS \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          glib.dev
-          pciutils
-          procps
-          util-linux
-        ]
+        lib.makeBinPath [ coreutils glib.dev pciutils procps util-linux ]
       } \
       --prefix LD_LIBRARY_PATH ":" ${libs}
 
@@ -205,10 +160,6 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = builtins.attrNames srcs;
-    maintainers = with maintainers; [
-      danbst
-      tadfisher
-      doronbehar
-    ];
+    maintainers = with maintainers; [ danbst tadfisher doronbehar ];
   };
 }

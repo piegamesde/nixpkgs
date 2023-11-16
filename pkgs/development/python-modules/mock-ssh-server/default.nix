@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  paramiko,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, paramiko, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "mock-ssh-server";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python mock SSH server for testing purposes";
     homepage = "https://github.com/carletes/mock-ssh-server";
-    changelog = "https://github.com/carletes/mock-ssh-server/releases/tag/${version}";
+    changelog =
+      "https://github.com/carletes/mock-ssh-server/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

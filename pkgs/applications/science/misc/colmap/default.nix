@@ -1,19 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  boost17x,
-  ceres-solver,
-  eigen,
-  freeimage,
-  glog,
-  libGLU,
-  glew,
-  qtbase,
-  cudaSupport ? false,
-  cudaPackages,
-}:
+{ mkDerivation, lib, fetchFromGitHub, cmake, boost17x, ceres-solver, eigen
+, freeimage, glog, libGLU, glew, qtbase, cudaSupport ? false, cudaPackages }:
 
 assert cudaSupport -> cudaPackages != { };
 
@@ -22,8 +8,7 @@ let
 
   # TODO: migrate to redist packages
   inherit (cudaPackages) cudatoolkit;
-in
-mkDerivation rec {
+in mkDerivation rec {
   version = "3.7";
   pname = "colmap";
   src = fetchFromGitHub {
@@ -39,23 +24,16 @@ mkDerivation rec {
     "-DCUDA_NVCC_FLAGS=--std=c++14"
   ];
 
-  buildInputs = [
-    boost_static
-    ceres-solver
-    eigen
-    freeimage
-    glog
-    libGLU
-    glew
-    qtbase
-  ] ++ lib.optionals cudaSupport [ cudatoolkit ];
+  buildInputs =
+    [ boost_static ceres-solver eigen freeimage glog libGLU glew qtbase ]
+    ++ lib.optionals cudaSupport [ cudatoolkit ];
 
-  nativeBuildInputs = [
-    cmake
-  ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
+  nativeBuildInputs = [ cmake ]
+    ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
 
   meta = with lib; {
-    description = "COLMAP - Structure-From-Motion and Multi-View Stereo pipeline";
+    description =
+      "COLMAP - Structure-From-Motion and Multi-View Stereo pipeline";
     longDescription = ''
       COLMAP is a general-purpose Structure-from-Motion (SfM) and Multi-View Stereo (MVS) pipeline
       with a graphical and command-line interface.

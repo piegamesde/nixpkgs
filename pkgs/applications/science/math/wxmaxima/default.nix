@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  wrapGAppsHook,
-  cmake,
-  gettext,
-  maxima,
-  wxGTK,
-  gnome,
-  glib,
-}:
+{ lib, stdenv, fetchFromGitHub, wrapGAppsHook, cmake, gettext, maxima, wxGTK
+, gnome, glib }:
 
 stdenv.mkDerivation rec {
   pname = "wxmaxima";
@@ -31,11 +21,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    cmake
-    gettext
-  ];
+  nativeBuildInputs = [ wrapGAppsHook cmake gettext ];
 
   cmakeFlags = [ "-DwxWidgets_LIBRARIES=${wxGTK}/lib" ];
 

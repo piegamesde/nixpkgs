@@ -1,18 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "trivia_dot_level1";
   version = "trivia-20211020-git";
 
   description = "Core patterns of Trivia";
 
-  deps = [
-    args."alexandria"
-    args."trivia_dot_level0"
-  ];
+  deps = [ args."alexandria" args."trivia_dot_level0" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/trivia/2021-10-20/trivia-20211020-git.tgz";
     sha256 = "0gf63v42pq8cxr7an177p2mf25n5jpqxdf0zb4xqlm2sydk7ng1g";
   };
 

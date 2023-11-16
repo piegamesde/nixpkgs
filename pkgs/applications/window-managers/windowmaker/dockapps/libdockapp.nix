@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  dockapps-sources,
-  autoreconfHook,
-  pkg-config,
-  libX11,
-  libXext,
-  libXpm,
-  mkfontdir,
-  fontutil,
-}:
+{ lib, stdenv, dockapps-sources, autoreconfHook, pkg-config, libX11, libXext
+, libXpm, mkfontdir, fontutil }:
 
 stdenv.mkDerivation rec {
   pname = "libdockapp";
@@ -17,28 +7,16 @@ stdenv.mkDerivation rec {
 
   src = dockapps-sources;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libX11
-    libXext
-    libXpm
-    fontutil
-    mkfontdir
-  ];
+  buildInputs = [ libX11 libXext libXpm fontutil mkfontdir ];
 
   setSourceRoot = ''
     export sourceRoot=$(echo */${pname})
   '';
 
   # There is a bug on --with-font
-  configureFlags = [
-    "--with-examples=no"
-    "--with-font=no"
-  ];
+  configureFlags = [ "--with-examples=no" "--with-font=no" ];
 
   meta = with lib; {
     description = "A library providing a framework for dockapps";

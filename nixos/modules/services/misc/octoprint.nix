@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -20,20 +15,23 @@ let
 
   fullConfig = recursiveUpdate cfg.extraConfig baseConfig;
 
-  cfgUpdate = pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
+  cfgUpdate =
+    pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
 
-  pluginsEnv = package.python.withPackages (ps: [ ps.octoprint ] ++ (cfg.plugins ps));
+  pluginsEnv =
+    package.python.withPackages (ps: [ ps.octoprint ] ++ (cfg.plugins ps));
 
   package = pkgs.octoprint;
-in
-{
+
+in {
   ##### interface
 
   options = {
 
     services.octoprint = {
 
-      enable = mkEnableOption (lib.mdDoc "OctoPrint, web interface for 3D printers");
+      enable =
+        mkEnableOption (lib.mdDoc "OctoPrint, web interface for 3D printers");
 
       host = mkOption {
         type = types.str;
@@ -79,18 +77,21 @@ in
         type = types.functionTo (types.listOf types.package);
         default = plugins: [ ];
         defaultText = literalExpression "plugins: []";
-        example = literalExpression "plugins: with plugins; [ themeify stlviewer ]";
-        description =
-          lib.mdDoc
-            "Additional plugins to be used. Available plugins are passed through the plugins input.";
+        example =
+          literalExpression "plugins: with plugins; [ themeify stlviewer ]";
+        description = lib.mdDoc
+          "Additional plugins to be used. Available plugins are passed through the plugins input.";
       };
 
       extraConfig = mkOption {
         type = types.attrs;
         default = { };
-        description = lib.mdDoc "Extra options which are added to OctoPrint's YAML configuration file.";
+        description = lib.mdDoc
+          "Extra options which are added to OctoPrint's YAML configuration file.";
       };
+
     };
+
   };
 
   ##### implementation

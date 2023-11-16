@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  inkscape,
-  xcursorgen,
-}:
+{ lib, stdenv, fetchFromGitHub, inkscape, xcursorgen }:
 stdenv.mkDerivation {
   pname = "volantes-cursors";
   version = "2022-08-27";
@@ -17,17 +11,11 @@ stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    inkscape
-    xcursorgen
-  ];
+  nativeBuildInputs = [ inkscape xcursorgen ];
 
   makeTargets = [ "build" ];
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  makeFlags = [ "DESTDIR=$(out)" "PREFIX=" ];
 
   meta = with lib; {
     homepage = "https://www.pling.com/p/1356095/";

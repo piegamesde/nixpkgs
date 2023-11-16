@@ -1,30 +1,7 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  cargo,
-  configobj,
-  cython,
-  dulwich,
-  fastbencode,
-  fastimport,
-  libiconv,
-  merge3,
-  patiencediff,
-  pyyaml,
-  urllib3,
-  breezy,
-  launchpadlib,
-  testtools,
-  pythonOlder,
-  installShellFiles,
-  rustPlatform,
-  rustc,
-  setuptools-gettext,
-  setuptools-rust,
-  testers,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, cargo, configobj, cython, dulwich
+, fastbencode, fastimport, libiconv, merge3, patiencediff, pyyaml, urllib3
+, breezy, launchpadlib, testtools, pythonOlder, installShellFiles, rustPlatform
+, rustc, setuptools-gettext, setuptools-rust, testers }:
 
 buildPythonPackage rec {
   pname = "breezy";
@@ -56,15 +33,10 @@ buildPythonPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
-  propagatedBuildInputs = [
-    configobj
-    dulwich
-    fastbencode
-    merge3
-    patiencediff
-    pyyaml
-    urllib3
-  ] ++ passthru.optional-dependencies.launchpad ++ passthru.optional-dependencies.fastimport;
+  propagatedBuildInputs =
+    [ configobj dulwich fastbencode merge3 patiencediff pyyaml urllib3 ]
+    ++ passthru.optional-dependencies.launchpad
+    ++ passthru.optional-dependencies.fastimport;
 
   nativeCheckInputs = [ testtools ];
 
@@ -88,10 +60,7 @@ buildPythonPackage rec {
     installShellCompletion --cmd brz --bash contrib/bash/brz
   '';
 
-  pythonImportsCheck = [
-    "breezy"
-    "breezy.bzr.rio"
-  ];
+  pythonImportsCheck = [ "breezy" "breezy.bzr.rio" ];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -107,7 +76,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Friendly distributed version control system";
     homepage = "https://www.breezy-vcs.org/";
-    changelog = "https://github.com/breezy-team/breezy/blob/brz-${version}/doc/en/release-notes/brz-${
+    changelog =
+      "https://github.com/breezy-team/breezy/blob/brz-${version}/doc/en/release-notes/brz-${
         versions.majorMinor version
       }.txt";
     license = licenses.gpl2Only;

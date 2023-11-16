@@ -1,23 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  perl,
-  pandoc,
-  python3Packages,
-  git,
-  par2cmdline ? null,
-  par2Support ? true,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, perl, pandoc, python3Packages, git
+, par2cmdline ? null, par2Support ? true }:
 
 assert par2Support -> par2cmdline != null;
 
-let
-  version = "0.32";
-in
+let version = "0.32";
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "bup";
   inherit version;
 
@@ -30,34 +18,19 @@ stdenv.mkDerivation {
 
   buildInputs = [
     git
-    (python3Packages.python.withPackages (
-      p:
+    (python3Packages.python.withPackages (p:
       with p;
-      [
-        setuptools
-        tornado
-      ]
-      ++ lib.optionals (!stdenv.isDarwin) [
-        pyxattr
-        pylibacl
-        fuse
-      ]
-    ))
+      [ setuptools tornado ]
+      ++ lib.optionals (!stdenv.isDarwin) [ pyxattr pylibacl fuse ]))
   ];
-  nativeBuildInputs = [
-    pandoc
-    perl
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pandoc perl makeWrapper ];
 
-  postPatch =
-    ''
-      patchShebangs .
-      substituteInPlace Makefile --replace "-Werror" ""
-    ''
-    + lib.optionalString par2Support ''
-      substituteInPlace cmd/fsck-cmd.py --replace "'par2'" "'${par2cmdline}/bin/par2'"
-    '';
+  postPatch = ''
+    patchShebangs .
+    substituteInPlace Makefile --replace "-Werror" ""
+  '' + lib.optionalString par2Support ''
+    substituteInPlace cmd/fsck-cmd.py --replace "'par2'" "'${par2cmdline}/bin/par2'"
+  '';
 
   dontAddPrefix = true;
 
@@ -75,7 +48,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/bup/bup";
-    description = "Efficient file backup system based on the git packfile format";
+    description =
+      "Efficient file backup system based on the git packfile format";
     license = licenses.gpl2Plus;
 
     longDescription = ''

@@ -1,17 +1,12 @@
-{
-  lib,
-  mkDerivation,
-  fetchurl,
-  qtbase,
-  qmake,
-}:
+{ lib, mkDerivation, fetchurl, qtbase, qmake }:
 
 mkDerivation rec {
   pname = "confclerk";
   version = "0.7.1";
 
   src = fetchurl {
-    url = "https://www.toastfreeware.priv.at/tarballs/confclerk/confclerk-${version}.tar.gz";
+    url =
+      "https://www.toastfreeware.priv.at/tarballs/confclerk/confclerk-${version}.tar.gz";
     sha256 = "0l5i4d6lymh0k6gzihs41x4i8v1dz0mrwpga096af0vchpvlcarg";
   };
 

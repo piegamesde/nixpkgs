@@ -1,9 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  src,
-  version,
-}:
+{ lib, buildNpmPackage, src, version }:
 
 buildNpmPackage {
   inherit src version;

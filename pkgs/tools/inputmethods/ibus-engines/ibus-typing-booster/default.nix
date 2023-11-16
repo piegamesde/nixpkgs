@@ -1,29 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  python3,
-  ibus,
-  pkg-config,
-  gtk3,
-  m17n_lib,
-  wrapGAppsHook,
-  gobject-introspection,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, python3, ibus, pkg-config, gtk3
+, m17n_lib, wrapGAppsHook, gobject-introspection }:
 
 let
 
-  python = python3.withPackages (
-    ps:
-    with ps; [
-      pygobject3
-      dbus-python
-    ]
-  );
-in
+  python = python3.withPackages (ps: with ps; [ pygobject3 dbus-python ]);
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ibus-typing-booster";
   version = "2.22.5";
 
@@ -34,18 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-PPpA4O/uMGfSr67CQGX0qxGtZjKKdE9V6kdKpVjgmrs=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    wrapGAppsHook
-    gobject-introspection
-  ];
-  buildInputs = [
-    python
-    ibus
-    gtk3
-    m17n_lib
-  ];
+  nativeBuildInputs =
+    [ autoreconfHook pkg-config wrapGAppsHook gobject-introspection ];
+  buildInputs = [ python ibus gtk3 m17n_lib ];
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : "${m17n_lib}/lib")

@@ -1,17 +1,5 @@
-{
-  mkDerivation,
-  lib,
-  fetchurl,
-  extra-cmake-modules,
-  kdoctools,
-  wrapGAppsHook,
-  boost,
-  kcrash,
-  kconfig,
-  kinit,
-  kparts,
-  kiconthemes,
-}:
+{ mkDerivation, lib, fetchurl, extra-cmake-modules, kdoctools, wrapGAppsHook
+, boost, kcrash, kconfig, kinit, kparts, kiconthemes }:
 
 mkDerivation rec {
   pname = "kdiff3";
@@ -24,19 +12,9 @@ mkDerivation rec {
 
   buildInputs = [ boost ];
 
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools wrapGAppsHook ];
 
-  propagatedBuildInputs = [
-    kconfig
-    kcrash
-    kinit
-    kparts
-    kiconthemes
-  ];
+  propagatedBuildInputs = [ kconfig kcrash kinit kparts kiconthemes ];
 
   cmakeFlags = [ "-Wno-dev" ];
 

@@ -1,9 +1,4 @@
-{
-  build-idris-package,
-  fetchFromGitLab,
-  lightyear,
-  lib,
-}:
+{ build-idris-package, fetchFromGitLab, lightyear, lib }:
 build-idris-package {
   pname = "graphviz";
   version = "2017-01-16";

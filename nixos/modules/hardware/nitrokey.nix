@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.hardware.nitrokey;
-in
 
-{
+in {
   options.hardware.nitrokey = {
     enable = mkOption {
       type = types.bool;

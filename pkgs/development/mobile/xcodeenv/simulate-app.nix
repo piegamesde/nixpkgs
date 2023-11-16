@@ -1,23 +1,14 @@
-{
-  stdenv,
-  lib,
-  composeXcodeWrapper,
-}:
-{
-  name,
-  app ? null,
-  bundleId ? null,
-  ...
-}@args:
+{ stdenv, lib, composeXcodeWrapper }:
+{ name, app ? null, bundleId ? null, ... }@args:
 
 assert app != null -> bundleId != null;
 
 let
-  xcodewrapperArgs = builtins.intersectAttrs (builtins.functionArgs composeXcodeWrapper) args;
+  xcodewrapperArgs =
+    builtins.intersectAttrs (builtins.functionArgs composeXcodeWrapper) args;
 
   xcodewrapper = composeXcodeWrapper xcodewrapperArgs;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = lib.replaceStrings [ " " ] [ "" ] name;
   buildCommand = ''
     mkdir -p $out/bin

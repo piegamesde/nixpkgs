@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  idna,
-  typing ? null,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, idna, typing ? null }:
 
 buildPythonPackage rec {
   pname = "hyperlink";

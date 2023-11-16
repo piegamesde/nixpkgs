@@ -1,10 +1,4 @@
-{
-  lib,
-  nimPackages,
-  fetchFromGitHub,
-  srcOnly,
-  nim,
-}:
+{ lib, nimPackages, fetchFromGitHub, srcOnly, nim }:
 
 nimPackages.buildNimPackage rec {
   pname = "nimlsp";
@@ -18,10 +12,7 @@ nimPackages.buildNimPackage rec {
     sha256 = "sha256-Z67iKlL+dnRbxdFt/n/fsUcb2wpZwzPpL/G29jfCaMY=";
   };
 
-  buildInputs = with nimPackages; [
-    jsonschema
-    asynctools
-  ];
+  buildInputs = with nimPackages; [ jsonschema asynctools ];
 
   nimFlags = [
     "--threads:on"
@@ -29,12 +20,7 @@ nimPackages.buildNimPackage rec {
     "-d:tempDir=/tmp"
   ];
 
-  nimDefines = [
-    "nimcore"
-    "nimsuggest"
-    "debugCommunication"
-    "debugLogging"
-  ];
+  nimDefines = [ "nimcore" "nimsuggest" "debugCommunication" "debugLogging" ];
 
   meta = with lib; {
     description = "Language Server Protocol implementation for Nim";

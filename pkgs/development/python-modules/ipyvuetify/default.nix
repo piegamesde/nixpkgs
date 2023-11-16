@@ -1,10 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  # Python Inputs
-  ipyvue,
-}:
+{ lib, buildPythonPackage, fetchPypi
+# Python Inputs
+, ipyvue }:
 
 buildPythonPackage rec {
   pname = "ipyvuetify";

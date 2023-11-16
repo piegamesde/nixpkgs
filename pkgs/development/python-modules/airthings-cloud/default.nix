@@ -1,10 +1,4 @@
-{
-  lib,
-  aiohttp,
-  async-timeout,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
+{ lib, aiohttp, async-timeout, buildPythonPackage, fetchFromGitHub, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-sqHNK6biSWso4uOYimzU7PkEn0uP5sHAaPGsS2vSMNY=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout ];
 
   # Project has no tests
   doCheck = false;

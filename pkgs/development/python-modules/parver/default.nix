@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  setuptools,
-  attrs,
-  pytestCheckHook,
-  hypothesis,
-  pretend,
-  arpeggio,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, setuptools, attrs
+, pytestCheckHook, hypothesis, pretend, arpeggio, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "parver";
@@ -24,16 +13,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    attrs
-    arpeggio
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [ attrs arpeggio ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-    pretend
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis pretend ];
 
   meta = with lib; {
     description = "Allows parsing and manipulation of PEP 440 version numbers";

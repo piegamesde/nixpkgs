@@ -1,27 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.monero;
 
-  listToConf =
-    option: list:
-    concatMapStrings
-      (value: ''
-        ${option}=${value}
-      '')
-      list;
+  listToConf = option: list:
+    concatMapStrings (value: ''
+      ${option}=${value}
+    '') list;
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);
 
-  configFile =
-    with cfg;
+  configFile = with cfg;
     pkgs.writeText "monero.conf" ''
       log-file=/dev/stdout
       data-dir=${dataDir}
@@ -51,9 +42,8 @@ let
 
       ${extraConfig}
     '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -205,7 +195,9 @@ in
           Extra lines to be added verbatim to monerod configuration.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -230,12 +222,10 @@ in
       serviceConfig = {
         User = "monero";
         Group = "monero";
-        ExecStart = "${pkgs.monero-cli}/bin/monerod --config-file=${configFile} --non-interactive";
+        ExecStart =
+          "${pkgs.monero-cli}/bin/monerod --config-file=${configFile} --non-interactive";
         Restart = "always";
-        SuccessExitStatus = [
-          0
-          1
-        ];
+        SuccessExitStatus = [ 0 1 ];
       };
     };
 
@@ -246,7 +236,10 @@ in
         specify one using option monero.mining.address.
       '';
     };
+
   };
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+
 }
+

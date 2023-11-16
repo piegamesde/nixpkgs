@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  numpy,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, numpy }:
 
 buildPythonPackage rec {
   pname = "arrayqueues";

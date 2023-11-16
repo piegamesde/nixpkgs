@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cargo,
-  fetchFromGitHub,
-  libiconv,
-  pytestCheckHook,
-  pythonOlder,
-  rustPlatform,
-  rustc,
-  setuptools-rust,
-}:
+{ lib, buildPythonPackage, cargo, fetchFromGitHub, libiconv, pytestCheckHook
+, pythonOlder, rustPlatform, rustc, setuptools-rust }:
 
 buildPythonPackage rec {
   pname = "rtoml";

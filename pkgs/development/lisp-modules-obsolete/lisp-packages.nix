@@ -1,21 +1,7 @@
-{
-  lib,
-  stdenv,
-  clwrapper,
-  pkgs,
-  sbcl,
-  coreutils,
-  nix,
-  asdf,
-}:
+{ lib, stdenv, clwrapper, pkgs, sbcl, coreutils, nix, asdf }:
 let
   lispPackages = rec {
-    inherit
-      lib
-      pkgs
-      clwrapper
-      stdenv
-    ;
+    inherit lib pkgs clwrapper stdenv;
     nixLib = pkgs.lib;
     callPackage = nixLib.callPackageWith lispPackages;
 
@@ -40,8 +26,10 @@ let
         quicklispdist = pkgs.fetchurl {
           # Will usually be replaced with a fresh version anyway, but needs to be
           # a valid distinfo.txt
-          url = "http://beta.quicklisp.org/dist/quicklisp/2021-12-09/distinfo.txt";
-          sha256 = "sha256:0gc4cv73nl7xkfwvmkmfhfx6yqf876nfm2v24v6fky9n24sh4y6w";
+          url =
+            "http://beta.quicklisp.org/dist/quicklisp/2021-12-09/distinfo.txt";
+          sha256 =
+            "sha256:0gc4cv73nl7xkfwvmkmfhfx6yqf876nfm2v24v6fky9n24sh4y6w";
         };
         buildPhase = "true; ";
         postInstall = ''
@@ -57,10 +45,7 @@ let
       version = "1.0.0";
       src = ./quicklisp-to-nix;
       nativeBuildInputs = [ sbcl ];
-      buildInputs = [
-        lispPackages.quicklisp
-        coreutils
-      ];
+      buildInputs = [ lispPackages.quicklisp coreutils ];
       touch = coreutils;
       nix-prefetch-url = nix;
       inherit quicklisp;
@@ -78,10 +63,7 @@ let
       pname = "quicklisp-to-nix";
       version = "1.0.0";
       src = ./quicklisp-to-nix;
-      buildDependencies = [
-        sbcl
-        quicklisp-to-nix-system-info
-      ];
+      buildDependencies = [ sbcl quicklisp-to-nix-system-info ];
       buildInputs = with pkgs.lispPackages; [
         md5
         cl-emb
@@ -110,7 +92,8 @@ let
       buildSystems = [ "clx-truetype" ];
       parasites = [ "clx-truetype-test" ];
 
-      description = "clx-truetype is pure common lisp solution for antialiased TrueType font rendering using CLX and XRender extension.";
+      description =
+        "clx-truetype is pure common lisp solution for antialiased TrueType font rendering using CLX and XRender extension.";
       deps = with pkgs.lispPackages; [
         alexandria
         bordeaux-threads
@@ -125,7 +108,8 @@ let
         zpb-ttf
       ];
       src = pkgs.fetchurl {
-        url = "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz";
+        url =
+          "http://beta.quicklisp.org/archive/clx-truetype/2016-08-25/clx-truetype-20160825-git.tgz";
         sha256 = "0ndy067rg9w6636gxwlpnw7f3ck9nrnjb03444pprik9r3c9in67";
       };
 
@@ -148,10 +132,7 @@ let
       parasites = [ "cluffer-test" ];
 
       description = "General purpose text-editor buffer";
-      deps = with pkgs.lispPackages; [
-        acclimation
-        clump
-      ];
+      deps = with pkgs.lispPackages; [ acclimation clump ];
       src = pkgs.fetchFromGitHub {
         owner = "robert-strandh";
         repo = "cluffer";
@@ -199,18 +180,17 @@ let
         # Prevent nyxt from trying to obtain dependencies as submodules
         makeFlags = [ "NYXT_SUBMODULES=false" ] ++ x.buildFlags or [ ];
 
-        patches =
-          x.patches or [ ]
-          ++ [
-            # Work around crash when opening _any_ URL
-            # https://github.com/atlas-engineer/nyxt/issues/1781
-            # https://github.com/NixOS/nixpkgs/issues/158005
-            (pkgs.fetchpatch {
-              name = "nyxt-webkit-disable-sandbox.patch";
-              url = "https://github.com/atlas-engineer/nyxt/commit/48ac0d8727f1ca1428188a1ab2c05b7be5f6cc51.patch";
-              sha256 = "0570mcfn5wmjha6jmfdgglp0w5b7rpfnv3flzn77clgbknwbxi0m";
-            })
-          ];
+        patches = x.patches or [ ] ++ [
+          # Work around crash when opening _any_ URL
+          # https://github.com/atlas-engineer/nyxt/issues/1781
+          # https://github.com/NixOS/nixpkgs/issues/158005
+          (pkgs.fetchpatch {
+            name = "nyxt-webkit-disable-sandbox.patch";
+            url =
+              "https://github.com/atlas-engineer/nyxt/commit/48ac0d8727f1ca1428188a1ab2c05b7be5f6cc51.patch";
+            sha256 = "0570mcfn5wmjha6jmfdgglp0w5b7rpfnv3flzn77clgbknwbxi0m";
+          })
+        ];
       };
 
       deps = with pkgs.lispPackages; [
@@ -269,17 +249,14 @@ let
 
       packageName = "nyxt";
 
-      propagatedBuildInputs = [
-        pkgs.libressl.out
-        pkgs.webkitgtk
-        pkgs.sbcl
-      ];
+      propagatedBuildInputs = [ pkgs.libressl.out pkgs.webkitgtk pkgs.sbcl ];
     };
 
     mgl = buildLispPackage rec {
       baseName = "mgl";
       version = "2021-10-07";
-      description = "MGL is a machine learning library for backpropagation neural networks, boltzmann machines, gaussian processes and more";
+      description =
+        "MGL is a machine learning library for backpropagation neural networks, boltzmann machines, gaussian processes and more";
       deps = with pkgs.lispPackages; [
         alexandria
         closer-mop
@@ -298,10 +275,7 @@ let
         sha256 = "sha256:09sf7nq7nmf9q7bh3a5ygl2i2n0nhrx5fk2kv5ili0ckv7g9x72s";
         # date = 2021-10-18T14:15+02:00
       };
-      buildSystems = [
-        "mgl"
-        "mgl/test"
-      ];
+      buildSystems = [ "mgl" "mgl/test" ];
       packageName = "mgl";
       parasites = [ "mgl/test" ];
       asdFilesToKeep = [
@@ -338,13 +312,10 @@ let
         # date = 2021-10-18T14:15+02:00
       };
       packageName = "mgl-mat";
-      buildSystems = [
-        "mgl-mat"
-        "mgl-mat/test"
-      ];
+      buildSystems = [ "mgl-mat" "mgl-mat/test" ];
       parasites = [ "mgl-mat/test" ];
       asdFilesToKeep = [ "mgl-mat.asd" ];
     };
+
   };
-in
-lispPackages
+in lispPackages

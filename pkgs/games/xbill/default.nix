@@ -1,34 +1,16 @@
-{
-  stdenv,
-  lib,
-  makeDesktopItem,
-  copyDesktopItems,
-  fetchurl,
-  libX11,
-  libXpm,
-  libXt,
-  motif,
-  ...
-}:
+{ stdenv, lib, makeDesktopItem, copyDesktopItems, fetchurl, libX11, libXpm
+, libXt, motif, ... }:
 
 stdenv.mkDerivation rec {
   pname = "xbill";
   version = "2.1";
 
   nativeBuildInputs = [ copyDesktopItems ];
-  buildInputs = [
-    libX11
-    libXpm
-    libXt
-    motif
-  ];
+  buildInputs = [ libX11 libXpm libXt motif ];
 
   NIX_CFLAGS_LINK = "-lXpm";
 
-  configureFlags = [
-    "--with-x"
-    "--enable-motif"
-  ];
+  configureFlags = [ "--with-x" "--enable-motif" ];
 
   src = fetchurl {
     url = "http://www.xbill.org/download/${pname}-${version}.tar.gz";
@@ -42,10 +24,7 @@ stdenv.mkDerivation rec {
       icon = "xbill";
       desktopName = "XBill";
       comment = "Get rid of those Wingdows viruses!";
-      categories = [
-        "Game"
-        "ArcadeGame"
-      ];
+      categories = [ "Game" "ArcadeGame" ];
     })
   ];
 

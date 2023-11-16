@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  cmake,
-  gfortran,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitLab, cmake, gfortran, perl }:
 
 stdenv.mkDerivation rec {
   pname = "libxc";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-VILqlvACQyccaXXS+UE25+LzE74+52pI66RUrVS0esI=";
   };
 
-  nativeBuildInputs = [
-    perl
-    cmake
-    gfortran
-  ];
+  nativeBuildInputs = [ perl cmake gfortran ];
 
   preConfigure = ''
     patchShebangs ./
@@ -42,7 +31,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "Library of exchange-correlation functionals for density-functional theory";
+    description =
+      "Library of exchange-correlation functionals for density-functional theory";
     homepage = "https://www.tddft.org/programs/Libxc/";
     license = licenses.mpl20;
     platforms = platforms.unix;

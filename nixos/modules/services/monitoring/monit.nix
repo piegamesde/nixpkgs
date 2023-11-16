@@ -1,17 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.monit;
-in
+let cfg = config.services.monit;
 
-{
+in {
   options.services.monit = {
 
     enable = mkEnableOption (lib.mdDoc "Monit");
@@ -21,6 +14,7 @@ in
       default = "";
       description = lib.mdDoc "monitrc content";
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -45,6 +39,7 @@ in
       };
       restartTriggers = [ config.environment.etc.monitrc.source ];
     };
+
   };
 
   meta.maintainers = with maintainers; [ ryantm ];

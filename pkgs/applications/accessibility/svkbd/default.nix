@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  writeText,
-  pkg-config,
-  libX11,
-  libXft,
-  libXi,
-  libXinerama,
-  libXtst,
-  layout ? null,
-  conf ? null,
-  patches ? [ ],
-}:
+{ lib, stdenv, fetchurl, writeText, pkg-config, libX11, libXft, libXi
+, libXinerama, libXtst, layout ? null, conf ? null, patches ? [ ] }:
 
 stdenv.mkDerivation rec {
   pname = "svkbd";
@@ -25,26 +12,21 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || lib.isPath conf then conf else writeText "config.def.h" conf;
-    in
-    lib.optionalString (conf != null) ''
-      cp ${configFile} config.def.h
-    '';
+  postPatch = let
+    configFile = if lib.isDerivation conf || lib.isPath conf then
+      conf
+    else
+      writeText "config.def.h" conf;
+  in lib.optionalString (conf != null) ''
+    cp ${configFile} config.def.h
+  '';
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libX11
-    libXft
-    libXi
-    libXinerama
-    libXtst
-  ];
+  buildInputs = [ libX11 libXft libXi libXinerama libXtst ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ] ++ lib.optional (layout != null) "LAYOUT=${layout}";
+  makeFlags = [ "PREFIX=${placeholder "out"}" ]
+    ++ lib.optional (layout != null) "LAYOUT=${layout}";
 
   meta = with lib; {
     description = "Simple virtual keyboard";

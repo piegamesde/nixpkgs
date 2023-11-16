@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchzip,
-  cstruct,
-  mirage-crypto,
-  alcotest,
-}:
+{ lib, buildDunePackage, fetchzip, cstruct, mirage-crypto, alcotest }:
 
 buildDunePackage rec {
   pname = "pbkdf";
@@ -19,10 +12,7 @@ buildDunePackage rec {
   };
 
   minimalOCamlVersion = "4.08";
-  propagatedBuildInputs = [
-    cstruct
-    mirage-crypto
-  ];
+  propagatedBuildInputs = [ cstruct mirage-crypto ];
   checkInputs = [ alcotest ];
   doCheck = true;
 
@@ -33,3 +23,4 @@ buildDunePackage rec {
     homepage = "https://github.com/abeaumont/ocaml-pbkdf";
   };
 }
+

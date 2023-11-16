@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libtool,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, libtool, which }:
 
 stdenv.mkDerivation rec {
   pname = "sha1collisiondetection";
@@ -21,10 +15,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [
-    libtool
-    which
-  ];
+  nativeBuildInputs = [ libtool which ];
 
   meta = with lib; {
     description = "Library and command line tool to detect SHA-1 collision";

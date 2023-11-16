@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  aiohttp,
-  pytest,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, aiohttp, pytest
+, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-aiohttp";
@@ -28,23 +20,20 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pytest-asyncio
-  ];
+  propagatedBuildInputs = [ aiohttp pytest-asyncio ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # pytest 7.2.0 incompatibilities
-      # https://github.com/aio-libs/pytest-aiohttp/issues/50
-      "tests/test_fixtures.py"
-    ];
+  disabledTestPaths = [
+    # pytest 7.2.0 incompatibilities
+    # https://github.com/aio-libs/pytest-aiohttp/issues/50
+    "tests/test_fixtures.py"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/aio-libs/pytest-aiohttp/";
-    changelog = "https://github.com/aio-libs/pytest-aiohttp/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/aio-libs/pytest-aiohttp/blob/v${version}/CHANGES.rst";
     description = "Pytest plugin for aiohttp support";
     license = licenses.asl20;
     maintainers = with maintainers; [ dotlambda ];

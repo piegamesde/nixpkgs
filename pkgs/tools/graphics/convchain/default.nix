@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  mono,
-}:
+{ lib, stdenv, fetchFromGitHub, mono }:
 stdenv.mkDerivation rec {
   pname = "convchain";
   version = "0.0pre20160901";
@@ -36,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
   buildInputs = [ mono ];
   meta = {
-    description = "Bitmap generation from a single example with convolutions and MCMC";
+    description =
+      "Bitmap generation from a single example with convolutions and MCMC";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.raskin ];
     platforms = lib.platforms.linux;

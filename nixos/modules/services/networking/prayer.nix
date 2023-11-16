@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -35,9 +30,8 @@ let
     cat ${prayer}/etc/prayer.cf | grep -v http_port > $out
     cat ${prayerExtraCfg} >> $out
   '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -63,6 +57,7 @@ in
         '';
       };
     };
+
   };
 
   ###### implementation
@@ -76,9 +71,7 @@ in
       home = stateDir;
     };
 
-    users.groups.${prayerGroup} = {
-      gid = config.ids.gids.prayer;
-    };
+    users.groups.${prayerGroup} = { gid = config.ids.gids.prayer; };
 
     systemd.services.prayer = {
       wantedBy = [ "multi-user.target" ];

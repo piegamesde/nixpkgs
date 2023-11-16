@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  bison,
-  readline,
-}:
+{ lib, stdenv, fetchurl, bison, readline }:
 
 stdenv.mkDerivation {
   version = "2.2.2";
@@ -33,10 +27,7 @@ stdenv.mkDerivation {
     sha256 = "07lbj75qqr4pq1j1qz8fyfnmrz1gnk92lnsshxycfavxl5zzdmn4";
   };
 
-  buildInputs = [
-    bison
-    readline
-  ];
+  buildInputs = [ bison readline ];
 
   patchPhase = ''
     substituteInPlace make_lie \

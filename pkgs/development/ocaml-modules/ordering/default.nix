@@ -1,8 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  dune_3,
-}:
+{ lib, buildDunePackage, dune_3 }:
 
 buildDunePackage {
   pname = "ordering";
@@ -12,7 +8,5 @@ buildDunePackage {
 
   dontAddPrefix = true;
 
-  meta = dune_3.meta // {
-    description = "Element ordering";
-  };
+  meta = dune_3.meta // { description = "Element ordering"; };
 }

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fontconfig,
-  harfbuzz,
-  libX11,
-  libXext,
-  libXft,
-  ncurses,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, fontconfig, harfbuzz, libX11, libXext, libXft
+, ncurses, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "siduck76-st";
@@ -23,14 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    fontconfig
-    harfbuzz
-    libX11
-    libXext
-    libXft
-    ncurses
-  ];
+  buildInputs = [ fontconfig harfbuzz libX11 libXext libXft ncurses ];
 
   installPhase = ''
     runHook preInstall

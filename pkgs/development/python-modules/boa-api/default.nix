@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "boa-api";
@@ -26,8 +21,10 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://github.com/boalang/api-python";
-    description = "Python client API for communicating with Boa's (https://boa.cs.iastate.edu/) XML-RPC based services";
-    changelog = "https://github.com/boalang/api-python/blob/${src.rev}/Changes.txt";
+    description =
+      "Python client API for communicating with Boa's (https://boa.cs.iastate.edu/) XML-RPC based services";
+    changelog =
+      "https://github.com/boalang/api-python/blob/${src.rev}/Changes.txt";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ swflint ];
   };

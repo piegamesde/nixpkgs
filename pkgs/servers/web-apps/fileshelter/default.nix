@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  libzip,
-  boost,
-  wt4,
-  libconfig,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libzip, boost, wt4, libconfig
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "fileshelter";
@@ -23,16 +14,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    libzip
-    boost
-    wt4
-    libconfig
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ libzip boost wt4 libconfig ];
 
   NIX_LDFLAGS = "-lpthread";
 

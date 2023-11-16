@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  zlibSupport ? true,
-  zlib,
-  sslSupport ? true,
-  openssl,
-  idnSupport ? true,
-  libidn,
-}:
+{ lib, stdenv, fetchurl, zlibSupport ? true, zlib, sslSupport ? true, openssl
+, idnSupport ? true, libidn }:
 
 stdenv.mkDerivation rec {
   pname = "gloox";
@@ -26,11 +17,8 @@ stdenv.mkDerivation rec {
       src/examples/*.cpp
   '';
 
-  buildInputs =
-    [ ]
-    ++ lib.optional zlibSupport zlib
-    ++ lib.optional sslSupport openssl
-    ++ lib.optional idnSupport libidn;
+  buildInputs = [ ] ++ lib.optional zlibSupport zlib
+    ++ lib.optional sslSupport openssl ++ lib.optional idnSupport libidn;
 
   meta = with lib; {
     description = "A portable high-level Jabber/XMPP library for C++";

@@ -1,28 +1,9 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cython,
-  fastrlock,
-  numpy,
-  wheel,
-  pytestCheckHook,
-  mock,
-  setuptools,
-  cudaPackages,
-  addOpenGLRunpath,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, cython, fastrlock, numpy, wheel
+, pytestCheckHook, mock, setuptools, cudaPackages, addOpenGLRunpath, pythonOlder
 }:
 
-let
-  inherit (cudaPackages)
-    cudatoolkit
-    cudnn
-    cutensor
-    nccl
-  ;
-in
-buildPythonPackage rec {
+let inherit (cudaPackages) cudatoolkit cudnn cutensor nccl;
+in buildPythonPackage rec {
   pname = "cupy";
   version = "12.0.0";
 
@@ -44,28 +25,14 @@ buildPythonPackage rec {
     export CUPY_NUM_NVCC_THREADS="$NIX_BUILD_CORES"
   '';
 
-  nativeBuildInputs = [
-    addOpenGLRunpath
-    cython
-  ];
+  nativeBuildInputs = [ addOpenGLRunpath cython ];
 
   LDFLAGS = "-L${cudatoolkit}/lib/stubs";
 
-  propagatedBuildInputs = [
-    cudatoolkit
-    cudnn
-    cutensor
-    nccl
-    fastrlock
-    numpy
-    setuptools
-    wheel
-  ];
+  propagatedBuildInputs =
+    [ cudatoolkit cudnn cutensor nccl fastrlock numpy setuptools wheel ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock ];
 
   # Won't work with the GPU, whose drivers won't be accessible from the build
   # sandbox

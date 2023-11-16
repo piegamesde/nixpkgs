@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  bzip2,
-  installShellFiles,
-  libusb1,
-  libzip,
-  openssl,
-  zstd,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, bzip2, installShellFiles
+, libusb1, libzip, openssl, zstd }:
 
 stdenv.mkDerivation rec {
   pname = "nxpmicro-mfgtools";
@@ -23,19 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-RD0haw0C89uvTlLHtvlv1VwU4Jw2U19Caiq+BSfB4hU=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    installShellFiles
-  ];
+  nativeBuildInputs = [ cmake pkg-config installShellFiles ];
 
-  buildInputs = [
-    bzip2
-    libusb1
-    libzip
-    openssl
-    zstd
-  ];
+  buildInputs = [ bzip2 libusb1 libzip openssl zstd ];
 
   preConfigure = "echo ${version} > .tarball-version";
 
@@ -64,10 +43,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/NXPmicro/mfgtools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      bmilanov
-      jraygauthier
-    ];
+    maintainers = with maintainers; [ bmilanov jraygauthier ];
     mainProgram = "uuu";
     platforms = platforms.all;
   };

@@ -1,28 +1,7 @@
-{
-  fetchFromGitHub,
-  cinnamon-desktop,
-  cinnamon-settings-daemon,
-  cinnamon-translations,
-  dbus-glib,
-  glib,
-  gsettings-desktop-schemas,
-  gtk3,
-  libcanberra,
-  libxslt,
-  makeWrapper,
-  meson,
-  ninja,
-  pkg-config,
-  python3,
-  lib,
-  stdenv,
-  systemd,
-  wrapGAppsHook,
-  xapp,
-  xorg,
-  libexecinfo,
-  pango,
-}:
+{ fetchFromGitHub, cinnamon-desktop, cinnamon-settings-daemon
+, cinnamon-translations, dbus-glib, glib, gsettings-desktop-schemas, gtk3
+, libcanberra, libxslt, makeWrapper, meson, ninja, pkg-config, python3, lib
+, stdenv, systemd, wrapGAppsHook, xapp, xorg, libexecinfo, pango }:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-session";
@@ -64,21 +43,13 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    wrapGAppsHook
-    libexecinfo
-    python3
-    pkg-config
-    libxslt
-  ];
+  nativeBuildInputs =
+    [ meson ninja wrapGAppsHook libexecinfo python3 pkg-config libxslt ];
 
-  mesonFlags =
-    [
-      # use locales from cinnamon-translations
-      "--localedir=${cinnamon-translations}/share/locale"
-    ];
+  mesonFlags = [
+    # use locales from cinnamon-translations
+    "--localedir=${cinnamon-translations}/share/locale"
+  ];
 
   postPatch = ''
     chmod +x data/meson_install_schemas.py # patchShebangs requires executable file

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "argocd-autopilot";
@@ -21,10 +16,8 @@ buildGoModule rec {
   proxyVendor = true;
 
   ldflags =
-    let
-      package_url = "github.com/argoproj-labs/argocd-autopilot/pkg/store";
-    in
-    [
+    let package_url = "github.com/argoproj-labs/argocd-autopilot/pkg/store";
+    in [
       "-s"
       "-w"
       "-X ${package_url}.binaryName=${pname}"
@@ -56,9 +49,6 @@ buildGoModule rec {
     downloadPage = "https://github.com/argoproj-labs/argocd-autopilot";
     homepage = "https://argocd-autopilot.readthedocs.io/en/stable/";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      sagikazarmark
-      bryanasdev000
-    ];
+    maintainers = with maintainers; [ sagikazarmark bryanasdev000 ];
   };
 }

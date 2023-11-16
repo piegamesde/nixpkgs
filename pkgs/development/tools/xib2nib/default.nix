@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pugixml,
-  boost,
-  PlistCpp,
-}:
+{ lib, stdenv, fetchFromGitHub, pugixml, boost, PlistCpp }:
 
 stdenv.mkDerivation {
   pname = "xib2nib";
@@ -18,11 +11,7 @@ stdenv.mkDerivation {
     sha256 = "08442f4xg7racknj35nr56a4c62gvdgdw55pssbkn2qq0rfzziqq";
   };
 
-  buildInputs = [
-    PlistCpp
-    pugixml
-    boost
-  ];
+  buildInputs = [ PlistCpp pugixml boost ];
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {

@@ -1,10 +1,4 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl,
-  gdcm,
-  cmake,
-}:
+{ buildOctavePackage, lib, fetchurl, gdcm, cmake }:
 
 buildOctavePackage rec {
   pname = "dicom";

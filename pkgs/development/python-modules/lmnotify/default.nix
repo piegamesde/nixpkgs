@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  oauthlib,
-  requests,
-  requests-oauthlib,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, oauthlib, requests, requests-oauthlib
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "lmnotify";
@@ -20,11 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-cCP7BU2f7QJe9gAI298cvkp3OGijvBv8G1RN7qfZ5PE=";
   };
 
-  propagatedBuildInputs = [
-    oauthlib
-    requests
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ oauthlib requests requests-oauthlib ];
 
   # Module has no tests
   doCheck = false;

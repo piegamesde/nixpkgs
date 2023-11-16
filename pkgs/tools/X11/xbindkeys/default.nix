@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  libX11,
-  guile,
-}:
+{ lib, stdenv, fetchurl, pkg-config, libX11, guile }:
 
 stdenv.mkDerivation rec {
   pname = "xbindkeys";
@@ -16,14 +9,12 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libX11
-    guile
-  ];
+  buildInputs = [ libX11 guile ];
 
   meta = {
     homepage = "https://www.nongnu.org/xbindkeys/xbindkeys.html";
-    description = "Launch shell commands with your keyboard or your mouse under X Window";
+    description =
+      "Launch shell commands with your keyboard or your mouse under X Window";
     license = lib.licenses.gpl2Plus;
     maintainers = with lib.maintainers; [ viric ];
     platforms = with lib.platforms; linux;

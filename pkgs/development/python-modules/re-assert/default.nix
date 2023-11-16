@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  regex,
-}:
+{ lib, buildPythonPackage, fetchPypi, regex }:
 
 buildPythonPackage rec {
   pname = "re_assert";

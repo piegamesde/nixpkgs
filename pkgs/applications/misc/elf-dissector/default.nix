@@ -1,15 +1,5 @@
-{
-  mkDerivation,
-  fetchgit,
-  lib,
-  cmake,
-  extra-cmake-modules,
-  kitemmodels,
-  libiberty,
-  libelf,
-  libdwarf,
-  libopcodes,
-}:
+{ mkDerivation, fetchgit, lib, cmake, extra-cmake-modules, kitemmodels
+, libiberty, libelf, libdwarf, libopcodes }:
 
 mkDerivation rec {
   pname = "elf-dissector";
@@ -21,18 +11,9 @@ mkDerivation rec {
     sha256 = "1h1xr3ag1sbf005drcx8g8dc5mk7fb2ybs73swrld7clcawhxnk8";
   };
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
-  buildInputs = [
-    kitemmodels
-    libiberty
-    libelf
-    libdwarf
-    libopcodes
-  ];
+  buildInputs = [ kitemmodels libiberty libelf libdwarf libopcodes ];
 
   meta = with lib; {
     homepage = "https://invent.kde.org/sdk/elf-dissector";

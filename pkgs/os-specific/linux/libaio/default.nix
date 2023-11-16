@@ -1,16 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchurl, fetchpatch }:
 
 stdenv.mkDerivation rec {
   version = "0.3.113";
   pname = "libaio";
 
   src = fetchurl {
-    url = "https://pagure.io/libaio/archive/${pname}-${version}/${pname}-${pname}-${version}.tar.gz";
+    url =
+      "https://pagure.io/libaio/archive/${pname}-${version}/${pname}-${pname}-${version}.tar.gz";
     sha256 = "sha256-cWxwWXAyRzROsGa1TsvDyiE08BAzBxkubCt9q1+VKKs=";
   };
 
@@ -22,9 +18,8 @@ stdenv.mkDerivation rec {
       --replace "-Werror" ""
   '';
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-  ] ++ lib.optional stdenv.hostPlatform.isStatic "ENABLE_SHARED=0";
+  makeFlags = [ "prefix=${placeholder "out"}" ]
+    ++ lib.optional stdenv.hostPlatform.isStatic "ENABLE_SHARED=0";
 
   hardeningDisable = lib.optional (stdenv.isi686) "stackprotector";
 

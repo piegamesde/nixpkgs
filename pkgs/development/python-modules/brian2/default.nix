@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cython,
-  jinja2,
-  numpy,
-  pyparsing,
-  setuptools,
-  sympy,
-  pytest,
-  pytest-xdist,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, cython, jinja2, numpy, pyparsing
+, setuptools, sympy, pytest, pytest-xdist, python }:
 
 buildPythonPackage rec {
   pname = "brian2";
@@ -23,26 +11,15 @@ buildPythonPackage rec {
     hash = "sha256-x1EcS7PFCsjPYsq3Lt87SJRW4J5DE/OfdFs3NuyHiLw=";
   };
 
-  patches =
-    [
-      # Fix deprecated numpy types
-      # https://sources.debian.org/data/main/b/brian/2.5.1-3/debian/patches/numpy1.24.patch
-      ./numpy1.24.patch
-    ];
-
-  propagatedBuildInputs = [
-    cython
-    jinja2
-    numpy
-    pyparsing
-    setuptools
-    sympy
+  patches = [
+    # Fix deprecated numpy types
+    # https://sources.debian.org/data/main/b/brian/2.5.1-3/debian/patches/numpy1.24.patch
+    ./numpy1.24.patch
   ];
 
-  checkInputs = [
-    pytest
-    pytest-xdist
-  ];
+  propagatedBuildInputs = [ cython jinja2 numpy pyparsing setuptools sympy ];
+
+  checkInputs = [ pytest pytest-xdist ];
 
   checkPhase = ''
     runHook preCheck

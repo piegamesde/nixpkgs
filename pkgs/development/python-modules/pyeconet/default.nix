@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  paho-mqtt,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, paho-mqtt, pythonOlder
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "pyeconet";
@@ -24,10 +17,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    paho-mqtt
-    aiohttp
-  ];
+  propagatedBuildInputs = [ paho-mqtt aiohttp ];
 
   # Tests require credentials
   doCheck = false;
@@ -37,7 +27,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python interface to the EcoNet API";
     homepage = "https://github.com/w1ll1am23/pyeconet";
-    changelog = "https://github.com/w1ll1am23/pyeconet/releases/tag/v${version}";
+    changelog =
+      "https://github.com/w1ll1am23/pyeconet/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

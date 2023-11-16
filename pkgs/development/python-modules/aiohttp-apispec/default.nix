@@ -1,18 +1,6 @@
-{
-  lib,
-  aiohttp,
-  apispec,
-  buildPythonPackage,
-  callPackage,
-  fetchFromGitHub,
-  fetchPypi,
-  jinja2,
-  packaging,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-  webargs,
-}:
+{ lib, aiohttp, apispec, buildPythonPackage, callPackage, fetchFromGitHub
+, fetchPypi, jinja2, packaging, pytest-aiohttp, pytestCheckHook, pythonOlder
+, webargs }:
 
 buildPythonPackage rec {
   pname = "aiohttp-apispec";
@@ -28,18 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-C+/M25oCLTNGGEUj2EyXn3UjcvPvDYFmmUW8IOoF1uU=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    apispec
-    jinja2
-    packaging
-    webargs
-  ];
+  propagatedBuildInputs = [ aiohttp apispec jinja2 packaging webargs ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
   pythonImportsCheck = [ "aiohttp_apispec" ];
 

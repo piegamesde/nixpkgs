@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "shadowfox";
@@ -19,18 +15,16 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.tag=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.tag=v${version}" ];
 
   meta = with lib; {
-    description = "Universal dark theme for Firefox while adhering to the modern design principles set by Mozilla";
+    description =
+      "Universal dark theme for Firefox while adhering to the modern design principles set by Mozilla";
     homepage = "https://overdodactyl.github.io/ShadowFox/";
     license = licenses.mit;
     maintainers = with maintainers; [ infinisil ];
     mainProgram = "shadowfox-updater";
-    broken = true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
+    broken =
+      true; # vendor isn't reproducible with go > 1.17: nix-build -A $name.go-modules --check
   };
 }

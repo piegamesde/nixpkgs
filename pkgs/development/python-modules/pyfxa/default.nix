@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  fetchPypi,
-  grequests,
-  hawkauthlib,
-  mock,
-  pybrowserid,
-  pyjwt,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  responses,
-  setuptools,
-  six,
-}:
+{ lib, buildPythonPackage, cryptography, fetchPypi, grequests, hawkauthlib, mock
+, pybrowserid, pyjwt, pytestCheckHook, pythonOlder, requests, responses
+, setuptools, six }:
 
 buildPythonPackage rec {
   pname = "pyfxa";
@@ -39,12 +25,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [
-    grequests
-    mock
-    responses
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ grequests mock responses pytestCheckHook ];
 
   pythonImportsCheck = [ "fxa" ];
 

@@ -1,19 +1,10 @@
-{
-  buildPythonPackage,
-  piper-tts,
+{ buildPythonPackage, piper-tts
 
-  # build
-  cython,
-  python,
+# build
+, cython, python
 
-  # propagates
-  espeak-phonemizer,
-  librosa,
-  numpy,
-  onnxruntime,
-  pytorch-lightning,
-  torch,
-}:
+# propagates
+, espeak-phonemizer, librosa, numpy, onnxruntime, pytorch-lightning, torch }:
 
 buildPythonPackage {
   inherit (piper-tts) version src meta;
@@ -42,14 +33,8 @@ buildPythonPackage {
     cp -v ./piper_train/vits/monotonic_align/piper_train/vits/monotonic_align/core.*.so $MONOTONIC_ALIGN/
   '';
 
-  propagatedBuildInputs = [
-    espeak-phonemizer
-    librosa
-    numpy
-    onnxruntime
-    pytorch-lightning
-    torch
-  ];
+  propagatedBuildInputs =
+    [ espeak-phonemizer librosa numpy onnxruntime pytorch-lightning torch ];
 
   pythonImportsCheck = [ "piper_train" ];
 

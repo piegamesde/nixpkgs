@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  substituteAll,
-  portmidi,
-  python-rtmidi,
-  pytestCheckHook,
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, substituteAll, portmidi
+, python-rtmidi, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "mido";
@@ -21,7 +13,8 @@ buildPythonPackage rec {
   patches = [
     (substituteAll {
       src = ./libportmidi-cdll.patch;
-      libportmidi = "${portmidi.out}/lib/libportmidi${stdenv.targetPlatform.extensions.sharedLibrary}";
+      libportmidi =
+        "${portmidi.out}/lib/libportmidi${stdenv.targetPlatform.extensions.sharedLibrary}";
     })
   ];
 

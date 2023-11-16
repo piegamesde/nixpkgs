@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, cmake, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "marl";

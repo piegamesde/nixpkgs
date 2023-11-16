@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  toolz,
-  multipledispatch,
-  py,
-  pytestCheckHook,
-  pytest-html,
-  pytest-benchmark,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, toolz, multipledispatch, py
+, pytestCheckHook, pytest-html, pytest-benchmark }:
 
 buildPythonPackage rec {
   pname = "logical-unification";
@@ -21,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-3wqO0pWWFRQeoGNvbSDdLNYFyjNnv+O++F7+vTBUJoI=";
   };
 
-  propagatedBuildInputs = [
-    toolz
-    multipledispatch
-  ];
+  propagatedBuildInputs = [ toolz multipledispatch ];
 
   nativeCheckInputs = [
     py
@@ -33,16 +21,14 @@ buildPythonPackage rec {
     pytest-benchmark # Needed for the `--benchmark-skip` flag
   ];
 
-  pytestFlagsArray = [
-    "--benchmark-skip"
-    "--html=testing-report.html"
-    "--self-contained-html"
-  ];
+  pytestFlagsArray =
+    [ "--benchmark-skip" "--html=testing-report.html" "--self-contained-html" ];
 
   pythonImportsCheck = [ "unification" ];
 
   meta = with lib; {
-    description = "Straightforward unification in Python that's extensible via generic functions";
+    description =
+      "Straightforward unification in Python that's extensible via generic functions";
     homepage = "https://github.com/pythological/unification";
     changelog = "https://github.com/pythological/unification/releases";
     license = licenses.bsd3;

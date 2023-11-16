@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  libtool,
-  pkg-config,
-  glib,
-  readline,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, libtool, pkg-config, glib
+, readline, makeWrapper }:
 
 stdenv.mkDerivation {
   pname = "neardal";
@@ -22,16 +12,8 @@ stdenv.mkDerivation {
     sha256 = "12qwg7qiw2wfpaxfg2fjkmj5lls0g33xp6w433g8bnkvwlq4s29g";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    autoconf
-    automake
-  ];
-  buildInputs = [
-    glib
-    readline
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper autoconf automake ];
+  buildInputs = [ glib readline ];
 
   preConfigure = ''
     substituteInPlace "ncl/Makefile.am" --replace "noinst_PROGRAMS" "bin_PROGRAMS"
@@ -39,10 +21,7 @@ stdenv.mkDerivation {
     sh autogen.sh
   '';
 
-  configureFlags = [
-    "--disable-dependency-tracking"
-    "--disable-traces"
-  ];
+  configureFlags = [ "--disable-dependency-tracking" "--disable-traces" ];
 
   meta = with lib; {
     broken = true; # 2022-11-13

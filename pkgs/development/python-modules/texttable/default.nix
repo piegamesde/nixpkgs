@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "texttable";
@@ -14,7 +10,8 @@ buildPythonPackage rec {
   };
 
   meta = with lib; {
-    description = "A module to generate a formatted text table, using ASCII characters";
+    description =
+      "A module to generate a formatted text table, using ASCII characters";
     homepage = "https://github.com/foutaise/texttable";
     license = licenses.lgpl2;
   };

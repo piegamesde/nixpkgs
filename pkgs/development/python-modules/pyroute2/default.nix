@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  importlib-metadata,
-  mitogen,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, fetchPypi, importlib-metadata, mitogen, pythonOlder
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "pyroute2";
@@ -22,7 +15,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [ mitogen ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [ mitogen ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # Requires root privileges, https://github.com/svinota/pyroute2/issues/778
   doCheck = false;
@@ -43,12 +37,10 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Netlink library";
     homepage = "https://github.com/svinota/pyroute2";
-    changelog = "https://github.com/svinota/pyroute2/blob/${version}/CHANGELOG.rst";
+    changelog =
+      "https://github.com/svinota/pyroute2/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      fab
-      mic92
-    ];
+    maintainers = with maintainers; [ fab mic92 ];
     platforms = platforms.unix;
   };
 }

@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  sassc,
-  glib,
-  gdk-pixbuf,
-  inkscape,
-  gtk-engine-murrine,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, sassc, glib, gdk-pixbuf, inkscape
+, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "numix-solarized-gtk-theme";
@@ -21,13 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-r5xCe8Ew+/SuCUaZ0yjlumORTy/y1VwbQQjQ6uEyGsY=";
   };
 
-  nativeBuildInputs = [
-    python3
-    sassc
-    glib
-    gdk-pixbuf
-    inkscape
-  ];
+  nativeBuildInputs = [ python3 sassc glib gdk-pixbuf inkscape ];
 
   propagatedUserEnvPkgs = [ gtk-engine-murrine ];
 
@@ -55,7 +40,8 @@ stdenv.mkDerivation rec {
       This theme supports both the dark and light theme, just as Numix proper.
     '';
     homepage = "https://github.com/Ferdi265/numix-solarized-gtk-theme";
-    downloadPage = "https://github.com/Ferdi265/numix-solarized-gtk-theme/releases";
+    downloadPage =
+      "https://github.com/Ferdi265/numix-solarized-gtk-theme/releases";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     maintainers = [ maintainers.offline ];

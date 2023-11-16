@@ -1,13 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  pkg-config,
-  bzip2,
-  stdenv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, pkg-config, bzip2
+, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "pactorio";
@@ -22,10 +14,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-sAFsG+EPSmvPDFR9R0fZ5f+y/PXVpTJlMzL61vwf4SY=";
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-  ];
+  nativeBuildInputs = [ installShellFiles pkg-config ];
 
   buildInputs = [ bzip2 ] ++ lib.optional stdenv.isDarwin Security;
 
@@ -39,7 +28,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Mod packager for factorio";
     homepage = "https://github.com/figsoda/pactorio";
-    changelog = "https://github.com/figsoda/pactorio/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/figsoda/pactorio/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
     maintainers = with maintainers; [ figsoda ];
   };

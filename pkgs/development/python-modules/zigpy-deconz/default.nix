@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyserial,
-  pyserial-asyncio,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  zigpy,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyserial, pyserial-asyncio
+, pytest-asyncio, pytestCheckHook, pythonOlder, zigpy }:
 
 buildPythonPackage rec {
   pname = "zigpy-deconz";
@@ -24,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-/XsCQt3JHiPrXJH8w2zDmaMQBLWgcmkbj9RooVYuFw0=";
   };
 
-  propagatedBuildInputs = [
-    pyserial
-    pyserial-asyncio
-    zigpy
-  ];
+  propagatedBuildInputs = [ pyserial pyserial-asyncio zigpy ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "zigpy_deconz" ];
 

@@ -1,9 +1,4 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl,
-  netcdf,
-}:
+{ buildOctavePackage, lib, fetchurl, netcdf }:
 
 buildOctavePackage rec {
   pname = "netcdf";

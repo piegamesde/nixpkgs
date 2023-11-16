@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  cffi,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, cffi }:
 
 buildPythonPackage rec {
   pname = "editdistance-s";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "editdistance_s" ];
 
   meta = with lib; {
-    description = "Fast implementation of the edit distance (Levenshtein distance)";
+    description =
+      "Fast implementation of the edit distance (Levenshtein distance)";
     homepage = "https://github.com/asottile/editdistance-s";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ austinbutler ];

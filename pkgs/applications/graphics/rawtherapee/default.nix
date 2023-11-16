@@ -1,27 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  wrapGAppsHook,
-  makeWrapper,
-  pixman,
-  libpthreadstubs,
-  gtkmm3,
-  libXau,
-  libXdmcp,
-  lcms2,
-  libiptcdata,
-  fftw,
-  expat,
-  pcre,
-  libsigcxx,
-  lensfun,
-  librsvg,
-  libcanberra-gtk3,
-  gtk-mac-integration,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, wrapGAppsHook, makeWrapper
+, pixman, libpthreadstubs, gtkmm3, libXau, libXdmcp, lcms2, libiptcdata, fftw
+, expat, pcre, libsigcxx, lensfun, librsvg, libcanberra-gtk3
+, gtk-mac-integration }:
 
 stdenv.mkDerivation rec {
   pname = "rawtherapee";
@@ -40,39 +20,29 @@ stdenv.mkDerivation rec {
       --replace "/Applications" "${placeholder "out"}/Applications"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook ]
+    ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
 
-  buildInputs =
-    [
-      pixman
-      libpthreadstubs
-      gtkmm3
-      libXau
-      libXdmcp
-      lcms2
-      libiptcdata
-      fftw
-      expat
-      pcre
-      libsigcxx
-      lensfun
-      librsvg
-    ]
-    ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
+  buildInputs = [
+    pixman
+    libpthreadstubs
+    gtkmm3
+    libXau
+    libXdmcp
+    lcms2
+    libiptcdata
+    fftw
+    expat
+    pcre
+    libsigcxx
+    lensfun
+    librsvg
+  ] ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
     ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
 
-  cmakeFlags =
-    [
-      "-DPROC_TARGET_NUMBER=2"
-      ''-DCACHE_NAME_SUFFIX=""''
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"
-    ];
+  cmakeFlags = [ "-DPROC_TARGET_NUMBER=2" ''-DCACHE_NAME_SUFFIX=""'' ]
+    ++ lib.optionals stdenv.isDarwin
+    [ "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}" ];
 
   CMAKE_CXX_FLAGS = toString [
     "-std=c++11"
@@ -92,10 +62,7 @@ stdenv.mkDerivation rec {
     description = "RAW converter and digital photo processing software";
     homepage = "http://www.rawtherapee.com/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [
-      jcumming
-      mahe
-    ];
+    maintainers = with lib.maintainers; [ jcumming mahe ];
     platforms = with lib.platforms; unix;
   };
 }

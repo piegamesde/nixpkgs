@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  haskellPackages,
-  makeWrapper,
-  eprover,
-}:
+{ lib, fetchFromGitHub, haskellPackages, makeWrapper, eprover }:
 
 with haskellPackages;
 mkDerivation {
@@ -20,10 +14,7 @@ mkDerivation {
 
   isExecutable = true;
 
-  buildTools = [
-    hpack
-    makeWrapper
-  ];
+  buildTools = [ hpack makeWrapper ];
   executableHaskellDepends = [
     base
     array

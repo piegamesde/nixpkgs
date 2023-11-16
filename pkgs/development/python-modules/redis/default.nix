@@ -1,24 +1,13 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
+{ lib, fetchPypi, buildPythonPackage, pythonOlder
 
-  # propagates
-  async-timeout,
-  deprecated,
-  importlib-metadata,
-  packaging,
-  typing-extensions,
+# propagates
+, async-timeout, deprecated, importlib-metadata, packaging, typing-extensions
 
-  # extras: hiredis
-  hiredis,
+# extras: hiredis
+, hiredis
 
-  # extras: ocsp
-  cryptography,
-  pyopenssl,
-  requests,
-}:
+# extras: ocsp
+, cryptography, pyopenssl, requests }:
 
 buildPythonPackage rec {
   pname = "redis";
@@ -32,20 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-c+w12k2iZ9aEfkf2hzD91fYuLKaePvWIXGp4qTdMOJM=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    deprecated
-    packaging
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [ async-timeout deprecated packaging typing-extensions ]
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
     hiredis = [ hiredis ];
-    ocsp = [
-      cryptography
-      pyopenssl
-      requests
-    ];
+    ocsp = [ cryptography pyopenssl requests ];
   };
 
   pythonImportsCheck = [

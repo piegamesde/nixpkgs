@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  cython,
-  fetchFromGitHub,
-  matplotlib,
-  mock,
-  numpy,
-  pillow,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cython, fetchFromGitHub, matplotlib, mock, numpy
+, pillow, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "wordcloud";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ cython ];
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    pillow
-  ];
+  propagatedBuildInputs = [ matplotlib numpy pillow ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -49,11 +32,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "wordcloud" ];
 
-  disabledTests =
-    [
-      # Don't tests CLI
-      "test_cli_as_executable"
-    ];
+  disabledTests = [
+    # Don't tests CLI
+    "test_cli_as_executable"
+  ];
 
   meta = with lib; {
     description = "Word cloud generator in Python";

@@ -1,24 +1,6 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  wrapGAppsHook,
-  pytestCheckHook,
-  gtk3,
-  gobject-introspection,
-  libappindicator-gtk3,
-  librsvg,
-  evdev,
-  pygobject3,
-  pylibacl,
-  bluez,
-  vdf,
-  linuxHeaders,
-  libX11,
-  libXext,
-  libXfixes,
-  libusb1,
-  udev,
+{ lib, buildPythonApplication, fetchFromGitHub, wrapGAppsHook, pytestCheckHook
+, gtk3, gobject-introspection, libappindicator-gtk3, librsvg, evdev, pygobject3
+, pylibacl, bluez, vdf, linuxHeaders, libX11, libXext, libXfixes, libusb1, udev
 }:
 
 buildPythonApplication rec {
@@ -32,23 +14,11 @@ buildPythonApplication rec {
     sha256 = "xu9QqddJf0cXkhNPrOnE+L8CV5AfgcCyk9DSh+G94c0=";
   };
 
-  nativeBuildInputs = [
-    wrapGAppsHook
-    gobject-introspection
-  ];
+  nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
 
-  buildInputs = [
-    gtk3
-    libappindicator-gtk3
-    librsvg
-  ];
+  buildInputs = [ gtk3 libappindicator-gtk3 librsvg ];
 
-  propagatedBuildInputs = [
-    evdev
-    pygobject3
-    pylibacl
-    vdf
-  ];
+  propagatedBuildInputs = [ evdev pygobject3 pylibacl vdf ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -58,14 +28,8 @@ buildPythonApplication rec {
     substituteInPlace scc/device_monitor.py --replace "find_library('bluetooth')" "'libbluetooth.so.3'"
   '';
 
-  LD_LIBRARY_PATH = lib.makeLibraryPath [
-    libX11
-    libXext
-    libXfixes
-    libusb1
-    udev
-    bluez
-  ];
+  LD_LIBRARY_PATH =
+    lib.makeLibraryPath [ libX11 libXext libXfixes libusb1 udev bluez ];
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH")
@@ -83,12 +47,10 @@ buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/Ryochan7/sc-controller";
     # donations: https://www.patreon.com/kozec
-    description = "User-mode driver and GUI for Steam Controller and other controllers";
+    description =
+      "User-mode driver and GUI for Steam Controller and other controllers";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      orivej
-      rnhmjoj
-    ];
+    maintainers = with maintainers; [ orivej rnhmjoj ];
   };
 }

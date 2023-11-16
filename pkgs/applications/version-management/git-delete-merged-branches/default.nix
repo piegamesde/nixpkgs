@@ -1,9 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  git,
-}:
+{ lib, python3Packages, fetchFromGitHub, git }:
 
 python3Packages.buildPythonApplication rec {
   pname = "git-delete-merged-branches";
@@ -16,10 +11,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-17uFV3pjklqVW5ofeR54mgMh+q3uUCdqZG00Cc+4zFQ=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    colorama
-    prompt-toolkit
-  ];
+  propagatedBuildInputs = with python3Packages; [ colorama prompt-toolkit ];
 
   nativeCheckInputs = [ git ] ++ (with python3Packages; [ parameterized ]);
 

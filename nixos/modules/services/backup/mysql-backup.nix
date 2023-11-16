@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -36,9 +31,8 @@ let
       failed="$failed ${db}"
     fi
   '';
-in
 
-{
+in {
   options = {
 
     services.mysqlBackup = {
@@ -85,6 +79,7 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -97,18 +92,14 @@ in
       };
     };
 
-    services.mysql.ensureUsers = [
-      {
-        name = cfg.user;
-        ensurePermissions =
-          with lib;
-          let
-            privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
-            grant = db: nameValuePair "${db}.*" privs;
-          in
-          listToAttrs (map grant cfg.databases);
-      }
-    ];
+    services.mysql.ensureUsers = [{
+      name = cfg.user;
+      ensurePermissions = with lib;
+        let
+          privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
+          grant = db: nameValuePair "${db}.*" privs;
+        in listToAttrs (map grant cfg.databases);
+    }];
 
     systemd = {
       timers.mysql-backup = {
@@ -132,4 +123,5 @@ in
       tmpfiles.rules = [ "d ${cfg.location} 0700 ${cfg.user} - - -" ];
     };
   };
+
 }

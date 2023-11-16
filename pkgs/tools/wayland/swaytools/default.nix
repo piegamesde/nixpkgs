@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  slurp,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, slurp }:
 
 buildPythonApplication rec {
   pname = "swaytools";

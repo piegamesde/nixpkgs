@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  openssl,
-  libevent,
-  libpcap,
-  libnet,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, openssl, libevent, libpcap, libnet
+, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "sslsplit";
@@ -24,18 +15,13 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "fix-openssl-3-build.patch";
-      url = "https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch";
+      url =
+        "https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch";
       hash = "sha256-sEwP7f2PSqXdMqLub9zrfQgH8I4oe9klVPzNpJjrPJ8=";
     })
   ];
 
-  buildInputs = [
-    openssl
-    libevent
-    libpcap
-    libnet
-    zlib
-  ];
+  buildInputs = [ openssl libevent libpcap libnet zlib ];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -50,11 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.roe.ch/SSLsplit";
     platforms = platforms.all;
     maintainers = with maintainers; [ contrun ];
-    license = with licenses; [
-      bsd2
-      mit
-      unlicense
-      free
-    ];
+    license = with licenses; [ bsd2 mit unlicense free ];
   };
 }

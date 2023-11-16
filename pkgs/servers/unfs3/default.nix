@@ -1,13 +1,5 @@
-{
-  fetchFromGitHub,
-  lib,
-  stdenv,
-  flex,
-  bison,
-  autoreconfHook,
-  pkg-config,
-  libtirpc,
-}:
+{ fetchFromGitHub, lib, stdenv, flex, bison, autoreconfHook, pkg-config
+, libtirpc }:
 
 stdenv.mkDerivation rec {
   pname = "unfs3";
@@ -20,12 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5iAriIutBhwyZVS7AG2fnkrHOI7pNAKfYv062Cy0WXw=";
   };
 
-  nativeBuildInputs = [
-    flex
-    bison
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ flex bison autoreconfHook pkg-config ];
 
   buildInputs = [ libtirpc ];
 
@@ -48,7 +35,8 @@ stdenv.mkDerivation rec {
     # whoever controls the old URL approves of the "unfs3" github
     # account.
     homepage = "https://unfs3.github.io/";
-    changelog = "https://raw.githubusercontent.com/unfs3/unfs3/unfs3-${version}/NEWS";
+    changelog =
+      "https://raw.githubusercontent.com/unfs3/unfs3/unfs3-${version}/NEWS";
     mainProgram = "unfsd";
 
     license = lib.licenses.bsd3;

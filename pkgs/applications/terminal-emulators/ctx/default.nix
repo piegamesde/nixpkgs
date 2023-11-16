@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  pkg-config,
-  xxd,
-  SDL2,
-  alsa-lib,
-  babl,
-  bash,
-  cairo,
-  curl,
-  libdrm, # Not documented
-  enableFb ? false,
-  nixosTests,
-}:
+{ lib, stdenv, fetchgit, pkg-config, xxd, SDL2, alsa-lib, babl, bash, cairo
+, curl, libdrm # Not documented
+, enableFb ? false, nixosTests }:
 
 stdenv.mkDerivation {
   pname = "ctx";
@@ -36,10 +23,7 @@ stdenv.mkDerivation {
 
   env.ARCH = stdenv.hostPlatform.parsed.cpu.arch;
 
-  nativeBuildInputs = [
-    pkg-config
-    xxd
-  ];
+  nativeBuildInputs = [ pkg-config xxd ];
 
   buildInputs = [
     SDL2

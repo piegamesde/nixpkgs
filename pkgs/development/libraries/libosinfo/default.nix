@@ -1,27 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  pkg-config,
-  meson,
-  ninja,
-  gettext,
-  gobject-introspection,
-  gtk-doc,
-  docbook_xsl,
-  glib,
-  libsoup_3,
-  libxml2,
-  libxslt,
-  check,
-  curl,
-  perl,
-  hwdata,
-  osinfo-db,
-  substituteAll,
-  vala ? null,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, meson, ninja, gettext
+, gobject-introspection, gtk-doc, docbook_xsl, glib, libsoup_3, libxml2, libxslt
+, check, curl, perl, hwdata, osinfo-db, substituteAll, vala ? null }:
 
 stdenv.mkDerivation rec {
   pname = "libosinfo";
@@ -32,10 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-olLgD8WA3rIdoNqMCqA7jDHoRAuESMi5gUP6tHfTIwU=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
+  outputs = [ "out" "dev" ]
+    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
 
   nativeBuildInputs = [
     pkg-config
@@ -48,17 +25,8 @@ stdenv.mkDerivation rec {
     docbook_xsl
     perl # for pod2man
   ];
-  buildInputs = [
-    glib
-    libsoup_3
-    libxml2
-    libxslt
-  ];
-  nativeCheckInputs = [
-    check
-    curl
-    perl
-  ];
+  buildInputs = [ glib libsoup_3 libxml2 libxslt ];
+  nativeCheckInputs = [ check curl perl ];
 
   patches = [
     (substituteAll {
@@ -80,9 +48,11 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support";
+    description =
+      "GObject based library API for managing information about operating systems, hypervisors and the (virtual) hardware devices they can support";
     homepage = "https://libosinfo.org/";
-    changelog = "https://gitlab.com/libosinfo/libosinfo/-/blob/v${version}/NEWS";
+    changelog =
+      "https://gitlab.com/libosinfo/libosinfo/-/blob/v${version}/NEWS";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
     maintainers = [ maintainers.bjornfor ];

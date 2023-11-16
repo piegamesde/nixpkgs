@@ -1,18 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  freetype,
-  pillow,
-  glibcLocales,
-  python,
-  isPyPy,
-}:
+{ lib, buildPythonPackage, fetchPypi, freetype, pillow, glibcLocales, python
+, isPyPy }:
 
-let
-  ft = freetype.overrideAttrs (oldArgs: { dontDisableStatic = true; });
-in
-buildPythonPackage rec {
+let ft = freetype.overrideAttrs (oldArgs: { dontDisableStatic = true; });
+in buildPythonPackage rec {
   pname = "reportlab";
   version = "3.6.13";
 
@@ -30,7 +20,9 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "mif = findFile(d,'ft2build.h')" "mif = findFile('${lib.getDev ft}','ft2build.h')"
+      --replace "mif = findFile(d,'ft2build.h')" "mif = findFile('${
+        lib.getDev ft
+      }','ft2build.h')"
 
     # Remove all the test files that require access to the internet to pass.
     rm tests/test_lib_utils.py
@@ -51,7 +43,8 @@ buildPythonPackage rec {
   disabled = isPyPy;
 
   meta = {
-    description = "An Open Source Python library for generating PDFs and graphics";
+    description =
+      "An Open Source Python library for generating PDFs and graphics";
     homepage = "http://www.reportlab.com/";
   };
 }

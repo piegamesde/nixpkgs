@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-  installShellFiles,
-}:
+{ lib, rustPlatform, fetchCrate, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "trashy";
@@ -26,9 +21,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A simple, fast, and featureful alternative to rm and trash-cli";
+    description =
+      "A simple, fast, and featureful alternative to rm and trash-cli";
     homepage = "https://github.com/oberblastmeister/trashy";
-    changelog = "https://github.com/oberblastmeister/trashy/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/oberblastmeister/trashy/blob/v${version}/CHANGELOG.md";
     license = with licenses; [
       asl20 # or
       mit

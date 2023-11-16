@@ -1,20 +1,8 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  libX11,
-  libXinerama,
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, libX11, libXinerama }:
 
-let
-  rpathLibs = [
-    libXinerama
-    libX11
-  ];
-in
+let rpathLibs = [ libXinerama libX11 ];
 
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "leftwm";
   version = "0.4.1";
 

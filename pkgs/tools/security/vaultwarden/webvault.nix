@@ -1,11 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-  git,
-  nixosTests,
-  python3,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, git, nixosTests, python3 }:
 
 let
   version = "2023.3.0b";
@@ -16,8 +9,7 @@ let
     rev = "v${version}";
     hash = "sha256-3kCgT+NsYU7sRJvw56vcPXS7j+eHxgek195zZnamjJw=";
   };
-in
-buildNpmPackage rec {
+in buildNpmPackage rec {
   pname = "vaultwarden-webvault";
   inherit version;
 
@@ -44,10 +36,7 @@ buildNpmPackage rec {
 
   npmBuildScript = "dist:oss:selfhost";
 
-  npmBuildFlags = [
-    "--workspace"
-    "apps/web"
-  ];
+  npmBuildFlags = [ "--workspace" "apps/web" ];
 
   installPhase = ''
     runHook preInstall
@@ -66,10 +55,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/dani-garcia/bw_web_builds";
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      dotlambda
-      msteen
-      mic92
-    ];
+    maintainers = with maintainers; [ dotlambda msteen mic92 ];
   };
 }

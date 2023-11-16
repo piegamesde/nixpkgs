@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  substituteAll,
-  findutils,
-  krb5,
-  stdenv,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, substituteAll, findutils
+, krb5, stdenv }:
 
 buildPythonPackage rec {
   pname = "k5test";
@@ -36,7 +28,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64) || stdenv.isDarwin;
-    description = "Library for setting up self-contained Kerberos 5 environment";
+    description =
+      "Library for setting up self-contained Kerberos 5 environment";
     homepage = "https://github.com/pythongssapi/k5test";
     license = licenses.mit;
     maintainers = with maintainers; [ ];

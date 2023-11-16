@@ -1,17 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  prl-tools = config.hardware.parallels.package;
-in
+let prl-tools = config.hardware.parallels.package;
 
-{
+in {
 
   options = {
     hardware.parallels = {
@@ -46,6 +39,7 @@ in
         '';
       };
     };
+
   };
 
   config = mkIf config.hardware.parallels.enable {
@@ -56,11 +50,9 @@ in
 
     boot.extraModulePackages = [ prl-tools ];
 
-    boot.kernelModules = [
-      "prl_fs"
-      "prl_fs_freeze"
-      "prl_tg"
-    ] ++ optional (pkgs.stdenv.hostPlatform.system == "aarch64-linux") "prl_notifier";
+    boot.kernelModules = [ "prl_fs" "prl_fs_freeze" "prl_tg" ]
+      ++ optional (pkgs.stdenv.hostPlatform.system == "aarch64-linux")
+      "prl_notifier";
 
     services.timesyncd.enable = false;
 
@@ -75,18 +67,19 @@ in
       };
     };
 
-    systemd.services.prlfsmountd = mkIf config.hardware.parallels.autoMountShares {
-      description = "Parallels Guest File System Sharing Tool";
-      wantedBy = [ "multi-user.target" ];
-      path = [ prl-tools ];
-      serviceConfig = rec {
-        ExecStart = "${prl-tools}/sbin/prlfsmountd ${PIDFile}";
-        ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /media";
-        ExecStopPost = "${prl-tools}/sbin/prlfsmountd -u";
-        PIDFile = "/run/prlfsmountd.pid";
-        WorkingDirectory = "${prl-tools}/bin";
+    systemd.services.prlfsmountd =
+      mkIf config.hardware.parallels.autoMountShares {
+        description = "Parallels Guest File System Sharing Tool";
+        wantedBy = [ "multi-user.target" ];
+        path = [ prl-tools ];
+        serviceConfig = rec {
+          ExecStart = "${prl-tools}/sbin/prlfsmountd ${PIDFile}";
+          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /media";
+          ExecStopPost = "${prl-tools}/sbin/prlfsmountd -u";
+          PIDFile = "/run/prlfsmountd.pid";
+          WorkingDirectory = "${prl-tools}/bin";
+        };
       };
-    };
 
     systemd.services.prlshprint = {
       description = "Parallels Printing Tool";
@@ -147,5 +140,6 @@ in
         };
       };
     };
+
   };
 }

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  libmpdclient,
-  curl,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, libmpdclient, curl }:
 
 stdenv.mkDerivation rec {
   pname = "mpdas";
@@ -20,16 +13,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libmpdclient
-    curl
-  ];
+  buildInputs = [ libmpdclient curl ];
 
-  makeFlags = [
-    "CONFIG=/etc"
-    "DESTDIR="
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "CONFIG=/etc" "DESTDIR=" "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "Music Player Daemon AudioScrobbler";

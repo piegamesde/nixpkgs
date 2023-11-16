@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  gtk-engine-murrine,
-}:
+{ lib, stdenv, fetchFromGitLab, gtk-engine-murrine }:
 
 stdenv.mkDerivation rec {
   pname = "snowblind";

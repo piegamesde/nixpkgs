@@ -1,12 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  numpy,
-  pyparsing,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, fetchPypi, buildPythonPackage, numpy, pyparsing, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "periodictable";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-fFAcn3PXex+yjLUehbKEKcLESpnOPRJ0iUVkxy1xJgM=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    pyparsing
-  ];
+  propagatedBuildInputs = [ numpy pyparsing ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

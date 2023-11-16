@@ -1,20 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  google-auth,
-  googleapis-common-protos,
-  grpcio,
-  grpcio-gcp,
-  grpcio-status,
-  mock,
-  proto-plus,
-  protobuf,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, google-auth, googleapis-common-protos
+, grpcio, grpcio-gcp, grpcio-status, mock, proto-plus, protobuf, pytest-asyncio
+, pytestCheckHook, pythonOlder, requests }:
 
 buildPythonPackage rec {
   pname = "google-api-core";
@@ -28,28 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-S5u11aOAoL76BXOzAmUbipqJJiwXMON79CPOxRGATCI=";
   };
 
-  propagatedBuildInputs = [
-    googleapis-common-protos
-    google-auth
-    protobuf
-    proto-plus
-    requests
-  ];
+  propagatedBuildInputs =
+    [ googleapis-common-protos google-auth protobuf proto-plus requests ];
 
   passthru.optional-dependencies = {
-    grpc = [
-      grpcio
-      grpcio-status
-    ];
+    grpc = [ grpcio grpcio-status ];
     grpcgcp = [ grpcio-gcp ];
     grpcio-gcp = [ grpcio-gcp ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytest-asyncio pytestCheckHook ];
 
   # prevent google directory from shadowing google imports
   preCheck = ''
@@ -80,7 +54,8 @@ buildPythonPackage rec {
       helpers used by all Google API clients.
     '';
     homepage = "https://github.com/googleapis/python-api-core";
-    changelog = "https://github.com/googleapis/python-api-core/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/googleapis/python-api-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ SuperSandro2000 ];
   };

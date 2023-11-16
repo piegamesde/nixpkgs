@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
 
@@ -20,9 +15,8 @@ let
     executable = true;
     destination = "/bin/tsocks";
   };
-in
 
-{
+in {
 
   ###### interface
 
@@ -63,7 +57,9 @@ in
           configuration file.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -80,4 +76,5 @@ in
       local = 127.128.0.0/255.192.0.0
     '';
   };
+
 }

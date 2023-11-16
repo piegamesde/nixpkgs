@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  requests,
-  requests-toolbelt,
-  requests-oauthlib,
-  six,
-  pytestCheckHook,
-  responses,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, requests, requests-toolbelt
+, requests-oauthlib, six, pytestCheckHook, responses, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "flickrapi";
@@ -25,17 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-vRZrlXKI0UDdmDevh3XUngH4X8G3VlOCSP0z/rxhIgw=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    requests-toolbelt
-    requests-oauthlib
-    six
-  ];
+  propagatedBuildInputs = [ requests requests-toolbelt requests-oauthlib six ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    responses
-  ];
+  nativeCheckInputs = [ pytestCheckHook responses ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

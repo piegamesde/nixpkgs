@@ -1,8 +1,4 @@
-{
-  yarn2nix-moretea,
-  fetchFromGitHub,
-  applyPatches,
-}:
+{ yarn2nix-moretea, fetchFromGitHub, applyPatches }:
 
 yarn2nix-moretea.mkYarnPackage rec {
   pname = "gotify-ui";
@@ -60,4 +56,5 @@ yarn2nix-moretea.mkYarnPackage rec {
     ln -sf $node_modules node_modules
     cd ../..
   '';
+
 }

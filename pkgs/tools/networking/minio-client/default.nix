@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "minio-client";
@@ -35,11 +30,9 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/minio/mc";
-    description = "A replacement for ls, cp, mkdir, diff and rsync commands for filesystems and object storage";
-    maintainers = with maintainers; [
-      bachp
-      eelco
-    ];
+    description =
+      "A replacement for ls, cp, mkdir, diff and rsync commands for filesystems and object storage";
+    maintainers = with maintainers; [ bachp eelco ];
     mainProgram = "mc";
     license = licenses.asl20;
   };

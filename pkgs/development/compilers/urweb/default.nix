@@ -1,34 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  file,
-  openssl,
-  mlton,
-  libmysqlclient,
-  postgresql,
-  sqlite,
-  gcc,
-  icu,
-}:
+{ lib, stdenv, fetchurl, file, openssl, mlton, libmysqlclient, postgresql
+, sqlite, gcc, icu }:
 
 stdenv.mkDerivation rec {
   pname = "urweb";
   version = "20200209";
 
   src = fetchurl {
-    url = "https://github.com/urweb/urweb/releases/download/${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/urweb/urweb/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "0qh6wcxfk5kf735i5gqwnkdirnnmqhnnpkfz96gz144dgz2i0c5c";
   };
 
-  buildInputs = [
-    openssl
-    mlton
-    libmysqlclient
-    postgresql
-    sqlite
-    icu
-  ];
+  buildInputs = [ openssl mlton libmysqlclient postgresql sqlite icu ];
 
   prePatch = ''
     sed -e 's@/usr/bin/file@${file}/bin/file@g' -i configure
@@ -50,12 +33,10 @@ stdenv.mkDerivation rec {
                    -L${sqlite.out}/lib";
   '';
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=use-after-free"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=use-after-free"
+  ];
 
   # Be sure to keep the statically linked libraries
   dontDisableStatic = true;
@@ -65,9 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.impredicative.com/ur/";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [
-      lib.maintainers.thoughtpolice
-      lib.maintainers.sheganinans
-    ];
+    maintainers = [ lib.maintainers.thoughtpolice lib.maintainers.sheganinans ];
   };
 }

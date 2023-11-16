@@ -1,8 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildNimPackage, fetchFromGitHub }:
 
 buildNimPackage rec {
   pname = "npeg";

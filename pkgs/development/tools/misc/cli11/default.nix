@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  boost,
-  catch2,
-  cmake,
-  gtest,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, boost, catch2, cmake, gtest, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "cli11";
@@ -22,11 +13,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  nativeCheckInputs = [
-    boost
-    python3
-    catch2
-  ];
+  nativeCheckInputs = [ boost python3 catch2 ];
 
   doCheck = true;
 
@@ -37,4 +24,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ ];
     license = licenses.bsd3;
   };
+
 }

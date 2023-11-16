@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  tk,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, tk, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "dawn";
@@ -37,7 +31,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A vectorized 3D PostScript processor with analytical hidden line/surface removal";
+    description =
+      "A vectorized 3D PostScript processor with analytical hidden line/surface removal";
     license = licenses.unfree;
     homepage = "https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html";
     platforms = platforms.unix;

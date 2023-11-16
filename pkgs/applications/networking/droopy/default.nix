@@ -1,10 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  wrapPython,
-  fetchpatch,
-}:
+{ stdenv, lib, fetchFromGitHub, wrapPython, fetchpatch }:
 
 stdenv.mkDerivation {
   pname = "droopy";
@@ -19,11 +13,13 @@ stdenv.mkDerivation {
 
   patches = [
     (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/stackp/Droopy/pull/30.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/stackp/Droopy/pull/30.patch";
       sha256 = "Y6jBraKvVQAiScbvLwezSKeWY3vaAbhaNXEGNaItigQ=";
     })
     (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/stackp/Droopy/pull/31.patch";
+      url =
+        "https://patch-diff.githubusercontent.com/raw/stackp/Droopy/pull/31.patch";
       sha256 = "1ig054rxn5r0ph4w4fhmrxlh158c97iqqc7dbnc819adn9nw96l5";
     })
   ];
@@ -37,9 +33,11 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Mini Web server that let others upload files to your computer";
+    description =
+      "Mini Web server that let others upload files to your computer";
     homepage = "http://stackp.online.fr/droopy";
     license = licenses.bsd3;
     maintainers = [ maintainers.Profpatsch ];
   };
+
 }

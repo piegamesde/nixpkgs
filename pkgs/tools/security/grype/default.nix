@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  openssl,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, openssl }:
 
 buildGoModule rec {
   pname = "grype";
@@ -102,9 +96,6 @@ buildGoModule rec {
       container image or filesystem to find known vulnerabilities.
     '';
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [
-      fab
-      jk
-    ];
+    maintainers = with maintainers; [ fab jk ];
   };
 }

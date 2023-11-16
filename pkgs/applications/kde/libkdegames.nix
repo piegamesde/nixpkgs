@@ -1,23 +1,9 @@
-{
-  lib,
-  mkDerivation,
-  extra-cmake-modules,
-  kdoctools,
-  qtdeclarative,
-  kdeclarative,
-  kdnssd,
-  knewstuff,
-  openal,
-  libsndfile,
-  qtquickcontrols,
-}:
+{ lib, mkDerivation, extra-cmake-modules, kdoctools, qtdeclarative, kdeclarative
+, kdnssd, knewstuff, openal, libsndfile, qtquickcontrols }:
 
 mkDerivation {
   pname = "libkdegames";
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools ];
   buildInputs = [
     qtdeclarative
     kdeclarative

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "gym-notices";
@@ -22,3 +18,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ billhuang ];
   };
 }
+

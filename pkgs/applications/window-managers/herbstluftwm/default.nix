@@ -1,28 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  pkg-config,
-  python3,
-  libX11,
-  libXext,
-  libXinerama,
-  libXrandr,
-  libXft,
-  libXrender,
-  libXdmcp,
-  libXfixes,
-  freetype,
-  asciidoc,
-  xdotool,
-  xorgserver,
-  xsetroot,
-  xterm,
-  runtimeShell,
-  fetchpatch,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, cmake, pkg-config, python3, libX11, libXext
+, libXinerama, libXrandr, libXft, libXrender, libXdmcp, libXfixes, freetype
+, asciidoc, xdotool, xorgserver, xsetroot, xterm, runtimeShell, fetchpatch
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "herbstluftwm";
@@ -33,18 +12,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-stRgCQnlvs5a1jgY37MLsZ/SrJ9ShHsaenStQEBxgQU=";
   };
 
-  outputs = [
-    "out"
-    "doc"
-    "man"
-  ];
+  outputs = [ "out" "doc" "man" ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_SYSCONF_PREFIX=${placeholder "out"}/etc" ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   depsBuildBuild = [ asciidoc ];
 
@@ -65,7 +37,8 @@ stdenv.mkDerivation rec {
     # Adjust tests for compatibility with gcc 12 (https://github.com/herbstluftwm/herbstluftwm/issues/1512)
     # Can be removed with the next release (>0.9.5).
     (fetchpatch {
-      url = "https://github.com/herbstluftwm/herbstluftwm/commit/8678168c7a3307b1271e94974e062799e745ab40.patch";
+      url =
+        "https://github.com/herbstluftwm/herbstluftwm/commit/8678168c7a3307b1271e94974e062799e745ab40.patch";
       hash = "sha256-uI6ErfDitT2Tw0txx4lMSBn/jjiiyL4Qw6AJa/CTh1E=";
     })
   ];
@@ -86,14 +59,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   nativeCheckInputs = [
-    (python3.withPackages (
-      ps:
-      with ps; [
-        ewmh
-        pytest
-        xlib
-      ]
-    ))
+    (python3.withPackages (ps: with ps; [ ewmh pytest xlib ]))
     xdotool
     xorgserver
     xsetroot
@@ -113,9 +79,7 @@ stdenv.mkDerivation rec {
     "test_rules" # timeouts
   ];
 
-  passthru = {
-    tests.herbstluftwm = nixosTests.herbstluftwm;
-  };
+  passthru = { tests.herbstluftwm = nixosTests.herbstluftwm; };
 
   meta = with lib; {
     description = "A manual tiling window manager for X";

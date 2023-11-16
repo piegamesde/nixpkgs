@@ -1,32 +1,7 @@
-{
-  lib,
-  stdenv,
-  alsa-lib,
-  cmake,
-  fetchFromGitHub,
-  gtkmm3,
-  libepoxy,
-  libpng,
-  libselinux,
-  libX11,
-  libXdmcp,
-  libXext,
-  libXinerama,
-  libXrandr,
-  libXv,
-  minizip,
-  ninja,
-  pcre2,
-  pkg-config,
-  portaudio,
-  pulseaudio,
-  python3,
-  SDL2,
-  util-linuxMinimal,
-  wrapGAppsHook,
-  zlib,
-  withGtk ? false,
-}:
+{ lib, stdenv, alsa-lib, cmake, fetchFromGitHub, gtkmm3, libepoxy, libpng
+, libselinux, libX11, libXdmcp, libXext, libXinerama, libXrandr, libXv, minizip
+, ninja, pcre2, pkg-config, portaudio, pulseaudio, python3, SDL2
+, util-linuxMinimal, wrapGAppsHook, zlib, withGtk ? false }:
 
 stdenv.mkDerivation rec {
   pname = if withGtk then "snes9x-gtk" else "snes9x";
@@ -40,34 +15,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-+KHpvz7nfwGXjzDAK/V+2JDRT1sa0kXDkg7XcRyvSP8=";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      python3
-    ]
-    ++ lib.optionals withGtk [
-      cmake
-      ninja
-      wrapGAppsHook
-    ];
+  nativeBuildInputs = [ pkg-config python3 ]
+    ++ lib.optionals withGtk [ cmake ninja wrapGAppsHook ];
 
-  buildInputs =
-    [
-      libX11
-      libXv
-      minizip
-      zlib
-    ]
-    # on non-Linux platforms this will build without sound support on X11 build
-    ++ lib.optionals stdenv.isLinux [
-      alsa-lib
-      pulseaudio
-    ]
-    ++ lib.optionals (!withGtk) [
-      libpng
-      libXext
-      libXinerama
-    ]
+  buildInputs = [
+    libX11
+    libXv
+    minizip
+    zlib
+  ]
+  # on non-Linux platforms this will build without sound support on X11 build
+    ++ lib.optionals stdenv.isLinux [ alsa-lib pulseaudio ]
+    ++ lib.optionals (!withGtk) [ libpng libXext libXinerama ]
     ++ lib.optionals withGtk [
       gtkmm3
       libepoxy
@@ -99,14 +58,12 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  meta =
-    with lib;
-    let
-      interface = if withGtk then "GTK" else "X11";
-    in
-    {
+  meta = with lib;
+    let interface = if withGtk then "GTK" else "X11";
+    in {
       homepage = "https://www.snes9x.com";
-      description = "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
+      description =
+        "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
 
       longDescription = ''
         Snes9x is a portable, freeware Super Nintendo Entertainment System (SNES)
@@ -120,11 +77,7 @@ stdenv.mkDerivation rec {
       license = licenses.unfreeRedistributable // {
         url = "https://github.com/snes9xgit/snes9x/blob/${version}/LICENSE";
       };
-      maintainers = with maintainers; [
-        qknight
-        xfix
-        thiagokokada
-      ];
+      maintainers = with maintainers; [ qknight xfix thiagokokada ];
       platforms = platforms.unix;
       broken = (withGtk && stdenv.isDarwin);
     };

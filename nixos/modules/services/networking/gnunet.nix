@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -37,9 +32,8 @@ let
 
     ${extraOptions}
   '';
-in
 
-{
+in {
 
   ###### interface
 
@@ -119,7 +113,8 @@ in
         type = types.package;
         default = pkgs.gnunet;
         defaultText = literalExpression "pkgs.gnunet";
-        description = lib.mdDoc "Overridable attribute of the gnunet package to use.";
+        description =
+          lib.mdDoc "Overridable attribute of the gnunet package to use.";
         example = literalExpression "pkgs.gnunet_git";
       };
 
@@ -132,6 +127,7 @@ in
         '';
       };
     };
+
   };
 
   ###### implementation
@@ -157,16 +153,16 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."gnunet.conf".source ];
-      path = [
-        cfg.package
-        pkgs.miniupnpc
-      ];
-      serviceConfig.ExecStart = "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c /etc/gnunet.conf";
+      path = [ cfg.package pkgs.miniupnpc ];
+      serviceConfig.ExecStart =
+        "${cfg.package}/lib/gnunet/libexec/gnunet-service-arm -c /etc/gnunet.conf";
       serviceConfig.User = "gnunet";
       serviceConfig.UMask = "0007";
       serviceConfig.WorkingDirectory = stateDir;
       serviceConfig.RuntimeDirectory = "gnunet";
       serviceConfig.StateDirectory = "gnunet";
     };
+
   };
+
 }

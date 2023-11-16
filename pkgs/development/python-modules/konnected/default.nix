@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  aiohttp,
-}:
+{ lib, buildPythonPackage, fetchPypi, aiohttp }:
 
 buildPythonPackage rec {
   pname = "konnected";
@@ -22,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "konnected" ];
 
   meta = with lib; {
-    description = "Async Python library for interacting with Konnected home automation controllers";
+    description =
+      "Async Python library for interacting with Konnected home automation controllers";
     homepage = "https://github.com/konnected-io/konnected-py";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

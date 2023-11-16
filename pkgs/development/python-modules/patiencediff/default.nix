@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  setuptools,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, setuptools, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "patiencediff";
@@ -30,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "C implementation of patiencediff algorithm for Python";
     homepage = "https://github.com/breezy-team/patiencediff";
-    changelog = "https://github.com/breezy-team/patiencediff/releases/tag/v${version}";
+    changelog =
+      "https://github.com/breezy-team/patiencediff/releases/tag/v${version}";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ wildsebastian ];
   };

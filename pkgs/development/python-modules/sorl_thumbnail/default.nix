@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy27, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "sorl-thumbnail";
@@ -25,4 +19,5 @@ buildPythonPackage rec {
     description = "Thumbnails for Django";
     license = licenses.bsd3;
   };
+
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  asciidoc-full,
-}:
+{ lib, stdenv, fetchFromGitHub, asciidoc-full }:
 
 stdenv.mkDerivation rec {
   pname = "rep";

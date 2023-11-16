@@ -1,13 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # tests
-  django,
-  djangorestframework,
-  python,
-}:
+# tests
+, django, djangorestframework, python }:
 
 buildPythonPackage rec {
   pname = "rules";
@@ -23,10 +17,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "rules" ];
 
-  nativeCheckInputs = [
-    django
-    djangorestframework
-  ];
+  nativeCheckInputs = [ django djangorestframework ];
 
   checkPhase = ''
     runHook preCheck
@@ -37,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Awesome Django authorization, without the database";
     homepage = "https://github.com/dfunckt/django-rules";
-    changelog = "https://github.com/dfunckt/django-rules/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/dfunckt/django-rules/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa ];
   };

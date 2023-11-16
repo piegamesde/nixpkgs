@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  libyaml,
-}:
+{ lib, stdenv, libyaml }:
 
 stdenv.mkDerivation {
   name = "print-reexports";

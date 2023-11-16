@@ -1,28 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ibus,
-  ibus-table,
-  pkg-config,
-  python3,
-}:
+{ lib, stdenv, fetchurl, ibus, ibus-table, pkg-config, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "ibus-table-others";
   version = "1.3.15";
 
   src = fetchurl {
-    url = "https://github.com/moebiuscurve/ibus-table-others/releases/download/${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/moebiuscurve/ibus-table-others/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-nOj5gwhFodZv29hAN6S8EhQ+XlWp31FDOGIXtyAOM1E=";
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    ibus
-    ibus-table
-    python3
-  ];
+  buildInputs = [ ibus ibus-table python3 ];
 
   preBuild = ''
     export HOME=$TMPDIR

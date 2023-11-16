@@ -1,9 +1,6 @@
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
-  let
-    inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
-  in
-  {
+import ./make-test-python.nix ({ lib, pkgs, ... }:
+  let inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
+  in {
     name = "locate";
     meta.maintainers = with pkgs.lib.maintainers; [ chkno ];
 
@@ -62,5 +59,4 @@ import ./make-test-python.nix (
       # We shouldn't be able to see files on the other machine
       a.fail("locate file-on-b-machine")
     '';
-  }
-)
+  })

@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  erlang,
-  cl,
-  libGL,
-  libGLU,
-  runtimeShell,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, erlang, cl, libGL, libGLU, runtimeShell }:
 
 stdenv.mkDerivation rec {
   pname = "wings";
@@ -21,7 +11,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/dgud/wings/commit/94b3a3c6a0cfdcdbd98edce055d5c83ecb361f37.patch";
+      url =
+        "https://github.com/dgud/wings/commit/94b3a3c6a0cfdcdbd98edce055d5c83ecb361f37.patch";
       hash = "sha256-DHT1TiYoowloIWrdutBu70mL+557cTFr1dRcNgwbkpE=";
     })
   ];
@@ -37,12 +28,7 @@ stdenv.mkDerivation rec {
     find . -type f -name "*.[eh]rl" -exec sed -i 's,wings/intl_tools/,../intl_tools/,' {} \;
   '';
 
-  buildInputs = [
-    erlang
-    cl
-    libGL
-    libGLU
-  ];
+  buildInputs = [ erlang cl libGL libGLU ];
 
   ERL_LIBS = "${cl}/lib/erlang/lib";
 

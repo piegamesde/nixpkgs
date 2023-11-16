@@ -1,19 +1,6 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  qttools,
-  pkg-config,
-  qtbase,
-  wrapQtAppsHook,
-  dtkwidget,
-  qt5integration,
-  qt5platform-plugins,
-  libuuid,
-  parted,
-  partclone,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, qttools, pkg-config, qtbase
+, wrapQtAppsHook, dtkwidget, qt5integration, qt5platform-plugins, libuuid
+, parted, partclone }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-clone";
@@ -40,12 +27,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/sbin" "${partclone}/bin"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    qttools
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake qttools pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     qtbase
@@ -69,3 +51,4 @@ stdenv.mkDerivation rec {
     maintainers = teams.deepin.members;
   };
 }
+

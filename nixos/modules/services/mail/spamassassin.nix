@@ -1,18 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.spamassassin;
   spamassassin-local-cf = pkgs.writeText "local.cf" cfg.config;
-in
 
-{
+in {
   options = {
 
     services.spamassassin = {
@@ -21,7 +15,8 @@ in
       debug = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Whether to run the SpamAssassin daemon in debug mode";
+        description =
+          lib.mdDoc "Whether to run the SpamAssassin daemon in debug mode";
       };
 
       config = mkOption {
@@ -62,7 +57,8 @@ in
       initPreConf = mkOption {
         type = with types; either str path;
         description = lib.mdDoc "The SpamAssassin init.pre config.";
-        apply = val: if builtins.isPath val then val else pkgs.writeText "init.pre" val;
+        apply = val:
+          if builtins.isPath val then val else pkgs.writeText "init.pre" val;
         default = ''
           #
           # to update this list, run this command in the rules directory:
@@ -127,9 +123,7 @@ in
       group = "spamd";
     };
 
-    users.groups.spamd = {
-      gid = config.ids.gids.spamd;
-    };
+    users.groups.spamd = { gid = config.ids.gids.spamd; };
 
     systemd.services.sa-update = {
       # Needs to be able to contact the update server.
@@ -141,7 +135,8 @@ in
         User = "spamd";
         Group = "spamd";
         StateDirectory = "spamassassin";
-        ExecStartPost = "+${config.systemd.package}/bin/systemctl -q --no-block try-reload-or-restart spamd.service";
+        ExecStartPost =
+          "+${config.systemd.package}/bin/systemctl -q --no-block try-reload-or-restart spamd.service";
       };
 
       script = ''
@@ -180,10 +175,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
       wants = [ "sa-update.service" ];
-      after = [
-        "network.target"
-        "sa-update.service"
-      ];
+      after = [ "network.target" "sa-update.service" ];
 
       serviceConfig = {
         User = "spamd";

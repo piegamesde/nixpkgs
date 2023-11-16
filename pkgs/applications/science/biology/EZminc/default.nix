@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libminc,
-  bicpl,
-  itk,
-  fftwFloat,
-  gsl,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libminc, bicpl, itk
+, fftwFloat, gsl }:
 
 stdenv.mkDerivation rec {
   pname = "EZminc";
@@ -22,17 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "0wy8cppf5xpgfqvgb3mqs1cjh81n6qzkk6zxv29wvng8nar9wsy4";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    itk
-    libminc
-    bicpl
-    fftwFloat
-    gsl
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ itk libminc bicpl fftwFloat gsl ];
 
   cmakeFlags = [
     "-DLIBMINC_DIR=${libminc}/lib/cmake"
@@ -43,10 +24,12 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/${pname}";
-    description = "Collection of Perl and shell scripts for processing MINC files";
+    description =
+      "Collection of Perl and shell scripts for processing MINC files";
     maintainers = with maintainers; [ bcdarwin ];
     platforms = platforms.unix;
     license = licenses.free;
-    broken = true; # ITK5 compatibility issue (https://github.com/BIC-MNI/EZminc/issues/15)
+    broken =
+      true; # ITK5 compatibility issue (https://github.com/BIC-MNI/EZminc/issues/15)
   };
 }

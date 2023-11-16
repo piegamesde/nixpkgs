@@ -1,18 +1,13 @@
-{
-  stdenv,
-  fetchzip,
-  dos2unix,
-  soundPack ? stdenv.mkDerivation {
-    name = "soundsense-soundpack";
-    src = fetchzip {
-      url = "http://df.zweistein.cz/soundsense/soundpack.zip";
-      sha256 = "0qz0mjkp7wp0gxk3ws2x760awv8c9lkacj2fn9bz3gqqnq262ffa";
-    };
-    installPhase = ''
-      cp -r . $out
-    '';
-  },
-}:
+{ stdenv, fetchzip, dos2unix, soundPack ? stdenv.mkDerivation {
+  name = "soundsense-soundpack";
+  src = fetchzip {
+    url = "http://df.zweistein.cz/soundsense/soundpack.zip";
+    sha256 = "0qz0mjkp7wp0gxk3ws2x760awv8c9lkacj2fn9bz3gqqnq262ffa";
+  };
+  installPhase = ''
+    cp -r . $out
+  '';
+} }:
 
 stdenv.mkDerivation rec {
   version = "2016-1_196";
@@ -34,7 +29,5 @@ stdenv.mkDerivation rec {
     ln -s $out/soundsense/dfhack $out/hack
     ln -s $soundPack $out/soundsense/packs
   '';
-  passthru = {
-    inherit version dfVersion;
-  };
+  passthru = { inherit version dfVersion; };
 }

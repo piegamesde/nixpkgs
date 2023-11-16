@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "py";
@@ -22,7 +17,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "py" ];
 
   meta = with lib; {
-    description = "Library with cross-python path, ini-parsing, io, code, log facilities";
+    description =
+      "Library with cross-python path, ini-parsing, io, code, log facilities";
     homepage = "https://py.readthedocs.io/";
     license = licenses.mit;
   };

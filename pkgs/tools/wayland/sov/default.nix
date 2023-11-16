@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  pkg-config,
-  wayland-scanner,
-  ninja,
-  wayland,
-  wayland-protocols,
-  freetype,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, pkg-config, wayland-scanner, ninja
+, wayland, wayland-protocols, freetype, }:
 
 stdenv.mkDerivation rec {
   pname = "sov";
@@ -27,20 +17,12 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    wayland-scanner
-    ninja
-  ];
-  buildInputs = [
-    wayland
-    wayland-protocols
-    freetype
-  ];
+  nativeBuildInputs = [ meson pkg-config wayland-scanner ninja ];
+  buildInputs = [ wayland wayland-protocols freetype ];
 
   meta = with lib; {
-    description = "An overlay that shows schemas for all workspaces to make navigation in sway easier.";
+    description =
+      "An overlay that shows schemas for all workspaces to make navigation in sway easier.";
     homepage = "https://github.com/milgra/sov";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ travisdavis-ops ];

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  jinja2,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, jinja2, pytestCheckHook, pythonOlder
+, pyyaml }:
 
 buildPythonPackage rec {
   pname = "typesystem";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-fjnheHWjIDbJY1iXCRKCpqTCwtUWK9YXbynRCZquQ7c=";
   };
 
-  propagatedBuildInputs = [
-    jinja2
-    pyyaml
-  ];
+  propagatedBuildInputs = [ jinja2 pyyaml ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

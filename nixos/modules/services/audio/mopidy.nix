@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with pkgs;
 with lib;
@@ -25,8 +20,7 @@ let
         --prefix PYTHONPATH : $out/${mopidyPackages.python.sitePackages}
     '';
   };
-in
-{
+in {
 
   options = {
 
@@ -67,7 +61,9 @@ in
           Later files in the list overrides earlier configuration.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -78,10 +74,7 @@ in
 
     systemd.services.mopidy = {
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-        "sound.target"
-      ];
+      after = [ "network.target" "sound.target" ];
       description = "mopidy music player daemon";
       serviceConfig = {
         ExecStart = "${mopidyEnv}/bin/mopidy --config ${
@@ -111,5 +104,7 @@ in
     };
 
     users.groups.mopidy.gid = gid;
+
   };
+
 }

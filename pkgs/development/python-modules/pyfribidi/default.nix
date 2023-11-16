@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  isPyPy,
-  six,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, isPyPy, six }:
 
 buildPythonPackage rec {
   version = "0.12.0";
@@ -27,4 +20,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/pediapress/pyfribidi";
     license = licenses.gpl2;
   };
+
 }

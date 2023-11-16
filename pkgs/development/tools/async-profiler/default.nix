@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  jdk,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, jdk, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "async-profiler";
@@ -37,11 +31,14 @@ stdenv.mkDerivation rec {
       --replace 'PROFILER=$SCRIPT_DIR/build/libasyncProfiler.so' \
                 'PROFILER=${placeholder "out"}/lib/libasyncProfiler.so'
 
-    wrapProgram $out/bin/async-profiler --prefix PATH : ${lib.makeBinPath [ jdk ]}
+    wrapProgram $out/bin/async-profiler --prefix PATH : ${
+      lib.makeBinPath [ jdk ]
+    }
   '';
 
   meta = with lib; {
-    description = "A low overhead sampling profiler for Java that does not suffer from Safepoint bias problem";
+    description =
+      "A low overhead sampling profiler for Java that does not suffer from Safepoint bias problem";
     homepage = "https://github.com/jvm-profiling-tools/async-profiler";
     license = licenses.asl20;
     maintainers = with maintainers; [ mschuwalow ];

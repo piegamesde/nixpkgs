@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  click,
-  sortedcontainers,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, fetchPypi, click, sortedcontainers, pyyaml }:
 
 buildPythonPackage rec {
   pname = "cock";
@@ -16,11 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-Hi8aFxATsYcEO6qNzZnF73V8WLTQjb6Dw2xF4VgT2o4=";
   };
 
-  propagatedBuildInputs = [
-    click
-    sortedcontainers
-    pyyaml
-  ];
+  propagatedBuildInputs = [ click sortedcontainers pyyaml ];
 
   meta = with lib; {
     homepage = "https://github.com/pohmelie/cock";

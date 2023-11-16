@@ -1,17 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  colorclass,
-  easygui,
-  fetchFromGitHub,
-  msoffcrypto-tool,
-  olefile,
-  pcodedmp,
-  pyparsing,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, buildPythonPackage, colorclass, easygui, fetchFromGitHub
+, msoffcrypto-tool, olefile, pcodedmp, pyparsing, pytestCheckHook, pythonOlder
+, setuptools }:
 
 buildPythonPackage rec {
   pname = "oletools";
@@ -27,14 +16,8 @@ buildPythonPackage rec {
     hash = "sha256-H3oL8sk2r267wV0hoHOq9r9DY2Atxs+hZUVb6tmHy0w=";
   };
 
-  propagatedBuildInputs = [
-    colorclass
-    easygui
-    msoffcrypto-tool
-    olefile
-    pcodedmp
-    pyparsing
-  ];
+  propagatedBuildInputs =
+    [ colorclass easygui msoffcrypto-tool olefile pcodedmp pyparsing ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

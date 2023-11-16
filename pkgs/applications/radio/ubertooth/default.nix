@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libbtbb,
-  libpcap,
-  libusb1,
-  bluez,
-  udevGroup ? "ubertooth",
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libbtbb, libpcap, libusb1
+, bluez, udevGroup ? "ubertooth" }:
 
 stdenv.mkDerivation rec {
   pname = "ubertooth";
@@ -24,16 +14,8 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/host";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    libbtbb
-    libpcap
-    libusb1
-    bluez
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ libbtbb libpcap libusb1 bluez ];
 
   cmakeFlags = lib.optionals stdenv.isLinux [
     "-DINSTALL_UDEV_RULES=TRUE"
@@ -42,7 +24,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Open source wireless development platform suitable for Bluetooth experimentation";
+    description =
+      "Open source wireless development platform suitable for Bluetooth experimentation";
     homepage = "https://github.com/greatscottgadgets/ubertooth";
     license = licenses.gpl2;
     maintainers = with maintainers; [ oxzi ];

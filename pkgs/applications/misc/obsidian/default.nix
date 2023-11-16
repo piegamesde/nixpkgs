@@ -1,42 +1,30 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  makeWrapper,
-  electron,
-  makeDesktopItem,
-  imagemagick,
-  writeScript,
-  undmg,
-  unzip,
-}:
+{ stdenv, fetchurl, lib, makeWrapper, electron, makeDesktopItem, imagemagick
+, writeScript, undmg, unzip }:
 let
   inherit (stdenv.hostPlatform) system;
   pname = "obsidian";
   version = "1.3.5";
   appname = "Obsidian";
   meta = with lib; {
-    description = "A powerful knowledge base that works on top of a local folder of plain text Markdown files";
+    description =
+      "A powerful knowledge base that works on top of a local folder of plain text Markdown files";
     homepage = "https://obsidian.md";
     downloadPage = "https://github.com/obsidianmd/obsidian-releases/releases";
     license = licenses.obsidian;
-    maintainers = with maintainers; [
-      atila
-      conradmearns
-      zaninime
-      qbit
-    ];
+    maintainers = with maintainers; [ atila conradmearns zaninime qbit ];
   };
 
-  filename =
-    if stdenv.isDarwin then "Obsidian-${version}-universal.dmg" else "obsidian-${version}.tar.gz";
+  filename = if stdenv.isDarwin then
+    "Obsidian-${version}-universal.dmg"
+  else
+    "obsidian-${version}.tar.gz";
   src = fetchurl {
-    url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
-    sha256 =
-      if stdenv.isDarwin then
-        "sha256-bTIJwQqufzxq1/ZxR8rVYER82tl0pPMpKwDPr9Gz1Q4="
-      else
-        "sha256-jhm6ziFaJnv4prPSfOnJ/EbIRTf9rnvzAJVxnVqmWE4=";
+    url =
+      "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}";
+    sha256 = if stdenv.isDarwin then
+      "sha256-bTIJwQqufzxq1/ZxR8rVYER82tl0pPMpKwDPr9Gz1Q4="
+    else
+      "sha256-jhm6ziFaJnv4prPSfOnJ/EbIRTf9rnvzAJVxnVqmWE4=";
   };
 
   icon = fetchurl {
@@ -55,23 +43,9 @@ let
   };
 
   linux = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      desktopItem
-      icon
-    ;
-    meta = meta // {
-      platforms = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-    };
-    nativeBuildInputs = [
-      makeWrapper
-      imagemagick
-    ];
+    inherit pname version src desktopItem icon;
+    meta = meta // { platforms = [ "x86_64-linux" "aarch64-linux" ]; };
+    nativeBuildInputs = [ makeWrapper imagemagick ];
     installPhase = ''
       runHook preInstall
       mkdir -p $out/bin
@@ -99,24 +73,10 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      appname
-    ;
-    meta = meta // {
-      platforms = [
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-    };
+    inherit pname version src appname;
+    meta = meta // { platforms = [ "x86_64-darwin" "aarch64-darwin" ]; };
     sourceRoot = "${appname}.app";
-    nativeBuildInputs = [
-      makeWrapper
-      undmg
-      unzip
-    ];
+    nativeBuildInputs = [ makeWrapper undmg unzip ];
     installPhase = ''
       runHook preInstall
       mkdir -p $out/{Applications/${appname}.app,bin}
@@ -125,5 +85,4 @@ let
       runHook postInstall
     '';
   };
-in
-if stdenv.isDarwin then darwin else linux
+in if stdenv.isDarwin then darwin else linux

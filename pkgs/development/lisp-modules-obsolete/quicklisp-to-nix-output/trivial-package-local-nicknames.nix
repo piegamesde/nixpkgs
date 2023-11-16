@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "trivial-package-local-nicknames";
   version = "20200610-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/trivial-package-local-nicknames/2020-06-10/trivial-package-local-nicknames-20200610-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/trivial-package-local-nicknames/2020-06-10/trivial-package-local-nicknames-20200610-git.tgz";
     sha256 = "1wabkcwz0v144rb2w3rvxlcj264indfnvlyigk1wds7nq0c8lwk5";
   };
 

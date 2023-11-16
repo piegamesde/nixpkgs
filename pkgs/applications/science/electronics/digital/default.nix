@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeDesktopItem,
-  copyDesktopItems,
-  makeWrapper,
-  jre,
-  maven,
-  git,
-}:
+{ lib, stdenv, fetchFromGitHub, makeDesktopItem, copyDesktopItems, makeWrapper
+, jre, maven, git }:
 
 let
   pkgDescription = "A digital logic designer and circuit simulator.";
@@ -22,17 +13,10 @@ let
     comment = "Easy-to-use digital logic designer and circuit simulator";
     exec = "digital";
     icon = "digital";
-    categories = [
-      "Education"
-      "Electronics"
-    ];
+    categories = [ "Education" "Electronics" ];
     mimeTypes = [ "text/x-digital" ];
     terminal = false;
-    keywords = [
-      "simulator"
-      "digital"
-      "circuits"
-    ];
+    keywords = [ "simulator" "digital" "circuits" ];
   };
 
   # Use the "no-git-rev" maven profile, which deactivates the plugin that
@@ -40,9 +24,9 @@ let
   # provide that version number manually as a property.
   # (see https://github.com/hneemann/Digital/issues/289#issuecomment-513721481)
   # Also use the commit date as a build and output timestamp.
-  mvnOptions = "-Pno-git-rev -Dgit.commit.id.describe=${version} -Dproject.build.outputTimestamp=${buildDate} -DbuildTimestamp=${buildDate}";
-in
-stdenv.mkDerivation rec {
+  mvnOptions =
+    "-Pno-git-rev -Dgit.commit.id.describe=${version} -Dproject.build.outputTimestamp=${buildDate} -DbuildTimestamp=${buildDate}";
+in stdenv.mkDerivation rec {
   pname = "digital";
   inherit version jre;
 
@@ -77,11 +61,7 @@ stdenv.mkDerivation rec {
     outputHash = "1Cgw+5V2E/RENMRMm368+2yvY7y6v9gTlo+LRgrCXcE=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    maven
-    makeWrapper
-  ];
+  nativeBuildInputs = [ copyDesktopItems maven makeWrapper ];
 
   buildPhase = ''
     mvn package --offline ${mvnOptions} -Dmaven.repo.local=${mavenDeps}
@@ -105,10 +85,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/hneemann/Digital";
     description = pkgDescription;
     license = licenses.gpl3Only;
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
     maintainers = with maintainers; [ Dettorer ];
   };
 }

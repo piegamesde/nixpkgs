@@ -1,17 +1,10 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  traitlets,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, traitlets
+, pytestCheckHook }:
 
 let
   pname = "comm";
   version = "0.1.3";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
 
@@ -29,9 +22,11 @@ buildPythonPackage {
   nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
-    description = "Jupyter Python Comm implementation, for usage in ipykernel, xeus-python etc";
+    description =
+      "Jupyter Python Comm implementation, for usage in ipykernel, xeus-python etc";
     homepage = "https://github.com/ipython/comm";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ];
   };
 }
+

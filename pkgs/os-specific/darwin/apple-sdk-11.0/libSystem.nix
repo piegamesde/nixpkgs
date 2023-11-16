@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  buildPackages,
-  MacOSX-SDK,
-}:
+{ stdenvNoCC, buildPackages, MacOSX-SDK }:
 
 stdenvNoCC.mkDerivation {
   pname = "libSystem";
@@ -13,59 +9,53 @@ stdenvNoCC.mkDerivation {
 
   nativeBuildInputs = [ buildPackages.darwin.rewrite-tbd ];
 
-  includeDirs =
-    [
-      "CommonCrypto"
-      "_types"
-      "architecture"
-      "arpa"
-      "atm"
-      "bank"
-      "bsd"
-      "bsm"
-      "corecrypto"
-      "corpses"
-      "default_pager"
-      "device"
-      "dispatch"
-      "hfs"
-      "i386"
-      "iokit"
-      "kern"
-      "libkern"
-      "mach"
-      "mach-o"
-      "mach_debug"
-      "machine"
-      "malloc"
-      "miscfs"
-      "net"
-      "netinet"
-      "netinet6"
-      "netkey"
-      "nfs"
-      "os"
-      "osfmk"
-      "pexpert"
-      "platform"
-      "protocols"
-      "pthread"
-      "rpc"
-      "rpcsvc"
-      "secure"
-      "security"
-      "servers"
-      "sys"
-      "uuid"
-      "vfs"
-      "voucher"
-      "xlocale"
-    ]
-    ++ [
-      "arm"
-      "xpc"
-      "arm64"
-    ];
+  includeDirs = [
+    "CommonCrypto"
+    "_types"
+    "architecture"
+    "arpa"
+    "atm"
+    "bank"
+    "bsd"
+    "bsm"
+    "corecrypto"
+    "corpses"
+    "default_pager"
+    "device"
+    "dispatch"
+    "hfs"
+    "i386"
+    "iokit"
+    "kern"
+    "libkern"
+    "mach"
+    "mach-o"
+    "mach_debug"
+    "machine"
+    "malloc"
+    "miscfs"
+    "net"
+    "netinet"
+    "netinet6"
+    "netkey"
+    "nfs"
+    "os"
+    "osfmk"
+    "pexpert"
+    "platform"
+    "protocols"
+    "pthread"
+    "rpc"
+    "rpcsvc"
+    "secure"
+    "security"
+    "servers"
+    "sys"
+    "uuid"
+    "vfs"
+    "voucher"
+    "xlocale"
+  ] ++ [ "arm" "xpc" "arm64" ];
 
   csu = [
     "bundle1.o"
@@ -138,3 +128,4 @@ stdenvNoCC.mkDerivation {
     done
   '';
 }
+

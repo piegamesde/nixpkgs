@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-  buildEnv,
-}:
+{ lib, fetchFromGitHub, buildGoModule, buildEnv }:
 
 let
   package = buildGoModule rec {
@@ -90,9 +85,7 @@ let
       }
     '';
 
-    passthru = {
-      inherit plugins withPlugins;
-    };
+    passthru = { inherit plugins withPlugins; };
 
     meta = with lib; {
       description = "Autoscaling daemon for Nomad";
@@ -102,27 +95,15 @@ let
     };
   };
 
-  plugins =
-    let
-      plugins =
-        builtins.filter
-          (
-            n:
-            !(lib.elem n [
-              "out"
-              "bin"
-            ])
-          )
-          package.outputs;
-    in
-    lib.genAttrs plugins (output: package.${output});
+  plugins = let
+    plugins =
+      builtins.filter (n: !(lib.elem n [ "out" "bin" ])) package.outputs;
+  in lib.genAttrs plugins (output: package.${output});
 
   # Intended to be used as: (nomad-autoscaler.withPlugins (ps: [ ps.aws_asg ps.nomad_target ])
-  withPlugins =
-    f:
+  withPlugins = f:
     buildEnv {
       name = "nomad-autoscaler-env";
       paths = [ package.bin ] ++ f plugins;
     };
-in
-package
+in package

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
 
@@ -11,7 +6,8 @@ let
 
   configFile = ''
     ${cfg.chain.type}_chain
-    ${optionalString (cfg.chain.type == "random") "chain_len = ${builtins.toString cfg.chain.length}"}
+    ${optionalString (cfg.chain.type == "random")
+    "chain_len = ${builtins.toString cfg.chain.length}"}
     ${optionalString cfg.proxyDNS "proxy_dns"}
     ${optionalString cfg.quietMode "quiet_mode"}
     remote_dns_subnet ${builtins.toString cfg.remoteDNSSubnet}
@@ -19,11 +15,9 @@ let
     tcp_connect_time_out ${builtins.toString cfg.tcpConnectTimeOut}
     localnet ${cfg.localnet}
     [ProxyList]
-    ${builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "${v.type} ${v.host} ${builtins.toString v.port}") (
-        lib.filterAttrs (k: v: v.enable) cfg.proxies
-      )
-    )}
+    ${builtins.concatStringsSep "\n" (lib.mapAttrsToList
+      (k: v: "${v.type} ${v.host} ${builtins.toString v.port}")
+      (lib.filterAttrs (k: v: v.enable) cfg.proxies))}
   '';
 
   proxyOptions = {
@@ -31,11 +25,7 @@ let
       enable = mkEnableOption (lib.mdDoc "this proxy");
 
       type = mkOption {
-        type = types.enum [
-          "http"
-          "socks4"
-          "socks5"
-        ];
+        type = types.enum [ "http" "socks4" "socks5" ];
         description = lib.mdDoc "Proxy type.";
       };
 
@@ -50,8 +40,8 @@ let
       };
     };
   };
-in
-{
+
+in {
 
   ###### interface
 
@@ -59,17 +49,16 @@ in
 
     programs.proxychains = {
 
-      enable = mkEnableOption (lib.mdDoc "installing proxychains configuration");
+      enable =
+        mkEnableOption (lib.mdDoc "installing proxychains configuration");
 
-      package = mkPackageOptionMD pkgs "proxychains" { example = "pkgs.proxychains-ng"; };
+      package = mkPackageOptionMD pkgs "proxychains" {
+        example = "pkgs.proxychains-ng";
+      };
 
       chain = {
         type = mkOption {
-          type = types.enum [
-            "dynamic"
-            "strict"
-            "random"
-          ];
+          type = types.enum [ "dynamic" "strict" "random" ];
           default = "strict";
           description = lib.mdDoc ''
             `dynamic` - Each connection will be done via chained proxies
@@ -102,14 +91,11 @@ in
         description = lib.mdDoc "Proxy DNS requests - no leak for DNS data.";
       };
 
-      quietMode = mkEnableOption (lib.mdDoc "Quiet mode (no output from the library)");
+      quietMode =
+        mkEnableOption (lib.mdDoc "Quiet mode (no output from the library)");
 
       remoteDNSSubnet = mkOption {
-        type = types.enum [
-          10
-          127
-          224
-        ];
+        type = types.enum [ 10 127 224 ];
         default = 224;
         description = lib.mdDoc ''
           Set the class A subnet number to use for the internal remote DNS mapping, uses the reserved 224.x.x.x range by default.
@@ -131,7 +117,8 @@ in
       localnet = mkOption {
         type = types.str;
         default = "127.0.0.0/255.0.0.0";
-        description = lib.mdDoc "By default enable localnet for loopback address ranges.";
+        description =
+          lib.mdDoc "By default enable localnet for loopback address ranges.";
       };
 
       proxies = mkOption {
@@ -149,7 +136,9 @@ in
           }
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -178,4 +167,5 @@ in
     environment.etc."proxychains.conf".text = configFile;
     environment.systemPackages = [ cfg.package ];
   };
+
 }

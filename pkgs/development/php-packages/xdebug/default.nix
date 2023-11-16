@@ -1,13 +1,7 @@
-{
-  buildPecl,
-  lib,
-  fetchFromGitHub,
-}:
+{ buildPecl, lib, fetchFromGitHub }:
 
-let
-  version = "3.2.1";
-in
-buildPecl {
+let version = "3.2.1";
+in buildPecl {
   inherit version;
 
   pname = "xdebug";

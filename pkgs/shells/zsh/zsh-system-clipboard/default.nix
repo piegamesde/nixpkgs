@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "zsh-system-clipboard";
@@ -22,7 +18,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/kutsan/zsh-system-clipboard";
-    description = "A plugin that adds key bindings support for ZLE (Zsh Line Editor) clipboard operations for vi emulation keymaps";
+    description =
+      "A plugin that adds key bindings support for ZLE (Zsh Line Editor) clipboard operations for vi emulation keymaps";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ _0qq ];
     platforms = platforms.all;

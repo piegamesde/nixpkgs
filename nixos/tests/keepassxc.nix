@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "keepassxc";
@@ -8,14 +7,10 @@ import ./make-test-python.nix (
       timeout = 1800;
     };
 
-    nodes.machine =
-      { ... }:
+    nodes.machine = { ... }:
 
       {
-        imports = [
-          ./common/user-account.nix
-          ./common/x11.nix
-        ];
+        imports = [ ./common/user-account.nix ./common/x11.nix ];
 
         services.xserver.enable = true;
 
@@ -27,27 +22,24 @@ import ./make-test-python.nix (
         };
 
         test-support.displayManager.auto.user = "alice";
-        environment.systemPackages = with pkgs; [
-          keepassxc
-          xdotool
-        ];
+        environment.systemPackages = with pkgs; [ keepassxc xdotool ];
       };
 
     enableOCR = true;
 
-    testScript =
-      { nodes, ... }:
-      let
-        aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
-      in
-      ''
+    testScript = { nodes, ... }:
+      let aliceDo = cmd: ''machine.succeed("su - alice -c '${cmd}' >&2 &");'';
+      in ''
         with subtest("Ensure X starts"):
             start_all()
             machine.wait_for_x()
 
         with subtest("Can create database and entry with CLI"):
             ${aliceDo "keepassxc-cli db-create -k foo.keyfile foo.kdbx"}
-            ${aliceDo "keepassxc-cli add --no-password -k foo.keyfile foo.kdbx bar"}
+            ${
+              aliceDo
+              "keepassxc-cli add --no-password -k foo.keyfile foo.kdbx bar"
+            }
 
         with subtest("Ensure KeePassXC starts"):
             # start KeePassXC window
@@ -74,5 +66,4 @@ import ./make-test-python.nix (
             # Database is unlocked (doesn't have "[Locked]" in the title anymore)
             machine.wait_for_text("foo.kdbx - KeePassXC")
       '';
-  }
-)
+  })

@@ -1,15 +1,5 @@
-{
-  fetchurl,
-  stdenv,
-  installShellFiles,
-  lib,
-  libftdi1,
-  libjaylink,
-  libusb1,
-  pciutils,
-  pkg-config,
-  jlinkSupport ? false,
-}:
+{ fetchurl, stdenv, installShellFiles, lib, libftdi1, libjaylink, libusb1
+, pciutils, pkg-config, jlinkSupport ? false }:
 
 stdenv.mkDerivation rec {
   pname = "flashrom";
@@ -20,25 +10,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-oFMjRFPM0BLnnzRDvcxhYlz5e3/Xy0zdi/v/vosUliM=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    installShellFiles
-  ];
-  buildInputs = [
-    libftdi1
-    libusb1
-  ] ++ lib.optionals (!stdenv.isDarwin) [ pciutils ] ++ lib.optional jlinkSupport libjaylink;
+  nativeBuildInputs = [ pkg-config installShellFiles ];
+  buildInputs = [ libftdi1 libusb1 ]
+    ++ lib.optionals (!stdenv.isDarwin) [ pciutils ]
+    ++ lib.optional jlinkSupport libjaylink;
 
   postPatch = ''
     substituteInPlace util/flashrom_udev.rules \
       --replace 'GROUP="plugdev"' 'TAG+="uaccess", TAG+="udev-acl"'
   '';
 
-  makeFlags =
-    [
-      "PREFIX=$(out)"
-      "libinstall"
-    ]
+  makeFlags = [ "PREFIX=$(out)" "libinstall" ]
     ++ lib.optional jlinkSupport "CONFIG_JLINK_SPI=yes"
     ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
       "CONFIG_INTERNAL_X86=no"
@@ -52,12 +34,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.flashrom.org";
-    description = "Utility for reading, writing, erasing and verifying flash ROM chips";
+    description =
+      "Utility for reading, writing, erasing and verifying flash ROM chips";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-      fpletz
-      felixsinger
-    ];
+    maintainers = with maintainers; [ fpletz felixsinger ];
     platforms = platforms.all;
   };
 }

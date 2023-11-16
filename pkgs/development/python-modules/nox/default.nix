@@ -1,19 +1,6 @@
-{
-  lib,
-  argcomplete,
-  buildPythonPackage,
-  colorlog,
-  fetchFromGitHub,
-  hatchling,
-  importlib-metadata,
-  jinja2,
-  packaging,
-  pytestCheckHook,
-  pythonOlder,
-  tox,
-  typing-extensions,
-  virtualenv,
-}:
+{ lib, argcomplete, buildPythonPackage, colorlog, fetchFromGitHub, hatchling
+, importlib-metadata, jinja2, packaging, pytestCheckHook, pythonOlder, tox
+, typing-extensions, virtualenv }:
 
 buildPythonPackage rec {
   pname = "nox";
@@ -31,40 +18,26 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs =
-    [
-      argcomplete
-      colorlog
-      packaging
-      virtualenv
-    ]
+  propagatedBuildInputs = [ argcomplete colorlog packaging virtualenv ]
     ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
     ];
 
-  checkInputs = [
-    jinja2
-    tox
-    pytestCheckHook
-  ];
+  checkInputs = [ jinja2 tox pytestCheckHook ];
 
   pythonImportsCheck = [ "nox" ];
 
-  disabledTestPaths =
-    [
-      # AttributeError: module 'tox.config' has...
-      "tests/test_tox_to_nox.py"
-    ];
+  disabledTestPaths = [
+    # AttributeError: module 'tox.config' has...
+    "tests/test_tox_to_nox.py"
+  ];
 
   meta = with lib; {
     description = "Flexible test automation for Python";
     homepage = "https://nox.thea.codes/";
     changelog = "https://github.com/wntrblm/nox/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      doronbehar
-      fab
-    ];
+    maintainers = with maintainers; [ doronbehar fab ];
   };
 }

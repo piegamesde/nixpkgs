@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoPatchelfHook,
-  fetchurl,
-  glib-networking,
-  glibc,
-  gcc-unwrapped,
-  gtk3,
-  jre,
-  libsecret,
-  makeDesktopItem,
-  webkitgtk,
-  wrapGAppsHook,
-  writeScript,
+{ lib, stdenv, autoPatchelfHook, fetchurl, glib-networking, glibc, gcc-unwrapped
+, gtk3, jre, libsecret, makeDesktopItem, webkitgtk, wrapGAppsHook, writeScript
 }:
 let
   desktopItem = makeDesktopItem {
@@ -24,31 +11,20 @@ let
     categories = [ "Office" ];
   };
 
-  runtimeLibs = lib.makeLibraryPath [
-    gtk3
-    webkitgtk
-  ];
-in
-stdenv.mkDerivation rec {
+  runtimeLibs = lib.makeLibraryPath [ gtk3 webkitgtk ];
+in stdenv.mkDerivation rec {
   pname = "PortfolioPerformance";
   version = "0.63.1";
 
   src = fetchurl {
-    url = "https://github.com/buchen/portfolio/releases/download/${version}/PortfolioPerformance-${version}-linux.gtk.x86_64.tar.gz";
+    url =
+      "https://github.com/buchen/portfolio/releases/download/${version}/PortfolioPerformance-${version}-linux.gtk.x86_64.tar.gz";
     hash = "sha256-zMlRxj10NS47Q88UWM1s0WvhhQXS4I00JyzmigyYOmE=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook ];
 
-  buildInputs = [
-    gcc-unwrapped
-    glib-networking
-    glibc
-    libsecret
-  ];
+  buildInputs = [ gcc-unwrapped glib-networking glibc libsecret ];
 
   installPhase = ''
     mkdir -p $out/portfolio
@@ -73,15 +49,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A simple tool to calculate the overall performance of an investment portfolio";
+    description =
+      "A simple tool to calculate the overall performance of an investment portfolio";
     homepage = "https://www.portfolio-performance.info/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.epl10;
-    maintainers = with maintainers; [
-      elohmeier
-      oyren
-      shawn8901
-    ];
+    maintainers = with maintainers; [ elohmeier oyren shawn8901 ];
     mainProgram = "portfolio";
     platforms = [ "x86_64-linux" ];
   };

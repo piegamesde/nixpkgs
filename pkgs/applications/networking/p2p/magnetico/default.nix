@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  nixosTests,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, nixosTests, buildGoModule }:
 
 buildGoModule rec {
   pname = "magnetico";
@@ -34,9 +29,7 @@ buildGoModule rec {
     runHook postBuild
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) magnetico;
-  };
+  passthru.tests = { inherit (nixosTests) magnetico; };
 
   meta = with lib; {
     description = "Autonomous (self-hosted) BitTorrent DHT search engine suite";

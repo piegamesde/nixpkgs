@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  gtk3,
-  libsoup,
-  tzdata,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, libsoup, tzdata
+, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "libmateweather";
@@ -21,16 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "wgCZD0uOnU0OLG99MaWHY3TD0qNsa4y1kEQAQ6hg7zo=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-  ];
+  nativeBuildInputs = [ pkg-config gettext ];
 
-  buildInputs = [
-    gtk3
-    libsoup
-    tzdata
-  ];
+  buildInputs = [ gtk3 libsoup tzdata ];
 
   configureFlags = [
     "--with-zoneinfo-dir=${tzdata}/share/zoneinfo"
@@ -44,7 +28,8 @@ stdenv.mkDerivation rec {
   passthru.updateScript = mateUpdateScript { inherit pname; };
 
   meta = with lib; {
-    description = "Library to access weather information from online services for MATE";
+    description =
+      "Library to access weather information from online services for MATE";
     homepage = "https://github.com/mate-desktop/libmateweather";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

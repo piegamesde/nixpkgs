@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  CoreFoundation,
-  fetchPypi,
-  IOKit,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, CoreFoundation, fetchPypi, IOKit
+, pytestCheckHook, python, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "psutil";
@@ -37,11 +28,10 @@ buildPythonPackage rec {
   # our sandboxing which we can work around by disabling some tests:
   # - cpu_times was flaky on darwin
   # - the other disabled tests are likely due to sanboxing (missing specific errors)
-  pytestFlagsArray =
-    [
-      # Note: $out must be referenced as test import paths are relative
-      "$out/${python.sitePackages}/psutil/tests/test_system.py"
-    ];
+  pytestFlagsArray = [
+    # Note: $out must be referenced as test import paths are relative
+    "$out/${python.sitePackages}/psutil/tests/test_system.py"
+  ];
 
   disabledTests = [
     # Some of the tests have build-system hardware-based impurities (like
@@ -61,7 +51,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Process and system utilization information interface";
     homepage = "https://github.com/giampaolo/psutil";
-    changelog = "https://github.com/giampaolo/psutil/blob/release-${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/giampaolo/psutil/blob/release-${version}/HISTORY.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ jonringer ];
   };

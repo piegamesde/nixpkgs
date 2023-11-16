@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -36,8 +31,8 @@ let
       protocol = "http";
     };
   };
-in
-{
+
+in {
   options = {
     services.rippleDataApi = {
       enable = mkEnableOption (lib.mdDoc "ripple data api");
@@ -51,10 +46,7 @@ in
       importMode = mkOption {
         description = lib.mdDoc "Ripple data api import mode.";
         default = "liveOnly";
-        type = types.enum [
-          "live"
-          "liveOnly"
-        ];
+        type = types.enum [ "live" "liveOnly" ];
       };
 
       minLedger = mkOption {
@@ -71,7 +63,8 @@ in
 
       redis = {
         enable = mkOption {
-          description = lib.mdDoc "Whether to enable caching of ripple data to redis.";
+          description =
+            lib.mdDoc "Whether to enable caching of ripple data to redis.";
           default = true;
           type = types.bool;
         };
@@ -121,18 +114,18 @@ in
         };
 
         create = mkOption {
-          description = lib.mdDoc "Whether to create couchdb database needed by ripple data api.";
+          description = lib.mdDoc
+            "Whether to create couchdb database needed by ripple data api.";
           type = types.bool;
           default = true;
         };
       };
 
       rippleds = mkOption {
-        description = lib.mdDoc "List of rippleds to be used by ripple data api.";
-        default = [
-          "http://s_east.ripple.com:51234"
-          "http://s_west.ripple.com:51234"
-        ];
+        description =
+          lib.mdDoc "List of rippleds to be used by ripple data api.";
+        default =
+          [ "http://s_east.ripple.com:51234" "http://s_west.ripple.com:51234" ];
         type = types.listOf types.str;
       };
     };
@@ -153,7 +146,8 @@ in
 
       environment = {
         NODE_ENV = "production";
-        DEPLOYMENT_ENVS_CONFIG = pkgs.writeText "deployment.environment.json" deployment_env_config;
+        DEPLOYMENT_ENVS_CONFIG =
+          pkgs.writeText "deployment.environment.json" deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
       };
 
@@ -171,29 +165,28 @@ in
 
       environment = {
         NODE_ENV = "production";
-        DEPLOYMENT_ENVS_CONFIG = pkgs.writeText "deployment.environment.json" deployment_env_config;
+        DEPLOYMENT_ENVS_CONFIG =
+          pkgs.writeText "deployment.environment.json" deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
         LOG_FILE = "/dev/null";
       };
 
-      serviceConfig =
-        let
-          importMode =
-            if cfg.minLedger != null && cfg.maxLedger != null then
-              "${toString cfg.minLedger} ${toString cfg.maxLedger}"
-            else
-              cfg.importMode;
-        in
-        {
-          ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
-          Restart = "always";
-          User = "ripple-data-api";
-        };
+      serviceConfig = let
+        importMode = if cfg.minLedger != null && cfg.maxLedger != null then
+          "${toString cfg.minLedger} ${toString cfg.maxLedger}"
+        else
+          cfg.importMode;
+      in {
+        ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
+        Restart = "always";
+        User = "ripple-data-api";
+      };
 
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''
           HOST="http://${
-            optionalString (cfg.couchdb.pass != "") "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
+            optionalString (cfg.couchdb.pass != "")
+            "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
           }${cfg.couchdb.host}:${toString cfg.couchdb.port}"
           curl -X PUT $HOST/${cfg.couchdb.db} || true
         '')

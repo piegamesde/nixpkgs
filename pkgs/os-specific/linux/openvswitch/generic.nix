@@ -1,30 +1,11 @@
 { version, hash }:
 
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoconf,
-  automake,
-  installShellFiles,
-  iproute2,
-  kernel ? null,
-  libcap_ng,
-  libtool,
-  openssl,
-  perl,
-  pkg-config,
-  procps,
-  python3,
-  sphinxHook,
-  util-linux,
-  which,
-}:
+{ lib, stdenv, fetchurl, autoconf, automake, installShellFiles, iproute2
+, kernel ? null, libcap_ng, libtool, openssl, perl, pkg-config, procps, python3
+, sphinxHook, util-linux, which }:
 
-let
-  _kernel = kernel;
-in
-stdenv.mkDerivation rec {
+let _kernel = kernel;
+in stdenv.mkDerivation rec {
   pname = "openvswitch";
   inherit version;
 
@@ -35,47 +16,27 @@ stdenv.mkDerivation rec {
     inherit hash;
   };
 
-  outputs = [
-    "out"
-    "man"
+  outputs = [ "out" "man" ];
+
+  patches = [
+    # 8: vsctl-bashcomp - argument completion FAILED (completion.at:664)
+    ./patches/disable-bash-arg-completion-test.patch
   ];
 
-  patches =
-    [
-      # 8: vsctl-bashcomp - argument completion FAILED (completion.at:664)
-      ./patches/disable-bash-arg-completion-test.patch
-    ];
-
-  nativeBuildInputs = [
-    autoconf
-    automake
-    installShellFiles
-    libtool
-    pkg-config
-    sphinxHook
-  ];
+  nativeBuildInputs =
+    [ autoconf automake installShellFiles libtool pkg-config sphinxHook ];
 
   sphinxBuilders = [ "man" ];
 
   sphinxRoot = "./Documentation";
 
-  buildInputs = [
-    libcap_ng
-    openssl
-    perl
-    procps
-    python3
-    util-linux
-    which
-  ];
+  buildInputs = [ libcap_ng openssl perl procps python3 util-linux which ];
 
   preConfigure = "./boot.sh";
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sharedstatedir=/var"
-    "--sbindir=$(out)/bin"
-  ] ++ (lib.optionals (_kernel != null) [ "--with-linux" ]);
+  configureFlags =
+    [ "--localstatedir=/var" "--sharedstatedir=/var" "--sbindir=$(out)/bin" ]
+    ++ (lib.optionals (_kernel != null) [ "--with-linux" ]);
 
   # Leave /var out of this!
   installFlags = [
@@ -96,15 +57,8 @@ stdenv.mkDerivation rec {
     patchShebangs tests/
   '';
 
-  nativeCheckInputs =
-    [ iproute2 ]
-    ++ (
-      with python3.pkgs; [
-        netaddr
-        pyparsing
-        pytest
-      ]
-    );
+  nativeCheckInputs = [ iproute2 ]
+    ++ (with python3.pkgs; [ netaddr pyparsing pytest ]);
 
   meta = with lib; {
     changelog = "https://www.openvswitch.org/releases/NEWS-${version}.txt";
@@ -121,10 +75,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.openvswitch.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      netixx
-      kmcopper
-    ];
+    maintainers = with maintainers; [ netixx kmcopper ];
     platforms = platforms.linux;
   };
 }

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchurl,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "whisper";

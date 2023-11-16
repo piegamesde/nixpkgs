@@ -20,11 +20,7 @@
     version = "1.5.0";
   };
   overcommit = {
-    dependencies = [
-      "childprocess"
-      "iniparse"
-      "rexml"
-    ];
+    dependencies = [ "childprocess" "iniparse" "rexml" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

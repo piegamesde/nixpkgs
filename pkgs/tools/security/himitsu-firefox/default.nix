@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  hare,
-  himitsu,
-  zip,
-}:
+{ lib, stdenv, fetchFromSourcehut, hare, himitsu, zip }:
 
 stdenv.mkDerivation rec {
   pname = "himitsu-firefox";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5RbNdEGPnfDt1KDeU2LnuRsqqqMRyV/Dh2cgEWkz4vQ=";
   };
 
-  nativeBuildInputs = [
-    hare
-    zip
-  ];
+  nativeBuildInputs = [ hare zip ];
 
   buildInputs = [ himitsu ];
 
@@ -37,10 +27,7 @@ stdenv.mkDerivation rec {
   # > that this will probably not work. The recommended installation procedure
   # > for the native extension is to install it from addons.mozilla.org instead.
   installTargets = [ "install-native" ];
-  installFlags = [
-    "PREFIX="
-    "DESTDIR=$(out)"
-  ];
+  installFlags = [ "PREFIX=" "DESTDIR=$(out)" ];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/himitsu-firefox";

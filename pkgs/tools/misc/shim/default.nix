@@ -1,25 +1,16 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  elfutils,
-  vendorCertFile ? null,
-  defaultLoader ? null,
-}:
+{ stdenv, fetchFromGitHub, lib, elfutils, vendorCertFile ? null
+, defaultLoader ? null }:
 
 let
 
   inherit (stdenv.targetPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
-  target =
-    {
-      x86_64-linux = "shimx64.efi";
-      aarch64-linux = "shimaa64.efi";
-    }
-    .${system} or throwSystem;
-in
-stdenv.mkDerivation rec {
+  target = {
+    x86_64-linux = "shimx64.efi";
+    aarch64-linux = "shimaa64.efi";
+  }.${system} or throwSystem;
+in stdenv.mkDerivation rec {
   pname = "shim";
   version = "15.7";
 
@@ -49,13 +40,7 @@ stdenv.mkDerivation rec {
     description = "UEFI shim loader";
     homepage = "https://github.com/rhboot/shim";
     license = licenses.bsd1;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    maintainers = with maintainers; [
-      baloo
-      raitobezarius
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    maintainers = with maintainers; [ baloo raitobezarius ];
   };
 }

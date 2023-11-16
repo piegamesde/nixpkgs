@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  perl,
-  perlPackages,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, perl, perlPackages, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "findimagedupes";
@@ -21,25 +13,18 @@ stdenv.mkDerivation rec {
   # Work around the "unpacker appears to have produced no directories"
   setSourceRoot = "sourceRoot=$(pwd)";
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
-  buildInputs =
-    [ perl ]
-    ++ (
-      with perlPackages; [
-        DBFile
-        FileMimeInfo
-        FileBaseDir
-        #GraphicsMagick
-        ImageMagick
-        Inline
-        InlineC
-        ParseRecDescent
-      ]
-    );
+  buildInputs = [ perl ] ++ (with perlPackages; [
+    DBFile
+    FileMimeInfo
+    FileBaseDir
+    #GraphicsMagick
+    ImageMagick
+    Inline
+    InlineC
+    ParseRecDescent
+  ]);
 
   # use /tmp as a storage
   # replace GraphicsMagick with ImageMagick, because perl bindings are not yet available
@@ -49,7 +34,8 @@ stdenv.mkDerivation rec {
       --replace "Graphics::Magick" "Image::Magick"
   '';
 
-  buildPhase = "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  ";
+  buildPhase =
+    "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  ";
 
   installPhase = ''
     runHook preInstall

@@ -1,18 +1,10 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  nix-update-script,
-  protobuf,
-  Security,
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, nix-update-script, protobuf
+, Security }:
 
 let
   pname = "quickwit";
   version = "0.6.1";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -39,10 +31,12 @@ rustPlatform.buildRustPackage {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "chitchat-0.5.0" = "sha256-gGWMzTzQNb9JXSbPIanMJpEKhKen1KsIrWQz6wvypDY=";
-      "ownedbytes-0.5.0" = "sha256-+hfp2r/m4Mu+HUXy3gfyU4klHqq+5k363Tpc34IWgLQ=";
+      "ownedbytes-0.5.0" =
+        "sha256-+hfp2r/m4Mu+HUXy3gfyU4klHqq+5k363Tpc34IWgLQ=";
       "path-0.1.0" = "sha256-f+Iix+YuKy45zoQXH7ctzANaL96s7HNUBOhcM1ZV0Ko=";
       "pulsar-5.0.2" = "sha256-j7wpsAro6x4fk3pvSL4fxLkddJFq8duZ7jDj0Edf3YQ=";
-      "sasl2-sys-0.1.20+2.1.28" = "sha256-u4BsfmTDFxuY3i1amLCsr7MDv356YPThMHclura0Sxs=";
+      "sasl2-sys-0.1.20+2.1.28" =
+        "sha256-u4BsfmTDFxuY3i1amLCsr7MDv356YPThMHclura0Sxs=";
     };
   };
 

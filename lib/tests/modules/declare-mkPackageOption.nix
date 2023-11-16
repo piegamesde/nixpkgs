@@ -4,8 +4,7 @@ let
     type = "derivation";
     pname = "hello";
   };
-in
-{
+in {
   options = {
     package = lib.mkPackageOption pkgs "hello" { };
 

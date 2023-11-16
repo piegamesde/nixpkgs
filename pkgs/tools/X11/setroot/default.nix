@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libX11,
-  imlib2,
-  pkg-config,
-  fetchpatch,
-  enableXinerama ? true,
-  libXinerama,
-}:
+{ lib, stdenv, fetchFromGitHub, libX11, imlib2, pkg-config, fetchpatch
+, enableXinerama ? true, libXinerama }:
 
 stdenv.mkDerivation rec {
   version = "2.0.2";
@@ -23,17 +14,16 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/ttzhou/setroot/commit/d8ff8edd7d7594d276d741186bf9ccf0bce30277.patch";
+      url =
+        "https://github.com/ttzhou/setroot/commit/d8ff8edd7d7594d276d741186bf9ccf0bce30277.patch";
       sha256 = "sha256-e0iMSpiOmTOpQnp599fjH2UCPU4Oq1VKXcVypVoR9hw=";
     })
   ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    libX11
-    imlib2
-  ] ++ lib.optionals enableXinerama [ libXinerama ];
+  buildInputs = [ libX11 imlib2 ]
+    ++ lib.optionals enableXinerama [ libXinerama ];
 
   buildFlags = [ (if enableXinerama then "xinerama=1" else "xinerama=0") ];
 

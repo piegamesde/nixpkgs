@@ -1,31 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
+{ lib, stdenv, fetchFromGitHub
 
-  cmake,
-  pkg-config,
-  ninja,
-  gtest,
+, cmake, pkg-config, ninja, gtest
 
-  curl,
-  freetype,
-  giflib,
-  libjpeg,
-  libpng,
-  libwebp,
-  pixman,
-  tinyxml,
-  zlib,
-  SDL2,
-  SDL2_image,
-  lua,
-  AppKit,
-  Cocoa,
-  Foundation,
+, curl, freetype, giflib, libjpeg, libpng, libwebp, pixman, tinyxml, zlib, SDL2
+, SDL2_image, lua, AppKit, Cocoa, Foundation
 
-  nixosTests,
-}:
+, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "libresprite";
@@ -39,39 +19,25 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-d8GmVHYomDb74iSeEhJEVTHvbiVXggXg7xSqIKCUSzY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ninja
-    gtest
-  ];
+  nativeBuildInputs = [ cmake pkg-config ninja gtest ];
 
-  buildInputs =
-    [
-      curl
-      freetype
-      giflib
-      libjpeg
-      libpng
-      libwebp
-      pixman
-      tinyxml
-      zlib
-      SDL2
-      SDL2_image
-      lua
-      # no v8 due to missing libplatform and libbase
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      Cocoa
-      Foundation
-    ];
+  buildInputs = [
+    curl
+    freetype
+    giflib
+    libjpeg
+    libpng
+    libwebp
+    pixman
+    tinyxml
+    zlib
+    SDL2
+    SDL2_image
+    lua
+    # no v8 due to missing libplatform and libbase
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation ];
 
-  cmakeFlags = [
-    "-DWITH_DESKTOP_INTEGRATION=ON"
-    "-DWITH_WEBP_SUPPORT=ON"
-  ];
+  cmakeFlags = [ "-DWITH_DESKTOP_INTEGRATION=ON" "-DWITH_WEBP_SUPPORT=ON" ];
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 
@@ -84,9 +50,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru.tests = {
-    libresprite-can-open-png = nixosTests.libresprite;
-  };
+  passthru.tests = { libresprite-can-open-png = nixosTests.libresprite; };
 
   meta = with lib; {
     homepage = "https://libresprite.github.io/";

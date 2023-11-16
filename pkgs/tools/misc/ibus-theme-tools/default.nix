@@ -1,9 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  gettext,
-}:
+{ lib, python3Packages, fetchFromGitHub, gettext }:
 
 python3Packages.buildPythonApplication rec {
   pname = "ibus-theme-tools";
@@ -18,10 +13,7 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [ gettext ];
 
-  propagatedBuildInputs = with python3Packages; [
-    tinycss2
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3Packages; [ tinycss2 pygobject3 ];
 
   # No test.
   doCheck = false;
@@ -29,7 +21,8 @@ python3Packages.buildPythonApplication rec {
   pythonImportsCheck = [ "ibus_theme_tools" ];
 
   meta = with lib; {
-    description = "Generate the IBus GTK or GNOME Shell theme from existing themes";
+    description =
+      "Generate the IBus GTK or GNOME Shell theme from existing themes";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ hollowman6 ];
     homepage = "https://github.com/openSUSE/IBus-Theme-Tools";

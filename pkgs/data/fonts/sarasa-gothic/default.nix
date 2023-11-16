@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchurl,
-  p7zip,
-}:
+{ lib, stdenvNoCC, fetchurl, p7zip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "sarasa-gothic";
@@ -12,7 +7,8 @@ stdenvNoCC.mkDerivation rec {
   src = fetchurl {
     # Use the 'ttc' files here for a smaller closure size.
     # (Using 'ttf' files gives a closure size about 15x larger, as of November 2021.)
-    url = "https://github.com/be5invis/Sarasa-Gothic/releases/download/v${version}/sarasa-gothic-ttc-${version}.7z";
+    url =
+      "https://github.com/be5invis/Sarasa-Gothic/releases/download/v${version}/sarasa-gothic-ttc-${version}.7z";
     hash = "sha256-3WcBuBTm3ASuCvLh+2R/idLKBjCTnk4qIRaOo590ugU=";
   };
 

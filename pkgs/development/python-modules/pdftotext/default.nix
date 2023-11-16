@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  poppler,
-}:
+{ lib, buildPythonPackage, fetchPypi, poppler }:
 
 buildPythonPackage rec {
   pname = "pdftotext";

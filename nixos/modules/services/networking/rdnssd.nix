@@ -1,12 +1,7 @@
 # Module for rdnssd, a daemon that configures DNS servers in
 # /etc/resolv/conf from IPv6 RDNSS advertisements.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -14,8 +9,7 @@ let
     #! ${pkgs.runtimeShell} -e
     ${pkgs.openresolv}/bin/resolvconf -u
   '';
-in
-{
+in {
 
   ###### interface
 
@@ -32,18 +26,18 @@ in
         advertisements sent by IPv6 routers.
       '';
     };
+
   };
 
   ###### implementation
 
   config = mkIf config.services.rdnssd.enable {
 
-    assertions = [
-      {
-        assertion = config.networking.resolvconf.enable;
-        message = "rdnssd needs resolvconf to work (probably something sets up a static resolv.conf)";
-      }
-    ];
+    assertions = [{
+      assertion = config.networking.resolvconf.enable;
+      message =
+        "rdnssd needs resolvconf to work (probably something sets up a static resolv.conf)";
+    }];
 
     systemd.services.rdnssd = {
       description = "RDNSS daemon";
@@ -68,7 +62,8 @@ in
       '';
 
       serviceConfig = {
-        ExecStart = "@${pkgs.ndisc6}/bin/rdnssd rdnssd -p /run/rdnssd/rdnssd.pid -r /run/rdnssd/resolv.conf -u rdnssd -H ${mergeHook}";
+        ExecStart =
+          "@${pkgs.ndisc6}/bin/rdnssd rdnssd -p /run/rdnssd/rdnssd.pid -r /run/rdnssd/resolv.conf -u rdnssd -H ${mergeHook}";
         Type = "forking";
         PIDFile = "/run/rdnssd/rdnssd.pid";
       };
@@ -80,5 +75,7 @@ in
       group = "rdnssd";
     };
     users.groups.rdnssd = { };
+
   };
+
 }

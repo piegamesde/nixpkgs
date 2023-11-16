@@ -1,26 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  bzip2,
-  expat,
-  glib,
-  curl,
-  libxml2,
-  python3,
-  rpm,
-  openssl,
-  sqlite,
-  file,
-  xz,
-  pcre,
-  bash-completion,
-  zstd,
-  zchunk,
-  libmodulemd,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, bzip2, expat, glib, curl
+, libxml2, python3, rpm, openssl, sqlite, file, xz, pcre, bash-completion, zstd
+, zchunk, libmodulemd }:
 
 stdenv.mkDerivation rec {
   pname = "createrepo_c";
@@ -47,11 +27,7 @@ stdenv.mkDerivation rec {
       --replace "@PYTHON_INSTALL_DIR@" "$out/${python3.sitePackages}"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    rpm
-  ];
+  nativeBuildInputs = [ cmake pkg-config rpm ];
 
   buildInputs = [
     bzip2
@@ -79,3 +55,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ copumpkin ];
   };
 }
+

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  gettext,
-  pkg-config,
-  glib,
-  gnome,
-  gnome-menus,
-  substituteAll,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, gettext, pkg-config, glib, gnome
+, gnome-menus, substituteAll }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extensions";
@@ -30,13 +19,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gettext
-    glib
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config gettext glib ];
 
   mesonFlags = [ "-Dextension_set=all" ];
 

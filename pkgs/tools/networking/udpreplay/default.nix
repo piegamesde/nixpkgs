@@ -1,10 +1,4 @@
-{
-  stdenv,
-  cmake,
-  libpcap,
-  fetchFromGitHub,
-  lib,
-}:
+{ stdenv, cmake, libpcap, fetchFromGitHub, lib }:
 stdenv.mkDerivation rec {
   pname = "updreplay";
   version = "1.1.0";

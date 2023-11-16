@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  bottle,
-  buildPythonPackage,
-  fetchpatch,
-  fetchPypi,
-  pytestCheckHook,
-  pythonAtLeast,
-}:
+{ lib, stdenv, bottle, buildPythonPackage, fetchpatch, fetchPypi
+, pytestCheckHook, pythonAtLeast }:
 
 buildPythonPackage rec {
   pname = "Pympler";
@@ -18,16 +10,15 @@ buildPythonPackage rec {
     sha256 = "993f1a3599ca3f4fcd7160c7545ad06310c9e12f70174ae7ae8d4e25f6c5d3fa";
   };
 
-  patches =
-    [
-      # Fixes a TypeError on Python 3.11
-      # (see https://github.com/pympler/pympler/issues/148)
-      (fetchpatch {
-        name = "${pname}-python-3.11-compat.patch";
-        url = "https://github.com/pympler/pympler/pull/149.patch";
-        hash = "sha256-6MK0AuhVhQkUzlk29HUh1+mSbfsVTBJ1YBtYNIFhh7U=";
-      })
-    ];
+  patches = [
+    # Fixes a TypeError on Python 3.11
+    # (see https://github.com/pympler/pympler/issues/148)
+    (fetchpatch {
+      name = "${pname}-python-3.11-compat.patch";
+      url = "https://github.com/pympler/pympler/pull/149.patch";
+      hash = "sha256-6MK0AuhVhQkUzlk29HUh1+mSbfsVTBJ1YBtYNIFhh7U=";
+    })
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -36,18 +27,16 @@ buildPythonPackage rec {
   # bottle if it is available, so we make it an explicit dependency.
   propagatedBuildInputs = [ bottle ];
 
-  disabledTests =
-    [
-      # 'AssertionError: 'function (test.muppy.test_summary.func)' != 'function (muppy.test_summary.func)'
-      # https://github.com/pympler/pympler/issues/134
-      "test_repr_function"
-    ]
-    ++ lib.optionals (pythonAtLeast "3.11") [
-      # https://github.com/pympler/pympler/issues/148
-      "test_findgarbage"
-      "test_get_tree"
-      "test_prune"
-    ];
+  disabledTests = [
+    # 'AssertionError: 'function (test.muppy.test_summary.func)' != 'function (muppy.test_summary.func)'
+    # https://github.com/pympler/pympler/issues/134
+    "test_repr_function"
+  ] ++ lib.optionals (pythonAtLeast "3.11") [
+    # https://github.com/pympler/pympler/issues/148
+    "test_findgarbage"
+    "test_get_tree"
+    "test_prune"
+  ];
 
   doCheck = stdenv.hostPlatform.isLinux;
 
@@ -56,4 +45,5 @@ buildPythonPackage rec {
     homepage = "https://pythonhosted.org/Pympler/";
     license = licenses.asl20;
   };
+
 }

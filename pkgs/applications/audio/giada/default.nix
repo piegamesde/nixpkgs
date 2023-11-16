@@ -1,27 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  cmake,
-  pkg-config,
-  fltk,
-  fmt,
-  rtmidi,
-  libsamplerate,
-  libmpg123,
-  libsndfile,
-  jack2,
-  alsa-lib,
-  libpulseaudio,
-  libXpm,
-  libXrandr,
-  flac,
-  libogg,
-  libvorbis,
-  libopus,
-  nlohmann_json,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake, pkg-config, fltk, fmt, rtmidi
+, libsamplerate, libmpg123, libsndfile, jack2, alsa-lib, libpulseaudio, libXpm
+, libXrandr, flac, libogg, libvorbis, libopus, nlohmann_json }:
 
 stdenv.mkDerivation rec {
   pname = "giada";
@@ -35,31 +14,22 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Remove when updating to the next release, this PR is already merged
-      # Fix fmt type error: https://github.com/monocasual/giada/pull/635
-      (fetchpatch {
-        name = "fix-fmt-type-error.patch";
-        url = "https://github.com/monocasual/giada/commit/032af4334f6d2bb7e77a49e7aef5b4c4d696df9a.patch";
-        hash = "sha256-QuxETvBWzA1v2ifyNzlNMGfQ6XhYQF03sGZA9rBx1xU=";
-      })
-    ];
-
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-w"
-    "-Wno-error"
+  patches = [
+    # Remove when updating to the next release, this PR is already merged
+    # Fix fmt type error: https://github.com/monocasual/giada/pull/635
+    (fetchpatch {
+      name = "fix-fmt-type-error.patch";
+      url =
+        "https://github.com/monocasual/giada/commit/032af4334f6d2bb7e77a49e7aef5b4c4d696df9a.patch";
+      hash = "sha256-QuxETvBWzA1v2ifyNzlNMGfQ6XhYQF03sGZA9rBx1xU=";
+    })
   ];
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_BINDIR=bin"
-    "-DCMAKE_BUILD_TYPE=Release"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-w" "-Wno-error" ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  cmakeFlags = [ "-DCMAKE_INSTALL_BINDIR=bin" "-DCMAKE_BUILD_TYPE=Release" ];
+
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     rtmidi
@@ -81,7 +51,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "A free, minimal, hardcore audio tool for DJs, live performers and electronic musicians";
+    description =
+      "A free, minimal, hardcore audio tool for DJs, live performers and electronic musicians";
     homepage = "https://giadamusic.com/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ ];

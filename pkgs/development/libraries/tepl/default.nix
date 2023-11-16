@@ -1,30 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  mesonEmulatorHook,
-  ninja,
-  amtk,
-  gnome,
-  gobject-introspection,
-  gtk3,
-  gtksourceview4,
-  icu,
-  pkg-config,
-  gtk-doc,
-  docbook-xsl-nons,
-}:
+{ lib, stdenv, fetchurl, meson, mesonEmulatorHook, ninja, amtk, gnome
+, gobject-introspection, gtk3, gtksourceview4, icu, pkg-config, gtk-doc
+, docbook-xsl-nons }:
 
 stdenv.mkDerivation rec {
   pname = "tepl";
   version = "6.4.0";
 
-  outputs = [
-    "out"
-    "dev"
-    "devdoc"
-  ];
+  outputs = [ "out" "dev" "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -34,22 +16,14 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [
-    meson
-    ninja
-    gobject-introspection
-    pkg-config
-    gtk-doc
-    docbook-xsl-nons
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [ meson ninja gobject-introspection pkg-config gtk-doc docbook-xsl-nons ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+    [ mesonEmulatorHook ];
 
   buildInputs = [ icu ];
 
-  propagatedBuildInputs = [
-    amtk
-    gtksourceview4
-    gtk3
-  ];
+  propagatedBuildInputs = [ amtk gtksourceview4 gtk3 ];
 
   doCheck = false;
   # TODO: one test fails because of

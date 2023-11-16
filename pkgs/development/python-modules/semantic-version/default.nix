@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, fetchPypi, buildPythonPackage, pythonOlder, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "semantic-version";
@@ -27,9 +21,6 @@ buildPythonPackage rec {
     description = "A library implementing the 'SemVer' scheme";
     homepage = "https://github.com/rbarrois/python-semanticversion/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [
-      layus
-      makefu
-    ];
+    maintainers = with maintainers; [ layus makefu ];
   };
 }

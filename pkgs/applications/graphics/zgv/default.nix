@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  pkg-config,
-  SDL,
-  SDL_image,
-  libjpeg,
-  libpng,
-  libtiff,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, SDL, SDL_image, libjpeg, libpng
+, libtiff }:
 
 stdenv.mkDerivation rec {
   pname = "zgv";
@@ -20,13 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    SDL
-    SDL_image
-    libjpeg
-    libpng
-    libtiff
-  ];
+  buildInputs = [ SDL SDL_image libjpeg libpng libtiff ];
 
   hardeningDisable = [ "format" ];
 
@@ -34,7 +18,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://foss.aueb.gr/mirrors/linux/gentoo/media-gfx/zgv/files/zgv-5.9-libpng15.patch";
+      url =
+        "https://foss.aueb.gr/mirrors/linux/gentoo/media-gfx/zgv/files/zgv-5.9-libpng15.patch";
       sha256 = "1blw9n04c28bnwcmcn64si4f5zpg42s8yn345js88fyzi9zm19xw";
     })
     ./switch.patch

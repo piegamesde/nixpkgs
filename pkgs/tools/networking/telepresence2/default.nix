@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  kubernetes-helm,
-}:
+{ lib, buildGoModule, fetchFromGitHub, kubernetes-helm }:
 
 buildGoModule rec {
   pname = "telepresence2";
@@ -37,7 +32,8 @@ buildGoModule rec {
   subPackages = [ "cmd/telepresence" ];
 
   meta = with lib; {
-    description = "Local development against a remote Kubernetes or OpenShift cluster";
+    description =
+      "Local development against a remote Kubernetes or OpenShift cluster";
     homepage = "https://telepresence.io";
     license = licenses.asl20;
     maintainers = with maintainers; [ mausch ];

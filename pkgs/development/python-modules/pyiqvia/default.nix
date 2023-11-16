@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  aiohttp,
-  aresponses,
-  backoff,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-aiohttp,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, aiohttp, aresponses, backoff, fetchFromGitHub
+, poetry-core, pytest-aiohttp, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyiqvia";
@@ -28,23 +17,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    backoff
-  ];
+  propagatedBuildInputs = [ aiohttp backoff ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-aiohttp
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs =
+    [ aresponses pytest-aiohttp pytest-asyncio pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples as they are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples as they are prefixed with test_
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "pyiqvia" ];
 

@@ -1,23 +1,6 @@
-{
-  lib,
-  astropy,
-  astropy-helpers,
-  buildPythonPackage,
-  cython,
-  fetchpatch,
-  fetchPypi,
-  matplotlib,
-  numpy,
-  pillow,
-  pyavm,
-  pyregion,
-  pytest-astropy,
-  pytestCheckHook,
-  pythonOlder,
-  reproject,
-  scikit-image,
-  shapely,
-}:
+{ lib, astropy, astropy-helpers, buildPythonPackage, cython, fetchpatch
+, fetchPypi, matplotlib, numpy, pillow, pyavm, pyregion, pytest-astropy
+, pytestCheckHook, pythonOlder, reproject, scikit-image, shapely }:
 
 buildPythonPackage rec {
   pname = "aplpy";
@@ -47,10 +30,7 @@ buildPythonPackage rec {
     shapely
   ];
 
-  nativeCheckInputs = [
-    pytest-astropy
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-astropy pytestCheckHook ];
 
   preCheck = ''
     OPENMP_EXPECTED=0

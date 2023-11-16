@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   pkg = pkgs.nixops-dns;
   cfg = config.services.nixops-dns;
-in
 
-{
+in {
   options = {
     services.nixops-dns = {
       enable = mkOption {
@@ -51,6 +45,7 @@ in
           while forwarding the rest of the queries to original resolvers.
         '';
       };
+
     };
   };
 
@@ -75,5 +70,6 @@ in
         listen-address=127.0.0.1
       '';
     };
+
   };
 }

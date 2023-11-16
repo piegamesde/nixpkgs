@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  AppKit,
-  Cocoa,
-  Foundation,
-  installShellFiles,
-}:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, AppKit, Cocoa, Foundation
+, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "topgrade";
@@ -24,18 +16,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    AppKit
-    Cocoa
-    Foundation
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ AppKit Cocoa Foundation ];
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.isDarwin [
-      "-framework"
-      "AppKit"
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE =
+    toString (lib.optionals stdenv.isDarwin [ "-framework" "AppKit" ]);
 
   postInstall = ''
     installShellCompletion --cmd topgrade \
@@ -50,11 +34,9 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Upgrade all the things";
     homepage = "https://github.com/topgrade-rs/topgrade";
-    changelog = "https://github.com/topgrade-rs/topgrade/releases/tag/v${version}";
+    changelog =
+      "https://github.com/topgrade-rs/topgrade/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      SuperSandro2000
-      xyenon
-    ];
+    maintainers = with maintainers; [ SuperSandro2000 xyenon ];
   };
 }

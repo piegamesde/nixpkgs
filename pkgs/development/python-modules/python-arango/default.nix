@@ -1,16 +1,5 @@
-{
-  lib,
-  arangodb,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  pyjwt,
-  pytest,
-  mock,
-  requests,
-  requests-toolbelt,
-}:
+{ lib, arangodb, buildPythonPackage, fetchFromGitHub, pythonOlder
+, pytestCheckHook, pyjwt, pytest, mock, requests, requests-toolbelt }:
 
 let
   testDBOpts = {
@@ -19,9 +8,8 @@ let
     password = "test";
     secret = "secret";
   };
-in
 
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "python-arango";
   version = "7.5.7";
   format = "setuptools";
@@ -35,17 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-cd2xE5rYLl3NOv/DZjmHRPCe224k4XyPjo9aXV1ZhvU=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    requests-toolbelt
-    pyjwt
-  ];
+  propagatedBuildInputs = [ requests requests-toolbelt pyjwt ];
 
-  nativeCheckInputs = [
-    arangodb
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ arangodb mock pytestCheckHook ];
 
   # arangodb is compiled only for particular target architectures
   # (i.e. "haswell"). Thus, these tests may not pass reproducibly,
@@ -134,7 +114,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Driver for ArangoDB";
     homepage = "https://github.com/ArangoDB-Community/python-arango";
-    changelog = "https://github.com/ArangoDB-Community/python-arango/releases/tag/${version}";
+    changelog =
+      "https://github.com/ArangoDB-Community/python-arango/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ jsoo1 ];
   };

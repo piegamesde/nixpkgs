@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, ncurses, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "stfl";
@@ -17,19 +11,14 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
-  buildInputs = [
-    ncurses
-    libiconv
-  ];
+  buildInputs = [ ncurses libiconv ];
 
-  preBuild =
-    ''
-      sed -i s/gcc/cc/g Makefile
-      sed -i s%ncursesw/ncurses.h%ncurses.h% stfl_internals.h
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      sed -i s/-soname/-install_name/ Makefile
-    ''
+  preBuild = ''
+    sed -i s/gcc/cc/g Makefile
+    sed -i s%ncursesw/ncurses.h%ncurses.h% stfl_internals.h
+  '' + lib.optionalString stdenv.isDarwin ''
+    sed -i s/-soname/-install_name/ Makefile
+  ''
     # upstream builds shared library unconditionally. Also, it has no
     # support for cross-compilation.
     + lib.optionalString stdenv.hostPlatform.isStatic ''
@@ -40,10 +29,9 @@ stdenv.mkDerivation rec {
       sed -i '/ln -fs libstfl.so./d' Makefile
     '';
 
-  installPhase =
-    ''
-      DESTDIR=$out prefix=\"\" make install
-    ''
+  installPhase = ''
+    DESTDIR=$out prefix=\"\" make install
+  ''
     # some programs rely on libstfl.so.0 to be present, so link it
     + lib.optionalString (!stdenv.hostPlatform.isStatic) ''
       ln -s $out/lib/libstfl.so.0.24 $out/lib/libstfl.so.0
@@ -51,7 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "http://www.clifford.at/stfl/";
-    description = "A library which implements a curses-based widget set for text terminals";
+    description =
+      "A library which implements a curses-based widget set for text terminals";
     maintainers = with lib.maintainers; [ lovek323 ];
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.unix;

@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fftwFloat,
-  gtk2,
-  ladspaPlugins,
-  libjack2,
-  liblo,
-  libxml2,
-  makeWrapper,
-  pkg-config,
-  perlPackages,
-}:
+{ lib, stdenv, fetchurl, fftwFloat, gtk2, ladspaPlugins, libjack2, liblo
+, libxml2, makeWrapper, pkg-config, perlPackages }:
 
 stdenv.mkDerivation rec {
   version = "0.95.0";
@@ -22,25 +10,9 @@ stdenv.mkDerivation rec {
     sha256 = "0g5v74cm0q3p3pzl6xmnp4rqayaymfli7c6z8s78h9rgd24fwbvn";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
-  buildInputs =
-    [
-      fftwFloat
-      gtk2
-      ladspaPlugins
-      libjack2
-      liblo
-      libxml2
-    ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    );
+  nativeBuildInputs = [ pkg-config makeWrapper ];
+  buildInputs = [ fftwFloat gtk2 ladspaPlugins libjack2 liblo libxml2 ]
+    ++ (with perlPackages; [ perl XMLParser ]);
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

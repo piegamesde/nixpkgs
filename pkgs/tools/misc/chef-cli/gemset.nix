@@ -31,12 +31,8 @@
     version = "1.749.0";
   };
   aws-sdk-core = {
-    dependencies = [
-      "aws-eventstream"
-      "aws-partitions"
-      "aws-sigv4"
-      "jmespath"
-    ];
+    dependencies =
+      [ "aws-eventstream" "aws-partitions" "aws-sigv4" "jmespath" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -47,10 +43,7 @@
     version = "3.171.0";
   };
   aws-sdk-kms = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -61,11 +54,7 @@
     version = "1.63.0";
   };
   aws-sdk-s3 = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sdk-kms"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sdk-kms" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -76,10 +65,7 @@
     version = "1.120.1";
   };
   aws-sdk-secretsmanager = {
-    dependencies = [
-      "aws-sdk-core"
-      "aws-sigv4"
-    ];
+    dependencies = [ "aws-sdk-core" "aws-sigv4" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -194,10 +180,7 @@
     version = "17.10.0";
   };
   chef-telemetry = {
-    dependencies = [
-      "chef-config"
-      "concurrent-ruby"
-    ];
+    dependencies = [ "chef-config" "concurrent-ruby" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -229,14 +212,8 @@
     version = "4.1.11";
   };
   chef-zero = {
-    dependencies = [
-      "ffi-yajl"
-      "hashie"
-      "mixlib-log"
-      "rack"
-      "uuidtools"
-      "webrick"
-    ];
+    dependencies =
+      [ "ffi-yajl" "hashie" "mixlib-log" "rack" "uuidtools" "webrick" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -452,10 +429,7 @@
     version = "1.3.1";
   };
   gyoku = {
-    dependencies = [
-      "builder"
-      "rexml"
-    ];
+    dependencies = [ "builder" "rexml" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -570,12 +544,7 @@
     version = "2.1.0";
   };
   license-acceptance = {
-    dependencies = [
-      "pastel"
-      "tomlrb"
-      "tty-box"
-      "tty-prompt"
-    ];
+    dependencies = [ "pastel" "tomlrb" "tty-box" "tty-prompt" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -596,10 +565,7 @@
     version = "1.1.4";
   };
   logging = {
-    dependencies = [
-      "little-plugger"
-      "multi_json"
-    ];
+    dependencies = [ "little-plugger" "multi_json" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -840,10 +806,7 @@
     version = "1.0.3";
   };
   pry = {
-    dependencies = [
-      "coderay"
-      "method_source"
-    ];
+    dependencies = [ "coderay" "method_source" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -884,11 +847,7 @@
     version = "3.2.5";
   };
   rspec = {
-    dependencies = [
-      "rspec-core"
-      "rspec-expectations"
-      "rspec-mocks"
-    ];
+    dependencies = [ "rspec-core" "rspec-expectations" "rspec-mocks" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -910,10 +869,7 @@
     version = "3.11.0";
   };
   rspec-expectations = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -924,10 +880,7 @@
     version = "3.11.1";
   };
   rspec-its = {
-    dependencies = [
-      "rspec-core"
-      "rspec-expectations"
-    ];
+    dependencies = [ "rspec-core" "rspec-expectations" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -938,10 +891,7 @@
     version = "1.3.0";
   };
   rspec-mocks = {
-    dependencies = [
-      "diff-lcs"
-      "rspec-support"
-    ];
+    dependencies = [ "diff-lcs" "rspec-support" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1002,10 +952,7 @@
     version = "3.0.2";
   };
   solve = {
-    dependencies = [
-      "molinillo"
-      "semverse"
-    ];
+    dependencies = [ "molinillo" "semverse" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1026,11 +973,7 @@
     version = "1.3.1";
   };
   strings = {
-    dependencies = [
-      "strings-ansi"
-      "unicode-display_width"
-      "unicode_utils"
-    ];
+    dependencies = [ "strings-ansi" "unicode-display_width" "unicode_utils" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1081,14 +1024,8 @@
     version = "1.3.0";
   };
   train-core = {
-    dependencies = [
-      "addressable"
-      "ffi"
-      "json"
-      "mixlib-shellout"
-      "net-scp"
-      "net-ssh"
-    ];
+    dependencies =
+      [ "addressable" "ffi" "json" "mixlib-shellout" "net-scp" "net-ssh" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1099,11 +1036,7 @@
     version = "3.10.7";
   };
   train-winrm = {
-    dependencies = [
-      "winrm"
-      "winrm-elevated"
-      "winrm-fs"
-    ];
+    dependencies = [ "winrm" "winrm-elevated" "winrm-fs" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1114,11 +1047,7 @@
     version = "0.2.13";
   };
   tty-box = {
-    dependencies = [
-      "pastel"
-      "strings"
-      "tty-cursor"
-    ];
+    dependencies = [ "pastel" "strings" "tty-cursor" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1149,10 +1078,7 @@
     version = "0.7.1";
   };
   tty-prompt = {
-    dependencies = [
-      "pastel"
-      "tty-reader"
-    ];
+    dependencies = [ "pastel" "tty-reader" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1163,11 +1089,7 @@
     version = "0.23.1";
   };
   tty-reader = {
-    dependencies = [
-      "tty-cursor"
-      "tty-screen"
-      "wisper"
-    ];
+    dependencies = [ "tty-cursor" "tty-screen" "wisper" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1188,11 +1110,7 @@
     version = "0.8.1";
   };
   tty-table = {
-    dependencies = [
-      "pastel"
-      "strings"
-      "tty-screen"
-    ];
+    dependencies = [ "pastel" "strings" "tty-screen" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1274,11 +1192,7 @@
     version = "2.3.6";
   };
   winrm-elevated = {
-    dependencies = [
-      "erubi"
-      "winrm"
-      "winrm-fs"
-    ];
+    dependencies = [ "erubi" "winrm" "winrm-fs" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -1289,12 +1203,7 @@
     version = "1.2.3";
   };
   winrm-fs = {
-    dependencies = [
-      "erubi"
-      "logging"
-      "rubyzip"
-      "winrm"
-    ];
+    dependencies = [ "erubi" "logging" "rubyzip" "winrm" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

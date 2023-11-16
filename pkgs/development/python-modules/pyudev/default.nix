@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  six,
-  udev,
-  pytest,
-  mock,
-  hypothesis,
-  docutils,
-}:
+{ lib, fetchPypi, buildPythonPackage, six, udev, pytest, mock, hypothesis
+, docutils }:
 
 buildPythonPackage rec {
   pname = "pyudev";
@@ -24,12 +15,7 @@ buildPythonPackage rec {
       --replace "find_library(name)" "'${lib.getLib udev}/lib/libudev.so'"
   '';
 
-  nativeCheckInputs = [
-    pytest
-    mock
-    hypothesis
-    docutils
-  ];
+  nativeCheckInputs = [ pytest mock hypothesis docutils ];
   propagatedBuildInputs = [ six ];
 
   checkPhase = ''

@@ -1,24 +1,13 @@
-{
-  lib,
-  isPyPy,
-  buildPythonPackage,
-  fetchPypi,
+{ lib, isPyPy, buildPythonPackage, fetchPypi
 
-  # build
-  pytest,
+# build
+, pytest
 
-  # runtime
-  setuptools-git,
-  mock,
-  path,
-  execnet,
-  termcolor,
-  six,
+# runtime
+, setuptools-git, mock, path, execnet, termcolor, six
 
-  # tests
-  cmdline,
-  pytestCheckHook,
-}:
+# tests
+, cmdline, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pytest-shutil";
@@ -38,29 +27,16 @@ buildPythonPackage rec {
 
   buildInputs = [ pytest ];
 
-  propagatedBuildInputs = [
-    setuptools-git
-    mock
-    path
-    execnet
-    termcolor
-    six
-  ];
+  propagatedBuildInputs = [ setuptools-git mock path execnet termcolor six ];
 
-  nativeCheckInputs = [
-    cmdline
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ cmdline pytestCheckHook ];
 
-  disabledTests =
-    [ "test_pretty_formatter" ]
-    ++ lib.optionals isPyPy [
-      "test_run"
-      "test_run_integration"
-    ];
+  disabledTests = [ "test_pretty_formatter" ]
+    ++ lib.optionals isPyPy [ "test_run" "test_run_integration" ];
 
   meta = with lib; {
-    description = "A goodie-bag of unix shell and environment tools for py.test";
+    description =
+      "A goodie-bag of unix shell and environment tools for py.test";
     homepage = "https://github.com/manahl/pytest-plugins";
     maintainers = with maintainers; [ ryansydnor ];
     license = licenses.mit;

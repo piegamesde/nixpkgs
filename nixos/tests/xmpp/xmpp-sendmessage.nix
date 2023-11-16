@@ -1,9 +1,4 @@
-{
-  writeScriptBin,
-  writeText,
-  python3,
-  connectTo ? "localhost",
-}:
+{ writeScriptBin, writeText, python3, connectTo ? "localhost" }:
 let
   dummyFile = writeText "dummy-file" ''
     Dear dog,
@@ -13,8 +8,7 @@ let
     Yours truly,
     Bob
   '';
-in
-writeScriptBin "send-message" ''
+in writeScriptBin "send-message" ''
   #!${(python3.withPackages (ps: [ ps.slixmpp ])).interpreter}
   import logging
   import sys

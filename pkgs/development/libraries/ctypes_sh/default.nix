@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  zlib,
-  libffi,
-  elfutils,
-  libdwarf,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, zlib, libffi
+, elfutils, libdwarf }:
 
 stdenv.mkDerivation rec {
   pname = "ctypes.sh";
@@ -21,16 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1wafyfhwd7nf7xdici0djpwgykizaz7jlarn0r1b4spnpjx1zbx4";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
-  buildInputs = [
-    zlib
-    libffi
-    elfutils
-    libdwarf
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  buildInputs = [ zlib libffi elfutils libdwarf ];
 
   meta = with lib; {
     description = "A foreign function interface for bash";

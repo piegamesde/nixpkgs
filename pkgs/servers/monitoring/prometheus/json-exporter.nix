@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "prometheus-json-exporter";
@@ -18,9 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Hij3lh92OCH+sTrzNl/KkjLAhPGffzzmxhPDO2wG0gA=";
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) json;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) json; };
 
   meta = with lib; {
     description = "A prometheus exporter which scrapes remote JSON by JSONPath";

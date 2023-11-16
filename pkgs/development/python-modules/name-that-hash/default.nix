@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  click,
-  rich,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, click, rich }:
 
 buildPythonPackage rec {
   pname = "name-that-hash";
@@ -26,15 +19,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    click
-    rich
-  ];
+  propagatedBuildInputs = [ click rich ];
 
   pythonImportsCheck = [ "name_that_hash" ];
 
   meta = with lib; {
-    longDescription = "Don't know what type of hash it is? Name That Hash will name that hash type! Identify MD5, SHA256 and 300+ other hashes.";
+    longDescription =
+      "Don't know what type of hash it is? Name That Hash will name that hash type! Identify MD5, SHA256 and 300+ other hashes.";
     description = "Module and CLI for the identification of hashes";
     homepage = "https://github.com/HashPals/Name-That-Hash";
     license = with licenses; [ gpl3Plus ];

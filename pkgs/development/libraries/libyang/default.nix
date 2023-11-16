@@ -1,18 +1,13 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
+{ stdenv, lib, fetchFromGitHub
 
-  # build time
-  cmake,
-  pkg-config,
+# build time
+, cmake, pkg-config
 
-  # run time
-  pcre2,
+# run time
+, pcre2
 
-  # update script
-  gitUpdater,
-}:
+# update script
+, gitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "libyang";
@@ -25,10 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3Lf8JUnzD20Xq6UswCbcWpgEBs0z4OEo7CGt0vWiPhI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ pcre2 ];
 

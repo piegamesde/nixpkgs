@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ocamlPackages,
-  CoreServices,
-}:
+{ lib, stdenv, fetchFromGitHub, ocamlPackages, CoreServices }:
 
 stdenv.mkDerivation rec {
   pname = "flow";
@@ -30,17 +24,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = with ocamlPackages; [
-    ocaml
-    dune_3
-    findlib
-    ocamlbuild
-  ];
+  nativeBuildInputs = with ocamlPackages; [ ocaml dune_3 findlib ocamlbuild ];
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ CoreServices ]
-    ++ (
-      with ocamlPackages;
+  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ]
+    ++ (with ocamlPackages;
       [
         core_kernel
         dtoa
@@ -54,9 +41,7 @@ stdenv.mkDerivation rec {
         sedlex
         visitors
         wtf8
-      ]
-      ++ lib.optionals stdenv.isLinux [ inotify ]
-    );
+      ] ++ lib.optionals stdenv.isLinux [ inotify ]);
 
   meta = with lib; {
     description = "A static type checker for JavaScript";
@@ -64,9 +49,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/facebook/flow/raw/v${version}/Changelog.md";
     license = licenses.mit;
     platforms = ocamlPackages.ocaml.meta.platforms;
-    maintainers = with maintainers; [
-      marsam
-      puffnfresh
-    ];
+    maintainers = with maintainers; [ marsam puffnfresh ];
   };
 }

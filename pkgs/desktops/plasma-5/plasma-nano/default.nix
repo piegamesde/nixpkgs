@@ -1,8 +1,4 @@
-{
-  mkDerivation,
-  extra-cmake-modules,
-  plasma-framework,
-}:
+{ mkDerivation, extra-cmake-modules, plasma-framework }:
 
 mkDerivation {
   pname = "plasma-nano";

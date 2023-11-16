@@ -1,28 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.services.sanoid;
 
-  datasetSettingsType =
-    with types;
-    (attrsOf (
-      nullOr (
-        oneOf [
-          str
-          int
-          bool
-          (listOf str)
-        ]
-      )
-    ))
-    // {
+  datasetSettingsType = with types;
+    (attrsOf (nullOr (oneOf [ str int bool (listOf str) ]))) // {
       description = "dataset/template options";
     };
 
@@ -67,13 +51,10 @@ let
   datasetOptions = rec {
     use_template = mkOption {
       description = lib.mdDoc "Names of the templates to use for this dataset.";
-      type = types.listOf (
-        types.str
-        // {
-          check = (types.enum (attrNames cfg.templates)).check;
-          description = "configured template name";
-        }
-      );
+      type = types.listOf (types.str // {
+        check = (types.enum (attrNames cfg.templates)).check;
+        description = "configured template name";
+      });
       default = [ ];
     };
     useTemplate = use_template;
@@ -85,17 +66,13 @@ let
         recursively in an atomic way without the possibility to
         override settings for child datasets.
       '';
-      type =
-        with types;
-        oneOf [
-          bool
-          (enum [ "zfs" ])
-        ];
+      type = with types; oneOf [ bool (enum [ "zfs" ]) ];
       default = false;
     };
 
     process_children_only = mkOption {
-      description = lib.mdDoc "Whether to only snapshot child datasets if recursing.";
+      description =
+        lib.mdDoc "Whether to only snapshot child datasets if recursing.";
       type = types.bool;
       default = false;
     };
@@ -107,8 +84,7 @@ let
 
   # Function to build "zfs allow" and "zfs unallow" commands for the
   # filesystems we've delegated permissions to.
-  buildAllowCommand =
-    zfsAction: permissions: dataset:
+  buildAllowCommand = zfsAction: permissions: dataset:
     lib.escapeShellArgs [
       # Here we explicitly use the booted system to guarantee the stable API needed by ZFS
       "-+/run/booted-system/sw/bin/zfs"
@@ -118,25 +94,25 @@ let
       dataset
     ];
 
-  configFile =
-    let
-      mkValueString =
-        v: if builtins.isList v then concatStringsSep "," v else generators.mkValueStringDefault { } v;
+  configFile = let
+    mkValueString = v:
+      if builtins.isList v then
+        concatStringsSep "," v
+      else
+        generators.mkValueStringDefault { } v;
 
-      mkKeyValue =
-        k: v:
-        if v == null then
-          ""
-        else if k == "processChildrenOnly" then
-          ""
-        else if k == "useTemplate" then
-          ""
-        else
-          generators.mkKeyValueDefault { inherit mkValueString; } "=" k v;
-    in
-    generators.toINI { inherit mkKeyValue; } cfg.settings;
-in
-{
+    mkKeyValue = k: v:
+      if v == null then
+        ""
+      else if k == "processChildrenOnly" then
+        ""
+      else if k == "useTemplate" then
+        ""
+      else
+        generators.mkKeyValueDefault { inherit mkValueString; } "=" k v;
+  in generators.toINI { inherit mkKeyValue; } cfg.settings;
+
+in {
 
   # Interface
 
@@ -158,30 +134,23 @@ in
     };
 
     datasets = mkOption {
-      type = types.attrsOf (
-        types.submodule (
-          { config, options, ... }:
-          {
-            freeformType = datasetSettingsType;
-            options = commonOptions // datasetOptions;
-            config.use_template = modules.mkAliasAndWrapDefsWithPriority id (options.useTemplate or { });
-            config.process_children_only = modules.mkAliasAndWrapDefsWithPriority id (
-              options.processChildrenOnly or { }
-            );
-          }
-        )
-      );
+      type = types.attrsOf (types.submodule ({ config, options, ... }: {
+        freeformType = datasetSettingsType;
+        options = commonOptions // datasetOptions;
+        config.use_template = modules.mkAliasAndWrapDefsWithPriority id
+          (options.useTemplate or { });
+        config.process_children_only = modules.mkAliasAndWrapDefsWithPriority id
+          (options.processChildrenOnly or { });
+      }));
       default = { };
       description = lib.mdDoc "Datasets to snapshot.";
     };
 
     templates = mkOption {
-      type = types.attrsOf (
-        types.submodule {
-          freeformType = datasetSettingsType;
-          options = commonOptions;
-        }
-      );
+      type = types.attrsOf (types.submodule {
+        freeformType = datasetSettingsType;
+        options = commonOptions;
+      });
       default = { };
       description = lib.mdDoc "Templates for datasets.";
     };
@@ -198,11 +167,7 @@ in
     extraArgs = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "--verbose"
-        "--readonly"
-        "--debug"
-      ];
+      example = [ "--verbose" "--readonly" "--debug" ];
       description = lib.mdDoc ''
         Extra arguments to pass to sanoid. See
         <https://github.com/jimsalterjrs/sanoid/#sanoid-command-line-options>
@@ -223,32 +188,17 @@ in
       description = "Sanoid snapshot service";
       serviceConfig = {
         ExecStartPre =
-          (map
-            (buildAllowCommand "allow" [
-              "snapshot"
-              "mount"
-              "destroy"
-            ])
-            datasets
-          );
+          (map (buildAllowCommand "allow" [ "snapshot" "mount" "destroy" ])
+            datasets);
         ExecStopPost =
-          (map
-            (buildAllowCommand "unallow" [
-              "snapshot"
-              "mount"
-              "destroy"
-            ])
-            datasets
-          );
-        ExecStart = lib.escapeShellArgs (
-          [
-            "${cfg.package}/bin/sanoid"
-            "--cron"
-            "--configdir"
-            (pkgs.writeTextDir "sanoid.conf" configFile)
-          ]
-          ++ cfg.extraArgs
-        );
+          (map (buildAllowCommand "unallow" [ "snapshot" "mount" "destroy" ])
+            datasets);
+        ExecStart = lib.escapeShellArgs ([
+          "${cfg.package}/bin/sanoid"
+          "--cron"
+          "--configdir"
+          (pkgs.writeTextDir "sanoid.conf" configFile)
+        ] ++ cfg.extraArgs);
         User = "sanoid";
         Group = "sanoid";
         DynamicUser = true;

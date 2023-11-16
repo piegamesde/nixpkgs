@@ -1,24 +1,12 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
+{ lib, config, pkgs, ... }:
 
 let
   cfg = config.services.acme-dns;
   format = pkgs.formats.toml { };
   inherit (lib)
-    literalExpression
-    mdDoc
-    mkEnableOption
-    mkOption
-    mkPackageOptionMD
-    types
-  ;
+    literalExpression mdDoc mkEnableOption mkOption mkPackageOptionMD types;
   domain = "acme-dns.example.com";
-in
-{
+in {
   options.services.acme-dns = {
     enable = mkEnableOption (mdDoc "acme-dns");
 
@@ -38,7 +26,8 @@ in
           general = {
             listen = mkOption {
               type = types.str;
-              description = mdDoc "IP+port combination to bind and serve the DNS server on.";
+              description = mdDoc
+                "IP+port combination to bind and serve the DNS server on.";
               default = "[::]:53";
               example = "127.0.0.1:53";
             };
@@ -79,9 +68,8 @@ in
 
             records = mkOption {
               type = types.listOf types.str;
-              description =
-                mdDoc
-                  "Predefined DNS records served in addition to the `_acme-challenge` TXT records.";
+              description = mdDoc
+                "Predefined DNS records served in addition to the `_acme-challenge` TXT records.";
               example = literalExpression ''
                 [
                   # replace with your acme-dns server's public IPv4
@@ -97,10 +85,7 @@ in
 
           database = {
             engine = mkOption {
-              type = types.enum [
-                "sqlite3"
-                "postgres"
-              ];
+              type = types.enum [ "sqlite3" "postgres" ];
               description = mdDoc "Database engine to use.";
               default = "sqlite3";
             };
@@ -130,18 +115,15 @@ in
 
             disable_registration = mkOption {
               type = types.bool;
-              description = mdDoc "Whether to disable the HTTP registration endpoint.";
+              description =
+                mdDoc "Whether to disable the HTTP registration endpoint.";
               default = false;
               example = true;
             };
 
             tls = mkOption {
-              type = types.enum [
-                "letsencrypt"
-                "letsencryptstaging"
-                "cert"
-                "none"
-              ];
+              type =
+                types.enum [ "letsencrypt" "letsencryptstaging" "cert" "none" ];
               description = mdDoc "TLS backend to use.";
               default = "none";
             };
@@ -149,12 +131,7 @@ in
 
           logconfig = {
             loglevel = mkOption {
-              type = types.enum [
-                "error"
-                "warning"
-                "info"
-                "debug"
-              ];
+              type = types.enum [ "error" "warning" "info" "debug" ];
               description = mdDoc "Level to log on.";
               default = "info";
             };
@@ -171,7 +148,9 @@ in
       serviceConfig = {
         ExecStart = [
           ""
-          "${lib.getExe cfg.package} -c ${format.generate "acme-dns.toml" cfg.settings}"
+          "${lib.getExe cfg.package} -c ${
+            format.generate "acme-dns.toml" cfg.settings
+          }"
         ];
         StateDirectory = "acme-dns";
         WorkingDirectory = "%S/acme-dns";

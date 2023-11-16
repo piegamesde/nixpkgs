@@ -1,11 +1,5 @@
-{
-  lib,
-  autoreconfHook,
-  fetchPypi,
-  buildPythonPackage,
-  cython,
-  pariSupport ? true,
-  pari, # for interfacing with the PARI/GP signal handler
+{ lib, autoreconfHook, fetchPypi, buildPythonPackage, cython, pariSupport ? true
+, pari # for interfacing with the PARI/GP signal handler
 }:
 
 assert pariSupport -> pari != null;
@@ -32,15 +26,12 @@ buildPythonPackage rec {
     export PATH="$out/bin:$PATH"
   '';
 
-  propagatedBuildInputs =
-    [ cython ]
-    ++ lib.optionals pariSupport
-      [
-        # When cysignals is built with pari, including cysignals into the
-        # buildInputs of another python package will cause cython to link against
-        # pari.
-        pari
-      ];
+  propagatedBuildInputs = [ cython ] ++ lib.optionals pariSupport [
+    # When cysignals is built with pari, including cysignals into the
+    # buildInputs of another python package will cause cython to link against
+    # pari.
+    pari
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 

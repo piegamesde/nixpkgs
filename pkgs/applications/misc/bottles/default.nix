@@ -1,31 +1,7 @@
-{
-  lib,
-  fetchFromGitHub,
-  gitUpdater,
-  python3Packages,
-  blueprint-compiler,
-  meson,
-  ninja,
-  pkg-config,
-  wrapGAppsHook4,
-  appstream-glib,
-  desktop-file-utils,
-  librsvg,
-  gtk4,
-  gtksourceview5,
-  libadwaita,
-  cabextract,
-  p7zip,
-  xdpyinfo,
-  imagemagick,
-  lsb-release,
-  pciutils,
-  procps,
-  gamescope,
-  mangohud,
-  vkbasalt-cli,
-  vmtouch,
-}:
+{ lib, fetchFromGitHub, gitUpdater, python3Packages, blueprint-compiler, meson
+, ninja, pkg-config, wrapGAppsHook4, appstream-glib, desktop-file-utils, librsvg
+, gtk4, gtksourceview5, libadwaita, cabextract, p7zip, xdpyinfo, imagemagick
+, lsb-release, pciutils, procps, gamescope, mangohud, vkbasalt-cli, vmtouch }:
 
 python3Packages.buildPythonApplication rec {
   pname = "bottles-unwrapped";
@@ -52,15 +28,9 @@ python3Packages.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [
-    librsvg
-    gtk4
-    gtksourceview5
-    libadwaita
-  ];
+  buildInputs = [ librsvg gtk4 gtksourceview5 libadwaita ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       pathvalidate
       pycurl
@@ -77,8 +47,7 @@ python3Packages.buildPythonApplication rec {
       idna
       orjson
       icoextract
-    ]
-    ++ [
+    ] ++ [
       cabextract
       p7zip
       xdpyinfo
@@ -109,10 +78,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://usebottles.com/";
     downloadPage = "https://github.com/bottlesdevs/Bottles/releases";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      psydvl
-      shamilton
-    ];
+    maintainers = with maintainers; [ psydvl shamilton ];
     platforms = platforms.linux;
   };
 }

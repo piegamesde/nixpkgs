@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  lxml,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchPypi, lxml, requests }:
 
 buildPythonPackage rec {
   pname = "ebaysdk";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     hash = "sha256-Lrh11wa0gfWcqN0wdFON9+UZaBT5zhLQ74RpA0Opx/M=";
   };
 
-  propagatedBuildInputs = [
-    lxml
-    requests
-  ];
+  propagatedBuildInputs = [ lxml requests ];
 
   # requires network
   doCheck = false;

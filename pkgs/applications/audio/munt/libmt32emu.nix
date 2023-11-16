@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "libmt32emu";
@@ -16,19 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XGds9lDfSiY0D8RhYG4TGyjYEVvVYuAfNSv9+VxiJEs=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   nativeBuildInputs = [ cmake ];
 
   dontFixCmake = true;
 
-  cmakeFlags = [
-    "-Dmunt_WITH_MT32EMU_SMF2WAV=OFF"
-    "-Dmunt_WITH_MT32EMU_QT=OFF"
-  ];
+  cmakeFlags =
+    [ "-Dmunt_WITH_MT32EMU_SMF2WAV=OFF" "-Dmunt_WITH_MT32EMU_QT=OFF" ];
 
   postFixup = ''
     substituteInPlace "$dev"/lib/pkgconfig/mt32emu.pc \
@@ -38,7 +28,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://munt.sourceforge.net/";
-    description = "A library to emulate Roland MT-32, CM-32L, CM-64 and LAPC-I devices";
+    description =
+      "A library to emulate Roland MT-32, CM-32L, CM-64 and LAPC-I devices";
     license = with licenses; [ lgpl21Plus ];
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = platforms.unix; # Not tested on ReactOS yet :)

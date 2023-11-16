@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  meerk40t-camera,
-  python3,
-  gtk3,
-  wrapGAppsHook,
-}:
+{ lib, fetchFromGitHub, meerk40t-camera, python3, gtk3, wrapGAppsHook }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "MeerK40t";

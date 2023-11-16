@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  snap7,
-  fetchFromGitHub,
-  setuptools,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, snap7, fetchFromGitHub, setuptools, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "python-snap7";
@@ -31,10 +24,7 @@ buildPythonPackage rec {
   # Tests require root privileges to open privilaged ports
   doCheck = false;
 
-  pythonImportsCheck = [
-    "snap7"
-    "snap7.util"
-  ];
+  pythonImportsCheck = [ "snap7" "snap7.util" ];
 
   meta = with lib; {
     description = "Python wrapper for the snap7 PLC communication library";

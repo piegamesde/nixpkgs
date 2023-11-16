@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libusb1,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, libusb1, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "rpiboot";
@@ -35,10 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/raspberrypi/usbboot";
     description = "Utility to boot a Raspberry Pi CM/CM3/CM4/Zero over USB";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      cartr
-      flokli
-    ];
+    maintainers = with maintainers; [ cartr flokli ];
     platforms = [
       "aarch64-linux"
       "aarch64-darwin"

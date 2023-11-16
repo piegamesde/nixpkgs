@@ -1,24 +1,6 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  qmake,
-  cmake,
-  pkg-config,
-  miniupnpc,
-  bzip2,
-  speex,
-  libmicrohttpd,
-  libxml2,
-  libxslt,
-  sqlcipher,
-  rapidjson,
-  libXScrnSaver,
-  qtbase,
-  qtx11extras,
-  qtmultimedia,
-  libgnome-keyring3,
-}:
+{ lib, mkDerivation, fetchFromGitHub, qmake, cmake, pkg-config, miniupnpc, bzip2
+, speex, libmicrohttpd, libxml2, libxslt, sqlcipher, rapidjson, libXScrnSaver
+, qtbase, qtx11extras, qtmultimedia, libgnome-keyring3 }:
 
 mkDerivation rec {
   pname = "retroshare";
@@ -39,11 +21,7 @@ mkDerivation rec {
     ./cpp-filesystem.patch
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    qmake
-    cmake
-  ];
+  nativeBuildInputs = [ pkg-config qmake cmake ];
   buildInputs = [
     speex
     miniupnpc

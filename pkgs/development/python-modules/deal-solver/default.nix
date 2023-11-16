@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  flit-core,
-  z3,
-  astroid,
-  pytestCheckHook,
-  hypothesis,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, flit-core, z3, astroid
+, pytestCheckHook, hypothesis }:
 
 buildPythonPackage rec {
   pname = "deal-solver";
@@ -37,15 +28,9 @@ buildPythonPackage rec {
       --replace "\"--cov-fail-under=100\"," ""
   '';
 
-  propagatedBuildInputs = [
-    z3
-    astroid
-  ] ++ z3.requiredPythonModules;
+  propagatedBuildInputs = [ z3 astroid ] ++ z3.requiredPythonModules;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    hypothesis
-  ];
+  nativeCheckInputs = [ pytestCheckHook hypothesis ];
 
   pythonImportsCheck = [ "deal_solver" ];
 

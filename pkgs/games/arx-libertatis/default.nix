@@ -1,26 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  zlib,
-  boost,
-  openal,
-  glm,
-  freetype,
-  libGLU,
-  SDL2,
-  libepoxy,
-  dejavu_fonts,
-  inkscape,
-  optipng,
-  imagemagick,
-  withCrashReporter ? !stdenv.isDarwin,
-  qtbase ? null,
-  wrapQtAppsHook ? null,
-  curl ? null,
-  gdb ? null,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, zlib, boost, openal, glm, freetype
+, libGLU, SDL2, libepoxy, dejavu_fonts, inkscape, optipng, imagemagick
+, withCrashReporter ? !stdenv.isDarwin, qtbase ? null, wrapQtAppsHook ? null
+, curl ? null, gdb ? null }:
 
 with lib;
 
@@ -35,28 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "GBJcsibolZP3oVOTSaiVqG2nMmvXonKTp5i/0NNODKY=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    inkscape
-    imagemagick
-    optipng
-  ] ++ optionals withCrashReporter [ wrapQtAppsHook ];
+  nativeBuildInputs = [ cmake inkscape imagemagick optipng ]
+    ++ optionals withCrashReporter [ wrapQtAppsHook ];
 
-  buildInputs =
-    [
-      zlib
-      boost
-      openal
-      glm
-      freetype
-      libGLU
-      SDL2
-      libepoxy
-    ]
-    ++ optionals withCrashReporter [
-      qtbase
-      curl
-    ]
+  buildInputs = [ zlib boost openal glm freetype libGLU SDL2 libepoxy ]
+    ++ optionals withCrashReporter [ qtbase curl ]
     ++ optionals stdenv.isLinux [ gdb ];
 
   cmakeFlags = [
@@ -67,15 +31,13 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  postInstall =
-    ''
-      ln -sf \
-        ${dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf \
-        $out/share/games/arx/misc/dejavusansmono.ttf
-    ''
-    + optionalString withCrashReporter ''
-      wrapQtApp "$out/libexec/arxcrashreporter"
-    '';
+  postInstall = ''
+    ln -sf \
+      ${dejavu_fonts}/share/fonts/truetype/DejaVuSansMono.ttf \
+      $out/share/games/arx/misc/dejavusansmono.ttf
+  '' + optionalString withCrashReporter ''
+    wrapQtApp "$out/libexec/arxcrashreporter"
+  '';
 
   meta = {
     description = ''
@@ -88,4 +50,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ rnhmjoj ];
     platforms = platforms.linux;
   };
+
 }

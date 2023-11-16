@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
     echoAll = pkgs.writeScript "echo-all" ''
@@ -10,40 +9,29 @@ import ./make-test-python.nix (
     '';
     # deliberately using a local empty file instead of pkgs.emptyFile to have
     # a non-store path in the test
-    args = [
-      "a%Nything"
-      "lang=\${LANG}"
-      ";"
-      "/bin/sh -c date"
-      ./empty-file
-      4.2
-      23
-    ];
-  in
-  {
+    args =
+      [ "a%Nything" "lang=\${LANG}" ";" "/bin/sh -c date" ./empty-file 4.2 23 ];
+  in {
     name = "systemd-escaping";
 
-    nodes.machine =
-      {
-        pkgs,
-        lib,
-        utils,
-        ...
-      }:
-      {
-        systemd.services.echo =
-          assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ [ ] ])).success;
-          assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ { } ])).success;
-          assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ null ])).success;
-          assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ false ])).success;
-          assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ (_: _) ])).success; {
+    nodes.machine = { pkgs, lib, utils, ... }: {
+      systemd.services.echo = assert !(builtins.tryEval
+        (utils.escapeSystemdExecArgs [ [ ] ])).success;
+        assert !(builtins.tryEval
+          (utils.escapeSystemdExecArgs [ { } ])).success;
+        assert !(builtins.tryEval
+          (utils.escapeSystemdExecArgs [ null ])).success;
+        assert !(builtins.tryEval
+          (utils.escapeSystemdExecArgs [ false ])).success;
+        assert !(builtins.tryEval
+          (utils.escapeSystemdExecArgs [ (_: _) ])).success; {
             description = "Echo to the journal";
             serviceConfig.Type = "oneshot";
             serviceConfig.ExecStart = ''
               ${echoAll} ${utils.escapeSystemdExecArgs args}
             '';
           };
-      };
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")
@@ -58,5 +46,4 @@ import ./make-test-python.nix (
       assert "4.2" in logs[5] # toString produces extra fractional digits!
       assert "23" == logs[6]
     '';
-  }
-)
+  })

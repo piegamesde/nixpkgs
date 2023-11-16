@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "subfinder";
@@ -30,9 +26,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/projectdiscovery/subfinder";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      fpletz
-      Br1ght0ne
-    ];
+    maintainers = with maintainers; [ fpletz Br1ght0ne ];
   };
 }

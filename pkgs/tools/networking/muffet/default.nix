@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "muffet";
@@ -18,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-/qK4x44J2fDSXxGK3kczWY4NZVPPhRo4NMnyxV6W6CY=";
 
   meta = with lib; {
-    description = "A website link checker which scrapes and inspects all pages in a website recursively";
+    description =
+      "A website link checker which scrapes and inspects all pages in a website recursively";
     homepage = "https://github.com/raviqqe/muffet";
     changelog = "https://github.com/raviqqe/muffet/releases/tag/v${version}";
     license = licenses.mit;

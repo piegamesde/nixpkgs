@@ -1,14 +1,5 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  xdpyinfo,
-  killall,
-  xwinwrap,
-  swaybg,
-  redshift,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, makeWrapper, xdpyinfo, killall, xwinwrap
+, swaybg, redshift }:
 
 stdenvNoCC.mkDerivation {
   pname = "smart-wallpaper";
@@ -27,19 +18,14 @@ stdenvNoCC.mkDerivation {
     install -Dm755 -t $out/bin smart-wallpaper
     wrapProgram $out/bin/smart-wallpaper \
       --prefix PATH : ${
-        lib.makeBinPath [
-          xdpyinfo
-          killall
-          xwinwrap
-          swaybg
-          redshift
-        ]
+        lib.makeBinPath [ xdpyinfo killall xwinwrap swaybg redshift ]
       }
   '';
 
   meta = with lib; {
     homepage = "https://github.com/Baitinq/smart-wallpaper";
-    description = "A simple bash script that automatically changes your wallpaper depending on if its daytime or nighttime";
+    description =
+      "A simple bash script that automatically changes your wallpaper depending on if its daytime or nighttime";
     license = licenses.bsd2;
     maintainers = with maintainers; [ baitinq ];
     platforms = platforms.linux;

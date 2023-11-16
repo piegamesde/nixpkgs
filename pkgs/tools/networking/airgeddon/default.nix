@@ -1,95 +1,48 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  # Required
-  aircrack-ng,
-  bash,
-  coreutils-full,
-  gawk,
-  gnugrep,
-  gnused,
-  iproute2,
-  iw,
-  pciutils,
-  procps,
-  tmux,
-  # X11 Front
-  xterm,
-  xorg,
-  # what the author calls "Internals"
-  usbutils,
-  wget,
-  ethtool,
-  util-linux,
-  ccze,
-  # Optionals
-  # Missing in nixpkgs: beef, hostapd-wpe
-  asleap,
-  bettercap,
-  bully,
-  crunch,
-  dhcp,
-  dnsmasq,
-  ettercap,
-  hashcat,
-  hcxdumptool,
-  hcxtools,
-  hostapd,
-  john,
-  lighttpd,
-  mdk4,
-  nftables,
-  openssl,
-  pixiewps,
-  reaverwps-t6x, # Could be the upstream version too
-  wireshark-cli,
-  # Undocumented requirements (there is also ping)
-  apparmor-bin-utils,
-  curl,
-  glibc,
-  ncurses,
-  networkmanager,
-  systemd,
-  # Support groups
-  supportWpaWps ? true # Most common use-case
-  ,
-  supportHashCracking ? false,
-  supportEvilTwin ? false,
-  supportX11 ? false # Allow using xterm instead of tmux, hard to test
-  ,
+{ lib, stdenv, fetchFromGitHub, makeWrapper
+# Required
+, aircrack-ng, bash, coreutils-full, gawk, gnugrep, gnused, iproute2, iw
+, pciutils, procps, tmux
+# X11 Front
+, xterm, xorg
+# what the author calls "Internals"
+, usbutils, wget, ethtool, util-linux, ccze
+# Optionals
+# Missing in nixpkgs: beef, hostapd-wpe
+, asleap, bettercap, bully, crunch, dhcp, dnsmasq, ettercap, hashcat
+, hcxdumptool, hcxtools, hostapd, john, lighttpd, mdk4, nftables, openssl
+, pixiewps, reaverwps-t6x # Could be the upstream version too
+, wireshark-cli
+# Undocumented requirements (there is also ping)
+, apparmor-bin-utils, curl, glibc, ncurses, networkmanager, systemd
+# Support groups
+, supportWpaWps ? true # Most common use-case
+, supportHashCracking ? false, supportEvilTwin ? false
+, supportX11 ? false # Allow using xterm instead of tmux, hard to test
 }:
 let
-  deps =
-    [
-      aircrack-ng
-      bash
-      coreutils-full
-      curl
-      gawk
-      glibc
-      gnugrep
-      gnused
-      iproute2
-      iw
-      networkmanager
-      ncurses
-      pciutils
-      procps
-      tmux
-      usbutils
-      wget
-      ethtool
-      util-linux
-      ccze
-      systemd
-    ]
-    ++ lib.optionals supportWpaWps [
-      bully
-      pixiewps
-      reaverwps-t6x
-    ]
+  deps = [
+    aircrack-ng
+    bash
+    coreutils-full
+    curl
+    gawk
+    glibc
+    gnugrep
+    gnused
+    iproute2
+    iw
+    networkmanager
+    ncurses
+    pciutils
+    procps
+    tmux
+    usbutils
+    wget
+    ethtool
+    util-linux
+    ccze
+    systemd
+  ] ++ lib.optionals supportWpaWps [ bully pixiewps reaverwps-t6x ]
     ++ lib.optionals supportHashCracking [
       asleap
       crunch
@@ -98,8 +51,7 @@ let
       hcxtools
       john
       wireshark-cli
-    ]
-    ++ lib.optionals supportEvilTwin [
+    ] ++ lib.optionals supportEvilTwin [
       bettercap
       dhcp
       dnsmasq
@@ -110,14 +62,8 @@ let
       mdk4
       nftables
       apparmor-bin-utils
-    ]
-    ++ lib.optionals supportX11 [
-      xterm
-      xorg.xset
-      xorg.xdpyinfo
-    ];
-in
-stdenv.mkDerivation rec {
+    ] ++ lib.optionals supportX11 [ xterm xorg.xset xorg.xdpyinfo ];
+in stdenv.mkDerivation rec {
   pname = "airgeddon";
   version = "11.11";
 
@@ -171,7 +117,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Multi-use TUI to audit wireless networks";
     homepage = "https://github.com/v1s1t0r1sh3r3/airgeddon";
-    changelog = "https://github.com/v1s1t0r1sh3r3/airgeddon/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/v1s1t0r1sh3r3/airgeddon/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ pedrohlc ];
     platforms = platforms.linux;

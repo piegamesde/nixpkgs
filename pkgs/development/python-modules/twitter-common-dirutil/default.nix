@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  twitter-common-lang,
-}:
+{ lib, buildPythonPackage, fetchPypi, twitter-common-lang }:
 
 buildPythonPackage rec {
   pname = "twitter.common.dirutil";
@@ -17,9 +12,11 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ twitter-common-lang ];
 
   meta = with lib; {
-    description = "Utilities for manipulating and finding files and directories";
+    description =
+      "Utilities for manipulating and finding files and directories";
     homepage = "https://twitter.github.io/commons/";
     license = licenses.asl20;
     maintainers = with maintainers; [ copumpkin ];
   };
+
 }

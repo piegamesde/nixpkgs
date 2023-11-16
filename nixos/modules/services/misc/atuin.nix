@@ -1,42 +1,40 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.atuin;
-in
-{
+let cfg = config.services.atuin;
+in {
   options = {
     services.atuin = {
-      enable = mkEnableOption (mdDoc "Enable server for shell history sync with atuin");
+      enable = mkEnableOption
+        (mdDoc "Enable server for shell history sync with atuin");
 
       openRegistration = mkOption {
         type = types.bool;
         default = false;
-        description = mdDoc "Allow new user registrations with the atuin server.";
+        description =
+          mdDoc "Allow new user registrations with the atuin server.";
       };
 
       path = mkOption {
         type = types.str;
         default = "";
-        description = mdDoc "A path to prepend to all the routes of the server.";
+        description =
+          mdDoc "A path to prepend to all the routes of the server.";
       };
 
       host = mkOption {
         type = types.str;
         default = "127.0.0.1";
-        description = mdDoc "The host address the atuin server should listen on.";
+        description =
+          mdDoc "The host address the atuin server should listen on.";
       };
 
       maxHistoryLength = mkOption {
         type = types.int;
         default = 8192;
-        description = mdDoc "The max length of each history item the atuin server should store.";
+        description = mdDoc
+          "The max length of each history item the atuin server should store.";
       };
 
       port = mkOption {
@@ -55,7 +53,8 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc "Create the database and database user locally.";
+          description =
+            lib.mdDoc "Create the database and database user locally.";
         };
       };
     };
@@ -66,21 +65,19 @@ in
     # enable postgres to host atuin db
     services.postgresql = {
       enable = true;
-      ensureUsers = [
-        {
-          name = "atuin";
-          ensurePermissions = {
-            "DATABASE atuin" = "ALL PRIVILEGES";
-          };
-        }
-      ];
+      ensureUsers = [{
+        name = "atuin";
+        ensurePermissions = { "DATABASE atuin" = "ALL PRIVILEGES"; };
+      }];
       ensureDatabases = [ "atuin" ];
     };
 
     systemd.services.atuin = {
       description = "atuin server";
-      requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-      after = [ "network.target" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      requires =
+        lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      after = [ "network.target" ]
+        ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
@@ -97,10 +94,12 @@ in
         ATUIN_OPEN_REGISTRATION = boolToString cfg.openRegistration;
         ATUIN_DB_URI = mkIf cfg.database.createLocally "postgresql:///atuin";
         ATUIN_PATH = cfg.path;
-        ATUIN_CONFIG_DIR = "/run/atuin"; # required to start, but not used as configuration is via environment variables
+        ATUIN_CONFIG_DIR =
+          "/run/atuin"; # required to start, but not used as configuration is via environment variables
       };
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+
   };
 }

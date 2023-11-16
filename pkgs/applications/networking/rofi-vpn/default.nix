@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitLab,
-  makeWrapper,
-  networkmanager,
-  rofi-unwrapped,
-}:
+{ stdenv, lib, fetchFromGitLab, makeWrapper, networkmanager, rofi-unwrapped }:
 
 stdenv.mkDerivation rec {
   pname = "rofi-vpn";
@@ -24,12 +17,7 @@ stdenv.mkDerivation rec {
     install -D --target-directory=$out/bin/ ./rofi-vpn
 
     wrapProgram $out/bin/rofi-vpn \
-      --prefix PATH ":" ${
-        lib.makeBinPath [
-          rofi-unwrapped
-          networkmanager
-        ]
-      }
+      --prefix PATH ":" ${lib.makeBinPath [ rofi-unwrapped networkmanager ]}
 
     runHook postInstall
   '';
@@ -37,7 +25,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   meta = with lib; {
-    description = "Rofi-based interface to enable VPN connections with NetworkManager";
+    description =
+      "Rofi-based interface to enable VPN connections with NetworkManager";
     homepage = "https://gitlab.com/DamienCassou/rofi-vpn";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ DamienCassou ];

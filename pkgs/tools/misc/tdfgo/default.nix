@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "tdfgo";
@@ -19,7 +15,8 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "TheDraw font parser and console text renderer.";
-    longDescription = "Supports more fonts than `tdfiglet`, and packs more features.";
+    longDescription =
+      "Supports more fonts than `tdfiglet`, and packs more features.";
     homepage = "https://github.com/digitallyserviced/tdfgo";
     license = licenses.cc0;
     platforms = platforms.linux;

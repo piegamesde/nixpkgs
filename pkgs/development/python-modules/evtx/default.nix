@@ -1,13 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  rustPlatform,
-  libiconv,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, rustPlatform, libiconv }:
 
 buildPythonPackage rec {
   pname = "evtx";
@@ -29,10 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-DPEL36cYNV5v4iW3+Fg1eEeuBuK9S7Qe78xOzZs8aJw=";
   };
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 
@@ -43,7 +32,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Bindings for evtx";
     homepage = "https://github.com/omerbenamram/pyevtx-rs";
-    changelog = "https://github.com/omerbenamram/pyevtx-rs/releases/tag/${version}";
+    changelog =
+      "https://github.com/omerbenamram/pyevtx-rs/releases/tag/${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -38,8 +33,7 @@ let
     LOCALE_ARCHIVE=${config.i18n.glibcLocales}/lib/locale/locale-archive
     ' $out/sesman.ini
   '';
-in
-{
+in {
 
   ###### interface
 
@@ -47,7 +41,8 @@ in
 
     services.xrdp = {
 
-      enable = mkEnableOption (lib.mdDoc "xrdp, the Remote Desktop Protocol server");
+      enable =
+        mkEnableOption (lib.mdDoc "xrdp, the Remote Desktop Protocol server");
 
       package = mkOption {
         type = types.package;
@@ -69,7 +64,8 @@ in
       openFirewall = mkOption {
         default = false;
         type = types.bool;
-        description = lib.mdDoc "Whether to open the firewall for the specified RDP port.";
+        description =
+          lib.mdDoc "Whether to open the firewall for the specified RDP port.";
       };
 
       sslKey = mkOption {
@@ -169,12 +165,15 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
         description = "xrdp session manager";
-        restartIfChanged = false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
+        restartIfChanged =
+          false; # do not restart on "nixos-rebuild switch". like "display-manager", it can have many interactive programs as children
         serviceConfig = {
-          ExecStart = "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini";
+          ExecStart =
+            "${cfg.package}/bin/xrdp-sesman --nodaemon --config ${cfg.confDir}/sesman.ini";
           ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         };
       };
+
     };
 
     users.users.xrdp = {
@@ -189,4 +188,5 @@ in
       startSession = true;
     };
   };
+
 }

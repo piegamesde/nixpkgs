@@ -1,15 +1,5 @@
-{
-  writeShellScript,
-  lib,
-  nix,
-  nix-prefetch-git,
-  nix-update,
-  curl,
-  git,
-  gnugrep,
-  gnused,
-  jq,
-}:
+{ writeShellScript, lib, nix, nix-prefetch-git, nix-update, curl, git, gnugrep
+, gnused, jq }:
 
 writeShellScript "update-vaultwarden" ''
   PATH=${

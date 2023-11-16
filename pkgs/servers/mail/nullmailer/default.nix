@@ -1,10 +1,4 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  tls ? true,
-  gnutls ? null,
-}:
+{ stdenv, fetchurl, lib, tls ? true, gnutls ? null }:
 
 assert tls -> gnutls != null;
 
@@ -20,10 +14,8 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optional tls gnutls;
 
-  configureFlags = [
-    "--sysconfdir=/etc"
-    "--localstatedir=/var"
-  ] ++ lib.optional tls "--enable-tls";
+  configureFlags = [ "--sysconfdir=/etc" "--localstatedir=/var" ]
+    ++ lib.optional tls "--enable-tls";
 
   installFlags = [ "DESTDIR=$(out)" ];
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  nixosTests,
-  rustPlatform,
-}:
+{ lib, fetchFromGitHub, nixosTests, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "notify_push";

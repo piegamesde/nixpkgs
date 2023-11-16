@@ -1,75 +1,34 @@
-{
-  config,
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cmake,
+{ config, lib, stdenv, fetchFromGitHub, pkg-config, cmake
 
-  # dependencies
-  glib,
-  libXinerama,
-  catch2,
+# dependencies
+, glib, libXinerama, catch2
 
-  # optional features without extra dependencies
-  mpdSupport ? true,
-  ibmSupport ? true # IBM/Lenovo notebooks
-  ,
+# optional features without extra dependencies
+, mpdSupport ? true, ibmSupport ? true # IBM/Lenovo notebooks
 
   # optional features with extra dependencies
 
   # ouch, this is ugly, but this gives the man page
-  docsSupport ? true,
-  docbook2x,
-  libxslt ? null,
-  man ? null,
-  less ? null,
-  docbook_xsl ? null,
-  docbook_xml_dtd_44 ? null,
+, docsSupport ? true, docbook2x, libxslt ? null, man ? null, less ? null
+, docbook_xsl ? null, docbook_xml_dtd_44 ? null
 
-  ncursesSupport ? true,
-  ncurses ? null,
-  x11Support ? true,
-  freetype,
-  xorg,
-  xdamageSupport ? x11Support,
-  libXdamage ? null,
-  doubleBufferSupport ? x11Support,
-  imlib2Support ? x11Support,
-  imlib2 ? null,
+, ncursesSupport ? true, ncurses ? null, x11Support ? true, freetype, xorg
+, xdamageSupport ? x11Support, libXdamage ? null
+, doubleBufferSupport ? x11Support, imlib2Support ? x11Support, imlib2 ? null
 
-  luaSupport ? true,
-  lua ? null,
-  luaImlib2Support ? luaSupport && imlib2Support,
-  luaCairoSupport ? luaSupport && x11Support,
-  cairo ? null,
-  toluapp ? null,
+, luaSupport ? true, lua ? null, luaImlib2Support ? luaSupport && imlib2Support
+, luaCairoSupport ? luaSupport && x11Support, cairo ? null, toluapp ? null
 
-  wirelessSupport ? true,
-  wirelesstools ? null,
-  nvidiaSupport ? false,
-  libXNVCtrl ? null,
-  pulseSupport ? config.pulseaudio or false,
-  libpulseaudio ? null,
+, wirelessSupport ? true, wirelesstools ? null, nvidiaSupport ? false
+, libXNVCtrl ? null, pulseSupport ? config.pulseaudio or false
+, libpulseaudio ? null
 
-  curlSupport ? true,
-  curl ? null,
-  rssSupport ? curlSupport,
-  weatherMetarSupport ? curlSupport,
-  weatherXoapSupport ? curlSupport,
-  journalSupport ? true,
-  systemd ? null,
-  libxml2 ? null,
-}:
+, curlSupport ? true, curl ? null, rssSupport ? curlSupport
+, weatherMetarSupport ? curlSupport, weatherXoapSupport ? curlSupport
+, journalSupport ? true, systemd ? null, libxml2 ? null }:
 
-assert docsSupport
-  ->
-    docbook2x != null
-    && libxslt != null
-    && man != null
-    && less != null
-    && docbook_xsl != null
-    && docbook_xml_dtd_44 != null;
+assert docsSupport -> docbook2x != null && libxslt != null && man != null
+  && less != null && docbook_xsl != null && docbook_xml_dtd_44 != null;
 
 assert ncursesSupport -> ncurses != null;
 
@@ -103,70 +62,44 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3eCRzjfHGFiKuxmRHvnzqAg/+ApUKnHhsumWnio/Qxg=";
   };
 
-  postPatch =
-    ''
-      sed -i -e '/include.*CheckIncludeFile)/i include(CheckIncludeFiles)' \
-        cmake/ConkyPlatformChecks.cmake
-    ''
-    + optionalString docsSupport ''
-      # Drop examples, since they contain non-ASCII characters that break docbook2x :(
-      sed -i 's/ Example: .*$//' doc/config_settings.xml
+  postPatch = ''
+    sed -i -e '/include.*CheckIncludeFile)/i include(CheckIncludeFiles)' \
+      cmake/ConkyPlatformChecks.cmake
+  '' + optionalString docsSupport ''
+    # Drop examples, since they contain non-ASCII characters that break docbook2x :(
+    sed -i 's/ Example: .*$//' doc/config_settings.xml
 
-      substituteInPlace cmake/Conky.cmake --replace "# set(RELEASE true)" "set(RELEASE true)"
+    substituteInPlace cmake/Conky.cmake --replace "# set(RELEASE true)" "set(RELEASE true)"
 
-      cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
-    '';
+    cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
+  '';
 
   NIX_LDFLAGS = "-lgcc_s";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs =
-    [
-      glib
-      libXinerama
-    ]
-    ++ optionals docsSupport [
-      docbook2x
-      docbook_xsl
-      docbook_xml_dtd_44
-      libxslt
-      man
-      less
-    ]
-    ++ optional ncursesSupport ncurses
-    ++ optionals x11Support [
-      freetype
-      xorg.libICE
-      xorg.libX11
-      xorg.libXext
-      xorg.libXft
-      xorg.libSM
-    ]
-    ++ optional xdamageSupport libXdamage
-    ++ optional imlib2Support imlib2
-    ++ optional luaSupport lua
-    ++ optionals luaImlib2Support [
-      toluapp
-      imlib2
-    ]
-    ++ optionals luaCairoSupport [
-      toluapp
-      cairo
-    ]
-    ++ optional wirelessSupport wirelesstools
-    ++ optional curlSupport curl
-    ++ optional rssSupport libxml2
-    ++ optional weatherXoapSupport libxml2
-    ++ optional nvidiaSupport libXNVCtrl
-    ++ optional pulseSupport libpulseaudio
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ glib libXinerama ] ++ optionals docsSupport [
+    docbook2x
+    docbook_xsl
+    docbook_xml_dtd_44
+    libxslt
+    man
+    less
+  ] ++ optional ncursesSupport ncurses ++ optionals x11Support [
+    freetype
+    xorg.libICE
+    xorg.libX11
+    xorg.libXext
+    xorg.libXft
+    xorg.libSM
+  ] ++ optional xdamageSupport libXdamage ++ optional imlib2Support imlib2
+    ++ optional luaSupport lua ++ optionals luaImlib2Support [ toluapp imlib2 ]
+    ++ optionals luaCairoSupport [ toluapp cairo ]
+    ++ optional wirelessSupport wirelesstools ++ optional curlSupport curl
+    ++ optional rssSupport libxml2 ++ optional weatherXoapSupport libxml2
+    ++ optional nvidiaSupport libXNVCtrl ++ optional pulseSupport libpulseaudio
     ++ optional journalSupport systemd;
 
-  cmakeFlags =
-    [ ]
-    ++ optional docsSupport "-DMAINTAINER_MODE=ON"
+  cmakeFlags = [ ] ++ optional docsSupport "-DMAINTAINER_MODE=ON"
     ++ optional curlSupport "-DBUILD_CURL=ON"
     ++ optional (!ibmSupport) "-DBUILD_IBM=OFF"
     ++ optional imlib2Support "-DBUILD_IMLIB2=ON"
@@ -193,7 +126,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://conky.sourceforge.net/";
-    description = "Advanced, highly configurable system monitor based on torsmo";
+    description =
+      "Advanced, highly configurable system monitor based on torsmo";
     maintainers = [ maintainers.guibert ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

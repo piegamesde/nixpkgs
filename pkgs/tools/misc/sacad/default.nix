@@ -1,10 +1,4 @@
-{
-  lib,
-  python3Packages,
-  fetchPypi,
-  jpegoptim,
-  optipng,
-}:
+{ lib, python3Packages, fetchPypi, jpegoptim, optipng }:
 
 python3Packages.buildPythonApplication rec {
   pname = "sacad";

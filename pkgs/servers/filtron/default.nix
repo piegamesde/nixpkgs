@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchpatch,
-}:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch }:
 
 buildGoModule rec {
   pname = "filtron";
@@ -21,20 +16,19 @@ buildGoModule rec {
   patches = [
     # Update golang version in go.mod
     (fetchpatch {
-      url = "https://github.com/asciimoo/filtron/commit/365a0131074b3b12aaa65194bfb542182a63413c.patch";
+      url =
+        "https://github.com/asciimoo/filtron/commit/365a0131074b3b12aaa65194bfb542182a63413c.patch";
       hash = "sha256-QGR6YetEzA/b6tC4uD94LBkWv0+9PG7RD72Tpkn2gQU=";
     })
     # Add missing go.sum file
     (fetchpatch {
-      url = "https://github.com/asciimoo/filtron/commit/077769282b4e392e96a194c8ae71ff9f693560ea.patch";
+      url =
+        "https://github.com/asciimoo/filtron/commit/077769282b4e392e96a194c8ae71ff9f693560ea.patch";
       hash = "sha256-BhHbXDKiRjSzC6NKhKUiH6rjt/EgJcEprHMMJ1x/wiQ=";
     })
   ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     description = "Reverse HTTP proxy to filter requests by different rules.";

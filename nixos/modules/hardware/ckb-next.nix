@@ -1,41 +1,21 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.hardware.ckb-next;
-in
-{
+let cfg = config.hardware.ckb-next;
+
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "ckb"
-        "enable"
-      ]
-      [
-        "hardware"
-        "ckb-next"
-        "enable"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "hardware"
-        "ckb"
-        "package"
-      ]
-      [
-        "hardware"
-        "ckb-next"
-        "package"
-      ]
-    )
+    (mkRenamedOptionModule [ "hardware" "ckb" "enable" ] [
+      "hardware"
+      "ckb-next"
+      "enable"
+    ])
+    (mkRenamedOptionModule [ "hardware" "ckb" "package" ] [
+      "hardware"
+      "ckb-next"
+      "package"
+    ])
   ];
 
   options.hardware.ckb-next = {
@@ -68,14 +48,13 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/ckb-next-daemon ${
-            optionalString (cfg.gid != null) "--gid=${builtins.toString cfg.gid}"
+            optionalString (cfg.gid != null)
+            "--gid=${builtins.toString cfg.gid}"
           }";
         Restart = "on-failure";
       };
     };
   };
 
-  meta = {
-    maintainers = with lib.maintainers; [ ];
-  };
+  meta = { maintainers = with lib.maintainers; [ ]; };
 }

@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  unzip,
-  pkg-config,
-  makeWrapper,
-  ncurses,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchFromGitHub, unzip, pkg-config, makeWrapper, ncurses
+, libxcrypt }:
 
 stdenv.mkDerivation {
   pname = "qnial";
@@ -20,11 +12,7 @@ stdenv.mkDerivation {
     owner = "vrthra";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    unzip
-    pkg-config
-  ];
+  nativeBuildInputs = [ makeWrapper unzip pkg-config ];
 
   preConfigure = ''
     cd build;
@@ -37,10 +25,7 @@ stdenv.mkDerivation {
     cp -r niallib $out/lib/
   '';
 
-  buildInputs = [
-    ncurses
-    libxcrypt
-  ];
+  buildInputs = [ ncurses libxcrypt ];
 
   meta = {
     description = "An array language from Nial Systems";

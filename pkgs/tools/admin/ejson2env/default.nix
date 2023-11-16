@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nix-update-script,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
 
 buildGoModule rec {
   pname = "ejson2env";
@@ -18,16 +13,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-agWcD8vFNde1SCdkRovMNPf+1KODxV8wW1mXvE0w/CI=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   passthru.updateScript = nix-update-script { attrPath = pname; };
 
   meta = with lib; {
-    description = "A tool to simplify storing secrets that should be accessible in the shell environment in your git repo.";
+    description =
+      "A tool to simplify storing secrets that should be accessible in the shell environment in your git repo.";
     homepage = "https://github.com/Shopify/ejson2env";
     maintainers = with maintainers; [ viraptor ];
     license = licenses.mit;

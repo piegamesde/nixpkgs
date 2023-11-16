@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pocketbase";
@@ -23,29 +19,22 @@ buildGoModule rec {
   CGO_ENABLED = 0;
 
   # Upstream build instructions
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/pocketbase/pocketbase.Version=${version}"
-  ];
+  ldflags =
+    [ "-s" "-w" "-X github.com/pocketbase/pocketbase.Version=${version}" ];
 
   postInstall = ''
     mv $out/bin/base $out/bin/pocketbase
   '';
 
-  patches =
-    [
-      # To provide a consistent update experience, we remove the built in update method
-      ./remove-update-method.patch
-    ];
+  patches = [
+    # To provide a consistent update experience, we remove the built in update method
+    ./remove-update-method.patch
+  ];
 
   meta = with lib; {
     description = "Open Source realtime backend in 1 file";
     homepage = "https://github.com/pocketbase/pocketbase";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      dit7ya
-      thilobillerbeck
-    ];
+    maintainers = with maintainers; [ dit7ya thilobillerbeck ];
   };
 }

@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  lib,
-}:
+{ buildPythonPackage, fetchFromGitHub, pytestCheckHook, lib }:
 
 buildPythonPackage rec {
   pname = "leb128";

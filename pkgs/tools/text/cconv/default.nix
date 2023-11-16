@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  libiconv,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "cconv";
@@ -21,7 +15,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ libiconv ];
 
   meta = with lib; {
-    description = "A iconv based simplified-traditional chinese conversion tool";
+    description =
+      "A iconv based simplified-traditional chinese conversion tool";
     homepage = "https://github.com/xiaoyjy/cconv";
     license = licenses.mit;
     platforms = platforms.all;

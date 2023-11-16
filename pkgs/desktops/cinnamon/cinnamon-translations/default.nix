@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gettext,
-}:
+{ lib, stdenv, fetchFromGitHub, gettext }:
 
 stdenv.mkDerivation rec {
   pname = "cinnamon-translations";

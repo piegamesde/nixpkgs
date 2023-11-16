@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  doxygen,
-  gbenchmark,
-  graphviz,
-  gtest,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, doxygen, gbenchmark, graphviz, gtest }:
 
 stdenv.mkDerivation rec {
   pname = "ftxui";
@@ -22,16 +13,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    graphviz
-  ];
+  nativeBuildInputs = [ cmake doxygen graphviz ];
 
-  checkInputs = [
-    gtest
-    gbenchmark
-  ];
+  checkInputs = [ gtest gbenchmark ];
 
   cmakeFlags = [
     "-DFTXUI_BUILD_EXAMPLES=OFF"
@@ -43,7 +27,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ArthurSonzogni/FTXUI";
-    changelog = "https://github.com/ArthurSonzogni/FTXUI/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/ArthurSonzogni/FTXUI/blob/v${version}/CHANGELOG.md";
     description = "Functional Terminal User Interface library for C++";
     license = licenses.mit;
     maintainers = [ maintainers.ivar ];

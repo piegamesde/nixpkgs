@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "Subtitlr";
@@ -18,10 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZgJCk9vbbQ0dcYSdKm0Cbw2AmwjpMvGb5zJkgbD+xig=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -33,7 +25,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "This application, a subtitle generator for YouTube, utilizes OpenAI's Whisper API.";
+    description =
+      "This application, a subtitle generator for YouTube, utilizes OpenAI's Whisper API.";
     homepage = "https://github.com/yoanbernabeu/Subtitlr/";
     license = licenses.mit;
     maintainers = with maintainers; [ qjoly ];

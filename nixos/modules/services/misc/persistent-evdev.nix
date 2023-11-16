@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.services.persistent-evdev;
@@ -13,12 +8,10 @@ let
     cache = "/var/cache/persistent-evdev";
     devices = lib.mapAttrs (virt: phys: "/dev/input/by-id/${phys}") cfg.devices;
   };
-in
-{
+in {
   options.services.persistent-evdev = {
-    enable = lib.mkEnableOption (
-      lib.mdDoc "virtual input devices that persist even if the backing device is hotplugged"
-    );
+    enable = lib.mkEnableOption (lib.mdDoc
+      "virtual input devices that persist even if the backing device is hotplugged");
 
     devices = lib.mkOption {
       default = { };
@@ -49,13 +42,15 @@ in
   config = lib.mkIf cfg.enable {
 
     systemd.services.persistent-evdev = {
-      documentation = [ "https://github.com/aiberia/persistent-evdev/blob/master/README.md" ];
+      documentation =
+        [ "https://github.com/aiberia/persistent-evdev/blob/master/README.md" ];
       description = "Persistent evdev proxy";
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         Restart = "on-failure";
-        ExecStart = "${pkgs.persistent-evdev}/bin/persistent-evdev.py ${configFile}";
+        ExecStart =
+          "${pkgs.persistent-evdev}/bin/persistent-evdev.py ${configFile}";
         CacheDirectory = "persistent-evdev";
       };
     };

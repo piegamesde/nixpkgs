@@ -1,17 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  jdk11,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchzip, jdk11, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "janusgraph";
   version = "0.6.3";
 
   src = fetchzip {
-    url = "https://github.com/JanusGraph/janusgraph/releases/download/v${version}/janusgraph-${version}.zip";
+    url =
+      "https://github.com/JanusGraph/janusgraph/releases/download/v${version}/janusgraph-${version}.zip";
     sha256 = "sha256-KpGvDfQExU6pHheqmcOFoAhHdF4P+GBQu779h+/L5mE=";
   };
 
@@ -47,3 +42,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.ners ];
   };
 }
+

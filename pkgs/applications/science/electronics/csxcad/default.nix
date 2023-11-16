@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  fparser,
-  tinyxml,
-  hdf5,
-  cgal_5,
-  vtk,
-  boost,
-  gmp,
-  mpfr,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, fparser, tinyxml, hdf5, cgal_5, vtk
+, boost, gmp, mpfr }:
 
 stdenv.mkDerivation rec {
   pname = "csxcad";
@@ -26,16 +14,7 @@ stdenv.mkDerivation rec {
 
   patches = [ ./searchPath.patch ];
 
-  buildInputs = [
-    cgal_5
-    boost
-    gmp
-    mpfr
-    vtk
-    fparser
-    tinyxml
-    hdf5
-  ];
+  buildInputs = [ cgal_5 boost gmp mpfr vtk fparser tinyxml hdf5 ];
 
   nativeBuildInputs = [ cmake ];
 

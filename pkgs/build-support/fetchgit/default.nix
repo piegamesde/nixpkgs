@@ -1,13 +1,6 @@
-{
-  lib,
-  stdenvNoCC,
-  git,
-  git-lfs,
-  cacert,
-}:
+{ lib, stdenvNoCC, git, git-lfs, cacert }:
 let
-  urlToName =
-    url: rev:
+  urlToName = url: rev:
     let
       inherit (lib) removeSuffix splitString last;
       base = last (splitString ":" (baseNameOf (removeSuffix "/" url)));
@@ -16,37 +9,24 @@ let
 
       short = builtins.substring 0 7 rev;
 
-      appendShort = lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null) "-${short}";
-    in
-    "${if matched == null then base else builtins.head matched}${appendShort}";
-in
-lib.makeOverridable (
-  {
-    url,
-    rev ? "HEAD",
-    md5 ? "",
-    sha256 ? "",
-    hash ? "",
-    leaveDotGit ? deepClone,
-    fetchSubmodules ? true,
-    deepClone ? false,
-    branchName ? null,
-    sparseCheckout ? [ ],
-    nonConeMode ? false,
-    name ? urlToName url rev,
-    # Shell code executed after the file has been fetched
-    # successfully. This can do things like check or transform the file.
-    postFetch ? "",
-    preferLocalBuild ? true,
-    fetchLFS ? false,
-    # Shell code to build a netrc file for BASIC auth
-    netrcPhase ? null,
-    # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
-    # needed for netrcPhase
-    netrcImpureEnvVars ? [ ],
-    meta ? { },
-    allowedRequisites ? null,
-  }:
+      appendShort =
+        lib.optionalString ((builtins.match "[a-f0-9]*" rev) != null)
+        "-${short}";
+    in "${
+      if matched == null then base else builtins.head matched
+    }${appendShort}";
+in lib.makeOverridable ({ url, rev ? "HEAD", md5 ? "", sha256 ? "", hash ? ""
+  , leaveDotGit ? deepClone, fetchSubmodules ? true, deepClone ? false
+  , branchName ? null, sparseCheckout ? [ ], nonConeMode ? false
+  , name ? urlToName url rev
+  , # Shell code executed after the file has been fetched
+  # successfully. This can do things like check or transform the file.
+  postFetch ? "", preferLocalBuild ? true, fetchLFS ? false
+  , # Shell code to build a netrc file for BASIC auth
+  netrcPhase ? null
+  , # Impure env vars (https://nixos.org/nix/manual/#sec-advanced-attributes)
+  # needed for netrcPhase
+  netrcImpureEnvVars ? [ ], meta ? { }, allowedRequisites ? null }:
 
   /* NOTE:
      fetchgit has one problem: git fetch only works for refs.
@@ -78,9 +58,9 @@ lib.makeOverridable (
   else if hash != "" && sha256 != "" then
     throw "Only one of sha256 or hash can be set"
   else if builtins.isString sparseCheckout then
-    # Changed to throw on 2023-06-04
+  # Changed to throw on 2023-06-04
     throw
-      "Please provide directories/patterns for sparse checkout as a list of strings. Passing a (multi-line) string is not supported any more."
+    "Please provide directories/patterns for sparse checkout as a list of strings. Passing a (multi-line) string is not supported any more."
   else
     stdenvNoCC.mkDerivation {
       inherit name;
@@ -91,57 +71,36 @@ lib.makeOverridable (
 
       outputHashAlgo = if hash != "" then null else "sha256";
       outputHashMode = "recursive";
-      outputHash =
-        if hash != "" then
-          hash
-        else if sha256 != "" then
-          sha256
-        else
-          lib.fakeSha256;
+      outputHash = if hash != "" then
+        hash
+      else if sha256 != "" then
+        sha256
+      else
+        lib.fakeSha256;
 
       # git-sparse-checkout(1) says:
       # > When the --stdin option is provided, the directories or patterns are read
       # > from standard in as a newline-delimited list instead of from the arguments.
       sparseCheckout = builtins.concatStringsSep "\n" sparseCheckout;
 
-      inherit
-        url
-        rev
-        leaveDotGit
-        fetchLFS
-        fetchSubmodules
-        deepClone
-        branchName
-        nonConeMode
-        postFetch
-      ;
+      inherit url rev leaveDotGit fetchLFS fetchSubmodules deepClone branchName
+        nonConeMode postFetch;
 
-      postHook =
-        if netrcPhase == null then
-          null
-        else
-          ''
-            ${netrcPhase}
-            # required that git uses the netrc file
-            mv {,.}netrc
-            export HOME=$PWD
-          '';
+      postHook = if netrcPhase == null then
+        null
+      else ''
+        ${netrcPhase}
+        # required that git uses the netrc file
+        mv {,.}netrc
+        export HOME=$PWD
+      '';
 
       GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-      impureEnvVars =
-        lib.fetchers.proxyImpureEnvVars
-        ++ netrcImpureEnvVars
-        ++ [
-          "GIT_PROXY_COMMAND"
-          "NIX_GIT_SSL_CAINFO"
-          "SOCKS_SERVER"
-        ];
+      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ netrcImpureEnvVars
+        ++ [ "GIT_PROXY_COMMAND" "NIX_GIT_SSL_CAINFO" "SOCKS_SERVER" ];
 
       inherit preferLocalBuild meta allowedRequisites;
 
-      passthru = {
-        gitRepoUrl = url;
-      };
-    }
-)
+      passthru = { gitRepoUrl = url; };
+    })

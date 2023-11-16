@@ -1,26 +1,14 @@
-{
-  lib,
-  appleDerivation,
-  xcbuildHook,
-  stdenv,
-  Librpcsvc,
-  xnu,
-  libpcap,
-  developer_cmds,
-}:
+{ lib, appleDerivation, xcbuildHook, stdenv, Librpcsvc, xnu, libpcap
+, developer_cmds }:
 
 appleDerivation {
   nativeBuildInputs = [ xcbuildHook ];
-  buildInputs = [
-    xnu
-    Librpcsvc
-    libpcap
-    developer_cmds
-  ];
+  buildInputs = [ xnu Librpcsvc libpcap developer_cmds ];
 
   # Work around error from <stdio.h> on aarch64-darwin:
   #     error: 'TARGET_OS_IPHONE' is not defined, evaluates to 0 [-Werror,-Wundef-prefix=TARGET_OS_]
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=undef-prefix -I./unbound -I${xnu}/Library/Frameworks/System.framework/Headers/";
+  env.NIX_CFLAGS_COMPILE =
+    "-Wno-error=undef-prefix -I./unbound -I${xnu}/Library/Frameworks/System.framework/Headers/";
 
   # "spray" requires some files that aren't compiling correctly in xcbuild.
   # "rtadvd" seems to fail with some missing constants.

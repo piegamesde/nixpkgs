@@ -1,12 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pytest-aiohttp,
-  pytestCheckHook,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchPypi, pythonOlder, pytest-aiohttp
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "luxor";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytestCheckHook ];
 
   pythonImportsCheck = [ "luxor" ];
 

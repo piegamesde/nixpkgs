@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  fuse3,
-  pcre,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, fuse3, pcre }:
 
 stdenv.mkDerivation {
   pname = "rewritefs";
@@ -19,10 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    fuse3
-    pcre
-  ];
+  buildInputs = [ fuse3 pcre ];
 
   prePatch = ''
     # do not set sticky bit in nix store

@@ -1,37 +1,11 @@
-{
-  mkDerivation,
-  lib,
-  extra-cmake-modules,
-  kdoctools,
-  ki18n,
-  makeWrapper,
-  akonadi-contacts,
-  gnupg,
-  karchive,
-  kcodecs,
-  kcontacts,
-  kcoreaddons,
-  kcrash,
-  kdbusaddons,
-  kiconthemes,
-  kjobwidgets,
-  kio,
-  knotifications,
-  kservice,
-  ktextwidgets,
-  kxmlgui,
-  kwidgetsaddons,
-  kwindowsystem,
-  qgpgme,
-}:
+{ mkDerivation, lib, extra-cmake-modules, kdoctools, ki18n, makeWrapper
+, akonadi-contacts, gnupg, karchive, kcodecs, kcontacts, kcoreaddons, kcrash
+, kdbusaddons, kiconthemes, kjobwidgets, kio, knotifications, kservice
+, ktextwidgets, kxmlgui, kwidgetsaddons, kwindowsystem, qgpgme, }:
 
 mkDerivation {
   pname = "kgpg";
-  nativeBuildInputs = [
-    extra-cmake-modules
-    kdoctools
-    makeWrapper
-  ];
+  nativeBuildInputs = [ extra-cmake-modules kdoctools makeWrapper ];
   buildInputs = [
     akonadi-contacts
     gnupg
@@ -58,7 +32,8 @@ mkDerivation {
   '';
   meta = {
     homepage = "https://apps.kde.org/kgpg/";
-    description = "A KDE based interface for GnuPG, a powerful encryption utility";
+    description =
+      "A KDE based interface for GnuPG, a powerful encryption utility";
     license = [ lib.licenses.gpl2 ];
     maintainers = [ lib.maintainers.ttuegel ];
   };

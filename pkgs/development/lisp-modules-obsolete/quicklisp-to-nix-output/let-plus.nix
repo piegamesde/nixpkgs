@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "let-plus";
   version = "20191130-git";
 
@@ -8,14 +7,11 @@ rec {
 
   description = "Destructuring extension of LET*.";
 
-  deps = [
-    args."alexandria"
-    args."anaphora"
-    args."lift"
-  ];
+  deps = [ args."alexandria" args."anaphora" args."lift" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/let-plus/2019-11-30/let-plus-20191130-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/let-plus/2019-11-30/let-plus-20191130-git.tgz";
     sha256 = "0zj0fgb7lvczgpz4jq8q851p77kma7ikn7hd2jk2c37iv4nmz29p";
   };
 

@@ -1,13 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  git,
-  openssl,
-  pkg-config,
-  stdenv,
-  SystemConfiguration,
-}:
+{ lib, fetchFromGitHub, rustPlatform, git, openssl, pkg-config, stdenv
+, SystemConfiguration }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rye";
@@ -25,25 +17,23 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "dialoguer-0.10.4" = "sha256-WDqUKOu7Y0HElpPxf2T8EpzAY3mY8sSn9lf0V0jyAFc=";
+      "dialoguer-0.10.4" =
+        "sha256-WDqUKOu7Y0HElpPxf2T8EpzAY3mY8sSn9lf0V0jyAFc=";
     };
   };
 
-  env = {
-    OPENSSL_NO_VENDOR = 1;
-  };
+  env = { OPENSSL_NO_VENDOR = 1; };
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    git
-    openssl
-  ] ++ lib.optional stdenv.isDarwin SystemConfiguration;
+  buildInputs = [ git openssl ]
+    ++ lib.optional stdenv.isDarwin SystemConfiguration;
 
   nativeCheckInputs = [ git ];
 
   meta = with lib; {
-    description = "A tool to easily manage python dependencies and environments";
+    description =
+      "A tool to easily manage python dependencies and environments";
     homepage = "https://github.com/mitsuhiko/rye";
     license = licenses.mit;
     maintainers = with maintainers; [ GaetanLepage ];

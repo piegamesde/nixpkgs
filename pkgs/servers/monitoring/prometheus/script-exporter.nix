@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "script_exporter";
@@ -18,9 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "Hs1SNpC+t1OCcoF3FBgpVGkhR97ulq6zYhi8BQlgfVc=";
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) script;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) script; };
 
   meta = with lib; {
     description = "Shell script prometheus exporter";

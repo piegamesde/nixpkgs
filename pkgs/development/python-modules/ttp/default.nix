@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  cerberus,
-  configparser,
-  deepdiff,
-  fetchFromGitHub,
-  geoip2,
-  jinja2,
-  netmiko,
-  openpyxl,
-  pytestCheckHook,
-  poetry-core,
-  pyyaml,
-  tabulate,
-  ttp-templates,
-  yangson,
-}:
+{ lib, buildPythonPackage, cerberus, configparser, deepdiff, fetchFromGitHub
+, geoip2, jinja2, netmiko, openpyxl, pytestCheckHook, poetry-core, pyyaml
+, tabulate, ttp-templates, yangson }:
 
 buildPythonPackage rec {
   pname = "ttp";
@@ -48,11 +33,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ttp" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pyyaml
-    ttp-templates
-  ];
+  nativeCheckInputs = [ pytestCheckHook pyyaml ttp-templates ];
 
   disabledTestPaths = [
     # missing package n2g

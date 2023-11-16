@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchPypi,
-  setuptools,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchPypi, setuptools }:
 
 buildPythonPackage rec {
   pname = "merge3";

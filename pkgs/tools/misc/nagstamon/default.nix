@@ -1,15 +1,12 @@
-{
-  lib,
-  fetchurl,
-  pythonPackages,
-}:
+{ lib, fetchurl, pythonPackages }:
 
 pythonPackages.buildPythonApplication rec {
   pname = "nagstamon";
   version = "3.2.1";
 
   src = fetchurl {
-    url = "https://nagstamon.ifw-dresden.de/files/stable/Nagstamon-${version}.tar.gz";
+    url =
+      "https://nagstamon.ifw-dresden.de/files/stable/Nagstamon-${version}.tar.gz";
     sha256 = "1048x55g3nlyyggn6a36xmj24w4hv08llg58f4hzc0fwg074cd58";
   };
 

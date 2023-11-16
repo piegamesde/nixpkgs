@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gtk2,
-  libpng,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gtk2, libpng }:
 
 stdenv.mkDerivation rec {
   pname = "gqview";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk2
-    libpng
-  ];
+  buildInputs = [ gtk2 libpng ];
 
   hardeningDisable = [ "format" ];
 

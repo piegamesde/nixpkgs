@@ -1,22 +1,7 @@
-{
-  lib,
-  callPackage,
-  buildPythonPackage,
-  fetchFromGitHub,
-  colorama,
-  hatch-requirements-txt,
-  hatch-nodejs-version,
-  hatchling,
-  jinja2,
-  markdown,
-  mkdocs,
-  mkdocs-material-extensions,
-  pygments,
-  pymdown-extensions,
-  pythonOlder,
-  regex,
-  requests,
-}:
+{ lib, callPackage, buildPythonPackage, fetchFromGitHub, colorama
+, hatch-requirements-txt, hatch-nodejs-version, hatchling, jinja2, markdown
+, mkdocs, mkdocs-material-extensions, pygments, pymdown-extensions, pythonOlder
+, regex, requests }:
 
 buildPythonPackage rec {
   pname = "mkdocs-material";
@@ -32,11 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-S+cCNcQR8Y1UGj+4Nfy9Z10N/9PRq13fSeR2YFntxWI=";
   };
 
-  nativeBuildInputs = [
-    hatch-requirements-txt
-    hatch-nodejs-version
-    hatchling
-  ];
+  nativeBuildInputs = [ hatch-requirements-txt hatch-nodejs-version hatchling ];
 
   propagatedBuildInputs = [
     colorama

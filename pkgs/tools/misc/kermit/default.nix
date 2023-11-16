@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchurl, ncurses, libxcrypt }:
 
 stdenv.mkDerivation {
   pname = "kermit";
@@ -15,10 +9,7 @@ stdenv.mkDerivation {
     sha256 = "0487mh6s99ijqf1pfmbm302pa5i4pzmm8s439hdl1ffs5g8jqpqd";
   };
 
-  buildInputs = [
-    ncurses
-    libxcrypt
-  ];
+  buildInputs = [ ncurses libxcrypt ];
 
   unpackPhase = ''
     mkdir -p src
@@ -31,7 +22,8 @@ stdenv.mkDerivation {
       -e 's@/usr/local@'"$out"@ makefile
   '';
 
-  buildPhase = "make -f makefile linux KFLAGS='-D_IO_file_flags' LNKFLAGS='-lcrypt -lresolv'";
+  buildPhase =
+    "make -f makefile linux KFLAGS='-D_IO_file_flags' LNKFLAGS='-lcrypt -lresolv'";
 
   installPhase = ''
     mkdir -p $out/bin
@@ -41,7 +33,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://www.kermitproject.org/ck90.html";
-    description = "Portable Scriptable Network and Serial Communication Software";
+    description =
+      "Portable Scriptable Network and Serial Communication Software";
     license = licenses.bsd3;
     maintainers = with maintainers; [ pSub ];
     platforms = with platforms; linux;

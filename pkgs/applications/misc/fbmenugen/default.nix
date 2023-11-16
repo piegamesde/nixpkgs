@@ -1,15 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  fluxbox,
-  gnused,
-  makeWrapper,
-  perlPackages,
-  substituteAll,
-  xorg,
-  wrapGAppsHook,
-  gitUpdater,
-}:
+{ lib, fetchFromGitHub, fluxbox, gnused, makeWrapper, perlPackages
+, substituteAll, xorg, wrapGAppsHook, gitUpdater }:
 
 perlPackages.buildPerlPackage rec {
   pname = "fbmenugen";
@@ -32,10 +22,7 @@ perlPackages.buildPerlPackage rec {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ makeWrapper wrapGAppsHook ];
 
   buildInputs = [
     fluxbox

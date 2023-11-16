@@ -1,18 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  qtbase,
-  qtmultimedia,
-  qtx11extras,
-  qttools,
-  qtwebengine,
-  libidn,
-  qca-qt5,
-  libXScrnSaver,
-  hunspell,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, qtbase, qtmultimedia, qtx11extras
+, qttools, qtwebengine, libidn, qca-qt5, libXScrnSaver, hunspell }:
 
 mkDerivation rec {
   pname = "psi";
@@ -25,10 +12,7 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
   patches = [ ./fix-cmake-hunspell-1.7.patch ];
-  nativeBuildInputs = [
-    cmake
-    qttools
-  ];
+  nativeBuildInputs = [ cmake qttools ];
   buildInputs = [
     qtbase
     qtmultimedia

@@ -1,30 +1,8 @@
-{
-  lib,
-  buildPythonPackage,
-  django,
-  djangorestframework,
-  falcon,
-  fetchFromGitHub,
-  flask,
-  httpx,
-  isodate,
-  jsonschema-spec,
-  mock,
-  more-itertools,
-  openapi-schema-validator,
-  openapi-spec-validator,
-  parse,
-  pathable,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  responses,
-  requests,
-  starlette,
-  typing-extensions,
-  webob,
-  werkzeug,
-}:
+{ lib, buildPythonPackage, django, djangorestframework, falcon, fetchFromGitHub
+, flask, httpx, isodate, jsonschema-spec, mock, more-itertools
+, openapi-schema-validator, openapi-spec-validator, parse, pathable, poetry-core
+, pytestCheckHook, pythonOlder, responses, requests, starlette
+, typing-extensions, webob, werkzeug }:
 
 buildPythonPackage rec {
   pname = "openapi-core";
@@ -64,24 +42,16 @@ buildPythonPackage rec {
     falcon = [ falcon ];
     flask = [ flask ];
     requests = [ requests ];
-    starlette = [
-      httpx
-      starlette
-    ];
+    starlette = [ httpx starlette ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    responses
-    webob
-  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ mock pytestCheckHook responses webob ]
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  disabledTestPaths =
-    [
-      # Requires secrets and additional configuration
-      "tests/integration/contrib/django/"
-    ];
+  disabledTestPaths = [
+    # Requires secrets and additional configuration
+    "tests/integration/contrib/django/"
+  ];
 
   pythonImportsCheck = [
     "openapi_core"
@@ -90,7 +60,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Client-side and server-side support for the OpenAPI Specification v3";
+    description =
+      "Client-side and server-side support for the OpenAPI Specification v3";
     homepage = "https://github.com/p1c2u/openapi-core";
     license = licenses.bsd3;
     maintainers = with maintainers; [ dotlambda ];

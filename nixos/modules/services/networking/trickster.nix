@@ -1,29 +1,15 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.trickster;
-in
-{
+let cfg = config.services.trickster;
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "trickster"
-        "origin"
-      ]
-      [
-        "services"
-        "trickster"
-        "origin-url"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "trickster" "origin" ] [
+      "services"
+      "trickster"
+      "origin-url"
+    ])
   ];
 
   options = {
@@ -78,10 +64,7 @@ in
       };
 
       origin-type = mkOption {
-        type = types.enum [
-          "prometheus"
-          "influxdb"
-        ];
+        type = types.enum [ "prometheus" "influxdb" ];
         default = "prometheus";
         description = lib.mdDoc ''
           Type of origin (prometheus, influxdb)
@@ -111,6 +94,7 @@ in
           Port that the Proxy server will listen on.
         '';
       };
+
     };
   };
 
@@ -128,9 +112,15 @@ in
           -origin-type ${cfg.origin-type} \
           -origin-url ${cfg.origin-url} \
           -proxy-port ${toString cfg.proxy-port} \
-          ${optionalString (cfg.configFile != null) "-config ${cfg.configFile}"} \
-          ${optionalString (cfg.profiler-port != null) "-profiler-port ${cfg.profiler-port}"} \
-          ${optionalString (cfg.instance-id != null) "-instance-id ${cfg.instance-id}"}
+          ${
+            optionalString (cfg.configFile != null) "-config ${cfg.configFile}"
+          } \
+          ${
+            optionalString (cfg.profiler-port != null)
+            "-profiler-port ${cfg.profiler-port}"
+          } \
+          ${optionalString (cfg.instance-id != null)
+          "-instance-id ${cfg.instance-id}"}
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         Restart = "always";
@@ -139,4 +129,5 @@ in
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];
+
 }

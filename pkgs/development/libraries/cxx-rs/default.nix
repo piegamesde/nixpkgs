@@ -1,10 +1,4 @@
-{
-  cxx-rs,
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-  testers,
-}:
+{ cxx-rs, fetchFromGitHub, lib, rustPlatform, testers }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cxx-rs";
@@ -17,18 +11,13 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-h6TmQyxhoOhaAWBZr9rRPCf0BE2QMBIYm5uTVKD2paE=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  cargoLock = { lockFile = ./Cargo.lock; };
 
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoBuildFlags = [
-    "--workspace"
-    "--exclude=demo"
-  ];
+  cargoBuildFlags = [ "--workspace" "--exclude=demo" ];
 
   postBuild = ''
     cargo doc --release
@@ -36,11 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoTestFlags = [ "--workspace" ];
 
-  outputs = [
-    "out"
-    "doc"
-    "dev"
-  ];
+  outputs = [ "out" "doc" "dev" ];
 
   postInstall = ''
     mkdir -p $doc

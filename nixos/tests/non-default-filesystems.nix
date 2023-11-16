@@ -1,25 +1,14 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib; {
   btrfs = makeTest {
     name = "non-default-filesystems-btrfs";
 
-    nodes.machine =
-      {
-        config,
-        pkgs,
-        lib,
-        ...
-      }:
-      let
-        disk = config.virtualisation.rootDevice;
-      in
-      {
+    nodes.machine = { config, pkgs, lib, ... }:
+      let disk = config.virtualisation.rootDevice;
+      in {
         virtualisation.rootDevice = "/dev/vda";
         virtualisation.useDefaultFilesystems = false;
 
@@ -66,47 +55,42 @@ with pkgs.lib; {
     '';
   };
 
-  erofs =
-    let
-      fsImage = "/tmp/non-default-filesystem.img";
-    in
-    makeTest {
-      name = "non-default-filesystems-erofs";
+  erofs = let fsImage = "/tmp/non-default-filesystem.img";
+  in makeTest {
+    name = "non-default-filesystems-erofs";
 
-      nodes.machine = _: {
-        virtualisation.qemu.drives = [
-          {
-            name = "non-default-filesystem";
-            file = fsImage;
-          }
-        ];
+    nodes.machine = _: {
+      virtualisation.qemu.drives = [{
+        name = "non-default-filesystem";
+        file = fsImage;
+      }];
 
-        virtualisation.fileSystems."/non-default" = {
-          device = "/dev/vdb";
-          fsType = "erofs";
-          neededForBoot = true;
-        };
+      virtualisation.fileSystems."/non-default" = {
+        device = "/dev/vdb";
+        fsType = "erofs";
+        neededForBoot = true;
       };
-
-      testScript = ''
-        import subprocess
-        import tempfile
-
-        with tempfile.TemporaryDirectory() as tmp_dir:
-          with open(f"{tmp_dir}/filesystem", "w") as f:
-              f.write("erofs")
-
-          subprocess.run([
-            "${pkgs.erofs-utils}/bin/mkfs.erofs",
-            "${fsImage}",
-            tmp_dir,
-          ])
-
-        machine.start()
-        machine.wait_for_unit("default.target")
-
-        file_contents = machine.succeed("cat /non-default/filesystem")
-        assert "erofs" in file_contents
-      '';
     };
+
+    testScript = ''
+      import subprocess
+      import tempfile
+
+      with tempfile.TemporaryDirectory() as tmp_dir:
+        with open(f"{tmp_dir}/filesystem", "w") as f:
+            f.write("erofs")
+
+        subprocess.run([
+          "${pkgs.erofs-utils}/bin/mkfs.erofs",
+          "${fsImage}",
+          tmp_dir,
+        ])
+
+      machine.start()
+      machine.wait_for_unit("default.target")
+
+      file_contents = machine.succeed("cat /non-default/filesystem")
+      assert "erofs" in file_contents
+    '';
+  };
 }

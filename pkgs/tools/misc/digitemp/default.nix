@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  stdenv,
-}:
+{ fetchFromGitHub, lib, stdenv }:
 
 stdenv.mkDerivation rec {
   pname = "digitemp";
@@ -17,11 +13,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "LOCK=no"
-    "ds9097"
-    "ds9097u"
-  ];
+  makeFlags = [ "LOCK=no" "ds9097" "ds9097u" ];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +23,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Temperature logging and reporting using Maxim's iButtons and 1-Wire protocol";
+    description =
+      "Temperature logging and reporting using Maxim's iButtons and 1-Wire protocol";
     longDescription = ''
       DigiTemp is a command line application used for reading 1-wire sensors like
       the DS18S20 temperature sensor, or DS2438 battery monitor. DigiTemp supports

@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  alsa-lib,
-  gettext,
-  ncurses,
-  libsamplerate,
-}:
+{ lib, stdenv, fetchurl, alsa-lib, gettext, ncurses, libsamplerate }:
 
 stdenv.mkDerivation rec {
   pname = "alsa-oss";
@@ -17,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "13nn6n6wpr2sj1hyqx4r9nb9bwxnhnzw8r2f08p8v13yjbswxbb4";
   };
 
-  buildInputs = [
-    alsa-lib
-    ncurses
-    libsamplerate
-  ];
+  buildInputs = [ alsa-lib ncurses libsamplerate ];
   nativeBuildInputs = [ gettext ];
 
   configureFlags = [ "--disable-xmlto" ];
@@ -30,7 +18,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://www.alsa-project.org/";
-    description = "ALSA, the Advanced Linux Sound Architecture alsa-oss emulation";
+    description =
+      "ALSA, the Advanced Linux Sound Architecture alsa-oss emulation";
 
     longDescription = ''
       The Advanced Linux Sound Architecture (ALSA) provides audio and

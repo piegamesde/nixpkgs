@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchCrate,
-}:
+{ lib, rustPlatform, fetchCrate }:
 
 rustPlatform.buildRustPackage rec {
   pname = "svgbob";
@@ -23,7 +19,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Convert your ascii diagram scribbles into happy little SVG";
     homepage = "https://github.com/ivanceras/svgbob";
-    changelog = "https://github.com/ivanceras/svgbob/raw/${version}/Changelog.md";
+    changelog =
+      "https://github.com/ivanceras/svgbob/raw/${version}/Changelog.md";
     license = licenses.asl20;
     maintainers = [ maintainers.marsam ];
   };

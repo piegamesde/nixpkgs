@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fftw,
-  gtk2,
-  lv2,
-  libsamplerate,
-  libsndfile,
-  pkg-config,
-  zita-convolver,
-}:
+{ lib, stdenv, fetchFromGitHub, fftw, gtk2, lv2, libsamplerate, libsndfile
+, pkg-config, zita-convolver }:
 
 stdenv.mkDerivation rec {
   pname = "ir.lv2";
@@ -22,14 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "1p6makmgr898fakdxzl4agh48qqwgv1k1kwm8cgq187n0mhiknp6";
   };
 
-  buildInputs = [
-    fftw
-    gtk2
-    lv2
-    libsamplerate
-    libsndfile
-    zita-convolver
-  ];
+  buildInputs = [ fftw gtk2 lv2 libsamplerate libsndfile zita-convolver ];
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -52,7 +35,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "http://factorial.hu/plugins/lv2/ir";
-    description = "Zero-latency, realtime, high performance signal convolver especially for creating reverb effects";
+    description =
+      "Zero-latency, realtime, high performance signal convolver especially for creating reverb effects";
     license = licenses.gpl2;
     maintainers = [ maintainers.magnetophon ];
     platforms = platforms.linux;

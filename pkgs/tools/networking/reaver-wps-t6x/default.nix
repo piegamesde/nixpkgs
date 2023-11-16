@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libpcap,
-  pixiewps,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, libpcap, pixiewps, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "reaver-wps-t6x";
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    libpcap
-    pixiewps
-  ];
+  buildInputs = [ libpcap pixiewps ];
 
   sourceRoot = "source/src";
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  imagemagick,
-  libpng,
-}:
+{ lib, stdenv, fetchurl, imagemagick, libpng }:
 
 stdenv.mkDerivation {
   pname = "optar";
@@ -36,6 +30,7 @@ stdenv.mkDerivation {
     homepage = "http://ronja.twibright.com/optar/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];
-    platforms = with platforms; linux; # possibly others, but only tested on Linux
+    platforms = with platforms;
+      linux; # possibly others, but only tested on Linux
   };
 }

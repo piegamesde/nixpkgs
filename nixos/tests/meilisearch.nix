@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
   let
     listenAddress = "127.0.0.1";
     listenPort = 7700;
@@ -7,26 +6,21 @@ import ./make-test-python.nix (
     uid = "movies";
     indexJSON = pkgs.writeText "index.json" (builtins.toJSON { inherit uid; });
     moviesJSON = pkgs.fetchurl {
-      url = "https://github.com/meilisearch/meilisearch/raw/v0.23.1/datasets/movies/movies.json";
+      url =
+        "https://github.com/meilisearch/meilisearch/raw/v0.23.1/datasets/movies/movies.json";
       sha256 = "1r3srld63dpmg9yrmysm6xl175661j5cspi93mk5q2wf8xwn50c5";
     };
-  in
-  {
+  in {
     name = "meilisearch";
     meta.maintainers = with lib.maintainers; [ Br1ght0ne ];
 
-    nodes.machine =
-      { ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          curl
-          jq
-        ];
-        services.meilisearch = {
-          enable = true;
-          inherit listenAddress listenPort;
-        };
+    nodes.machine = { ... }: {
+      environment.systemPackages = with pkgs; [ curl jq ];
+      services.meilisearch = {
+        enable = true;
+        inherit listenAddress listenPort;
       };
+    };
 
     testScript = ''
       import json
@@ -65,5 +59,4 @@ import ./make-test-python.nix (
           print(response)
           assert len(response["hits"]) >= 1, "no results found"
     '';
-  }
-)
+  })

@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  docbook_xml_dtd_412,
-  docbook_xsl,
-  perl,
-  w3m-batch,
-  xmlto,
-  diffutils,
-}:
+{ lib, stdenv, fetchFromGitHub, docbook_xml_dtd_412, docbook_xsl, perl
+, w3m-batch, xmlto, diffutils }:
 
 stdenv.mkDerivation rec {
   pname = "colordiff";
@@ -21,13 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TNOw6dqsT0dOIddRoGwEF85CaQF8ICMFUi+GiG5WWpk=";
   };
 
-  nativeBuildInputs = [
-    docbook_xml_dtd_412
-    docbook_xsl
-    perl
-    w3m-batch
-    xmlto
-  ];
+  nativeBuildInputs = [ docbook_xml_dtd_412 docbook_xsl perl w3m-batch xmlto ];
 
   buildInputs = [ perl ];
 
@@ -46,7 +31,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Wrapper for 'diff' that produces the same output but with pretty 'syntax' highlighting";
+    description =
+      "Wrapper for 'diff' that produces the same output but with pretty 'syntax' highlighting";
     homepage = "https://www.colordiff.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

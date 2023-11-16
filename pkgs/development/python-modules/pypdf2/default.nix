@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  pythonOlder,
-  typing-extensions,
-  unittestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, flit-core, pythonOlder, typing-extensions
+, unittestCheckHook }:
 
 buildPythonPackage rec {
   pname = "PyPDF2";
@@ -21,7 +14,8 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 
@@ -32,9 +26,7 @@ buildPythonPackage rec {
     homepage = "https://pypdf2.readthedocs.io/";
     changelog = "https://github.com/py-pdf/PyPDF2/raw/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      desiderius
-      vrthra
-    ];
+    maintainers = with maintainers; [ desiderius vrthra ];
   };
+
 }

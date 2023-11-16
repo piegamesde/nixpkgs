@@ -1,20 +1,14 @@
 # Upower daemon.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.upower;
-in
 
-{
+in {
 
   ###### interface
 
@@ -195,11 +189,7 @@ in
       };
 
       criticalPowerAction = mkOption {
-        type = types.enum [
-          "PowerOff"
-          "Hibernate"
-          "HybridSleep"
-        ];
+        type = types.enum [ "PowerOff" "Hibernate" "HybridSleep" ];
         default = "HybridSleep";
         description = lib.mdDoc ''
           The action to take when `timeAction` or
@@ -207,7 +197,9 @@ in
           (UPS or laptop batteries) supplying the computer
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -238,4 +230,5 @@ in
       };
     };
   };
+
 }

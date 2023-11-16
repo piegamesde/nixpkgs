@@ -1,24 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gettext,
-  pkg-config,
-  wrapGAppsHook,
-  anthy,
-  ibus,
-  glib,
-  gobject-introspection,
-  gtk3,
-  python3,
-}:
+{ lib, stdenv, fetchurl, gettext, pkg-config, wrapGAppsHook, anthy, ibus, glib
+, gobject-introspection, gtk3, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "ibus-anthy";
   version = "1.5.14";
 
   src = fetchurl {
-    url = "https://github.com/ibus/ibus-anthy/releases/download/${version}/${pname}-${version}.tar.gz";
+    url =
+      "https://github.com/ibus/ibus-anthy/releases/download/${version}/${pname}-${version}.tar.gz";
     sha256 = "sha256-yGlNoY0LiRpI9NdaDezjfsvKbRsay2QQGnqEytEEbZs=";
   };
 
@@ -27,20 +16,11 @@ stdenv.mkDerivation rec {
     glib
     gtk3
     ibus
-    (python3.withPackages (
-      ps: [
-        ps.pygobject3
-        (ps.toPythonModule ibus)
-      ]
-    ))
+    (python3.withPackages (ps: [ ps.pygobject3 (ps.toPythonModule ibus) ]))
   ];
 
-  nativeBuildInputs = [
-    gettext
-    gobject-introspection
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ gettext gobject-introspection pkg-config wrapGAppsHook ];
 
   configureFlags = [ "--with-anthy-zipcode=${anthy}/share/anthy/zipcode.t" ];
 
@@ -54,9 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fujiwarat/ibus-anthy";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      gebner
-      ericsagnes
-    ];
+    maintainers = with maintainers; [ gebner ericsagnes ];
   };
 }

@@ -1,16 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  gnupg,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, gnupg, perl }:
 
-let
-  perlEnv = perl.withPackages (p: with p; [ TextMarkdown ]);
-in
-stdenv.mkDerivation rec {
+let perlEnv = perl.withPackages (p: with p; [ TextMarkdown ]);
+in stdenv.mkDerivation rec {
   pname = "regpg";
   version = "1.11";
 
@@ -21,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "2ea99950804078190e1cc2a76d4740e3fdd5395a9043db3f3fe86bf2477d3a7d";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    perlEnv
-  ];
+  nativeBuildInputs = [ makeWrapper perlEnv ];
 
   postPatch = ''
     patchShebangs ./util/insert-here.pl ./util/markdown.pl

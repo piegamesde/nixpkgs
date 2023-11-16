@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchsvn,
-  jdk,
-  jre,
-  ant,
-  swt,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchsvn, jdk, jre, ant, swt, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "vuze";
@@ -19,10 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    jdk
-    ant
-  ];
+  buildInputs = [ jdk ant ];
 
   buildPhase = "ant";
 

@@ -1,17 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pytestCheckHook,
-  cython,
-  numpy,
-  scipy,
-  matplotlib,
-  networkx,
-  nibabel,
-}:
+{ stdenv, lib, buildPythonPackage, fetchPypi, pythonOlder, pytestCheckHook
+, cython, numpy, scipy, matplotlib, networkx, nibabel }:
 
 buildPythonPackage rec {
   pname = "nitime";
@@ -25,13 +13,7 @@ buildPythonPackage rec {
   };
 
   buildInputs = [ cython ];
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    matplotlib
-    networkx
-    nibabel
-  ];
+  propagatedBuildInputs = [ numpy scipy matplotlib networkx nibabel ];
 
   nativeCheckInputs = [ pytestCheckHook ];
   doCheck = !stdenv.isDarwin; # tests hang indefinitely
@@ -39,7 +21,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://nipy.org/nitime";
-    description = "Algorithms and containers for time-series analysis in time and spectral domains";
+    description =
+      "Algorithms and containers for time-series analysis in time and spectral domains";
     license = licenses.bsd3;
     maintainers = [ maintainers.bcdarwin ];
   };

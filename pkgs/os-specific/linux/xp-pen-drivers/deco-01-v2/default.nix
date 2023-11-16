@@ -1,40 +1,20 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  libusb1,
-  glibc,
-  libGL,
-  xorg,
-  makeWrapper,
-  qtx11extras,
-  wrapQtAppsHook,
-  autoPatchelfHook,
-  libX11,
-  libXtst,
-  libXi,
-  libXrandr,
-  libXinerama,
-}:
+{ lib, stdenv, fetchzip, libusb1, glibc, libGL, xorg, makeWrapper, qtx11extras
+, wrapQtAppsHook, autoPatchelfHook, libX11, libXtst, libXi, libXrandr
+, libXinerama }:
 
-let
-  dataDir = "var/lib/xppend1v2";
-in
-stdenv.mkDerivation rec {
+let dataDir = "var/lib/xppend1v2";
+in stdenv.mkDerivation rec {
   pname = "xp-pen-deco-01-v2-driver";
   version = "3.2.3.230215-1";
 
   src = fetchzip {
-    url = "https://download01.xp-pen.com/file/2023/03/XPPen-pentablet-${version}.x86_64.tar.gz";
+    url =
+      "https://download01.xp-pen.com/file/2023/03/XPPen-pentablet-${version}.x86_64.tar.gz";
     name = "xp-pen-deco-01-v2-driver-${version}.tar.gz";
     sha256 = "sha256-CV4ZaGCFFcfy2J0O8leYgcyzFVwJQFQJsShOv9B7jfI=";
   };
 
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    autoPatchelfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ wrapQtAppsHook autoPatchelfHook makeWrapper ];
 
   dontBuild = true;
 
@@ -81,3 +61,4 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
   };
 }
+

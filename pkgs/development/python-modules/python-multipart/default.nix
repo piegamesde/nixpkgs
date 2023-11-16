@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  mock,
-  pyyaml,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, mock, pyyaml, six }:
 
 buildPythonPackage rec {
   pname = "python-multipart";
@@ -28,11 +20,7 @@ buildPythonPackage rec {
       --replace "yaml.load" "yaml.safe_load"
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock pyyaml ];
 
   meta = with lib; {
     description = "A streaming multipart parser for Python";

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pyserial,
-}:
+{ lib, buildPythonPackage, fetchPypi, pyserial }:
 
 buildPythonPackage rec {
   pname = "pmsensor";
@@ -19,10 +14,7 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [
-    "pmsensor.co2sensor"
-    "pmsensor.serial_pm"
-  ];
+  pythonImportsCheck = [ "pmsensor.co2sensor" "pmsensor.serial_pm" ];
 
   meta = with lib; {
     description = "Library to read data from environment sensors";

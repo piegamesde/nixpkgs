@@ -16,10 +16,9 @@ with lib; {
   xdg.portal = {
     enable = mkDefault true;
 
-    extraPortals =
-      [
-        # For screen sharing
-        pkgs.xdg-desktop-portal-wlr
-      ];
+    extraPortals = [
+      # For screen sharing
+      pkgs.xdg-desktop-portal-wlr
+    ];
   };
 }

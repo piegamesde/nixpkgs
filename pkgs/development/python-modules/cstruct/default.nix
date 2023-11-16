@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "cstruct";
@@ -24,7 +19,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "C-style structs for Python";
     homepage = "https://github.com/andreax79/python-cstruct";
-    changelog = "https://github.com/andreax79/python-cstruct/blob/v${version}/changelog.txt";
+    changelog =
+      "https://github.com/andreax79/python-cstruct/blob/v${version}/changelog.txt";
     license = licenses.mit;
     maintainers = with maintainers; [ tnias ];
   };

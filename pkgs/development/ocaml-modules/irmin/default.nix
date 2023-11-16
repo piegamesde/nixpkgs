@@ -1,26 +1,6 @@
-{
-  lib,
-  buildDunePackage,
-  astring,
-  digestif,
-  fmt,
-  jsonm,
-  logs,
-  ocaml_lwt,
-  ocamlgraph,
-  uri,
-  repr,
-  ppx_irmin,
-  bheap,
-  uutf,
-  mtime,
-  lwt,
-  optint,
-  vector,
-  hex,
-  alcotest,
-  qcheck-alcotest,
-}:
+{ lib, buildDunePackage, astring, digestif, fmt, jsonm, logs, ocaml_lwt
+, ocamlgraph, uri, repr, ppx_irmin, bheap, uutf, mtime, lwt, optint, vector, hex
+, alcotest, qcheck-alcotest }:
 
 buildDunePackage {
   pname = "irmin";
@@ -47,12 +27,7 @@ buildDunePackage {
     uutf
   ];
 
-  checkInputs = [
-    vector
-    hex
-    alcotest
-    qcheck-alcotest
-  ];
+  checkInputs = [ vector hex alcotest qcheck-alcotest ];
 
   doCheck = true;
 

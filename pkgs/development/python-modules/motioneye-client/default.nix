@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-aiohttp,
-  pytest-timeout,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, aiohttp, buildPythonPackage, fetchFromGitHub, poetry-core
+, pytest-aiohttp, pytest-timeout, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "motioneye-client";
@@ -35,11 +25,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    pytest-aiohttp
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-aiohttp pytest-timeout pytestCheckHook ];
 
   pythonImportsCheck = [ "motioneye_client" ];
 

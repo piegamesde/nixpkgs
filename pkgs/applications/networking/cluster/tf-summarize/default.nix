@@ -1,10 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  tf-summarize,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, tf-summarize }:
 
 buildGoModule rec {
   pname = "tf-summarize";
@@ -18,11 +12,7 @@ buildGoModule rec {
   };
 
   vendorSha256 = "cnybdZth7qlP2BHK8uvLCoqJtggMIkvaL2+YugiUZRE=";
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X main.version=${version}" ];
 
   passthru.tests.version = testers.testVersion {
     package = tf-summarize;
@@ -31,7 +21,8 @@ buildGoModule rec {
   };
 
   meta = with lib; {
-    description = "Command-line utility to print the summary of the terraform plan";
+    description =
+      "Command-line utility to print the summary of the terraform plan";
     homepage = "https://github.com/dineshba/tf-summarize";
     license = licenses.mit;
     maintainers = with maintainers; [ pjrm ];

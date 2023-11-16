@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  txt2man,
-  which,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, txt2man, which }:
 
 stdenv.mkDerivation rec {
   pname = "retry";
@@ -18,11 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5H2MnnThi4rT/o3oTkGDKXStQwob4G9mMsZewItPub4=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    txt2man
-    which
-  ];
+  nativeBuildInputs = [ autoreconfHook txt2man which ];
 
   meta = with lib; {
     homepage = "https://github.com/minfrin/retry";
@@ -32,3 +21,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
   };
 }
+

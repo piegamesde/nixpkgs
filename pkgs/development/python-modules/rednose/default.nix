@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  isPy27,
-  pythonAtLeast,
-  nose,
-  six,
-  colorama,
-  termstyle,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, isPy27, pythonAtLeast, nose, six
+, colorama, termstyle }:
 
 buildPythonPackage rec {
   pname = "rednose";
@@ -30,11 +20,7 @@ buildPythonPackage rec {
   doCheck = !(isPy27 || (stdenv.isDarwin && pythonAtLeast "3.8"));
 
   nativeCheckInputs = [ six ];
-  propagatedBuildInputs = [
-    nose
-    colorama
-    termstyle
-  ];
+  propagatedBuildInputs = [ nose colorama termstyle ];
 
   meta = with lib; {
     description = "A python nose plugin adding color to console results";

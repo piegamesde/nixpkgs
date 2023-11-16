@@ -1,26 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gcc,
-  zlib,
-  python3,
-}:
+{ lib, stdenv, fetchurl, gcc, zlib, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "ecopcr";
   version = "1.0.1";
 
   src = fetchurl {
-    url = "https://git.metabarcoding.org/obitools/ecopcr/-/archive/ecopcr_v${version}/ecopcr-ecopcr_v${version}.tar.gz";
+    url =
+      "https://git.metabarcoding.org/obitools/ecopcr/-/archive/ecopcr_v${version}/ecopcr-ecopcr_v${version}.tar.gz";
     hash = "sha256-ssvWpi7HuuRRAkpqqrX3ijLuBqM3QsrmrG+t7/m6fZA=";
   };
 
-  buildInputs = [
-    gcc
-    python3
-    zlib
-  ];
+  buildInputs = [ gcc python3 zlib ];
 
   preConfigure = ''
     cd src

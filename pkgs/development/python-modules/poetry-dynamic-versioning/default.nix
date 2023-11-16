@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  dunamai,
-  fetchFromGitHub,
-  jinja2,
-  markupsafe,
-  poetry-core,
-  poetry,
-  pytestCheckHook,
-  pythonOlder,
-  tomlkit,
-}:
+{ lib, buildPythonPackage, dunamai, fetchFromGitHub, jinja2, markupsafe
+, poetry-core, poetry, pytestCheckHook, pythonOlder, tomlkit }:
 
 buildPythonPackage rec {
   pname = "poetry-dynamic-versioning";
@@ -28,17 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    dunamai
-    jinja2
-    markupsafe
-    tomlkit
-  ];
+  propagatedBuildInputs = [ dunamai jinja2 markupsafe tomlkit ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    poetry
-  ];
+  nativeCheckInputs = [ pytestCheckHook poetry ];
 
   # virtualenv: error: argument dest: the destination . is not write-able at /
   doCheck = false;
@@ -54,9 +35,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "poetry_dynamic_versioning" ];
 
   meta = with lib; {
-    description = "Plugin for Poetry to enable dynamic versioning based on VCS tags";
+    description =
+      "Plugin for Poetry to enable dynamic versioning based on VCS tags";
     homepage = "https://github.com/mtkennerly/poetry-dynamic-versioning";
-    changelog = "https://github.com/mtkennerly/poetry-dynamic-versioning/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mtkennerly/poetry-dynamic-versioning/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ cpcloud ];
   };

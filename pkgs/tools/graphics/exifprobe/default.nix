@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "exifprobe";
@@ -26,7 +22,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Tool for reading EXIF data from image files produced by digital cameras";
+    description =
+      "Tool for reading EXIF data from image files produced by digital cameras";
     homepage = "https://github.com/hfiguiere/exifprobe";
     license = licenses.bsd2;
     maintainers = with maintainers; [ siraben ];

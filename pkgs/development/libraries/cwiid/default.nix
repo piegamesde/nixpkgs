@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  bison,
-  flex,
-  bluez,
-  pkg-config,
-  gtk2,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, bison, flex, bluez, pkg-config
+, gtk2 }:
 
 stdenv.mkDerivation rec {
   pname = "cwiid";
@@ -29,17 +20,9 @@ stdenv.mkDerivation rec {
     sed -i -e '/$(LDCONFIG)/d' common/include/lib.mak.in
   '';
 
-  buildInputs = [
-    bison
-    flex
-    bluez
-    gtk2
-  ];
+  buildInputs = [ bison flex bluez gtk2 ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   NIX_LDFLAGS = "-lbluetooth";
 

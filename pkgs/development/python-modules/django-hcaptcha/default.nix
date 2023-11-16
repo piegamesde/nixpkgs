@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  django,
-}:
+{ lib, buildPythonPackage, fetchPypi, django }:
 
 buildPythonPackage rec {
   pname = "django-hcaptcha";
@@ -23,7 +18,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "hcaptcha" ];
 
   meta = with lib; {
-    description = "Django hCaptcha provides a simple way to protect your django forms using hCaptcha";
+    description =
+      "Django hCaptcha provides a simple way to protect your django forms using hCaptcha";
     homepage = "https://github.com/AndrejZbin/django-hcaptcha";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ambroisie ];

@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python,
-  pythonImportsCheckHook,
-  makeWrapper,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python, pythonImportsCheckHook
+, makeWrapper }:
 
 buildPythonPackage rec {
   pname = "hjson";
@@ -19,10 +13,7 @@ buildPythonPackage rec {
     sha256 = "1jc7j790rcqnhbrfj4lhnz3f6768dc55aij840wmx16jylfqpc2n";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    pythonImportsCheckHook
-  ];
+  nativeBuildInputs = [ makeWrapper pythonImportsCheckHook ];
 
   pythonImportsCheck = [ "hjson" ];
 

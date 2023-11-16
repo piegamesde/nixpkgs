@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  nose,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, nose, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "smbus2";

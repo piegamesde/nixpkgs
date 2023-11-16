@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  python-dateutil,
-  pkgs,
-  which,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, python-dateutil, pkgs, which }:
 
 buildPythonPackage rec {
   version = "2.0.3";
@@ -31,4 +23,5 @@ buildPythonPackage rec {
     platforms = platforms.darwin;
     maintainers = with maintainers; [ lovek323 ];
   };
+
 }

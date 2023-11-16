@@ -1,12 +1,4 @@
-{
-  pkgs,
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeScript,
-  makeWrapper,
-  ncurses,
-  libX11,
+{ pkgs, lib, stdenv, fetchFromGitHub, writeScript, makeWrapper, ncurses, libX11
 }:
 
 let
@@ -17,8 +9,7 @@ let
     # the copied files need to be writable
     chmod +w -R "$ANGBAND_PATH"
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "sil-q";
   version = "1.5.0";
 
@@ -30,10 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    ncurses
-    libX11
-  ];
+  buildInputs = [ ncurses libX11 ];
 
   # Makefile(s) and config are not top-level
   sourceRoot = "source/src";

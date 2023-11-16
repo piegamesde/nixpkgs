@@ -1,16 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 let
   cfg = config.services.polaris;
   settingsFormat = pkgs.formats.toml { };
-in
-{
+in {
   options = {
     services.polaris = {
       enable = mkEnableOption (lib.mdDoc "Polaris Music Server");
@@ -95,22 +89,19 @@ in
         SupplementaryGroups = cfg.extraGroups;
         StateDirectory = "polaris";
         CacheDirectory = "polaris";
-        ExecStart = escapeShellArgs (
-          [
-            "${cfg.package}/bin/polaris"
-            "--foreground"
-            "--port"
-            cfg.port
-            "--database"
-            "/var/lib/${StateDirectory}/db.sqlite"
-            "--cache"
-            "/var/cache/${CacheDirectory}"
-          ]
-          ++ optionals (cfg.settings != { }) [
-            "--config"
-            (settingsFormat.generate "polaris-config.toml" cfg.settings)
-          ]
-        );
+        ExecStart = escapeShellArgs ([
+          "${cfg.package}/bin/polaris"
+          "--foreground"
+          "--port"
+          cfg.port
+          "--database"
+          "/var/lib/${StateDirectory}/db.sqlite"
+          "--cache"
+          "/var/cache/${CacheDirectory}"
+        ] ++ optionals (cfg.settings != { }) [
+          "--config"
+          (settingsFormat.generate "polaris-config.toml" cfg.settings)
+        ]);
         Restart = "on-failure";
 
         # Security options:
@@ -137,11 +128,7 @@ in
         ProtectKernelTunables = true;
 
         RestrictNamespaces = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-          "AF_UNIX"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" "AF_UNIX" ];
         RestrictRealtime = true;
         #RestrictSUIDSGID = true; # implied by DynamicUser
 
@@ -160,7 +147,9 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+
   };
 
   meta.maintainers = with maintainers; [ pbsds ];

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "onesixtyone";
@@ -31,3 +27,4 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.fishi0x01 ];
   };
 }
+

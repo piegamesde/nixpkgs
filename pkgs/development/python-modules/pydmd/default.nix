@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  future,
-  matplotlib,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-  ezyrb,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, future, matplotlib, numpy
+, pytestCheckHook, pythonOlder, scipy, ezyrb }:
 
 buildPythonPackage rec {
   pname = "pydmd";
@@ -26,22 +15,15 @@ buildPythonPackage rec {
     hash = "sha256-EYVmaxwOxje3KVrNbvsjwRqQBD7Rje/JK+qB1F7EqA0=";
   };
 
-  propagatedBuildInputs = [
-    future
-    matplotlib
-    numpy
-    scipy
-    ezyrb
-  ];
+  propagatedBuildInputs = [ future matplotlib numpy scipy ezyrb ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # test suite takes over 100 vCPU hours, just run small subset of it.
-      # TODO: Add a passthru.tests with all tests
-      "tests/test_dmdbase.py"
-    ];
+  pytestFlagsArray = [
+    # test suite takes over 100 vCPU hours, just run small subset of it.
+    # TODO: Add a passthru.tests with all tests
+    "tests/test_dmdbase.py"
+  ];
 
   pythonImportsCheck = [ "pydmd" ];
 

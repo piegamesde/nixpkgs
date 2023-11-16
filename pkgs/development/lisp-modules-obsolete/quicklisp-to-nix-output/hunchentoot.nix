@@ -1,13 +1,9 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "hunchentoot";
   version = "v1.3.0";
 
-  parasites = [
-    "hunchentoot-dev"
-    "hunchentoot-test"
-  ];
+  parasites = [ "hunchentoot-dev" "hunchentoot-test" ];
 
   description = ''
     Hunchentoot is a HTTP server based on USOCKET and
@@ -42,7 +38,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/hunchentoot/2020-06-10/hunchentoot-v1.3.0.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/hunchentoot/2020-06-10/hunchentoot-v1.3.0.tgz";
     sha256 = "08znpi5lq2dhgv6mhvabk3w4ggrg31dbv4k6gmshr18xd2lq43i8";
   };
 

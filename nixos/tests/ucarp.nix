@@ -1,26 +1,16 @@
-import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+import ./make-test-python.nix ({ pkgs, lib, ... }:
 
   let
     addrShared = "192.168.0.1";
     addrHostA = "192.168.0.10";
     addrHostB = "192.168.0.11";
 
-    mkUcarpHost =
-      addr:
-      {
-        config,
-        pkgs,
-        lib,
-        ...
-      }:
-      {
-        networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
-          {
-            address = addr;
-            prefixLength = 24;
-          }
-        ];
+    mkUcarpHost = addr:
+      { config, pkgs, lib, ... }: {
+        networking.interfaces.eth1.ipv4.addresses = lib.mkForce [{
+          address = addr;
+          prefixLength = 24;
+        }];
 
         networking.ucarp = {
           enable = true;
@@ -39,8 +29,7 @@ import ./make-test-python.nix (
           '';
         };
       };
-  in
-  {
+  in {
     name = "ucarp";
     meta.maintainers = with lib.maintainers; [ oxzi ];
 
@@ -76,5 +65,4 @@ import ./make-test-python.nix (
       backup_host.sleep(5)
       assert is_master(backup_host), "backup did not take over"
     '';
-  }
-)
+  })

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  Security,
-  fetchpatch,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, Security, fetchpatch }:
 
 rustPlatform.buildRustPackage rec {
   pname = "bandwhich";
@@ -30,7 +23,8 @@ rustPlatform.buildRustPackage rec {
     # https://github.com/imsnif/bandwhich/pull/222/
     (fetchpatch {
       name = "update-linked-hash-map.patch";
-      url = "https://github.com/imsnif/bandwhich/commit/be06905de2c4fb91afc22d50bf3cfe5a1e8003f5.patch";
+      url =
+        "https://github.com/imsnif/bandwhich/commit/be06905de2c4fb91afc22d50bf3cfe5a1e8003f5.patch";
       hash = "sha256-FyZ7jUXK7ebXq7q/lvRSe7YdPnpYWKZE3WrSKLMjJeA=";
     })
 
@@ -50,10 +44,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/imsnif/bandwhich";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      Br1ght0ne
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ Br1ght0ne SuperSandro2000 ];
     platforms = platforms.unix;
   };
 }

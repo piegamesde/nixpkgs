@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  imagemagick,
-  pkg-config,
-  wayland-scanner,
-  wayland,
-  wayland-protocols,
-  unstableGitUpdater,
-}:
+{ stdenv, lib, fetchFromGitHub, imagemagick, pkg-config, wayland-scanner
+, wayland, wayland-protocols, unstableGitUpdater }:
 
 stdenv.mkDerivation {
   pname = "hello-wayland";
@@ -22,15 +13,8 @@ stdenv.mkDerivation {
   };
 
   depsBuildBuild = [ pkg-config ];
-  nativeBuildInputs = [
-    imagemagick
-    pkg-config
-    wayland-scanner
-  ];
-  buildInputs = [
-    wayland
-    wayland-protocols
-  ];
+  nativeBuildInputs = [ imagemagick pkg-config wayland-scanner ];
+  buildInputs = [ wayland wayland-protocols ];
 
   installPhase = ''
     runHook preBuild

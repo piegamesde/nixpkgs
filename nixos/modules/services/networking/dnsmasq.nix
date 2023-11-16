@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -15,8 +10,7 @@ let
   # True values are just put as `name` instead of `name=true`, and false values
   # are turned to comments (false values are expected to be overrides e.g.
   # mkForce)
-  formatKeyValue =
-    name: value:
+  formatKeyValue = name: value:
     if value == true then
       name
     else if value == false then
@@ -36,24 +30,16 @@ let
     conf-file=${settingsFormat.generate "dnsmasq.conf" cfg.settings}
     ${cfg.extraConfig}
   '';
-in
 
-{
+in {
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "services"
-        "dnsmasq"
-        "servers"
-      ]
-      [
-        "services"
-        "dnsmasq"
-        "settings"
-        "server"
-      ]
-    )
+    (mkRenamedOptionModule [ "services" "dnsmasq" "servers" ] [
+      "services"
+      "dnsmasq"
+      "settings"
+      "server"
+    ])
   ];
 
   ###### interface
@@ -95,14 +81,12 @@ in
           options.server = mkOption {
             type = types.listOf types.str;
             default = [ ];
-            example = [
-              "8.8.8.8"
-              "8.8.4.4"
-            ];
+            example = [ "8.8.8.8" "8.8.4.4" ];
             description = lib.mdDoc ''
               The DNS servers which dnsmasq should query.
             '';
           };
+
         };
         default = { };
         description = lib.mdDoc ''
@@ -134,21 +118,24 @@ in
           This option is deprecated, please use {option}`settings` instead.
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    warnings =
-      lib.optional (cfg.extraConfig != "")
-        "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config";
+    warnings = lib.optional (cfg.extraConfig != "")
+      "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config";
 
     services.dnsmasq.settings = {
       dhcp-leasefile = mkDefault "${stateDir}/dnsmasq.leases";
-      conf-file = mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf");
-      resolv-file = mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf");
+      conf-file =
+        mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf");
+      resolv-file =
+        mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf");
     };
 
     networking.nameservers = optional cfg.resolveLocalQueries "127.0.0.1";
@@ -173,10 +160,7 @@ in
 
     systemd.services.dnsmasq = {
       description = "Dnsmasq Daemon";
-      after = [
-        "network.target"
-        "systemd-resolved.service"
-      ];
+      after = [ "network.target" "systemd-resolved.service" ];
       wantedBy = [ "multi-user.target" ];
       path = [ dnsmasq ];
       preStart = ''
@@ -189,7 +173,8 @@ in
       serviceConfig = {
         Type = "dbus";
         BusName = "uk.org.thekelleys.dnsmasq";
-        ExecStart = "${dnsmasq}/bin/dnsmasq -k --enable-dbus --user=dnsmasq -C ${dnsmasqConf}";
+        ExecStart =
+          "${dnsmasq}/bin/dnsmasq -k --enable-dbus --user=dnsmasq -C ${dnsmasqConf}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         PrivateTmp = true;
         ProtectSystem = true;

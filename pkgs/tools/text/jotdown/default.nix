@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "jotdown";
@@ -20,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A minimal Djot CLI";
     homepage = "https://github.com/hellux/jotdown";
-    changelog = "https://github.com/hellux/jotdown/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/hellux/jotdown/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ figsoda ];
   };

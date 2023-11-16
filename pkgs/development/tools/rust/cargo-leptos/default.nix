@@ -1,18 +1,9 @@
-{
-  darwin,
-  fetchFromGitHub,
-  lib,
-  openssl,
-  pkg-config,
-  rustPlatform,
-  stdenv,
-}:
+{ darwin, fetchFromGitHub, lib, openssl, pkg-config, rustPlatform, stdenv }:
 let
   inherit (darwin.apple_sdk.frameworks) CoreServices Security;
   inherit (lib) optionals;
   inherit (stdenv) isDarwin isLinux;
-in
-rustPlatform.buildRustPackage rec {
+in rustPlatform.buildRustPackage rec {
   pname = "cargo-leptos";
   version = "0.1.8";
 
@@ -26,15 +17,13 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-w/9W4DXbh4G5DZ8IGUz4nN3LEjHhL7HgybHqODMFzHw=";
   nativeBuildInputs = optionals (!isDarwin) [ pkg-config ];
 
-  buildInputs =
-    optionals (!isDarwin) [ openssl ]
-    ++ optionals isDarwin [
-      Security
-      CoreServices
-    ];
+  buildInputs = optionals (!isDarwin) [ openssl ]
+    ++ optionals isDarwin [ Security CoreServices ];
 
   # https://github.com/leptos-rs/cargo-leptos#dependencies
-  buildFeatures = [ "no_downloads" ]; # cargo-leptos will try to install missing dependencies on its own otherwise
+  buildFeatures = [
+    "no_downloads"
+  ]; # cargo-leptos will try to install missing dependencies on its own otherwise
   doCheck = false; # Check phase tries to query crates.io
 
   meta = with lib; {

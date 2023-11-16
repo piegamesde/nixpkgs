@@ -1,15 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 let
   db = fetchurl {
     url = "mirror://savannah/hddtemp/hddtemp.db";
     sha256 = "1fr6qgns6qv7cr40lic5yqwkkc7yjmmgx8j0z6d93csg3smzhhya";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "hddtemp";
   version = "0.3-beta15";
 
@@ -19,14 +15,11 @@ stdenv.mkDerivation rec {
   };
 
   # from Gentoo
-  patches = [
-    ./byteswap.patch
-    ./dontwake.patch
-    ./execinfo.patch
-    ./satacmds.patch
-  ];
+  patches =
+    [ ./byteswap.patch ./dontwake.patch ./execinfo.patch ./satacmds.patch ];
 
-  configureFlags = [ "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db" ];
+  configureFlags =
+    [ "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db" ];
 
   postInstall = ''
     install -Dm444 ${db} $out/share/${pname}/hddtemp.db

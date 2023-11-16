@@ -1,14 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ stdenv, lib, fetchFromGitHub, python3 }:
 
-let
-  python = python3.withPackages (p: [ p.pexpect ]);
-in
-stdenv.mkDerivation rec {
+let python = python3.withPackages (p: [ p.pexpect ]);
+in stdenv.mkDerivation rec {
   version = "0.9.0";
   pname = "reptyr";
 
@@ -19,10 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gM3aMEqk71RWUN1NxByd21tIzp6PmJ54Cqrh5MsjHtI=";
   };
 
-  makeFlags = [
-    "PREFIX="
-    "DESTDIR=$(out)"
-  ];
+  makeFlags = [ "PREFIX=" "DESTDIR=$(out)" ];
 
   nativeCheckInputs = [ python ];
 

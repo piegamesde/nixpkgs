@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  python3,
-  vala,
-  intltool,
-  autoreconfHook,
-  wrapGAppsHook,
-  cinnamon,
-  lightdm,
-  gtk3,
-  pixman,
-  libcanberra,
-  libgnomekbd,
-  libX11,
-  libXext,
-  linkFarm,
-  lightdm-slick-greeter,
-  numlockx,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, python3, vala, intltool
+, autoreconfHook, wrapGAppsHook, cinnamon, lightdm, gtk3, pixman, libcanberra
+, libgnomekbd, libX11, libXext, linkFarm, lightdm-slick-greeter, numlockx }:
 
 stdenv.mkDerivation rec {
   pname = "lightdm-slick-greeter";
@@ -62,7 +43,9 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/numlockx" "${numlockx}/bin/numlockx" \
       --replace "/usr/share/xsessions/" "/run/current-system/sw/share/xsessions/" \
       --replace "/usr/share/wayland-sessions/" "/run/current-system/sw/share/wayland-sessions/" \
-      --replace "/usr/bin/slick-greeter" "${placeholder "out"}/bin/slick-greeter"
+      --replace "/usr/bin/slick-greeter" "${
+        placeholder "out"
+      }/bin/slick-greeter"
 
     substituteInPlace src/session-list.vala \
       --replace "/usr/share" "${placeholder "out"}/share"
@@ -86,10 +69,8 @@ stdenv.mkDerivation rec {
     "--sbindir=${placeholder "out"}/bin"
   ];
 
-  installFlags = [
-    "localstatedir=\${TMPDIR}"
-    "sysconfdir=${placeholder "out"}/etc"
-  ];
+  installFlags =
+    [ "localstatedir=\${TMPDIR}" "sysconfdir=${placeholder "out"}/etc" ];
 
   postInstall = ''
     substituteInPlace "$out/share/xgreeters/slick-greeter.desktop" \
@@ -105,21 +86,16 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru.xgreeters = linkFarm "lightdm-slick-greeter-xgreeters" [
-    {
-      path = "${lightdm-slick-greeter}/share/xgreeters/slick-greeter.desktop";
-      name = "lightdm-slick-greeter.desktop";
-    }
-  ];
+  passthru.xgreeters = linkFarm "lightdm-slick-greeter-xgreeters" [{
+    path = "${lightdm-slick-greeter}/share/xgreeters/slick-greeter.desktop";
+    name = "lightdm-slick-greeter.desktop";
+  }];
 
   meta = with lib; {
     description = "A slick-looking LightDM greeter";
     homepage = "https://github.com/linuxmint/slick-greeter";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [
-      water-sucks
-      bobby285271
-    ];
+    maintainers = with maintainers; [ water-sucks bobby285271 ];
     platforms = platforms.linux;
   };
 }

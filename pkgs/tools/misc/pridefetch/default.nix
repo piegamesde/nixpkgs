@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  zip,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, zip }:
 let
   version = "1.1.0";
   sha256 = "sha256-563xOz63vto19yuaHtReV1dSw6BgNf+CLtS3lrPnaoc=";
@@ -16,11 +10,12 @@ let
     rev = "v" + version;
     inherit sha256;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version src;
   nativeBuildInputs = [ zip ];
-  buildInputs = [ (python3.withPackages (pythonPackages: with pythonPackages; [ distro ])) ];
+  buildInputs = [
+    (python3.withPackages (pythonPackages: with pythonPackages; [ distro ]))
+  ];
   buildPhase = ''
     runHook preBuild
     pushd src

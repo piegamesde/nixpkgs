@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildOasisPackage,
-  minisat,
-}:
+{ lib, fetchFromGitHub, buildOasisPackage, minisat }:
 
 buildOasisPackage rec {
   pname = "ocaml-sat-solvers";

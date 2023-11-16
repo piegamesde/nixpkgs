@@ -1,14 +1,10 @@
-{
-  lib,
-  fetchurl,
-  makeDesktopItem,
-  appimageTools,
-}:
+{ lib, fetchurl, makeDesktopItem, appimageTools }:
 let
   name = "saleae-logic-2";
   version = "2.4.7";
   src = fetchurl {
-    url = "https://downloads.saleae.com/logic2/Logic-${version}-master.AppImage";
+    url =
+      "https://downloads.saleae.com/logic2/Logic-${version}-master.AppImage";
     hash = "sha256-dMt8XWLatLNothU9oTJqYrBGNZZs0L5dXRMKP9ZeM6E=";
   };
   desktopItem = makeDesktopItem {
@@ -20,15 +16,12 @@ let
     genericName = "Logic analyzer";
     categories = [ "Development" ];
   };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit name src;
 
   extraInstallCommands =
-    let
-      appimageContents = appimageTools.extractType2 { inherit name src; };
-    in
-    ''
+    let appimageContents = appimageTools.extractType2 { inherit name src; };
+    in ''
       mkdir -p $out/etc/udev/rules.d
       cp ${appimageContents}/resources/linux/99-SaleaeLogic.rules $out/etc/udev/rules.d/
       mkdir -p $out/share/pixmaps
@@ -36,8 +29,7 @@ appimageTools.wrapType2 {
       cp ${appimageContents}/usr/share/icons/hicolor/256x256/apps/Logic.png $out/share/pixmaps/Logic.png
     '';
 
-  extraPkgs =
-    pkgs:
+  extraPkgs = pkgs:
     with pkgs; [
       wget
       unzip
@@ -74,9 +66,6 @@ appimageTools.wrapType2 {
     description = "Software for Saleae logic analyzers";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [
-      j-hui
-      newam
-    ];
+    maintainers = with maintainers; [ j-hui newam ];
   };
 }

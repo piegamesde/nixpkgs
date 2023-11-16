@@ -1,23 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  readline,
-  xorg,
-  mpi,
-  cmake,
-  bison,
-  flex,
-  git,
-  perl,
-  gsl,
-  xcbuild,
-  python3,
-  useMpi ? false,
-  useIv ? true,
-  useCore ? false,
-  useRx3d ? false,
-}:
+{ lib, stdenv, fetchurl, readline, xorg, mpi, cmake, bison, flex, git, perl, gsl
+, xcbuild, python3, useMpi ? false, useIv ? true, useCore ? false
+, useRx3d ? false }:
 
 stdenv.mkDerivation rec {
   pname = "neuron";
@@ -26,17 +9,8 @@ stdenv.mkDerivation rec {
   # format is for pythonModule conversion
   format = "other";
 
-  nativeBuildInputs =
-    [
-      cmake
-      bison
-      flex
-      git
-    ]
-    ++ lib.optionals useCore [
-      perl
-      gsl
-    ]
+  nativeBuildInputs = [ cmake bison flex git ]
+    ++ lib.optionals useCore [ perl gsl ]
     ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
   buildInputs = lib.optionals useIv [
@@ -45,21 +19,16 @@ stdenv.mkDerivation rec {
     xorg.libXext.dev
   ];
 
-  propagatedBuildInputs =
-    [
-      readline
-      python3
-      python3.pkgs.wheel
-      python3.pkgs.setuptools
-      python3.pkgs.scikit-build
-      python3.pkgs.matplotlib
-    ]
-    ++ lib.optionals useMpi [ mpi ]
+  propagatedBuildInputs = [
+    readline
+    python3
+    python3.pkgs.wheel
+    python3.pkgs.setuptools
+    python3.pkgs.scikit-build
+    python3.pkgs.matplotlib
+  ] ++ lib.optionals useMpi [ mpi ]
     ++ lib.optionals useMpi [ python3.pkgs.mpi4py ]
-    ++ lib.optionals useRx3d [
-      python3.pkgs.cython
-      python3.pkgs.numpy
-    ];
+    ++ lib.optionals useRx3d [ python3.pkgs.cython python3.pkgs.numpy ];
 
   patches = [ ./neuron_darwin_rpath.patch ];
 
@@ -87,12 +56,14 @@ stdenv.mkDerivation rec {
   '';
 
   src = fetchurl {
-    url = "https://github.com/neuronsimulator/nrn/releases/download/${version}/full-src-package-${version}.tar.gz";
+    url =
+      "https://github.com/neuronsimulator/nrn/releases/download/${version}/full-src-package-${version}.tar.gz";
     sha256 = "sha256-orGeBxu3pu4AyAW5P1EGJv8G0dOUZcSOjpUaloqicZU=";
   };
 
   meta = with lib; {
-    description = "Simulation environment for empirically-based simulations of neurons and networks of neurons";
+    description =
+      "Simulation environment for empirically-based simulations of neurons and networks of neurons";
     longDescription = ''
       NEURON is a simulation environment for developing and exercising models of
       neurons and networks of neurons. It is particularly well-suited to problems where
@@ -103,10 +74,7 @@ stdenv.mkDerivation rec {
     sourceProvenance = with sourceTypes; [ fromSource ];
     license = licenses.bsd3;
     homepage = "http://www.neuron.yale.edu/neuron";
-    maintainers = with maintainers; [
-      adev
-      davidcromp
-    ];
+    maintainers = with maintainers; [ adev davidcromp ];
     platforms = platforms.all;
   };
 }

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  click,
-  fetchFromGitHub,
-  mock,
-  netifaces,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, click, fetchFromGitHub, mock, netifaces
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "wsdiscovery";
@@ -23,15 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-6LGZogNRCnmCrRXvHq9jmHwqW13KQPpaGaao/52JPtk=";
   };
 
-  propagatedBuildInputs = [
-    click
-    netifaces
-  ];
+  propagatedBuildInputs = [ click netifaces ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "wsdiscovery" ];
 

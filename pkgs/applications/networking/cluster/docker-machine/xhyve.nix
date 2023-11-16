@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildGoPackage,
-  fetchFromGitHub,
-  fetchpatch,
-  pkg-config,
-  cctools,
-  Hypervisor,
-  vmnet,
-}:
+{ lib, stdenv, buildGoPackage, fetchFromGitHub, fetchpatch, pkg-config, cctools
+, Hypervisor, vmnet }:
 
 buildGoPackage rec {
   pname = "docker-machine-xhyve";
@@ -18,7 +9,8 @@ buildGoPackage rec {
 
   # https://github.com/machine-drivers/docker-machine-driver-xhyve/pull/225
   patches = fetchpatch {
-    url = "https://github.com/machine-drivers/docker-machine-driver-xhyve/commit/546256494bf2ccc33e4125bf45f504b0e3027d5a.patch";
+    url =
+      "https://github.com/machine-drivers/docker-machine-driver-xhyve/commit/546256494bf2ccc33e4125bf45f504b0e3027d5a.patch";
     sha256 = "1i8wxqccqkxvqrbsyd0g9s0kdskd8xi2jv0c1bji9aj4rq0a8cgz";
   };
 
@@ -37,10 +29,7 @@ buildGoPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    Hypervisor
-    vmnet
-  ];
+  buildInputs = [ Hypervisor vmnet ];
 
   meta = with lib; {
     homepage = "https://github.com/machine-drivers/docker-machine-driver-xhyve";

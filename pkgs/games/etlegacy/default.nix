@@ -1,35 +1,11 @@
-{
-  stdenv,
-  lib,
-  makeWrapper,
-  writeScriptBin,
-  fetchFromGitHub,
-  fetchurl,
-  runCommand,
-  cmake,
-  git,
-  glew,
-  SDL2,
-  zlib,
-  minizip,
-  libjpeg,
-  curl,
-  lua,
-  libogg,
-  libtheora,
-  freetype,
-  libpng,
-  sqlite,
-  openal,
-  unzip,
-  cjson,
-}:
+{ stdenv, lib, makeWrapper, writeScriptBin, fetchFromGitHub, fetchurl
+, runCommand, cmake, git, glew, SDL2, zlib, minizip, libjpeg, curl, lua, libogg
+, libtheora, freetype, libpng, sqlite, openal, unzip, cjson, }:
 let
   version = "2.81.1";
   pkgname = "etlegacy";
   mirror = "https://mirror.etlegacy.com";
-  fetchAsset =
-    { asset, sha256 }:
+  fetchAsset = { asset, sha256, }:
     fetchurl {
       url = mirror + "/etmain/" + asset;
       inherit sha256;
@@ -52,9 +28,11 @@ let
       echo "${version}"
     fi
   '';
-  mainProgram = if stdenv.hostPlatform.system == "i686-linux" then "etl.i386" else "etl.x86_64";
-in
-stdenv.mkDerivation rec {
+  mainProgram = if stdenv.hostPlatform.system == "i686-linux" then
+    "etl.i386"
+  else
+    "etl.x86_64";
+in stdenv.mkDerivation rec {
   pname = pkgname;
   inherit version;
 
@@ -65,14 +43,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CGXtc51vaId/SHbD34ZeT0gPsrl7p2DEw/Kp+GBZIaA="; # 2.81.1
   };
 
-  nativeBuildInputs = [
-    cmake
-    fakeGit
-    git
-    makeWrapper
-    unzip
-    cjson
-  ];
+  nativeBuildInputs = [ cmake fakeGit git makeWrapper unzip cjson ];
   buildInputs = [
     glew
     SDL2
@@ -124,16 +95,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "ET: Legacy is an open source project based on the code of Wolfenstein: Enemy Territory which was released in 2010 under the terms of the GPLv3 license";
+    description =
+      "ET: Legacy is an open source project based on the code of Wolfenstein: Enemy Territory which was released in 2010 under the terms of the GPLv3 license";
     homepage = "https://etlegacy.com";
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
-    license = [
-      licenses.gpl3
-      licenses.cc-by-nc-sa-30
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
+    license = [ licenses.gpl3 licenses.cc-by-nc-sa-30 ];
     inherit mainProgram;
     maintainers = with maintainers; [ ashleyghooper ];
   };

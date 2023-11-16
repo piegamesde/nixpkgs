@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  text-unidecode,
-  unidecode,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, text-unidecode, unidecode }:
 
 buildPythonPackage rec {
   pname = "python-slugify";
@@ -24,9 +17,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ text-unidecode ];
 
-  passthru.optional-dependencies = {
-    unidecode = [ unidecode ];
-  };
+  passthru.optional-dependencies = { unidecode = [ unidecode ]; };
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -37,7 +28,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python Slugify application that handles Unicode";
     homepage = "https://github.com/un33k/python-slugify";
-    changelog = "https://github.com/un33k/python-slugify/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/un33k/python-slugify/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ vrthra ];
   };

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  hatchling,
-  pytestCheckHook,
-  pythonOlder,
-  pytz,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, hatchling, pytestCheckHook
+, pythonOlder, pytz, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "dirty-equals";
@@ -25,17 +17,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs = [
-    pytz
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ pytz typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "dirty_equals" ];
 
   meta = with lib; {
-    description = "Module for doing dirty (but extremely useful) things with equals";
+    description =
+      "Module for doing dirty (but extremely useful) things with equals";
     homepage = "https://github.com/samuelcolvin/dirty-equals";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];

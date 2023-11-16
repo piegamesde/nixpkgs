@@ -1,10 +1,4 @@
-{
-  config,
-  options,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, options, pkgs, lib, ... }:
 
 with lib;
 
@@ -12,8 +6,8 @@ let
 
   cfg = config.services.rtorrent;
   opt = options.services.rtorrent;
-in
-{
+
+in {
   options.services.rtorrent = {
     enable = mkEnableOption (lib.mdDoc "rtorrent");
 
@@ -198,16 +192,11 @@ in
     systemd = {
       services = {
         rtorrent =
-          let
-            rtorrentConfigFile = pkgs.writeText "rtorrent.rc" cfg.configText;
-          in
-          {
+          let rtorrentConfigFile = pkgs.writeText "rtorrent.rc" cfg.configText;
+          in {
             description = "rTorrent system service";
             after = [ "network.target" ];
-            path = [
-              cfg.package
-              pkgs.bash
-            ];
+            path = [ cfg.package pkgs.bash ];
             wantedBy = [ "multi-user.target" ];
             serviceConfig = {
               User = cfg.user;
@@ -217,14 +206,17 @@ in
               WorkingDirectory = cfg.dataDir;
               ExecStartPre = ''
                 ${pkgs.bash}/bin/bash -c "if test -e ${cfg.dataDir}/session/rtorrent.lock && test -z $(${pkgs.procps}/bin/pidof rtorrent); then rm -f ${cfg.dataDir}/session/rtorrent.lock; fi"'';
-              ExecStart = "${cfg.package}/bin/rtorrent -n -o system.daemon.set=true -o import=${rtorrentConfigFile}";
+              ExecStart =
+                "${cfg.package}/bin/rtorrent -n -o system.daemon.set=true -o import=${rtorrentConfigFile}";
               RuntimeDirectory = "rtorrent";
               RuntimeDirectoryMode = 755;
             };
           };
       };
 
-      tmpfiles.rules = [ "d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -" ];
+      tmpfiles.rules = [
+        "d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -"
+      ];
     };
   };
 }

@@ -1,25 +1,9 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
+{ stdenv, fetchurl, lib
 
-  autoreconfHook,
-  bzip2,
-  cfitsio,
-  exiv2,
-  gettext,
-  gtk2,
-  gtkimageview,
-  lcms2,
-  lensfun,
-  libjpeg,
-  libtiff,
-  perl,
-  pkg-config,
-  zlib,
+, autoreconfHook, bzip2, cfitsio, exiv2, gettext, gtk2, gtkimageview, lcms2
+, lensfun, libjpeg, libtiff, perl, pkg-config, zlib
 
-  addThumbnailer ? false,
-}:
+, addThumbnailer ? false }:
 
 stdenv.mkDerivation rec {
   pname = "nufraw";
@@ -30,12 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0b63qvw9r8kaqw36bk3a9zwxc41h8fr6498indkw4glrj0awqz9c";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gettext
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook gettext perl pkg-config ];
 
   buildInputs = [
     bzip2
@@ -50,14 +29,13 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  configureFlags = [
-    "--enable-contrast"
-    "--enable-dst-correction"
-  ];
+  configureFlags = [ "--enable-contrast" "--enable-dst-correction" ];
 
   postInstall = lib.optionalString addThumbnailer ''
     mkdir -p $out/share/thumbnailers
-    substituteAll ${./nufraw.thumbnailer} $out/share/thumbnailers/${pname}.thumbnailer
+    substituteAll ${
+      ./nufraw.thumbnailer
+    } $out/share/thumbnailers/${pname}.thumbnailer
   '';
 
   # Fixes an upstream issue where headers with templates were included in an extern-C scope
@@ -66,7 +44,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://nufraw.sourceforge.io/";
-    description = "Utility to read and manipulate raw images from digital cameras";
+    description =
+      "Utility to read and manipulate raw images from digital cameras";
     longDescription = ''
       A new version of the popular raw digital images manipulator ufraw.
       Forks from the version 0.23 of ufraw (that's why the first nufraw version is the 0.24).
@@ -75,9 +54,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ asbachb ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

@@ -1,12 +1,4 @@
-{
-  fetchFromSourcehut,
-  gtk3,
-  lib,
-  libdbusmenu-gtk3,
-  pkg-config,
-  stdenv,
-  vala,
-}:
+{ fetchFromSourcehut, gtk3, lib, libdbusmenu-gtk3, pkg-config, stdenv, vala }:
 
 stdenv.mkDerivation rec {
   pname = "snixembed";
@@ -19,20 +11,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-co32Xlklg6KVyi+xEoDJ6TeN28V+wCSx73phwnl/05E=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    vala
-  ];
+  nativeBuildInputs = [ pkg-config vala ];
 
-  buildInputs = [
-    gtk3
-    libdbusmenu-gtk3
-  ];
+  buildInputs = [ gtk3 libdbusmenu-gtk3 ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
-    description = "Proxy StatusNotifierItems as XEmbedded systemtray-spec icons";
+    description =
+      "Proxy StatusNotifierItems as XEmbedded systemtray-spec icons";
     homepage = "https://git.sr.ht/~steef/snixembed";
     changelog = "https://git.sr.ht/~steef/snixembed/refs/${version}";
     license = licenses.isc;

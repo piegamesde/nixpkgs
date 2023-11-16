@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "documentation-utils";
   version = "20190710-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."trivial-indent" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/documentation-utils/2019-07-10/documentation-utils-20190710-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/documentation-utils/2019-07-10/documentation-utils-20190710-git.tgz";
     sha256 = "1n3z8sw75k2jjpsg6ch5g9s4v56y96dbs4338ajrfdsk3pk4wgj3";
   };
 

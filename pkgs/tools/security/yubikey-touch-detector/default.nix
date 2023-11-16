@@ -1,12 +1,5 @@
-{
-  lib,
-  libnotify,
-  buildGoModule,
-  fetchFromGitHub,
-  fetchurl,
-  pkg-config,
-  iconColor ? "#84bd00",
-}:
+{ lib, libnotify, buildGoModule, fetchFromGitHub, fetchurl, pkg-config
+, iconColor ? "#84bd00" }:
 
 buildGoModule rec {
   pname = "yubikey-touch-detector";
@@ -21,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-OitI9Yp4/mRMrNH4yrWSL785+3mykPkvzarrc6ipOeg=";
 
   iconSrc = fetchurl {
-    url = "https://github.com/Yubico/yubioath-flutter/raw/yubioath-desktop-5.0.0/images/touch.svg";
+    url =
+      "https://github.com/Yubico/yubioath-flutter/raw/yubioath-desktop-5.0.0/images/touch.svg";
     hash = "sha256-+jC9RKjl1uMBaNqLX5WXN+E4CuOcIEx5IGXWxgxzA/k=";
   };
 
@@ -52,13 +46,11 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A tool to detect when your YubiKey is waiting for a touch (to send notification or display a visual indicator on the screen).";
+    description =
+      "A tool to detect when your YubiKey is waiting for a touch (to send notification or display a visual indicator on the screen).";
     homepage = "https://github.com/maximbaz/yubikey-touch-detector";
     maintainers = with maintainers; [ sumnerevans ];
-    license = with licenses; [
-      bsd2
-      isc
-    ];
+    license = with licenses; [ bsd2 isc ];
     platforms = platforms.linux;
   };
 }

@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  fst-pso,
-  numpy,
-  pandas,
-  pythonOlder,
-  scipy,
-  simpful,
-}:
+{ lib, buildPythonPackage, fetchPypi, fst-pso, numpy, pandas, pythonOlder, scipy
+, simpful }:
 
 buildPythonPackage rec {
   pname = "pyfume";
@@ -23,13 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-uD1IHFyNd9yv3eyHPZ4pg6X2+rLTY5sYsQysuIXbvfA=";
   };
 
-  propagatedBuildInputs = [
-    fst-pso
-    numpy
-    pandas
-    scipy
-    simpful
-  ];
+  propagatedBuildInputs = [ fst-pso numpy pandas scipy simpful ];
 
   # Module has not test
   doCheck = false;

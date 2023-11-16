@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  gpgme,
-  libgpg-error,
-  libxcb,
-  libxkbcommon,
-  pkg-config,
-  python3,
-  AppKit,
-  Foundation,
-  libiconv,
-  libobjc,
-  libresolv,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, gpgme, libgpg-error, libxcb
+, libxkbcommon, pkg-config, python3, AppKit, Foundation, libiconv, libobjc
+, libresolv }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gpg-tui";
@@ -36,13 +22,7 @@ rustPlatform.buildRustPackage rec {
     python3
   ];
 
-  buildInputs =
-    [
-      gpgme
-      libgpg-error
-      libxcb
-      libxkbcommon
-    ]
+  buildInputs = [ gpgme libgpg-error libxcb libxkbcommon ]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Foundation

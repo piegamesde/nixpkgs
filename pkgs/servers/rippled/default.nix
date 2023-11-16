@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  fetchurl,
-  git,
-  cmake,
-  pkg-config,
-  openssl,
-  boost,
-  grpc,
-  protobuf,
-  libnsl,
-  rocksdb_6_23,
-  snappy,
-}:
+{ lib, stdenv, fetchgit, fetchurl, git, cmake, pkg-config, openssl, boost, grpc
+, protobuf, libnsl, rocksdb_6_23, snappy }:
 
 let
   sqlite3 = fetchurl rec {
@@ -102,8 +88,7 @@ let
     leaveDotGit = true;
     fetchSubmodules = false;
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "rippled";
   version = "1.9.4";
 
@@ -122,11 +107,7 @@ stdenv.mkDerivation rec {
     "-DSNAPPY_INCLUDE_DIR=${snappy}/include"
   ];
 
-  nativeBuildInputs = [
-    pkg-config
-    cmake
-    git
-  ];
+  nativeBuildInputs = [ pkg-config cmake git ];
   buildInputs = [
     openssl
     openssl.dev
@@ -168,10 +149,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Ripple P2P payment network reference server";
     homepage = "https://github.com/ripple/rippled";
-    maintainers = with maintainers; [
-      offline
-      RaghavSood
-    ];
+    maintainers = with maintainers; [ offline RaghavSood ];
     license = licenses.isc;
     platforms = platforms.linux;
   };

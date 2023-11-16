@@ -1,24 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gfortran,
-  pkg-config,
-  libtool,
-  m4,
-  gnum4,
-  file,
-  # Memory Hierarchy (End-user can provide this.)
-  memHierarchy ? "",
+{ lib, stdenv, fetchurl, gfortran, pkg-config, libtool, m4, gnum4, file
+# Memory Hierarchy (End-user can provide this.)
+, memHierarchy ? ""
   # Headers/Libraries
-  blas,
-  zlib,
-  # RPC headers (rpc/xdr.h)
-  openmpi,
-  help2man,
-  doxygen,
-  octave,
-}:
+, blas, zlib
+# RPC headers (rpc/xdr.h)
+, openmpi, help2man, doxygen, octave }:
 
 stdenv.mkDerivation rec {
   pname = "librsb";
@@ -45,14 +31,8 @@ stdenv.mkDerivation rec {
   ];
 
   # Ensure C/Fortran code is position-independent.
-  env.NIX_CFLAGS_COMPILE = toString [
-    "-fPIC"
-    "-Ofast"
-  ];
-  FCFLAGS = [
-    "-fPIC"
-    "-Ofast"
-  ];
+  env.NIX_CFLAGS_COMPILE = toString [ "-fPIC" "-Ofast" ];
+  FCFLAGS = [ "-fPIC" "-Ofast" ];
 
   enableParallelBuilding = true;
 
@@ -81,7 +61,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://librsb.sourceforge.net/";
-    description = "Shared memory parallel sparse matrix and sparse BLAS library";
+    description =
+      "Shared memory parallel sparse matrix and sparse BLAS library";
     longDescription = ''
       Library for sparse matrix computations featuring the Recursive Sparse
       Blocks (RSB) matrix format. This format allows cache efficient and

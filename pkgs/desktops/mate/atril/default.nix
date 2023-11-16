@@ -1,30 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  gtk3,
-  glib,
-  libxml2,
-  libsecret,
-  poppler,
-  itstool,
-  hicolor-icon-theme,
-  texlive,
-  mate,
-  wrapGAppsHook,
-  enableEpub ? true,
-  webkitgtk,
-  enableDjvu ? true,
-  djvulibre,
-  enablePostScript ? true,
-  libspectre,
-  enableXps ? true,
-  libgxps,
-  enableImages ? false,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, gtk3, glib, libxml2, libsecret
+, poppler, itstool, hicolor-icon-theme, texlive, mate, wrapGAppsHook
+, enableEpub ? true, webkitgtk, enableDjvu ? true, djvulibre
+, enablePostScript ? true, libspectre, enableXps ? true, libgxps
+, enableImages ? false, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "atril";
@@ -37,33 +15,25 @@ stdenv.mkDerivation rec {
     sha256 = "pTphOsuXAaGK1nG/WQJU0c6Da6CuG+LAvYlI/fa0kaQ=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ pkg-config gettext wrapGAppsHook ];
 
-  buildInputs =
-    [
-      gtk3
-      glib
-      itstool
-      libsecret
-      libxml2
-      poppler
-      mate.caja
-      mate.mate-desktop
-      hicolor-icon-theme
-      texlive.bin.core # for synctex, used by the pdf back-end
-    ]
-    ++ lib.optionals enableDjvu [ djvulibre ]
+  buildInputs = [
+    gtk3
+    glib
+    itstool
+    libsecret
+    libxml2
+    poppler
+    mate.caja
+    mate.mate-desktop
+    hicolor-icon-theme
+    texlive.bin.core # for synctex, used by the pdf back-end
+  ] ++ lib.optionals enableDjvu [ djvulibre ]
     ++ lib.optionals enableEpub [ webkitgtk ]
     ++ lib.optionals enablePostScript [ libspectre ]
     ++ lib.optionals enableXps [ libgxps ];
 
-  configureFlags =
-    [ ]
-    ++ lib.optionals (enableDjvu) [ "--enable-djvu" ]
+  configureFlags = [ ] ++ lib.optionals (enableDjvu) [ "--enable-djvu" ]
     ++ lib.optionals (enableEpub) [ "--enable-epub" ]
     ++ lib.optionals (enablePostScript) [ "--enable-ps" ]
     ++ lib.optionals (enableXps) [ "--enable-xps" ]

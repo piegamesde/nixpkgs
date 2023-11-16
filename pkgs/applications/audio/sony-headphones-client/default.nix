@@ -1,17 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  bluez,
-  dbus,
-  glew,
-  glfw,
-  imgui,
-  makeDesktopItem,
-  copyDesktopItems,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, bluez, dbus, glew, glfw
+, imgui, makeDesktopItem, copyDesktopItems }:
 
 stdenv.mkDerivation rec {
   pname = "SonyHeadphonesClient";
@@ -25,18 +13,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    copyDesktopItems
-  ];
-  buildInputs = [
-    bluez
-    dbus
-    glew
-    glfw
-    imgui
-  ];
+  nativeBuildInputs = [ cmake pkg-config copyDesktopItems ];
+  buildInputs = [ bluez dbus glew glfw imgui ];
 
   sourceRoot = "./source/Client";
 
@@ -59,16 +37,15 @@ stdenv.mkDerivation rec {
       exec = "SonyHeadphonesClient";
       icon = "SonyHeadphonesClient";
       desktopName = "Sony Headphones Client";
-      comment = "A client recreating the functionality of the Sony Headphones app";
-      categories = [
-        "Audio"
-        "Mixer"
-      ];
+      comment =
+        "A client recreating the functionality of the Sony Headphones app";
+      categories = [ "Audio" "Mixer" ];
     })
   ];
 
   meta = with lib; {
-    description = "A client recreating the functionality of the Sony Headphones app";
+    description =
+      "A client recreating the functionality of the Sony Headphones app";
     homepage = "https://github.com/Plutoberth/SonyHeadphonesClient";
     license = licenses.mit;
     maintainers = with maintainers; [ stunkymonkey ];

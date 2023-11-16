@@ -1,17 +1,5 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  lxqt,
-  libpulseaudio,
-  pcre,
-  qtbase,
-  qttools,
-  qtx11extras,
-  gitUpdater,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, pkg-config, lxqt, libpulseaudio
+, pcre, qtbase, qttools, qtx11extras, gitUpdater }:
 
 mkDerivation rec {
   pname = "pavucontrol-qt";
@@ -24,19 +12,9 @@ mkDerivation rec {
     sha256 = "cXYJ9EMmZ1LHBvjRWM1TEv7ADdG69DTyb5DZN7q3NIQ=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    lxqt.lxqt-build-tools
-  ];
+  nativeBuildInputs = [ cmake pkg-config lxqt.lxqt-build-tools ];
 
-  buildInputs = [
-    qtbase
-    qttools
-    qtx11extras
-    libpulseaudio
-    pcre
-  ];
+  buildInputs = [ qtbase qttools qtx11extras libpulseaudio pcre ];
 
   passthru.updateScript = gitUpdater { };
 

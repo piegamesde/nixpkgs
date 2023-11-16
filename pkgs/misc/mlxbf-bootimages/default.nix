@@ -1,20 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  dpkg,
-}:
+{ stdenv, lib, fetchurl, dpkg }:
 
 stdenv.mkDerivation rec {
   pname = "mlxbf-bootimages";
   version = "4.0.3-12704";
 
   src = fetchurl {
-    url =
-      let
-        mainVersion = builtins.elemAt (lib.splitString "-" version) 0;
-      in
-      "https://linux.mellanox.com/public/repo/bluefield/${mainVersion}/bootimages/prod/${pname}-signed_${version}_arm64.deb";
+    url = let mainVersion = builtins.elemAt (lib.splitString "-" version) 0;
+    in "https://linux.mellanox.com/public/repo/bluefield/${mainVersion}/bootimages/prod/${pname}-signed_${version}_arm64.deb";
     hash = "sha256-e13XZhxf41240Qu+hh2a9+KIvZCL+8k5JyZrpJCHmI8=";
   };
 
@@ -40,3 +32,4 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ nikstur ];
   };
 }
+

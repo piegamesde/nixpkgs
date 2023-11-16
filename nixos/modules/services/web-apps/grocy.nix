@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.grocy;
-in
-{
+let cfg = config.services.grocy;
+in {
   options.services.grocy = {
     enable = mkEnableOption (lib.mdDoc "grocy");
 
@@ -31,15 +24,7 @@ in
     };
 
     phpfpm.settings = mkOption {
-      type =
-        with types;
-        attrsOf (
-          oneOf [
-            int
-            str
-            bool
-          ]
-        );
+      type = with types; attrsOf (oneOf [ int str bool ]);
       default = {
         "pm" = "dynamic";
         "php_admin_value[error_log]" = "stderr";
@@ -127,8 +112,12 @@ in
       <?php
       Setting('CULTURE', '${cfg.settings.culture}');
       Setting('CURRENCY', '${cfg.settings.currency}');
-      Setting('CALENDAR_FIRST_DAY_OF_WEEK', '${toString cfg.settings.calendar.firstDayOfWeek}');
-      Setting('CALENDAR_SHOW_WEEK_OF_YEAR', ${boolToString cfg.settings.calendar.showWeekNumber});
+      Setting('CALENDAR_FIRST_DAY_OF_WEEK', '${
+        toString cfg.settings.calendar.firstDayOfWeek
+      }');
+      Setting('CALENDAR_SHOW_WEEK_OF_YEAR', ${
+        boolToString cfg.settings.calendar.showWeekNumber
+      });
     '';
 
     users.users.grocy = {
@@ -138,12 +127,13 @@ in
       group = "nginx";
     };
 
-    systemd.tmpfiles.rules = map (dirName: "d '${cfg.dataDir}/${dirName}' - grocy nginx - -") [
-      "viewcache"
-      "plugins"
-      "settingoverrides"
-      "storage"
-    ];
+    systemd.tmpfiles.rules =
+      map (dirName: "d '${cfg.dataDir}/${dirName}' - grocy nginx - -") [
+        "viewcache"
+        "plugins"
+        "settingoverrides"
+        "storage"
+      ];
 
     services.phpfpm.pools.grocy = {
       user = "grocy";

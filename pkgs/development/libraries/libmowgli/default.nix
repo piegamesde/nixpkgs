@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "libmowgli";
@@ -16,7 +12,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A development framework for C providing high performance and highly flexible algorithms";
+    description =
+      "A development framework for C providing high performance and highly flexible algorithms";
     homepage = "https://github.com/atheme/libmowgli-2";
     license = licenses.isc;
     platforms = platforms.unix;

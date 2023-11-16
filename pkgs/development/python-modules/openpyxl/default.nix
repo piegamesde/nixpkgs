@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  et_xmlfile,
-  fetchFromGitLab,
-  jdcal,
-  lxml,
-  pillow,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, et_xmlfile, fetchFromGitLab, jdcal, lxml, pillow
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "openpyxl";
@@ -25,23 +16,17 @@ buildPythonPackage rec {
     hash = "sha256-SWRbjA83AOLrfe6on2CSb64pH5EWXkfyYcTqWJNBEP0=";
   };
 
-  propagatedBuildInputs = [
-    jdcal
-    et_xmlfile
-    lxml
-  ];
+  propagatedBuildInputs = [ jdcal et_xmlfile lxml ];
 
-  nativeCheckInputs = [
-    pillow
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pillow pytestCheckHook ];
 
   pythonImportsCheck = [ "openpyxl" ];
 
   meta = with lib; {
     description = "Python library to read/write Excel 2010 xlsx/xlsm files";
     homepage = "https://openpyxl.readthedocs.org";
-    changelog = "https://foss.heptapod.net/openpyxl/openpyxl/-/blob/${version}/doc/changes.rst";
+    changelog =
+      "https://foss.heptapod.net/openpyxl/openpyxl/-/blob/${version}/doc/changes.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ lihop ];
   };

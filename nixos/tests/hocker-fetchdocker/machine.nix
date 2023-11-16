@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   nixpkgs.config.packageOverrides = pkgs': {
     hello-world-container = pkgs'.callPackage ./hello-world-container.nix { };
   };
@@ -19,8 +18,7 @@
       ${pkgs.hello-world-container}/compositeImage.sh | ${pkgs.docker}/bin/docker load
     '';
 
-    serviceConfig = {
-      Type = "oneshot";
-    };
+    serviceConfig = { Type = "oneshot"; };
   };
 }
+

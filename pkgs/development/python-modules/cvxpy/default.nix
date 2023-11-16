@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  cvxopt,
-  ecos,
-  fetchPypi,
-  numpy,
-  osqp,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-  scs,
-  setuptools,
-  useOpenmp ? (!stdenv.isDarwin),
-}:
+{ lib, stdenv, buildPythonPackage, cvxopt, ecos, fetchPypi, numpy, osqp
+, pytestCheckHook, pythonOlder, scipy, scs, setuptools
+, useOpenmp ? (!stdenv.isDarwin) }:
 
 buildPythonPackage rec {
   pname = "cvxpy";
@@ -27,15 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-8Hv+k2d6dVqFVMT9piLvAeIkes6Zs6eBB6qQcODQo8s=";
   };
 
-  propagatedBuildInputs = [
-    cvxopt
-    ecos
-    numpy
-    osqp
-    scipy
-    scs
-    setuptools
-  ];
+  propagatedBuildInputs = [ cvxopt ecos numpy osqp scipy scs setuptools ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -47,22 +26,21 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "cvxpy" ];
 
-  disabledTests =
-    [
-      # Disable the slowest benchmarking tests, cuts test time in half
-      "test_tv_inpainting"
-      "test_diffcp_sdp_example"
-      "test_huber"
-      "test_partial_problem"
-    ]
-    ++ lib.optionals stdenv.isAarch64 [
-      "test_ecos_bb_mi_lp_2" # https://github.com/cvxpy/cvxpy/issues/1241#issuecomment-780912155
-    ];
+  disabledTests = [
+    # Disable the slowest benchmarking tests, cuts test time in half
+    "test_tv_inpainting"
+    "test_diffcp_sdp_example"
+    "test_huber"
+    "test_partial_problem"
+  ] ++ lib.optionals stdenv.isAarch64 [
+    "test_ecos_bb_mi_lp_2" # https://github.com/cvxpy/cvxpy/issues/1241#issuecomment-780912155
+  ];
 
   pythonImportsCheck = [ "cvxpy" ];
 
   meta = with lib; {
-    description = "A domain-specific language for modeling convex optimization problems in Python";
+    description =
+      "A domain-specific language for modeling convex optimization problems in Python";
     homepage = "https://www.cvxpy.org/";
     downloadPage = "https://github.com/cvxpy/cvxpy//releases";
     changelog = "https://github.com/cvxpy/cvxpy/releases/tag/v${version}";

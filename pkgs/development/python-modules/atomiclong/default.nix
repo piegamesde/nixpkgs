@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytest,
-  cffi,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, cffi }:
 
 buildPythonPackage rec {
   pname = "atomiclong";

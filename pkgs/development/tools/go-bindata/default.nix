@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "go-bindata";
@@ -19,15 +15,14 @@ buildGoModule rec {
 
   subPackages = [ "go-bindata" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   meta = with lib; {
     homepage = "https://github.com/kevinburke/go-bindata";
-    changelog = "https://github.com/kevinburke/go-bindata/blob/v${version}/CHANGELOG.md";
-    description = "A small utility which generates Go code from any file, useful for embedding binary data in a Go program";
+    changelog =
+      "https://github.com/kevinburke/go-bindata/blob/v${version}/CHANGELOG.md";
+    description =
+      "A small utility which generates Go code from any file, useful for embedding binary data in a Go program";
     maintainers = with maintainers; [ cstrahan ];
     license = licenses.cc0;
   };

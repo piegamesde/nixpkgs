@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  git,
-}:
+{ lib, buildGoModule, fetchFromGitHub, git }:
 
 buildGoModule rec {
   pname = "gitbatch";
@@ -18,10 +13,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-wwpaJO5cXMsvqFXj+qGiIm4zg/SL4YCm2mNnG/qdilw=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeBuildInputs = [
     git # required by unit tests

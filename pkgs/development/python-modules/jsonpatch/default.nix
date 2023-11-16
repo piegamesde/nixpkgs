@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  jsonpointer,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, jsonpointer, pytestCheckHook
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "jsonpatch";

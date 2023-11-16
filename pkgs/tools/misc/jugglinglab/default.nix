@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  jre,
-  makeWrapper,
-  ant,
-  jdk,
-}:
+{ lib, stdenv, fetchFromGitHub, jre, makeWrapper, ant, jdk }:
 stdenv.mkDerivation rec {
   version = "1.6.3";
   pname = "jugglinglab";
@@ -17,11 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Gq8V7gLl9IakQi7xaK8TCI/B2+6LlLjoLdcv9zlalIE=";
   };
   buildInputs = [ jre ];
-  nativeBuildInputs = [
-    ant
-    jdk
-    makeWrapper
-  ];
+  nativeBuildInputs = [ ant jdk makeWrapper ];
   buildPhase = "ant";
 
   installPhase = ''

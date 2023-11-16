@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  version,
-  src,
-  patches ? [ ],
-  ...
-}:
+{ lib, stdenv, cmake, version, src, patches ? [ ], ... }:
 
 stdenv.mkDerivation {
   pname = "msgpack";
@@ -16,9 +8,8 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags =
-    lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "-DMSGPACK_BUILD_EXAMPLES=OFF";
+  cmakeFlags = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+    "-DMSGPACK_BUILD_EXAMPLES=OFF";
 
   meta = with lib; {
     description = "MessagePack implementation for C and C++";

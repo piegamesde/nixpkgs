@@ -1,22 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  dpkg,
-  gawk,
-  perl,
-  wget,
-  binutils,
-  bzip2,
-  coreutils,
-  util-linux,
-  gnugrep,
-  gnupg1,
-  gnutar,
-  gnused,
-  gzip,
-  xz,
-  makeWrapper,
+{ lib, stdenv, fetchFromGitLab, dpkg, gawk, perl, wget, binutils, bzip2
+, coreutils, util-linux, gnugrep, gnupg1, gnutar, gnused, gzip, xz, makeWrapper
 }:
 # USAGE like this: debootstrap sid /tmp/target-chroot-directory
 # There is also cdebootstrap now. Is that easier to maintain?
@@ -36,8 +19,7 @@ let
     wget
     xz
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "debootstrap";
   version = "1.0.128";
 

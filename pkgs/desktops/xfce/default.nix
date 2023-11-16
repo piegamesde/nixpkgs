@@ -1,21 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  generateSplicesForMkScope,
-  makeScopeWithSplicing,
-}:
+{ config, lib, pkgs, generateSplicesForMkScope, makeScopeWithSplicing }:
 
 let
   keep = _self: { };
   extra = _spliced0: { };
-in
-makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
-  self:
-  let
-    inherit (self) callPackage;
-  in
-  {
+
+in makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (self:
+  let inherit (self) callPackage;
+  in {
     #### NixOS support
 
     genericUpdater = pkgs.genericUpdater;
@@ -24,7 +15,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     automakeAddFlags =
       pkgs.makeSetupHook { name = "xfce-automake-add-flags-hook"; }
-        ./automakeAddFlags.sh;
+      ./automakeAddFlags.sh;
 
     #### CORE
 
@@ -65,7 +56,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
     xfce4-appfinder = callPackage ./core/xfce4-appfinder { };
 
     xfce4-dev-tools = callPackage ./core/xfce4-dev-tools {
-      mkXfceDerivation = self.mkXfceDerivation.override { xfce4-dev-tools = null; };
+      mkXfceDerivation =
+        self.mkXfceDerivation.override { xfce4-dev-tools = null; };
     };
 
     #### APPLICATIONS
@@ -116,11 +108,14 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-cpufreq-plugin = callPackage ./panel-plugins/xfce4-cpufreq-plugin { };
 
-    xfce4-cpugraph-plugin = callPackage ./panel-plugins/xfce4-cpugraph-plugin { };
+    xfce4-cpugraph-plugin =
+      callPackage ./panel-plugins/xfce4-cpugraph-plugin { };
 
-    xfce4-datetime-plugin = callPackage ./panel-plugins/xfce4-datetime-plugin { };
+    xfce4-datetime-plugin =
+      callPackage ./panel-plugins/xfce4-datetime-plugin { };
 
-    xfce4-dockbarx-plugin = callPackage ./panel-plugins/xfce4-dockbarx-plugin { };
+    xfce4-dockbarx-plugin =
+      callPackage ./panel-plugins/xfce4-dockbarx-plugin { };
 
     xfce4-embed-plugin = callPackage ./panel-plugins/xfce4-embed-plugin { };
 
@@ -130,7 +125,8 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-genmon-plugin = callPackage ./panel-plugins/xfce4-genmon-plugin { };
 
-    xfce4-i3-workspaces-plugin = callPackage ./panel-plugins/xfce4-i3-workspaces-plugin { };
+    xfce4-i3-workspaces-plugin =
+      callPackage ./panel-plugins/xfce4-i3-workspaces-plugin { };
 
     xfce4-namebar-plugin = callPackage ./panel-plugins/xfce4-namebar-plugin { };
 
@@ -138,15 +134,18 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-notes-plugin = callPackage ./panel-plugins/xfce4-notes-plugin { };
 
-    xfce4-mailwatch-plugin = callPackage ./panel-plugins/xfce4-mailwatch-plugin { };
+    xfce4-mailwatch-plugin =
+      callPackage ./panel-plugins/xfce4-mailwatch-plugin { };
 
     xfce4-mpc-plugin = callPackage ./panel-plugins/xfce4-mpc-plugin { };
 
     xfce4-sensors-plugin = callPackage ./panel-plugins/xfce4-sensors-plugin { };
 
-    xfce4-systemload-plugin = callPackage ./panel-plugins/xfce4-systemload-plugin { };
+    xfce4-systemload-plugin =
+      callPackage ./panel-plugins/xfce4-systemload-plugin { };
 
-    xfce4-time-out-plugin = callPackage ./panel-plugins/xfce4-time-out-plugin { };
+    xfce4-time-out-plugin =
+      callPackage ./panel-plugins/xfce4-time-out-plugin { };
 
     xfce4-timer-plugin = callPackage ./panel-plugins/xfce4-timer-plugin { };
 
@@ -156,21 +155,23 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-weather-plugin = callPackage ./panel-plugins/xfce4-weather-plugin { };
 
-    xfce4-whiskermenu-plugin = callPackage ./panel-plugins/xfce4-whiskermenu-plugin { };
+    xfce4-whiskermenu-plugin =
+      callPackage ./panel-plugins/xfce4-whiskermenu-plugin { };
 
-    xfce4-windowck-plugin = callPackage ./panel-plugins/xfce4-windowck-plugin { };
+    xfce4-windowck-plugin =
+      callPackage ./panel-plugins/xfce4-windowck-plugin { };
 
-    xfce4-pulseaudio-plugin = callPackage ./panel-plugins/xfce4-pulseaudio-plugin { };
-  }
-  // lib.optionalAttrs config.allowAliases {
+    xfce4-pulseaudio-plugin =
+      callPackage ./panel-plugins/xfce4-pulseaudio-plugin { };
+
+  } // lib.optionalAttrs config.allowAliases {
     #### ALIASES
 
     xinitrc = self.xfce4-session.xinitrc; # added 2019-11-04
 
-    thunar-bare = self.thunar.override { thunarPlugins = [ ]; }; # added 2019-11-04
+    thunar-bare =
+      self.thunar.override { thunarPlugins = [ ]; }; # added 2019-11-04
 
-    xfce4-hardware-monitor-plugin =
-      throw
-        "xfce.xfce4-hardware-monitor-plugin has been removed: abandoned by upstream and does not build"; # added 2023-01-15
-  }
-)
+    xfce4-hardware-monitor-plugin = throw
+      "xfce.xfce4-hardware-monitor-plugin has been removed: abandoned by upstream and does not build"; # added 2023-01-15
+  })

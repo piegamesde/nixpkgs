@@ -1,38 +1,27 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  unzip,
-  # To select only certain themes, pass `selected_themes` as a list of strings.
-  # reference ./shas.nix for available themes
-  selected_themes ? [ ],
-}:
+{ stdenv, fetchurl, lib, unzip,
+# To select only certain themes, pass `selected_themes` as a list of strings.
+# reference ./shas.nix for available themes
+selected_themes ? [ ], }:
 let
   version = "2020-12-28";
   # this file is generated via ./update.sh
   # borrowed from pkgs/data/fonts/nerdfonts
   themeShas = import ./shas.nix;
   knownThemes = builtins.attrNames themeShas;
-  selectedThemes =
-    if (selected_themes == [ ]) then
-      knownThemes
+  selectedThemes = if (selected_themes == [ ]) then
+    knownThemes
+  else
+    let unknown = lib.subtractLists knownThemes selected_themes;
+    in if (unknown != [ ]) then
+      throw "Unknown theme(s): ${lib.concatStringsSep " " unknown}"
     else
-      let
-        unknown = lib.subtractLists knownThemes selected_themes;
-      in
-      if (unknown != [ ]) then
-        throw "Unknown theme(s): ${lib.concatStringsSep " " unknown}"
-      else
-        selected_themes;
-  srcs = lib.lists.forEach selectedThemes (
-    name:
+      selected_themes;
+  srcs = lib.lists.forEach selectedThemes (name:
     (fetchurl {
       url = themeShas.${name}.url;
       sha256 = themeShas.${name}.sha;
-    })
-  );
-in
-stdenv.mkDerivation {
+    }));
+in stdenv.mkDerivation {
   pname = "adi1090x-plymouth-themes";
   inherit version srcs;
 

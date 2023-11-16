@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  git,
-  ronn,
-}:
+{ lib, stdenv, fetchFromGitHub, git, ronn }:
 
 stdenv.mkDerivation rec {
   pname = "automirror";
@@ -19,10 +13,7 @@ stdenv.mkDerivation rec {
 
   patchPhase = "sed -i s#/usr##g Makefile";
 
-  buildInputs = [
-    git
-    ronn
-  ];
+  buildInputs = [ git ronn ];
 
   installFlags = [ "DESTDIR=$(out)" ];
 

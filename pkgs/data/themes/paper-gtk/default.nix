@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  gtk_engines,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, gtk_engines }:
 
 stdenv.mkDerivation {
   version = "2016-08-16";
@@ -28,13 +22,11 @@ stdenv.mkDerivation {
   preferLocalBuild = true;
 
   meta = with lib; {
-    description = "A modern desktop theme suite featuring a mostly flat with a minimal use of shadows for depth";
+    description =
+      "A modern desktop theme suite featuring a mostly flat with a minimal use of shadows for depth";
     homepage = "https://snwh.org/paper";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [
-      maintainers.simonvandel
-      maintainers.romildo
-    ];
+    maintainers = [ maintainers.simonvandel maintainers.romildo ];
   };
 }

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "kubectl-ktop";
@@ -33,7 +29,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "A top-like tool for your Kubernetes clusters";
     homepage = "https://github.com/vladimirvivien/ktop";
-    changelog = "https://github.com/vladimirvivien/ktop/releases/tag/v${version}";
+    changelog =
+      "https://github.com/vladimirvivien/ktop/releases/tag/v${version}";
     license = licenses.asl20;
     maintainers = [ maintainers.ivankovnatsky ];
   };

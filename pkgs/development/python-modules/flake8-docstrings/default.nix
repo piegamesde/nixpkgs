@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flake8,
-  pydocstyle,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flake8, pydocstyle, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "flake8-docstrings";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-EafLWySeHB81HRcXiDs56lbUZzGvnT87WVqln0PoLCk=";
   };
 
-  propagatedBuildInputs = [
-    flake8
-    pydocstyle
-  ];
+  propagatedBuildInputs = [ flake8 pydocstyle ];
 
   # Module has no tests
   doCheck = false;
@@ -32,9 +22,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "flake8_docstrings" ];
 
   meta = with lib; {
-    description = "Extension for flake8 which uses pydocstyle to check docstrings";
+    description =
+      "Extension for flake8 which uses pydocstyle to check docstrings";
     homepage = "https://github.com/pycqa/flake8-docstrings";
-    changelog = "https://github.com/PyCQA/flake8-docstrings/blob/${version}/HISTORY.rst";
+    changelog =
+      "https://github.com/PyCQA/flake8-docstrings/blob/${version}/HISTORY.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ smaret ];
   };

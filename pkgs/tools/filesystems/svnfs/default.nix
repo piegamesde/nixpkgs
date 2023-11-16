@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoreconfHook,
-  subversion,
-  fuse,
-  apr,
-  perl,
-}:
+{ lib, stdenv, fetchurl, autoreconfHook, subversion, fuse, apr, perl }:
 
 stdenv.mkDerivation rec {
   pname = "svnfs";
@@ -19,12 +10,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [
-    subversion
-    fuse
-    apr
-    perl
-  ];
+  buildInputs = [ subversion fuse apr perl ];
 
   # autoconf's AC_CHECK_HEADERS and AC_CHECK_LIBS fail to detect libfuse on
   # Darwin if FUSE_USE_VERSION isn't set at configure time.
@@ -34,7 +20,8 @@ stdenv.mkDerivation rec {
   #
   #     $ tar xf "$(nix-build -A svnfs.src)"
   #     $ grep -R FUSE_USE_VERSION
-  configureFlags = lib.optionals stdenv.isDarwin [ "CFLAGS=-DFUSE_USE_VERSION=25" ];
+  configureFlags =
+    lib.optionals stdenv.isDarwin [ "CFLAGS=-DFUSE_USE_VERSION=25" ];
 
   # why is this required?
   preConfigure = ''

@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "git-chglog";
@@ -17,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-skhEHpSnxOTZrL8XLlQZL3s224mg8XRINKJnatYCQko=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.Version=v${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.Version=v${version}" ];
 
   subPackages = [ "cmd/git-chglog" ];
 

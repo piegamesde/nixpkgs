@@ -1,32 +1,7 @@
-{
-  lib,
-  stdenv,
-  autoPatchelfHook,
-  requireFile,
-  callPackage,
-  makeWrapper,
-  alsa-lib,
-  dbus,
-  fontconfig,
-  freetype,
-  gcc,
-  glib,
-  installShellFiles,
-  libssh2,
-  ncurses,
-  opencv4,
-  openssl,
-  unixODBC,
-  xkeyboard_config,
-  xorg,
-  zlib,
-  libxml2,
-  libuuid,
-  lang ? "en",
-  libGL,
-  libGLU,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, autoPatchelfHook, requireFile, callPackage, makeWrapper, alsa-lib
+, dbus, fontconfig, freetype, gcc, glib, installShellFiles, libssh2, ncurses
+, opencv4, openssl, unixODBC, xkeyboard_config, xorg, zlib, libxml2, libuuid
+, lang ? "en", libGL, libGLU, wrapQtAppsHook }:
 
 let
   l10n = import ./l10ns.nix {
@@ -34,64 +9,53 @@ let
     inherit requireFile lang;
   };
   dirName = "WolframEngine";
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   inherit (l10n) version name src;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    installShellFiles
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook installShellFiles wrapQtAppsHook ];
   dontWrapQtApps = true;
 
-  buildInputs =
-    [
-      alsa-lib
-      dbus
-      fontconfig
-      freetype
-      gcc.cc
-      gcc.libc
-      glib
-      libssh2
-      ncurses
-      opencv4
-      openssl
-      stdenv.cc.cc.lib
-      unixODBC
-      xkeyboard_config
-      libxml2
-      libuuid
-      zlib
-      libGL
-      libGLU
-    ]
-    ++ (
-      with xorg; [
-        libX11
-        libXext
-        libXtst
-        libXi
-        libXmu
-        libXrender
-        libxcb
-        libXcursor
-        libXfixes
-        libXrandr
-        libICE
-        libSM
-      ]
-    );
+  buildInputs = [
+    alsa-lib
+    dbus
+    fontconfig
+    freetype
+    gcc.cc
+    gcc.libc
+    glib
+    libssh2
+    ncurses
+    opencv4
+    openssl
+    stdenv.cc.cc.lib
+    unixODBC
+    xkeyboard_config
+    libxml2
+    libuuid
+    zlib
+    libGL
+    libGLU
+  ] ++ (with xorg; [
+    libX11
+    libXext
+    libXtst
+    libXi
+    libXmu
+    libXrender
+    libxcb
+    libXcursor
+    libXfixes
+    libXrandr
+    libICE
+    libSM
+  ]);
 
   # some bundled libs are found through LD_LIBRARY_PATH
   autoPatchelfIgnoreMissingDeps = true;
 
-  ldpath =
-    lib.makeLibraryPath buildInputs
-    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") (
-      ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
-    );
+  ldpath = lib.makeLibraryPath buildInputs
+    + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
+    (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs);
 
   unpackPhase = ''
     # find offset from file

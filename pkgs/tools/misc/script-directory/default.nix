@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  installShellFiles,
-  patsh,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, installShellFiles, patsh }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "script-directory";
@@ -17,10 +11,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-X5RWCJQUqDnG2umcCk5KS6HQinTJVapBHp6szEmbc4U=";
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    patsh
-  ];
+  nativeBuildInputs = [ installShellFiles patsh ];
 
   installPhase = ''
     runHook preInstall

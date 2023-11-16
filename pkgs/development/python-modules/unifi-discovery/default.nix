@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pyroute2,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aioresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pyroute2, pytest-asyncio, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "unifi-discovery";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pyroute2
-  ];
+  propagatedBuildInputs = [ aiohttp pyroute2 ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses pytest-asyncio pytestCheckHook ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

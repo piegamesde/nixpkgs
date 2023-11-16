@@ -4,13 +4,8 @@
 
    TODO: Test federation.
 */
-import ./make-test-python.nix (
-  {
-    pkgs,
-    package ? pkgs.akkoma,
-    confined ? false,
-    ...
-  }:
+import ./make-test-python.nix
+({ pkgs, package ? pkgs.akkoma, confined ? false, ... }:
   let
     userPassword = "4LKOrGo8SgbPm1a6NclVU5Wb";
 
@@ -20,7 +15,9 @@ import ./make-test-python.nix (
       pleroma_ctl user new jamy jamy@nixos.test --password '${userPassword}' --moderator --admin -y
     '';
 
-    tlsCert = pkgs.runCommand "selfSignedCerts" { nativeBuildInputs = with pkgs; [ openssl ]; } ''
+    tlsCert = pkgs.runCommand "selfSignedCerts" {
+      nativeBuildInputs = with pkgs; [ openssl ];
+    } ''
       mkdir -p $out
       openssl req -x509 \
         -subj '/CN=akkoma.nixos.test/' -days 49710 \
@@ -59,82 +56,61 @@ import ./make-test-python.nix (
       ${nodes.akkoma.networking.primaryIPAddress} akkoma.nixos.test
       ${nodes.client.networking.primaryIPAddress} client.nixos.test
     '';
-  in
-  {
+  in {
     name = "akkoma";
     nodes = {
-      client =
-        {
-          nodes,
-          pkgs,
-          config,
-          ...
-        }:
-        {
-          security.pki.certificateFiles = [ "${tlsCert}/cert.pem" ];
-          networking.extraHosts = hosts nodes;
-        };
+      client = { nodes, pkgs, config, ... }: {
+        security.pki.certificateFiles = [ "${tlsCert}/cert.pem" ];
+        networking.extraHosts = hosts nodes;
+      };
 
-      akkoma =
-        {
-          nodes,
-          pkgs,
-          config,
-          ...
-        }:
-        {
-          networking.extraHosts = hosts nodes;
-          networking.firewall.allowedTCPPorts = [ 443 ];
-          environment.systemPackages = with pkgs; [ provisionUser ];
-          systemd.services.akkoma.confinement.enable = confined;
+      akkoma = { nodes, pkgs, config, ... }: {
+        networking.extraHosts = hosts nodes;
+        networking.firewall.allowedTCPPorts = [ 443 ];
+        environment.systemPackages = with pkgs; [ provisionUser ];
+        systemd.services.akkoma.confinement.enable = confined;
 
-          services.akkoma = {
-            enable = true;
-            package = package;
-            config = {
-              ":pleroma" = {
-                ":instance" = {
-                  name = "NixOS test Akkoma server";
-                  description = "NixOS test Akkoma server";
-                  email = "akkoma@nixos.test";
-                  notify_email = "akkoma@nixos.test";
-                  registration_open = true;
-                };
-
-                ":media_proxy" = {
-                  enabled = false;
-                };
-
-                "Pleroma.Web.Endpoint" = {
-                  url.host = "akkoma.nixos.test";
-                };
+        services.akkoma = {
+          enable = true;
+          package = package;
+          config = {
+            ":pleroma" = {
+              ":instance" = {
+                name = "NixOS test Akkoma server";
+                description = "NixOS test Akkoma server";
+                email = "akkoma@nixos.test";
+                notify_email = "akkoma@nixos.test";
+                registration_open = true;
               };
-            };
 
-            nginx = {
-              addSSL = true;
-              sslCertificate = "${tlsCert}/cert.pem";
-              sslCertificateKey = "${tlsCert}/key.pem";
+              ":media_proxy" = { enabled = false; };
+
+              "Pleroma.Web.Endpoint" = { url.host = "akkoma.nixos.test"; };
             };
           };
 
-          services.nginx.enable = true;
-          services.postgresql.enable = true;
+          nginx = {
+            addSSL = true;
+            sslCertificate = "${tlsCert}/cert.pem";
+            sslCertificateKey = "${tlsCert}/key.pem";
+          };
         };
+
+        services.nginx.enable = true;
+        services.postgresql.enable = true;
+      };
     };
 
-    testScript =
-      { nodes, ... }:
-      ''
-        start_all()
-        akkoma.wait_for_unit('akkoma-initdb.service')
-        akkoma.systemctl('restart akkoma-initdb.service')  # test repeated initialisation
-        akkoma.wait_for_unit('akkoma.service')
-        akkoma.wait_for_file('/run/akkoma/socket');
-        akkoma.succeed('${provisionUser}/bin/provisionUser')
-        akkoma.wait_for_unit('nginx.service')
-        client.succeed('${sendToot}/bin/sendToot')
-        client.succeed('${checkFe}/bin/checkFe')
-      '';
-  }
-)
+    testScript = { nodes, ... }: ''
+      start_all()
+      akkoma.wait_for_unit('akkoma-initdb.service')
+      akkoma.systemctl('restart akkoma-initdb.service')  # test repeated initialisation
+      akkoma.wait_for_unit('akkoma.service')
+      akkoma.wait_for_file('/run/akkoma/socket');
+      akkoma.succeed('${provisionUser}/bin/provisionUser')
+      akkoma.wait_for_unit('nginx.service')
+      client.succeed('${sendToot}/bin/sendToot')
+      client.succeed('${checkFe}/bin/checkFe')
+    '';
+  })
+

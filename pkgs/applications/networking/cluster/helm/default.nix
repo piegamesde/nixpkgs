@@ -1,11 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-  testers,
-  kubernetes-helm,
-}:
+{ lib, buildGoModule, fetchFromGitHub, installShellFiles, testers
+, kubernetes-helm }:
 
 buildGoModule rec {
   pname = "kubernetes-helm";

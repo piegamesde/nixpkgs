@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python-dateutil,
-  pythonOlder,
-  requests,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python-dateutil, pythonOlder
+, requests }:
 
 buildPythonPackage rec {
   pname = "kiwiki-client";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-CIBed8HzbUqUIzNy1lHxIgjneA6R8uKtmd43LU92M0Q=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    requests
-  ];
+  propagatedBuildInputs = [ python-dateutil requests ];
 
   # Module has no tests
   doCheck = false;

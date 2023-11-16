@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pycryptodome,
-  pygithub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, pycryptodome, pygithub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "brelpy";

@@ -1,17 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  bash,
-  coreutils,
-  dtc,
-  file,
-  gawk,
-  gnugrep,
-  gnused,
-  pandoc,
-  which,
-}:
+{ stdenv, lib, fetchFromGitHub, bash, coreutils, dtc, file, gawk, gnugrep
+, gnused, pandoc, which }:
 
 stdenv.mkDerivation rec {
   pname = "restool";
@@ -24,19 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ryTDyqSy39e8Omf7l8lK4mLWr8jccDhMVPldkVGSQVo=";
   };
 
-  nativeBuildInputs = [
-    file
-    pandoc
-  ];
-  buildInputs = [
-    bash
-    coreutils
-    dtc
-    gawk
-    gnugrep
-    gnused
-    which
-  ];
+  nativeBuildInputs = [ file pandoc ];
+  buildInputs = [ bash coreutils dtc gawk gnugrep gnused which ];
 
   enableParallelBuilding = true;
   makeFlags = [
@@ -58,7 +35,9 @@ stdenv.mkDerivation rec {
     # symlinks). Instead, inject the environment directly into the shell
     # scripts we need to wrap.
     for tool in ls-append-dpl ls-debug ls-main; do
-      sed -i "1 a export PATH=\"$out/bin:${lib.makeBinPath buildInputs}:\$PATH\"" $out/bin/$tool
+      sed -i "1 a export PATH=\"$out/bin:${
+        lib.makeBinPath buildInputs
+      }:\$PATH\"" $out/bin/$tool
     done
   '';
 

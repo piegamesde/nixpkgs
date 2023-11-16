@@ -1,14 +1,5 @@
-{
-  lib,
-  beautifulsoup4,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  rapidfuzz,
-  requests,
-}:
+{ lib, beautifulsoup4, buildPythonPackage, fetchFromGitHub, poetry-core
+, pythonOlder, pythonRelaxDepsHook, rapidfuzz, requests }:
 
 buildPythonPackage rec {
   pname = "syncedlyrics";
@@ -24,18 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-79dy1f5Pd/JGIpH/71E6IBg+AtR4zgHL4b/GRH1AFp0=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   pythonRelaxDeps = [ "rapidfuzz" ];
 
-  propagatedBuildInputs = [
-    requests
-    rapidfuzz
-    beautifulsoup4
-  ];
+  propagatedBuildInputs = [ requests rapidfuzz beautifulsoup4 ];
 
   # Tests require network access
   doCheck = false;

@@ -1,22 +1,10 @@
-{
-  lib,
-  buildFHSEnv,
-  lutris-unwrapped,
-  extraPkgs ? pkgs: [ ],
-  extraLibraries ? pkgs: [ ],
-  steamSupport ? true,
-}:
+{ lib, buildFHSEnv, lutris-unwrapped, extraPkgs ? pkgs: [ ]
+, extraLibraries ? pkgs: [ ], steamSupport ? true }:
 
 let
 
-  qt5Deps =
-    pkgs:
-    with pkgs.qt5; [
-      qtbase
-      qtmultimedia
-    ];
-  gnomeDeps =
-    pkgs:
+  qt5Deps = pkgs: with pkgs.qt5; [ qtbase qtmultimedia ];
+  gnomeDeps = pkgs:
     with pkgs; [
       gnome.zenity
       gtksourceview
@@ -24,8 +12,7 @@ let
       gnome.libgnome-keyring
       webkitgtk
     ];
-  xorgDeps =
-    pkgs:
+  xorgDeps = pkgs:
     with pkgs.xorg; [
       libX11
       libXrender
@@ -44,14 +31,13 @@ let
       libXcursor
       libXcomposite
     ];
-in
-buildFHSEnv {
+
+in buildFHSEnv {
   name = "lutris";
 
   runScript = "lutris";
 
-  targetPkgs =
-    pkgs:
+  targetPkgs = pkgs:
     with pkgs;
     [
       lutris-unwrapped
@@ -168,14 +154,10 @@ buildFHSEnv {
       soundfont-fluid
       bzip2
       game-music-emu
-    ]
-    ++ qt5Deps pkgs
-    ++ gnomeDeps pkgs
-    ++ lib.optional steamSupport pkgs.steam
+    ] ++ qt5Deps pkgs ++ gnomeDeps pkgs ++ lib.optional steamSupport pkgs.steam
     ++ extraPkgs pkgs;
 
-  multiPkgs =
-    pkgs:
+  multiPkgs = pkgs:
     with pkgs;
     [
       # Common
@@ -264,9 +246,7 @@ buildFHSEnv {
 
       # Winetricks
       fribidi
-    ]
-    ++ xorgDeps pkgs
-    ++ extraLibraries pkgs;
+    ] ++ xorgDeps pkgs ++ extraLibraries pkgs;
 
   extraInstallCommands = ''
     mkdir -p $out/share
@@ -285,13 +265,7 @@ buildFHSEnv {
 
   meta = {
     inherit (lutris-unwrapped.meta)
-      homepage
-      description
-      platforms
-      license
-      maintainers
-      broken
-    ;
+      homepage description platforms license maintainers broken;
 
     mainProgram = "lutris";
   };

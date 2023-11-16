@@ -1,21 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   cfg = config.services.nomad;
   format = pkgs.formats.json { };
-in
-{
+in {
   ##### interface
   options = {
     services.nomad = {
-      enable = mkEnableOption (
-        lib.mdDoc "Nomad, a distributed, highly available, datacenter-aware scheduler"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "Nomad, a distributed, highly available, datacenter-aware scheduler");
 
       package = mkOption {
         type = types.package;
@@ -146,33 +139,26 @@ in
       after = [ "network-online.target" ];
       restartTriggers = [ config.environment.etc."nomad.json".source ];
 
-      path =
-        cfg.extraPackages
-        ++ (
-          with pkgs; [
-            # Client mode requires at least the following:
-            coreutils
-            iproute2
-            iptables
-          ]
-        );
+      path = cfg.extraPackages ++ (with pkgs; [
+        # Client mode requires at least the following:
+        coreutils
+        iproute2
+        iptables
+      ]);
 
       serviceConfig = mkMerge [
         {
           DynamicUser = cfg.dropPrivileges;
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          ExecStart =
-            let
-              pluginsDir = pkgs.symlinkJoin {
-                name = "nomad-plugins";
-                paths = cfg.extraSettingsPlugins;
-              };
-            in
-            "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
-            + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
-            + concatMapStrings (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}") (
-              lib.attrNames cfg.credentials
-            );
+          ExecStart = let
+            pluginsDir = pkgs.symlinkJoin {
+              name = "nomad-plugins";
+              paths = cfg.extraSettingsPlugins;
+            };
+          in "${cfg.package}/bin/nomad agent -config=/etc/nomad.json -plugin-dir=${pluginsDir}/bin"
+          + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
+          + concatMapStrings (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}")
+          (lib.attrNames cfg.credentials);
           KillMode = "process";
           KillSignal = "SIGINT";
           LimitNOFILE = 65536;
@@ -181,12 +167,15 @@ in
           Restart = "on-failure";
           RestartSec = 2;
           TasksMax = "infinity";
-          LoadCredential = lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
+          LoadCredential =
+            lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
         }
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string
         })
-        (mkIf (cfg.settings.data_dir == "/var/lib/nomad") { StateDirectory = "nomad"; })
+        (mkIf (cfg.settings.data_dir == "/var/lib/nomad") {
+          StateDirectory = "nomad";
+        })
       ];
 
       unitConfig = {
@@ -195,12 +184,12 @@ in
       };
     };
 
-    assertions = [
-      {
-        assertion = cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
-        message = ''settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
-      }
-    ];
+    assertions = [{
+      assertion = cfg.dropPrivileges -> cfg.settings.data_dir
+        == "/var/lib/nomad";
+      message = ''
+        settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
+    }];
 
     # Docker support requires the Docker daemon to be running.
     virtualisation.docker.enable = mkIf cfg.enableDocker true;

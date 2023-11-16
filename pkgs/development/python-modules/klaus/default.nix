@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  isPy3k,
-  flask,
-  pygments,
-  dulwich,
-  httpauth,
-  humanize,
-  pytest,
-  requests,
-  python-ctags3,
-  mock,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, isPy3k, flask, pygments, dulwich
+, httpauth, humanize, pytest, requests, python-ctags3, mock }:
 
 buildPythonPackage rec {
   pname = "klaus";
@@ -30,19 +17,10 @@ buildPythonPackage rec {
       --replace "mkdir -p \$builddir" "mkdir -p \$builddir && pwd"
   '';
 
-  propagatedBuildInputs = [
-    flask
-    pygments
-    dulwich
-    httpauth
-    humanize
-  ];
+  propagatedBuildInputs = [ flask pygments dulwich httpauth humanize ];
 
-  nativeCheckInputs = [
-    pytest
-    requests
-    python-ctags3
-  ] ++ lib.optional (!isPy3k) mock;
+  nativeCheckInputs = [ pytest requests python-ctags3 ]
+    ++ lib.optional (!isPy3k) mock;
 
   checkPhase = ''
     ./runtests.sh

@@ -22,12 +22,11 @@ let
 
   bordeaux-threads = import ./bordeaux-threads.nix;
 
-  sbclPackages = {
-    inherit bordeaux-threads;
-  };
+  sbclPackages = { inherit bordeaux-threads; };
 
-  sbclWithPackages = pkgs.lispPackages_new.lispWithPackagesInternal sbclPackages;
+  sbclWithPackages =
+    pkgs.lispPackages_new.lispWithPackagesInternal sbclPackages;
 
   sbcl-bt = sbclWithPackages (p: [ p.bordeaux-threads ]);
-in
-sbcl-bt
+
+in sbcl-bt

@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  nix-update-script,
-  nixosTests,
-  php,
-}:
+{ lib, stdenvNoCC, fetchFromGitHub, nix-update-script, nixosTests, php }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "cloudlog";
@@ -29,14 +22,13 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    tests = {
-      inherit (nixosTests) cloudlog;
-    };
+    tests = { inherit (nixosTests) cloudlog; };
     updateScript = nix-update-script { };
   };
 
   meta = with lib; {
-    description = "Web based amateur radio logging application built using PHP & MySQL";
+    description =
+      "Web based amateur radio logging application built using PHP & MySQL";
     license = licenses.mit;
     homepage = "https://www.magicbug.co.uk/cloudlog";
     platforms = php.meta.platforms;

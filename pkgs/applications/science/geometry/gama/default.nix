@@ -1,13 +1,4 @@
-{
-  stdenv,
-  fetchurl,
-  lib,
-  expat,
-  octave,
-  libxml2,
-  texinfo,
-  zip,
-}:
+{ stdenv, fetchurl, lib, expat, octave, libxml2, texinfo, zip }:
 stdenv.mkDerivation rec {
   pname = "gama";
   version = "2.24";
@@ -19,15 +10,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ expat ];
 
-  nativeBuildInputs = [
-    texinfo
-    zip
-  ];
+  nativeBuildInputs = [ texinfo zip ];
 
-  nativeCheckInputs = [
-    octave
-    libxml2
-  ];
+  nativeCheckInputs = [ octave libxml2 ];
   doCheck = true;
 
   meta = with lib; {

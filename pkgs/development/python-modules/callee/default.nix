@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "callee";
@@ -21,11 +16,10 @@ buildPythonPackage rec {
 
   doCheck = false; # missing dependency
 
-  nativeCheckInputs =
-    [
-      # taipan missing, unmaintained, not python3.10 compatible
-      pytestCheckHook
-    ];
+  nativeCheckInputs = [
+    # taipan missing, unmaintained, not python3.10 compatible
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "Argument matchers for unittest.mock";

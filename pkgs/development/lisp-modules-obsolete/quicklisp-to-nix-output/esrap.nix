@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "esrap";
   version = "20211020-git";
 
@@ -8,14 +7,12 @@ rec {
 
   description = "A Packrat / Parsing Grammar / TDPL parser for Common Lisp.";
 
-  deps = [
-    args."alexandria"
-    args."fiveam"
-    args."trivial-with-current-source-form"
-  ];
+  deps =
+    [ args."alexandria" args."fiveam" args."trivial-with-current-source-form" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/esrap/2021-10-20/esrap-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/esrap/2021-10-20/esrap-20211020-git.tgz";
     sha256 = "06cqvalqsid82an8c4acbf13y65gw8nb4pckm8gv8fknvh4k1x7h";
   };
 

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  humanfriendly,
-  verboselogs,
-  coloredlogs,
-  pytest,
-  pytest-cov,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, humanfriendly, verboselogs
+, coloredlogs, pytest, pytest-cov }:
 
 buildPythonPackage rec {
   pname = "property-manager";
@@ -20,15 +12,8 @@ buildPythonPackage rec {
     sha256 = "1v7hjm7qxpgk92i477fjhpcnjgp072xgr8jrgmbrxfbsv4cvl486";
   };
 
-  propagatedBuildInputs = [
-    coloredlogs
-    humanfriendly
-    verboselogs
-  ];
-  nativeCheckInputs = [
-    pytest
-    pytest-cov
-  ];
+  propagatedBuildInputs = [ coloredlogs humanfriendly verboselogs ];
+  nativeCheckInputs = [ pytest pytest-cov ];
 
   meta = with lib; {
     description = "Useful property variants for Python programming";

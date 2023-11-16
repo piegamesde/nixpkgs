@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest,
-  which,
-  lrzsz,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest, which, lrzsz }:
 
 buildPythonPackage rec {
   pname = "xmodem";
@@ -18,11 +11,7 @@ buildPythonPackage rec {
     sha256 = "1xx7wd8bnswxa1fv3bfim2gcamii79k7qmwg7dbxbjvrhbcjjc0l";
   };
 
-  nativeCheckInputs = [
-    pytest
-    which
-    lrzsz
-  ];
+  nativeCheckInputs = [ pytest which lrzsz ];
 
   checkPhase = ''
     pytest

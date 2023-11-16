@@ -1,27 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeDesktopItem,
-  ant,
-  jdk8,
-  copyDesktopItems,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, makeDesktopItem, ant, jdk8, copyDesktopItems
+, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "jxplorer";
   version = "3.3.1.2";
 
   src = fetchurl {
-    url = "https://github.com/pegacat/jxplorer/releases/download/v${version}/jxplorer-${version}-project.tar.bz2";
+    url =
+      "https://github.com/pegacat/jxplorer/releases/download/v${version}/jxplorer-${version}-project.tar.bz2";
     hash = "sha256-/lWkavH51OqNFSLpgT+4WcQcfW3WvnnOkB03jB7bE/s=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+  nativeBuildInputs = [ copyDesktopItems makeWrapper ];
 
   desktopItems = [
     (makeDesktopItem {

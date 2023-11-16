@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  rustPlatform,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, rustPlatform, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "mqttui";
@@ -24,7 +18,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Terminal client for MQTT";
     homepage = "https://github.com/EdJoPaTo/mqttui";
-    changelog = "https://github.com/EdJoPaTo/mqttui/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/EdJoPaTo/mqttui/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ fab ];
   };

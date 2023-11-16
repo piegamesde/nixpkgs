@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  perl,
-  python3,
-  sqlite,
-}:
+{ lib, fetchFromGitHub, perl, python3, sqlite }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fabs";
@@ -28,10 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     sqlalchemy
   ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   preBuild = ''
     export PREFIX=$out
@@ -48,25 +39,17 @@ python3.pkgs.buildPythonApplication rec {
   # remove once sqlalchemy backend no longer uses deprecated methods
   SQLALCHEMY_SILENCE_UBER_WARNING = 1;
 
-  nativeCheckInputs = [
-    python3.pkgs.pytestCheckHook
-    sqlite
-  ];
+  nativeCheckInputs = [ python3.pkgs.pytestCheckHook sqlite ];
 
   meta = with lib; {
-    outputsToInstall = [
-      "out"
-      "man"
-    ];
+    outputsToInstall = [ "out" "man" ];
     mainProgram = "fabsys";
-    description = "Flexible AFS Backup System for the OpenAFS distributed file system";
+    description =
+      "Flexible AFS Backup System for the OpenAFS distributed file system";
     homepage = "https://github.com/openafs-contrib/fabs";
     license = with licenses; [ isc ];
     maintainers = with maintainers; [ spacefrogg ];
     broken = lib.versionAtLeast python3.pkgs.sqlalchemy.version "2.0";
-    badPlatforms = [
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
+    badPlatforms = [ "x86_64-darwin" "aarch64-darwin" ];
   };
 }

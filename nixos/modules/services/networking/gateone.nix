@@ -1,14 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib;
-let
-  cfg = config.services.gateone;
-in
-{
+let cfg = config.services.gateone;
+in {
   options = {
     services.gateone = {
       enable = mkEnableOption (lib.mdDoc "GateOne server");
@@ -42,13 +35,7 @@ in
 
     systemd.services.gateone = with pkgs; {
       description = "GateOne web-based terminal";
-      path = [
-        pythonPackages.gateone
-        nix
-        openssh
-        procps
-        coreutils
-      ];
+      path = [ pythonPackages.gateone nix openssh procps coreutils ];
       preStart = ''
         if [ ! -d ${cfg.settingsDir} ] ; then
           mkdir -m 0750 -p ${cfg.settingsDir}
@@ -61,7 +48,8 @@ in
       '';
       #unitConfig.RequiresMountsFor = "${cfg.settingsDir}";
       serviceConfig = {
-        ExecStart = "${pythonPackages.gateone}/bin/gateone --settings_dir=${cfg.settingsDir} --pid_file=${cfg.pidDir}/gateone.pid --gid=${
+        ExecStart =
+          "${pythonPackages.gateone}/bin/gateone --settings_dir=${cfg.settingsDir} --pid_file=${cfg.pidDir}/gateone.pid --gid=${
             toString config.ids.gids.gateone
           } --uid=${toString config.ids.uids.gateone}";
         User = "gateone";
@@ -74,3 +62,4 @@ in
     };
   };
 }
+

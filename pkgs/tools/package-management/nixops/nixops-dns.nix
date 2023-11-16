@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
   pname = "nixops-dns";
@@ -22,9 +18,6 @@ buildGoPackage rec {
     homepage = "https://github.com/kamilchm/nixops-dns/";
     description = "DNS server for resolving NixOps machines";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      kamilchm
-      sorki
-    ];
+    maintainers = with maintainers; [ kamilchm sorki ];
   };
 }

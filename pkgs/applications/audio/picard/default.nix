@@ -1,19 +1,13 @@
-{
-  lib,
-  python3Packages,
-  fetchFromGitHub,
-  gettext,
-  chromaprint,
-  qt5,
-  enablePlayback ? true,
-  gst_all_1,
-}:
+{ lib, python3Packages, fetchFromGitHub, gettext, chromaprint, qt5
+, enablePlayback ? true, gst_all_1 }:
 
 let
   pythonPackages = python3Packages;
-  pyqt5 = if enablePlayback then pythonPackages.pyqt5_with_qtmultimedia else pythonPackages.pyqt5;
-in
-pythonPackages.buildPythonApplication rec {
+  pyqt5 = if enablePlayback then
+    pythonPackages.pyqt5_with_qtmultimedia
+  else
+    pythonPackages.pyqt5;
+in pythonPackages.buildPythonApplication rec {
   pname = "picard";
   version = "2.8.5";
 
@@ -24,11 +18,7 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "sha256-ukqlAXGaqX89U77cM9Ux0RYquT31Ho8ri1Ue7S3+MwQ=";
   };
 
-  nativeBuildInputs =
-    [
-      gettext
-      qt5.wrapQtAppsHook
-    ]
+  nativeBuildInputs = [ gettext qt5.wrapQtAppsHook ]
     ++ lib.optionals (pyqt5.multimediaEnabled) [
       gst_all_1.gst-libav
       gst_all_1.gst-plugins-base
@@ -36,10 +26,8 @@ pythonPackages.buildPythonApplication rec {
       gst_all_1.gst-vaapi
       gst_all_1.gstreamer
     ];
-  buildInputs = [
-    qt5.qtbase
-    qt5.qtwayland
-  ] ++ lib.optionals (pyqt5.multimediaEnabled) [ qt5.qtmultimedia.bin ];
+  buildInputs = [ qt5.qtbase qt5.qtwayland ]
+    ++ lib.optionals (pyqt5.multimediaEnabled) [ qt5.qtmultimedia.bin ];
 
   propagatedBuildInputs = with pythonPackages; [
     chromaprint
@@ -54,13 +42,11 @@ pythonPackages.buildPythonApplication rec {
   ];
 
   # In order to spare double wrapping, we use:
-  preFixup =
-    ''
-      makeWrapperArgs+=("''${qtWrapperArgs[@]}")
-    ''
-    + lib.optionalString (pyqt5.multimediaEnabled) ''
-      makeWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
-    '';
+  preFixup = ''
+    makeWrapperArgs+=("''${qtWrapperArgs[@]}")
+  '' + lib.optionalString (pyqt5.multimediaEnabled) ''
+    makeWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
+  '';
 
   meta = with lib; {
     homepage = "https://picard.musicbrainz.org/";

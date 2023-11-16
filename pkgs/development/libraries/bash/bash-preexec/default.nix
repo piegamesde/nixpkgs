@@ -1,14 +1,7 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-  bats,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub, bats }:
 
-let
-  version = "0.5.0";
-in
-stdenvNoCC.mkDerivation {
+let version = "0.5.0";
+in stdenvNoCC.mkDerivation {
   pname = "bash-preexec";
   inherit version;
 
@@ -46,10 +39,7 @@ stdenvNoCC.mkDerivation {
     description = "preexec and precmd functions for Bash just like Zsh";
     license = licenses.mit;
     homepage = "https://github.com/rcaloras/bash-preexec";
-    maintainers = [
-      maintainers.hawkw
-      maintainers.rycee
-    ];
+    maintainers = [ maintainers.hawkw maintainers.rycee ];
     platforms = platforms.unix;
   };
 }

@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  miniaudio,
-  cffi,
-  pytestCheckHook,
-  AudioToolbox,
-  CoreAudio,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, fetchFromGitHub, miniaudio, cffi
+, pytestCheckHook, AudioToolbox, CoreAudio }:
 
 buildPythonPackage rec {
   pname = "miniaudio";
@@ -35,10 +25,7 @@ buildPythonPackage rec {
       --replace "miniaudio/stb_vorbis.c" "miniaudio/extras/stb_vorbis.c";
   '';
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    AudioToolbox
-    CoreAudio
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ AudioToolbox CoreAudio ];
 
   propagatedNativeBuildInputs = [ cffi ];
   propagatedBuildInputs = [ cffi ];

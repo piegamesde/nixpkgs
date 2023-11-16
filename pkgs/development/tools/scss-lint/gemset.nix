@@ -42,10 +42,7 @@
     version = "3.7.2";
   };
   sass-listen = {
-    dependencies = [
-      "rb-fsevent"
-      "rb-inotify"
-    ];
+    dependencies = [ "rb-fsevent" "rb-inotify" ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0xw3q46cmahkgyldid5hwyiwacp590zj2vmswlll68ryvmvcp7df";
@@ -54,10 +51,7 @@
     version = "4.0.0";
   };
   scss_lint = {
-    dependencies = [
-      "rake"
-      "sass"
-    ];
+    dependencies = [ "rake" "sass" ];
     source = {
       remotes = [ "https://rubygems.org" ];
       sha256 = "0dv4ff1lqbgqdx99nwg059c983dhw67kvvjd21f6vf62cjx09lpn";

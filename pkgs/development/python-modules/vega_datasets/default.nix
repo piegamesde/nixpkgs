@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pandas,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchPypi, pandas, pytest }:
 
 buildPythonPackage rec {
   pname = "vega_datasets";

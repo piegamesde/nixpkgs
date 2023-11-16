@@ -1,21 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  elkhound,
-  ocaml-ng,
-  perl,
-  which,
-  gnumake42,
-}:
+{ stdenv, lib, fetchFromGitHub, elkhound, ocaml-ng, perl, which, gnumake42 }:
 
 let
   # 1. Needs ocaml >= 4.04 and <= 4.11 (patched against 4.14)
   # 2. ocaml 4.10 defaults to safe (immutable) strings so we need a version with
   #    that disabled as weidu is strongly dependent on mutable strings
   ocaml' = ocaml-ng.ocamlPackages_4_14_unsafe_string.ocaml;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "weidu";
   version = "249.00";
 
@@ -37,19 +28,9 @@ stdenv.mkDerivation rec {
     sed -i "20,21d;s/old_hash_param/hash_param/" hashtbl-4.03.0/myhashtbl.ml
   '';
 
-  nativeBuildInputs = [
-    elkhound
-    ocaml'
-    perl
-    which
-    gnumake42
-  ];
+  nativeBuildInputs = [ elkhound ocaml' perl which gnumake42 ];
 
-  buildFlags = [
-    "weidu"
-    "weinstall"
-    "tolower"
-  ];
+  buildFlags = [ "weidu" "weinstall" "tolower" ];
 
   installPhase = ''
     runHook preInstall

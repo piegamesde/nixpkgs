@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "argagg";
@@ -16,11 +11,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-MCtlAPfwdJpgfS8IH+zlcgaaxZ5AsP4hJvbZAFtOa4o=";
   };
 
-  patches =
-    [
-      # Fix compilation of macro catch statement
-      ./0001-catch.diff
-    ];
+  patches = [
+    # Fix compilation of macro catch statement
+    ./0001-catch.diff
+  ];
 
   nativeBuildInputs = [ cmake ];
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "disk-filltest";
@@ -25,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Simple program to detect bad disks by filling them with random data";
+    description =
+      "Simple program to detect bad disks by filling them with random data";
     longDescription = ''
       disk-filltest is a tool to check storage disks for coming
       failures by write files with pseudo-random data to the current
@@ -38,4 +35,5 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [ caadar ];
     platforms = platforms.all;
   };
+
 }

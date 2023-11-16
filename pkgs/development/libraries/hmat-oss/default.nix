@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  blas,
-  lapack,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, blas, lapack }:
 
 stdenv.mkDerivation rec {
   pname = "hmat-oss";
@@ -21,10 +14,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DHMAT_GIT_VERSION=OFF" ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    blas
-    lapack
-  ];
+  buildInputs = [ blas lapack ];
 
   enableParallelBuilding = true;
 

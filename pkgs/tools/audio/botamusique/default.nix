@@ -1,24 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  python3Packages,
-  ffmpeg,
-  makeWrapper,
-  nixosTests,
-  nodejs,
-  npmHooks,
-  fetchNpmDeps,
+{ lib, stdenv, fetchFromGitHub, fetchpatch, python3Packages, ffmpeg, makeWrapper
+, nixosTests, nodejs, npmHooks, fetchNpmDeps
 
-  # For the update script
-  coreutils,
-  curl,
-  nix-prefetch-git,
-  prefetch-npm-deps,
-  jq,
-  writeShellScript,
-}:
+# For the update script
+, coreutils, curl, nix-prefetch-git, prefetch-npm-deps, jq, writeShellScript }:
 let
   srcJson = lib.importJSON ./src.json;
   src = fetchFromGitHub {
@@ -29,9 +13,8 @@ let
 
   # Python needed to instantiate the html templates
   buildPython = python3Packages.python.withPackages (ps: [ ps.jinja2 ]);
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "botamusique";
   version = srcJson.version;
 
@@ -73,12 +56,8 @@ stdenv.mkDerivation rec {
 
   NODE_OPTIONS = "--openssl-legacy-provider";
 
-  nativeBuildInputs = [
-    makeWrapper
-    nodejs
-    npmHooks.npmConfigHook
-    python3Packages.wrapPython
-  ];
+  nativeBuildInputs =
+    [ makeWrapper nodejs npmHooks.npmConfigHook python3Packages.wrapPython ];
 
   pythonPath = with python3Packages; [
     flask
@@ -124,13 +103,7 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = writeShellScript "botamusique-updater" ''
     export PATH=${
-      lib.makeBinPath [
-        coreutils
-        curl
-        nix-prefetch-git
-        jq
-        prefetch-npm-deps
-      ]
+      lib.makeBinPath [ coreutils curl nix-prefetch-git jq prefetch-npm-deps ]
     }
     set -ex
 
@@ -148,16 +121,17 @@ stdenv.mkDerivation rec {
     trap 'rm -rf "$tmp"' exit
 
     npmHash="$(prefetch-npm-deps $path/web/package-lock.json)"
-    jq '. + { npmDepsHash: "'"$npmHash"'" }' < "${toString ./src.json}" > "$tmp/src.json"
+    jq '. + { npmDepsHash: "'"$npmHash"'" }' < "${
+      toString ./src.json
+    }" > "$tmp/src.json"
     mv "$tmp/src.json" "${toString ./src.json}"
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) botamusique;
-  };
+  passthru.tests = { inherit (nixosTests) botamusique; };
 
   meta = with lib; {
-    description = "Bot to play youtube / soundcloud / radio / local music on Mumble";
+    description =
+      "Bot to play youtube / soundcloud / radio / local music on Mumble";
     homepage = "https://github.com/azlux/botamusique";
     license = licenses.mit;
     platforms = platforms.all;

@@ -2,21 +2,15 @@
 # XXX: todo: support multiple upstream links
 # see http://yesican.chsoft.biz/lartc/MultihomedLinuxNetworking.html
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.networking.nat;
-in
 
-{
+in {
 
   options = {
 
@@ -103,46 +97,40 @@ in
     };
 
     networking.nat.forwardPorts = mkOption {
-      type =
-        with types;
-        listOf (
-          submodule {
-            options = {
-              sourcePort = mkOption {
-                type = types.either types.int (types.strMatching "[[:digit:]]+:[[:digit:]]+");
-                example = 8080;
-                description =
-                  lib.mdDoc
-                    ''
-                      Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
-              };
-
-              destination = mkOption {
-                type = types.str;
-                example = "10.0.0.1:80";
-                description =
-                  lib.mdDoc
-                    "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
-              };
-
-              proto = mkOption {
-                type = types.str;
-                default = "tcp";
-                example = "udp";
-                description = lib.mdDoc "Protocol of forwarded connection";
-              };
-
-              loopbackIPs = mkOption {
-                type = types.listOf types.str;
-                default = [ ];
-                example = literalExpression ''[ "55.1.2.3" ]'';
-                description =
-                  lib.mdDoc
-                    "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
-              };
+      type = with types;
+        listOf (submodule {
+          options = {
+            sourcePort = mkOption {
+              type = types.either types.int
+                (types.strMatching "[[:digit:]]+:[[:digit:]]+");
+              example = 8080;
+              description = lib.mdDoc ''
+                Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
             };
-          }
-        );
+
+            destination = mkOption {
+              type = types.str;
+              example = "10.0.0.1:80";
+              description = lib.mdDoc
+                "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
+            };
+
+            proto = mkOption {
+              type = types.str;
+              default = "tcp";
+              example = "udp";
+              description = lib.mdDoc "Protocol of forwarded connection";
+            };
+
+            loopbackIPs = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = literalExpression ''[ "55.1.2.3" ]'';
+              description = lib.mdDoc
+                "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
+            };
+          };
+        });
       default = [ ];
       example = [
         {
@@ -172,6 +160,7 @@ in
         forwarding rule is forwarded.
       '';
     };
+
   };
 
   config = mkIf config.networking.nat.enable {
@@ -183,11 +172,14 @@ in
       }
       {
         assertion = (cfg.dmzHost != null) -> (cfg.externalInterface != null);
-        message = "networking.nat.dmzHost requires networking.nat.externalInterface";
+        message =
+          "networking.nat.dmzHost requires networking.nat.externalInterface";
       }
       {
-        assertion = (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
-        message = "networking.nat.forwardPorts requires networking.nat.externalInterface";
+        assertion = (cfg.forwardPorts != [ ])
+          -> (cfg.externalInterface != null);
+        message =
+          "networking.nat.forwardPorts requires networking.nat.externalInterface";
       }
     ];
 
@@ -198,21 +190,20 @@ in
 
     boot = {
       kernelModules = [ "nf_nat_ftp" ];
-      kernel.sysctl =
-        {
-          "net.ipv4.conf.all.forwarding" = mkOverride 99 true;
-          "net.ipv4.conf.default.forwarding" = mkOverride 99 true;
-        }
-        // optionalAttrs cfg.enableIPv6 {
-          # Do not prevent IPv6 autoconfiguration.
-          # See <http://strugglers.net/~andy/blog/2011/09/04/linux-ipv6-router-advertisements-and-forwarding/>.
-          "net.ipv6.conf.all.accept_ra" = mkOverride 99 2;
-          "net.ipv6.conf.default.accept_ra" = mkOverride 99 2;
+      kernel.sysctl = {
+        "net.ipv4.conf.all.forwarding" = mkOverride 99 true;
+        "net.ipv4.conf.default.forwarding" = mkOverride 99 true;
+      } // optionalAttrs cfg.enableIPv6 {
+        # Do not prevent IPv6 autoconfiguration.
+        # See <http://strugglers.net/~andy/blog/2011/09/04/linux-ipv6-router-advertisements-and-forwarding/>.
+        "net.ipv6.conf.all.accept_ra" = mkOverride 99 2;
+        "net.ipv6.conf.default.accept_ra" = mkOverride 99 2;
 
-          # Forward IPv6 packets.
-          "net.ipv6.conf.all.forwarding" = mkOverride 99 true;
-          "net.ipv6.conf.default.forwarding" = mkOverride 99 true;
-        };
+        # Forward IPv6 packets.
+        "net.ipv6.conf.all.forwarding" = mkOverride 99 true;
+        "net.ipv6.conf.default.forwarding" = mkOverride 99 true;
+      };
     };
+
   };
 }

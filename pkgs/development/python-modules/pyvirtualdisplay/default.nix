@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  easyprocess,
-}:
+{ lib, buildPythonPackage, fetchPypi, easyprocess }:
 
 buildPythonPackage rec {
   pname = "pyvirtualdisplay";

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flask,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flask, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "flask-paranoid";

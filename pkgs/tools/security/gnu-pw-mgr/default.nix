@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  gnulib,
-}:
+{ stdenv, lib, fetchurl, gnulib }:
 
 stdenv.mkDerivation rec {
   pname = "gnu-pw-mgr";
@@ -17,11 +12,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/gnu-pw-mgr/";
-    description = "A password manager designed to make it easy to reconstruct difficult passwords";
-    license = with licenses; [
-      gpl3Plus
-      lgpl3Plus
-    ];
+    description =
+      "A password manager designed to make it easy to reconstruct difficult passwords";
+    license = with licenses; [ gpl3Plus lgpl3Plus ];
     platforms = lib.platforms.linux;
     maintainers = with maintainers; [ qoelet ];
   };

@@ -1,8 +1,5 @@
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -14,13 +11,11 @@ with pkgs.lib;
 
     nodes.machine = { config, pkgs, ... }: { services.rshim.enable = true; };
 
-    testScript =
-      { nodes, ... }:
-      ''
-        machine.start()
-        machine.wait_for_unit("multi-user.target")
+    testScript = { nodes, ... }: ''
+      machine.start()
+      machine.wait_for_unit("multi-user.target")
 
-        print(machine.succeed("systemctl status rshim.service"))
-      '';
+      print(machine.succeed("systemctl status rshim.service"))
+    '';
   };
 }

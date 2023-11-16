@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  matplotlib,
-  numpy,
-  openpyxl,
-  pandas,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, matplotlib, numpy, openpyxl, pandas
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "niapy";
@@ -24,12 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-qstTxUo4jZ8YKbEjtDtSZUvR67VNkBQJdXeERJPOMDw=";
   };
 
-  propagatedBuildInputs = [
-    matplotlib
-    numpy
-    openpyxl
-    pandas
-  ];
+  propagatedBuildInputs = [ matplotlib numpy openpyxl pandas ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

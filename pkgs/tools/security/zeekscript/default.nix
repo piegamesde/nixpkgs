@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchPypi,
-}:
+{ lib, python3, fetchPypi }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "zeekscript";
@@ -25,9 +21,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/zeek/zeekscript";
     changelog = "https://github.com/zeek/zeekscript/blob/v${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      fab
-      tobim
-    ];
+    maintainers = with maintainers; [ fab tobim ];
   };
 }

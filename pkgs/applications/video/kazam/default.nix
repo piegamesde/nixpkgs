@@ -1,20 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  substituteAll,
-  python3Packages,
-  gst_all_1,
-  wrapGAppsHook,
-  gobject-introspection,
-  gtk3,
-  libwnck,
-  keybinder3,
-  intltool,
-  libcanberra-gtk3,
-  libappindicator-gtk3,
-  libpulseaudio,
-  libgudev,
-}:
+{ lib, fetchFromGitHub, substituteAll, python3Packages, gst_all_1, wrapGAppsHook
+, gobject-introspection, gtk3, libwnck, keybinder3, intltool, libcanberra-gtk3
+, libappindicator-gtk3, libpulseaudio, libgudev }:
 
 python3Packages.buildPythonApplication rec {
   pname = "kazam";
@@ -52,15 +38,14 @@ python3Packages.buildPythonApplication rec {
     xlib
   ];
 
-  patches =
-    [
-      # Fix paths
-      (substituteAll {
-        src = ./fix-paths.patch;
-        libcanberra = libcanberra-gtk3;
-        inherit libpulseaudio;
-      })
-    ];
+  patches = [
+    # Fix paths
+    (substituteAll {
+      src = ./fix-paths.patch;
+      libcanberra = libcanberra-gtk3;
+      inherit libpulseaudio;
+    })
+  ];
 
   # no tests
   doCheck = false;

@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cmake }:
 
 buildPythonPackage rec {
   pname = "tlsh";
@@ -31,4 +26,5 @@ buildPythonPackage rec {
     license = licenses.asl20;
     platforms = platforms.unix;
   };
+
 }

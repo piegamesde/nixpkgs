@@ -1,16 +1,5 @@
-{
-  lib,
-  fetchurl,
-  alsa-lib,
-  fluidsynth,
-  libjack2,
-  autoconf,
-  pkg-config,
-  mkDerivation,
-  qtbase,
-  qttools,
-  qtx11extras,
-}:
+{ lib, fetchurl, alsa-lib, fluidsynth, libjack2, autoconf, pkg-config
+, mkDerivation, qtbase, qttools, qtx11extras }:
 
 mkDerivation rec {
   pname = "qsynth";
@@ -21,19 +10,9 @@ mkDerivation rec {
     sha256 = "sha256-dlgIkMde7uv4UlMKEPhtZ7MfSTBc7RvHs+Q2yk+G/JM=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf pkg-config ];
 
-  buildInputs = [
-    alsa-lib
-    fluidsynth
-    libjack2
-    qtbase
-    qttools
-    qtx11extras
-  ];
+  buildInputs = [ alsa-lib fluidsynth libjack2 qtbase qttools qtx11extras ];
 
   enableParallelBuilding = true;
   # Missing install depends:

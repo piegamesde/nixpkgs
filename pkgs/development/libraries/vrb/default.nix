@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "vrb";
@@ -13,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "d579ed1998ef2d78e2ef8481a748d26e1fa12cdda806d2e31d8ec66ffb0e289f";
   };
 
-  patches = [
-    ./removed_options.patch
-    ./unused-but-set-variable.patch
-  ];
+  patches = [ ./removed_options.patch ./unused-but-set-variable.patch ];
 
   postPatch = ''
     patchShebangs configure
@@ -35,3 +28,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
+

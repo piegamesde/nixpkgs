@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  requests-oauthlib,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, requests-oauthlib }:
 
 buildPythonPackage rec {
   pname = "python-google-nest";
@@ -26,7 +20,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "nest" ];
 
   meta = with lib; {
-    description = "Python API and command line tool for talking to Nest thermostats";
+    description =
+      "Python API and command line tool for talking to Nest thermostats";
     homepage = "https://github.com/axlan/python-nest/";
     license = licenses.cc-by-nc-sa-30;
     maintainers = with maintainers; [ fab ];

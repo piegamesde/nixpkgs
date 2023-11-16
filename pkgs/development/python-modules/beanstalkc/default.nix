@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-}:
+{ lib, fetchFromGitHub, buildPythonPackage }:
 
 buildPythonPackage rec {
   pname = "beanstalkc";

@@ -1,24 +1,16 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  perl,
-  python3,
+{ lib, stdenv, fetchFromGitHub, perl, python3
 
-  # Enable BLAS interface with 64-bit integer width.
-  blas64 ? false,
+# Enable BLAS interface with 64-bit integer width.
+, blas64 ? false
 
   # Target architecture. x86_64 builds Intel and AMD kernels.
-  withArchitecture ? "x86_64",
+, withArchitecture ? "x86_64"
 
   # Enable OpenMP-based threading.
-  withOpenMP ? true,
-}:
+, withOpenMP ? true }:
 
-let
-  blasIntSize = if blas64 then "64" else "32";
-in
-stdenv.mkDerivation rec {
+let blasIntSize = if blas64 then "64" else "32";
+in stdenv.mkDerivation rec {
   pname = "blis";
   version = "0.9.0";
 
@@ -31,19 +23,15 @@ stdenv.mkDerivation rec {
 
   inherit blas64;
 
-  nativeBuildInputs = [
-    perl
-    python3
-  ];
+  nativeBuildInputs = [ perl python3 ];
 
   doCheck = true;
 
   enableParallelBuilding = true;
 
-  configureFlags = [
-    "--enable-cblas"
-    "--blas-int-size=${blasIntSize}"
-  ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ] ++ [ withArchitecture ];
+  configureFlags = [ "--enable-cblas" "--blas-int-size=${blasIntSize}" ]
+    ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ]
+    ++ [ withArchitecture ];
 
   postPatch = ''
     patchShebangs configure build/flatten-headers.py

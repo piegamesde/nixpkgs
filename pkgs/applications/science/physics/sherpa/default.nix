@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoconf,
-  gfortran,
-  hepmc2,
-  fastjet,
-  lhapdf,
-  rivet,
-  sqlite,
-}:
+{ lib, stdenv, fetchurl, autoconf, gfortran, hepmc2, fastjet, lhapdf, rivet
+, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "sherpa";
@@ -24,16 +14,9 @@ stdenv.mkDerivation rec {
     sed -ie '/sys\/sysctl.h/d' ATOOLS/Org/Run_Parameter.C
   '';
 
-  nativeBuildInputs = [
-    autoconf
-    gfortran
-  ];
+  nativeBuildInputs = [ autoconf gfortran ];
 
-  buildInputs = [
-    sqlite
-    lhapdf
-    rivet
-  ];
+  buildInputs = [ sqlite lhapdf rivet ];
 
   enableParallelBuilding = true;
 
@@ -47,7 +30,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = "Simulation of High-Energy Reactions of PArticles in lepton-lepton, lepton-photon, photon-photon, lepton-hadron and hadron-hadron collisions";
+    description =
+      "Simulation of High-Energy Reactions of PArticles in lepton-lepton, lepton-photon, photon-photon, lepton-hadron and hadron-hadron collisions";
     license = licenses.gpl2;
     homepage = "https://gitlab.com/sherpa-team/sherpa";
     platforms = platforms.unix;

@@ -1,25 +1,16 @@
-{
-  lib,
-  stdenv,
-  glibc,
-  buildPackages,
-}:
+{ lib, stdenv, glibc, buildPackages }:
 
 let
   # Sanitizers are not supported on Darwin.
   # Sanitizer headers aren't available in older libc++ stdenvs due to a bug
-  sanitizersWorking =
-    (stdenv.buildPlatform == stdenv.hostPlatform)
-    && !stdenv.isDarwin
-    && !stdenv.hostPlatform.isMusl
-    && (
-      (stdenv.cc.isClang && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0")
-      || (stdenv.cc.isGNU && stdenv.isLinux)
-    );
-  staticLibc = lib.optionalString (stdenv.hostPlatform.libc == "glibc") "-L ${glibc.static}/lib";
+  sanitizersWorking = (stdenv.buildPlatform == stdenv.hostPlatform)
+    && !stdenv.isDarwin && !stdenv.hostPlatform.isMusl && ((stdenv.cc.isClang
+      && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "5.0.0")
+      || (stdenv.cc.isGNU && stdenv.isLinux));
+  staticLibc = lib.optionalString (stdenv.hostPlatform.libc == "glibc")
+    "-L ${glibc.static}/lib";
   emulator = stdenv.hostPlatform.emulator buildPackages;
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "cc-wrapper-test";
 
   buildCommand = ''
@@ -39,7 +30,9 @@ stdenv.mkDerivation {
     ${lib.optionalString (stdenv.isDarwin && stdenv.cc.isClang) ''
       printf "checking whether compiler can build with CoreFoundation.framework... " >&2
       mkdir -p foo/lib
-      $CC -framework CoreFoundation -o core-foundation-check ${./core-foundation-main.c}
+      $CC -framework CoreFoundation -o core-foundation-check ${
+        ./core-foundation-main.c
+      }
       ${emulator} ./core-foundation-check
     ''}
 
@@ -48,16 +41,15 @@ stdenv.mkDerivation {
       printf "checking whether compiler builds valid static C binaries... " >&2
       $CC ${staticLibc} -static -o cc-static ${./cc-main.c}
       ${emulator} ./cc-static
-      ${lib.optionalString (stdenv.cc.isGNU && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0")
-        ''
+      ${lib.optionalString (stdenv.cc.isGNU
+        && lib.versionAtLeast (lib.getVersion stdenv.cc.name) "8.0.0") ''
           printf "checking whether compiler builds valid static pie C binaries... " >&2
           $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
           ${emulator} ./cc-static-pie
         ''}
     ''}
 
-    ${
-    # See: https://github.com/llvm/llvm-project/commit/ed1d07282cc9d8e4c25d585e03e5c8a1b6f63a74
+    ${ # See: https://github.com/llvm/llvm-project/commit/ed1d07282cc9d8e4c25d585e03e5c8a1b6f63a74
     # `gcc` does not support this so we gate the test on `clang`
     lib.optionalString stdenv.cc.isClang ''
       printf "checking whether cc-wrapper accepts -- followed by positional (file) args..." >&2
@@ -81,13 +73,18 @@ stdenv.mkDerivation {
     printf "checking whether compiler uses NIX_CFLAGS_COMPILE... " >&2
     mkdir -p foo/include
     cp ${./foo.c} foo/include/foo.h
-    NIX_CFLAGS_COMPILE="-Ifoo/include -DVALUE=42" $CC -o cflags-check ${./cflags-main.c}
+    NIX_CFLAGS_COMPILE="-Ifoo/include -DVALUE=42" $CC -o cflags-check ${
+      ./cflags-main.c
+    }
     ${emulator} ./cflags-check
 
     printf "checking whether compiler uses NIX_LDFLAGS... " >&2
     mkdir -p foo/lib
     $CC -shared \
-      ${lib.optionalString stdenv.isDarwin "-Wl,-install_name,@rpath/libfoo.dylib"} \
+      ${
+        lib.optionalString stdenv.isDarwin
+        "-Wl,-install_name,@rpath/libfoo.dylib"
+      } \
       -DVALUE=42 \
       -o foo/lib/libfoo${stdenv.hostPlatform.extensions.sharedLibrary} \
       ${./foo.c}
@@ -100,7 +97,9 @@ stdenv.mkDerivation {
     printf "Check whether -nostdinc and -nostdinc++ is handled correctly" >&2
     mkdir -p std-include
     cp ${./stdio.h} std-include/stdio.h
-    NIX_DEBUG=1 $CC -I std-include -nostdinc -o nostdinc-main ${./nostdinc-main.c}
+    NIX_DEBUG=1 $CC -I std-include -nostdinc -o nostdinc-main ${
+      ./nostdinc-main.c
+    }
     ${emulator} ./nostdinc-main
     $CXX -I std-include -nostdinc++ -o nostdinc-main++ ${./nostdinc-main.c}
     ${emulator} ./nostdinc-main++

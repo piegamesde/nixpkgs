@@ -1,18 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  makeWrapper,
-  pkg-config,
-  perl,
-  gawk,
-  gnutls,
-  libgcrypt,
-  openresolv,
-  vpnc-scripts,
-  opensslSupport ? false,
-  openssl, # Distributing this is a GPL violation.
+{ lib, stdenv, fetchFromGitHub, fetchpatch, makeWrapper, pkg-config, perl, gawk
+, gnutls, libgcrypt, openresolv, vpnc-scripts, opensslSupport ? false
+, openssl # Distributing this is a GPL violation.
 }:
 
 stdenv.mkDerivation {
@@ -27,11 +15,10 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional (!opensslSupport) pkg-config;
-  buildInputs = [
-    libgcrypt
-    perl
-  ] ++ (if opensslSupport then [ openssl ] else [ gnutls ]);
+  nativeBuildInputs = [ makeWrapper ]
+    ++ lib.optional (!opensslSupport) pkg-config;
+  buildInputs = [ libgcrypt perl ]
+    ++ (if opensslSupport then [ openssl ] else [ gnutls ]);
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -51,7 +38,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://davidepucci.it/doc/vpnc/";
-    description = "Virtual private network (VPN) client for Cisco's VPN concentrators";
+    description =
+      "Virtual private network (VPN) client for Cisco's VPN concentrators";
     license = if opensslSupport then licenses.unfree else licenses.gpl2Plus;
     platforms = platforms.linux;
   };

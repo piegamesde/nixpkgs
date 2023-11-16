@@ -1,28 +1,8 @@
-{
-  lib,
-  stdenv,
-  aiofiles,
-  beautifulsoup4,
-  buildPythonPackage,
-  doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
-  ,
-  fetchFromGitHub,
-  gunicorn,
-  httptools,
-  multidict,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pythonAtLeast,
-  sanic-routing,
-  sanic-testing,
-  setuptools,
-  ujson,
-  uvicorn,
-  uvloop,
-  websockets,
-  aioquic,
-}:
+{ lib, stdenv, aiofiles, beautifulsoup4, buildPythonPackage
+, doCheck ? !stdenv.isDarwin # on Darwin, tests fail but pkg still works
+, fetchFromGitHub, gunicorn, httptools, multidict, pytest-asyncio
+, pytestCheckHook, pythonOlder, pythonAtLeast, sanic-routing, sanic-testing
+, setuptools, ujson, uvicorn, uvloop, websockets, aioquic }:
 
 buildPythonPackage rec {
   pname = "sanic";
@@ -62,27 +42,22 @@ buildPythonPackage rec {
 
   inherit doCheck;
 
-  preCheck =
-    ''
-      # Some tests depends on sanic on PATH
-      PATH="$out/bin:$PATH"
-      PYTHONPATH=$PWD:$PYTHONPATH
+  preCheck = ''
+    # Some tests depends on sanic on PATH
+    PATH="$out/bin:$PATH"
+    PYTHONPATH=$PWD:$PYTHONPATH
 
-      # needed for relative paths for some packages
-      cd tests
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      # OSError: [Errno 24] Too many open files
-      ulimit -n 1024
-    '';
+    # needed for relative paths for some packages
+    cd tests
+  '' + lib.optionalString stdenv.isDarwin ''
+    # OSError: [Errno 24] Too many open files
+    ulimit -n 1024
+  '';
 
   # uvloop usage is buggy
   #SANIC_NO_UVLOOP = true;
 
-  pytestFlagsArray = [
-    "--asyncio-mode=auto"
-    "-vvv"
-  ];
+  pytestFlagsArray = [ "--asyncio-mode=auto" "-vvv" ];
 
   disabledTests = [
     # Require networking
@@ -132,9 +107,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sanic-org/sanic/";
     changelog = "https://github.com/sanic-org/sanic/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      costrouc
-      AluisioASG
-    ];
+    maintainers = with maintainers; [ costrouc AluisioASG ];
   };
 }

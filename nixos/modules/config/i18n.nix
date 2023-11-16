@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -61,34 +56,12 @@ with lib;
 
       supportedLocales = mkOption {
         type = types.listOf types.str;
-        default = unique (
-          builtins.map
-            (
-              l:
-              (replaceStrings
-                [
-                  "utf8"
-                  "utf-8"
-                  "UTF8"
-                ]
-                [
-                  "UTF-8"
-                  "UTF-8"
-                  "UTF-8"
-                ]
-                l
-              )
-              + "/UTF-8"
-            )
-            (
-              [
-                "C.UTF-8"
-                "en_US.UTF-8"
-                config.i18n.defaultLocale
-              ]
-              ++ (attrValues (filterAttrs (n: v: n != "LANGUAGE") config.i18n.extraLocaleSettings))
-            )
-        );
+        default = unique (builtins.map (l:
+          (replaceStrings [ "utf8" "utf-8" "UTF8" ] [ "UTF-8" "UTF-8" "UTF-8" ]
+            l) + "/UTF-8")
+          ([ "C.UTF-8" "en_US.UTF-8" config.i18n.defaultLocale ] ++ (attrValues
+            (filterAttrs (n: v: n != "LANGUAGE")
+              config.i18n.extraLocaleSettings))));
         defaultText = literalExpression ''
           unique
             (builtins.map (l: (replaceStrings [ "utf8" "utf-8" "UTF8" ] [ "UTF-8" "UTF-8" "UTF-8" ] l) + "/UTF-8") (
@@ -98,11 +71,8 @@ with lib;
               ] ++ (attrValues (filterAttrs (n: v: n != "LANGUAGE") config.i18n.extraLocaleSettings))
             ))
         '';
-        example = [
-          "en_US.UTF-8/UTF-8"
-          "nl_NL.UTF-8/UTF-8"
-          "nl_NL/ISO-8859-1"
-        ];
+        example =
+          [ "en_US.UTF-8/UTF-8" "nl_NL.UTF-8/UTF-8" "nl_NL/ISO-8859-1" ];
         description = lib.mdDoc ''
           List of locales that the system should support.  The value
           `"all"` means that all locales supported by
@@ -110,7 +80,9 @@ with lib;
           can be found at <https://sourceware.org/git/?p=glibc.git;a=blob;f=localedata/SUPPORTED>.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -119,7 +91,8 @@ with lib;
 
     environment.systemPackages =
       # We increase the priority a little, so that plain glibc in systemPackages can't win.
-      optional (config.i18n.supportedLocales != [ ]) (lib.setPrio (-1) config.i18n.glibcLocales);
+      optional (config.i18n.supportedLocales != [ ])
+      (lib.setPrio (-1) config.i18n.glibcLocales);
 
     environment.sessionVariables = {
       LANG = config.i18n.defaultLocale;
@@ -133,7 +106,9 @@ with lib;
     # ‘/etc/locale.conf’ is used by systemd.
     environment.etc."locale.conf".source = pkgs.writeText "locale.conf" ''
       LANG=${config.i18n.defaultLocale}
-      ${concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${v}") config.i18n.extraLocaleSettings)}
+      ${concatStringsSep "\n"
+      (mapAttrsToList (n: v: "${n}=${v}") config.i18n.extraLocaleSettings)}
     '';
+
   };
 }

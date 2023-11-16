@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiohttp,
-  async-timeout,
-  pytz,
-  xmltodict,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, async-timeout, pytz
+, xmltodict }:
 
 buildPythonPackage rec {
   pname = "pymetno";
@@ -20,12 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-Do9RQS4gE2BapQtKQsnMzJ8EJzzxkCBA5r3z1zHXIsA=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-    pytz
-    xmltodict
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout pytz xmltodict ];
 
   pythonImportsCheck = [ "metno" ];
 

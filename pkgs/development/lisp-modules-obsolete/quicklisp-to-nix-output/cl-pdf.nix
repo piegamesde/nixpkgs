@@ -1,19 +1,15 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "cl-pdf";
   version = "20211020-git";
 
   description = "Common Lisp PDF Generation Library";
 
-  deps = [
-    args."iterate"
-    args."uiop"
-    args."zpb-ttf"
-  ];
+  deps = [ args."iterate" args."uiop" args."zpb-ttf" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/cl-pdf/2021-10-20/cl-pdf-20211020-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/cl-pdf/2021-10-20/cl-pdf-20211020-git.tgz";
     sha256 = "0wyh7iv86sqzdn5xj5crrip8iri5a64qzc6cczgbj1gkv65i28bk";
   };
 

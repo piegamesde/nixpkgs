@@ -1,25 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  glib,
-  pkg-config,
-  perl,
-  gettext,
-  gobject-introspection,
-  gnome,
-  gtk-doc,
-  deterministic-uname,
-}:
+{ lib, stdenv, fetchurl, glib, pkg-config, perl, gettext, gobject-introspection
+, gnome, gtk-doc, deterministic-uname }:
 
 stdenv.mkDerivation rec {
   pname = "libgtop";
   version = "2.41.1";
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -48,7 +34,8 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A library that reads information about processes and the running system";
+    description =
+      "A library that reads information about processes and the running system";
     license = licenses.gpl2Plus;
     maintainers = teams.gnome.members;
     platforms = platforms.unix;

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  readline,
-  bzip2,
-}:
+{ lib, stdenv, fetchurl, readline, bzip2 }:
 
 stdenv.mkDerivation rec {
   pname = "gnupg";
@@ -15,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "1fkq4sqldvf6a25mm2qz95swv1qjg464736091w51djiwqbjyin9";
   };
 
-  buildInputs = [
-    readline
-    bzip2
-  ];
+  buildInputs = [ readline bzip2 ];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -30,7 +21,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gnupg.org";
-    description = "Classic (1.4) release of the GNU Privacy Guard, a GPL OpenPGP implementation";
+    description =
+      "Classic (1.4) release of the GNU Privacy Guard, a GPL OpenPGP implementation";
     license = licenses.gpl3Plus;
     longDescription = ''
       The GNU Privacy Guard is the GNU project's complete and free

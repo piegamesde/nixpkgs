@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  fetchFromGitHub,
-  pkg-config,
-  talloc,
-}:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, pkg-config, talloc }:
 
 stdenv.mkDerivation rec {
   pname = "libasn1c";
@@ -22,17 +15,15 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [ talloc ];
 
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "Runtime library of Lev Walkin's asn1c split out as separate library";
+    description =
+      "Runtime library of Lev Walkin's asn1c split out as separate library";
     homepage = "github.com/osmocom/libasn1c/";
     license = licenses.bsd2;
     platforms = platforms.linux;

@@ -1,17 +1,5 @@
-{
-  pkgs,
-  lib,
-  stdenv,
-  fetchzip,
-  ncurses,
-  libX11,
-  libXaw,
-  libXt,
-  libXext,
-  libXmu,
-  makeWrapper,
-  writeScript,
-}:
+{ pkgs, lib, stdenv, fetchzip, ncurses, libX11, libXaw, libXt, libXext, libXmu
+, makeWrapper, writeScript }:
 
 let
   setup = writeScript "setup" ''
@@ -21,8 +9,7 @@ let
     # The copied files are not writable, make them so
     chmod +w -R "$ANGBAND_PATH"
   '';
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "Sil";
   version = "1.3.0";
 
@@ -33,14 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    ncurses
-    libX11
-    libXaw
-    libXt
-    libXext
-    libXmu
-  ];
+  buildInputs = [ ncurses libX11 libXaw libXt libXext libXmu ];
 
   sourceRoot = "source/Sil/src";
 
@@ -96,10 +76,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.amirrorclear.net/flowers/game/sil/index.html";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [
-      michaelpj
-      kenran
-    ];
+    maintainers = with lib.maintainers; [ michaelpj kenran ];
     platforms = lib.platforms.linux;
     mainProgram = "sil";
   };

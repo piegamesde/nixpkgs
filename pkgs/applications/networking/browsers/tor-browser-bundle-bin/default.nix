@@ -1,62 +1,34 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeDesktopItem,
-  writeText,
-  callPackage,
+{ lib, stdenv, fetchurl, makeDesktopItem, writeText, callPackage
 
-  # Common run-time dependencies
-  zlib,
+# Common run-time dependencies
+, zlib
 
-  # libxul run-time dependencies
-  atk,
-  cairo,
-  dbus,
-  dbus-glib,
-  fontconfig,
-  freetype,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  libxcb,
-  libX11,
-  libXext,
-  libXrender,
-  libXt,
-  pango,
+# libxul run-time dependencies
+, atk, cairo, dbus, dbus-glib, fontconfig, freetype, gdk-pixbuf, glib, gtk3
+, libxcb, libX11, libXext, libXrender, libXt, pango
 
-  audioSupport ? mediaSupport,
-  pulseaudioSupport ? mediaSupport,
-  libpulseaudio,
-  apulse,
-  alsa-lib,
+, audioSupport ? mediaSupport, pulseaudioSupport ? mediaSupport, libpulseaudio
+, apulse, alsa-lib
 
-  # Media support (implies audio support)
-  mediaSupport ? true,
-  ffmpeg,
+# Media support (implies audio support)
+, mediaSupport ? true, ffmpeg
 
-  gmp,
+, gmp
 
-  # Wrapper runtime
-  coreutils,
-  glibcLocales,
-  gnome,
-  runtimeShell,
-  shared-mime-info,
-  gsettings-desktop-schemas,
+# Wrapper runtime
+, coreutils, glibcLocales, gnome, runtimeShell, shared-mime-info
+, gsettings-desktop-schemas
 
-  # Hardening
-  graphene-hardened-malloc,
-  # Whether to use graphene-hardened-malloc
-  useHardenedMalloc ? true,
+# Hardening
+, graphene-hardened-malloc
+# Whether to use graphene-hardened-malloc
+, useHardenedMalloc ? true
 
   # Whether to disable multiprocess support
-  disableContentSandbox ? false,
+, disableContentSandbox ? false
 
   # Extra preferences
-  extraPrefs ? "",
-}:
+, extraPrefs ? "" }:
 
 let
   libPath = lib.makeLibraryPath libPkgs;
@@ -81,13 +53,11 @@ let
     stdenv.cc.cc
     stdenv.cc.libc
     zlib
-  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ] ++ lib.optionals mediaSupport [ ffmpeg ];
+  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
+    ++ lib.optionals mediaSupport [ ffmpeg ];
 
   # Library search path for the fte transport
-  fteLibPath = lib.makeLibraryPath [
-    stdenv.cc.cc
-    gmp
-  ];
+  fteLibPath = lib.makeLibraryPath [ stdenv.cc.cc gmp ];
 
   # Upstream source
   version = "12.0.7";
@@ -116,26 +86,23 @@ let
     };
   };
 
-  distributionIni = writeText "distribution.ini" (
-    lib.generators.toINI { } {
-      # Some light branding indicating this build uses our distro preferences
-      Global = {
-        id = "nixos";
-        version = "1.0";
-        about = "Tor Browser for NixOS";
-      };
-    }
-  );
+  distributionIni = writeText "distribution.ini" (lib.generators.toINI { } {
+    # Some light branding indicating this build uses our distro preferences
+    Global = {
+      id = "nixos";
+      version = "1.0";
+      about = "Tor Browser for NixOS";
+    };
+  });
 
-  policiesJson = writeText "policies.json" (builtins.toJSON { policies.DisableAppUpdate = true; });
-in
-stdenv.mkDerivation rec {
+  policiesJson = writeText "policies.json"
+    (builtins.toJSON { policies.DisableAppUpdate = true; });
+in stdenv.mkDerivation rec {
   pname = "tor-browser-bundle-bin";
   inherit version;
 
-  src =
-    sources.${stdenv.hostPlatform.system}
-      or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+  src = sources.${stdenv.hostPlatform.system} or (throw
+    "unsupported system: ${stdenv.hostPlatform.system}");
 
   preferLocalBuild = true;
   allowSubstitutes = false;
@@ -147,11 +114,7 @@ stdenv.mkDerivation rec {
     desktopName = "Tor Browser";
     genericName = "Web Browser";
     comment = meta.description;
-    categories = [
-      "Network"
-      "WebBrowser"
-      "Security"
-    ];
+    categories = [ "Network" "WebBrowser" "Security" ];
   };
 
   buildPhase = ''
@@ -239,17 +202,16 @@ stdenv.mkDerivation rec {
 
     // Optionally disable multiprocess support.  We always set this to ensure that
     // toggling the pref takes effect.
-    lockPref("browser.tabs.remote.autostart.2", ${if disableContentSandbox then "false" else "true"});
+    lockPref("browser.tabs.remote.autostart.2", ${
+      if disableContentSandbox then "false" else "true"
+    });
 
     // Allow sandbox access to sound devices if using ALSA directly
-    ${if (audioSupport && !pulseaudioSupport) then
-      ''
-        pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
-      ''
-    else
-      ''
-        clearPref("security.sandbox.content.write_path_whitelist");
-      ''}
+    ${if (audioSupport && !pulseaudioSupport) then ''
+      pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
+    '' else ''
+      clearPref("security.sandbox.content.write_path_whitelist");
+    ''}
 
     ${lib.optionalString (extraPrefs != "") ''
       ${extraPrefs}
@@ -279,7 +241,8 @@ stdenv.mkDerivation rec {
     EOF
 
     WRAPPER_LD_PRELOAD=${
-      lib.optionalString useHardenedMalloc "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
+      lib.optionalString useHardenedMalloc
+      "${graphene-hardened-malloc}/lib/libhardened_malloc.so"
     }
 
     WRAPPER_XDG_DATA_DIRS=${
@@ -289,7 +252,8 @@ stdenv.mkDerivation rec {
       ]
     }
     WRAPPER_XDG_DATA_DIRS+=":"${
-      lib.concatMapStringsSep ":" (x: "${x}/share/gsettings-schemas/${x.name}") [
+      lib.concatMapStringsSep ":"
+      (x: "${x}/share/gsettings-schemas/${x.name}") [
         glib
         gsettings-desktop-schemas
         gtk3
@@ -480,14 +444,10 @@ stdenv.mkDerivation rec {
       the `/nix/store`.
     '';
     homepage = "https://www.torproject.org/";
-    changelog = "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
+    changelog =
+      "https://gitweb.torproject.org/builders/tor-browser-build.git/plain/projects/tor-browser/Bundle-Data/Docs/ChangeLog.txt?h=maint-${version}";
     platforms = attrNames sources;
-    maintainers = with maintainers; [
-      felschr
-      panicgh
-      joachifm
-      hax404
-    ];
+    maintainers = with maintainers; [ felschr panicgh joachifm hax404 ];
     mainProgram = "tor-browser";
     # MPL2.0+, GPL+, &c.  While it's not entirely clear whether
     # the compound is "libre" in a strict sense (some components place certain

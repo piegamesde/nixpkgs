@@ -1,5 +1,4 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
     template-bootstrap3 = pkgs.stdenv.mkDerivation rec {
@@ -19,7 +18,8 @@ import ./make-test-python.nix (
       version = "2017-06-16";
       src = pkgs.fetchzip {
         stripRoot = false;
-        url = "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${version}/dokuwiki-plugin-icalevents-${version}.zip";
+        url =
+          "https://github.com/real-or-random/dokuwiki-plugin-icalevents/releases/download/${version}/dokuwiki-plugin-icalevents-${version}.zip";
         hash = "sha256-IPs4+qgEfe8AAWevbcCM9PnyI0uoyamtWeg4rEb+9Wc=";
       };
       installPhase = "mkdir -p $out; cp -R * $out/";
@@ -29,20 +29,14 @@ import ./make-test-python.nix (
       r13y  reproducibility
     '';
 
-    dwWithAcronyms = pkgs.dokuwiki.overrideAttrs (
-      prev: {
-        installPhase =
-          prev.installPhase or ""
-          + ''
-            ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
-          '';
-      }
-    );
+    dwWithAcronyms = pkgs.dokuwiki.overrideAttrs (prev: {
+      installPhase = prev.installPhase or "" + ''
+        ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
+      '';
+    });
 
-    mkNode =
-      webserver:
-      { ... }:
-      {
+    mkNode = webserver:
+      { ... }: {
         services.dokuwiki = {
           inherit webserver;
 
@@ -90,22 +84,14 @@ import ./make-test-python.nix (
         };
 
         networking.firewall.allowedTCPPorts = [ 80 ];
-        networking.hosts."127.0.0.1" = [
-          "site1.local"
-          "site2.local"
-        ];
+        networking.hosts."127.0.0.1" = [ "site1.local" "site2.local" ];
       };
 
     titleFile = pkgs.writeText "dokuwiki-title" "DokuWiki on site2";
-  in
-  {
+  in {
     name = "dokuwiki";
     meta = with pkgs.lib; {
-      maintainers = with maintainers; [
-        _1000101
-        onny
-        e1mo
-      ];
+      maintainers = with maintainers; [ _1000101 onny 0.0 mo ];
     };
 
     nodes = {
@@ -173,5 +159,4 @@ import ./make-test-python.nix (
               "curl -sSfL http://site1.local/rewrite-test | grep 'Hello, NixOS!'",
             )
     '';
-  }
-)
+  })

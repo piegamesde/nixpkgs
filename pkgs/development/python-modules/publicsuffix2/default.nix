@@ -1,12 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-}:
-let
-  tagVersion = "2.2019-12-21";
-in
-buildPythonPackage {
+{ lib, buildPythonPackage, fetchFromGitHub }:
+let tagVersion = "2.2019-12-21";
+in buildPythonPackage {
   pname = "publicsuffix2";
   # tags have dashes, while the library version does not
   # see https://github.com/nexB/python-publicsuffix2/issues/12
@@ -28,7 +22,8 @@ buildPythonPackage {
   pythonImportsCheck = [ "publicsuffix2" ];
 
   meta = with lib; {
-    description = "Get a public suffix for a domain name using the Public Suffix List";
+    description =
+      "Get a public suffix for a domain name using the Public Suffix List";
     homepage = "https://github.com/nexB/python-publicsuffix2";
     license = licenses.mpl20;
     maintainers = with maintainers; [ SuperSandro2000 ];

@@ -1,8 +1,4 @@
-{
-  lib,
-  appleDerivation,
-  makeWrapper,
-}:
+{ lib, appleDerivation, makeWrapper }:
 
 appleDerivation {
   nativeBuildInputs = [ makeWrapper ];
@@ -53,7 +49,5 @@ appleDerivation {
     wrapProgram "$out/bin/bsdmake" --add-flags "-m $out/share/mk"
   '';
 
-  meta = {
-    platforms = lib.platforms.darwin;
-  };
+  meta = { platforms = lib.platforms.darwin; };
 }

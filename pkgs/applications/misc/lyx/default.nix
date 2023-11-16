@@ -1,15 +1,5 @@
-{
-  fetchurl,
-  lib,
-  mkDerivation,
-  pkg-config,
-  python3,
-  file,
-  bc,
-  qtbase,
-  qtsvg,
-  hunspell,
-  makeWrapper, # , mythes, boost
+{ fetchurl, lib, mkDerivation, pkg-config, python3, file, bc, qtbase, qtsvg
+, hunspell, makeWrapper # , mythes, boost
 }:
 
 mkDerivation rec {
@@ -28,11 +18,7 @@ mkDerivation rec {
   '';
 
   # LaTeX is used from $PATH, as people often want to have it with extra pkgs
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-    python3
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper python3 ];
   buildInputs = [
     qtbase
     qtsvg
@@ -64,3 +50,4 @@ mkDerivation rec {
     platforms = platforms.linux;
   };
 }
+

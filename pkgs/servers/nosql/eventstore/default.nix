@@ -1,14 +1,5 @@
-{
-  lib,
-  git,
-  dotnetCorePackages,
-  glibcLocales,
-  buildDotnetModule,
-  fetchFromGitHub,
-  bintools,
-  stdenv,
-  mono,
-}:
+{ lib, git, dotnetCorePackages, glibcLocales, buildDotnetModule, fetchFromGitHub
+, bintools, stdenv, mono }:
 
 buildDotnetModule rec {
   pname = "EventStore";
@@ -28,11 +19,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
 
-  nativeBuildInputs = [
-    git
-    glibcLocales
-    bintools
-  ];
+  nativeBuildInputs = [ git glibcLocales bintools ];
 
   runtimeDeps = [ mono ];
 
@@ -67,7 +54,8 @@ buildDotnetModule rec {
   projectFile = "src/EventStore.ClusterNode/EventStore.ClusterNode.csproj";
 
   doCheck = true;
-  testProjectFile = "src/EventStore.Projections.Core.Tests/EventStore.Projections.Core.Tests.csproj";
+  testProjectFile =
+    "src/EventStore.Projections.Core.Tests/EventStore.Projections.Core.Tests.csproj";
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -90,13 +78,7 @@ buildDotnetModule rec {
     homepage = "https://geteventstore.com/";
     description = "Event sourcing database with processing logic in JavaScript";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      puffnfresh
-      mdarocha
-    ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
+    maintainers = with maintainers; [ puffnfresh mdarocha ];
+    platforms = [ "x86_64-linux" "x86_64-darwin" ];
   };
 }

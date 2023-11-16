@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-timeout,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  bashInteractive,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytest-timeout, pytestCheckHook
+, pythonOlder, setuptools-scm, bashInteractive }:
 
 buildPythonPackage rec {
   pname = "shtab";
@@ -27,11 +19,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  nativeCheckInputs = [
-    bashInteractive
-    pytest-timeout
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ bashInteractive pytest-timeout pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

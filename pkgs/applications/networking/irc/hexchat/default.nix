@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  gtk2,
-  lua,
-  perl,
-  python3Packages,
-  pciutils,
-  dbus-glib,
-  libcanberra-gtk2,
-  libproxy,
-  enchant2,
-  libnotify,
-  openssl,
-  isocodes,
-  desktop-file-utils,
-  meson,
-  ninja,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, gtk2, lua, perl, python3Packages
+, pciutils, dbus-glib, libcanberra-gtk2, libproxy, enchant2, libnotify, openssl
+, isocodes, desktop-file-utils, meson, ninja, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "hexchat";
@@ -32,12 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2IUlNUTL3TOJnDNMds2EWwkfn5NUOQ1ids96Ddo196E=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config makeWrapper ];
 
   buildInputs = [
     gtk2
@@ -70,10 +46,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  mesonFlags = [
-    "-Dwith-lua=lua"
-    "-Dtext-frontend=true"
-  ];
+  mesonFlags = [ "-Dwith-lua=lua" "-Dtext-frontend=true" ];
 
   postInstall = ''
     wrapProgram $out/bin/hexchat --prefix PYTHONPATH : "$PYTHONPATH"

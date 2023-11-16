@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeWrapper,
-  rofi,
-  mpc-cli,
-  perl,
-  util-linux,
-  python3Packages,
-  libnotify,
-}:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, rofi, mpc-cli, perl, util-linux
+, python3Packages, libnotify }:
 
 stdenv.mkDerivation {
   pname = "clerk";
@@ -30,16 +20,8 @@ stdenv.mkDerivation {
   strictDeps = true;
 
   installPhase =
-    let
-      binPath = lib.makeBinPath [
-        libnotify
-        mpc-cli
-        perl
-        rofi
-        util-linux
-      ];
-    in
-    ''
+    let binPath = lib.makeBinPath [ libnotify mpc-cli perl rofi util-linux ];
+    in ''
       runHook preInstall
 
       DESTDIR=$out PREFIX=/ make install

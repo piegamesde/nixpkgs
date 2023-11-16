@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  pkg-config,
-  gtk3,
-  gtk-layer-shell,
-}:
+{ lib, buildGoModule, fetchFromGitHub, pkg-config, gtk3, gtk-layer-shell }:
 
 buildGoModule rec {
   pname = "nwg-dock";
@@ -20,16 +13,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-WDygnKdldZda4GadfStHWsDel1KLdzjVjw0RxmnFPRE=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gtk3
-    gtk-layer-shell
-  ];
+  buildInputs = [ gtk3 gtk-layer-shell ];
 
   meta = with lib; {
     description = "GTK3-based dock for sway";

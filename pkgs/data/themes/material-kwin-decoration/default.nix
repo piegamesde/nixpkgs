@@ -1,20 +1,6 @@
-{
-  lib,
-  mkDerivation,
-  fetchFromGitHub,
-  cmake,
-  extra-cmake-modules,
-  qtx11extras,
-  kcoreaddons,
-  kguiaddons,
-  kconfig,
-  kdecoration,
-  kconfigwidgets,
-  kwindowsystem,
-  kiconthemes,
-  kwayland,
-  unstableGitUpdater,
-}:
+{ lib, mkDerivation, fetchFromGitHub, cmake, extra-cmake-modules, qtx11extras
+, kcoreaddons, kguiaddons, kconfig, kdecoration, kconfigwidgets, kwindowsystem
+, kiconthemes, kwayland, unstableGitUpdater }:
 
 mkDerivation rec {
   pname = "material-kwin-decoration";
@@ -33,10 +19,7 @@ mkDerivation rec {
       --replace "add_definitions (-Wall -Werror)" "add_definitions (-Wall)"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
+  nativeBuildInputs = [ cmake extra-cmake-modules ];
 
   buildInputs = [
     qtx11extras
@@ -50,9 +33,7 @@ mkDerivation rec {
     kwayland
   ];
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   meta = with lib; {
     description = "Material-ish window decoration theme for KWin";

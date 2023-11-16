@@ -1,20 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.thermald;
-in
-{
+let cfg = config.services.thermald;
+in {
   ###### interface
   options = {
     services.thermald = {
-      enable = mkEnableOption (lib.mdDoc "thermald, the temperature management daemon");
+      enable = mkEnableOption
+        (lib.mdDoc "thermald, the temperature management daemon");
 
       debug = mkOption {
         type = types.bool;
@@ -52,7 +46,10 @@ in
           ${cfg.package}/sbin/thermald \
             --no-daemon \
             ${optionalString cfg.debug "--loglevel=debug"} \
-            ${optionalString (cfg.configFile != null) "--config-file ${cfg.configFile}"} \
+            ${
+              optionalString (cfg.configFile != null)
+              "--config-file ${cfg.configFile}"
+            } \
             --dbus-enable \
             --adaptive
         '';

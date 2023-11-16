@@ -26,169 +26,151 @@ let
   bobUserId = "3";
   bobPassword = "XwkkBbl2SiIwabQzgcoaTbhsotijEEtF";
   bobProjectId = "2";
-in
-{
+in {
   name = "gitlab";
-  meta.maintainers = with lib.maintainers; [
-    globin
-    yayayayaka
-  ];
+  meta.maintainers = with lib.maintainers; [ globin yayayayaka ];
 
   nodes = {
-    gitlab =
-      { ... }:
-      {
-        imports = [ common/user-account.nix ];
+    gitlab = { ... }: {
+      imports = [ common/user-account.nix ];
 
-        virtualisation.memorySize = if pkgs.stdenv.is64bit then 4096 else 2047;
-        virtualisation.cores = 4;
-        virtualisation.useNixStoreImage = true;
-        virtualisation.writableStore = false;
+      virtualisation.memorySize = if pkgs.stdenv.is64bit then 4096 else 2047;
+      virtualisation.cores = 4;
+      virtualisation.useNixStoreImage = true;
+      virtualisation.writableStore = false;
 
-        systemd.services.gitlab.serviceConfig.Restart = lib.mkForce "no";
-        systemd.services.gitlab-workhorse.serviceConfig.Restart = lib.mkForce "no";
-        systemd.services.gitaly.serviceConfig.Restart = lib.mkForce "no";
-        systemd.services.gitlab-sidekiq.serviceConfig.Restart = lib.mkForce "no";
+      systemd.services.gitlab.serviceConfig.Restart = lib.mkForce "no";
+      systemd.services.gitlab-workhorse.serviceConfig.Restart =
+        lib.mkForce "no";
+      systemd.services.gitaly.serviceConfig.Restart = lib.mkForce "no";
+      systemd.services.gitlab-sidekiq.serviceConfig.Restart = lib.mkForce "no";
 
-        services.nginx = {
-          enable = true;
-          recommendedProxySettings = true;
-          virtualHosts = {
-            localhost = {
-              locations."/".proxyPass = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-            };
-          };
-        };
-
-        services.openssh.enable = true;
-
-        services.dovecot2 = {
-          enable = true;
-          enableImap = true;
-        };
-
-        systemd.services.gitlab-backup.environment.BACKUP = "dump";
-
-        services.gitlab = {
-          enable = true;
-          databasePasswordFile = pkgs.writeText "dbPassword" "xo0daiF4";
-          initialRootPasswordFile = pkgs.writeText "rootPassword" initialRootPassword;
-          smtp.enable = true;
-          pages = {
-            enable = true;
-            settings.pages-domain = "localhost";
-          };
-          extraConfig = {
-            incoming_email = {
-              enabled = true;
-              mailbox = "inbox";
-              address = "alice@localhost";
-              user = "alice";
-              password = "foobar";
-              host = "localhost";
-              port = 143;
-            };
-          };
-          secrets = {
-            secretFile = pkgs.writeText "secret" "Aig5zaic";
-            otpFile = pkgs.writeText "otpsecret" "Riew9mue";
-            dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
-            jwsFile = pkgs.runCommand "oidcKeyBase" { } "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+      services.nginx = {
+        enable = true;
+        recommendedProxySettings = true;
+        virtualHosts = {
+          localhost = {
+            locations."/".proxyPass =
+              "http://unix:/run/gitlab/gitlab-workhorse.socket";
           };
         };
       };
+
+      services.openssh.enable = true;
+
+      services.dovecot2 = {
+        enable = true;
+        enableImap = true;
+      };
+
+      systemd.services.gitlab-backup.environment.BACKUP = "dump";
+
+      services.gitlab = {
+        enable = true;
+        databasePasswordFile = pkgs.writeText "dbPassword" "xo0daiF4";
+        initialRootPasswordFile =
+          pkgs.writeText "rootPassword" initialRootPassword;
+        smtp.enable = true;
+        pages = {
+          enable = true;
+          settings.pages-domain = "localhost";
+        };
+        extraConfig = {
+          incoming_email = {
+            enabled = true;
+            mailbox = "inbox";
+            address = "alice@localhost";
+            user = "alice";
+            password = "foobar";
+            host = "localhost";
+            port = 143;
+          };
+        };
+        secrets = {
+          secretFile = pkgs.writeText "secret" "Aig5zaic";
+          otpFile = pkgs.writeText "otpsecret" "Riew9mue";
+          dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
+          jwsFile = pkgs.runCommand "oidcKeyBase" { }
+            "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
+        };
+      };
+    };
   };
 
-  testScript =
-    { nodes, ... }:
+  testScript = { nodes, ... }:
     let
-      auth = pkgs.writeText "auth.json" (
-        builtins.toJSON {
-          grant_type = "password";
-          username = "root";
-          password = initialRootPassword;
-        }
-      );
+      auth = pkgs.writeText "auth.json" (builtins.toJSON {
+        grant_type = "password";
+        username = "root";
+        password = initialRootPassword;
+      });
 
-      createUserAlice = pkgs.writeText "create-user-alice.json" (
-        builtins.toJSON rec {
+      createUserAlice = pkgs.writeText "create-user-alice.json"
+        (builtins.toJSON rec {
           username = aliceUsername;
           name = username;
           email = "alice@localhost";
           password = alicePassword;
           skip_confirmation = true;
-        }
-      );
+        });
 
-      createUserBob = pkgs.writeText "create-user-bob.json" (
-        builtins.toJSON rec {
+      createUserBob = pkgs.writeText "create-user-bob.json"
+        (builtins.toJSON rec {
           username = bobUsername;
           name = username;
           email = "bob@localhost";
           password = bobPassword;
           skip_confirmation = true;
-        }
-      );
+        });
 
-      aliceAuth = pkgs.writeText "alice-auth.json" (
-        builtins.toJSON {
-          grant_type = "password";
-          username = aliceUsername;
-          password = alicePassword;
-        }
-      );
+      aliceAuth = pkgs.writeText "alice-auth.json" (builtins.toJSON {
+        grant_type = "password";
+        username = aliceUsername;
+        password = alicePassword;
+      });
 
-      bobAuth = pkgs.writeText "bob-auth.json" (
-        builtins.toJSON {
-          grant_type = "password";
-          username = bobUsername;
-          password = bobPassword;
-        }
-      );
+      bobAuth = pkgs.writeText "bob-auth.json" (builtins.toJSON {
+        grant_type = "password";
+        username = bobUsername;
+        password = bobPassword;
+      });
 
-      aliceAddSSHKey = pkgs.writeText "alice-add-ssh-key.json" (
-        builtins.toJSON {
+      aliceAddSSHKey = pkgs.writeText "alice-add-ssh-key.json"
+        (builtins.toJSON {
           id = aliceUserId;
           title = "snakeoil@nixos";
           key = snakeOilPublicKey;
-        }
-      );
+        });
 
-      createProjectAlice = pkgs.writeText "create-project-alice.json" (
-        builtins.toJSON {
+      createProjectAlice = pkgs.writeText "create-project-alice.json"
+        (builtins.toJSON {
           name = aliceProjectName;
           visibility = "public";
-        }
-      );
+        });
 
-      putFile = pkgs.writeText "put-file.json" (
-        builtins.toJSON {
-          branch = "master";
-          author_email = "author@example.com";
-          author_name = "Firstname Lastname";
-          content = "some content";
-          commit_message = "create a new file";
-        }
-      );
+      putFile = pkgs.writeText "put-file.json" (builtins.toJSON {
+        branch = "master";
+        author_email = "author@example.com";
+        author_name = "Firstname Lastname";
+        content = "some content";
+        commit_message = "create a new file";
+      });
 
-      mergeRequest = pkgs.writeText "merge-request.json" (
-        builtins.toJSON {
-          id = bobProjectId;
-          target_project_id = aliceProjectId;
-          source_branch = "master";
-          target_branch = "master";
-          title = "Add some other file";
-        }
-      );
+      mergeRequest = pkgs.writeText "merge-request.json" (builtins.toJSON {
+        id = bobProjectId;
+        target_project_id = aliceProjectId;
+        source_branch = "master";
+        target_branch = "master";
+        title = "Add some other file";
+      });
 
-      newIssue = pkgs.writeText "new-issue.json" (builtins.toJSON { title = "useful issue title"; });
+      newIssue = pkgs.writeText "new-issue.json"
+        (builtins.toJSON { title = "useful issue title"; });
 
-      closeIssue = pkgs.writeText "close-issue.json" (
-        builtins.toJSON {
-          issue_iid = 1;
-          state_event = "close";
-        }
-      );
+      closeIssue = pkgs.writeText "close-issue.json" (builtins.toJSON {
+        issue_iid = 1;
+        state_event = "close";
+      });
 
       # Wait for all GitLab services to be fully started.
       waitForServices = ''
@@ -204,8 +186,7 @@ in
 
       # The actual test of GitLab. Only push data to GitLab if
       # `doSetup` is is true.
-      test =
-        doSetup:
+      test = doSetup:
         ''
           GIT_SSH_COMMAND = "ssh -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile=/dev/null"
 
@@ -218,8 +199,7 @@ in
           gitlab.succeed(
               "echo \"Authorization: Bearer $(curl -X POST -H 'Content-Type: application/json' -d @${auth} http://gitlab/oauth/token | ${pkgs.jq}/bin/jq -r '.access_token')\" >/tmp/headers"
           )
-        ''
-        + lib.optionalString doSetup ''
+        '' + lib.optionalString doSetup ''
           with subtest("Create user Alice"):
               gitlab.succeed(
                   """[ "$(curl -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' -H @/tmp/headers -d @${createUserAlice} http://gitlab/api/v4/users)" = "201" ]"""
@@ -398,8 +378,7 @@ in
                       -H @/tmp/headers-alice -d @${closeIssue} http://gitlab/api/v4/projects/${aliceProjectId}/issues/1)" = "200" ]
                   """
               )
-        ''
-        + ''
+        '' + ''
           with subtest("Download archive.tar.gz"):
               gitlab.succeed(
                   """
@@ -438,13 +417,10 @@ in
               )
               gitlab.succeed("test -s /tmp/archive.tar.bz2")
         '';
-    in
-    ''
+
+    in ''
       gitlab.start()
-    ''
-    + waitForServices
-    + test true
-    + ''
+    '' + waitForServices + test true + ''
       gitlab.systemctl("start gitlab-backup.service")
       gitlab.wait_for_unit("gitlab-backup.service")
       gitlab.wait_for_file("${nodes.gitlab.services.gitlab.statePath}/backup/dump_gitlab_backup.tar")
@@ -460,7 +436,5 @@ in
           "sudo -u gitlab -H gitlab-rake gitlab:backup:restore RAILS_ENV=production BACKUP=dump force=yes"
       )
       gitlab.systemctl("start gitlab.target")
-    ''
-    + waitForServices
-    + test false;
+    '' + waitForServices + test false;
 }

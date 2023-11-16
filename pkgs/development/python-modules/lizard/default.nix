@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-  mock,
-  jinja2,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, pytestCheckHook, mock
+, jinja2 }:
 
 buildPythonPackage rec {
   pname = "lizard";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ jinja2 ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock ];
 
   pythonImportsCheck = [ "lizard" ];
 
@@ -36,3 +26,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ jpetrucciani ];
   };
 }
+

@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest,
-  pythonOlder,
-  setuptoolsBuildHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, poetry-core, pytest, pythonOlder
+, setuptoolsBuildHook }:
 
 buildPythonPackage rec {
   pname = "pytest-socket";

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -22,8 +17,8 @@ let
     /dev/vndbinder = aidl2
     /dev/hwbinder = hidl
   '';
-in
-{
+
+in {
 
   options.virtualisation.waydroid = {
     enable = mkEnableOption (lib.mdDoc "Waydroid");
@@ -31,14 +26,16 @@ in
 
   config = mkIf cfg.enable {
     assertions = singleton {
-      assertion = versionAtLeast (getVersion config.boot.kernelPackages.kernel) "4.18";
+      assertion =
+        versionAtLeast (getVersion config.boot.kernelPackages.kernel) "4.18";
       message = "Waydroid needs user namespace support to work properly";
     };
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [
       (isEnabled "ANDROID_BINDER_IPC")
       (isEnabled "ANDROID_BINDERFS")
-      (isEnabled "ASHMEM") # FIXME Needs memfd support instead on Linux 5.18 and waydroid 1.2.1
+      (isEnabled
+        "ASHMEM") # FIXME Needs memfd support instead on Linux 5.18 and waydroid 1.2.1
     ];
 
     /* NOTE: we always enable this flag even if CONFIG_PSI_DEFAULT_DISABLED is not on
@@ -71,4 +68,5 @@ in
       "d /var/lib/misc 0755 root root -" # for dnsmasq.leases
     ];
   };
+
 }

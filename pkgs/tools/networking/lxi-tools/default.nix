@@ -1,26 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  cmake,
-  pkg-config,
-  liblxi,
-  readline,
-  lua,
-  bash-completion,
-  wrapGAppsHook,
-  glib,
-  gtk4,
-  gtksourceview5,
-  libadwaita,
-  json-glib,
-  desktop-file-utils,
-  appstream-glib,
-  gsettings-desktop-schemas,
-  withGui ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, cmake, pkg-config, liblxi
+, readline, lua, bash-completion, wrapGAppsHook, glib, gtk4, gtksourceview5
+, libadwaita, json-glib, desktop-file-utils, appstream-glib
+, gsettings-desktop-schemas, withGui ? false }:
 
 stdenv.mkDerivation rec {
   pname = "lxi-tools";
@@ -33,20 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-F9svLaQnQyVyC5KzDnaGwB8J/nBZ3zzOVwYNxWBPifU=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    cmake
-    pkg-config
-  ] ++ lib.optional withGui wrapGAppsHook;
+  nativeBuildInputs = [ meson ninja cmake pkg-config ]
+    ++ lib.optional withGui wrapGAppsHook;
 
-  buildInputs =
-    [
-      liblxi
-      readline
-      lua
-      bash-completion
-    ]
+  buildInputs = [ liblxi readline lua bash-completion ]
     ++ lib.optionals withGui [
       glib
       gtk4
@@ -62,7 +33,8 @@ stdenv.mkDerivation rec {
 
   mesonFlags = lib.optional (!withGui) "-Dgui=false";
 
-  postInstall = lib.optionalString withGui "glib-compile-schemas $out/share/glib-2.0/schemas";
+  postInstall = lib.optionalString withGui
+    "glib-compile-schemas $out/share/glib-2.0/schemas";
 
   meta = with lib; {
     description = "Tool for communicating with LXI compatible instruments";

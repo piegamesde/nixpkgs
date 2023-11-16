@@ -1,11 +1,4 @@
-{
-  lib,
-  buildDotnetModule,
-  fetchFromGitHub,
-  writeScript,
-  jdk11,
-  z3,
-}:
+{ lib, buildDotnetModule, fetchFromGitHub, writeScript, jdk11, z3 }:
 
 buildDotnetModule rec {
   pname = "Dafny";
@@ -55,7 +48,8 @@ buildDotnetModule rec {
   '';
 
   meta = with lib; {
-    description = "A programming language with built-in specification constructs";
+    description =
+      "A programming language with built-in specification constructs";
     homepage = "https://research.microsoft.com/dafny";
     maintainers = with maintainers; [ layus ];
     license = licenses.mit;

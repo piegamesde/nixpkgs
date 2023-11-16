@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "colorful";
@@ -27,7 +21,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for terminal string styling";
     homepage = "https://github.com/timofurrer/colorful";
-    changelog = "https://github.com/timofurrer/colorful/releases/tag/v${version}";
+    changelog =
+      "https://github.com/timofurrer/colorful/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ kalbasit ];
   };

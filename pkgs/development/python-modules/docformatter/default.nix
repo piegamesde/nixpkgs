@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  charset-normalizer,
-  tomli,
-  untokenize,
-  mock,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
+, charset-normalizer, tomli, untokenize, mock, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "docformatter";
@@ -37,21 +27,15 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    charset-normalizer
-    tomli
-    untokenize
-  ];
+  propagatedBuildInputs = [ charset-normalizer tomli untokenize ];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ mock pytestCheckHook ];
 
   pythonImportsCheck = [ "docformatter" ];
 
   meta = {
-    changelog = "https://github.com/PyCQA/docformatter/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/PyCQA/docformatter/blob/${src.rev}/CHANGELOG.md";
     description = "Formats docstrings to follow PEP 257";
     homepage = "https://github.com/myint/docformatter";
     license = lib.licenses.mit;

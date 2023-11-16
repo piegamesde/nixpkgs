@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  flit-core,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, flit-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "testpath";
@@ -37,4 +30,5 @@ buildPythonPackage rec {
     license = licenses.mit;
     homepage = "https://github.com/jupyter/testpath";
   };
+
 }

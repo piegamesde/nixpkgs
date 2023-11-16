@@ -1,19 +1,10 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.programs.sniffnet;
-in
+let cfg = config.programs.sniffnet;
 
-{
+in {
   options = {
-    programs.sniffnet = {
-      enable = lib.mkEnableOption (lib.mdDoc "sniffnet");
-    };
+    programs.sniffnet = { enable = lib.mkEnableOption (lib.mdDoc "sniffnet"); };
   };
 
   config = lib.mkIf cfg.enable {

@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "clsql";
   version = "20210228-git";
 
@@ -9,7 +8,8 @@ rec {
   deps = [ args."uffi" ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/clsql/2021-02-28/clsql-20210228-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/clsql/2021-02-28/clsql-20210228-git.tgz";
     sha256 = "0g7racshjy47xbfijymddjwnphp0c93z2lnlgi330g257s9l7vd4";
   };
 

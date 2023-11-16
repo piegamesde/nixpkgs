@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "faraday-cli";
@@ -43,7 +39,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Command Line Interface for Faraday";
     homepage = "https://github.com/infobyte/faraday-cli";
-    changelog = "https://github.com/infobyte/faraday-cli/releases/tag/${version}";
+    changelog =
+      "https://github.com/infobyte/faraday-cli/releases/tag/${version}";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];
   };

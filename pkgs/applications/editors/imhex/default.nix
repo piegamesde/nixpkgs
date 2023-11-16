@@ -1,25 +1,6 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  llvm,
-  fetchFromGitHub,
-  mbedtls,
-  gtk3,
-  pkg-config,
-  capstone,
-  dbus,
-  libGLU,
-  glfw3,
-  file,
-  perl,
-  python3,
-  jansson,
-  curl,
-  fmt_8,
-  nlohmann_json,
-  yara,
-}:
+{ lib, stdenv, cmake, llvm, fetchFromGitHub, mbedtls, gtk3, pkg-config, capstone
+, dbus, libGLU, glfw3, file, perl, python3, jansson, curl, fmt_8, nlohmann_json
+, yara }:
 
 let
   # when bumping the version, check if imhex has gotten support for the capstone version in nixpkgs
@@ -31,8 +12,8 @@ let
     rev = "ImHex-v${version}";
     hash = "sha256-7Aaj+W+zXjHO8A2gmWtp5Pa/i5Uk8lXzX2WHjPIPRZI=";
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "imhex";
   inherit version;
 
@@ -44,13 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-meOx8SkufXbXuBIVefr/mO9fsUi3zeQmqmf86+aDMaI=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    llvm
-    python3
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake llvm python3 perl pkg-config ];
 
   buildInputs = [
     capstone
@@ -86,7 +61,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Hex Editor for Reverse Engineers, Programmers and people who value their retinas when working at 3 AM";
+    description =
+      "Hex Editor for Reverse Engineers, Programmers and people who value their retinas when working at 3 AM";
     homepage = "https://github.com/WerWolv/ImHex";
     license = with licenses; [ gpl2Only ];
     maintainers = with maintainers; [ luis ];

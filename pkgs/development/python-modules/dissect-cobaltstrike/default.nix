@@ -1,21 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  dissect-cstruct,
-  dissect-util,
-  fetchFromGitHub,
-  flow-record,
-  httpx,
-  lark,
-  pycryptodome,
-  pyshark,
-  pytest-httpserver,
-  pytestCheckHook,
-  pythonOlder,
-  rich,
-  setuptools,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, dissect-cstruct, dissect-util, fetchFromGitHub
+, flow-record, httpx, lark, pycryptodome, pyshark, pytest-httpserver
+, pytestCheckHook, pythonOlder, rich, setuptools, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "dissect-cobaltstrike";
@@ -33,49 +18,27 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools setuptools-scm ];
 
-  propagatedBuildInputs = [
-    dissect-cstruct
-    dissect-util
-    lark
-  ];
+  propagatedBuildInputs = [ dissect-cstruct dissect-util lark ];
 
   passthru.optional-dependencies = {
-    c2 = [
-      flow-record
-      httpx
-      pycryptodome
-    ];
-    pcap = [
-      flow-record
-      httpx
-      pycryptodome
-      pyshark
-    ];
-    full = [
-      flow-record
-      httpx
-      pycryptodome
-      pyshark
-      rich
-    ];
+    c2 = [ flow-record httpx pycryptodome ];
+    pcap = [ flow-record httpx pycryptodome pyshark ];
+    full = [ flow-record httpx pycryptodome pyshark rich ];
   };
 
-  nativeCheckInputs = [
-    pytest-httpserver
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [ pytest-httpserver pytestCheckHook ]
+    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "dissect.cobaltstrike" ];
 
   meta = with lib; {
-    description = "Dissect module implementing a parser for Cobalt Strike related data";
+    description =
+      "Dissect module implementing a parser for Cobalt Strike related data";
     homepage = "https://github.com/fox-it/dissect.cobaltstrike";
-    changelog = "https://github.com/fox-it/dissect.cobaltstrike/releases/tag/${version}";
+    changelog =
+      "https://github.com/fox-it/dissect.cobaltstrike/releases/tag/${version}";
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ fab ];
   };

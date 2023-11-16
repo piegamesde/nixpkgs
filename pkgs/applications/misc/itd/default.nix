@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildGoModule,
-  fetchFromGitea,
-}:
+{ stdenv, lib, buildGoModule, fetchFromGitea }:
 
 buildGoModule rec {
   pname = "itd";
@@ -24,23 +19,19 @@ buildGoModule rec {
     echo r${version} > version.txt
   '';
 
-  subPackages = [
-    "."
-    "cmd/itctl"
-  ];
+  subPackages = [ "." "cmd/itctl" ];
 
   postInstall = ''
     install -Dm644 itd.toml $out/etc/itd.toml
   '';
 
   meta = with lib; {
-    description = "itd is a daemon to interact with the PineTime running InfiniTime";
+    description =
+      "itd is a daemon to interact with the PineTime running InfiniTime";
     homepage = "https://gitea.arsenm.dev/Arsen6331/itd";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      mindavi
-      raphaelr
-    ];
+    maintainers = with maintainers; [ mindavi raphaelr ];
   };
 }
+

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "statsd_exporter";
@@ -18,13 +14,12 @@ buildGoModule rec {
   vendorHash = "sha256-cTAjOCP0qWMIKa0xGSK7Id+Oqz3ompDlwAqwub9oNWI=";
 
   meta = with lib; {
-    description = "Receives StatsD-style metrics and exports them to Prometheus";
+    description =
+      "Receives StatsD-style metrics and exports them to Prometheus";
     homepage = "https://github.com/prometheus/statsd_exporter";
-    changelog = "https://github.com/prometheus/statsd_exporter/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/prometheus/statsd_exporter/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      benley
-      ivan
-    ];
+    maintainers = with maintainers; [ benley ivan ];
   };
 }

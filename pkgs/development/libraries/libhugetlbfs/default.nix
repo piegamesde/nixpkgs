@@ -1,33 +1,24 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-}:
+{ stdenv, lib, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "libhugetlbfs";
   version = "2.23";
 
   src = fetchurl {
-    url = "https://github.com/libhugetlbfs/libhugetlbfs/releases/download/${version}/libhugetlbfs-${version}.tar.gz";
+    url =
+      "https://github.com/libhugetlbfs/libhugetlbfs/releases/download/${version}/libhugetlbfs-${version}.tar.gz";
     sha256 = "0ya4q001g111d3pqlzrf3yaifadl0ccirx5dndz1pih7x3qp41mp";
   };
 
   patches = [
     (fetchurl {
-      url = "https://build.opensuse.org/public/source/openSUSE:Factory/libhugetlbfs/glibc-2.34-fix.patch?rev=50";
+      url =
+        "https://build.opensuse.org/public/source/openSUSE:Factory/libhugetlbfs/glibc-2.34-fix.patch?rev=50";
       sha256 = "sha256-eRQa6M0ZdHMtwA5nnzDTWYv/x4AnRZhj+MpDiwyCvVM=";
     })
   ];
 
-  outputs = [
-    "bin"
-    "dev"
-    "man"
-    "doc"
-    "lib"
-    "out"
-  ];
+  outputs = [ "bin" "dev" "man" "doc" "lib" "out" ];
 
   postConfigure = ''
     patchShebangs ld.hugetlbfs
@@ -47,14 +38,8 @@ stdenv.mkDerivation rec {
 
   # Default target builds tests as well, and the tests want a static
   # libc.
-  buildFlags = [
-    "libs"
-    "tools"
-  ];
-  installTargets = [
-    "install"
-    "install-docs"
-  ];
+  buildFlags = [ "libs" "tools" ];
+  installTargets = [ "install" "install-docs" ];
 
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);

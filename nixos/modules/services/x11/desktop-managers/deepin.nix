@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ config, lib, pkgs, utils, ... }:
 
 with lib;
 
@@ -16,8 +10,7 @@ let
     extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
     extraGSettingsOverrides = cfg.extraGSettingsOverrides;
   };
-in
-{
+in {
   options = {
 
     services.xserver.desktopManager.deepin = {
@@ -30,15 +23,18 @@ in
       extraGSettingsOverridePackages = mkOption {
         default = [ ];
         type = types.listOf types.path;
-        description = lib.mdDoc "List of packages for which gsettings are overridden.";
+        description =
+          lib.mdDoc "List of packages for which gsettings are overridden.";
       };
     };
 
     environment.deepin.excludePackages = mkOption {
       default = [ ];
       type = types.listOf types.package;
-      description = lib.mdDoc "List of default packages to exclude from the configuration";
+      description =
+        lib.mdDoc "List of default packages to exclude from the configuration";
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -47,7 +43,9 @@ in
 
     # Update the DBus activation environment after launching the desktop manager.
     services.xserver.displayManager.sessionCommands = ''
-      ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+      ${
+        lib.getBin pkgs.dbus
+      }/bin/dbus-update-activation-environment --systemd --all
     '';
 
     hardware.bluetooth.enable = mkDefault true;
@@ -81,8 +79,10 @@ in
     ];
 
     environment.sessionVariables = {
-      NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
-      DDE_POLKIT_AGENT_PLUGINS_DIRS = [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ];
+      NIX_GSETTINGS_OVERRIDES_DIR =
+        "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+      DDE_POLKIT_AGENT_PLUGINS_DIRS =
+        [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ];
     };
 
     environment.pathsToLink = [
@@ -122,8 +122,7 @@ in
       session   include       login
     '';
 
-    environment.systemPackages =
-      with pkgs;
+    environment.systemPackages = with pkgs;
       with deepin;
       let
         requiredPackages = [
@@ -182,9 +181,8 @@ in
           deepin-screen-recorder
           deepin-shortcut-viewer
         ];
-      in
-      requiredPackages
-      ++ utils.removePackagesByName optionalPackages config.environment.deepin.excludePackages;
+      in requiredPackages ++ utils.removePackagesByName optionalPackages
+      config.environment.deepin.excludePackages;
 
     services.dbus.packages = with pkgs.deepin; [
       dde-dock
@@ -209,3 +207,4 @@ in
     ];
   };
 }
+

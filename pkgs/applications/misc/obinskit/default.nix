@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  libxkbcommon,
-  systemd,
-  xorg,
-  electron_13,
-  makeWrapper,
-  makeDesktopItem,
-}:
+{ stdenv, lib, fetchurl, libxkbcommon, systemd, xorg, electron_13, makeWrapper
+, makeDesktopItem }:
 let
   desktopItem = makeDesktopItem rec {
     name = "Obinskit";
@@ -19,8 +10,7 @@ let
     categories = [ "Utility" ];
   };
   electron = electron_13;
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "obinskit";
   version = "1.2.11";
 
@@ -64,7 +54,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Graphical configurator for Anne Pro and Anne Pro II keyboards";
+    description =
+      "Graphical configurator for Anne Pro and Anne Pro II keyboards";
     homepage = "https://www.hexcore.xyz/obinskit";
     license = licenses.unfree;
     maintainers = with maintainers; [ shou ];

@@ -1,12 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  sysctl,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, sysctl }:
 
 buildPythonPackage rec {
   pname = "py-cpuinfo";
@@ -42,7 +35,8 @@ buildPythonPackage rec {
       Python.
     '';
     homepage = "https://github.com/workhorsy/py-cpuinfo";
-    changelog = "https://github.com/workhorsy/py-cpuinfo/blob/v${version}/ChangeLog";
+    changelog =
+      "https://github.com/workhorsy/py-cpuinfo/blob/v${version}/ChangeLog";
     license = licenses.mit;
     maintainers = with maintainers; [ costrouc ];
   };

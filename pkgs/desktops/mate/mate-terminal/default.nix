@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  itstool,
-  libxml2,
-  mate-desktop,
-  dconf,
-  vte,
-  pcre2,
-  wrapGAppsHook,
-  mateUpdateScript,
-  nixosTests,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, itstool, libxml2, mate-desktop
+, dconf, vte, pcre2, wrapGAppsHook, mateUpdateScript, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "mate-terminal";
@@ -26,20 +12,9 @@ stdenv.mkDerivation rec {
     sha256 = "fBMCBvC0eIfoySdOc/jBn65RETRXKGmnwjERt4nh4dA=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    itstool
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext itstool pkg-config wrapGAppsHook ];
 
-  buildInputs = [
-    dconf
-    libxml2
-    mate-desktop
-    pcre2
-    vte
-  ];
+  buildInputs = [ dconf libxml2 mate-desktop pcre2 vte ];
 
   enableParallelBuilding = true;
 

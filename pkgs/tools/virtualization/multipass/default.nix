@@ -1,28 +1,6 @@
-{
-  cmake,
-  dnsmasq,
-  fetchFromGitHub,
-  git,
-  gtest,
-  iproute2,
-  iptables,
-  lib,
-  libapparmor,
-  libvirt,
-  libxml2,
-  nixosTests,
-  openssl,
-  OVMF,
-  pkg-config,
-  qemu,
-  qemu-utils,
-  qtbase,
-  qtx11extras,
-  slang,
-  stdenv,
-  wrapQtAppsHook,
-  xterm,
-}:
+{ cmake, dnsmasq, fetchFromGitHub, git, gtest, iproute2, iptables, lib
+, libapparmor, libvirt, libxml2, nixosTests, openssl, OVMF, pkg-config, qemu
+, qemu-utils, qtbase, qtx11extras, slang, stdenv, wrapQtAppsHook, xterm }:
 
 let
   pname = "multipass";
@@ -38,8 +16,7 @@ let
     hash = "sha256-DS1UNLCUdbipn5w4p2aVa8LgHHhdJiAfzfEdIXNO69o=";
     fetchSubmodules = true;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -50,10 +27,7 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches = [
-    ./lxd_socket_path.patch
-    ./cmake_no_fetch.patch
-  ];
+  patches = [ ./lxd_socket_path.patch ./cmake_no_fetch.patch ];
 
   postPatch = ''
     # Make sure the version is reported correctly in the compiled binary.
@@ -90,23 +64,10 @@ stdenv.mkDerivation {
     EOF
   '';
 
-  buildInputs = [
-    gtest
-    libapparmor
-    libvirt
-    libxml2
-    openssl
-    qtbase
-    qtx11extras
-  ];
+  buildInputs =
+    [ gtest libapparmor libvirt libxml2 openssl qtbase qtx11extras ];
 
-  nativeBuildInputs = [
-    cmake
-    git
-    pkg-config
-    slang
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake git pkg-config slang wrapQtAppsHook ];
 
   nativeCheckInputs = [ gtest ];
 
@@ -124,9 +85,7 @@ stdenv.mkDerivation {
     }
   '';
 
-  passthru.tests = {
-    multipass = nixosTests.multipass;
-  };
+  passthru.tests = { multipass = nixosTests.multipass; };
 
   meta = with lib; {
     description = "Ubuntu VMs on demand for any workstation.";

@@ -1,14 +1,5 @@
-{
-  lib,
-  mkXfceDerivation,
-  gtk3,
-  libnotify,
-  libxfce4ui,
-  libxfce4util,
-  upower,
-  xfconf,
-  xfce4-panel,
-}:
+{ lib, mkXfceDerivation, gtk3, libnotify, libxfce4ui, libxfce4util, upower
+, xfconf, xfce4-panel }:
 
 mkXfceDerivation {
   category = "xfce";
@@ -17,15 +8,8 @@ mkXfceDerivation {
 
   sha256 = "sha256-1+DP5CACzzj96FyRTeCdVEFORnpzFT49d9Uk1iijbFs=";
 
-  buildInputs = [
-    gtk3
-    libnotify
-    libxfce4ui
-    libxfce4util
-    upower
-    xfconf
-    xfce4-panel
-  ];
+  buildInputs =
+    [ gtk3 libnotify libxfce4ui libxfce4util upower xfconf xfce4-panel ];
 
   meta = with lib; {
     description = "A power manager for the Xfce Desktop Environment";

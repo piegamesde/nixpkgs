@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  meson,
-  ninja,
-  pkg-config,
-  cglm,
-  gtk3,
-  libepoxy,
-  libGLU,
-}:
+{ lib, stdenv, fetchFromGitHub, meson, ninja, pkg-config, cglm, gtk3, libepoxy
+, libGLU }:
 
 stdenv.mkDerivation rec {
   pname = "fsv";
@@ -22,18 +12,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-fxsA3qcBPvK4H5P4juGTe6eg1lkygvzFpNW36B9lsE4=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
 
-  buildInputs = [
-    cglm
-    gtk3
-    libepoxy
-    libGLU
-  ];
+  buildInputs = [ cglm gtk3 libepoxy libGLU ];
 
   installPhase = ''
     runHook preInstall

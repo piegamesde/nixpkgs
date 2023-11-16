@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  stdenv,
-  pkg-config,
-}:
+{ lib, rustPlatform, fetchFromGitHub, stdenv, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gifski";
@@ -20,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "ffmpeg-sys-next-6.0.1" = "sha256-/KxW57lt9/qKqNUUZqJucsP0cKvZ1m/FdGCsZxBlxYc=";
+      "ffmpeg-sys-next-6.0.1" =
+        "sha256-/KxW57lt9/qKqNUUZqJucsP0cKvZ1m/FdGCsZxBlxYc=";
     };
   };
 
@@ -39,9 +34,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gif.ski/";
     changelog = "https://github.com/ImageOptim/gifski/releases/tag/${src.rev}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      figsoda
-      marsam
-    ];
+    maintainers = with maintainers; [ figsoda marsam ];
   };
 }

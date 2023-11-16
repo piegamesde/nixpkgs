@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   cfg = config.programs.rust-motd;
   format = pkgs.formats.toml { };
-in
-{
+in {
   options.programs.rust-motd = {
     enable = mkEnableOption (lib.mdDoc "rust-motd");
     enableMotdInSSHD = mkOption {
@@ -43,14 +37,12 @@ in
     };
   };
   config = mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = config.users.motd == null;
-        message = ''
-          `programs.rust-motd` is incompatible with `users.motd`!
-        '';
-      }
-    ];
+    assertions = [{
+      assertion = config.users.motd == null;
+      message = ''
+        `programs.rust-motd` is incompatible with `users.motd`!
+      '';
+    }];
     systemd.services.rust-motd = {
       path = with pkgs; [ bash ];
       documentation = [
@@ -59,7 +51,9 @@ in
       description = "motd generator";
       serviceConfig = {
         ExecStart = "${pkgs.writeShellScript "update-motd" ''
-          ${pkgs.rust-motd}/bin/rust-motd ${format.generate "motd.conf" cfg.settings} > motd
+          ${pkgs.rust-motd}/bin/rust-motd ${
+            format.generate "motd.conf" cfg.settings
+          } > motd
         ''}";
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
@@ -88,16 +82,14 @@ in
       wantedBy = [ "timers.target" ];
       timerConfig.OnCalendar = cfg.refreshInterval;
     };
-    security.pam.services.sshd.text = mkIf cfg.enableMotdInSSHD (
-      mkDefault (
-        mkAfter ''
-          session optional ${pkgs.pam}/lib/security/pam_motd.so motd=/var/lib/rust-motd/motd
-        ''
-      )
-    );
-    services.openssh.extraConfig = mkIf (cfg.settings ? last_login && cfg.settings.last_login != { }) ''
-      PrintLastLog no
-    '';
+    security.pam.services.sshd.text = mkIf cfg.enableMotdInSSHD (mkDefault
+      (mkAfter ''
+        session optional ${pkgs.pam}/lib/security/pam_motd.so motd=/var/lib/rust-motd/motd
+      ''));
+    services.openssh.extraConfig =
+      mkIf (cfg.settings ? last_login && cfg.settings.last_login != { }) ''
+        PrintLastLog no
+      '';
   };
   meta.maintainers = with maintainers; [ ma27 ];
 }

@@ -1,12 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  flax,
-  jax,
-  jaxlib,
-  transformers,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, flax, jax, jaxlib, transformers }:
 
 buildPythonPackage rec {
   pname = "vqgan-jax";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
 
   buildInputs = [ jaxlib ];
 
-  propagatedBuildInputs = [
-    flax
-    jax
-    transformers
-  ];
+  propagatedBuildInputs = [ flax jax transformers ];
 
   doCheck = false;
 

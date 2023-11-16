@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  SDL2,
-  SDL2_mixer,
-  freetype,
-  libGL,
-  libiconv,
-  libpng,
-  libvlc,
-  libvorbis,
-  openal,
-  python3,
-  zlib,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, SDL2, SDL2_mixer, freetype, libGL
+, libiconv, libpng, libvlc, libvorbis, openal, python3, zlib }:
 
 let
   # the GLES backend on rpi is untested as I don't have the hardware
@@ -23,8 +8,8 @@ let
   withVLC = stdenv.isDarwin;
 
   inherit (lib) optional optionalString;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "gemrb";
   version = "0.9.1.1";
 
@@ -73,7 +58,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A reimplementation of the Infinity Engine, used by games such as Baldur's Gate";
+    description =
+      "A reimplementation of the Infinity Engine, used by games such as Baldur's Gate";
     longDescription = ''
       GemRB (Game engine made with pre-Rendered Background) is a portable
       open-source implementation of Bioware's Infinity Engine. It was written to

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "mmake";
@@ -17,17 +13,15 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-0z+sujzzBl/rtzXbhL4Os+jYfLUuO9PlXshUDxAH9DU=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
 
   # Almost all tests require non-local networking, trying to resolve githubusercontent.com.
   doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/tj/mmake";
-    description = "A small program  which wraps make to provide additional functionality";
+    description =
+      "A small program  which wraps make to provide additional functionality";
     longDescription = ''
       Mmake is a small program  which wraps make to provide additional
       functionality,  such   as  user-friendly  help   output,  remote

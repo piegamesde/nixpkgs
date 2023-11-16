@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -11,8 +6,7 @@ let
   cfg = config.services.powerdns;
   configDir = pkgs.writeTextDir "pdns.conf" "${cfg.extraConfig}";
   finalConfigDir = if cfg.secretFile == null then configDir else "/run/pdns";
-in
-{
+in {
   options = {
     services.powerdns = {
       enable = mkEnableOption (lib.mdDoc "PowerDNS domain name server");
@@ -57,12 +51,11 @@ in
 
       serviceConfig = {
         EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;
-        ExecStartPre = lib.optional (cfg.secretFile != null) (
-          pkgs.writeShellScript "pdns-pre-start" ''
+        ExecStartPre = lib.optional (cfg.secretFile != null)
+          (pkgs.writeShellScript "pdns-pre-start" ''
             umask 077
             ${pkgs.envsubst}/bin/envsubst -i "${configDir}/pdns.conf" > ${finalConfigDir}/pdns.conf
-          ''
-        );
+          '');
         ExecStart = [
           ""
           "${pkgs.pdns}/bin/pdns_server --config-dir=${finalConfigDir} --guardian=no --daemon=no --disable-syslog --log-timestamp=no --write-pid=no"
@@ -77,5 +70,6 @@ in
     };
 
     users.groups.pdns = { };
+
   };
 }

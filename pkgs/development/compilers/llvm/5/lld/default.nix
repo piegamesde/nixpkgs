@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  llvm_meta,
-  buildLlvmTools,
-  fetch,
-  cmake,
-  libllvm,
-  version,
-}:
+{ lib, stdenv, llvm_meta, buildLlvmTools, fetch, cmake, libllvm, version }:
 
 stdenv.mkDerivation rec {
   pname = "lld";
@@ -20,24 +11,18 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ libllvm ];
 
-  cmakeFlags =
-    [
-      "-DLLVM_CONFIG_PATH=${libllvm.dev}/bin/llvm-config${
-        lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "-native"
-      }"
-    ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
-    ];
+  cmakeFlags = [
+    "-DLLVM_CONFIG_PATH=${libllvm.dev}/bin/llvm-config${
+      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "-native"
+    }"
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
+    [ "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen" ];
 
   # Musl's default stack size is too small for lld to be able to link Firefox.
-  LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
+  LDFLAGS =
+    lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
+  outputs = [ "out" "lib" "dev" ];
 
   meta = llvm_meta // {
     broken = stdenv.isDarwin;

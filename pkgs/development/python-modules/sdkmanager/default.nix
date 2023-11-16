@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitLab,
-  pythonOlder,
-  argcomplete,
-  requests,
-  gnupg,
-}:
+{ lib, buildPythonPackage, fetchFromGitLab, pythonOlder, argcomplete, requests
+, gnupg }:
 
 buildPythonPackage rec {
   pname = "sdkmanager";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-EQ24OjQZr42C1PFtIXr4yFzYb/M4Tatqu8Zo+9dgtEE=";
   };
 
-  propagatedBuildInputs = [
-    argcomplete
-    requests
-  ];
+  propagatedBuildInputs = [ argcomplete requests ];
 
   postInstall = ''
     wrapProgram $out/bin/sdkmanager \
@@ -39,7 +29,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://gitlab.com/fdroid/sdkmanager";
-    description = "A drop-in replacement for sdkmanager from the Android SDK written in Python";
+    description =
+      "A drop-in replacement for sdkmanager from the Android SDK written in Python";
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ linsui ];
   };

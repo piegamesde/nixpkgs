@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   name = "roon-server";
   cfg = config.services.roon-server;
-in
-{
+in {
   options = {
     services.roon-server = {
       enable = mkEnableOption (lib.mdDoc "Roon Server");
@@ -89,15 +83,12 @@ in
     };
 
     users.groups.${cfg.group} = { };
-    users.users.${cfg.user} =
-      if cfg.user == "roon-server" then
-        {
-          isSystemUser = true;
-          description = "Roon Server user";
-          group = cfg.group;
-          extraGroups = [ "audio" ];
-        }
-      else
-        { };
+    users.users.${cfg.user} = if cfg.user == "roon-server" then {
+      isSystemUser = true;
+      description = "Roon Server user";
+      group = cfg.group;
+      extraGroups = [ "audio" ];
+    } else
+      { };
   };
 }

@@ -1,16 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # tests
-  djangorestframework,
-  html5lib,
-  lxml,
-  pytest-django,
-  pytestCheckHook,
-  pyyaml,
-}:
+# tests
+, djangorestframework, html5lib, lxml, pytest-django, pytestCheckHook, pyyaml }:
 
 buildPythonPackage {
   pname = "django-i18nfield";
@@ -26,14 +17,8 @@ buildPythonPackage {
 
   env.DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  nativeCheckInputs = [
-    djangorestframework
-    html5lib
-    lxml
-    pytest-django
-    pytestCheckHook
-    pyyaml
-  ];
+  nativeCheckInputs =
+    [ djangorestframework html5lib lxml pytest-django pytestCheckHook pyyaml ];
 
   meta = with lib; {
     description = "Store internationalized strings in Django models";

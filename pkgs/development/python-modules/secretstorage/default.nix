@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  cryptography,
-  fetchPypi,
-  jeepney,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, cryptography, fetchPypi, jeepney, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "secretstorage";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-JANTPvNp7KbSuoFxhXbF4PVk1cyhtY9zqLI+fU7uvXc=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    jeepney
-  ];
+  propagatedBuildInputs = [ cryptography jeepney ];
 
   # Needs a D-Bus session
   doCheck = false;

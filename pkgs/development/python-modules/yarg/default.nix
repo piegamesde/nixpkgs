@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  requests,
-  nose,
-  mock,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, requests, nose, mock }:
 
 buildPythonPackage rec {
   pname = "yarg";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    nose
-    mock
-  ];
+  nativeCheckInputs = [ nose mock ];
   checkPhase = ''
     nosetests
   '';

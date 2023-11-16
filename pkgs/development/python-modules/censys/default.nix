@@ -1,20 +1,6 @@
-{
-  lib,
-  backoff,
-  buildPythonPackage,
-  fetchFromGitHub,
-  importlib-metadata,
-  parameterized,
-  poetry-core,
-  pytest-mock,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  requests,
-  requests-mock,
-  responses,
-  rich,
-}:
+{ lib, backoff, buildPythonPackage, fetchFromGitHub, importlib-metadata
+, parameterized, poetry-core, pytest-mock, pytestCheckHook, pythonOlder
+, pythonRelaxDepsHook, requests, requests-mock, responses, rich }:
 
 buildPythonPackage rec {
   pname = "censys";
@@ -30,31 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-CtW6EN9oH/OIZ4XaoSuKlMYK9Mh/ewRs6y34xbfY234=";
   };
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
-  propagatedBuildInputs = [
-    backoff
-    requests
-    rich
-    importlib-metadata
-  ];
+  propagatedBuildInputs = [ backoff requests rich importlib-metadata ];
 
-  nativeCheckInputs = [
-    parameterized
-    pytest-mock
-    pytestCheckHook
-    requests-mock
-    responses
-  ];
+  nativeCheckInputs =
+    [ parameterized pytest-mock pytestCheckHook requests-mock responses ];
 
-  pythonRelaxDeps = [
-    "backoff"
-    "requests"
-    "rich"
-  ];
+  pythonRelaxDeps = [ "backoff" "requests" "rich" ];
 
   postPatch = ''
     substituteInPlace pytest.ini \

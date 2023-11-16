@@ -1,9 +1,8 @@
 { buildDhallGitHubPackage, Prelude }:
 
-let
-  version = "0.9.64";
-in
-buildDhallGitHubPackage {
+let version = "0.9.64";
+
+in buildDhallGitHubPackage {
   name = "cloudformation";
   owner = "jcouyang";
   repo = "dhall-aws-cloudformation";

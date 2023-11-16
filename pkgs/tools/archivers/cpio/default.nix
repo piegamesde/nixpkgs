@@ -1,14 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
+{ lib, stdenv, fetchurl
 
-  # for passthru.tests
-  git,
-  libguestfs,
-  nixosTests,
-  rpm,
-}:
+# for passthru.tests
+, git, libguestfs, nixosTests, rpm }:
 
 stdenv.mkDerivation rec {
   pname = "cpio";

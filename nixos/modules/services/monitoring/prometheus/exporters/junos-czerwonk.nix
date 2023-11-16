@@ -1,23 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
 let
   cfg = config.services.prometheus.exporters.junos-czerwonk;
 
-  configFile =
-    if cfg.configuration != null then configurationFile else (escapeShellArg cfg.configurationFile);
+  configFile = if cfg.configuration != null then
+    configurationFile
+  else
+    (escapeShellArg cfg.configurationFile);
 
-  configurationFile = pkgs.writeText "prometheus-junos-czerwonk-exporter.conf" (
-    builtins.toJSON (cfg.configuration)
-  );
-in
-{
+  configurationFile = pkgs.writeText "prometheus-junos-czerwonk-exporter.conf"
+    (builtins.toJSON (cfg.configuration));
+in {
   port = 9326;
   extraOpts = {
     environmentFile = mkOption {
@@ -41,12 +36,10 @@ in
         JunOS exporter configuration as nix attribute set. Mutually exclusive with the `configurationFile` option.
       '';
       example = {
-        devices = [
-          {
-            host = "router1";
-            key_file = "/path/to/key";
-          }
-        ];
+        devices = [{
+          host = "router1";
+          key_file = "/path/to/key";
+        }];
       };
     };
     telemetryPath = mkOption {
@@ -60,7 +53,8 @@ in
   serviceOpts = {
     serviceConfig = {
       DynamicUser = false;
-      EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+      EnvironmentFile =
+        mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
       RuntimeDirectory = "prometheus-junos-czerwonk-exporter";
       ExecStartPre = [
         "${pkgs.writeShellScript "subst-secrets-junos-czerwonk-exporter" ''

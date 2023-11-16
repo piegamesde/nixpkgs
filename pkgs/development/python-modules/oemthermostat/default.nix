@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  setuptools-scm,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder
+, requests, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "oemthermostat";
@@ -33,7 +26,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "oemthermostat" ];
 
   meta = with lib; {
-    description = "Python module to interact with OpenEnergyMonitor thermostats";
+    description =
+      "Python module to interact with OpenEnergyMonitor thermostats";
     homepage = "https://github.com/Cadair/openenergymonitor_thermostat";
     license = licenses.bsd3;
     maintainers = with maintainers; [ fab ];

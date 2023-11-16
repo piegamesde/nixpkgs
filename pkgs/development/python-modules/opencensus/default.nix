@@ -1,11 +1,5 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  lib,
-  unittestCheckHook,
-  google-api-core,
-  opencensus-context,
-}:
+{ buildPythonPackage, fetchPypi, lib, unittestCheckHook, google-api-core
+, opencensus-context }:
 
 buildPythonPackage rec {
   pname = "opencensus";
@@ -16,10 +10,7 @@ buildPythonPackage rec {
     hash = "sha256-YVQEKiNrns3VWiPfuydDuz3qzQaH4+A5HsLgx0lQ1m8=";
   };
 
-  propagatedBuildInputs = [
-    google-api-core
-    opencensus-context
-  ];
+  propagatedBuildInputs = [ google-api-core opencensus-context ];
 
   pythonNamespaces = [ "opencensus.common" ];
 

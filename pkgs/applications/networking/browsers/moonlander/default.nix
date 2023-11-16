@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromSourcehut,
-  rustPlatform,
-  atk,
-  cairo,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  pango,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromSourcehut, rustPlatform, atk, cairo, gdk-pixbuf, glib
+, gtk3, pango, pkg-config }:
 
 rustPlatform.buildRustPackage rec {
   pname = "moonlander";
@@ -27,14 +16,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    atk
-    cairo
-    gdk-pixbuf
-    glib
-    gtk3
-    pango
-  ];
+  buildInputs = [ atk cairo gdk-pixbuf glib gtk3 pango ];
 
   meta = with lib; {
     description = ''Just another "fancy" Gemini client'';

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  rocksdb,
-  rapidjson,
-  pkg-config,
-  fetchFromGitHub,
-  zlib,
-}:
+{ lib, stdenv, cmake, rocksdb, rapidjson, pkg-config, fetchFromGitHub, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "sortmerna";
@@ -20,15 +11,8 @@ stdenv.mkDerivation rec {
     sha256 = "0r91viylzr069jm7kpcgb45kagvf8sqcj5zc1af4arl9sgfs1f3j";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    zlib
-    rocksdb
-    rapidjson
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ zlib rocksdb rapidjson ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
@@ -52,7 +36,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Tools for filtering, mapping, and OTU-picking from shotgun genomics data";
+    description =
+      "Tools for filtering, mapping, and OTU-picking from shotgun genomics data";
     license = licenses.lgpl3;
     platforms = platforms.x86_64;
     homepage = "https://bioinfo.lifl.fr/RNA/sortmerna/";

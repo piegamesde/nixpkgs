@@ -1,16 +1,5 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ocaml,
-  menhir,
-  ppxlib,
-  ppx_deriving,
-  re,
-  uutf,
-  uucp,
-  ounit2,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ocaml, menhir, ppxlib, ppx_deriving
+, re, uutf, uucp, ounit2 }:
 
 buildDunePackage rec {
   pname = "jingoo";
@@ -26,13 +15,7 @@ buildDunePackage rec {
   };
 
   nativeBuildInputs = [ menhir ];
-  propagatedBuildInputs = [
-    ppxlib
-    ppx_deriving
-    re
-    uutf
-    uucp
-  ];
+  propagatedBuildInputs = [ ppxlib ppx_deriving re uutf uucp ];
   checkInputs = [ ounit2 ];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  pytestCheckHook,
-  pycodestyle,
-  pyyaml,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core
+, pytestCheckHook, pycodestyle, pyyaml }:
 
 buildPythonPackage rec {
   pname = "tinydb";
@@ -29,11 +21,7 @@ buildPythonPackage rec {
       --replace "--cov-append --cov-report term --cov tinydb" ""
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pycodestyle
-    pyyaml
-  ];
+  nativeCheckInputs = [ pytestCheckHook pycodestyle pyyaml ];
 
   pythonImportsCheck = [ "tinydb" ];
 

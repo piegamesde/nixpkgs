@@ -1,34 +1,14 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build-system
-  setuptools,
+# build-system
+, setuptools
 
-  # runtime
-  audioread,
-  decorator,
-  joblib,
-  lazy-loader,
-  matplotlib,
-  msgpack,
-  numba,
-  numpy,
-  pooch,
-  scikit-learn,
-  scipy,
-  soundfile,
-  soxr,
-  typing-extensions,
+# runtime
+, audioread, decorator, joblib, lazy-loader, matplotlib, msgpack, numba, numpy
+, pooch, scikit-learn, scipy, soundfile, soxr, typing-extensions
 
-  # tests
-  ffmpeg-headless,
-  packaging,
-  pytest-mpl,
-  pytestCheckHook,
-  resampy,
-  samplerate,
+# tests
+, ffmpeg-headless, packaging, pytest-mpl, pytestCheckHook, resampy, samplerate
 }:
 
 buildPythonPackage rec {
@@ -72,14 +52,9 @@ buildPythonPackage rec {
   # check that import works, this allows to capture errors like https://github.com/librosa/librosa/issues/1160
   pythonImportsCheck = [ "librosa" ];
 
-  nativeCheckInputs = [
-    ffmpeg-headless
-    packaging
-    pytest-mpl
-    pytestCheckHook
-    resampy
-    samplerate
-  ] ++ passthru.optional-dependencies.matplotlib;
+  nativeCheckInputs =
+    [ ffmpeg-headless packaging pytest-mpl pytestCheckHook resampy samplerate ]
+    ++ passthru.optional-dependencies.matplotlib;
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -99,4 +74,5 @@ buildPythonPackage rec {
     license = licenses.isc;
     maintainers = with maintainers; [ GuillaumeDesforges ];
   };
+
 }

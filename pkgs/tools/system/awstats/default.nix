@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchurl,
-  perlPackages,
-  jdk,
-}:
+{ lib, fetchurl, perlPackages, jdk }:
 
 perlPackages.buildPerlPackage rec {
   pname = "awstats";
@@ -19,11 +14,7 @@ perlPackages.buildPerlPackage rec {
       --replace /usr/share/awstats/ "$out/wwwroot/cgi-bin/"
   '';
 
-  outputs = [
-    "bin"
-    "out"
-    "doc"
-  ]; # bin just links the user-run executable
+  outputs = [ "bin" "out" "doc" ]; # bin just links the user-run executable
 
   propagatedBuildOutputs = [ ]; # otherwise out propagates bin -> cycle
 

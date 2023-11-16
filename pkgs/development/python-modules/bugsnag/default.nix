@@ -1,12 +1,4 @@
-{
-  lib,
-  blinker,
-  buildPythonPackage,
-  fetchPypi,
-  flask,
-  pythonOlder,
-  webob,
-}:
+{ lib, blinker, buildPythonPackage, fetchPypi, flask, pythonOlder, webob }:
 
 buildPythonPackage rec {
   pname = "bugsnag";
@@ -22,12 +14,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ webob ];
 
-  passthru.optional-dependencies = {
-    flask = [
-      blinker
-      flask
-    ];
-  };
+  passthru.optional-dependencies = { flask = [ blinker flask ]; };
 
   pythonImportsCheck = [ "bugsnag" ];
 
@@ -37,7 +24,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Automatic error monitoring for Python applications";
     homepage = "https://github.com/bugsnag/bugsnag-python";
-    changelog = "https://github.com/bugsnag/bugsnag-python/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/bugsnag/bugsnag-python/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

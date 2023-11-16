@@ -1,30 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  pkg-config,
-  ibus,
-  gtk3,
-  libthai,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, pkg-config, ibus, gtk3, libthai }:
 
 stdenv.mkDerivation rec {
   pname = "ibus-libthai";
   version = "0.1.5";
 
   src = fetchurl {
-    url = "https://linux.thai.net/pub/ThaiLinux/software/libthai/ibus-libthai-${version}.tar.xz";
+    url =
+      "https://linux.thai.net/pub/ThaiLinux/software/libthai/ibus-libthai-${version}.tar.xz";
     sha256 = "sha256-egAxttjwuKiDoIuJluoOTJdotFZJe6ZOmJgdiFCAwx0=";
   };
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [
-    gtk3
-    ibus
-    libthai
-  ];
+  buildInputs = [ gtk3 ibus libthai ];
 
   meta = with lib; {
     isIbusEngine = true;

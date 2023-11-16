@@ -1,34 +1,12 @@
-{
-  lib,
-  stdenv,
-  substituteAll,
-  fetchFromGitHub,
-  pkg-config,
-  meson,
-  ninja,
-  gobject-introspection,
-  python3,
-  libyaml,
-  rpm,
-  file,
-  gtk-doc,
-  docbook-xsl-nons,
-  docbook_xml_dtd_412,
-  glib,
-}:
+{ lib, stdenv, substituteAll, fetchFromGitHub, pkg-config, meson, ninja
+, gobject-introspection, python3, libyaml, rpm, file, gtk-doc, docbook-xsl-nons
+, docbook_xml_dtd_412, glib }:
 
 stdenv.mkDerivation rec {
   pname = "libmodulemd";
   version = "2.15.0";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-    "devdoc"
-    "man"
-    "py"
-  ];
+  outputs = [ "bin" "out" "dev" "devdoc" "man" "py" ];
 
   src = fetchFromGitHub {
     owner = "fedora-modularity";
@@ -37,14 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-mIyrdksyEk1AKV+vw4g8LUwlQRzwwMkPDuCbw2IiNcA=";
   };
 
-  patches =
-    [
-      # Use proper glib devdoc path.
-      (substituteAll {
-        src = ./glib-devdoc.patch;
-        glib_devdoc = glib.devdoc;
-      })
-    ];
+  patches = [
+    # Use proper glib devdoc path.
+    (substituteAll {
+      src = ./glib-devdoc.patch;
+      glib_devdoc = glib.devdoc;
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -64,7 +41,9 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dgobject_overrides_dir_py3=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
+    "-Dgobject_overrides_dir_py3=${
+      placeholder "py"
+    }/${python3.sitePackages}/gi/overrides"
   ];
 
   postFixup = ''

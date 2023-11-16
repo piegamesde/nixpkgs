@@ -1,11 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  pytestCheckHook,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromGitHub, pythonOlder
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aiolyric";
@@ -25,11 +19,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # AssertionError, https://github.com/timmo001/aiolyric/issues/5
-      "test_location"
-    ];
+  disabledTests = [
+    # AssertionError, https://github.com/timmo001/aiolyric/issues/5
+    "test_location"
+  ];
 
   pythonImportsCheck = [ "aiolyric" ];
 

@@ -1,27 +1,18 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.services.bloop;
-in
-{
+
+in {
 
   options.services.bloop = {
     extraOptions = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      example = [
-        "-J-Xmx2G"
-        "-J-XX:MaxInlineLevel=20"
-        "-J-XX:+UseParallelGC"
-      ];
+      example = [ "-J-Xmx2G" "-J-XX:MaxInlineLevel=20" "-J-XX:+UseParallelGC" ];
       description = lib.mdDoc ''
         Specifies additional command line argument to pass to bloop
         java process.

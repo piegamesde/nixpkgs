@@ -1,27 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
   streams = builtins.attrNames config.services.liquidsoap.streams;
 
-  streamService =
-    name:
-    let
-      stream = builtins.getAttr name config.services.liquidsoap.streams;
-    in
-    {
+  streamService = name:
+    let stream = builtins.getAttr name config.services.liquidsoap.streams;
+    in {
       inherit name;
       value = {
-        after = [
-          "network-online.target"
-          "sound.target"
-        ];
+        after = [ "network-online.target" "sound.target" ];
         description = "${name} liquidsoap stream";
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.wget ];
@@ -32,8 +21,7 @@ let
         };
       };
     };
-in
-{
+in {
 
   ##### interface
 
@@ -58,6 +46,7 @@ in
 
       type = types.attrsOf (types.either types.path types.str);
     };
+
   };
   ##### implementation
 
@@ -76,4 +65,5 @@ in
 
     systemd.services = builtins.listToAttrs (map streamService streams);
   };
+
 }

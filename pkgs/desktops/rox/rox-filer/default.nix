@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  pkg-config,
-  wrapGAppsHook,
-  libxml2,
-  gtk,
-  libSM,
-  shared-mime-info,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, pkg-config, wrapGAppsHook, libxml2, gtk
+, libSM, shared-mime-info }:
 
 stdenv.mkDerivation rec {
   pname = "rox-filer";
@@ -20,16 +10,8 @@ stdenv.mkDerivation rec {
     sha256 = "a929bd32ee18ef7a2ed48b971574574592c42e34ae09f36604bf663d7c101ba8";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-  ];
-  buildInputs = [
-    libxml2
-    gtk
-    shared-mime-info
-    libSM
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
+  buildInputs = [ libxml2 gtk shared-mime-info libSM ];
   NIX_LDFLAGS = "-lm";
 
   patches = [
@@ -38,7 +20,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/rox-desktop/rox-filer/pull/15
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/rox-desktop/rox-filer/commit/86b0bb9144186d51ea9b898905111bd8b143b552.patch";
+      url =
+        "https://github.com/rox-desktop/rox-filer/commit/86b0bb9144186d51ea9b898905111bd8b143b552.patch";
       sha256 = "1csyx229i09p00lbdlkdqdhn3x2lb5zby1h9rkjgzlr2qz74gc69";
     })
   ];
@@ -96,10 +79,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Fast, lightweight, gtk2 file manager";
     homepage = "http://rox.sourceforge.net/desktop";
-    license = with licenses; [
-      gpl2
-      lgpl2
-    ];
+    license = with licenses; [ gpl2 lgpl2 ];
     platforms = platforms.linux;
     maintainers = [ maintainers.eleanor ];
   };

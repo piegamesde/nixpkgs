@@ -1,14 +1,7 @@
-{
-  lib,
-  stdenv,
-  cmake,
-  fetchFromGitHub,
-  static ? stdenv.hostPlatform.isStatic,
-}:
+{ lib, stdenv, cmake, fetchFromGitHub, static ? stdenv.hostPlatform.isStatic }:
 
 let
-  generic =
-    { version, hash }:
+  generic = { version, hash }:
     stdenv.mkDerivation rec {
       inherit version;
       pname = "h3";
@@ -38,14 +31,10 @@ let
         license = licenses.asl20;
         changelog = "https://github.com/uber/h3/raw/v${version}/CHANGELOG.md";
         platforms = platforms.all;
-        maintainers = with maintainers; [
-          kalbasit
-          marsam
-        ];
+        maintainers = with maintainers; [ kalbasit marsam ];
       };
     };
-in
-{
+in {
   h3_3 = generic {
     version = "3.7.2";
     hash = "sha256-MvWqQraTnab6EuDx4V0v8EvrFWHT95f2EHTL2p2kei8=";

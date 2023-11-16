@@ -1,39 +1,9 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  wayland,
-  dwayland,
-  qtbase,
-  qttools,
-  qtx11extras,
-  wrapQtAppsHook,
-  extra-cmake-modules,
-  gsettings-qt,
-  libepoxy,
-  kconfig,
-  kconfigwidgets,
-  kcoreaddons,
-  kcrash,
-  kdbusaddons,
-  kiconthemes,
-  kglobalaccel,
-  kidletime,
-  knotifications,
-  kpackage,
-  plasma-framework,
-  kcmutils,
-  knewstuff,
-  kdecoration,
-  kscreenlocker,
-  breeze-qt5,
-  libinput,
-  mesa,
-  lcms2,
-  xorg,
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, wayland, dwayland, qtbase
+, qttools, qtx11extras, wrapQtAppsHook, extra-cmake-modules, gsettings-qt
+, libepoxy, kconfig, kconfigwidgets, kcoreaddons, kcrash, kdbusaddons
+, kiconthemes, kglobalaccel, kidletime, knotifications, kpackage
+, plasma-framework, kcmutils, knewstuff, kdecoration, kscreenlocker, breeze-qt5
+, libinput, mesa, lcms2, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "deepin-kwin";
@@ -59,12 +29,7 @@ stdenv.mkDerivation rec {
       --replace 'file.readAll().startsWith(DEFINE_DDE_DOCK_PATH"dde-dock")' 'file.readAll().contains("dde-dock")'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    extra-cmake-modules
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake pkg-config extra-cmake-modules wrapQtAppsHook ];
 
   buildInputs = [
     qtbase
@@ -106,13 +71,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DKWIN_BUILD_RUNNERS=OFF" ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   meta = with lib; {
-    description = "Fork of kwin, an easy to use, but flexible, composited Window Manager";
+    description =
+      "Fork of kwin, an easy to use, but flexible, composited Window Manager";
     homepage = "https://github.com/linuxdeepin/deepin-kwin";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;

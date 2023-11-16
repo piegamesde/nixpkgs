@@ -1,19 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
+{ lib, buildPythonPackage, fetchFromGitHub
 
-  # build-system
-  cython,
+# build-system
+, cython
 
-  # optional
-  numpy,
+# optional
+, numpy
 
-  # tests
-  hypothesis,
-  pytest-cov,
-  pytestCheckHook,
-}:
+# tests
+, hypothesis, pytest-cov, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ndindex";
@@ -44,16 +38,16 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.arrays;
 
-  pytestFlagsArray =
-    [
-      # pytest.PytestRemovedIn8Warning: Passing None has been deprecated.
-      "--deselect=ndindex/tests/test_ndindex.py::test_ndindex_invalid"
-    ];
+  pytestFlagsArray = [
+    # pytest.PytestRemovedIn8Warning: Passing None has been deprecated.
+    "--deselect=ndindex/tests/test_ndindex.py::test_ndindex_invalid"
+  ];
 
   meta = with lib; {
     description = "";
     homepage = "https://github.com/Quansight-Labs/ndindex";
-    changelog = "https://github.com/Quansight-Labs/ndindex/releases/tag/${version}";
+    changelog =
+      "https://github.com/Quansight-Labs/ndindex/releases/tag/${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

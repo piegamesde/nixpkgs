@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,16 +7,18 @@ let
   cfg = config.services.xserver.digimend;
 
   pkg = config.boot.kernelPackages.digimend;
-in
 
-{
+in {
 
   options = {
 
     services.xserver.digimend = {
 
-      enable = mkEnableOption (lib.mdDoc "the digimend drivers for Huion/XP-Pen/etc. tablets");
+      enable = mkEnableOption
+        (lib.mdDoc "the digimend drivers for Huion/XP-Pen/etc. tablets");
+
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -31,6 +28,9 @@ in
 
     boot.extraModulePackages = [ pkg ];
 
-    environment.etc."X11/xorg.conf.d/50-digimend.conf".source = "${pkg}/usr/share/X11/xorg.conf.d/50-digimend.conf";
+    environment.etc."X11/xorg.conf.d/50-digimend.conf".source =
+      "${pkg}/usr/share/X11/xorg.conf.d/50-digimend.conf";
+
   };
+
 }

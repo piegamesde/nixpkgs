@@ -1,21 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeText,
-  erlang,
-}:
+{ lib, stdenv, fetchFromGitHub, writeText, erlang }:
 
 let
-  shell =
-    drv:
+  shell = drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
     };
 
-  pkg =
-    self:
+  pkg = self:
     stdenv.mkDerivation {
       pname = "webdriver";
       version = "0.pre+unstable=2015-02-08";
@@ -42,9 +34,7 @@ let
         maintainers = with lib.maintainers; [ ericbmerritt ];
       };
 
-      passthru = {
-        env = shell self;
-      };
+      passthru = { env = shell self; };
+
     };
-in
-lib.fix pkg
+in lib.fix pkg

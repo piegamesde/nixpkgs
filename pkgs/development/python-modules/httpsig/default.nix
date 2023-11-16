@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  setuptools-scm,
-  pycryptodome,
-  requests,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, setuptools-scm, pycryptodome, requests
+, six }:
 
 buildPythonPackage rec {
   pname = "httpsig";
@@ -19,11 +12,7 @@ buildPythonPackage rec {
 
   buildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    pycryptodome
-    requests
-    six
-  ];
+  propagatedBuildInputs = [ pycryptodome requests six ];
 
   pythonImportsCheck = [ "httpsig" ];
 

@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  graphicsmagick,
-}:
+{ lib, stdenv, graphicsmagick }:
 
 stdenv.mkDerivation {
   pname = "graphicsmagick-imagemagick-compat";

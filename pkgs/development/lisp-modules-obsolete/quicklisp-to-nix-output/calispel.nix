@@ -1,6 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "calispel";
   version = "20170830-git";
 
@@ -19,7 +18,8 @@ rec {
   ];
 
   src = fetchurl {
-    url = "http://beta.quicklisp.org/archive/calispel/2017-08-30/calispel-20170830-git.tgz";
+    url =
+      "http://beta.quicklisp.org/archive/calispel/2017-08-30/calispel-20170830-git.tgz";
     sha256 = "0qwmzmyh63jlw5bdv4wf458n1dz9k77gd5b4ix1kd6xrzx247k7i";
   };
 

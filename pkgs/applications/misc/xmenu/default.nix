@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  imlib2,
-  libX11,
-  libXft,
-  libXinerama,
-}:
+{ lib, stdenv, fetchFromGitHub, imlib2, libX11, libXft, libXinerama }:
 
 stdenv.mkDerivation rec {
   pname = "xmenu";
@@ -19,12 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Gg4hSBBVBOB/wlY44C5bJOuOnLoA/tPvcNZamXae/WE=";
   };
 
-  buildInputs = [
-    imlib2
-    libX11
-    libXft
-    libXinerama
-  ];
+  buildInputs = [ imlib2 libX11 libXft libXinerama ];
 
   postPatch = ''sed -i "s:/usr/local:$out:" config.mk'';
 

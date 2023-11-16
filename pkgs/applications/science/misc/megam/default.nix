@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ocaml,
-  ncurses,
-}:
+{ lib, stdenv, fetchurl, ocaml, ncurses }:
 
 stdenv.mkDerivation {
   pname = "megam";
@@ -15,10 +9,7 @@ stdenv.mkDerivation {
     sha256 = "dc0e9f59ff8513449fe3bd40b260141f89c88a4edf6ddc8b8a394c758e49724e";
   };
 
-  patches = [
-    ./ocaml-includes.patch
-    ./ocaml-3.12.patch
-  ];
+  patches = [ ./ocaml-includes.patch ./ocaml-3.12.patch ];
 
   postPatch = ''
     # Deprecated in ocaml 3.10 https://github.com/ocaml/ocaml/commit/f6190f3d0c49c5220d443ee8d03ca5072d68aa87
@@ -36,7 +27,9 @@ stdenv.mkDerivation {
 
   makeFlags = [
     "CAML_INCLUDES=${ocaml}/lib/ocaml/caml"
-    ("WITHBIGARRAY=" + lib.optionalString (lib.versionOlder ocaml.version "4.08.0") "bigarray.cma")
+    ("WITHBIGARRAY="
+      + lib.optionalString (lib.versionOlder ocaml.version "4.08.0")
+      "bigarray.cma")
     "all"
     "opt"
   ];

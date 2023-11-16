@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  libsForQt5,
-}:
+{ lib, stdenv, fetchgit, libsForQt5 }:
 
 stdenv.mkDerivation rec {
   pname = "ocs-url";

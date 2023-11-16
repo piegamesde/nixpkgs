@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonApplication,
-  fetchFromGitHub,
-  configargparse,
-  setuptools,
-  poetry-core,
-  rbw,
-}:
+{ lib, buildPythonApplication, fetchFromGitHub, configargparse, setuptools
+, poetry-core, rbw }:
 
 buildPythonApplication rec {
   pname = "rofi-rbw";
@@ -20,10 +13,7 @@ buildPythonApplication rec {
     hash = "sha256-5K6tofC1bIxxNOQ0jk6NbVoaGGyQImYiUZAaAmkwiTA=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-    poetry-core
-  ];
+  nativeBuildInputs = [ setuptools poetry-core ];
 
   propagatedBuildInputs = [ configargparse ];
 
@@ -37,10 +27,7 @@ buildPythonApplication rec {
     description = "Rofi frontend for Bitwarden";
     homepage = "https://github.com/fdw/rofi-rbw";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      equirosa
-      dit7ya
-    ];
+    maintainers = with maintainers; [ equirosa dit7ya ];
     platforms = platforms.linux;
   };
 }

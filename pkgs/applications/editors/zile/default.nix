@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  boehmgc,
-  glib,
-  help2man,
-  libgee,
-  ncurses,
-  perl,
-  pkg-config,
-  vala,
-}:
+{ lib, stdenv, fetchurl, boehmgc, glib, help2man, libgee, ncurses, perl
+, pkg-config, vala }:
 
 stdenv.mkDerivation rec {
   pname = "zile";
@@ -21,20 +10,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-d+t9r/PJi9yI2qGsBA3MynK4HcMvwxZuB53Xpj5Cx0E=";
   };
 
-  buildInputs = [
-    boehmgc
-    glib
-    libgee
-    ncurses
-  ];
-  nativeBuildInputs =
-    [
-      perl
-      pkg-config
-      vala
-    ]
-    # `help2man' wants to run Zile, which won't work when the
-    # newly-produced binary can't be run at build-time.
+  buildInputs = [ boehmgc glib libgee ncurses ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+    vala
+  ]
+  # `help2man' wants to run Zile, which won't work when the
+  # newly-produced binary can't be run at build-time.
     ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) help2man;
 
   # Tests can't be run because most of them rely on the ability to
@@ -76,10 +59,7 @@ stdenv.mkDerivation rec {
       every Emacs user should feel at home.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      pSub
-      AndersonTorres
-    ];
+    maintainers = with maintainers; [ pSub AndersonTorres ];
     platforms = platforms.unix;
   };
 }

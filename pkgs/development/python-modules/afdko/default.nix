@@ -1,36 +1,9 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  fetchpatch,
-  pythonOlder,
-  fonttools,
-  defcon,
-  lxml,
-  fs,
-  unicodedata2,
-  zopfli,
-  brotlipy,
-  fontpens,
-  brotli,
-  fontmath,
-  mutatormath,
-  booleanoperations,
-  ufoprocessor,
-  ufonormalizer,
-  psautohint,
-  tqdm,
-  setuptools-scm,
-  scikit-build,
-  cmake,
-  antlr4_9,
-  libxml2,
-  pytestCheckHook,
-  # Enables some expensive tests, useful for verifying an update
-  runAllTests ? false,
-  afdko,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, fetchpatch, pythonOlder, fonttools
+, defcon, lxml, fs, unicodedata2, zopfli, brotlipy, fontpens, brotli, fontmath
+, mutatormath, booleanoperations, ufoprocessor, ufonormalizer, psautohint, tqdm
+, setuptools-scm, scikit-build, cmake, antlr4_9, libxml2, pytestCheckHook
+# Enables some expensive tests, useful for verifying an update
+, runAllTests ? false, afdko }:
 
 buildPythonPackage rec {
   pname = "afdko";
@@ -44,16 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-v0fIhf3P5Xjdn5/ryRNj0Q2YHAisMqi5RTmJQabaUO0=";
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-    scikit-build
-    cmake
-  ];
+  nativeBuildInputs = [ setuptools-scm scikit-build cmake ];
 
-  buildInputs = [
-    antlr4_9.runtime.cpp
-    libxml2.dev
-  ];
+  buildInputs = [ antlr4_9.runtime.cpp libxml2.dev ];
 
   patches = [
     # Don't try to install cmake and ninja using pip
@@ -94,35 +60,30 @@ buildPythonPackage rec {
     export PATH=$PATH:$out/bin
   '';
 
-  disabledTests =
-    lib.optionals (!runAllTests) [
-      # Disable slow tests, reduces test time ~25 %
-      "test_report"
-      "test_post_overflow"
-      "test_cjk"
-      "test_extrapolate"
-      "test_filename_without_dir"
-      "test_overwrite"
-      "test_options"
-    ]
-    ++
-      lib.optionals (stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isRiscV)
-        [
-          # unknown reason so far
-          # https://github.com/adobe-type-tools/afdko/issues/1425
-          "test_spec"
-        ]
-    ++ lib.optionals (stdenv.hostPlatform.isi686) [
+  disabledTests = lib.optionals (!runAllTests) [
+    # Disable slow tests, reduces test time ~25 %
+    "test_report"
+    "test_post_overflow"
+    "test_cjk"
+    "test_extrapolate"
+    "test_filename_without_dir"
+    "test_overwrite"
+    "test_options"
+  ] ++ lib.optionals
+    (stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isRiscV) [
+      # unknown reason so far
+      # https://github.com/adobe-type-tools/afdko/issues/1425
+      "test_spec"
+    ] ++ lib.optionals (stdenv.hostPlatform.isi686) [
       "test_dump_option"
       "test_type1mm_inputs"
     ];
 
-  passthru.tests = {
-    fullTestsuite = afdko.override { runAllTests = true; };
-  };
+  passthru.tests = { fullTestsuite = afdko.override { runAllTests = true; }; };
 
   meta = with lib; {
-    changelog = "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
+    changelog =
+      "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
     description = "Adobe Font Development Kit for OpenType";
     homepage = "https://adobe-type-tools.github.io/afdko";
     license = licenses.asl20;

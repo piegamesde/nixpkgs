@@ -1,14 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  coreutils,
-  bash,
-  direnv,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, coreutils, bash
+, direnv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rtx";
@@ -37,11 +28,10 @@ rustPlatform.buildRustPackage rec {
       --replace 'cmd!("direnv"' 'cmd!("${direnv}/bin/direnv"'
   '';
 
-  checkFlags =
-    [
-      # Requires .git directory to be present
-      "--skip=cli::plugins::ls::tests::test_plugin_list_urls"
-    ];
+  checkFlags = [
+    # Requires .git directory to be present
+    "--skip=cli::plugins::ls::tests::test_plugin_list_urls"
+  ];
   cargoTestFlags = [ "--all-features" ];
   # some tests access the same folders, don't test in parallel to avoid race conditions
   dontUseCargoParallelTests = true;

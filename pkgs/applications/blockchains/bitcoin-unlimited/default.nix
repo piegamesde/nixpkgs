@@ -1,27 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  pkg-config,
-  autoreconfHook,
-  openssl,
-  db48,
-  boost,
-  zlib,
-  miniupnpc,
-  util-linux,
-  protobuf,
-  qrencode,
-  libevent,
-  python3,
-  withGui,
-  wrapQtAppsHook ? null,
-  qtbase ? null,
-  qttools ? null,
-  Foundation,
-  ApplicationServices,
-  AppKit,
-}:
+{ lib, stdenv, fetchFromGitLab, pkg-config, autoreconfHook, openssl, db48, boost
+, zlib, miniupnpc, util-linux, protobuf, qrencode, libevent, python3, withGui
+, wrapQtAppsHook ? null, qtbase ? null, qttools ? null, Foundation
+, ApplicationServices, AppKit }:
 
 stdenv.mkDerivation rec {
   pname = "bitcoin" + lib.optionalString (!withGui) "d" + "-unlimited";
@@ -34,40 +14,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-d+giTXq/6HpysRAPT7yOl/B1x4zie9irs4O7cJsBqHg=";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      autoreconfHook
-      python3
-    ]
-    ++ lib.optionals withGui [
-      wrapQtAppsHook
-      qttools
-    ];
+  nativeBuildInputs = [ pkg-config autoreconfHook python3 ]
+    ++ lib.optionals withGui [ wrapQtAppsHook qttools ];
   buildInputs =
-    [
-      openssl
-      db48
-      boost
-      zlib
-      miniupnpc
-      util-linux
-      protobuf
-      libevent
-    ]
-    ++ lib.optionals withGui [
-      qtbase
-      qttools
-      qrencode
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Foundation
-      ApplicationServices
-      AppKit
-    ];
+    [ openssl db48 boost zlib miniupnpc util-linux protobuf libevent ]
+    ++ lib.optionals withGui [ qtbase qttools qrencode ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation ApplicationServices AppKit ];
 
-  configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" ]
+  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"

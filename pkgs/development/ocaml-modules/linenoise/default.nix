@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  result,
-}:
+{ lib, fetchFromGitHub, buildDunePackage, result }:
 
 buildDunePackage rec {
   pname = "linenoise";

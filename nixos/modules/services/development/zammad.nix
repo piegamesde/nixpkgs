@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -28,14 +23,12 @@ let
     RAILS_LOG_TO_STDOUT = "true";
   };
   databaseConfig = settingsFormat.generate "database.yml" cfg.database.settings;
-in
-{
+in {
 
   options = {
     services.zammad = {
-      enable = mkEnableOption (
-        lib.mdDoc "Zammad, a web-based, open source user support/ticketing solution"
-      );
+      enable = mkEnableOption (lib.mdDoc
+        "Zammad, a web-based, open source user support/ticketing solution");
 
       package = mkOption {
         type = types.package;
@@ -79,10 +72,7 @@ in
 
       database = {
         type = mkOption {
-          type = types.enum [
-            "PostgreSQL"
-            "MySQL"
-          ];
+          type = types.enum [ "PostgreSQL" "MySQL" ];
           default = "PostgreSQL";
           example = "MySQL";
           description = lib.mdDoc "Database engine to use.";
@@ -90,12 +80,10 @@ in
 
         host = mkOption {
           type = types.nullOr types.str;
-          default =
-            {
-              PostgreSQL = "/run/postgresql";
-              MySQL = "localhost";
-            }
-            .${cfg.database.type};
+          default = {
+            PostgreSQL = "/run/postgresql";
+            MySQL = "localhost";
+          }.${cfg.database.type};
           defaultText = literalExpression ''
             {
               PostgreSQL = "/run/postgresql";
@@ -139,7 +127,8 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = true;
-          description = lib.mdDoc "Whether to create a local database automatically.";
+          description =
+            lib.mdDoc "Whether to create a local database automatically.";
         };
 
         settings = mkOption {
@@ -186,23 +175,19 @@ in
   config = mkIf cfg.enable {
 
     services.zammad.database.settings = {
-      production = mapAttrs (_: v: mkDefault v) (
-        filterNull {
-          adapter =
-            {
-              PostgreSQL = "postgresql";
-              MySQL = "mysql2";
-            }
-            .${cfg.database.type};
-          database = cfg.database.name;
-          pool = 50;
-          timeout = 5000;
-          encoding = "utf8";
-          username = cfg.database.user;
-          host = cfg.database.host;
-          port = cfg.database.port;
-        }
-      );
+      production = mapAttrs (_: v: mkDefault v) (filterNull {
+        adapter = {
+          PostgreSQL = "postgresql";
+          MySQL = "mysql2";
+        }.${cfg.database.type};
+        database = cfg.database.name;
+        pool = 50;
+        timeout = 5000;
+        encoding = "utf8";
+        username = cfg.database.user;
+        host = cfg.database.host;
+        port = cfg.database.port;
+      });
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openPorts [
@@ -225,39 +210,35 @@ in
           services.zammad.database.user must be set to "zammad" if services.zammad.database.createLocally is set to true'';
       }
       {
-        assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-        message = "a password cannot be specified if services.zammad.database.createLocally is set to true";
+        assertion = cfg.database.createLocally -> cfg.database.passwordFile
+          == null;
+        message =
+          "a password cannot be specified if services.zammad.database.createLocally is set to true";
       }
     ];
 
-    services.mysql = optionalAttrs (cfg.database.createLocally && cfg.database.type == "MySQL") {
-      enable = true;
-      package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [
-        {
+    services.mysql = optionalAttrs
+      (cfg.database.createLocally && cfg.database.type == "MySQL") {
+        enable = true;
+        package = mkDefault pkgs.mariadb;
+        ensureDatabases = [ cfg.database.name ];
+        ensureUsers = [{
+          name = cfg.database.user;
+          ensurePermissions = { "${cfg.database.name}.*" = "ALL PRIVILEGES"; };
+        }];
+      };
+
+    services.postgresql = optionalAttrs
+      (cfg.database.createLocally && cfg.database.type == "PostgreSQL") {
+        enable = true;
+        ensureDatabases = [ cfg.database.name ];
+        ensureUsers = [{
           name = cfg.database.user;
           ensurePermissions = {
-            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
           };
-        }
-      ];
-    };
-
-    services.postgresql =
-      optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
-        {
-          enable = true;
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-              };
-            }
-          ];
-        };
+        }];
+      };
 
     systemd.services.zammad-web = {
       inherit environment;
@@ -265,10 +246,7 @@ in
         # loading all the gems takes time
         TimeoutStartSec = 1200;
       };
-      after = [
-        "network.target"
-        "postgresql.service"
-      ];
+      after = [ "network.target" "postgresql.service" ];
       requires = [ "postgresql.service" ];
       description = "Zammad web";
       wantedBy = [ "multi-user.target" ];
@@ -299,7 +277,10 @@ in
 
         if [ `${config.services.postgresql.package}/bin/psql \
                   --host ${cfg.database.host} \
-                  ${optionalString (cfg.database.port != null) "--port ${toString cfg.database.port}"} \
+                  ${
+                    optionalString (cfg.database.port != null)
+                    "--port ${toString cfg.database.port}"
+                  } \
                   --username ${cfg.database.user} \
                   --dbname ${cfg.database.name} \
                   --command "SELECT COUNT(*) FROM pg_class c \
@@ -324,14 +305,14 @@ in
       requires = [ "zammad-web.service" ];
       description = "Zammad websocket";
       wantedBy = [ "multi-user.target" ];
-      script = "./script/websocket-server.rb -b ${cfg.host} -p ${toString cfg.websocketPort} start";
+      script = "./script/websocket-server.rb -b ${cfg.host} -p ${
+          toString cfg.websocketPort
+        } start";
     };
 
     systemd.services.zammad-scheduler = {
       inherit environment;
-      serviceConfig = serviceConfig // {
-        Type = "forking";
-      };
+      serviceConfig = serviceConfig // { Type = "forking"; };
       after = [ "zammad-web.service" ];
       requires = [ "zammad-web.service" ];
       description = "Zammad scheduler";
@@ -340,8 +321,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [
-    garbas
-    taeer
-  ];
+  meta.maintainers = with lib.maintainers; [ garbas taeer ];
 }

@@ -1,78 +1,35 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  bison,
-  numactl,
-  libxml2,
-  perl,
-  gfortran,
-  slurm,
-  openssh,
-  hwloc,
-  zlib,
-  makeWrapper,
-  # InfiniBand dependencies
-  opensm,
-  rdma-core,
-  # OmniPath dependencies
-  libpsm2,
-  libfabric,
-  # Compile with slurm as a process manager
-  useSlurm ? false,
+{ lib, stdenv, fetchurl, pkg-config, bison, numactl, libxml2, perl, gfortran
+, slurm, openssh, hwloc, zlib, makeWrapper
+# InfiniBand dependencies
+, opensm, rdma-core
+# OmniPath dependencies
+, libpsm2, libfabric
+# Compile with slurm as a process manager
+, useSlurm ? false
   # Network type for MVAPICH2
-  network ? "ethernet",
-}:
+, network ? "ethernet" }:
 
-assert builtins.elem network [
-  "ethernet"
-  "infiniband"
-  "omnipath"
-];
+assert builtins.elem network [ "ethernet" "infiniband" "omnipath" ];
 
 stdenv.mkDerivation rec {
   pname = "mvapich";
   version = "2.3.7";
 
   src = fetchurl {
-    url = "http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/mvapich2-${version}.tar.gz";
+    url =
+      "http://mvapich.cse.ohio-state.edu/download/mvapich/mv2/mvapich2-${version}.tar.gz";
     sha256 = "sha256-w5pEkvS+UN9hAHhXSLoolOI85FCpQSgYHVFtpXV3Ua4=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    bison
-    makeWrapper
-    gfortran
-  ];
-  propagatedBuildInputs = [
-    numactl
-    rdma-core
-    zlib
-    opensm
-  ];
-  buildInputs =
-    with lib;
-    [
-      numactl
-      libxml2
-      perl
-      openssh
-      hwloc
-    ]
-    ++ optionals (network == "infiniband") [
-      rdma-core
-      opensm
-    ]
-    ++ optionals (network == "omnipath") [
-      libpsm2
-      libfabric
-    ]
+  nativeBuildInputs = [ pkg-config bison makeWrapper gfortran ];
+  propagatedBuildInputs = [ numactl rdma-core zlib opensm ];
+  buildInputs = with lib;
+    [ numactl libxml2 perl openssh hwloc ]
+    ++ optionals (network == "infiniband") [ rdma-core opensm ]
+    ++ optionals (network == "omnipath") [ libpsm2 libfabric ]
     ++ optional useSlurm slurm;
 
-  configureFlags =
-    with lib;
+  configureFlags = with lib;
     [
       "--with-pm=hydra"
       "--enable-fortran=all"
@@ -81,14 +38,12 @@ stdenv.mkDerivation rec {
       "--enable-hybrid"
       "--enable-shared"
       "FFLAGS=-fallow-argument-mismatch" # fix build with gfortran 10
-    ]
-    ++ optional useSlurm "--with-pm=slurm"
+    ] ++ optional useSlurm "--with-pm=slurm"
     ++ optional (network == "ethernet") "--with-device=ch3:sock"
     ++ optionals (network == "infiniband") [
       "--with-device=ch3:mrail"
       "--with-rdma=gen2"
-    ]
-    ++ optionals (network == "omnipath") [
+    ] ++ optionals (network == "omnipath") [
       "--with-device=ch3:psm"
       "--with-psm2=${libpsm2}"
     ];

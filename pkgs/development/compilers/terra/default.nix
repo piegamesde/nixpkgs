@@ -1,19 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  llvmPackages,
-  ncurses,
-  cmake,
-  libxml2,
-  symlinkJoin,
-  breakpointHook,
-  cudaPackages,
-  enableCUDA ? false,
-  libobjc,
-  Cocoa,
-  Foundation,
-}:
+{ lib, stdenv, fetchFromGitHub, llvmPackages, ncurses, cmake, libxml2
+, symlinkJoin, breakpointHook, cudaPackages, enableCUDA ? false, libobjc, Cocoa
+, Foundation }:
 
 let
   luajitRev = "50936d784474747b4569d988767f1b5bab8bb6d0";
@@ -41,8 +28,8 @@ let
   cuda = cudaPackages.cudatoolkit_11;
 
   clangVersion = llvmPackages.clang-unwrapped.version;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "terra";
   version = "1.1.0";
 
@@ -54,18 +41,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs =
-    [
-      llvmMerged
-      ncurses
-      libxml2
-    ]
+  buildInputs = [ llvmMerged ncurses libxml2 ]
     ++ lib.optionals enableCUDA [ cuda ]
-    ++ lib.optionals stdenv.isDarwin [
-      libobjc
-      Cocoa
-      Foundation
-    ];
+    ++ lib.optionals stdenv.isDarwin [ libobjc Cocoa Foundation ];
 
   cmakeFlags = [
     "-DHAS_TERRA_VERSION=0"
@@ -77,12 +55,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
   hardeningDisable = [ "fortify" ];
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "static"
-  ];
+  outputs = [ "bin" "dev" "out" "static" ];
 
   patches = [ ./nix-cflags.patch ];
 

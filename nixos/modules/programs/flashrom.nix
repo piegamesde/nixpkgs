@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.flashrom;
-in
-{
+let cfg = config.programs.flashrom;
+in {
   options.programs.flashrom = {
     enable = mkOption {
       type = types.bool;

@@ -1,8 +1,4 @@
-{
-  python3,
-  lib,
-  fetchFromGitLab,
-}:
+{ python3, lib, fetchFromGitLab }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "hid-tools";

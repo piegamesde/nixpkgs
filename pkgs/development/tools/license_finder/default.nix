@@ -1,9 +1,4 @@
-{
-  lib,
-  bundlerEnv,
-  bundlerUpdateScript,
-  ruby,
-}:
+{ lib, bundlerEnv, bundlerUpdateScript, ruby }:
 
 bundlerEnv {
   pname = "license_finder";

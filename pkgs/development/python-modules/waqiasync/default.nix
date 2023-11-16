@@ -1,10 +1,4 @@
-{
-  lib,
-  aiohttp,
-  async-timeout,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, aiohttp, async-timeout, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "waqiasync";
@@ -15,10 +9,7 @@ buildPythonPackage rec {
     sha256 = "sha256-SOs998BQV4UlLnRB3Yf7zze51u43g2Npwgk6y80S+m8=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    async-timeout
-  ];
+  propagatedBuildInputs = [ aiohttp async-timeout ];
 
   # Project has no tests
   doCheck = false;

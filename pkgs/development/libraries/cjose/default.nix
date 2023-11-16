@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  doxygen,
-  check,
-  jansson,
-  openssl,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, doxygen, check
+, jansson, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "cjose";
@@ -21,26 +12,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QgSO4jFouowDJeUTT4kUEXD+ctQ7JiY/5DkiPyb+Z/I=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    doxygen
-  ];
-  buildInputs = [
-    jansson
-    openssl
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config doxygen ];
+  buildInputs = [ jansson openssl ];
   nativeCheckInputs = [ check ];
 
-  configureFlags = [
-    "--with-jansson=${jansson}"
-    "--with-openssl=${openssl.dev}"
-  ];
+  configureFlags =
+    [ "--with-jansson=${jansson}" "--with-openssl=${openssl.dev}" ];
 
   meta = with lib; {
     homepage = "https://github.com/zmartzone/cjose";
-    changelog = "https://github.com/zmartzone/cjose/blob/${version}/CHANGELOG.md";
-    description = "C library for Javascript Object Signing and Encryption. This is a maintained fork of the original project";
+    changelog =
+      "https://github.com/zmartzone/cjose/blob/${version}/CHANGELOG.md";
+    description =
+      "C library for Javascript Object Signing and Encryption. This is a maintained fork of the original project";
     license = licenses.mit;
     maintainers = with maintainers; [ midchildan ];
     platforms = platforms.all;

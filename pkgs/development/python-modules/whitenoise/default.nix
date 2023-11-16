@@ -1,14 +1,5 @@
-{
-  lib,
-  brotli,
-  buildPythonPackage,
-  django,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  setuptools,
-}:
+{ lib, brotli, buildPythonPackage, django, fetchFromGitHub, pytestCheckHook
+, pythonOlder, requests, setuptools }:
 
 buildPythonPackage rec {
   pname = "whitenoise";
@@ -30,11 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ brotli ];
 
-  nativeCheckInputs = [
-    django
-    pytestCheckHook
-    requests
-  ];
+  nativeCheckInputs = [ django pytestCheckHook requests ];
 
   disabledTestPaths = [
     # Don't run Django tests
@@ -43,18 +30,18 @@ buildPythonPackage rec {
     "tests/test_storage.py"
   ];
 
-  disabledTests =
-    [
-      # Test fails with AssertionError
-      "test_modified"
-    ];
+  disabledTests = [
+    # Test fails with AssertionError
+    "test_modified"
+  ];
 
   pythonImportsCheck = [ "whitenoise" ];
 
   meta = with lib; {
     description = "Library to serve static file for WSGI applications";
     homepage = "https://whitenoise.evans.io/";
-    changelog = "https://github.com/evansd/whitenoise/blob/${version}/docs/changelog.rst";
+    changelog =
+      "https://github.com/evansd/whitenoise/blob/${version}/docs/changelog.rst";
     license = licenses.mit;
     maintainers = with maintainers; [ ];
   };

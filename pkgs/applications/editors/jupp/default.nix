@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ncurses,
-  gpm,
-}:
+{ lib, stdenv, fetchurl, ncurses, gpm }:
 
 stdenv.mkDerivation rec {
   pname = "jupp";
@@ -21,10 +15,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "chmod +x ./configure";
 
-  buildInputs = [
-    gpm
-    ncurses
-  ];
+  buildInputs = [ gpm ncurses ];
 
   configureFlags = [
     "--enable-curses"

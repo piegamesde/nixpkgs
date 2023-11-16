@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytest-django,
-  pytest-xdist,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytest-django, pytest-xdist
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "diskcache";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-c/k8mx/T4RkseDobJ2gtcuom0A6Ewyw4aP2Bk9pxV+o=";
   };
 
-  nativeCheckInputs = [
-    pytest-django
-    pytest-xdist
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-django pytest-xdist pytestCheckHook ];
 
   postPatch = ''
     sed -i "/--cov/d" tox.ini

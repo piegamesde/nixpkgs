@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with pkgs;
 with lib;
@@ -20,8 +15,8 @@ let
       builtins.concatStringsSep " " cfg.extraArgs
     } --host ${riemannHost}
   '';
-in
-{
+
+in {
 
   options = {
 
@@ -47,11 +42,7 @@ in
           A list of commandline-switches forwarded to a riemann-tool.
           See for example `riemann-health --help` for available options.
         '';
-        example = [
-          "-p 5555"
-          "--timeout=30"
-          "--attribute=myattribute=42"
-        ];
+        example = [ "-p 5555" "--timeout=30" "--attribute=myattribute=42" ];
       };
     };
   };
@@ -74,5 +65,7 @@ in
         ExecStart = "${healthLauncher}/bin/riemann-health";
       };
     };
+
   };
+
 }

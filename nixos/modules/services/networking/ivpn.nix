@@ -1,13 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  cfg = config.services.ivpn;
-in
-with lib; {
+{ config, lib, pkgs, ... }:
+let cfg = config.services.ivpn;
+in with lib; {
   options.services.ivpn = {
     enable = mkOption {
       type = types.bool;
@@ -22,10 +15,7 @@ with lib; {
   config = mkIf cfg.enable {
     boot.kernelModules = [ "tun" ];
 
-    environment.systemPackages = with pkgs; [
-      ivpn
-      ivpn-service
-    ];
+    environment.systemPackages = with pkgs; [ ivpn ivpn-service ];
 
     # iVPN writes to /etc/iproute2/rt_tables
     networking.iproute2.enable = true;
@@ -40,11 +30,10 @@ with lib; {
         "NetworkManager.service"
         "systemd-resolved.service"
       ];
-      path =
-        [
-          # Needed for mount
-          "/run/wrappers"
-        ];
+      path = [
+        # Needed for mount
+        "/run/wrappers"
+      ];
       startLimitBurst = 5;
       startLimitIntervalSec = 20;
       serviceConfig = {

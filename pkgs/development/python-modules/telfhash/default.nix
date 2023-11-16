@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  capstone,
-  packaging,
-  pyelftools,
-  tlsh,
-  nose,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, capstone, packaging, pyelftools
+, tlsh, nose }:
 buildPythonPackage rec {
   pname = "telfhash";
   version = "0.9.8";
@@ -26,12 +18,7 @@ buildPythonPackage rec {
        --replace "py-tlsh" "tlsh"
   '';
 
-  propagatedBuildInputs = [
-    capstone
-    pyelftools
-    tlsh
-    packaging
-  ];
+  propagatedBuildInputs = [ capstone pyelftools tlsh packaging ];
 
   nativeCheckInputs = [ nose ];
 

@@ -1,11 +1,4 @@
-{
-  buildOctavePackage,
-  lib,
-  fetchurl,
-  struct,
-  gnutls,
-  pkg-config,
-}:
+{ buildOctavePackage, lib, fetchurl, struct, gnutls, pkg-config }:
 
 buildOctavePackage rec {
   pname = "parallel";

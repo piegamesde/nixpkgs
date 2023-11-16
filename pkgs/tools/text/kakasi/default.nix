@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  libiconv,
-}:
+{ lib, stdenv, fetchurl, libiconv }:
 
 stdenv.mkDerivation rec {
   pname = "kakasi";
@@ -36,4 +31,5 @@ stdenv.mkDerivation rec {
   '';
 
   doCheck = false; # fails 1 of 6 tests
+
 }

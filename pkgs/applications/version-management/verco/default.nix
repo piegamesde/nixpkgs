@@ -1,8 +1,4 @@
-{
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-}:
+{ fetchFromGitHub, lib, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "verco";
@@ -18,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-urnTPlQTmOPq7mHZjsTqxql/FQe7NYHE8sVJJ4fno+U=";
 
   meta = with lib; {
-    description = "A simple Git/Mercurial/PlasticSCM tui client based on keyboard shortcuts";
+    description =
+      "A simple Git/Mercurial/PlasticSCM tui client based on keyboard shortcuts";
     homepage = "https://vamolessa.github.io/verco";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ figsoda ];

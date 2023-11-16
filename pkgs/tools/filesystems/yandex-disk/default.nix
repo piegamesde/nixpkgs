@@ -1,32 +1,18 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  writeText,
-  zlib,
-  rpmextract,
-  patchelf,
-  which,
-}:
+{ lib, stdenv, fetchurl, writeText, zlib, rpmextract, patchelf, which }:
 
 let
-  p =
-    if stdenv.is64bit then
-      {
-        arch = "x86_64";
-        gcclib = "${stdenv.cc.cc.lib}/lib64";
-        sha256 = "sha256-HH/pLZmDr6m/B3e6MHafDGnNWR83oR2y1ijVMR/LOF0=";
-        webarchive = "20220519080155";
-      }
-    else
-      {
-        arch = "i386";
-        gcclib = "${stdenv.cc.cc.lib}/lib";
-        sha256 = "sha256-28dmdnJf+qh9r3F0quwlYXB/UqcOzcHzuzFq8vt2bf0=";
-        webarchive = "20220519080430";
-      };
-in
-stdenv.mkDerivation rec {
+  p = if stdenv.is64bit then {
+    arch = "x86_64";
+    gcclib = "${stdenv.cc.cc.lib}/lib64";
+    sha256 = "sha256-HH/pLZmDr6m/B3e6MHafDGnNWR83oR2y1ijVMR/LOF0=";
+    webarchive = "20220519080155";
+  } else {
+    arch = "i386";
+    gcclib = "${stdenv.cc.cc.lib}/lib";
+    sha256 = "sha256-28dmdnJf+qh9r3F0quwlYXB/UqcOzcHzuzFq8vt2bf0=";
+    webarchive = "20220519080430";
+  };
+in stdenv.mkDerivation rec {
 
   pname = "yandex-disk";
   version = "0.1.6.1080";
@@ -66,14 +52,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://help.yandex.com/disk/cli-clients.xml";
     description = "A free cloud file storage service";
-    maintainers = with lib.maintainers; [
-      smironov
-      jagajaga
-    ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    maintainers = with lib.maintainers; [ smironov jagajaga ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     longDescription = ''

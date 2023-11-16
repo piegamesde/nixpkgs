@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  readline,
-  autoreconfHook,
-  autoconf-archive,
-  gmp,
-  flex,
-  bison,
-}:
+{ lib, stdenv, fetchFromGitHub, readline, autoreconfHook, autoconf-archive, gmp
+, flex, bison }:
 
 stdenv.mkDerivation rec {
   pname = "bic";
@@ -21,16 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "1ws46h1ngzk14dspmsggj9535yl04v9wh8v4gb234n34rdkdsyyw";
   };
 
-  buildInputs = [
-    readline
-    gmp
-  ];
-  nativeBuildInputs = [
-    autoreconfHook
-    autoconf-archive
-    bison
-    flex
-  ];
+  buildInputs = [ readline gmp ];
+  nativeBuildInputs = [ autoreconfHook autoconf-archive bison flex ];
 
   meta = with lib; {
     description = "A C interpreter and API explorer";

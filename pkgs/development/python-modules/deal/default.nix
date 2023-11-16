@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  flit-core,
-  astroid,
-  pytestCheckHook,
-  docstring-parser,
-  marshmallow,
-  sphinx,
-  hypothesis,
-  vaa,
-  deal-solver,
-  pygments,
-  typeguard,
-  urllib3,
-  flake8,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, flit-core, astroid
+, pytestCheckHook, docstring-parser, marshmallow, sphinx, hypothesis, vaa
+, deal-solver, pygments, typeguard, urllib3, flake8 }:
 
 buildPythonPackage rec {
   pname = "deal";
@@ -42,12 +26,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [
-    astroid
-    deal-solver
-    pygments
-    typeguard
-  ];
+  propagatedBuildInputs = [ astroid deal-solver pygments typeguard ];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -80,16 +59,16 @@ buildPythonPackage rec {
     "test_exception_hook"
   ];
 
-  disabledTestPaths =
-    [
-      # needs internet access
-      "tests/test_runtime/test_offline.py"
-    ];
+  disabledTestPaths = [
+    # needs internet access
+    "tests/test_runtime/test_offline.py"
+  ];
 
   pythonImportsCheck = [ "deal" ];
 
   meta = with lib; {
-    description = "Library for design by contract (DbC) and checking values, exceptions, and side-effects";
+    description =
+      "Library for design by contract (DbC) and checking values, exceptions, and side-effects";
     longDescription = ''
       In a nutshell, deal empowers you to write bug-free code.
       By adding a few decorators to your code, you get for free tests, static analysis, formal verification, and much more

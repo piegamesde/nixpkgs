@@ -1,17 +1,5 @@
-{
-  lib,
-  fetchFromGitLab,
-  installShellFiles,
-  libsodium,
-  pkg-config,
-  protobuf,
-  rustPlatform,
-  fetchYarnDeps,
-  fixup_yarn_lock,
-  stdenv,
-  yarn,
-  nodejs,
-}:
+{ lib, fetchFromGitLab, installShellFiles, libsodium, pkg-config, protobuf
+, rustPlatform, fetchYarnDeps, fixup_yarn_lock, stdenv, yarn, nodejs }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ratman";
@@ -27,17 +15,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "Nsux0QblBtzlhLEgfKYvkQrOz8+oVd2pqT3CL8TnQEc=";
 
-  nativeBuildInputs = [
-    protobuf
-    pkg-config
-    installShellFiles
-  ];
+  nativeBuildInputs = [ protobuf pkg-config installShellFiles ];
 
-  cargoBuildFlags = [
-    "--all-features"
-    "-p"
-    "ratman"
-  ];
+  cargoBuildFlags = [ "--all-features" "-p" "ratman" ];
   cargoTestFlags = cargoBuildFlags;
 
   buildInputs = [ libsodium ];
@@ -58,15 +38,9 @@ rustPlatform.buildRustPackage rec {
       sha256 = "sha256-pWjKL41r/bTvWv+5qCgCFVL9+o64BiV2/ISdLeKEOqE=";
     };
 
-    nativeBuildInputs = [
-      yarn
-      nodejs
-    ];
+    nativeBuildInputs = [ yarn nodejs ];
 
-    outputs = [
-      "out"
-      "dist"
-    ];
+    outputs = [ "out" "dist" ];
 
     buildPhase = ''
       # Yarn writes temporary files to $HOME. Copied from mkYarnModules.
@@ -99,13 +73,11 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "A modular decentralised peer-to-peer packet router and associated tools";
+    description =
+      "A modular decentralised peer-to-peer packet router and associated tools";
     homepage = "https://git.irde.st/we/irdest";
     platforms = platforms.unix;
     license = licenses.agpl3;
-    maintainers = with maintainers; [
-      spacekookie
-      yuka
-    ];
+    maintainers = with maintainers; [ spacekookie yuka ];
   };
 }

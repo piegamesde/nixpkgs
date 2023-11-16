@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pkgs,
-}:
+{ lib, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "setuptools-git";
@@ -22,4 +17,5 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/setuptools-git";
     license = licenses.bsd3;
   };
+
 }

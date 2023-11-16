@@ -1,8 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-}:
+{ lib, rustPlatform, fetchFromGitHub }:
 
 rustPlatform.buildRustPackage rec {
   pname = "wasm-tools";
@@ -21,10 +17,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  cargoBuildFlags = [
-    "--package"
-    "wasm-tools"
-  ];
+  cargoBuildFlags = [ "--package" "wasm-tools" ];
 
   cargoTestFlags = [ "--all" ];
 

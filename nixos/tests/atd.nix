@@ -1,18 +1,13 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   {
     name = "atd";
     meta = with pkgs.lib.maintainers; { maintainers = [ bjornfor ]; };
 
-    nodes.machine =
-      { ... }:
-      {
-        services.atd.enable = true;
-        users.users.alice = {
-          isNormalUser = true;
-        };
-      };
+    nodes.machine = { ... }: {
+      services.atd.enable = true;
+      users.users.alice = { isNormalUser = true; };
+    };
 
     # "at" has a resolution of 1 minute
     testScript = ''
@@ -30,5 +25,4 @@ import ./make-test-python.nix (
       machine.succeed("test -f ~root/at-1")
       machine.succeed("test -f ~alice/at-1")
     '';
-  }
-)
+  })

@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytest,
-  pytestCheckHook,
-  pythonOlder,
-  setuptools-scm,
-  six,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest, pytestCheckHook, pythonOlder
+, setuptools-scm, six }:
 
 buildPythonPackage rec {
   pname = "pytest-remotedata";
@@ -29,18 +21,18 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # These tests require a network connection
-      "tests/test_strict_check.py"
-    ];
+  disabledTestPaths = [
+    # These tests require a network connection
+    "tests/test_strict_check.py"
+  ];
 
   pythonImportsCheck = [ "pytest_remotedata" ];
 
   meta = with lib; {
     description = "Pytest plugin for controlling remote data access";
     homepage = "https://github.com/astropy/pytest-remotedata";
-    changelog = "https://github.com/astropy/pytest-remotedata/blob/v${version}/CHANGES.rst";
+    changelog =
+      "https://github.com/astropy/pytest-remotedata/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ costrouc ];
   };

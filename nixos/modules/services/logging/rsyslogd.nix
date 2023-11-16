@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -31,9 +26,8 @@ let
 
     *.*;mail.none;local1.none    -/var/log/messages
   '';
-in
 
-{
+in {
   ###### interface
 
   options = {
@@ -77,7 +71,9 @@ in
           Additional parameters passed to {command}`rsyslogd`.
         '';
       };
+
     };
+
   };
 
   ###### implementation
@@ -94,11 +90,15 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.rsyslog}/sbin/rsyslogd ${toString cfg.extraParams} -f ${syslogConf} -n";
+        ExecStart = "${pkgs.rsyslog}/sbin/rsyslogd ${
+            toString cfg.extraParams
+          } -f ${syslogConf} -n";
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/spool/rsyslog";
         # Prevent syslogd output looping back through journald.
         StandardOutput = "null";
       };
     };
+
   };
+
 }

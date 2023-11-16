@@ -1,34 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  fetchurl,
-  fetchpatch,
-  substituteAll,
-  cmake,
-  makeWrapper,
-  pkg-config,
-  curl,
-  ffmpeg,
-  glib,
-  libjpeg,
-  libselinux,
-  libsepol,
-  mp4v2,
-  libmysqlclient,
-  mariadb,
-  pcre,
-  perl,
-  perlPackages,
-  polkit,
-  util-linuxMinimal,
-  x264,
-  zlib,
-  coreutils,
-  procps,
-  psmisc,
-  nixosTests,
-}:
+{ stdenv, lib, fetchFromGitHub, fetchurl, fetchpatch, substituteAll, cmake
+, makeWrapper, pkg-config, curl, ffmpeg, glib, libjpeg, libselinux, libsepol
+, mp4v2, libmysqlclient, mariadb, pcre, perl, perlPackages, polkit
+, util-linuxMinimal, x264, zlib, coreutils, procps, psmisc, nixosTests }:
 
 # NOTES:
 #
@@ -68,21 +41,20 @@
 # around it.
 
 let
-  addons = [
-    {
-      path = "scripts/ZoneMinder/lib/ZoneMinder/Control/Xiaomi.pm";
-      src = fetchurl {
-        url = "https://gist.githubusercontent.com/joshstrange/73a2f24dfaf5cd5b470024096ce2680f/raw/e964270c5cdbf95e5b7f214f7f0fc6113791530e/Xiaomi.pm";
-        sha256 = "04n1ap8fx66xfl9q9rypj48pzbgzikq0gisfsfm8wdsmflarz43v";
-      };
-    }
-  ];
+  addons = [{
+    path = "scripts/ZoneMinder/lib/ZoneMinder/Control/Xiaomi.pm";
+    src = fetchurl {
+      url =
+        "https://gist.githubusercontent.com/joshstrange/73a2f24dfaf5cd5b470024096ce2680f/raw/e964270c5cdbf95e5b7f214f7f0fc6113791530e/Xiaomi.pm";
+      sha256 = "04n1ap8fx66xfl9q9rypj48pzbgzikq0gisfsfm8wdsmflarz43v";
+    };
+  }];
 
   user = "zoneminder";
   dirName = "zoneminder";
   perlBin = "${perl}/bin/perl";
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "zoneminder";
   version = "1.36.33";
 
@@ -102,13 +74,9 @@ stdenv.mkDerivation rec {
   postPatch = ''
     rm -rf web/api/lib/Cake/Test
 
-    ${lib.concatStringsSep "\n" (
-      map
-        (e: ''
-          cp ${e.src} ${e.path}
-        '')
-        addons
-    )}
+    ${lib.concatStringsSep "\n" (map (e: ''
+      cp ${e.src} ${e.path}
+    '') addons)}
 
     for d in scripts/ZoneMinder onvif/{modules,proxy} ; do
       substituteInPlace $d/CMakeLists.txt \
@@ -125,11 +93,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $f \
         --replace '/usr/bin/perl' '${perlBin}' \
         --replace '/bin:/usr/bin' "$out/bin:${
-          lib.makeBinPath [
-            coreutils
-            procps
-            psmisc
-          ]
+          lib.makeBinPath [ coreutils procps psmisc ]
         }"
     done
 
@@ -164,52 +128,44 @@ stdenv.mkDerivation rec {
       --subst-var-by srcHash "`basename $out`"
   '';
 
-  buildInputs =
-    [
-      curl
-      ffmpeg
-      glib
-      libjpeg
-      libselinux
-      libsepol
-      mp4v2
-      libmysqlclient
-      mariadb
-      pcre
-      perl
-      polkit
-      x264
-      zlib
-      util-linuxMinimal # for libmount
-    ]
-    ++ (
-      with perlPackages; [
-        # build-time dependencies
-        DateManip
-        DBI
-        DBDmysql
-        LWP
-        SysMmap
-        # run-time dependencies not checked at build-time
-        ClassStdFast
-        DataDump
-        DeviceSerialPort
-        JSONMaybeXS
-        LWPProtocolHttps
-        NumberBytesHuman
-        SysCPU
-        SysMemInfo
-        TimeDate
-        CryptEksblowfish
-        DataEntropy # zmupdate.pl
-      ]
-    );
+  buildInputs = [
+    curl
+    ffmpeg
+    glib
+    libjpeg
+    libselinux
+    libsepol
+    mp4v2
+    libmysqlclient
+    mariadb
+    pcre
+    perl
+    polkit
+    x264
+    zlib
+    util-linuxMinimal # for libmount
+  ] ++ (with perlPackages; [
+    # build-time dependencies
+    DateManip
+    DBI
+    DBDmysql
+    LWP
+    SysMmap
+    # run-time dependencies not checked at build-time
+    ClassStdFast
+    DataDump
+    DeviceSerialPort
+    JSONMaybeXS
+    LWPProtocolHttps
+    NumberBytesHuman
+    SysCPU
+    SysMemInfo
+    TimeDate
+    CryptEksblowfish
+    DataEntropy # zmupdate.pl
+  ]);
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
 
   cmakeFlags = [
     "-DWITH_SYSTEMD=ON"

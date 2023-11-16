@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -34,11 +29,9 @@ let
 
     # Put the rules in a temporary file owned and only readable by root
     rulesfile="$(mktemp)"
-    ${concatMapStrings
-      (x: ''
-        echo '${x}' >> $rulesfile
-      '')
-      cfg.rules}
+    ${concatMapStrings (x: ''
+      echo '${x}' >> $rulesfile
+    '') cfg.rules}
 
     # Apply the requested rules
     auditctl -R "$rulesfile"
@@ -59,16 +52,11 @@ let
     # Disable auditing
     auditctl -e 0
   '';
-in
-{
+in {
   options = {
     security.audit = {
       enable = mkOption {
-        type = types.enum [
-          false
-          true
-          "lock"
-        ];
+        type = types.enum [ false true "lock" ];
         default = false;
         description = lib.mdDoc ''
           Whether to enable the Linux audit system. The special `lock` value can be used to
@@ -79,13 +67,10 @@ in
       };
 
       failureMode = mkOption {
-        type = types.enum [
-          "silent"
-          "printk"
-          "panic"
-        ];
+        type = types.enum [ "silent" "printk" "panic" ];
         default = "printk";
-        description = lib.mdDoc "How to handle critical errors in the auditing system";
+        description =
+          lib.mdDoc "How to handle critical errors in the auditing system";
       };
 
       backlogLimit = mkOption {
@@ -107,7 +92,8 @@ in
       };
 
       rules = mkOption {
-        type = types.listOf types.str; # (types.either types.str (types.submodule rule));
+        type = types.listOf
+          types.str; # (types.either types.str (types.submodule rule));
         default = [ ];
         example = [ "-a exit,always -F arch=b64 -S execve" ];
         description = lib.mdDoc ''
@@ -132,7 +118,8 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "@${if enabled then startScript else disableScript} audit-start";
+        ExecStart =
+          "@${if enabled then startScript else disableScript} audit-start";
         ExecStop = "@${stopScript} audit-stop";
       };
     };

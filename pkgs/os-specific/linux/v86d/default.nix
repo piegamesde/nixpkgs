@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  kernel,
-  klibc,
-}:
+{ lib, stdenv, fetchFromGitHub, kernel, klibc }:
 
-let
-  pversion = "0.1.10";
-in
-stdenv.mkDerivation rec {
+let pversion = "0.1.10";
+in stdenv.mkDerivation rec {
   pname = "v86d";
   version = "${pversion}-${kernel.version}";
 
@@ -24,10 +16,7 @@ stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  configureFlags = [
-    "--with-klibc"
-    "--with-x86emu"
-  ];
+  configureFlags = [ "--with-klibc" "--with-x86emu" ];
 
   hardeningDisable = [ "stackprotector" ];
 
@@ -47,9 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mjanusz/v86d";
     license = licenses.gpl2;
     maintainers = with maintainers; [ codyopel ];
-    platforms = [
-      "i686-linux"
-      "x86_64-linux"
-    ];
+    platforms = [ "i686-linux" "x86_64-linux" ];
   };
 }

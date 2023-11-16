@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  lv2,
-  cairo,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, lv2, cairo, pkg-config }:
 
 stdenv.mkDerivation rec {
 
@@ -20,10 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    lv2
-    cairo
-  ];
+  buildInputs = [ lv2 cairo ];
 
   makeFlags = [ "INSTALL_DIR=$out/lib/lv2" ];
 
@@ -35,7 +25,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Stereo and mono audio signal dynamic range compressor in LV2 format";
+    description =
+      "Stereo and mono audio signal dynamic range compressor in LV2 format";
     homepage = "https://github.com/magnetophon/molot-lite";
     license = licenses.gpl3Plus;
     maintainers = [ maintainers.magnetophon ];

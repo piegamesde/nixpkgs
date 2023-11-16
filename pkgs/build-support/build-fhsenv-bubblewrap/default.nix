@@ -1,35 +1,13 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  runCommandLocal,
-  writeShellScript,
-  glibc,
-  pkgsi686Linux,
-  coreutils,
-  bubblewrap,
-}:
+{ lib, stdenv, callPackage, runCommandLocal, writeShellScript, glibc
+, pkgsi686Linux, coreutils, bubblewrap }:
 
-{
-  name ? null,
-  pname ? null,
-  version ? null,
-  runScript ? "bash",
-  extraInstallCommands ? "",
-  meta ? { },
-  passthru ? { },
-  extraBwrapArgs ? [ ],
-  unshareUser ? true,
-  unshareIpc ? true,
-  unsharePid ? true,
-  unshareNet ? false,
-  unshareUts ? true,
-  unshareCgroup ? true,
-  dieWithParent ? true,
-  ...
-}@args:
+{ name ? null, pname ? null, version ? null, runScript ? "bash"
+, extraInstallCommands ? "", meta ? { }, passthru ? { }, extraBwrapArgs ? [ ]
+, unshareUser ? true, unshareIpc ? true, unsharePid ? true, unshareNet ? false
+, unshareUts ? true, unshareCgroup ? true, dieWithParent ? true, ... }@args:
 
-assert (pname != null || version != null) -> (name == null && pname != null); # You must declare either a name or pname + version (preferred).
+assert (pname != null || version != null) -> (name == null && pname
+  != null); # You must declare either a name or pname + version (preferred).
 
 with builtins;
 let
@@ -39,71 +17,67 @@ let
 
   buildFHSEnv = callPackage ./buildFHSEnv.nix { };
 
-  fhsenv = buildFHSEnv (
-    removeAttrs (args // { inherit name; }) [
-      "runScript"
-      "extraInstallCommands"
-      "meta"
-      "passthru"
-      "extraBwrapArgs"
-      "dieWithParent"
-      "unshareUser"
-      "unshareCgroup"
-      "unshareUts"
-      "unshareNet"
-      "unsharePid"
-      "unshareIpc"
-      "pname"
-      "version"
-    ]
-  );
+  fhsenv = buildFHSEnv (removeAttrs (args // { inherit name; }) [
+    "runScript"
+    "extraInstallCommands"
+    "meta"
+    "passthru"
+    "extraBwrapArgs"
+    "dieWithParent"
+    "unshareUser"
+    "unshareCgroup"
+    "unshareUts"
+    "unshareNet"
+    "unsharePid"
+    "unshareIpc"
+    "pname"
+    "version"
+  ]);
 
-  etcBindEntries =
-    let
-      files = [
-        # NixOS Compatibility
-        "static"
-        "nix" # mainly for nixUnstable users, but also for access to nix/netrc
-        # Shells
-        "shells"
-        "bashrc"
-        "zshenv"
-        "zshrc"
-        "zinputrc"
-        "zprofile"
-        # Users, Groups, NSS
-        "passwd"
-        "group"
-        "shadow"
-        "hosts"
-        "resolv.conf"
-        "nsswitch.conf"
-        # User profiles
-        "profiles"
-        # Sudo & Su
-        "login.defs"
-        "sudoers"
-        "sudoers.d"
-        # Time
-        "localtime"
-        "zoneinfo"
-        # Other Core Stuff
-        "machine-id"
-        "os-release"
-        # PAM
-        "pam.d"
-        # Fonts
-        "fonts"
-        # ALSA
-        "alsa"
-        "asound.conf"
-        # SSL
-        "ssl/certs"
-        "ca-certificates"
-        "pki"
-      ];
-    in
-    map (path: "/etc/${path}") files;
+  etcBindEntries = let
+    files = [
+      # NixOS Compatibility
+      "static"
+      "nix" # mainly for nixUnstable users, but also for access to nix/netrc
+      # Shells
+      "shells"
+      "bashrc"
+      "zshenv"
+      "zshrc"
+      "zinputrc"
+      "zprofile"
+      # Users, Groups, NSS
+      "passwd"
+      "group"
+      "shadow"
+      "hosts"
+      "resolv.conf"
+      "nsswitch.conf"
+      # User profiles
+      "profiles"
+      # Sudo & Su
+      "login.defs"
+      "sudoers"
+      "sudoers.d"
+      # Time
+      "localtime"
+      "zoneinfo"
+      # Other Core Stuff
+      "machine-id"
+      "os-release"
+      # PAM
+      "pam.d"
+      # Fonts
+      "fonts"
+      # ALSA
+      "alsa"
+      "asound.conf"
+      # SSL
+      "ssl/certs"
+      "ca-certificates"
+      "pki"
+    ];
+  in map (path: "/etc/${path}") files;
 
   # Create this on the fly instead of linking from /nix
   # The container might have to modify it and re-run ldconfig if there are
@@ -125,20 +99,17 @@ let
     EOF
     ldconfig &> /dev/null
   '';
-  init =
-    run:
+  init = run:
     writeShellScript "${name}-init" ''
       source /etc/profile
       ${createLdConfCache}
       exec ${run} "$@"
     '';
 
-  indentLines =
-    str: lib.concatLines (map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str)));
-  bwrapCmd =
-    {
-      initArgs ? "",
-    }:
+  indentLines = str:
+    lib.concatLines
+    (map (s: "  " + s) (filter (s: s != "") (lib.splitString "\n" str)));
+  bwrapCmd = { initArgs ? "" }:
     ''
       ignored=(/nix /dev /proc /etc)
       ro_mounts=()
@@ -228,17 +199,13 @@ let
         --symlink /etc/ld.so.cache ${glibc}/etc/ld.so.cache \
         --ro-bind ${glibc}/etc/rpc ${glibc}/etc/rpc \
         --remount-ro ${glibc}/etc \
-    ''
-    + lib.optionalString (stdenv.isx86_64 && stdenv.isLinux) (
-      indentLines ''
-        --tmpfs ${pkgsi686Linux.glibc}/etc \
-        --symlink /etc/ld.so.conf ${pkgsi686Linux.glibc}/etc/ld.so.conf \
-        --symlink /etc/ld.so.cache ${pkgsi686Linux.glibc}/etc/ld.so.cache \
-        --ro-bind ${pkgsi686Linux.glibc}/etc/rpc ${pkgsi686Linux.glibc}/etc/rpc \
-        --remount-ro ${pkgsi686Linux.glibc}/etc \
-      ''
-    )
-    + ''
+    '' + lib.optionalString (stdenv.isx86_64 && stdenv.isLinux) (indentLines ''
+      --tmpfs ${pkgsi686Linux.glibc}/etc \
+      --symlink /etc/ld.so.conf ${pkgsi686Linux.glibc}/etc/ld.so.conf \
+      --symlink /etc/ld.so.cache ${pkgsi686Linux.glibc}/etc/ld.so.cache \
+      --ro-bind ${pkgsi686Linux.glibc}/etc/rpc ${pkgsi686Linux.glibc}/etc/rpc \
+      --remount-ro ${pkgsi686Linux.glibc}/etc \
+    '') + ''
         "''${ro_mounts[@]}"
         "''${symlinks[@]}"
         "''${auto_mounts[@]}"
@@ -250,24 +217,21 @@ let
     '';
 
   bin = writeShellScript "${name}-bwrap" (bwrapCmd { initArgs = ''"$@"''; });
-in
-runCommandLocal name
-  {
-    inherit meta;
+in runCommandLocal name {
+  inherit meta;
 
-    passthru = passthru // {
-      env = runCommandLocal "${name}-shell-env" { shellHook = bwrapCmd { }; } ''
-        echo >&2 ""
-        echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
-        echo >&2 ""
-        exit 1
-      '';
-      inherit args fhsenv;
-    };
-  }
-  ''
-    mkdir -p $out/bin
-    ln -s ${bin} $out/bin/${pname}
+  passthru = passthru // {
+    env = runCommandLocal "${name}-shell-env" { shellHook = bwrapCmd { }; } ''
+      echo >&2 ""
+      echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
+      echo >&2 ""
+      exit 1
+    '';
+    inherit args fhsenv;
+  };
+} ''
+  mkdir -p $out/bin
+  ln -s ${bin} $out/bin/${pname}
 
-    ${extraInstallCommands}
-  ''
+  ${extraInstallCommands}
+''

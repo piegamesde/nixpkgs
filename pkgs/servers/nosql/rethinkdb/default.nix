@@ -1,27 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  which,
-  m4,
-  protobuf,
-  boost,
-  zlib,
-  curl,
-  openssl,
-  icu,
-  jemalloc,
-  libtool,
-  python3Packages,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, which, m4, protobuf, boost, zlib, curl, openssl, icu
+, jemalloc, libtool, python3Packages, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "rethinkdb";
   version = "2.4.3";
 
   src = fetchurl {
-    url = "https://download.rethinkdb.com/repository/raw/dist/${pname}-${version}.tgz";
+    url =
+      "https://download.rethinkdb.com/repository/raw/dist/${pname}-${version}.tgz";
     hash = "sha256-w3iMeicPu0nj2kV4e2vlAHY8GQ+wWeObfe+UVPmkZ08=";
   };
 
@@ -43,21 +29,11 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "rethinkdb" ];
 
-  buildInputs = [
-    protobuf
-    boost
-    zlib
-    curl
-    openssl
-    icu
-  ] ++ lib.optional (!stdenv.isDarwin) jemalloc ++ lib.optional stdenv.isDarwin libtool;
+  buildInputs = [ protobuf boost zlib curl openssl icu ]
+    ++ lib.optional (!stdenv.isDarwin) jemalloc
+    ++ lib.optional stdenv.isDarwin libtool;
 
-  nativeBuildInputs = [
-    which
-    m4
-    python3Packages.python
-    makeWrapper
-  ];
+  nativeBuildInputs = [ which m4 python3Packages.python makeWrapper ];
 
   enableParallelBuilding = true;
 
@@ -77,9 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://rethinkdb.com";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [
-      thoughtpolice
-      bluescreen303
-    ];
+    maintainers = with lib.maintainers; [ thoughtpolice bluescreen303 ];
   };
 }

@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  python3,
-  which,
-  ldc,
-  zlib,
-  lz4,
-}:
+{ lib, stdenv, fetchFromGitHub, python3, which, ldc, zlib, lz4 }:
 
 stdenv.mkDerivation rec {
   pname = "sambamba";
@@ -21,15 +12,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    which
-    python3
-    ldc
-  ];
-  buildInputs = [
-    zlib
-    lz4
-  ];
+  nativeBuildInputs = [ which python3 ldc ];
+  buildInputs = [ zlib lz4 ];
 
   buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

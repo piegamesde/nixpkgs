@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  jinja2,
-  poetry-core,
-  round,
-  graphviz,
-  inkscape,
-  imagemagick,
-  pytestCheckHook,
-  typed-ast,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, jinja2, poetry-core
+, round, graphviz, inkscape, imagemagick, pytestCheckHook, typed-ast }:
 
 buildPythonPackage rec {
   pname = "diagrams";
@@ -45,18 +33,9 @@ buildPythonPackage rec {
 
   # Despite living in 'tool.poetry.dependencies',
   # these are only used at build time to process the image resource files
-  nativeBuildInputs = [
-    inkscape
-    imagemagick
-    jinja2
-    poetry-core
-    round
-  ];
+  nativeBuildInputs = [ inkscape imagemagick jinja2 poetry-core round ];
 
-  propagatedBuildInputs = [
-    graphviz
-    typed-ast
-  ];
+  propagatedBuildInputs = [ graphviz typed-ast ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -65,7 +44,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Diagram as Code";
     homepage = "https://diagrams.mingrammer.com/";
-    changelog = "https://github.com/mingrammer/diagrams/releases/tag/v${version}";
+    changelog =
+      "https://github.com/mingrammer/diagrams/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ addict3d ];
   };

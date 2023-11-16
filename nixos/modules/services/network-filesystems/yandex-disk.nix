@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -14,9 +9,8 @@ let
   dir = "/var/lib/yandex-disk";
 
   u = if cfg.user != null then cfg.user else "yandexdisk";
-in
 
-{
+in {
 
   ###### interface
 
@@ -70,21 +64,21 @@ in
           Comma-separated list of directories which are excluded from synchronization.
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    users.users = mkIf (cfg.user == null) [
-      {
-        name = u;
-        uid = config.ids.uids.yandexdisk;
-        group = "nogroup";
-        home = dir;
-      }
-    ];
+    users.users = mkIf (cfg.user == null) [{
+      name = u;
+      uid = config.ids.uids.yandexdisk;
+      group = "nogroup";
+      home = dir;
+    }];
 
     systemd.services.yandex-disk = {
       description = "Yandex-disk server";
@@ -111,6 +105,9 @@ in
         ${pkgs.su}/bin/su -s ${pkgs.runtimeShell} ${u} \
           -c '${pkgs.yandex-disk}/bin/yandex-disk start --no-daemon -a ${dir}/token -d ${cfg.directory} --exclude-dirs=${cfg.excludes}'
       '';
+
     };
   };
+
 }
+

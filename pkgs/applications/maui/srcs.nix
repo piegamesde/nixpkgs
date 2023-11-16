@@ -54,7 +54,8 @@
   communicator = {
     version = "3.0.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/communicator/3.0.0/communicator-3.0.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/communicator/3.0.0/communicator-3.0.0.tar.xz";
       sha256 = "01qgqirjax3l8sn9813dl6ppz9p2syg83ljrxqgaj94h08ll2vi0";
       name = "communicator-3.0.0.tar.xz";
     };
@@ -94,7 +95,8 @@
   mauikit-accounts = {
     version = "3.0.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/mauikit-accounts/3.0.0/mauikit-accounts-3.0.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/mauikit-accounts/3.0.0/mauikit-accounts-3.0.0.tar.xz";
       sha256 = "0ff7zrlvhqfsnwbfbp5bz3vgxldxl09rlaajz4g9k7n81apa0fgv";
       name = "mauikit-accounts-3.0.0.tar.xz";
     };
@@ -102,7 +104,8 @@
   mauikit-calendar = {
     version = "1.1.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/mauikit-calendar/1.1.0/mauikit-calendar-1.1.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/mauikit-calendar/1.1.0/mauikit-calendar-1.1.0.tar.xz";
       sha256 = "1532ndxw6a2isw1zxhp5khk0ydczm03d7b42c5smjy56fkp7xmgx";
       name = "mauikit-calendar-1.1.0.tar.xz";
     };
@@ -110,7 +113,8 @@
   mauikit-documents = {
     version = "1.1.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/mauikit-documents/1.1.0/mauikit-documents-1.1.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/mauikit-documents/1.1.0/mauikit-documents-1.1.0.tar.xz";
       sha256 = "06r5jf0rmrry9hd0gbjz63a0f5r8dykkggww531jaqm898h79wrs";
       name = "mauikit-documents-1.1.0.tar.xz";
     };
@@ -118,7 +122,8 @@
   mauikit-filebrowsing = {
     version = "3.0.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/mauikit-filebrowsing/3.0.0/mauikit-filebrowsing-3.0.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/mauikit-filebrowsing/3.0.0/mauikit-filebrowsing-3.0.0.tar.xz";
       sha256 = "03qdiww4dh6picsfhmzg0v5mf3ygsnprwq3x6s1lzlanl5a83pyk";
       name = "mauikit-filebrowsing-3.0.0.tar.xz";
     };
@@ -126,7 +131,8 @@
   mauikit-imagetools = {
     version = "3.0.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/mauikit-imagetools/3.0.0/mauikit-imagetools-3.0.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/mauikit-imagetools/3.0.0/mauikit-imagetools-3.0.0.tar.xz";
       sha256 = "0lj8d6k78xiy3wcc2jhhqvdw0p5vji95280dvclkmh0ilvb7lfrd";
       name = "mauikit-imagetools-3.0.0.tar.xz";
     };
@@ -134,7 +140,8 @@
   mauikit-terminal = {
     version = "1.1.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/mauikit-terminal/1.1.0/mauikit-terminal-1.1.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/mauikit-terminal/1.1.0/mauikit-terminal-1.1.0.tar.xz";
       sha256 = "0aki6m39yy2cnq3v6mdgyzld3slp0k5qd7v5g5hqb38mrbsbl66a";
       name = "mauikit-terminal-1.1.0.tar.xz";
     };
@@ -142,7 +149,8 @@
   mauikit-texteditor = {
     version = "3.0.0";
     src = fetchurl {
-      url = "${mirror}/stable/maui/mauikit-texteditor/3.0.0/mauikit-texteditor-3.0.0.tar.xz";
+      url =
+        "${mirror}/stable/maui/mauikit-texteditor/3.0.0/mauikit-texteditor-3.0.0.tar.xz";
       sha256 = "1flbgsrp91fgv9m1xvlzsng3ks94i07k79832nx2azzs4g704sgf";
       name = "mauikit-texteditor-3.0.0.tar.xz";
     };

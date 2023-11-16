@@ -1,40 +1,10 @@
-{
-  lib,
-  stdenv,
-  callPackage,
-  resholve,
-  shunit2,
-  fetchFromGitHub,
-  coreutils,
-  gnused,
-  gnugrep,
-  findutils,
-  jq,
-  bash,
-  bats,
-  libressl,
-  openssl,
-  python27,
-  file,
-  gettext,
-  rSrc,
-  runDemo ? false,
-  binlore,
-  sqlite,
-  unixtools,
-  gawk,
-  rlwrap,
-  gnutar,
-  bc,
-}:
+{ lib, stdenv, callPackage, resholve, shunit2, fetchFromGitHub, coreutils
+, gnused, gnugrep, findutils, jq, bash, bats, libressl, openssl, python27, file
+, gettext, rSrc, runDemo ? false, binlore, sqlite, unixtools, gawk, rlwrap
+, gnutar, bc }:
 
 let
-  default_packages = [
-    bash
-    file
-    findutils
-    gettext
-  ];
+  default_packages = [ bash file findutils gettext ];
   parsed_packages = [
     coreutils
     sqlite
@@ -46,8 +16,7 @@ let
     gnutar
     bc
   ];
-in
-rec {
+in rec {
   module1 = resholve.mkDerivation {
     pname = "testmod1";
     version = "unreleased";
@@ -64,16 +33,9 @@ rec {
     solutions = {
       libressl = {
         # submodule to demonstrate
-        scripts = [
-          "bin/libressl.sh"
-          "submodule/helper.sh"
-        ];
+        scripts = [ "bin/libressl.sh" "submodule/helper.sh" ];
         interpreter = "none";
-        inputs = [
-          jq
-          module2
-          libressl.bin
-        ];
+        inputs = [ jq module2 libressl.bin ];
       };
     };
 
@@ -95,20 +57,10 @@ rec {
     # LOGLEVEL="DEBUG";
     solutions = {
       openssl = {
-        fix = {
-          aliases = true;
-        };
-        scripts = [
-          "bin/openssl.sh"
-          "libexec/invokeme"
-        ];
+        fix = { aliases = true; };
+        scripts = [ "bin/openssl.sh" "libexec/invokeme" ];
         interpreter = "none";
-        inputs = [
-          shunit2
-          openssl.bin
-          "libexec"
-          "libexec/invokeme"
-        ];
+        inputs = [ shunit2 openssl.bin "libexec" "libexec/invokeme" ];
         execer = [
           /* This is the same verdict binlore will
              come up with. It's a no-op just to demo
@@ -141,12 +93,7 @@ rec {
         scripts = [ "bin/conjure.sh" ];
         interpreter = "${bash}/bin/bash";
         inputs = [ module1 ];
-        fake = {
-          external = [
-            "jq"
-            "openssl"
-          ];
-        };
+        fake = { external = [ "jq" "openssl" ]; };
       }}
     '';
   };
@@ -160,11 +107,7 @@ rec {
     '';
     doCheck = true;
     buildInputs = [ resholve ];
-    nativeCheckInputs = [
-      coreutils
-      bats
-      python27
-    ];
+    nativeCheckInputs = [ coreutils bats python27 ];
     # LOGLEVEL="DEBUG";
 
     # default path
@@ -182,58 +125,47 @@ rec {
     # explicit interpreter for demo suite; maybe some better way...
     INTERP = "${bash}/bin/bash";
 
-    checkPhase =
-      ''
-        patchShebangs .
-        mkdir empty_lore
-        touch empty_lore/{execers,wrappers}
-        export EMPTY_LORE=$PWD/empty_lore
-        printf "\033[33m============================= resholve test suite ===================================\033[0m\n" > test.ansi
-        if ./test.sh &>> test.ansi; then
-          cat test.ansi
-        else
-          cat test.ansi && exit 1
-        fi
-      ''
-      + lib.optionalString runDemo ''
-        printf "\033[33m============================= resholve demo ===================================\033[0m\n" > demo.ansi
-        if ./demo &>> demo.ansi; then
-          cat demo.ansi
-        else
-          cat demo.ansi && exit 1
-        fi
-      '';
+    checkPhase = ''
+      patchShebangs .
+      mkdir empty_lore
+      touch empty_lore/{execers,wrappers}
+      export EMPTY_LORE=$PWD/empty_lore
+      printf "\033[33m============================= resholve test suite ===================================\033[0m\n" > test.ansi
+      if ./test.sh &>> test.ansi; then
+        cat test.ansi
+      else
+        cat test.ansi && exit 1
+      fi
+    '' + lib.optionalString runDemo ''
+      printf "\033[33m============================= resholve demo ===================================\033[0m\n" > demo.ansi
+      if ./demo &>> demo.ansi; then
+        cat demo.ansi
+      else
+        cat demo.ansi && exit 1
+      fi
+    '';
   };
 
   # Caution: ci.nix asserts the equality of both of these w/ diff
-  resholvedScript =
-    resholve.writeScript "resholved-script"
-      {
-        inputs = [ file ];
-        interpreter = "${bash}/bin/bash";
-      }
-      ''
-        echo "Hello"
-        file .
-      '';
-  resholvedScriptBin =
-    resholve.writeScriptBin "resholved-script-bin"
-      {
-        inputs = [ file ];
-        interpreter = "${bash}/bin/bash";
-      }
-      ''
-        echo "Hello"
-        file .
-      '';
-  resholvedScriptBinNone =
-    resholve.writeScriptBin "resholved-script-bin"
-      {
-        inputs = [ file ];
-        interpreter = "none";
-      }
-      ''
-        echo "Hello"
-        file .
-      '';
+  resholvedScript = resholve.writeScript "resholved-script" {
+    inputs = [ file ];
+    interpreter = "${bash}/bin/bash";
+  } ''
+    echo "Hello"
+    file .
+  '';
+  resholvedScriptBin = resholve.writeScriptBin "resholved-script-bin" {
+    inputs = [ file ];
+    interpreter = "${bash}/bin/bash";
+  } ''
+    echo "Hello"
+    file .
+  '';
+  resholvedScriptBinNone = resholve.writeScriptBin "resholved-script-bin" {
+    inputs = [ file ];
+    interpreter = "none";
+  } ''
+    echo "Hello"
+    file .
+  '';
 }

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,29 +7,18 @@ let
 
   format = pkgs.formats.yaml { };
   configFile = format.generate "zigbee2mqtt.yaml" cfg.settings;
-in
-{
-  meta.maintainers = with maintainers; [
-    sweber
-    hexa
-  ];
 
-  imports =
-    [
-      # Remove warning before the 21.11 release
-      (mkRenamedOptionModule
-        [
-          "services"
-          "zigbee2mqtt"
-          "config"
-        ]
-        [
-          "services"
-          "zigbee2mqtt"
-          "settings"
-        ]
-      )
-    ];
+in {
+  meta.maintainers = with maintainers; [ sweber hexa ];
+
+  imports = [
+    # Remove warning before the 21.11 release
+    (mkRenamedOptionModule [ "services" "zigbee2mqtt" "config" ] [
+      "services"
+      "zigbee2mqtt"
+      "settings"
+    ])
+  ];
 
   options.services.zigbee2mqtt = {
     enable = mkEnableOption (lib.mdDoc "zigbee2mqtt service");
@@ -109,7 +93,8 @@ in
         LockPersonality = true;
         MemoryDenyWriteExecute = false;
         NoNewPrivileges = true;
-        PrivateDevices = false; # prevents access to /dev/serial, because it is set 0700 root:root
+        PrivateDevices =
+          false; # prevents access to /dev/serial, because it is set 0700 root:root
         PrivateUsers = true;
         PrivateTmp = true;
         ProtectClock = true;
@@ -124,19 +109,14 @@ in
         ProtectSystem = "strict";
         ReadWritePaths = cfg.dataDir;
         RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SupplementaryGroups = [ "dialout" ];
         SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service @pkey"
-          "~@privileged @resources"
-        ];
+        SystemCallFilter =
+          [ "@system-service @pkey" "~@privileged @resources" ];
         UMask = "0077";
       };
       preStart = ''

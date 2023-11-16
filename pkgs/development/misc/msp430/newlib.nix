@@ -1,9 +1,4 @@
-{
-  stdenvNoCC,
-  xorg,
-  newlib,
-  msp430GccSupport,
-}:
+{ stdenvNoCC, xorg, newlib, msp430GccSupport }:
 
 stdenvNoCC.mkDerivation {
   name = "msp430-${newlib.name}";
@@ -20,11 +15,7 @@ stdenvNoCC.mkDerivation {
     ${xorg.lndir}/bin/lndir -silent $msp430GccSupport/lib $out/${newlib.libdir}
   '';
 
-  passthru = {
-    inherit (newlib) incdir libdir;
-  };
+  passthru = { inherit (newlib) incdir libdir; };
 
-  meta = {
-    platforms = [ "msp430-none" ];
-  };
+  meta = { platforms = [ "msp430-none" ]; };
 }

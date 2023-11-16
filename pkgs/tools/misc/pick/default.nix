@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "pick";
@@ -27,4 +22,5 @@ stdenv.mkDerivation rec {
     maintainers = [ maintainers.womfoo ];
     platforms = platforms.linux ++ platforms.darwin;
   };
+
 }

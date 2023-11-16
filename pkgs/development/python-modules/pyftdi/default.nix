@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyserial,
-  pythonOlder,
-  pyusb,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyserial, pythonOlder, pyusb }:
 
 buildPythonPackage rec {
   pname = "pyftdi";
@@ -21,10 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-vL8jSgTtDvaHuCvaCYmFixILQFasTl82yINL5yRtOwU=";
   };
 
-  propagatedBuildInputs = [
-    pyserial
-    pyusb
-  ];
+  propagatedBuildInputs = [ pyserial pyusb ];
 
   # Tests require access to the serial port
   doCheck = false;

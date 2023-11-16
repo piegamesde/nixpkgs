@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  docutils,
-  libev,
-  openssl,
-  systemd,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, docutils, libev, openssl, systemd }:
 
 stdenv.mkDerivation rec {
   pname = "pgagroal";
@@ -22,16 +13,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./do-not-search-libatomic.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    docutils
-  ];
+  nativeBuildInputs = [ cmake docutils ];
 
-  buildInputs = [
-    libev
-    openssl
-    systemd
-  ];
+  buildInputs = [ libev openssl systemd ];
 
   meta = with lib; {
     description = "High-performance connection pool for PostgreSQL";

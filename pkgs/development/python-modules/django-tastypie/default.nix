@@ -1,11 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  python-dateutil,
-  python-mimeparse,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, python-dateutil, python-mimeparse
+, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "django-tastypie";
@@ -21,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-RgYinpo8eVzRaSkcnFkSq+IqpcFt6LCCHkpHyB/7u5M=";
   };
 
-  propagatedBuildInputs = [
-    python-dateutil
-    python-mimeparse
-  ];
+  propagatedBuildInputs = [ python-dateutil python-mimeparse ];
 
   # Tests requires a Django instance
   doCheck = false;
@@ -34,7 +25,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Utilities and helpers for writing Pylint plugins";
     homepage = "https://github.com/django-tastypie/django-tastypie";
-    changelog = "https://github.com/django-tastypie/django-tastypie/releases/tag/v${version}";
+    changelog =
+      "https://github.com/django-tastypie/django-tastypie/releases/tag/v${version}";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ fab ];
   };

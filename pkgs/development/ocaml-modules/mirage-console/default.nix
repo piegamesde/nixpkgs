@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchurl,
-  buildDunePackage,
-  lwt,
-  mirage-flow,
-}:
+{ lib, fetchurl, buildDunePackage, lwt, mirage-flow }:
 
 buildDunePackage rec {
   pname = "mirage-console";
@@ -14,14 +8,12 @@ buildDunePackage rec {
   duneVersion = "3";
 
   src = fetchurl {
-    url = "https://github.com/mirage/mirage-console/releases/download/v${version}/mirage-console-${version}.tbz";
+    url =
+      "https://github.com/mirage/mirage-console/releases/download/v${version}/mirage-console-${version}.tbz";
     hash = "sha256-mjYRisbNOJbYoSuWaGoPueXakmqAwmWh0ATvLLsvpNM=";
   };
 
-  propagatedBuildInputs = [
-    lwt
-    mirage-flow
-  ];
+  propagatedBuildInputs = [ lwt mirage-flow ];
 
   meta = {
     description = "Implementations of Mirage console devices";

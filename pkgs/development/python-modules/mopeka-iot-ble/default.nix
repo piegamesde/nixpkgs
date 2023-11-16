@@ -1,15 +1,6 @@
-{
-  lib,
-  bluetooth-data-tools,
-  bluetooth-sensor-state-data,
-  buildPythonPackage,
-  fetchFromGitHub,
-  home-assistant-bluetooth,
-  poetry-core,
-  pytestCheckHook,
-  pythonOlder,
-  sensor-state-data,
-}:
+{ lib, bluetooth-data-tools, bluetooth-sensor-state-data, buildPythonPackage
+, fetchFromGitHub, home-assistant-bluetooth, poetry-core, pytestCheckHook
+, pythonOlder, sensor-state-data }:
 
 buildPythonPackage rec {
   pname = "mopeka-iot-ble";
@@ -46,7 +37,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for Mopeka IoT BLE devices";
     homepage = "https://github.com/bluetooth-devices/mopeka-iot-ble";
-    changelog = "https://github.com/Bluetooth-Devices/mopeka-iot-ble/releases/tag/v${version}";
+    changelog =
+      "https://github.com/Bluetooth-Devices/mopeka-iot-ble/releases/tag/v${version}";
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ fab ];
   };

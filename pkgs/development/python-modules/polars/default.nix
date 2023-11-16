@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  pythonOlder,
-  rustPlatform,
-  libiconv,
-  fetchFromGitHub,
-  typing-extensions,
-  darwin,
-}:
+{ lib, stdenv, buildPythonPackage, pythonOlder, rustPlatform, libiconv
+, fetchFromGitHub, typing-extensions, darwin }:
 let
   pname = "polars";
   version = "0.18.0"; # Can't update to >0.18.0 until we get rust 1.71
@@ -18,8 +9,7 @@ let
     rev = "refs/tags/py-${version}";
     hash = "sha256-uzo8KPEegaVuzrfKUmsHheQfmm9hVMgkNJMWdfqDrw8=";
   };
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "pyproject";
   disabled = pythonOlder "3.6";
@@ -36,7 +26,8 @@ buildPythonPackage {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "jsonpath_lib-0.3.0" = "sha256-NKszYpDGG8VxfZSMbsTlzcMGFHBOUeFojNw4P2wM3qk=";
+      "jsonpath_lib-0.3.0" =
+        "sha256-NKszYpDGG8VxfZSMbsTlzcMGFHBOUeFojNw4P2wM3qk=";
     };
   };
   cargoRoot = "py-polars";
@@ -44,12 +35,10 @@ buildPythonPackage {
   # Revisit this whenever package or Rust is upgraded
   RUSTC_BOOTSTRAP = 1;
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+  nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv
@@ -68,7 +57,8 @@ buildPythonPackage {
   # ];
 
   meta = with lib; {
-    description = "Fast multi-threaded DataFrame library in Rust | Python | Node.js ";
+    description =
+      "Fast multi-threaded DataFrame library in Rust | Python | Node.js ";
     homepage = "https://github.com/pola-rs/polars";
     license = licenses.asl20;
     maintainers = with maintainers; [ happysalada ];

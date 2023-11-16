@@ -1,15 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  jre_headless,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, jre_headless, makeWrapper }:
 stdenv.mkDerivation rec {
   pname = "flyway";
   version = "9.18.0";
   src = fetchurl {
-    url = "mirror://maven/org/flywaydb/flyway-commandline/${version}/flyway-commandline-${version}.tar.gz";
+    url =
+      "mirror://maven/org/flywaydb/flyway-commandline/${version}/flyway-commandline-${version}.tar.gz";
     sha256 = "sha256-fsw4gzp3R9ZgN3ZVr0xLUCqckEHA4OSpIdwiKYp06AM=";
   };
   nativeBuildInputs = [ makeWrapper ];
@@ -26,7 +21,8 @@ stdenv.mkDerivation rec {
       --add-flags "-jarDirs='$out/share/flyway/jars'"
   '';
   meta = with lib; {
-    description = "Evolve your Database Schema easily and reliably across all your instances";
+    description =
+      "Evolve your Database Schema easily and reliably across all your instances";
     longDescription = ''
       The Flyway command-line tool is a standalone Flyway distribution.
       It is primarily meant for users who wish to migrate their database from the command-line

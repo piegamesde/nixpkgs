@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  python-dateutil,
-  fetchPypi,
-  isPy3k,
-  mock,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, python-dateutil, fetchPypi, isPy3k, mock
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "aniso8601";

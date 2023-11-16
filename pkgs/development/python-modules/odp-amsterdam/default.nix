@@ -1,14 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pythonOlder,
-  pytest-asyncio,
-  pytestCheckHook,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pythonOlder, pytest-asyncio, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "odp-amsterdam";
@@ -35,18 +26,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ aiohttp ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytest-asyncio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aresponses pytest-asyncio pytestCheckHook ];
 
   pythonImportsCheck = [ "odp_amsterdam" ];
 
   meta = with lib; {
     description = "Python client for getting garage occupancy in Amsterdam";
     homepage = "https://github.com/klaasnicolaas/python-odp-amsterdam";
-    changelog = "https://github.com/klaasnicolaas/python-odp-amsterdam/releases/tag/v${version}";
+    changelog =
+      "https://github.com/klaasnicolaas/python-odp-amsterdam/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

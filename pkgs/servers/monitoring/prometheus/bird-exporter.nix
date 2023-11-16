@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "bird-exporter";
@@ -18,9 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-X6zrCTGZaSdQS9bwzjbSGkmNs38JBxZMtrqajQxkzK0=";
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) bird;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) bird; };
 
   meta = with lib; {
     description = "Prometheus exporter for the bird routing daemon";

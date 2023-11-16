@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  librime,
-}:
+{ lib, stdenv, fetchFromGitHub, librime }:
 
 stdenv.mkDerivation {
   pname = "brise";
@@ -26,10 +21,7 @@ stdenv.mkDerivation {
   # since nix won't allow networking during 'make'
   preBuild = import ./fetchPackages.nix fetchFromGitHub;
 
-  makeFlags = [
-    "BRISE_BUILD_BINARIES=yes"
-    "PREFIX=$(out)"
-  ];
+  makeFlags = [ "BRISE_BUILD_BINARIES=yes" "PREFIX=$(out)" ];
 
   enableParallelBuilding = true;
 

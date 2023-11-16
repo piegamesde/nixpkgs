@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  skawarePackages,
-  targetPackages,
-}:
+{ lib, stdenv, skawarePackages, targetPackages }:
 
 with skawarePackages;
 
@@ -15,13 +10,7 @@ buildPackage {
   description = "A service manager for s6-based systems";
   platforms = lib.platforms.unix;
 
-  outputs = [
-    "bin"
-    "lib"
-    "dev"
-    "doc"
-    "out"
-  ];
+  outputs = [ "bin" "lib" "dev" "doc" "out" ];
 
   configureFlags = [
     "--libdir=\${lib}/lib"
@@ -53,12 +42,13 @@ buildPackage {
   # only time hostPlatform != targetPlatform.  When that happens we
   # modify s6-rc-compile to use the configuration headers for the
   # system we're cross-compiling for.
-  postConfigure = lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) ''
-    substituteInPlace src/s6-rc/s6-rc-compile.c \
-        --replace '<execline/config.h>' '"${targetPackages.execline.dev}/include/execline/config.h"' \
-        --replace '<s6/config.h>' '"${targetPackages.s6.dev}/include/s6/config.h"' \
-        --replace '<s6-rc/config.h>' '"${targetPackages.s6-rc.dev}/include/s6-rc/config.h"'
-  '';
+  postConfigure =
+    lib.optionalString (stdenv.hostPlatform != stdenv.targetPlatform) ''
+      substituteInPlace src/s6-rc/s6-rc-compile.c \
+          --replace '<execline/config.h>' '"${targetPackages.execline.dev}/include/execline/config.h"' \
+          --replace '<s6/config.h>' '"${targetPackages.s6.dev}/include/s6/config.h"' \
+          --replace '<s6-rc/config.h>' '"${targetPackages.s6-rc.dev}/include/s6-rc/config.h"'
+    '';
 
   postInstall = ''
     # remove all s6 executables from build directory
@@ -68,4 +58,5 @@ buildPackage {
     mv doc $doc/share/doc/s6-rc/html
     mv examples $doc/share/doc/s6-rc/examples
   '';
+
 }

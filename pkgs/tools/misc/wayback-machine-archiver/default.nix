@@ -1,8 +1,4 @@
-{
-  lib,
-  python3,
-  fetchFromGitHub,
-}:
+{ lib, python3, fetchFromGitHub }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "wayback-machine-archiver";
@@ -17,10 +13,7 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeBuildInputs = with python3.pkgs; [ pypandoc ];
   propagatedBuildInputs = with python3.pkgs; [ requests ];
-  nativeCheckInputs = with python3.pkgs; [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook requests-mock ];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -30,7 +23,8 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "wayback_machine_archiver" ];
 
   meta = with lib; {
-    description = "A Python script to submit web pages to the Wayback Machine for archiving";
+    description =
+      "A Python script to submit web pages to the Wayback Machine for archiving";
     homepage = "https://github.com/agude/wayback-machine-archiver";
     license = licenses.mit;
     maintainers = with maintainers; [ dandellion ];

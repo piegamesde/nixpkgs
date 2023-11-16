@@ -1,13 +1,5 @@
-{
-  buildPythonPackage,
-  fetchFromGitHub,
-  lib,
-  pandas,
-  pytestCheckHook,
-  torch,
-  tensorboard,
-  torchvision,
-}:
+{ buildPythonPackage, fetchFromGitHub, lib, pandas, pytestCheckHook, torch
+, tensorboard, torchvision }:
 
 let
   version = "0.3.1";
@@ -17,8 +9,7 @@ let
     rev = "v${version}";
     hash = "sha256-Yg001XzOPDmz9wEP2b7Ggz/uU6x5PFzaaBeUBwWKFS0=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "torch_tb_profiler";
   inherit version;
   format = "setuptools";
@@ -26,16 +17,9 @@ buildPythonPackage rec {
   # See https://discourse.nixos.org/t/extracting-sub-directory-from-fetchgit-or-fetchurl-or-any-derivation/8830.
   src = "${repo}/tb_plugin";
 
-  propagatedBuildInputs = [
-    pandas
-    tensorboard
-  ];
+  propagatedBuildInputs = [ pandas tensorboard ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    torch
-    torchvision
-  ];
+  nativeCheckInputs = [ pytestCheckHook torch torchvision ];
 
   disabledTests = [
     # Tests that attempt to access the filesystem in naughty ways.

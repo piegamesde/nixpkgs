@@ -1,22 +1,6 @@
-{
-  lib,
-  bubblewrap,
-  cacert,
-  callPackage,
-  fetchFromGitLab,
-  fetchurl,
-  fetchzip,
-  git,
-  imagemagick,
-  jre,
-  makeWrapper,
-  openmw,
-  perlPackages,
-  python3Packages,
-  rustPlatform,
-  tes3cmd,
-  tr-patcher,
-}:
+{ lib, bubblewrap, cacert, callPackage, fetchFromGitLab, fetchurl, fetchzip, git
+, imagemagick, jre, makeWrapper, openmw, perlPackages, python3Packages
+, rustPlatform, tes3cmd, tr-patcher }:
 
 let
   version = "2.1.0";
@@ -48,8 +32,8 @@ let
     imagemagick
     openmw
   ];
-in
-python3Packages.buildPythonApplication rec {
+
+in python3Packages.buildPythonApplication rec {
   inherit src version;
 
   pname = "portmod";

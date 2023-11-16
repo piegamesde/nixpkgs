@@ -1,14 +1,5 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-  bash,
-  makeWrapper,
-  kanjidraw,
-  pcre,
-  sqlite,
-  nodejs,
-}:
+{ lib, fetchFromGitHub, python3, bash, makeWrapper, kanjidraw, pcre, sqlite
+, nodejs }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "jiten";
@@ -29,15 +20,8 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    pcre
-    sqlite
-  ];
-  propagatedBuildInputs = with python3.pkgs; [
-    click
-    flask
-    kanjidraw
-  ];
+  buildInputs = [ pcre sqlite ];
+  propagatedBuildInputs = with python3.pkgs; [ click flask kanjidraw ];
   nativeCheckInputs = [ nodejs ];
 
   preBuild = ''
@@ -63,7 +47,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Japanese android/cli/web dictionary based on jmdict/kanjidic";
+    description =
+      "Japanese android/cli/web dictionary based on jmdict/kanjidic";
     longDescription = ''
       Jiten is a Japanese dictionary based on JMDict/Kanjidic
 

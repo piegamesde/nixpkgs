@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  pyyaml,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, pyyaml, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "pyyaml-env-tag";

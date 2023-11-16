@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ipython,
-  u-msgpack-python,
-  numpy,
-  tornado,
-  pyzmq,
-  pyngrok,
-  pillow,
-}:
+{ lib, buildPythonPackage, fetchPypi, ipython, u-msgpack-python, numpy, tornado
+, pyzmq, pyngrok, pillow }:
 
 buildPythonPackage rec {
   pname = "meshcat";
@@ -24,15 +14,8 @@ buildPythonPackage rec {
     sed -i '/PYTHONPATH/d' src/meshcat/servers/zmqserver.py
   '';
 
-  propagatedBuildInputs = [
-    ipython
-    u-msgpack-python
-    numpy
-    tornado
-    pyzmq
-    pyngrok
-    pillow
-  ];
+  propagatedBuildInputs =
+    [ ipython u-msgpack-python numpy tornado pyzmq pyngrok pillow ];
 
   pythonImportsCheck = [ "meshcat" ];
 

@@ -1,25 +1,11 @@
-{
-  lib,
-  sway-unwrapped,
-  makeWrapper,
-  symlinkJoin,
-  writeShellScriptBin,
-  withBaseWrapper ? true,
-  extraSessionCommands ? "",
-  dbus,
-  withGtkWrapper ? false,
-  wrapGAppsHook,
-  gdk-pixbuf,
-  glib,
-  gtk3,
-  extraOptions ? [ ] # E.g.: [ "--verbose" ]
-  ,
+{ lib, sway-unwrapped, makeWrapper, symlinkJoin, writeShellScriptBin
+, withBaseWrapper ? true, extraSessionCommands ? "", dbus
+, withGtkWrapper ? false, wrapGAppsHook, gdk-pixbuf, glib, gtk3, extraOptions ?
+  [ ] # E.g.: [ "--verbose" ]
   # Used by the NixOS module:
-  isNixOS ? false,
+, isNixOS ? false
 
-  enableXWayland ? true,
-  dbusSupport ? true,
-}:
+, enableXWayland ? true, dbusSupport ? true }:
 
 assert extraSessionCommands != "" -> withBaseWrapper;
 
@@ -38,23 +24,21 @@ let
       export DBUS_SESSION_BUS_ADDRESS
       exec ${sway}/bin/sway "$@"
     else
-      exec ${if !dbusSupport then "" else "${dbus}/bin/dbus-run-session"} ${sway}/bin/sway "$@"
+      exec ${
+        if !dbusSupport then "" else "${dbus}/bin/dbus-run-session"
+      } ${sway}/bin/sway "$@"
     fi
   '';
-in
-symlinkJoin {
+in symlinkJoin {
   name = "sway-${sway.version}";
 
   paths = (optional withBaseWrapper baseWrapper) ++ [ sway ];
 
   strictDeps = false;
-  nativeBuildInputs = [ makeWrapper ] ++ (optional withGtkWrapper wrapGAppsHook);
+  nativeBuildInputs = [ makeWrapper ]
+    ++ (optional withGtkWrapper wrapGAppsHook);
 
-  buildInputs = optionals withGtkWrapper [
-    gdk-pixbuf
-    glib
-    gtk3
-  ];
+  buildInputs = optionals withGtkWrapper [ gdk-pixbuf glib gtk3 ];
 
   # We want to run wrapProgram manually
   dontWrapGApps = true;
@@ -65,7 +49,8 @@ symlinkJoin {
     wrapProgram $out/bin/sway \
       ${optionalString withGtkWrapper ''"''${gappsWrapperArgs[@]}"''} \
       ${
-        optionalString (extraOptions != [ ]) "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
+        optionalString (extraOptions != [ ])
+        "${concatMapStrings (x: " --add-flags " + x) extraOptions}"
       }
   '';
 

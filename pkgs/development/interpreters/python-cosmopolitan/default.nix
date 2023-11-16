@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  cosmopolitan,
-  unzip,
-  bintools-unwrapped,
-}:
+{ lib, stdenv, cosmopolitan, unzip, bintools-unwrapped }:
 
 stdenv.mkDerivation rec {
   pname = "python-cosmopolitan";
@@ -12,10 +6,7 @@ stdenv.mkDerivation rec {
 
   src = cosmopolitan.dist;
 
-  nativeBuildInputs = [
-    bintools-unwrapped
-    unzip
-  ];
+  nativeBuildInputs = [ bintools-unwrapped unzip ];
 
   # slashes are significant because upstream uses o/$(MODE)/foo.o
   buildFlags = [ "o//third_party/python" ];

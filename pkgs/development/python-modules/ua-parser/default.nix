@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pyyaml,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pyyaml, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ua-parser";

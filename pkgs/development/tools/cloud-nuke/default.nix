@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeBinaryWrapper,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeBinaryWrapper }:
 
 buildGoModule rec {
   pname = "cloud-nuke";
@@ -20,11 +15,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.VERSION=${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.VERSION=${version}" ];
 
   doCheck = false;
 
@@ -34,8 +25,10 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/gruntwork-io/cloud-nuke";
-    description = "A tool for cleaning up your cloud accounts by nuking (deleting) all resources within it";
-    changelog = "https://github.com/gruntwork-io/cloud-nuke/releases/tag/v${version}";
+    description =
+      "A tool for cleaning up your cloud accounts by nuking (deleting) all resources within it";
+    changelog =
+      "https://github.com/gruntwork-io/cloud-nuke/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = with maintainers; [ marsam ];
   };

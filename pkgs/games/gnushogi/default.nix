@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  zlib,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "gnushogi";
@@ -17,11 +11,13 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://sources.debian.org/data/main/g/gnushogi/1.4.2-7/debian/patches/01-make-dont-ignore";
+      url =
+        "https://sources.debian.org/data/main/g/gnushogi/1.4.2-7/debian/patches/01-make-dont-ignore";
       hash = "sha256-Aw0zfH+wkj+rQQzKIn6bSilP76YIO27FwJ8n1UzG6ow=";
     })
     (fetchpatch {
-      url = "https://sources.debian.org/data/main/g/gnushogi/1.4.2-7/debian/patches/globals";
+      url =
+        "https://sources.debian.org/data/main/g/gnushogi/1.4.2-7/debian/patches/globals";
       hash = "sha256-wZJBPMYSz4n1kOyLmR9QOp70650R9xXQUWD5hvaMRok=";
     })
   ];

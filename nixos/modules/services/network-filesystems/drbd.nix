@@ -1,19 +1,12 @@
 # Support for DRBD, the Distributed Replicated Block Device.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.drbd;
-in
+let cfg = config.services.drbd;
 
-{
+in {
 
   ###### interface
 
@@ -35,6 +28,7 @@ in
         Contents of the {file}`drbd.conf` configuration file.
       '';
     };
+
   };
 
   ###### implementation
@@ -56,10 +50,7 @@ in
     };
 
     systemd.services.drbd = {
-      after = [
-        "systemd-udev.settle.service"
-        "network.target"
-      ];
+      after = [ "systemd-udev.settle.service" "network.target" ];
       wants = [ "systemd-udev.settle.service" ];
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {

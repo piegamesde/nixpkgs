@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  scons,
-  qt4,
-  alsa-lib,
-}:
+{ lib, stdenv, fetchFromGitHub, scons, qt4, alsa-lib }:
 
 stdenv.mkDerivation {
   pname = "gambatte";
@@ -18,11 +11,7 @@ stdenv.mkDerivation {
     sha256 = "0cc6zcvxpvi5hgcssb1zy0fkj9nk7n0d2xm88a4v05kpm5zw7sh2";
   };
 
-  buildInputs = [
-    scons
-    qt4
-    alsa-lib
-  ];
+  buildInputs = [ scons qt4 alsa-lib ];
 
   patches = [ ./fix-scons-paths.patch ];
 

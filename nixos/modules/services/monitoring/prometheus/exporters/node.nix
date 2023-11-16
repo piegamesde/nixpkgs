@@ -1,18 +1,14 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
 let
   cfg = config.services.prometheus.exporters.node;
-  collectorIsEnabled = final: any (collector: (final == collector)) cfg.enabledCollectors;
-  collectorIsDisabled = final: any (collector: (final == collector)) cfg.disabledCollectors;
-in
-{
+  collectorIsEnabled = final:
+    any (collector: (final == collector)) cfg.enabledCollectors;
+  collectorIsDisabled = final:
+    any (collector: (final == collector)) cfg.disabledCollectors;
+in {
   port = 9100;
   extraOpts = {
     enabledCollectors = mkOption {
@@ -38,21 +34,25 @@ in
       RuntimeDirectory = "prometheus-node-exporter";
       ExecStart = ''
         ${pkgs.prometheus-node-exporter}/bin/node_exporter \
-          ${concatMapStringsSep " " (x: "--collector." + x) cfg.enabledCollectors} \
-          ${concatMapStringsSep " " (x: "--no-collector." + x) cfg.disabledCollectors} \
+          ${
+            concatMapStringsSep " " (x: "--collector." + x)
+            cfg.enabledCollectors
+          } \
+          ${
+            concatMapStringsSep " " (x: "--no-collector." + x)
+            cfg.disabledCollectors
+          } \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} ${
             concatStringsSep " " cfg.extraFlags
           }
       '';
       RestrictAddressFamilies =
         optionals (collectorIsEnabled "logind" || collectorIsEnabled "systemd")
-          [
-            # needs access to dbus via unix sockets (logind/systemd)
-            "AF_UNIX"
-          ]
-        ++ optionals
-          (collectorIsEnabled "network_route" || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev")
-          [
+        [
+          # needs access to dbus via unix sockets (logind/systemd)
+          "AF_UNIX"
+        ] ++ optionals (collectorIsEnabled "network_route"
+          || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev") [
             # needs netlink sockets for wireless collector
             "AF_NETLINK"
           ];

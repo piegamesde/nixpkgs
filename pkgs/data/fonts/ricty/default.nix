@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  google-fonts,
-  migu,
-  fontforge,
-  which,
-}:
+{ lib, stdenv, fetchurl, google-fonts, migu, fontforge, which }:
 
 stdenv.mkDerivation rec {
   pname = "ricty";
@@ -25,12 +17,7 @@ stdenv.mkDerivation rec {
     sed -i 's/fonts_directories=".*"/fonts_directories="$inconsolata $migu"/' ricty_generator.sh
   '';
 
-  buildInputs = [
-    google-fonts
-    migu
-    fontforge
-    which
-  ];
+  buildInputs = [ google-fonts migu fontforge which ];
 
   buildPhase = ''
     inconsolata=${google-fonts} migu=${migu} ./ricty_generator.sh auto
@@ -41,9 +28,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A high-quality Japanese font based on Inconsolata and Migu 1M";
+    description =
+      "A high-quality Japanese font based on Inconsolata and Migu 1M";
     homepage = "https://rictyfonts.github.io";
     license = licenses.unfree;
     maintainers = [ maintainers.mikoim ];
   };
 }
+

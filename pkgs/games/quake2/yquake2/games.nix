@@ -1,8 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenv, lib, fetchFromGitHub }:
 
 let
   games = {
@@ -28,15 +24,9 @@ let
     };
   };
 
-  toDrv =
-    title: data:
+  toDrv = title: data:
     stdenv.mkDerivation rec {
-      inherit (data)
-        id
-        version
-        description
-        sha256
-      ;
+      inherit (data) id version description sha256;
       inherit title;
 
       pname = "yquake2-${title}";
@@ -45,7 +35,9 @@ let
         inherit sha256;
         owner = "yquake2";
         repo = data.id;
-        rev = "${lib.toUpper id}_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+        rev = "${lib.toUpper id}_${
+            builtins.replaceStrings [ "." ] [ "_" ] version
+          }";
       };
 
       installPhase = ''
@@ -61,5 +53,5 @@ let
         maintainers = with maintainers; [ tadfisher ];
       };
     };
-in
-lib.mapAttrs toDrv games
+
+in lib.mapAttrs toDrv games

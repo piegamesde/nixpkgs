@@ -1,22 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  aiodns,
-  aiohttp,
-  flask,
-  mock,
-  pytest,
-  pytest-asyncio,
-  pytest-trio,
-  pytestCheckHook,
-  requests,
-  six,
-  trio,
-  typing-extensions,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, pythonOlder, aiodns, aiohttp
+, flask, mock, pytest, pytest-asyncio, pytest-trio, pytestCheckHook, requests
+, six, trio, typing-extensions }:
 
 buildPythonPackage rec {
   version = "1.26.3";
@@ -31,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-rL0NqpZ1zohiPaNcgNgZza+pFzHe5rJpXGTXyp2oLbQ=";
   };
 
-  propagatedBuildInputs = [
-    requests
-    six
-    typing-extensions
-  ];
+  propagatedBuildInputs = [ requests six typing-extensions ];
 
   nativeCheckInputs = [
     aiodns

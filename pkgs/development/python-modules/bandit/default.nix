@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-  pythonOlder,
-  gitpython,
-  pbr,
-  pyyaml,
-  rich,
-  stevedore,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k, pythonOlder, gitpython, pbr
+, pyyaml, rich, stevedore }:
 
 buildPythonPackage rec {
   pname = "bandit";
@@ -25,12 +15,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs = [
-    gitpython
-    pyyaml
-    rich
-    stevedore
-  ];
+  propagatedBuildInputs = [ gitpython pyyaml rich stevedore ];
 
   # Framework is Tox, tox performs 'pip install' inside the virtual-env
   #   and this requires Network Connectivity

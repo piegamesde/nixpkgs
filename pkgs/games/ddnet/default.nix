@@ -1,37 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cargo,
-  cmake,
-  ninja,
-  pkg-config,
-  rustPlatform,
-  rustc,
-  curl,
-  freetype,
-  libGLU,
-  libnotify,
-  libogg,
-  libX11,
-  opusfile,
-  pcre,
-  python3,
-  SDL2,
-  sqlite,
-  wavpack,
-  ffmpeg,
-  x264,
-  vulkan-headers,
-  vulkan-loader,
-  glslang,
-  spirv-tools,
-  gtest,
-  Carbon,
-  Cocoa,
-  OpenGL,
-  Security,
-}:
+{ lib, stdenv, fetchFromGitHub, cargo, cmake, ninja, pkg-config, rustPlatform
+, rustc, curl, freetype, libGLU, libnotify, libogg, libX11, opusfile, pcre
+, python3, SDL2, sqlite, wavpack, ffmpeg, x264, vulkan-headers, vulkan-loader
+, glslang, spirv-tools, gtest, Carbon, Cocoa, OpenGL, Security }:
 
 stdenv.mkDerivation rec {
   pname = "ddnet";
@@ -50,44 +20,31 @@ stdenv.mkDerivation rec {
     hash = "sha256-OeTINJVe/Ov3A4UmCC3QtCMj8e3vi+Qmai0DXJ3DpVU=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    rustc
-    cargo
-    rustPlatform.cargoSetupHook
-  ];
+  nativeBuildInputs =
+    [ cmake ninja pkg-config rustc cargo rustPlatform.cargoSetupHook ];
 
   nativeCheckInputs = [ gtest ];
 
-  buildInputs =
-    [
-      curl
-      freetype
-      libGLU
-      libnotify
-      libogg
-      libX11
-      opusfile
-      pcre
-      python3
-      SDL2
-      sqlite
-      wavpack
-      ffmpeg
-      x264
-      vulkan-loader
-      vulkan-headers
-      glslang
-      spirv-tools
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      Cocoa
-      OpenGL
-      Security
-    ];
+  buildInputs = [
+    curl
+    freetype
+    libGLU
+    libnotify
+    libogg
+    libX11
+    opusfile
+    pcre
+    python3
+    SDL2
+    sqlite
+    wavpack
+    ffmpeg
+    x264
+    vulkan-loader
+    vulkan-headers
+    glslang
+    spirv-tools
+  ] ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa OpenGL Security ];
 
   postPatch = ''
     substituteInPlace src/engine/shared/storage.cpp \
@@ -100,7 +57,8 @@ stdenv.mkDerivation rec {
   checkTarget = "run_tests";
 
   meta = with lib; {
-    description = "A Teeworlds modification with a unique cooperative gameplay.";
+    description =
+      "A Teeworlds modification with a unique cooperative gameplay.";
     longDescription = ''
       DDraceNetwork (DDNet) is an actively maintained version of DDRace,
       a Teeworlds modification with a unique cooperative gameplay.
@@ -110,11 +68,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://ddnet.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      sirseruju
-      lom
-      ncfavier
-    ];
+    maintainers = with maintainers; [ sirseruju lom ncfavier ];
     mainProgram = "DDNet";
   };
 }

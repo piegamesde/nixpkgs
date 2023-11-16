@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  docutils,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, docutils, installShellFiles }:
 
 stdenv.mkDerivation {
   pname = "netevent";
@@ -20,11 +14,7 @@ stdenv.mkDerivation {
   buildInputs = [ docutils ];
   nativeBuildInputs = [ installShellFiles ];
 
-  outputs = [
-    "out"
-    "doc"
-    "man"
-  ];
+  outputs = [ "out" "doc" "man" ];
 
   configurePhase = ''
     export RST2MAN=rst2man

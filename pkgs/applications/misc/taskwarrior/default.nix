@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libuuid,
-  gnutls,
-  python3,
-  xdg-utils,
-  installShellFiles,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libuuid, gnutls, python3, xdg-utils
+, installShellFiles }:
 
 stdenv.mkDerivation rec {
   pname = "taskwarrior";
@@ -27,13 +18,7 @@ stdenv.mkDerivation rec {
       --replace "xdg-open" "${lib.getBin xdg-utils}/bin/xdg-open"
   '';
 
-  nativeBuildInputs = [
-    cmake
-    libuuid
-    gnutls
-    python3
-    installShellFiles
-  ];
+  nativeBuildInputs = [ cmake libuuid gnutls python3 installShellFiles ];
 
   doCheck = true;
   preCheck = ''
@@ -60,10 +45,7 @@ stdenv.mkDerivation rec {
     description = "Highly flexible command-line tool to manage TODO lists";
     homepage = "https://taskwarrior.org";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      marcweber
-      oxalica
-    ];
+    maintainers = with maintainers; [ marcweber oxalica ];
     mainProgram = "task";
     platforms = platforms.unix;
   };

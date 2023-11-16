@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  docutils,
-  fetchFromGitHub,
-  importlib-metadata,
-  poetry-core,
-  pydantic,
-  pytestCheckHook,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  rstcheck-core,
-  typer,
-  types-docutils,
-  typing-extensions,
-}:
+{ lib, buildPythonPackage, docutils, fetchFromGitHub, importlib-metadata
+, poetry-core, pydantic, pytestCheckHook, pythonOlder, pythonRelaxDepsHook
+, rstcheck-core, typer, types-docutils, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "rstcheck";
@@ -31,25 +18,14 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [ "typer" ];
 
-  nativeBuildInputs = [
-    poetry-core
-    pythonRelaxDepsHook
-  ];
+  nativeBuildInputs = [ poetry-core pythonRelaxDepsHook ];
 
   propagatedBuildInputs =
-    [
-      docutils
-      rstcheck-core
-      types-docutils
-      typing-extensions
-      pydantic
-      typer
-    ]
+    [ docutils rstcheck-core types-docutils typing-extensions pydantic typer ]
     ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
-    ]
-    ++ typer.optional-dependencies.all;
+    ] ++ typer.optional-dependencies.all;
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -61,9 +37,11 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "Checks syntax of reStructuredText and code blocks nested within it";
+    description =
+      "Checks syntax of reStructuredText and code blocks nested within it";
     homepage = "https://github.com/myint/rstcheck";
-    changelog = "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ staccato ];
   };

@@ -1,32 +1,21 @@
-{
-  lib,
-  stdenv,
-  fetchzip,
-  ant,
-  jdk,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchzip, ant, jdk, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "calcoo";
   version = "2.1.0";
 
   src = fetchzip {
-    url = "mirror://sourceforge/project/calcoo/calcoo/${version}/${pname}-${version}.zip";
+    url =
+      "mirror://sourceforge/project/calcoo/calcoo/${version}/${pname}-${version}.zip";
     hash = "sha256-Bdavj7RaI5CkWiOJY+TPRIRfNelfW5qdl/74J1KZPI0=";
   };
 
-  patches =
-    [
-      # Sets javac encoding option on build.xml
-      ./0001-javac-encoding.diff
-    ];
-
-  nativeBuildInputs = [
-    ant
-    jdk
-    makeWrapper
+  patches = [
+    # Sets javac encoding option on build.xml
+    ./0001-javac-encoding.diff
   ];
+
+  nativeBuildInputs = [ ant jdk makeWrapper ];
 
   dontConfigure = true;
 

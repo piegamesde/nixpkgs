@@ -1,23 +1,16 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.programs.xfconf;
-in
-{
-  meta = {
-    maintainers = teams.xfce.members;
-  };
+let cfg = config.programs.xfconf;
+
+in {
+  meta = { maintainers = teams.xfce.members; };
 
   options = {
     programs.xfconf = {
-      enable = mkEnableOption (lib.mdDoc "Xfconf, the Xfce configuration storage system");
+      enable = mkEnableOption
+        (lib.mdDoc "Xfconf, the Xfce configuration storage system");
     };
   };
 

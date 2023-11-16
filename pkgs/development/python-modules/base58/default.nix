@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pyhamcrest,
-  pytestCheckHook,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, pyhamcrest, pytestCheckHook, pythonOlder
 }:
 
 buildPythonPackage rec {
@@ -18,10 +12,7 @@ buildPythonPackage rec {
     sha256 = "c5d0cb3f5b6e81e8e35da5754388ddcc6d0d14b6c6a132cb93d69ed580a7278c";
   };
 
-  nativeCheckInputs = [
-    pyhamcrest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pyhamcrest pytestCheckHook ];
 
   disabledTests = [
     # avoid dependency on pytest-benchmark

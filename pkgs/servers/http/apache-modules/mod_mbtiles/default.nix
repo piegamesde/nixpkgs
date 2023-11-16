@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  apacheHttpd,
-  sqlite,
-}:
+{ lib, stdenv, fetchFromGitHub, apacheHttpd, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "mod_mbtiles";
@@ -17,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wOoLSNLgh0YXHUFn7WfUkQXpyWsgCrVZlMg55rvi9q4=";
   };
 
-  buildInputs = [
-    apacheHttpd
-    sqlite
-  ];
+  buildInputs = [ apacheHttpd sqlite ];
 
   buildPhase = ''
     apxs -lsqlite3 -ca mod_mbtiles.c

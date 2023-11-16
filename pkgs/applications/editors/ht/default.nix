@@ -1,9 +1,4 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  ncurses,
-}:
+{ stdenv, lib, fetchurl, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "ht";

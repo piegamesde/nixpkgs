@@ -1,21 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchPypi,
-  fetchpatch,
-  installShellFiles,
-  ninja,
-  pkg-config,
-  python3,
-  zlib,
-  coreutils,
-  substituteAll,
-  Foundation,
-  OpenGL,
-  AppKit,
-  Cocoa,
-  libxcrypt,
-}:
+{ lib, stdenv, fetchPypi, fetchpatch, installShellFiles, ninja, pkg-config
+, python3, zlib, coreutils, substituteAll, Foundation, OpenGL, AppKit, Cocoa
+, libxcrypt }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "meson";
@@ -72,7 +57,8 @@ python3.pkgs.buildPythonApplication rec {
     # Fix passing multiple --define-variable arguments to pkg-config.
     # https://github.com/mesonbuild/meson/pull/10670
     (fetchpatch {
-      url = "https://github.com/mesonbuild/meson/commit/d5252c5d4cf1c1931fef0c1c98dd66c000891d21.patch";
+      url =
+        "https://github.com/mesonbuild/meson/commit/d5252c5d4cf1c1931fef0c1c98dd66c000891d21.patch";
       sha256 = "GiUNVul1N5Fl8mfqM7vA/r1FdKqImiDYLXMVDt77gvw=";
       excludes = [ "docs/yaml/objects/dep.yaml" ];
     })
@@ -80,25 +66,17 @@ python3.pkgs.buildPythonApplication rec {
     # Fix regression in precomputing CMAKE_SIZEOF_VOID_P
     # See https://github.com/mesonbuild/meson/pull/11761
     (fetchpatch {
-      url = "https://github.com/mesonbuild/meson/commit/7c78c2b5a0314078bdabb998ead56925dc8b0fc0.patch";
+      url =
+        "https://github.com/mesonbuild/meson/commit/7c78c2b5a0314078bdabb998ead56925dc8b0fc0.patch";
       sha256 = "sha256-vSnHhuOIXf/1X+bUkUmGND5b30ES0O8EDArwb4p2/w4=";
     })
   ];
 
   setupHook = ./setup-hook.sh;
 
-  nativeCheckInputs = [
-    ninja
-    pkg-config
-  ];
-  checkInputs =
-    [ zlib ]
-    ++ lib.optionals stdenv.isDarwin [
-      Foundation
-      OpenGL
-      AppKit
-      Cocoa
-    ];
+  nativeCheckInputs = [ ninja pkg-config ];
+  checkInputs = [ zlib ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation OpenGL AppKit Cocoa ];
   checkPhase = ''
     runHook preCheck
 
@@ -145,7 +123,8 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://mesonbuild.com";
-    description = "An open source, fast and friendly build system made in Python";
+    description =
+      "An open source, fast and friendly build system made in Python";
     longDescription = ''
       Meson is an open source build system meant to be both extremely fast, and,
       even more importantly, as user friendly as possible.
@@ -156,10 +135,7 @@ python3.pkgs.buildPythonApplication rec {
       code.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      mbe
-      AndersonTorres
-    ];
+    maintainers = with maintainers; [ mbe AndersonTorres ];
     inherit (python3.meta) platforms;
   };
 }

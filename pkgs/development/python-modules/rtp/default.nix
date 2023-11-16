@@ -1,12 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python3,
+{ lib, buildPythonPackage, fetchPypi, python3
 
-  # nativeCheckInputs
-  hypothesis,
-  unittestCheckHook,
+# nativeCheckInputs
+, hypothesis, unittestCheckHook
 
 }:
 
@@ -20,16 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-I5k3uF5lSLDdCWjBEQC4kl2dWyAKcHEJIYwqnEvJDBI=";
   };
 
-  nativeCheckInputs = [
-    hypothesis
-    unittestCheckHook
-  ];
+  nativeCheckInputs = [ hypothesis unittestCheckHook ];
 
-  unittestFlagsArray = [
-    "-s"
-    "tests"
-    "-v"
-  ];
+  unittestFlagsArray = [ "-s" "tests" "-v" ];
 
   pythonImportsCheck = [ "rtp" ];
 

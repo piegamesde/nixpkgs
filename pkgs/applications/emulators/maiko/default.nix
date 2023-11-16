@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  xorg,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, xorg }:
 
 stdenv.mkDerivation rec {
   pname = "maiko";

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  paramiko,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, paramiko, python }:
 
 buildPythonPackage rec {
   pname = "scp";

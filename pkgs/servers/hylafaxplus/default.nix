@@ -1,48 +1,27 @@
-{
-  stdenv,
-  lib,
-  fakeroot,
-  fetchurl,
-  libfaketime,
-  substituteAll,
-  ## runtime dependencies
-  coreutils,
-  file,
-  findutils,
-  gawk,
-  ghostscript,
-  gnugrep,
-  gnused,
-  libtiff,
-  libxcrypt,
-  openssl,
-  psmisc,
-  sharutils,
-  util-linux,
-  zlib,
-  ## optional packages (using `null` disables some functionality)
-  jbigkit ? null,
-  lcms2 ? null # for colored faxes
-  ,
-  openldap ? null,
-  pam ? null,
+{ stdenv, lib, fakeroot, fetchurl, libfaketime, substituteAll
+## runtime dependencies
+, coreutils, file, findutils, gawk, ghostscript, gnugrep, gnused, libtiff
+, libxcrypt, openssl, psmisc, sharutils, util-linux, zlib
+## optional packages (using `null` disables some functionality)
+, jbigkit ? null, lcms2 ? null # for colored faxes
+, openldap ? null, pam ? null
   ## system-dependent settings that have to be hardcoded
-  maxgid ? 65534 # null -> try to auto-detect (bad on linux)
-  ,
-  maxuid ? 65534 # null -> hardcoded value 60002
-  ,
+, maxgid ? 65534 # null -> try to auto-detect (bad on linux)
+, maxuid ? 65534 # null -> hardcoded value 60002
 }:
 
 let
 
   pname = "hylafaxplus";
   version = "7.0.7";
-  hash = "sha512-nUvt+M0HBYN+MsGskuuDt1j0nI5Dk8MbfK/OVxP2FCDby3eiDg0eDtcpIxlOe4o0klko07zDRIb06zqh8ABuKA==";
+  hash =
+    "sha512-nUvt+M0HBYN+MsGskuuDt1j0nI5Dk8MbfK/OVxP2FCDby3eiDg0eDtcpIxlOe4o0klko07zDRIb06zqh8ABuKA==";
 
   configSite = substituteAll {
     name = "${pname}-config.site";
     src = ./config.site;
-    config_maxgid = lib.optionalString (maxgid != null) "CONFIG_MAXGID=${builtins.toString maxgid}";
+    config_maxgid = lib.optionalString (maxgid != null)
+      "CONFIG_MAXGID=${builtins.toString maxgid}";
     ghostscript_version = ghostscript.version;
     out_ = "@out@"; # "out" will be resolved in post-install.sh
     inherit coreutils ghostscript libtiff;
@@ -53,10 +32,7 @@ let
     src = ./post-patch.sh;
     inherit configSite;
     maxuid = lib.optionalString (maxuid != null) (builtins.toString maxuid);
-    faxcover_binpath = lib.makeBinPath [
-      stdenv.shellPackage
-      coreutils
-    ];
+    faxcover_binpath = lib.makeBinPath [ stdenv.shellPackage coreutils ];
     faxsetup_binpath = lib.makeBinPath [
       stdenv.shellPackage
       coreutils
@@ -72,19 +48,17 @@ let
     src = ./post-install.sh;
     inherit fakeroot libfaketime;
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   inherit pname version;
   src = fetchurl {
     url = "mirror://sourceforge/hylafax/hylafax-${version}.tar.gz";
     inherit hash;
   };
-  patches =
-    [
-      # adjust configure check to work with libtiff > 4.1
-      ./libtiff-4.patch
-    ];
+  patches = [
+    # adjust configure check to work with libtiff > 4.1
+    ./libtiff-4.patch
+  ];
   # Note that `configure` (and maybe `faxsetup`) are looking
   # for a couple of standard binaries in the `PATH` and
   # hardcode their absolute paths in the new package.
@@ -113,7 +87,8 @@ stdenv.mkDerivation {
   postInstallCheck = ". ${./post-install-check.sh}";
   meta = {
     changelog = "https://hylafax.sourceforge.io/news/${version}.php";
-    description = "enterprise-class system for sending and receiving facsimiles";
+    description =
+      "enterprise-class system for sending and receiving facsimiles";
     downloadPage = "https://hylafax.sourceforge.io/download.php";
     homepage = "https://hylafax.sourceforge.io";
     license = lib.licenses.bsd3;

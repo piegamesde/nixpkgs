@@ -1,9 +1,7 @@
 { lib }:
 
-let
-  sources = lib.importJSON ./sources.json;
-in
-{
+let sources = lib.importJSON ./sources.json;
+in {
   jdk-hotspot = import ./jdk-darwin-base.nix {
     sourcePerArch = sources.openjdk14.mac.jdk.hotspot;
     knownVulnerabilities = [ "Support ended" ];

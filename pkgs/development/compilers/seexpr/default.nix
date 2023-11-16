@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  libpng,
-  zlib,
-  qt4,
-  bison,
-  flex,
-  libGLU,
-  python3Packages,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, libpng, zlib, qt4, bison, flex, libGLU
+, python3Packages }:
 
 stdenv.mkDerivation rec {
   pname = "seexpr";
@@ -48,7 +37,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Embeddable expression evaluation engine from Disney Animation";
+    description =
+      "Embeddable expression evaluation engine from Disney Animation";
     homepage = "https://wdas.github.io/SeExpr/";
     maintainers = with maintainers; [ hodapp ];
     license = licenses.asl20;

@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  ocaml,
-  findlib,
-  ocamlbuild,
-  topkg,
-  uchar,
-  uutf,
-  uunf,
-  uucd,
-}:
+{ lib, stdenv, fetchurl, ocaml, findlib, ocamlbuild, topkg, uchar, uutf, uunf
+, uucd }:
 
 let
   pname = "uucp";
@@ -18,9 +7,8 @@ let
   webpage = "https://erratique.ch/software/${pname}";
   minimumOCamlVersion = "4.03";
   doCheck = true;
-in
 
-if lib.versionOlder ocaml.version minimumOCamlVersion then
+in if lib.versionOlder ocaml.version minimumOCamlVersion then
   builtins.throw "${pname} needs at least OCaml ${minimumOCamlVersion}"
 else
 
@@ -33,18 +21,8 @@ else
       sha256 = "sha256-rEeU9AWpCzuAtAOe7hJHBmJjP97BZsQsPFQQ8uZLUzA=";
     };
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-      topkg
-    ];
-    buildInputs = [
-      topkg
-      uutf
-      uunf
-      uucd
-    ];
+    nativeBuildInputs = [ ocaml findlib ocamlbuild topkg ];
+    buildInputs = [ topkg uutf uunf uucd ];
 
     propagatedBuildInputs = [ uchar ];
 
@@ -52,7 +30,9 @@ else
 
     buildPhase = ''
       runHook preBuild
-      ${topkg.buildPhase} --with-cmdliner false --tests ${lib.boolToString doCheck}
+      ${topkg.buildPhase} --with-cmdliner false --tests ${
+        lib.boolToString doCheck
+      }
       runHook postBuild
     '';
 
@@ -67,7 +47,8 @@ else
     checkInputs = [ uucd ];
 
     meta = with lib; {
-      description = "An OCaml library providing efficient access to a selection of character properties of the Unicode character database";
+      description =
+        "An OCaml library providing efficient access to a selection of character properties of the Unicode character database";
       homepage = webpage;
       inherit (ocaml.meta) platforms;
       license = licenses.bsd3;

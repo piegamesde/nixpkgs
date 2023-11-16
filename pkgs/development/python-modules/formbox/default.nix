@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromSourcehut,
-  bleach,
-  markdown,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromSourcehut, bleach, markdown }:
 
 buildPythonPackage rec {
   pname = "formbox";
@@ -20,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-zOvXmSeBiwc0Z5mRMwMsHLU3A/iP7rpjXm0T0I2gUTk=";
   };
 
-  propagatedBuildInputs = [
-    bleach
-    markdown
-  ];
+  propagatedBuildInputs = [ bleach markdown ];
   doCheck = false; # there's no test
   pythonImportsCheck = [ "formbox" ];
 

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  numpy,
-  camlzip,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, numpy, camlzip }:
 
 buildDunePackage rec {
   pname = "npy";

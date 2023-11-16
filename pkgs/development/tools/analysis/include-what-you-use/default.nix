@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  cmake,
-  llvmPackages,
-  python3,
-}:
+{ lib, stdenv, fetchurl, cmake, llvmPackages, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "include-what-you-use";
@@ -21,17 +14,8 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  nativeBuildInputs = with llvmPackages; [
-    cmake
-    llvm.dev
-    llvm
-    python3
-  ];
-  buildInputs = with llvmPackages; [
-    libclang
-    clang-unwrapped
-    python3
-  ];
+  nativeBuildInputs = with llvmPackages; [ cmake llvm.dev llvm python3 ];
+  buildInputs = with llvmPackages; [ libclang clang-unwrapped python3 ];
 
   cmakeFlags = [ "-DIWYU_LLVM_ROOT_PATH=${llvmPackages.clang-unwrapped}" ];
 

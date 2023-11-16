@@ -1,13 +1,5 @@
-{
-  fetchFromGitHub,
-  lib,
-  protobuf,
-  rocksdb,
-  rustPlatform,
-  stdenv,
-  Security,
-  SystemConfiguration,
-}:
+{ fetchFromGitHub, lib, protobuf, rocksdb, rustPlatform, stdenv, Security
+, SystemConfiguration }:
 rustPlatform.buildRustPackage rec {
   pname = "polkadot";
   version = "0.9.42";
@@ -35,15 +27,14 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "binary-merkle-tree-4.0.0-dev" = "sha256-PEPmG+39YqPQOzT8u1SNTCrVwNWErifBCVz+l8TvdyE=";
-      "sub-tokens-0.1.0" = "sha256-GvhgZhOIX39zF+TbQWtTCgahDec4lQjH+NqamLFLUxM=";
+      "binary-merkle-tree-4.0.0-dev" =
+        "sha256-PEPmG+39YqPQOzT8u1SNTCrVwNWErifBCVz+l8TvdyE=";
+      "sub-tokens-0.1.0" =
+        "sha256-GvhgZhOIX39zF+TbQWtTCgahDec4lQjH+NqamLFLUxM=";
     };
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Security
-    SystemConfiguration
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ Security SystemConfiguration ];
 
   nativeBuildInputs = [ rustPlatform.bindgenHook ];
 

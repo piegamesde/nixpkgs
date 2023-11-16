@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aioresponses,
-  pydantic,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, aiohttp, aioresponses, pydantic, buildPythonPackage, fetchFromGitHub
+, poetry-core, pytest-aiohttp, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "aioopenexchangerates";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic ];
 
-  nativeCheckInputs = [
-    aioresponses
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ aioresponses pytest-aiohttp pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -48,7 +31,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for the Openexchangerates API";
     homepage = "https://github.com/MartinHjelmare/aioopenexchangerates";
-    changelog = "https://github.com/MartinHjelmare/aioopenexchangerates/blob/vv${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/MartinHjelmare/aioopenexchangerates/blob/vv${version}/CHANGELOG.md";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ fab ];
   };

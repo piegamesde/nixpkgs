@@ -2,10 +2,8 @@
 # are always applied in NixOS VM tests, unconditionally,
 # even in `inheritParentConfig = false` specialisations.
 { lib, ... }:
-let
-  inherit (lib) mkForce;
-in
-{
+let inherit (lib) mkForce;
+in {
   imports = [
     ../../modules/virtualisation/qemu-vm.nix
     ../../modules/testing/test-instrumentation.nix # !!! should only get added for automated test runs
@@ -21,5 +19,6 @@ in
       # version number.
       config.system.nixos.revision = mkForce "constant-nixos-revision";
     }
+
   ];
 }

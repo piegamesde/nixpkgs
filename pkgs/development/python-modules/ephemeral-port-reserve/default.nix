@@ -1,16 +1,9 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, pytestCheckHook }:
 
 let
   pname = "ephemeral-port-reserve";
   version = "1.1.4";
-in
-buildPythonPackage {
+in buildPythonPackage {
   inherit pname version;
   format = "setuptools";
 
@@ -23,12 +16,10 @@ buildPythonPackage {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    lib.optionals stdenv.isDarwin
-      [
-        # can't find hostname in our darwin build environment
-        "test_fqdn"
-      ];
+  disabledTests = lib.optionals stdenv.isDarwin [
+    # can't find hostname in our darwin build environment
+    "test_fqdn"
+  ];
 
   __darwinAllowLocalNetworking = true;
 

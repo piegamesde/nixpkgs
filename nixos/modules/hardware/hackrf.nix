@@ -1,14 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.hardware.hackrf;
-in
-{
+let cfg = config.hardware.hackrf;
+
+in {
   options.hardware.hackrf = {
     enable = lib.mkOption {
       type = lib.types.bool;

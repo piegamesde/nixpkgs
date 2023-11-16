@@ -1,15 +1,5 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-  stdenv,
-  pkg-config,
-  openssl,
-  just,
-  pandoc,
-  Security,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles, stdenv, pkg-config
+, openssl, just, pandoc, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dogdns";
@@ -22,26 +12,18 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-y3T0vXg7631FZ4bzcbQjz3Buui/DFxh9LG8BZWwynp0=";
   };
 
-  patches =
-    [
-      # remove date info to make the build reproducible
-      # remove commit hash to avoid dependency on git and the need to keep `.git`
-      ./remove-date-info.patch
-    ];
+  patches = [
+    # remove date info to make the build reproducible
+    # remove commit hash to avoid dependency on git and the need to keep `.git`
+    ./remove-date-info.patch
+  ];
 
-  nativeBuildInputs = [
-    installShellFiles
-    just
-    pandoc
-  ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
+  nativeBuildInputs = [ installShellFiles just pandoc ]
+    ++ lib.optionals stdenv.isLinux [ pkg-config ];
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  outputs = [
-    "out"
-    "man"
-  ];
+  outputs = [ "out" "man" ];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -68,10 +50,7 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line DNS client";
     homepage = "https://dns.lookup.dog";
     license = licenses.eupl12;
-    maintainers = with maintainers; [
-      bbigras
-      figsoda
-    ];
+    maintainers = with maintainers; [ bbigras figsoda ];
     mainProgram = "dog";
   };
 }

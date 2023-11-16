@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
-  flit-core,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, pythonOlder, flit-core, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "ordered-set";
@@ -26,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ordered_set" ];
 
   meta = with lib; {
-    description = "A MutableSet that remembers its order, so that every entry has an index.";
+    description =
+      "A MutableSet that remembers its order, so that every entry has an index.";
     homepage = "https://github.com/rspeer/ordered-set";
     license = licenses.mit;
     maintainers = with maintainers; [ MostAwesomeDude ];

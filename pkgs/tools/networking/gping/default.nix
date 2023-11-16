@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  libiconv,
-  Security,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "gping";
@@ -20,10 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-SqQsKTS3psF/xfwyBRQB9c3/KIZU1fpyqVy9fh4Rqkk=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    libiconv
-    Security
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Security ];
 
   doInstallCheck = true;
   installCheckPhase = ''

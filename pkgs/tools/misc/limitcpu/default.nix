@@ -1,8 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-}:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "limitcpu";
@@ -13,16 +9,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rS9BXrK72j6DqKLZGO9ekPUuvMb+5h6Uv5F7PoTrtJw=";
   };
 
-  buildFlags = with stdenv; [
-    (
-      if isDarwin then
-        "osx"
-      else if isFreeBSD then
-        "freebsd"
-      else
-        "cpulimit"
-    )
-  ];
+  buildFlags = with stdenv;
+    [
+      (if isDarwin then "osx" else if isFreeBSD then "freebsd" else "cpulimit")
+    ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

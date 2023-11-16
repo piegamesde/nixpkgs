@@ -1,11 +1,4 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  rustPlatform,
-  pkg-config,
-  dbus,
-}:
+{ stdenv, fetchFromGitHub, lib, rustPlatform, pkg-config, dbus }:
 
 rustPlatform.buildRustPackage rec {
   pname = "Lighthouse";
@@ -21,7 +14,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "clap-verbosity-flag-2.0.0" = "125b8ki3dqj2kilimmvpi9wslwky8xacydi75c2bdrxpi926nya6";
+      "clap-verbosity-flag-2.0.0" =
+        "125b8ki3dqj2kilimmvpi9wslwky8xacydi75c2bdrxpi926nya6";
     };
   };
 
@@ -38,9 +32,6 @@ rustPlatform.buildRustPackage rec {
     description = "VR Lighthouse power state management";
     homepage = "https://github.com/ShayBox/Lighthouse";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      expipiplus1
-      bddvlpr
-    ];
+    maintainers = with maintainers; [ expipiplus1 bddvlpr ];
   };
 }

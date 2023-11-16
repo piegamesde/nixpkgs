@@ -1,18 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aenum,
-  aiohttp,
-  importlib-metadata,
-  isodate,
-  nest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  mock,
-  pyhamcrest,
-  radish-bdd,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aenum, aiohttp, importlib-metadata
+, isodate, nest-asyncio, pytestCheckHook, pythonOlder, mock, pyhamcrest
+, radish-bdd }:
 
 buildPythonPackage rec {
   pname = "gremlinpython";
@@ -41,19 +29,9 @@ buildPythonPackage rec {
   # setup-requires requirements
   nativeBuildInputs = [ importlib-metadata ];
 
-  propagatedBuildInputs = [
-    aenum
-    aiohttp
-    isodate
-    nest-asyncio
-  ];
+  propagatedBuildInputs = [ aenum aiohttp isodate nest-asyncio ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    pyhamcrest
-    radish-bdd
-  ];
+  nativeCheckInputs = [ pytestCheckHook mock pyhamcrest radish-bdd ];
 
   # disable custom pytest report generation
   preCheck = ''
@@ -69,19 +47,16 @@ buildPythonPackage rec {
     "tests/process/test_dsl.py"
     "tests/structure/io/test_functionalityio.py"
   ];
-  pytestFlagsArray =
-    [
-      # disabledTests doesn't quite allow us to be precise enough for this
-      "-k 'not (TestFunctionalGraphSONIO and (test_timestamp or test_datetime or test_uuid))'"
-    ];
+  pytestFlagsArray = [
+    # disabledTests doesn't quite allow us to be precise enough for this
+    "-k 'not (TestFunctionalGraphSONIO and (test_timestamp or test_datetime or test_uuid))'"
+  ];
 
   meta = with lib; {
-    description = "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language";
+    description =
+      "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language";
     homepage = "https://tinkerpop.apache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      turion
-      ris
-    ];
+    maintainers = with maintainers; [ turion ris ];
   };
 }

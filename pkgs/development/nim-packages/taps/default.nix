@@ -1,9 +1,4 @@
-{
-  lib,
-  buildNimPackage,
-  fetchFromSourcehut,
-  getdns,
-}:
+{ lib, buildNimPackage, fetchFromSourcehut, getdns }:
 
 buildNimPackage rec {
   pname = "taps";

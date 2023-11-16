@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchFromGitHub,
-  cmake,
-  python3,
-  rustPlatform,
-  SDL2,
-  fltk,
-  rapidjson,
-  gtest,
-  Carbon,
-  Cocoa,
-}:
+{ stdenv, lib, fetchurl, fetchFromGitHub, cmake, python3, rustPlatform, SDL2
+, fltk, rapidjson, gtest, Carbon, Cocoa }:
 let
   version = "0.17.0";
   src = fetchFromGitHub {
@@ -37,26 +24,13 @@ let
     url = stringTheoryUrl;
     sha256 = "1flq26kkvx2m1yd38ldcq2k046yqw07jahms8a6614m924bmbv41";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "ja2-stracciatella";
   inherit src version;
 
-  nativeBuildInputs = [
-    cmake
-    python3
-  ];
-  buildInputs =
-    [
-      SDL2
-      fltk
-      rapidjson
-      gtest
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      Carbon
-      Cocoa
-    ];
+  nativeBuildInputs = [ cmake python3 ];
+  buildInputs = [ SDL2 fltk rapidjson gtest ]
+    ++ lib.optionals stdenv.isDarwin [ Carbon Cocoa ];
 
   patches = [ ./remove-rust-buildstep.patch ];
 

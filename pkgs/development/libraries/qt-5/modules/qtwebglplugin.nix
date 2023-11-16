@@ -1,13 +1,6 @@
-{
-  qtModule,
-  qtbase,
-  qtwebsockets,
-}:
+{ qtModule, qtbase, qtwebsockets }:
 
 qtModule {
   pname = "qtwebglplugin";
-  qtInputs = [
-    qtbase
-    qtwebsockets
-  ];
+  qtInputs = [ qtbase qtwebsockets ];
 }

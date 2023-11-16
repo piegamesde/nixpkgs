@@ -27,26 +27,12 @@
 # Warning all binaries prior to the use of blood-elf will not be readable by
 # Objdump, you may need to use ndism or gdb to view the assembly in the binary.
 
-{
-  lib,
-  derivationWithMeta,
-  hex0,
-  m2libc,
-  src,
-  version,
-}:
-rec {
+{ lib, derivationWithMeta, hex0, m2libc, src, version }: rec {
   out = placeholder "out";
 
-  run =
-    pname: builder: args:
+  run = pname: builder: args:
     derivationWithMeta {
-      inherit
-        pname
-        version
-        builder
-        args
-      ;
+      inherit pname version builder args;
 
       meta = with lib; {
         description = "Collection of tools written for use in bootstrapping";
@@ -61,10 +47,7 @@ rec {
   # Phase-1 Build hex1 from hex0 #
   ################################
 
-  hex1 = run "hex1" hex0 [
-    "${src}/x86/hex1_x86.hex0"
-    out
-  ];
+  hex1 = run "hex1" hex0 [ "${src}/x86/hex1_x86.hex0" out ];
 
   # hex1 adds support for single character labels and is available in various forms
   # in mescc-tools/x86_bootstrap to allow you various ways to verify correctness
@@ -73,10 +56,7 @@ rec {
   # Phase-2 Build hex2 from hex1 #
   ################################
 
-  hex2-0 = run "hex2" hex1 [
-    "${src}/x86/hex2_x86.hex1"
-    out
-  ];
+  hex2-0 = run "hex2" hex1 [ "${src}/x86/hex2_x86.hex1" out ];
 
   # hex2 adds support for long labels and absolute addresses thus allowing it
   # to function as an effective linker for later stages of the bootstrap
@@ -87,10 +67,7 @@ rec {
   # Phase-2b Build catm from hex2 #
   #################################
 
-  catm = run "catm" hex2-0 [
-    "${src}/x86/catm_x86.hex2"
-    out
-  ];
+  catm = run "catm" hex2-0 [ "${src}/x86/catm_x86.hex2" out ];
 
   # catm removes the need for cat or shell support for redirection by providing
   # equivalent functionality via catm output_file input1 input2 ... inputN
@@ -104,10 +81,7 @@ rec {
     "${src}/x86/ELF-i386.hex2"
     "${src}/x86/M0_x86.hex2"
   ];
-  M0 = run "M0" hex2-0 [
-    M0_hex2
-    out
-  ];
+  M0 = run "M0" hex2-0 [ M0_hex2 out ];
 
   # M0 is the architecture specific version of M1 and is by design single
   # architecture only and will be replaced by the C code version of M1
@@ -116,19 +90,10 @@ rec {
   # Phase-4 Build cc_x86 from M0 #
   ################################
 
-  cc_x86-0_hex2 = run "cc_x86-0.hex2" M0 [
-    "${src}/x86/cc_x86.M1"
-    out
-  ];
-  cc_x86-1_hex2 = run "cc_x86-1.hex2" catm [
-    out
-    "${src}/x86/ELF-i386.hex2"
-    cc_x86-0_hex2
-  ];
-  cc_x86 = run "cc_x86" hex2-0 [
-    cc_x86-1_hex2
-    out
-  ];
+  cc_x86-0_hex2 = run "cc_x86-0.hex2" M0 [ "${src}/x86/cc_x86.M1" out ];
+  cc_x86-1_hex2 =
+    run "cc_x86-1.hex2" catm [ out "${src}/x86/ELF-i386.hex2" cc_x86-0_hex2 ];
+  cc_x86 = run "cc_x86" hex2-0 [ cc_x86-1_hex2 out ];
 
   #######################################
   # Phase-5 Build M2-Planet from cc_x86 #
@@ -147,29 +112,17 @@ rec {
     "${src}/M2-Planet/cc_macro.c"
     "${src}/M2-Planet/cc.c"
   ];
-  M2-0_M1 = run "M2-0.M1" cc_x86 [
-    M2-0_c
-    out
-  ];
+  M2-0_M1 = run "M2-0.M1" cc_x86 [ M2-0_c out ];
   M2-0-0_M1 = run "M2-0-0.M1" catm [
     out
     "${src}/x86/x86_defs.M1"
     "${src}/x86/libc-core.M1"
     M2-0_M1
   ];
-  M2-0_hex2 = run "M2-0.hex2" M0 [
-    M2-0-0_M1
-    out
-  ];
-  M2-0-0_hex2 = run "M2-0-0.hex2" catm [
-    out
-    "${src}/x86/ELF-i386.hex2"
-    M2-0_hex2
-  ];
-  M2 = run "M2" hex2-0 [
-    M2-0-0_hex2
-    out
-  ];
+  M2-0_hex2 = run "M2-0.hex2" M0 [ M2-0-0_M1 out ];
+  M2-0-0_hex2 =
+    run "M2-0-0.hex2" catm [ out "${src}/x86/ELF-i386.hex2" M2-0_hex2 ];
+  M2 = run "M2" hex2-0 [ M2-0-0_hex2 out ];
 
   ############################################
   # Phase-6 Build blood-elf-0 from C sources #
@@ -197,19 +150,13 @@ rec {
     "${m2libc}/x86/libc-core.M1"
     blood-elf-0_M1
   ];
-  blood-elf-0_hex2 = run "blood-elf-0.hex2" M0 [
-    blood-elf-0-0_M1
-    out
-  ];
+  blood-elf-0_hex2 = run "blood-elf-0.hex2" M0 [ blood-elf-0-0_M1 out ];
   blood-elf-0-0_hex2 = run "blood-elf-0-0.hex2" catm [
     out
     "${m2libc}/x86/ELF-x86.hex2"
     blood-elf-0_hex2
   ];
-  blood-elf-0 = run "blood-elf-0" hex2-0 [
-    blood-elf-0-0_hex2
-    out
-  ];
+  blood-elf-0 = run "blood-elf-0" hex2-0 [ blood-elf-0-0_hex2 out ];
 
   # This is the last stage where the binaries will not have debug info
   # and the last piece built that isn't part of the output binaries
@@ -249,19 +196,13 @@ rec {
     M1-macro-0_M1
     M1-macro-0-footer_M1
   ];
-  M1-macro-0_hex2 = run "M1-macro-0.hex2" M0 [
-    M1-macro-0-0_M1
-    out
-  ];
+  M1-macro-0_hex2 = run "M1-macro-0.hex2" M0 [ M1-macro-0-0_M1 out ];
   M1-macro-0-0_hex2 = run "M1-macro-0-0.hex2" catm [
     out
     "${m2libc}/x86/ELF-x86-debug.hex2"
     M1-macro-0_hex2
   ];
-  M1-0 = run "M1-0" hex2-0 [
-    M1-macro-0-0_hex2
-    out
-  ];
+  M1-0 = run "M1-0" hex2-0 [ M1-macro-0-0_hex2 out ];
 
   # This is the last stage where catm will need to be used and the last stage where
   # M0 is used, as we will being using it's much more powerful and cross-platform
@@ -337,10 +278,7 @@ rec {
     hex2_linker-0_hex2
   ];
 
-  hex2-1 = run "hex2-1" hex2-0 [
-    hex2_linker-0-0_hex2
-    out
-  ];
+  hex2-1 = run "hex2-1" hex2-0 [ hex2_linker-0-0_hex2 out ];
 
   # This is the last stage where we will be using the handwritten hex2 and instead
   # be using the far more powerful, cross-platform version with a bunch more goodies

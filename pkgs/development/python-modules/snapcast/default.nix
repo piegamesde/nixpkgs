@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  construct,
-  packaging,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, construct, packaging, fetchFromGitHub
+, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "snapcast";
@@ -22,10 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-IFgSO0PjlFb4XJarx50Xnx6dF4tBKk3sLcoLWVdpnk8=";
   };
 
-  propagatedBuildInputs = [
-    construct
-    packaging
-  ];
+  propagatedBuildInputs = [ construct packaging ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

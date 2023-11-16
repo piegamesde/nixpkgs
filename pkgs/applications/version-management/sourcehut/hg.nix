@@ -1,15 +1,5 @@
-{
-  lib,
-  fetchFromSourcehut,
-  buildGoModule,
-  buildPythonPackage,
-  srht,
-  hglib,
-  scmsrht,
-  unidiff,
-  python,
-  unzip,
-}:
+{ lib, fetchFromSourcehut, buildGoModule, buildPythonPackage, srht, hglib
+, scmsrht, unidiff, python, unzip }:
 
 buildPythonPackage rec {
   pname = "hgsrht";
@@ -28,15 +18,12 @@ buildPythonPackage rec {
       --replace "all: api hgsrht-keys" ""
   '';
 
-  hgsrht-api = buildGoModule (
-    {
-      inherit src version;
-      pname = "hgsrht-api";
-      modRoot = "api";
-      vendorSha256 = "sha256-uIP3W7UJkP68HJUF33kz5xfg/KBiaSwMozFYmQJQkys=";
-    }
-    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
-  );
+  hgsrht-api = buildGoModule ({
+    inherit src version;
+    pname = "hgsrht-api";
+    modRoot = "api";
+    vendorSha256 = "sha256-uIP3W7UJkP68HJUF33kz5xfg/KBiaSwMozFYmQJQkys=";
+  } // import ./fix-gqlgen-trimpath.nix { inherit unzip; });
 
   hgsrht-keys = buildGoModule {
     inherit src version;
@@ -45,12 +32,7 @@ buildPythonPackage rec {
     vendorSha256 = "sha256-7ti8xCjSrxsslF7/1X/GY4FDl+69hPL4UwCDfjxmJLU=";
   };
 
-  propagatedBuildInputs = [
-    srht
-    hglib
-    scmsrht
-    unidiff
-  ];
+  propagatedBuildInputs = [ srht hglib scmsrht unidiff ];
 
   preBuild = ''
     export PKGVER=${version}

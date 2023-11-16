@@ -1,17 +1,11 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 let
   cfg = config.services.odoo;
   format = pkgs.formats.ini { };
-in
-{
+in {
   options = {
     services.odoo = {
       enable = mkEnableOption (lib.mdDoc "odoo");
@@ -46,20 +40,14 @@ in
     };
   };
 
-  config = mkIf (cfg.enable) (
-    let
-      cfgFile = format.generate "odoo.cfg" cfg.settings;
-    in
-    {
+  config = mkIf (cfg.enable)
+    (let cfgFile = format.generate "odoo.cfg" cfg.settings;
+    in {
       services.nginx = mkIf (cfg.domain != null) {
         upstreams = {
-          odoo.servers = {
-            "127.0.0.1:8069" = { };
-          };
+          odoo.servers = { "127.0.0.1:8069" = { }; };
 
-          odoochat.servers = {
-            "127.0.0.1:8072" = { };
-          };
+          odoochat.servers = { "127.0.0.1:8072" = { }; };
         };
 
         virtualHosts."${cfg.domain}" = {
@@ -75,9 +63,7 @@ in
           '';
 
           locations = {
-            "/longpolling" = {
-              proxyPass = "http://odoochat";
-            };
+            "/longpolling" = { proxyPass = "http://odoochat"; };
 
             "/" = {
               proxyPass = "http://odoo";
@@ -89,9 +75,7 @@ in
         };
       };
 
-      services.odoo.settings.options = {
-        proxy_mode = cfg.domain != null;
-      };
+      services.odoo.settings.options = { proxy_mode = cfg.domain != null; };
 
       users.users.odoo = {
         isSystemUser = true;
@@ -101,10 +85,7 @@ in
 
       systemd.services.odoo = {
         wantedBy = [ "multi-user.target" ];
-        after = [
-          "network.target"
-          "postgresql.service"
-        ];
+        after = [ "network.target" "postgresql.service" ];
 
         # pg_dump
         path = [ config.services.postgresql.package ];
@@ -112,7 +93,7 @@ in
         requires = [ "postgresql.service" ];
         script = "HOME=$STATE_DIRECTORY ${cfg.package}/bin/odoo ${
             optionalString (cfg.addons != [ ])
-              "--addons-path=${concatMapStringsSep "," escapeShellArg cfg.addons}"
+            "--addons-path=${concatMapStringsSep "," escapeShellArg cfg.addons}"
           } -c ${cfgFile}";
 
         serviceConfig = {
@@ -125,16 +106,11 @@ in
       services.postgresql = {
         enable = true;
 
-        ensureUsers = [
-          {
-            name = "odoo";
-            ensurePermissions = {
-              "DATABASE odoo" = "ALL PRIVILEGES";
-            };
-          }
-        ];
+        ensureUsers = [{
+          name = "odoo";
+          ensurePermissions = { "DATABASE odoo" = "ALL PRIVILEGES"; };
+        }];
         ensureDatabases = [ "odoo" ];
       };
-    }
-  );
+    });
 }

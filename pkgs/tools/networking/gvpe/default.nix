@@ -1,14 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  openssl,
-  gmp,
-  zlib,
-  iproute2,
-  nettools,
-  pkg-config,
-}:
+{ lib, stdenv, fetchurl, openssl, gmp, zlib, iproute2, nettools, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "gvpe";
@@ -20,17 +10,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    openssl
-    gmp
-    zlib
-  ];
+  buildInputs = [ openssl gmp zlib ];
 
-  configureFlags = [
-    "--enable-tcp"
-    "--enable-http-proxy"
-    "--enable-dns"
-  ];
+  configureFlags = [ "--enable-tcp" "--enable-http-proxy" "--enable-dns" ];
 
   postPatch = ''
     sed -e 's@"/sbin/ifconfig.*"@"${iproute2}/sbin/ip link set $IFNAME address $MAC mtu $MTU"@' -i src/device-linux.C

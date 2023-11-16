@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoPatchelfHook,
-  fuse3,
-  maven,
-  jdk,
-  makeShellWrapper,
-  glib,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, autoPatchelfHook, fuse3, maven, jdk
+, makeShellWrapper, glib, wrapGAppsHook }:
 
 let
   pname = "cryptomator";
@@ -27,10 +17,7 @@ let
     name = "cryptomator-${version}-deps";
     inherit src;
 
-    nativeBuildInputs = [
-      jdk
-      maven
-    ];
+    nativeBuildInputs = [ jdk maven ];
     buildInputs = [ jdk ];
 
     buildPhase = ''
@@ -50,8 +37,8 @@ let
 
     doCheck = false;
   };
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   inherit pname version src;
 
   buildPhase = ''
@@ -87,10 +74,7 @@ stdenv.mkDerivation rec {
       --add-flags "-Dawt.useSystemAAFontSettings=on" \
       --add-flags "--module org.cryptomator.desktop/org.cryptomator.launcher.Cryptomator" \
       --prefix PATH : "$out/share/cryptomator/libs/:${
-        lib.makeBinPath [
-          jdk
-          glib
-        ]
+        lib.makeBinPath [ jdk glib ]
       }" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fuse3 ]}" \
       --set JAVA_HOME "${jdk.home}"
@@ -107,18 +91,9 @@ stdenv.mkDerivation rec {
     cp ${src}/dist/linux/common/application-vnd.cryptomator.vault.xml $out/share/mime/packages/application-vnd.cryptomator.vault.xml
   '';
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    maven
-    makeShellWrapper
-    wrapGAppsHook
-    jdk
-  ];
-  buildInputs = [
-    fuse3
-    jdk
-    glib
-  ];
+  nativeBuildInputs =
+    [ autoPatchelfHook maven makeShellWrapper wrapGAppsHook jdk ];
+  buildInputs = [ fuse3 jdk glib ];
 
   meta = with lib; {
     description = "Free client-side encryption for your cloud files";

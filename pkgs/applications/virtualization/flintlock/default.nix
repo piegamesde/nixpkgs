@@ -1,13 +1,5 @@
-{
-  lib,
-  cni-plugins,
-  buildGoModule,
-  firecracker,
-  containerd,
-  runc,
-  makeWrapper,
-  fetchFromGitHub,
-}:
+{ lib, cni-plugins, buildGoModule, firecracker, containerd, runc, makeWrapper
+, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "flintlock";
@@ -22,10 +14,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-IGfNMe1fQfAGAOVsxmn/oxleHfniqL1TJKllCwpuWOU=";
 
-  subPackages = [
-    "cmd/flintlock-metrics"
-    "cmd/flintlockd"
-  ];
+  subPackages = [ "cmd/flintlock-metrics" "cmd/flintlockd" ];
 
   ldflags = [
     "-s"
@@ -40,24 +29,17 @@ buildGoModule rec {
   postInstall = ''
     for prog in flintlockd flintlock-metrics; do
       wrapProgram "$out/bin/$prog" --prefix PATH : ${
-        lib.makeBinPath [
-          cni-plugins
-          firecracker
-          containerd
-          runc
-        ]
+        lib.makeBinPath [ cni-plugins firecracker containerd runc ]
       }
     done
   '';
 
   meta = with lib; {
-    description = "Create and manage the lifecycle of MicroVMs backed by containerd";
+    description =
+      "Create and manage the lifecycle of MicroVMs backed by containerd";
     homepage = "https://github.com/weaveworks-liquidmetal/flintlock";
     license = licenses.mpl20;
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = [ "x86_64-linux" "aarch64-linux" ];
     maintainers = with maintainers; [ techknowlogick ];
   };
 }

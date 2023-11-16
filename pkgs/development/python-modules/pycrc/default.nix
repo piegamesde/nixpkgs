@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "PyCRC";
@@ -15,7 +11,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/cristianav/PyCRC";
-    description = "Python libraries for CRC calculations (it supports CRC-16, CRC-32, CRC-CCITT, etc)";
+    description =
+      "Python libraries for CRC calculations (it supports CRC-16, CRC-32, CRC-CCITT, etc)";
     license = licenses.gpl3;
     maintainers = with maintainers; [ guibou ];
   };

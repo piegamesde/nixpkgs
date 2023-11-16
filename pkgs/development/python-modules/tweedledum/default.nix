@@ -1,14 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  scikit-build,
-  # Check Inputs
-  pytestCheckHook,
-}:
+{ lib, stdenv, buildPythonPackage, fetchFromGitHub, cmake, ninja, scikit-build
+# Check Inputs
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "tweedledum";
@@ -22,11 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-wgrY5ajaMYxznyNvlD0ul1PFr3W8oV9I/OVsStlZEBM=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    scikit-build
-  ];
+  nativeBuildInputs = [ cmake ninja scikit-build ];
   dontUseCmakeConfigure = true;
 
   pythonImportsCheck = [ "tweedledum" ];
@@ -35,7 +23,8 @@ buildPythonPackage rec {
   pytestFlagsArray = [ "python/test" ];
 
   meta = with lib; {
-    description = "A library for synthesizing and manipulating quantum circuits";
+    description =
+      "A library for synthesizing and manipulating quantum circuits";
     homepage = "https://github.com/boschmitt/tweedledum";
     license = licenses.mit;
     maintainers = with maintainers; [ drewrisinger ];

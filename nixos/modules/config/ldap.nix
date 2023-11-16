@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with pkgs;
 with lib;
@@ -37,23 +32,25 @@ let
     base ${cfg.base}
     timelimit ${toString cfg.timeLimit}
     bind_timelimit ${toString cfg.bind.timeLimit}
-    ${optionalString (cfg.bind.distinguishedName != "") "binddn ${cfg.bind.distinguishedName}"}
-    ${optionalString (cfg.daemon.rootpwmoddn != "") "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
+    ${optionalString (cfg.bind.distinguishedName != "")
+    "binddn ${cfg.bind.distinguishedName}"}
+    ${optionalString (cfg.daemon.rootpwmoddn != "")
+    "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
     ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig}
   '';
 
   # nslcd normally reads configuration from /etc/nslcd.conf.
   # this file might contain secrets. We append those at runtime,
   # so redirect its location to something more temporary.
-  nslcdWrapped = runCommand "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
-    mkdir -p $out/bin
-    makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
-      --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
-      --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
-  '';
-in
+  nslcdWrapped =
+    runCommand "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
+      mkdir -p $out/bin
+      makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
+        --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
+        --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
+    '';
 
-{
+in {
 
   ###### interface
 
@@ -61,18 +58,21 @@ in
 
     users.ldap = {
 
-      enable = mkEnableOption (lib.mdDoc "authentication against an LDAP server");
+      enable =
+        mkEnableOption (lib.mdDoc "authentication against an LDAP server");
 
       loginPam = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether to include authentication against LDAP in login PAM.";
+        description = lib.mdDoc
+          "Whether to include authentication against LDAP in login PAM.";
       };
 
       nsswitch = mkOption {
         type = types.bool;
         default = true;
-        description = lib.mdDoc "Whether to include lookup against LDAP in NSS.";
+        description =
+          lib.mdDoc "Whether to include lookup against LDAP in NSS.";
       };
 
       server = mkOption {
@@ -187,11 +187,7 @@ in
 
         policy = mkOption {
           default = "hard_open";
-          type = types.enum [
-            "hard_open"
-            "hard_init"
-            "soft"
-          ];
+          type = types.enum [ "hard_open" "hard_init" "soft" ];
           description = lib.mdDoc ''
             Specifies the policy to use for reconnecting to an unavailable
             LDAP server. The default is `hard_open`, which
@@ -219,46 +215,39 @@ in
           {option}`users.ldap.daemon.extraConfig` instead.
         '';
       };
+
     };
+
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
 
-    environment.etc = optionalAttrs (!cfg.daemon.enable) { "ldap.conf" = ldapConfig; };
+    environment.etc =
+      optionalAttrs (!cfg.daemon.enable) { "ldap.conf" = ldapConfig; };
 
     system.activationScripts = mkIf (!cfg.daemon.enable) {
-      ldap =
-        stringAfter
-          [
-            "etc"
-            "groups"
-            "users"
-          ]
-          ''
-            if test -f "${cfg.bind.passwordFile}" ; then
-              umask 0077
-              conf="$(mktemp)"
-              printf 'bindpw %s\n' "$(cat ${cfg.bind.passwordFile})" |
-              cat ${ldapConfig.source} - >"$conf"
-              mv -fT "$conf" /etc/ldap.conf
-            fi
-          '';
+      ldap = stringAfter [ "etc" "groups" "users" ] ''
+        if test -f "${cfg.bind.passwordFile}" ; then
+          umask 0077
+          conf="$(mktemp)"
+          printf 'bindpw %s\n' "$(cat ${cfg.bind.passwordFile})" |
+          cat ${ldapConfig.source} - >"$conf"
+          mv -fT "$conf" /etc/ldap.conf
+        fi
+      '';
     };
 
-    system.nssModules = mkIf cfg.nsswitch (
-      singleton (if cfg.daemon.enable then nss_pam_ldapd else nss_ldap)
-    );
+    system.nssModules = mkIf cfg.nsswitch
+      (singleton (if cfg.daemon.enable then nss_pam_ldapd else nss_ldap));
 
     system.nssDatabases.group = optional cfg.nsswitch "ldap";
     system.nssDatabases.passwd = optional cfg.nsswitch "ldap";
     system.nssDatabases.shadow = optional cfg.nsswitch "ldap";
 
     users = mkIf cfg.daemon.enable {
-      groups.nslcd = {
-        gid = config.ids.gids.nslcd;
-      };
+      groups.nslcd = { gid = config.ids.gids.nslcd; };
 
       users.nslcd = {
         uid = config.ids.uids.nslcd;
@@ -284,11 +273,8 @@ in
           mv -fT "$conf" /run/nslcd/nslcd.conf
         '';
 
-        restartTriggers = [
-          nslcdConfig
-          cfg.bind.passwordFile
-          cfg.daemon.rootpwmodpwFile
-        ];
+        restartTriggers =
+          [ nslcdConfig cfg.bind.passwordFile cfg.daemon.rootpwmodpwFile ];
 
         serviceConfig = {
           ExecStart = "${nslcdWrapped}/bin/nslcd";
@@ -301,23 +287,17 @@ in
           AmbientCapabilities = "CAP_SYS_RESOURCE";
         };
       };
+
     };
+
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [
-        "users"
-        "ldap"
-        "bind"
-        "password"
-      ]
-      [
-        "users"
-        "ldap"
-        "bind"
-        "passwordFile"
-      ]
-    )
+    (mkRenamedOptionModule [ "users" "ldap" "bind" "password" ] [
+      "users"
+      "ldap"
+      "bind"
+      "passwordFile"
+    ])
   ];
 }

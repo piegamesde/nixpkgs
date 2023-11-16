@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  aresponses,
-  buildPythonPackage,
-  fetchFromGitHub,
-  poetry-core,
-  pydantic,
-  pytestCheckHook,
-  pytest-asyncio,
-  pythonOlder,
-}:
+{ lib, aiohttp, aresponses, buildPythonPackage, fetchFromGitHub, poetry-core
+, pydantic, pytestCheckHook, pytest-asyncio, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pytraccar";
@@ -27,16 +17,9 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    aiohttp
-    pydantic
-  ];
+  propagatedBuildInputs = [ aiohttp pydantic ];
 
-  nativeCheckInputs = [
-    aresponses
-    pytestCheckHook
-    pytest-asyncio
-  ];
+  nativeCheckInputs = [ aresponses pytestCheckHook pytest-asyncio ];
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 

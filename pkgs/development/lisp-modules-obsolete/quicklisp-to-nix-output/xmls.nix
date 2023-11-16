@@ -1,13 +1,9 @@
 # Generated file.
-args@{ fetchurl, ... }:
-rec {
+args@{ fetchurl, ... }: rec {
   baseName = "xmls";
   version = "3.0.2";
 
-  parasites = [
-    "xmls/test"
-    "xmls/unit-test"
-  ];
+  parasites = [ "xmls/test" "xmls/unit-test" ];
 
   description = "System lacks description";
 

@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-  wireshark-cli,
-}:
+{ lib, fetchFromGitHub, python3, wireshark-cli }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "credslayer";
@@ -19,11 +14,7 @@ python3.pkgs.buildPythonApplication rec {
 
   propagatedBuildInputs = with python3.pkgs; [ pyshark ];
 
-  nativeCheckInputs = with python3.pkgs; [
-    py
-    pytestCheckHook
-    wireshark-cli
-  ];
+  nativeCheckInputs = with python3.pkgs; [ py pytestCheckHook wireshark-cli ];
 
   pytestFlagsArray = [ "tests/tests.py" ];
 
@@ -45,7 +36,8 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Extract credentials and other useful info from network captures";
+    description =
+      "Extract credentials and other useful info from network captures";
     homepage = "https://github.com/ShellCode33/CredSLayer";
     license = with licenses; [ gpl3Only ];
     maintainers = with maintainers; [ fab ];

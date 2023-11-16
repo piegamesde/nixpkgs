@@ -1,11 +1,4 @@
-{
-  options,
-  config,
-  lib,
-  pkgs,
-  utils,
-  ...
-}:
+{ options, config, lib, pkgs, utils, ... }:
 
 with lib;
 
@@ -14,16 +7,10 @@ let
   defaultUser = "sftpgo";
   settingsFormat = pkgs.formats.json { };
   configFile = settingsFormat.generate "sftpgo.json" cfg.settings;
-  hasPrivilegedPorts = any (port: port > 0 && port < 1024) (
-    catAttrs "port" (
-      cfg.settings.httpd.bindings
-      ++ cfg.settings.ftpd.bindings
-      ++ cfg.settings.sftpd.bindings
-      ++ cfg.settings.webdavd.bindings
-    )
-  );
-in
-{
+  hasPrivilegedPorts = any (port: port > 0 && port < 1024) (catAttrs "port"
+    (cfg.settings.httpd.bindings ++ cfg.settings.ftpd.bindings
+      ++ cfg.settings.sftpd.bindings ++ cfg.settings.webdavd.bindings));
+in {
   options.services.sftpgo = {
     enable = mkOption {
       type = types.bool;
@@ -46,10 +33,7 @@ in
       description = mdDoc ''
         Additional command line arguments to pass to the sftpgo daemon.
       '';
-      example = [
-        "--log-level"
-        "info"
-      ];
+      example = [ "--log-level" "info" ];
     };
 
     dataDir = mkOption {
@@ -93,8 +77,7 @@ in
         [configuration reference](https://github.com/drakkan/sftpgo/blob/main/docs/full-configuration.md)
         for possible values.
       '';
-      type =
-        with types;
+      type = with types;
         submodule {
           freeformType = settingsFormat.type;
           options = {
@@ -103,47 +86,45 @@ in
               description = mdDoc ''
                 Configure listen addresses and ports for httpd.
               '';
-              type = types.listOf (
-                types.submodule {
-                  freeformType = settingsFormat.type;
-                  options = {
-                    address = mkOption {
-                      type = types.str;
-                      default = "127.0.0.1";
-                      description = mdDoc ''
-                        Network listen address. Leave blank to listen on all available network interfaces.
-                        On *NIX you can specify an absolute path to listen on a Unix-domain socket.
-                      '';
-                    };
-
-                    port = mkOption {
-                      type = types.port;
-                      default = 8080;
-                      description = mdDoc ''
-                        The port for serving HTTP(S) requests.
-
-                        Setting the port to `0` disables listening on this interface binding.
-                      '';
-                    };
-
-                    enable_web_admin = mkOption {
-                      type = types.bool;
-                      default = true;
-                      description = mdDoc ''
-                        Enable the built-in web admin for this interface binding.
-                      '';
-                    };
-
-                    enable_web_client = mkOption {
-                      type = types.bool;
-                      default = true;
-                      description = mdDoc ''
-                        Enable the built-in web client for this interface binding.
-                      '';
-                    };
+              type = types.listOf (types.submodule {
+                freeformType = settingsFormat.type;
+                options = {
+                  address = mkOption {
+                    type = types.str;
+                    default = "127.0.0.1";
+                    description = mdDoc ''
+                      Network listen address. Leave blank to listen on all available network interfaces.
+                      On *NIX you can specify an absolute path to listen on a Unix-domain socket.
+                    '';
                   };
-                }
-              );
+
+                  port = mkOption {
+                    type = types.port;
+                    default = 8080;
+                    description = mdDoc ''
+                      The port for serving HTTP(S) requests.
+
+                      Setting the port to `0` disables listening on this interface binding.
+                    '';
+                  };
+
+                  enable_web_admin = mkOption {
+                    type = types.bool;
+                    default = true;
+                    description = mdDoc ''
+                      Enable the built-in web admin for this interface binding.
+                    '';
+                  };
+
+                  enable_web_client = mkOption {
+                    type = types.bool;
+                    default = true;
+                    description = mdDoc ''
+                      Enable the built-in web client for this interface binding.
+                    '';
+                  };
+                };
+              });
             };
 
             ftpd.bindings = mkOption {
@@ -151,31 +132,29 @@ in
               description = mdDoc ''
                 Configure listen addresses and ports for ftpd.
               '';
-              type = types.listOf (
-                types.submodule {
-                  freeformType = settingsFormat.type;
-                  options = {
-                    address = mkOption {
-                      type = types.str;
-                      default = "127.0.0.1";
-                      description = mdDoc ''
-                        Network listen address. Leave blank to listen on all available network interfaces.
-                        On *NIX you can specify an absolute path to listen on a Unix-domain socket.
-                      '';
-                    };
-
-                    port = mkOption {
-                      type = types.port;
-                      default = 0;
-                      description = mdDoc ''
-                        The port for serving FTP requests.
-
-                        Setting the port to `0` disables listening on this interface binding.
-                      '';
-                    };
+              type = types.listOf (types.submodule {
+                freeformType = settingsFormat.type;
+                options = {
+                  address = mkOption {
+                    type = types.str;
+                    default = "127.0.0.1";
+                    description = mdDoc ''
+                      Network listen address. Leave blank to listen on all available network interfaces.
+                      On *NIX you can specify an absolute path to listen on a Unix-domain socket.
+                    '';
                   };
-                }
-              );
+
+                  port = mkOption {
+                    type = types.port;
+                    default = 0;
+                    description = mdDoc ''
+                      The port for serving FTP requests.
+
+                      Setting the port to `0` disables listening on this interface binding.
+                    '';
+                  };
+                };
+              });
             };
 
             sftpd.bindings = mkOption {
@@ -183,31 +162,29 @@ in
               description = mdDoc ''
                 Configure listen addresses and ports for sftpd.
               '';
-              type = types.listOf (
-                types.submodule {
-                  freeformType = settingsFormat.type;
-                  options = {
-                    address = mkOption {
-                      type = types.str;
-                      default = "127.0.0.1";
-                      description = mdDoc ''
-                        Network listen address. Leave blank to listen on all available network interfaces.
-                        On *NIX you can specify an absolute path to listen on a Unix-domain socket.
-                      '';
-                    };
-
-                    port = mkOption {
-                      type = types.port;
-                      default = 0;
-                      description = mdDoc ''
-                        The port for serving SFTP requests.
-
-                        Setting the port to `0` disables listening on this interface binding.
-                      '';
-                    };
+              type = types.listOf (types.submodule {
+                freeformType = settingsFormat.type;
+                options = {
+                  address = mkOption {
+                    type = types.str;
+                    default = "127.0.0.1";
+                    description = mdDoc ''
+                      Network listen address. Leave blank to listen on all available network interfaces.
+                      On *NIX you can specify an absolute path to listen on a Unix-domain socket.
+                    '';
                   };
-                }
-              );
+
+                  port = mkOption {
+                    type = types.port;
+                    default = 0;
+                    description = mdDoc ''
+                      The port for serving SFTP requests.
+
+                      Setting the port to `0` disables listening on this interface binding.
+                    '';
+                  };
+                };
+              });
             };
 
             webdavd.bindings = mkOption {
@@ -215,31 +192,29 @@ in
               description = mdDoc ''
                 Configure listen addresses and ports for webdavd.
               '';
-              type = types.listOf (
-                types.submodule {
-                  freeformType = settingsFormat.type;
-                  options = {
-                    address = mkOption {
-                      type = types.str;
-                      default = "127.0.0.1";
-                      description = mdDoc ''
-                        Network listen address. Leave blank to listen on all available network interfaces.
-                        On *NIX you can specify an absolute path to listen on a Unix-domain socket.
-                      '';
-                    };
-
-                    port = mkOption {
-                      type = types.port;
-                      default = 0;
-                      description = mdDoc ''
-                        The port for serving WebDAV requests.
-
-                        Setting the port to `0` disables listening on this interface binding.
-                      '';
-                    };
+              type = types.listOf (types.submodule {
+                freeformType = settingsFormat.type;
+                options = {
+                  address = mkOption {
+                    type = types.str;
+                    default = "127.0.0.1";
+                    description = mdDoc ''
+                      Network listen address. Leave blank to listen on all available network interfaces.
+                      On *NIX you can specify an absolute path to listen on a Unix-domain socket.
+                    '';
                   };
-                }
-              );
+
+                  port = mkOption {
+                    type = types.port;
+                    default = 0;
+                    description = mdDoc ''
+                      The port for serving WebDAV requests.
+
+                      Setting the port to `0` disables listening on this interface binding.
+                    '';
+                  };
+                };
+              });
             };
 
             smtp = mkOption {
@@ -265,11 +240,7 @@ in
                   };
 
                   encryption = mkOption {
-                    type = types.enum [
-                      0
-                      1
-                      2
-                    ];
+                    type = types.enum [ 0 1 2 ];
                     default = 1;
                     description = mdDoc ''
                       Encryption scheme:
@@ -280,11 +251,7 @@ in
                   };
 
                   auth_type = mkOption {
-                    type = types.enum [
-                      0
-                      1
-                      2
-                    ];
+                    type = types.enum [ 0 1 2 ];
                     default = 0;
                     description = mdDoc ''
                       - `0`: Plain
@@ -315,17 +282,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.sftpgo.settings =
-      (mapAttrs (name: mkDefault) {
-        ftpd.bindings = [ { port = 0; } ];
-        httpd.bindings = [ { port = 0; } ];
-        sftpd.bindings = [ { port = 0; } ];
-        webdavd.bindings = [ { port = 0; } ];
-        httpd.openapi_path = "${cfg.package}/share/sftpgo/openapi";
-        httpd.templates_path = "${cfg.package}/share/sftpgo/templates";
-        httpd.static_files_path = "${cfg.package}/share/sftpgo/static";
-        smtp.templates_path = "${cfg.package}/share/sftpgo/templates";
-      });
+    services.sftpgo.settings = (mapAttrs (name: mkDefault) {
+      ftpd.bindings = [{ port = 0; }];
+      httpd.bindings = [{ port = 0; }];
+      sftpd.bindings = [{ port = 0; }];
+      webdavd.bindings = [{ port = 0; }];
+      httpd.openapi_path = "${cfg.package}/share/sftpgo/openapi";
+      httpd.templates_path = "${cfg.package}/share/sftpgo/templates";
+      httpd.static_files_path = "${cfg.package}/share/sftpgo/static";
+      smtp.templates_path = "${cfg.package}/share/sftpgo/templates";
+    });
 
     users = optionalAttrs (cfg.user == defaultUser) {
       users = {
@@ -337,11 +303,7 @@ in
         };
       };
 
-      groups = {
-        ${defaultUser} = {
-          members = [ defaultUser ];
-        };
-      };
+      groups = { ${defaultUser} = { members = [ defaultUser ]; }; };
     };
 
     systemd.services.sftpgo = {
@@ -364,11 +326,14 @@ in
           ReadWritePaths = [ cfg.dataDir ];
           LimitNOFILE = 8192; # taken from upstream
           KillMode = "mixed";
-          ExecStart = "${cfg.package}/bin/sftpgo serve ${utils.escapeSystemdExecArgs cfg.extraArgs}";
+          ExecStart = "${cfg.package}/bin/sftpgo serve ${
+              utils.escapeSystemdExecArgs cfg.extraArgs
+            }";
           ExecReload = "${pkgs.util-linux}/bin/kill -s HUP $MAINPID";
 
           # Service hardening
-          CapabilityBoundingSet = [ (optionalString hasPrivilegedPorts "CAP_NET_BIND_SERVICE") ];
+          CapabilityBoundingSet =
+            [ (optionalString hasPrivilegedPorts "CAP_NET_BIND_SERVICE") ];
           DevicePolicy = "closed";
           LockPersonality = true;
           NoNewPrivileges = true;
@@ -390,13 +355,12 @@ in
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           SystemCallArchitectures = "native";
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-          ];
+          SystemCallFilter = [ "@system-service" "~@privileged" ];
           UMask = "0077";
         })
-        (mkIf hasPrivilegedPorts { AmbientCapabilities = "CAP_NET_BIND_SERVICE"; })
+        (mkIf hasPrivilegedPorts {
+          AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+        })
         (mkIf (cfg.dataDir == options.services.sftpgo.dataDir.default) {
           StateDirectory = baseNameOf cfg.dataDir;
         })

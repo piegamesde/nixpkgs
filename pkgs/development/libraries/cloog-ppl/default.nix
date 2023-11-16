@@ -1,10 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  ppl,
-  autoreconfHook,
-}:
+{ fetchurl, lib, stdenv, ppl, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   pname = "cloog-ppl";

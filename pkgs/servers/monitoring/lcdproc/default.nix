@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fetchpatch,
-  autoreconfHook,
-  makeWrapper,
-  pkg-config,
-  doxygen,
-  freetype,
-  libX11,
-  libftdi,
-  libusb-compat-0_1,
-  libusb1,
-  ncurses,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, autoreconfHook, makeWrapper
+, pkg-config, doxygen, freetype, libX11, libftdi, libusb-compat-0_1, libusb1
+, ncurses, perl }:
 
 stdenv.mkDerivation rec {
   pname = "lcdproc";
@@ -34,7 +20,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/lcdproc/lcdproc/pull/148
     (fetchpatch {
       name = "fno-common.patch";
-      url = "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch";
+      url =
+        "https://github.com/lcdproc/lcdproc/commit/fda5302878692da933dc03cd011f8ddffefa07a4.patch";
       sha256 = "0ld6p1r4rjsnjr63afw3lp5lx25jxjs07lsp9yc3q96r91r835cy";
     })
   ];
@@ -51,21 +38,9 @@ stdenv.mkDerivation rec {
     "--with-pidfile-dir=/run"
   ];
 
-  buildInputs = [
-    freetype
-    libX11
-    libftdi
-    libusb-compat-0_1
-    libusb1
-    ncurses
-  ];
+  buildInputs = [ freetype libX11 libftdi libusb-compat-0_1 libusb1 ncurses ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    doxygen
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook doxygen makeWrapper pkg-config ];
 
   # In 0.5.9: gcc: error: libbignum.a: No such file or directory
   enableParallelBuilding = false;
@@ -82,7 +57,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Client/server suite for controlling a wide variety of LCD devices";
+    description =
+      "Client/server suite for controlling a wide variety of LCD devices";
     homepage = "https://lcdproc.org/";
     license = licenses.gpl2;
     maintainers = with maintainers; [ peterhoeg ];

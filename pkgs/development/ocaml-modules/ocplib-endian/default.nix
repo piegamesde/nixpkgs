@@ -1,10 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  fetchFromGitHub,
-  ocaml,
-  cppo,
-}:
+{ lib, buildDunePackage, fetchFromGitHub, ocaml, cppo }:
 
 buildDunePackage rec {
   version = "1.2";

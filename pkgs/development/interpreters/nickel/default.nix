@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  nix-update-script,
-}:
+{ lib, rustPlatform, fetchFromGitHub, nix-update-script }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nickel";
@@ -33,9 +28,6 @@ rustPlatform.buildRustPackage rec {
     '';
     changelog = "https://github.com/tweag/nickel/blob/${version}/RELEASES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      AndersonTorres
-      felschr
-    ];
+    maintainers = with maintainers; [ AndersonTorres felschr ];
   };
 }

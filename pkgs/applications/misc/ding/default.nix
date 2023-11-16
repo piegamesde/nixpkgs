@@ -1,28 +1,11 @@
-{
-  aspell,
-  aspellDicts_de,
-  aspellDicts_en,
-  buildEnv,
-  fetchurl,
-  fortune,
-  gnugrep,
-  makeWrapper,
-  lib,
-  stdenv,
-  tk,
-  tre,
-}:
+{ aspell, aspellDicts_de, aspellDicts_en, buildEnv, fetchurl, fortune, gnugrep
+, makeWrapper, lib, stdenv, tk, tre }:
 let
   aspellEnv = buildEnv {
     name = "env-ding-aspell";
-    paths = [
-      aspell
-      aspellDicts_de
-      aspellDicts_en
-    ];
+    paths = [ aspell aspellDicts_de aspellDicts_en ];
   };
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ding";
   version = "1.9";
 
@@ -32,13 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    aspellEnv
-    fortune
-    gnugrep
-    tk
-    tre
-  ];
+  buildInputs = [ aspellEnv fortune gnugrep tk tre ];
 
   patches = [ ./dict.patch ];
 
@@ -64,12 +41,7 @@ stdenv.mkDerivation rec {
     cp -v ding.desktop $out/share/applications/
 
     wrapProgram $out/bin/ding --prefix PATH : ${
-      lib.makeBinPath [
-        gnugrep
-        aspellEnv
-        tk
-        fortune
-      ]
+      lib.makeBinPath [ gnugrep aspellEnv tk fortune ]
     } --prefix ASPELL_CONF : "\"prefix ${aspellEnv};\""
   '';
 

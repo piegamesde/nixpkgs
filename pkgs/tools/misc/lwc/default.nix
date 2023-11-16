@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "lwc";
@@ -17,11 +13,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-av736cW0bPsGQV+XFL/q6p/9VhjOeDwkiK5DLRnRtUg=";
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${src.rev}"
-  ];
+  ldflags = [ "-s" "-w" "-X=main.version=${src.rev}" ];
 
   meta = with lib; {
     description = "A live-updating version of the UNIX wc command";

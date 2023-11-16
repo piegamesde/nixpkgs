@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cffi,
-  six,
-  pytestCheckHook,
-  pytest-mock,
-  R,
-  rPackages,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cffi, six, pytestCheckHook
+, pytest-mock, R, rPackages }:
 
 buildPythonPackage rec {
   pname = "rchitect";
@@ -25,16 +16,9 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace '"pytest-runner"' ""
   '';
 
-  propagatedBuildInputs = [
-    cffi
-    six
-  ] ++ (with rPackages; [ reticulate ]);
+  propagatedBuildInputs = [ cffi six ] ++ (with rPackages; [ reticulate ]);
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    R
-  ];
+  nativeCheckInputs = [ pytestCheckHook pytest-mock R ];
 
   preCheck = ''
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${R}/lib/R/lib

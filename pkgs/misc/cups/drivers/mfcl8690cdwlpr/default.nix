@@ -1,32 +1,17 @@
-{
-  coreutils,
-  dpkg,
-  fetchurl,
-  file,
-  ghostscript,
-  gnugrep,
-  gnused,
-  makeWrapper,
-  perl,
-  pkgs,
-  lib,
-  stdenv,
-  which,
-}:
+{ coreutils, dpkg, fetchurl, file, ghostscript, gnugrep, gnused, makeWrapper
+, perl, pkgs, lib, stdenv, which }:
 
 stdenv.mkDerivation rec {
   pname = "mfcl8690cdwlpr";
   version = "1.3.0-0";
 
   src = fetchurl {
-    url = "http://download.brother.com/welcome/dlf103241/${pname}-${version}.i386.deb";
+    url =
+      "http://download.brother.com/welcome/dlf103241/${pname}-${version}.i386.deb";
     sha256 = "0x8zd4b1psmw1znp2ibncs37xm5mljcy9yza2rx8jm8lp0a3l85v";
   };
 
-  nativeBuildInputs = [
-    dpkg
-    makeWrapper
-  ];
+  nativeBuildInputs = [ dpkg makeWrapper ];
 
   dontUnpack = true;
 
@@ -43,14 +28,7 @@ stdenv.mkDerivation rec {
 
     wrapProgram $filter \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          file
-          ghostscript
-          gnugrep
-          gnused
-          which
-        ]
+        lib.makeBinPath [ coreutils file ghostscript gnugrep gnused which ]
       }
 
     # need to use i686 glibc here, these are 32bit proprietary binaries
@@ -64,9 +42,6 @@ stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = lib.licenses.unfree;
     maintainers = [ ];
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
+    platforms = [ "x86_64-linux" "i686-linux" ];
   };
 }

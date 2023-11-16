@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  nix-update-script,
-  makeWrapper,
-  valgrind,
+{ lib, rustPlatform, fetchFromGitHub, nix-update-script, makeWrapper, valgrind
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -20,20 +14,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-9/kIIZDIsOhUvRT3TyXN5PGFUB+a8m2yXmzBbsPUK28=";
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
-    wrapProgram $out/bin/cargo-valgrind --prefix PATH : ${lib.makeBinPath [ valgrind ]}
+    wrapProgram $out/bin/cargo-valgrind --prefix PATH : ${
+      lib.makeBinPath [ valgrind ]
+    }
   '';
 
-  checkFlags = [
-    "--skip examples_are_runnable"
-    "--skip tests_are_runnable"
-  ];
+  checkFlags = [ "--skip examples_are_runnable" "--skip tests_are_runnable" ];
 
   meta = with lib; {
     description = ''

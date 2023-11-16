@@ -1,8 +1,8 @@
-import ../make-test-python.nix (
-  { pkgs, ... }:
+import ../make-test-python.nix ({ pkgs, ... }:
   let
     # Set up SSL certs for Synapse to be happy.
-    runWithOpenSSL = file: cmd: pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
+    runWithOpenSSL = file: cmd:
+      pkgs.runCommand file { buildInputs = [ pkgs.openssl ]; } cmd;
 
     ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
     ca_pem = runWithOpenSSL "ca.pem" ''
@@ -23,121 +23,113 @@ import ../make-test-python.nix (
         -CAcreateserial -out $out \
         -days 365
     '';
-  in
-  {
+  in {
     name = "mjolnir";
     meta = with pkgs.lib; { maintainers = teams.matrix.members; };
 
     nodes = {
-      homeserver =
-        { pkgs, ... }:
-        {
-          services.matrix-synapse = {
-            enable = true;
-            settings = {
-              database.name = "sqlite3";
-              tls_certificate_path = "${cert}";
-              tls_private_key_path = "${key}";
-              enable_registration = true;
-              enable_registration_without_verification = true;
-              registration_shared_secret = "supersecret-registration";
+      homeserver = { pkgs, ... }: {
+        services.matrix-synapse = {
+          enable = true;
+          settings = {
+            database.name = "sqlite3";
+            tls_certificate_path = "${cert}";
+            tls_private_key_path = "${key}";
+            enable_registration = true;
+            enable_registration_without_verification = true;
+            registration_shared_secret = "supersecret-registration";
 
-              listeners = [
+            listeners = [{
+              # The default but tls=false
+              bind_addresses = [ "0.0.0.0" ];
+              port = 8448;
+              resources = [
                 {
-                  # The default but tls=false
-                  bind_addresses = [ "0.0.0.0" ];
-                  port = 8448;
-                  resources = [
-                    {
-                      compress = true;
-                      names = [ "client" ];
-                    }
-                    {
-                      compress = false;
-                      names = [ "federation" ];
-                    }
-                  ];
-                  tls = false;
-                  type = "http";
-                  x_forwarded = false;
+                  compress = true;
+                  names = [ "client" ];
+                }
+                {
+                  compress = false;
+                  names = [ "federation" ];
                 }
               ];
-            };
+              tls = false;
+              type = "http";
+              x_forwarded = false;
+            }];
           };
-
-          networking.firewall.allowedTCPPorts = [ 8448 ];
-
-          environment.systemPackages = [
-            (pkgs.writeShellScriptBin "register_mjolnir_user" ''
-              exec ${pkgs.matrix-synapse}/bin/register_new_matrix_user \
-                -u mjolnir \
-                -p mjolnir-password \
-                --admin \
-                --shared-secret supersecret-registration \
-                http://localhost:8448
-            '')
-            (pkgs.writeShellScriptBin "register_moderator_user" ''
-              exec ${pkgs.matrix-synapse}/bin/register_new_matrix_user \
-                -u moderator \
-                -p moderator-password \
-                --no-admin \
-                --shared-secret supersecret-registration \
-                http://localhost:8448
-            '')
-          ];
         };
 
-      mjolnir =
-        { pkgs, ... }:
-        {
-          services.mjolnir = {
+        networking.firewall.allowedTCPPorts = [ 8448 ];
+
+        environment.systemPackages = [
+          (pkgs.writeShellScriptBin "register_mjolnir_user" ''
+            exec ${pkgs.matrix-synapse}/bin/register_new_matrix_user \
+              -u mjolnir \
+              -p mjolnir-password \
+              --admin \
+              --shared-secret supersecret-registration \
+              http://localhost:8448
+          '')
+          (pkgs.writeShellScriptBin "register_moderator_user" ''
+            exec ${pkgs.matrix-synapse}/bin/register_new_matrix_user \
+              -u moderator \
+              -p moderator-password \
+              --no-admin \
+              --shared-secret supersecret-registration \
+              http://localhost:8448
+          '')
+        ];
+      };
+
+      mjolnir = { pkgs, ... }: {
+        services.mjolnir = {
+          enable = true;
+          homeserverUrl = "http://homeserver:8448";
+          pantalaimon = {
             enable = true;
-            homeserverUrl = "http://homeserver:8448";
-            pantalaimon = {
-              enable = true;
-              username = "mjolnir";
-              passwordFile = pkgs.writeText "password.txt" "mjolnir-password";
-              # otherwise mjolnir tries to connect to ::1, which is not listened by pantalaimon
-              options.listenAddress = "127.0.0.1";
-            };
-            managementRoom = "#moderators:homeserver";
+            username = "mjolnir";
+            passwordFile = pkgs.writeText "password.txt" "mjolnir-password";
+            # otherwise mjolnir tries to connect to ::1, which is not listened by pantalaimon
+            options.listenAddress = "127.0.0.1";
           };
+          managementRoom = "#moderators:homeserver";
         };
+      };
 
-      client =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "create_management_room_and_invite_mjolnir"
-              { libraries = with pkgs.python3Packages; [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e; }
-              ''
-                import asyncio
+      client = { pkgs, ... }: {
+        environment.systemPackages = [
+          (pkgs.writers.writePython3Bin
+            "create_management_room_and_invite_mjolnir" {
+              libraries = with pkgs.python3Packages;
+                [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e;
+            } ''
+              import asyncio
 
-                from nio import (
-                    AsyncClient,
-                    EnableEncryptionBuilder
-                )
+              from nio import (
+                  AsyncClient,
+                  EnableEncryptionBuilder
+              )
 
 
-                async def main() -> None:
-                    client = AsyncClient("http://homeserver:8448", "moderator")
+              async def main() -> None:
+                  client = AsyncClient("http://homeserver:8448", "moderator")
 
-                    await client.login("moderator-password")
+                  await client.login("moderator-password")
 
-                    room = await client.room_create(
-                        name="Moderators",
-                        alias="moderators",
-                        initial_state=[EnableEncryptionBuilder().as_dict()],
-                    )
+                  room = await client.room_create(
+                      name="Moderators",
+                      alias="moderators",
+                      initial_state=[EnableEncryptionBuilder().as_dict()],
+                  )
 
-                    await client.join(room.room_id)
-                    await client.room_invite(room.room_id, "@mjolnir:homeserver")
+                  await client.join(room.room_id)
+                  await client.room_invite(room.room_id, "@mjolnir:homeserver")
 
-                asyncio.run(main())
-              ''
-            )
-          ];
-        };
+              asyncio.run(main())
+            '')
+        ];
+      };
     };
 
     testScript = ''
@@ -171,5 +163,4 @@ import ../make-test-python.nix (
 
         mjolnir.wait_for_console_text("Startup complete. Now monitoring rooms")
     '';
-  }
-)
+  })

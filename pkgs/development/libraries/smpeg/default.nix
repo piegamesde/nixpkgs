@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL,
-  autoconf,
-  automake,
-  libtool,
-  gtk2,
-  m4,
-  pkg-config,
-  libGLU,
-  libGL,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL, autoconf, automake, libtool, gtk2, m4
+, pkg-config, libGLU, libGL, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "smpeg";
@@ -25,35 +12,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nq/i7cFGpJXIuTwN/ScLMX7FN8NMdgdsRM9xOD3uycs=";
   };
 
-  patches = [
-    ./format.patch
-    ./gcc6.patch
-    ./libx11.patch
-    ./gtk.patch
-  ];
+  patches = [ ./format.patch ./gcc6.patch ./libx11.patch ./gtk.patch ];
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    m4
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoconf automake libtool m4 pkg-config makeWrapper ];
 
-  buildInputs = [
-    SDL
-    gtk2
-    libGLU
-    libGL
-  ];
+  buildInputs = [ SDL gtk2 libGLU libGL ];
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+  outputs = [ "out" "dev" ];
 
   preConfigure = ''
     touch NEWS AUTHORS ChangeLog

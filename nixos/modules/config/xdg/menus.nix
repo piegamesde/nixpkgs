@@ -1,9 +1,7 @@
 { config, lib, ... }:
 
 with lib; {
-  meta = {
-    maintainers = teams.freedesktop.members;
-  };
+  meta = { maintainers = teams.freedesktop.members; };
 
   options = {
     xdg.menus.enable = mkOption {
@@ -24,4 +22,5 @@ with lib; {
       "/etc/xdg/menus/applications-merged"
     ];
   };
+
 }

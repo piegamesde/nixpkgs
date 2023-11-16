@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "hstspreload";
@@ -25,12 +20,10 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "hstspreload" ];
 
   meta = with lib; {
-    description = "Chromium HSTS Preload list as a Python package and updated daily";
+    description =
+      "Chromium HSTS Preload list as a Python package and updated daily";
     homepage = "https://github.com/sethmlarson/hstspreload";
     license = licenses.bsd3;
-    maintainers = with maintainers; [
-      costrouc
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ costrouc SuperSandro2000 ];
   };
 }

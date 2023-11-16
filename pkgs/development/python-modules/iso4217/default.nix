@@ -1,21 +1,12 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  fetchurl,
-  importlib-resources,
-  pytestCheckHook,
-  python,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, fetchurl, importlib-resources
+, pytestCheckHook, python, pythonOlder }:
 let
   table = fetchurl {
     # See https://github.com/dahlia/iso4217/blob/main/setup.py#L19
     url = "http://www.currency-iso.org/dam/downloads/lists/list_one.xml";
     hash = "sha256-bp8uTMR1YRaI2cJLo0kdt9xD4nNaWK+LdlheWQ26qy0=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "iso4217";
   version = "1.11";
   format = "setuptools";
@@ -29,7 +20,8 @@ buildPythonPackage rec {
     hash = "sha256-zJYtEIrsuHKPwnSoRjyZC/0rgAZoNMZ0Oh8gQcIb20Q=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

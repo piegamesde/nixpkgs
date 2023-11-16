@@ -1,11 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  testers,
-  flyctl,
-  installShellFiles,
-}:
+{ lib, buildGoModule, fetchFromGitHub, testers, flyctl, installShellFiles }:
 
 buildGoModule rec {
   pname = "flyctl";

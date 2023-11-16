@@ -1,18 +1,5 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  emacs,
-  gnulib,
-  autoconf,
-  bison,
-  automake,
-  gettext,
-  gperf,
-  texinfo,
-  perl,
-  rsync,
-}:
+{ fetchurl, lib, stdenv, emacs, gnulib, autoconf, bison, automake, gettext
+, gperf, texinfo, perl, rsync }:
 
 stdenv.mkDerivation rec {
   pname = "idutils";
@@ -31,17 +18,8 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs = lib.optional stdenv.isLinux emacs;
-  nativeBuildInputs = [
-    gnulib
-    autoconf
-    bison
-    automake
-    gettext
-    gperf
-    texinfo
-    perl
-    rsync
-  ];
+  nativeBuildInputs =
+    [ gnulib autoconf bison automake gettext gperf texinfo perl rsync ];
 
   doCheck = !stdenv.isDarwin;
 

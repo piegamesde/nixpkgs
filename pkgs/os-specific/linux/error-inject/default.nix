@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  bison,
-  flex,
-  rasdaemon,
-}:
+{ lib, stdenv, fetchgit, bison, flex, rasdaemon }:
 
 {
   edac-inject = rasdaemon.inject;
@@ -20,10 +13,7 @@
       sha256 = "0gjapg2hrlxp8ssrnhvc19i3r1xpcnql7xv0zjgbv09zyha08g6z";
     };
 
-    nativeBuildInputs = [
-      bison
-      flex
-    ];
+    nativeBuildInputs = [ bison flex ];
 
     makeFlags = [ "destdir=${placeholder "out"}" ];
 
@@ -48,15 +38,13 @@
     version = "9bd5e2c7886fca72f139cd8402488a2235957d41";
 
     src = fetchgit {
-      url = "https://git.kernel.org/pub/scm/linux/kernel/git/gong.chen/aer-inject.git";
+      url =
+        "https://git.kernel.org/pub/scm/linux/kernel/git/gong.chen/aer-inject.git";
       rev = version;
       sha256 = "0bh6mzpk2mr4xidkammmkfk21b4dbq793qjg25ryyxd1qv0c6cg4";
     };
 
-    nativeBuildInputs = [
-      bison
-      flex
-    ];
+    nativeBuildInputs = [ bison flex ];
 
     # how is this necessary?
     makeFlags = [ "DESTDIR=${placeholder "out"}" ];

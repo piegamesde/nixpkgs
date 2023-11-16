@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  automake,
-  autoconf,
-  libtool,
-  flex,
-  bison,
-  texinfo,
-  fetchpatch,
-  pkgsStatic,
-  withNcurses ? true,
-  ncurses,
-}:
+{ lib, stdenv, fetchFromGitHub, automake, autoconf, libtool, flex, bison
+, texinfo, fetchpatch, pkgsStatic, withNcurses ? true, ncurses }:
 
 stdenv.mkDerivation rec {
   pname = "gpm";
@@ -29,22 +16,15 @@ stdenv.mkDerivation rec {
     substituteInPlace src/prog/gpm-root.y --replace __sigemptyset sigemptyset
   '';
 
-  nativeBuildInputs = [
-    automake
-    autoconf
-    libtool
-    flex
-    bison
-    texinfo
-  ];
+  nativeBuildInputs = [ automake autoconf libtool flex bison texinfo ];
   buildInputs = [ ncurses ];
 
   hardeningDisable = [ "format" ];
 
   patches = [
-    (fetchpatch {
-      # pull request telmich/gpm#42
-      url = "https://github.com/kaction/gpm/commit/217b4fe4c9b62298a4e9a54c1f07e3b52b013a09.patch";
+    (fetchpatch { # pull request telmich/gpm#42
+      url =
+        "https://github.com/kaction/gpm/commit/217b4fe4c9b62298a4e9a54c1f07e3b52b013a09.patch";
       sha256 = "1f74h12iph4z1dldbxk9imcq11805c3ai2xhbsqvx8jpjrcfp19q";
     })
 
@@ -52,7 +32,8 @@ stdenv.mkDerivation rec {
     #   https://github.com/telmich/gpm/pull/43
     (fetchpatch {
       name = "parallel-install.patch";
-      url = "https://github.com/telmich/gpm/commit/a88fb82a7afe96e872bb31c554e9ad5888f5a451.patch";
+      url =
+        "https://github.com/telmich/gpm/commit/a88fb82a7afe96e872bb31c554e9ad5888f5a451.patch";
       sha256 = "0g1jhz9bjw7vqjv922xkhs8xkjxdqh11nj38jj3c8nv5lcil76nx";
     })
   ];

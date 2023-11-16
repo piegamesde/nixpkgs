@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pkgs,
-}:
+{ lib, buildPythonPackage, fetchPypi, pkgs }:
 
 buildPythonPackage rec {
   pname = "musicbrainzngs";
@@ -29,4 +24,5 @@ buildPythonPackage rec {
     license = licenses.bsd2;
     maintainers = with maintainers; [ domenkozar ];
   };
+
 }

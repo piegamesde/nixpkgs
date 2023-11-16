@@ -1,24 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  meson,
-  ninja,
-  pkg-config,
-  gettext,
-  gnome,
-  glib,
-  gtk4,
-  pango,
-  wrapGAppsHook4,
-  desktop-file-utils,
-  gobject-introspection,
-  gjs,
-  libunistring,
-  libadwaita,
-  gsettings-desktop-schemas,
-  gnome-desktop,
-}:
+{ lib, stdenv, fetchurl, meson, ninja, pkg-config, gettext, gnome, glib, gtk4
+, pango, wrapGAppsHook4, desktop-file-utils, gobject-introspection, gjs
+, libunistring, libadwaita, gsettings-desktop-schemas, gnome-desktop }:
 
 stdenv.mkDerivation rec {
   pname = "gnome-characters";
@@ -71,7 +53,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Characters";
-    description = "Simple utility application to find and insert unusual characters";
+    description =
+      "Simple utility application to find and insert unusual characters";
     maintainers = teams.gnome.members;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

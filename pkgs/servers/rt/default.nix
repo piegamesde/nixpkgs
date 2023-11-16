@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  buildEnv,
-  fetchFromGitHub,
-  perl,
-  perlPackages,
-  makeWrapper,
-  gnupg,
-  openssl,
-}:
+{ lib, stdenv, autoreconfHook, buildEnv, fetchFromGitHub, perl, perlPackages
+, makeWrapper, gnupg, openssl }:
 
 stdenv.mkDerivation rec {
   pname = "rt";
@@ -27,17 +17,13 @@ stdenv.mkDerivation rec {
     ./override-generated.patch
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoreconfHook makeWrapper ];
 
   buildInputs = [
     perl
     (buildEnv {
       name = "rt-perl-deps";
-      paths =
-        with perlPackages;
+      paths = with perlPackages;
         (requiredPerlModules [
           ApacheSession
           BusinessHours
@@ -158,12 +144,7 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for i in $(find $out/bin -type f); do
       wrapProgram $i --prefix PERL5LIB ':' $PERL5LIB \
-        --prefix PATH ":" "${
-          lib.makeBinPath [
-            openssl
-            gnupg
-          ]
-        }"
+        --prefix PATH ":" "${lib.makeBinPath [ openssl gnupg ]}"
     done
 
     rm -r $out/var
@@ -175,7 +156,5 @@ stdenv.mkDerivation rec {
     ln -s /var/lib/rt/gpg $out/var/data/gpg
   '';
 
-  meta = {
-    platforms = lib.platforms.unix;
-  };
+  meta = { platforms = lib.platforms.unix; };
 }

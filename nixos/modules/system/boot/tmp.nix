@@ -2,44 +2,20 @@
 
 with lib;
 
-let
-  cfg = config.boot.tmp;
-in
-{
+let cfg = config.boot.tmp;
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "cleanTmpDir"
-      ]
-      [
-        "boot"
-        "tmp"
-        "cleanOnBoot"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "tmpOnTmpfs"
-      ]
-      [
-        "boot"
-        "tmp"
-        "useTmpfs"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "boot"
-        "tmpOnTmpfsSize"
-      ]
-      [
-        "boot"
-        "tmp"
-        "tmpfsSize"
-      ]
-    )
+    (mkRenamedOptionModule [ "boot" "cleanTmpDir" ] [
+      "boot"
+      "tmp"
+      "cleanOnBoot"
+    ])
+    (mkRenamedOptionModule [ "boot" "tmpOnTmpfs" ] [ "boot" "tmp" "useTmpfs" ])
+    (mkRenamedOptionModule [ "boot" "tmpOnTmpfsSize" ] [
+      "boot"
+      "tmp"
+      "tmpfsSize"
+    ])
   ];
 
   options = {
@@ -53,10 +29,7 @@ in
       };
 
       tmpfsSize = mkOption {
-        type = types.oneOf [
-          types.str
-          types.types.ints.positive
-        ];
+        type = types.oneOf [ types.str types.types.ints.positive ];
         default = "50%";
         description = lib.mdDoc ''
           Size of tmpfs in percentage.
@@ -81,21 +54,19 @@ in
 
   config = {
     # When changing remember to update /tmp mount in virtualisation/qemu-vm.nix
-    systemd.mounts = mkIf cfg.useTmpfs [
-      {
-        what = "tmpfs";
-        where = "/tmp";
-        type = "tmpfs";
-        mountConfig.Options = concatStringsSep "," [
-          "mode=1777"
-          "strictatime"
-          "rw"
-          "nosuid"
-          "nodev"
-          "size=${toString cfg.tmpfsSize}"
-        ];
-      }
-    ];
+    systemd.mounts = mkIf cfg.useTmpfs [{
+      what = "tmpfs";
+      where = "/tmp";
+      type = "tmpfs";
+      mountConfig.Options = concatStringsSep "," [
+        "mode=1777"
+        "strictatime"
+        "rw"
+        "nosuid"
+        "nodev"
+        "size=${toString cfg.tmpfsSize}"
+      ];
+    }];
 
     systemd.tmpfiles.rules = optional cfg.cleanOnBoot "D! /tmp 1777 root root";
   };

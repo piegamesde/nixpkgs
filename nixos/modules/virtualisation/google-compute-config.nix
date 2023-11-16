@@ -1,25 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  inherit (lib)
-    boolToString
-    mkDefault
-    mkIf
-    optional
-    readFile
-  ;
-in
+let inherit (lib) boolToString mkDefault mkIf optional readFile;
 
-{
-  imports = [
-    ../profiles/headless.nix
-    ../profiles/qemu-guest.nix
-  ];
+in {
+  imports = [ ../profiles/headless.nix ../profiles/qemu-guest.nix ];
 
   fileSystems."/" = {
     fsType = "ext4";
@@ -28,16 +12,9 @@ in
   };
 
   boot.growPartition = true;
-  boot.kernelParams = [
-    "console=ttyS0"
-    "panic=1"
-    "boot.panic_on_fail"
-  ];
+  boot.kernelParams = [ "console=ttyS0" "panic=1" "boot.panic_on_fail" ];
   boot.initrd.kernelModules = [ "virtio_scsi" ];
-  boot.kernelModules = [
-    "virtio_pci"
-    "virtio_net"
-  ];
+  boot.kernelModules = [ "virtio_pci" "virtio_net" ];
 
   # Generate a GRUB menu.
   boot.loader.grub.device = "/dev/sda";
@@ -85,31 +62,28 @@ in
   systemd.packages = [ pkgs.google-guest-agent ];
   systemd.services.google-guest-agent = {
     wantedBy = [ "multi-user.target" ];
-    restartTriggers = [ config.environment.etc."default/instance_configs.cfg".source ];
+    restartTriggers =
+      [ config.environment.etc."default/instance_configs.cfg".source ];
     path = optional config.users.mutableUsers pkgs.shadow;
   };
   systemd.services.google-startup-scripts.wantedBy = [ "multi-user.target" ];
   systemd.services.google-shutdown-scripts.wantedBy = [ "multi-user.target" ];
 
-  security.sudo.extraRules = mkIf config.users.mutableUsers [
-    {
-      groups = [ "google-sudoers" ];
-      commands = [
-        {
-          command = "ALL";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
+  security.sudo.extraRules = mkIf config.users.mutableUsers [{
+    groups = [ "google-sudoers" ];
+    commands = [{
+      command = "ALL";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 
   users.groups.google-sudoers = mkIf config.users.mutableUsers { };
 
   boot.extraModprobeConfig =
-    readFile
-      "${pkgs.google-guest-configs}/etc/modprobe.d/gce-blacklist.conf";
+    readFile "${pkgs.google-guest-configs}/etc/modprobe.d/gce-blacklist.conf";
 
-  environment.etc."sysctl.d/60-gce-network-security.conf".source = "${pkgs.google-guest-configs}/etc/sysctl.d/60-gce-network-security.conf";
+  environment.etc."sysctl.d/60-gce-network-security.conf".source =
+    "${pkgs.google-guest-configs}/etc/sysctl.d/60-gce-network-security.conf";
 
   environment.etc."default/instance_configs.cfg".text = ''
     [Accounts]

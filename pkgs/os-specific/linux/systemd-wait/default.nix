@@ -1,8 +1,4 @@
-{
-  python3Packages,
-  fetchFromGitHub,
-  lib,
-}:
+{ python3Packages, fetchFromGitHub, lib }:
 
 python3Packages.buildPythonApplication rec {
   pname = "systemd-wait";
@@ -15,10 +11,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1l8rd0wzf3m7fk0g1c8wc0csdisdfac0filhixpgp0ck9ignayq5";
   };
 
-  propagatedBuildInputs = with python3Packages; [
-    dbus-python
-    pygobject3
-  ];
+  propagatedBuildInputs = with python3Packages; [ dbus-python pygobject3 ];
 
   meta = {
     homepage = "https://github.com/Stebalien/systemd-wait";

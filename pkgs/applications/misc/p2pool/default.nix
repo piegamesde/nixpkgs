@@ -1,24 +1,8 @@
-{
-  stdenv,
-  cmake,
-  curl,
-  fetchFromGitHub,
-  gss,
-  hwloc,
-  lib,
-  libsodium,
-  libuv,
-  nix-update-script,
-  openssl,
-  pkg-config,
-  zeromq,
-  darwin,
-}:
+{ stdenv, cmake, curl, fetchFromGitHub, gss, hwloc, lib, libsodium, libuv
+, nix-update-script, openssl, pkg-config, zeromq, darwin }:
 
-let
-  inherit (darwin.apple_sdk.frameworks) Foundation;
-in
-stdenv.mkDerivation rec {
+let inherit (darwin.apple_sdk.frameworks) Foundation;
+in stdenv.mkDerivation rec {
   pname = "p2pool";
   version = "3.4";
 
@@ -30,19 +14,9 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    libuv
-    zeromq
-    libsodium
-    gss
-    hwloc
-    openssl
-    curl
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ libuv zeromq libsodium gss hwloc openssl curl ]
+    ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   cmakeFlags = [ "-DWITH_LTO=OFF" ];
 
@@ -54,9 +28,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-  };
+  passthru = { updateScript = nix-update-script { }; };
 
   meta = with lib; {
     description = "Decentralized pool for Monero mining";

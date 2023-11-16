@@ -7,41 +7,27 @@
 #   3) used by `google-cloud-sdk` only on GCE guests
 #
 
-{
-  stdenv,
-  lib,
-  fetchurl,
-  makeWrapper,
-  nixosTests,
-  python,
-  openssl,
-  jq,
-  callPackage,
-  with-gce ? false,
-}:
+{ stdenv, lib, fetchurl, makeWrapper, nixosTests, python, openssl, jq
+, callPackage, with-gce ? false }:
 
 let
-  pythonEnv = python.withPackages (
-    p:
+  pythonEnv = python.withPackages (p:
     with p;
-    [
-      cffi
-      cryptography
-      openssl
-      crcmod
-      numpy
-    ]
-    ++ lib.optional (with-gce) google-compute-engine
-  );
+    [ cffi cryptography openssl crcmod numpy ]
+    ++ lib.optional (with-gce) google-compute-engine);
 
   data = import ./data.nix { };
-  sources = system: data.googleCloudSdkPkgs.${system} or (throw "Unsupported system: ${system}");
+  sources = system:
+    data.googleCloudSdkPkgs.${system} or (throw
+      "Unsupported system: ${system}");
 
-  components = callPackage ./components.nix { snapshotPath = ./components.json; };
+  components =
+    callPackage ./components.nix { snapshotPath = ./components.json; };
 
-  withExtraComponents = callPackage ./withExtraComponents.nix { inherit components; };
-in
-stdenv.mkDerivation rec {
+  withExtraComponents =
+    callPackage ./withExtraComponents.nix { inherit components; };
+
+in stdenv.mkDerivation rec {
   pname = "google-cloud-sdk";
   inherit (data) version;
 
@@ -49,10 +35,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python ];
 
-  nativeBuildInputs = [
-    jq
-    makeWrapper
-  ];
+  nativeBuildInputs = [ jq makeWrapper ];
 
   patches = [
     # For kubectl configs, don't store the absolute path of the `gcloud` binary as it can be garbage-collected
@@ -133,7 +116,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Tools for the google cloud platform";
-    longDescription = "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
+    longDescription =
+      "The Google Cloud SDK. This package has the programs: gcloud, gsutil, and bq";
     sourceProvenance = with sourceTypes; [
       fromSource
       binaryNativeCode # anthoscli and possibly more
@@ -142,12 +126,7 @@ stdenv.mkDerivation rec {
     license = licenses.free;
     homepage = "https://cloud.google.com/sdk/";
     changelog = "https://cloud.google.com/sdk/docs/release-notes";
-    maintainers = with maintainers; [
-      iammrinal0
-      pradyuman
-      stephenmw
-      zimbatm
-    ];
+    maintainers = with maintainers; [ iammrinal0 pradyuman stephenmw zimbatm ];
     platforms = builtins.attrNames data.googleCloudSdkPkgs;
     mainProgram = "gcloud";
   };

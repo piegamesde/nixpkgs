@@ -1,17 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeDesktopItem,
-  ncurses,
-  libX11,
-  boost,
-  cmake,
+{ lib, stdenv, fetchFromGitHub, makeDesktopItem, ncurses, libX11, boost, cmake
 }:
 
 let
   pname = "tome2";
-  description = "A dungeon crawler similar to Angband, based on the works of Tolkien";
+  description =
+    "A dungeon crawler similar to Angband, based on the works of Tolkien";
 
   desktopItem = makeDesktopItem {
     desktopName = pname;
@@ -20,14 +13,11 @@ let
     icon = pname;
     comment = description;
     type = "Application";
-    categories = [
-      "Game"
-      "RolePlaying"
-    ];
+    categories = [ "Game" "RolePlaying" ];
     genericName = pname;
   };
-in
-stdenv.mkDerivation {
+
+in stdenv.mkDerivation {
   inherit pname;
   version = "2.4";
 
@@ -38,11 +28,7 @@ stdenv.mkDerivation {
     sha256 = "06bddj55y673d7bnzblk8n01z32l6k2rad3bpzr8dmw464hx4wwf";
   };
 
-  buildInputs = [
-    ncurses
-    libX11
-    boost
-  ];
+  buildInputs = [ ncurses libX11 boost ];
 
   nativeBuildInputs = [ cmake ];
 

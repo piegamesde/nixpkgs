@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
 {
-  meta = {
-    maintainers = [ maintainers.joachifm ];
-  };
+  meta = { maintainers = [ maintainers.joachifm ]; };
 
   options = {
     security.lockKernelModules = mkOption {
@@ -26,23 +19,16 @@ with lib;
   };
 
   config = mkIf config.security.lockKernelModules {
-    boot.kernelModules =
-      concatMap
-        (
-          x:
-          if x.device != null then
-            if x.fsType == "vfat" then
-              [
-                "vfat"
-                "nls-cp437"
-                "nls-iso8859-1"
-              ]
-            else
-              [ x.fsType ]
-          else
-            [ ]
-        )
-        config.system.build.fileSystems;
+    boot.kernelModules = concatMap (x:
+      if x.device != null then
+        if x.fsType == "vfat" then [
+          "vfat"
+          "nls-cp437"
+          "nls-iso8859-1"
+        ] else
+          [ x.fsType ]
+      else
+        [ ]) config.system.build.fileSystems;
 
     systemd.services.disable-kernel-module-loading = {
       description = "Disable kernel module loading";

@@ -23,29 +23,24 @@ let
       "always"
     ])
   ];
-in
-rec {
+
+in rec {
 
   unitOption = mkOptionType {
     name = "systemd option";
-    merge =
-      loc: defs:
-      let
-        defs' = filterOverrides defs;
-      in
-      if isList (head defs').value then
-        concatMap
-          (
-            def:
-            if builtins.typeOf def.value == "list" then
-              def.value
-            else
-              throw
-                "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${
-                  showOption loc
-                }, the definitions are a mix of list and non-list ${lib.options.showDefs defs'}"
-          )
-          defs'
+    merge = loc: defs:
+      let defs' = filterOverrides defs;
+      in if isList (head defs').value then
+        concatMap (def:
+          if builtins.typeOf def.value == "list" then
+            def.value
+          else
+            throw
+            "The definitions for systemd unit options should be either all lists, representing repeatable options, or all non-lists, but for the option ${
+              showOption loc
+            }, the definitions are a mix of list and non-list ${
+              lib.options.showDefs defs'
+            }") defs'
 
       else
         mergeEqualOption loc defs';
@@ -69,10 +64,7 @@ rec {
 
     overrideStrategy = mkOption {
       default = "asDropinIfExists";
-      type = types.enum [
-        "asDropinIfExists"
-        "asDropin"
-      ];
+      type = types.enum [ "asDropinIfExists" "asDropin" ];
       description = lib.mdDoc ''
         Defines how unit configuration is provided for systemd:
 
@@ -119,6 +111,7 @@ rec {
       type = types.listOf unitNameType;
       description = lib.mdDoc "Aliases of that unit.";
     };
+
   };
 
   concreteUnitOptions = sharedOptions // {
@@ -133,6 +126,7 @@ rec {
       internal = true;
       description = lib.mdDoc "The generated unit.";
     };
+
   };
 
   commonUnitOptions = {
@@ -141,17 +135,15 @@ rec {
       description = mkOption {
         default = "";
         type = types.singleLineStr;
-        description =
-          lib.mdDoc
-            "Description of this unit used in systemd messages and progress indicators.";
+        description = lib.mdDoc
+          "Description of this unit used in systemd messages and progress indicators.";
       };
 
       documentation = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        description =
-          lib.mdDoc
-            "A list of URIs referencing documentation for this unit or its configuration.";
+        description = lib.mdDoc
+          "A list of URIs referencing documentation for this unit or its configuration.";
       };
 
       requires = mkOption {
@@ -227,9 +219,7 @@ rec {
 
       unitConfig = mkOption {
         default = { };
-        example = {
-          RequiresMountsFor = "/data";
-        };
+        example = { RequiresMountsFor = "/data"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -273,6 +263,7 @@ rec {
           interval are not permitted to start any more.
         '';
       };
+
     };
   };
 
@@ -304,163 +295,144 @@ rec {
   };
   stage1CommonUnitOptions = commonUnitOptions;
 
-  serviceOptions =
-    { name, config, ... }:
-    {
-      options = {
+  serviceOptions = { name, config, ... }: {
+    options = {
 
-        environment = mkOption {
-          default = { };
-          type =
-            with types;
-            attrsOf (
-              nullOr (
-                oneOf [
-                  str
-                  path
-                  package
-                ]
-              )
-            );
-          example = {
-            PATH = "/foo/bar/bin";
-            LANG = "nl_NL.UTF-8";
-          };
-          description = lib.mdDoc "Environment variables passed to the service's processes.";
+      environment = mkOption {
+        default = { };
+        type = with types; attrsOf (nullOr (oneOf [ str path package ]));
+        example = {
+          PATH = "/foo/bar/bin";
+          LANG = "nl_NL.UTF-8";
         };
-
-        path = mkOption {
-          default = [ ];
-          type =
-            with types;
-            listOf (
-              oneOf [
-                package
-                str
-              ]
-            );
-          description = lib.mdDoc ''
-            Packages added to the service's {env}`PATH`
-            environment variable.  Both the {file}`bin`
-            and {file}`sbin` subdirectories of each
-            package are added.
-          '';
-        };
-
-        serviceConfig = mkOption {
-          default = { };
-          example = {
-            RestartSec = 5;
-          };
-          type = types.addCheck (types.attrsOf unitOption) checkService;
-          description = lib.mdDoc ''
-            Each attribute in this set specifies an option in the
-            `[Service]` section of the unit.  See
-            {manpage}`systemd.service(5)` for details.
-          '';
-        };
-
-        script = mkOption {
-          type = types.lines;
-          default = "";
-          description = lib.mdDoc "Shell commands executed as the service's main process.";
-        };
-
-        scriptArgs = mkOption {
-          type = types.str;
-          default = "";
-          example = "%i";
-          description = lib.mdDoc ''
-            Arguments passed to the main process script.
-            Can contain specifiers (`%` placeholders expanded by systemd, see {manpage}`systemd.unit(5)`).
-          '';
-        };
-
-        preStart = mkOption {
-          type = types.lines;
-          default = "";
-          description = lib.mdDoc ''
-            Shell commands executed before the service's main process
-            is started.
-          '';
-        };
-
-        postStart = mkOption {
-          type = types.lines;
-          default = "";
-          description = lib.mdDoc ''
-            Shell commands executed after the service's main process
-            is started.
-          '';
-        };
-
-        reload = mkOption {
-          type = types.lines;
-          default = "";
-          description = lib.mdDoc ''
-            Shell commands executed when the service's main process
-            is reloaded.
-          '';
-        };
-
-        preStop = mkOption {
-          type = types.lines;
-          default = "";
-          description = lib.mdDoc ''
-            Shell commands executed to stop the service.
-          '';
-        };
-
-        postStop = mkOption {
-          type = types.lines;
-          default = "";
-          description = lib.mdDoc ''
-            Shell commands executed after the service's main process
-            has exited.
-          '';
-        };
-
-        jobScripts = mkOption {
-          type = with types; coercedTo path singleton (listOf path);
-          internal = true;
-          description = lib.mdDoc "A list of all job script derivations of this unit.";
-          default = [ ];
-        };
+        description =
+          lib.mdDoc "Environment variables passed to the service's processes.";
       };
 
-      config = mkMerge [
-        (mkIf (config.preStart != "") rec {
-          jobScripts = makeJobScript "${name}-pre-start" config.preStart;
-          serviceConfig.ExecStartPre = [ jobScripts ];
-        })
-        (mkIf (config.script != "") rec {
-          jobScripts = makeJobScript "${name}-start" config.script;
-          serviceConfig.ExecStart = jobScripts + " " + config.scriptArgs;
-        })
-        (mkIf (config.postStart != "") rec {
-          jobScripts = (makeJobScript "${name}-post-start" config.postStart);
-          serviceConfig.ExecStartPost = [ jobScripts ];
-        })
-        (mkIf (config.reload != "") rec {
-          jobScripts = makeJobScript "${name}-reload" config.reload;
-          serviceConfig.ExecReload = jobScripts;
-        })
-        (mkIf (config.preStop != "") rec {
-          jobScripts = makeJobScript "${name}-pre-stop" config.preStop;
-          serviceConfig.ExecStop = jobScripts;
-        })
-        (mkIf (config.postStop != "") rec {
-          jobScripts = makeJobScript "${name}-post-stop" config.postStop;
-          serviceConfig.ExecStopPost = jobScripts;
-        })
-      ];
+      path = mkOption {
+        default = [ ];
+        type = with types; listOf (oneOf [ package str ]);
+        description = lib.mdDoc ''
+          Packages added to the service's {env}`PATH`
+          environment variable.  Both the {file}`bin`
+          and {file}`sbin` subdirectories of each
+          package are added.
+        '';
+      };
+
+      serviceConfig = mkOption {
+        default = { };
+        example = { RestartSec = 5; };
+        type = types.addCheck (types.attrsOf unitOption) checkService;
+        description = lib.mdDoc ''
+          Each attribute in this set specifies an option in the
+          `[Service]` section of the unit.  See
+          {manpage}`systemd.service(5)` for details.
+        '';
+      };
+
+      script = mkOption {
+        type = types.lines;
+        default = "";
+        description =
+          lib.mdDoc "Shell commands executed as the service's main process.";
+      };
+
+      scriptArgs = mkOption {
+        type = types.str;
+        default = "";
+        example = "%i";
+        description = lib.mdDoc ''
+          Arguments passed to the main process script.
+          Can contain specifiers (`%` placeholders expanded by systemd, see {manpage}`systemd.unit(5)`).
+        '';
+      };
+
+      preStart = mkOption {
+        type = types.lines;
+        default = "";
+        description = lib.mdDoc ''
+          Shell commands executed before the service's main process
+          is started.
+        '';
+      };
+
+      postStart = mkOption {
+        type = types.lines;
+        default = "";
+        description = lib.mdDoc ''
+          Shell commands executed after the service's main process
+          is started.
+        '';
+      };
+
+      reload = mkOption {
+        type = types.lines;
+        default = "";
+        description = lib.mdDoc ''
+          Shell commands executed when the service's main process
+          is reloaded.
+        '';
+      };
+
+      preStop = mkOption {
+        type = types.lines;
+        default = "";
+        description = lib.mdDoc ''
+          Shell commands executed to stop the service.
+        '';
+      };
+
+      postStop = mkOption {
+        type = types.lines;
+        default = "";
+        description = lib.mdDoc ''
+          Shell commands executed after the service's main process
+          has exited.
+        '';
+      };
+
+      jobScripts = mkOption {
+        type = with types; coercedTo path singleton (listOf path);
+        internal = true;
+        description =
+          lib.mdDoc "A list of all job script derivations of this unit.";
+        default = [ ];
+      };
+
     };
 
-  stage2ServiceOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      serviceOptions
+    config = mkMerge [
+      (mkIf (config.preStart != "") rec {
+        jobScripts = makeJobScript "${name}-pre-start" config.preStart;
+        serviceConfig.ExecStartPre = [ jobScripts ];
+      })
+      (mkIf (config.script != "") rec {
+        jobScripts = makeJobScript "${name}-start" config.script;
+        serviceConfig.ExecStart = jobScripts + " " + config.scriptArgs;
+      })
+      (mkIf (config.postStart != "") rec {
+        jobScripts = (makeJobScript "${name}-post-start" config.postStart);
+        serviceConfig.ExecStartPost = [ jobScripts ];
+      })
+      (mkIf (config.reload != "") rec {
+        jobScripts = makeJobScript "${name}-reload" config.reload;
+        serviceConfig.ExecReload = jobScripts;
+      })
+      (mkIf (config.preStop != "") rec {
+        jobScripts = makeJobScript "${name}-pre-stop" config.preStop;
+        serviceConfig.ExecStop = jobScripts;
+      })
+      (mkIf (config.postStop != "") rec {
+        jobScripts = makeJobScript "${name}-post-stop" config.postStop;
+        serviceConfig.ExecStopPost = jobScripts;
+      })
     ];
+
+  };
+
+  stage2ServiceOptions = {
+    imports = [ stage2CommonUnitOptions serviceOptions ];
 
     options = {
       restartIfChanged = mkOption {
@@ -520,10 +492,7 @@ rec {
   };
 
   stage1ServiceOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      serviceOptions
-    ];
+    imports = [ stage1CommonUnitOptions serviceOptions ];
   };
 
   socketOptions = {
@@ -532,10 +501,7 @@ rec {
       listenStreams = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [
-          "0.0.0.0:993"
-          "/run/my-socket"
-        ];
+        example = [ "0.0.0.0:993" "/run/my-socket" ];
         description = lib.mdDoc ''
           For each item in this list, a `ListenStream`
           option in the `[Socket]` section will be created.
@@ -545,10 +511,7 @@ rec {
       listenDatagrams = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        example = [
-          "0.0.0.0:993"
-          "/run/my-socket"
-        ];
+        example = [ "0.0.0.0:993" "/run/my-socket" ];
         description = lib.mdDoc ''
           For each item in this list, a `ListenDatagram`
           option in the `[Socket]` section will be created.
@@ -557,9 +520,7 @@ rec {
 
       socketConfig = mkOption {
         default = { };
-        example = {
-          ListenStream = "/run/my-socket";
-        };
+        example = { ListenStream = "/run/my-socket"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -568,20 +529,15 @@ rec {
         '';
       };
     };
+
   };
 
   stage2SocketOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      socketOptions
-    ];
+    imports = [ stage2CommonUnitOptions socketOptions ];
   };
 
   stage1SocketOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      socketOptions
-    ];
+    imports = [ stage1CommonUnitOptions socketOptions ];
   };
 
   timerOptions = {
@@ -601,22 +557,13 @@ rec {
           {manpage}`systemd.time(7)` for details.
         '';
       };
+
     };
   };
 
-  stage2TimerOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      timerOptions
-    ];
-  };
+  stage2TimerOptions = { imports = [ stage2CommonUnitOptions timerOptions ]; };
 
-  stage1TimerOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      timerOptions
-    ];
-  };
+  stage1TimerOptions = { imports = [ stage1CommonUnitOptions timerOptions ]; };
 
   pathOptions = {
     options = {
@@ -634,22 +581,13 @@ rec {
           {manpage}`systemd.path(5)` for details.
         '';
       };
+
     };
   };
 
-  stage2PathOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      pathOptions
-    ];
-  };
+  stage2PathOptions = { imports = [ stage2CommonUnitOptions pathOptions ]; };
 
-  stage1PathOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      pathOptions
-    ];
-  };
+  stage1PathOptions = { imports = [ stage1CommonUnitOptions pathOptions ]; };
 
   mountOptions = {
     options = {
@@ -657,7 +595,8 @@ rec {
       what = mkOption {
         example = "/dev/sda1";
         type = types.str;
-        description = lib.mdDoc "Absolute path of device node, file or other resource. (Mandatory)";
+        description = lib.mdDoc
+          "Absolute path of device node, file or other resource. (Mandatory)";
       };
 
       where = mkOption {
@@ -685,9 +624,7 @@ rec {
 
       mountConfig = mkOption {
         default = { };
-        example = {
-          DirectoryMode = "0775";
-        };
+        example = { DirectoryMode = "0775"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -695,22 +632,13 @@ rec {
           {manpage}`systemd.mount(5)` for details.
         '';
       };
+
     };
   };
 
-  stage2MountOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      mountOptions
-    ];
-  };
+  stage2MountOptions = { imports = [ stage2CommonUnitOptions mountOptions ]; };
 
-  stage1MountOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      mountOptions
-    ];
-  };
+  stage1MountOptions = { imports = [ stage1CommonUnitOptions mountOptions ]; };
 
   automountOptions = {
     options = {
@@ -726,9 +654,7 @@ rec {
 
       automountConfig = mkOption {
         default = { };
-        example = {
-          DirectoryMode = "0775";
-        };
+        example = { DirectoryMode = "0775"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -736,21 +662,16 @@ rec {
           {manpage}`systemd.automount(5)` for details.
         '';
       };
+
     };
   };
 
   stage2AutomountOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      automountOptions
-    ];
+    imports = [ stage2CommonUnitOptions automountOptions ];
   };
 
   stage1AutomountOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      automountOptions
-    ];
+    imports = [ stage1CommonUnitOptions automountOptions ];
   };
 
   sliceOptions = {
@@ -758,9 +679,7 @@ rec {
 
       sliceConfig = mkOption {
         default = { };
-        example = {
-          MemoryMax = "2G";
-        };
+        example = { MemoryMax = "2G"; };
         type = types.attrsOf unitOption;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -768,20 +687,12 @@ rec {
           {manpage}`systemd.slice(5)` for details.
         '';
       };
+
     };
   };
 
-  stage2SliceOptions = {
-    imports = [
-      stage2CommonUnitOptions
-      sliceOptions
-    ];
-  };
+  stage2SliceOptions = { imports = [ stage2CommonUnitOptions sliceOptions ]; };
 
-  stage1SliceOptions = {
-    imports = [
-      stage1CommonUnitOptions
-      sliceOptions
-    ];
-  };
+  stage1SliceOptions = { imports = [ stage1CommonUnitOptions sliceOptions ]; };
+
 }

@@ -1,20 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  mono,
-  glib,
-  pango,
-  gtk2,
-  libxml2,
-  monoDLLFixer,
-  autoconf,
-  automake,
-  libtool,
-  which,
-  fetchpatch,
-}:
+{ stdenv, lib, fetchFromGitHub, pkg-config, mono, glib, pango, gtk2, libxml2
+, monoDLLFixer, autoconf, automake, libtool, which, fetchpatch }:
 
 stdenv.mkDerivation rec {
   pname = "gtk-sharp";
@@ -30,7 +15,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://projects.archlinux.de/svntogit/packages.git/plain/trunk/gtk-sharp2-2.12.12-gtkrange.patch?h=packages/gtk-sharp-2";
+      url =
+        "https://projects.archlinux.de/svntogit/packages.git/plain/trunk/gtk-sharp2-2.12.12-gtkrange.patch?h=packages/gtk-sharp-2";
       sha256 = "bjx+OfgWnN8SO82p8G7pbGuxJ9EeQxMLeHnrtEm8RV8=";
     })
   ];
@@ -44,21 +30,9 @@ stdenv.mkDerivation rec {
     popd
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    autoconf
-    automake
-    libtool
-    which
-  ];
+  nativeBuildInputs = [ pkg-config autoconf automake libtool which ];
 
-  buildInputs = [
-    mono
-    glib
-    pango
-    gtk2
-    libxml2
-  ];
+  buildInputs = [ mono glib pango gtk2 libxml2 ];
 
   preConfigure = ''
     ./bootstrap-${lib.versions.majorMinor version}
@@ -68,9 +42,7 @@ stdenv.mkDerivation rec {
 
   inherit monoDLLFixer;
 
-  passthru = {
-    gtk = gtk2;
-  };
+  passthru = { gtk = gtk2; };
 
   meta = with lib; {
     description = "Graphical User Interface Toolkit for mono and .Net";

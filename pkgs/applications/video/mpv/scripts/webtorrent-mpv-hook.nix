@@ -1,10 +1,4 @@
-{
-  lib,
-  buildNpmPackage,
-  fetchFromGitHub,
-  nodejs,
-  python3,
-}:
+{ lib, buildNpmPackage, fetchFromGitHub, nodejs, python3 }:
 
 buildNpmPackage rec {
   pname = "webtorrent-mpv-hook";

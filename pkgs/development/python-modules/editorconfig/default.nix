@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  cmake,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, cmake }:
 
 let
   tests = fetchFromGitHub {
@@ -12,8 +7,7 @@ let
     rev = "e407c1592df0f8e91664835324dea85146f20189";
     hash = "sha256-9WSEkMJOewPqJjB6f7J6Ir0L+U712hkaN+GszjnGw7c=";
   };
-in
-buildPythonPackage rec {
+in buildPythonPackage rec {
   pname = "editorconfig";
   version = "0.12.3";
 

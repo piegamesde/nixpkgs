@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  isPy3k,
-}:
+{ lib, buildPythonPackage, fetchPypi, isPy3k }:
 
 buildPythonPackage rec {
   pname = "versiontools";
@@ -21,4 +16,5 @@ buildPythonPackage rec {
     description = "Smart replacement for plain tuple used in __version__";
     license = licenses.lgpl2;
   };
+
 }

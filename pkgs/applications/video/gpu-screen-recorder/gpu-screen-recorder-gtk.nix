@@ -1,15 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchgit,
-  pkg-config,
-  makeWrapper,
-  gtk3,
-  libX11,
-  libXrandr,
-  libpulseaudio,
-  gpu-screen-recorder,
-}:
+{ stdenv, lib, fetchgit, pkg-config, makeWrapper, gtk3, libX11, libXrandr
+, libpulseaudio, gpu-screen-recorder }:
 
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-gtk";
@@ -23,17 +13,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./fix-nvfbc-check.patch ];
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config makeWrapper ];
 
-  buildInputs = [
-    gtk3
-    libX11
-    libXrandr
-    libpulseaudio
-  ];
+  buildInputs = [ gtk3 libX11 libXrandr libpulseaudio ];
 
   buildPhase = ''
     ./build.sh

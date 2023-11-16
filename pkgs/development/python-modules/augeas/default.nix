@@ -1,11 +1,4 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  augeas,
-  cffi,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, augeas, cffi }:
 buildPythonPackage rec {
   pname = "augeas";
   version = "1.1.0";
@@ -19,19 +12,14 @@ buildPythonPackage rec {
 
   # TODO: not very nice!
   postPatch =
-    let
-      libname = "libaugeas${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in
-    ''
+    let libname = "libaugeas${stdenv.hostPlatform.extensions.sharedLibrary}";
+    in ''
       substituteInPlace augeas/ffi.py \
         --replace 'ffi.dlopen("augeas")' \
                   'ffi.dlopen("${lib.makeLibraryPath [ augeas ]}/${libname}")'
     '';
 
-  propagatedBuildInputs = [
-    cffi
-    augeas
-  ];
+  propagatedBuildInputs = [ cffi augeas ];
 
   doCheck = false;
 

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,87 +7,70 @@ let
 
   resilioSync = pkgs.resilio-sync;
 
-  sharedFoldersRecord =
-    map
-      (entry: {
-        dir = entry.directory;
+  sharedFoldersRecord = map (entry: {
+    dir = entry.directory;
 
-        use_relay_server = entry.useRelayServer;
-        use_tracker = entry.useTracker;
-        use_dht = entry.useDHT;
+    use_relay_server = entry.useRelayServer;
+    use_tracker = entry.useTracker;
+    use_dht = entry.useDHT;
 
-        search_lan = entry.searchLAN;
-        use_sync_trash = entry.useSyncTrash;
-        known_hosts = entry.knownHosts;
+    search_lan = entry.searchLAN;
+    use_sync_trash = entry.useSyncTrash;
+    known_hosts = entry.knownHosts;
+  }) cfg.sharedFolders;
+
+  configFile = pkgs.writeText "config.json" (builtins.toJSON ({
+    device_name = cfg.deviceName;
+    storage_path = cfg.storagePath;
+    listening_port = cfg.listeningPort;
+    use_gui = false;
+    check_for_updates = cfg.checkForUpdates;
+    use_upnp = cfg.useUpnp;
+    download_limit = cfg.downloadLimit;
+    upload_limit = cfg.uploadLimit;
+    lan_encrypt_data = cfg.encryptLAN;
+  } // optionalAttrs (cfg.directoryRoot != "") {
+    directory_root = cfg.directoryRoot;
+  } // optionalAttrs cfg.enableWebUI {
+    webui = {
+      listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}";
+    } // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
+      // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
+      // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
+  } // optionalAttrs (sharedFoldersRecord != [ ]) {
+    shared_folders = sharedFoldersRecord;
+  }));
+
+  sharedFoldersSecretFiles = map (entry: {
+    dir = entry.directory;
+    secretFile = if builtins.hasAttr "secret" entry then
+      toString (pkgs.writeTextFile {
+        name = "secret-file";
+        text = entry.secret;
       })
-      cfg.sharedFolders;
-
-  configFile = pkgs.writeText "config.json" (
-    builtins.toJSON (
-      {
-        device_name = cfg.deviceName;
-        storage_path = cfg.storagePath;
-        listening_port = cfg.listeningPort;
-        use_gui = false;
-        check_for_updates = cfg.checkForUpdates;
-        use_upnp = cfg.useUpnp;
-        download_limit = cfg.downloadLimit;
-        upload_limit = cfg.uploadLimit;
-        lan_encrypt_data = cfg.encryptLAN;
-      }
-      // optionalAttrs (cfg.directoryRoot != "") { directory_root = cfg.directoryRoot; }
-      // optionalAttrs cfg.enableWebUI {
-        webui =
-          {
-            listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}";
-          }
-          // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
-          // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
-          // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
-      }
-      // optionalAttrs (sharedFoldersRecord != [ ]) { shared_folders = sharedFoldersRecord; }
-    )
-  );
-
-  sharedFoldersSecretFiles =
-    map
-      (entry: {
-        dir = entry.directory;
-        secretFile =
-          if builtins.hasAttr "secret" entry then
-            toString (
-              pkgs.writeTextFile {
-                name = "secret-file";
-                text = entry.secret;
-              }
-            )
-          else
-            entry.secretFile;
-      })
-      cfg.sharedFolders;
+    else
+      entry.secretFile;
+  }) cfg.sharedFolders;
 
   runConfigPath = "/run/rslsync/config.json";
 
-  createConfig = pkgs.writeShellScriptBin "create-resilio-config" (
-    if cfg.sharedFolders != [ ] then
-      ''
-        ${pkgs.jq}/bin/jq \
-          '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
-          ${
-            lib.concatMapStringsSep " \\\n  " (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
-              sharedFoldersSecretFiles
-          } \
-          <${configFile} \
-          >${runConfigPath}
-      ''
-    else
-      ''
-        # no secrets, passing through config
-        cp ${configFile} ${runConfigPath};
-      ''
-  );
-in
-{
+  createConfig = pkgs.writeShellScriptBin "create-resilio-config"
+    (if cfg.sharedFolders != [ ] then ''
+      ${pkgs.jq}/bin/jq \
+        '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
+        ${
+          lib.concatMapStringsSep " \\\n  "
+          (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
+          sharedFoldersSecretFiles
+        } \
+        <${configFile} \
+        >${runConfigPath}
+    '' else ''
+      # no secrets, passing through config
+      cp ${configFile} ${runConfigPath};
+    '');
+
+in {
   options = {
     services.resilio = {
       enable = mkOption {
@@ -230,27 +208,23 @@ in
         type = types.str;
         default = "";
         example = "/media";
-        description = lib.mdDoc "Default directory to add folders in the web UI.";
+        description =
+          lib.mdDoc "Default directory to add folders in the web UI.";
       };
 
       sharedFolders = mkOption {
         default = [ ];
         type = types.listOf (types.attrsOf types.anything);
-        example = [
-          {
-            secretFile = "/run/resilio-secret";
-            directory = "/home/user/sync_test";
-            useRelayServer = true;
-            useTracker = true;
-            useDHT = false;
-            searchLAN = true;
-            useSyncTrash = true;
-            knownHosts = [
-              "192.168.1.2:4444"
-              "192.168.1.3:4444"
-            ];
-          }
-        ];
+        example = [{
+          secretFile = "/run/resilio-secret";
+          directory = "/home/user/sync_test";
+          useRelayServer = true;
+          useTracker = true;
+          useDHT = false;
+          searchLAN = true;
+          useSyncTrash = true;
+          knownHosts = [ "192.168.1.2:4444" "192.168.1.3:4444" ];
+        }];
         description = lib.mdDoc ''
           Shared folder list. If enabled, web UI must be
           disabled. Secrets can be generated using `rslsync --generate-secret`.

@@ -1,19 +1,14 @@
 # Global configuration for freetds environment.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 let
 
   cfg = config.environment.freetds;
-in
-{
+
+in {
   ###### interface
 
   options = {
@@ -37,7 +32,9 @@ in
         will be configured to allow the programs that use freetds to find the
         library and config.
       '';
+
     };
+
   };
 
   ###### implementation
@@ -49,15 +46,12 @@ in
     environment.variables.SYBASE = "${pkgs.freetds}";
 
     environment.etc."freetds.conf" = {
-      text =
-        (concatStrings (
-          mapAttrsToList
-            (name: value: ''
-              [${name}]
-              ${value}
-            '')
-            cfg
-        ));
+      text = (concatStrings (mapAttrsToList (name: value: ''
+        [${name}]
+        ${value}
+      '') cfg));
     };
+
   };
+
 }

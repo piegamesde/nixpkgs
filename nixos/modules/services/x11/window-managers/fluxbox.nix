@@ -1,19 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.xserver.windowManager.fluxbox;
-in
-{
+let cfg = config.services.xserver.windowManager.fluxbox;
+in {
   ###### interface
   options = {
-    services.xserver.windowManager.fluxbox.enable = mkEnableOption (lib.mdDoc "fluxbox");
+    services.xserver.windowManager.fluxbox.enable =
+      mkEnableOption (lib.mdDoc "fluxbox");
   };
 
   ###### implementation

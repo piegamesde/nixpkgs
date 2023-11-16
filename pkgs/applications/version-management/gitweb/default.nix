@@ -1,10 +1,4 @@
-{
-  lib,
-  buildEnv,
-  git,
-  fetchFromGitHub,
-  gitwebTheme ? false,
-}:
+{ lib, buildEnv, git, fetchFromGitHub, gitwebTheme ? false }:
 
 let
   gitwebThemeSrc = fetchFromGitHub {
@@ -19,14 +13,11 @@ let
     '';
     sha256 = "17hypq6jvhy6zhh26lp3nyi52npfd5wy5752k6sq0shk4na2acqi";
   };
-in
-buildEnv {
+in buildEnv {
   name = "gitweb-${lib.getVersion git}";
 
   ignoreCollisions = true;
   paths = lib.optional gitwebTheme gitwebThemeSrc ++ [ "${git}/share/gitweb" ];
 
-  meta = git.meta // {
-    maintainers = with lib.maintainers; [ ];
-  };
+  meta = git.meta // { maintainers = with lib.maintainers; [ ]; };
 }

@@ -1,11 +1,6 @@
 # /etc files related to networking, such as /etc/services.
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -13,88 +8,51 @@ let
 
   cfg = config.networking.resolvconf;
 
-  resolvconfOptions =
-    cfg.extraOptions
+  resolvconfOptions = cfg.extraOptions
     ++ optional cfg.dnsSingleRequest "single-request"
     ++ optional cfg.dnsExtensionMechanism "edns0";
 
-  configText =
-    ''
-      # This is the default, but we must set it here to prevent
-      # a collision with an apparently unrelated environment
-      # variable with the same name exported by dhcpcd.
-      interface_order='lo lo[0-9]*'
-    ''
-    + optionalString config.services.nscd.enable ''
-      # Invalidate the nscd cache whenever resolv.conf is
-      # regenerated.
-      libc_restart='/run/current-system/systemd/bin/systemctl try-restart --no-block nscd.service 2> /dev/null'
-    ''
-    + optionalString (length resolvconfOptions > 0) ''
-      # Options as described in resolv.conf(5)
-      resolv_conf_options='${concatStringsSep " " resolvconfOptions}'
-    ''
-    + optionalString cfg.useLocalResolver ''
-      # This hosts runs a full-blown DNS resolver.
-      name_servers='127.0.0.1'
-    ''
-    + cfg.extraConfig;
-in
+  configText = ''
+    # This is the default, but we must set it here to prevent
+    # a collision with an apparently unrelated environment
+    # variable with the same name exported by dhcpcd.
+    interface_order='lo lo[0-9]*'
+  '' + optionalString config.services.nscd.enable ''
+    # Invalidate the nscd cache whenever resolv.conf is
+    # regenerated.
+    libc_restart='/run/current-system/systemd/bin/systemctl try-restart --no-block nscd.service 2> /dev/null'
+  '' + optionalString (length resolvconfOptions > 0) ''
+    # Options as described in resolv.conf(5)
+    resolv_conf_options='${concatStringsSep " " resolvconfOptions}'
+  '' + optionalString cfg.useLocalResolver ''
+    # This hosts runs a full-blown DNS resolver.
+    name_servers='127.0.0.1'
+  '' + cfg.extraConfig;
 
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "dnsSingleRequest"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "dnsSingleRequest"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "dnsExtensionMechanism"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "dnsExtensionMechanism"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "extraResolvconfConf"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "extraConfig"
-      ]
-    )
-    (mkRenamedOptionModule
-      [
-        "networking"
-        "resolvconfOptions"
-      ]
-      [
-        "networking"
-        "resolvconf"
-        "extraOptions"
-      ]
-    )
-    (mkRemovedOptionModule
-      [
-        "networking"
-        "resolvconf"
-        "useHostResolvConf"
-      ]
-      "This option was never used for anything anyways"
-    )
+    (mkRenamedOptionModule [ "networking" "dnsSingleRequest" ] [
+      "networking"
+      "resolvconf"
+      "dnsSingleRequest"
+    ])
+    (mkRenamedOptionModule [ "networking" "dnsExtensionMechanism" ] [
+      "networking"
+      "resolvconf"
+      "dnsExtensionMechanism"
+    ])
+    (mkRenamedOptionModule [ "networking" "extraResolvconfConf" ] [
+      "networking"
+      "resolvconf"
+      "extraConfig"
+    ])
+    (mkRenamedOptionModule [ "networking" "resolvconfOptions" ] [
+      "networking"
+      "resolvconf"
+      "extraOptions"
+    ])
+    (mkRemovedOptionModule [ "networking" "resolvconf" "useHostResolvConf" ]
+      "This option was never used for anything anyways")
   ];
 
   options = {
@@ -104,7 +62,8 @@ in
       enable = mkOption {
         type = types.bool;
         default = !(config.environment.etc ? "resolv.conf");
-        defaultText = literalExpression ''!(config.environment.etc ? "resolv.conf")'';
+        defaultText =
+          literalExpression ''!(config.environment.etc ? "resolv.conf")'';
         description = lib.mdDoc ''
           Whether DNS configuration is managed by resolvconf.
         '';
@@ -159,10 +118,7 @@ in
       extraOptions = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        example = [
-          "ndots:1"
-          "rotate"
-        ];
+        example = [ "ndots:1" "rotate" ];
         description = lib.mdDoc ''
           Set the options in {file}`/etc/resolv.conf`.
         '';
@@ -175,21 +131,21 @@ in
           Use local DNS server for resolving.
         '';
       };
+
     };
+
   };
 
   config = mkMerge [
     {
-      environment.etc."resolvconf.conf".text =
-        if !cfg.enable then
-          # Force-stop any attempts to use resolvconf
-          ''
-            echo "resolvconf is disabled on this system but was used anyway:" >&2
-            echo "$0 $*" >&2
-            exit 1
-          ''
-        else
-          configText;
+      environment.etc."resolvconf.conf".text = if !cfg.enable then
+      # Force-stop any attempts to use resolvconf
+      ''
+        echo "resolvconf is disabled on this system but was used anyway:" >&2
+        echo "$0 $*" >&2
+        exit 1
+      '' else
+        configText;
     }
 
     (mkIf cfg.enable {
@@ -211,6 +167,8 @@ in
           RemainAfterExit = true;
         };
       };
+
     })
   ];
+
 }

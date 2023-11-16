@@ -1,10 +1,4 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  ply,
-  isPy3k,
-}:
+{ lib, fetchPypi, buildPythonPackage, ply, isPy3k }:
 buildPythonPackage rec {
   pname = "PlyPlus";
   version = "0.7.5";

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "telegram";
@@ -18,4 +14,5 @@ buildPythonPackage rec {
     description = "Telegram APIs";
     license = licenses.mit;
   };
+
 }

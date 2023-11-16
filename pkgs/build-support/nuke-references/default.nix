@@ -3,21 +3,15 @@
 # path (/nix/store/eeee...).  This is useful for getting rid of
 # dependencies that you know are not actually needed at runtime.
 
-{
-  lib,
-  stdenvNoCC,
-  perl,
-  signingUtils,
-  shell ? stdenvNoCC.shell,
-}:
+{ lib, stdenvNoCC, perl, signingUtils, shell ? stdenvNoCC.shell }:
 
 let
   stdenv = stdenvNoCC;
 
-  darwinCodeSign = stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64;
-in
+  darwinCodeSign = stdenv.targetPlatform.isDarwin
+    && stdenv.targetPlatform.isAarch64;
 
-stdenvNoCC.mkDerivation {
+in stdenvNoCC.mkDerivation {
   name = "nuke-references";
 
   strictDeps = true;

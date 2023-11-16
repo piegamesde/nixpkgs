@@ -1,29 +1,10 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  fetchpatch,
-  autoreconfHook,
-  removeReferencesTo,
-  file,
-  openssl,
-  perl,
-  perlPackages,
-  nettools,
-  withPerlTools ? false,
-}:
+{ lib, stdenv, fetchurl, fetchpatch, autoreconfHook, removeReferencesTo, file
+, openssl, perl, perlPackages, nettools, withPerlTools ? false }:
 let
 
-  perlWithPkgs = perl.withPackages (
-    ps:
-    with ps; [
-      JSON
-      TermReadKey
-      Tk
-    ]
-  );
-in
-stdenv.mkDerivation rec {
+  perlWithPkgs = perl.withPackages (ps: with ps; [ JSON TermReadKey Tk ]);
+
+in stdenv.mkDerivation rec {
   pname = "net-snmp";
   version = "5.9.3";
 
@@ -32,28 +13,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IJfym34b8/EwC0uuUvojCNC7jV05mNvgL5RipBOi7wo=";
   };
 
-  patches =
-    let
-      fetchAlpinePatch =
-        name: sha256:
-        fetchpatch {
-          url = "https://git.alpinelinux.org/aports/plain/main/net-snmp/${name}?id=f25d3fb08341b60b6ccef424399f060dfcf3f1a5";
-          inherit name sha256;
-        };
-    in
-    [
-      (fetchAlpinePatch "fix-includes.patch" "0zpkbb6k366qpq4dax5wknwprhwnhighcp402mlm7950d39zfa3m")
-      (fetchAlpinePatch "netsnmp-swinst-crash.patch"
-        "0gh164wy6zfiwiszh58fsvr25k0ns14r3099664qykgpmickkqid"
-      )
-    ];
-
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-    "lib"
+  patches = let
+    fetchAlpinePatch = name: sha256:
+      fetchpatch {
+        url =
+          "https://git.alpinelinux.org/aports/plain/main/net-snmp/${name}?id=f25d3fb08341b60b6ccef424399f060dfcf3f1a5";
+        inherit name sha256;
+      };
+  in [
+    (fetchAlpinePatch "fix-includes.patch"
+      "0zpkbb6k366qpq4dax5wknwprhwnhighcp402mlm7950d39zfa3m")
+    (fetchAlpinePatch "netsnmp-swinst-crash.patch"
+      "0gh164wy6zfiwiszh58fsvr25k0ns14r3099664qykgpmickkqid")
   ];
+
+  outputs = [ "bin" "out" "dev" "lib" ];
 
   configureFlags = [
     "--with-default-snmp-version=3"
@@ -70,12 +44,7 @@ stdenv.mkDerivation rec {
     substituteInPlace testing/fulltests/support/simple_TESTCONF.sh --replace "/bin/netstat" "${nettools}/bin/netstat"
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    nettools
-    removeReferencesTo
-    file
-  ];
+  nativeBuildInputs = [ autoreconfHook nettools removeReferencesTo file ];
   buildInputs = [ openssl ] ++ lib.optional withPerlTools perlWithPkgs;
 
   enableParallelBuilding = true;

@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-}:
+{ lib, stdenv, fetchurl, unzip }:
 
 let
 
@@ -16,9 +11,8 @@ let
     url = "http://www.oasis-open.org/cover/ISOEnts.zip";
     sha256 = "1clrkaqnvc1ja4lj8blr0rdlphngkcda3snm7b9jzvcn76d3br6w";
   };
-in
 
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "docbook-sgml-3.1";
 
   dontUnpack = true;
@@ -34,7 +28,5 @@ stdenv.mkDerivation {
     sed -e "s/iso-/ISO/" -e "s/.gml//" -i docbook.cat
   '';
 
-  meta = {
-    platforms = lib.platforms.unix;
-  };
+  meta = { platforms = lib.platforms.unix; };
 }

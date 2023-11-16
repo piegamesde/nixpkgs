@@ -1,19 +1,13 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.nix-serve;
-in
-{
+let cfg = config.services.nix-serve;
+in {
   options = {
     services.nix-serve = {
-      enable = mkEnableOption (lib.mdDoc "nix-serve, the standalone Nix binary cache server");
+      enable = mkEnableOption
+        (lib.mdDoc "nix-serve, the standalone Nix binary cache server");
 
       port = mkOption {
         type = types.port;
@@ -77,10 +71,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
 
-      path = [
-        config.nix.package.out
-        pkgs.bzip2.bin
-      ];
+      path = [ config.nix.package.out pkgs.bzip2.bin ];
       environment.NIX_REMOTE = "daemon";
 
       script = ''
@@ -98,12 +89,12 @@ in
         User = "nix-serve";
         Group = "nix-serve";
         DynamicUser = true;
-        LoadCredential =
-          lib.optionalString (cfg.secretKeyFile != null)
-            "NIX_SECRET_KEY_FILE:${cfg.secretKeyFile}";
+        LoadCredential = lib.optionalString (cfg.secretKeyFile != null)
+          "NIX_SECRET_KEY_FILE:${cfg.secretKeyFile}";
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall =
+      mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
   };
 }

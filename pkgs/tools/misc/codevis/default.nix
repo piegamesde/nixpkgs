@@ -1,10 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  oniguruma,
-}:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, oniguruma }:
 
 rustPlatform.buildRustPackage rec {
   pname = "codevis";
@@ -23,12 +17,11 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ oniguruma ];
 
-  env = {
-    RUSTONIG_SYSTEM_LIBONIG = true;
-  };
+  env = { RUSTONIG_SYSTEM_LIBONIG = true; };
 
   meta = with lib; {
-    description = "A tool to take all source code in a folder and render them to one image";
+    description =
+      "A tool to take all source code in a folder and render them to one image";
     homepage = "https://github.com/sloganking/codevis";
     changelog = "https://github.com/sloganking/codevis/releases/tag/${src.rev}";
     license = licenses.mit;

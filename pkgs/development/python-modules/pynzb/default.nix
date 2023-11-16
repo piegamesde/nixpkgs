@@ -1,9 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, python }:
 
 buildPythonPackage rec {
   pname = "pynzb";
@@ -27,4 +22,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ domenkozar ];
   };
+
 }

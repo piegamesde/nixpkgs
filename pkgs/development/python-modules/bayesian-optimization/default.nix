@@ -1,14 +1,5 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  scikit-learn,
-  scipy,
-  colorama,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ stdenv, lib, buildPythonPackage, fetchFromGitHub, scikit-learn, scipy
+, colorama, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "bayesian-optimization";
@@ -24,11 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-Bp/ZhVSW5lTGwnsd/doOXu++Gxw/51owCfMm96Qmgd4=";
   };
 
-  propagatedBuildInputs = [
-    scikit-learn
-    scipy
-    colorama
-  ];
+  propagatedBuildInputs = [ scikit-learn scipy colorama ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 
@@ -40,7 +27,8 @@ buildPythonPackage rec {
       A Python implementation of global optimization with gaussian processes
     '';
     homepage = "https://github.com/bayesian-optimization/BayesianOptimization";
-    changelog = "https://github.com/bayesian-optimization/BayesianOptimization/releases/tag/v${version}";
+    changelog =
+      "https://github.com/bayesian-optimization/BayesianOptimization/releases/tag/v${version}";
     license = licenses.mit;
     maintainers = [ maintainers.juliendehos ];
   };

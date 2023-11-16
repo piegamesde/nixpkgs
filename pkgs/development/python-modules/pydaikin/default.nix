@@ -1,15 +1,5 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fetchFromBitbucket,
-  freezegun,
-  netifaces,
-  pytest-aiohttp,
-  pytestCheckHook,
-  pythonOlder,
-  urllib3,
-}:
+{ lib, aiohttp, buildPythonPackage, fetchFromBitbucket, freezegun, netifaces
+, pytest-aiohttp, pytestCheckHook, pythonOlder, urllib3 }:
 
 buildPythonPackage rec {
   pname = "pydaikin";
@@ -25,17 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-HWJ+VHrSwdVN+PNp5NoqmDTVqb6RJy2Sr3zlrDuSBgA=";
   };
 
-  propagatedBuildInputs = [
-    aiohttp
-    netifaces
-    urllib3
-  ];
+  propagatedBuildInputs = [ aiohttp netifaces urllib3 ];
 
-  nativeCheckInputs = [
-    freezegun
-    pytest-aiohttp
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ freezegun pytest-aiohttp pytestCheckHook ];
 
   pythonImportsCheck = [ "pydaikin" ];
 

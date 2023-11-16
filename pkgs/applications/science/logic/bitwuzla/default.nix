@@ -1,23 +1,7 @@
-{
-  stdenv,
-  fetchFromGitHub,
-  lib,
-  python3,
-  cmake,
-  lingeling,
-  btor2tools,
-  symfpu,
-  gtest,
-  gmp,
-  cadical,
-  minisat,
-  picosat,
-  cryptominisat,
-  zlib,
-  pkg-config,
-  # "*** internal error in 'lglib.c': watcher stack overflow" on aarch64-linux
-  withLingeling ? !stdenv.hostPlatform.isAarch64,
-}:
+{ stdenv, fetchFromGitHub, lib, python3, cmake, lingeling, btor2tools, symfpu
+, gtest, gmp, cadical, minisat, picosat, cryptominisat, zlib, pkg-config
+# "*** internal error in 'lglib.c': watcher stack overflow" on aarch64-linux
+, withLingeling ? !stdenv.hostPlatform.isAarch64 }:
 
 stdenv.mkDerivation rec {
   pname = "bitwuzla";
@@ -30,20 +14,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-UXZERl7Nedwex/oUrcf6/GkDSgOQ537WDYm117RfvWo=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    cadical
-    cryptominisat
-    picosat
-    minisat
-    btor2tools
-    symfpu
-    gmp
-    zlib
-  ] ++ lib.optional withLingeling lingeling;
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs =
+    [ cadical cryptominisat picosat minisat btor2tools symfpu gmp zlib ]
+    ++ lib.optional withLingeling lingeling;
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
@@ -54,23 +28,19 @@ stdenv.mkDerivation rec {
     }/lib/libbtor2parser${stdenv.hostPlatform.extensions.sharedLibrary}"
   ] ++ lib.optional doCheck "-DTESTING=YES";
 
-  nativeCheckInputs = [
-    python3
-    gtest
-  ];
+  nativeCheckInputs = [ python3 gtest ];
   # two tests fail on darwin and 3 on aarch64-linux
   doCheck = stdenv.hostPlatform.isLinux && (!stdenv.hostPlatform.isAarch64);
-  preCheck =
-    let
-      var = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    in
-    ''
-      export ${var}=$(readlink -f lib)
-      patchShebangs ..
-    '';
+  preCheck = let
+    var = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+  in ''
+    export ${var}=$(readlink -f lib)
+    patchShebangs ..
+  '';
 
   meta = with lib; {
-    description = "A SMT solver for fixed-size bit-vectors, floating-point arithmetic, arrays, and uninterpreted functions";
+    description =
+      "A SMT solver for fixed-size bit-vectors, floating-point arithmetic, arrays, and uninterpreted functions";
     homepage = "https://bitwuzla.github.io";
     license = licenses.mit;
     platforms = platforms.unix;

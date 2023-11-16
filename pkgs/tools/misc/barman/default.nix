@@ -1,9 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  stdenv,
-  python3Packages,
-}:
+{ lib, fetchFromGitHub, stdenv, python3Packages }:
 
 python3Packages.buildPythonApplication rec {
   pname = "barman";
@@ -34,21 +29,19 @@ python3Packages.buildPythonApplication rec {
     python-dateutil
   ];
 
-  disabledTests =
-    [
-      # Assertion error
-      "test_help_output"
-    ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # FsOperationFailed
-        "test_get_file_mode"
-      ];
+  disabledTests = [
+    # Assertion error
+    "test_help_output"
+  ] ++ lib.optionals stdenv.isDarwin [
+    # FsOperationFailed
+    "test_get_file_mode"
+  ];
 
   meta = with lib; {
     homepage = "https://www.pgbarman.org/";
     description = "Backup and Recovery Manager for PostgreSQL";
-    changelog = "https://github.com/EnterpriseDB/barman/blob/release/${version}/NEWS";
+    changelog =
+      "https://github.com/EnterpriseDB/barman/blob/release/${version}/NEWS";
     maintainers = with maintainers; [ freezeboy ];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;

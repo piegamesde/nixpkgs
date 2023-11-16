@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  curl,
-  openssl,
-  Security,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, curl, openssl
+, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-tarpaulin";
@@ -21,12 +13,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
-      curl
-      Security
-    ];
+  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ curl Security ];
 
   cargoHash = "sha256-WnvMLi0GeeLsmHDxH0tGAQfX//x9GD2cd/m7Tp/GLGA=";
   #checkFlags = [ "--test-threads" "1" ];

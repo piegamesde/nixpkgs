@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  marisa-trie,
-  pythonOlder,
-  fetchPypi,
-  poetry-core,
-  pytestCheckHook,
-  language-data,
-  setuptools,
-}:
+{ lib, buildPythonPackage, marisa-trie, pythonOlder, fetchPypi, poetry-core
+, pytestCheckHook, language-data, setuptools }:
 
 buildPythonPackage rec {
   pname = "langcodes";
@@ -32,16 +23,16 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # AssertionError: assert 'Unknown language [aqk]' == 'Aninka'
-      "test_updated_iana"
-    ];
+  disabledTests = [
+    # AssertionError: assert 'Unknown language [aqk]' == 'Aninka'
+    "test_updated_iana"
+  ];
 
   pythonImportsCheck = [ "langcodes" ];
 
   meta = with lib; {
-    description = "Python toolkit for working with and comparing the standardized codes for languages";
+    description =
+      "Python toolkit for working with and comparing the standardized codes for languages";
     homepage = "https://github.com/LuminosoInsight/langcodes";
     license = licenses.mit;
     maintainers = with maintainers; [ ixxie ];

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  urwid,
-  glibcLocales,
-  pytestCheckHook,
-}:
+{ lib, buildPythonPackage, fetchPypi, urwid, glibcLocales, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "urwid_readline";
@@ -18,13 +11,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ urwid ];
 
-  nativeCheckInputs = [
-    glibcLocales
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ glibcLocales pytestCheckHook ];
 
   meta = with lib; {
-    description = "A textbox edit widget for urwid that supports readline shortcuts";
+    description =
+      "A textbox edit widget for urwid that supports readline shortcuts";
     homepage = "https://github.com/rr-/urwid_readline";
     license = licenses.mit;
     maintainers = with maintainers; [ dotlambda ];

@@ -1,16 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonAtLeast,
-  fetchpatch,
-  fetchFromGitHub,
-  python,
-  django,
-  packaging,
-  nodejs,
-  js2py,
-  six,
-}:
+{ lib, buildPythonPackage, pythonAtLeast, fetchpatch, fetchFromGitHub, python
+, django, packaging, nodejs, js2py, six }:
 
 buildPythonPackage rec {
   pname = "django-js-reverse";
@@ -23,13 +12,10 @@ buildPythonPackage rec {
     hash = "sha256-i78UsxVwxyDAc8LrOVEXLG0tdidoQhvUx7GvPDaH0KY=";
   };
 
-  propagatedBuildInputs = [ django ] ++ lib.optionals (pythonAtLeast "3.7") [ packaging ];
+  propagatedBuildInputs = [ django ]
+    ++ lib.optionals (pythonAtLeast "3.7") [ packaging ];
 
-  nativeCheckInputs = [
-    nodejs
-    js2py
-    six
-  ];
+  nativeCheckInputs = [ nodejs js2py six ];
 
   checkPhase = ''
     ${python.interpreter} django_js_reverse/tests/unit_tests.py

@@ -1,23 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchzip,
-  autoconf,
-  automake,
-  docbook_xml_dtd_42,
-  docbook_xml_dtd_43,
-  docbook_xsl,
-  gtk-doc,
-  libtool,
-  pkg-config,
-  libxslt,
-  xz,
-  zstd,
-  elf-header,
-  withDevdoc ? stdenv.hostPlatform == stdenv.buildPlatform,
-  withStatic ? stdenv.hostPlatform.isStatic,
-  gitUpdater,
-}:
+{ stdenv, lib, fetchzip, autoconf, automake, docbook_xml_dtd_42
+, docbook_xml_dtd_43, docbook_xsl, gtk-doc, libtool, pkg-config, libxslt, xz
+, zstd, elf-header, withDevdoc ? stdenv.hostPlatform == stdenv.buildPlatform
+, withStatic ? stdenv.hostPlatform.isStatic, gitUpdater }:
 
 let
   systems = [
@@ -26,8 +10,8 @@ let
     ""
   ];
   modulesDirs = lib.concatMapStringsSep ":" (x: "${x}/lib/modules") systems;
-in
-stdenv.mkDerivation rec {
+
+in stdenv.mkDerivation rec {
   pname = "kmod";
   version = "30";
 
@@ -37,38 +21,29 @@ stdenv.mkDerivation rec {
   # Possibly this will be fixed in kmod 30?
   # https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/commit/.gitignore?id=61a93a043aa52ad62a11ba940d4ba93cb3254e78
   src = fetchzip {
-    url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/snapshot/kmod-${version}.tar.gz";
+    url =
+      "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/snapshot/kmod-${version}.tar.gz";
     sha256 = "sha256-/dih2LoqgRrAsVdHRwld28T8pXgqnzapnQhqkXnxbbc=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-    "lib"
-  ] ++ lib.optional withDevdoc "devdoc";
+  outputs = [ "out" "dev" "lib" ] ++ lib.optional withDevdoc "devdoc";
 
   strictDeps = true;
-  nativeBuildInputs =
-    [
-      autoconf
-      automake
-      docbook_xsl
-      libtool
-      libxslt
-      pkg-config
+  nativeBuildInputs = [
+    autoconf
+    automake
+    docbook_xsl
+    libtool
+    libxslt
+    pkg-config
 
-      docbook_xml_dtd_42 # for the man pages
-    ]
-    ++ lib.optionals withDevdoc [
-      docbook_xml_dtd_43
-      gtk-doc
-    ];
-  buildInputs =
-    [
-      xz
-      zstd
-    ]
-    # gtk-doc is looked for with pkg-config
+    docbook_xml_dtd_42 # for the man pages
+  ] ++ lib.optionals withDevdoc [ docbook_xml_dtd_43 gtk-doc ];
+  buildInputs = [
+    xz
+    zstd
+  ]
+  # gtk-doc is looked for with pkg-config
     ++ lib.optionals withDevdoc [ gtk-doc ];
 
   preConfigure = ''
@@ -83,7 +58,8 @@ stdenv.mkDerivation rec {
     (lib.enableFeature withDevdoc "gtk-doc")
   ] ++ lib.optional withStatic "--enable-static";
 
-  patches = [ ./module-dir.patch ] ++ lib.optional withStatic ./enable-static.patch;
+  patches = [ ./module-dir.patch ]
+    ++ lib.optional withStatic ./enable-static.patch;
 
   postInstall = ''
     for prog in rmmod insmod lsmod modinfo modprobe depmod; do
@@ -110,11 +86,9 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/";
     downloadPage = "https://www.kernel.org/pub/linux/utils/kernel/kmod/";
-    changelog = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/plain/NEWS?h=v${version}";
-    license = with licenses; [
-      lgpl21Plus
-      gpl2Plus
-    ]; # GPLv2+ for tools
+    changelog =
+      "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git/plain/NEWS?h=v${version}";
+    license = with licenses; [ lgpl21Plus gpl2Plus ]; # GPLv2+ for tools
     platforms = platforms.linux;
     maintainers = with maintainers; [ artturin ];
   };

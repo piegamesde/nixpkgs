@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  buildPackages,
-  fetchurl,
-  flex,
-  readline,
-  ed,
-  texinfo,
-}:
+{ lib, stdenv, autoreconfHook, buildPackages, fetchurl, flex, readline, ed
+, texinfo }:
 
 stdenv.mkDerivation rec {
   pname = "bc";
@@ -34,10 +25,7 @@ stdenv.mkDerivation rec {
     buildPackages.readline
     buildPackages.ncurses
   ];
-  buildInputs = [
-    readline
-    flex
-  ];
+  buildInputs = [ readline flex ];
 
   doCheck = true; # not cross
 

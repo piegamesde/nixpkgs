@@ -1,14 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.hardware.rtl-sdr;
-in
-{
+let cfg = config.hardware.rtl-sdr;
+
+in {
   options.hardware.rtl-sdr = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -21,11 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.blacklistedKernelModules = [
-      "dvb_usb_rtl28xxu"
-      "e4000"
-      "rtl2832"
-    ];
+    boot.blacklistedKernelModules = [ "dvb_usb_rtl28xxu" "e4000" "rtl2832" ];
     services.udev.packages = [ pkgs.rtl-sdr ];
     users.groups.plugdev = { };
   };

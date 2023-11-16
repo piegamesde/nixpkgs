@@ -1,32 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  pkg-config,
-  meson,
-  ninja,
-  git,
-  criterion,
-  gtk3,
-  libconfig,
-  gnuplot,
-  opencv,
-  json-glib,
-  fftwFloat,
-  cfitsio,
-  gsl,
-  exiv2,
-  librtprocess,
-  wcslib,
-  ffmpeg,
-  libraw,
-  libtiff,
-  libpng,
-  libjpeg,
-  libheif,
-  ffms,
-  wrapGAppsHook,
-}:
+{ lib, stdenv, fetchFromGitLab, pkg-config, meson, ninja, git, criterion, gtk3
+, libconfig, gnuplot, opencv, json-glib, fftwFloat, cfitsio, gsl, exiv2
+, librtprocess, wcslib, ffmpeg, libraw, libtiff, libpng, libjpeg, libheif, ffms
+, wrapGAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "siril";
@@ -39,14 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KFCA3fUMVFHmh1BdKed5/dkq0EeYcmoWec97WX9ZHUc=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    git
-    criterion
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config git criterion wrapGAppsHook ];
 
   buildInputs = [
     gtk3

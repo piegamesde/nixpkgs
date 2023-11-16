@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  bundlerEnv,
-  ruby,
-  fetchFromGitHub,
-}:
+{ lib, stdenv, bundlerEnv, ruby, fetchFromGitHub }:
 let
   version = "1.1";
   gems = bundlerEnv {
@@ -12,8 +6,7 @@ let
     inherit ruby;
     gemdir = ./.;
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "tree-from-tags";
   inherit version;
   src = fetchFromGitHub {
@@ -22,10 +15,7 @@ stdenv.mkDerivation {
     rev = version;
     sha256 = "1nszph9mn98flyhn1jq3y6mdh6jymjkvj5ng36ql016dj92apvhv";
   };
-  buildInputs = [
-    gems
-    ruby
-  ];
+  buildInputs = [ gems ruby ];
   installPhase = ''
         mkdir -p $out/{bin,share}
         cp tree-from-tags.rb $out/share/
@@ -42,10 +32,7 @@ stdenv.mkDerivation {
     description = "Create file hierarchies from media tags";
     homepage = "https://www.emacswiki.org/emacs/Bongo";
     platforms = ruby.meta.platforms;
-    maintainers = [
-      maintainers.livnev
-      maintainers.dbrock
-    ];
+    maintainers = [ maintainers.livnev maintainers.dbrock ];
     license = licenses.gpl2Plus;
   };
 }

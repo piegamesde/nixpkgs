@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
@@ -13,7 +8,8 @@ let
 
   toPyBoolStr = b: if b then "True" else "False";
 
-  daemonExe = "${pkgs.openrazer-daemon}/bin/openrazer-daemon --config ${daemonConfFile}";
+  daemonExe =
+    "${pkgs.openrazer-daemon}/bin/openrazer-daemon --config ${daemonConfFile}";
 
   daemonConfFile = pkgs.writeTextFile {
     name = "razer.conf";
@@ -50,15 +46,12 @@ let
     "razermug"
     "razercore"
   ];
-in
-{
+in {
   options = {
     hardware.openrazer = {
-      enable = mkEnableOption (
-        lib.mdDoc ''
-          OpenRazer drivers and userspace daemon.
-        ''
-      );
+      enable = mkEnableOption (lib.mdDoc ''
+        OpenRazer drivers and userspace daemon.
+      '');
 
       verboseLogging = mkOption {
         type = types.bool;
@@ -127,9 +120,7 @@ in
     # A user must be a member of the openrazer group in order to start
     # the openrazer-daemon. Therefore we make sure that the group
     # exists.
-    users.groups.openrazer = {
-      members = cfg.users;
-    };
+    users.groups.openrazer = { members = cfg.users; };
 
     systemd.user.services.openrazer-daemon = {
       description = "Daemon to manage razer devices in userspace";
@@ -147,7 +138,5 @@ in
     };
   };
 
-  meta = {
-    maintainers = with lib.maintainers; [ roelvandijk ];
-  };
+  meta = { maintainers = with lib.maintainers; [ roelvandijk ]; };
 }

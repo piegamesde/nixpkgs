@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libjpeg,
-  zlib,
-  cmake,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, libjpeg, zlib, cmake, perl }:
 
 stdenv.mkDerivation rec {
   pname = "qpdf";
@@ -19,15 +11,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-UZq973X93E+Ll1IKjfJNPQuQwBFOU3egFGODgXV21x0=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    perl
-  ];
+  nativeBuildInputs = [ cmake perl ];
 
-  buildInputs = [
-    zlib
-    libjpeg
-  ];
+  buildInputs = [ zlib libjpeg ];
 
   preConfigure = ''
     patchShebangs qtest/bin/qtest-driver
@@ -40,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://qpdf.sourceforge.io/";
-    description = "A C++ library and set of programs that inspect and manipulate the structure of PDF files";
+    description =
+      "A C++ library and set of programs that inspect and manipulate the structure of PDF files";
     license = licenses.asl20; # as of 7.0.0, people may stay at artistic2
     maintainers = with maintainers; [ abbradar ];
     platforms = platforms.all;

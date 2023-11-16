@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "boltons";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "boltons" ];
 
   meta = with lib; {
-    description = "Constructs, recipes, and snippets extending the Python standard library";
+    description =
+      "Constructs, recipes, and snippets extending the Python standard library";
     longDescription = ''
       Boltons is a set of over 200 BSD-licensed, pure-Python utilities
       in the same spirit as - and yet conspicuously missing from - the
@@ -45,7 +40,8 @@ buildPythonPackage rec {
       traces, in tbutils
     '';
     homepage = "https://github.com/mahmoud/boltons";
-    changelog = "https://github.com/mahmoud/boltons/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/mahmoud/boltons/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
     maintainers = with maintainers; [ twey ];
   };

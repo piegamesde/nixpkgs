@@ -1,20 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  SDL2,
-  libGLU,
-  libGL,
-  zlib,
-  libjpeg,
-  libogg,
-  libvorbis,
-  openal,
-  curl,
-  copyDesktopItems,
-  makeDesktopItem,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, SDL2, libGLU, libGL, zlib, libjpeg
+, libogg, libvorbis, openal, curl, copyDesktopItems, makeDesktopItem }:
 
 stdenv.mkDerivation rec {
   pname = "dhewm3";
@@ -36,21 +21,8 @@ stdenv.mkDerivation rec {
     cd "$(ls -d dhewm3-*.src)"/neo
   '';
 
-  nativeBuildInputs = [
-    cmake
-    copyDesktopItems
-  ];
-  buildInputs = [
-    SDL2
-    libGLU
-    libGL
-    zlib
-    libjpeg
-    libogg
-    libvorbis
-    openal
-    curl
-  ];
+  nativeBuildInputs = [ cmake copyDesktopItems ];
+  buildInputs = [ SDL2 libGLU libGL zlib libjpeg libogg libvorbis openal curl ];
 
   desktopItems = [
     (makeDesktopItem {

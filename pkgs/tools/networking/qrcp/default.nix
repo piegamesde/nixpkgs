@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildGoModule,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, stdenv, buildGoModule, fetchFromGitHub, installShellFiles }:
 
 buildGoModule rec {
   pname = "qrcp";
@@ -32,7 +26,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://claudiodangelis.com/qrcp/";
-    description = "Transfer files over wifi by scanning a QR code from your terminal";
+    description =
+      "Transfer files over wifi by scanning a QR code from your terminal";
     longDescription = ''
       qrcp binds a web server to the address of your Wi-Fi network
       interface on a random port and creates a handler for it. The default
@@ -40,10 +35,7 @@ buildGoModule rec {
       complete.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [
-      fgaz
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ fgaz SuperSandro2000 ];
     broken = stdenv.isDarwin; # needs golang.org/x/sys bump
   };
 }

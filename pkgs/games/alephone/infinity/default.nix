@@ -7,7 +7,8 @@ alephone.makeWrapper rec {
   icon = alephone.icons + "/marathon-infinity.png";
 
   zip = fetchurl {
-    url = "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/MarathonInfinity-${version}-Data.zip";
+    url =
+      "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/MarathonInfinity-${version}-Data.zip";
     sha256 = "sha256-0+xokhzWdXM+L4DBjWnfNVXZve4n1X/Aq6rxNGAFb3Q=";
   };
 
@@ -20,4 +21,5 @@ alephone.makeWrapper rec {
     '';
     homepage = "https://alephone.lhowon.org/games/infinity.html";
   };
+
 }

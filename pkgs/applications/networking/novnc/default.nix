@@ -1,10 +1,4 @@
-{
-  lib,
-  python3,
-  stdenv,
-  substituteAll,
-  fetchFromGitHub,
-}:
+{ lib, python3, stdenv, substituteAll, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "novnc";
@@ -17,15 +11,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G7Rtv7pQFR9UrzhYXDyBf+FRqtjo5NAXU7m/HeXhI1k=";
   };
 
-  patches =
-    with python3.pkgs;
+  patches = with python3.pkgs;
     [
       (substituteAll {
         src = ./websockify.patch;
         inherit websockify;
       })
-    ]
-    ++ [ ./fix-paths.patch ];
+    ] ++ [ ./fix-paths.patch ];
 
   postPatch = ''
     substituteAllInPlace utils/novnc_proxy
@@ -44,13 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "VNC client web application";
     homepage = "https://novnc.com";
-    license = with licenses; [
-      mpl20
-      ofl
-      bsd3
-      bsd2
-      mit
-    ];
+    license = with licenses; [ mpl20 ofl bsd3 bsd2 mit ];
     maintainers = with maintainers; [ neverbehave ];
   };
 }

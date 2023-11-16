@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.automatic-timezoned;
-in
-{
+let cfg = config.services.automatic-timezoned;
+in {
   options = {
     services.automatic-timezoned = {
       enable = mkOption {
@@ -62,7 +55,8 @@ in
         serviceConfig = {
           Type = "exec";
           User = "automatic-timezoned";
-          ExecStart = "${cfg.package}/bin/automatic-timezoned --zoneinfo-path=${pkgs.tzdata}/share/zoneinfo/zone1970.tab";
+          ExecStart =
+            "${cfg.package}/bin/automatic-timezoned --zoneinfo-path=${pkgs.tzdata}/share/zoneinfo/zone1970.tab";
         };
         wantedBy = [ "default.target" ];
       };
@@ -74,12 +68,14 @@ in
         serviceConfig = {
           Type = "exec";
           User = "automatic-timezoned";
-          ExecStart = "${pkgs.geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/agent";
+          ExecStart =
+            "${pkgs.geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/agent";
           Restart = "on-failure";
           PrivateTmp = true;
         };
         wantedBy = [ "default.target" ];
       };
+
     };
 
     users = {

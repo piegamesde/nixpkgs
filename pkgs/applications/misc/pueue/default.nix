@@ -1,13 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  Libsystem,
-  SystemConfiguration,
-  installShellFiles,
-  libiconv,
-  rustPlatform,
-}:
+{ lib, stdenv, fetchFromGitHub, Libsystem, SystemConfiguration
+, installShellFiles, libiconv, rustPlatform }:
 
 rustPlatform.buildRustPackage rec {
   pname = "pueue";
@@ -22,15 +14,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-eVJuebau0Y9oelniCzvOk9riMMZ9cS7E/G6KinbQa6k=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [ installShellFiles ]
+    ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    Libsystem
-    SystemConfiguration
-    libiconv
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [ Libsystem SystemConfiguration libiconv ];
 
   checkFlags = [
     "--test client_tests"

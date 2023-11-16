@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchgit,
-  perl,
-}:
+{ lib, stdenv, fetchgit, perl }:
 
 stdenv.mkDerivation {
   pname = "rxvt-unicode-vtwheel";
@@ -22,10 +17,12 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Pass mouse wheel commands to secondary screens (screen, less, nano, etc)";
+    description =
+      "Pass mouse wheel commands to secondary screens (screen, less, nano, etc)";
     homepage = "https://aur.archlinux.org/packages/urxvt-vtwheel";
     license = licenses.mit;
     maintainers = with maintainers; [ danbst ];
     platforms = with platforms; unix;
   };
+
 }

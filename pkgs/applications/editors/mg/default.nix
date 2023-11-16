@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  ncurses,
-  buildPackages,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, buildPackages }:
 
 stdenv.mkDerivation rec {
   pname = "mg";
@@ -18,9 +11,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qnb0yB/NNJV257dsLmP84brajoRG03U+Ja1ACYbBvbE=";
   };
 
-  postPatch = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    substituteInPlace configure --replace "./conftest" "echo"
-  '';
+  postPatch =
+    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      substituteInPlace configure --replace "./conftest" "echo"
+    '';
 
   enableParallelBuilding = true;
 
@@ -37,7 +31,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses ];
 
   meta = with lib; {
-    description = "Micro GNU/emacs, a portable version of the mg maintained by the OpenBSD team";
+    description =
+      "Micro GNU/emacs, a portable version of the mg maintained by the OpenBSD team";
     homepage = "https://man.openbsd.org/OpenBSD-current/man1/mg.1";
     license = licenses.publicDomain;
     platforms = platforms.all;

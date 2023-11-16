@@ -1,20 +1,6 @@
-{
-  lib,
-  async-timeout,
-  asyncstdlib,
-  attrs,
-  buildPythonPackage,
-  defusedxml,
-  fetchFromGitHub,
-  httpx,
-  netifaces,
-  pytest-asyncio,
-  pytestCheckHook,
-  pytest-httpx,
-  pytest-timeout,
-  pythonOlder,
-  setuptools,
-}:
+{ lib, async-timeout, asyncstdlib, attrs, buildPythonPackage, defusedxml
+, fetchFromGitHub, httpx, netifaces, pytest-asyncio, pytestCheckHook
+, pytest-httpx, pytest-timeout, pythonOlder, setuptools }:
 
 buildPythonPackage rec {
   pname = "denonavr";
@@ -32,20 +18,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    asyncstdlib
-    attrs
-    defusedxml
-    httpx
-    netifaces
-  ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  propagatedBuildInputs = [ asyncstdlib attrs defusedxml httpx netifaces ]
+    ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    pytest-httpx
-    pytest-timeout
-  ];
+  nativeCheckInputs =
+    [ pytest-asyncio pytestCheckHook pytest-httpx pytest-timeout ];
 
   pythonImportsCheck = [ "denonavr" ];
 

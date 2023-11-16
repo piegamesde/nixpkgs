@@ -1,28 +1,13 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  scikit-build,
-  cmake,
-  ush,
-  requests,
-  six,
-  numpy,
-  cffi,
-  openfst,
-  substituteAll,
-  callPackage,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, scikit-build, cmake, ush, requests
+, six, numpy, cffi, openfst, substituteAll, callPackage }:
 
 #
 # Maintainer note: only in-tree dependant is `dragonfly`, try to
 # update the two alongside eachother.
 #
 
-let
-  kaldi = callPackage ./fork.nix { };
-in
-buildPythonPackage rec {
+let kaldi = callPackage ./fork.nix { };
+in buildPythonPackage rec {
   pname = "kaldi-active-grammar";
   version = "3.1.0";
 
@@ -53,21 +38,9 @@ buildPythonPackage rec {
     cd ..
   '';
 
-  buildInputs = [
-    openfst
-    kaldi
-  ];
-  nativeBuildInputs = [
-    scikit-build
-    cmake
-  ];
-  propagatedBuildInputs = [
-    ush
-    requests
-    numpy
-    cffi
-    six
-  ];
+  buildInputs = [ openfst kaldi ];
+  nativeBuildInputs = [ scikit-build cmake ];
+  propagatedBuildInputs = [ ush requests numpy cffi six ];
 
   doCheck = false; # no tests exist
 

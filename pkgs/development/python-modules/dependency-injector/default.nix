@@ -1,21 +1,6 @@
-{
-  lib,
-  aiohttp,
-  buildPythonPackage,
-  fastapi,
-  fetchFromGitHub,
-  flask,
-  httpx,
-  mypy-boto3-s3,
-  numpy,
-  pydantic,
-  pytest-asyncio,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  scipy,
-  six,
-}:
+{ lib, aiohttp, buildPythonPackage, fastapi, fetchFromGitHub, flask, httpx
+, mypy-boto3-s3, numpy, pydantic, pytest-asyncio, pytestCheckHook, pythonOlder
+, pyyaml, scipy, six }:
 
 buildPythonPackage rec {
   pname = "dependency-injector";
@@ -41,15 +26,7 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs =
-    [
-      fastapi
-      httpx
-      mypy-boto3-s3
-      numpy
-      pytest-asyncio
-      pytestCheckHook
-      scipy
-    ]
+    [ fastapi httpx mypy-boto3-s3 numpy pytest-asyncio pytestCheckHook scipy ]
     ++ passthru.optional-dependencies.aiohttp
     ++ passthru.optional-dependencies.pydantic
     ++ passthru.optional-dependencies.yaml
@@ -66,7 +43,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Dependency injection microframework for Python";
     homepage = "https://github.com/ets-labs/python-dependency-injector";
-    changelog = "https://github.com/ets-labs/python-dependency-injector/blob/${version}/docs/main/changelog.rst";
+    changelog =
+      "https://github.com/ets-labs/python-dependency-injector/blob/${version}/docs/main/changelog.rst";
     license = licenses.bsd3;
     maintainers = with maintainers; [ gerschtli ];
   };

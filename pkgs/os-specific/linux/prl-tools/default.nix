@@ -1,34 +1,13 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  autoPatchelfHook,
-  bbe,
-  makeWrapper,
-  p7zip,
-  perl,
-  undmg,
-  dbus-glib,
-  glib,
-  xorg,
-  zlib,
-  kernel,
-  bash,
-  cups,
-  gawk,
-  netcat,
-  timetrap,
-  util-linux,
-}:
+{ lib, stdenv, fetchurl, autoPatchelfHook, bbe, makeWrapper, p7zip, perl, undmg
+, dbus-glib, glib, xorg, zlib, kernel, bash, cups, gawk, netcat, timetrap
+, util-linux }:
 
 let
   kernelVersion = kernel.modDirVersion;
   kernelDir = "${kernel.dev}/lib/modules/${kernelVersion}";
 
-  libPath = lib.concatStringsSep ":" [
-    "${glib.out}/lib"
-    "${xorg.libXrandr}/lib"
-  ];
+  libPath =
+    lib.concatStringsSep ":" [ "${glib.out}/lib" "${xorg.libXrandr}/lib" ];
   scriptPath = lib.concatStringsSep ":" [
     "${bash}/bin"
     "${cups}/sbin"
@@ -37,8 +16,7 @@ let
     "${timetrap}/bin"
     "${util-linux}/bin"
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   version = "18.3.1-53614";
   pname = "prl-tools";
 
@@ -51,19 +29,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-MZtNxByY2GSoPFeH9mPieCPPNfUgfla+lYgpeD+SgOc=";
   };
 
-  hardeningDisable = [
-    "pic"
-    "format"
-  ];
+  hardeningDisable = [ "pic" "format" ];
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    bbe
-    makeWrapper
-    p7zip
-    perl
-    undmg
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [ autoPatchelfHook bbe makeWrapper p7zip perl undmg ]
+    ++ kernel.moduleBuildDependencies;
 
   buildInputs = [
     dbus-glib
@@ -77,10 +46,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  runtimeDependencies = [
-    glib
-    xorg.libXrandr
-  ];
+  runtimeDependencies = [ glib xorg.libXrandr ];
 
   unpackPhase = ''
     runHook preUnpack
@@ -122,7 +88,7 @@ stdenv.mkDerivation rec {
       cp prl_tg/Toolgate/Guest/Linux/prl_tg/prl_tg.ko $out/lib/modules/${kernelVersion}/extra
       ${
         lib.optionalString stdenv.isAarch64
-          "cp prl_notifier/Installation/lnx/prl_notifier/prl_notifier.ko $out/lib/modules/${kernelVersion}/extra"
+        "cp prl_notifier/Installation/lnx/prl_notifier/prl_notifier.ko $out/lib/modules/${kernelVersion}/extra"
       }
     )
 
@@ -190,10 +156,7 @@ stdenv.mkDerivation rec {
     description = "Parallels Tools for Linux guests";
     homepage = "https://parallels.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [
-      catap
-      wegank
-    ];
+    maintainers = with maintainers; [ catap wegank ];
     platforms = platforms.linux;
   };
 }

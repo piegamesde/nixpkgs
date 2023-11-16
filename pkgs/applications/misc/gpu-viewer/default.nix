@@ -1,22 +1,6 @@
-{
-  lib,
-  fetchFromGitHub,
-  pkg-config,
-  meson,
-  ninja,
-  gtk4,
-  libadwaita,
-  python3Packages,
-  gobject-introspection,
-  vulkan-tools,
-  python3,
-  wrapGAppsHook,
-  gdk-pixbuf,
-  lsb-release,
-  glxinfo,
-  vdpauinfo,
-  clinfo,
-}:
+{ lib, fetchFromGitHub, pkg-config, meson, ninja, gtk4, libadwaita
+, python3Packages, gobject-introspection, vulkan-tools, python3, wrapGAppsHook
+, gdk-pixbuf, lsb-release, glxinfo, vdpauinfo, clinfo }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "gpu-viewer";
@@ -31,25 +15,12 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-3GYJq76g/pU8dt+OMGBeDcw47z5Xv3AGkLsACcBCELs=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs =
+    [ pkg-config meson ninja gobject-introspection wrapGAppsHook ];
 
-  buildInputs = [
-    gtk4
-    libadwaita
-    vulkan-tools
-    gdk-pixbuf
-  ];
+  buildInputs = [ gtk4 libadwaita vulkan-tools gdk-pixbuf ];
 
-  pythonPath = with python3Packages; [
-    pygobject3
-    click
-  ];
+  pythonPath = with python3Packages; [ pygobject3 click ];
 
   # Prevent double wrapping
   dontWrapGApps = true;
@@ -57,13 +28,7 @@ python3.pkgs.buildPythonApplication rec {
   postFixup = ''
     makeWrapper ${python3.interpreter} $out/bin/gpu-viewer \
       --prefix PATH : "${
-        lib.makeBinPath [
-          clinfo
-          glxinfo
-          lsb-release
-          vdpauinfo
-          vulkan-tools
-        ]
+        lib.makeBinPath [ clinfo glxinfo lsb-release vdpauinfo vulkan-tools ]
       }" \
       --add-flags "$out/share/gpu-viewer/Files/GPUViewer.py" \
       --prefix PYTHONPATH : "$PYTHONPATH" \

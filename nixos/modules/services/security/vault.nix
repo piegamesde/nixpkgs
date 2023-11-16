@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
-}:
+{ config, lib, options, pkgs, ... }:
 
 with lib;
 
@@ -18,21 +12,20 @@ let
       listener "tcp" {
         address = "${cfg.address}"
         ${
-          if (cfg.tlsCertFile == null || cfg.tlsKeyFile == null) then
-            ''
-              tls_disable = "true"
-            ''
-          else
-            ''
-              tls_cert_file = "${cfg.tlsCertFile}"
-              tls_key_file = "${cfg.tlsKeyFile}"
-            ''
+          if (cfg.tlsCertFile == null || cfg.tlsKeyFile == null) then ''
+            tls_disable = "true"
+          '' else ''
+            tls_cert_file = "${cfg.tlsCertFile}"
+            tls_key_file = "${cfg.tlsKeyFile}"
+          ''
         }
         ${cfg.listenerExtraConfig}
       }
     ''}
     storage "${cfg.storageBackend}" {
-      ${optionalString (cfg.storagePath != null) ''path = "${cfg.storagePath}"''}
+      ${
+        optionalString (cfg.storagePath != null) ''path = "${cfg.storagePath}"''
+      }
       ${optionalString (cfg.storageConfig != null) cfg.storageConfig}
     }
     ${optionalString (cfg.telemetryConfig != "") ''
@@ -44,20 +37,12 @@ let
   '';
 
   allConfigPaths = [ configFile ] ++ cfg.extraSettingsPaths;
-  configOptions = escapeShellArgs (
-    lib.optional cfg.dev "-dev"
-    ++ lib.optional (cfg.dev && cfg.devRootTokenID != null) "-dev-root-token-id=${cfg.devRootTokenID}"
-    ++ (concatMap
-      (p: [
-        "-config"
-        p
-      ])
-      allConfigPaths
-    )
-  );
-in
+  configOptions = escapeShellArgs (lib.optional cfg.dev "-dev"
+    ++ lib.optional (cfg.dev && cfg.devRootTokenID != null)
+    "-dev-root-token-id=${cfg.devRootTokenID}"
+    ++ (concatMap (p: [ "-config" p ]) allConfigPaths));
 
-{
+in {
   options = {
     services.vault = {
       enable = mkEnableOption (lib.mdDoc "Vault daemon");
@@ -66,7 +51,8 @@ in
         type = types.package;
         default = pkgs.vault;
         defaultText = literalExpression "pkgs.vault";
-        description = lib.mdDoc "This option specifies the vault package to use.";
+        description =
+          lib.mdDoc "This option specifies the vault package to use.";
       };
 
       dev = mkOption {
@@ -95,14 +81,16 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "/path/to/your/cert.pem";
-        description = lib.mdDoc "TLS certificate file. TLS will be disabled unless this option is set";
+        description = lib.mdDoc
+          "TLS certificate file. TLS will be disabled unless this option is set";
       };
 
       tlsKeyFile = mkOption {
         type = types.nullOr types.str;
         default = null;
         example = "/path/to/your/key.pem";
-        description = lib.mdDoc "TLS private key file. TLS will be disabled unless this option is set";
+        description = lib.mdDoc
+          "TLS private key file. TLS will be disabled unless this option is set";
       };
 
       listenerExtraConfig = mkOption {
@@ -137,7 +125,10 @@ in
       storagePath = mkOption {
         type = types.nullOr types.path;
         default =
-          if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then "/var/lib/vault" else null;
+          if cfg.storageBackend == "file" || cfg.storageBackend == "raft" then
+            "/var/lib/vault"
+          else
+            null;
         defaultText = literalExpression ''
           if config.${opt.storageBackend} == "file" || cfg.storageBackend == "raft"
           then "/var/lib/vault"
@@ -206,17 +197,18 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.storageBackend == "inmem" -> (cfg.storagePath == null && cfg.storageConfig == null);
+        assertion = cfg.storageBackend == "inmem"
+          -> (cfg.storagePath == null && cfg.storageConfig == null);
         message = ''
           The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
       }
       {
-        assertion =
-          (
-            (cfg.storageBackend == "file" -> (cfg.storagePath != null && cfg.storageConfig == null))
-            && (cfg.storagePath != null -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft"))
-          );
-        message = ''You must set services.vault.storagePath only when using the "file" or "raft" backend'';
+        assertion = ((cfg.storageBackend == "file"
+          -> (cfg.storagePath != null && cfg.storageConfig == null))
+          && (cfg.storagePath != null
+            -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")));
+        message = ''
+          You must set services.vault.storagePath only when using the "file" or "raft" backend'';
       }
     ];
 
@@ -228,19 +220,19 @@ in
     };
     users.groups.vault.gid = config.ids.gids.vault;
 
-    systemd.tmpfiles.rules =
-      optional (cfg.storagePath != null)
-        "d '${cfg.storagePath}' 0700 vault vault - -";
+    systemd.tmpfiles.rules = optional (cfg.storagePath != null)
+      "d '${cfg.storagePath}' 0700 vault vault - -";
 
     systemd.services.vault = {
       description = "Vault server daemon";
 
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-      ] ++ optional (config.services.consul.enable && cfg.storageBackend == "consul") "consul.service";
+      after = [ "network.target" ] ++ optional
+        (config.services.consul.enable && cfg.storageBackend == "consul")
+        "consul.service";
 
-      restartIfChanged = false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
+      restartIfChanged =
+        false; # do not restart on "nixos-rebuild switch". It would seal the storage and disrupt the clients.
 
       startLimitIntervalSec = 60;
       startLimitBurst = 3;
@@ -263,7 +255,9 @@ in
         Restart = "on-failure";
       };
 
-      unitConfig.RequiresMountsFor = optional (cfg.storagePath != null) cfg.storagePath;
+      unitConfig.RequiresMountsFor =
+        optional (cfg.storagePath != null) cfg.storagePath;
     };
   };
+
 }

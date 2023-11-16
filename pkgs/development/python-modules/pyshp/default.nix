@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pyshp";
@@ -24,11 +18,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "shapefile" ];
 
-  disabledTests =
-    [
-      # Requires network access
-      "test_reader_url"
-    ];
+  disabledTests = [
+    # Requires network access
+    "test_reader_url"
+  ];
 
   meta = with lib; {
     description = "Python read/write support for ESRI Shapefile format";

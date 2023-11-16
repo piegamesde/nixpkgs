@@ -1,23 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  mpfr,
-  m4,
-  binutils,
-  emacs,
-  zlib,
-  which,
-  texinfo,
-  libX11,
-  xorgproto,
-  libXi,
-  gmp,
-  libXext,
-  libXt,
-  libXaw,
-  libXmu,
-}:
+{ lib, stdenv, fetchurl, mpfr, m4, binutils, emacs, zlib, which, texinfo, libX11
+, xorgproto, libXi, gmp, libXext, libXt, libXaw, libXmu }:
 
 assert stdenv ? cc;
 assert stdenv.cc.isGNU;
@@ -35,7 +17,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchurl {
-      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lisp/gcl/files/gcl-2.6.12-gcc5.patch";
+      url =
+        "https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-lisp/gcl/files/gcl-2.6.12-gcc5.patch";
       sha256 = "00jbsn0qp8ki2w7dx8caha7g2hr9076xa6bg48j3qqqncff93zdh";
     })
   ];
@@ -66,10 +49,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-ansi" ];
 
-  hardeningDisable = [
-    "pic"
-    "bindnow"
-  ];
+  hardeningDisable = [ "pic" "bindnow" ];
 
   # -fcommon: workaround build failure on -fno-common toolchains:
   #   ld: ./libgclp.a(user_match.o):(.bss+0x18): multiple definition of

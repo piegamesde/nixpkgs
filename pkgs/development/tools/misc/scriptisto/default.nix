@@ -1,9 +1,4 @@
-{
-  lib,
-  rustPlatform,
-  fetchFromGitHub,
-  installShellFiles,
-}:
+{ lib, rustPlatform, fetchFromGitHub, installShellFiles }:
 
 rustPlatform.buildRustPackage rec {
   pname = "scriptisto";
@@ -28,7 +23,8 @@ rustPlatform.buildRustPackage rec {
     description = ''
       A language-agnostic "shebang interpreter" that enables you to write scripts in compiled languages'';
     homepage = "https://github.com/igor-petruk/scriptisto";
-    changelog = "https://github.com/igor-petruk/scriptisto/releases/tag/${src.rev}";
+    changelog =
+      "https://github.com/igor-petruk/scriptisto/releases/tag/${src.rev}";
     license = licenses.asl20;
     maintainers = with maintainers; [ figsoda ];
   };

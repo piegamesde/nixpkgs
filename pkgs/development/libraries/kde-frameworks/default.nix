@@ -21,17 +21,10 @@
    4. Commit the changes and open a pull request.
 */
 
-{
-  libsForQt5,
-  lib,
-  fetchurl,
-}:
+{ libsForQt5, lib, fetchurl }:
 
 let
-  maintainers = with lib.maintainers; [
-    ttuegel
-    nyanloutre
-  ];
+  maintainers = with lib.maintainers; [ ttuegel nyanloutre ];
   license = with lib.licenses; [
     lgpl21Plus
     lgpl3Plus
@@ -47,28 +40,17 @@ let
     mirror = "mirror://kde";
   };
 
-  mkDerivation =
-    libsForQt5.callPackage
-      (
-        {
-          stdenv,
-          mkDerivation ? stdenv.mkDerivation,
-        }:
-        mkDerivation
-      )
-      { };
+  mkDerivation = libsForQt5.callPackage
+    ({ stdenv, mkDerivation ? stdenv.mkDerivation }: mkDerivation) { };
 
-  packages =
-    self:
+  packages = self:
     with self;
     # SUPPORT
     let
 
-      propagate =
-        out:
+      propagate = out:
         let
-          setupHook =
-            { writeScript }:
+          setupHook = { writeScript }:
             writeScript "setup-hook" ''
               if [ "''${hookName:-}" != postHook ]; then
                   postHooks+=("source @dev@/nix-support/setup-hook")
@@ -80,8 +62,7 @@ let
                   fi
               fi
             '';
-        in
-        callPackage setupHook { };
+        in callPackage setupHook { };
 
       propagateBin = propagate "bin";
 
@@ -89,52 +70,32 @@ let
 
         inherit propagate propagateBin;
 
-        mkDerivation =
-          args:
+        mkDerivation = args:
           let
 
             inherit (args) pname;
             inherit (srcs.${pname}) src version;
 
-            outputs =
-              args.outputs or [
-                "bin"
-                "dev"
-                "out"
-              ];
+            outputs = args.outputs or [ "bin" "dev" "out" ];
             hasSeparateDev = lib.elem "dev" outputs;
 
             defaultSetupHook = if hasSeparateDev then propagateBin else null;
             setupHook = args.setupHook or defaultSetupHook;
 
-            meta =
-              let
-                meta = args.meta or { };
-              in
-              meta
-              // {
-                homepage = meta.homepage or "https://kde.org";
-                license = meta.license or license;
-                maintainers = (meta.maintainers or [ ]) ++ maintainers;
-                platforms = meta.platforms or lib.platforms.all;
-              };
-          in
-          mkDerivation (
-            args
-            // {
-              inherit
-                pname
-                meta
-                outputs
-                setupHook
-                src
-                version
-              ;
-            }
-          );
+            meta = let meta = args.meta or { };
+            in meta // {
+              homepage = meta.homepage or "https://kde.org";
+              license = meta.license or license;
+              maintainers = (meta.maintainers or [ ]) ++ maintainers;
+              platforms = meta.platforms or lib.platforms.all;
+            };
+
+          in mkDerivation
+          (args // { inherit pname meta outputs setupHook src version; });
+
       };
-    in
-    {
+
+    in {
       extra-cmake-modules = callPackage ./extra-cmake-modules { };
 
       # TIER 1
@@ -227,6 +188,7 @@ let
       kmediaplayer = callPackage ./kmediaplayer.nix { };
       kross = callPackage ./kross.nix { };
       kxmlrpcclient = callPackage ./kxmlrpcclient.nix { };
+
     };
-in
-lib.makeScope libsForQt5.newScope packages
+
+in lib.makeScope libsForQt5.newScope packages

@@ -1,22 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  django,
-  six,
-  pytestCheckHook,
-  django-debug-toolbar,
-  django-extensions,
-  django-taggit,
-  django_tagging,
-  mock,
-  pytest-django,
-  selenium,
-  splinter,
-  sqlparse,
-  tenacity,
-  whitenoise,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, django, six, pytestCheckHook
+, django-debug-toolbar, django-extensions, django-taggit, django_tagging, mock
+, pytest-django, selenium, splinter, sqlparse, tenacity, whitenoise }:
 
 buildPythonPackage rec {
   pname = "django-autocomplete-light";
@@ -29,10 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-YUiGN6q7ARM/rg7d+ykeDEYZDYjB+DHxMCmdme6QccU=";
   };
 
-  propagatedBuildInputs = [
-    django
-    six
-  ];
+  propagatedBuildInputs = [ django six ];
 
   # Too many un-packaged dependencies
   doCheck = false;
@@ -66,7 +47,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "dal" ];
 
   meta = with lib; {
-    description = "A fresh approach to autocomplete implementations, specially for Django";
+    description =
+      "A fresh approach to autocomplete implementations, specially for Django";
     homepage = "https://django-autocomplete-light.readthedocs.io";
     license = licenses.bsd3;
     maintainers = with maintainers; [ ambroisie ];

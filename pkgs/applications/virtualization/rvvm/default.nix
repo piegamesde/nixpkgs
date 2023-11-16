@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  SDL_compat,
-  libX11,
-  libXext,
-}:
+{ lib, stdenv, fetchFromGitHub, SDL_compat, libX11, libXext }:
 
 stdenv.mkDerivation rec {
   pname = "rvvm";
@@ -18,23 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1wAKijRYB0FGBe4cSHUynkO4ePVG4QvVIgSoWzNbqtE=";
   };
 
-  buildInputs =
-    if stdenv.isDarwin then
-      [ SDL_compat ]
-    else
-      [
-        libX11
-        libXext
-      ];
+  buildInputs = if stdenv.isDarwin then [ SDL_compat ] else [ libX11 libXext ];
 
-  buildFlags = [
-    "all"
-    "lib"
-  ];
+  buildFlags = [ "all" "lib" ];
 
-  makeFlags =
-    [ "PREFIX=$(out)" ]
-    # work around https://github.com/NixOS/nixpkgs/issues/19098
+  makeFlags = [
+    "PREFIX=$(out)"
+  ]
+  # work around https://github.com/NixOS/nixpkgs/issues/19098
     ++ lib.optional (stdenv.cc.isClang && stdenv.isDarwin) "CFLAGS=-fno-lto";
 
   meta = with lib; {

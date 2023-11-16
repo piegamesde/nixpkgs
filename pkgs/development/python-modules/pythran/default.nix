@@ -1,24 +1,9 @@
-{
-  lib,
-  python,
-  buildPythonPackage,
-  fetchFromGitHub,
-  openmp,
-  ply,
-  networkx,
-  decorator,
-  gast,
-  six,
-  numpy,
-  beniget,
-  isPy3k,
-  substituteAll,
-}:
+{ lib, python, buildPythonPackage, fetchFromGitHub, openmp, ply, networkx
+, decorator, gast, six, numpy, beniget, isPy3k, substituteAll }:
 
-let
-  inherit (python) stdenv;
-in
-buildPythonPackage rec {
+let inherit (python) stdenv;
+
+in buildPythonPackage rec {
   pname = "pythran";
   version = "0.11.0";
 
@@ -29,26 +14,17 @@ buildPythonPackage rec {
     hash = "sha256-F9gUZOTSuiqvfGoN4yQqwUg9mnCeBntw5eHO7ZnjpzI=";
   };
 
-  patches =
-    [
-      # Hardcode path to mp library
-      (substituteAll {
-        src = ./0001-hardcode-path-to-libgomp.patch;
-        gomp = "${
-            if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib
-          }/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
-      })
-    ];
-
-  propagatedBuildInputs = [
-    ply
-    networkx
-    decorator
-    gast
-    six
-    numpy
-    beniget
+  patches = [
+    # Hardcode path to mp library
+    (substituteAll {
+      src = ./0001-hardcode-path-to-libgomp.patch;
+      gomp = "${
+          if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib
+        }/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
   ];
+
+  propagatedBuildInputs = [ ply networkx decorator gast six numpy beniget ];
 
   pythonImportsCheck = [
     "pythran"

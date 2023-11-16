@@ -1,22 +1,12 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchpatch,
-  ocaml,
-  findlib,
-  libmysqlclient,
-}:
+{ stdenv, lib, fetchurl, fetchpatch, ocaml, findlib, libmysqlclient }:
 
 # TODO: la versione stabile da' un errore di compilazione dovuto a
 # qualche cambiamento negli header .h
 # TODO: compilazione di moduli dipendenti da zip, ssl, tcl, gtk, gtk2
 
-let
-  pname = "ocaml-mysql";
-in
+let pname = "ocaml-mysql";
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   name = "${pname}-${version}";
   version = "1.2.1";
 
@@ -30,10 +20,7 @@ stdenv.mkDerivation rec {
     "--libdir=$out/lib/ocaml/${ocaml.version}/site-lib/mysql"
   ];
 
-  nativeBuildInputs = [
-    ocaml
-    findlib
-  ];
+  nativeBuildInputs = [ ocaml findlib ];
 
   createFindlibDestdir = true;
 
@@ -43,7 +30,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch {
-      url = "https://github.com/ygrek/ocaml-mysql/compare/v1.2.1...d6d1b3b262ae2cf493ef56f1dd7afcf663a70a26.patch";
+      url =
+        "https://github.com/ygrek/ocaml-mysql/compare/v1.2.1...d6d1b3b262ae2cf493ef56f1dd7afcf663a70a26.patch";
       sha256 = "0018s2wcrvbsw9yaqmwq500qmikwffrgdp5xg9b8v7ixhd4gi6hn";
     })
   ];

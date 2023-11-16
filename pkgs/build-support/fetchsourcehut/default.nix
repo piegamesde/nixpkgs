@@ -1,45 +1,27 @@
-{
-  fetchgit,
-  fetchhg,
-  fetchzip,
-  lib,
-}:
+{ fetchgit, fetchhg, fetchzip, lib }:
 
-lib.makeOverridable (
-  {
-    owner,
-    repo,
-    rev,
-    domain ? "sr.ht",
-    vc ? "git",
-    name ? "source",
-    fetchSubmodules ? false,
-    ... # For hash agility
+lib.makeOverridable ({ owner, repo, rev, domain ? "sr.ht", vc ? "git"
+  , name ? "source", fetchSubmodules ? false, ... # For hash agility
   }@args:
 
   with lib;
 
-  assert (lib.assertOneOf "vc" vc [
-    "hg"
-    "git"
-  ]);
+  assert (lib.assertOneOf "vc" vc [ "hg" "git" ]);
 
   let
     urlFor = resource: "https://${resource}.${domain}/${owner}/${repo}";
     baseUrl = urlFor vc;
-    baseArgs =
-      {
-        inherit name;
-      }
-      // removeAttrs args [
-        "owner"
-        "repo"
-        "rev"
-        "domain"
-        "vc"
-        "name"
-        "fetchSubmodules"
-      ];
+    baseArgs = {
+      inherit name;
+    } // removeAttrs args [
+      "owner"
+      "repo"
+      "rev"
+      "domain"
+      "vc"
+      "name"
+      "fetchSubmodules"
+    ];
     vcArgs = baseArgs // {
       inherit rev;
       url = baseUrl;
@@ -48,15 +30,11 @@ lib.makeOverridable (
     cases = {
       git = {
         fetch = fetchgit;
-        arguments = vcArgs // {
-          fetchSubmodules = true;
-        };
+        arguments = vcArgs // { fetchSubmodules = true; };
       };
       hg = {
         fetch = fetchhg;
-        arguments = vcArgs // {
-          fetchSubrepos = true;
-        };
+        arguments = vcArgs // { fetchSubrepos = true; };
       };
       zip = {
         fetch = fetchzip;
@@ -65,16 +43,11 @@ lib.makeOverridable (
           postFetch = optionalString (vc == "hg") ''
             rm -f "$out/.hg_archival.txt"
           ''; # impure file; see #12002
-          passthru = {
-            gitRepoUrl = urlFor "git";
-          };
+          passthru = { gitRepoUrl = urlFor "git"; };
         };
       };
     };
-  in
-  cases.${fetcher}.fetch cases.${fetcher}.arguments
-  // {
+  in cases.${fetcher}.fetch cases.${fetcher}.arguments // {
     inherit rev;
     meta.homepage = "${baseUrl}";
-  }
-)
+  })

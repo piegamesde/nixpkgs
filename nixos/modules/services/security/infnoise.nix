@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
-let
-  cfg = config.services.infnoise;
-in
-{
+let cfg = config.services.infnoise;
+in {
   options = {
     services.infnoise = {
       enable = mkEnableOption (lib.mdDoc "the Infinite Noise TRNG driver");
@@ -55,7 +48,8 @@ in
         ProtectHostname = true;
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
-        ProtectKernelTunables = true; # only reads entropy pool size and watermark
+        ProtectKernelTunables =
+          true; # only reads entropy pool size and watermark
         RestrictNamespaces = true;
         RestrictRealtime = true;
         LockPersonality = true;

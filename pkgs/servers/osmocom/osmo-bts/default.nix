@@ -1,19 +1,9 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  libosmocore,
-  libosmoabis,
-  libosmo-netif,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, libosmocore
+, libosmoabis, libosmo-netif }:
 
-let
-  inherit (stdenv) isLinux;
-in
+let inherit (stdenv) isLinux;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "osmo-bts";
   version = "1.6.0";
 
@@ -28,16 +18,9 @@ stdenv.mkDerivation rec {
     echo "${version}" > .tarball-version
   '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [
-    libosmocore
-    libosmoabis
-    libosmo-netif
-  ];
+  buildInputs = [ libosmocore libosmoabis libosmo-netif ];
 
   enableParallelBuilding = true;
 

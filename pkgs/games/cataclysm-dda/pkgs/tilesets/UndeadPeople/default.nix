@@ -1,8 +1,4 @@
-{
-  lib,
-  buildTileSet,
-  fetchFromGitHub,
-}:
+{ lib, buildTileSet, fetchFromGitHub }:
 
 buildTileSet {
   modName = "UndeadPeople";

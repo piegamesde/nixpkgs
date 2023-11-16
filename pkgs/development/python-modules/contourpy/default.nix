@@ -1,26 +1,16 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder
 
-  # build
-  pybind11,
-  setuptools,
+# build
+, pybind11, setuptools
 
-  # propagates
-  numpy,
+# propagates
+, numpy
 
-  # optionals
-  bokeh,
-  chromedriver,
-  selenium,
+# optionals
+, bokeh, chromedriver, selenium
 
-  # tests
-  matplotlib,
-  pillow,
-  pytestCheckHook,
-}:
+# tests
+, matplotlib, pillow, pytestCheckHook }:
 
 let
   countourpy = buildPythonPackage rec {
@@ -37,28 +27,17 @@ let
       hash = "sha256-n04b9yUoUMH2H7t8um/8h5XaL3hzY/uNMYmOKTVKEPA=";
     };
 
-    nativeBuildInputs = [
-      pybind11
-      setuptools
-    ];
+    nativeBuildInputs = [ pybind11 setuptools ];
 
     propagatedBuildInputs = [ numpy ];
 
     passthru.optional-depdendencies = {
-      bokeh = [
-        bokeh
-        chromedriver
-        selenium
-      ];
+      bokeh = [ bokeh chromedriver selenium ];
     };
 
     doCheck = false; # infinite recursion with matplotlib, tests in passthru
 
-    nativeCheckInputs = [
-      matplotlib
-      pillow
-      pytestCheckHook
-    ];
+    nativeCheckInputs = [ matplotlib pillow pytestCheckHook ];
 
     passthru.tests = {
       check = countourpy.overridePythonAttrs (_: { doCheck = true; });
@@ -67,12 +46,13 @@ let
     pythonImportsCheck = [ "contourpy" ];
 
     meta = with lib; {
-      changelog = "https://github.com/contourpy/contourpy/releases/tag/v${version}";
-      description = "Python library for calculating contours in 2D quadrilateral grids";
+      changelog =
+        "https://github.com/contourpy/contourpy/releases/tag/v${version}";
+      description =
+        "Python library for calculating contours in 2D quadrilateral grids";
       homepage = "https://github.com/contourpy/contourpy";
       license = licenses.bsd3;
       maintainers = with maintainers; [ ];
     };
   };
-in
-countourpy
+in countourpy

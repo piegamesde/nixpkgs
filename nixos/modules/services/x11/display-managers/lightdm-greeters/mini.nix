@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -49,8 +44,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+
+in {
   options = {
 
     services.xserver.displayManager.lightdm.greeters.mini = {
@@ -83,7 +78,9 @@ in
           configuration file.
         '';
       };
+
     };
+
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
@@ -95,6 +92,8 @@ in
       name = "lightdm-mini-greeter";
     };
 
-    environment.etc."lightdm/lightdm-mini-greeter.conf".source = miniGreeterConf;
+    environment.etc."lightdm/lightdm-mini-greeter.conf".source =
+      miniGreeterConf;
+
   };
 }

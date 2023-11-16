@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  qtbase,
-  wrapQtAppsHook,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, qtbase, wrapQtAppsHook }:
 
 stdenv.mkDerivation rec {
   pname = "libre-graph-api-cpp-qt-client";
@@ -20,23 +13,19 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/client";
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake wrapQtAppsHook ];
   buildInputs = [ qtbase ];
 
   cmakeFlags = [ ];
 
   meta = with lib; {
-    description = "C++ Qt API for Libre Graph, a free API for cloud collaboration inspired by the MS Graph API";
+    description =
+      "C++ Qt API for Libre Graph, a free API for cloud collaboration inspired by the MS Graph API";
     homepage = "https://owncloud.org";
-    maintainers = with maintainers; [
-      qknight
-      hellwolf
-    ];
+    maintainers = with maintainers; [ qknight hellwolf ];
     platforms = platforms.unix;
     license = licenses.asl20;
-    changelog = "https://github.com/owncloud/libre-graph-api-cpp-qt-client/releases/tag/v${version}";
+    changelog =
+      "https://github.com/owncloud/libre-graph-api-cpp-qt-client/releases/tag/v${version}";
   };
 }

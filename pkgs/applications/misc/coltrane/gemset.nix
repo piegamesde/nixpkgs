@@ -1,11 +1,6 @@
 {
   activesupport = {
-    dependencies = [
-      "concurrent-ruby"
-      "i18n"
-      "minitest"
-      "tzinfo"
-    ];
+    dependencies = [ "concurrent-ruby" "i18n" "minitest" "tzinfo" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -36,13 +31,7 @@
     version = "1.8";
   };
   coltrane = {
-    dependencies = [
-      "activesupport"
-      "color"
-      "dry-monads"
-      "gambiarra"
-      "paint"
-    ];
+    dependencies = [ "activesupport" "color" "dry-monads" "gambiarra" "paint" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -63,10 +52,7 @@
     version = "1.2.2";
   };
   dry-core = {
-    dependencies = [
-      "concurrent-ruby"
-      "zeitwerk"
-    ];
+    dependencies = [ "concurrent-ruby" "zeitwerk" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -87,10 +73,7 @@
     version = "0.3.0";
   };
   dry-monads = {
-    dependencies = [
-      "dry-core"
-      "dry-equalizer"
-    ];
+    dependencies = [ "dry-core" "dry-equalizer" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {
@@ -101,11 +84,7 @@
     version = "0.4.0";
   };
   gambiarra = {
-    dependencies = [
-      "activesupport"
-      "cli-ui"
-      "thor"
-    ];
+    dependencies = [ "activesupport" "cli-ui" "thor" ];
     groups = [ "default" ];
     platforms = [ ];
     source = {

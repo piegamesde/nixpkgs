@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  testers,
-  bison,
-  cadical,
-  cbmc,
-  cmake,
-  flex,
-  makeWrapper,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, testers, bison, cadical, cbmc, cmake, flex
+, makeWrapper, perl }:
 
 stdenv.mkDerivation rec {
   pname = "cbmc";
@@ -23,13 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OVOoAfoqev33c7pIzBGK9HD+zgji/+BWKD33RYJaSDc=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    flex
-    perl
-    makeWrapper
-  ];
+  nativeBuildInputs = [ bison cmake flex perl makeWrapper ];
 
   buildInputs = [ cadical ];
 
@@ -37,20 +20,18 @@ stdenv.mkDerivation rec {
   # link existing cadical instead
   patches = [ ./0001-Do-not-download-sources-in-cmake.patch ];
 
-  postPatch =
-    ''
-      # do not hardcode gcc
-      substituteInPlace "scripts/bash-autocomplete/extract_switches.sh" \
-        --replace "gcc" "$CC" \
-        --replace "g++" "$CXX"
-      # fix library_check.sh interpreter error
-      patchShebangs .
-    ''
-    + lib.optionalString (!stdenv.cc.isGNU) ''
-      # goto-gcc rely on gcc
-      substituteInPlace "regression/CMakeLists.txt" \
-        --replace "add_subdirectory(goto-gcc)" ""
-    '';
+  postPatch = ''
+    # do not hardcode gcc
+    substituteInPlace "scripts/bash-autocomplete/extract_switches.sh" \
+      --replace "gcc" "$CC" \
+      --replace "g++" "$CXX"
+    # fix library_check.sh interpreter error
+    patchShebangs .
+  '' + lib.optionalString (!stdenv.cc.isGNU) ''
+    # goto-gcc rely on gcc
+    substituteInPlace "regression/CMakeLists.txt" \
+      --replace "add_subdirectory(goto-gcc)" ""
+  '';
 
   postInstall = ''
     # goto-cc expects ls_parse.py in PATH
@@ -61,19 +42,13 @@ stdenv.mkDerivation rec {
       --prefix PATH : "$out/share/cbmc" \
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU
-      [
-        # Needed with GCC 12 but breaks on darwin (with clang)
-        "-Wno-error=maybe-uninitialized"
-      ]
-    ++
-      lib.optionals stdenv.cc.isClang
-        [
-          # fix "argument unused during compilation"
-          "-Wno-unused-command-line-argument"
-        ]
-  );
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [
+    # Needed with GCC 12 but breaks on darwin (with clang)
+    "-Wno-error=maybe-uninitialized"
+  ] ++ lib.optionals stdenv.cc.isClang [
+    # fix "argument unused during compilation"
+    "-Wno-unused-command-line-argument"
+  ]);
 
   # TODO: add jbmc support
   cmakeFlags = [

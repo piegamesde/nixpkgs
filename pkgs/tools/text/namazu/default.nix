@@ -1,11 +1,4 @@
-{
-  fetchurl,
-  lib,
-  stdenv,
-  perl,
-  perlPackages,
-  makeWrapper,
-}:
+{ fetchurl, lib, stdenv, perl, perlPackages, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "namazu";
@@ -16,10 +9,7 @@ stdenv.mkDerivation rec {
     sha256 = "1xvi7hrprdchdpzhg3fvk4yifaakzgydza5c0m50h1yvg6vay62w";
   };
 
-  buildInputs = [
-    perl
-    perlPackages.FileMMagic
-  ];
+  buildInputs = [ perl perlPackages.FileMMagic ];
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''

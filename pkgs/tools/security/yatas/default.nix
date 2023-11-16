@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "yatas";
@@ -18,7 +14,8 @@ buildGoModule rec {
   vendorHash = "sha256-zp5EVJe5Q6o6C0CZ8u+oEFEOy0NU5SgVN+cSc6A/jZ4=";
 
   meta = with lib; {
-    description = "Tool to audit AWS infrastructure for misconfiguration or potential security issues";
+    description =
+      "Tool to audit AWS infrastructure for misconfiguration or potential security issues";
     homepage = "https://github.com/padok-team/YATAS";
     changelog = "https://github.com/padok-team/YATAS/releases/tag/v${version}";
     license = licenses.asl20;

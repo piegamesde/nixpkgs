@@ -1,18 +1,5 @@
-{
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  makeWrapper,
-  installShellFiles,
-  coreutils,
-  gnused,
-  gnugrep,
-  sqlite,
-  wget,
-  w3m,
-  socat,
-  gawk,
-}:
+{ stdenv, lib, fetchFromGitHub, makeWrapper, installShellFiles, coreutils
+, gnused, gnugrep, sqlite, wget, w3m, socat, gawk }:
 
 stdenv.mkDerivation rec {
   pname = "dasht";
@@ -37,10 +24,7 @@ stdenv.mkDerivation rec {
     (placeholder "out")
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
+  nativeBuildInputs = [ makeWrapper installShellFiles ];
 
   installPhase = ''
     runHook preInstall

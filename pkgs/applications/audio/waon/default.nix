@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  fftw,
-  gtk2,
-  libao,
-  libsamplerate,
-  libsndfile,
-  ncurses,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, fftw, gtk2, libao, libsamplerate, libsndfile
+, ncurses, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "waon";
@@ -23,14 +13,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    fftw
-    gtk2
-    libao
-    libsamplerate
-    libsndfile
-    ncurses
-  ];
+  buildInputs = [ fftw gtk2 libao libsamplerate libsndfile ncurses ];
 
   installPhase = ''
     install -Dt $out/bin waon pv gwaon

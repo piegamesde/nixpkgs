@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  libdrm,
-  json_c,
-  pciutils,
-  meson,
-  ninja,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, libdrm, json_c, pciutils, meson, ninja
+, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "drm_info";
@@ -21,16 +12,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UTDYLe3QezPCyG9CIp+O+KX716JDTL9mn+OEjjyTwlg=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-  ];
-  buildInputs = [
-    libdrm
-    json_c
-    pciutils
-  ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
+  buildInputs = [ libdrm json_c pciutils ];
 
   meta = with lib; {
     description = "Small utility to dump info about DRM devices";

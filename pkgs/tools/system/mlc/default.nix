@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  patchelf,
-}:
+{ lib, stdenv, fetchurl, patchelf }:
 stdenv.mkDerivation rec {
   pname = "mlc";
   version = "3.9a";
@@ -26,7 +21,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://software.intel.com/content/www/us/en/develop/articles/intelr-memory-latency-checker.html";
+    homepage =
+      "https://software.intel.com/content/www/us/en/develop/articles/intelr-memory-latency-checker.html";
     description = "Intel Memory Latency Checker";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;

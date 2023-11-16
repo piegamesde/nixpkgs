@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "pgcenter";
@@ -35,8 +31,10 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://pgcenter.org/";
-    changelog = "https://github.com/lesovsky/pgcenter/raw/v${version}/doc/Changelog";
-    description = "Command-line admin tool for observing and troubleshooting PostgreSQL";
+    changelog =
+      "https://github.com/lesovsky/pgcenter/raw/v${version}/doc/Changelog";
+    description =
+      "Command-line admin tool for observing and troubleshooting PostgreSQL";
     license = licenses.bsd3;
     maintainers = [ maintainers.marsam ];
   };

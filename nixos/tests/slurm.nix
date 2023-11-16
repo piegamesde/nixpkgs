@@ -1,11 +1,11 @@
-import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+import ./make-test-python.nix ({ lib, pkgs, ... }:
   let
     slurmconfig = {
       services.slurm = {
         controlMachine = "control";
         nodeName = [ "node[1-3] CPUs=1 State=UNKNOWN" ];
-        partitionName = [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ];
+        partitionName =
+          [ "debug Nodes=node[1-3] Default=YES MaxTime=INFINITE State=UP" ];
         extraConfig = ''
           AccountingStorageHost=dbd
           AccountingStorageType=accounting_storage/slurmdbd
@@ -18,120 +18,96 @@ import ./make-test-python.nix (
       ];
     };
 
-    mpitest =
-      let
-        mpitestC = pkgs.writeText "mpitest.c" ''
-          #include <stdio.h>
-          #include <stdlib.h>
-          #include <mpi.h>
+    mpitest = let
+      mpitestC = pkgs.writeText "mpitest.c" ''
+        #include <stdio.h>
+        #include <stdlib.h>
+        #include <mpi.h>
 
-          int
-          main (int argc, char *argv[])
-          {
-            int rank, size, length;
-            char name[512];
+        int
+        main (int argc, char *argv[])
+        {
+          int rank, size, length;
+          char name[512];
 
-            MPI_Init (&argc, &argv);
-            MPI_Comm_rank (MPI_COMM_WORLD, &rank);
-            MPI_Comm_size (MPI_COMM_WORLD, &size);
-            MPI_Get_processor_name (name, &length);
+          MPI_Init (&argc, &argv);
+          MPI_Comm_rank (MPI_COMM_WORLD, &rank);
+          MPI_Comm_size (MPI_COMM_WORLD, &size);
+          MPI_Get_processor_name (name, &length);
 
-            if ( rank == 0 ) printf("size=%d\n", size);
+          if ( rank == 0 ) printf("size=%d\n", size);
 
-            printf ("%s: hello world from process %d of %d\n", name, rank, size);
+          printf ("%s: hello world from process %d of %d\n", name, rank, size);
 
-            MPI_Finalize ();
+          MPI_Finalize ();
 
-            return EXIT_SUCCESS;
-          }
-        '';
-      in
-      pkgs.runCommand "mpitest" { } ''
-        mkdir -p $out/bin
-        ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
+          return EXIT_SUCCESS;
+        }
       '';
-  in
-  {
+    in pkgs.runCommand "mpitest" { } ''
+      mkdir -p $out/bin
+      ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
+    '';
+  in {
     name = "slurm";
 
     meta.maintainers = [ lib.maintainers.markuskowa ];
 
-    nodes =
-      let
-        computeNode =
-          { ... }:
-          {
-            imports = [ slurmconfig ];
-            # TODO slurmd port and slurmctld port should be configurations and
-            # automatically allowed by the  firewall.
-            services.slurm = {
-              client.enable = true;
-            };
-          };
-      in
-      {
-
-        control =
-          { ... }:
-          {
-            imports = [ slurmconfig ];
-            services.slurm = {
-              server.enable = true;
-            };
-          };
-
-        submit =
-          { ... }:
-          {
-            imports = [ slurmconfig ];
-            services.slurm = {
-              enableStools = true;
-            };
-          };
-
-        dbd =
-          { pkgs, ... }:
-          let
-            passFile = pkgs.writeText "dbdpassword" "password123";
-          in
-          {
-            networking.firewall.enable = false;
-            systemd.tmpfiles.rules = [
-              "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
-            ];
-            services.slurm.dbdserver = {
-              enable = true;
-              storagePassFile = "${passFile}";
-            };
-            services.mysql = {
-              enable = true;
-              package = pkgs.mariadb;
-              initialScript = pkgs.writeText "mysql-init.sql" ''
-                CREATE USER 'slurm'@'localhost' IDENTIFIED BY 'password123';
-                GRANT ALL PRIVILEGES ON slurm_acct_db.* TO 'slurm'@'localhost';
-              '';
-              ensureDatabases = [ "slurm_acct_db" ];
-              ensureUsers = [
-                {
-                  ensurePermissions = {
-                    "slurm_acct_db.*" = "ALL PRIVILEGES";
-                  };
-                  name = "slurm";
-                }
-              ];
-              settings.mysqld = {
-                # recommendations from: https://slurm.schedmd.com/accounting.html#mysql-configuration
-                innodb_buffer_pool_size = "1024M";
-                innodb_log_file_size = "64M";
-                innodb_lock_wait_timeout = 900;
-              };
-            };
-          };
-
-        node1 = computeNode;
-        node2 = computeNode;
-        node3 = computeNode;
+    nodes = let
+      computeNode = { ... }: {
+        imports = [ slurmconfig ];
+        # TODO slurmd port and slurmctld port should be configurations and
+        # automatically allowed by the  firewall.
+        services.slurm = { client.enable = true; };
       };
+    in {
+
+      control = { ... }: {
+        imports = [ slurmconfig ];
+        services.slurm = { server.enable = true; };
+      };
+
+      submit = { ... }: {
+        imports = [ slurmconfig ];
+        services.slurm = { enableStools = true; };
+      };
+
+      dbd = { pkgs, ... }:
+        let passFile = pkgs.writeText "dbdpassword" "password123";
+        in {
+          networking.firewall.enable = false;
+          systemd.tmpfiles.rules = [
+            "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
+          ];
+          services.slurm.dbdserver = {
+            enable = true;
+            storagePassFile = "${passFile}";
+          };
+          services.mysql = {
+            enable = true;
+            package = pkgs.mariadb;
+            initialScript = pkgs.writeText "mysql-init.sql" ''
+              CREATE USER 'slurm'@'localhost' IDENTIFIED BY 'password123';
+              GRANT ALL PRIVILEGES ON slurm_acct_db.* TO 'slurm'@'localhost';
+            '';
+            ensureDatabases = [ "slurm_acct_db" ];
+            ensureUsers = [{
+              ensurePermissions = { "slurm_acct_db.*" = "ALL PRIVILEGES"; };
+              name = "slurm";
+            }];
+            settings.mysqld = {
+              # recommendations from: https://slurm.schedmd.com/accounting.html#mysql-configuration
+              innodb_buffer_pool_size = "1024M";
+              innodb_log_file_size = "64M";
+              innodb_lock_wait_timeout = 900;
+            };
+          };
+        };
+
+      node1 = computeNode;
+      node2 = computeNode;
+      node3 = computeNode;
+    };
 
     testScript = ''
       start_all()
@@ -173,5 +149,4 @@ import ./make-test-python.nix (
       with subtest("run_PMIx_mpitest"):
           submit.succeed("srun -N 3 --mpi=pmix mpitest | grep size=3")
     '';
-  }
-)
+  })

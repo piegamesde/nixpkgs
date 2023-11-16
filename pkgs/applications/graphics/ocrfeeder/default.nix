@@ -1,22 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gtk3,
-  gtkspell3,
-  isocodes,
-  goocanvas2,
-  intltool,
-  itstool,
-  libxml2,
-  gnome,
-  python3,
-  gobject-introspection,
-  wrapGAppsHook,
-  tesseract4,
-  extraOcrEngines ? [ ] # other supported engines are: ocrad gocr cuneiform
-  ,
+{ lib, stdenv, fetchurl, pkg-config, gtk3, gtkspell3, isocodes, goocanvas2
+, intltool, itstool, libxml2, gnome, python3, gobject-introspection
+, wrapGAppsHook, tesseract4
+, extraOcrEngines ? [ ] # other supported engines are: ocrad gocr cuneiform
 }:
 
 stdenv.mkDerivation rec {
@@ -30,13 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sD0qWUndguJzTw0uy0FIqupFf4OX6dTFvcd+Mz+8Su0=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    wrapGAppsHook
-    intltool
-    itstool
-    libxml2
-  ];
+  nativeBuildInputs = [ pkg-config wrapGAppsHook intltool itstool libxml2 ];
 
   buildInputs = [
     gtk3
@@ -44,24 +23,14 @@ stdenv.mkDerivation rec {
     goocanvas2
     gtkspell3
     isocodes
-    (python3.withPackages (
-      ps:
-      with ps; [
-        pyenchant
-        sane
-        pillow
-        reportlab
-        odfpy
-        pygobject3
-      ]
-    ))
+    (python3.withPackages
+      (ps: with ps; [ pyenchant sane pillow reportlab odfpy pygobject3 ]))
   ];
-  patches =
-    [
-      # Compiles, but doesn't launch without this, see:
-      # https://gitlab.gnome.org/GNOME/ocrfeeder/-/issues/83
-      ./fix-launch.diff
-    ];
+  patches = [
+    # Compiles, but doesn't launch without this, see:
+    # https://gitlab.gnome.org/GNOME/ocrfeeder/-/issues/83
+    ./fix-launch.diff
+  ];
 
   enginesPath = lib.makeBinPath ([ tesseract4 ] ++ extraOcrEngines);
 
@@ -72,7 +41,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/OCRFeeder";
-    description = "Complete Optical Character Recognition and Document Analysis and Recognition program";
+    description =
+      "Complete Optical Character Recognition and Document Analysis and Recognition program";
     maintainers = with maintainers; [ doronbehar ];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;

@@ -1,8 +1,4 @@
-{
-  buildGoModule,
-  lib,
-  fetchFromGitHub,
-}:
+{ buildGoModule, lib, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "frp";
@@ -19,10 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [
-    "cmd/frpc"
-    "cmd/frps"
-  ];
+  subPackages = [ "cmd/frpc" "cmd/frps" ];
 
   meta = with lib; {
     description = "Fast reverse proxy";

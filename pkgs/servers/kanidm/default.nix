@@ -1,23 +1,8 @@
-{
-  stdenv,
-  lib,
-  formats,
-  nixosTests,
-  rustPlatform,
-  fetchFromGitHub,
-  fetchpatch,
-  installShellFiles,
-  pkg-config,
-  udev,
-  openssl,
-  sqlite,
-  pam,
-}:
+{ stdenv, lib, formats, nixosTests, rustPlatform, fetchFromGitHub, fetchpatch
+, installShellFiles, pkg-config, udev, openssl, sqlite, pam }:
 
-let
-  arch = if stdenv.isx86_64 then "x86_64" else "generic";
-in
-rustPlatform.buildRustPackage rec {
+let arch = if stdenv.isx86_64 then "x86_64" else "generic";
+in rustPlatform.buildRustPackage rec {
   pname = "kanidm";
   version = "1.1.0-alpha.12";
 
@@ -31,7 +16,8 @@ rustPlatform.buildRustPackage rec {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tracing-forest-0.1.5" = "sha256-L6auSKB4DCnZBZpx7spiikhSOD6i1W3erc3zjn+26Ao=";
+      "tracing-forest-0.1.5" =
+        "sha256-L6auSKB4DCnZBZpx7spiikhSOD6i1W3erc3zjn+26Ao=";
     };
   };
 
@@ -41,36 +27,27 @@ rustPlatform.buildRustPackage rec {
     (fetchpatch {
       # Bring back x86_64-v1 microarchitecture level
       name = "cpu-opt-level.patch";
-      url = "https://github.com/kanidm/kanidm/commit/59c6723f7dfb2266eae45c3b2ddd377872a7a113.patch";
+      url =
+        "https://github.com/kanidm/kanidm/commit/59c6723f7dfb2266eae45c3b2ddd377872a7a113.patch";
       hash = "sha256-8rVEYitxvdVduQ/+AD/UG3v+mgT/VxkLoxNIXczUfCQ=";
     })
   ];
 
-  postPatch =
-    let
-      format = (formats.toml { }).generate "${KANIDM_BUILD_PROFILE}.toml";
-      profile = {
-        web_ui_pkg_path = "@web_ui_pkg_path@";
-        cpu_flags = if stdenv.isx86_64 then "x86_64_legacy" else "none";
-      };
-    in
-    ''
-      cp ${format profile} libs/profiles/${KANIDM_BUILD_PROFILE}.toml
-      substituteInPlace libs/profiles/${KANIDM_BUILD_PROFILE}.toml \
-        --replace '@web_ui_pkg_path@' "$out/ui"
-    '';
+  postPatch = let
+    format = (formats.toml { }).generate "${KANIDM_BUILD_PROFILE}.toml";
+    profile = {
+      web_ui_pkg_path = "@web_ui_pkg_path@";
+      cpu_flags = if stdenv.isx86_64 then "x86_64_legacy" else "none";
+    };
+  in ''
+    cp ${format profile} libs/profiles/${KANIDM_BUILD_PROFILE}.toml
+    substituteInPlace libs/profiles/${KANIDM_BUILD_PROFILE}.toml \
+      --replace '@web_ui_pkg_path@' "$out/ui"
+  '';
 
-  nativeBuildInputs = [
-    pkg-config
-    installShellFiles
-  ];
+  nativeBuildInputs = [ pkg-config installShellFiles ];
 
-  buildInputs = [
-    udev
-    openssl
-    sqlite
-    pam
-  ];
+  buildInputs = [ udev openssl sqlite pam ];
 
   # The UI needs to be in place before the tests are run.
   postBuild = ''
@@ -90,18 +67,13 @@ rustPlatform.buildRustPackage rec {
     mv $out/lib/libpam_kanidm.so $out/lib/pam_kanidm.so
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) kanidm;
-  };
+  passthru.tests = { inherit (nixosTests) kanidm; };
 
   meta = with lib; {
     description = "A simple, secure and fast identity management platform";
     homepage = "https://github.com/kanidm/kanidm";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      erictapen
-      Flakebi
-    ];
+    maintainers = with maintainers; [ erictapen Flakebi ];
   };
 }

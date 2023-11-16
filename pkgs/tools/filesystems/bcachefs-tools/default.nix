@@ -1,28 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  docutils,
-  libuuid,
-  libscrypt,
-  libsodium,
-  keyutils,
-  liburcu,
-  zlib,
-  libaio,
-  zstd,
-  lz4,
-  python3Packages,
-  util-linux,
-  udev,
-  valgrind,
-  nixosTests,
-  makeWrapper,
-  getopt,
-  fuse3,
-  fuseSupport ? false,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, docutils, libuuid, libscrypt
+, libsodium, keyutils, liburcu, zlib, libaio, zstd, lz4, python3Packages
+, util-linux, udev, valgrind, nixosTests, makeWrapper, getopt, fuse3
+, fuseSupport ? false }:
 
 stdenv.mkDerivation {
   pname = "bcachefs-tools";
@@ -43,12 +22,8 @@ stdenv.mkDerivation {
                 "INITRAMFS_DIR=${placeholder "out"}/etc/initramfs-tools"
   '';
 
-  nativeBuildInputs = [
-    pkg-config
-    docutils
-    python3Packages.python
-    makeWrapper
-  ];
+  nativeBuildInputs =
+    [ pkg-config docutils python3Packages.python makeWrapper ];
 
   buildInputs = [
     libuuid
@@ -77,19 +52,15 @@ stdenv.mkDerivation {
   postFixup = ''
     ln -s $out/bin/mount.bcachefs.sh $out/bin/mount.bcachefs
     wrapProgram $out/bin/mount.bcachefs.sh \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          getopt
-          util-linux
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath [ getopt util-linux ]}
   '';
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 
   passthru.tests = {
     smoke-test = nixosTests.bcachefs;
-    inherit (nixosTests.installer) bcachefsSimple bcachefsEncrypted bcachefsMulti;
+    inherit (nixosTests.installer)
+      bcachefsSimple bcachefsEncrypted bcachefsMulti;
   };
 
   enableParallelBuilding = true;
@@ -98,10 +69,7 @@ stdenv.mkDerivation {
     description = "Tool for managing bcachefs filesystems";
     homepage = "https://bcachefs.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [
-      davidak
-      Madouura
-    ];
+    maintainers = with maintainers; [ davidak Madouura ];
     platforms = platforms.linux;
   };
 }

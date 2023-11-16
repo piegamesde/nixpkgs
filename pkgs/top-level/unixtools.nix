@@ -1,10 +1,4 @@
-{
-  pkgs,
-  buildEnv,
-  runCommand,
-  lib,
-  stdenv,
-}:
+{ pkgs, buildEnv, runCommand, lib, stdenv }:
 
 # These are some unix tools that are commonly included in the /usr/bin
 # and /usr/sbin directory under more normal distributions. Along with
@@ -21,39 +15,35 @@ with lib;
 let
   version = "1003.1-2008";
 
-  singleBinary =
-    cmd: providers:
+  singleBinary = cmd: providers:
     let
-      provider = providers.${stdenv.hostPlatform.parsed.kernel.name} or providers.linux;
+      provider =
+        providers.${stdenv.hostPlatform.parsed.kernel.name} or providers.linux;
       bin = "${getBin provider}/bin/${cmd}";
       manpage = "${getOutput "man" provider}/share/man/man1/${cmd}.1.gz";
-    in
-    runCommand "${cmd}-${provider.name}"
-      {
-        meta = {
-          mainProgram = cmd;
-          priority = 10;
-          platforms = lib.platforms.${stdenv.hostPlatform.parsed.kernel.name} or lib.platforms.all;
-        };
-        passthru = {
-          inherit provider;
-        };
-        preferLocalBuild = true;
-      }
-      ''
-        if ! [ -x ${bin} ]; then
-          echo Cannot find command ${cmd}
-          exit 1
-        fi
+    in runCommand "${cmd}-${provider.name}" {
+      meta = {
+        mainProgram = cmd;
+        priority = 10;
+        platforms =
+          lib.platforms.${stdenv.hostPlatform.parsed.kernel.name} or lib.platforms.all;
+      };
+      passthru = { inherit provider; };
+      preferLocalBuild = true;
+    } ''
+      if ! [ -x ${bin} ]; then
+        echo Cannot find command ${cmd}
+        exit 1
+      fi
 
-        mkdir -p $out/bin
-        ln -s ${bin} $out/bin/${cmd}
+      mkdir -p $out/bin
+      ln -s ${bin} $out/bin/${cmd}
 
-        if [ -f ${manpage} ]; then
-          mkdir -p $out/share/man/man1
-          ln -s ${manpage} $out/share/man/man1/${cmd}.1.gz
-        fi
-      '';
+      if [ -f ${manpage} ]; then
+        mkdir -p $out/share/man/man1
+        ln -s ${manpage} $out/share/man/man1/${cmd}.1.gz
+      fi
+    '';
 
   # more is unavailable in darwin
   # so we just use less
@@ -76,15 +66,19 @@ let
       linux = pkgs.util-linux;
       darwin = pkgs.darwin.text_cmds;
     };
-    eject = {
-      linux = pkgs.util-linux;
-    };
+    eject = { linux = pkgs.util-linux; };
     getconf = {
-      linux = if stdenv.hostPlatform.libc == "glibc" then pkgs.stdenv.cc.libc else pkgs.netbsd.getconf;
+      linux = if stdenv.hostPlatform.libc == "glibc" then
+        pkgs.stdenv.cc.libc
+      else
+        pkgs.netbsd.getconf;
       darwin = pkgs.darwin.system_cmds;
     };
     getent = {
-      linux = if stdenv.hostPlatform.libc == "glibc" then pkgs.stdenv.cc.libc else pkgs.netbsd.getent;
+      linux = if stdenv.hostPlatform.libc == "glibc" then
+        pkgs.stdenv.cc.libc
+      else
+        pkgs.netbsd.getent;
       darwin = pkgs.netbsd.getent;
     };
     getopt = {
@@ -119,9 +113,7 @@ let
       linux = pkgs.glibc;
       darwin = pkgs.darwin.adv_cmds;
     };
-    logger = {
-      linux = pkgs.util-linux;
-    };
+    logger = { linux = pkgs.util-linux; };
     more = {
       linux = pkgs.util-linux;
       darwin = more_compat;
@@ -170,9 +162,7 @@ let
       linux = pkgs.util-linux;
       darwin = pkgs.darwin.shell_cmds;
     };
-    wall = {
-      linux = pkgs.util-linux;
-    };
+    wall = { linux = pkgs.util-linux; };
     watch = {
       linux = pkgs.procps;
 
@@ -190,8 +180,7 @@ let
     };
   };
 
-  makeCompat =
-    pname: paths:
+  makeCompat = pname: paths:
     buildEnv {
       name = "${pname}-${version}";
       inherit paths;
@@ -199,15 +188,9 @@ let
 
   # Compatibility derivations
   # Provided for old usage of these commands.
-  compat =
-    with bins;
+  compat = with bins;
     lib.mapAttrs makeCompat {
-      procps = [
-        ps
-        sysctl
-        top
-        watch
-      ];
+      procps = [ ps sysctl top watch ];
       util-linux = [
         fsck
         fdisk
@@ -221,13 +204,6 @@ let
         col
         column
       ];
-      nettools = [
-        arp
-        hostname
-        ifconfig
-        netstat
-        route
-      ];
+      nettools = [ arp hostname ifconfig netstat route ];
     };
-in
-bins // compat
+in bins // compat

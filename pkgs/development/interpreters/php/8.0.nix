@@ -1,21 +1,12 @@
-{
-  callPackage,
-  lib,
-  stdenv,
-  ...
-}@_args:
+{ callPackage, lib, stdenv, ... }@_args:
 
 let
-  base = callPackage ./generic.nix (
-    _args
-    // {
-      version = "8.0.29";
-      hash = "sha256-SAGh8OFxcChnI6tUrNBFrHipZWAh1W8QSmRUPuySLhI=";
-    }
-  );
-in
-base.withExtensions (
-  { all, ... }:
+  base = callPackage ./generic.nix (_args // {
+    version = "8.0.29";
+    hash = "sha256-SAGh8OFxcChnI6tUrNBFrHipZWAh1W8QSmRUPuySLhI=";
+  });
+
+in base.withExtensions ({ all, ... }:
   with all; ([
     bcmath
     calendar
@@ -59,5 +50,4 @@ base.withExtensions (
     xmlwriter
     zip
     zlib
-  ])
-)
+  ]))

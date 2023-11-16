@@ -1,17 +1,5 @@
-{
-  stdenv,
-  llvmPackages,
-  lib,
-  fetchFromGitHub,
-  cmake,
-  libpng,
-  libjpeg,
-  mesa,
-  eigen,
-  openblas,
-  blas,
-  lapack,
-}:
+{ stdenv, llvmPackages, lib, fetchFromGitHub, cmake, libpng, libjpeg, mesa
+, eigen, openblas, blas, lapack }:
 
 assert blas.implementation == "openblas" && lapack.implementation == "openblas";
 
@@ -54,13 +42,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "C++ based language for image processing and computational photography";
+    description =
+      "C++ based language for image processing and computational photography";
     homepage = "https://halide-lang.org";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [
-      ck3d
-      atila
-    ];
+    maintainers = with maintainers; [ ck3d atila ];
   };
 }

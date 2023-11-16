@@ -1,30 +1,6 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoconf,
-  automake,
-  zlib,
-  curl,
-  gnutls,
-  fribidi,
-  libpng,
-  SDL,
-  SDL_gfx,
-  SDL_image,
-  SDL_mixer,
-  SDL_net,
-  SDL_ttf,
-  libunwind,
-  libX11,
-  xorgproto,
-  libxml2,
-  pkg-config,
-  gettext,
-  intltool,
-  libtool,
-  perl,
-}:
+{ lib, stdenv, fetchFromGitHub, autoconf, automake, zlib, curl, gnutls, fribidi
+, libpng, SDL, SDL_gfx, SDL_image, SDL_mixer, SDL_net, SDL_ttf, libunwind
+, libX11, xorgproto, libxml2, pkg-config, gettext, intltool, libtool, perl }:
 
 stdenv.mkDerivation {
   pname = "warmux";
@@ -40,14 +16,7 @@ stdenv.mkDerivation {
   preConfigure = "patchShebangs autogen.sh && ./autogen.sh";
   configureFlagsArray = ("CFLAGS=-include ${zlib.dev}/include/zlib.h");
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    gettext
-    intltool
-    libtool
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoconf automake gettext intltool libtool pkg-config ];
   buildInputs = [
     zlib
     curl
@@ -69,13 +38,11 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   meta = with lib; {
-    description = "Ballistics turn-based battle game between teams - unofficial copy";
+    description =
+      "Ballistics turn-based battle game between teams - unofficial copy";
     maintainers = with maintainers; [ raskin ];
     platforms = platforms.linux;
-    license = with licenses; [
-      gpl2
-      ufl
-    ];
+    license = with licenses; [ gpl2 ufl ];
     homepage = "https://github.com/fluxer/warmux";
   };
 }

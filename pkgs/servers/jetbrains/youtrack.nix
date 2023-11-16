@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  jdk17,
-  gawk,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, jdk17, gawk }:
 
 stdenv.mkDerivation rec {
   pname = "youtrack";

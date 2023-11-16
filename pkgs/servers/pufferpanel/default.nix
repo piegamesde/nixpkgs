@@ -1,13 +1,5 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  makeWrapper,
-  fetchzip,
-  fetchpatch,
-  pathDeps ? [ ],
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeWrapper, fetchzip, fetchpatch
+, pathDeps ? [ ], nixosTests }:
 
 buildGoModule rec {
   pname = "pufferpanel";
@@ -16,13 +8,15 @@ buildGoModule rec {
   patches = [
     # Bump go-sqlite3 version to avoid a GNU C compiler error.
     (fetchpatch {
-      url = "https://github.com/PufferPanel/PufferPanel/commit/dd7fc80c33c7618c98311af09c78c25b77658aef.patch";
+      url =
+        "https://github.com/PufferPanel/PufferPanel/commit/dd7fc80c33c7618c98311af09c78c25b77658aef.patch";
       hash = "sha256-ygMrhJoba8swoRBBii7BEiLihqOebLUtSH7os7W3s+k=";
     })
 
     # Fix errors in tests.
     (fetchpatch {
-      url = "https://github.com/PufferPanel/PufferPanel/commit/ad6ab4b4368e1111292fadfb3d9f058fa399fa21.patch";
+      url =
+        "https://github.com/PufferPanel/PufferPanel/commit/ad6ab4b4368e1111292fadfb3d9f058fa399fa21.patch";
       hash = "sha256-BzGfcWhzRrCHKkAhWf0uvXiiiutWqthn/ed7bN2hR8U=";
     })
 
@@ -60,7 +54,8 @@ buildGoModule rec {
   # with all the proper node_modules populated. To work around this,
   # we just download the built frontend and package that.
   frontend = fetchzip {
-    url = "https://github.com/PufferPanel/PufferPanel/releases/download/v${version}/pufferpanel_${version}_linux_arm64.zip";
+    url =
+      "https://github.com/PufferPanel/PufferPanel/releases/download/v${version}/pufferpanel_${version}_linux_arm64.zip";
     hash = "sha256-z7HWhiEBma37OMGEkTGaEbnF++Nat8wAZE2UeOoaO/U=";
     stripRoot = false;
     postFetch = ''
@@ -93,17 +88,12 @@ buildGoModule rec {
       --prefix PATH : ${lib.escapeShellArg (lib.makeBinPath pathDeps)}
   '';
 
-  passthru.tests = {
-    inherit (nixosTests) pufferpanel;
-  };
+  passthru.tests = { inherit (nixosTests) pufferpanel; };
 
   meta = with lib; {
     description = "A free, open source game management panel";
     homepage = "https://www.pufferpanel.com/";
     license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [
-      ckie
-      tie
-    ];
+    maintainers = with maintainers; [ ckie tie ];
   };
 }

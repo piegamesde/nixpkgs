@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi }:
 
 buildPythonPackage rec {
   pname = "PyPlatec";
@@ -20,4 +15,5 @@ buildPythonPackage rec {
     license = licenses.lgpl3;
     broken = stdenv.isLinux;
   };
+
 }

@@ -1,65 +1,43 @@
-{
-  lib,
-  buildNpmPackage,
-  copyDesktopItems,
-  electron_22,
-  buildGoModule,
-  esbuild,
-  fetchFromGitHub,
-  fetchpatch,
-  libdeltachat,
-  makeDesktopItem,
-  makeWrapper,
-  noto-fonts-emoji,
-  pkg-config,
-  python3,
-  roboto,
-  rustPlatform,
-  sqlcipher,
-  stdenv,
-  CoreServices,
-}:
+{ lib, buildNpmPackage, copyDesktopItems, electron_22, buildGoModule, esbuild
+, fetchFromGitHub, fetchpatch, libdeltachat, makeDesktopItem, makeWrapper
+, noto-fonts-emoji, pkg-config, python3, roboto, rustPlatform, sqlcipher, stdenv
+, CoreServices }:
 
 let
-  libdeltachat' = libdeltachat.overrideAttrs (
-    old: rec {
-      version = "1.112.8";
-      src = fetchFromGitHub {
-        owner = "deltachat";
-        repo = "deltachat-core-rust";
-        rev = "v${version}";
-        hash = "sha256-bvXZtgFZx94Sw9Tst620HAhi9kmG8PjtWnghdw2ZF84=";
+  libdeltachat' = libdeltachat.overrideAttrs (old: rec {
+    version = "1.112.8";
+    src = fetchFromGitHub {
+      owner = "deltachat";
+      repo = "deltachat-core-rust";
+      rev = "v${version}";
+      hash = "sha256-bvXZtgFZx94Sw9Tst620HAhi9kmG8PjtWnghdw2ZF84=";
+    };
+    cargoDeps = rustPlatform.importCargoLock {
+      lockFile = ./Cargo.lock;
+      outputHashes = {
+        "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
+        "encoded-words-0.2.0" =
+          "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
+        "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
+        "quinn-proto-0.9.2" =
+          "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
       };
-      cargoDeps = rustPlatform.importCargoLock {
-        lockFile = ./Cargo.lock;
-        outputHashes = {
-          "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
-          "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
-          "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
-          "quinn-proto-0.9.2" = "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
-        };
-      };
-    }
-  );
+    };
+  });
   esbuild' = esbuild.override {
-    buildGoModule =
-      args:
-      buildGoModule (
-        args
-        // rec {
-          version = "0.14.54";
-          src = fetchFromGitHub {
-            owner = "evanw";
-            repo = "esbuild";
-            rev = "v${version}";
-            hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
-          };
-          vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
-        }
-      );
+    buildGoModule = args:
+      buildGoModule (args // rec {
+        version = "0.14.54";
+        src = fetchFromGitHub {
+          owner = "evanw";
+          repo = "esbuild";
+          rev = "v${version}";
+          hash = "sha256-qCtpy69ROCspRgPKmCV0YY/EOSWiNU/xwDblU0bQp4w=";
+        };
+        vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
+      });
   };
-in
-buildNpmPackage rec {
+in buildNpmPackage rec {
   pname = "deltachat-desktop";
   version = "1.36.4";
 
@@ -72,13 +50,11 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-cTvNU4LO74pcw4Ybo9iftEis2yDA2SqGtrs4v+xAi5c=";
 
-  nativeBuildInputs = [
-    makeWrapper
-    pkg-config
-    python3
-  ] ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
+  nativeBuildInputs = [ makeWrapper pkg-config python3 ]
+    ++ lib.optionals stdenv.isLinux [ copyDesktopItems ];
 
-  buildInputs = [ libdeltachat' ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [ libdeltachat' ]
+    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -121,33 +97,28 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  desktopItems = lib.singleton (
-    makeDesktopItem {
-      name = "deltachat";
-      exec = "deltachat %u";
-      icon = "deltachat";
-      desktopName = "Delta Chat";
-      genericName = "Delta Chat";
-      comment = meta.description;
-      categories = [
-        "Network"
-        "InstantMessaging"
-        "Chat"
-      ];
-      startupWMClass = "DeltaChat";
-      mimeTypes = [
-        "x-scheme-handler/openpgp4fpr"
-        "x-scheme-handler/dcaccount"
-        "x-scheme-handler/dclogin"
-        "x-scheme-handler/mailto"
-      ];
-    }
-  );
+  desktopItems = lib.singleton (makeDesktopItem {
+    name = "deltachat";
+    exec = "deltachat %u";
+    icon = "deltachat";
+    desktopName = "Delta Chat";
+    genericName = "Delta Chat";
+    comment = meta.description;
+    categories = [ "Network" "InstantMessaging" "Chat" ];
+    startupWMClass = "DeltaChat";
+    mimeTypes = [
+      "x-scheme-handler/openpgp4fpr"
+      "x-scheme-handler/dcaccount"
+      "x-scheme-handler/dclogin"
+      "x-scheme-handler/mailto"
+    ];
+  });
 
   meta = with lib; {
     description = "Email-based instant messaging for Desktop";
     homepage = "https://github.com/deltachat/deltachat-desktop";
-    changelog = "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
+    changelog =
+      "https://github.com/deltachat/deltachat-desktop/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Plus;
     mainProgram = "deltachat";
     maintainers = with maintainers; [ dotlambda ];

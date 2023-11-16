@@ -1,13 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  pkg-config,
-  cmake,
-  udev,
-  libevdev,
-  libconfig,
-}:
+{ lib, stdenv, fetchFromGitHub, pkg-config, cmake, udev, libevdev, libconfig }:
 
 stdenv.mkDerivation rec {
   pname = "logiops";
@@ -20,17 +11,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1v728hbIM2ODtB+r6SYzItczRJCsbuTvhYD2OUM1+/E=";
   };
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR =
+    "${placeholder "out"}/lib/systemd/system";
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
-  buildInputs = [
-    udev
-    libevdev
-    libconfig
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ udev libevdev libconfig ];
 
   meta = with lib; {
     description = "Unofficial userspace driver for HID++ Logitech devices";

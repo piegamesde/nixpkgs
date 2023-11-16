@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeText,
-  nixosTests,
-  dokuwiki,
-}:
+{ lib, stdenv, fetchFromGitHub, writeText, nixosTests, dokuwiki }:
 
 stdenv.mkDerivation rec {
   pname = "dokuwiki";
@@ -57,52 +50,35 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    combine =
-      {
-        basePackage ? dokuwiki,
-        plugins ? [ ],
-        templates ? [ ],
-        localConfig ? null,
-        pluginsConfig ? null,
-        aclConfig ? null,
-        pname ? (p: "${p.pname}-combined"),
-      }:
-      let
-        isNotEmpty =
-          x:
-          lib.optionalString (
-            !builtins.elem x [
-              null
-              ""
-            ]
-          );
-      in
-      basePackage.overrideAttrs (
-        prev: {
-          pname = if builtins.isFunction pname then pname prev else pname;
+    combine = { basePackage ? dokuwiki, plugins ? [ ], templates ? [ ]
+      , localConfig ? null, pluginsConfig ? null, aclConfig ? null
+      , pname ? (p: "${p.pname}-combined") }:
+      let isNotEmpty = x: lib.optionalString (!builtins.elem x [ null "" ]);
+      in basePackage.overrideAttrs (prev: {
+        pname = if builtins.isFunction pname then pname prev else pname;
 
-          postInstall =
-            prev.postInstall or ""
-            + ''
-              ${lib.concatMapStringsSep "\n"
-                (tpl: "cp -r ${toString tpl} $out/share/dokuwiki/lib/tpl/${tpl.name}")
-                templates}
-              ${lib.concatMapStringsSep "\n"
-                (plugin: "cp -r ${toString plugin} $out/share/dokuwiki/lib/plugins/${plugin.name}")
-                plugins}
-              ${isNotEmpty localConfig "ln -sf ${localConfig} $out/share/dokuwiki/conf/local.php"}
-              ${isNotEmpty pluginsConfig "ln -sf ${pluginsConfig} $out/share/dokuwiki/conf/plugins.local.php"}
-              ${isNotEmpty aclConfig "ln -sf ${aclConfig} $out/share/dokuwiki/acl.auth.php"}
-            '';
-        }
-      );
-    tests = {
-      inherit (nixosTests) dokuwiki;
-    };
+        postInstall = prev.postInstall or "" + ''
+          ${lib.concatMapStringsSep "\n"
+          (tpl: "cp -r ${toString tpl} $out/share/dokuwiki/lib/tpl/${tpl.name}")
+          templates}
+          ${lib.concatMapStringsSep "\n" (plugin:
+            "cp -r ${
+              toString plugin
+            } $out/share/dokuwiki/lib/plugins/${plugin.name}") plugins}
+          ${isNotEmpty localConfig
+          "ln -sf ${localConfig} $out/share/dokuwiki/conf/local.php"}
+          ${isNotEmpty pluginsConfig
+          "ln -sf ${pluginsConfig} $out/share/dokuwiki/conf/plugins.local.php"}
+          ${isNotEmpty aclConfig
+          "ln -sf ${aclConfig} $out/share/dokuwiki/acl.auth.php"}
+        '';
+      });
+    tests = { inherit (nixosTests) dokuwiki; };
   };
 
   meta = with lib; {
-    description = "Simple to use and highly versatile Open Source wiki software that doesn't require a database";
+    description =
+      "Simple to use and highly versatile Open Source wiki software that doesn't require a database";
     license = licenses.gpl2;
     homepage = "https://www.dokuwiki.org";
     platforms = platforms.all;

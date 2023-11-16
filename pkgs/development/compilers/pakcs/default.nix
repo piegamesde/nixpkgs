@@ -1,21 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  makeWrapper,
-  haskellPackages,
-  haskell,
-  which,
-  swiProlog,
-  rlwrap,
-  tk,
-  curl,
-  git,
-  unzip,
-  gnutar,
-  coreutils,
-  sqlite,
-}:
+{ lib, stdenv, fetchurl, makeWrapper, haskellPackages, haskell, which, swiProlog
+, rlwrap, tk, curl, git, unzip, gnutar, coreutils, sqlite }:
 
 let
   pname = "pakcs";
@@ -24,38 +8,28 @@ let
   # Don't switch to "Current release" without a reason, because its
   # source updates without version bump. Prefer last from "Older releases" instead.
   src = fetchurl {
-    url = "https://www.informatik.uni-kiel.de/~pakcs/download/pakcs-${version}-src.tar.gz";
+    url =
+      "https://www.informatik.uni-kiel.de/~pakcs/download/pakcs-${version}-src.tar.gz";
     sha256 = "1jyg29j8r8pgcin7ixdya6c3zzfjdi66rghpwrfnkk133fz4iz7s";
   };
 
-  curry-frontend =
-    (haskellPackages.override {
-      overrides = self: super: {
-        curry-base =
-          haskell.lib.compose.overrideCabal
-            (drv: {
-              inherit src;
-              postUnpack = "sourceRoot+=/frontend/curry-base";
-            })
-            (super.callPackage ./curry-base.nix { });
-        curry-frontend =
-          haskell.lib.compose.overrideCabal
-            (drv: {
-              inherit src;
-              postUnpack = "sourceRoot+=/frontend/curry-frontend";
-            })
-            (super.callPackage ./curry-frontend.nix { });
-      };
-    }).curry-frontend;
-in
-stdenv.mkDerivation {
+  curry-frontend = (haskellPackages.override {
+    overrides = self: super: {
+      curry-base = haskell.lib.compose.overrideCabal (drv: {
+        inherit src;
+        postUnpack = "sourceRoot+=/frontend/curry-base";
+      }) (super.callPackage ./curry-base.nix { });
+      curry-frontend = haskell.lib.compose.overrideCabal (drv: {
+        inherit src;
+        postUnpack = "sourceRoot+=/frontend/curry-frontend";
+      }) (super.callPackage ./curry-frontend.nix { });
+    };
+  }).curry-frontend;
+in stdenv.mkDerivation {
   inherit pname version src;
 
   buildInputs = [ swiProlog ];
-  nativeBuildInputs = [
-    which
-    makeWrapper
-  ];
+  nativeBuildInputs = [ which makeWrapper ];
 
   makeFlags = [
     "CURRYFRONTEND=${curry-frontend}/bin/curry-frontend"
@@ -100,20 +74,14 @@ stdenv.mkDerivation {
     # List of dependencies from currytools/cpm/src/CPM/Main.curry
     wrapProgram $out/pakcs/bin/cypm \
       --prefix PATH ":" "${
-        lib.makeBinPath [
-          curl
-          git
-          unzip
-          gnutar
-          coreutils
-          sqlite
-        ]
+        lib.makeBinPath [ curl git unzip gnutar coreutils sqlite ]
       }"
   '';
 
   meta = with lib; {
     homepage = "http://www.informatik.uni-kiel.de/~pakcs/";
-    description = "An implementation of the multi-paradigm declarative language Curry";
+    description =
+      "An implementation of the multi-paradigm declarative language Curry";
     license = licenses.bsd3;
 
     longDescription = ''

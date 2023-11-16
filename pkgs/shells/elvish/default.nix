@@ -1,16 +1,10 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  runCommand,
-}:
+{ lib, buildGoModule, fetchFromGitHub, runCommand }:
 
 let
   pname = "elvish";
   version = "0.19.2";
   shellPath = "/bin/elvish";
-in
-buildGoModule {
+in buildGoModule {
   inherit pname version;
 
   src = fetchFromGitHub {
@@ -24,11 +18,7 @@ buildGoModule {
 
   subPackages = [ "cmd/elvish" ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X src.elv.sh/pkg/buildinfo.Version==${version}"
-  ];
+  ldflags = [ "-s" "-w" "-X src.elv.sh/pkg/buildinfo.Version==${version}" ];
 
   strictDeps = true;
 
@@ -51,9 +41,7 @@ buildGoModule {
     runHook postInstallCheck
   '';
 
-  passthru = {
-    inherit shellPath;
-  };
+  passthru = { inherit shellPath; };
 
   meta = {
     homepage = "https://elv.sh/";
@@ -64,9 +52,6 @@ buildGoModule {
       status, it is already suitable for most daily interactive use.
     '';
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [
-      vrthra
-      AndersonTorres
-    ];
+    maintainers = with lib.maintainers; [ vrthra AndersonTorres ];
   };
 }

@@ -1,16 +1,10 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.prowlarr;
-in
-{
+let cfg = config.services.prowlarr;
+
+in {
   options = {
     services.prowlarr = {
       enable = mkEnableOption (lib.mdDoc "Prowlarr");
@@ -18,7 +12,8 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description = lib.mdDoc "Open ports in the firewall for the Prowlarr web interface.";
+        description = lib.mdDoc
+          "Open ports in the firewall for the Prowlarr web interface.";
       };
     };
   };
@@ -33,7 +28,8 @@ in
         Type = "simple";
         DynamicUser = true;
         StateDirectory = "prowlarr";
-        ExecStart = "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/var/lib/prowlarr";
+        ExecStart =
+          "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/var/lib/prowlarr";
         Restart = "on-failure";
       };
     };

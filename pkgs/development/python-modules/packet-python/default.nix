@@ -1,12 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytestCheckHook,
-  pythonOlder,
-  requests,
-  requests-mock,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytestCheckHook, pythonOlder, requests
+, requests-mock }:
 
 buildPythonPackage rec {
   pname = "packet-python";
@@ -27,17 +20,15 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ requests ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    requests-mock
-  ];
+  nativeCheckInputs = [ pytestCheckHook requests-mock ];
 
   pythonImportsCheck = [ "packet" ];
 
   meta = with lib; {
     description = "Python client for the Packet API";
     homepage = "https://github.com/packethost/packet-python";
-    changelog = "https://github.com/packethost/packet-python/blob/v${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/packethost/packet-python/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl3Only;
     maintainers = with maintainers; [ dipinhora ];
   };

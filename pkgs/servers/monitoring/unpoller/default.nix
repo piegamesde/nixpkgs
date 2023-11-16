@@ -1,9 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-  nixosTests,
-}:
+{ lib, buildGoModule, fetchFromGitHub, nixosTests }:
 
 buildGoModule rec {
   pname = "unpoller";
@@ -27,12 +22,11 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.Version=${version}-0"
   ];
 
-  passthru.tests = {
-    inherit (nixosTests.prometheus-exporters) unpoller;
-  };
+  passthru.tests = { inherit (nixosTests.prometheus-exporters) unpoller; };
 
   meta = with lib; {
-    description = "Collect ALL UniFi Controller, Site, Device & Client Data - Export to InfluxDB or Prometheus";
+    description =
+      "Collect ALL UniFi Controller, Site, Device & Client Data - Export to InfluxDB or Prometheus";
     homepage = "https://github.com/unpoller/unpoller";
     changelog = "https://github.com/unpoller/unpoller/releases/tag/v${version}";
     license = licenses.mit;

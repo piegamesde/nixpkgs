@@ -1,8 +1,4 @@
-{
-  stdenvNoCC,
-  lib,
-  fetchFromGitHub,
-}:
+{ stdenvNoCC, lib, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "zsh-history-search-multi-word";
@@ -29,10 +25,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Multi-word, syntax highlighted history searching for Zsh";
     homepage = "https://github.com/zdharma-continuum/history-search-multi-word";
-    license = with licenses; [
-      gpl3
-      mit
-    ];
+    license = with licenses; [ gpl3 mit ];
     platforms = platforms.unix;
   };
 }

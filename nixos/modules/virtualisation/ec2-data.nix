@@ -2,35 +2,19 @@
 # authorized client key and host name of virtual machines running on
 # Amazon EC2, Eucalyptus and OpenStack Compute (Nova).
 
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 {
-  imports = [
-    (mkRemovedOptionModule
-      [
-        "ec2"
-        "metadata"
-      ]
-      ""
-    )
-  ];
+  imports = [ (mkRemovedOptionModule [ "ec2" "metadata" ] "") ];
 
   config = {
 
     systemd.services.apply-ec2-data = {
       description = "Apply EC2 Data";
 
-      wantedBy = [
-        "multi-user.target"
-        "sshd.service"
-      ];
+      wantedBy = [ "multi-user.target" "sshd.service" ];
       before = [ "sshd.service" ];
       after = [ "fetch-ec2-metadata.service" ];
 
@@ -99,5 +83,6 @@ with lib;
       serviceConfig.Type = "oneshot";
       serviceConfig.RemainAfterExit = true;
     };
+
   };
 }

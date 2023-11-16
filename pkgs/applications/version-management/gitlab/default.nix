@@ -1,28 +1,7 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  fetchpatch,
-  fetchFromGitLab,
-  bundlerEnv,
-  ruby_3_0,
-  tzdata,
-  git,
-  nettools,
-  nixosTests,
-  nodejs,
-  openssl,
-  gitlabEnterprise ? false,
-  callPackage,
-  yarn,
-  fixup_yarn_lock,
-  replace,
-  file,
-  cacert,
-  fetchYarnDeps,
-  makeWrapper,
-  pkg-config,
-}:
+{ stdenv, lib, fetchurl, fetchpatch, fetchFromGitLab, bundlerEnv, ruby_3_0
+, tzdata, git, nettools, nixosTests, nodejs, openssl, gitlabEnterprise ? false
+, callPackage, yarn, fixup_yarn_lock, replace, file, cacert, fetchYarnDeps
+, makeWrapper, pkg-config }:
 
 let
   data = lib.importJSON ./data.json;
@@ -39,33 +18,25 @@ let
     name = "gitlab-env-${version}";
     ruby = ruby_3_0;
     gemdir = ./rubyEnv;
-    gemset =
-      let
-        x = import (gemdir + "/gemset.nix") src;
-      in
-      x
-      // {
-        gpgme = x.gpgme // {
-          nativeBuildInputs = [ pkg-config ];
-        };
-        # the openssl needs the openssl include files
-        openssl = x.openssl // {
-          buildInputs = [ openssl ];
-        };
-        ruby-magic = x.ruby-magic // {
-          buildInputs = [ file ];
-          buildFlags = [ "--enable-system-libraries" ];
-        };
-        # the included yarn rake task attaches the yarn:install task
-        # to assets:precompile, which is both unnecessary (since we
-        # run `yarn install` ourselves) and undoes the shebang patches
-        # in node_modules
-        railties = x.railties // {
-          dontBuild = false;
-          patches = [ ./railties-remove-yarn-install-enhancement.patch ];
-          patchFlags = [ "-p2" ];
-        };
+    gemset = let x = import (gemdir + "/gemset.nix") src;
+    in x // {
+      gpgme = x.gpgme // { nativeBuildInputs = [ pkg-config ]; };
+      # the openssl needs the openssl include files
+      openssl = x.openssl // { buildInputs = [ openssl ]; };
+      ruby-magic = x.ruby-magic // {
+        buildInputs = [ file ];
+        buildFlags = [ "--enable-system-libraries" ];
       };
+      # the included yarn rake task attaches the yarn:install task
+      # to assets:precompile, which is both unnecessary (since we
+      # run `yarn install` ourselves) and undoes the shebang patches
+      # in node_modules
+      railties = x.railties // {
+        dontBuild = false;
+        patches = [ ./railties-remove-yarn-install-enhancement.patch ];
+        patchFlags = [ "-p2" ];
+      };
+    };
     groups = [
       "default"
       "unicorn"
@@ -92,14 +63,8 @@ let
       sha256 = data.yarn_hash;
     };
 
-    nativeBuildInputs = [
-      rubyEnv.wrappedRuby
-      rubyEnv.bundler
-      nodejs
-      yarn
-      git
-      cacert
-    ];
+    nativeBuildInputs =
+      [ rubyEnv.wrappedRuby rubyEnv.bundler nodejs yarn git cacert ];
 
     patches = [
       # Since version 12.6.0, the rake tasks need the location of git,
@@ -164,27 +129,19 @@ let
       runHook postInstall
     '';
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   name = "gitlab${lib.optionalString gitlabEnterprise "-ee"}-${version}";
 
   inherit src;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [
-    rubyEnv
-    rubyEnv.wrappedRuby
-    rubyEnv.bundler
-    tzdata
-    git
-    nettools
-  ];
+  buildInputs =
+    [ rubyEnv rubyEnv.wrappedRuby rubyEnv.bundler tzdata git nettools ];
 
-  patches =
-    [
-      # Change hardcoded paths to the NixOS equivalent
-      ./remove-hardcoded-locations.patch
-    ];
+  patches = [
+    # Change hardcoded paths to the NixOS equivalent
+    ./remove-hardcoded-locations.patch
+  ];
 
   postPatch = ''
     ${lib.optionalString (!gitlabEnterprise) ''
@@ -246,35 +203,22 @@ stdenv.mkDerivation {
     GITLAB_SHELL_VERSION = data.passthru.GITLAB_SHELL_VERSION;
     GITLAB_WORKHORSE_VERSION = data.passthru.GITLAB_WORKHORSE_VERSION;
     gitlabEnv.FOSS_ONLY = lib.boolToString (!gitlabEnterprise);
-    tests = {
-      nixos-test-passes = nixosTests.gitlab;
-    };
+    tests = { nixos-test-passes = nixosTests.gitlab; };
   };
 
-  meta =
-    with lib;
+  meta = with lib;
     {
       homepage = "http://www.gitlab.com/";
       platforms = platforms.linux;
-      maintainers = with maintainers; [
-        globin
-        krav
-        talyz
-        yayayayaka
-        yuka
-      ];
-    }
-    // (
-      if gitlabEnterprise then
-        {
-          license = licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
-          description = "GitLab Enterprise Edition";
-        }
-      else
-        {
-          license = licenses.mit;
-          description = "GitLab Community Edition";
-          longDescription = "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
-        }
-    );
+      maintainers = with maintainers; [ globin krav talyz yayayayaka yuka ];
+    } // (if gitlabEnterprise then {
+      license =
+        licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE
+      description = "GitLab Enterprise Edition";
+    } else {
+      license = licenses.mit;
+      description = "GitLab Community Edition";
+      longDescription =
+        "GitLab Community Edition (CE) is an open source end-to-end software development platform with built-in version control, issue tracking, code review, CI/CD, and more. Self-host GitLab CE on your own servers, in a container, or on a cloud provider.";
+    });
 }

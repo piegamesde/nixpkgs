@@ -1,9 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gpgme,
-}:
+{ lib, stdenv, fetchurl, gpgme }:
 
 stdenv.mkDerivation rec {
   pname = "nasty";
@@ -38,3 +33,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
   };
 }
+

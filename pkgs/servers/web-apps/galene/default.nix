@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "galene";
@@ -17,16 +13,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-+itNqxEy0S2g5UGpUIthJE2ILQzToISref/8F4zTmYg=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" "-w" ];
   preCheck = "export TZ=UTC";
 
-  outputs = [
-    "out"
-    "static"
-  ];
+  outputs = [ "out" "static" ];
 
   postInstall = ''
     mkdir $static
@@ -34,14 +24,12 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Videoconferencing server that is easy to deploy, written in Go";
+    description =
+      "Videoconferencing server that is easy to deploy, written in Go";
     homepage = "https://github.com/jech/galene";
     changelog = "https://github.com/jech/galene/raw/galene-${version}/CHANGES";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [
-      rgrunbla
-      erdnaxe
-    ];
+    maintainers = with maintainers; [ rgrunbla erdnaxe ];
   };
 }

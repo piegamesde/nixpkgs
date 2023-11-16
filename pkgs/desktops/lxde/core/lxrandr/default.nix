@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  intltool,
-  gtk2,
-  libX11,
-  xrandr,
-  withGtk3 ? false,
-  gtk3,
-}:
+{ lib, stdenv, fetchurl, pkg-config, intltool, gtk2, libX11, xrandr
+, withGtk3 ? false, gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "lxrandr";
@@ -22,15 +12,8 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional withGtk3 "--enable-gtk3";
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ];
-  buildInputs = [
-    libX11
-    xrandr
-    (if withGtk3 then gtk3 else gtk2)
-  ];
+  nativeBuildInputs = [ pkg-config intltool ];
+  buildInputs = [ libX11 xrandr (if withGtk3 then gtk3 else gtk2) ];
 
   meta = with lib; {
     description = "Standard screen manager of LXDE";

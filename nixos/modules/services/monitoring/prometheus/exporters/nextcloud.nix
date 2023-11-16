@@ -1,16 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  options,
-}:
+{ config, lib, pkgs, options }:
 
 with lib;
 
-let
-  cfg = config.services.prometheus.exporters.nextcloud;
-in
-{
+let cfg = config.services.prometheus.exporters.nextcloud;
+in {
   port = 9205;
   extraOpts = {
     url = mkOption {

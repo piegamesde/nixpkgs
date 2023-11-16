@@ -1,14 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  pythonOlder,
-  fetchFromGitHub,
-  poetry-core,
-  django,
-  django-debug-toolbar,
-  graphene-django,
-  python,
-}:
+{ lib, buildPythonPackage, pythonOlder, fetchFromGitHub, poetry-core, django
+, django-debug-toolbar, graphene-django, python }:
 
 buildPythonPackage rec {
   pname = "django-graphiql-debug-toolbar";
@@ -25,11 +16,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs = [
-    django
-    django-debug-toolbar
-    graphene-django
-  ];
+  propagatedBuildInputs = [ django django-debug-toolbar graphene-django ];
 
   pythonImportsCheck = [ "graphiql_debug_toolbar" ];
 

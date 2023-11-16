@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoPackage,
-  fetchFromGitHub,
-}:
+{ lib, buildGoPackage, fetchFromGitHub }:
 
 buildGoPackage rec {
   pname = "kontemplate";
@@ -22,10 +18,7 @@ buildGoPackage rec {
     homepage = "http://kontemplate.works";
     downloadPage = "https://github.com/tazjin/kontemplate/releases";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      mbode
-      tazjin
-    ];
+    maintainers = with maintainers; [ mbode tazjin ];
     platforms = platforms.unix;
 
     longDescription = ''

@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "pastedeploy";
@@ -32,7 +26,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Load, configure, and compose WSGI applications and servers";
     homepage = "https://github.com/Pylons/pastedeploy";
-    changelog = "https://github.com/Pylons/pastedeploy/blob/${version}/docs/news.rst";
+    changelog =
+      "https://github.com/Pylons/pastedeploy/blob/${version}/docs/news.rst";
     license = licenses.mit;
     maintainers = teams.openstack.members;
   };

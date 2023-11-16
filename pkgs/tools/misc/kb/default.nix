@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  python3,
-}:
+{ lib, fetchFromGitHub, python3 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "kb";
@@ -30,12 +26,7 @@ python3.pkgs.buildPythonApplication rec {
       "addopts = --cov=kb --cov-report term-missing" ""
   '';
 
-  propagatedBuildInputs = with python3.pkgs; [
-    colored
-    toml
-    attrs
-    gitpython
-  ];
+  propagatedBuildInputs = with python3.pkgs; [ colored toml attrs gitpython ];
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 

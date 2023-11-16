@@ -1,53 +1,10 @@
-{
-  lib,
-  stdenv,
-  airspy,
-  airspyhf,
-  aptdec,
-  boost,
-  cm256cc,
-  cmake,
-  codec2,
-  dab_lib,
-  dsdcc,
-  faad2,
-  fetchFromGitHub,
-  fftwFloat,
-  glew,
-  hackrf,
-  hidapi,
-  ffmpeg,
-  libiio,
-  libopus,
-  libpulseaudio,
-  libusb1,
-  limesuite,
-  libbladeRF,
-  mbelib,
-  ninja,
-  opencv3,
-  pkg-config,
-  qtcharts,
-  qtdeclarative,
-  qtgamepad,
-  qtgraphicaleffects,
-  qtlocation,
-  qtmultimedia,
-  qtquickcontrols,
-  qtquickcontrols2,
-  qtserialport,
-  qtspeech,
-  qttools,
-  qtwebsockets,
-  qtwebengine,
-  rtl-sdr,
-  serialdv,
-  sgp4,
-  soapysdr-with-plugins,
-  uhd,
-  wrapQtAppsHook,
-  zlib,
-}:
+{ lib, stdenv, airspy, airspyhf, aptdec, boost, cm256cc, cmake, codec2, dab_lib
+, dsdcc, faad2, fetchFromGitHub, fftwFloat, glew, hackrf, hidapi, ffmpeg, libiio
+, libopus, libpulseaudio, libusb1, limesuite, libbladeRF, mbelib, ninja, opencv3
+, pkg-config, qtcharts, qtdeclarative, qtgamepad, qtgraphicaleffects, qtlocation
+, qtmultimedia, qtquickcontrols, qtquickcontrols2, qtserialport, qtspeech
+, qttools, qtwebsockets, qtwebengine, rtl-sdr, serialdv, sgp4
+, soapysdr-with-plugins, uhd, wrapQtAppsHook, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "sdrangel";
@@ -60,12 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-A9/uOecV1qRbAGcKI1brPFsbjfJG/8/zKrMwKMGw9rE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    wrapQtAppsHook
-  ];
+  nativeBuildInputs = [ cmake ninja pkg-config wrapQtAppsHook ];
 
   buildInputs = [
     airspy
@@ -126,10 +78,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/f4exb/sdrangel";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      alkeryn
-      Tungsten842
-    ];
+    maintainers = with maintainers; [ alkeryn Tungsten842 ];
     platforms = platforms.unix;
   };
 }

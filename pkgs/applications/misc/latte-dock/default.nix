@@ -1,22 +1,6 @@
-{
-  mkDerivation,
-  lib,
-  cmake,
-  xorg,
-  plasma-framework,
-  plasma-wayland-protocols,
-  fetchFromGitLab,
-  extra-cmake-modules,
-  karchive,
-  kwindowsystem,
-  qtx11extras,
-  qtwayland,
-  kcrash,
-  knewstuff,
-  wayland,
-  plasma-workspace,
-  plasma-desktop,
-}:
+{ mkDerivation, lib, cmake, xorg, plasma-framework, plasma-wayland-protocols
+, fetchFromGitLab, extra-cmake-modules, karchive, kwindowsystem, qtx11extras
+, qtwayland, kcrash, knewstuff, wayland, plasma-workspace, plasma-desktop }:
 
 mkDerivation rec {
   pname = "latte-dock";
@@ -66,4 +50,5 @@ mkDerivation rec {
     platforms = platforms.unix;
     maintainers = [ maintainers.ysndr ];
   };
+
 }

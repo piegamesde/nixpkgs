@@ -1,14 +1,5 @@
-{
-  lib,
-  bottle,
-  buildPythonPackage,
-  fetchPypi,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  pyyaml,
-  redis,
-}:
+{ lib, bottle, buildPythonPackage, fetchPypi, numpy, pytestCheckHook
+, pythonOlder, pyyaml, redis }:
 
 buildPythonPackage rec {
   pname = "jug";
@@ -25,12 +16,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ bottle ];
 
-  nativeCheckInputs = [
-    numpy
-    pytestCheckHook
-    pyyaml
-    redis
-  ];
+  nativeCheckInputs = [ numpy pytestCheckHook pyyaml redis ];
 
   pythonImportsCheck = [ "jug" ];
 

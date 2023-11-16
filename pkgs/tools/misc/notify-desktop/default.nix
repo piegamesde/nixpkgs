@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  dbus,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, dbus, pkg-config }:
 
 stdenv.mkDerivation {
   pname = "notify-desktop";
@@ -26,7 +20,8 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Little application that lets you send desktop notifications with one command";
+    description =
+      "Little application that lets you send desktop notifications with one command";
     longDescription = ''
       It's basically clone of notify-send from libnotify,
       but it supports reusing notifications on screen by passing its ID.

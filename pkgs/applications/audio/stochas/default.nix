@@ -1,18 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  pkg-config,
-  libX11,
-  libXrandr,
-  libXinerama,
-  libXext,
-  libXcursor,
-  freetype,
-  alsa-lib,
-  libjack2,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libX11, libXrandr
+, libXinerama, libXext, libXcursor, freetype, alsa-lib, libjack2 }:
 
 stdenv.mkDerivation rec {
   pname = "stochas";
@@ -31,10 +18,7 @@ stdenv.mkDerivation rec {
       lib/JUCE/modules/juce_gui_basics/windows/juce_ComponentPeer.h # gcc12
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     libX11

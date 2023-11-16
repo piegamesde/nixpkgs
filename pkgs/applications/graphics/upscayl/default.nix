@@ -1,28 +1,19 @@
-{
-  appimageTools,
-  fetchurl,
-  lib,
-}:
+{ appimageTools, fetchurl, lib, }:
 let
   pname = "upscayl";
   version = "2.5.5";
 
   src = fetchurl {
-    url = "https://github.com/upscayl/upscayl/releases/download/v${version}/upscayl-${version}-linux.AppImage";
+    url =
+      "https://github.com/upscayl/upscayl/releases/download/v${version}/upscayl-${version}-linux.AppImage";
     hash = "sha256-qpLxOGphR9iHvtb8AZZaMict/g8wLkL7Dhr4mt3LZdk=";
   };
 
   appimageContents = appimageTools.extractType2 { inherit pname version src; };
-in
-appimageTools.wrapType2 {
+in appimageTools.wrapType2 {
   inherit pname version src;
 
-  extraPkgs =
-    pkgs:
-    with pkgs; [
-      vulkan-headers
-      vulkan-loader
-    ];
+  extraPkgs = pkgs: with pkgs; [ vulkan-headers vulkan-loader ];
 
   extraInstallCommands = ''
     mkdir -p $out/share/{applications,pixmaps}

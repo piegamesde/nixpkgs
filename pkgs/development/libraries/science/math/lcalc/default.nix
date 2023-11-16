@@ -1,12 +1,4 @@
-{
-  lib,
-  stdenv,
-  autoreconfHook,
-  gengetopt,
-  pkg-config,
-  fetchFromGitLab,
-  pari,
-}:
+{ lib, stdenv, autoreconfHook, gengetopt, pkg-config, fetchFromGitLab, pari }:
 
 stdenv.mkDerivation rec {
   version = "2.0.5";
@@ -19,11 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RxWZ7T0I9zV7jUVnL6jV/PxEoU32KY7Q1UsOL5Lonuc=";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    gengetopt
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook gengetopt pkg-config ];
 
   buildInputs = [ pari ];
 

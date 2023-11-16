@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  makeDesktopItem,
-  makeWrapper,
-  cmake,
-  libjpeg,
-  zlib,
-  libpng,
-  libGL,
-  SDL2,
-}:
+{ lib, stdenv, fetchFromGitHub, makeDesktopItem, makeWrapper, cmake, libjpeg
+, zlib, libpng, libGL, SDL2 }:
 
 let
   jamp = makeDesktopItem rec {
@@ -40,8 +29,7 @@ let
     genericName = "Jedi Outcast";
     categories = [ "Game" ];
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "OpenJK";
   version = "unstable-2022-01-30";
 
@@ -54,23 +42,10 @@ stdenv.mkDerivation {
 
   dontAddPrefix = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-    cmake
-  ];
-  buildInputs = [
-    libjpeg
-    zlib
-    libpng
-    libGL
-    SDL2
-  ];
+  nativeBuildInputs = [ makeWrapper cmake ];
+  buildInputs = [ libjpeg zlib libpng libGL SDL2 ];
 
-  outputs = [
-    "out"
-    "openjo"
-    "openja"
-  ];
+  outputs = [ "out" "openjo" "openja" ];
 
   # move from $out/JediAcademy to $out/opt/JediAcademy
   preConfigure = ''

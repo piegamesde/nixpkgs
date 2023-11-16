@@ -1,11 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  llvmPackages,
-  enableAVX ? stdenv.hostPlatform.avxSupport,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, llvmPackages
+, enableAVX ? stdenv.hostPlatform.avxSupport }:
 
 stdenv.mkDerivation rec {
   pname = "NGT";
@@ -26,7 +20,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/yahoojapan/NGT";
-    description = "Nearest Neighbor Search with Neighborhood Graph and Tree for High-dimensional Data";
+    description =
+      "Nearest Neighbor Search with Neighborhood Graph and Tree for High-dimensional Data";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.asl20;
     maintainers = with maintainers; [ tomberek ];

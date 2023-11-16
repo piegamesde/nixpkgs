@@ -1,15 +1,5 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  click,
-  mock,
-  pytestCheckHook,
-  google-auth,
-  requests-oauthlib,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, click, mock, pytestCheckHook
+, google-auth, requests-oauthlib, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "google-auth-oauthlib";
@@ -23,16 +13,9 @@ buildPythonPackage rec {
     hash = "sha256-43UGSWSCC0ciGn4bfuH9dwUbYyPD+ePhl4X3irZ+z8U=";
   };
 
-  propagatedBuildInputs = [
-    google-auth
-    requests-oauthlib
-  ];
+  propagatedBuildInputs = [ google-auth requests-oauthlib ];
 
-  nativeCheckInputs = [
-    click
-    mock
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ click mock pytestCheckHook ];
 
   # some tests require loopback networking
   __darwinAllowLocalNetworking = true;
@@ -41,11 +24,9 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Google Authentication Library: oauthlib integration";
-    homepage = "https://github.com/GoogleCloudPlatform/google-auth-library-python-oauthlib";
+    homepage =
+      "https://github.com/GoogleCloudPlatform/google-auth-library-python-oauthlib";
     license = licenses.asl20;
-    maintainers = with maintainers; [
-      SuperSandro2000
-      terlar
-    ];
+    maintainers = with maintainers; [ SuperSandro2000 terlar ];
   };
 }

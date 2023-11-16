@@ -1,11 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildDunePackage,
-  yojson,
-  logs,
-  lsp,
-  ppx_yojson_conv_lib,
+{ lib, fetchFromGitHub, buildDunePackage, yojson, logs, lsp, ppx_yojson_conv_lib
 }:
 
 buildDunePackage rec {
@@ -23,12 +16,7 @@ buildDunePackage rec {
     sha256 = "sha256-EW35T7KUc/L1Zy4+oaJOC6mlVpbvhTfnU3NNFGoZAJg=";
   };
 
-  propagatedBuildInputs = [
-    yojson
-    logs
-    lsp
-    ppx_yojson_conv_lib
-  ];
+  propagatedBuildInputs = [ yojson logs lsp ppx_yojson_conv_lib ];
 
   meta = with lib; {
     description = "LSP server library";

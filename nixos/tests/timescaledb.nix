@@ -1,11 +1,8 @@
 # mostly copied from ./postgresql.nix as it seemed unapproriate to
 # test additional extensions for postgresql there.
 
-{
-  system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
+{ system ? builtins.currentSystem, config ? { }
+, pkgs ? import ../.. { inherit system config; } }:
 
 with import ../lib/testing-python.nix { inherit system pkgs; };
 with pkgs.lib;
@@ -42,27 +39,24 @@ let
       average(stats)
     FROM t;
   '';
-  make-postgresql-test =
-    postgresql-name: postgresql-package:
+  make-postgresql-test = postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
       meta = with pkgs.lib.maintainers; { maintainers = [ typetetris ]; };
 
-      nodes.machine =
-        { ... }:
-        {
-          services.postgresql = {
-            enable = true;
-            package = postgresql-package;
-            extraPlugins = with postgresql-package.pkgs; [
-              timescaledb
-              timescaledb_toolkit
-            ];
-            settings = {
-              shared_preload_libraries = "timescaledb, timescaledb_toolkit";
-            };
+      nodes.machine = { ... }: {
+        services.postgresql = {
+          enable = true;
+          package = postgresql-package;
+          extraPlugins = with postgresql-package.pkgs; [
+            timescaledb
+            timescaledb_toolkit
+          ];
+          settings = {
+            shared_preload_libraries = "timescaledb, timescaledb_toolkit";
           };
         };
+      };
 
       testScript = ''
         def check_count(statement, lines):
@@ -85,14 +79,12 @@ let
 
         machine.shutdown()
       '';
+
     };
   applicablePostgresqlVersions =
     filterAttrs (_: value: versionAtLeast value.version "12")
-      postgresql-versions;
-in
-mapAttrs'
-  (name: package: {
-    inherit name;
-    value = make-postgresql-test name package;
-  })
-  applicablePostgresqlVersions
+    postgresql-versions;
+in mapAttrs' (name: package: {
+  inherit name;
+  value = make-postgresql-test name package;
+}) applicablePostgresqlVersions

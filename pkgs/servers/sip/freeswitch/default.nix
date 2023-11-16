@@ -1,42 +1,19 @@
-{
-  fetchFromGitHub,
-  stdenv,
-  lib,
-  pkg-config,
-  autoreconfHook,
-  ncurses,
-  gnutls,
-  readline,
-  openssl,
-  perl,
-  sqlite,
-  libjpeg,
-  speex,
-  pcre,
-  libuuid,
-  ldns,
-  libedit,
-  yasm,
-  which,
-  libsndfile,
-  libtiff,
-  libxcrypt,
+{ fetchFromGitHub, stdenv, lib, pkg-config, autoreconfHook, ncurses, gnutls
+, readline, openssl, perl, sqlite, libjpeg, speex, pcre, libuuid, ldns, libedit
+, yasm, which, libsndfile, libtiff, libxcrypt
 
-  callPackage,
+, callPackage
 
-  SystemConfiguration,
+, SystemConfiguration
 
-  modules ? null,
-  nixosTests,
-}:
+, modules ? null, nixosTests }:
 
 let
 
   availableModules = callPackage ./modules.nix { };
 
   # the default list from v1.8.7, except with applications/mod_signalwire also disabled
-  defaultModules =
-    mods:
+  defaultModules = mods:
     with mods;
     [
       applications.commands
@@ -97,20 +74,17 @@ let
       xml_int.cdr
       xml_int.rpc
       xml_int.scgi
-    ]
-    ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ];
+    ] ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ];
 
-  enabledModules = (if modules != null then modules else defaultModules) availableModules;
+  enabledModules =
+    (if modules != null then modules else defaultModules) availableModules;
 
-  modulesConf =
-    let
-      lst = builtins.map (mod: mod.path) enabledModules;
-      str = lib.strings.concatStringsSep "\n" lst;
-    in
-    builtins.toFile "modules.conf" str;
-in
+  modulesConf = let
+    lst = builtins.map (mod: mod.path) enabledModules;
+    str = lib.strings.concatStringsSep "\n" lst;
+  in builtins.toFile "modules.conf" str;
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "freeswitch";
   version = "1.10.9";
   src = fetchFromGitHub {
@@ -135,31 +109,23 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    perl
-    which
-    yasm
-  ];
-  buildInputs =
-    [
-      openssl
-      ncurses
-      gnutls
-      readline
-      libjpeg
-      sqlite
-      pcre
-      speex
-      ldns
-      libedit
-      libsndfile
-      libtiff
-      libuuid
-      libxcrypt
-    ]
-    ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
+  nativeBuildInputs = [ pkg-config autoreconfHook perl which yasm ];
+  buildInputs = [
+    openssl
+    ncurses
+    gnutls
+    readline
+    libjpeg
+    sqlite
+    pcre
+    speex
+    ldns
+    libedit
+    libsndfile
+    libtiff
+    libuuid
+    libxcrypt
+  ] ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
     ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   enableParallelBuilding = true;

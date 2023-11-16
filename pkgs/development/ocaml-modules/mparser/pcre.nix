@@ -1,9 +1,4 @@
-{
-  fetchFromGitHub,
-  buildDunePackage,
-  ocaml_pcre,
-  mparser,
-}:
+{ fetchFromGitHub, buildDunePackage, ocaml_pcre, mparser }:
 
 buildDunePackage rec {
   pname = "mparser-pcre";
@@ -11,12 +6,7 @@ buildDunePackage rec {
 
   inherit (mparser) src version;
 
-  propagatedBuildInputs = [
-    ocaml_pcre
-    mparser
-  ];
+  propagatedBuildInputs = [ ocaml_pcre mparser ];
 
-  meta = mparser.meta // {
-    description = "PCRE-based regular expressions";
-  };
+  meta = mparser.meta // { description = "PCRE-based regular expressions"; };
 }

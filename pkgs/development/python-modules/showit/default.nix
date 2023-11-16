@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  numpy,
-  matplotlib,
-  pytest,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, numpy, matplotlib, pytest }:
 
 buildPythonPackage rec {
   pname = "showit";
@@ -18,10 +11,7 @@ buildPythonPackage rec {
     sha256 = "0xd8isrlwwxlgji90lly1sq4l2a37rqvhsmyhv7bd3aj1dyjmdr6";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    matplotlib
-  ];
+  propagatedBuildInputs = [ numpy matplotlib ];
 
   nativeCheckInputs = [ pytest ];
 

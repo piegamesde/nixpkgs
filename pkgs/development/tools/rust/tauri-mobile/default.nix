@@ -1,21 +1,11 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  pkg-config,
-  openssl,
-  git,
-  darwin,
-  makeWrapper,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, openssl, git, darwin
+, makeWrapper }:
 
 let
   inherit (darwin.apple_sdk.frameworks) CoreServices;
   pname = "tauri-mobile";
   version = "unstable-2023-04-25";
-in
-rustPlatform.buildRustPackage {
+in rustPlatform.buildRustPackage {
   inherit pname version;
   src = fetchFromGitHub {
     owner = "tauri-apps";
@@ -35,11 +25,7 @@ rustPlatform.buildRustPackage {
   '';
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
-  nativeBuildInputs = [
-    pkg-config
-    git
-    makeWrapper
-  ];
+  nativeBuildInputs = [ pkg-config git makeWrapper ];
 
   preInstall = ''
     mkdir -p $out/share/

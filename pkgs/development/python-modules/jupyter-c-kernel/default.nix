@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  ipykernel,
-  gcc,
-}:
+{ lib, buildPythonPackage, fetchPypi, ipykernel, gcc }:
 
 buildPythonPackage rec {
   pname = "jupyter-c-kernel";

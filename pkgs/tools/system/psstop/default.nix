@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  autoreconfHook,
-  pkg-config,
-  glib,
-}:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, glib }:
 
 stdenv.mkDerivation rec {
   pname = "psstop";
@@ -18,16 +11,14 @@ stdenv.mkDerivation rec {
     sha256 = "03ir3jjpzm7q8n1qc5jr99hqarr9r529w1zb6f7q4wak2vfj7w9h";
   };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
   buildInputs = [ glib ];
 
   meta = with lib; {
     homepage = "https://github.com/clearlinux/psstop";
-    description = "Show processes' memory usage by looking into pss"; # upstream summary
+    description =
+      "Show processes' memory usage by looking into pss"; # upstream summary
     license = licenses.gpl3;
     maintainers = with maintainers; [ dtzWill ];
   };

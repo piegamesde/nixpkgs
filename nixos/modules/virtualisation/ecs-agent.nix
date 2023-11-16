@@ -1,16 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, lib, ... }:
 
 with lib;
 
-let
-  cfg = config.services.ecs-agent;
-in
-{
+let cfg = config.services.ecs-agent;
+in {
   options.services.ecs-agent = {
     enable = mkEnableOption (lib.mdDoc "Amazon ECS agent");
 
@@ -23,9 +16,8 @@ in
 
     extra-environment = mkOption {
       type = types.attrsOf types.str;
-      description =
-        lib.mdDoc
-          "The environment the ECS agent should run with. See the ECS agent documentation for keys that work here.";
+      description = lib.mdDoc
+        "The environment the ECS agent should run with. See the ECS agent documentation for keys that work here.";
       default = { };
     };
   };

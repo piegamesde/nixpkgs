@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  writeText,
-  fontconfig,
-  libX11,
-  libXft,
-  libXpm,
-  libXrandr,
-  libXrender,
-  conf ? null,
-}:
+{ lib, stdenv, fetchFromGitHub, writeText, fontconfig, libX11, libXft, libXpm
+, libXrandr, libXrender, conf ? null }:
 
 stdenv.mkDerivation rec {
   pname = "shod";
@@ -23,26 +12,20 @@ stdenv.mkDerivation rec {
     hash = "sha256-0bKp1BTIdYVBDVdeGnTVo76UtBxa4UbXLZihdjHS/og=";
   };
 
-  buildInputs = [
-    fontconfig
-    libX11
-    libXft
-    libXpm
-    libXrandr
-    libXrender
-  ];
+  buildInputs = [ fontconfig libX11 libXft libXpm libXrandr libXrender ];
 
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.h" conf;
-    in
-    lib.optionalString (conf != null) "cp ${configFile} config.h";
+  postPatch = let
+    configFile = if lib.isDerivation conf || builtins.isPath conf then
+      conf
+    else
+      writeText "config.h" conf;
+  in lib.optionalString (conf != null) "cp ${configFile} config.h";
 
   makeFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
-    description = "A mouse-based window manager that can tile windows inside floating containers";
+    description =
+      "A mouse-based window manager that can tile windows inside floating containers";
     longDescription = ''
       shod is a multi-monitor floating reparenting X11 window manager that
       supports tiled and tabbed containers. shod sets no keybindings, reads no

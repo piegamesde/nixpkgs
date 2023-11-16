@@ -1,32 +1,8 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
+{ lib, stdenv, fetchFromGitHub
 
-  SDL2,
-  cmake,
-  curl,
-  discord-rpc,
-  duktape,
-  flac,
-  fontconfig,
-  freetype,
-  gbenchmark,
-  icu,
-  jansson,
-  libGLU,
-  libiconv,
-  libogg,
-  libpng,
-  libpthreadstubs,
-  libvorbis,
-  libzip,
-  nlohmann_json,
-  openssl,
-  pkg-config,
-  speexdsp,
-  zlib,
-}:
+, SDL2, cmake, curl, discord-rpc, duktape, flac, fontconfig, freetype
+, gbenchmark, icu, jansson, libGLU, libiconv, libogg, libpng, libpthreadstubs
+, libvorbis, libzip, nlohmann_json, openssl, pkg-config, speexdsp, zlib }:
 
 let
   openrct2-version = "0.4.4";
@@ -72,17 +48,13 @@ let
     rev = "v${title-sequences-version}";
     sha256 = "sha256-anqCZkhYoaxPu3MYCYSsFFngOmPp2wnx2MGb0hj6W5U=";
   };
-in
-stdenv.mkDerivation {
+in stdenv.mkDerivation {
   pname = "openrct2";
   version = openrct2-version;
 
   src = openrct2-src;
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [
     SDL2
@@ -115,12 +87,10 @@ stdenv.mkDerivation {
     "-DDOWNLOAD_TITLE_SEQUENCES=OFF"
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=maybe-uninitialized"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=maybe-uninitialized"
+  ];
 
   postUnpack = ''
     mkdir -p $sourceRoot/data/assetpack
@@ -133,29 +103,26 @@ stdenv.mkDerivation {
 
   preConfigure =
     # Verify that the correct version of each third party repository is used.
-    (
-      let
-        versionCheck = cmakeKey: version: ''
-          grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
-            || (echo "${cmakeKey} differs from expected version!"; exit 1)
-        '';
-      in
-      (versionCheck "OBJECTS" objects-version)
-      + (versionCheck "OPENMSX" openmsx-version)
-      + (versionCheck "OPENSFX" opensfx-version)
-      + (versionCheck "TITLE_SEQUENCE" title-sequences-version)
-    )
-    +
-
-      # Fixup FS rights for the cmake setup-hook in the OPENMSX subsystem
-      ''
-        chmod -R +w ./data/assetpack/openrct2.music.alternative.parkap/musictools
+    (let
+      versionCheck = cmakeKey: version: ''
+        grep -q '^set(${cmakeKey}_VERSION "${version}")$' CMakeLists.txt \
+          || (echo "${cmakeKey} differs from expected version!"; exit 1)
       '';
+    in (versionCheck "OBJECTS" objects-version)
+    + (versionCheck "OPENMSX" openmsx-version)
+    + (versionCheck "OPENSFX" opensfx-version)
+    + (versionCheck "TITLE_SEQUENCE" title-sequences-version)) +
+
+    # Fixup FS rights for the cmake setup-hook in the OPENMSX subsystem
+    ''
+      chmod -R +w ./data/assetpack/openrct2.music.alternative.parkap/musictools
+    '';
 
   preFixup = "ln -s $out/share/openrct2 $out/bin/data";
 
   meta = with lib; {
-    description = "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
+    description =
+      "Open source re-implementation of RollerCoaster Tycoon 2 (original game required)";
     homepage = "https://openrct2.io/";
     downloadPage = "https://github.com/OpenRCT2/OpenRCT2/releases";
     license = licenses.gpl3Only;

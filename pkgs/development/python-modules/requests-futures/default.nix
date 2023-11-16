@@ -1,9 +1,4 @@
-{
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  lib,
-}:
+{ buildPythonPackage, fetchPypi, requests, lib }:
 
 buildPythonPackage rec {
   pname = "requests-futures";

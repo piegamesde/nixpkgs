@@ -1,26 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  unzip,
-  jre,
-  makeWrapper,
-}:
+{ lib, stdenv, fetchurl, unzip, jre, makeWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "geoserver";
   version = "2.23.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/geoserver/GeoServer/${version}/geoserver-${version}-bin.zip";
+    url =
+      "mirror://sourceforge/geoserver/GeoServer/${version}/geoserver-${version}-bin.zip";
     sha256 = "sha256-0ZcHnDVw5atwdeqYeQXfRTio0/plRLTDljSMb81U+f4=";
   };
 
   sourceRoot = ".";
-  nativeBuildInputs = [
-    unzip
-    makeWrapper
-  ];
+  nativeBuildInputs = [ unzip makeWrapper ];
 
   installPhase = ''
     runHook preInstall

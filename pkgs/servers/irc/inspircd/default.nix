@@ -22,18 +22,14 @@ let
   # GPLv2. Since this is _only_ used for libc compatibility
   # checking, only whitelist licenses used by notable
   # libcs in nixpkgs (musl and glibc).
-  compatible =
-    lib: drv:
+  compatible = lib: drv:
     lib.any (lic: lic == (drv.meta.license or { })) [
       lib.licenses.mit # musl
       lib.licenses.lgpl2Plus # glibc
     ];
 
   # compatible if libc is compatible
-  libcModules = [
-    "regex_posix"
-    "sslrehashsignal"
-  ];
+  libcModules = [ "regex_posix" "sslrehashsignal" ];
 
   # compatible if libc++ is compatible
   # TODO(sternenseemann):
@@ -42,8 +38,7 @@ let
   # since the gcc libstdc++ license is GPLv2-incompatible
   libcxxModules = [ "regex_stdlib" ];
 
-  compatibleModules =
-    lib: stdenv:
+  compatibleModules = lib: stdenv:
     [
       # GPLv2 compatible dependencies
       "argon2"
@@ -56,49 +51,26 @@ let
       "regex_tre"
       "sqlite3"
       "ssl_gnutls"
-    ]
-    ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules;
-in
+    ] ++ lib.optionals (compatible lib stdenv.cc.libc) libcModules;
 
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  nixosTests,
-  perl,
-  pkg-config,
-  libargon2,
-  openldap,
-  postgresql,
-  libmysqlclient,
-  pcre,
-  pcre2,
-  tre,
-  re2,
-  sqlite,
-  gnutls,
-  libmaxminddb,
-  openssl,
-  mbedtls,
-  # For a full list of module names, see https://docs.inspircd.org/packaging/
-  extraModules ? compatibleModules lib stdenv,
-}:
+in { lib, stdenv, fetchFromGitHub, nixosTests, perl, pkg-config, libargon2
+, openldap, postgresql, libmysqlclient, pcre, pcre2, tre, re2, sqlite, gnutls
+, libmaxminddb, openssl, mbedtls
+# For a full list of module names, see https://docs.inspircd.org/packaging/
+, extraModules ? compatibleModules lib stdenv }:
 
 let
   extras = {
     # GPLv2 compatible
     argon2 = [
-      (
-        libargon2
-        // {
-          meta = libargon2.meta // {
-            # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
-            # updating this here is important that meta.license is accurate
-            # libargon2 is licensed under either ASL20 or CC0.
-            license = lib.licenses.cc0;
-          };
-        }
-      )
+      (libargon2 // {
+        meta = libargon2.meta // {
+          # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
+          # updating this here is important that meta.license is accurate
+          # libargon2 is licensed under either ASL20 or CC0.
+          license = lib.licenses.cc0;
+        };
+      })
     ];
     ldap = [ openldap ];
     mysql = [ libmysqlclient ];
@@ -121,31 +93,24 @@ let
   };
 
   # buildInputs necessary for the enabled extraModules
-  extraInputs =
-    lib.concatMap (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
-      extraModules;
+  extraInputs = lib.concatMap
+    (m: extras."${m}" or (builtins.throw "Unknown extra module ${m}"))
+    extraModules;
 
   # if true, we can't provide a binary version of this
   # package without violating the GPL 2
-  gpl2Conflict =
-    let
-      allowed = compatibleModules lib stdenv;
-    in
-    !lib.all (lib.flip lib.elem allowed) extraModules;
+  gpl2Conflict = let allowed = compatibleModules lib stdenv;
+  in !lib.all (lib.flip lib.elem allowed) extraModules;
 
   # return list of the license(s) of the given derivation
-  getLicenses =
-    drv:
-    let
-      lics = drv.meta.license or [ ];
-    in
-    if lib.isAttrs lics || lib.isString lics then [ lics ] else lics;
+  getLicenses = drv:
+    let lics = drv.meta.license or [ ];
+    in if lib.isAttrs lics || lib.isString lics then [ lics ] else lics;
 
   # Whether any member of list1 is also member of list2, i. e. set intersection.
   anyMembers = list1: list2: lib.any (m1: lib.elem m1 list2) list1;
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "inspircd";
   version = "3.16.0";
 
@@ -156,18 +121,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TKjUgy8S76gn9a9hbrWehb6BGI+dSFn1gYc0MCppyJk=";
   };
 
-  outputs = [
-    "bin"
-    "lib"
-    "man"
-    "doc"
-    "out"
-  ];
+  outputs = [ "bin" "lib" "man" "doc" "out" ];
 
-  nativeBuildInputs = [
-    perl
-    pkg-config
-  ];
+  nativeBuildInputs = [ perl pkg-config ];
   buildInputs = extraInputs;
 
   configurePhase = ''
@@ -207,33 +163,28 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.tests = {
-    nixos-test = nixosTests.inspircd;
-  };
+  passthru.tests = { nixos-test = nixosTests.inspircd; };
 
-  meta =
-    {
-      description = "A modular C++ IRC server";
-      license =
-        [ lib.licenses.gpl2Only ]
-        ++ lib.concatMap getLicenses extraInputs
-        ++ lib.optionals (anyMembers extraModules libcModules) (getLicenses stdenv.cc.libc)
-        # FIXME(sternenseemann): get license of used lib(std)c++ somehow
-        ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
-        # Hack: Definitely prevent a hydra from building this package on
-        # a GPL 2 incompatibility even if it is not in a top-level attribute,
-        # but pulled in indirectly somehow.
-        ++ lib.optional gpl2Conflict lib.licenses.unfree;
-      maintainers = [ lib.maintainers.sternenseemann ];
-      # windows is theoretically possible, but requires extra work
-      # which I am not willing to do and can't test.
-      # https://github.com/inspircd/inspircd/blob/master/win/README.txt
-      platforms = lib.platforms.unix;
-      homepage = "https://www.inspircd.org/";
-    }
-    // lib.optionalAttrs gpl2Conflict {
-      # make sure we never distribute a GPLv2-violating module
-      # in binary form. They can be built locally of course.
-      hydraPlatforms = [ ];
-    };
+  meta = {
+    description = "A modular C++ IRC server";
+    license = [ lib.licenses.gpl2Only ] ++ lib.concatMap getLicenses extraInputs
+      ++ lib.optionals (anyMembers extraModules libcModules)
+      (getLicenses stdenv.cc.libc)
+      # FIXME(sternenseemann): get license of used lib(std)c++ somehow
+      ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
+      # Hack: Definitely prevent a hydra from building this package on
+      # a GPL 2 incompatibility even if it is not in a top-level attribute,
+      # but pulled in indirectly somehow.
+      ++ lib.optional gpl2Conflict lib.licenses.unfree;
+    maintainers = [ lib.maintainers.sternenseemann ];
+    # windows is theoretically possible, but requires extra work
+    # which I am not willing to do and can't test.
+    # https://github.com/inspircd/inspircd/blob/master/win/README.txt
+    platforms = lib.platforms.unix;
+    homepage = "https://www.inspircd.org/";
+  } // lib.optionalAttrs gpl2Conflict {
+    # make sure we never distribute a GPLv2-violating module
+    # in binary form. They can be built locally of course.
+    hydraPlatforms = [ ];
+  };
 }

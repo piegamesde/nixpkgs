@@ -1,9 +1,7 @@
 { config, lib, ... }:
 
 with lib; {
-  meta = {
-    maintainers = teams.freedesktop.members;
-  };
+  meta = { maintainers = teams.freedesktop.members; };
 
   options = {
     xdg.autostart.enable = mkOption {
@@ -16,5 +14,8 @@ with lib; {
     };
   };
 
-  config = mkIf config.xdg.autostart.enable { environment.pathsToLink = [ "/etc/xdg/autostart" ]; };
+  config = mkIf config.xdg.autostart.enable {
+    environment.pathsToLink = [ "/etc/xdg/autostart" ];
+  };
+
 }

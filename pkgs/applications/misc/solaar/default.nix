@@ -1,14 +1,5 @@
-{
-  fetchFromGitHub,
-  lib,
-  gobject-introspection,
-  gtk3,
-  python3Packages,
-  wrapGAppsHook,
-  gdk-pixbuf,
-  libappindicator,
-  librsvg,
-}:
+{ fetchFromGitHub, lib, gobject-introspection, gtk3, python3Packages
+, wrapGAppsHook, gdk-pixbuf, libappindicator, librsvg }:
 
 # Although we copy in the udev rules here, you probably just want to use
 # `logitech-udev-rules`, which is an alias to `udev` output of this derivation,
@@ -24,21 +15,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-2LD1vMmQvibcnAgBwjfSBJysTnUGptGzPHfi/7tZ0hg=";
   };
 
-  outputs = [
-    "out"
-    "udev"
-  ];
+  outputs = [ "out" "udev" ];
 
-  nativeBuildInputs = [
-    gdk-pixbuf
-    gobject-introspection
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gdk-pixbuf gobject-introspection wrapGAppsHook ];
 
-  buildInputs = [
-    libappindicator
-    librsvg
-  ];
+  buildInputs = [ libappindicator librsvg ];
 
   propagatedBuildInputs = with python3Packages; [
     evdev
@@ -83,11 +64,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://pwr-solaar.github.io/Solaar/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [
-      spinus
-      ysndr
-      oxalica
-    ];
+    maintainers = with maintainers; [ spinus ysndr oxalica ];
     platforms = platforms.linux;
   };
 }

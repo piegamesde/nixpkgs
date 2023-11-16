@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  requests,
-  python,
-}:
+{ lib, buildPythonPackage, fetchPypi, requests, python }:
 
 buildPythonPackage rec {
   pname = "ciscomobilityexpress";
@@ -25,7 +19,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "ciscomobilityexpress" ];
 
   meta = with lib; {
-    description = "Module to interact with Cisco Mobility Express APIs to fetch connected devices";
+    description =
+      "Module to interact with Cisco Mobility Express APIs to fetch connected devices";
     homepage = "https://github.com/fbradyirl/ciscomobilityexpress";
     license = licenses.mit;
     maintainers = with maintainers; [ uvnikita ];

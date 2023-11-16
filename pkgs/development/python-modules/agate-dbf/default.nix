@@ -1,21 +1,10 @@
-{
-  lib,
-  fetchPypi,
-  buildPythonPackage,
-  agate,
-  dbf,
-  dbfread,
-}:
+{ lib, fetchPypi, buildPythonPackage, agate, dbf, dbfread }:
 
 buildPythonPackage rec {
   pname = "agate-dbf";
   version = "0.2.2";
 
-  propagatedBuildInputs = [
-    agate
-    dbf
-    dbfread
-  ];
+  propagatedBuildInputs = [ agate dbf dbfread ];
 
   src = fetchPypi {
     inherit pname version;

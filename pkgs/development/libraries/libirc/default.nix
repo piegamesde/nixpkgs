@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  qtbase,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, qtbase }:
 
 stdenv.mkDerivation rec {
   pname = "libirc";
@@ -32,7 +26,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "C++ IRC library written in Qt with support for data serialization";
+    description =
+      "C++ IRC library written in Qt with support for data serialization";
     homepage = "https://github.com/grumpy-irc/libirc";
     license = licenses.lgpl3;
     maintainers = with maintainers; [ fee1-dead ];

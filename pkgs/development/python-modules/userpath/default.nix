@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  hatchling,
-  click,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, hatchling, click, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "userpath";
@@ -32,10 +25,7 @@ buildPythonPackage rec {
     description = "Cross-platform tool for adding locations to the user PATH";
     homepage = "https://github.com/ofek/userpath";
     changelog = "https://github.com/ofek/userpath/releases/tag/v${version}";
-    license = with licenses; [
-      asl20
-      mit
-    ];
+    license = with licenses; [ asl20 mit ];
     maintainers = with maintainers; [ yshym ];
   };
 }

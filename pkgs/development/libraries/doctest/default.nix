@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  installShellFiles,
-  cmake,
-}:
+{ lib, stdenv, fetchFromGitHub, installShellFiles, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "doctest";
@@ -23,7 +17,8 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/doctest/doctest";
-    description = "The fastest feature-rich C++11/14/17/20 single-header testing framework";
+    description =
+      "The fastest feature-rich C++11/14/17/20 single-header testing framework";
     platforms = platforms.all;
     license = licenses.mit;
     maintainers = with maintainers; [ davidtwco ];

@@ -1,29 +1,14 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildPythonPackage,
-  substituteAll,
-  cudaSupport ? false,
+{ lib, fetchFromGitHub, buildPythonPackage, substituteAll, cudaSupport ? false
 
   # runtime
-  ffmpeg,
+, ffmpeg
 
-  # propagates
-  numpy,
-  torch,
-  torchWithCuda,
-  tqdm,
-  more-itertools,
-  transformers,
-  ffmpeg-python,
-  numba,
-  openai-triton,
-  scipy,
-  tiktoken,
+# propagates
+, numpy, torch, torchWithCuda, tqdm, more-itertools, transformers, ffmpeg-python
+, numba, openai-triton, scipy, tiktoken
 
-  # tests
-  pytestCheckHook,
-}:
+# tests
+, pytestCheckHook }:
 
 buildPythonPackage rec {
   pname = "whisper";
@@ -44,28 +29,22 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs =
-    [
-      numpy
-      tqdm
-      more-itertools
-      transformers
-      ffmpeg-python
-      numba
-      scipy
-      tiktoken
-    ]
-    ++ lib.optionals (!cudaSupport) [ torch ]
-    ++ lib.optionals (cudaSupport) [
-      openai-triton
-      torchWithCuda
-    ];
+  propagatedBuildInputs = [
+    numpy
+    tqdm
+    more-itertools
+    transformers
+    ffmpeg-python
+    numba
+    scipy
+    tiktoken
+  ] ++ lib.optionals (!cudaSupport) [ torch ]
+    ++ lib.optionals (cudaSupport) [ openai-triton torchWithCuda ];
 
-  postPatch =
-    ''
-      substituteInPlace requirements.txt \
-        --replace "tiktoken==0.3.1" "tiktoken>=0.3.1"
-    ''
+  postPatch = ''
+    substituteInPlace requirements.txt \
+      --replace "tiktoken==0.3.1" "tiktoken>=0.3.1"
+  ''
     # openai-triton is only needed for CUDA support.
     # triton needs CUDA to be build.
     # -> by making it optional, we can build whisper without unfree packages enabled
@@ -89,13 +68,11 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/openai/whisper/blob/v$[version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/openai/whisper/blob/v$[version}/CHANGELOG.md";
     description = "General-purpose speech recognition model";
     homepage = "https://github.com/openai/whisper";
     license = licenses.mit;
-    maintainers = with maintainers; [
-      hexa
-      MayNiklas
-    ];
+    maintainers = with maintainers; [ hexa MayNiklas ];
   };
 }

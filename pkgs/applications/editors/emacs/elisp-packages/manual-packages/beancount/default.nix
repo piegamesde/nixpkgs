@@ -1,15 +1,7 @@
-{
-  lib,
-  melpaBuild,
-  fetchFromGitHub,
-  emacs,
-  writeText,
-}:
+{ lib, melpaBuild, fetchFromGitHub, emacs, writeText }:
 
-let
-  rev = "519bfd868f206ed2fc538a57cdb631c4fec3c93e";
-in
-melpaBuild {
+let rev = "519bfd868f206ed2fc538a57cdb631c4fec3c93e";
+in melpaBuild {
   pname = "beancount";
   version = "20230205.436";
 

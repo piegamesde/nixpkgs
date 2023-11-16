@@ -1,27 +1,7 @@
-{
-  lib,
-  boto3,
-  buildPythonPackage,
-  fetchFromGitHub,
-  ftfy,
-  mailchecker,
-  openpyxl,
-  orjson,
-  phonenumbers,
-  pytestCheckHook,
-  python-dateutil,
-  python-decouple,
-  python-fsutil,
-  python-slugify,
-  pythonOlder,
-  pythonRelaxDepsHook,
-  pyyaml,
-  requests,
-  six,
-  toml,
-  xlrd,
-  xmltodict,
-}:
+{ lib, boto3, buildPythonPackage, fetchFromGitHub, ftfy, mailchecker, openpyxl
+, orjson, phonenumbers, pytestCheckHook, python-dateutil, python-decouple
+, python-fsutil, python-slugify, pythonOlder, pythonRelaxDepsHook, pyyaml
+, requests, six, toml, xlrd, xmltodict }:
 
 buildPythonPackage rec {
   pname = "python-benedict";
@@ -57,12 +37,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [
-    orjson
-    pytestCheckHook
-    python-decouple
-    six
-  ];
+  nativeCheckInputs = [ orjson pytestCheckHook python-decouple six ];
 
   disabledTests = [
     # Tests require network access
@@ -82,7 +57,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Module with keylist/keypath support";
     homepage = "https://github.com/fabiocaccamo/python-benedict";
-    changelog = "https://github.com/fabiocaccamo/python-benedict/blob/${version}/CHANGELOG.md";
+    changelog =
+      "https://github.com/fabiocaccamo/python-benedict/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ fab ];
   };

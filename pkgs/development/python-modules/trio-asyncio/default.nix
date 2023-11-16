@@ -1,15 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  trio,
-  outcome,
-  sniffio,
-  pytest-trio,
-  pytestCheckHook,
-  pythonAtLeast,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, trio, outcome, sniffio, pytest-trio
+, pytestCheckHook, pythonAtLeast, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "trio-asyncio";
@@ -29,16 +19,9 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  propagatedBuildInputs = [
-    trio
-    outcome
-    sniffio
-  ];
+  propagatedBuildInputs = [ trio outcome sniffio ];
 
-  nativeCheckInputs = [
-    pytest-trio
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytest-trio pytestCheckHook ];
 
   pytestFlagsArray = [
     # https://github.com/python-trio/trio-asyncio/issues/112

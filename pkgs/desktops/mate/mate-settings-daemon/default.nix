@@ -1,24 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gettext,
-  glib,
-  dbus-glib,
-  libxklavier,
-  libcanberra-gtk3,
-  libnotify,
-  nss,
-  polkit,
-  dconf,
-  gtk3,
-  mate,
-  pulseaudioSupport ? stdenv.config.pulseaudio or true,
-  libpulseaudio,
-  wrapGAppsHook,
-  mateUpdateScript,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gettext, glib, dbus-glib, libxklavier
+, libcanberra-gtk3, libnotify, nss, polkit, dconf, gtk3, mate
+, pulseaudioSupport ? stdenv.config.pulseaudio or true, libpulseaudio
+, wrapGAppsHook, mateUpdateScript }:
 
 stdenv.mkDerivation rec {
   pname = "mate-settings-daemon";
@@ -31,11 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "aX6mW1QpIcK3ZhRSktJo0wCcwtqDFtKnhphpBV5LGFk=";
   };
 
-  nativeBuildInputs = [
-    gettext
-    pkg-config
-    wrapGAppsHook
-  ];
+  nativeBuildInputs = [ gettext pkg-config wrapGAppsHook ];
 
   buildInputs = [
     dbus-glib
@@ -62,12 +41,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "MATE settings daemon";
     homepage = "https://github.com/mate-desktop/mate-settings-daemon";
-    license = with licenses; [
-      gpl2Plus
-      gpl3Plus
-      lgpl2Plus
-      mit
-    ];
+    license = with licenses; [ gpl2Plus gpl3Plus lgpl2Plus mit ];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

@@ -1,15 +1,7 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pythonOlder,
+{ lib, buildPythonPackage, fetchPypi, pythonOlder
 
-  # tests
-  ipykernel,
-  nbconvert,
-  pytestCheckHook,
-  typing-extensions,
-}:
+# tests
+, ipykernel, nbconvert, pytestCheckHook, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "wasabi";
@@ -23,12 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-Gq7zrOqjLtuckTMNKdOTbAw5/blldDVJwXPLVLFsMLU=";
   };
 
-  nativeCheckInputs = [
-    ipykernel
-    nbconvert
-    typing-extensions
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ ipykernel nbconvert typing-extensions pytestCheckHook ];
 
   pythonImportsCheck = [ "wasabi" ];
 

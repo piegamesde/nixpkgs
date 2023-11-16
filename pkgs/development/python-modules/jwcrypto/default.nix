@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  cryptography,
-  deprecated,
-  pythonOlder,
-}:
+{ lib, buildPythonPackage, fetchPypi, cryptography, deprecated, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "jwcrypto";
@@ -19,10 +12,7 @@ buildPythonPackage rec {
     hash = "sha256-gKNentGzssQ84D2SxdSObQtmR+KqJhjkljRIkj14o3s=";
   };
 
-  propagatedBuildInputs = [
-    cryptography
-    deprecated
-  ];
+  propagatedBuildInputs = [ cryptography deprecated ];
 
   pythonImportsCheck = [ "jwcrypto" ];
 

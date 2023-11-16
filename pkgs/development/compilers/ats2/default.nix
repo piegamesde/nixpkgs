@@ -1,17 +1,11 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  gmp,
-  withEmacsSupport ? true,
-  withContrib ? true,
-}:
+{ lib, stdenv, fetchurl, gmp, withEmacsSupport ? true, withContrib ? true }:
 
 let
   versionPkg = "0.4.2";
 
   contrib = fetchurl {
-    url = "mirror://sourceforge/ats2-lang/ATS2-Postiats-contrib-${versionPkg}.tgz";
+    url =
+      "mirror://sourceforge/ats2-lang/ATS2-Postiats-contrib-${versionPkg}.tgz";
     hash = "sha256-m0hfBLsaNiLaIktcioK+ZtWUsWht3IDSJ6CzgJmS06c=";
   };
 
@@ -26,9 +20,8 @@ let
     mkdir -p $siteLispDir ;
     install -m 0644 -v ./utils/emacs/*.el $siteLispDir ;
   '';
-in
 
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "ats2";
   version = versionPkg;
 
@@ -47,17 +40,15 @@ stdenv.mkDerivation rec {
   #  *** No rule to make target 'patscc.dats', needed by 'patscc_dats.c'.  Stop.
   enableParallelBuilding = false;
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "CCOMP=${stdenv.cc.targetPrefix}cc"
-  ];
+  makeFlags =
+    [ "CC=${stdenv.cc.targetPrefix}cc" "CCOMP=${stdenv.cc.targetPrefix}cc" ];
 
-  setupHook =
-    with lib;
+  setupHook = with lib;
     let
-      hookFiles = [ ./setup-hook.sh ] ++ optional withContrib ./setup-contrib-hook.sh;
-    in
-    builtins.toFile "setupHook.sh" (concatMapStringsSep "\n" builtins.readFile hookFiles);
+      hookFiles = [ ./setup-hook.sh ]
+        ++ optional withContrib ./setup-contrib-hook.sh;
+    in builtins.toFile "setupHook.sh"
+    (concatMapStringsSep "\n" builtins.readFile hookFiles);
 
   postInstall = postInstallContrib + postInstallEmacs;
 
@@ -66,10 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.ats-lang.org";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      thoughtpolice
-      ttuegel
-      bbarker
-    ];
+    maintainers = with maintainers; [ thoughtpolice ttuegel bbarker ];
   };
 }

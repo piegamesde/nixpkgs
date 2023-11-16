@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  dosbox,
-  unzip,
-}:
+{ lib, stdenv, fetchurl, dosbox, unzip }:
 
 stdenv.mkDerivation {
   name = "keen4";

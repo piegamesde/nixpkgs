@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -11,34 +6,29 @@ let
 
   iniFmt = pkgs.formats.ini { };
 
-  mkConfigFile =
-    name: instanceConfig:
+  mkConfigFile = name: instanceConfig:
     iniFmt.generate "pantalaimon.conf" {
       Default = {
         LogLevel = instanceConfig.logLevel;
         Notifications = false;
       };
 
-      ${name} =
-        (recursiveUpdate
-          {
-            Homeserver = instanceConfig.homeserver;
-            ListenAddress = instanceConfig.listenAddress;
-            ListenPort = instanceConfig.listenPort;
-            SSL = instanceConfig.ssl;
+      ${name} = (recursiveUpdate {
+        Homeserver = instanceConfig.homeserver;
+        ListenAddress = instanceConfig.listenAddress;
+        ListenPort = instanceConfig.listenPort;
+        SSL = instanceConfig.ssl;
 
-            # Set some settings to prevent user interaction for headless operation
-            IgnoreVerification = true;
-            UseKeyring = false;
-          }
-          instanceConfig.extraSettings
-        );
+        # Set some settings to prevent user interaction for headless operation
+        IgnoreVerification = true;
+        UseKeyring = false;
+      } instanceConfig.extraSettings);
     };
 
-  mkPantalaimonService =
-    name: instanceConfig:
+  mkPantalaimonService = name: instanceConfig:
     nameValuePair "pantalaimon-${name}" {
-      description = "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
+      description =
+        "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
       wantedBy = [ "multi-user.target" ];
@@ -57,8 +47,7 @@ let
         StateDirectory = "pantalaimon-${name}";
       };
     };
-in
-{
+in {
   options.services.pantalaimon-headless.instances = mkOption {
     default = { };
     type = types.attrsOf (types.submodule (import ./pantalaimon-options.nix));
@@ -71,10 +60,9 @@ in
   };
 
   config = mkIf (config.services.pantalaimon-headless.instances != { }) {
-    systemd.services = mapAttrs' mkPantalaimonService config.services.pantalaimon-headless.instances;
+    systemd.services = mapAttrs' mkPantalaimonService
+      config.services.pantalaimon-headless.instances;
   };
 
-  meta = {
-    maintainers = with maintainers; [ jojosch ];
-  };
+  meta = { maintainers = with maintainers; [ jojosch ]; };
 }

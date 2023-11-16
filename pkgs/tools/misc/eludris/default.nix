@@ -1,12 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  rustPlatform,
-  openssl,
-  pkg-config,
-  stdenv,
-  Security,
-}:
+{ lib, fetchFromGitHub, rustPlatform, openssl, pkg-config, stdenv, Security }:
 
 rustPlatform.buildRustPackage rec {
   pname = "eludris";
@@ -27,7 +19,8 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {
-    description = "A simple CLI to help you with setting up and managing your Eludris instance";
+    description =
+      "A simple CLI to help you with setting up and managing your Eludris instance";
     homepage = "https://github.com/eludris/eludris/tree/main/cli";
     license = licenses.mit;
     maintainers = with maintainers; [ ooliver1 ];

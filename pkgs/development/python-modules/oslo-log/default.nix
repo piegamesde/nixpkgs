@@ -1,20 +1,6 @@
-{
-  lib,
-  stdenv,
-  buildPythonPackage,
-  fetchPypi,
-  eventlet,
-  oslo-config,
-  oslo-context,
-  oslo-serialization,
-  oslo-utils,
-  oslotest,
-  pbr,
-  pyinotify,
-  python-dateutil,
-  pytestCheckHook,
-  pythonOlder,
-}:
+{ lib, stdenv, buildPythonPackage, fetchPypi, eventlet, oslo-config
+, oslo-context, oslo-serialization, oslo-utils, oslotest, pbr, pyinotify
+, python-dateutil, pytestCheckHook, pythonOlder }:
 
 buildPythonPackage rec {
   pname = "oslo-log";
@@ -38,17 +24,12 @@ buildPythonPackage rec {
     python-dateutil
   ] ++ lib.optionals stdenv.isLinux [ pyinotify ];
 
-  nativeCheckInputs = [
-    eventlet
-    oslotest
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ eventlet oslotest pytestCheckHook ];
 
-  disabledTests =
-    [
-      # not compatible with sandbox
-      "test_logging_handle_error"
-    ];
+  disabledTests = [
+    # not compatible with sandbox
+    "test_logging_handle_error"
+  ];
 
   pythonImportsCheck = [ "oslo_log" ];
 

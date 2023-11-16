@@ -1,19 +1,5 @@
-{
-  lib,
-  stdenv,
-  autoPatchelfHook,
-  makeWrapper,
-  fetchurl,
-  makeDesktopItem,
-  curl,
-  dotnetCorePackages,
-  lttng-ust_2_12,
-  fontconfig,
-  krb5,
-  openssl,
-  xorg,
-  zlib,
-}:
+{ lib, stdenv, autoPatchelfHook, makeWrapper, fetchurl, makeDesktopItem, curl
+, dotnetCorePackages, lttng-ust_2_12, fontconfig, krb5, openssl, xorg, zlib }:
 
 let
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
@@ -30,13 +16,13 @@ let
     xorg.libSM
     zlib
   ];
-in
-stdenv.mkDerivation rec {
+in stdenv.mkDerivation rec {
   pname = "wasabiwallet";
   version = "2.0.3";
 
   src = fetchurl {
-    url = "https://github.com/zkSNACKs/WalletWasabi/releases/download/v${version}/Wasabi-${version}.tar.gz";
+    url =
+      "https://github.com/zkSNACKs/WalletWasabi/releases/download/v${version}/Wasabi-${version}.tar.gz";
     sha256 = "sha256-RlWaeOK6XqxyCIQQp1/X6iG9t7f3ER5K+S3ZvPg6wBg=";
   };
 
@@ -48,16 +34,10 @@ stdenv.mkDerivation rec {
     desktopName = "Wasabi";
     genericName = "Bitcoin wallet";
     comment = meta.description;
-    categories = [
-      "Network"
-      "Utility"
-    ];
+    categories = [ "Network" "Utility" ];
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
   buildInputs = runtimeLibs ++ [ lttng-ust_2_12 ];
 
   installPhase = ''

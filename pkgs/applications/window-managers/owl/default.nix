@@ -1,21 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  gnustep,
-  libxkbcommon,
-  makeWrapper,
-  wayland,
-  wayland-scanner,
-  darwin,
-}:
+{ lib, stdenv, fetchFromGitHub, gnustep, libxkbcommon, makeWrapper, wayland
+, wayland-scanner, darwin }:
 
 assert wayland.withLibraries;
 
 let
-  mkDerivation = if stdenv.isDarwin then stdenv.mkDerivation else gnustep.gsmakeDerivation;
-in
-mkDerivation {
+  mkDerivation =
+    if stdenv.isDarwin then stdenv.mkDerivation else gnustep.gsmakeDerivation;
+in mkDerivation {
   pname = "owl-compositor";
   version = "unstable-2021-11-10";
 
@@ -30,28 +21,23 @@ mkDerivation {
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i "/ibtool/d" configure
     mkdir -p build/Owl.app/Contents/Resources/English.lproj
-    cp ${./mac/MainMenu.nib} build/Owl.app/Contents/Resources/English.lproj/MainMenu.nib
-    cp ${./mac/OwlPreferences.nib} build/Owl.app/Contents/Resources/English.lproj/OwlPreferences.nib
+    cp ${
+      ./mac/MainMenu.nib
+    } build/Owl.app/Contents/Resources/English.lproj/MainMenu.nib
+    cp ${
+      ./mac/OwlPreferences.nib
+    } build/Owl.app/Contents/Resources/English.lproj/OwlPreferences.nib
   '';
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      wayland-scanner
-    ]
+  nativeBuildInputs = [ makeWrapper wayland-scanner ]
     ++ lib.optionals stdenv.isDarwin [
       darwin.DarwinTools
       darwin.bootstrap_cmds
-    ]
-    ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ];
+    ] ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ];
 
-  buildInputs =
-    [
-      libxkbcommon
-      wayland
-    ]
+  buildInputs = [ libxkbcommon wayland ]
     ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
     ++ lib.optionals (!stdenv.isDarwin) [
       gnustep.back
@@ -67,7 +53,8 @@ mkDerivation {
   configureScript = "../configure";
 
   # error: "Your gnustep-base was configured for the objc-nonfragile-abi but you are not using it now."
-  env.NIX_CFLAGS_COMPILE = lib.optionalString (!stdenv.isDarwin) "-fobjc-runtime=gnustep-2.0";
+  env.NIX_CFLAGS_COMPILE =
+    lib.optionalString (!stdenv.isDarwin) "-fobjc-runtime=gnustep-2.0";
 
   installPhase = ''
     runHook preInstall

@@ -1,33 +1,7 @@
-{
-  at-spi2-core,
-  cmake,
-  dbus,
-  dbus-glib,
-  docbook_xsl,
-  libepoxy,
-  fetchFromGitHub,
-  glib,
-  gtk3,
-  harfbuzz,
-  libXdmcp,
-  libXtst,
-  libpthreadstubs,
-  libselinux,
-  libsepol,
-  libtasn1,
-  libxkbcommon,
-  libxslt,
-  p11-kit,
-  pcre2,
-  pkg-config,
-  lib,
-  stdenv,
-  util-linuxMinimal,
-  vte,
-  wrapGAppsHook,
-  xmlto,
-  nixosTests,
-}:
+{ at-spi2-core, cmake, dbus, dbus-glib, docbook_xsl, libepoxy, fetchFromGitHub
+, glib, gtk3, harfbuzz, libXdmcp, libXtst, libpthreadstubs, libselinux, libsepol
+, libtasn1, libxkbcommon, libxslt, p11-kit, pcre2, pkg-config, lib, stdenv
+, util-linuxMinimal, vte, wrapGAppsHook, xmlto, nixosTests }:
 
 stdenv.mkDerivation rec {
   pname = "roxterm";
@@ -40,12 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jVcf/nrEq8dM8rw40ZhXGJjt3DQLroCePtIAdAsVIfs=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapGAppsHook
-    libxslt
-  ];
+  nativeBuildInputs = [ cmake pkg-config wrapGAppsHook libxslt ];
 
   buildInputs = [
     gtk3

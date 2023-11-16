@@ -1,8 +1,4 @@
-{
-  lib,
-  fetchFromGitHub,
-  buildGoModule,
-}:
+{ lib, fetchFromGitHub, buildGoModule }:
 
 buildGoModule rec {
   pname = "tendermint";
@@ -26,7 +22,8 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "Byzantine-Fault Tolerant State Machines. Or Blockchain, for short";
+    description =
+      "Byzantine-Fault Tolerant State Machines. Or Blockchain, for short";
     homepage = "https://tendermint.com/";
     license = licenses.asl20;
     maintainers = with maintainers; [ alexfmpe ];

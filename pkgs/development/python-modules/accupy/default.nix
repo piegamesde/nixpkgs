@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pythonOlder,
-  mpmath,
-  numpy,
-  pybind11,
-  pyfma,
-  eigen,
-  importlib-metadata,
-  pytestCheckHook,
-  matplotlib,
-  dufte,
-  perfplot,
+{ lib, buildPythonPackage, fetchFromGitHub, pythonOlder, mpmath, numpy, pybind11
+, pyfma, eigen, importlib-metadata, pytestCheckHook, matplotlib, dufte, perfplot
 }:
 
 buildPythonPackage rec {
@@ -31,18 +18,10 @@ buildPythonPackage rec {
 
   buildInputs = [ eigen ];
 
-  propagatedBuildInputs = [
-    mpmath
-    numpy
-    pyfma
-  ] ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+  propagatedBuildInputs = [ mpmath numpy pyfma ]
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
-  nativeCheckInputs = [
-    perfplot
-    pytestCheckHook
-    matplotlib
-    dufte
-  ];
+  nativeCheckInputs = [ perfplot pytestCheckHook matplotlib dufte ];
 
   postConfigure = ''
     substituteInPlace setup.py \
@@ -60,10 +39,7 @@ buildPythonPackage rec {
       substituteInPlace $f --replace 'import perfplot' ""
     done
   '';
-  disabledTests = [
-    "test_speed_comparison1"
-    "test_speed_comparison2"
-  ];
+  disabledTests = [ "test_speed_comparison1" "test_speed_comparison2" ];
   pythonImportsCheck = [ "accupy" ];
 
   meta = with lib; {

@@ -1,11 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pandas,
-  dask,
-  fastparquet,
-  pyarrow,
+{ lib, buildPythonPackage, fetchFromGitHub, pandas, dask, fastparquet, pyarrow
 }:
 
 buildPythonPackage rec {
@@ -19,12 +12,7 @@ buildPythonPackage rec {
     sha256 = "sha256-zSwylXBKOM/tG5mwYtc0FmxwcKJ6j+lw1bxJqf57NY8=";
   };
 
-  propagatedBuildInputs = [
-    pandas
-    dask
-    fastparquet
-    pyarrow
-  ];
+  propagatedBuildInputs = [ pandas dask fastparquet pyarrow ];
 
   postPatch = ''
     # Break circular dependency

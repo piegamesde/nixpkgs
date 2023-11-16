@@ -1,19 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  docutils,
-  fetchFromGitHub,
-  funcparserlib,
-  nose,
-  pillow,
-  ephem,
-  pythonOlder,
-  pytestCheckHook,
-  reportlab,
-  setuptools,
-  webcolors,
-  python,
-}:
+{ lib, buildPythonPackage, docutils, fetchFromGitHub, funcparserlib, nose
+, pillow, ephem, pythonOlder, pytestCheckHook, reportlab, setuptools, webcolors
+, python }:
 
 buildPythonPackage rec {
   pname = "blockdiag";
@@ -29,39 +16,26 @@ buildPythonPackage rec {
     hash = "sha256-j8FoNUIJJOaahaol1MRPyY2jcPCEIlaAD4bmM2QKFFI=";
   };
 
-  propagatedBuildInputs = [
-    setuptools
-    funcparserlib
-    pillow
-    webcolors
-    reportlab
-    docutils
-  ];
+  propagatedBuildInputs =
+    [ setuptools funcparserlib pillow webcolors reportlab docutils ];
 
-  nativeCheckInputs = [
-    ephem
-    nose
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ ephem nose pytestCheckHook ];
 
   pytestFlagsArray = [ "src/blockdiag/tests/" ];
 
-  disabledTests =
-    [
-      # Test require network access
-      "test_app_cleans_up_images"
-    ];
+  disabledTests = [
+    # Test require network access
+    "test_app_cleans_up_images"
+  ];
 
   pythonImportsCheck = [ "blockdiag" ];
 
   meta = with lib; {
-    description = "Generate block-diagram image from spec-text file (similar to Graphviz)";
+    description =
+      "Generate block-diagram image from spec-text file (similar to Graphviz)";
     homepage = "http://blockdiag.com/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [
-      bjornfor
-      SuperSandro2000
-    ];
+    maintainers = with maintainers; [ bjornfor SuperSandro2000 ];
   };
 }

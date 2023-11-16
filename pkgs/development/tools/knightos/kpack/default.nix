@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  asciidoc,
-  libxslt,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, asciidoc, libxslt }:
 
 stdenv.mkDerivation rec {
   pname = "kpack";
@@ -21,11 +14,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    asciidoc
-    cmake
-    libxslt.bin
-  ];
+  nativeBuildInputs = [ asciidoc cmake libxslt.bin ];
 
   hardeningDisable = [ "fortify" ];
 

@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -12,12 +7,12 @@ let
 
   settingsFormat = pkgs.formats.toml { };
   configFile = settingsFormat.generate "prosody-filer.toml" cfg.settings;
-in
-{
+in {
 
   options = {
     services.prosody-filer = {
-      enable = mkEnableOption (lib.mdDoc "Prosody Filer XMPP upload file server");
+      enable =
+        mkEnableOption (lib.mdDoc "Prosody Filer XMPP upload file server");
 
       settings = mkOption {
         description = lib.mdDoc ''
@@ -63,7 +58,8 @@ in
       serviceConfig = {
         User = "prosody-filer";
         Group = "prosody-filer";
-        ExecStart = "${pkgs.prosody-filer}/bin/prosody-filer -config ${configFile}";
+        ExecStart =
+          "${pkgs.prosody-filer}/bin/prosody-filer -config ${configFile}";
         Restart = "on-failure";
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
@@ -84,14 +80,8 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         RemoveIPC = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
+        RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
+        SystemCallFilter = [ "@system-service" "~@privileged" ];
       };
     };
   };

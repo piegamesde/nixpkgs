@@ -1,26 +1,11 @@
-{
-  lib,
-  fetchFromGitHub,
-  gettext,
-  xorg, # for lndir
-  gtk3,
-  python3Packages,
-  gdk-pixbuf,
-  libnotify,
-  gst_all_1,
-  libsecret,
-  wrapGAppsHook,
-  gsettings-desktop-schemas,
-  glib,
-  gobject-introspection,
-  # Available plugins (can be overridden)
-  availablePlugins,
-  # Used in the withPlugins interface at passthru, can be overrided directly, or
-  # prefarably via e.g: `mailnag.withPlugins([mailnag.availablePlugins.goa])`
-  mailnag,
-  userPlugins ? [ ],
-  pluginsDeps ? [ ],
-}:
+{ lib, fetchFromGitHub, gettext, xorg # for lndir
+, gtk3, python3Packages, gdk-pixbuf, libnotify, gst_all_1, libsecret
+, wrapGAppsHook, gsettings-desktop-schemas, glib, gobject-introspection
+# Available plugins (can be overridden)
+, availablePlugins
+# Used in the withPlugins interface at passthru, can be overrided directly, or
+# prefarably via e.g: `mailnag.withPlugins([mailnag.availablePlugins.goa])`
+, mailnag, userPlugins ? [ ], pluginsDeps ? [ ] }:
 
 python3Packages.buildPythonApplication rec {
   pname = "mailnag";
@@ -62,8 +47,7 @@ python3Packages.buildPythonApplication rec {
 
   passthru = {
     inherit availablePlugins;
-    withPlugins =
-      plugs:
+    withPlugins = plugs:
       let
         # goa plugin requires gio's gnome-online-accounts which requires making sure
         # mailnag runs with GI_TYPELIB_PATH containing the path to Goa-1.0.typelib.
@@ -71,8 +55,7 @@ python3Packages.buildPythonApplication rec {
         # wrapGAppsHook handle that.
         pluginsDeps = lib.flatten (lib.catAttrs "buildInputs" plugs);
         self = mailnag;
-      in
-      self.override {
+      in self.override {
         userPlugins = plugs;
         inherit pluginsDeps;
       };

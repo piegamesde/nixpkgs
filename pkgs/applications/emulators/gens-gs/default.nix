@@ -1,16 +1,5 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  pkg-config,
-  gtk2,
-  SDL,
-  nasm,
-  zlib,
-  libpng,
-  libGLU,
-  libGL,
-}:
+{ lib, stdenv, fetchurl, pkg-config, gtk2, SDL, nasm, zlib, libpng, libGLU
+, libGL }:
 
 stdenv.mkDerivation rec {
   pname = "gens-gs";
@@ -22,15 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    gtk2
-    SDL
-    nasm
-    zlib
-    libpng
-    libGLU
-    libGL
-  ];
+  buildInputs = [ gtk2 SDL nasm zlib libpng libGLU libGL ];
 
   # Work around build failures on recent GTK.
   # See http://ubuntuforums.org/showthread.php?p=10535837

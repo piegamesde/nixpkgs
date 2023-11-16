@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  SDL2,
-  pkg-config,
-}:
+{ lib, stdenv, fetchFromGitHub, cmake, SDL2, pkg-config }:
 
 stdenv.mkDerivation rec {
   pname = "SDL_audiolib";
@@ -18,10 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-11KkwIhG1rX7yDFSj92NJRO9L2e7XZGq2gOJ54+sN/A=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ];
+  nativeBuildInputs = [ cmake pkg-config ];
 
   buildInputs = [ SDL2 ];
 

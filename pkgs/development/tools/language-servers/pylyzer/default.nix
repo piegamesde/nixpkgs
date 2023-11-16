@@ -1,14 +1,5 @@
-{
-  lib,
-  stdenv,
-  rustPlatform,
-  fetchFromGitHub,
-  git,
-  python3,
-  makeWrapper,
-  darwin,
-  which,
-}:
+{ lib, stdenv, rustPlatform, fetchFromGitHub, git, python3, makeWrapper, darwin
+, which }:
 
 rustPlatform.buildRustPackage rec {
   pname = "pylyzer";
@@ -23,13 +14,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-pQnRFGAeVVGKRBfpbQXCGBHxkXBYei7nOxYKg3hPJ1k=";
 
-  nativeBuildInputs = [
-    git
-    python3
-    makeWrapper
-  ];
+  nativeBuildInputs = [ git python3 makeWrapper ];
 
-  buildInputs = [ python3 ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = [ python3 ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   preBuild = ''
     export HOME=$TMPDIR
@@ -42,12 +30,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeCheckInputs = [ which ];
 
-  checkFlags =
-    [
-      # this test causes stack overflow
-      # > thread 'exec_import' has overflowed its stack
-      "--skip=exec_import"
-    ];
+  checkFlags = [
+    # this test causes stack overflow
+    # > thread 'exec_import' has overflowed its stack
+    "--skip=exec_import"
+  ];
 
   postFixup = ''
     wrapProgram $out/bin/pylyzer --set ERG_PATH $out/lib/erg

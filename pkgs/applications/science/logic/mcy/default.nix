@@ -1,15 +1,7 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  yosys,
-  python3,
-}:
+{ lib, stdenv, fetchFromGitHub, yosys, python3 }:
 
-let
-  python = python3.withPackages (p: with p; [ flask ]);
-in
-stdenv.mkDerivation {
+let python = python3.withPackages (p: with p; [ flask ]);
+in stdenv.mkDerivation {
   pname = "mcy";
   version = "2020.08.03";
 
@@ -46,7 +38,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Mutation-based coverage testing for hardware designs, with Yosys";
+    description =
+      "Mutation-based coverage testing for hardware designs, with Yosys";
     homepage = "https://github.com/YosysHQ/mcy";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [ thoughtpolice ];

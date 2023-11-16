@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPackages,
-  unstableGitUpdater,
-}:
+{ lib, stdenv, fetchFromGitHub, buildPackages, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "eigenmath";
@@ -17,19 +11,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-1fdGx6pYWnoyJ5ei1qZlXZG2mUEdjrRI7+X352XE/7A=";
   };
 
-  checkPhase =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      runHook preCheck
+  checkPhase = let emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    runHook preCheck
 
-      for testcase in selftest1 selftest2; do
-        ${emulator} ./eigenmath "test/$testcase"
-      done
+    for testcase in selftest1 selftest2; do
+      ${emulator} ./eigenmath "test/$testcase"
+    done
 
-      runHook postCheck
-    '';
+    runHook postCheck
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -39,9 +30,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru = {
-    updateScript = unstableGitUpdater { };
-  };
+  passthru = { updateScript = unstableGitUpdater { }; };
 
   meta = with lib; {
     description = "Computer algebra system written in C";

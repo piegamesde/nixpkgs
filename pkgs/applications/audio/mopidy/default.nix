@@ -1,12 +1,7 @@
-{
-  lib,
-  newScope,
-  python,
-}:
+{ lib, newScope, python }:
 
 # Create a custom scope so we are consistent in which python version is used
-lib.makeScope newScope (
-  self:
+lib.makeScope newScope (self:
   with self; {
     inherit python;
     pythonPackages = python.pkgs;
@@ -54,5 +49,4 @@ lib.makeScope newScope (
     mopidy-ytmusic = callPackage ./ytmusic.nix { };
 
     mopidy-subidy = callPackage ./subidy.nix { };
-  }
-)
+  })

@@ -1,14 +1,4 @@
-{
-  lib,
-  buildDunePackage,
-  dune_3,
-  csexp,
-  stdune,
-  ordering,
-  pp,
-  xdg,
-  dyn,
-}:
+{ lib, buildDunePackage, dune_3, csexp, stdune, ordering, pp, xdg, dyn }:
 
 buildDunePackage rec {
   pname = "dune-rpc";
@@ -18,14 +8,7 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [
-    csexp
-    stdune
-    ordering
-    pp
-    xdg
-    dyn
-  ];
+  propagatedBuildInputs = [ csexp stdune ordering pp xdg dyn ];
 
   preBuild = ''
     rm -r vendor/csexp

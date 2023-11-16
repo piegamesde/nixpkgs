@@ -1,13 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  pytest-asyncio,
-  pytest-trio,
-  pytestCheckHook,
-  pythonOlder,
-  trio,
-}:
+{ lib, buildPythonPackage, fetchPypi, pytest-asyncio, pytest-trio
+, pytestCheckHook, pythonOlder, trio }:
 
 buildPythonPackage rec {
   pname = "siosocks";
@@ -23,11 +15,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ trio ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    pytest-trio
-  ];
+  nativeCheckInputs = [ pytest-asyncio pytestCheckHook pytest-trio ];
 
   disabledTests = [
     # network access

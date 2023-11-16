@@ -1,11 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchPypi,
-  buildPythonPackage,
-  libusb1,
-  setuptools-scm,
-}:
+{ lib, stdenv, fetchPypi, buildPythonPackage, libusb1, setuptools-scm }:
 
 buildPythonPackage rec {
   pname = "pyusb";
@@ -31,7 +24,8 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "usb" ];
 
   meta = with lib; {
-    description = "Python USB access module (wraps libusb 1.0)"; # can use other backends
+    description =
+      "Python USB access module (wraps libusb 1.0)"; # can use other backends
     homepage = "https://pyusb.github.io/pyusb/";
     license = licenses.bsd3;
     maintainers = with maintainers; [ bjornfor ];

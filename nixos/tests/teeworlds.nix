@@ -1,16 +1,14 @@
-import ./make-test-python.nix (
-  { pkgs, ... }:
+import ./make-test-python.nix ({ pkgs, ... }:
 
   let
-    client =
-      { pkgs, ... }:
+    client = { pkgs, ... }:
 
       {
         imports = [ ./common/x11.nix ];
         environment.systemPackages = [ pkgs.teeworlds ];
       };
-  in
-  {
+
+  in {
     name = "teeworlds";
     meta = with pkgs.lib.maintainers; { maintainers = [ hax404 ]; };
 
@@ -50,5 +48,5 @@ import ./make-test-python.nix (
       client1.screenshot("screen_client1")
       client2.screenshot("screen_client2")
     '';
-  }
-)
+
+  })

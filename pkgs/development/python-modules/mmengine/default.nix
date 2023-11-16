@@ -1,23 +1,6 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pythonOlder,
-  torch,
-  opencv4,
-  yapf,
-  coverage,
-  mlflow,
-  lmdb,
-  matplotlib,
-  numpy,
-  pyyaml,
-  rich,
-  termcolor,
-  addict,
-  parameterized,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, pytestCheckHook, pythonOlder, torch
+, opencv4, yapf, coverage, mlflow, lmdb, matplotlib, numpy, pyyaml, rich
+, termcolor, addict, parameterized }:
 
 buildPythonPackage rec {
   pname = "mmengine";
@@ -34,32 +17,14 @@ buildPythonPackage rec {
   };
 
   # tests are disabled due to sandbox env.
-  disabledTests = [
-    "test_fileclient"
-    "test_http_backend"
-    "test_misc"
-  ];
+  disabledTests = [ "test_fileclient" "test_http_backend" "test_misc" ];
 
   nativeBuildInputs = [ pytestCheckHook ];
 
-  nativeCheckInputs = [
-    coverage
-    lmdb
-    mlflow
-    torch
-    parameterized
-  ];
+  nativeCheckInputs = [ coverage lmdb mlflow torch parameterized ];
 
-  propagatedBuildInputs = [
-    addict
-    matplotlib
-    numpy
-    pyyaml
-    rich
-    termcolor
-    yapf
-    opencv4
-  ];
+  propagatedBuildInputs =
+    [ addict matplotlib numpy pyyaml rich termcolor yapf opencv4 ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -68,9 +33,11 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "mmengine" ];
 
   meta = with lib; {
-    description = "a foundational library for training deep learning models based on PyTorch";
+    description =
+      "a foundational library for training deep learning models based on PyTorch";
     homepage = "https://github.com/open-mmlab/mmengine";
-    changelog = "https://github.com/open-mmlab/mmengine/releases/tag/v${version}";
+    changelog =
+      "https://github.com/open-mmlab/mmengine/releases/tag/v${version}";
     license = with licenses; [ asl20 ];
     maintainers = with maintainers; [ rxiao ];
   };

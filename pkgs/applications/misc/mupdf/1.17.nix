@@ -1,38 +1,20 @@
-{
-  stdenv,
-  lib,
-  fetchurl,
-  pkg-config,
-  freetype,
-  harfbuzz,
-  openjpeg,
-  jbig2dec,
-  libjpeg,
-  darwin,
-  enableX11 ? true,
-  libX11,
-  libXext,
-  libXi,
-  libXrandr,
-  enableCurl ? true,
-  curl,
-  openssl,
-  enableGL ? true,
-  freeglut,
-  libGLU,
-}:
+{ stdenv, lib, fetchurl, pkg-config, freetype, harfbuzz, openjpeg, jbig2dec
+, libjpeg, darwin, enableX11 ? true, libX11, libXext, libXi, libXrandr
+, enableCurl ? true, curl, openssl, enableGL ? true, freeglut, libGLU }:
 
 let
 
   # OpenJPEG version is hardcoded in package source
-  openJpegVersion = with stdenv; lib.versions.majorMinor (lib.getVersion openjpeg);
-in
-stdenv.mkDerivation rec {
+  openJpegVersion = with stdenv;
+    lib.versions.majorMinor (lib.getVersion openjpeg);
+
+in stdenv.mkDerivation rec {
   version = "1.17.0";
   pname = "mupdf";
 
   src = fetchurl {
-    url = "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
+    url =
+      "https://mupdf.com/downloads/archive/${pname}-${version}-source.tar.gz";
     sha256 = "13nl9nrcx2awz9l83mlv2psi1lmn3hdnfwxvwgwiwbxlkjl3zqq0";
   };
 
@@ -47,45 +29,16 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "prefix=$(out) USE_SYSTEM_LIBS=yes" ];
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      freetype
-      harfbuzz
-      openjpeg
-      jbig2dec
-      libjpeg
+  buildInputs = [ freetype harfbuzz openjpeg jbig2dec libjpeg freeglut libGLU ]
+    ++ lib.optionals enableX11 [ libX11 libXext libXi libXrandr ]
+    ++ lib.optionals enableCurl [ curl openssl ] ++ lib.optionals enableGL
+    (if stdenv.isDarwin then
+      with darwin.apple_sdk.frameworks; [ GLUT OpenGL ]
+    else [
       freeglut
       libGLU
-    ]
-    ++ lib.optionals enableX11 [
-      libX11
-      libXext
-      libXi
-      libXrandr
-    ]
-    ++ lib.optionals enableCurl [
-      curl
-      openssl
-    ]
-    ++ lib.optionals enableGL (
-      if stdenv.isDarwin then
-        with darwin.apple_sdk.frameworks; [
-          GLUT
-          OpenGL
-        ]
-      else
-        [
-          freeglut
-          libGLU
-        ]
-    );
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "man"
-    "doc"
-  ];
+    ]);
+  outputs = [ "bin" "dev" "out" "man" "doc" ];
 
   preConfigure = ''
     # Don't remove mujs because upstream version is incompatible
@@ -125,12 +78,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://mupdf.com";
-    description = "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
+    description =
+      "Lightweight PDF, XPS, and E-book viewer and toolkit written in portable C";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [
-      vrthra
-      fpletz
-    ];
+    maintainers = with maintainers; [ vrthra fpletz ];
     platforms = platforms.unix;
     knownVulnerabilities = [
       "CVE-2020-26519: denial of service when parsing JBIG2"

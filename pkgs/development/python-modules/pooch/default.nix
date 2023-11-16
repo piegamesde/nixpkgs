@@ -1,17 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  isPy27,
-  fetchPypi,
-  setuptools-scm,
-  pytestCheckHook,
-  packaging,
-  appdirs,
-  requests,
-  tqdm,
-  paramiko,
-  xxhash,
-}:
+{ lib, buildPythonPackage, isPy27, fetchPypi, setuptools-scm, pytestCheckHook
+, packaging, appdirs, requests, tqdm, paramiko, xxhash }:
 
 buildPythonPackage rec {
   pname = "pooch";
@@ -26,11 +14,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
-    packaging
-    appdirs
-    requests
-  ];
+  propagatedBuildInputs = [ packaging appdirs requests ];
 
   preCheck = "HOME=$TMPDIR";
   nativeCheckInputs = [ pytestCheckHook ];
@@ -66,4 +50,5 @@ buildPythonPackage rec {
     license = licenses.bsd3;
     maintainers = with maintainers; [ GuillaumeDesforges ];
   };
+
 }

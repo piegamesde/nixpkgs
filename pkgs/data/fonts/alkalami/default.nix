@@ -1,15 +1,12 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchzip,
-}:
+{ lib, stdenvNoCC, fetchzip }:
 
 stdenvNoCC.mkDerivation rec {
   pname = "alkalami";
   version = "3.000";
 
   src = fetchzip {
-    url = "https://software.sil.org/downloads/r/alkalami/Alkalami-${version}.zip";
+    url =
+      "https://software.sil.org/downloads/r/alkalami/Alkalami-${version}.zip";
     hash = "sha256-ra664VbUKc8XpULCWhLMVnc1mW4pqZvbvwuBvRQRhcY=";
   };
 
@@ -25,7 +22,8 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://software.sil.org/alkalami/";
-    description = "A font for Arabic-based writing systems in the Kano region of Nigeria and in Niger";
+    description =
+      "A font for Arabic-based writing systems in the Kano region of Nigeria and in Niger";
     license = licenses.ofl;
     maintainers = [ maintainers.vbgl ];
     platforms = platforms.all;

@@ -1,8 +1,4 @@
-{
-  lib,
-  buildGoModule,
-  fetchFromGitHub,
-}:
+{ lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule rec {
   pname = "go-jet";
@@ -49,7 +45,8 @@ buildGoModule rec {
 
   meta = with lib; {
     homepage = "https://github.com/go-jet/jet";
-    description = "Type safe SQL builder with code generation and automatic query result data mapping";
+    description =
+      "Type safe SQL builder with code generation and automatic query result data mapping";
     maintainers = with maintainers; [ mrityunjaygr8 ];
     license = licenses.asl20;
     mainProgram = "jet";

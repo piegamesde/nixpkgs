@@ -1,10 +1,4 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchFromGitHub,
-  aiohttp,
-  isPy27,
-}:
+{ lib, buildPythonPackage, fetchFromGitHub, aiohttp, isPy27 }:
 
 buildPythonPackage rec {
   pname = "plexauth";
@@ -28,7 +22,8 @@ buildPythonPackage rec {
 
   meta = with lib; {
     homepage = "https://github.com/jjlawren/python-plexauth/";
-    description = "Handles the authorization flow to obtain tokens from Plex.tv via external redirection";
+    description =
+      "Handles the authorization flow to obtain tokens from Plex.tv via external redirection";
     license = licenses.mit;
     maintainers = with maintainers; [ colemickens ];
   };

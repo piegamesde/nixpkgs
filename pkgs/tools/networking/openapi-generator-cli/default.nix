@@ -1,11 +1,4 @@
-{
-  callPackage,
-  lib,
-  stdenv,
-  fetchurl,
-  jre,
-  makeWrapper,
-}:
+{ callPackage, lib, stdenv, fetchurl, jre, makeWrapper }:
 
 let
   this = stdenv.mkDerivation rec {
@@ -17,7 +10,8 @@ let
     nativeBuildInputs = [ makeWrapper ];
 
     src = fetchurl {
-      url = "mirror://maven/org/openapitools/${pname}/${version}/${jarfilename}";
+      url =
+        "mirror://maven/org/openapitools/${pname}/${version}/${jarfilename}";
       sha256 = "sha256-lxj/eETolGLHXc2bIKNRNvbbJXv+G4dNseMALpneRgk=";
     };
 
@@ -35,15 +29,17 @@ let
     '';
 
     meta = with lib; {
-      description = "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
+      description =
+        "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
       homepage = "https://github.com/OpenAPITools/openapi-generator";
-      changelog = "https://github.com/OpenAPITools/openapi-generator/releases/tag/v${version}";
+      changelog =
+        "https://github.com/OpenAPITools/openapi-generator/releases/tag/v${version}";
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
       license = licenses.asl20;
       maintainers = with maintainers; [ shou ];
     };
 
-    passthru.tests.example = callPackage ./example.nix { openapi-generator-cli = this; };
+    passthru.tests.example =
+      callPackage ./example.nix { openapi-generator-cli = this; };
   };
-in
-this
+in this

@@ -1,10 +1,4 @@
-{
-  lib,
-  stdenv,
-  fetchhg,
-  autoconf,
-  sqlite,
-}:
+{ lib, stdenv, fetchhg, autoconf, sqlite }:
 
 stdenv.mkDerivation rec {
   pname = "vcprompt";
@@ -16,10 +10,7 @@ stdenv.mkDerivation rec {
     sha256 = "03xqvp6bfl98bpacrw4n82qv9cw6a4fxci802s3vrygas989v1kj";
   };
 
-  buildInputs = [
-    sqlite
-    autoconf
-  ];
+  buildInputs = [ sqlite autoconf ];
 
   preConfigure = ''
     autoconf

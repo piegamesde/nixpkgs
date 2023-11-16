@@ -1,18 +1,5 @@
-{
-  lib,
-  buildPythonPackage,
-  fetchPypi,
-  trezor,
-  libagent,
-  ecdsa,
-  ed25519,
-  mnemonic,
-  keepkey,
-  semver,
-  setuptools,
-  wheel,
-  pinentry,
-}:
+{ lib, buildPythonPackage, fetchPypi, trezor, libagent, ecdsa, ed25519, mnemonic
+, keepkey, semver, setuptools, wheel, pinentry }:
 
 buildPythonPackage rec {
   pname = "trezor_agent";
@@ -49,10 +36,7 @@ buildPythonPackage rec {
     description = "Using Trezor as hardware SSH agent";
     homepage = "https://github.com/romanz/trezor-agent";
     license = licenses.gpl3;
-    maintainers = with maintainers; [
-      hkjn
-      np
-      mmahut
-    ];
+    maintainers = with maintainers; [ hkjn np mmahut ];
   };
+
 }

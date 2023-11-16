@@ -1,24 +1,6 @@
-{
-  stdenv,
-  lib,
-  buildPythonPackage,
-  cons,
-  cython,
-  etuples,
-  fetchFromGitHub,
-  filelock,
-  jax,
-  jaxlib,
-  logical-unification,
-  minikanren,
-  numba,
-  numba-scipy,
-  numpy,
-  pytestCheckHook,
-  pythonOlder,
-  scipy,
-  typing-extensions,
-}:
+{ stdenv, lib, buildPythonPackage, cons, cython, etuples, fetchFromGitHub
+, filelock, jax, jaxlib, logical-unification, minikanren, numba, numba-scipy
+, numpy, pytestCheckHook, pythonOlder, scipy, typing-extensions }:
 
 buildPythonPackage rec {
   pname = "pytensor";
@@ -47,13 +29,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  checkInputs = [
-    jax
-    jaxlib
-    numba
-    numba-scipy
-    pytestCheckHook
-  ];
+  checkInputs = [ jax jaxlib numba numba-scipy pytestCheckHook ];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -84,7 +60,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Python library to define, optimize, and efficiently evaluate mathematical expressions involving multi-dimensional arrays";
+    description =
+      "Python library to define, optimize, and efficiently evaluate mathematical expressions involving multi-dimensional arrays";
     homepage = "https://github.com/pymc-devs/pytensor";
     changelog = "https://github.com/pymc-devs/pytensor/releases";
     license = licenses.bsd3;
